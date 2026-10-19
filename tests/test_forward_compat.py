@@ -62,15 +62,11 @@ def offline(
         return response
 
     router = MockRouter().add(Mock.given(method(http_method)).callback(answer).once())
-    return client_cls(
-        region="us-east-1", credentials=CREDENTIALS, http_handler=MockMiddleware(router)
-    )
+    return client_cls(region="us-east-1", credentials=CREDENTIALS, http_handler=MockMiddleware(router))
 
 
 def json_reply(body: Any) -> Response:
-    return Response(
-        200, {"content-type": "application/json"}, content=json.dumps(body).encode()
-    )
+    return Response(200, {"content-type": "application/json"}, content=json.dumps(body).encode())
 
 
 def xml_reply(body: str) -> Response:
@@ -141,9 +137,7 @@ class TestAsyncUnknownUnionVariant:  # unasync: generate
         assert out["output"]["message"]["content"] == [{"text": "hi"}, unknown]
 
     async def test_rest_json_top_level(self):
-        async with offline(
-            AsyncBedrockRuntimeClient, "POST", converse_reply({"hologram": {}})
-        ) as client:
+        async with offline(AsyncBedrockRuntimeClient, "POST", converse_reply({"hologram": {}})) as client:
             out = await client.converse("model", messages=USER_MESSAGE)
         assert out["output"] == capo_bedrock_runtime.UnknownUnionMember("hologram")
 
@@ -158,31 +152,19 @@ class TestAsyncUnknownUnionVariant:  # unasync: generate
 
     async def test_rpc_v2_cbor(self):
         eventbridgev2 = pytest.importorskip("capo_eventbridgev2")
-        reply = cbor_reply(
-            {"Name": "source", "Configuration": {"HologramConfiguration": {"X": 1}}}
-        )
-        async with offline(
-            eventbridgev2.AsyncEventBridgeV2Client, "POST", reply
-        ) as client:
-            out = await client.describe_event_source(
-                "arn:aws:events:us-east-1:123456789012:event-source/source"
-            )
+        reply = cbor_reply({"Name": "source", "Configuration": {"HologramConfiguration": {"X": 1}}})
+        async with offline(eventbridgev2.AsyncEventBridgeV2Client, "POST", reply) as client:
+            out = await client.describe_event_source("arn:aws:events:us-east-1:123456789012:event-source/source")
         unknown = eventbridgev2.UnknownUnionMember("HologramConfiguration")
         assert out == {"name": "source", "configuration": unknown}
 
     async def test_inside_an_event(self):
-        reply = event_stream(
-            json_event(
-                "contentBlockDelta", {"contentBlockIndex": 0, "delta": {"hologram": {}}}
-            )
-        )
+        reply = event_stream(json_event("contentBlockDelta", {"contentBlockIndex": 0, "delta": {"hologram": {}}}))
         async with offline(AsyncBedrockRuntimeClient, "POST", reply) as client:
             async with client.converse_stream("model", messages=USER_MESSAGE) as out:
                 events = [e async for e in out["stream"]]
         unknown = capo_bedrock_runtime.UnknownUnionMember("hologram")
-        assert events == [
-            {"contentBlockDelta": {"content_block_index": 0, "delta": unknown}}
-        ]
+        assert events == [{"contentBlockDelta": {"content_block_index": 0, "delta": unknown}}]
 
 
 class TestUnknownUnionVariant:  # unasync: generated
@@ -206,9 +188,7 @@ class TestUnknownUnionVariant:  # unasync: generated
         assert out["output"]["message"]["content"] == [{"text": "hi"}, unknown]
 
     def test_rest_json_top_level(self):
-        with offline(
-            BedrockRuntimeClient, "POST", converse_reply({"hologram": {}})
-        ) as client:
+        with offline(BedrockRuntimeClient, "POST", converse_reply({"hologram": {}})) as client:
             out = client.converse("model", messages=USER_MESSAGE)
         assert out["output"] == capo_bedrock_runtime.UnknownUnionMember("hologram")
 
@@ -223,38 +203,26 @@ class TestUnknownUnionVariant:  # unasync: generated
 
     def test_rpc_v2_cbor(self):
         eventbridgev2 = pytest.importorskip("capo_eventbridgev2")
-        reply = cbor_reply(
-            {"Name": "source", "Configuration": {"HologramConfiguration": {"X": 1}}}
-        )
+        reply = cbor_reply({"Name": "source", "Configuration": {"HologramConfiguration": {"X": 1}}})
         with offline(eventbridgev2.EventBridgeV2Client, "POST", reply) as client:
-            out = client.describe_event_source(
-                "arn:aws:events:us-east-1:123456789012:event-source/source"
-            )
+            out = client.describe_event_source("arn:aws:events:us-east-1:123456789012:event-source/source")
         unknown = eventbridgev2.UnknownUnionMember("HologramConfiguration")
         assert out == {"name": "source", "configuration": unknown}
 
     def test_inside_an_event(self):
-        reply = event_stream(
-            json_event(
-                "contentBlockDelta", {"contentBlockIndex": 0, "delta": {"hologram": {}}}
-            )
-        )
+        reply = event_stream(json_event("contentBlockDelta", {"contentBlockIndex": 0, "delta": {"hologram": {}}}))
         with offline(BedrockRuntimeClient, "POST", reply) as client:
             with client.converse_stream("model", messages=USER_MESSAGE) as out:
                 events = [e for e in out["stream"]]
         unknown = capo_bedrock_runtime.UnknownUnionMember("hologram")
-        assert events == [
-            {"contentBlockDelta": {"content_block_index": 0, "delta": unknown}}
-        ]
+        assert events == [{"contentBlockDelta": {"content_block_index": 0, "delta": unknown}}]
 
 
 class TestAsyncUnknownEnumValue:  # unasync: generate
     """An enum value this client doesn't know comes back as the plain string."""
 
     async def test_rest_json(self):
-        async with offline(
-            AsyncBedrockRuntimeClient, "POST", converse_reply(stop_reason=FUTURE)
-        ) as client:
+        async with offline(AsyncBedrockRuntimeClient, "POST", converse_reply(stop_reason=FUTURE)) as client:
             out = await client.converse("model", messages=USER_MESSAGE)
         assert out["stop_reason"] == FUTURE
 
@@ -267,12 +235,8 @@ class TestAsyncUnknownEnumValue:  # unasync: generate
     async def test_rpc_v2_cbor(self):
         eventbridgev2 = pytest.importorskip("capo_eventbridgev2")
         reply = cbor_reply({"Name": "source", "State": FUTURE})
-        async with offline(
-            eventbridgev2.AsyncEventBridgeV2Client, "POST", reply
-        ) as client:
-            out = await client.describe_event_source(
-                "arn:aws:events:us-east-1:123456789012:event-source/source"
-            )
+        async with offline(eventbridgev2.AsyncEventBridgeV2Client, "POST", reply) as client:
+            out = await client.describe_event_source("arn:aws:events:us-east-1:123456789012:event-source/source")
         assert out == {"name": "source", "state": FUTURE}
 
     async def test_aws_query(self):
@@ -283,9 +247,7 @@ class TestAsyncUnknownEnumValue:  # unasync: generate
         )
         async with offline(AsyncIAMClient, "POST", xml_reply(body)) as client:
             out = await client.list_access_keys()
-        assert out["access_key_metadata"] == [
-            {"access_key_id": "AKID", "status": FUTURE}
-        ]
+        assert out["access_key_metadata"] == [{"access_key_id": "AKID", "status": FUTURE}]
 
     async def test_ec2_query(self):
         body = (
@@ -295,18 +257,14 @@ class TestAsyncUnknownEnumValue:  # unasync: generate
         )
         async with offline(AsyncEC2Client, "POST", xml_reply(body)) as client:
             out = await client.describe_instance_types()
-        assert out["instance_types"] == [
-            {"instance_type": FUTURE, "hypervisor": FUTURE}
-        ]
+        assert out["instance_types"] == [{"instance_type": FUTURE, "hypervisor": FUTURE}]
 
 
 class TestUnknownEnumValue:  # unasync: generated
     """An enum value this client doesn't know comes back as the plain string."""
 
     def test_rest_json(self):
-        with offline(
-            BedrockRuntimeClient, "POST", converse_reply(stop_reason=FUTURE)
-        ) as client:
+        with offline(BedrockRuntimeClient, "POST", converse_reply(stop_reason=FUTURE)) as client:
             out = client.converse("model", messages=USER_MESSAGE)
         assert out["stop_reason"] == FUTURE
 
@@ -320,9 +278,7 @@ class TestUnknownEnumValue:  # unasync: generated
         eventbridgev2 = pytest.importorskip("capo_eventbridgev2")
         reply = cbor_reply({"Name": "source", "State": FUTURE})
         with offline(eventbridgev2.EventBridgeV2Client, "POST", reply) as client:
-            out = client.describe_event_source(
-                "arn:aws:events:us-east-1:123456789012:event-source/source"
-            )
+            out = client.describe_event_source("arn:aws:events:us-east-1:123456789012:event-source/source")
         assert out == {"name": "source", "state": FUTURE}
 
     def test_aws_query(self):
@@ -333,9 +289,7 @@ class TestUnknownEnumValue:  # unasync: generated
         )
         with offline(IAMClient, "POST", xml_reply(body)) as client:
             out = client.list_access_keys()
-        assert out["access_key_metadata"] == [
-            {"access_key_id": "AKID", "status": FUTURE}
-        ]
+        assert out["access_key_metadata"] == [{"access_key_id": "AKID", "status": FUTURE}]
 
     def test_ec2_query(self):
         body = (
@@ -345,9 +299,7 @@ class TestUnknownEnumValue:  # unasync: generated
         )
         with offline(EC2Client, "POST", xml_reply(body)) as client:
             out = client.describe_instance_types()
-        assert out["instance_types"] == [
-            {"instance_type": FUTURE, "hypervisor": FUTURE}
-        ]
+        assert out["instance_types"] == [{"instance_type": FUTURE, "hypervisor": FUTURE}]
 
 
 class TestAsyncUnknownEvent:  # unasync: generate
@@ -375,9 +327,7 @@ class TestAsyncUnknownEvent:  # unasync: generate
             ("End", "text/xml", b""),
         )
         async with offline(AsyncS3Client, "POST", reply) as client:
-            async with client.select_object_content(
-                "bucket", "key.csv", **SELECT_QUERY
-            ) as out:
+            async with client.select_object_content("bucket", "key.csv", **SELECT_QUERY) as out:
                 events = [e async for e in out["payload"]]
         assert events[0] == {"Records": {"payload": b"1,ann\n"}}
         assert isinstance(events[1], capo_s3.UnknownEvent)
@@ -411,9 +361,7 @@ class TestUnknownEvent:  # unasync: generated
             ("End", "text/xml", b""),
         )
         with offline(S3Client, "POST", reply) as client:
-            with client.select_object_content(
-                "bucket", "key.csv", **SELECT_QUERY
-            ) as out:
+            with client.select_object_content("bucket", "key.csv", **SELECT_QUERY) as out:
                 events = [e for e in out["payload"]]
         assert events[0] == {"Records": {"payload": b"1,ann\n"}}
         assert isinstance(events[1], capo_s3.UnknownEvent)
@@ -427,20 +375,14 @@ class TestAsyncSendNewEnumValue:  # unasync: generate
 
     async def test_rest_json(self):
         sent: list[Request] = []
-        async with offline(
-            AsyncBedrockRuntimeClient, "POST", converse_reply(), sent
-        ) as client:
-            await client.converse(
-                "model", messages=USER_MESSAGE, performance_config={"latency": FUTURE}
-            )
+        async with offline(AsyncBedrockRuntimeClient, "POST", converse_reply(), sent) as client:
+            await client.converse("model", messages=USER_MESSAGE, performance_config={"latency": FUTURE})
         assert json.loads(body_of(sent[0]))["performanceConfig"] == {"latency": FUTURE}
 
     async def test_rest_xml_body(self):
         sent: list[Request] = []
         async with offline(AsyncS3Client, "PUT", Response(200), sent) as client:
-            await client.put_bucket_versioning(
-                "bucket", versioning_configuration={"status": FUTURE}
-            )
+            await client.put_bucket_versioning("bucket", versioning_configuration={"status": FUTURE})
         expected = f"<VersioningConfiguration><Status>{FUTURE}</Status></VersioningConfiguration>"
         assert body_of(sent[0]) == expected.encode()
 
@@ -454,12 +396,8 @@ class TestAsyncSendNewEnumValue:  # unasync: generate
         eventbridgev2 = pytest.importorskip("capo_eventbridgev2")
         cbor2 = pytest.importorskip("cbor2")
         sent: list[Request] = []
-        async with offline(
-            eventbridgev2.AsyncEventBridgeV2Client, "POST", cbor_reply({}), sent
-        ) as client:
-            await client.update_subscriber(
-                "arn:aws:events:us-east-1:123456789012:subscriber/s", state=FUTURE
-            )
+        async with offline(eventbridgev2.AsyncEventBridgeV2Client, "POST", cbor_reply({}), sent) as client:
+            await client.update_subscriber("arn:aws:events:us-east-1:123456789012:subscriber/s", state=FUTURE)
         assert cbor2.loads(body_of(sent[0]))["State"] == FUTURE
 
     async def test_aws_query(self):
@@ -486,17 +424,13 @@ class TestSendNewEnumValue:  # unasync: generated
     def test_rest_json(self):
         sent: list[Request] = []
         with offline(BedrockRuntimeClient, "POST", converse_reply(), sent) as client:
-            client.converse(
-                "model", messages=USER_MESSAGE, performance_config={"latency": FUTURE}
-            )
+            client.converse("model", messages=USER_MESSAGE, performance_config={"latency": FUTURE})
         assert json.loads(body_of(sent[0]))["performanceConfig"] == {"latency": FUTURE}
 
     def test_rest_xml_body(self):
         sent: list[Request] = []
         with offline(S3Client, "PUT", Response(200), sent) as client:
-            client.put_bucket_versioning(
-                "bucket", versioning_configuration={"status": FUTURE}
-            )
+            client.put_bucket_versioning("bucket", versioning_configuration={"status": FUTURE})
         expected = f"<VersioningConfiguration><Status>{FUTURE}</Status></VersioningConfiguration>"
         assert body_of(sent[0]) == expected.encode()
 
@@ -510,12 +444,8 @@ class TestSendNewEnumValue:  # unasync: generated
         eventbridgev2 = pytest.importorskip("capo_eventbridgev2")
         cbor2 = pytest.importorskip("cbor2")
         sent: list[Request] = []
-        with offline(
-            eventbridgev2.EventBridgeV2Client, "POST", cbor_reply({}), sent
-        ) as client:
-            client.update_subscriber(
-                "arn:aws:events:us-east-1:123456789012:subscriber/s", state=FUTURE
-            )
+        with offline(eventbridgev2.EventBridgeV2Client, "POST", cbor_reply({}), sent) as client:
+            client.update_subscriber("arn:aws:events:us-east-1:123456789012:subscriber/s", state=FUTURE)
         assert cbor2.loads(body_of(sent[0]))["State"] == FUTURE
 
     def test_aws_query(self):
