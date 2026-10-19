@@ -20,9 +20,9 @@ class ListDataLakeDatasetsRequest(TypedDict, closed=True):
         "capo_supplychain.types.data_lake_dataset_next_token.DataLakeDatasetNextToken"
     ]
     """<p>The pagination token to fetch next page of datasets.</p>"""
-    max_results: (
+    max_results: NotRequired[
         "capo_supplychain.types.data_lake_dataset_max_results.DataLakeDatasetMaxResults"
-    )
+    ]
     """<p>The max number of datasets to fetch in this paginated request.</p>"""
 
 

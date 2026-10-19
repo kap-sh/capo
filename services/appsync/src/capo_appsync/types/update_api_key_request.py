@@ -16,7 +16,7 @@ class UpdateApiKeyRequest(TypedDict, closed=True):
     """<p>The API key ID.</p>"""
     description: NotRequired["capo_appsync.types.string.String"]
     """<p>A description of the purpose of the API key.</p>"""
-    expires: "capo_appsync.types.long.Long"
+    expires: NotRequired["capo_appsync.types.long.Long"]
     """<p>From the update time, the time after which the API key expires. The date is represented as seconds since the epoch. For more information, see .</p>"""
 
 
@@ -25,7 +25,8 @@ def serialize_json(value: UpdateApiKeyRequest) -> dict:
     out: dict = {}
     if "description" in value:
         out["description"] = value["description"]
-    out["expires"] = value.get("expires", 0)
+    if "expires" in value:
+        out["expires"] = value["expires"]
     return out
 
 
@@ -35,6 +36,4 @@ def deserialize_json(data: dict) -> UpdateApiKeyRequest:
         out["description"] = data["description"]
     if data.get("expires") is not None:
         out["expires"] = data["expires"]
-    else:
-        out["expires"] = 0
     return out

@@ -39,9 +39,9 @@ class CreateKxDataviewRequest(TypedDict, closed=True):
         "capo_finspace.types.kx_dataview_segment_configuration_list.KxDataviewSegmentConfigurationList"
     ]
     """<p> The configuration that contains the database path of the data that you want to place on each selected volume. Each segment must have a unique database path for each volume. If you do not explicitly specify any database path for a volume, they are accessible from the cluster through the default S3/object store segment. </p>"""
-    auto_update: "capo_finspace.types.boolean_value.booleanValue"
+    auto_update: NotRequired["capo_finspace.types.boolean_value.booleanValue"]
     """<p>The option to specify whether you want to apply all the future additions and corrections automatically to the dataview, when you ingest new changesets. The default value is false.</p>"""
-    read_write: "capo_finspace.types.boolean_value.booleanValue"
+    read_write: NotRequired["capo_finspace.types.boolean_value.booleanValue"]
     """<p> The option to specify whether you want to make the dataview writable to perform database maintenance. The following are some considerations related to writable dataviews. </p> <ul> <li> <p>You cannot create partial writable dataviews. When you create writeable dataviews you must provide the entire database path.</p> </li> <li> <p>You cannot perform updates on a writeable dataview. Hence, <code>autoUpdate</code> must be set as <b>False</b> if <code>readWrite</code> is <b>True</b> for a dataview.</p> </li> <li> <p>You must also use a unique volume for creating a writeable dataview. So, if you choose a volume that is already in use by another dataview, the dataview creation fails.</p> </li> <li> <p>Once you create a dataview as writeable, you cannot change it to read-only. So, you cannot update the <code>readWrite</code> parameter later.</p> </li> </ul>"""
     description: NotRequired["capo_finspace.types.description.Description"]
     """<p>A description of the dataview.</p>"""
@@ -70,8 +70,10 @@ def serialize_json(value: CreateKxDataviewRequest) -> dict:
                 value["segment_configurations"]
             )
         )
-    out["autoUpdate"] = value.get("auto_update", False)
-    out["readWrite"] = value.get("read_write", False)
+    if "auto_update" in value:
+        out["autoUpdate"] = value["auto_update"]
+    if "read_write" in value:
+        out["readWrite"] = value["read_write"]
     if "description" in value:
         out["description"] = value["description"]
     if "tags" in value:
@@ -108,12 +110,8 @@ def deserialize_json(data: dict) -> CreateKxDataviewRequest:
         )
     if data.get("autoUpdate") is not None:
         out["auto_update"] = data["autoUpdate"]
-    else:
-        out["auto_update"] = False
     if data.get("readWrite") is not None:
         out["read_write"] = data["readWrite"]
-    else:
-        out["read_write"] = False
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("tags") is not None:

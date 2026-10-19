@@ -129,7 +129,8 @@ def build_request(
     url = endpoint.url.rstrip("/") + "/v20180820/jobs/{JobId}/priority"
     url = url.replace("{JobId}", quote(input_["job_id"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(("priority", str(input_.get("priority", 0))))
+    if "priority" in input_:
+        params.append(("priority", str(input_["priority"])))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     if "account_id" in input_:
         headers["x-amz-account-id"] = input_["account_id"]

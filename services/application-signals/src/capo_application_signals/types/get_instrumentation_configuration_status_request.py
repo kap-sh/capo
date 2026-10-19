@@ -39,7 +39,7 @@ class GetInstrumentationConfigurationStatusRequest(TypedDict, closed=True):
     """<p>The start of the time range to retrieve status events for. <code>StartTime</code> and <code>EndTime</code> must both be provided together or both be omitted. When both are omitted, the time range defaults to the last hour.</p>"""
     end_time: NotRequired["datetime.datetime"]
     """<p>The end of the time range to retrieve status events for. <code>StartTime</code> and <code>EndTime</code> must both be provided together or both be omitted. When both are omitted, the time range defaults to the last hour.</p>"""
-    max_results: "int"
+    max_results: NotRequired["int"]
     """<p>The maximum number of status events to return in one call. The default is 60.</p>"""
     next_token: NotRequired["capo_application_signals.types.next_token.NextToken"]
     """<p>Use the token returned by a previous call to retrieve the next page of status events.</p>"""
@@ -95,7 +95,8 @@ def serialize_json(value: GetInstrumentationConfigurationStatusRequest) -> dict:
                 value["end_time"]
             )
         )
-    out["MaxResults"] = value.get("max_results", 60)
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
     return out
@@ -177,8 +178,6 @@ def deserialize_json(data: dict) -> GetInstrumentationConfigurationStatusRequest
         )
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
-    else:
-        out["max_results"] = 60
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

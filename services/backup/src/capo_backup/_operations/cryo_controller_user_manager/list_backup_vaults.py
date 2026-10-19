@@ -126,7 +126,8 @@ def build_request(
                 capo_backup.types.vault_type.serialize_json(input_["by_vault_type"]),
             )
         )
-    params.append(("shared", "true" if input_.get("by_shared", False) else "false"))
+    if "by_shared" in input_:
+        params.append(("shared", "true" if input_["by_shared"] else "false"))
     if "next_token" in input_:
         params.append(("nextToken", input_["next_token"]))
     if "max_results" in input_:

@@ -39,13 +39,13 @@ class UpdateFunctionCodeRequest(TypedDict, closed=True):
     """<p>URI of a container image in the Amazon ECR registry. Do not use for a function defined with a .zip file archive.</p>"""
     architectures: NotRequired["capo_lambda.types.architectures_list.ArchitecturesList"]
     """<p>The instruction set architecture that the function supports. Enter a string array with one of the valid values (arm64 or x86_64). The default value is <code>x86_64</code>.</p>"""
-    publish: "capo_lambda.types.boolean.Boolean"
+    publish: NotRequired["capo_lambda.types.boolean.Boolean"]
     """<p>Set to true to publish a new version of the function after updating the code. This has the same effect as calling <a>PublishVersion</a> separately.</p>"""
     publish_to: NotRequired[
         "capo_lambda.types.function_version_latest_published.FunctionVersionLatestPublished"
     ]
     """<p>Specifies where to publish the function version or configuration.</p>"""
-    dry_run: "capo_lambda.types.boolean.Boolean"
+    dry_run: NotRequired["capo_lambda.types.boolean.Boolean"]
     """<p>Set to true to validate the request parameters and access permissions without modifying the function code.</p>"""
     revision_id: NotRequired["capo_lambda.types.string.String"]
     """<p>Update the function only if the revision ID matches the ID that's specified. Use this option to avoid modifying a function that has changed since you last read it.</p>"""
@@ -82,7 +82,8 @@ def serialize_json(value: UpdateFunctionCodeRequest) -> dict:
         out["Architectures"] = capo_lambda.types.architectures_list.serialize_json(
             value["architectures"]
         )
-    out["Publish"] = value.get("publish", False)
+    if "publish" in value:
+        out["Publish"] = value["publish"]
     if "publish_to" in value:
         import capo_lambda.types.function_version_latest_published
 
@@ -91,7 +92,8 @@ def serialize_json(value: UpdateFunctionCodeRequest) -> dict:
                 value["publish_to"]
             )
         )
-    out["DryRun"] = value.get("dry_run", False)
+    if "dry_run" in value:
+        out["DryRun"] = value["dry_run"]
     if "revision_id" in value:
         out["RevisionId"] = value["revision_id"]
     if "source_kms_key_arn" in value:
@@ -129,8 +131,6 @@ def deserialize_json(data: dict) -> UpdateFunctionCodeRequest:
         )
     if data.get("Publish") is not None:
         out["publish"] = data["Publish"]
-    else:
-        out["publish"] = False
     if data.get("PublishTo") is not None:
         import capo_lambda.types.function_version_latest_published
 
@@ -141,8 +141,6 @@ def deserialize_json(data: dict) -> UpdateFunctionCodeRequest:
         )
     if data.get("DryRun") is not None:
         out["dry_run"] = data["DryRun"]
-    else:
-        out["dry_run"] = False
     if data.get("RevisionId") is not None:
         out["revision_id"] = data["RevisionId"]
     if data.get("SourceKMSKeyArn") is not None:

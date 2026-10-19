@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_storage_gateway.errors import DeserializationError
 
@@ -14,7 +14,9 @@ if TYPE_CHECKING:
 class DeleteTapeArchiveInput(TypedDict, closed=True):
     tape_arn: "capo_storage_gateway.types.tape_arn.TapeARN"
     """<p>The Amazon Resource Name (ARN) of the virtual tape to delete from the virtual tape shelf (VTS).</p>"""
-    bypass_governance_retention: "capo_storage_gateway.types.boolean2.Boolean2"
+    bypass_governance_retention: NotRequired[
+        "capo_storage_gateway.types.boolean2.Boolean2"
+    ]
     """<p>Set to <code>TRUE</code> to delete an archived tape that belongs to a custom pool with tape retention lock. Only archived tapes with tape retention lock set to <code>governance</code> can be deleted. Archived tapes with tape retention lock set to <code>compliance</code> can't be deleted.</p>"""
 
 
@@ -22,7 +24,8 @@ class DeleteTapeArchiveInput(TypedDict, closed=True):
 def serialize_aws_json_1_1(value: DeleteTapeArchiveInput) -> dict:
     out: dict = {}
     out["TapeARN"] = value["tape_arn"]
-    out["BypassGovernanceRetention"] = value.get("bypass_governance_retention", False)
+    if "bypass_governance_retention" in value:
+        out["BypassGovernanceRetention"] = value["bypass_governance_retention"]
     return out
 
 
@@ -34,6 +37,4 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteTapeArchiveInput:
         raise DeserializationError("DeleteTapeArchiveInput.tape_arn required")
     if data.get("BypassGovernanceRetention") is not None:
         out["bypass_governance_retention"] = data["BypassGovernanceRetention"]
-    else:
-        out["bypass_governance_retention"] = False
     return out

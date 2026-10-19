@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 class ListBackupVaultsInput(TypedDict, closed=True):
     by_vault_type: NotRequired["capo_backup.types.vault_type.VaultType"]
     """<p>This parameter will sort the list of vaults by vault type.</p>"""
-    by_shared: "capo_backup.types.boolean2.Boolean2"
+    by_shared: NotRequired["capo_backup.types.boolean2.Boolean2"]
     """<p>This parameter will sort the list of vaults by shared vaults.</p>"""
     next_token: NotRequired["capo_backup.types.string.string"]
     """<p>The next item following a partial list of returned items. For example, if a request is made to return <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list starting at the location pointed to by the next token.</p>"""

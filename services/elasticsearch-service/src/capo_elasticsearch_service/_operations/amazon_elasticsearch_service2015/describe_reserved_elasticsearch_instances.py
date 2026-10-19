@@ -119,7 +119,8 @@ def build_request(
     params: list[tuple[str, str]] = []
     if "reserved_elasticsearch_instance_id" in input_:
         params.append(("reservationId", input_["reserved_elasticsearch_instance_id"]))
-    params.append(("maxResults", str(input_.get("max_results", 0))))
+    if "max_results" in input_:
+        params.append(("maxResults", str(input_["max_results"])))
     if "next_token" in input_:
         params.append(("nextToken", input_["next_token"]))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}

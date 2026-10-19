@@ -15,7 +15,7 @@ class DescribeReservedElasticsearchInstanceOfferingsRequest(TypedDict, closed=Tr
         "capo_elasticsearch_service.types.guid.GUID"
     ]
     """<p>The offering identifier filter value. Use this parameter to show only the available offering that matches the specified reservation identifier.</p>"""
-    max_results: "capo_elasticsearch_service.types.max_results.MaxResults"
+    max_results: NotRequired["capo_elasticsearch_service.types.max_results.MaxResults"]
     """<p>Set this value to limit the number of results returned. If not specified, defaults to 100.</p>"""
     next_token: NotRequired["capo_elasticsearch_service.types.next_token.NextToken"]
     """<p>NextToken should be sent in case if earlier API call produced result containing NextToken. It is used for pagination.</p>"""

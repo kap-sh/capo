@@ -20,9 +20,9 @@ if TYPE_CHECKING:
 class PublishRequest(TypedDict, closed=True):
     topic: "capo_iot_data_plane.types.topic.Topic"
     """<p>The name of the MQTT topic.</p>"""
-    qos: "capo_iot_data_plane.types.qos.Qos"
+    qos: NotRequired["capo_iot_data_plane.types.qos.Qos"]
     """<p>The Quality of Service (QoS) level. The default QoS level is 0.</p>"""
-    retain: "capo_iot_data_plane.types.retain.Retain"
+    retain: NotRequired["capo_iot_data_plane.types.retain.Retain"]
     """<p>A Boolean value that determines whether to set the RETAIN flag when the message is published.</p> <p>Setting the RETAIN flag causes the message to be retained and sent to new subscribers to the topic.</p> <p>Valid values: <code>true</code> | <code>false</code> </p> <p>Default value: <code>false</code> </p>"""
     payload: NotRequired["capo_iot_data_plane.types.payload.Payload"]
     """<p>The message body. MQTT accepts text, binary, and empty (null) message payloads.</p> <p>Publishing an empty (null) payload with <b>retain</b> = <code>true</code> deletes the retained message identified by <b>topic</b> from Amazon Web Services IoT Core.</p>"""
@@ -44,7 +44,9 @@ class PublishRequest(TypedDict, closed=True):
         "capo_iot_data_plane.types.correlation_data.CorrelationData"
     ]
     """<p>The base64-encoded binary data used by the sender of the request message to identify which request the response message is for when it's received. <code>correlationData</code> is an HTTP header value in the API.</p>"""
-    message_expiry: "capo_iot_data_plane.types.message_expiry.MessageExpiry"
+    message_expiry: NotRequired[
+        "capo_iot_data_plane.types.message_expiry.MessageExpiry"
+    ]
     """<p>A user-defined integer value that represents the message expiry interval in seconds. If absent, the message doesn't expire. For more information about the limits of <code>messageExpiry</code>, see <a href="https://docs.aws.amazon.com/general/latest/gr/iot-core.html#message-broker-limits">Amazon Web Services IoT Core message broker and protocol limits and quotas </a> from the Amazon Web Services Reference Guide.</p>"""
 
 

@@ -23,12 +23,14 @@ class WorkerComputeConfiguration(TypedDict, closed=True):
 # --- restJson1 ser/de ---
 def serialize_json(value: WorkerComputeConfiguration) -> dict:
     out: dict = {}
-    import capo_cleanrooms.types.worker_compute_type
+    if "type" in value:
+        import capo_cleanrooms.types.worker_compute_type
 
-    out["type"] = capo_cleanrooms.types.worker_compute_type.serialize_json(
-        value.get("type", "CR.1X")
-    )
-    out["number"] = value.get("number", 16)
+        out["type"] = capo_cleanrooms.types.worker_compute_type.serialize_json(
+            value["type"]
+        )
+    if "number" in value:
+        out["number"] = value["number"]
     if "properties" in value:
         import capo_cleanrooms.types.worker_compute_configuration_properties
 
@@ -48,12 +50,8 @@ def deserialize_json(data: dict) -> WorkerComputeConfiguration:
         out["type"] = capo_cleanrooms.types.worker_compute_type.deserialize_json(
             data["type"]
         )
-    else:
-        out["type"] = "CR.1X"
     if data.get("number") is not None:
         out["number"] = data["number"]
-    else:
-        out["number"] = 16
     if data.get("properties") is not None:
         import capo_cleanrooms.types.worker_compute_configuration_properties
 

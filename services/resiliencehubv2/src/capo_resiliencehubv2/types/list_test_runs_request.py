@@ -16,7 +16,7 @@ class ListTestRunsRequest(TypedDict, closed=True):
     """<p>The ARN of the service to list test runs for.</p>"""
     test_id: NotRequired["capo_resiliencehubv2.types.test_id.TestId"]
     """<p>Filter test runs by test identifier.</p>"""
-    max_results: "capo_resiliencehubv2.types.max_results.MaxResults"
+    max_results: NotRequired["capo_resiliencehubv2.types.max_results.MaxResults"]
     next_token: NotRequired["capo_resiliencehubv2.types.next_token.NextToken"]
 
 

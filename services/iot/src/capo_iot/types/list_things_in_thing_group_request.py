@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 class ListThingsInThingGroupRequest(TypedDict, closed=True):
     thing_group_name: "capo_iot.types.thing_group_name.ThingGroupName"
     """<p>The thing group name.</p>"""
-    recursive: "capo_iot.types.recursive.Recursive"
+    recursive: NotRequired["capo_iot.types.recursive.Recursive"]
     """<p>When true, list things in this thing group and in all child groups as well.</p>"""
     next_token: NotRequired["capo_iot.types.next_token.NextToken"]
     """<p>To retrieve the next set of results, the <code>nextToken</code> value from a previous response; otherwise <b>null</b> to receive the first set of results.</p>"""

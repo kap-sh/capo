@@ -137,9 +137,8 @@ def build_request(
     url = endpoint.url.rstrip("/") + "/policies/{policyName}/version"
     url = url.replace("{policyName}", quote(input_["policy_name"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(
-        ("setAsDefault", "true" if input_.get("set_as_default", False) else "false")
-    )
+    if "set_as_default" in input_:
+        params.append(("setAsDefault", "true" if input_["set_as_default"] else "false"))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = json.dumps(
         capo_iot.types.create_policy_version_request.serialize_json(input_),

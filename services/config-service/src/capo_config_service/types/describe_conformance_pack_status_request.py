@@ -15,7 +15,7 @@ class DescribeConformancePackStatusRequest(TypedDict, closed=True):
         "capo_config_service.types.conformance_pack_names_list.ConformancePackNamesList"
     ]
     """<p>Comma-separated list of conformance pack names.</p>"""
-    limit: "capo_config_service.types.page_size_limit.PageSizeLimit"
+    limit: NotRequired["capo_config_service.types.page_size_limit.PageSizeLimit"]
     """<p>The maximum number of conformance packs status returned on each page.</p>"""
     next_token: NotRequired["capo_config_service.types.next_token.NextToken"]
     """<p>The <code>nextToken</code> string returned in a previous request that you use to request the next page of results in a paginated response.</p>"""
@@ -32,7 +32,8 @@ def serialize_aws_json_1_1(value: DescribeConformancePackStatusRequest) -> dict:
                 value["conformance_pack_names"]
             )
         )
-    out["Limit"] = value.get("limit", 0)
+    if "limit" in value:
+        out["Limit"] = value["limit"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
     return out
@@ -50,8 +51,6 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeConformancePackStatusRequest
         )
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
-    else:
-        out["limit"] = 0
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

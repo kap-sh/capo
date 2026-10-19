@@ -35,9 +35,7 @@ def serialize_query(
     capo_ses.types.notification_type.serialize_query(
         value["notification_type"], pairs, f"{key_prefix}NotificationType"
     )
-    pairs.append(
-        (f"{key_prefix}Enabled", "true" if value.get("enabled", False) else "false")
-    )
+    pairs.append((f"{key_prefix}Enabled", "true" if value["enabled"] else "false"))
 
 
 def deserialize_query(el: Element) -> SetIdentityHeadersInNotificationsEnabledRequest:
@@ -64,5 +62,7 @@ def deserialize_query(el: Element) -> SetIdentityHeadersInNotificationsEnabledRe
     if child_enabled is not None:
         out["enabled"] = (child_enabled.text or "").lower() == "true"
     else:
-        out["enabled"] = False
+        raise DeserializationError(
+            "SetIdentityHeadersInNotificationsEnabledRequest.enabled required"
+        )
     return out

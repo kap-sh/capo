@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 class ListKxScalingGroupsRequest(TypedDict, closed=True):
     environment_id: "capo_finspace.types.kx_environment_id.KxEnvironmentId"
     """<p>A unique identifier for the kdb environment, for which you want to retrieve a list of scaling groups.</p>"""
-    max_results: "capo_finspace.types.max_results.MaxResults"
+    max_results: NotRequired["capo_finspace.types.max_results.MaxResults"]
     """<p>The maximum number of results to return in this request.</p>"""
     next_token: NotRequired["capo_finspace.types.pagination_token.PaginationToken"]
     """<p> A token that indicates where a results page should begin. </p>"""

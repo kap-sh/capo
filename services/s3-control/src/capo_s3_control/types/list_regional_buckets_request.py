@@ -20,7 +20,7 @@ class ListRegionalBucketsRequest(TypedDict, closed=True):
         "capo_s3_control.types.non_empty_max_length1024_string.NonEmptyMaxLength1024String"
     ]
     """<p></p>"""
-    max_results: "capo_s3_control.types.max_results.MaxResults"
+    max_results: NotRequired["capo_s3_control.types.max_results.MaxResults"]
     """<p></p>"""
     outpost_id: NotRequired[
         "capo_s3_control.types.non_empty_max_length64_string.NonEmptyMaxLength64String"

@@ -20,7 +20,7 @@ class UpdateAccountSettingsRequest(TypedDict, closed=True):
     """<p>The default namespace for this Amazon Web Services account. Currently, the default is <code>default</code>. IAM users that register for the first time with Amazon Quick Sight provide an email address that becomes associated with the default namespace. </p>"""
     notification_email: NotRequired["capo_quicksight.types.string.String"]
     """<p>The email address that you want Quick Sight to send notifications to regarding your Amazon Web Services account or Quick Sight subscription.</p>"""
-    termination_protection_enabled: "capo_quicksight.types.boolean.Boolean"
+    termination_protection_enabled: NotRequired["capo_quicksight.types.boolean.Boolean"]
     """<p>A boolean value that determines whether or not an Quick Sight account can be deleted. A <code>True</code> value doesn't allow the account to be deleted and results in an error message if a user tries to make a <code>DeleteAccountSubscription</code> request. A <code>False</code> value will allow the account to be deleted.</p>"""
 
 
@@ -30,9 +30,8 @@ def serialize_json(value: UpdateAccountSettingsRequest) -> dict:
     out["DefaultNamespace"] = value["default_namespace"]
     if "notification_email" in value:
         out["NotificationEmail"] = value["notification_email"]
-    out["TerminationProtectionEnabled"] = value.get(
-        "termination_protection_enabled", False
-    )
+    if "termination_protection_enabled" in value:
+        out["TerminationProtectionEnabled"] = value["termination_protection_enabled"]
     return out
 
 
@@ -48,6 +47,4 @@ def deserialize_json(data: dict) -> UpdateAccountSettingsRequest:
         out["notification_email"] = data["NotificationEmail"]
     if data.get("TerminationProtectionEnabled") is not None:
         out["termination_protection_enabled"] = data["TerminationProtectionEnabled"]
-    else:
-        out["termination_protection_enabled"] = False
     return out

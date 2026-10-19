@@ -27,11 +27,13 @@ class CreatePolicyRequest(TypedDict, closed=True):
         "capo_bedrock_agentcore_control.types.description.Description"
     ]
     """<p>A human-readable description of the policy's purpose and functionality (1-4,096 characters). This helps policy administrators understand the policy's intent, business rules, and operational scope. Use this field to document why the policy exists, what business requirement it addresses, and any special considerations for maintenance. Clear descriptions are essential for policy governance, auditing, and troubleshooting.</p>"""
-    validation_mode: "capo_bedrock_agentcore_control.types.policy_validation_mode.PolicyValidationMode"
+    validation_mode: NotRequired[
+        "capo_bedrock_agentcore_control.types.policy_validation_mode.PolicyValidationMode"
+    ]
     """<p>The validation mode for the policy creation. Determines how Cedar analyzer validation results are handled during policy creation. FAIL_ON_ANY_FINDINGS (default) runs the Cedar analyzer to validate the policy against the Cedar schema and tool context, failing creation if the analyzer detects any validation issues to ensure strict conformance. IGNORE_ALL_FINDINGS runs the Cedar analyzer but allows policy creation even if validation issues are detected, useful for testing or when the policy schema is evolving. Use FAIL_ON_ANY_FINDINGS for production policies to ensure correctness, and IGNORE_ALL_FINDINGS only when you understand and accept the analyzer findings.</p>"""
-    enforcement_mode: (
+    enforcement_mode: NotRequired[
         "capo_bedrock_agentcore_control.types.enforcement_mode.EnforcementMode"
-    )
+    ]
     """<p>The enforcement mode for the policy. Run this policy in <code>LOG_ONLY</code> mode to collect data on how it affects your application. Once you are satisfied with the data gathered, switch the policy to <code>ACTIVE</code>. Defaults to <code>ACTIVE</code>.</p>"""
     policy_engine_id: "capo_bedrock_agentcore_control.types.resource_id.ResourceId"
     """<p>The identifier of the policy engine which contains this policy. Policy engines group related policies and provide the execution context for policy evaluation.</p>"""
@@ -54,20 +56,22 @@ def serialize_json(value: CreatePolicyRequest) -> dict:
     )
     if "description" in value:
         out["description"] = value["description"]
-    import capo_bedrock_agentcore_control.types.policy_validation_mode
+    if "validation_mode" in value:
+        import capo_bedrock_agentcore_control.types.policy_validation_mode
 
-    out["validationMode"] = (
-        capo_bedrock_agentcore_control.types.policy_validation_mode.serialize_json(
-            value.get("validation_mode", "FAIL_ON_ANY_FINDINGS")
+        out["validationMode"] = (
+            capo_bedrock_agentcore_control.types.policy_validation_mode.serialize_json(
+                value["validation_mode"]
+            )
         )
-    )
-    import capo_bedrock_agentcore_control.types.enforcement_mode
+    if "enforcement_mode" in value:
+        import capo_bedrock_agentcore_control.types.enforcement_mode
 
-    out["enforcementMode"] = (
-        capo_bedrock_agentcore_control.types.enforcement_mode.serialize_json(
-            value.get("enforcement_mode", "ACTIVE")
+        out["enforcementMode"] = (
+            capo_bedrock_agentcore_control.types.enforcement_mode.serialize_json(
+                value["enforcement_mode"]
+            )
         )
-    )
     if "client_token" in value:
         out["clientToken"] = value["client_token"]
     return out
@@ -99,8 +103,6 @@ def deserialize_json(data: dict) -> CreatePolicyRequest:
                 data["validationMode"]
             )
         )
-    else:
-        out["validation_mode"] = "FAIL_ON_ANY_FINDINGS"
     if data.get("enforcementMode") is not None:
         import capo_bedrock_agentcore_control.types.enforcement_mode
 
@@ -109,8 +111,6 @@ def deserialize_json(data: dict) -> CreatePolicyRequest:
                 data["enforcementMode"]
             )
         )
-    else:
-        out["enforcement_mode"] = "ACTIVE"
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

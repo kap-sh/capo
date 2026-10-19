@@ -34,9 +34,13 @@ class CreateIngestConfigurationRequest(TypedDict, closed=True):
     """<p>Application-provided attributes to store in the IngestConfiguration and attach to a stage. Map keys and values can contain UTF-8 encoded text. The maximum length of this field is 1 KB total. <i>This field is exposed to all stage participants and should not be used for personally identifying, confidential, or sensitive information.</i> </p>"""
     ingest_protocol: "capo_ivs_realtime.types.ingest_protocol.IngestProtocol"
     """<p>Type of ingest protocol that the user employs to broadcast. If this is set to <code>RTMP</code>, <code>insecureIngest</code> must be set to <code>true</code>.</p>"""
-    insecure_ingest: "capo_ivs_realtime.types.insecure_ingest.InsecureIngest"
+    insecure_ingest: NotRequired[
+        "capo_ivs_realtime.types.insecure_ingest.InsecureIngest"
+    ]
     """<p>Whether the stage allows insecure RTMP ingest. This must be set to <code>true</code>, if <code>ingestProtocol</code> is set to <code>RTMP</code>. Default: <code>false</code>. </p>"""
-    redundant_ingest: "capo_ivs_realtime.types.redundant_ingest.RedundantIngest"
+    redundant_ingest: NotRequired[
+        "capo_ivs_realtime.types.redundant_ingest.RedundantIngest"
+    ]
     """<p>Indicates whether redundant ingest is enabled for the ingest configuration. Default: <code>false</code>. </p>"""
     tags: NotRequired["capo_ivs_realtime.types.tags.Tags"]
     """<p>Tags attached to the resource. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href="https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html">Best practices and strategies</a> in <i>Tagging AWS Resources and Tag Editor</i> for details, including restrictions that apply to tags and "Tag naming limits and requirements"; Amazon IVS has no constraints on tags beyond what is documented there.</p>"""
@@ -64,8 +68,10 @@ def serialize_json(value: CreateIngestConfigurationRequest) -> dict:
     out["ingestProtocol"] = capo_ivs_realtime.types.ingest_protocol.serialize_json(
         value["ingest_protocol"]
     )
-    out["insecureIngest"] = value.get("insecure_ingest", False)
-    out["redundantIngest"] = value.get("redundant_ingest", False)
+    if "insecure_ingest" in value:
+        out["insecureIngest"] = value["insecure_ingest"]
+    if "redundant_ingest" in value:
+        out["redundantIngest"] = value["redundant_ingest"]
     if "tags" in value:
         import capo_ivs_realtime.types.tags
 
@@ -103,12 +109,8 @@ def deserialize_json(data: dict) -> CreateIngestConfigurationRequest:
         )
     if data.get("insecureIngest") is not None:
         out["insecure_ingest"] = data["insecureIngest"]
-    else:
-        out["insecure_ingest"] = False
     if data.get("redundantIngest") is not None:
         out["redundant_ingest"] = data["redundantIngest"]
-    else:
-        out["redundant_ingest"] = False
     if data.get("tags") is not None:
         import capo_ivs_realtime.types.tags
 

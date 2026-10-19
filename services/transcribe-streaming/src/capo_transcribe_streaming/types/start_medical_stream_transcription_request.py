@@ -35,12 +35,14 @@ class StartMedicalStreamTranscriptionRequest(TypedDict, closed=True):
     """<p>Specify the medical specialty contained in your audio.</p>"""
     type: "capo_transcribe_streaming.types.type.Type"
     """<p>Specify the type of input audio. For example, choose <code>DICTATION</code> for a provider dictating patient notes and <code>CONVERSATION</code> for a dialogue between a patient and a medical professional.</p>"""
-    show_speaker_label: "capo_transcribe_streaming.types.boolean.Boolean"
+    show_speaker_label: NotRequired["capo_transcribe_streaming.types.boolean.Boolean"]
     """<p>Enables speaker partitioning (diarization) in your transcription output. Speaker partitioning labels the speech from individual speakers in your media file.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/diarization.html">Partitioning speakers (diarization)</a>.</p>"""
     session_id: NotRequired["capo_transcribe_streaming.types.session_id.SessionId"]
     """<p>Specify a name for your transcription session. If you don't include this parameter in your request, Amazon Transcribe Medical generates an ID and returns it in the response.</p>"""
     audio_stream: "capo_transcribe_streaming.types.audio_stream.AudioStream"
-    enable_channel_identification: "capo_transcribe_streaming.types.boolean.Boolean"
+    enable_channel_identification: NotRequired[
+        "capo_transcribe_streaming.types.boolean.Boolean"
+    ]
     """<p>Enables channel identification in multi-channel audio.</p> <p>Channel identification transcribes the audio on each channel independently, then appends the output for each channel into one transcript.</p> <p>If you have multi-channel audio and do not enable channel identification, your audio is transcribed in a continuous manner and your transcript is not separated by channel.</p> <p>If you include <code>EnableChannelIdentification</code> in your request, you must also include <code>NumberOfChannels</code>.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/channel-id.html">Transcribing multi-channel audio</a>.</p>"""
     number_of_channels: NotRequired[
         "capo_transcribe_streaming.types.number_of_channels.NumberOfChannels"

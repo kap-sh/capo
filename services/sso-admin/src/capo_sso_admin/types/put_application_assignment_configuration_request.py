@@ -22,7 +22,7 @@ class PutApplicationAssignmentConfigurationRequest(TypedDict, closed=True):
 def serialize_aws_json_1_1(value: PutApplicationAssignmentConfigurationRequest) -> dict:
     out: dict = {}
     out["ApplicationArn"] = value["application_arn"]
-    out["AssignmentRequired"] = value.get("assignment_required", True)
+    out["AssignmentRequired"] = value["assignment_required"]
     return out
 
 
@@ -39,5 +39,7 @@ def deserialize_aws_json_1_1(
     if data.get("AssignmentRequired") is not None:
         out["assignment_required"] = data["AssignmentRequired"]
     else:
-        out["assignment_required"] = True
+        raise DeserializationError(
+            "PutApplicationAssignmentConfigurationRequest.assignment_required required"
+        )
     return out

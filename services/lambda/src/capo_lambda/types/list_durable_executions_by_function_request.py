@@ -40,7 +40,7 @@ class ListDurableExecutionsByFunctionRequest(TypedDict, closed=True):
     """<p>Set to true to return results in chronological order (oldest first). Default is false.</p>"""
     marker: NotRequired["capo_lambda.types.string.String"]
     """<p>Pagination token from a previous request to continue retrieving results.</p>"""
-    max_items: "capo_lambda.types.item_count.ItemCount"
+    max_items: NotRequired["capo_lambda.types.item_count.ItemCount"]
     """<p>Maximum number of executions to return (1-1000). Default is 100.</p>"""
 
 

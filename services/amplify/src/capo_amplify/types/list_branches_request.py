@@ -15,7 +15,7 @@ class ListBranchesRequest(TypedDict, closed=True):
     """<p>The unique ID for an Amplify app. </p>"""
     next_token: NotRequired["capo_amplify.types.next_token.NextToken"]
     """<p>A pagination token. Set to null to start listing branches from the start. If a non-null pagination token is returned in a result, pass its value in here to list more branches. </p>"""
-    max_results: "capo_amplify.types.max_results.MaxResults"
+    max_results: NotRequired["capo_amplify.types.max_results.MaxResults"]
     """<p> The maximum number of records to list in a single response. </p>"""
 
 

@@ -14,9 +14,9 @@ if TYPE_CHECKING:
 class ListLicenseAssetRulesetsRequest(TypedDict, closed=True):
     filters: NotRequired["capo_license_manager.types.filters.Filters"]
     """<p>Filters to scope the results. Following filters are supported</p> <ul> <li> <p> <code>Name</code> </p> </li> </ul>"""
-    show_aws_managed_license_asset_rulesets: (
+    show_aws_managed_license_asset_rulesets: NotRequired[
         "capo_license_manager.types.boolean.Boolean"
-    )
+    ]
     """<p>Specifies whether to show License Manager managed license asset rulesets.</p>"""
     max_results: NotRequired["capo_license_manager.types.box_integer.BoxInteger"]
     """<p>Maximum number of results to return in a single call.</p>"""
@@ -33,9 +33,10 @@ def serialize_aws_json_1_1(value: ListLicenseAssetRulesetsRequest) -> dict:
         out["Filters"] = capo_license_manager.types.filters.serialize_aws_json_1_1(
             value["filters"]
         )
-    out["ShowAWSManagedLicenseAssetRulesets"] = value.get(
-        "show_aws_managed_license_asset_rulesets", False
-    )
+    if "show_aws_managed_license_asset_rulesets" in value:
+        out["ShowAWSManagedLicenseAssetRulesets"] = value[
+            "show_aws_managed_license_asset_rulesets"
+        ]
     if "max_results" in value:
         out["MaxResults"] = value["max_results"]
     if "next_token" in value:
@@ -55,8 +56,6 @@ def deserialize_aws_json_1_1(data: dict) -> ListLicenseAssetRulesetsRequest:
         out["show_aws_managed_license_asset_rulesets"] = data[
             "ShowAWSManagedLicenseAssetRulesets"
         ]
-    else:
-        out["show_aws_managed_license_asset_rulesets"] = False
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

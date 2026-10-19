@@ -28,7 +28,7 @@ class ListObjectParentsRequest(TypedDict, closed=True):
         "capo_clouddirectory.types.consistency_level.ConsistencyLevel"
     ]
     """<p>Represents the manner and timing in which the successful write or update of an object is reflected in a subsequent read operation of that same object.</p>"""
-    include_all_links_to_each_parent: "capo_clouddirectory.types.bool.Bool"
+    include_all_links_to_each_parent: NotRequired["capo_clouddirectory.types.bool.Bool"]
     """<p>When set to True, returns all <a>ListObjectParentsResponse$ParentLinks</a>. There could be multiple links between a parent-child pair.</p>"""
 
 
@@ -44,9 +44,8 @@ def serialize_json(value: ListObjectParentsRequest) -> dict:
         out["NextToken"] = value["next_token"]
     if "max_results" in value:
         out["MaxResults"] = value["max_results"]
-    out["IncludeAllLinksToEachParent"] = value.get(
-        "include_all_links_to_each_parent", False
-    )
+    if "include_all_links_to_each_parent" in value:
+        out["IncludeAllLinksToEachParent"] = value["include_all_links_to_each_parent"]
     return out
 
 
@@ -68,6 +67,4 @@ def deserialize_json(data: dict) -> ListObjectParentsRequest:
         out["max_results"] = data["MaxResults"]
     if data.get("IncludeAllLinksToEachParent") is not None:
         out["include_all_links_to_each_parent"] = data["IncludeAllLinksToEachParent"]
-    else:
-        out["include_all_links_to_each_parent"] = False
     return out

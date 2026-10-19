@@ -79,7 +79,7 @@ class CreateImagePipelineRequest(TypedDict, closed=True):
         "capo_imagebuilder.types.pipeline_logging_configuration.PipelineLoggingConfiguration"
     ]
     """<p>Specifies the logging configuration for the image pipeline. Use this to define custom CloudWatch Logs log groups for your pipeline execution logs and image build logs. The service manages log groups with names starting with <code>/aws/imagebuilder/</code> using the service-linked role. For custom log group names outside of this prefix, you must also provide an <code>executionRole</code>.</p>"""
-    dry_run: "capo_imagebuilder.types.boolean.Boolean"
+    dry_run: NotRequired["capo_imagebuilder.types.boolean.Boolean"]
     """<p>Validates the required permissions and request parameters without performing the operation. If validation succeeds, the operation returns a <code>DryRunOperationException</code> error response.</p>"""
 
 
@@ -155,7 +155,8 @@ def serialize_json(value: CreateImagePipelineRequest) -> dict:
                 value["logging_configuration"]
             )
         )
-    out["dryRun"] = value.get("dry_run", False)
+    if "dry_run" in value:
+        out["dryRun"] = value["dry_run"]
     return out
 
 
@@ -243,6 +244,4 @@ def deserialize_json(data: dict) -> CreateImagePipelineRequest:
         )
     if data.get("dryRun") is not None:
         out["dry_run"] = data["dryRun"]
-    else:
-        out["dry_run"] = False
     return out

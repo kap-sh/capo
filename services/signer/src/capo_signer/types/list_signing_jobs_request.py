@@ -26,7 +26,7 @@ class ListSigningJobsRequest(TypedDict, closed=True):
     """<p>Specifies the maximum number of items to return in the response. Use this parameter when paginating results. If additional items exist beyond the number you specify, the <code>nextToken</code> element is set in the response. Use the <code>nextToken</code> value in a subsequent request to retrieve additional items. </p>"""
     next_token: NotRequired["capo_signer.types.next_token.NextToken"]
     """<p>String for specifying the next set of paginated results to return. After you receive a response with truncated results, use this parameter in a subsequent request. Set it to the value of <code>nextToken</code> from the response that you just received.</p>"""
-    is_revoked: "capo_signer.types.bool.bool"
+    is_revoked: NotRequired["capo_signer.types.bool.bool"]
     """<p>Filters results to return only signing jobs with revoked signatures.</p>"""
     signature_expires_before: NotRequired["capo_signer.types.timestamp.Timestamp"]
     """<p>Filters results to return only signing jobs with signatures expiring before a specified timestamp.</p>"""

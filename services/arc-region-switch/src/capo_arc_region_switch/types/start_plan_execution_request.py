@@ -21,7 +21,7 @@ class StartPlanExecutionRequest(TypedDict, closed=True):
     """<p>The Amazon Web Services Region to target with this execution. This is the Region that traffic will be shifted to or from, depending on the action.</p>"""
     action: "capo_arc_region_switch.types.execution_action.ExecutionAction"
     """<p>The action to perform. Valid values are <code>activate</code> (to shift traffic to the target Region) or <code>deactivate</code> (to shift traffic away from the target Region).</p>"""
-    mode: "capo_arc_region_switch.types.execution_mode.ExecutionMode"
+    mode: NotRequired["capo_arc_region_switch.types.execution_mode.ExecutionMode"]
     """<p>The plan execution mode. Valid values are <code>graceful</code>, for starting the execution in graceful mode, or <code>ungraceful</code>, for starting the execution in ungraceful mode.</p>"""
     comment: NotRequired[
         "capo_arc_region_switch.types.execution_comment.ExecutionComment"
@@ -49,11 +49,14 @@ def serialize_aws_json_1_0(value: StartPlanExecutionRequest) -> dict:
             value["action"]
         )
     )
-    import capo_arc_region_switch.types.execution_mode
+    if "mode" in value:
+        import capo_arc_region_switch.types.execution_mode
 
-    out["mode"] = capo_arc_region_switch.types.execution_mode.serialize_aws_json_1_0(
-        value.get("mode", "graceful")
-    )
+        out["mode"] = (
+            capo_arc_region_switch.types.execution_mode.serialize_aws_json_1_0(
+                value["mode"]
+            )
+        )
     if "comment" in value:
         out["comment"] = value["comment"]
     if "latest_version" in value:
@@ -93,8 +96,6 @@ def deserialize_aws_json_1_0(data: dict) -> StartPlanExecutionRequest:
                 data["mode"]
             )
         )
-    else:
-        out["mode"] = "graceful"
     if data.get("comment") is not None:
         out["comment"] = data["comment"]
     if data.get("latestVersion") is not None:

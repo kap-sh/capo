@@ -19,13 +19,13 @@ class ListBacklogTasksRequest(TypedDict, closed=True):
     """<p>The unique identifier for the agent space containing the tasks</p>"""
     filter: NotRequired["capo_devops_agent.types.task_filter.TaskFilter"]
     """<p>Filter criteria to apply when listing tasks Filtering restrictions: - Each filter field list is limited to a single value - Filtering by Priority and Status at the same time when not filtering by Type is not permitted - Timestamp filters (createdAfter, createdBefore) can be combined with other filters when not sorting by priority</p>"""
-    limit: "int"
+    limit: NotRequired["int"]
     """<p>Maximum number of tasks to return in a single response (1-1000, default: 100)</p>"""
     next_token: NotRequired["capo_devops_agent.types.next_token.NextToken"]
     """<p>Token for retrieving the next page of results</p>"""
     sort_field: NotRequired["capo_devops_agent.types.task_sort_field.TaskSortField"]
     """<p>Field to sort by Sorting restrictions: - Only sorting on createdAt is supported when using priority or status filters alone. - Sorting by priority is not supported when using Timestamp filters (createdAfter, createdBefore)</p>"""
-    order: "capo_devops_agent.types.task_sort_order.TaskSortOrder"
+    order: NotRequired["capo_devops_agent.types.task_sort_order.TaskSortOrder"]
     """<p>Sort order for the tasks based on sortField (default: DESC)</p>"""
 
 
@@ -38,7 +38,8 @@ def serialize_json(value: ListBacklogTasksRequest) -> dict:
         out["filter"] = capo_devops_agent.types.task_filter.serialize_json(
             value["filter"]
         )
-    out["limit"] = value.get("limit", 100)
+    if "limit" in value:
+        out["limit"] = value["limit"]
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
     if "sort_field" in value:
@@ -47,11 +48,12 @@ def serialize_json(value: ListBacklogTasksRequest) -> dict:
         out["sortField"] = capo_devops_agent.types.task_sort_field.serialize_json(
             value["sort_field"]
         )
-    import capo_devops_agent.types.task_sort_order
+    if "order" in value:
+        import capo_devops_agent.types.task_sort_order
 
-    out["order"] = capo_devops_agent.types.task_sort_order.serialize_json(
-        value.get("order", "DESC")
-    )
+        out["order"] = capo_devops_agent.types.task_sort_order.serialize_json(
+            value["order"]
+        )
     return out
 
 
@@ -65,8 +67,6 @@ def deserialize_json(data: dict) -> ListBacklogTasksRequest:
         )
     if data.get("limit") is not None:
         out["limit"] = data["limit"]
-    else:
-        out["limit"] = 100
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("sortField") is not None:
@@ -81,6 +81,4 @@ def deserialize_json(data: dict) -> ListBacklogTasksRequest:
         out["order"] = capo_devops_agent.types.task_sort_order.deserialize_json(
             data["order"]
         )
-    else:
-        out["order"] = "DESC"
     return out

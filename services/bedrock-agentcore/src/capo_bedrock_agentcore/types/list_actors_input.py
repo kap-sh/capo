@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 class ListActorsInput(TypedDict, closed=True):
     memory_id: "capo_bedrock_agentcore.types.memory_id.MemoryId"
     """<p>The identifier of the AgentCore Memory resource for which to list actors.</p>"""
-    max_results: "capo_bedrock_agentcore.types.max_results.MaxResults"
+    max_results: NotRequired["capo_bedrock_agentcore.types.max_results.MaxResults"]
     """<p>The maximum number of results to return in a single call. The default value is 20.</p>"""
     next_token: NotRequired[
         "capo_bedrock_agentcore.types.pagination_token.PaginationToken"
@@ -24,7 +24,8 @@ class ListActorsInput(TypedDict, closed=True):
 # --- restJson1 ser/de ---
 def serialize_json(value: ListActorsInput) -> dict:
     out: dict = {}
-    out["maxResults"] = value.get("max_results", 100)
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
     return out
@@ -34,8 +35,6 @@ def deserialize_json(data: dict) -> ListActorsInput:
     out: ListActorsInput = {}  # type: ignore[typeddict-item]
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
-    else:
-        out["max_results"] = 100
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

@@ -22,7 +22,7 @@ class RemoveTargetsRequest(TypedDict, closed=True):
     """<p>The name or ARN of the event bus associated with the rule. If you omit this, the default event bus is used.</p>"""
     ids: "capo_eventbridge.types.target_id_list.TargetIdList"
     """<p>The IDs of the targets to remove from the rule.</p>"""
-    force: "capo_eventbridge.types.boolean.Boolean"
+    force: NotRequired["capo_eventbridge.types.boolean.Boolean"]
     """<p>If this is a managed rule, created by an Amazon Web Services service on your behalf, you must specify <code>Force</code> as <code>True</code> to remove targets. This parameter is ignored for rules that are not managed rules. You can check whether a rule is a managed rule by using <code>DescribeRule</code> or <code>ListRules</code> and checking the <code>ManagedBy</code> field of the response.</p>"""
 
 
@@ -37,7 +37,8 @@ def serialize_aws_json_1_1(value: RemoveTargetsRequest) -> dict:
     out["Ids"] = capo_eventbridge.types.target_id_list.serialize_aws_json_1_1(
         value["ids"]
     )
-    out["Force"] = value.get("force", False)
+    if "force" in value:
+        out["Force"] = value["force"]
     return out
 
 
@@ -59,6 +60,4 @@ def deserialize_aws_json_1_1(data: dict) -> RemoveTargetsRequest:
         raise DeserializationError("RemoveTargetsRequest.ids required")
     if data.get("Force") is not None:
         out["force"] = data["Force"]
-    else:
-        out["force"] = False
     return out

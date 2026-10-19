@@ -47,7 +47,7 @@ class CreateCachediSCSIVolumeInput(TypedDict, closed=True):
 def serialize_aws_json_1_1(value: CreateCachediSCSIVolumeInput) -> dict:
     out: dict = {}
     out["GatewayARN"] = value["gateway_arn"]
-    out["VolumeSizeInBytes"] = value.get("volume_size_in_bytes", 0)
+    out["VolumeSizeInBytes"] = value["volume_size_in_bytes"]
     if "snapshot_id" in value:
         out["SnapshotId"] = value["snapshot_id"]
     out["TargetName"] = value["target_name"]
@@ -77,7 +77,9 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCachediSCSIVolumeInput:
     if data.get("VolumeSizeInBytes") is not None:
         out["volume_size_in_bytes"] = data["VolumeSizeInBytes"]
     else:
-        out["volume_size_in_bytes"] = 0
+        raise DeserializationError(
+            "CreateCachediSCSIVolumeInput.volume_size_in_bytes required"
+        )
     if data.get("SnapshotId") is not None:
         out["snapshot_id"] = data["SnapshotId"]
     if data.get("TargetName") is not None:

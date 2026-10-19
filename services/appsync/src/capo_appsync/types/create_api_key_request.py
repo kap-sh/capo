@@ -14,7 +14,7 @@ class CreateApiKeyRequest(TypedDict, closed=True):
     """<p>The ID for your GraphQL API.</p>"""
     description: NotRequired["capo_appsync.types.string.String"]
     """<p>A description of the purpose of the API key.</p>"""
-    expires: "capo_appsync.types.long.Long"
+    expires: NotRequired["capo_appsync.types.long.Long"]
     """<p>From the creation time, the time after which the API key expires. The date is represented as seconds since the epoch, rounded down to the nearest hour. The default value for this parameter is 7 days from creation time. For more information, see .</p>"""
 
 
@@ -23,7 +23,8 @@ def serialize_json(value: CreateApiKeyRequest) -> dict:
     out: dict = {}
     if "description" in value:
         out["description"] = value["description"]
-    out["expires"] = value.get("expires", 0)
+    if "expires" in value:
+        out["expires"] = value["expires"]
     return out
 
 
@@ -33,6 +34,4 @@ def deserialize_json(data: dict) -> CreateApiKeyRequest:
         out["description"] = data["description"]
     if data.get("expires") is not None:
         out["expires"] = data["expires"]
-    else:
-        out["expires"] = 0
     return out

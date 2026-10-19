@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_glue.errors import DeserializationError
 
@@ -17,7 +17,7 @@ class GetJobRunRequest(TypedDict, closed=True):
     """<p>Name of the job definition being run.</p>"""
     run_id: "capo_glue.types.id_string.IdString"
     """<p>The ID of the job run.</p>"""
-    predecessors_included: "capo_glue.types.boolean_value.BooleanValue"
+    predecessors_included: NotRequired["capo_glue.types.boolean_value.BooleanValue"]
     """<p>True if a list of predecessor runs should be returned.</p>"""
 
 
@@ -26,7 +26,8 @@ def serialize_aws_json_1_1(value: GetJobRunRequest) -> dict:
     out: dict = {}
     out["JobName"] = value["job_name"]
     out["RunId"] = value["run_id"]
-    out["PredecessorsIncluded"] = value.get("predecessors_included", False)
+    if "predecessors_included" in value:
+        out["PredecessorsIncluded"] = value["predecessors_included"]
     return out
 
 
@@ -42,6 +43,4 @@ def deserialize_aws_json_1_1(data: dict) -> GetJobRunRequest:
         raise DeserializationError("GetJobRunRequest.run_id required")
     if data.get("PredecessorsIncluded") is not None:
         out["predecessors_included"] = data["PredecessorsIncluded"]
-    else:
-        out["predecessors_included"] = False
     return out

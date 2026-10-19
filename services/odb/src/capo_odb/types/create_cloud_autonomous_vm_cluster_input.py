@@ -43,9 +43,9 @@ class CreateCloudAutonomousVmClusterInput(TypedDict, closed=True):
     """<p>The scheduling details for the maintenance window. Patching and system updates take place during the maintenance window.</p>"""
     memory_per_oracle_compute_unit_in_g_bs: "int"
     """<p>The amount of memory to be allocated per OCPU, in GB.</p>"""
-    scan_listener_port_non_tls: "int"
+    scan_listener_port_non_tls: NotRequired["int"]
     """<p>The SCAN listener port for non-TLS (TCP) protocol.</p>"""
-    scan_listener_port_tls: "int"
+    scan_listener_port_tls: NotRequired["int"]
     """<p>The SCAN listener port for TLS (TCP) protocol.</p>"""
     tags: NotRequired["capo_odb.types.request_tag_map.RequestTagMap"]
     """<p>Free-form tags for this resource. Each tag is a key-value pair with no predefined name, type, or namespace.</p>"""
@@ -101,8 +101,10 @@ def serialize_aws_json_1_0(value: CreateCloudAutonomousVmClusterInput) -> dict:
     out["memoryPerOracleComputeUnitInGBs"] = value[
         "memory_per_oracle_compute_unit_in_g_bs"
     ]
-    out["scanListenerPortNonTls"] = value.get("scan_listener_port_non_tls", 1521)
-    out["scanListenerPortTls"] = value.get("scan_listener_port_tls", 2484)
+    if "scan_listener_port_non_tls" in value:
+        out["scanListenerPortNonTls"] = value["scan_listener_port_non_tls"]
+    if "scan_listener_port_tls" in value:
+        out["scanListenerPortTls"] = value["scan_listener_port_tls"]
     if "tags" in value:
         import capo_odb.types.request_tag_map
 
@@ -185,12 +187,8 @@ def deserialize_aws_json_1_0(data: dict) -> CreateCloudAutonomousVmClusterInput:
         )
     if data.get("scanListenerPortNonTls") is not None:
         out["scan_listener_port_non_tls"] = data["scanListenerPortNonTls"]
-    else:
-        out["scan_listener_port_non_tls"] = 1521
     if data.get("scanListenerPortTls") is not None:
         out["scan_listener_port_tls"] = data["scanListenerPortTls"]
-    else:
-        out["scan_listener_port_tls"] = 2484
     if data.get("tags") is not None:
         import capo_odb.types.request_tag_map
 

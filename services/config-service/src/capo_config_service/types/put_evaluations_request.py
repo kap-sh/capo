@@ -17,7 +17,7 @@ class PutEvaluationsRequest(TypedDict, closed=True):
     """<p>The assessments that the Lambda function performs. Each evaluation identifies an Amazon Web Services resource and indicates whether it complies with the Config rule that invokes the Lambda function.</p>"""
     result_token: "capo_config_service.types.string.String"
     """<p>An encrypted token that associates an evaluation with an Config rule. Identifies the rule and the event that triggered the evaluation.</p>"""
-    test_mode: "capo_config_service.types.boolean.Boolean"
+    test_mode: NotRequired["capo_config_service.types.boolean.Boolean"]
     """<p>Use this parameter to specify a test run for <code>PutEvaluations</code>. You can verify whether your Lambda function will deliver evaluation results to Config. No updates occur to your existing evaluations, and evaluation results are not sent to Config.</p> <note> <p>When <code>TestMode</code> is <code>true</code>, <code>PutEvaluations</code> doesn't require a valid value for the <code>ResultToken</code> parameter, but the value cannot be null.</p> </note>"""
 
 
@@ -33,7 +33,8 @@ def serialize_aws_json_1_1(value: PutEvaluationsRequest) -> dict:
             )
         )
     out["ResultToken"] = value["result_token"]
-    out["TestMode"] = value.get("test_mode", False)
+    if "test_mode" in value:
+        out["TestMode"] = value["test_mode"]
     return out
 
 
@@ -53,6 +54,4 @@ def deserialize_aws_json_1_1(data: dict) -> PutEvaluationsRequest:
         raise DeserializationError("PutEvaluationsRequest.result_token required")
     if data.get("TestMode") is not None:
         out["test_mode"] = data["TestMode"]
-    else:
-        out["test_mode"] = False
     return out

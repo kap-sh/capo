@@ -38,11 +38,15 @@ class UpdateSecurityProfileRequest(TypedDict, closed=True):
         "capo_iot.types.additional_metrics_to_retain_v2_list.AdditionalMetricsToRetainV2List"
     ]
     """<p>A list of metrics whose data is retained (stored). By default, data is retained for any metric used in the profile's behaviors, but it is also retained for any metric specified here. Can be used with custom metrics; cannot be used with dimensions.</p>"""
-    delete_behaviors: "capo_iot.types.delete_behaviors.DeleteBehaviors"
+    delete_behaviors: NotRequired["capo_iot.types.delete_behaviors.DeleteBehaviors"]
     """<p>If true, delete all <code>behaviors</code> defined for this security profile. If any <code>behaviors</code> are defined in the current invocation, an exception occurs.</p>"""
-    delete_alert_targets: "capo_iot.types.delete_alert_targets.DeleteAlertTargets"
+    delete_alert_targets: NotRequired[
+        "capo_iot.types.delete_alert_targets.DeleteAlertTargets"
+    ]
     """<p>If true, delete all <code>alertTargets</code> defined for this security profile. If any <code>alertTargets</code> are defined in the current invocation, an exception occurs.</p>"""
-    delete_additional_metrics_to_retain: "capo_iot.types.delete_additional_metrics_to_retain.DeleteAdditionalMetricsToRetain"
+    delete_additional_metrics_to_retain: NotRequired[
+        "capo_iot.types.delete_additional_metrics_to_retain.DeleteAdditionalMetricsToRetain"
+    ]
     """<p>If true, delete all <code>additionalMetricsToRetain</code> defined for this security profile. If any <code>additionalMetricsToRetain</code> are defined in the current invocation, an exception occurs.</p>"""
     expected_version: NotRequired["capo_iot.types.optional_version.OptionalVersion"]
     """<p>The expected version of the security profile. A new version is generated whenever the security profile is updated. If you specify a value that is different from the actual version, a <code>VersionConflictException</code> is thrown.</p>"""
@@ -50,9 +54,9 @@ class UpdateSecurityProfileRequest(TypedDict, closed=True):
         "capo_iot.types.metrics_export_config.MetricsExportConfig"
     ]
     """<p>Specifies the MQTT topic and role ARN required for metric export.</p>"""
-    delete_metrics_export_config: (
+    delete_metrics_export_config: NotRequired[
         "capo_iot.types.delete_metrics_export_config.DeleteMetricsExportConfig"
-    )
+    ]
     """<p>Set the value as true to delete metrics export related configurations.</p>"""
 
 
@@ -87,11 +91,14 @@ def serialize_json(value: UpdateSecurityProfileRequest) -> dict:
                 value["additional_metrics_to_retain_v2"]
             )
         )
-    out["deleteBehaviors"] = value.get("delete_behaviors", False)
-    out["deleteAlertTargets"] = value.get("delete_alert_targets", False)
-    out["deleteAdditionalMetricsToRetain"] = value.get(
-        "delete_additional_metrics_to_retain", False
-    )
+    if "delete_behaviors" in value:
+        out["deleteBehaviors"] = value["delete_behaviors"]
+    if "delete_alert_targets" in value:
+        out["deleteAlertTargets"] = value["delete_alert_targets"]
+    if "delete_additional_metrics_to_retain" in value:
+        out["deleteAdditionalMetricsToRetain"] = value[
+            "delete_additional_metrics_to_retain"
+        ]
     if "metrics_export_config" in value:
         import capo_iot.types.metrics_export_config
 
@@ -100,7 +107,8 @@ def serialize_json(value: UpdateSecurityProfileRequest) -> dict:
                 value["metrics_export_config"]
             )
         )
-    out["deleteMetricsExportConfig"] = value.get("delete_metrics_export_config", False)
+    if "delete_metrics_export_config" in value:
+        out["deleteMetricsExportConfig"] = value["delete_metrics_export_config"]
     return out
 
 
@@ -136,18 +144,12 @@ def deserialize_json(data: dict) -> UpdateSecurityProfileRequest:
         )
     if data.get("deleteBehaviors") is not None:
         out["delete_behaviors"] = data["deleteBehaviors"]
-    else:
-        out["delete_behaviors"] = False
     if data.get("deleteAlertTargets") is not None:
         out["delete_alert_targets"] = data["deleteAlertTargets"]
-    else:
-        out["delete_alert_targets"] = False
     if data.get("deleteAdditionalMetricsToRetain") is not None:
         out["delete_additional_metrics_to_retain"] = data[
             "deleteAdditionalMetricsToRetain"
         ]
-    else:
-        out["delete_additional_metrics_to_retain"] = False
     if data.get("metricsExportConfig") is not None:
         import capo_iot.types.metrics_export_config
 
@@ -158,6 +160,4 @@ def deserialize_json(data: dict) -> UpdateSecurityProfileRequest:
         )
     if data.get("deleteMetricsExportConfig") is not None:
         out["delete_metrics_export_config"] = data["deleteMetricsExportConfig"]
-    else:
-        out["delete_metrics_export_config"] = False
     return out

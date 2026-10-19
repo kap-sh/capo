@@ -131,18 +131,20 @@ def build_request(
     url = url.replace("{AutomationId}", quote(input_["automation_id"], safe=""))
     url = url.replace("{JobId}", quote(input_["job_id"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(
-        (
-            "includeInputPayload",
-            "true" if input_.get("include_input_payload", False) else "false",
+    if "include_input_payload" in input_:
+        params.append(
+            (
+                "includeInputPayload",
+                "true" if input_["include_input_payload"] else "false",
+            )
         )
-    )
-    params.append(
-        (
-            "includeOutputPayload",
-            "true" if input_.get("include_output_payload", False) else "false",
+    if "include_output_payload" in input_:
+        params.append(
+            (
+                "includeOutputPayload",
+                "true" if input_["include_output_payload"] else "false",
+            )
         )
-    )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

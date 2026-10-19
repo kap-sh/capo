@@ -135,12 +135,13 @@ def build_request(
     params: list[tuple[str, str]] = []
     if "fields" in input_:
         params.append(("fields", input_["fields"]))
-    params.append(
-        (
-            "includeCustomMetadata",
-            "true" if input_.get("include_custom_metadata", False) else "false",
+    if "include_custom_metadata" in input_:
+        params.append(
+            (
+                "includeCustomMetadata",
+                "true" if input_["include_custom_metadata"] else "false",
+            )
         )
-    )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     if "authentication_token" in input_:
         headers["Authentication"] = input_["authentication_token"]

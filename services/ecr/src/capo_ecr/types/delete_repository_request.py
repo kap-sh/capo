@@ -17,7 +17,7 @@ class DeleteRepositoryRequest(TypedDict, closed=True):
     """<p>The Amazon Web Services account ID associated with the registry that contains the repository to delete. If you do not specify a registry, the default registry is assumed.</p>"""
     repository_name: "capo_ecr.types.repository_name.RepositoryName"
     """<p>The name of the repository to delete.</p>"""
-    force: "capo_ecr.types.force_flag.ForceFlag"
+    force: NotRequired["capo_ecr.types.force_flag.ForceFlag"]
     """<p>If true, deleting the repository force deletes the contents of the repository. If false, the repository must be empty before attempting to delete it.</p>"""
 
 
@@ -27,7 +27,8 @@ def serialize_aws_json_1_1(value: DeleteRepositoryRequest) -> dict:
     if "registry_id" in value:
         out["registryId"] = value["registry_id"]
     out["repositoryName"] = value["repository_name"]
-    out["force"] = value.get("force", False)
+    if "force" in value:
+        out["force"] = value["force"]
     return out
 
 
@@ -41,6 +42,4 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteRepositoryRequest:
         raise DeserializationError("DeleteRepositoryRequest.repository_name required")
     if data.get("force") is not None:
         out["force"] = data["force"]
-    else:
-        out["force"] = False
     return out

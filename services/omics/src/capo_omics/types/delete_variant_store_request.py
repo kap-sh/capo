@@ -1,12 +1,12 @@
 """Generated from Smithy shape ``com.amazonaws.omics#DeleteVariantStoreRequest``."""
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 
 class DeleteVariantStoreRequest(TypedDict, closed=True):
     name: "str"
     """<p>The store's name.</p>"""
-    force: "bool"
+    force: NotRequired["bool"]
     """<p>Whether to force deletion.</p>"""
 
 

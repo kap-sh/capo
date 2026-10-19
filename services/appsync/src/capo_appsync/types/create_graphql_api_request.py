@@ -43,7 +43,7 @@ class CreateGraphqlApiRequest(TypedDict, closed=True):
         "capo_appsync.types.additional_authentication_providers.AdditionalAuthenticationProviders"
     ]
     """<p>A list of additional authentication providers for the <code>GraphqlApi</code> API.</p>"""
-    xray_enabled: "capo_appsync.types.boolean.Boolean"
+    xray_enabled: NotRequired["capo_appsync.types.boolean.Boolean"]
     """<p>A flag indicating whether to use X-Ray tracing for the <code>GraphqlApi</code>.</p>"""
     lambda_authorizer_config: NotRequired[
         "capo_appsync.types.lambda_authorizer_config.LambdaAuthorizerConfig"
@@ -63,9 +63,13 @@ class CreateGraphqlApiRequest(TypedDict, closed=True):
         "capo_appsync.types.graph_ql_api_introspection_config.GraphQLApiIntrospectionConfig"
     ]
     """<p>Sets the value of the GraphQL API to enable (<code>ENABLED</code>) or disable (<code>DISABLED</code>) introspection. If no value is provided, the introspection configuration will be set to <code>ENABLED</code> by default. This field will produce an error if the operation attempts to use the introspection feature while this field is disabled.</p> <p>For more information about introspection, see <a href="https://graphql.org/learn/introspection/">GraphQL introspection</a>.</p>"""
-    query_depth_limit: "capo_appsync.types.query_depth_limit.QueryDepthLimit"
+    query_depth_limit: NotRequired[
+        "capo_appsync.types.query_depth_limit.QueryDepthLimit"
+    ]
     """<p>The maximum depth a query can have in a single request. Depth refers to the amount of nested levels allowed in the body of query. The default value is <code>0</code> (or unspecified), which indicates there's no depth limit. If you set a limit, it can be between <code>1</code> and <code>75</code> nested levels. This field will produce a limit error if the operation falls out of bounds.</p> <p>Note that fields can still be set to nullable or non-nullable. If a non-nullable field produces an error, the error will be thrown upwards to the first nullable field available.</p>"""
-    resolver_count_limit: "capo_appsync.types.resolver_count_limit.ResolverCountLimit"
+    resolver_count_limit: NotRequired[
+        "capo_appsync.types.resolver_count_limit.ResolverCountLimit"
+    ]
     """<p>The maximum number of resolvers that can be invoked in a single request. The default value is <code>0</code> (or unspecified), which will set the limit to <code>10000</code>. When specified, the limit value can be between <code>1</code> and <code>10000</code>. This field will produce a limit error if the operation falls out of bounds.</p>"""
     enhanced_metrics_config: NotRequired[
         "capo_appsync.types.enhanced_metrics_config.EnhancedMetricsConfig"
@@ -114,7 +118,8 @@ def serialize_json(value: CreateGraphqlApiRequest) -> dict:
                 value["additional_authentication_providers"]
             )
         )
-    out["xrayEnabled"] = value.get("xray_enabled", False)
+    if "xray_enabled" in value:
+        out["xrayEnabled"] = value["xray_enabled"]
     if "lambda_authorizer_config" in value:
         import capo_appsync.types.lambda_authorizer_config
 
@@ -147,8 +152,10 @@ def serialize_json(value: CreateGraphqlApiRequest) -> dict:
                 value["introspection_config"]
             )
         )
-    out["queryDepthLimit"] = value.get("query_depth_limit", 0)
-    out["resolverCountLimit"] = value.get("resolver_count_limit", 0)
+    if "query_depth_limit" in value:
+        out["queryDepthLimit"] = value["query_depth_limit"]
+    if "resolver_count_limit" in value:
+        out["resolverCountLimit"] = value["resolver_count_limit"]
     if "enhanced_metrics_config" in value:
         import capo_appsync.types.enhanced_metrics_config
 
@@ -212,8 +219,6 @@ def deserialize_json(data: dict) -> CreateGraphqlApiRequest:
         )
     if data.get("xrayEnabled") is not None:
         out["xray_enabled"] = data["xrayEnabled"]
-    else:
-        out["xray_enabled"] = False
     if data.get("lambdaAuthorizerConfig") is not None:
         import capo_appsync.types.lambda_authorizer_config
 
@@ -248,12 +253,8 @@ def deserialize_json(data: dict) -> CreateGraphqlApiRequest:
         )
     if data.get("queryDepthLimit") is not None:
         out["query_depth_limit"] = data["queryDepthLimit"]
-    else:
-        out["query_depth_limit"] = 0
     if data.get("resolverCountLimit") is not None:
         out["resolver_count_limit"] = data["resolverCountLimit"]
-    else:
-        out["resolver_count_limit"] = 0
     if data.get("enhancedMetricsConfig") is not None:
         import capo_appsync.types.enhanced_metrics_config
 

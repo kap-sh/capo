@@ -55,7 +55,7 @@ def serialize_json(value: CreateDlpSettingRequest) -> dict:
     out["ProviderOutageAction"] = capo_quicksight.types.dlp_action.serialize_json(
         value["provider_outage_action"]
     )
-    out["Enabled"] = value.get("enabled", False)
+    out["Enabled"] = value["enabled"]
     if "tags" in value:
         import capo_quicksight.types.tag_list
 
@@ -100,7 +100,7 @@ def deserialize_json(data: dict) -> CreateDlpSettingRequest:
     if data.get("Enabled") is not None:
         out["enabled"] = data["Enabled"]
     else:
-        out["enabled"] = False
+        raise DeserializationError("CreateDlpSettingRequest.enabled required")
     if data.get("Tags") is not None:
         import capo_quicksight.types.tag_list
 

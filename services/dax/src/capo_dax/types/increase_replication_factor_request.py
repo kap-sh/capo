@@ -27,7 +27,7 @@ class IncreaseReplicationFactorRequest(TypedDict, closed=True):
 def serialize_aws_json_1_1(value: IncreaseReplicationFactorRequest) -> dict:
     out: dict = {}
     out["ClusterName"] = value["cluster_name"]
-    out["NewReplicationFactor"] = value.get("new_replication_factor", 0)
+    out["NewReplicationFactor"] = value["new_replication_factor"]
     if "availability_zones" in value:
         import capo_dax.types.availability_zone_list
 
@@ -50,7 +50,9 @@ def deserialize_aws_json_1_1(data: dict) -> IncreaseReplicationFactorRequest:
     if data.get("NewReplicationFactor") is not None:
         out["new_replication_factor"] = data["NewReplicationFactor"]
     else:
-        out["new_replication_factor"] = 0
+        raise DeserializationError(
+            "IncreaseReplicationFactorRequest.new_replication_factor required"
+        )
     if data.get("AvailabilityZones") is not None:
         import capo_dax.types.availability_zone_list
 

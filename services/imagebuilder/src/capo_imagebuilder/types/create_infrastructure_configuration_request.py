@@ -75,7 +75,7 @@ class CreateInfrastructureConfigurationRequest(TypedDict, closed=True):
     """<p>The Amazon EC2 Auto Scaling group that Image Builder takes the build instance from, instead of launching a new instance. This applies only to the build phase.</p> <p>To use this feature, the execution role for the build must have permissions to describe the Auto Scaling group, tag the instance while it's still in the group, and detach it from the group. For more information, see <a href="https://docs.aws.amazon.com/imagebuilder/latest/userguide/infra-config-parent-instance.html">Build on an instance from an Auto Scaling group</a> in the <i>EC2 Image Builder User Guide</i>.</p>"""
     client_token: "capo_imagebuilder.types.client_token.ClientToken"
     """<p>A unique, case-sensitive identifier you provide to ensure that the operation runs no more than one time. If you retry a request with the same client token, Image Builder returns the original response without running the operation again. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a> in the <i>Amazon EC2 API Reference</i>.</p>"""
-    dry_run: "capo_imagebuilder.types.boolean.Boolean"
+    dry_run: NotRequired["capo_imagebuilder.types.boolean.Boolean"]
     """<p>Validates the required permissions and request parameters without performing the operation. If validation succeeds, the operation returns a <code>DryRunOperationException</code> error response.</p>"""
 
 
@@ -151,7 +151,8 @@ def serialize_json(value: CreateInfrastructureConfigurationRequest) -> dict:
             )
         )
     out["clientToken"] = value["client_token"]
-    out["dryRun"] = value.get("dry_run", False)
+    if "dry_run" in value:
+        out["dryRun"] = value["dry_run"]
     return out
 
 
@@ -245,6 +246,4 @@ def deserialize_json(data: dict) -> CreateInfrastructureConfigurationRequest:
         )
     if data.get("dryRun") is not None:
         out["dry_run"] = data["dryRun"]
-    else:
-        out["dry_run"] = False
     return out

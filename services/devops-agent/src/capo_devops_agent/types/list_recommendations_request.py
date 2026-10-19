@@ -29,7 +29,7 @@ class ListRecommendationsRequest(TypedDict, closed=True):
         "capo_devops_agent.types.recommendation_priority.RecommendationPriority"
     ]
     """<p>Optional priority to filter recommendations by priority level</p>"""
-    limit: "int"
+    limit: NotRequired["int"]
     """<p>Maximum number of recommendations to return in a single response</p>"""
     next_token: NotRequired["capo_devops_agent.types.next_token.NextToken"]
     """<p>Token for retrieving the next page of results</p>"""
@@ -56,7 +56,8 @@ def serialize_json(value: ListRecommendationsRequest) -> dict:
                 value["priority"]
             )
         )
-    out["limit"] = value.get("limit", 50)
+    if "limit" in value:
+        out["limit"] = value["limit"]
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
     return out
@@ -84,8 +85,6 @@ def deserialize_json(data: dict) -> ListRecommendationsRequest:
         )
     if data.get("limit") is not None:
         out["limit"] = data["limit"]
-    else:
-        out["limit"] = 50
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

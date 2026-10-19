@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_observabilityadmin.errors import DeserializationError
 
@@ -17,7 +17,7 @@ class TestTelemetryPipelineInput(TypedDict, closed=True):
     """<p>The sample records to process through the pipeline configuration for testing purposes.</p>"""
     configuration: "capo_observabilityadmin.types.telemetry_pipeline_configuration.TelemetryPipelineConfiguration"
     """<p>The pipeline configuration to test with the provided sample records.</p>"""
-    signal_type: "capo_observabilityadmin.types.signal_type.SignalType"
+    signal_type: NotRequired["capo_observabilityadmin.types.signal_type.SignalType"]
     """<p>The type of telemetry signal to test. If not specified, defaults to log processing.</p>"""
 
 
@@ -36,11 +36,12 @@ def serialize_json(value: TestTelemetryPipelineInput) -> dict:
             value["configuration"]
         )
     )
-    import capo_observabilityadmin.types.signal_type
+    if "signal_type" in value:
+        import capo_observabilityadmin.types.signal_type
 
-    out["SignalType"] = capo_observabilityadmin.types.signal_type.serialize_json(
-        value.get("signal_type", "LOG")
-    )
+        out["SignalType"] = capo_observabilityadmin.types.signal_type.serialize_json(
+            value["signal_type"]
+        )
     return out
 
 
@@ -70,6 +71,4 @@ def deserialize_json(data: dict) -> TestTelemetryPipelineInput:
         out["signal_type"] = capo_observabilityadmin.types.signal_type.deserialize_json(
             data["SignalType"]
         )
-    else:
-        out["signal_type"] = "LOG"
     return out

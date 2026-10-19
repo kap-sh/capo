@@ -129,7 +129,8 @@ def build_request(
     params: list[tuple[str, str]] = []
     if "id" in input_:
         params.append(("id", input_["id"]))
-    params.append(("maxResults", str(input_.get("max_results", 0))))
+    if "max_results" in input_:
+        params.append(("maxResults", str(input_["max_results"])))
     if "next_token" in input_:
         params.append(("nextToken", input_["next_token"]))
     if "status" in input_:

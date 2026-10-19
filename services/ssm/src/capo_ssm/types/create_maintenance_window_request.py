@@ -73,8 +73,8 @@ def serialize_aws_json_1_1(value: CreateMaintenanceWindowRequest) -> dict:
     if "schedule_offset" in value:
         out["ScheduleOffset"] = value["schedule_offset"]
     out["Duration"] = value["duration"]
-    out["Cutoff"] = value.get("cutoff", 0)
-    out["AllowUnassociatedTargets"] = value.get("allow_unassociated_targets", False)
+    out["Cutoff"] = value["cutoff"]
+    out["AllowUnassociatedTargets"] = value["allow_unassociated_targets"]
     if "client_token" in value:
         out["ClientToken"] = value["client_token"]
     if "tags" in value:
@@ -111,11 +111,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreateMaintenanceWindowRequest:
     if data.get("Cutoff") is not None:
         out["cutoff"] = data["Cutoff"]
     else:
-        out["cutoff"] = 0
+        raise DeserializationError("CreateMaintenanceWindowRequest.cutoff required")
     if data.get("AllowUnassociatedTargets") is not None:
         out["allow_unassociated_targets"] = data["AllowUnassociatedTargets"]
     else:
-        out["allow_unassociated_targets"] = False
+        raise DeserializationError(
+            "CreateMaintenanceWindowRequest.allow_unassociated_targets required"
+        )
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("Tags") is not None:

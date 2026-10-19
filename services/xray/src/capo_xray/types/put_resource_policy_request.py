@@ -22,7 +22,7 @@ class PutResourcePolicyRequest(TypedDict, closed=True):
         "capo_xray.types.policy_revision_id.PolicyRevisionId"
     ]
     """<p>Specifies a specific policy revision, to ensure an atomic create operation. By default the resource policy is created if it does not exist, or updated with an incremented revision id. The revision id is unique to each policy in the account.</p> <p>If the policy revision id does not match the latest revision id, the operation will fail with an <code>InvalidPolicyRevisionIdException</code> exception. You can also provide a <code>PolicyRevisionId</code> of 0. In this case, the operation will fail with an <code>InvalidPolicyRevisionIdException</code> exception if a resource policy with the same name already exists. </p>"""
-    bypass_policy_lockout_check: "capo_xray.types.boolean.Boolean"
+    bypass_policy_lockout_check: NotRequired["capo_xray.types.boolean.Boolean"]
     """<p>A flag to indicate whether to bypass the resource policy lockout safety check.</p> <important> <p>Setting this value to true increases the risk that the policy becomes unmanageable. Do not set this value to true indiscriminately.</p> </important> <p>Use this parameter only when you include a policy in the request and you intend to prevent the principal that is making the request from making a subsequent <code>PutResourcePolicy</code> request.</p> <p>The default value is false.</p>"""
 
 
@@ -33,7 +33,8 @@ def serialize_json(value: PutResourcePolicyRequest) -> dict:
     out["PolicyDocument"] = value["policy_document"]
     if "policy_revision_id" in value:
         out["PolicyRevisionId"] = value["policy_revision_id"]
-    out["BypassPolicyLockoutCheck"] = value.get("bypass_policy_lockout_check", False)
+    if "bypass_policy_lockout_check" in value:
+        out["BypassPolicyLockoutCheck"] = value["bypass_policy_lockout_check"]
     return out
 
 
@@ -51,6 +52,4 @@ def deserialize_json(data: dict) -> PutResourcePolicyRequest:
         out["policy_revision_id"] = data["PolicyRevisionId"]
     if data.get("BypassPolicyLockoutCheck") is not None:
         out["bypass_policy_lockout_check"] = data["BypassPolicyLockoutCheck"]
-    else:
-        out["bypass_policy_lockout_check"] = False
     return out

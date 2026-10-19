@@ -45,7 +45,7 @@ class CreateResolverRequest(TypedDict, closed=True):
     """<p>The <code>SyncConfig</code> for a resolver attached to a versioned data source.</p>"""
     caching_config: NotRequired["capo_appsync.types.caching_config.CachingConfig"]
     """<p>The caching configuration for the resolver.</p>"""
-    max_batch_size: "capo_appsync.types.max_batch_size.MaxBatchSize"
+    max_batch_size: NotRequired["capo_appsync.types.max_batch_size.MaxBatchSize"]
     """<p>The maximum batching size for a resolver.</p>"""
     runtime: NotRequired["capo_appsync.types.app_sync_runtime.AppSyncRuntime"]
     code: NotRequired["capo_appsync.types.code.Code"]
@@ -88,7 +88,8 @@ def serialize_json(value: CreateResolverRequest) -> dict:
         out["cachingConfig"] = capo_appsync.types.caching_config.serialize_json(
             value["caching_config"]
         )
-    out["maxBatchSize"] = value.get("max_batch_size", 0)
+    if "max_batch_size" in value:
+        out["maxBatchSize"] = value["max_batch_size"]
     if "runtime" in value:
         import capo_appsync.types.app_sync_runtime
 
@@ -144,8 +145,6 @@ def deserialize_json(data: dict) -> CreateResolverRequest:
         )
     if data.get("maxBatchSize") is not None:
         out["max_batch_size"] = data["maxBatchSize"]
-    else:
-        out["max_batch_size"] = 0
     if data.get("runtime") is not None:
         import capo_appsync.types.app_sync_runtime
 

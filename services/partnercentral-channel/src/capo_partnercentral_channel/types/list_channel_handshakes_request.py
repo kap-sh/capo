@@ -26,7 +26,7 @@ class ListChannelHandshakesRequest(TypedDict, closed=True):
         "capo_partnercentral_channel.types.participant_type.ParticipantType"
     )
     """<p>Filter by participant type (sender or receiver).</p>"""
-    max_results: "int"
+    max_results: NotRequired["int"]
     """<p>The maximum number of results to return in a single call.</p>"""
     statuses: NotRequired[
         "capo_partnercentral_channel.types.handshake_status_list.HandshakeStatusList"
@@ -66,7 +66,8 @@ def serialize_aws_json_1_0(value: ListChannelHandshakesRequest) -> dict:
             value["participant_type"]
         )
     )
-    out["maxResults"] = value.get("max_results", 20)
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
     if "statuses" in value:
         import capo_partnercentral_channel.types.handshake_status_list
 
@@ -136,8 +137,6 @@ def deserialize_aws_json_1_0(data: dict) -> ListChannelHandshakesRequest:
         )
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
-    else:
-        out["max_results"] = 20
     if data.get("statuses") is not None:
         import capo_partnercentral_channel.types.handshake_status_list
 

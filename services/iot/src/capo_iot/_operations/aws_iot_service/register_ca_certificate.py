@@ -144,15 +144,15 @@ def build_request(
     )  # noqa: F841
     url = endpoint.url.rstrip("/") + "/cacertificate"
     params: list[tuple[str, str]] = []
-    params.append(
-        ("setAsActive", "true" if input_.get("set_as_active", False) else "false")
-    )
-    params.append(
-        (
-            "allowAutoRegistration",
-            "true" if input_.get("allow_auto_registration", False) else "false",
+    if "set_as_active" in input_:
+        params.append(("setAsActive", "true" if input_["set_as_active"] else "false"))
+    if "allow_auto_registration" in input_:
+        params.append(
+            (
+                "allowAutoRegistration",
+                "true" if input_["allow_auto_registration"] else "false",
+            )
         )
-    )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = json.dumps(
         capo_iot.types.register_ca_certificate_request.serialize_json(input_),

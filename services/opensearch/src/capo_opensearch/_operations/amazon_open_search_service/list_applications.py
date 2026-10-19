@@ -139,7 +139,8 @@ def build_request(
                     capo_opensearch.types.application_status.serialize_json(item),
                 )
             )
-    params.append(("maxResults", str(input_.get("max_results", 0))))
+    if "max_results" in input_:
+        params.append(("maxResults", str(input_["max_results"])))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

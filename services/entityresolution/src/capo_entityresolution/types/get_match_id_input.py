@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING, Any
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_entityresolution.errors import DeserializationError
 
@@ -16,7 +16,7 @@ class GetMatchIdInput(TypedDict, closed=True):
     """<p>The name of the workflow.</p>"""
     record: "capo_entityresolution.types.record_attribute_map.RecordAttributeMap"
     """<p>The record to fetch the Match ID for.</p>"""
-    apply_normalization: "bool"
+    apply_normalization: NotRequired["bool"]
     """<p>Normalizes the attributes defined in the schema in the input data. For example, if an attribute has an <code>AttributeType</code> of <code>PHONE_NUMBER</code>, and the data in the input table is in a format of 1234567890, Entity Resolution will normalize this field in the output to (123)-456-7890.</p>"""
 
 
@@ -28,7 +28,8 @@ def serialize_json(value: GetMatchIdInput) -> dict:
     out["record"] = capo_entityresolution.types.record_attribute_map.serialize_json(
         value["record"]
     )
-    out["applyNormalization"] = value.get("apply_normalization", True)
+    if "apply_normalization" in value:
+        out["applyNormalization"] = value["apply_normalization"]
     return out
 
 
@@ -46,8 +47,6 @@ def deserialize_json(data: dict) -> GetMatchIdInput:
         raise DeserializationError("GetMatchIdInput.record required")
     if data.get("applyNormalization") is not None:
         out["apply_normalization"] = data["applyNormalization"]
-    else:
-        out["apply_normalization"] = True
     return out
 
 

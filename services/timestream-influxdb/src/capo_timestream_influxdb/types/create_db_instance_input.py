@@ -75,7 +75,7 @@ class CreateDbInstanceInput(TypedDict, closed=True):
     """<p>Specifies the maintenance schedule for the DB instance, including the preferred maintenance window and timezone.</p>"""
     tags: NotRequired["capo_timestream_influxdb.types.request_tag_map.RequestTagMap"]
     """<p>A list of key-value pairs to associate with the DB instance.</p>"""
-    port: "capo_timestream_influxdb.types.port.Port"
+    port: NotRequired["capo_timestream_influxdb.types.port.Port"]
     """<p>The port number on which InfluxDB accepts connections.</p> <p>Valid Values: 1024-65535</p> <p>Default: 8086</p> <p>Constraints: The value can't be 2375-2376, 7788-7799, 8090, or 51678-51680</p>"""
     network_type: NotRequired["capo_timestream_influxdb.types.network_type.NetworkType"]
     """<p>Specifies whether the networkType of the Timestream for InfluxDB instance is IPV4, which can communicate over IPv4 protocol only, or DUAL, which can communicate over both IPv4 and IPv6 protocols.</p>"""
@@ -164,7 +164,8 @@ def serialize_aws_json_1_0(value: CreateDbInstanceInput) -> dict:
                 value["tags"]
             )
         )
-    out["port"] = value.get("port", 8086)
+    if "port" in value:
+        out["port"] = value["port"]
     if "network_type" in value:
         import capo_timestream_influxdb.types.network_type
 
@@ -284,8 +285,6 @@ def deserialize_aws_json_1_0(data: dict) -> CreateDbInstanceInput:
         )
     if data.get("port") is not None:
         out["port"] = data["port"]
-    else:
-        out["port"] = 8086
     if data.get("networkType") is not None:
         import capo_timestream_influxdb.types.network_type
 

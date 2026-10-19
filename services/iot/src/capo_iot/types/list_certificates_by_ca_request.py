@@ -18,7 +18,7 @@ class ListCertificatesByCARequest(TypedDict, closed=True):
     """<p>The result page size.</p>"""
     marker: NotRequired["capo_iot.types.marker.Marker"]
     """<p>The marker for the next set of results.</p>"""
-    ascending_order: "capo_iot.types.ascending_order.AscendingOrder"
+    ascending_order: NotRequired["capo_iot.types.ascending_order.AscendingOrder"]
     """<p>Specifies the order for results. If True, the results are returned in ascending order, based on the creation date.</p>"""
 
 

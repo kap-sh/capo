@@ -125,7 +125,8 @@ def build_request(
     if "keys" in input_:
         for item in input_["keys"]:
             params.append(("keys", item))
-    params.append(("deleteAll", "true" if input_.get("delete_all", False) else "false"))
+    if "delete_all" in input_:
+        params.append(("deleteAll", "true" if input_["delete_all"] else "false"))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     if "authentication_token" in input_:
         headers["Authentication"] = input_["authentication_token"]

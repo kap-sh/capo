@@ -36,7 +36,9 @@ class CreateRuleInput(TypedDict, closed=True):
     """<p>A description of the rule.</p>"""
     configuration: "capo_network_security_manager.types.json_document.JsonDocument"
     """<p>The firewall configuration for the rule, as a JSON document. The structure depends on the rule's firewall type and rule type. For an AWS WAF <code>INSPECTION</code> rule, provide an AWS WAF rule group. For an AWS WAF <code>CONFIGURATION</code> rule, provide a single web ACL setting, such as <code>DefaultAction</code> or <code>VisibilityConfig</code>; use <code>wafConfigDataType</code> to declare which setting the document contains. For the schema of each setting and complete examples, see <a href="https://docs.aws.amazon.com/network-security-manager/latest/devguide/what-is.html">Writing rule configurations</a> in the <i>AWS Network Security Manager Developer Guide</i>.</p>"""
-    is_published: "capo_network_security_manager.types.is_published.IsPublished"
+    is_published: NotRequired[
+        "capo_network_security_manager.types.is_published.IsPublished"
+    ]
     """<p>Specifies whether to publish the resource. When <code>true</code>, the resource is saved in published (<code>ACTIVE</code>) state. When <code>false</code>, it is saved as a draft (<code>DRAFT</code>). Default: <code>true</code>.</p>"""
     tags: NotRequired["capo_network_security_manager.types.tag_map.TagMap"]
     """<p>The tags to add to the resource when it is created.</p>"""
@@ -63,7 +65,8 @@ def serialize_json(value: CreateRuleInput) -> dict:
     if "rule_description" in value:
         out["ruleDescription"] = value["rule_description"]
     out["configuration"] = value["configuration"]
-    out["isPublished"] = value.get("is_published", True)
+    if "is_published" in value:
+        out["isPublished"] = value["is_published"]
     if "tags" in value:
         import capo_network_security_manager.types.tag_map
 
@@ -109,8 +112,6 @@ def deserialize_json(data: dict) -> CreateRuleInput:
         raise DeserializationError("CreateRuleInput.configuration required")
     if data.get("isPublished") is not None:
         out["is_published"] = data["isPublished"]
-    else:
-        out["is_published"] = True
     if data.get("tags") is not None:
         import capo_network_security_manager.types.tag_map
 

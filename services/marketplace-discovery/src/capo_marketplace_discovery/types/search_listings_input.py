@@ -23,13 +23,15 @@ class SearchListingsInput(TypedDict, closed=True):
         "capo_marketplace_discovery.types.search_filter_list.SearchFilterList"
     ]
     """<p>Filters to narrow search results. Multiple filters are combined with AND logic. Multiple values within the same filter are combined with OR logic.</p>"""
-    max_results: "capo_marketplace_discovery.types.max_results.MaxResults"
+    max_results: NotRequired["capo_marketplace_discovery.types.max_results.MaxResults"]
     """<p>The maximum number of results that are returned per call. You can use <code>nextToken</code> to get more results.</p>"""
-    sort_by: (
+    sort_by: NotRequired[
         "capo_marketplace_discovery.types.search_listings_sort_by.SearchListingsSortBy"
-    )
+    ]
     """<p>The field to sort results by. Valid values are <code>RELEVANCE</code> and <code>AVERAGE_CUSTOMER_RATING</code>.</p>"""
-    sort_order: "capo_marketplace_discovery.types.search_listings_sort_order.SearchListingsSortOrder"
+    sort_order: NotRequired[
+        "capo_marketplace_discovery.types.search_listings_sort_order.SearchListingsSortOrder"
+    ]
     """<p>The sort direction. Valid values are <code>DESCENDING</code> and <code>ASCENDING</code>.</p>"""
     next_token: NotRequired["capo_marketplace_discovery.types.next_token.NextToken"]
     """<p>If <code>nextToken</code> is returned, there are more results available. Make the call again using the returned token to retrieve the next page.</p>"""
@@ -50,21 +52,24 @@ def serialize_json(value: SearchListingsInput) -> dict:
                 value["filters"]
             )
         )
-    out["maxResults"] = value.get("max_results", 25)
-    import capo_marketplace_discovery.types.search_listings_sort_by
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "sort_by" in value:
+        import capo_marketplace_discovery.types.search_listings_sort_by
 
-    out["sortBy"] = (
-        capo_marketplace_discovery.types.search_listings_sort_by.serialize_json(
-            value.get("sort_by", "RELEVANCE")
+        out["sortBy"] = (
+            capo_marketplace_discovery.types.search_listings_sort_by.serialize_json(
+                value["sort_by"]
+            )
         )
-    )
-    import capo_marketplace_discovery.types.search_listings_sort_order
+    if "sort_order" in value:
+        import capo_marketplace_discovery.types.search_listings_sort_order
 
-    out["sortOrder"] = (
-        capo_marketplace_discovery.types.search_listings_sort_order.serialize_json(
-            value.get("sort_order", "DESCENDING")
+        out["sortOrder"] = (
+            capo_marketplace_discovery.types.search_listings_sort_order.serialize_json(
+                value["sort_order"]
+            )
         )
-    )
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
     return out
@@ -86,8 +91,6 @@ def deserialize_json(data: dict) -> SearchListingsInput:
         )
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
-    else:
-        out["max_results"] = 25
     if data.get("sortBy") is not None:
         import capo_marketplace_discovery.types.search_listings_sort_by
 
@@ -96,8 +99,6 @@ def deserialize_json(data: dict) -> SearchListingsInput:
                 data["sortBy"]
             )
         )
-    else:
-        out["sort_by"] = "RELEVANCE"
     if data.get("sortOrder") is not None:
         import capo_marketplace_discovery.types.search_listings_sort_order
 
@@ -106,8 +107,6 @@ def deserialize_json(data: dict) -> SearchListingsInput:
                 data["sortOrder"]
             )
         )
-    else:
-        out["sort_order"] = "DESCENDING"
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

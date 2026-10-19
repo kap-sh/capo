@@ -16,9 +16,9 @@ class CreateApiKeyRequest(TypedDict, closed=True):
     """<p>The name of the ApiKey.</p>"""
     description: NotRequired["capo_api_gateway.types.string.String"]
     """<p>The description of the ApiKey.</p>"""
-    enabled: "capo_api_gateway.types.boolean.Boolean"
+    enabled: NotRequired["capo_api_gateway.types.boolean.Boolean"]
     """<p>Specifies whether the ApiKey can be used by callers.</p>"""
-    generate_distinct_id: "capo_api_gateway.types.boolean.Boolean"
+    generate_distinct_id: NotRequired["capo_api_gateway.types.boolean.Boolean"]
     """<p>Specifies whether (<code>true</code>) or not (<code>false</code>) the key identifier is distinct from the created API key value. This parameter is deprecated and should not be used.</p>"""
     value: NotRequired["capo_api_gateway.types.string.String"]
     """<p>Specifies a value of the API key.</p>"""
@@ -39,8 +39,10 @@ def serialize_json(value: CreateApiKeyRequest) -> dict:
         out["name"] = value["name"]
     if "description" in value:
         out["description"] = value["description"]
-    out["enabled"] = value.get("enabled", False)
-    out["generateDistinctId"] = value.get("generate_distinct_id", False)
+    if "enabled" in value:
+        out["enabled"] = value["enabled"]
+    if "generate_distinct_id" in value:
+        out["generateDistinctId"] = value["generate_distinct_id"]
     if "value" in value:
         out["value"] = value["value"]
     if "stage_keys" in value:
@@ -68,12 +70,8 @@ def deserialize_json(data: dict) -> CreateApiKeyRequest:
         out["description"] = data["description"]
     if data.get("enabled") is not None:
         out["enabled"] = data["enabled"]
-    else:
-        out["enabled"] = False
     if data.get("generateDistinctId") is not None:
         out["generate_distinct_id"] = data["generateDistinctId"]
-    else:
-        out["generate_distinct_id"] = False
     if data.get("value") is not None:
         out["value"] = data["value"]
     if data.get("stageKeys") is not None:

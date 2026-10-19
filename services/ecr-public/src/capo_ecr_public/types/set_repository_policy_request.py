@@ -20,7 +20,7 @@ class SetRepositoryPolicyRequest(TypedDict, closed=True):
     """<p>The name of the repository to receive the policy.</p>"""
     policy_text: "capo_ecr_public.types.repository_policy_text.RepositoryPolicyText"
     """<p>The JSON repository policy text to apply to the repository. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-policy-examples.html">Amazon ECR Repository Policies</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>"""
-    force: "capo_ecr_public.types.force_flag.ForceFlag"
+    force: NotRequired["capo_ecr_public.types.force_flag.ForceFlag"]
     """<p>If the policy that you want to set on a repository policy would prevent you from setting another policy in the future, you must force the <a>SetRepositoryPolicy</a> operation. This prevents accidental repository lockouts.</p>"""
 
 
@@ -31,7 +31,8 @@ def serialize_aws_json_1_1(value: SetRepositoryPolicyRequest) -> dict:
         out["registryId"] = value["registry_id"]
     out["repositoryName"] = value["repository_name"]
     out["policyText"] = value["policy_text"]
-    out["force"] = value.get("force", False)
+    if "force" in value:
+        out["force"] = value["force"]
     return out
 
 
@@ -51,6 +52,4 @@ def deserialize_aws_json_1_1(data: dict) -> SetRepositoryPolicyRequest:
         raise DeserializationError("SetRepositoryPolicyRequest.policy_text required")
     if data.get("force") is not None:
         out["force"] = data["force"]
-    else:
-        out["force"] = False
     return out

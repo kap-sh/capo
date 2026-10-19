@@ -23,7 +23,7 @@ class CreateContactRequest(TypedDict, closed=True):
         "capo_sesv2.types.topic_preference_list.TopicPreferenceList"
     ]
     """<p>The contact's preferences for being opted-in to or opted-out of topics.</p>"""
-    unsubscribe_all: "capo_sesv2.types.unsubscribe_all.UnsubscribeAll"
+    unsubscribe_all: NotRequired["capo_sesv2.types.unsubscribe_all.UnsubscribeAll"]
     """<p>A boolean value status noting if the contact is unsubscribed from all contact list topics.</p>"""
     attributes_data: NotRequired["capo_sesv2.types.attributes_data.AttributesData"]
     """<p>The attribute data attached to a contact.</p>"""
@@ -39,7 +39,8 @@ def serialize_json(value: CreateContactRequest) -> dict:
         out["TopicPreferences"] = capo_sesv2.types.topic_preference_list.serialize_json(
             value["topic_preferences"]
         )
-    out["UnsubscribeAll"] = value.get("unsubscribe_all", False)
+    if "unsubscribe_all" in value:
+        out["UnsubscribeAll"] = value["unsubscribe_all"]
     if "attributes_data" in value:
         out["AttributesData"] = value["attributes_data"]
     return out
@@ -61,8 +62,6 @@ def deserialize_json(data: dict) -> CreateContactRequest:
         )
     if data.get("UnsubscribeAll") is not None:
         out["unsubscribe_all"] = data["UnsubscribeAll"]
-    else:
-        out["unsubscribe_all"] = False
     if data.get("AttributesData") is not None:
         out["attributes_data"] = data["AttributesData"]
     return out

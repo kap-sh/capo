@@ -26,15 +26,17 @@ class CreateDNSViewInput(TypedDict, closed=True):
     """<p>A unique string that identifies the request and ensures idempotency.</p>"""
     name: "capo_route53globalresolver.types.resource_name.ResourceName"
     """<p>A descriptive name for the DNS view.</p>"""
-    dnssec_validation: (
+    dnssec_validation: NotRequired[
         "capo_route53globalresolver.types.dns_sec_validation_type.DnsSecValidationType"
-    )
+    ]
     """<p>Whether to enable DNSSEC validation for DNS queries in this DNS view. When enabled, the resolver verifies the authenticity and integrity of DNS responses from public name servers for DNSSEC-signed domains.</p>"""
-    edns_client_subnet: (
+    edns_client_subnet: NotRequired[
         "capo_route53globalresolver.types.edns_client_subnet_type.EdnsClientSubnetType"
-    )
+    ]
     """<p>Whether to enable EDNS Client Subnet injection for DNS queries in this DNS view. When enabled, client subnet information is forwarded to provide more accurate geographic-based DNS responses.</p>"""
-    firewall_rules_fail_open: "capo_route53globalresolver.types.firewall_rules_fail_open_type.FirewallRulesFailOpenType"
+    firewall_rules_fail_open: NotRequired[
+        "capo_route53globalresolver.types.firewall_rules_fail_open_type.FirewallRulesFailOpenType"
+    ]
     """<p>Determines the behavior when Route 53 Global Resolver cannot apply DNS firewall rules due to service impairment. When enabled, DNS queries are allowed through; when disabled, queries are blocked.</p>"""
     description: NotRequired[
         "capo_route53globalresolver.types.resource_description.ResourceDescription"
@@ -50,27 +52,30 @@ def serialize_json(value: CreateDNSViewInput) -> dict:
     if "client_token" in value:
         out["clientToken"] = value["client_token"]
     out["name"] = value["name"]
-    import capo_route53globalresolver.types.dns_sec_validation_type
+    if "dnssec_validation" in value:
+        import capo_route53globalresolver.types.dns_sec_validation_type
 
-    out["dnssecValidation"] = (
-        capo_route53globalresolver.types.dns_sec_validation_type.serialize_json(
-            value.get("dnssec_validation", "DISABLED")
+        out["dnssecValidation"] = (
+            capo_route53globalresolver.types.dns_sec_validation_type.serialize_json(
+                value["dnssec_validation"]
+            )
         )
-    )
-    import capo_route53globalresolver.types.edns_client_subnet_type
+    if "edns_client_subnet" in value:
+        import capo_route53globalresolver.types.edns_client_subnet_type
 
-    out["ednsClientSubnet"] = (
-        capo_route53globalresolver.types.edns_client_subnet_type.serialize_json(
-            value.get("edns_client_subnet", "DISABLED")
+        out["ednsClientSubnet"] = (
+            capo_route53globalresolver.types.edns_client_subnet_type.serialize_json(
+                value["edns_client_subnet"]
+            )
         )
-    )
-    import capo_route53globalresolver.types.firewall_rules_fail_open_type
+    if "firewall_rules_fail_open" in value:
+        import capo_route53globalresolver.types.firewall_rules_fail_open_type
 
-    out["firewallRulesFailOpen"] = (
-        capo_route53globalresolver.types.firewall_rules_fail_open_type.serialize_json(
-            value.get("firewall_rules_fail_open", "DISABLED")
+        out["firewallRulesFailOpen"] = (
+            capo_route53globalresolver.types.firewall_rules_fail_open_type.serialize_json(
+                value["firewall_rules_fail_open"]
+            )
         )
-    )
     if "description" in value:
         out["description"] = value["description"]
     if "tags" in value:
@@ -98,8 +103,6 @@ def deserialize_json(data: dict) -> CreateDNSViewInput:
                 data["dnssecValidation"]
             )
         )
-    else:
-        out["dnssec_validation"] = "DISABLED"
     if data.get("ednsClientSubnet") is not None:
         import capo_route53globalresolver.types.edns_client_subnet_type
 
@@ -108,8 +111,6 @@ def deserialize_json(data: dict) -> CreateDNSViewInput:
                 data["ednsClientSubnet"]
             )
         )
-    else:
-        out["edns_client_subnet"] = "DISABLED"
     if data.get("firewallRulesFailOpen") is not None:
         import capo_route53globalresolver.types.firewall_rules_fail_open_type
 
@@ -118,8 +119,6 @@ def deserialize_json(data: dict) -> CreateDNSViewInput:
                 data["firewallRulesFailOpen"]
             )
         )
-    else:
-        out["firewall_rules_fail_open"] = "DISABLED"
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("tags") is not None:

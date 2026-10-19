@@ -178,21 +178,21 @@ def build_request(
         )
     if "session_lifetime_in_minutes" in input_:
         params.append(("session-lifetime", str(input_["session_lifetime_in_minutes"])))
-    params.append(
-        (
-            "undo-redo-disabled",
-            "true" if input_.get("undo_redo_disabled", False) else "false",
+    if "undo_redo_disabled" in input_:
+        params.append(
+            ("undo-redo-disabled", "true" if input_["undo_redo_disabled"] else "false")
         )
-    )
-    params.append(
-        ("reset-disabled", "true" if input_.get("reset_disabled", False) else "false")
-    )
-    params.append(
-        (
-            "state-persistence-enabled",
-            "true" if input_.get("state_persistence_enabled", False) else "false",
+    if "reset_disabled" in input_:
+        params.append(
+            ("reset-disabled", "true" if input_["reset_disabled"] else "false")
         )
-    )
+    if "state_persistence_enabled" in input_:
+        params.append(
+            (
+                "state-persistence-enabled",
+                "true" if input_["state_persistence_enabled"] else "false",
+            )
+        )
     if "user_arn" in input_:
         params.append(("user-arn", input_["user_arn"]))
     if "namespace" in input_:

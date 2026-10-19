@@ -39,7 +39,7 @@ class SendNotifyTextMessageRequest(TypedDict, closed=True):
         "capo_pinpoint_sms_voice_v2.types.configuration_set_name_or_arn.ConfigurationSetNameOrArn"
     ]
     """<p>The name of the configuration set to use. This can be either the ConfigurationSetName or ConfigurationSetArn.</p>"""
-    dry_run: "bool"
+    dry_run: NotRequired["bool"]
     """<p>When set to true, the message is checked and validated, but isn't sent to the end recipient.</p>"""
     message_feedback_enabled: NotRequired["bool"]
     """<p>Set to true to enable message feedback for the message. When a user receives the message you need to update the message status using <a>PutMessageFeedback</a>.</p>"""
@@ -71,7 +71,8 @@ def serialize_aws_json_1_0(value: SendNotifyTextMessageRequest) -> dict:
         )
     if "configuration_set_name" in value:
         out["ConfigurationSetName"] = value["configuration_set_name"]
-    out["DryRun"] = value.get("dry_run", False)
+    if "dry_run" in value:
+        out["DryRun"] = value["dry_run"]
     if "message_feedback_enabled" in value:
         out["MessageFeedbackEnabled"] = value["message_feedback_enabled"]
     return out
@@ -119,8 +120,6 @@ def deserialize_aws_json_1_0(data: dict) -> SendNotifyTextMessageRequest:
         out["configuration_set_name"] = data["ConfigurationSetName"]
     if data.get("DryRun") is not None:
         out["dry_run"] = data["DryRun"]
-    else:
-        out["dry_run"] = False
     if data.get("MessageFeedbackEnabled") is not None:
         out["message_feedback_enabled"] = data["MessageFeedbackEnabled"]
     return out

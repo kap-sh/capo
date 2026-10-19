@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 class ListRelationshipsRequest(TypedDict, closed=True):
     catalog: "capo_partnercentral_channel.types.catalog.Catalog"
     """<p>The catalog identifier to filter relationships.</p>"""
-    max_results: "int"
+    max_results: NotRequired["int"]
     """<p>The maximum number of results to return in a single call.</p>"""
     associated_account_ids: NotRequired[
         "capo_partnercentral_channel.types.account_id_list.AccountIdList"
@@ -49,7 +49,8 @@ class ListRelationshipsRequest(TypedDict, closed=True):
 def serialize_aws_json_1_0(value: ListRelationshipsRequest) -> dict:
     out: dict = {}
     out["catalog"] = value["catalog"]
-    out["maxResults"] = value.get("max_results", 20)
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
     if "associated_account_ids" in value:
         import capo_partnercentral_channel.types.account_id_list
 
@@ -103,8 +104,6 @@ def deserialize_aws_json_1_0(data: dict) -> ListRelationshipsRequest:
         raise DeserializationError("ListRelationshipsRequest.catalog required")
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
-    else:
-        out["max_results"] = 20
     if data.get("associatedAccountIds") is not None:
         import capo_partnercentral_channel.types.account_id_list
 

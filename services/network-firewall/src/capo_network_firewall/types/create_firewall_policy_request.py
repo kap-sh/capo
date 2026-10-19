@@ -24,7 +24,7 @@ class CreateFirewallPolicyRequest(TypedDict, closed=True):
     """<p>A description of the firewall policy.</p>"""
     tags: NotRequired["capo_network_firewall.types.tag_list.TagList"]
     """<p>The key:value pairs to associate with the resource.</p>"""
-    dry_run: "capo_network_firewall.types.boolean.Boolean"
+    dry_run: NotRequired["capo_network_firewall.types.boolean.Boolean"]
     """<p>Indicates whether you want Network Firewall to just check the validity of the request, rather than run the request. </p> <p>If set to <code>TRUE</code>, Network Firewall checks whether the request can run successfully, but doesn't actually make the requested changes. The call returns the value that the request would return if you ran it with dry run set to <code>FALSE</code>, but doesn't make additions or changes to your resources. This option allows you to make sure that you have the required permissions to run the request and that your request parameters are valid. </p> <p>If set to <code>FALSE</code>, Network Firewall makes the requested changes to your resources. </p>"""
     encryption_configuration: NotRequired[
         "capo_network_firewall.types.encryption_configuration.EncryptionConfiguration"
@@ -51,7 +51,8 @@ def serialize_aws_json_1_0(value: CreateFirewallPolicyRequest) -> dict:
         out["Tags"] = capo_network_firewall.types.tag_list.serialize_aws_json_1_0(
             value["tags"]
         )
-    out["DryRun"] = value.get("dry_run", False)
+    if "dry_run" in value:
+        out["DryRun"] = value["dry_run"]
     if "encryption_configuration" in value:
         import capo_network_firewall.types.encryption_configuration
 
@@ -93,8 +94,6 @@ def deserialize_aws_json_1_0(data: dict) -> CreateFirewallPolicyRequest:
         )
     if data.get("DryRun") is not None:
         out["dry_run"] = data["DryRun"]
-    else:
-        out["dry_run"] = False
     if data.get("EncryptionConfiguration") is not None:
         import capo_network_firewall.types.encryption_configuration
 

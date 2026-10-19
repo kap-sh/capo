@@ -156,22 +156,24 @@ def build_request(
         params.append(("maxResults", str(input_["max_results"])))
     if "next_token" in input_:
         params.append(("nextToken", input_["next_token"]))
-    params.append(
-        (
-            "sortBy",
-            capo_bedrock_runtime.types.sort_async_invocation_by.serialize_json(
-                input_.get("sort_by", "SubmissionTime")
-            ),
+    if "sort_by" in input_:
+        params.append(
+            (
+                "sortBy",
+                capo_bedrock_runtime.types.sort_async_invocation_by.serialize_json(
+                    input_["sort_by"]
+                ),
+            )
         )
-    )
-    params.append(
-        (
-            "sortOrder",
-            capo_bedrock_runtime.types.sort_order.serialize_json(
-                input_.get("sort_order", "Descending")
-            ),
+    if "sort_order" in input_:
+        params.append(
+            (
+                "sortOrder",
+                capo_bedrock_runtime.types.sort_order.serialize_json(
+                    input_["sort_order"]
+                ),
+            )
         )
-    )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

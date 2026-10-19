@@ -17,7 +17,7 @@ class GetDocumentRequest(TypedDict, closed=True):
     """<p>Amazon WorkDocs authentication token. Not required when using Amazon Web Services administrator credentials to access the API.</p>"""
     document_id: "capo_workdocs.types.resource_id_type.ResourceIdType"
     """<p>The ID of the document.</p>"""
-    include_custom_metadata: "capo_workdocs.types.boolean_type.BooleanType"
+    include_custom_metadata: NotRequired["capo_workdocs.types.boolean_type.BooleanType"]
     """<p>Set this to <code>TRUE</code> to include custom metadata in the response.</p>"""
 
 

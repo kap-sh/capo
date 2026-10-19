@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_iot.errors import DeserializationError
 
@@ -16,7 +16,7 @@ class CreateCertificateFromCsrRequest(TypedDict, closed=True):
         "capo_iot.types.certificate_signing_request.CertificateSigningRequest"
     )
     """<p>The certificate signing request (CSR).</p>"""
-    set_as_active: "capo_iot.types.set_as_active.SetAsActive"
+    set_as_active: NotRequired["capo_iot.types.set_as_active.SetAsActive"]
     """<p>Specifies whether the certificate is active.</p>"""
 
 

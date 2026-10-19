@@ -35,7 +35,7 @@ class CreateCommentRequest(TypedDict, closed=True):
         "capo_workdocs.types.comment_visibility_type.CommentVisibilityType"
     ]
     """<p>The visibility of the comment. Options are either PRIVATE, where the comment is visible only to the comment author and document owner and co-owners, or PUBLIC, where the comment is visible to document owners, co-owners, and contributors.</p>"""
-    notify_collaborators: "capo_workdocs.types.boolean_type.BooleanType"
+    notify_collaborators: NotRequired["capo_workdocs.types.boolean_type.BooleanType"]
     """<p>Set this parameter to TRUE to send an email out to the document collaborators after the comment is created.</p>"""
 
 
@@ -53,7 +53,8 @@ def serialize_json(value: CreateCommentRequest) -> dict:
         out["Visibility"] = capo_workdocs.types.comment_visibility_type.serialize_json(
             value["visibility"]
         )
-    out["NotifyCollaborators"] = value.get("notify_collaborators", False)
+    if "notify_collaborators" in value:
+        out["NotifyCollaborators"] = value["notify_collaborators"]
     return out
 
 
@@ -77,8 +78,6 @@ def deserialize_json(data: dict) -> CreateCommentRequest:
         )
     if data.get("NotifyCollaborators") is not None:
         out["notify_collaborators"] = data["NotifyCollaborators"]
-    else:
-        out["notify_collaborators"] = False
     return out
 
 

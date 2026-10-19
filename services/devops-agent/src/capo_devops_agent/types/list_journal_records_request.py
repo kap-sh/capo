@@ -20,13 +20,13 @@ class ListJournalRecordsRequest(TypedDict, closed=True):
     """<p>The unique identifier for the agent space containing the execution</p>"""
     execution_id: "capo_devops_agent.types.resource_id.ResourceId"
     """<p>The unique identifier of the execution whose journal records to retrieve</p>"""
-    limit: "int"
+    limit: NotRequired["int"]
     """<p>Maximum number of records to return in a single response (1-100, default: 100)</p>"""
     next_token: NotRequired["capo_devops_agent.types.next_token.NextToken"]
     """<p>Token for retrieving the next page of results</p>"""
-    record_type: "str"
+    record_type: NotRequired["str"]
     """<p>Filter records by type (empty string returns all types)</p>"""
-    order: "capo_devops_agent.types.order_type.OrderType"
+    order: NotRequired["capo_devops_agent.types.order_type.OrderType"]
     """<p>Sort order for the records based on timestamp (default: DESC)</p>"""
 
 
@@ -34,15 +34,16 @@ class ListJournalRecordsRequest(TypedDict, closed=True):
 def serialize_json(value: ListJournalRecordsRequest) -> dict:
     out: dict = {}
     out["executionId"] = value["execution_id"]
-    out["limit"] = value.get("limit", 100)
+    if "limit" in value:
+        out["limit"] = value["limit"]
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
-    out["recordType"] = value.get("record_type", "")
-    import capo_devops_agent.types.order_type
+    if "record_type" in value:
+        out["recordType"] = value["record_type"]
+    if "order" in value:
+        import capo_devops_agent.types.order_type
 
-    out["order"] = capo_devops_agent.types.order_type.serialize_json(
-        value.get("order", "DESC")
-    )
+        out["order"] = capo_devops_agent.types.order_type.serialize_json(value["order"])
     return out
 
 
@@ -54,20 +55,14 @@ def deserialize_json(data: dict) -> ListJournalRecordsRequest:
         raise DeserializationError("ListJournalRecordsRequest.execution_id required")
     if data.get("limit") is not None:
         out["limit"] = data["limit"]
-    else:
-        out["limit"] = 100
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("recordType") is not None:
         out["record_type"] = data["recordType"]
-    else:
-        out["record_type"] = ""
     if data.get("order") is not None:
         import capo_devops_agent.types.order_type
 
         out["order"] = capo_devops_agent.types.order_type.deserialize_json(
             data["order"]
         )
-    else:
-        out["order"] = "DESC"
     return out

@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_pinpoint_sms_voice_v2.errors import DeserializationError
 
@@ -15,7 +15,7 @@ class SubmitRegistrationVersionRequest(TypedDict, closed=True):
         "capo_pinpoint_sms_voice_v2.types.registration_id_or_arn.RegistrationIdOrArn"
     )
     """<p>The unique identifier for the registration.</p>"""
-    aws_review: "bool"
+    aws_review: NotRequired["bool"]
     """<p>Set to true to request AWS review of the registration. When enabled, AWS will perform additional validation and review of the registration submission before processing.</p>"""
 
 
@@ -23,7 +23,8 @@ class SubmitRegistrationVersionRequest(TypedDict, closed=True):
 def serialize_aws_json_1_0(value: SubmitRegistrationVersionRequest) -> dict:
     out: dict = {}
     out["RegistrationId"] = value["registration_id"]
-    out["AwsReview"] = value.get("aws_review", False)
+    if "aws_review" in value:
+        out["AwsReview"] = value["aws_review"]
     return out
 
 
@@ -37,6 +38,4 @@ def deserialize_aws_json_1_0(data: dict) -> SubmitRegistrationVersionRequest:
         )
     if data.get("AwsReview") is not None:
         out["aws_review"] = data["AwsReview"]
-    else:
-        out["aws_review"] = False
     return out

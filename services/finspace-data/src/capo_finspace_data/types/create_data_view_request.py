@@ -21,7 +21,7 @@ class CreateDataViewRequest(TypedDict, closed=True):
     """<p>A token that ensures idempotency. This token expires in 10 minutes.</p>"""
     dataset_id: "capo_finspace_data.types.dataset_id.DatasetId"
     """<p>The unique Dataset identifier that is used to create a Dataview.</p>"""
-    auto_update: "capo_finspace_data.types.boolean.Boolean"
+    auto_update: NotRequired["capo_finspace_data.types.boolean.Boolean"]
     """<p>Flag to indicate Dataview should be updated automatically.</p>"""
     sort_columns: NotRequired[
         "capo_finspace_data.types.sort_column_list.SortColumnList"
@@ -44,7 +44,8 @@ def serialize_json(value: CreateDataViewRequest) -> dict:
     out: dict = {}
     if "client_token" in value:
         out["clientToken"] = value["client_token"]
-    out["autoUpdate"] = value.get("auto_update", False)
+    if "auto_update" in value:
+        out["autoUpdate"] = value["auto_update"]
     if "sort_columns" in value:
         import capo_finspace_data.types.sort_column_list
 
@@ -77,8 +78,6 @@ def deserialize_json(data: dict) -> CreateDataViewRequest:
         out["client_token"] = data["clientToken"]
     if data.get("autoUpdate") is not None:
         out["auto_update"] = data["autoUpdate"]
-    else:
-        out["auto_update"] = False
     if data.get("sortColumns") is not None:
         import capo_finspace_data.types.sort_column_list
 

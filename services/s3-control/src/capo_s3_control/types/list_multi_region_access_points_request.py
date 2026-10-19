@@ -19,7 +19,7 @@ class ListMultiRegionAccessPointsRequest(TypedDict, closed=True):
         "capo_s3_control.types.non_empty_max_length1024_string.NonEmptyMaxLength1024String"
     ]
     """<p>Not currently used. Do not use this parameter.</p>"""
-    max_results: "capo_s3_control.types.max_results.MaxResults"
+    max_results: NotRequired["capo_s3_control.types.max_results.MaxResults"]
     """<p>Not currently used. Do not use this parameter.</p>"""
 
 

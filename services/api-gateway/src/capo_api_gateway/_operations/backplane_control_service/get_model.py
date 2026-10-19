@@ -114,7 +114,8 @@ def build_request(
     url = url.replace("{restApiId}", quote(input_["rest_api_id"], safe=""))
     url = url.replace("{modelName}", quote(input_["model_name"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(("flatten", "true" if input_.get("flatten", False) else "false"))
+    if "flatten" in input_:
+        params.append(("flatten", "true" if input_["flatten"] else "false"))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

@@ -31,7 +31,7 @@ class StartCapacityTaskInput(TypedDict, closed=True):
         "capo_outposts.types.instances_to_exclude.InstancesToExclude"
     ]
     """<p>List of user-specified running instances that must not be stopped in order to free up the capacity needed to run the capacity task.</p>"""
-    dry_run: "capo_outposts.types.dry_run.DryRun"
+    dry_run: NotRequired["capo_outposts.types.dry_run.DryRun"]
     """<p>You can request a dry run to determine if the instance type and instance size changes is above or below available instance capacity. Requesting a dry run does not make any changes to your plan.</p>"""
     task_action_on_blocking_instances: NotRequired[
         "capo_outposts.types.task_action_on_blocking_instances.TaskActionOnBlockingInstances"
@@ -59,7 +59,8 @@ def serialize_json(value: StartCapacityTaskInput) -> dict:
                 value["instances_to_exclude"]
             )
         )
-    out["DryRun"] = value.get("dry_run", False)
+    if "dry_run" in value:
+        out["DryRun"] = value["dry_run"]
     if "task_action_on_blocking_instances" in value:
         import capo_outposts.types.task_action_on_blocking_instances
 
@@ -97,8 +98,6 @@ def deserialize_json(data: dict) -> StartCapacityTaskInput:
         )
     if data.get("DryRun") is not None:
         out["dry_run"] = data["DryRun"]
-    else:
-        out["dry_run"] = False
     if data.get("TaskActionOnBlockingInstances") is not None:
         import capo_outposts.types.task_action_on_blocking_instances
 

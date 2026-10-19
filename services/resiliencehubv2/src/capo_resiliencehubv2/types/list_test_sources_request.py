@@ -19,7 +19,7 @@ class ListTestSourcesRequest(TypedDict, closed=True):
     """<p>The ARN of the service the test belongs to.</p>"""
     type: NotRequired["capo_resiliencehubv2.types.test_source_type.TestSourceType"]
     """<p>Filter sources by type.</p>"""
-    max_results: "capo_resiliencehubv2.types.max_results.MaxResults"
+    max_results: NotRequired["capo_resiliencehubv2.types.max_results.MaxResults"]
     next_token: NotRequired["capo_resiliencehubv2.types.next_token.NextToken"]
 
 

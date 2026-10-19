@@ -131,12 +131,13 @@ def build_request(
         params.append(("attributeValue", input_["attribute_value"]))
     if "thing_type_name" in input_:
         params.append(("thingTypeName", input_["thing_type_name"]))
-    params.append(
-        (
-            "usePrefixAttributeValue",
-            "true" if input_.get("use_prefix_attribute_value", False) else "false",
+    if "use_prefix_attribute_value" in input_:
+        params.append(
+            (
+                "usePrefixAttributeValue",
+                "true" if input_["use_prefix_attribute_value"] else "false",
+            )
         )
-    )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

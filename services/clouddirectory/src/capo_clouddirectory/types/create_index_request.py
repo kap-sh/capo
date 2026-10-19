@@ -41,7 +41,7 @@ def serialize_json(value: CreateIndexRequest) -> dict:
             value["ordered_indexed_attribute_list"]
         )
     )
-    out["IsUnique"] = value.get("is_unique", False)
+    out["IsUnique"] = value["is_unique"]
     if "parent_reference" in value:
         import capo_clouddirectory.types.object_reference
 
@@ -72,7 +72,7 @@ def deserialize_json(data: dict) -> CreateIndexRequest:
     if data.get("IsUnique") is not None:
         out["is_unique"] = data["IsUnique"]
     else:
-        out["is_unique"] = False
+        raise DeserializationError("CreateIndexRequest.is_unique required")
     if data.get("ParentReference") is not None:
         import capo_clouddirectory.types.object_reference
 

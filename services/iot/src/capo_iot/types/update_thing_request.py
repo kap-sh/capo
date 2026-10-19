@@ -21,7 +21,7 @@ class UpdateThingRequest(TypedDict, closed=True):
     r"""<p>A list of thing attributes, a JSON string containing name-value pairs. For example:</p> <p> <code>{\"attributes\":{\"name1\":\"value2\"}}</code> </p> <p>This data is used to add new attributes or update existing attributes.</p>"""
     expected_version: NotRequired["capo_iot.types.optional_version.OptionalVersion"]
     """<p>The expected version of the thing record in the registry. If the version of the record in the registry does not match the expected version specified in the request, the <code>UpdateThing</code> request is rejected with a <code>VersionConflictException</code>.</p>"""
-    remove_thing_type: "capo_iot.types.remove_thing_type.RemoveThingType"
+    remove_thing_type: NotRequired["capo_iot.types.remove_thing_type.RemoveThingType"]
     """<p>Remove a thing type association. If <b>true</b>, the association is removed.</p>"""
 
 
@@ -38,7 +38,8 @@ def serialize_json(value: UpdateThingRequest) -> dict:
         )
     if "expected_version" in value:
         out["expectedVersion"] = value["expected_version"]
-    out["removeThingType"] = value.get("remove_thing_type", False)
+    if "remove_thing_type" in value:
+        out["removeThingType"] = value["remove_thing_type"]
     return out
 
 
@@ -56,6 +57,4 @@ def deserialize_json(data: dict) -> UpdateThingRequest:
         out["expected_version"] = data["expectedVersion"]
     if data.get("removeThingType") is not None:
         out["remove_thing_type"] = data["removeThingType"]
-    else:
-        out["remove_thing_type"] = False
     return out

@@ -28,7 +28,7 @@ class CreateLimitRequest(TypedDict, closed=True):
     """<p>The value that you specify as the <code>name</code> in the <code>amounts</code> field of the <code>hostRequirements</code> in a step of a job template to declare the limit requirement.</p>"""
     max_count: "capo_deadline.types.max_count.MaxCount"
     """<p>The maximum number of resources constrained by this limit. When all of the resources are in use, steps that require the limit won't be scheduled until the resource is available.</p> <p>The <code>maxCount</code> must not be 0. If the value is -1, there is no restriction on the number of resources that can be acquired for this limit.</p>"""
-    description: "capo_deadline.types.description.Description"
+    description: NotRequired["capo_deadline.types.description.Description"]
     """<p>A description of the limit. A description helps you identify the purpose of the limit.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
 
 
@@ -38,7 +38,8 @@ def serialize_json(value: CreateLimitRequest) -> dict:
     out["displayName"] = value["display_name"]
     out["amountRequirementName"] = value["amount_requirement_name"]
     out["maxCount"] = value["max_count"]
-    out["description"] = value.get("description", "")
+    if "description" in value:
+        out["description"] = value["description"]
     return out
 
 
@@ -60,8 +61,6 @@ def deserialize_json(data: dict) -> CreateLimitRequest:
         raise DeserializationError("CreateLimitRequest.max_count required")
     if data.get("description") is not None:
         out["description"] = data["description"]
-    else:
-        out["description"] = ""
     return out
 
 

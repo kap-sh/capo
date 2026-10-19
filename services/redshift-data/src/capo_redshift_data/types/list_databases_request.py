@@ -25,7 +25,7 @@ class ListDatabasesRequest(TypedDict, closed=True):
     """<p>The database user name. This parameter is required when connecting to a cluster as a database user and authenticating using temporary credentials. </p>"""
     next_token: NotRequired["capo_redshift_data.types.string.String"]
     """<p>A value that indicates the starting point for the next set of response records in a subsequent request. If a value is returned in a response, you can retrieve the next set of records by providing this returned NextToken value in the next NextToken parameter and retrying the command. If the NextToken field is empty, all response records have been retrieved for the request. </p>"""
-    max_results: "capo_redshift_data.types.page_size.PageSize"
+    max_results: NotRequired["capo_redshift_data.types.page_size.PageSize"]
     """<p>The maximum number of databases to return in the response. If more databases exist than fit in one response, then <code>NextToken</code> is returned to page through the results. </p>"""
     workgroup_name: NotRequired[
         "capo_redshift_data.types.workgroup_name_string.WorkgroupNameString"
@@ -46,7 +46,8 @@ def serialize_aws_json_1_1(value: ListDatabasesRequest) -> dict:
         out["DbUser"] = value["db_user"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
-    out["MaxResults"] = value.get("max_results", 0)
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
     if "workgroup_name" in value:
         out["WorkgroupName"] = value["workgroup_name"]
     return out
@@ -66,8 +67,6 @@ def deserialize_aws_json_1_1(data: dict) -> ListDatabasesRequest:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
-    else:
-        out["max_results"] = 0
     if data.get("WorkgroupName") is not None:
         out["workgroup_name"] = data["WorkgroupName"]
     return out

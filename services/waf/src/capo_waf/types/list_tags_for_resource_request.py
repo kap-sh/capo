@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 class ListTagsForResourceRequest(TypedDict, closed=True):
     next_marker: NotRequired["capo_waf.types.next_marker.NextMarker"]
     """<p></p>"""
-    limit: "capo_waf.types.pagination_limit.PaginationLimit"
+    limit: NotRequired["capo_waf.types.pagination_limit.PaginationLimit"]
     """<p></p>"""
     resource_arn: "capo_waf.types.resource_arn.ResourceArn"
     """<p></p>"""
@@ -26,7 +26,8 @@ def serialize_aws_json_1_1(value: ListTagsForResourceRequest) -> dict:
     out: dict = {}
     if "next_marker" in value:
         out["NextMarker"] = value["next_marker"]
-    out["Limit"] = value.get("limit", 0)
+    if "limit" in value:
+        out["Limit"] = value["limit"]
     out["ResourceARN"] = value["resource_arn"]
     return out
 
@@ -37,8 +38,6 @@ def deserialize_aws_json_1_1(data: dict) -> ListTagsForResourceRequest:
         out["next_marker"] = data["NextMarker"]
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
-    else:
-        out["limit"] = 0
     if data.get("ResourceARN") is not None:
         out["resource_arn"] = data["ResourceARN"]
     else:

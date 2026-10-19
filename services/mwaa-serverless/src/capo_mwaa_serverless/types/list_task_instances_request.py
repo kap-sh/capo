@@ -16,7 +16,7 @@ class ListTaskInstancesRequest(TypedDict, closed=True):
     """<p>The Amazon Resource Name (ARN) of the workflow that contains the run.</p>"""
     run_id: "capo_mwaa_serverless.types.id_string.IdString"
     """<p>The unique identifier of the workflow run for which you want a list of task instances.</p>"""
-    max_results: "int"
+    max_results: NotRequired["int"]
     """<p>The maximum number of task instances to return in a single response.</p>"""
     next_token: NotRequired["str"]
     """<p>The pagination token you need to use to retrieve the next set of results. This value is returned from a previous call to <code>ListTaskInstances</code>.</p>"""
@@ -27,7 +27,8 @@ def serialize_aws_json_1_0(value: ListTaskInstancesRequest) -> dict:
     out: dict = {}
     out["WorkflowArn"] = value["workflow_arn"]
     out["RunId"] = value["run_id"]
-    out["MaxResults"] = value.get("max_results", 20)
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
     return out
@@ -45,8 +46,6 @@ def deserialize_aws_json_1_0(data: dict) -> ListTaskInstancesRequest:
         raise DeserializationError("ListTaskInstancesRequest.run_id required")
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
-    else:
-        out["max_results"] = 20
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

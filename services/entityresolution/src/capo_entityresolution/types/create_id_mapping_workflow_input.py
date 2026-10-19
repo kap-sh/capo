@@ -36,7 +36,9 @@ class CreateIdMappingWorkflowInput(TypedDict, closed=True):
         "capo_entityresolution.types.id_mapping_incremental_run_config.IdMappingIncrementalRunConfig"
     ]
     """<p> The incremental run configuration for the ID mapping workflow.</p>"""
-    role_arn: "capo_entityresolution.types.id_mapping_role_arn.IdMappingRoleArn"
+    role_arn: NotRequired[
+        "capo_entityresolution.types.id_mapping_role_arn.IdMappingRoleArn"
+    ]
     """<p>The Amazon Resource Name (ARN) of the IAM role. Entity Resolution assumes this role to create resources on your behalf as part of workflow execution.</p>"""
     tags: NotRequired["capo_entityresolution.types.tag_map.TagMap"]
     """<p>The tags used to organize, track, or control access for this resource.</p>"""
@@ -78,7 +80,8 @@ def serialize_json(value: CreateIdMappingWorkflowInput) -> dict:
                 value["incremental_run_config"]
             )
         )
-    out["roleArn"] = value.get("role_arn", "")
+    if "role_arn" in value:
+        out["roleArn"] = value["role_arn"]
     if "tags" in value:
         import capo_entityresolution.types.tag_map
 
@@ -138,8 +141,6 @@ def deserialize_json(data: dict) -> CreateIdMappingWorkflowInput:
         )
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
-    else:
-        out["role_arn"] = ""
     if data.get("tags") is not None:
         import capo_entityresolution.types.tag_map
 

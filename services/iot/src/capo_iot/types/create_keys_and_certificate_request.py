@@ -2,14 +2,14 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_iot.types.set_as_active
 
 
 class CreateKeysAndCertificateRequest(TypedDict, closed=True):
-    set_as_active: "capo_iot.types.set_as_active.SetAsActive"
+    set_as_active: NotRequired["capo_iot.types.set_as_active.SetAsActive"]
     """<p>Specifies whether the certificate is active.</p>"""
 
 

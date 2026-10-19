@@ -54,17 +54,19 @@ class StartStreamTranscriptionRequest(TypedDict, closed=True):
         "capo_transcribe_streaming.types.vocabulary_filter_method.VocabularyFilterMethod"
     ]
     """<p>Specify how you want your vocabulary filter applied to your transcript.</p> <p>To replace words with <code>***</code>, choose <code>mask</code>.</p> <p>To delete words, choose <code>remove</code>.</p> <p>To flag words without changing them, choose <code>tag</code>.</p>"""
-    show_speaker_label: "capo_transcribe_streaming.types.boolean.Boolean"
+    show_speaker_label: NotRequired["capo_transcribe_streaming.types.boolean.Boolean"]
     """<p>Enables speaker partitioning (diarization) in your transcription output. Speaker partitioning labels the speech from individual speakers in your media file.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/diarization.html">Partitioning speakers (diarization)</a>.</p>"""
-    enable_channel_identification: "capo_transcribe_streaming.types.boolean.Boolean"
+    enable_channel_identification: NotRequired[
+        "capo_transcribe_streaming.types.boolean.Boolean"
+    ]
     """<p>Enables channel identification in multi-channel audio.</p> <p>Channel identification transcribes the audio on each channel independently, then appends the output for each channel into one transcript.</p> <p>If you have multi-channel audio and do not enable channel identification, your audio is transcribed in a continuous manner and your transcript is not separated by channel.</p> <p>If you include <code>EnableChannelIdentification</code> in your request, you must also include <code>NumberOfChannels</code>.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/channel-id.html">Transcribing multi-channel audio</a>.</p>"""
     number_of_channels: NotRequired[
         "capo_transcribe_streaming.types.number_of_channels.NumberOfChannels"
     ]
     """<p>Specify the number of channels in your audio stream. This value must be <code>2</code>, as only two channels are supported. If your audio doesn't contain multiple channels, do not include this parameter in your request.</p> <p>If you include <code>NumberOfChannels</code> in your request, you must also include <code>EnableChannelIdentification</code>.</p>"""
-    enable_partial_results_stabilization: (
+    enable_partial_results_stabilization: NotRequired[
         "capo_transcribe_streaming.types.boolean.Boolean"
-    )
+    ]
     """<p>Enables partial result stabilization for your transcription. Partial result stabilization can reduce latency in your output, but may impact accuracy. For more information, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/streaming.html#streaming-partial-result-stabilization">Partial-result stabilization</a>.</p>"""
     partial_results_stability: NotRequired[
         "capo_transcribe_streaming.types.partial_results_stability.PartialResultsStability"
@@ -86,7 +88,7 @@ class StartStreamTranscriptionRequest(TypedDict, closed=True):
         "capo_transcribe_streaming.types.model_name.ModelName"
     ]
     """<p>Specify the name of the custom language model that you want to use when processing your transcription. Note that language model names are case sensitive.</p> <p>The language of the specified language model must match the language code you specify in your transcription request. If the languages don't match, the custom language model isn't applied. There are no errors or warnings associated with a language mismatch.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/custom-language-models.html">Custom language models</a>.</p>"""
-    identify_language: "capo_transcribe_streaming.types.boolean.Boolean"
+    identify_language: NotRequired["capo_transcribe_streaming.types.boolean.Boolean"]
     """<p>Enables automatic language identification for your transcription.</p> <p>If you include <code>IdentifyLanguage</code>, you must include a list of language codes, using <code>LanguageOptions</code>, that you think may be present in your audio stream. </p> <p>You can also include a preferred language using <code>PreferredLanguage</code>. Adding a preferred language can help Amazon Transcribe identify the language faster than if you omit this parameter.</p> <p>If you have multi-channel audio that contains different languages on each channel, and you've enabled channel identification, automatic language identification identifies the dominant language on each audio channel.</p> <p>Note that you must include either <code>LanguageCode</code> or <code>IdentifyLanguage</code> or <code>IdentifyMultipleLanguages</code> in your request. If you include more than one of these parameters, your transcription job fails.</p> <p>Streaming language identification can't be combined with custom language models or redaction.</p>"""
     language_options: NotRequired[
         "capo_transcribe_streaming.types.language_options.LanguageOptions"
@@ -96,7 +98,9 @@ class StartStreamTranscriptionRequest(TypedDict, closed=True):
         "capo_transcribe_streaming.types.language_code.LanguageCode"
     ]
     """<p>Specify a preferred language from the subset of languages codes you specified in <code>LanguageOptions</code>.</p> <p>You can only use this parameter if you've included <code>IdentifyLanguage</code> and <code>LanguageOptions</code> in your request.</p>"""
-    identify_multiple_languages: "capo_transcribe_streaming.types.boolean.Boolean"
+    identify_multiple_languages: NotRequired[
+        "capo_transcribe_streaming.types.boolean.Boolean"
+    ]
     """<p>Enables automatic multi-language identification in your transcription job request. Use this parameter if your stream contains more than one language. If your stream contains only one language, use IdentifyLanguage instead.</p> <p>If you include <code>IdentifyMultipleLanguages</code>, you must include a list of language codes, using <code>LanguageOptions</code>, that you think may be present in your stream.</p> <p>If you want to apply a custom vocabulary or a custom vocabulary filter to your automatic multiple language identification request, include <code>VocabularyNames</code> or <code>VocabularyFilterNames</code>.</p> <p>Note that you must include one of <code>LanguageCode</code>, <code>IdentifyLanguage</code>, or <code>IdentifyMultipleLanguages</code> in your request. If you include more than one of these parameters, your transcription job fails.</p>"""
     vocabulary_names: NotRequired[
         "capo_transcribe_streaming.types.vocabulary_names.VocabularyNames"

@@ -21,9 +21,9 @@ class StartVariantImportRequest(TypedDict, closed=True):
     """<p>A service role for the job.</p>"""
     items: "capo_omics.types.variant_import_item_sources.VariantImportItemSources"
     """<p>Items to import.</p>"""
-    run_left_normalization: (
+    run_left_normalization: NotRequired[
         "capo_omics.types.run_left_normalization.RunLeftNormalization"
-    )
+    ]
     """<p>The job's left normalization setting.</p>"""
     annotation_fields: NotRequired[
         "capo_omics.types.annotation_field_map.AnnotationFieldMap"
@@ -41,7 +41,8 @@ def serialize_json(value: StartVariantImportRequest) -> dict:
     out["items"] = capo_omics.types.variant_import_item_sources.serialize_json(
         value["items"]
     )
-    out["runLeftNormalization"] = value.get("run_left_normalization", False)
+    if "run_left_normalization" in value:
+        out["runLeftNormalization"] = value["run_left_normalization"]
     if "annotation_fields" in value:
         import capo_omics.types.annotation_field_map
 
@@ -73,8 +74,6 @@ def deserialize_json(data: dict) -> StartVariantImportRequest:
         raise DeserializationError("StartVariantImportRequest.items required")
     if data.get("runLeftNormalization") is not None:
         out["run_left_normalization"] = data["runLeftNormalization"]
-    else:
-        out["run_left_normalization"] = False
     if data.get("annotationFields") is not None:
         import capo_omics.types.annotation_field_map
 

@@ -37,7 +37,7 @@ class PutProfileObjectTypeRequest(TypedDict, closed=True):
         "capo_customer_profiles.types.encryption_key.encryptionKey"
     ]
     """<p>The customer-provided key to encrypt the profile object that will be created in this profile object type.</p>"""
-    allow_profile_creation: "capo_customer_profiles.types.boolean.boolean"
+    allow_profile_creation: NotRequired["capo_customer_profiles.types.boolean.boolean"]
     """<p>Indicates whether a profile should be created when data is received if one doesn’t exist for an object of this type. The default is <code>FALSE</code>. If the AllowProfileCreation flag is set to <code>FALSE</code>, then the service tries to fetch a standard profile and associate this object with the profile. If it is set to <code>TRUE</code>, and if no match is found, then the service creates a new standard profile.</p>"""
     source_last_updated_timestamp_format: NotRequired[
         "capo_customer_profiles.types.string1_to255.string1To255"
@@ -67,7 +67,8 @@ def serialize_json(value: PutProfileObjectTypeRequest) -> dict:
         out["ExpirationDays"] = value["expiration_days"]
     if "encryption_key" in value:
         out["EncryptionKey"] = value["encryption_key"]
-    out["AllowProfileCreation"] = value.get("allow_profile_creation", False)
+    if "allow_profile_creation" in value:
+        out["AllowProfileCreation"] = value["allow_profile_creation"]
     if "source_last_updated_timestamp_format" in value:
         out["SourceLastUpdatedTimestampFormat"] = value[
             "source_last_updated_timestamp_format"
@@ -107,8 +108,6 @@ def deserialize_json(data: dict) -> PutProfileObjectTypeRequest:
         out["encryption_key"] = data["EncryptionKey"]
     if data.get("AllowProfileCreation") is not None:
         out["allow_profile_creation"] = data["AllowProfileCreation"]
-    else:
-        out["allow_profile_creation"] = False
     if data.get("SourceLastUpdatedTimestampFormat") is not None:
         out["source_last_updated_timestamp_format"] = data[
             "SourceLastUpdatedTimestampFormat"

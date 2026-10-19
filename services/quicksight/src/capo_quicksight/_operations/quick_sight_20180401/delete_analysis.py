@@ -135,12 +135,13 @@ def build_request(
         params.append(
             ("recovery-window-in-days", str(input_["recovery_window_in_days"]))
         )
-    params.append(
-        (
-            "force-delete-without-recovery",
-            "true" if input_.get("force_delete_without_recovery", False) else "false",
+    if "force_delete_without_recovery" in input_:
+        params.append(
+            (
+                "force-delete-without-recovery",
+                "true" if input_["force_delete_without_recovery"] else "false",
+            )
         )
-    )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

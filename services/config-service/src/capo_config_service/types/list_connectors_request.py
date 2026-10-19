@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 
 class ListConnectorsRequest(TypedDict, closed=True):
-    max_results: (
+    max_results: NotRequired[
         "capo_config_service.types.list_connectors_max_results.ListConnectorsMaxResults"
-    )
+    ]
     """<p>The maximum number of results to include in the response.</p>"""
     next_token: NotRequired["capo_config_service.types.string.String"]
     """<p>The <code>NextToken</code> string returned on a previous page that you use to get the next page of results in a paginated response.</p>"""
@@ -26,7 +26,8 @@ class ListConnectorsRequest(TypedDict, closed=True):
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: ListConnectorsRequest) -> dict:
     out: dict = {}
-    out["MaxResults"] = value.get("max_results", 0)
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
     if "filters" in value:
@@ -44,8 +45,6 @@ def deserialize_aws_json_1_1(data: dict) -> ListConnectorsRequest:
     out: ListConnectorsRequest = {}  # type: ignore[typeddict-item]
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
-    else:
-        out["max_results"] = 0
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("Filters") is not None:

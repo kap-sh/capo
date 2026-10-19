@@ -20,7 +20,7 @@ class ScanProvisionedProductsInput(TypedDict, closed=True):
         "capo_service_catalog.types.access_level_filter.AccessLevelFilter"
     ]
     """<p>The access level to use to obtain results. The default is <code>User</code>.</p>"""
-    page_size: "capo_service_catalog.types.page_size.PageSize"
+    page_size: NotRequired["capo_service_catalog.types.page_size.PageSize"]
     """<p>The maximum number of items to return with this call.</p>"""
     page_token: NotRequired["capo_service_catalog.types.page_token.PageToken"]
     """<p>The page token for the next set of results. To retrieve the first set of results, use null.</p>"""
@@ -39,7 +39,8 @@ def serialize_aws_json_1_1(value: ScanProvisionedProductsInput) -> dict:
                 value["access_level_filter"]
             )
         )
-    out["PageSize"] = value.get("page_size", 0)
+    if "page_size" in value:
+        out["PageSize"] = value["page_size"]
     if "page_token" in value:
         out["PageToken"] = value["page_token"]
     return out
@@ -59,8 +60,6 @@ def deserialize_aws_json_1_1(data: dict) -> ScanProvisionedProductsInput:
         )
     if data.get("PageSize") is not None:
         out["page_size"] = data["PageSize"]
-    else:
-        out["page_size"] = 0
     if data.get("PageToken") is not None:
         out["page_token"] = data["PageToken"]
     return out

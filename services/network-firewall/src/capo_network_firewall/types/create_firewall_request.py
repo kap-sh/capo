@@ -34,11 +34,13 @@ class CreateFirewallRequest(TypedDict, closed=True):
         "capo_network_firewall.types.subnet_mappings.SubnetMappings"
     ]
     """<p>The public subnets to use for your Network Firewall firewalls. Each subnet must belong to a different Availability Zone in the VPC. Network Firewall creates a firewall endpoint in each subnet. </p>"""
-    delete_protection: "capo_network_firewall.types.boolean.Boolean"
+    delete_protection: NotRequired["capo_network_firewall.types.boolean.Boolean"]
     """<p>A flag indicating whether it is possible to delete the firewall. A setting of <code>TRUE</code> indicates that the firewall is protected against deletion. Use this setting to protect against accidentally deleting a firewall that is in use. When you create a firewall, the operation initializes this flag to <code>TRUE</code>.</p>"""
-    subnet_change_protection: "capo_network_firewall.types.boolean.Boolean"
+    subnet_change_protection: NotRequired["capo_network_firewall.types.boolean.Boolean"]
     """<p>A setting indicating whether the firewall is protected against changes to the subnet associations. Use this setting to protect against accidentally modifying the subnet associations for a firewall that is in use. When you create a firewall, the operation initializes this setting to <code>TRUE</code>.</p>"""
-    firewall_policy_change_protection: "capo_network_firewall.types.boolean.Boolean"
+    firewall_policy_change_protection: NotRequired[
+        "capo_network_firewall.types.boolean.Boolean"
+    ]
     """<p>A setting indicating whether the firewall is protected against a change to the firewall policy association. Use this setting to protect against accidentally modifying the firewall policy for a firewall that is in use. When you create a firewall, the operation initializes this setting to <code>TRUE</code>.</p>"""
     description: NotRequired["capo_network_firewall.types.description.Description"]
     """<p>A description of the firewall.</p>"""
@@ -60,7 +62,9 @@ class CreateFirewallRequest(TypedDict, closed=True):
         "capo_network_firewall.types.availability_zone_mappings.AvailabilityZoneMappings"
     ]
     """<p>Required. The Availability Zones where you want to create firewall endpoints for a transit gateway-attached firewall. You must specify at least one Availability Zone. Consider enabling the firewall in every Availability Zone where you have workloads to maintain Availability Zone isolation.</p> <p>You can modify Availability Zones later using <a>AssociateAvailabilityZones</a> or <a>DisassociateAvailabilityZones</a>, but this may briefly disrupt traffic. The <code>AvailabilityZoneChangeProtection</code> setting controls whether you can make these modifications.</p>"""
-    availability_zone_change_protection: "capo_network_firewall.types.boolean.Boolean"
+    availability_zone_change_protection: NotRequired[
+        "capo_network_firewall.types.boolean.Boolean"
+    ]
     """<p>Optional. A setting indicating whether the firewall is protected against changes to its Availability Zone configuration. When set to <code>TRUE</code>, you cannot add or remove Availability Zones without first disabling this protection using <a>UpdateAvailabilityZoneChangeProtection</a>.</p> <p>Default value: <code>FALSE</code> </p>"""
     nat_gateway_mappings: NotRequired[
         "capo_network_firewall.types.nat_gateway_mappings_list.NatGatewayMappingsList"
@@ -70,7 +74,7 @@ class CreateFirewallRequest(TypedDict, closed=True):
         "capo_network_firewall.types.proxy_settings.ProxySettings"
     ]
     """<p>The listener configuration for a proxy mode firewall, used when <code>NoSourcePreservation</code> is <code>TRUE</code>. This specifies the ports and protocols on which the firewall's proxy listens for traffic. </p>"""
-    no_source_preservation: "capo_network_firewall.types.boolean.Boolean"
+    no_source_preservation: NotRequired["capo_network_firewall.types.boolean.Boolean"]
     """<p>Optional. Indicates whether the firewall operates in proxy mode, in which the source IP address of the traffic is not preserved. When set to <code>TRUE</code>, the firewall proxies traffic through a NAT gateway and the traffic reaching the destination uses the NAT gateway's IP address as the source. </p> <p>When you set this to <code>TRUE</code>, you must specify <code>NatGatewayMappings</code> and <code>VpcEndpoint</code> instead of a top-level <code>VpcId</code> and <code>SubnetMappings</code>. </p> <p>You can't change this setting after you create the firewall. </p> <p>Default value: <code>FALSE</code> </p>"""
     vpc_endpoint: NotRequired["capo_network_firewall.types.vpc_endpoint.VpcEndpoint"]
     """<p>The VPC and subnets for the firewall endpoint, used when <code>NoSourcePreservation</code> is <code>TRUE</code>. Network Firewall creates the firewall endpoint in the subnets that you specify here. </p> <p>For proxy mode firewalls, provide the firewall's VPC and endpoint subnets through this parameter instead of the top-level <code>VpcId</code> and <code>SubnetMappings</code>. </p>"""
@@ -91,11 +95,14 @@ def serialize_aws_json_1_0(value: CreateFirewallRequest) -> dict:
                 value["subnet_mappings"]
             )
         )
-    out["DeleteProtection"] = value.get("delete_protection", False)
-    out["SubnetChangeProtection"] = value.get("subnet_change_protection", False)
-    out["FirewallPolicyChangeProtection"] = value.get(
-        "firewall_policy_change_protection", False
-    )
+    if "delete_protection" in value:
+        out["DeleteProtection"] = value["delete_protection"]
+    if "subnet_change_protection" in value:
+        out["SubnetChangeProtection"] = value["subnet_change_protection"]
+    if "firewall_policy_change_protection" in value:
+        out["FirewallPolicyChangeProtection"] = value[
+            "firewall_policy_change_protection"
+        ]
     if "description" in value:
         out["Description"] = value["description"]
     if "tags" in value:
@@ -130,9 +137,10 @@ def serialize_aws_json_1_0(value: CreateFirewallRequest) -> dict:
                 value["availability_zone_mappings"]
             )
         )
-    out["AvailabilityZoneChangeProtection"] = value.get(
-        "availability_zone_change_protection", False
-    )
+    if "availability_zone_change_protection" in value:
+        out["AvailabilityZoneChangeProtection"] = value[
+            "availability_zone_change_protection"
+        ]
     if "nat_gateway_mappings" in value:
         import capo_network_firewall.types.nat_gateway_mappings_list
 
@@ -149,7 +157,8 @@ def serialize_aws_json_1_0(value: CreateFirewallRequest) -> dict:
                 value["proxy_settings"]
             )
         )
-    out["NoSourcePreservation"] = value.get("no_source_preservation", False)
+    if "no_source_preservation" in value:
+        out["NoSourcePreservation"] = value["no_source_preservation"]
     if "vpc_endpoint" in value:
         import capo_network_firewall.types.vpc_endpoint
 
@@ -183,18 +192,12 @@ def deserialize_aws_json_1_0(data: dict) -> CreateFirewallRequest:
         )
     if data.get("DeleteProtection") is not None:
         out["delete_protection"] = data["DeleteProtection"]
-    else:
-        out["delete_protection"] = False
     if data.get("SubnetChangeProtection") is not None:
         out["subnet_change_protection"] = data["SubnetChangeProtection"]
-    else:
-        out["subnet_change_protection"] = False
     if data.get("FirewallPolicyChangeProtection") is not None:
         out["firewall_policy_change_protection"] = data[
             "FirewallPolicyChangeProtection"
         ]
-    else:
-        out["firewall_policy_change_protection"] = False
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Tags") is not None:
@@ -233,8 +236,6 @@ def deserialize_aws_json_1_0(data: dict) -> CreateFirewallRequest:
         out["availability_zone_change_protection"] = data[
             "AvailabilityZoneChangeProtection"
         ]
-    else:
-        out["availability_zone_change_protection"] = False
     if data.get("NatGatewayMappings") is not None:
         import capo_network_firewall.types.nat_gateway_mappings_list
 
@@ -253,8 +254,6 @@ def deserialize_aws_json_1_0(data: dict) -> CreateFirewallRequest:
         )
     if data.get("NoSourcePreservation") is not None:
         out["no_source_preservation"] = data["NoSourcePreservation"]
-    else:
-        out["no_source_preservation"] = False
     if data.get("VpcEndpoint") is not None:
         import capo_network_firewall.types.vpc_endpoint
 

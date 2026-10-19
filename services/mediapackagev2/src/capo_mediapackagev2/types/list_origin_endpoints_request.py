@@ -14,9 +14,9 @@ class ListOriginEndpointsRequest(TypedDict, closed=True):
     """<p>The name that describes the channel group. The name is the primary identifier for the channel group, and must be unique for your account in the AWS Region.</p>"""
     channel_name: "capo_mediapackagev2.types.resource_name.ResourceName"
     """<p>The name that describes the channel. The name is the primary identifier for the channel, and must be unique for your account in the AWS Region and channel group. </p>"""
-    max_results: (
+    max_results: NotRequired[
         "capo_mediapackagev2.types.list_resource_max_results.ListResourceMaxResults"
-    )
+    ]
     """<p>The maximum number of results to return in the response.</p>"""
     next_token: NotRequired["str"]
     """<p>The pagination token from the GET list request. Use the token to fetch the next page of results.</p>"""

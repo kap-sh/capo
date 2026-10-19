@@ -111,7 +111,8 @@ def build_request(
         params.append(("bucket", input_["bucket"]))
     if "next_token" in input_:
         params.append(("nextToken", input_["next_token"]))
-    params.append(("maxResults", str(input_.get("max_results", 0))))
+    if "max_results" in input_:
+        params.append(("maxResults", str(input_["max_results"])))
     if "data_source_id" in input_:
         params.append(("dataSourceId", input_["data_source_id"]))
     if "data_source_type" in input_:

@@ -28,11 +28,11 @@ class CreateQueueRequest(TypedDict, closed=True):
     """<p>The unique token which the server uses to recognize retries of the same request.</p>"""
     display_name: "capo_deadline.types.resource_name.ResourceName"
     """<p>The display name of the queue.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
-    description: "capo_deadline.types.description.Description"
+    description: NotRequired["capo_deadline.types.description.Description"]
     """<p>The description of the queue.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
-    default_budget_action: (
+    default_budget_action: NotRequired[
         "capo_deadline.types.default_queue_budget_action.DefaultQueueBudgetAction"
-    )
+    ]
     """<p>The default action to take on a queue if a budget isn't configured.</p>"""
     job_attachment_settings: NotRequired[
         "capo_deadline.types.job_attachment_settings.JobAttachmentSettings"
@@ -62,14 +62,16 @@ class CreateQueueRequest(TypedDict, closed=True):
 def serialize_json(value: CreateQueueRequest) -> dict:
     out: dict = {}
     out["displayName"] = value["display_name"]
-    out["description"] = value.get("description", "")
-    import capo_deadline.types.default_queue_budget_action
+    if "description" in value:
+        out["description"] = value["description"]
+    if "default_budget_action" in value:
+        import capo_deadline.types.default_queue_budget_action
 
-    out["defaultBudgetAction"] = (
-        capo_deadline.types.default_queue_budget_action.serialize_json(
-            value.get("default_budget_action", "NONE")
+        out["defaultBudgetAction"] = (
+            capo_deadline.types.default_queue_budget_action.serialize_json(
+                value["default_budget_action"]
+            )
         )
-    )
     if "job_attachment_settings" in value:
         import capo_deadline.types.job_attachment_settings
 
@@ -125,8 +127,6 @@ def deserialize_json(data: dict) -> CreateQueueRequest:
         raise DeserializationError("CreateQueueRequest.display_name required")
     if data.get("description") is not None:
         out["description"] = data["description"]
-    else:
-        out["description"] = ""
     if data.get("defaultBudgetAction") is not None:
         import capo_deadline.types.default_queue_budget_action
 
@@ -135,8 +135,6 @@ def deserialize_json(data: dict) -> CreateQueueRequest:
                 data["defaultBudgetAction"]
             )
         )
-    else:
-        out["default_budget_action"] = "NONE"
     if data.get("jobAttachmentSettings") is not None:
         import capo_deadline.types.job_attachment_settings
 

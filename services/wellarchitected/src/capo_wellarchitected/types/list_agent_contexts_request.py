@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 class ListAgentContextsRequest(TypedDict, closed=True):
     profile_arn: "capo_wellarchitected.types.agent_profile_arn.AgentProfileArn"
     """<p>The Amazon Resource Name (ARN) of the profile to list contexts for.</p>"""
-    max_results: "capo_wellarchitected.types.max_results.MaxResults"
+    max_results: NotRequired["capo_wellarchitected.types.max_results.MaxResults"]
     next_token: NotRequired["capo_wellarchitected.types.next_token.NextToken"]
 
 

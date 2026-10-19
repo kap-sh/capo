@@ -126,12 +126,10 @@ def build_request(
         params.append(("marker", input_["marker"]))
     if "page_size" in input_:
         params.append(("pageSize", str(input_["page_size"])))
-    params.append(
-        (
-            "isAscendingOrder",
-            "true" if input_.get("ascending_order", False) else "false",
+    if "ascending_order" in input_:
+        params.append(
+            ("isAscendingOrder", "true" if input_["ascending_order"] else "false")
         )
-    )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     if "principal" in input_:
         headers["x-amzn-iot-principal"] = input_["principal"]

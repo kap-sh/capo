@@ -116,7 +116,8 @@ def build_request(
         params.append(("nextToken", input_["next_token"]))
     if "max_results" in input_:
         params.append(("maxResults", str(input_["max_results"])))
-    params.append(("recursive", "true" if input_.get("recursive", False) else "false"))
+    if "recursive" in input_:
+        params.append(("recursive", "true" if input_["recursive"] else "false"))
     if "security_profile_target_arn" in input_:
         params.append(
             ("securityProfileTargetArn", input_["security_profile_target_arn"])

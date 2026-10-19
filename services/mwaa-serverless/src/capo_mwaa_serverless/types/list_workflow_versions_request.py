@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 
 class ListWorkflowVersionsRequest(TypedDict, closed=True):
-    max_results: "int"
+    max_results: NotRequired["int"]
     """<p>The maximum number of workflow versions to return in a single response.</p>"""
     next_token: NotRequired["str"]
     """<p>The pagination token you need to use to retrieve the next set of results. This value is returned from a previous call to <code>ListWorkflowVersions</code>.</p>"""
@@ -22,7 +22,8 @@ class ListWorkflowVersionsRequest(TypedDict, closed=True):
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: ListWorkflowVersionsRequest) -> dict:
     out: dict = {}
-    out["MaxResults"] = value.get("max_results", 20)
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
     out["WorkflowArn"] = value["workflow_arn"]
@@ -33,8 +34,6 @@ def deserialize_aws_json_1_0(data: dict) -> ListWorkflowVersionsRequest:
     out: ListWorkflowVersionsRequest = {}  # type: ignore[typeddict-item]
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
-    else:
-        out["max_results"] = 20
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("WorkflowArn") is not None:

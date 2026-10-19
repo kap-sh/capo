@@ -25,7 +25,9 @@ class UpdateColumnStatisticsTaskSettingsRequest(TypedDict, closed=True):
     """<p>A schedule for running the column statistics, specified in CRON syntax.</p>"""
     column_name_list: NotRequired["capo_glue.types.column_name_list.ColumnNameList"]
     """<p>A list of column names for which to run statistics.</p>"""
-    sample_size: "capo_glue.types.sample_size_percentage.SampleSizePercentage"
+    sample_size: NotRequired[
+        "capo_glue.types.sample_size_percentage.SampleSizePercentage"
+    ]
     """<p>The percentage of data to sample.</p>"""
     catalog_id: NotRequired["capo_glue.types.catalog_id_string.CatalogIdString"]
     """<p>The ID of the Data Catalog in which the database resides.</p>"""
@@ -48,15 +50,16 @@ def serialize_aws_json_1_1(value: UpdateColumnStatisticsTaskSettingsRequest) -> 
         out["ColumnNameList"] = capo_glue.types.column_name_list.serialize_aws_json_1_1(
             value["column_name_list"]
         )
-    out["SampleSize"] = (
-        "NaN"
-        if value.get("sample_size", 0) != value.get("sample_size", 0)
-        else "Infinity"
-        if value.get("sample_size", 0) == float("inf")
-        else "-Infinity"
-        if value.get("sample_size", 0) == float("-inf")
-        else value.get("sample_size", 0)
-    )
+    if "sample_size" in value:
+        out["SampleSize"] = (
+            "NaN"
+            if value["sample_size"] != value["sample_size"]
+            else "Infinity"
+            if value["sample_size"] == float("inf")
+            else "-Infinity"
+            if value["sample_size"] == float("-inf")
+            else value["sample_size"]
+        )
     if "catalog_id" in value:
         out["CatalogID"] = value["catalog_id"]
     if "security_configuration" in value:
@@ -92,8 +95,6 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateColumnStatisticsTaskSettingsRe
         )
     if data.get("SampleSize") is not None:
         out["sample_size"] = float(data["SampleSize"])
-    else:
-        out["sample_size"] = 0
     if data.get("CatalogID") is not None:
         out["catalog_id"] = data["CatalogID"]
     if data.get("SecurityConfiguration") is not None:

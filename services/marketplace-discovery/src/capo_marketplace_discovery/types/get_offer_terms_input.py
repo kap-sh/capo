@@ -17,7 +17,7 @@ class GetOfferTermsInput(TypedDict, closed=True):
     """<p>A BCP 47 language tag or comma-separated priority list specifying the preferred locale for response content. See <code>Locale</code> for supported values, constraints, fallback behavior, and the default locale. If omitted, the service returns content in the default locale.</p>"""
     offer_id: "capo_marketplace_discovery.types.offer_id.OfferId"
     """<p>The unique identifier of the offer whose terms to retrieve.</p>"""
-    max_results: "int"
+    max_results: NotRequired["int"]
     """<p>The maximum number of results that are returned per call. You can use <code>nextToken</code> to get more results.</p>"""
     next_token: NotRequired["capo_marketplace_discovery.types.next_token.NextToken"]
     """<p>If <code>nextToken</code> is returned, there are more results available. Make the call again using the returned token to retrieve the next page.</p>"""
@@ -29,7 +29,8 @@ def serialize_json(value: GetOfferTermsInput) -> dict:
     if "locale" in value:
         out["locale"] = value["locale"]
     out["offerId"] = value["offer_id"]
-    out["maxResults"] = value.get("max_results", 10)
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
     return out
@@ -45,8 +46,6 @@ def deserialize_json(data: dict) -> GetOfferTermsInput:
         raise DeserializationError("GetOfferTermsInput.offer_id required")
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
-    else:
-        out["max_results"] = 10
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

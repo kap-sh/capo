@@ -22,7 +22,9 @@ class PutResourcePolicyInput(TypedDict, closed=True):
         "capo_dynamodb.types.policy_revision_id.PolicyRevisionId"
     ]
     """<p>A string value that you can use to conditionally update your policy. You can provide the revision ID of your existing policy to make mutating requests against that policy.</p> <note> <p>When you provide an expected revision ID, if the revision ID of the existing policy on the resource doesn't match or if there's no policy attached to the resource, your request will be rejected with a <code>PolicyNotFoundException</code>.</p> </note> <p>To conditionally attach a policy when no policy exists for the resource, specify <code>NO_POLICY</code> for the revision ID.</p>"""
-    confirm_remove_self_resource_access: "capo_dynamodb.types.confirm_remove_self_resource_access.ConfirmRemoveSelfResourceAccess"
+    confirm_remove_self_resource_access: NotRequired[
+        "capo_dynamodb.types.confirm_remove_self_resource_access.ConfirmRemoveSelfResourceAccess"
+    ]
     """<p>Set this parameter to <code>true</code> to confirm that you want to remove your permissions to change the policy of this resource in the future.</p>"""
 
 
@@ -33,9 +35,10 @@ def serialize_aws_json_1_0(value: PutResourcePolicyInput) -> dict:
     out["Policy"] = value["policy"]
     if "expected_revision_id" in value:
         out["ExpectedRevisionId"] = value["expected_revision_id"]
-    out["ConfirmRemoveSelfResourceAccess"] = value.get(
-        "confirm_remove_self_resource_access", False
-    )
+    if "confirm_remove_self_resource_access" in value:
+        out["ConfirmRemoveSelfResourceAccess"] = value[
+            "confirm_remove_self_resource_access"
+        ]
     return out
 
 
@@ -55,6 +58,4 @@ def deserialize_aws_json_1_0(data: dict) -> PutResourcePolicyInput:
         out["confirm_remove_self_resource_access"] = data[
             "ConfirmRemoveSelfResourceAccess"
         ]
-    else:
-        out["confirm_remove_self_resource_access"] = False
     return out

@@ -20,7 +20,7 @@ class CreateConditionalForwarderRequest(TypedDict, closed=True):
         "capo_directory_service.types.remote_domain_name.RemoteDomainName"
     )
     """<p>The fully qualified domain name (FQDN) of the remote domain with which you will set up a trust relationship.</p>"""
-    dns_ip_addrs: "capo_directory_service.types.dns_ip_addrs.DnsIpAddrs"
+    dns_ip_addrs: NotRequired["capo_directory_service.types.dns_ip_addrs.DnsIpAddrs"]
     """<p>The IP addresses of the remote DNS server associated with RemoteDomainName.</p>"""
     dns_ipv6_addrs: NotRequired[
         "capo_directory_service.types.dns_ipv6_addrs.DnsIpv6Addrs"
@@ -33,13 +33,14 @@ def serialize_aws_json_1_1(value: CreateConditionalForwarderRequest) -> dict:
     out: dict = {}
     out["DirectoryId"] = value["directory_id"]
     out["RemoteDomainName"] = value["remote_domain_name"]
-    import capo_directory_service.types.dns_ip_addrs
+    if "dns_ip_addrs" in value:
+        import capo_directory_service.types.dns_ip_addrs
 
-    out["DnsIpAddrs"] = (
-        capo_directory_service.types.dns_ip_addrs.serialize_aws_json_1_1(
-            value.get("dns_ip_addrs", [])
+        out["DnsIpAddrs"] = (
+            capo_directory_service.types.dns_ip_addrs.serialize_aws_json_1_1(
+                value["dns_ip_addrs"]
+            )
         )
-    )
     if "dns_ipv6_addrs" in value:
         import capo_directory_service.types.dns_ipv6_addrs
 
@@ -73,8 +74,6 @@ def deserialize_aws_json_1_1(data: dict) -> CreateConditionalForwarderRequest:
                 data["DnsIpAddrs"]
             )
         )
-    else:
-        out["dns_ip_addrs"] = []
     if data.get("DnsIpv6Addrs") is not None:
         import capo_directory_service.types.dns_ipv6_addrs
 

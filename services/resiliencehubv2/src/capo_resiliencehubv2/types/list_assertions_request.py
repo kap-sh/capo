@@ -15,7 +15,7 @@ class ListAssertionsRequest(TypedDict, closed=True):
     service_arn: "capo_resiliencehubv2.types.arn.Arn"
     source: NotRequired["capo_resiliencehubv2.types.assertion_source.AssertionSource"]
     """<p>Filter assertions by source type.</p>"""
-    max_results: "capo_resiliencehubv2.types.max_results.MaxResults"
+    max_results: NotRequired["capo_resiliencehubv2.types.max_results.MaxResults"]
     next_token: NotRequired["capo_resiliencehubv2.types.next_token.NextToken"]
 
 

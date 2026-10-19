@@ -146,12 +146,13 @@ def build_request(
         params.append(("resourceId", input_["resource_id"]))
     if "user_id" in input_:
         params.append(("userId", input_["user_id"]))
-    params.append(
-        (
-            "includeIndirectActivities",
-            "true" if input_.get("include_indirect_activities", False) else "false",
+    if "include_indirect_activities" in input_:
+        params.append(
+            (
+                "includeIndirectActivities",
+                "true" if input_["include_indirect_activities"] else "false",
+            )
         )
-    )
     if "limit" in input_:
         params.append(("limit", str(input_["limit"])))
     if "marker" in input_:

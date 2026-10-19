@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 
 class ListProtocolsListsRequest(TypedDict, closed=True):
-    default_lists: "capo_fms.types.boolean.Boolean"
+    default_lists: NotRequired["capo_fms.types.boolean.Boolean"]
     """<p>Specifies whether the lists to retrieve are default lists owned by Firewall Manager.</p>"""
     next_token: NotRequired["capo_fms.types.pagination_token.PaginationToken"]
     """<p>If you specify a value for <code>MaxResults</code> in your list request, and you have more objects than the maximum, Firewall Manager returns this token in the response. For all but the first request, you provide the token returned by the prior request in the request parameters, to retrieve the next batch of objects.</p>"""
@@ -24,7 +24,8 @@ class ListProtocolsListsRequest(TypedDict, closed=True):
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: ListProtocolsListsRequest) -> dict:
     out: dict = {}
-    out["DefaultLists"] = value.get("default_lists", False)
+    if "default_lists" in value:
+        out["DefaultLists"] = value["default_lists"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
     out["MaxResults"] = value["max_results"]
@@ -35,8 +36,6 @@ def deserialize_aws_json_1_1(data: dict) -> ListProtocolsListsRequest:
     out: ListProtocolsListsRequest = {}  # type: ignore[typeddict-item]
     if data.get("DefaultLists") is not None:
         out["default_lists"] = data["DefaultLists"]
-    else:
-        out["default_lists"] = False
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

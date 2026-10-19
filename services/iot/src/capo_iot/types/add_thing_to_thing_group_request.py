@@ -21,9 +21,9 @@ class AddThingToThingGroupRequest(TypedDict, closed=True):
     """<p>The name of the thing to add to a group.</p>"""
     thing_arn: NotRequired["capo_iot.types.thing_arn.ThingArn"]
     """<p>The ARN of the thing to add to a group.</p>"""
-    override_dynamic_groups: (
+    override_dynamic_groups: NotRequired[
         "capo_iot.types.override_dynamic_groups.OverrideDynamicGroups"
-    )
+    ]
     """<p>Override dynamic thing groups with static thing groups when 10-group limit is reached. If a thing belongs to 10 thing groups, and one or more of those groups are dynamic thing groups, adding a thing to a static group removes the thing from the last dynamic group.</p>"""
 
 
@@ -38,7 +38,8 @@ def serialize_json(value: AddThingToThingGroupRequest) -> dict:
         out["thingName"] = value["thing_name"]
     if "thing_arn" in value:
         out["thingArn"] = value["thing_arn"]
-    out["overrideDynamicGroups"] = value.get("override_dynamic_groups", False)
+    if "override_dynamic_groups" in value:
+        out["overrideDynamicGroups"] = value["override_dynamic_groups"]
     return out
 
 
@@ -54,6 +55,4 @@ def deserialize_json(data: dict) -> AddThingToThingGroupRequest:
         out["thing_arn"] = data["thingArn"]
     if data.get("overrideDynamicGroups") is not None:
         out["override_dynamic_groups"] = data["overrideDynamicGroups"]
-    else:
-        out["override_dynamic_groups"] = False
     return out

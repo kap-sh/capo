@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_secrets_manager.errors import DeserializationError
 
@@ -17,9 +17,9 @@ class ReplicateSecretToRegionsRequest(TypedDict, closed=True):
     """<p>The ARN or name of the secret to replicate.</p>"""
     add_replica_regions: "capo_secrets_manager.types.add_replica_region_list_type.AddReplicaRegionListType"
     """<p>A list of Regions in which to replicate the secret.</p>"""
-    force_overwrite_replica_secret: (
+    force_overwrite_replica_secret: NotRequired[
         "capo_secrets_manager.types.boolean_type.BooleanType"
-    )
+    ]
     """<p>Specifies whether to overwrite a secret with the same name in the destination Region. By default, secrets aren't overwritten.</p>"""
 
 
@@ -34,9 +34,8 @@ def serialize_aws_json_1_1(value: ReplicateSecretToRegionsRequest) -> dict:
             value["add_replica_regions"]
         )
     )
-    out["ForceOverwriteReplicaSecret"] = value.get(
-        "force_overwrite_replica_secret", False
-    )
+    if "force_overwrite_replica_secret" in value:
+        out["ForceOverwriteReplicaSecret"] = value["force_overwrite_replica_secret"]
     return out
 
 
@@ -60,6 +59,4 @@ def deserialize_aws_json_1_1(data: dict) -> ReplicateSecretToRegionsRequest:
         )
     if data.get("ForceOverwriteReplicaSecret") is not None:
         out["force_overwrite_replica_secret"] = data["ForceOverwriteReplicaSecret"]
-    else:
-        out["force_overwrite_replica_secret"] = False
     return out

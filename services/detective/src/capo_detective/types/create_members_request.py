@@ -18,7 +18,7 @@ class CreateMembersRequest(TypedDict, closed=True):
     """<p>The ARN of the behavior graph.</p>"""
     message: NotRequired["capo_detective.types.email_message.EmailMessage"]
     """<p>Customized message text to include in the invitation email message to the invited member accounts.</p>"""
-    disable_email_notification: "capo_detective.types.boolean.Boolean"
+    disable_email_notification: NotRequired["capo_detective.types.boolean.Boolean"]
     """<p>if set to <code>true</code>, then the invited accounts do not receive email notifications. By default, this is set to <code>false</code>, and the invited accounts receive email notifications.</p> <p>Organization accounts in the organization behavior graph do not receive email notifications.</p>"""
     accounts: "capo_detective.types.account_list.AccountList"
     """<p>The list of Amazon Web Services accounts to invite or to enable. You can invite or enable up to 50 accounts at a time. For each invited account, the account list contains the account identifier and the Amazon Web Services account root user email address. For organization accounts in the organization behavior graph, the email address is not required.</p>"""
@@ -30,7 +30,8 @@ def serialize_json(value: CreateMembersRequest) -> dict:
     out["GraphArn"] = value["graph_arn"]
     if "message" in value:
         out["Message"] = value["message"]
-    out["DisableEmailNotification"] = value.get("disable_email_notification", False)
+    if "disable_email_notification" in value:
+        out["DisableEmailNotification"] = value["disable_email_notification"]
     import capo_detective.types.account_list
 
     out["Accounts"] = capo_detective.types.account_list.serialize_json(
@@ -49,8 +50,6 @@ def deserialize_json(data: dict) -> CreateMembersRequest:
         out["message"] = data["Message"]
     if data.get("DisableEmailNotification") is not None:
         out["disable_email_notification"] = data["DisableEmailNotification"]
-    else:
-        out["disable_email_notification"] = False
     if data.get("Accounts") is not None:
         import capo_detective.types.account_list
 

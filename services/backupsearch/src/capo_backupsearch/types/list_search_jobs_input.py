@@ -13,7 +13,7 @@ class ListSearchJobsInput(TypedDict, closed=True):
     """<p>Include this parameter to filter list by search job status.</p>"""
     next_token: NotRequired["str"]
     """<p>The next item following a partial list of returned search jobs.</p> <p>For example, if a request is made to return <code>MaxResults</code> number of backups, <code>NextToken</code> allows you to return more items in your list starting at the location pointed to by the next token.</p>"""
-    max_results: "int"
+    max_results: NotRequired["int"]
     """<p>The maximum number of resource list items to be returned.</p>"""
 
 

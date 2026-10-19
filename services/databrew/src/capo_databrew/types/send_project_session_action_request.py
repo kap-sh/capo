@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 
 class SendProjectSessionActionRequest(TypedDict, closed=True):
-    preview: "capo_databrew.types.preview.Preview"
+    preview: NotRequired["capo_databrew.types.preview.Preview"]
     """<p>If true, the result of the recipe step will be returned, but not applied.</p>"""
     name: "capo_databrew.types.project_name.ProjectName"
     """<p>The name of the project to apply the action to.</p>"""
@@ -31,7 +31,8 @@ class SendProjectSessionActionRequest(TypedDict, closed=True):
 # --- restJson1 ser/de ---
 def serialize_json(value: SendProjectSessionActionRequest) -> dict:
     out: dict = {}
-    out["Preview"] = value.get("preview", False)
+    if "preview" in value:
+        out["Preview"] = value["preview"]
     if "recipe_step" in value:
         import capo_databrew.types.recipe_step
 
@@ -55,8 +56,6 @@ def deserialize_json(data: dict) -> SendProjectSessionActionRequest:
     out: SendProjectSessionActionRequest = {}  # type: ignore[typeddict-item]
     if data.get("Preview") is not None:
         out["preview"] = data["Preview"]
-    else:
-        out["preview"] = False
     if data.get("RecipeStep") is not None:
         import capo_databrew.types.recipe_step
 

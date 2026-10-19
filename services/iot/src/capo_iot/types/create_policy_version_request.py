@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_iot.errors import DeserializationError
 
@@ -17,7 +17,7 @@ class CreatePolicyVersionRequest(TypedDict, closed=True):
     """<p>The policy name.</p>"""
     policy_document: "capo_iot.types.policy_document.PolicyDocument"
     """<p>The JSON document that describes the policy. Minimum length of 1. Maximum length of 2048, excluding whitespace.</p>"""
-    set_as_default: "capo_iot.types.set_as_default.SetAsDefault"
+    set_as_default: NotRequired["capo_iot.types.set_as_default.SetAsDefault"]
     """<p>Specifies whether the policy version is set as the default. When this parameter is true, the new policy version becomes the operative version (that is, the version that is in effect for the certificates to which the policy is attached).</p>"""
 
 

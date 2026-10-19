@@ -115,12 +115,10 @@ def build_request(
     url = endpoint.url.rstrip("/") + "/accounts/{AwsAccountId}/key-registration"
     url = url.replace("{AwsAccountId}", quote(input_["aws_account_id"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(
-        (
-            "default-key-only",
-            "true" if input_.get("default_key_only", False) else "false",
+    if "default_key_only" in input_:
+        params.append(
+            ("default-key-only", "true" if input_["default_key_only"] else "false")
         )
-    )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

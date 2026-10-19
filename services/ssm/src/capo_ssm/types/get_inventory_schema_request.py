@@ -23,7 +23,9 @@ class GetInventorySchemaRequest(TypedDict, closed=True):
         "capo_ssm.types.get_inventory_schema_max_results.GetInventorySchemaMaxResults"
     ]
     """<p>The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.</p>"""
-    aggregator: "capo_ssm.types.aggregator_schema_only.AggregatorSchemaOnly"
+    aggregator: NotRequired[
+        "capo_ssm.types.aggregator_schema_only.AggregatorSchemaOnly"
+    ]
     """<p>Returns inventory schemas that support aggregation. For example, this call returns the <code>AWS:InstanceInformation</code> type, because it supports aggregation based on the <code>PlatformName</code>, <code>PlatformType</code>, and <code>PlatformVersion</code> attributes.</p>"""
     sub_type: NotRequired["capo_ssm.types.is_sub_type_schema.IsSubTypeSchema"]
     """<p>Returns the sub-type schema for a specified inventory type.</p>"""
@@ -38,7 +40,8 @@ def serialize_aws_json_1_1(value: GetInventorySchemaRequest) -> dict:
         out["NextToken"] = value["next_token"]
     if "max_results" in value:
         out["MaxResults"] = value["max_results"]
-    out["Aggregator"] = value.get("aggregator", False)
+    if "aggregator" in value:
+        out["Aggregator"] = value["aggregator"]
     if "sub_type" in value:
         out["SubType"] = value["sub_type"]
     return out
@@ -54,8 +57,6 @@ def deserialize_aws_json_1_1(data: dict) -> GetInventorySchemaRequest:
         out["max_results"] = data["MaxResults"]
     if data.get("Aggregator") is not None:
         out["aggregator"] = data["Aggregator"]
-    else:
-        out["aggregator"] = False
     if data.get("SubType") is not None:
         out["sub_type"] = data["SubType"]
     return out

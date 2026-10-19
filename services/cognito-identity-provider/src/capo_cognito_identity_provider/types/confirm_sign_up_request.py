@@ -29,9 +29,9 @@ class ConfirmSignUpRequest(TypedDict, closed=True):
     """<p>The name of the user that you want to query or modify. The value of this parameter is typically your user's username, but it can be any of their alias attributes. If <code>username</code> isn't an alias attribute in your user pool, this value must be the <code>sub</code> of a local user or the username of a user from a third-party IdP.</p>"""
     confirmation_code: "capo_cognito_identity_provider.types.confirmation_code_type.ConfirmationCodeType"
     """<p>The confirmation code that your user pool sent in response to the <code>SignUp</code> request.</p>"""
-    force_alias_creation: (
+    force_alias_creation: NotRequired[
         "capo_cognito_identity_provider.types.force_alias_creation.ForceAliasCreation"
-    )
+    ]
     """<p>When <code>true</code>, forces user confirmation despite any existing aliases. Defaults to <code>false</code>. A value of <code>true</code> migrates the alias from an existing user to the new user if an existing user already has the phone number or email address as an alias.</p> <p>Say, for example, that an existing user has an <code>email</code> attribute of <code>bob@example.com</code> and email is an alias in your user pool. If the new user also has an email of <code>bob@example.com</code> and your <code>ConfirmSignUp</code> response sets <code>ForceAliasCreation</code> to <code>true</code>, the new user can sign in with a username of <code>bob@example.com</code> and the existing user can no longer do so.</p> <p>If <code>false</code> and an attribute belongs to an existing alias, this request returns an <b>AliasExistsException</b> error.</p> <p>For more information about sign-in aliases, see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html#user-pool-settings-aliases">Customizing sign-in attributes</a>.</p>"""
     analytics_metadata: NotRequired[
         "capo_cognito_identity_provider.types.analytics_metadata_type.AnalyticsMetadataType"
@@ -59,7 +59,8 @@ def serialize_aws_json_1_1(value: ConfirmSignUpRequest) -> dict:
         out["SecretHash"] = value["secret_hash"]
     out["Username"] = value["username"]
     out["ConfirmationCode"] = value["confirmation_code"]
-    out["ForceAliasCreation"] = value.get("force_alias_creation", False)
+    if "force_alias_creation" in value:
+        out["ForceAliasCreation"] = value["force_alias_creation"]
     if "analytics_metadata" in value:
         import capo_cognito_identity_provider.types.analytics_metadata_type
 
@@ -107,8 +108,6 @@ def deserialize_aws_json_1_1(data: dict) -> ConfirmSignUpRequest:
         raise DeserializationError("ConfirmSignUpRequest.confirmation_code required")
     if data.get("ForceAliasCreation") is not None:
         out["force_alias_creation"] = data["ForceAliasCreation"]
-    else:
-        out["force_alias_creation"] = False
     if data.get("AnalyticsMetadata") is not None:
         import capo_cognito_identity_provider.types.analytics_metadata_type
 

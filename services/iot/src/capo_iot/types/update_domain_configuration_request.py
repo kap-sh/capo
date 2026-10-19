@@ -25,9 +25,9 @@ class UpdateDomainConfigurationRequest(TypedDict, closed=True):
         "capo_iot.types.domain_configuration_status.DomainConfigurationStatus"
     ]
     """<p>The status to which the domain configuration should be updated.</p>"""
-    remove_authorizer_config: (
+    remove_authorizer_config: NotRequired[
         "capo_iot.types.remove_authorizer_config.RemoveAuthorizerConfig"
-    )
+    ]
     """<p>Removes the authorization configuration from a domain.</p>"""
     tls_config: NotRequired["capo_iot.types.tls_config.TlsConfig"]
     """<p>An object that specifies the TLS configuration for a domain.</p>"""
@@ -66,7 +66,8 @@ def serialize_json(value: UpdateDomainConfigurationRequest) -> dict:
                 value["domain_configuration_status"]
             )
         )
-    out["removeAuthorizerConfig"] = value.get("remove_authorizer_config", False)
+    if "remove_authorizer_config" in value:
+        out["removeAuthorizerConfig"] = value["remove_authorizer_config"]
     if "tls_config" in value:
         import capo_iot.types.tls_config
 
@@ -120,8 +121,6 @@ def deserialize_json(data: dict) -> UpdateDomainConfigurationRequest:
         )
     if data.get("removeAuthorizerConfig") is not None:
         out["remove_authorizer_config"] = data["removeAuthorizerConfig"]
-    else:
-        out["remove_authorizer_config"] = False
     if data.get("tlsConfig") is not None:
         import capo_iot.types.tls_config
 

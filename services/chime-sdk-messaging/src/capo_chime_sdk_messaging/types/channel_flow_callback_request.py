@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING, Any
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_chime_sdk_messaging.errors import DeserializationError
 
@@ -18,9 +18,9 @@ class ChannelFlowCallbackRequest(TypedDict, closed=True):
     """<p>The identifier passed to the processor by the service when invoked. Use the identifier to call back the service.</p>"""
     channel_arn: "capo_chime_sdk_messaging.types.chime_arn.ChimeArn"
     """<p>The ARN of the channel.</p>"""
-    delete_resource: (
+    delete_resource: NotRequired[
         "capo_chime_sdk_messaging.types.non_nullable_boolean.NonNullableBoolean"
-    )
+    ]
     """<p>When a processor determines that a message needs to be <code>DENIED</code>, pass this parameter with a value of true.</p>"""
     channel_message: (
         "capo_chime_sdk_messaging.types.channel_message_callback.ChannelMessageCallback"
@@ -32,7 +32,8 @@ class ChannelFlowCallbackRequest(TypedDict, closed=True):
 def serialize_json(value: ChannelFlowCallbackRequest) -> dict:
     out: dict = {}
     out["CallbackId"] = value["callback_id"]
-    out["DeleteResource"] = value.get("delete_resource", False)
+    if "delete_resource" in value:
+        out["DeleteResource"] = value["delete_resource"]
     import capo_chime_sdk_messaging.types.channel_message_callback
 
     out["ChannelMessage"] = (
@@ -51,8 +52,6 @@ def deserialize_json(data: dict) -> ChannelFlowCallbackRequest:
         raise DeserializationError("ChannelFlowCallbackRequest.callback_id required")
     if data.get("DeleteResource") is not None:
         out["delete_resource"] = data["DeleteResource"]
-    else:
-        out["delete_resource"] = False
     if data.get("ChannelMessage") is not None:
         import capo_chime_sdk_messaging.types.channel_message_callback
 

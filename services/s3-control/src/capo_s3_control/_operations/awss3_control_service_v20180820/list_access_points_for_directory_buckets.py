@@ -107,7 +107,8 @@ def build_request(
         params.append(("directoryBucket", input_["directory_bucket"]))
     if "next_token" in input_:
         params.append(("nextToken", input_["next_token"]))
-    params.append(("maxResults", str(input_.get("max_results", 0))))
+    if "max_results" in input_:
+        params.append(("maxResults", str(input_["max_results"])))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     if "account_id" in input_:
         headers["x-amz-account-id"] = input_["account_id"]

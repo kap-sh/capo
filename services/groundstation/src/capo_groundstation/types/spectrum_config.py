@@ -34,11 +34,12 @@ def serialize_json(value: SpectrumConfig) -> dict:
     out["bandwidth"] = capo_groundstation.types.frequency_bandwidth.serialize_json(
         value["bandwidth"]
     )
-    import capo_groundstation.types.polarization
+    if "polarization" in value:
+        import capo_groundstation.types.polarization
 
-    out["polarization"] = capo_groundstation.types.polarization.serialize_json(
-        value.get("polarization", "NONE")
-    )
+        out["polarization"] = capo_groundstation.types.polarization.serialize_json(
+            value["polarization"]
+        )
     return out
 
 
@@ -68,6 +69,4 @@ def deserialize_json(data: dict) -> SpectrumConfig:
         out["polarization"] = capo_groundstation.types.polarization.deserialize_json(
             data["polarization"]
         )
-    else:
-        out["polarization"] = "NONE"
     return out

@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 class RemoveIpRoutesRequest(TypedDict, closed=True):
     directory_id: "capo_directory_service.types.directory_id.DirectoryId"
     """<p>Identifier (ID) of the directory from which you want to remove the IP addresses.</p>"""
-    cidr_ips: "capo_directory_service.types.cidr_ips.CidrIps"
+    cidr_ips: NotRequired["capo_directory_service.types.cidr_ips.CidrIps"]
     """<p>IP address blocks that you want to remove.</p>"""
     cidr_ipv6s: NotRequired["capo_directory_service.types.cidr_ipv6s.CidrIpv6s"]
     """<p>IPv6 address blocks that you want to remove.</p>"""
@@ -25,11 +25,12 @@ class RemoveIpRoutesRequest(TypedDict, closed=True):
 def serialize_aws_json_1_1(value: RemoveIpRoutesRequest) -> dict:
     out: dict = {}
     out["DirectoryId"] = value["directory_id"]
-    import capo_directory_service.types.cidr_ips
+    if "cidr_ips" in value:
+        import capo_directory_service.types.cidr_ips
 
-    out["CidrIps"] = capo_directory_service.types.cidr_ips.serialize_aws_json_1_1(
-        value.get("cidr_ips", [])
-    )
+        out["CidrIps"] = capo_directory_service.types.cidr_ips.serialize_aws_json_1_1(
+            value["cidr_ips"]
+        )
     if "cidr_ipv6s" in value:
         import capo_directory_service.types.cidr_ipv6s
 
@@ -55,8 +56,6 @@ def deserialize_aws_json_1_1(data: dict) -> RemoveIpRoutesRequest:
                 data["CidrIps"]
             )
         )
-    else:
-        out["cidr_ips"] = []
     if data.get("CidrIpv6s") is not None:
         import capo_directory_service.types.cidr_ipv6s
 

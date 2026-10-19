@@ -17,7 +17,7 @@ class ListAutomatedReasoningPoliciesRequest(TypedDict, closed=True):
     """<p>Optional filter to list only the policy versions with the specified Amazon Resource Name (ARN). If not provided, the DRAFT versions for all policies are listed.</p>"""
     next_token: NotRequired["capo_bedrock.types.pagination_token.PaginationToken"]
     """<p>The pagination token from a previous request to retrieve the next page of results.</p>"""
-    max_results: "capo_bedrock.types.max_results.MaxResults"
+    max_results: NotRequired["capo_bedrock.types.max_results.MaxResults"]
     """<p>The maximum number of policies to return in a single call.</p>"""
 
 

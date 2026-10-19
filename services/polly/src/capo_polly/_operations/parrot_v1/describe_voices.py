@@ -122,14 +122,13 @@ def build_request(
                 capo_polly.types.language_code.serialize_json(input_["language_code"]),
             )
         )
-    params.append(
-        (
-            "IncludeAdditionalLanguageCodes",
-            "true"
-            if input_.get("include_additional_language_codes", False)
-            else "false",
+    if "include_additional_language_codes" in input_:
+        params.append(
+            (
+                "IncludeAdditionalLanguageCodes",
+                "true" if input_["include_additional_language_codes"] else "false",
+            )
         )
-    )
     if "next_token" in input_:
         params.append(("NextToken", input_["next_token"]))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}

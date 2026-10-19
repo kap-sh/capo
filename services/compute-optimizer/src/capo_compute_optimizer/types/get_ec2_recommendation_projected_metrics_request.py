@@ -40,7 +40,7 @@ def serialize_aws_json_1_0(value: GetEC2RecommendationProjectedMetricsRequest) -
     out["stat"] = capo_compute_optimizer.types.metric_statistic.serialize_aws_json_1_0(
         value["stat"]
     )
-    out["period"] = value.get("period", 0)
+    out["period"] = value["period"]
     import capo_compute_optimizer.types.timestamp
 
     out["startTime"] = capo_compute_optimizer.types.timestamp.serialize_aws_json_1_0(
@@ -85,7 +85,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetEC2RecommendationProjectedMetrics
     if data.get("period") is not None:
         out["period"] = data["period"]
     else:
-        out["period"] = 0
+        raise DeserializationError(
+            "GetEC2RecommendationProjectedMetricsRequest.period required"
+        )
     if data.get("startTime") is not None:
         import capo_compute_optimizer.types.timestamp
 

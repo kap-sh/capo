@@ -137,7 +137,8 @@ def build_request(
     params: list[tuple[str, str]] = []
     if "next_token" in input_:
         params.append(("nextToken", input_["next_token"]))
-    params.append(("maxResults", str(input_.get("max_results", 10))))
+    if "max_results" in input_:
+        params.append(("maxResults", str(input_["max_results"])))
     if "instance_name_filter" in input_:
         for item in input_["instance_name_filter"]:
             params.append(("instanceNameFilter", item))

@@ -62,7 +62,7 @@ class UpdateServiceRequest(TypedDict, closed=True):
     """<p>The task placement strategy objects to update the service to use. If no value is specified, the existing placement strategy for the service will remain unchanged. If this value is specified, it will override the existing placement strategy defined for the service. To remove an existing placement strategy, specify an empty object.</p> <p>You can specify a maximum of five strategy rules for each service.</p> <p>This parameter doesn't trigger a new service deployment.</p>"""
     platform_version: NotRequired["capo_ecs.types.string.String"]
     """<p>The platform version that your tasks in the service run on. A platform version is only specified for tasks using the Fargate launch type. If a platform version is not specified, the <code>LATEST</code> platform version is used. For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">Fargate Platform Versions</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.</p> <p>This parameter triggers a new service deployment.</p>"""
-    force_new_deployment: "capo_ecs.types.boolean.Boolean"
+    force_new_deployment: NotRequired["capo_ecs.types.boolean.Boolean"]
     """<p>Determines whether to force a new deployment of the service. By default, deployments aren't forced. You can use this option to start a new deployment with no service definition changes. For example, you can update a service's tasks to use a newer Docker image with the same image/tag combination (<code>my_image:latest</code>) or to roll Fargate tasks onto a newer platform version.</p>"""
     health_check_grace_period_seconds: NotRequired[
         "capo_ecs.types.boxed_integer.BoxedInteger"
@@ -161,7 +161,8 @@ def serialize_aws_json_1_1(value: UpdateServiceRequest) -> dict:
         )
     if "platform_version" in value:
         out["platformVersion"] = value["platform_version"]
-    out["forceNewDeployment"] = value.get("force_new_deployment", False)
+    if "force_new_deployment" in value:
+        out["forceNewDeployment"] = value["force_new_deployment"]
     if "health_check_grace_period_seconds" in value:
         out["healthCheckGracePeriodSeconds"] = value[
             "health_check_grace_period_seconds"
@@ -297,8 +298,6 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateServiceRequest:
         out["platform_version"] = data["platformVersion"]
     if data.get("forceNewDeployment") is not None:
         out["force_new_deployment"] = data["forceNewDeployment"]
-    else:
-        out["force_new_deployment"] = False
     if data.get("healthCheckGracePeriodSeconds") is not None:
         out["health_check_grace_period_seconds"] = data["healthCheckGracePeriodSeconds"]
     if data.get("deploymentController") is not None:

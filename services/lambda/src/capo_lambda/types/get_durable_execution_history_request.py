@@ -19,7 +19,7 @@ class GetDurableExecutionHistoryRequest(TypedDict, closed=True):
         "capo_lambda.types.include_execution_data.IncludeExecutionData"
     ]
     """<p>Specifies whether to include execution data such as step results and callback payloads in the history events. Set to <code>true</code> to include data, or <code>false</code> to exclude it for a more compact response. The default is <code>true</code>.</p>"""
-    max_items: "capo_lambda.types.item_count.ItemCount"
+    max_items: NotRequired["capo_lambda.types.item_count.ItemCount"]
     """<p>The maximum number of history events to return per call. You can use <code>Marker</code> to retrieve additional pages of results. The default is 100 and the maximum allowed is 1000. A value of 0 uses the default.</p>"""
     marker: NotRequired["capo_lambda.types.string.String"]
     """<p>If <code>NextMarker</code> was returned from a previous request, use this value to retrieve the next page of results. Each pagination token expires after 24 hours.</p>"""

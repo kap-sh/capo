@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_clouddirectory.errors import DeserializationError
 
@@ -19,7 +19,7 @@ class UpgradePublishedSchemaRequest(TypedDict, closed=True):
     """<p>The ARN of the published schema to be upgraded.</p>"""
     minor_version: "capo_clouddirectory.types.version.Version"
     """<p>Identifies the minor version of the published schema that will be created. This parameter is NOT optional.</p>"""
-    dry_run: "capo_clouddirectory.types.bool.Bool"
+    dry_run: NotRequired["capo_clouddirectory.types.bool.Bool"]
     """<p>Used for testing whether the Development schema provided is backwards compatible, or not, with the publish schema provided by the user to be upgraded. If schema compatibility fails, an exception would be thrown else the call would succeed. This parameter is optional and defaults to false.</p>"""
 
 
@@ -29,7 +29,8 @@ def serialize_json(value: UpgradePublishedSchemaRequest) -> dict:
     out["DevelopmentSchemaArn"] = value["development_schema_arn"]
     out["PublishedSchemaArn"] = value["published_schema_arn"]
     out["MinorVersion"] = value["minor_version"]
-    out["DryRun"] = value.get("dry_run", False)
+    if "dry_run" in value:
+        out["DryRun"] = value["dry_run"]
     return out
 
 
@@ -55,6 +56,4 @@ def deserialize_json(data: dict) -> UpgradePublishedSchemaRequest:
         )
     if data.get("DryRun") is not None:
         out["dry_run"] = data["DryRun"]
-    else:
-        out["dry_run"] = False
     return out

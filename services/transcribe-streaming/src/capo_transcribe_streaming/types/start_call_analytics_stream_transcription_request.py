@@ -55,7 +55,7 @@ class StartCallAnalyticsStreamTranscriptionRequest(TypedDict, closed=True):
         "capo_transcribe_streaming.types.model_name.ModelName"
     ]
     """<p>Specify the name of the custom language model that you want to use when processing your transcription. Note that language model names are case sensitive.</p> <p>The language of the specified language model must match the language code you specify in your transcription request. If the languages don't match, the custom language model isn't applied. There are no errors or warnings associated with a language mismatch.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/custom-language-models.html">Custom language models</a>.</p>"""
-    identify_language: "capo_transcribe_streaming.types.boolean.Boolean"
+    identify_language: NotRequired["capo_transcribe_streaming.types.boolean.Boolean"]
     """<p>Enables automatic language identification for your Call Analytics transcription.</p> <p>If you include <code>IdentifyLanguage</code>, you must include a list of language codes, using <code>LanguageOptions</code>, that you think may be present in your audio stream. You must provide a minimum of two language selections.</p> <p>You can also include a preferred language using <code>PreferredLanguage</code>. Adding a preferred language can help Amazon Transcribe identify the language faster than if you omit this parameter.</p> <p>Note that you must include either <code>LanguageCode</code> or <code>IdentifyLanguage</code> in your request. If you include both parameters, your transcription job fails.</p>"""
     language_options: NotRequired[
         "capo_transcribe_streaming.types.language_options.LanguageOptions"
@@ -73,9 +73,9 @@ class StartCallAnalyticsStreamTranscriptionRequest(TypedDict, closed=True):
         "capo_transcribe_streaming.types.vocabulary_filter_names.VocabularyFilterNames"
     ]
     """<p>Specify the names of the custom vocabulary filters that you want to use when processing your Call Analytics transcription. Note that vocabulary filter names are case sensitive.</p> <p>These filters serve to customize the transcript output.</p> <important> <p>This parameter is only intended for use <b>with</b> the <code>IdentifyLanguage</code> parameter. If you're <b>not</b> including <code>IdentifyLanguage</code> in your request and want to use a custom vocabulary filter with your transcription, use the <code>VocabularyFilterName</code> parameter instead.</p> </important> <p>For more information, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/vocabulary-filtering.html">Using vocabulary filtering with unwanted words</a>.</p>"""
-    enable_partial_results_stabilization: (
+    enable_partial_results_stabilization: NotRequired[
         "capo_transcribe_streaming.types.boolean.Boolean"
-    )
+    ]
     """<p>Enables partial result stabilization for your transcription. Partial result stabilization can reduce latency in your output, but may impact accuracy. For more information, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/streaming.html#streaming-partial-result-stabilization">Partial-result stabilization</a>.</p>"""
     partial_results_stability: NotRequired[
         "capo_transcribe_streaming.types.partial_results_stability.PartialResultsStability"

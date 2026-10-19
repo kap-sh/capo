@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 class ListSystemsRequest(TypedDict, closed=True):
     ou_id: NotRequired["capo_resiliencehubv2.types.ou_id.OuId"]
     """<p>Filter systems by organizational unit (OU) identifier.</p>"""
-    max_results: "capo_resiliencehubv2.types.max_results.MaxResults"
+    max_results: NotRequired["capo_resiliencehubv2.types.max_results.MaxResults"]
     next_token: NotRequired["capo_resiliencehubv2.types.next_token.NextToken"]
 
 

@@ -38,7 +38,7 @@ class CreateStateMachineInput(TypedDict, closed=True):
         "capo_sfn.types.tracing_configuration.TracingConfiguration"
     ]
     """<p>Selects whether X-Ray tracing is enabled.</p>"""
-    publish: "capo_sfn.types.publish.Publish"
+    publish: NotRequired["capo_sfn.types.publish.Publish"]
     """<p>Set to <code>true</code> to publish the first version of the state machine during creation. The default is <code>false</code>.</p>"""
     version_description: NotRequired[
         "capo_sfn.types.version_description.VersionDescription"
@@ -82,7 +82,8 @@ def serialize_aws_json_1_0(value: CreateStateMachineInput) -> dict:
                 value["tracing_configuration"]
             )
         )
-    out["publish"] = value.get("publish", False)
+    if "publish" in value:
+        out["publish"] = value["publish"]
     if "version_description" in value:
         out["versionDescription"] = value["version_description"]
     if "encryption_configuration" in value:
@@ -138,8 +139,6 @@ def deserialize_aws_json_1_0(data: dict) -> CreateStateMachineInput:
         )
     if data.get("publish") is not None:
         out["publish"] = data["publish"]
-    else:
-        out["publish"] = False
     if data.get("versionDescription") is not None:
         out["version_description"] = data["versionDescription"]
     if data.get("encryptionConfiguration") is not None:

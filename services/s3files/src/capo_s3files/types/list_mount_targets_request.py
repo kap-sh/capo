@@ -14,7 +14,7 @@ class ListMountTargetsRequest(TypedDict, closed=True):
     """<p>Optional filter to list only mount targets associated with the specified S3 File System ID or Amazon Resource Name (ARN). If provided, only mount targets for this file system will be returned in the response.</p>"""
     access_point_id: NotRequired["capo_s3files.types.access_point_id.AccessPointId"]
     """<p>Optional filter to list only mount targets associated with the specified access point ID or Amazon Resource Name (ARN).</p>"""
-    max_results: "int"
+    max_results: NotRequired["int"]
     """<p>The maximum number of mount targets to return in a single response.</p>"""
     next_token: NotRequired["str"]
     """<p>A pagination token returned from a previous call to continue listing mount targets.</p>"""

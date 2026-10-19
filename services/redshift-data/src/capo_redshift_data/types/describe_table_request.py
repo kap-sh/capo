@@ -33,7 +33,7 @@ class DescribeTableRequest(TypedDict, closed=True):
     """<p>The table name. If no table is specified, then all tables for all matching schemas are returned. If no table and no schema is specified, then all tables for all schemas in the database are returned</p>"""
     next_token: NotRequired["capo_redshift_data.types.string.String"]
     """<p>A value that indicates the starting point for the next set of response records in a subsequent request. If a value is returned in a response, you can retrieve the next set of records by providing this returned NextToken value in the next NextToken parameter and retrying the command. If the NextToken field is empty, all response records have been retrieved for the request. </p>"""
-    max_results: "capo_redshift_data.types.page_size.PageSize"
+    max_results: NotRequired["capo_redshift_data.types.page_size.PageSize"]
     """<p>The maximum number of tables to return in the response. If more tables exist than fit in one response, then <code>NextToken</code> is returned to page through the results. </p>"""
     workgroup_name: NotRequired[
         "capo_redshift_data.types.workgroup_name_string.WorkgroupNameString"
@@ -59,7 +59,8 @@ def serialize_aws_json_1_1(value: DescribeTableRequest) -> dict:
         out["Table"] = value["table"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
-    out["MaxResults"] = value.get("max_results", 0)
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
     if "workgroup_name" in value:
         out["WorkgroupName"] = value["workgroup_name"]
     return out
@@ -87,8 +88,6 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeTableRequest:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
-    else:
-        out["max_results"] = 0
     if data.get("WorkgroupName") is not None:
         out["workgroup_name"] = data["WorkgroupName"]
     return out

@@ -162,14 +162,15 @@ def build_request(
 
     url = endpoint.url.rstrip("/") + "/rdf/statistics/summary"
     params: list[tuple[str, str]] = []
-    params.append(
-        (
-            "mode",
-            capo_neptunedata.types.graph_summary_type.serialize_json(
-                input_.get("mode", "basic")
-            ),
+    if "mode" in input_:
+        params.append(
+            (
+                "mode",
+                capo_neptunedata.types.graph_summary_type.serialize_json(
+                    input_["mode"]
+                ),
+            )
         )
-    )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

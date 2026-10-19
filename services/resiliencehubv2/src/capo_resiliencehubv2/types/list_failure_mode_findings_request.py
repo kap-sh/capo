@@ -23,7 +23,7 @@ class ListFailureModeFindingsRequest(TypedDict, closed=True):
     """<p>Filter findings by failure category.</p>"""
     status: NotRequired["capo_resiliencehubv2.types.finding_status.FindingStatus"]
     """<p>Filter findings by status.</p>"""
-    max_results: "capo_resiliencehubv2.types.max_results.MaxResults"
+    max_results: NotRequired["capo_resiliencehubv2.types.max_results.MaxResults"]
     next_token: NotRequired["capo_resiliencehubv2.types.next_token.NextToken"]
 
 

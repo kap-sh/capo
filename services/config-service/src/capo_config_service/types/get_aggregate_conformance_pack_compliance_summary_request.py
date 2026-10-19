@@ -25,7 +25,7 @@ class GetAggregateConformancePackComplianceSummaryRequest(TypedDict, closed=True
         "capo_config_service.types.aggregate_conformance_pack_compliance_summary_group_key.AggregateConformancePackComplianceSummaryGroupKey"
     ]
     """<p>Groups the result based on Amazon Web Services account ID or Amazon Web Services Region.</p>"""
-    limit: "capo_config_service.types.limit.Limit"
+    limit: NotRequired["capo_config_service.types.limit.Limit"]
     """<p>The maximum number of results returned on each page. The default is maximum. If you specify 0, Config uses the default.</p>"""
     next_token: NotRequired["capo_config_service.types.next_token.NextToken"]
     """<p>The <code>nextToken</code> string returned on a previous page that you use to get the next page of results in a paginated response.</p>"""
@@ -53,7 +53,8 @@ def serialize_aws_json_1_1(
                 value["group_by_key"]
             )
         )
-    out["Limit"] = value.get("limit", 0)
+    if "limit" in value:
+        out["Limit"] = value["limit"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
     return out
@@ -87,8 +88,6 @@ def deserialize_aws_json_1_1(
         )
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
-    else:
-        out["limit"] = 0
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

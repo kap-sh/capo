@@ -16,9 +16,9 @@ class GetCertificatesRequest(TypedDict, closed=True):
         "capo_lightsail.types.certificate_status_list.CertificateStatusList"
     ]
     """<p>The status of the certificates for which to return information.</p> <p>For example, specify <code>ISSUED</code> to return only certificates with an <code>ISSUED</code> status.</p> <p>When omitted, the response includes all of your certificates in the Amazon Web Services Region where the request is made, regardless of their current status.</p>"""
-    include_certificate_details: (
+    include_certificate_details: NotRequired[
         "capo_lightsail.types.include_certificate_details.IncludeCertificateDetails"
-    )
+    ]
     """<p>Indicates whether to include detailed information about the certificates in the response.</p> <p>When omitted, the response includes only the certificate names, Amazon Resource Names (ARNs), domain names, and tags.</p>"""
     certificate_name: NotRequired[
         "capo_lightsail.types.certificate_name.CertificateName"
@@ -39,7 +39,8 @@ def serialize_aws_json_1_1(value: GetCertificatesRequest) -> dict:
                 value["certificate_statuses"]
             )
         )
-    out["includeCertificateDetails"] = value.get("include_certificate_details", False)
+    if "include_certificate_details" in value:
+        out["includeCertificateDetails"] = value["include_certificate_details"]
     if "certificate_name" in value:
         out["certificateName"] = value["certificate_name"]
     if "page_token" in value:
@@ -59,8 +60,6 @@ def deserialize_aws_json_1_1(data: dict) -> GetCertificatesRequest:
         )
     if data.get("includeCertificateDetails") is not None:
         out["include_certificate_details"] = data["includeCertificateDetails"]
-    else:
-        out["include_certificate_details"] = False
     if data.get("certificateName") is not None:
         out["certificate_name"] = data["certificateName"]
     if data.get("pageToken") is not None:

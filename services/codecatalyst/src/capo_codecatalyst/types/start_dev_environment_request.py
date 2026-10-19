@@ -25,9 +25,9 @@ class StartDevEnvironmentRequest(TypedDict, closed=True):
     """<p>Information about the integrated development environment (IDE) configured for a Dev Environment. </p>"""
     instance_type: NotRequired["capo_codecatalyst.types.instance_type.InstanceType"]
     """<p>The Amazon EC2 instace type to use for the Dev Environment. </p>"""
-    inactivity_timeout_minutes: (
+    inactivity_timeout_minutes: NotRequired[
         "capo_codecatalyst.types.inactivity_timeout_minutes.InactivityTimeoutMinutes"
-    )
+    ]
     """<p>The amount of time the Dev Environment will run without any activity detected before stopping, in minutes. Only whole integers are allowed. Dev Environments consume compute minutes when running.</p>"""
 
 
@@ -42,7 +42,8 @@ def serialize_json(value: StartDevEnvironmentRequest) -> dict:
         )
     if "instance_type" in value:
         out["instanceType"] = value["instance_type"]
-    out["inactivityTimeoutMinutes"] = value.get("inactivity_timeout_minutes", 0)
+    if "inactivity_timeout_minutes" in value:
+        out["inactivityTimeoutMinutes"] = value["inactivity_timeout_minutes"]
     return out
 
 
@@ -58,6 +59,4 @@ def deserialize_json(data: dict) -> StartDevEnvironmentRequest:
         out["instance_type"] = data["instanceType"]
     if data.get("inactivityTimeoutMinutes") is not None:
         out["inactivity_timeout_minutes"] = data["inactivityTimeoutMinutes"]
-    else:
-        out["inactivity_timeout_minutes"] = 0
     return out

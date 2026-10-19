@@ -122,12 +122,13 @@ def build_request(
     url = endpoint.url.rstrip("/") + "/connections/{clientId}"
     url = url.replace("{clientId}", quote(input_["client_id"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(
-        (
-            "includeSocketInformation",
-            "true" if input_.get("include_socket_information", False) else "false",
+    if "include_socket_information" in input_:
+        params.append(
+            (
+                "includeSocketInformation",
+                "true" if input_["include_socket_information"] else "false",
+            )
         )
-    )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

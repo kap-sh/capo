@@ -35,9 +35,9 @@ class InvokeModelRequest(TypedDict, closed=True):
         "capo_bedrock_runtime.types.guardrail_version.GuardrailVersion"
     ]
     """<p>The version number for the guardrail. The value can also be <code>DRAFT</code>.</p>"""
-    performance_config_latency: (
+    performance_config_latency: NotRequired[
         "capo_bedrock_runtime.types.performance_config_latency.PerformanceConfigLatency"
-    )
+    ]
     """<p>Model performance settings for the request.</p>"""
     service_tier: NotRequired[
         "capo_bedrock_runtime.types.service_tier_type.ServiceTierType"

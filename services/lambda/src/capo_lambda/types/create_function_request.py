@@ -54,7 +54,7 @@ class CreateFunctionRequest(TypedDict, closed=True):
     """<p>The amount of time (in seconds) that Lambda allows a function to run before stopping it. The default is 3 seconds, and the maximum allowed value is 900 seconds. For functions using Lambda Managed Instances, asynchronous invocations and event source mapping invocations (except Amazon MQ and Amazon DocumentDB) support a maximum allowed value of 5,400 seconds (90 minutes). For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/runtimes-context.html">Lambda execution environment</a>.</p>"""
     memory_size: NotRequired["capo_lambda.types.memory_size.MemorySize"]
     """<p>The amount of <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#configuration-memory-console">memory available to the function</a> at runtime. Increasing the function memory also increases its CPU allocation. The default value is 128 MB. The value can be any multiple of 1 MB.</p>"""
-    publish: "capo_lambda.types.boolean.Boolean"
+    publish: NotRequired["capo_lambda.types.boolean.Boolean"]
     """<p>Set to true to publish the first version of the function during creation.</p>"""
     publish_to: NotRequired[
         "capo_lambda.types.function_version_latest_published.FunctionVersionLatestPublished"
@@ -128,7 +128,8 @@ def serialize_json(value: CreateFunctionRequest) -> dict:
         out["Timeout"] = value["timeout"]
     if "memory_size" in value:
         out["MemorySize"] = value["memory_size"]
-    out["Publish"] = value.get("publish", False)
+    if "publish" in value:
+        out["Publish"] = value["publish"]
     if "publish_to" in value:
         import capo_lambda.types.function_version_latest_published
 
@@ -270,8 +271,6 @@ def deserialize_json(data: dict) -> CreateFunctionRequest:
         out["memory_size"] = data["MemorySize"]
     if data.get("Publish") is not None:
         out["publish"] = data["Publish"]
-    else:
-        out["publish"] = False
     if data.get("PublishTo") is not None:
         import capo_lambda.types.function_version_latest_published
 

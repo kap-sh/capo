@@ -124,12 +124,13 @@ def build_request(
     url = url.replace("{flowIdentifier}", quote(input_["flow_identifier"], safe=""))
     url = url.replace("{flowVersion}", quote(input_["flow_version"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(
-        (
-            "skipResourceInUseCheck",
-            "true" if input_.get("skip_resource_in_use_check", False) else "false",
+    if "skip_resource_in_use_check" in input_:
+        params.append(
+            (
+                "skipResourceInUseCheck",
+                "true" if input_["skip_resource_in_use_check"] else "false",
+            )
         )
-    )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

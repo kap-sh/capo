@@ -114,7 +114,8 @@ def build_request(
     params: list[tuple[str, str]] = []
     if "system_arn" in input_:
         params.append(("systemArn", input_["system_arn"]))
-    params.append(("maxResults", str(input_.get("max_results", 100))))
+    if "max_results" in input_:
+        params.append(("maxResults", str(input_["max_results"])))
     if "next_token" in input_:
         params.append(("nextToken", input_["next_token"]))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}

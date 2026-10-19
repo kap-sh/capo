@@ -59,9 +59,9 @@ class CreateJobRequest(TypedDict, closed=True):
     """<p>Arguments for this job that are not overridden when providing job arguments in a job run, specified as name-value pairs.</p>"""
     connections: NotRequired["capo_glue.types.connections_list.ConnectionsList"]
     """<p>The connections used for this job.</p>"""
-    max_retries: "capo_glue.types.max_retries.MaxRetries"
+    max_retries: NotRequired["capo_glue.types.max_retries.MaxRetries"]
     """<p>The maximum number of times to retry this job if it fails.</p>"""
-    allocated_capacity: "capo_glue.types.integer_value.IntegerValue"
+    allocated_capacity: NotRequired["capo_glue.types.integer_value.IntegerValue"]
     """<p>This parameter is deprecated. Use <code>MaxCapacity</code> instead.</p> <p>The number of Glue data processing units (DPUs) to allocate to this Job. You can allocate a minimum of 2 DPUs; the default is 10. A DPU is a relative measure of processing power that consists of 4 vCPUs of compute capacity and 16 GB of memory. For more information, see the <a href="https://aws.amazon.com/glue/pricing/">Glue pricing page</a>.</p>"""
     timeout: NotRequired["capo_glue.types.timeout.Timeout"]
     """<p>The job timeout in minutes. This is the maximum time that a job run can consume resources before it is terminated and enters <code>TIMEOUT</code> status.</p> <p>Jobs must have timeout values less than 7 days or 10080 minutes. Otherwise, the jobs will throw an exception.</p> <p>When the value is left blank, the timeout is defaulted to 2,880 minutes for Glue version 4.0 and earlier, or 480 minutes for Glue version 5.0 and later.</p> <p>Any existing Glue jobs that had a timeout value greater than 7 days will be defaulted to 7 days. For instance if you have specified a timeout of 20 days for a batch job, it will be stopped on the 7th day.</p> <p>For streaming jobs, if you have set up a maintenance window, it will be restarted during the maintenance window after 7 days.</p>"""
@@ -147,8 +147,10 @@ def serialize_aws_json_1_1(value: CreateJobRequest) -> dict:
         out["Connections"] = capo_glue.types.connections_list.serialize_aws_json_1_1(
             value["connections"]
         )
-    out["MaxRetries"] = value.get("max_retries", 0)
-    out["AllocatedCapacity"] = value.get("allocated_capacity", 0)
+    if "max_retries" in value:
+        out["MaxRetries"] = value["max_retries"]
+    if "allocated_capacity" in value:
+        out["AllocatedCapacity"] = value["allocated_capacity"]
     if "timeout" in value:
         out["Timeout"] = value["timeout"]
     if "max_capacity" in value:
@@ -272,12 +274,8 @@ def deserialize_aws_json_1_1(data: dict) -> CreateJobRequest:
         )
     if data.get("MaxRetries") is not None:
         out["max_retries"] = data["MaxRetries"]
-    else:
-        out["max_retries"] = 0
     if data.get("AllocatedCapacity") is not None:
         out["allocated_capacity"] = data["AllocatedCapacity"]
-    else:
-        out["allocated_capacity"] = 0
     if data.get("Timeout") is not None:
         out["timeout"] = data["Timeout"]
     if data.get("MaxCapacity") is not None:

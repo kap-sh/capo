@@ -33,7 +33,7 @@ class UpdateDataTableAttributeRequest(TypedDict, closed=True):
         "capo_connect.types.data_table_description.DataTableDescription"
     ]
     """<p>The updated description for the attribute.</p>"""
-    primary: "capo_connect.types.boolean.Boolean"
+    primary: NotRequired["capo_connect.types.boolean.Boolean"]
     """<p>Whether the attribute should be treated as a primary key. Converting to primary attribute requires existing values to maintain uniqueness.</p>"""
     validation: NotRequired["capo_connect.types.validation.Validation"]
     """<p>The updated validation rules for the attribute. Changes do not affect existing values until they are modified.</p>"""
@@ -52,7 +52,8 @@ def serialize_json(value: UpdateDataTableAttributeRequest) -> dict:
     )
     if "description" in value:
         out["Description"] = value["description"]
-    out["Primary"] = value.get("primary", False)
+    if "primary" in value:
+        out["Primary"] = value["primary"]
     if "validation" in value:
         import capo_connect.types.validation
 
@@ -84,8 +85,6 @@ def deserialize_json(data: dict) -> UpdateDataTableAttributeRequest:
         out["description"] = data["Description"]
     if data.get("Primary") is not None:
         out["primary"] = data["Primary"]
-    else:
-        out["primary"] = False
     if data.get("Validation") is not None:
         import capo_connect.types.validation
 

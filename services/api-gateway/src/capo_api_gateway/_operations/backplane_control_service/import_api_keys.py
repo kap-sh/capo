@@ -135,9 +135,10 @@ def build_request(
                 capo_api_gateway.types.api_keys_format.serialize_json(input_["format"]),
             )
         )
-    params.append(
-        ("failonwarnings", "true" if input_.get("fail_on_warnings", False) else "false")
-    )
+    if "fail_on_warnings" in input_:
+        params.append(
+            ("failonwarnings", "true" if input_["fail_on_warnings"] else "false")
+        )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = input_["body"]
     headers["content-type"] = "application/octet-stream"

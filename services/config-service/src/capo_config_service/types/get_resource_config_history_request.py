@@ -29,7 +29,7 @@ class GetResourceConfigHistoryRequest(TypedDict, closed=True):
         "capo_config_service.types.chronological_order.ChronologicalOrder"
     ]
     """<p>The chronological order for configuration items listed. By default, the results are listed in reverse chronological order.</p>"""
-    limit: "capo_config_service.types.limit.Limit"
+    limit: NotRequired["capo_config_service.types.limit.Limit"]
     """<p>The maximum number of configuration items returned on each page. The default is 10. You cannot specify a number greater than 100. If you specify 0, Config uses the default.</p>"""
     next_token: NotRequired["capo_config_service.types.next_token.NextToken"]
     """<p>The <code>nextToken</code> string returned on a previous page that you use to get the next page of results in a paginated response.</p>"""
@@ -68,7 +68,8 @@ def serialize_aws_json_1_1(value: GetResourceConfigHistoryRequest) -> dict:
                 value["chronological_order"]
             )
         )
-    out["limit"] = value.get("limit", 0)
+    if "limit" in value:
+        out["limit"] = value["limit"]
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
     return out
@@ -120,8 +121,6 @@ def deserialize_aws_json_1_1(data: dict) -> GetResourceConfigHistoryRequest:
         )
     if data.get("limit") is not None:
         out["limit"] = data["limit"]
-    else:
-        out["limit"] = 0
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

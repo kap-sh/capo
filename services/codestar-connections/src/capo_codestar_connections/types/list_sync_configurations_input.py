@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 
 class ListSyncConfigurationsInput(TypedDict, closed=True):
-    max_results: "capo_codestar_connections.types.max_results.MaxResults"
+    max_results: NotRequired["capo_codestar_connections.types.max_results.MaxResults"]
     """<p>A non-zero, non-negative integer used to limit the number of returned results.</p>"""
     next_token: NotRequired[
         "capo_codestar_connections.types.sharp_next_token.SharpNextToken"
@@ -33,7 +33,8 @@ class ListSyncConfigurationsInput(TypedDict, closed=True):
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: ListSyncConfigurationsInput) -> dict:
     out: dict = {}
-    out["MaxResults"] = value.get("max_results", 0)
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
     out["RepositoryLinkId"] = value["repository_link_id"]
@@ -51,8 +52,6 @@ def deserialize_aws_json_1_0(data: dict) -> ListSyncConfigurationsInput:
     out: ListSyncConfigurationsInput = {}  # type: ignore[typeddict-item]
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
-    else:
-        out["max_results"] = 0
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("RepositoryLinkId") is not None:

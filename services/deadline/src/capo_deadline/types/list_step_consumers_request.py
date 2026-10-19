@@ -24,7 +24,7 @@ class ListStepConsumersRequest(TypedDict, closed=True):
     """<p>The step ID to include on the list.</p>"""
     next_token: NotRequired["capo_deadline.types.next_token.NextToken"]
     """<p>The token for the next set of results, or <code>null</code> to start from the beginning.</p>"""
-    max_results: "capo_deadline.types.integer.Integer"
+    max_results: NotRequired["capo_deadline.types.integer.Integer"]
     """<p>The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.</p>"""
 
 

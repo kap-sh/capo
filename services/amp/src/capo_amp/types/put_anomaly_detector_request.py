@@ -21,7 +21,9 @@ class PutAnomalyDetectorRequest(TypedDict, closed=True):
     """<p>The identifier of the workspace containing the anomaly detector to update.</p>"""
     anomaly_detector_id: "capo_amp.types.anomaly_detector_id.AnomalyDetectorId"
     """<p>The identifier of the anomaly detector to update.</p>"""
-    evaluation_interval_in_seconds: "capo_amp.types.anomaly_detector_evaluation_interval.AnomalyDetectorEvaluationInterval"
+    evaluation_interval_in_seconds: NotRequired[
+        "capo_amp.types.anomaly_detector_evaluation_interval.AnomalyDetectorEvaluationInterval"
+    ]
     """<p>The frequency, in seconds, at which the anomaly detector evaluates metrics.</p>"""
     missing_data_action: NotRequired[
         "capo_amp.types.anomaly_detector_missing_data_action.AnomalyDetectorMissingDataAction"
@@ -42,7 +44,8 @@ class PutAnomalyDetectorRequest(TypedDict, closed=True):
 # --- restJson1 ser/de ---
 def serialize_json(value: PutAnomalyDetectorRequest) -> dict:
     out: dict = {}
-    out["evaluationIntervalInSeconds"] = value.get("evaluation_interval_in_seconds", 60)
+    if "evaluation_interval_in_seconds" in value:
+        out["evaluationIntervalInSeconds"] = value["evaluation_interval_in_seconds"]
     if "missing_data_action" in value:
         import capo_amp.types.anomaly_detector_missing_data_action
 
@@ -71,8 +74,6 @@ def deserialize_json(data: dict) -> PutAnomalyDetectorRequest:
     out: PutAnomalyDetectorRequest = {}  # type: ignore[typeddict-item]
     if data.get("evaluationIntervalInSeconds") is not None:
         out["evaluation_interval_in_seconds"] = data["evaluationIntervalInSeconds"]
-    else:
-        out["evaluation_interval_in_seconds"] = 60
     if data.get("missingDataAction") is not None:
         import capo_amp.types.anomaly_detector_missing_data_action
 

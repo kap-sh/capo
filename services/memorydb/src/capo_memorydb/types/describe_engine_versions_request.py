@@ -21,7 +21,7 @@ class DescribeEngineVersionsRequest(TypedDict, closed=True):
     """<p>The maximum number of records to include in the response. If more records exist than the specified MaxResults value, a token is included in the response so that the remaining results can be retrieved.</p>"""
     next_token: NotRequired["capo_memorydb.types.string.String"]
     """<p>An optional argument to pass in case the total number of records exceeds the value of MaxResults. If nextToken is returned, there are more results available. The value of nextToken is a unique pagination token for each page. Make the call again using the returned token to retrieve the next page. Keep all other arguments unchanged. </p>"""
-    default_only: "capo_memorydb.types.boolean.Boolean"
+    default_only: NotRequired["capo_memorydb.types.boolean.Boolean"]
     """<p>If true, specifies that only the default version of the specified engine or engine and major version combination is to be returned.</p>"""
 
 
@@ -38,7 +38,8 @@ def serialize_aws_json_1_1(value: DescribeEngineVersionsRequest) -> dict:
         out["MaxResults"] = value["max_results"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
-    out["DefaultOnly"] = value.get("default_only", False)
+    if "default_only" in value:
+        out["DefaultOnly"] = value["default_only"]
     return out
 
 
@@ -56,6 +57,4 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeEngineVersionsRequest:
         out["next_token"] = data["NextToken"]
     if data.get("DefaultOnly") is not None:
         out["default_only"] = data["DefaultOnly"]
-    else:
-        out["default_only"] = False
     return out

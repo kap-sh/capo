@@ -21,9 +21,11 @@ class DeleteOrganizationRequest(TypedDict, closed=True):
     """<p>The organization ID.</p>"""
     delete_directory: "capo_workmail.types.boolean.Boolean"
     """<p>If true, deletes the AWS Directory Service directory associated with the organization.</p>"""
-    force_delete: "capo_workmail.types.boolean.Boolean"
+    force_delete: NotRequired["capo_workmail.types.boolean.Boolean"]
     """<p>Deletes a WorkMail organization even if the organization has enabled users.</p>"""
-    delete_identity_center_application: "capo_workmail.types.boolean.Boolean"
+    delete_identity_center_application: NotRequired[
+        "capo_workmail.types.boolean.Boolean"
+    ]
     """<p>Deletes IAM Identity Center application for WorkMail. This action does not affect authentication settings for any organization.</p>"""
 
 
@@ -33,11 +35,13 @@ def serialize_aws_json_1_1(value: DeleteOrganizationRequest) -> dict:
     if "client_token" in value:
         out["ClientToken"] = value["client_token"]
     out["OrganizationId"] = value["organization_id"]
-    out["DeleteDirectory"] = value.get("delete_directory", False)
-    out["ForceDelete"] = value.get("force_delete", False)
-    out["DeleteIdentityCenterApplication"] = value.get(
-        "delete_identity_center_application", False
-    )
+    out["DeleteDirectory"] = value["delete_directory"]
+    if "force_delete" in value:
+        out["ForceDelete"] = value["force_delete"]
+    if "delete_identity_center_application" in value:
+        out["DeleteIdentityCenterApplication"] = value[
+            "delete_identity_center_application"
+        ]
     return out
 
 
@@ -52,15 +56,13 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteOrganizationRequest:
     if data.get("DeleteDirectory") is not None:
         out["delete_directory"] = data["DeleteDirectory"]
     else:
-        out["delete_directory"] = False
+        raise DeserializationError(
+            "DeleteOrganizationRequest.delete_directory required"
+        )
     if data.get("ForceDelete") is not None:
         out["force_delete"] = data["ForceDelete"]
-    else:
-        out["force_delete"] = False
     if data.get("DeleteIdentityCenterApplication") is not None:
         out["delete_identity_center_application"] = data[
             "DeleteIdentityCenterApplication"
         ]
-    else:
-        out["delete_identity_center_application"] = False
     return out

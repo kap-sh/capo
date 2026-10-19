@@ -50,7 +50,7 @@ class DescribeSavingsPlansOfferingRatesRequest(TypedDict, closed=True):
     """<p>The filters.</p>"""
     next_token: NotRequired["capo_savingsplans.types.pagination_token.PaginationToken"]
     """<p>The token for the next page of results.</p>"""
-    max_results: "capo_savingsplans.types.page_size.PageSize"
+    max_results: NotRequired["capo_savingsplans.types.page_size.PageSize"]
     """<p>The maximum number of results to return with a single call. To retrieve additional results, make another call with the returned token value.</p>"""
 
 
@@ -121,7 +121,8 @@ def serialize_json(value: DescribeSavingsPlansOfferingRatesRequest) -> dict:
         )
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
-    out["maxResults"] = value.get("max_results", 0)
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
     return out
 
 
@@ -195,6 +196,4 @@ def deserialize_json(data: dict) -> DescribeSavingsPlansOfferingRatesRequest:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
-    else:
-        out["max_results"] = 0
     return out

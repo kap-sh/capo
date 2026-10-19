@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 class ListPackagesForDomainRequest(TypedDict, closed=True):
     domain_name: "capo_elasticsearch_service.types.domain_name.DomainName"
     """<p>The name of the domain for which you want to list associated packages.</p>"""
-    max_results: "capo_elasticsearch_service.types.max_results.MaxResults"
+    max_results: NotRequired["capo_elasticsearch_service.types.max_results.MaxResults"]
     """<p>Limits results to a maximum number of packages.</p>"""
     next_token: NotRequired["capo_elasticsearch_service.types.next_token.NextToken"]
     """<p>Used for pagination. Only necessary if a previous API call includes a non-null NextToken value. If provided, returns results for the next page.</p>"""

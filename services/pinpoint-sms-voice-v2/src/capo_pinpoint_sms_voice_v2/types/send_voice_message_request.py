@@ -50,7 +50,7 @@ class SendVoiceMessageRequest(TypedDict, closed=True):
     """<p>How long the voice message is valid for. By default this is 72 hours.</p>"""
     context: NotRequired["capo_pinpoint_sms_voice_v2.types.context_map.ContextMap"]
     """<p>You can specify custom data in this field. If you do, that data is logged to the event destination.</p>"""
-    dry_run: "bool"
+    dry_run: NotRequired["bool"]
     """<p>When set to true, the message is checked and validated, but isn't sent to the end recipient.</p>"""
     protect_configuration_id: NotRequired[
         "capo_pinpoint_sms_voice_v2.types.protect_configuration_id_or_arn.ProtectConfigurationIdOrArn"
@@ -85,7 +85,8 @@ def serialize_aws_json_1_0(value: SendVoiceMessageRequest) -> dict:
                 value["context"]
             )
         )
-    out["DryRun"] = value.get("dry_run", False)
+    if "dry_run" in value:
+        out["DryRun"] = value["dry_run"]
     if "protect_configuration_id" in value:
         out["ProtectConfigurationId"] = value["protect_configuration_id"]
     if "message_feedback_enabled" in value:
@@ -129,8 +130,6 @@ def deserialize_aws_json_1_0(data: dict) -> SendVoiceMessageRequest:
         )
     if data.get("DryRun") is not None:
         out["dry_run"] = data["DryRun"]
-    else:
-        out["dry_run"] = False
     if data.get("ProtectConfigurationId") is not None:
         out["protect_configuration_id"] = data["ProtectConfigurationId"]
     if data.get("MessageFeedbackEnabled") is not None:

@@ -18,7 +18,7 @@ class TransformDataRequest(TypedDict, closed=True):
     """<p>The clinical data to transform. Provide either raw C-CDA XML or CSV content.</p>"""
     drift_detection_enabled: NotRequired["bool"]
     """<p>Specifies whether drift detection is enabled for this request. When enabled, HealthLake writes a drift report in the API response.</p>"""
-    provenance_enabled: "bool"
+    provenance_enabled: NotRequired["bool"]
     """<p>Specifies whether FHIR R4 Provenance resource generation is enabled for this transformation. When provenance is enabled, the service also generates related DocumentReference and Device resources. If you don't specify a value, the default is <code>true</code>. To disable provenance output, set this parameter to <code>false</code>.</p>"""
 
 
@@ -35,7 +35,8 @@ def serialize_aws_json_1_0(value: TransformDataRequest) -> dict:
     )
     if "drift_detection_enabled" in value:
         out["DriftDetectionEnabled"] = value["drift_detection_enabled"]
-    out["ProvenanceEnabled"] = value.get("provenance_enabled", True)
+    if "provenance_enabled" in value:
+        out["ProvenanceEnabled"] = value["provenance_enabled"]
     return out
 
 
@@ -59,8 +60,6 @@ def deserialize_aws_json_1_0(data: dict) -> TransformDataRequest:
         out["drift_detection_enabled"] = data["DriftDetectionEnabled"]
     if data.get("ProvenanceEnabled") is not None:
         out["provenance_enabled"] = data["ProvenanceEnabled"]
-    else:
-        out["provenance_enabled"] = True
     return out
 
 

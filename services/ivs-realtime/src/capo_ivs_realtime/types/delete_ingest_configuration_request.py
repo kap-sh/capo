@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_ivs_realtime.errors import DeserializationError
 
@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 class DeleteIngestConfigurationRequest(TypedDict, closed=True):
     arn: "capo_ivs_realtime.types.ingest_configuration_arn.IngestConfigurationArn"
     """<p>ARN of the IngestConfiguration.</p>"""
-    force: "capo_ivs_realtime.types.boolean.Boolean"
+    force: NotRequired["capo_ivs_realtime.types.boolean.Boolean"]
     """<p>Optional field to force deletion of the IngestConfiguration. If this is set to <code>true</code> when a participant is actively publishing, the participant is disconnected from the stage, followed by deletion of the IngestConfiguration. Default: <code>false</code>.</p>"""
 
 
@@ -22,7 +22,8 @@ class DeleteIngestConfigurationRequest(TypedDict, closed=True):
 def serialize_json(value: DeleteIngestConfigurationRequest) -> dict:
     out: dict = {}
     out["arn"] = value["arn"]
-    out["force"] = value.get("force", False)
+    if "force" in value:
+        out["force"] = value["force"]
     return out
 
 
@@ -34,6 +35,4 @@ def deserialize_json(data: dict) -> DeleteIngestConfigurationRequest:
         raise DeserializationError("DeleteIngestConfigurationRequest.arn required")
     if data.get("force") is not None:
         out["force"] = data["force"]
-    else:
-        out["force"] = False
     return out

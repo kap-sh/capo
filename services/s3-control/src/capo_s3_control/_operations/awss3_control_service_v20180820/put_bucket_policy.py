@@ -88,9 +88,10 @@ def build_request(
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     if "account_id" in input_:
         headers["x-amz-account-id"] = input_["account_id"]
-    headers["x-amz-confirm-remove-self-bucket-access"] = (
-        "true" if input_.get("confirm_remove_self_bucket_access", False) else "false"
-    )
+    if "confirm_remove_self_bucket_access" in input_:
+        headers["x-amz-confirm-remove-self-bucket-access"] = (
+            "true" if input_["confirm_remove_self_bucket_access"] else "false"
+        )
     root = Element("PutBucketPolicyRequest")
     if "policy" in input_:
         SubElement(root, "Policy").text = input_["policy"]

@@ -39,7 +39,7 @@ class UpdateTableRequest(TypedDict, closed=True):
         "capo_glue.types.view_update_action.ViewUpdateAction"
     ]
     """<p>The operation to be performed when updating the view.</p>"""
-    force: "capo_glue.types.boolean.Boolean"
+    force: NotRequired["capo_glue.types.boolean.Boolean"]
     """<p>A flag that can be set to true to ignore matching storage descriptor and subobject matching requirements.</p>"""
     update_open_table_format_input: NotRequired[
         "capo_glue.types.update_open_table_format_input.UpdateOpenTableFormatInput"
@@ -75,7 +75,8 @@ def serialize_aws_json_1_1(value: UpdateTableRequest) -> dict:
                 value["view_update_action"]
             )
         )
-    out["Force"] = value.get("force", False)
+    if "force" in value:
+        out["Force"] = value["force"]
     if "update_open_table_format_input" in value:
         import capo_glue.types.update_open_table_format_input
 
@@ -119,8 +120,6 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateTableRequest:
         )
     if data.get("Force") is not None:
         out["force"] = data["Force"]
-    else:
-        out["force"] = False
     if data.get("UpdateOpenTableFormatInput") is not None:
         import capo_glue.types.update_open_table_format_input
 

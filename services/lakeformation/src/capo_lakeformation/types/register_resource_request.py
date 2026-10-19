@@ -31,7 +31,7 @@ class RegisterResourceRequest(TypedDict, closed=True):
         "capo_lakeformation.types.nullable_boolean.NullableBoolean"
     ]
     """<p> Specifies whether the data access of tables pointing to the location can be managed by both Lake Formation permissions as well as Amazon S3 bucket policies. </p>"""
-    with_privileged_access: "capo_lakeformation.types.boolean.Boolean"
+    with_privileged_access: NotRequired["capo_lakeformation.types.boolean.Boolean"]
     """<p>Grants the calling principal the permissions to perform all supported Lake Formation operations on the registered data location. </p>"""
     expected_resource_owner_account: NotRequired[
         "capo_lakeformation.types.account_id_string.AccountIdString"
@@ -51,7 +51,8 @@ def serialize_json(value: RegisterResourceRequest) -> dict:
         out["WithFederation"] = value["with_federation"]
     if "hybrid_access_enabled" in value:
         out["HybridAccessEnabled"] = value["hybrid_access_enabled"]
-    out["WithPrivilegedAccess"] = value.get("with_privileged_access", False)
+    if "with_privileged_access" in value:
+        out["WithPrivilegedAccess"] = value["with_privileged_access"]
     if "expected_resource_owner_account" in value:
         out["ExpectedResourceOwnerAccount"] = value["expected_resource_owner_account"]
     return out
@@ -73,8 +74,6 @@ def deserialize_json(data: dict) -> RegisterResourceRequest:
         out["hybrid_access_enabled"] = data["HybridAccessEnabled"]
     if data.get("WithPrivilegedAccess") is not None:
         out["with_privileged_access"] = data["WithPrivilegedAccess"]
-    else:
-        out["with_privileged_access"] = False
     if data.get("ExpectedResourceOwnerAccount") is not None:
         out["expected_resource_owner_account"] = data["ExpectedResourceOwnerAccount"]
     return out

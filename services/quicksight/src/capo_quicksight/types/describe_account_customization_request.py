@@ -15,7 +15,7 @@ class DescribeAccountCustomizationRequest(TypedDict, closed=True):
     """<p>The ID for the Amazon Web Services account that you want to describe Quick Sight customizations for.</p>"""
     namespace: NotRequired["capo_quicksight.types.namespace.Namespace"]
     """<p>The Quick Sight namespace that you want to describe Quick Sight customizations for.</p>"""
-    resolved: "capo_quicksight.types.boolean.Boolean"
+    resolved: NotRequired["capo_quicksight.types.boolean.Boolean"]
     """<p>The <code>Resolved</code> flag works with the other parameters to determine which view of Quick Sight customizations is returned. You can add this flag to your command to use the same view that Quick Sight uses to identify which customizations to apply to the console. Omit this flag, or set it to <code>no-resolved</code>, to reveal customizations that are configured at different levels. </p>"""
 
 

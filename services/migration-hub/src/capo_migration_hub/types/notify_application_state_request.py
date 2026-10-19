@@ -22,7 +22,7 @@ class NotifyApplicationStateRequest(TypedDict, closed=True):
         "capo_migration_hub.types.update_date_time.UpdateDateTime"
     ]
     """<p>The timestamp when the application state changed.</p>"""
-    dry_run: "capo_migration_hub.types.dry_run.DryRun"
+    dry_run: NotRequired["capo_migration_hub.types.dry_run.DryRun"]
     """<p>Optional boolean flag to indicate whether any effect should take place. Used to test if the caller has permission to make the call.</p>"""
 
 
@@ -43,7 +43,8 @@ def serialize_aws_json_1_1(value: NotifyApplicationStateRequest) -> dict:
                 value["update_date_time"]
             )
         )
-    out["DryRun"] = value.get("dry_run", False)
+    if "dry_run" in value:
+        out["DryRun"] = value["dry_run"]
     return out
 
 
@@ -75,6 +76,4 @@ def deserialize_aws_json_1_1(data: dict) -> NotifyApplicationStateRequest:
         )
     if data.get("DryRun") is not None:
         out["dry_run"] = data["DryRun"]
-    else:
-        out["dry_run"] = False
     return out

@@ -26,7 +26,9 @@ class StartRestoreJobInput(TypedDict, closed=True):
     """<p>A customer-chosen string that you can use to distinguish between otherwise identical calls to <code>StartRestoreJob</code>. Retrying a successful request with the same idempotency token results in a success message with no action taken.</p>"""
     resource_type: NotRequired["capo_backup.types.resource_type.ResourceType"]
     """<p>Starts a job to restore a recovery point for one of the following resources:</p> <ul> <li> <p> <code>Aurora</code> - Amazon Aurora</p> </li> <li> <p> <code>DocumentDB</code> - Amazon DocumentDB</p> </li> <li> <p> <code>CloudFormation</code> - CloudFormation</p> </li> <li> <p> <code>DynamoDB</code> - Amazon DynamoDB</p> </li> <li> <p> <code>EBS</code> - Amazon Elastic Block Store</p> </li> <li> <p> <code>EC2</code> - Amazon Elastic Compute Cloud</p> </li> <li> <p> <code>EFS</code> - Amazon Elastic File System</p> </li> <li> <p> <code>EKS</code> - Amazon Elastic Kubernetes Service</p> </li> <li> <p> <code>FSx</code> - Amazon FSx</p> </li> <li> <p> <code>Neptune</code> - Amazon Neptune</p> </li> <li> <p> <code>RDS</code> - Amazon Relational Database Service</p> </li> <li> <p> <code>Redshift</code> - Amazon Redshift</p> </li> <li> <p> <code>Storage Gateway</code> - Storage Gateway</p> </li> <li> <p> <code>S3</code> - Amazon Simple Storage Service</p> </li> <li> <p> <code>Timestream</code> - Amazon Timestream</p> </li> <li> <p> <code>VirtualMachine</code> - Virtual machines</p> </li> </ul>"""
-    copy_source_tags_to_restored_resource: "capo_backup.types.boolean2.Boolean2"
+    copy_source_tags_to_restored_resource: NotRequired[
+        "capo_backup.types.boolean2.Boolean2"
+    ]
     """<p>This is an optional parameter. If this equals <code>True</code>, tags included in the backup will be copied to the restored resource.</p> <p>This can only be applied to backups created through Backup.</p>"""
 
 
@@ -43,9 +45,10 @@ def serialize_json(value: StartRestoreJobInput) -> dict:
         out["IdempotencyToken"] = value["idempotency_token"]
     if "resource_type" in value:
         out["ResourceType"] = value["resource_type"]
-    out["CopySourceTagsToRestoredResource"] = value.get(
-        "copy_source_tags_to_restored_resource", False
-    )
+    if "copy_source_tags_to_restored_resource" in value:
+        out["CopySourceTagsToRestoredResource"] = value[
+            "copy_source_tags_to_restored_resource"
+        ]
     return out
 
 
@@ -71,8 +74,6 @@ def deserialize_json(data: dict) -> StartRestoreJobInput:
         out["copy_source_tags_to_restored_resource"] = data[
             "CopySourceTagsToRestoredResource"
         ]
-    else:
-        out["copy_source_tags_to_restored_resource"] = False
     return out
 
 

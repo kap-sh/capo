@@ -19,7 +19,7 @@ class ListTestRunSourceEventsRequest(TypedDict, closed=True):
     """<p>The ARN of the service the test run belongs to.</p>"""
     source_arn: "capo_resiliencehubv2.types.test_run_source_arn.TestRunSourceArn"
     """<p>The ARN of the monitoring source to list events for, such as the ARN of a CloudWatch alarm. If the source was not monitored during the test run, the response is an empty list.</p>"""
-    max_results: "capo_resiliencehubv2.types.max_results.MaxResults"
+    max_results: NotRequired["capo_resiliencehubv2.types.max_results.MaxResults"]
     next_token: NotRequired["capo_resiliencehubv2.types.next_token.NextToken"]
 
 

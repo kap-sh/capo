@@ -142,9 +142,10 @@ def build_request(
         headers["x-amz-grant-write"] = input_["grant_write"]
     if "grant_write_acp" in input_:
         headers["x-amz-grant-write-acp"] = input_["grant_write_acp"]
-    headers["x-amz-bucket-object-lock-enabled"] = (
-        "true" if input_.get("object_lock_enabled_for_bucket", False) else "false"
-    )
+    if "object_lock_enabled_for_bucket" in input_:
+        headers["x-amz-bucket-object-lock-enabled"] = (
+            "true" if input_["object_lock_enabled_for_bucket"] else "false"
+        )
     if "outpost_id" in input_:
         headers["x-amz-outpost-id"] = input_["outpost_id"]
     if "create_bucket_configuration" in input_:

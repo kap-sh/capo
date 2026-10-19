@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 
 class ListAgentProfilesRequest(TypedDict, closed=True):
-    max_results: "capo_wellarchitected.types.max_results.MaxResults"
+    max_results: NotRequired["capo_wellarchitected.types.max_results.MaxResults"]
     """<p>The maximum number of profiles to return in a single call. Default is 100.</p>"""
     next_token: NotRequired["capo_wellarchitected.types.next_token.NextToken"]
     """<p>A pagination token returned from a previous call to continue retrieving results.</p>"""

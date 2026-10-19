@@ -17,7 +17,7 @@ class SearchDiscoverableRegistryRecordsRequest(TypedDict, closed=True):
     """<p> The natural language query to search for matching registry records.</p>"""
     registry_ids: "capo_agent_registry.types.registry_id_list.RegistryIdList"
     """<p> The registry identifiers to search within. Currently, you must specify exactly one registry identifier. You can provide either the full Amazon Web Services Resource Name (ARN) or the registry ID.</p>"""
-    max_results: "int"
+    max_results: NotRequired["int"]
     """<p> The maximum number of results to return. Valid values are 1 through 20. The default value is 10.</p>"""
     filters: NotRequired[
         "capo_agent_registry.types.metadata_filter_expression.MetadataFilterExpression"
@@ -34,7 +34,8 @@ def serialize_json(value: SearchDiscoverableRegistryRecordsRequest) -> dict:
     out["registryIds"] = capo_agent_registry.types.registry_id_list.serialize_json(
         value["registry_ids"]
     )
-    out["maxResults"] = value.get("max_results", 10)
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
     if "filters" in value:
         out["filters"] = value["filters"]
     return out
@@ -62,8 +63,6 @@ def deserialize_json(data: dict) -> SearchDiscoverableRegistryRecordsRequest:
         )
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
-    else:
-        out["max_results"] = 10
     if data.get("filters") is not None:
         out["filters"] = data["filters"]
     return out

@@ -128,12 +128,10 @@ def build_request(
         params.append(("pageSize", str(input_["page_size"])))
     if "marker" in input_:
         params.append(("marker", input_["marker"]))
-    params.append(
-        (
-            "isAscendingOrder",
-            "true" if input_.get("ascending_order", False) else "false",
+    if "ascending_order" in input_:
+        params.append(
+            ("isAscendingOrder", "true" if input_["ascending_order"] else "false")
         )
-    )
     if "status" in input_:
         params.append(
             (

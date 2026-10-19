@@ -33,7 +33,9 @@ class CreateTemplateInput(TypedDict, closed=True):
     """<p>The rules associated with the template.</p>"""
     firewall_type: "capo_network_security_manager.types.template_firewall_type.TemplateFirewallType"
     """<p>The firewall type associated with the resource.</p>"""
-    is_published: "capo_network_security_manager.types.is_published.IsPublished"
+    is_published: NotRequired[
+        "capo_network_security_manager.types.is_published.IsPublished"
+    ]
     """<p>Specifies whether to publish the resource. When <code>true</code>, the resource is saved in published (<code>ACTIVE</code>) state. When <code>false</code>, it is saved as a draft (<code>DRAFT</code>). Default: <code>true</code>.</p>"""
     tags: NotRequired["capo_network_security_manager.types.tag_map.TagMap"]
     """<p>The tags to add to the resource when it is created.</p>"""
@@ -61,7 +63,8 @@ def serialize_json(value: CreateTemplateInput) -> dict:
             value["firewall_type"]
         )
     )
-    out["isPublished"] = value.get("is_published", True)
+    if "is_published" in value:
+        out["isPublished"] = value["is_published"]
     if "tags" in value:
         import capo_network_security_manager.types.tag_map
 
@@ -103,8 +106,6 @@ def deserialize_json(data: dict) -> CreateTemplateInput:
         raise DeserializationError("CreateTemplateInput.firewall_type required")
     if data.get("isPublished") is not None:
         out["is_published"] = data["isPublished"]
-    else:
-        out["is_published"] = True
     if data.get("tags") is not None:
         import capo_network_security_manager.types.tag_map
 

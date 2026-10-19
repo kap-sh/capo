@@ -103,13 +103,16 @@ def build_request(
     url = endpoint.url.rstrip("/") + "/topics/{topic}"
     url = url.replace("{topic}", quote(input_["topic"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(("qos", str(input_.get("qos", 0))))
-    params.append(("retain", "true" if input_.get("retain", False) else "false"))
+    if "qos" in input_:
+        params.append(("qos", str(input_["qos"])))
+    if "retain" in input_:
+        params.append(("retain", "true" if input_["retain"] else "false"))
     if "content_type" in input_:
         params.append(("contentType", input_["content_type"]))
     if "response_topic" in input_:
         params.append(("responseTopic", input_["response_topic"]))
-    params.append(("messageExpiry", str(input_.get("message_expiry", 0))))
+    if "message_expiry" in input_:
+        params.append(("messageExpiry", str(input_["message_expiry"])))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     if "user_properties" in input_:
         headers["x-amz-mqtt5-user-properties"] = input_["user_properties"]

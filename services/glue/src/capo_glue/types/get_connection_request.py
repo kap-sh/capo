@@ -18,7 +18,7 @@ class GetConnectionRequest(TypedDict, closed=True):
     """<p>The ID of the Data Catalog in which the connection resides. If none is provided, the Amazon Web Services account ID is used by default.</p>"""
     name: "capo_glue.types.name_string.NameString"
     """<p>The name of the connection definition to retrieve.</p>"""
-    hide_password: "capo_glue.types.boolean.Boolean"
+    hide_password: NotRequired["capo_glue.types.boolean.Boolean"]
     """<p>Allows you to retrieve the connection metadata without returning the password. For instance, the Glue console uses this flag to retrieve the connection, and does not display the password. Set this parameter when the caller might not have permission to use the KMS key to decrypt the password, but it does have permission to access the rest of the connection properties.</p>"""
     apply_override_for_compute_environment: NotRequired[
         "capo_glue.types.compute_environment.ComputeEnvironment"
@@ -32,7 +32,8 @@ def serialize_aws_json_1_1(value: GetConnectionRequest) -> dict:
     if "catalog_id" in value:
         out["CatalogId"] = value["catalog_id"]
     out["Name"] = value["name"]
-    out["HidePassword"] = value.get("hide_password", False)
+    if "hide_password" in value:
+        out["HidePassword"] = value["hide_password"]
     if "apply_override_for_compute_environment" in value:
         import capo_glue.types.compute_environment
 
@@ -54,8 +55,6 @@ def deserialize_aws_json_1_1(data: dict) -> GetConnectionRequest:
         raise DeserializationError("GetConnectionRequest.name required")
     if data.get("HidePassword") is not None:
         out["hide_password"] = data["HidePassword"]
-    else:
-        out["hide_password"] = False
     if data.get("ApplyOverrideForComputeEnvironment") is not None:
         import capo_glue.types.compute_environment
 

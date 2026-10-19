@@ -15,7 +15,9 @@ class ListContributorInsightsInput(TypedDict, closed=True):
     """<p>The name of the table. You can also provide the Amazon Resource Name (ARN) of the table in this parameter.</p>"""
     next_token: NotRequired["capo_dynamodb.types.next_token_string.NextTokenString"]
     """<p>A token to for the desired page, if there is one.</p>"""
-    max_results: "capo_dynamodb.types.list_contributor_insights_limit.ListContributorInsightsLimit"
+    max_results: NotRequired[
+        "capo_dynamodb.types.list_contributor_insights_limit.ListContributorInsightsLimit"
+    ]
     """<p>Maximum number of results to return per page.</p>"""
 
 
@@ -26,7 +28,8 @@ def serialize_aws_json_1_0(value: ListContributorInsightsInput) -> dict:
         out["TableName"] = value["table_name"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
-    out["MaxResults"] = value.get("max_results", 0)
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
     return out
 
 
@@ -38,6 +41,4 @@ def deserialize_aws_json_1_0(data: dict) -> ListContributorInsightsInput:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
-    else:
-        out["max_results"] = 0
     return out

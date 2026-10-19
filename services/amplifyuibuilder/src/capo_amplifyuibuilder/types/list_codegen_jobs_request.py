@@ -16,9 +16,9 @@ class ListCodegenJobsRequest(TypedDict, closed=True):
     """<p>The name of the backend environment that is a part of the Amplify app.</p>"""
     next_token: NotRequired["str"]
     """<p>The token to request the next page of results.</p>"""
-    max_results: (
+    max_results: NotRequired[
         "capo_amplifyuibuilder.types.list_codegen_jobs_limit.ListCodegenJobsLimit"
-    )
+    ]
     """<p>The maximum number of jobs to retrieve.</p>"""
 
 

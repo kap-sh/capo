@@ -26,10 +26,7 @@ def serialize_query(
     key_prefix = f"{prefix}." if prefix else ""
     pairs.append((f"{key_prefix}Identity", str(value["identity"])))
     pairs.append(
-        (
-            f"{key_prefix}DkimEnabled",
-            "true" if value.get("dkim_enabled", False) else "false",
-        )
+        (f"{key_prefix}DkimEnabled", "true" if value["dkim_enabled"] else "false")
     )
 
 
@@ -44,5 +41,7 @@ def deserialize_query(el: Element) -> SetIdentityDkimEnabledRequest:
     if child_dkim_enabled is not None:
         out["dkim_enabled"] = (child_dkim_enabled.text or "").lower() == "true"
     else:
-        out["dkim_enabled"] = False
+        raise DeserializationError(
+            "SetIdentityDkimEnabledRequest.dkim_enabled required"
+        )
     return out

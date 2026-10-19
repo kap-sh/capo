@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_quicksight.types.aws_account_id
@@ -17,7 +17,7 @@ class RestoreAnalysisRequest(TypedDict, closed=True):
         "capo_quicksight.types.short_restrictive_resource_id.ShortRestrictiveResourceId"
     )
     """<p>The ID of the analysis that you're restoring.</p>"""
-    restore_to_folders: "capo_quicksight.types.boolean.Boolean"
+    restore_to_folders: NotRequired["capo_quicksight.types.boolean.Boolean"]
     """<p>A boolean value that determines if the analysis will be restored to folders that it previously resided in. A <code>True</code> value restores analysis back to all folders that it previously resided in. A <code>False</code> value restores the analysis but does not restore the analysis back to all previously resided folders. Restoring a restricted analysis requires this parameter to be set to <code>True</code>.</p>"""
 
 

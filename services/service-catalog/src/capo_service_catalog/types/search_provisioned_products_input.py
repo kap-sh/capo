@@ -31,7 +31,9 @@ class SearchProvisionedProductsInput(TypedDict, closed=True):
     """<p>The sort field. If no value is specified, the results are not sorted. The valid values are <code>arn</code>, <code>id</code>, <code>name</code>, and <code>lastRecordId</code>.</p>"""
     sort_order: NotRequired["capo_service_catalog.types.sort_order.SortOrder"]
     """<p>The sort order. If no value is specified, the results are not sorted.</p>"""
-    page_size: "capo_service_catalog.types.search_provisioned_products_page_size.SearchProvisionedProductsPageSize"
+    page_size: NotRequired[
+        "capo_service_catalog.types.search_provisioned_products_page_size.SearchProvisionedProductsPageSize"
+    ]
     """<p>The maximum number of items to return with this call.</p>"""
     page_token: NotRequired["capo_service_catalog.types.page_token.PageToken"]
     """<p>The page token for the next set of results. To retrieve the first set of results, use null.</p>"""
@@ -66,7 +68,8 @@ def serialize_aws_json_1_1(value: SearchProvisionedProductsInput) -> dict:
         out["SortOrder"] = capo_service_catalog.types.sort_order.serialize_aws_json_1_1(
             value["sort_order"]
         )
-    out["PageSize"] = value.get("page_size", 0)
+    if "page_size" in value:
+        out["PageSize"] = value["page_size"]
     if "page_token" in value:
         out["PageToken"] = value["page_token"]
     return out
@@ -104,8 +107,6 @@ def deserialize_aws_json_1_1(data: dict) -> SearchProvisionedProductsInput:
         )
     if data.get("PageSize") is not None:
         out["page_size"] = data["PageSize"]
-    else:
-        out["page_size"] = 0
     if data.get("PageToken") is not None:
         out["page_token"] = data["PageToken"]
     return out

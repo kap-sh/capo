@@ -15,7 +15,7 @@ class DescribeOrganizationConformancePacksRequest(TypedDict, closed=True):
         "capo_config_service.types.organization_conformance_pack_names.OrganizationConformancePackNames"
     ]
     """<p>The name that you assign to an organization conformance pack.</p>"""
-    limit: "capo_config_service.types.cosmos_page_limit.CosmosPageLimit"
+    limit: NotRequired["capo_config_service.types.cosmos_page_limit.CosmosPageLimit"]
     """<p>The maximum number of organization config packs returned on each page. If you do no specify a number, Config uses the default. The default is 100.</p>"""
     next_token: NotRequired["capo_config_service.types.string.String"]
     """<p>The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.</p>"""
@@ -32,7 +32,8 @@ def serialize_aws_json_1_1(value: DescribeOrganizationConformancePacksRequest) -
                 value["organization_conformance_pack_names"]
             )
         )
-    out["Limit"] = value.get("limit", 0)
+    if "limit" in value:
+        out["Limit"] = value["limit"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
     return out
@@ -50,8 +51,6 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeOrganizationConformancePacks
         )
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
-    else:
-        out["limit"] = 0
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

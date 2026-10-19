@@ -42,7 +42,7 @@ class CreateDelegationRequestRequest(TypedDict, closed=True):
     """<p>The notification channel for updates about the delegation request.</p> <p>At this time,only SNS topic ARNs are accepted for notification. This topic ARN must have a resource policy granting <code>SNS:Publish</code> permission to the IAM service principal (<code>iam.amazonaws.com</code>). See <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies-temporary-delegation-partner-guide.html">partner onboarding documentation</a> for more details. </p>"""
     session_duration: "capo_iam.types.session_duration_type.sessionDurationType"
     """<p>The duration for which the delegated session should remain active, in seconds.</p> <p>The active time window for the session starts when the customer calls the <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_SendDelegationToken.html">SendDelegationToken</a> API.</p>"""
-    only_send_by_owner: "capo_iam.types.boolean_type.booleanType"
+    only_send_by_owner: NotRequired["capo_iam.types.boolean_type.booleanType"]
     """<p>Specifies whether the delegation token should only be sent by the owner.</p> <p>This flag prevents any party other than the owner from calling <code>SendDelegationToken</code> API for this delegation request. This behavior becomes useful when the delegation request owner needs to be present for subsequent partner interactions, but the delegation request was sent to a more privileged user for approval due to the owner lacking sufficient delegation permissions. </p>"""
 
 
@@ -70,12 +70,13 @@ def serialize_query(
         (f"{key_prefix}NotificationChannel", str(value["notification_channel"]))
     )
     pairs.append((f"{key_prefix}SessionDuration", str(value["session_duration"])))
-    pairs.append(
-        (
-            f"{key_prefix}OnlySendByOwner",
-            "true" if value.get("only_send_by_owner", False) else "false",
+    if "only_send_by_owner" in value:
+        pairs.append(
+            (
+                f"{key_prefix}OnlySendByOwner",
+                "true" if value["only_send_by_owner"] else "false",
+            )
         )
-    )
 
 
 def deserialize_query(el: Element) -> CreateDelegationRequestRequest:
@@ -133,6 +134,4 @@ def deserialize_query(el: Element) -> CreateDelegationRequestRequest:
         out["only_send_by_owner"] = (
             child_only_send_by_owner.text or ""
         ).lower() == "true"
-    else:
-        out["only_send_by_owner"] = False
     return out

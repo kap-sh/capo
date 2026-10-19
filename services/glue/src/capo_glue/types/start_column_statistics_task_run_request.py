@@ -22,7 +22,9 @@ class StartColumnStatisticsTaskRunRequest(TypedDict, closed=True):
     """<p>A list of the column names to generate statistics. If none is supplied, all column names for the table will be used by default.</p>"""
     role: "capo_glue.types.name_string.NameString"
     """<p>The IAM role that the service assumes to generate statistics.</p>"""
-    sample_size: "capo_glue.types.sample_size_percentage.SampleSizePercentage"
+    sample_size: NotRequired[
+        "capo_glue.types.sample_size_percentage.SampleSizePercentage"
+    ]
     """<p>The percentage of rows used to generate statistics. If none is supplied, the entire table will be used to generate stats.</p>"""
     catalog_id: NotRequired["capo_glue.types.catalog_id_string.CatalogIdString"]
     """<p>The ID of the Data Catalog where the table reside. If none is supplied, the Amazon Web Services account ID is used by default.</p>"""
@@ -42,15 +44,16 @@ def serialize_aws_json_1_1(value: StartColumnStatisticsTaskRunRequest) -> dict:
             value["column_name_list"]
         )
     out["Role"] = value["role"]
-    out["SampleSize"] = (
-        "NaN"
-        if value.get("sample_size", 0) != value.get("sample_size", 0)
-        else "Infinity"
-        if value.get("sample_size", 0) == float("inf")
-        else "-Infinity"
-        if value.get("sample_size", 0) == float("-inf")
-        else value.get("sample_size", 0)
-    )
+    if "sample_size" in value:
+        out["SampleSize"] = (
+            "NaN"
+            if value["sample_size"] != value["sample_size"]
+            else "Infinity"
+            if value["sample_size"] == float("inf")
+            else "-Infinity"
+            if value["sample_size"] == float("-inf")
+            else value["sample_size"]
+        )
     if "catalog_id" in value:
         out["CatalogID"] = value["catalog_id"]
     if "security_configuration" in value:
@@ -86,8 +89,6 @@ def deserialize_aws_json_1_1(data: dict) -> StartColumnStatisticsTaskRunRequest:
         raise DeserializationError("StartColumnStatisticsTaskRunRequest.role required")
     if data.get("SampleSize") is not None:
         out["sample_size"] = float(data["SampleSize"])
-    else:
-        out["sample_size"] = 0
     if data.get("CatalogID") is not None:
         out["catalog_id"] = data["CatalogID"]
     if data.get("SecurityConfiguration") is not None:

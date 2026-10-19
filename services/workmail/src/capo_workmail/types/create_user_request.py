@@ -31,7 +31,7 @@ class CreateUserRequest(TypedDict, closed=True):
     """<p>The first name of the new user.</p>"""
     last_name: NotRequired["capo_workmail.types.user_attribute.UserAttribute"]
     """<p>The last name of the new user. </p>"""
-    hidden_from_global_address_list: "capo_workmail.types.boolean.Boolean"
+    hidden_from_global_address_list: NotRequired["capo_workmail.types.boolean.Boolean"]
     """<p>If this parameter is enabled, the user will be hidden from the address book.</p>"""
     identity_provider_user_id: NotRequired[
         "capo_workmail.types.identity_provider_user_id.IdentityProviderUserId"
@@ -57,9 +57,8 @@ def serialize_aws_json_1_1(value: CreateUserRequest) -> dict:
         out["FirstName"] = value["first_name"]
     if "last_name" in value:
         out["LastName"] = value["last_name"]
-    out["HiddenFromGlobalAddressList"] = value.get(
-        "hidden_from_global_address_list", False
-    )
+    if "hidden_from_global_address_list" in value:
+        out["HiddenFromGlobalAddressList"] = value["hidden_from_global_address_list"]
     if "identity_provider_user_id" in value:
         out["IdentityProviderUserId"] = value["identity_provider_user_id"]
     return out
@@ -93,8 +92,6 @@ def deserialize_aws_json_1_1(data: dict) -> CreateUserRequest:
         out["last_name"] = data["LastName"]
     if data.get("HiddenFromGlobalAddressList") is not None:
         out["hidden_from_global_address_list"] = data["HiddenFromGlobalAddressList"]
-    else:
-        out["hidden_from_global_address_list"] = False
     if data.get("IdentityProviderUserId") is not None:
         out["identity_provider_user_id"] = data["IdentityProviderUserId"]
     return out

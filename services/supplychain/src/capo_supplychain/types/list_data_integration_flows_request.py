@@ -17,7 +17,9 @@ class ListDataIntegrationFlowsRequest(TypedDict, closed=True):
         "capo_supplychain.types.data_integration_flow_next_token.DataIntegrationFlowNextToken"
     ]
     """<p>The pagination token to fetch the next page of the DataIntegrationFlows.</p>"""
-    max_results: "capo_supplychain.types.data_integration_flow_max_results.DataIntegrationFlowMaxResults"
+    max_results: NotRequired[
+        "capo_supplychain.types.data_integration_flow_max_results.DataIntegrationFlowMaxResults"
+    ]
     """<p>Specify the maximum number of DataIntegrationFlows to fetch in one paginated request.</p>"""
 
 

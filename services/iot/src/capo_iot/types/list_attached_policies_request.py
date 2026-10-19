@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 class ListAttachedPoliciesRequest(TypedDict, closed=True):
     target: "capo_iot.types.policy_target.PolicyTarget"
     """<p>The group or principal for which the policies will be listed. Valid principals are CertificateArn (arn:aws:iot:<i>region</i>:<i>accountId</i>:cert/<i>certificateId</i>), thingGroupArn (arn:aws:iot:<i>region</i>:<i>accountId</i>:thinggroup/<i>groupName</i>) and CognitoId (<i>region</i>:<i>id</i>).</p>"""
-    recursive: "capo_iot.types.recursive.Recursive"
+    recursive: NotRequired["capo_iot.types.recursive.Recursive"]
     """<p>When true, recursively list attached policies.</p>"""
     marker: NotRequired["capo_iot.types.marker.Marker"]
     """<p>The token to retrieve the next set of results.</p>"""

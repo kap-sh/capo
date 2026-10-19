@@ -22,7 +22,9 @@ class ListDataIntegrationFlowExecutionsRequest(TypedDict, closed=True):
         "capo_supplychain.types.data_integration_flow_execution_next_token.DataIntegrationFlowExecutionNextToken"
     ]
     """<p>The pagination token to fetch next page of flow executions.</p>"""
-    max_results: "capo_supplychain.types.data_integration_flow_execution_max_results.DataIntegrationFlowExecutionMaxResults"
+    max_results: NotRequired[
+        "capo_supplychain.types.data_integration_flow_execution_max_results.DataIntegrationFlowExecutionMaxResults"
+    ]
     """<p>The number to specify the max number of flow executions to fetch in this paginated request.</p>"""
 
 

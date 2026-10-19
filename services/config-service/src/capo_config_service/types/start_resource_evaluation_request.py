@@ -23,7 +23,9 @@ class StartResourceEvaluationRequest(TypedDict, closed=True):
     """<p>Returns an <code>EvaluationContext</code> object.</p>"""
     evaluation_mode: "capo_config_service.types.evaluation_mode.EvaluationMode"
     """<p>The mode of an evaluation.</p> <note> <p>The only valid value for this API is <code>PROACTIVE</code>.</p> </note>"""
-    evaluation_timeout: "capo_config_service.types.evaluation_timeout.EvaluationTimeout"
+    evaluation_timeout: NotRequired[
+        "capo_config_service.types.evaluation_timeout.EvaluationTimeout"
+    ]
     """<p>The timeout for an evaluation. The default is 900 seconds. You cannot specify a number greater than 3600. If you specify 0, Config uses the default.</p>"""
     client_token: NotRequired["capo_config_service.types.client_token.ClientToken"]
     """<p>A client token is a unique, case-sensitive string of up to 64 ASCII characters. To make an idempotent API request using one of these actions, specify a client token in the request.</p> <note> <p>Avoid reusing the same client token for other API requests. If you retry a request that completed successfully using the same client token and the same parameters, the retry succeeds without performing any further actions. If you retry a successful request using the same client token, but one or more of the parameters are different, other than the Region or Availability Zone, the retry fails with an IdempotentParameterMismatch error.</p> </note>"""
@@ -54,7 +56,8 @@ def serialize_aws_json_1_1(value: StartResourceEvaluationRequest) -> dict:
             value["evaluation_mode"]
         )
     )
-    out["EvaluationTimeout"] = value.get("evaluation_timeout", 0)
+    if "evaluation_timeout" in value:
+        out["EvaluationTimeout"] = value["evaluation_timeout"]
     if "client_token" in value:
         out["ClientToken"] = value["client_token"]
     return out
@@ -96,8 +99,6 @@ def deserialize_aws_json_1_1(data: dict) -> StartResourceEvaluationRequest:
         )
     if data.get("EvaluationTimeout") is not None:
         out["evaluation_timeout"] = data["EvaluationTimeout"]
-    else:
-        out["evaluation_timeout"] = 0
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     return out

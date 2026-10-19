@@ -15,7 +15,7 @@ class ListEventBusesRequest(TypedDict, closed=True):
     name_prefix: NotRequired["capo_eventbridgev2.types.event_bus_name.EventBusName"]
     event_bus_account_id: NotRequired["capo_eventbridgev2.types.account_id.AccountId"]
     next_token: NotRequired["capo_eventbridgev2.types.next_token.NextToken"]
-    max_results: "capo_eventbridgev2.types.max_results.MaxResults"
+    max_results: NotRequired["capo_eventbridgev2.types.max_results.MaxResults"]
 
 
 # --- rpcv2Cbor ser/de ---
@@ -27,7 +27,8 @@ def serialize_cbor(value: ListEventBusesRequest) -> dict:
         out["EventBusAccountId"] = value["event_bus_account_id"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
-    out["MaxResults"] = value.get("max_results", 100)
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
     return out
 
 
@@ -41,6 +42,4 @@ def deserialize_cbor(data: dict) -> ListEventBusesRequest:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
-    else:
-        out["max_results"] = 100
     return out

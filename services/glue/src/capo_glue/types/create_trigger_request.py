@@ -33,7 +33,7 @@ class CreateTriggerRequest(TypedDict, closed=True):
     """<p>The actions initiated by this trigger when it fires.</p>"""
     description: NotRequired["capo_glue.types.description_string.DescriptionString"]
     """<p>A description of the new trigger.</p>"""
-    start_on_creation: "capo_glue.types.boolean_value.BooleanValue"
+    start_on_creation: NotRequired["capo_glue.types.boolean_value.BooleanValue"]
     """<p>Set to <code>true</code> to start <code>SCHEDULED</code> and <code>CONDITIONAL</code> triggers when created. True is not supported for <code>ON_DEMAND</code> triggers.</p>"""
     tags: NotRequired["capo_glue.types.tags_map.TagsMap"]
     """<p>The tags to use with this trigger. You may use tags to limit access to the trigger. For more information about tags in Glue, see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">Amazon Web Services Tags in Glue</a> in the developer guide. </p>"""
@@ -67,7 +67,8 @@ def serialize_aws_json_1_1(value: CreateTriggerRequest) -> dict:
     )
     if "description" in value:
         out["Description"] = value["description"]
-    out["StartOnCreation"] = value.get("start_on_creation", False)
+    if "start_on_creation" in value:
+        out["StartOnCreation"] = value["start_on_creation"]
     if "tags" in value:
         import capo_glue.types.tags_map
 
@@ -119,8 +120,6 @@ def deserialize_aws_json_1_1(data: dict) -> CreateTriggerRequest:
         out["description"] = data["Description"]
     if data.get("StartOnCreation") is not None:
         out["start_on_creation"] = data["StartOnCreation"]
-    else:
-        out["start_on_creation"] = False
     if data.get("Tags") is not None:
         import capo_glue.types.tags_map
 

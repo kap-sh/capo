@@ -35,9 +35,9 @@ class CreateGatewayRequest(TypedDict, closed=True):
     """<p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If you don't specify this field, a value is randomly generated for you. If this token matches a previous request, the service ignores the request, but doesn't return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>"""
     role_arn: "capo_bedrock_agentcore_control.types.role_arn.RoleArn"
     """<p>The Amazon Resource Name (ARN) of the IAM role that provides permissions for the gateway to access Amazon Web Services services.</p>"""
-    protocol_type: (
+    protocol_type: NotRequired[
         "capo_bedrock_agentcore_control.types.gateway_protocol_type.GatewayProtocolType"
-    )
+    ]
     """<p>The protocol type for the gateway.</p>"""
     protocol_configuration: NotRequired[
         "capo_bedrock_agentcore_control.types.gateway_protocol_configuration.GatewayProtocolConfiguration"
@@ -80,13 +80,14 @@ def serialize_json(value: CreateGatewayRequest) -> dict:
     if "client_token" in value:
         out["clientToken"] = value["client_token"]
     out["roleArn"] = value["role_arn"]
-    import capo_bedrock_agentcore_control.types.gateway_protocol_type
+    if "protocol_type" in value:
+        import capo_bedrock_agentcore_control.types.gateway_protocol_type
 
-    out["protocolType"] = (
-        capo_bedrock_agentcore_control.types.gateway_protocol_type.serialize_json(
-            value.get("protocol_type", "MCP")
+        out["protocolType"] = (
+            capo_bedrock_agentcore_control.types.gateway_protocol_type.serialize_json(
+                value["protocol_type"]
+            )
         )
-    )
     if "protocol_configuration" in value:
         import capo_bedrock_agentcore_control.types.gateway_protocol_configuration
 
@@ -167,8 +168,6 @@ def deserialize_json(data: dict) -> CreateGatewayRequest:
                 data["protocolType"]
             )
         )
-    else:
-        out["protocol_type"] = "MCP"
     if data.get("protocolConfiguration") is not None:
         import capo_bedrock_agentcore_control.types.gateway_protocol_configuration
 

@@ -22,9 +22,9 @@ class StartTaskRequest(TypedDict, closed=True):
     """<p>The short name or full Amazon Resource Name (ARN) of the cluster where to start your task. If you do not specify a cluster, the default cluster is assumed.</p>"""
     container_instances: "capo_ecs.types.string_list.StringList"
     """<p>The container instance IDs or full ARN entries for the container instances where you would like to place your task. You can specify up to 10 container instances.</p>"""
-    enable_ecs_managed_tags: "capo_ecs.types.boolean.Boolean"
+    enable_ecs_managed_tags: NotRequired["capo_ecs.types.boolean.Boolean"]
     """<p>Specifies whether to use Amazon ECS managed tags for the task. For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html">Tagging Your Amazon ECS Resources</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.</p>"""
-    enable_execute_command: "capo_ecs.types.boolean.Boolean"
+    enable_execute_command: NotRequired["capo_ecs.types.boolean.Boolean"]
     """<p>Whether or not the execute command functionality is turned on for the task. If <code>true</code>, this turns on the execute command functionality on all containers in the task.</p>"""
     group: NotRequired["capo_ecs.types.string.String"]
     """<p>The name of the task group to associate with the task. The default value is the family name of the task definition (for example, family:my-family-name).</p>"""
@@ -60,8 +60,10 @@ def serialize_aws_json_1_1(value: StartTaskRequest) -> dict:
     out["containerInstances"] = capo_ecs.types.string_list.serialize_aws_json_1_1(
         value["container_instances"]
     )
-    out["enableECSManagedTags"] = value.get("enable_ecs_managed_tags", False)
-    out["enableExecuteCommand"] = value.get("enable_execute_command", False)
+    if "enable_ecs_managed_tags" in value:
+        out["enableECSManagedTags"] = value["enable_ecs_managed_tags"]
+    if "enable_execute_command" in value:
+        out["enableExecuteCommand"] = value["enable_execute_command"]
     if "group" in value:
         out["group"] = value["group"]
     if "network_configuration" in value:
@@ -120,12 +122,8 @@ def deserialize_aws_json_1_1(data: dict) -> StartTaskRequest:
         raise DeserializationError("StartTaskRequest.container_instances required")
     if data.get("enableECSManagedTags") is not None:
         out["enable_ecs_managed_tags"] = data["enableECSManagedTags"]
-    else:
-        out["enable_ecs_managed_tags"] = False
     if data.get("enableExecuteCommand") is not None:
         out["enable_execute_command"] = data["enableExecuteCommand"]
-    else:
-        out["enable_execute_command"] = False
     if data.get("group") is not None:
         out["group"] = data["group"]
     if data.get("networkConfiguration") is not None:

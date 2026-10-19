@@ -28,7 +28,7 @@ class StartAssetBundleExportJobRequest(TypedDict, closed=True):
         "capo_quicksight.types.asset_bundle_resource_arns.AssetBundleResourceArns"
     )
     """<p>An array of resource ARNs to export. The following resources are supported.</p> <ul> <li> <p> <code>Analysis</code> </p> </li> <li> <p> <code>Dashboard</code> </p> </li> <li> <p> <code>DataSet</code> </p> </li> <li> <p> <code>DataSource</code> </p> </li> <li> <p> <code>RefreshSchedule</code> </p> </li> <li> <p> <code>Theme</code> </p> </li> <li> <p> <code>VPCConnection</code> </p> </li> </ul> <p>The API caller must have the necessary permissions in their IAM role to access each resource before the resources can be exported.</p>"""
-    include_all_dependencies: "capo_quicksight.types.boolean.Boolean"
+    include_all_dependencies: NotRequired["capo_quicksight.types.boolean.Boolean"]
     """<p>A Boolean that determines whether all dependencies of each resource ARN are recursively exported with the job. For example, say you provided a Dashboard ARN to the <code>ResourceArns</code> parameter. If you set <code>IncludeAllDependencies</code> to <code>TRUE</code>, any theme, dataset, and data source resource that is a dependency of the dashboard is also exported.</p>"""
     export_format: (
         "capo_quicksight.types.asset_bundle_export_format.AssetBundleExportFormat"
@@ -38,15 +38,15 @@ class StartAssetBundleExportJobRequest(TypedDict, closed=True):
         "capo_quicksight.types.asset_bundle_cloud_formation_override_property_configuration.AssetBundleCloudFormationOverridePropertyConfiguration"
     ]
     """<p>An optional collection of structures that generate CloudFormation parameters to override the existing resource property values when the resource is exported to a new CloudFormation template.</p> <p>Use this field if the <code>ExportFormat</code> field of a <code>StartAssetBundleExportJobRequest</code> API call is set to <code>CLOUDFORMATION_JSON</code>.</p>"""
-    include_permissions: "capo_quicksight.types.boolean.Boolean"
+    include_permissions: NotRequired["capo_quicksight.types.boolean.Boolean"]
     """<p>A Boolean that determines whether all permissions for each resource ARN are exported with the job. If you set <code>IncludePermissions</code> to <code>TRUE</code>, any permissions associated with each resource are exported. </p>"""
-    include_tags: "capo_quicksight.types.boolean.Boolean"
+    include_tags: NotRequired["capo_quicksight.types.boolean.Boolean"]
     """<p> A Boolean that determines whether all tags for each resource ARN are exported with the job. If you set <code>IncludeTags</code> to <code>TRUE</code>, any tags associated with each resource are exported.</p>"""
     validation_strategy: NotRequired[
         "capo_quicksight.types.asset_bundle_export_job_validation_strategy.AssetBundleExportJobValidationStrategy"
     ]
     """<p>An optional parameter that determines which validation strategy to use for the export job. If <code>StrictModeForAllResources</code> is set to <code>TRUE</code>, strict validation for every error is enforced. If it is set to <code>FALSE</code>, validation is skipped for specific UI errors that are shown as warnings. The default value for <code>StrictModeForAllResources</code> is <code>FALSE</code>.</p>"""
-    include_folder_memberships: "capo_quicksight.types.boolean.Boolean"
+    include_folder_memberships: NotRequired["capo_quicksight.types.boolean.Boolean"]
     """<p>A Boolean that determines if the exported asset carries over information about the folders that the asset is a member of. </p>"""
     include_folder_members: NotRequired[
         "capo_quicksight.types.include_folder_members.IncludeFolderMembers"
@@ -65,7 +65,8 @@ def serialize_json(value: StartAssetBundleExportJobRequest) -> dict:
             value["resource_arns"]
         )
     )
-    out["IncludeAllDependencies"] = value.get("include_all_dependencies", False)
+    if "include_all_dependencies" in value:
+        out["IncludeAllDependencies"] = value["include_all_dependencies"]
     import capo_quicksight.types.asset_bundle_export_format
 
     out["ExportFormat"] = (
@@ -81,8 +82,10 @@ def serialize_json(value: StartAssetBundleExportJobRequest) -> dict:
                 value["cloud_formation_override_property_configuration"]
             )
         )
-    out["IncludePermissions"] = value.get("include_permissions", False)
-    out["IncludeTags"] = value.get("include_tags", False)
+    if "include_permissions" in value:
+        out["IncludePermissions"] = value["include_permissions"]
+    if "include_tags" in value:
+        out["IncludeTags"] = value["include_tags"]
     if "validation_strategy" in value:
         import capo_quicksight.types.asset_bundle_export_job_validation_strategy
 
@@ -91,7 +94,8 @@ def serialize_json(value: StartAssetBundleExportJobRequest) -> dict:
                 value["validation_strategy"]
             )
         )
-    out["IncludeFolderMemberships"] = value.get("include_folder_memberships", False)
+    if "include_folder_memberships" in value:
+        out["IncludeFolderMemberships"] = value["include_folder_memberships"]
     if "include_folder_members" in value:
         import capo_quicksight.types.include_folder_members
 
@@ -125,8 +129,6 @@ def deserialize_json(data: dict) -> StartAssetBundleExportJobRequest:
         )
     if data.get("IncludeAllDependencies") is not None:
         out["include_all_dependencies"] = data["IncludeAllDependencies"]
-    else:
-        out["include_all_dependencies"] = False
     if data.get("ExportFormat") is not None:
         import capo_quicksight.types.asset_bundle_export_format
 
@@ -149,12 +151,8 @@ def deserialize_json(data: dict) -> StartAssetBundleExportJobRequest:
         )
     if data.get("IncludePermissions") is not None:
         out["include_permissions"] = data["IncludePermissions"]
-    else:
-        out["include_permissions"] = False
     if data.get("IncludeTags") is not None:
         out["include_tags"] = data["IncludeTags"]
-    else:
-        out["include_tags"] = False
     if data.get("ValidationStrategy") is not None:
         import capo_quicksight.types.asset_bundle_export_job_validation_strategy
 
@@ -165,8 +163,6 @@ def deserialize_json(data: dict) -> StartAssetBundleExportJobRequest:
         )
     if data.get("IncludeFolderMemberships") is not None:
         out["include_folder_memberships"] = data["IncludeFolderMemberships"]
-    else:
-        out["include_folder_memberships"] = False
     if data.get("IncludeFolderMembers") is not None:
         import capo_quicksight.types.include_folder_members
 

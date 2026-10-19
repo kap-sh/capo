@@ -25,7 +25,7 @@ class GetAggregateConfigRuleComplianceSummaryRequest(TypedDict, closed=True):
         "capo_config_service.types.config_rule_compliance_summary_group_key.ConfigRuleComplianceSummaryGroupKey"
     ]
     """<p>Groups the result based on ACCOUNT_ID or AWS_REGION.</p>"""
-    limit: "capo_config_service.types.group_by_api_limit.GroupByAPILimit"
+    limit: NotRequired["capo_config_service.types.group_by_api_limit.GroupByAPILimit"]
     """<p>The maximum number of evaluation results returned on each page. The default is 1000. You cannot specify a number greater than 1000. If you specify 0, Config uses the default.</p>"""
     next_token: NotRequired["capo_config_service.types.next_token.NextToken"]
     """<p>The <code>nextToken</code> string returned on a previous page that you use to get the next page of results in a paginated response.</p>"""
@@ -53,7 +53,8 @@ def serialize_aws_json_1_1(
                 value["group_by_key"]
             )
         )
-    out["Limit"] = value.get("limit", 0)
+    if "limit" in value:
+        out["Limit"] = value["limit"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
     return out
@@ -87,8 +88,6 @@ def deserialize_aws_json_1_1(
         )
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
-    else:
-        out["limit"] = 0
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

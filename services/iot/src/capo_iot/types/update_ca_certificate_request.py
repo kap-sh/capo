@@ -25,9 +25,9 @@ class UpdateCACertificateRequest(TypedDict, closed=True):
         "capo_iot.types.registration_config.RegistrationConfig"
     ]
     """<p>Information about the registration configuration.</p>"""
-    remove_auto_registration: (
+    remove_auto_registration: NotRequired[
         "capo_iot.types.remove_auto_registration.RemoveAutoRegistration"
-    )
+    ]
     """<p>If true, removes auto registration.</p>"""
 
 
@@ -40,7 +40,8 @@ def serialize_json(value: UpdateCACertificateRequest) -> dict:
         out["registrationConfig"] = capo_iot.types.registration_config.serialize_json(
             value["registration_config"]
         )
-    out["removeAutoRegistration"] = value.get("remove_auto_registration", False)
+    if "remove_auto_registration" in value:
+        out["removeAutoRegistration"] = value["remove_auto_registration"]
     return out
 
 
@@ -56,6 +57,4 @@ def deserialize_json(data: dict) -> UpdateCACertificateRequest:
         )
     if data.get("removeAutoRegistration") is not None:
         out["remove_auto_registration"] = data["removeAutoRegistration"]
-    else:
-        out["remove_auto_registration"] = False
     return out

@@ -4,6 +4,8 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
+from capo_sesv2.errors import DeserializationError
+
 if TYPE_CHECKING:
     import capo_sesv2.types.domain_deliverability_tracking_options
     import capo_sesv2.types.enabled
@@ -21,7 +23,7 @@ class PutDeliverabilityDashboardOptionRequest(TypedDict, closed=True):
 # --- restJson1 ser/de ---
 def serialize_json(value: PutDeliverabilityDashboardOptionRequest) -> dict:
     out: dict = {}
-    out["DashboardEnabled"] = value.get("dashboard_enabled", False)
+    out["DashboardEnabled"] = value["dashboard_enabled"]
     if "subscribed_domains" in value:
         import capo_sesv2.types.domain_deliverability_tracking_options
 
@@ -38,7 +40,9 @@ def deserialize_json(data: dict) -> PutDeliverabilityDashboardOptionRequest:
     if data.get("DashboardEnabled") is not None:
         out["dashboard_enabled"] = data["DashboardEnabled"]
     else:
-        out["dashboard_enabled"] = False
+        raise DeserializationError(
+            "PutDeliverabilityDashboardOptionRequest.dashboard_enabled required"
+        )
     if data.get("SubscribedDomains") is not None:
         import capo_sesv2.types.domain_deliverability_tracking_options
 

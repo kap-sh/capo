@@ -120,9 +120,8 @@ def build_request(
     )  # noqa: F841
     url = endpoint.url.rstrip("/") + "/certificates"
     params: list[tuple[str, str]] = []
-    params.append(
-        ("setAsActive", "true" if input_.get("set_as_active", False) else "false")
-    )
+    if "set_as_active" in input_:
+        params.append(("setAsActive", "true" if input_["set_as_active"] else "false"))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = json.dumps(
         capo_iot.types.create_certificate_from_csr_request.serialize_json(input_),

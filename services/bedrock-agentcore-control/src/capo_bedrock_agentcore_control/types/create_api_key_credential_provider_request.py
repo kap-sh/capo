@@ -17,9 +17,9 @@ if TYPE_CHECKING:
 class CreateApiKeyCredentialProviderRequest(TypedDict, closed=True):
     name: "capo_bedrock_agentcore_control.types.credential_provider_name.CredentialProviderName"
     """<p>The name of the API key credential provider. The name must be unique within your account.</p>"""
-    api_key: (
+    api_key: NotRequired[
         "capo_bedrock_agentcore_control.types.default_api_key_type.DefaultApiKeyType"
-    )
+    ]
     """<p>The API key to use for authentication. This value is encrypted and stored securely.</p>"""
     api_key_secret_config: NotRequired[
         "capo_bedrock_agentcore_control.types.secret_reference.SecretReference"
@@ -37,7 +37,8 @@ class CreateApiKeyCredentialProviderRequest(TypedDict, closed=True):
 def serialize_json(value: CreateApiKeyCredentialProviderRequest) -> dict:
     out: dict = {}
     out["name"] = value["name"]
-    out["apiKey"] = value.get("api_key", "")
+    if "api_key" in value:
+        out["apiKey"] = value["api_key"]
     if "api_key_secret_config" in value:
         import capo_bedrock_agentcore_control.types.secret_reference
 
@@ -73,8 +74,6 @@ def deserialize_json(data: dict) -> CreateApiKeyCredentialProviderRequest:
         )
     if data.get("apiKey") is not None:
         out["api_key"] = data["apiKey"]
-    else:
-        out["api_key"] = ""
     if data.get("apiKeySecretConfig") is not None:
         import capo_bedrock_agentcore_control.types.secret_reference
 

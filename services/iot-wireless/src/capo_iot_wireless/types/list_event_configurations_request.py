@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 class ListEventConfigurationsRequest(TypedDict, closed=True):
     resource_type: "capo_iot_wireless.types.event_notification_resource_type.EventNotificationResourceType"
     """<p>Resource type to filter event configurations.</p>"""
-    max_results: "capo_iot_wireless.types.max_results.MaxResults"
+    max_results: NotRequired["capo_iot_wireless.types.max_results.MaxResults"]
     next_token: NotRequired["capo_iot_wireless.types.next_token.NextToken"]
     """<p>To retrieve the next set of results, the <code>nextToken</code> value from a previous response; otherwise <b>null</b> to receive the first set of results.</p>"""
 

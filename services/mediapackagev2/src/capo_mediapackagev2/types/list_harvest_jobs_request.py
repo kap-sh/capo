@@ -21,9 +21,9 @@ class ListHarvestJobsRequest(TypedDict, closed=True):
     """<p>The name of the origin endpoint to filter the harvest jobs by. If specified, only harvest jobs associated with this origin endpoint will be returned.</p>"""
     status: NotRequired["capo_mediapackagev2.types.harvest_job_status.HarvestJobStatus"]
     """<p>The status to filter the harvest jobs by. If specified, only harvest jobs with this status will be returned.</p>"""
-    max_results: (
+    max_results: NotRequired[
         "capo_mediapackagev2.types.list_resource_max_results.ListResourceMaxResults"
-    )
+    ]
     """<p>The maximum number of harvest jobs to return in a single request. If not specified, a default value will be used.</p>"""
     next_token: NotRequired["str"]
     """<p>A token used for pagination. Provide this value in subsequent requests to retrieve the next set of results.</p>"""

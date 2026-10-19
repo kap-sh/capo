@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 
 class ListElasticsearchVersionsRequest(TypedDict, closed=True):
-    max_results: "capo_elasticsearch_service.types.max_results.MaxResults"
+    max_results: NotRequired["capo_elasticsearch_service.types.max_results.MaxResults"]
     """<p> Set this value to limit the number of results returned. Value provided must be greater than 10 else it wont be honored. </p>"""
     next_token: NotRequired["capo_elasticsearch_service.types.next_token.NextToken"]
 

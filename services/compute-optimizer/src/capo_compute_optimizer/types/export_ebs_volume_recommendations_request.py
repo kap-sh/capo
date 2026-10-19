@@ -29,9 +29,9 @@ class ExportEBSVolumeRecommendationsRequest(TypedDict, closed=True):
     )
     file_format: NotRequired["capo_compute_optimizer.types.file_format.FileFormat"]
     """<p>The format of the export file.</p> <p>The only export file format currently supported is <code>Csv</code>.</p>"""
-    include_member_accounts: (
+    include_member_accounts: NotRequired[
         "capo_compute_optimizer.types.include_member_accounts.IncludeMemberAccounts"
-    )
+    ]
     """<p>Indicates whether to include recommendations for resources in all member accounts of the organization if your account is the management account of an organization.</p> <p>The member accounts must also be opted in to Compute Optimizer, and trusted access for Compute Optimizer must be enabled in the organization account. For more information, see <a href="https://docs.aws.amazon.com/compute-optimizer/latest/ug/security-iam.html#trusted-service-access">Compute Optimizer and Amazon Web Services Organizations trusted access</a> in the <i>Compute Optimizer User Guide</i>.</p> <p>Recommendations for member accounts of the organization are not included in the export file if this parameter is omitted.</p> <p>This parameter cannot be specified together with the account IDs parameter. The parameters are mutually exclusive.</p> <p>Recommendations for member accounts are not included in the export if this parameter, or the account IDs parameter, is omitted.</p>"""
 
 
@@ -77,7 +77,8 @@ def serialize_aws_json_1_0(value: ExportEBSVolumeRecommendationsRequest) -> dict
                 value["file_format"]
             )
         )
-    out["includeMemberAccounts"] = value.get("include_member_accounts", False)
+    if "include_member_accounts" in value:
+        out["includeMemberAccounts"] = value["include_member_accounts"]
     return out
 
 
@@ -129,6 +130,4 @@ def deserialize_aws_json_1_0(data: dict) -> ExportEBSVolumeRecommendationsReques
         )
     if data.get("includeMemberAccounts") is not None:
         out["include_member_accounts"] = data["includeMemberAccounts"]
-    else:
-        out["include_member_accounts"] = False
     return out

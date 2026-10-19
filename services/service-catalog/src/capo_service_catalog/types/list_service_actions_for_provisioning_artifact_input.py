@@ -18,7 +18,7 @@ class ListServiceActionsForProvisioningArtifactInput(TypedDict, closed=True):
     """<p>The product identifier. For example, <code>prod-abcdzk7xy33qa</code>.</p>"""
     provisioning_artifact_id: "capo_service_catalog.types.id.Id"
     """<p>The identifier of the provisioning artifact. For example, <code>pa-4abcdjnxjj6ne</code>.</p>"""
-    page_size: "capo_service_catalog.types.page_size.PageSize"
+    page_size: NotRequired["capo_service_catalog.types.page_size.PageSize"]
     """<p>The maximum number of items to return with this call.</p>"""
     page_token: NotRequired["capo_service_catalog.types.page_token.PageToken"]
     """<p>The page token for the next set of results. To retrieve the first set of results, use null.</p>"""
@@ -35,7 +35,8 @@ def serialize_aws_json_1_1(
     out: dict = {}
     out["ProductId"] = value["product_id"]
     out["ProvisioningArtifactId"] = value["provisioning_artifact_id"]
-    out["PageSize"] = value.get("page_size", 0)
+    if "page_size" in value:
+        out["PageSize"] = value["page_size"]
     if "page_token" in value:
         out["PageToken"] = value["page_token"]
     if "accept_language" in value:
@@ -61,8 +62,6 @@ def deserialize_aws_json_1_1(
         )
     if data.get("PageSize") is not None:
         out["page_size"] = data["PageSize"]
-    else:
-        out["page_size"] = 0
     if data.get("PageToken") is not None:
         out["page_token"] = data["PageToken"]
     if data.get("AcceptLanguage") is not None:

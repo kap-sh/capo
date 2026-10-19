@@ -110,15 +110,14 @@ def build_request(
     url = endpoint.url.rstrip("/") + "/v1/datasources/introspections/{introspectionId}"
     url = url.replace("{introspectionId}", quote(input_["introspection_id"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(
-        (
-            "includeModelsSDL",
-            "true" if input_.get("include_models_sdl", False) else "false",
+    if "include_models_sdl" in input_:
+        params.append(
+            ("includeModelsSDL", "true" if input_["include_models_sdl"] else "false")
         )
-    )
     if "next_token" in input_:
         params.append(("nextToken", input_["next_token"]))
-    params.append(("maxResults", str(input_.get("max_results", 0))))
+    if "max_results" in input_:
+        params.append(("maxResults", str(input_["max_results"])))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

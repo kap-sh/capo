@@ -26,7 +26,9 @@ class DeleteFileInput(TypedDict, closed=True):
     """<p>The fully qualified path to the file that to be deleted, including the full name and extension of that file. For example, /examples/file.md is a fully qualified path to a file named file.md in a folder named examples.</p>"""
     parent_commit_id: "capo_codecommit.types.commit_id.CommitId"
     """<p>The ID of the commit that is the tip of the branch where you want to create the commit that deletes the file. This must be the HEAD commit for the branch. The commit that deletes the file is created from this commit ID.</p>"""
-    keep_empty_folders: "capo_codecommit.types.keep_empty_folders.KeepEmptyFolders"
+    keep_empty_folders: NotRequired[
+        "capo_codecommit.types.keep_empty_folders.KeepEmptyFolders"
+    ]
     """<p>If a file is the only object in the folder or directory, specifies whether to delete the folder or directory that contains the file. By default, empty folders are deleted. This includes empty folders that are part of the directory structure. For example, if the path to a file is dir1/dir2/dir3/dir4, and dir2 and dir3 are empty, deleting the last file in dir4 also deletes the empty folders dir4, dir3, and dir2.</p>"""
     commit_message: NotRequired["capo_codecommit.types.message.Message"]
     """<p>The commit message you want to include as part of deleting the file. Commit messages are limited to 256 KB. If no message is specified, a default message is used.</p>"""
@@ -43,7 +45,8 @@ def serialize_aws_json_1_1(value: DeleteFileInput) -> dict:
     out["branchName"] = value["branch_name"]
     out["filePath"] = value["file_path"]
     out["parentCommitId"] = value["parent_commit_id"]
-    out["keepEmptyFolders"] = value.get("keep_empty_folders", False)
+    if "keep_empty_folders" in value:
+        out["keepEmptyFolders"] = value["keep_empty_folders"]
     if "commit_message" in value:
         out["commitMessage"] = value["commit_message"]
     if "name" in value:
@@ -73,8 +76,6 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteFileInput:
         raise DeserializationError("DeleteFileInput.parent_commit_id required")
     if data.get("keepEmptyFolders") is not None:
         out["keep_empty_folders"] = data["keepEmptyFolders"]
-    else:
-        out["keep_empty_folders"] = False
     if data.get("commitMessage") is not None:
         out["commit_message"] = data["commitMessage"]
     if data.get("name") is not None:

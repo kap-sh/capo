@@ -122,7 +122,8 @@ def build_request(
         "{clusterIdentifier}", quote(input_["cluster_identifier"], safe="")
     )
     params: list[tuple[str, str]] = []
-    params.append(("max-results", str(input_.get("max_results", 10))))
+    if "max_results" in input_:
+        params.append(("max-results", str(input_["max_results"])))
     if "next_token" in input_:
         params.append(("next-token", input_["next_token"]))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}

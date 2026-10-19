@@ -136,7 +136,8 @@ def build_request(
     url = endpoint.url.rstrip("/") + "/kx/environments/{environmentId}/kxvolumes"
     url = url.replace("{environmentId}", quote(input_["environment_id"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(("maxResults", str(input_.get("max_results", 0))))
+    if "max_results" in input_:
+        params.append(("maxResults", str(input_["max_results"])))
     if "next_token" in input_:
         params.append(("nextToken", input_["next_token"]))
     if "volume_type" in input_:

@@ -29,7 +29,7 @@ class GetAggregateComplianceDetailsByConfigRuleRequest(TypedDict, closed=True):
         "capo_config_service.types.compliance_type.ComplianceType"
     ]
     """<p>The resource compliance status.</p> <note> <p>For the <code>GetAggregateComplianceDetailsByConfigRuleRequest</code> data type, Config supports only the <code>COMPLIANT</code> and <code>NON_COMPLIANT</code>. Config does not support the <code>NOT_APPLICABLE</code> and <code>INSUFFICIENT_DATA</code> values.</p> </note>"""
-    limit: "capo_config_service.types.limit.Limit"
+    limit: NotRequired["capo_config_service.types.limit.Limit"]
     """<p>The maximum number of evaluation results returned on each page. The default is 50. You cannot specify a number greater than 100. If you specify 0, Config uses the default.</p>"""
     next_token: NotRequired["capo_config_service.types.next_token.NextToken"]
     """<p>The <code>nextToken</code> string returned on a previous page that you use to get the next page of results in a paginated response.</p>"""
@@ -52,7 +52,8 @@ def serialize_aws_json_1_1(
                 value["compliance_type"]
             )
         )
-    out["Limit"] = value.get("limit", 0)
+    if "limit" in value:
+        out["Limit"] = value["limit"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
     return out
@@ -96,8 +97,6 @@ def deserialize_aws_json_1_1(
         )
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
-    else:
-        out["limit"] = 0
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

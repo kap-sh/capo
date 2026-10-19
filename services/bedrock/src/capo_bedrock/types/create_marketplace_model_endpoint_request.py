@@ -22,7 +22,7 @@ class CreateMarketplaceModelEndpointRequest(TypedDict, closed=True):
     """<p>The ARN of the model from Amazon Bedrock Marketplace that you want to deploy to the endpoint.</p>"""
     endpoint_config: "capo_bedrock.types.endpoint_config.EndpointConfig"
     """<p>The configuration for the endpoint, including the number and type of instances to use.</p>"""
-    accept_eula: "capo_bedrock.types.accept_eula.AcceptEula"
+    accept_eula: NotRequired["capo_bedrock.types.accept_eula.AcceptEula"]
     """<p>Indicates whether you accept the end-user license agreement (EULA) for the model. Set to <code>true</code> to accept the EULA.</p>"""
     endpoint_name: "capo_bedrock.types.endpoint_name.EndpointName"
     """<p>The name of the endpoint. This name must be unique within your Amazon Web Services account and region.</p>"""
@@ -43,7 +43,8 @@ def serialize_json(value: CreateMarketplaceModelEndpointRequest) -> dict:
     out["endpointConfig"] = capo_bedrock.types.endpoint_config.serialize_json(
         value["endpoint_config"]
     )
-    out["acceptEula"] = value.get("accept_eula", False)
+    if "accept_eula" in value:
+        out["acceptEula"] = value["accept_eula"]
     out["endpointName"] = value["endpoint_name"]
     if "client_request_token" in value:
         out["clientRequestToken"] = value["client_request_token"]
@@ -74,8 +75,6 @@ def deserialize_json(data: dict) -> CreateMarketplaceModelEndpointRequest:
         )
     if data.get("acceptEula") is not None:
         out["accept_eula"] = data["acceptEula"]
-    else:
-        out["accept_eula"] = False
     if data.get("endpointName") is not None:
         out["endpoint_name"] = data["endpointName"]
     else:

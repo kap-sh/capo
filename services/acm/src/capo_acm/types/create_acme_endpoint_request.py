@@ -20,7 +20,7 @@ class CreateAcmeEndpointRequest(TypedDict, closed=True):
         "capo_acm.types.acme_authorization_behavior.AcmeAuthorizationBehavior"
     )
     """<p>The authorization behavior for the ACME endpoint.</p>"""
-    contact: "capo_acm.types.acme_contact.AcmeContact"
+    contact: NotRequired["capo_acm.types.acme_contact.AcmeContact"]
     """<p>Specifies whether ACME clients must provide contact information during account registration.</p>"""
     certificate_authority: "capo_acm.types.certificate_authority.CertificateAuthority"
     """<p>The type of certificate authority to use for issuing certificates through this ACME endpoint.</p>"""
@@ -42,11 +42,12 @@ def serialize_aws_json_1_1(value: CreateAcmeEndpointRequest) -> dict:
             value["authorization_behavior"]
         )
     )
-    import capo_acm.types.acme_contact
+    if "contact" in value:
+        import capo_acm.types.acme_contact
 
-    out["Contact"] = capo_acm.types.acme_contact.serialize_aws_json_1_1(
-        value.get("contact", "REQUIRED")
-    )
+        out["Contact"] = capo_acm.types.acme_contact.serialize_aws_json_1_1(
+            value["contact"]
+        )
     import capo_acm.types.certificate_authority
 
     out["CertificateAuthority"] = (
@@ -89,8 +90,6 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAcmeEndpointRequest:
         out["contact"] = capo_acm.types.acme_contact.deserialize_aws_json_1_1(
             data["Contact"]
         )
-    else:
-        out["contact"] = "REQUIRED"
     if data.get("CertificateAuthority") is not None:
         import capo_acm.types.certificate_authority
 

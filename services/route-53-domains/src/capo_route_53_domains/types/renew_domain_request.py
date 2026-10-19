@@ -34,7 +34,7 @@ def serialize_aws_json_1_1(value: RenewDomainRequest) -> dict:
     out["DomainName"] = value["domain_name"]
     if "duration_in_years" in value:
         out["DurationInYears"] = value["duration_in_years"]
-    out["CurrentExpiryYear"] = value.get("current_expiry_year", 0)
+    out["CurrentExpiryYear"] = value["current_expiry_year"]
     if "consent" in value:
         import capo_route_53_domains.types.consent
 
@@ -55,7 +55,7 @@ def deserialize_aws_json_1_1(data: dict) -> RenewDomainRequest:
     if data.get("CurrentExpiryYear") is not None:
         out["current_expiry_year"] = data["CurrentExpiryYear"]
     else:
-        out["current_expiry_year"] = 0
+        raise DeserializationError("RenewDomainRequest.current_expiry_year required")
     if data.get("Consent") is not None:
         import capo_route_53_domains.types.consent
 

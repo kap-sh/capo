@@ -23,9 +23,9 @@ class ListResourcesRequest(TypedDict, closed=True):
         "capo_resiliencehubv2.types.resource_type_filter_list.ResourceTypeFilterList"
     ]
     """<p>The CloudFormation resource types to include in the response.</p>"""
-    billable: "bool"
+    billable: NotRequired["bool"]
     """<p>Specifies whether to filter non-billable resources. When true (the default), the operation returns only billable resources.</p>"""
-    max_results: "capo_resiliencehubv2.types.max_results.MaxResults"
+    max_results: NotRequired["capo_resiliencehubv2.types.max_results.MaxResults"]
     next_token: NotRequired["capo_resiliencehubv2.types.next_token.NextToken"]
 
 

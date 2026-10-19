@@ -28,9 +28,11 @@ class SendDirectMessageRequest(TypedDict, closed=True):
         "capo_iot_data_plane.types.response_topic.ResponseTopic"
     ]
     """<p>A UTF-8 encoded string that's used as the topic name for a response message. The response topic describes the topic which the receiver should publish to as part of the request-response flow. The topic must not contain wildcard characters. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/iot-core.html#message-broker-limits">Amazon Web Services IoT Core message broker and protocol limits and quotas</a>.</p>"""
-    confirmation: "capo_iot_data_plane.types.confirmation.Confirmation"
+    confirmation: NotRequired["capo_iot_data_plane.types.confirmation.Confirmation"]
     """<p>A Boolean value that specifies whether to wait for delivery confirmation from the receiving client.</p> <p>When set to <code>true</code>, the API delivers the message at QoS 1 and waits for the client to send a delivery confirmation (PUBACK) before returning a successful response. If delivery confirmation is not received within the specified <code>timeout</code> period, the API returns HTTP 504.</p> <p>When set to <code>false</code>, the API delivers the message at QoS 0 and returns after Amazon Web Services IoT Core attempts to deliver the message.</p> <p>Valid values: <code>true</code> | <code>false</code> </p> <p>Default value: <code>false</code> </p>"""
-    timeout: "capo_iot_data_plane.types.timeout_in_seconds.TimeoutInSeconds"
+    timeout: NotRequired[
+        "capo_iot_data_plane.types.timeout_in_seconds.TimeoutInSeconds"
+    ]
     """<p>An integer that represents the maximum time, in seconds, to wait for a delivery confirmation (PUBACK) from the receiving client after the message has been delivered. This parameter is only used when <code>confirmation</code> is set to <code>true</code>. If <code>confirmation</code> is <code>false</code>, this parameter is ignored.</p> <p>The total API response time may be higher than this value due to internal processing. Set your HTTP client timeout to a value greater than this parameter.</p> <p>Valid range: 1 to 15 seconds.</p> <p>Default value: <code>5</code> seconds.</p>"""
     payload: NotRequired["capo_iot_data_plane.types.payload.Payload"]
     """<p>The message body. MQTT accepts text, binary, and empty (null) message payloads.</p>"""

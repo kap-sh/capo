@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 class ListPoliciesRequest(TypedDict, closed=True):
     account_id: NotRequired["capo_resiliencehubv2.types.account_id.AccountId"]
     """<p>The identifier of the account that owns the policies to include in the results.</p>"""
-    max_results: "capo_resiliencehubv2.types.max_results.MaxResults"
+    max_results: NotRequired["capo_resiliencehubv2.types.max_results.MaxResults"]
     next_token: NotRequired["capo_resiliencehubv2.types.next_token.NextToken"]
 
 

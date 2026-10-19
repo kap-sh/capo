@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 
 class InitializeServiceInput(TypedDict, closed=True):
-    oci_identity_domain: "bool"
+    oci_identity_domain: NotRequired["bool"]
     """<p>The Oracle Cloud Infrastructure (OCI) identity domain configuration for service initialization.</p>"""
     autonomous_database_oci_aws_secrets_manager_integration: NotRequired[
         "capo_odb.types.access.Access"
@@ -20,7 +20,8 @@ class InitializeServiceInput(TypedDict, closed=True):
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: InitializeServiceInput) -> dict:
     out: dict = {}
-    out["ociIdentityDomain"] = value.get("oci_identity_domain", True)
+    if "oci_identity_domain" in value:
+        out["ociIdentityDomain"] = value["oci_identity_domain"]
     if "autonomous_database_oci_aws_secrets_manager_integration" in value:
         import capo_odb.types.access
 
@@ -36,8 +37,6 @@ def deserialize_aws_json_1_0(data: dict) -> InitializeServiceInput:
     out: InitializeServiceInput = {}  # type: ignore[typeddict-item]
     if data.get("ociIdentityDomain") is not None:
         out["oci_identity_domain"] = data["ociIdentityDomain"]
-    else:
-        out["oci_identity_domain"] = True
     if data.get("autonomousDatabaseOciAwsSecretsManagerIntegration") is not None:
         import capo_odb.types.access
 

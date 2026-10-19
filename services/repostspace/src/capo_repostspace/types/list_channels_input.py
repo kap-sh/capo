@@ -14,7 +14,9 @@ class ListChannelsInput(TypedDict, closed=True):
     """<p>The unique ID of the private re:Post.</p>"""
     next_token: NotRequired["str"]
     """<p>The token for the next set of channel to return. You receive this token from a previous ListChannels operation.</p>"""
-    max_results: "capo_repostspace.types.list_channels_limit.ListChannelsLimit"
+    max_results: NotRequired[
+        "capo_repostspace.types.list_channels_limit.ListChannelsLimit"
+    ]
     """<p>The maximum number of channels to include in the results.</p>"""
 
 

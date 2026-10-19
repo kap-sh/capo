@@ -33,7 +33,9 @@ class DescribeActivitiesRequest(TypedDict, closed=True):
     """<p>The document or folder ID for which to describe activity types.</p>"""
     user_id: NotRequired["capo_workdocs.types.id_type.IdType"]
     """<p>The ID of the user who performed the action. The response includes activities pertaining to this user. This is an optional parameter and is only applicable for administrative API (SigV4) requests.</p>"""
-    include_indirect_activities: "capo_workdocs.types.boolean_type.BooleanType"
+    include_indirect_activities: NotRequired[
+        "capo_workdocs.types.boolean_type.BooleanType"
+    ]
     """<p>Includes indirect activities. An indirect activity results from a direct activity performed on a parent resource. For example, sharing a parent folder (the direct activity) shares all of the subfolders and documents within the parent folder (the indirect activity).</p>"""
     limit: NotRequired["capo_workdocs.types.limit_type.LimitType"]
     """<p>The maximum number of items to return.</p>"""

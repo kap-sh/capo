@@ -44,7 +44,7 @@ class ReverseGeocodeRequest(TypedDict, closed=True):
     """<p> Indicates if the query results will be persisted in customer infrastructure. Defaults to <code>SingleUse</code> (not stored). </p> <note> <p>When storing <code>ReverseGeocode</code> responses, you <i>must</i> set this field to <code>Storage</code> to comply with the terms of service. These requests will be charged at a higher rate. Please review the <a href="https://aws.amazon.com/location/sla/">user agreement</a> and <a href="https://aws.amazon.com/location/pricing/">service pricing structure</a> to determine the correct setting for your use case.</p> </note>"""
     key: NotRequired["capo_geo_places.types.api_key.ApiKey"]
     """<p>Optional: The API key to be used for authorization. Either an API key or valid SigV4 signature must be provided when making a request.</p>"""
-    heading: "capo_geo_places.types.heading.Heading"
+    heading: NotRequired["capo_geo_places.types.heading.Heading"]
     """<p>The heading in degrees from true north in a navigation context. The heading is measured as the angle clockwise from the North direction.</p> <p>Example: North is <code>0</code> degrees, East is <code>90</code> degrees, South is <code>180</code> degrees, and West is <code>270</code> degrees.</p>"""
     address_names_mode: NotRequired[
         "capo_geo_places.types.reverse_geocode_address_names_mode.ReverseGeocodeAddressNamesMode"
@@ -90,15 +90,16 @@ def serialize_json(value: ReverseGeocodeRequest) -> dict:
                 value["intended_use"]
             )
         )
-    out["Heading"] = (
-        "NaN"
-        if value.get("heading", 0) != value.get("heading", 0)
-        else "Infinity"
-        if value.get("heading", 0) == float("inf")
-        else "-Infinity"
-        if value.get("heading", 0) == float("-inf")
-        else value.get("heading", 0)
-    )
+    if "heading" in value:
+        out["Heading"] = (
+            "NaN"
+            if value["heading"] != value["heading"]
+            else "Infinity"
+            if value["heading"] == float("inf")
+            else "-Infinity"
+            if value["heading"] == float("-inf")
+            else value["heading"]
+        )
     if "address_names_mode" in value:
         import capo_geo_places.types.reverse_geocode_address_names_mode
 
@@ -152,8 +153,6 @@ def deserialize_json(data: dict) -> ReverseGeocodeRequest:
         )
     if data.get("Heading") is not None:
         out["heading"] = float(data["Heading"])
-    else:
-        out["heading"] = 0
     if data.get("AddressNamesMode") is not None:
         import capo_geo_places.types.reverse_geocode_address_names_mode
 

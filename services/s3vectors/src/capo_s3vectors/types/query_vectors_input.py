@@ -33,9 +33,9 @@ class QueryVectorsInput(TypedDict, closed=True):
     """<p>Metadata filter to apply during the query. For more information about metadata keys, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-vectors-metadata-filtering.html">Metadata filtering</a> in the <i>Amazon S3 User Guide</i>. </p>"""
     query_mode: NotRequired["capo_s3vectors.types.index_mode.IndexMode"]
     """<p>The mode to use to process the query. If you don't specify a query mode, the operation uses the mode that's currently configured for the vector index.</p> <p>Valid values:</p> <ul> <li> <p> <code>CLASSIC</code> - Applies metadata filters during the vector search. You can't specify <code>CLASSIC</code> for an <code>ENHANCED</code> index.</p> </li> <li> <p> <code>ENHANCED</code> - Applies metadata filters before the vector search.</p> </li> </ul>"""
-    return_metadata: "bool"
+    return_metadata: NotRequired["bool"]
     """<p>Indicates whether to include metadata in the response. The default value is <code>false</code>.</p>"""
-    return_distance: "bool"
+    return_distance: NotRequired["bool"]
     """<p>Indicates whether to include the computed distance in the response. The default value is <code>false</code>.</p>"""
     next_token: NotRequired[
         "capo_s3vectors.types.query_vectors_next_token.QueryVectorsNextToken"
@@ -66,8 +66,10 @@ def serialize_json(value: QueryVectorsInput) -> dict:
         out["queryMode"] = capo_s3vectors.types.index_mode.serialize_json(
             value["query_mode"]
         )
-    out["returnMetadata"] = value.get("return_metadata", False)
-    out["returnDistance"] = value.get("return_distance", False)
+    if "return_metadata" in value:
+        out["returnMetadata"] = value["return_metadata"]
+    if "return_distance" in value:
+        out["returnDistance"] = value["return_distance"]
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
     return out
@@ -103,12 +105,8 @@ def deserialize_json(data: dict) -> QueryVectorsInput:
         )
     if data.get("returnMetadata") is not None:
         out["return_metadata"] = data["returnMetadata"]
-    else:
-        out["return_metadata"] = False
     if data.get("returnDistance") is not None:
         out["return_distance"] = data["returnDistance"]
-    else:
-        out["return_distance"] = False
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

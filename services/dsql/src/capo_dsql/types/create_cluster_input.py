@@ -15,9 +15,9 @@ if TYPE_CHECKING:
 
 
 class CreateClusterInput(TypedDict, closed=True):
-    deletion_protection_enabled: (
+    deletion_protection_enabled: NotRequired[
         "capo_dsql.types.deletion_protection_enabled.DeletionProtectionEnabled"
-    )
+    ]
     """<p>If enabled, you can't delete your cluster. You must first disable this property before you can delete your cluster.</p>"""
     kms_encryption_key: NotRequired[
         "capo_dsql.types.kms_encryption_key.KmsEncryptionKey"
@@ -33,14 +33,17 @@ class CreateClusterInput(TypedDict, closed=True):
     """<p>The configuration settings when creating a multi-Region cluster, including the witness region and linked cluster properties.</p>"""
     policy: NotRequired["capo_dsql.types.policy_document.PolicyDocument"]
     """<p>An optional resource-based policy document in JSON format that defines access permissions for the cluster.</p>"""
-    bypass_policy_lockout_safety_check: "capo_dsql.types.bypass_policy_lockout_safety_check.BypassPolicyLockoutSafetyCheck"
+    bypass_policy_lockout_safety_check: NotRequired[
+        "capo_dsql.types.bypass_policy_lockout_safety_check.BypassPolicyLockoutSafetyCheck"
+    ]
     """<p>An optional field that controls whether to bypass the lockout prevention check. When set to true, this parameter allows you to apply a policy that might lock you out of the cluster. Use with caution.</p>"""
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CreateClusterInput) -> dict:
     out: dict = {}
-    out["deletionProtectionEnabled"] = value.get("deletion_protection_enabled", True)
+    if "deletion_protection_enabled" in value:
+        out["deletionProtectionEnabled"] = value["deletion_protection_enabled"]
     if "kms_encryption_key" in value:
         out["kmsEncryptionKey"] = value["kms_encryption_key"]
     if "tags" in value:
@@ -59,9 +62,10 @@ def serialize_json(value: CreateClusterInput) -> dict:
         )
     if "policy" in value:
         out["policy"] = value["policy"]
-    out["bypassPolicyLockoutSafetyCheck"] = value.get(
-        "bypass_policy_lockout_safety_check", False
-    )
+    if "bypass_policy_lockout_safety_check" in value:
+        out["bypassPolicyLockoutSafetyCheck"] = value[
+            "bypass_policy_lockout_safety_check"
+        ]
     return out
 
 
@@ -69,8 +73,6 @@ def deserialize_json(data: dict) -> CreateClusterInput:
     out: CreateClusterInput = {}  # type: ignore[typeddict-item]
     if data.get("deletionProtectionEnabled") is not None:
         out["deletion_protection_enabled"] = data["deletionProtectionEnabled"]
-    else:
-        out["deletion_protection_enabled"] = True
     if data.get("kmsEncryptionKey") is not None:
         out["kms_encryption_key"] = data["kmsEncryptionKey"]
     if data.get("tags") is not None:
@@ -93,6 +95,4 @@ def deserialize_json(data: dict) -> CreateClusterInput:
         out["bypass_policy_lockout_safety_check"] = data[
             "bypassPolicyLockoutSafetyCheck"
         ]
-    else:
-        out["bypass_policy_lockout_safety_check"] = False
     return out

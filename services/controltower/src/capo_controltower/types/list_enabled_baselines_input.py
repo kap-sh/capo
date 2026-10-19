@@ -23,7 +23,7 @@ class ListEnabledBaselinesInput(TypedDict, closed=True):
         "capo_controltower.types.list_enabled_baselines_max_results.ListEnabledBaselinesMaxResults"
     ]
     """<p>The maximum number of results to be shown.</p>"""
-    include_children: "bool"
+    include_children: NotRequired["bool"]
     """<p>A value that can be set to include the child enabled baselines in responses. The default value is false.</p>"""
 
 
@@ -40,7 +40,8 @@ def serialize_json(value: ListEnabledBaselinesInput) -> dict:
         out["nextToken"] = value["next_token"]
     if "max_results" in value:
         out["maxResults"] = value["max_results"]
-    out["includeChildren"] = value.get("include_children", False)
+    if "include_children" in value:
+        out["includeChildren"] = value["include_children"]
     return out
 
 
@@ -60,6 +61,4 @@ def deserialize_json(data: dict) -> ListEnabledBaselinesInput:
         out["max_results"] = data["maxResults"]
     if data.get("includeChildren") is not None:
         out["include_children"] = data["includeChildren"]
-    else:
-        out["include_children"] = False
     return out

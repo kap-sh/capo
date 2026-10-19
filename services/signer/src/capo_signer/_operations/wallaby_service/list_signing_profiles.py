@@ -110,12 +110,10 @@ def build_request(
 
     url = endpoint.url.rstrip("/") + "/signing-profiles"
     params: list[tuple[str, str]] = []
-    params.append(
-        (
-            "includeCanceled",
-            "true" if input_.get("include_canceled", False) else "false",
+    if "include_canceled" in input_:
+        params.append(
+            ("includeCanceled", "true" if input_["include_canceled"] else "false")
         )
-    )
     if "max_results" in input_:
         params.append(("maxResults", str(input_["max_results"])))
     if "next_token" in input_:

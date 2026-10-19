@@ -111,13 +111,15 @@ def build_request(
         params.append(("grantscope", input_["grant_scope"]))
     if "next_token" in input_:
         params.append(("nextToken", input_["next_token"]))
-    params.append(("maxResults", str(input_.get("max_results", 0))))
-    params.append(
-        (
-            "allowedByApplication",
-            "true" if input_.get("allowed_by_application", False) else "false",
+    if "max_results" in input_:
+        params.append(("maxResults", str(input_["max_results"])))
+    if "allowed_by_application" in input_:
+        params.append(
+            (
+                "allowedByApplication",
+                "true" if input_["allowed_by_application"] else "false",
+            )
         )
-    )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     if "account_id" in input_:
         headers["x-amz-account-id"] = input_["account_id"]

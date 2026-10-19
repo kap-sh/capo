@@ -58,7 +58,7 @@ class WriteGetObjectResponseRequest(TypedDict, closed=True):
     """<p>Route prefix to the HTTP URL generated.</p>"""
     request_token: "capo_s3.types.request_token.RequestToken"
     """<p>A single use encrypted token that maps <code>WriteGetObjectResponse</code> to the end user <code>GetObject</code> request.</p>"""
-    body: "capo_s3.types.streaming_blob.StreamingBlob"
+    body: NotRequired["capo_s3.types.streaming_blob.StreamingBlob"]
     """<p>The object data.</p>"""
     status_code: NotRequired[
         "capo_s3.types.get_object_response_status_code.GetObjectResponseStatusCode"

@@ -20,7 +20,9 @@ class ListCommitmentPurchaseAnalysesRequest(TypedDict, closed=True):
         "capo_cost_explorer.types.next_page_token.NextPageToken"
     ]
     """<p>The token to retrieve the next set of results.</p>"""
-    page_size: "capo_cost_explorer.types.analyses_page_size.AnalysesPageSize"
+    page_size: NotRequired[
+        "capo_cost_explorer.types.analyses_page_size.AnalysesPageSize"
+    ]
     """<p>The number of analyses that you want returned in a single response object.</p>"""
     analysis_ids: NotRequired["capo_cost_explorer.types.analysis_ids.AnalysisIds"]
     """<p>The analysis IDs associated with the commitment purchase analyses.</p>"""
@@ -39,7 +41,8 @@ def serialize_aws_json_1_1(value: ListCommitmentPurchaseAnalysesRequest) -> dict
         )
     if "next_page_token" in value:
         out["NextPageToken"] = value["next_page_token"]
-    out["PageSize"] = value.get("page_size", 0)
+    if "page_size" in value:
+        out["PageSize"] = value["page_size"]
     if "analysis_ids" in value:
         import capo_cost_explorer.types.analysis_ids
 
@@ -65,8 +68,6 @@ def deserialize_aws_json_1_1(data: dict) -> ListCommitmentPurchaseAnalysesReques
         out["next_page_token"] = data["NextPageToken"]
     if data.get("PageSize") is not None:
         out["page_size"] = data["PageSize"]
-    else:
-        out["page_size"] = 0
     if data.get("AnalysisIds") is not None:
         import capo_cost_explorer.types.analysis_ids
 

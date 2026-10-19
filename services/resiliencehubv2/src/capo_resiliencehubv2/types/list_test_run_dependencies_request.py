@@ -16,7 +16,7 @@ class ListTestRunDependenciesRequest(TypedDict, closed=True):
     """<p>The identifier of the test run to list dependencies for.</p>"""
     service_arn: "capo_resiliencehubv2.types.arn.Arn"
     """<p>The ARN of the service the test run belongs to.</p>"""
-    max_results: "capo_resiliencehubv2.types.max_results.MaxResults"
+    max_results: NotRequired["capo_resiliencehubv2.types.max_results.MaxResults"]
     next_token: NotRequired["capo_resiliencehubv2.types.next_token.NextToken"]
 
 

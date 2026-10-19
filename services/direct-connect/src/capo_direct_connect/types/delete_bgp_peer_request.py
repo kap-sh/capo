@@ -17,7 +17,7 @@ class DeleteBGPPeerRequest(TypedDict, closed=True):
         "capo_direct_connect.types.virtual_interface_id.VirtualInterfaceId"
     ]
     """<p>The ID of the virtual interface.</p>"""
-    asn: "capo_direct_connect.types.asn.ASN"
+    asn: NotRequired["capo_direct_connect.types.asn.ASN"]
     """<p>The autonomous system number (ASN). The valid range is from 1 to 2147483646 for Border Gateway Protocol (BGP) configuration. If you provide a number greater than the maximum, an error is returned. Use <code>asnLong</code> instead.</p> <ul> <li> <p>You can use <code>asnLong</code> or <code>asn</code>, but not both. We recommend using <code>asnLong</code> as it supports a greater pool of numbers. </p> </li> <li> <p>If you provide a value in the same API call for both <code>asn</code> and <code>asnLong</code>, the API will only accept the value for <code>asnLong</code>. </p> </li> <li> <p>If you enter a 4-byte ASN for the <code>asn</code> parameter, the API returns an error. </p> </li> <li> <p>If you are using a 2-byte ASN, the API response will include the 2-byte value for both the <code>asn</code> and <code>asnLong</code> fields.</p> </li> </ul>"""
     asn_long: NotRequired["capo_direct_connect.types.long_asn.LongAsn"]
     """<p>The long ASN for the BGP peer to be deleted from a Direct Connect virtual interface. The valid range is from 1 to 4294967294 for BGP configuration. </p> <p>Note the following limitations when using <code>asnLong</code>:</p> <ul> <li> <p>You can use <code>asnLong</code> or <code>asn</code>, but not both. We recommend using <code>asnLong</code> as it supports a greater pool of numbers. </p> </li> <li> <p> <code>asnLong</code> accepts any valid ASN value, regardless if it's 2-byte or 4-byte. </p> </li> <li> <p>When using a 4-byte <code>asnLong</code>, the API response returns <code>0</code> for the legacy <code>asn</code> attribute since 4-byte ASN values exceed the maximum supported value of 2,147,483,647.</p> </li> <li> <p>If you are using a 2-byte ASN, the API response will include the 2-byte value for both the <code>asn</code> and <code>asnLong</code> fields.</p> </li> <li> <p>If you provide a value in the same API call for both <code>asn</code> and <code>asnLong</code>, the API will only accept the value for <code>asnLong</code>.</p> </li> </ul>"""
@@ -34,7 +34,8 @@ def serialize_aws_json_1_1(value: DeleteBGPPeerRequest) -> dict:
     out: dict = {}
     if "virtual_interface_id" in value:
         out["virtualInterfaceId"] = value["virtual_interface_id"]
-    out["asn"] = value.get("asn", 0)
+    if "asn" in value:
+        out["asn"] = value["asn"]
     if "asn_long" in value:
         out["asnLong"] = value["asn_long"]
     if "customer_address" in value:
@@ -50,8 +51,6 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteBGPPeerRequest:
         out["virtual_interface_id"] = data["virtualInterfaceId"]
     if data.get("asn") is not None:
         out["asn"] = data["asn"]
-    else:
-        out["asn"] = 0
     if data.get("asnLong") is not None:
         out["asn_long"] = data["asnLong"]
     if data.get("customerAddress") is not None:

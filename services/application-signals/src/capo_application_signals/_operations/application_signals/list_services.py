@@ -128,15 +128,17 @@ def build_request(
                 ),
             )
         )
-    params.append(("MaxResults", str(input_.get("max_results", 50))))
+    if "max_results" in input_:
+        params.append(("MaxResults", str(input_["max_results"])))
     if "next_token" in input_:
         params.append(("NextToken", input_["next_token"]))
-    params.append(
-        (
-            "IncludeLinkedAccounts",
-            "true" if input_.get("include_linked_accounts", False) else "false",
+    if "include_linked_accounts" in input_:
+        params.append(
+            (
+                "IncludeLinkedAccounts",
+                "true" if input_["include_linked_accounts"] else "false",
+            )
         )
-    )
     if "aws_account_id" in input_:
         params.append(("AwsAccountId", input_["aws_account_id"]))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}

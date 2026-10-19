@@ -86,27 +86,30 @@ def serialize_json(value: CreateCaseRequest) -> dict:
     import capo_security_ir.types.watchers
 
     out["watchers"] = capo_security_ir.types.watchers.serialize_json(value["watchers"])
-    import capo_security_ir.types.threat_actor_ip_list
+    if "threat_actor_ip_addresses" in value:
+        import capo_security_ir.types.threat_actor_ip_list
 
-    out["threatActorIpAddresses"] = (
-        capo_security_ir.types.threat_actor_ip_list.serialize_json(
-            value.get("threat_actor_ip_addresses", [])
+        out["threatActorIpAddresses"] = (
+            capo_security_ir.types.threat_actor_ip_list.serialize_json(
+                value["threat_actor_ip_addresses"]
+            )
         )
-    )
-    import capo_security_ir.types.impacted_services_list
+    if "impacted_services" in value:
+        import capo_security_ir.types.impacted_services_list
 
-    out["impactedServices"] = (
-        capo_security_ir.types.impacted_services_list.serialize_json(
-            value.get("impacted_services", [])
+        out["impactedServices"] = (
+            capo_security_ir.types.impacted_services_list.serialize_json(
+                value["impacted_services"]
+            )
         )
-    )
-    import capo_security_ir.types.impacted_aws_region_list
+    if "impacted_aws_regions" in value:
+        import capo_security_ir.types.impacted_aws_region_list
 
-    out["impactedAwsRegions"] = (
-        capo_security_ir.types.impacted_aws_region_list.serialize_json(
-            value.get("impacted_aws_regions", [])
+        out["impactedAwsRegions"] = (
+            capo_security_ir.types.impacted_aws_region_list.serialize_json(
+                value["impacted_aws_regions"]
+            )
         )
-    )
     if "tags" in value:
         import capo_security_ir.types.tag_map
 
@@ -182,8 +185,6 @@ def deserialize_json(data: dict) -> CreateCaseRequest:
                 data["threatActorIpAddresses"]
             )
         )
-    else:
-        out["threat_actor_ip_addresses"] = []
     if data.get("impactedServices") is not None:
         import capo_security_ir.types.impacted_services_list
 
@@ -192,8 +193,6 @@ def deserialize_json(data: dict) -> CreateCaseRequest:
                 data["impactedServices"]
             )
         )
-    else:
-        out["impacted_services"] = []
     if data.get("impactedAwsRegions") is not None:
         import capo_security_ir.types.impacted_aws_region_list
 
@@ -202,8 +201,6 @@ def deserialize_json(data: dict) -> CreateCaseRequest:
                 data["impactedAwsRegions"]
             )
         )
-    else:
-        out["impacted_aws_regions"] = []
     if data.get("tags") is not None:
         import capo_security_ir.types.tag_map
 

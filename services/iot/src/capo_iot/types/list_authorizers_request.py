@@ -16,7 +16,7 @@ class ListAuthorizersRequest(TypedDict, closed=True):
     """<p>The maximum number of results to return at one time.</p>"""
     marker: NotRequired["capo_iot.types.marker.Marker"]
     """<p>A marker used to get the next set of results.</p>"""
-    ascending_order: "capo_iot.types.ascending_order.AscendingOrder"
+    ascending_order: NotRequired["capo_iot.types.ascending_order.AscendingOrder"]
     """<p>Return the list of authorizers in ascending alphabetical order.</p>"""
     status: NotRequired["capo_iot.types.authorizer_status.AuthorizerStatus"]
     """<p>The status of the list authorizers request.</p>"""

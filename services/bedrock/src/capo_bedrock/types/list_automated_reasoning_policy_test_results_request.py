@@ -20,7 +20,7 @@ class ListAutomatedReasoningPolicyTestResultsRequest(TypedDict, closed=True):
     """<p>The unique identifier of the build workflow whose test results you want to list.</p>"""
     next_token: NotRequired["capo_bedrock.types.pagination_token.PaginationToken"]
     """<p>A pagination token from a previous request to continue listing test results from where the previous request left off.</p>"""
-    max_results: "capo_bedrock.types.max_results.MaxResults"
+    max_results: NotRequired["capo_bedrock.types.max_results.MaxResults"]
     """<p>The maximum number of test results to return in a single response. Valid range is 1-100.</p>"""
 
 

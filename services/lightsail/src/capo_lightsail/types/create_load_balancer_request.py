@@ -43,7 +43,7 @@ class CreateLoadBalancerRequest(TypedDict, closed=True):
 def serialize_aws_json_1_1(value: CreateLoadBalancerRequest) -> dict:
     out: dict = {}
     out["loadBalancerName"] = value["load_balancer_name"]
-    out["instancePort"] = value.get("instance_port", 0)
+    out["instancePort"] = value["instance_port"]
     if "health_check_path" in value:
         out["healthCheckPath"] = value["health_check_path"]
     if "certificate_name" in value:
@@ -88,7 +88,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLoadBalancerRequest:
     if data.get("instancePort") is not None:
         out["instance_port"] = data["instancePort"]
     else:
-        out["instance_port"] = 0
+        raise DeserializationError("CreateLoadBalancerRequest.instance_port required")
     if data.get("healthCheckPath") is not None:
         out["health_check_path"] = data["healthCheckPath"]
     if data.get("certificateName") is not None:

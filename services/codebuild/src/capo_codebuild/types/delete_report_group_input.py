@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_codebuild.errors import DeserializationError
 
@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 class DeleteReportGroupInput(TypedDict, closed=True):
     arn: "capo_codebuild.types.non_empty_string.NonEmptyString"
     """<p>The ARN of the report group to delete. </p>"""
-    delete_reports: "capo_codebuild.types.boolean.Boolean"
+    delete_reports: NotRequired["capo_codebuild.types.boolean.Boolean"]
     """<p>If <code>true</code>, deletes any reports that belong to a report group before deleting the report group. </p> <p>If <code>false</code>, you must delete any reports in the report group. Use <a href="https://docs.aws.amazon.com/codebuild/latest/APIReference/API_ListReportsForReportGroup.html">ListReportsForReportGroup</a> to get the reports in a report group. Use <a href="https://docs.aws.amazon.com/codebuild/latest/APIReference/API_DeleteReport.html">DeleteReport</a> to delete the reports. If you call <code>DeleteReportGroup</code> for a report group that contains one or more reports, an exception is thrown. </p>"""
 
 
@@ -22,7 +22,8 @@ class DeleteReportGroupInput(TypedDict, closed=True):
 def serialize_aws_json_1_1(value: DeleteReportGroupInput) -> dict:
     out: dict = {}
     out["arn"] = value["arn"]
-    out["deleteReports"] = value.get("delete_reports", False)
+    if "delete_reports" in value:
+        out["deleteReports"] = value["delete_reports"]
     return out
 
 
@@ -34,6 +35,4 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteReportGroupInput:
         raise DeserializationError("DeleteReportGroupInput.arn required")
     if data.get("deleteReports") is not None:
         out["delete_reports"] = data["deleteReports"]
-    else:
-        out["delete_reports"] = False
     return out

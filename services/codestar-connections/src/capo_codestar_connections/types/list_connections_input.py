@@ -18,7 +18,7 @@ class ListConnectionsInput(TypedDict, closed=True):
     """<p>Filters the list of connections to those associated with a specified provider, such as Bitbucket.</p>"""
     host_arn_filter: NotRequired["capo_codestar_connections.types.host_arn.HostArn"]
     """<p>Filters the list of connections to those associated with a specified host.</p>"""
-    max_results: "capo_codestar_connections.types.max_results.MaxResults"
+    max_results: NotRequired["capo_codestar_connections.types.max_results.MaxResults"]
     """<p>The maximum number of results to return in a single call. To retrieve the remaining results, make another call with the returned <code>nextToken</code> value.</p>"""
     next_token: NotRequired["capo_codestar_connections.types.next_token.NextToken"]
     """<p>The token that was returned from the previous <code>ListConnections</code> call, which can be used to return the next set of connections in the list.</p>"""
@@ -37,7 +37,8 @@ def serialize_aws_json_1_0(value: ListConnectionsInput) -> dict:
         )
     if "host_arn_filter" in value:
         out["HostArnFilter"] = value["host_arn_filter"]
-    out["MaxResults"] = value.get("max_results", 0)
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
     return out
@@ -57,8 +58,6 @@ def deserialize_aws_json_1_0(data: dict) -> ListConnectionsInput:
         out["host_arn_filter"] = data["HostArnFilter"]
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
-    else:
-        out["max_results"] = 0
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

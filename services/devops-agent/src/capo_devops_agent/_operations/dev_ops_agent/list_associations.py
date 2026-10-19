@@ -140,7 +140,8 @@ def build_request(
     url = endpoint.url.rstrip("/") + "/v1/agentspaces/{agentSpaceId}/associations/list"
     url = url.replace("{agentSpaceId}", quote(input_["agent_space_id"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(("maxResults", str(input_.get("max_results", 20))))
+    if "max_results" in input_:
+        params.append(("maxResults", str(input_["max_results"])))
     if "next_token" in input_:
         params.append(("nextToken", input_["next_token"]))
     if "filter_service_types" in input_:

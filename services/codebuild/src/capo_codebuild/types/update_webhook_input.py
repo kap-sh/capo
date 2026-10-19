@@ -20,7 +20,7 @@ class UpdateWebhookInput(TypedDict, closed=True):
     """<p>The name of the CodeBuild project.</p>"""
     branch_filter: NotRequired["capo_codebuild.types.string.String"]
     """<p>A regular expression used to determine which repository branches are built when a webhook is triggered. If the name of a branch matches the regular expression, then it is built. If <code>branchFilter</code> is empty, then all branches are built.</p> <note> <p> It is recommended that you use <code>filterGroups</code> instead of <code>branchFilter</code>. </p> </note>"""
-    rotate_secret: "capo_codebuild.types.boolean.Boolean"
+    rotate_secret: NotRequired["capo_codebuild.types.boolean.Boolean"]
     """<p> A boolean value that specifies whether the associated GitHub repository's secret token should be updated. If you use Bitbucket for your repository, <code>rotateSecret</code> is ignored. </p>"""
     filter_groups: NotRequired["capo_codebuild.types.filter_groups.FilterGroups"]
     """<p> An array of arrays of <code>WebhookFilter</code> objects used to determine if a webhook event can trigger a build. A filter group must contain at least one <code>EVENT</code> <code>WebhookFilter</code>. </p>"""
@@ -38,7 +38,8 @@ def serialize_aws_json_1_1(value: UpdateWebhookInput) -> dict:
     out["projectName"] = value["project_name"]
     if "branch_filter" in value:
         out["branchFilter"] = value["branch_filter"]
-    out["rotateSecret"] = value.get("rotate_secret", False)
+    if "rotate_secret" in value:
+        out["rotateSecret"] = value["rotate_secret"]
     if "filter_groups" in value:
         import capo_codebuild.types.filter_groups
 
@@ -74,8 +75,6 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateWebhookInput:
         out["branch_filter"] = data["branchFilter"]
     if data.get("rotateSecret") is not None:
         out["rotate_secret"] = data["rotateSecret"]
-    else:
-        out["rotate_secret"] = False
     if data.get("filterGroups") is not None:
         import capo_codebuild.types.filter_groups
 

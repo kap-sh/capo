@@ -22,7 +22,7 @@ class GetRecommendationsRequest(TypedDict, closed=True):
     """<p>The item ID to provide recommendations for.</p> <p>Required for <code>RELATED_ITEMS</code> recipe type.</p>"""
     user_id: NotRequired["capo_personalize_runtime.types.user_id.UserID"]
     """<p>The user ID to provide recommendations for.</p> <p>Required for <code>USER_PERSONALIZATION</code> recipe type.</p>"""
-    num_results: "capo_personalize_runtime.types.num_results.NumResults"
+    num_results: NotRequired["capo_personalize_runtime.types.num_results.NumResults"]
     """<p>The number of results to return. The default is 25. If you are including metadata in recommendations, the maximum is 50. Otherwise, the maximum is 500.</p>"""
     context: NotRequired["capo_personalize_runtime.types.context.Context"]
     """<p>The contextual metadata to use when getting recommendations. Contextual metadata includes any interaction information that might be relevant when getting a user's recommendations, such as the user's current location or device type.</p>"""
@@ -53,7 +53,8 @@ def serialize_json(value: GetRecommendationsRequest) -> dict:
         out["itemId"] = value["item_id"]
     if "user_id" in value:
         out["userId"] = value["user_id"]
-    out["numResults"] = value.get("num_results", 0)
+    if "num_results" in value:
+        out["numResults"] = value["num_results"]
     if "context" in value:
         import capo_personalize_runtime.types.context
 
@@ -101,8 +102,6 @@ def deserialize_json(data: dict) -> GetRecommendationsRequest:
         out["user_id"] = data["userId"]
     if data.get("numResults") is not None:
         out["num_results"] = data["numResults"]
-    else:
-        out["num_results"] = 0
     if data.get("context") is not None:
         import capo_personalize_runtime.types.context
 

@@ -4,6 +4,8 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
+from capo_network_firewall.errors import DeserializationError
+
 if TYPE_CHECKING:
     import capo_network_firewall.types.boolean
     import capo_network_firewall.types.resource_arn
@@ -33,9 +35,9 @@ def serialize_aws_json_1_0(
         out["FirewallArn"] = value["firewall_arn"]
     if "firewall_name" in value:
         out["FirewallName"] = value["firewall_name"]
-    out["AvailabilityZoneChangeProtection"] = value.get(
-        "availability_zone_change_protection", False
-    )
+    out["AvailabilityZoneChangeProtection"] = value[
+        "availability_zone_change_protection"
+    ]
     return out
 
 
@@ -54,5 +56,7 @@ def deserialize_aws_json_1_0(
             "AvailabilityZoneChangeProtection"
         ]
     else:
-        out["availability_zone_change_protection"] = False
+        raise DeserializationError(
+            "UpdateAvailabilityZoneChangeProtectionRequest.availability_zone_change_protection required"
+        )
     return out

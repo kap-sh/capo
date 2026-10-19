@@ -4,6 +4,8 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
+from capo_eks.errors import DeserializationError
+
 if TYPE_CHECKING:
     import capo_eks.types.boolean
     import capo_eks.types.string
@@ -21,7 +23,7 @@ class UpdateEksAnywhereSubscriptionRequest(TypedDict, closed=True):
 # --- restJson1 ser/de ---
 def serialize_json(value: UpdateEksAnywhereSubscriptionRequest) -> dict:
     out: dict = {}
-    out["autoRenew"] = value.get("auto_renew", False)
+    out["autoRenew"] = value["auto_renew"]
     if "client_request_token" in value:
         out["clientRequestToken"] = value["client_request_token"]
     return out
@@ -32,7 +34,9 @@ def deserialize_json(data: dict) -> UpdateEksAnywhereSubscriptionRequest:
     if data.get("autoRenew") is not None:
         out["auto_renew"] = data["autoRenew"]
     else:
-        out["auto_renew"] = False
+        raise DeserializationError(
+            "UpdateEksAnywhereSubscriptionRequest.auto_renew required"
+        )
     if data.get("clientRequestToken") is not None:
         out["client_request_token"] = data["clientRequestToken"]
     return out

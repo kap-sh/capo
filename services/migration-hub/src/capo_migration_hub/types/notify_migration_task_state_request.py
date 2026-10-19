@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_migration_hub.errors import DeserializationError
 
@@ -32,7 +32,7 @@ class NotifyMigrationTaskStateRequest(TypedDict, closed=True):
         "capo_migration_hub.types.next_update_seconds.NextUpdateSeconds"
     )
     """<p>Number of seconds after the UpdateDateTime within which the Migration Hub can expect an update. If Migration Hub does not receive an update within the specified interval, then the migration task will be considered stale.</p>"""
-    dry_run: "capo_migration_hub.types.dry_run.DryRun"
+    dry_run: NotRequired["capo_migration_hub.types.dry_run.DryRun"]
     """<p>Optional boolean flag to indicate whether any effect should take place. Used to test if the caller has permission to make the call.</p>"""
 
 
@@ -51,8 +51,9 @@ def serialize_aws_json_1_1(value: NotifyMigrationTaskStateRequest) -> dict:
             value["update_date_time"]
         )
     )
-    out["NextUpdateSeconds"] = value.get("next_update_seconds", 0)
-    out["DryRun"] = value.get("dry_run", False)
+    out["NextUpdateSeconds"] = value["next_update_seconds"]
+    if "dry_run" in value:
+        out["DryRun"] = value["dry_run"]
     return out
 
 
@@ -93,9 +94,9 @@ def deserialize_aws_json_1_1(data: dict) -> NotifyMigrationTaskStateRequest:
     if data.get("NextUpdateSeconds") is not None:
         out["next_update_seconds"] = data["NextUpdateSeconds"]
     else:
-        out["next_update_seconds"] = 0
+        raise DeserializationError(
+            "NotifyMigrationTaskStateRequest.next_update_seconds required"
+        )
     if data.get("DryRun") is not None:
         out["dry_run"] = data["DryRun"]
-    else:
-        out["dry_run"] = False
     return out

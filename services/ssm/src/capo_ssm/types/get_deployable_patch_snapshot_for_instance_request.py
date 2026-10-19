@@ -20,7 +20,7 @@ class GetDeployablePatchSnapshotForInstanceRequest(TypedDict, closed=True):
     """<p>The snapshot ID provided by the user when running <code>AWS-RunPatchBaseline</code>.</p>"""
     baseline_override: NotRequired["capo_ssm.types.baseline_override.BaselineOverride"]
     """<p>Defines the basic information about a patch baseline override.</p>"""
-    use_s3_dual_stack_endpoint: "capo_ssm.types.boolean.Boolean"
+    use_s3_dual_stack_endpoint: NotRequired["capo_ssm.types.boolean.Boolean"]
     """<p>Specifies whether to use S3 dualstack endpoints for the patch snapshot download URL. Set to <code>true</code> to receive a presigned URL that supports both IPv4 and IPv6 connectivity. Set to <code>false</code> to use standard IPv4-only endpoints. Default is <code>false</code>. This parameter is required for managed nodes in IPv6-only environments. </p>"""
 
 
@@ -37,7 +37,8 @@ def serialize_aws_json_1_1(value: GetDeployablePatchSnapshotForInstanceRequest) 
                 value["baseline_override"]
             )
         )
-    out["UseS3DualStackEndpoint"] = value.get("use_s3_dual_stack_endpoint", False)
+    if "use_s3_dual_stack_endpoint" in value:
+        out["UseS3DualStackEndpoint"] = value["use_s3_dual_stack_endpoint"]
     return out
 
 
@@ -67,8 +68,6 @@ def deserialize_aws_json_1_1(
         )
     if data.get("UseS3DualStackEndpoint") is not None:
         out["use_s3_dual_stack_endpoint"] = data["UseS3DualStackEndpoint"]
-    else:
-        out["use_s3_dual_stack_endpoint"] = False
     return out
 
 

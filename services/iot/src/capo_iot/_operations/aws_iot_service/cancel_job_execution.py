@@ -106,7 +106,8 @@ def build_request(
     url = url.replace("{jobId}", quote(input_["job_id"], safe=""))
     url = url.replace("{thingName}", quote(input_["thing_name"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(("force", "true" if input_.get("force", False) else "false"))
+    if "force" in input_:
+        params.append(("force", "true" if input_["force"] else "false"))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = json.dumps(
         capo_iot.types.cancel_job_execution_request.serialize_json(input_),

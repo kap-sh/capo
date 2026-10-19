@@ -27,7 +27,7 @@ class ListOrganizationPortfolioAccessInput(TypedDict, closed=True):
     """<p>The organization node type that will be returned in the output.</p> <ul> <li> <p> <code>ORGANIZATION</code> - Organization that has access to the portfolio. </p> </li> <li> <p> <code>ORGANIZATIONAL_UNIT</code> - Organizational unit that has access to the portfolio within your organization.</p> </li> <li> <p> <code>ACCOUNT</code> - Account that has access to the portfolio within your organization.</p> </li> </ul>"""
     page_token: NotRequired["capo_service_catalog.types.page_token.PageToken"]
     """<p>The page token for the next set of results. To retrieve the first set of results, use null.</p>"""
-    page_size: "capo_service_catalog.types.page_size.PageSize"
+    page_size: NotRequired["capo_service_catalog.types.page_size.PageSize"]
     """<p>The maximum number of items to return with this call.</p>"""
 
 
@@ -46,7 +46,8 @@ def serialize_aws_json_1_1(value: ListOrganizationPortfolioAccessInput) -> dict:
     )
     if "page_token" in value:
         out["PageToken"] = value["page_token"]
-    out["PageSize"] = value.get("page_size", 0)
+    if "page_size" in value:
+        out["PageSize"] = value["page_size"]
     return out
 
 
@@ -76,6 +77,4 @@ def deserialize_aws_json_1_1(data: dict) -> ListOrganizationPortfolioAccessInput
         out["page_token"] = data["PageToken"]
     if data.get("PageSize") is not None:
         out["page_size"] = data["PageSize"]
-    else:
-        out["page_size"] = 0
     return out

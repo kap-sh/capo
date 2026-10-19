@@ -23,7 +23,9 @@ class ModifyReplicationInstanceMessage(TypedDict, closed=True):
         "capo_database_migration_service.types.integer_optional.IntegerOptional"
     ]
     """<p>The amount of storage (in gigabytes) to be allocated for the replication instance.</p>"""
-    apply_immediately: "capo_database_migration_service.types.boolean.Boolean"
+    apply_immediately: NotRequired[
+        "capo_database_migration_service.types.boolean.Boolean"
+    ]
     """<p>Indicates whether the changes should be applied immediately or during the next maintenance window.</p>"""
     replication_instance_class: NotRequired[
         "capo_database_migration_service.types.replication_instance_class.ReplicationInstanceClass"
@@ -43,7 +45,9 @@ class ModifyReplicationInstanceMessage(TypedDict, closed=True):
     """<p> Specifies whether the replication instance is a Multi-AZ deployment. You can't set the <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set to <code>true</code>. </p>"""
     engine_version: NotRequired["capo_database_migration_service.types.string.String"]
     """<p>The engine version number of the replication instance.</p> <p>When modifying a major engine version of an instance, also set <code>AllowMajorVersionUpgrade</code> to <code>true</code>.</p>"""
-    allow_major_version_upgrade: "capo_database_migration_service.types.boolean.Boolean"
+    allow_major_version_upgrade: NotRequired[
+        "capo_database_migration_service.types.boolean.Boolean"
+    ]
     """<p>Indicates that major version upgrades are allowed. Changing this parameter does not result in an outage, and the change is asynchronously applied as soon as possible.</p> <p>This parameter must be set to <code>true</code> when specifying a value for the <code>EngineVersion</code> parameter that is a different major version than the replication instance's current version.</p>"""
     auto_minor_version_upgrade: NotRequired[
         "capo_database_migration_service.types.boolean_optional.BooleanOptional"
@@ -67,7 +71,8 @@ def serialize_aws_json_1_1(value: ModifyReplicationInstanceMessage) -> dict:
     out["ReplicationInstanceArn"] = value["replication_instance_arn"]
     if "allocated_storage" in value:
         out["AllocatedStorage"] = value["allocated_storage"]
-    out["ApplyImmediately"] = value.get("apply_immediately", False)
+    if "apply_immediately" in value:
+        out["ApplyImmediately"] = value["apply_immediately"]
     if "replication_instance_class" in value:
         out["ReplicationInstanceClass"] = value["replication_instance_class"]
     if "vpc_security_group_ids" in value:
@@ -84,7 +89,8 @@ def serialize_aws_json_1_1(value: ModifyReplicationInstanceMessage) -> dict:
         out["MultiAZ"] = value["multi_az"]
     if "engine_version" in value:
         out["EngineVersion"] = value["engine_version"]
-    out["AllowMajorVersionUpgrade"] = value.get("allow_major_version_upgrade", False)
+    if "allow_major_version_upgrade" in value:
+        out["AllowMajorVersionUpgrade"] = value["allow_major_version_upgrade"]
     if "auto_minor_version_upgrade" in value:
         out["AutoMinorVersionUpgrade"] = value["auto_minor_version_upgrade"]
     if "replication_instance_identifier" in value:
@@ -114,8 +120,6 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyReplicationInstanceMessage:
         out["allocated_storage"] = data["AllocatedStorage"]
     if data.get("ApplyImmediately") is not None:
         out["apply_immediately"] = data["ApplyImmediately"]
-    else:
-        out["apply_immediately"] = False
     if data.get("ReplicationInstanceClass") is not None:
         out["replication_instance_class"] = data["ReplicationInstanceClass"]
     if data.get("VpcSecurityGroupIds") is not None:
@@ -134,8 +138,6 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyReplicationInstanceMessage:
         out["engine_version"] = data["EngineVersion"]
     if data.get("AllowMajorVersionUpgrade") is not None:
         out["allow_major_version_upgrade"] = data["AllowMajorVersionUpgrade"]
-    else:
-        out["allow_major_version_upgrade"] = False
     if data.get("AutoMinorVersionUpgrade") is not None:
         out["auto_minor_version_upgrade"] = data["AutoMinorVersionUpgrade"]
     if data.get("ReplicationInstanceIdentifier") is not None:

@@ -20,11 +20,13 @@ class CreateFarmRequest(TypedDict, closed=True):
     """<p>The unique token which the server uses to recognize retries of the same request.</p>"""
     display_name: "capo_deadline.types.resource_name.ResourceName"
     """<p>The display name of the farm.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
-    description: "capo_deadline.types.description.Description"
+    description: NotRequired["capo_deadline.types.description.Description"]
     """<p>The description of the farm.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     kms_key_arn: NotRequired["capo_deadline.types.kms_key_arn.KmsKeyArn"]
     """<p>The ARN of the KMS key to use on the farm.</p>"""
-    cost_scale_factor: "capo_deadline.types.cost_scale_factor.CostScaleFactor"
+    cost_scale_factor: NotRequired[
+        "capo_deadline.types.cost_scale_factor.CostScaleFactor"
+    ]
     """<p>A multiplier applied to the farm's calculated costs for usage data and budget tracking. A value less than 1 represents a discount, a value greater than 1 represents a premium, and a value of 1 represents no adjustment. The default value is 1.</p>"""
     tags: NotRequired["capo_deadline.types.tags.Tags"]
     """<p>The tags to add to your farm. Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings.</p>"""
@@ -34,18 +36,20 @@ class CreateFarmRequest(TypedDict, closed=True):
 def serialize_json(value: CreateFarmRequest) -> dict:
     out: dict = {}
     out["displayName"] = value["display_name"]
-    out["description"] = value.get("description", "")
+    if "description" in value:
+        out["description"] = value["description"]
     if "kms_key_arn" in value:
         out["kmsKeyArn"] = value["kms_key_arn"]
-    out["costScaleFactor"] = (
-        "NaN"
-        if value.get("cost_scale_factor", 1) != value.get("cost_scale_factor", 1)
-        else "Infinity"
-        if value.get("cost_scale_factor", 1) == float("inf")
-        else "-Infinity"
-        if value.get("cost_scale_factor", 1) == float("-inf")
-        else value.get("cost_scale_factor", 1)
-    )
+    if "cost_scale_factor" in value:
+        out["costScaleFactor"] = (
+            "NaN"
+            if value["cost_scale_factor"] != value["cost_scale_factor"]
+            else "Infinity"
+            if value["cost_scale_factor"] == float("inf")
+            else "-Infinity"
+            if value["cost_scale_factor"] == float("-inf")
+            else value["cost_scale_factor"]
+        )
     if "tags" in value:
         import capo_deadline.types.tags
 
@@ -61,14 +65,10 @@ def deserialize_json(data: dict) -> CreateFarmRequest:
         raise DeserializationError("CreateFarmRequest.display_name required")
     if data.get("description") is not None:
         out["description"] = data["description"]
-    else:
-        out["description"] = ""
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
     if data.get("costScaleFactor") is not None:
         out["cost_scale_factor"] = float(data["costScaleFactor"])
-    else:
-        out["cost_scale_factor"] = 1
     if data.get("tags") is not None:
         import capo_deadline.types.tags
 

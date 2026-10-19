@@ -22,7 +22,9 @@ class DescribeConformancePackComplianceRequest(TypedDict, closed=True):
         "capo_config_service.types.conformance_pack_compliance_filters.ConformancePackComplianceFilters"
     ]
     """<p>A <code>ConformancePackComplianceFilters</code> object.</p>"""
-    limit: "capo_config_service.types.describe_conformance_pack_compliance_limit.DescribeConformancePackComplianceLimit"
+    limit: NotRequired[
+        "capo_config_service.types.describe_conformance_pack_compliance_limit.DescribeConformancePackComplianceLimit"
+    ]
     """<p>The maximum number of Config rules within a conformance pack are returned on each page.</p>"""
     next_token: NotRequired["capo_config_service.types.next_token.NextToken"]
     """<p>The <code>nextToken</code> string returned in a previous request that you use to request the next page of results in a paginated response.</p>"""
@@ -40,7 +42,8 @@ def serialize_aws_json_1_1(value: DescribeConformancePackComplianceRequest) -> d
                 value["filters"]
             )
         )
-    out["Limit"] = value.get("limit", 0)
+    if "limit" in value:
+        out["Limit"] = value["limit"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
     return out
@@ -64,8 +67,6 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeConformancePackComplianceReq
         )
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
-    else:
-        out["limit"] = 0
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

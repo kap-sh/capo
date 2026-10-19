@@ -132,12 +132,10 @@ def build_request(
     url = endpoint.url.rstrip("/") + "/v1/connectors/{connectorArn}/restart"
     url = url.replace("{connectorArn}", quote(input_["connector_arn"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(
-        (
-            "onlyFailedTasks",
-            "true" if input_.get("only_failed_tasks", False) else "false",
+    if "only_failed_tasks" in input_:
+        params.append(
+            ("onlyFailedTasks", "true" if input_["only_failed_tasks"] else "false")
         )
-    )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

@@ -25,7 +25,7 @@ class GetWorkUnitResultsRequest(TypedDict, closed=True):
 def serialize_json(value: GetWorkUnitResultsRequest) -> dict:
     out: dict = {}
     out["QueryId"] = value["query_id"]
-    out["WorkUnitId"] = value.get("work_unit_id", 0)
+    out["WorkUnitId"] = value["work_unit_id"]
     out["WorkUnitToken"] = value["work_unit_token"]
     return out
 
@@ -39,7 +39,7 @@ def deserialize_json(data: dict) -> GetWorkUnitResultsRequest:
     if data.get("WorkUnitId") is not None:
         out["work_unit_id"] = data["WorkUnitId"]
     else:
-        out["work_unit_id"] = 0
+        raise DeserializationError("GetWorkUnitResultsRequest.work_unit_id required")
     if data.get("WorkUnitToken") is not None:
         out["work_unit_token"] = data["WorkUnitToken"]
     else:

@@ -146,7 +146,8 @@ def build_request(
                 "true" if input_["include_execution_data"] else "false",
             )
         )
-    params.append(("MaxItems", str(input_.get("max_items", 0))))
+    if "max_items" in input_:
+        params.append(("MaxItems", str(input_["max_items"])))
     if "marker" in input_:
         params.append(("Marker", input_["marker"]))
     if "reverse_order" in input_:

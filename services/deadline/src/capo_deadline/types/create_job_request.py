@@ -47,13 +47,17 @@ class CreateJobRequest(TypedDict, closed=True):
         "capo_deadline.types.storage_profile_id.StorageProfileId"
     ]
     """<p>The storage profile ID for the storage profile to connect to the job.</p>"""
-    target_task_run_status: "capo_deadline.types.create_job_target_task_run_status.CreateJobTargetTaskRunStatus"
+    target_task_run_status: NotRequired[
+        "capo_deadline.types.create_job_target_task_run_status.CreateJobTargetTaskRunStatus"
+    ]
     """<p>The initial job status when it is created. Jobs that are created with a <code>SUSPENDED</code> status will not run until manually requeued.</p>"""
-    max_failed_tasks_count: (
+    max_failed_tasks_count: NotRequired[
         "capo_deadline.types.max_failed_tasks_count.MaxFailedTasksCount"
-    )
+    ]
     """<p>The number of task failures before the job stops running and is marked as <code>FAILED</code>.</p>"""
-    max_retries_per_task: "capo_deadline.types.max_retries_per_task.MaxRetriesPerTask"
+    max_retries_per_task: NotRequired[
+        "capo_deadline.types.max_retries_per_task.MaxRetriesPerTask"
+    ]
     """<p>The maximum number of retries for each task.</p>"""
     max_worker_count: NotRequired["capo_deadline.types.max_worker_count.MaxWorkerCount"]
     """<p>The maximum number of worker hosts that can concurrently process a job. When the <code>maxWorkerCount</code> is reached, no more workers will be assigned to process the job, even if the fleets assigned to the job's queue has available workers.</p> <p>You can't set the <code>maxWorkerCount</code> to 0. If you set it to -1, there is no maximum number of workers.</p> <p>If you don't specify the <code>maxWorkerCount</code>, Deadline Cloud won't throttle the number of workers used to process the job.</p>"""
@@ -95,15 +99,18 @@ def serialize_json(value: CreateJobRequest) -> dict:
         )
     if "storage_profile_id" in value:
         out["storageProfileId"] = value["storage_profile_id"]
-    import capo_deadline.types.create_job_target_task_run_status
+    if "target_task_run_status" in value:
+        import capo_deadline.types.create_job_target_task_run_status
 
-    out["targetTaskRunStatus"] = (
-        capo_deadline.types.create_job_target_task_run_status.serialize_json(
-            value.get("target_task_run_status", "READY")
+        out["targetTaskRunStatus"] = (
+            capo_deadline.types.create_job_target_task_run_status.serialize_json(
+                value["target_task_run_status"]
+            )
         )
-    )
-    out["maxFailedTasksCount"] = value.get("max_failed_tasks_count", 20)
-    out["maxRetriesPerTask"] = value.get("max_retries_per_task", 5)
+    if "max_failed_tasks_count" in value:
+        out["maxFailedTasksCount"] = value["max_failed_tasks_count"]
+    if "max_retries_per_task" in value:
+        out["maxRetriesPerTask"] = value["max_retries_per_task"]
     if "max_worker_count" in value:
         out["maxWorkerCount"] = value["max_worker_count"]
     if "source_job_id" in value:
@@ -155,16 +162,10 @@ def deserialize_json(data: dict) -> CreateJobRequest:
                 data["targetTaskRunStatus"]
             )
         )
-    else:
-        out["target_task_run_status"] = "READY"
     if data.get("maxFailedTasksCount") is not None:
         out["max_failed_tasks_count"] = data["maxFailedTasksCount"]
-    else:
-        out["max_failed_tasks_count"] = 20
     if data.get("maxRetriesPerTask") is not None:
         out["max_retries_per_task"] = data["maxRetriesPerTask"]
-    else:
-        out["max_retries_per_task"] = 5
     if data.get("maxWorkerCount") is not None:
         out["max_worker_count"] = data["maxWorkerCount"]
     if data.get("sourceJobId") is not None:

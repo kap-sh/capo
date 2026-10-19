@@ -30,11 +30,11 @@ class DescribeProvisioningArtifactInput(TypedDict, closed=True):
         "capo_service_catalog.types.product_view_name.ProductViewName"
     ]
     """<p>The product name.</p>"""
-    verbose: "capo_service_catalog.types.verbose.Verbose"
+    verbose: NotRequired["capo_service_catalog.types.verbose.Verbose"]
     """<p>Indicates whether a verbose level of detail is enabled.</p>"""
-    include_provisioning_artifact_parameters: (
+    include_provisioning_artifact_parameters: NotRequired[
         "capo_service_catalog.types.boolean.Boolean"
-    )
+    ]
     """<p>Indicates if the API call response does or does not include additional details about the provisioning parameters. </p>"""
 
 
@@ -51,10 +51,12 @@ def serialize_aws_json_1_1(value: DescribeProvisioningArtifactInput) -> dict:
         out["ProvisioningArtifactName"] = value["provisioning_artifact_name"]
     if "product_name" in value:
         out["ProductName"] = value["product_name"]
-    out["Verbose"] = value.get("verbose", False)
-    out["IncludeProvisioningArtifactParameters"] = value.get(
-        "include_provisioning_artifact_parameters", False
-    )
+    if "verbose" in value:
+        out["Verbose"] = value["verbose"]
+    if "include_provisioning_artifact_parameters" in value:
+        out["IncludeProvisioningArtifactParameters"] = value[
+            "include_provisioning_artifact_parameters"
+        ]
     return out
 
 
@@ -72,12 +74,8 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeProvisioningArtifactInput:
         out["product_name"] = data["ProductName"]
     if data.get("Verbose") is not None:
         out["verbose"] = data["Verbose"]
-    else:
-        out["verbose"] = False
     if data.get("IncludeProvisioningArtifactParameters") is not None:
         out["include_provisioning_artifact_parameters"] = data[
             "IncludeProvisioningArtifactParameters"
         ]
-    else:
-        out["include_provisioning_artifact_parameters"] = False
     return out

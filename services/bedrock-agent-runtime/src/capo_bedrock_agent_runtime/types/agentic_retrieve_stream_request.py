@@ -37,7 +37,7 @@ class AgenticRetrieveStreamRequest(TypedDict, closed=True):
         "capo_bedrock_agent_runtime.types.agentic_retrieve_memory_configuration.AgenticRetrieveMemoryConfiguration"
     ]
     """<p>The configuration for using an Amazon Bedrock AgentCore Memory resource with this retrieval.</p>"""
-    generate_response: "bool"
+    generate_response: NotRequired["bool"]
     """<p>Whether to generate a response based on the retrieved results.</p>"""
 
 
@@ -91,7 +91,8 @@ def serialize_json(value: AgenticRetrieveStreamRequest) -> dict:
                 value["memory_configuration"]
             )
         )
-    out["generateResponse"] = value.get("generate_response", True)
+    if "generate_response" in value:
+        out["generateResponse"] = value["generate_response"]
     return out
 
 
@@ -157,8 +158,6 @@ def deserialize_json(data: dict) -> AgenticRetrieveStreamRequest:
         )
     if data.get("generateResponse") is not None:
         out["generate_response"] = data["generateResponse"]
-    else:
-        out["generate_response"] = True
     return out
 
 

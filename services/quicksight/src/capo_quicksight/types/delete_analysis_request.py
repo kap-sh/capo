@@ -22,7 +22,7 @@ class DeleteAnalysisRequest(TypedDict, closed=True):
         "capo_quicksight.types.recovery_window_in_days.RecoveryWindowInDays"
     ]
     """<p>A value that specifies the number of days that Amazon Quick Sight waits before it deletes the analysis. You can't use this parameter with the <code>ForceDeleteWithoutRecovery</code> option in the same API call. The default value is 30.</p>"""
-    force_delete_without_recovery: "capo_quicksight.types.boolean.Boolean"
+    force_delete_without_recovery: NotRequired["capo_quicksight.types.boolean.Boolean"]
     """<p>This option defaults to the value <code>NoForceDeleteWithoutRecovery</code>. To immediately delete the analysis, add the <code>ForceDeleteWithoutRecovery</code> option. You can't restore an analysis after it's deleted. </p>"""
 
 

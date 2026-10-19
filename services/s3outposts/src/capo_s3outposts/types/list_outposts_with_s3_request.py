@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 class ListOutpostsWithS3Request(TypedDict, closed=True):
     next_token: NotRequired["capo_s3outposts.types.next_token.NextToken"]
     """<p>When you can get additional results from the <code>ListOutpostsWithS3</code> call, a <code>NextToken</code> parameter is returned in the output. You can then pass in a subsequent command to the <code>NextToken</code> parameter to continue listing additional Outposts.</p>"""
-    max_results: "capo_s3outposts.types.max_results.MaxResults"
+    max_results: NotRequired["capo_s3outposts.types.max_results.MaxResults"]
     """<p>The maximum number of Outposts to return. The limit is 100.</p>"""
 
 

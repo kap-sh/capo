@@ -21,7 +21,9 @@ class ListEntityEventsInput(TypedDict, closed=True):
     """<p>The start of the time period to retrieve change events for. When used in a raw HTTP Query API, it is formatted as epoch time in seconds. For example: <code>1698778057</code> </p>"""
     end_time: "datetime.datetime"
     """<p>The end of the time period to retrieve change events for. When used in a raw HTTP Query API, it is formatted as epoch time in seconds. For example: <code>1698778057</code> </p>"""
-    max_results: "capo_application_signals.types.list_entity_events_max_results.ListEntityEventsMaxResults"
+    max_results: NotRequired[
+        "capo_application_signals.types.list_entity_events_max_results.ListEntityEventsMaxResults"
+    ]
     """<p>The maximum number of change events to return in one operation. If you omit this parameter, the default of 50 is used.</p>"""
     next_token: NotRequired["capo_application_signals.types.next_token.NextToken"]
     """<p>Include this value, if it was returned by the previous operation, to get the next set of change events.</p>"""

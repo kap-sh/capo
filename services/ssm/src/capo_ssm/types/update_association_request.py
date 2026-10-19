@@ -72,9 +72,9 @@ class UpdateAssociationRequest(TypedDict, closed=True):
         "capo_ssm.types.association_sync_compliance.AssociationSyncCompliance"
     ]
     """<p>The mode for generating association compliance. You can specify <code>AUTO</code> or <code>MANUAL</code>. In <code>AUTO</code> mode, the system uses the status of the association execution to determine the compliance status. If the association execution runs successfully, then the association is <code>COMPLIANT</code>. If the association execution doesn't run successfully, the association is <code>NON-COMPLIANT</code>.</p> <p>In <code>MANUAL</code> mode, you must specify the <code>AssociationId</code> as a parameter for the <a>PutComplianceItems</a> API operation. In this case, compliance data isn't managed by State Manager, a tool in Amazon Web Services Systems Manager. It is managed by your direct call to the <a>PutComplianceItems</a> API operation.</p> <p>By default, all associations use <code>AUTO</code> mode.</p>"""
-    apply_only_at_cron_interval: (
+    apply_only_at_cron_interval: NotRequired[
         "capo_ssm.types.apply_only_at_cron_interval.ApplyOnlyAtCronInterval"
-    )
+    ]
     """<p>By default, when you update an association, the system runs it immediately after it is updated and then according to the schedule you specified. Specify <code>true</code> for <code>ApplyOnlyAtCronInterval</code> if you want the association to run only according to the schedule you specified.</p> <p>If you chose this option when you created an association and later you edit that association or you make changes to the Automation runbook or SSM document on which that association is based, State Manager applies the association at the next specified cron interval. For example, if you chose the <code>Latest</code> version of an SSM document when you created an association and you edit the association by choosing a different document version on the Documents page, State Manager applies the association at the next specified cron interval if you previously set <code>ApplyOnlyAtCronInterval</code> to <code>true</code>. If this option wasn't selected, State Manager immediately runs the association.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/state-manager-about.html#state-manager-about-scheduling">Understanding when associations are applied to resources</a> and <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/state-manager-about.html#runbook-target-updates">About target updates with Automation runbooks</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p> <p>This parameter isn't supported for rate expressions.</p> <p>You can reset this parameter. To do so, specify the <code>no-apply-only-at-cron-interval</code> parameter when you update the association from the command line. This parameter forces the association to run immediately after updating it and according to the interval specified.</p>"""
     calendar_names: NotRequired[
         "capo_ssm.types.calendar_name_or_arn_list.CalendarNameOrARNList"
@@ -151,7 +151,8 @@ def serialize_aws_json_1_1(value: UpdateAssociationRequest) -> dict:
                 value["sync_compliance"]
             )
         )
-    out["ApplyOnlyAtCronInterval"] = value.get("apply_only_at_cron_interval", False)
+    if "apply_only_at_cron_interval" in value:
+        out["ApplyOnlyAtCronInterval"] = value["apply_only_at_cron_interval"]
     if "calendar_names" in value:
         import capo_ssm.types.calendar_name_or_arn_list
 
@@ -249,8 +250,6 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateAssociationRequest:
         )
     if data.get("ApplyOnlyAtCronInterval") is not None:
         out["apply_only_at_cron_interval"] = data["ApplyOnlyAtCronInterval"]
-    else:
-        out["apply_only_at_cron_interval"] = False
     if data.get("CalendarNames") is not None:
         import capo_ssm.types.calendar_name_or_arn_list
 

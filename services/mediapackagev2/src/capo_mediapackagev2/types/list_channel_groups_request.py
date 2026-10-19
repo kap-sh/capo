@@ -9,9 +9,9 @@ if TYPE_CHECKING:
 
 
 class ListChannelGroupsRequest(TypedDict, closed=True):
-    max_results: (
+    max_results: NotRequired[
         "capo_mediapackagev2.types.list_resource_max_results.ListResourceMaxResults"
-    )
+    ]
     """<p>The maximum number of results to return in the response.</p>"""
     next_token: NotRequired["str"]
     """<p>The pagination token from the GET list request. Use the token to fetch the next page of results.</p>"""

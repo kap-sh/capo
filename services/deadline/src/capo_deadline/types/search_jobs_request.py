@@ -27,7 +27,7 @@ class SearchJobsRequest(TypedDict, closed=True):
     """<p>The search terms for a resource.</p>"""
     item_offset: "capo_deadline.types.integer.Integer"
     """<p>The offset for the search results.</p>"""
-    page_size: "capo_deadline.types.integer.Integer"
+    page_size: NotRequired["capo_deadline.types.integer.Integer"]
     """<p>Specifies the number of results to return.</p>"""
     queue_ids: "capo_deadline.types.queue_ids.QueueIds"
     """<p>The queue ID to use in the job search.</p>"""
@@ -53,7 +53,8 @@ def serialize_json(value: SearchJobsRequest) -> dict:
             )
         )
     out["itemOffset"] = value["item_offset"]
-    out["pageSize"] = value.get("page_size", 100)
+    if "page_size" in value:
+        out["pageSize"] = value["page_size"]
     import capo_deadline.types.queue_ids
 
     out["queueIds"] = capo_deadline.types.queue_ids.serialize_json(value["queue_ids"])
@@ -84,8 +85,6 @@ def deserialize_json(data: dict) -> SearchJobsRequest:
         raise DeserializationError("SearchJobsRequest.item_offset required")
     if data.get("pageSize") is not None:
         out["page_size"] = data["pageSize"]
-    else:
-        out["page_size"] = 100
     if data.get("queueIds") is not None:
         import capo_deadline.types.queue_ids
 

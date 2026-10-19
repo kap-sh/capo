@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_elementalinference.errors import DeserializationError
 
@@ -18,7 +18,7 @@ class DisassociateFeedRequest(TypedDict, closed=True):
         "capo_elementalinference.types.associated_resource_name.AssociatedResourceName"
     )
     """<p>The name of the resource currently associated with the feed.</p>"""
-    dry_run: "bool"
+    dry_run: NotRequired["bool"]
     """<p>Set to true if you want to do a dry run of the disassociate action.</p> <p>Elemental Inference will validate that the real request would succeed without actually making any changes. A dry run catches errors such as missing IAM permissions. If the dry run fails, the action returns a 4xx error code. </p>"""
 
 
@@ -26,7 +26,8 @@ class DisassociateFeedRequest(TypedDict, closed=True):
 def serialize_json(value: DisassociateFeedRequest) -> dict:
     out: dict = {}
     out["associatedResourceName"] = value["associated_resource_name"]
-    out["dryRun"] = value.get("dry_run", False)
+    if "dry_run" in value:
+        out["dryRun"] = value["dry_run"]
     return out
 
 
@@ -40,6 +41,4 @@ def deserialize_json(data: dict) -> DisassociateFeedRequest:
         )
     if data.get("dryRun") is not None:
         out["dry_run"] = data["dryRun"]
-    else:
-        out["dry_run"] = False
     return out

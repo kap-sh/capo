@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 class ListCertificateProvidersRequest(TypedDict, closed=True):
     next_token: NotRequired["capo_iot.types.marker.Marker"]
     """<p>The token for the next set of results, or <code>null</code> if there are no more results.</p>"""
-    ascending_order: "capo_iot.types.ascending_order.AscendingOrder"
+    ascending_order: NotRequired["capo_iot.types.ascending_order.AscendingOrder"]
     """<p>Returns the list of certificate providers in ascending alphabetical order.</p>"""
 
 

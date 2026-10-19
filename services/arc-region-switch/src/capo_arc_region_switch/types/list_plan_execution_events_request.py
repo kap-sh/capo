@@ -18,7 +18,9 @@ class ListPlanExecutionEventsRequest(TypedDict, closed=True):
     """<p>The Amazon Resource Name (ARN) of the plan.</p>"""
     execution_id: "capo_arc_region_switch.types.execution_id.ExecutionId"
     """<p>The execution identifier of a plan execution.</p>"""
-    max_results: "capo_arc_region_switch.types.list_execution_events_max_results.ListExecutionEventsMaxResults"
+    max_results: NotRequired[
+        "capo_arc_region_switch.types.list_execution_events_max_results.ListExecutionEventsMaxResults"
+    ]
     """<p>The number of objects that you want to return with this call.</p>"""
     next_token: NotRequired["str"]
     """<p>Specifies that you want to receive the next page of results. Valid only if you received a <code>nextToken</code> response in the previous request. If you did, it indicates that more output is available. Set this parameter to the value provided by the previous call's <code>nextToken</code> response to request the next page of results.</p>"""
@@ -31,7 +33,8 @@ def serialize_aws_json_1_0(value: ListPlanExecutionEventsRequest) -> dict:
     out: dict = {}
     out["planArn"] = value["plan_arn"]
     out["executionId"] = value["execution_id"]
-    out["maxResults"] = value.get("max_results", 100)
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
     if "name" in value:
@@ -53,8 +56,6 @@ def deserialize_aws_json_1_0(data: dict) -> ListPlanExecutionEventsRequest:
         )
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
-    else:
-        out["max_results"] = 100
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("name") is not None:

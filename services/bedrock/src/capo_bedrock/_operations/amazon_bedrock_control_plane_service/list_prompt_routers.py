@@ -125,14 +125,13 @@ def build_request(
         params.append(("maxResults", str(input_["max_results"])))
     if "next_token" in input_:
         params.append(("nextToken", input_["next_token"]))
-    params.append(
-        (
-            "type",
-            capo_bedrock.types.prompt_router_type.serialize_json(
-                input_.get("type", "default")
-            ),
+    if "type" in input_:
+        params.append(
+            (
+                "type",
+                capo_bedrock.types.prompt_router_type.serialize_json(input_["type"]),
+            )
         )
-    )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

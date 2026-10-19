@@ -124,7 +124,8 @@ def build_request(
     url = url.replace("{clusterName}", quote(input_["cluster_name"], safe=""))
     url = url.replace("{addonName}", quote(input_["addon_name"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(("preserve", "true" if input_.get("preserve", False) else "false"))
+    if "preserve" in input_:
+        params.append(("preserve", "true" if input_["preserve"] else "false"))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

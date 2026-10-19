@@ -14,9 +14,9 @@ class GetBackupPlanInput(TypedDict, closed=True):
     """<p>Uniquely identifies a backup plan.</p>"""
     version_id: NotRequired["capo_backup.types.string.string"]
     """<p>Unique, randomly generated, Unicode, UTF-8 encoded strings that are at most 1,024 bytes long. Version IDs cannot be edited.</p>"""
-    max_scheduled_runs_preview: (
+    max_scheduled_runs_preview: NotRequired[
         "capo_backup.types.max_scheduled_runs_preview.MaxScheduledRunsPreview"
-    )
+    ]
     """<p>Number of future scheduled backup runs to preview. When set to 0 (default), no scheduled runs preview is included in the response. Valid range is 0-10.</p>"""
 
 

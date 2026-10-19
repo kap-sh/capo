@@ -23,7 +23,9 @@ class CreateAccessSourceInput(TypedDict, closed=True):
         "capo_route53globalresolver.types.client_token.ClientToken"
     ]
     """<p>A unique string that identifies the request and ensures idempotency.</p>"""
-    ip_address_type: "capo_route53globalresolver.types.ip_address_type.IpAddressType"
+    ip_address_type: NotRequired[
+        "capo_route53globalresolver.types.ip_address_type.IpAddressType"
+    ]
     """<p>The IP address type for this access source. Valid values are IPv4 and IPv6 (if the Route 53 Global Resolver supports dual-stack).</p>"""
     name: NotRequired[
         "capo_route53globalresolver.types.resource_name_short.ResourceNameShort"
@@ -43,13 +45,14 @@ def serialize_json(value: CreateAccessSourceInput) -> dict:
     out["cidr"] = value["cidr"]
     if "client_token" in value:
         out["clientToken"] = value["client_token"]
-    import capo_route53globalresolver.types.ip_address_type
+    if "ip_address_type" in value:
+        import capo_route53globalresolver.types.ip_address_type
 
-    out["ipAddressType"] = (
-        capo_route53globalresolver.types.ip_address_type.serialize_json(
-            value.get("ip_address_type", "IPV4")
+        out["ipAddressType"] = (
+            capo_route53globalresolver.types.ip_address_type.serialize_json(
+                value["ip_address_type"]
+            )
         )
-    )
     if "name" in value:
         out["name"] = value["name"]
     out["dnsViewId"] = value["dns_view_id"]
@@ -83,8 +86,6 @@ def deserialize_json(data: dict) -> CreateAccessSourceInput:
                 data["ipAddressType"]
             )
         )
-    else:
-        out["ip_address_type"] = "IPV4"
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("dnsViewId") is not None:

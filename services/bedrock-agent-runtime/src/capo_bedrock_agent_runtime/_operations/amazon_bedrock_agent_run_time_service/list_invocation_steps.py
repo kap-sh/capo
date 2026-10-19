@@ -128,7 +128,8 @@ def build_request(
     params: list[tuple[str, str]] = []
     if "next_token" in input_:
         params.append(("nextToken", input_["next_token"]))
-    params.append(("maxResults", str(input_.get("max_results", 10))))
+    if "max_results" in input_:
+        params.append(("maxResults", str(input_["max_results"])))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = json.dumps(
         capo_bedrock_agent_runtime.types.list_invocation_steps_request.serialize_json(

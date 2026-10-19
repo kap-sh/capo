@@ -31,9 +31,9 @@ class CreateConfiguredAudienceModelRequest(TypedDict, closed=True):
     """<p>The description of the configured audience model.</p>"""
     shared_audience_metrics: "capo_cleanroomsml.types.metrics_list.MetricsList"
     """<p>Whether audience metrics are shared.</p>"""
-    min_matching_seed_size: (
+    min_matching_seed_size: NotRequired[
         "capo_cleanroomsml.types.min_matching_seed_size.MinMatchingSeedSize"
-    )
+    ]
     """<p>The minimum number of users from the seed audience that must match with users in the training data of the audience model. The default value is 500.</p>"""
     audience_size_config: NotRequired[
         "capo_cleanroomsml.types.audience_size_config.AudienceSizeConfig"
@@ -66,7 +66,8 @@ def serialize_json(value: CreateConfiguredAudienceModelRequest) -> dict:
     out["sharedAudienceMetrics"] = capo_cleanroomsml.types.metrics_list.serialize_json(
         value["shared_audience_metrics"]
     )
-    out["minMatchingSeedSize"] = value.get("min_matching_seed_size", 500)
+    if "min_matching_seed_size" in value:
+        out["minMatchingSeedSize"] = value["min_matching_seed_size"]
     if "audience_size_config" in value:
         import capo_cleanroomsml.types.audience_size_config
 
@@ -130,8 +131,6 @@ def deserialize_json(data: dict) -> CreateConfiguredAudienceModelRequest:
         )
     if data.get("minMatchingSeedSize") is not None:
         out["min_matching_seed_size"] = data["minMatchingSeedSize"]
-    else:
-        out["min_matching_seed_size"] = 500
     if data.get("audienceSizeConfig") is not None:
         import capo_cleanroomsml.types.audience_size_config
 

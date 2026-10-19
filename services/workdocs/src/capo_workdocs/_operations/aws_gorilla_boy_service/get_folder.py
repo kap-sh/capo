@@ -134,12 +134,13 @@ def build_request(
     url = endpoint.url.rstrip("/") + "/api/v1/folders/{FolderId}"
     url = url.replace("{FolderId}", quote(input_["folder_id"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(
-        (
-            "includeCustomMetadata",
-            "true" if input_.get("include_custom_metadata", False) else "false",
+    if "include_custom_metadata" in input_:
+        params.append(
+            (
+                "includeCustomMetadata",
+                "true" if input_["include_custom_metadata"] else "false",
+            )
         )
-    )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     if "authentication_token" in input_:
         headers["Authentication"] = input_["authentication_token"]

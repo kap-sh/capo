@@ -27,9 +27,9 @@ class StartAnnotationImportRequest(TypedDict, closed=True):
     """<p> The name of the annotation store version. </p>"""
     format_options: NotRequired["capo_omics.types.format_options.FormatOptions"]
     """<p>Formatting options for the annotation file.</p>"""
-    run_left_normalization: (
+    run_left_normalization: NotRequired[
         "capo_omics.types.run_left_normalization.RunLeftNormalization"
-    )
+    ]
     """<p>The job's left normalization setting.</p>"""
     annotation_fields: NotRequired[
         "capo_omics.types.annotation_field_map.AnnotationFieldMap"
@@ -55,7 +55,8 @@ def serialize_json(value: StartAnnotationImportRequest) -> dict:
         out["formatOptions"] = capo_omics.types.format_options.serialize_json(
             value["format_options"]
         )
-    out["runLeftNormalization"] = value.get("run_left_normalization", False)
+    if "run_left_normalization" in value:
+        out["runLeftNormalization"] = value["run_left_normalization"]
     if "annotation_fields" in value:
         import capo_omics.types.annotation_field_map
 
@@ -95,8 +96,6 @@ def deserialize_json(data: dict) -> StartAnnotationImportRequest:
         )
     if data.get("runLeftNormalization") is not None:
         out["run_left_normalization"] = data["runLeftNormalization"]
-    else:
-        out["run_left_normalization"] = False
     if data.get("annotationFields") is not None:
         import capo_omics.types.annotation_field_map
 

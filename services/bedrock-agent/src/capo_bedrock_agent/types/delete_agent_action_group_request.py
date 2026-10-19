@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.draft_version
@@ -16,7 +16,7 @@ class DeleteAgentActionGroupRequest(TypedDict, closed=True):
     """<p>The version of the agent that the action group belongs to.</p>"""
     action_group_id: "capo_bedrock_agent.types.id.Id"
     """<p>The unique identifier of the action group to delete.</p>"""
-    skip_resource_in_use_check: "bool"
+    skip_resource_in_use_check: NotRequired["bool"]
     """<p>By default, this value is <code>false</code> and deletion is stopped if the resource is in use. If you set it to <code>true</code>, the resource will be deleted even if the resource is in use.</p>"""
 
 

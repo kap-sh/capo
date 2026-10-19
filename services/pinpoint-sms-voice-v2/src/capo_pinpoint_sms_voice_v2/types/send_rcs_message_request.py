@@ -52,7 +52,7 @@ class SendRcsMessageRequest(TypedDict, closed=True):
     """<p>The name of the configuration set to use. This can be either the ConfigurationSetName or ConfigurationSetArn.</p>"""
     max_price: NotRequired["capo_pinpoint_sms_voice_v2.types.max_price.MaxPrice"]
     """<p>The maximum amount that you want to spend, in US dollars, per each RCS message.</p>"""
-    dry_run: "bool"
+    dry_run: NotRequired["bool"]
     """<p>When set to true, the message is checked and validated, but isn't sent to the end recipient.</p>"""
     context: NotRequired["capo_pinpoint_sms_voice_v2.types.context_map.ContextMap"]
     """<p>You can specify custom data in this field. If you do, that data is logged to the event destination.</p>"""
@@ -91,7 +91,8 @@ def serialize_aws_json_1_0(value: SendRcsMessageRequest) -> dict:
         out["ConfigurationSetName"] = value["configuration_set_name"]
     if "max_price" in value:
         out["MaxPrice"] = value["max_price"]
-    out["DryRun"] = value.get("dry_run", False)
+    if "dry_run" in value:
+        out["DryRun"] = value["dry_run"]
     if "context" in value:
         import capo_pinpoint_sms_voice_v2.types.context_map
 
@@ -147,8 +148,6 @@ def deserialize_aws_json_1_0(data: dict) -> SendRcsMessageRequest:
         out["max_price"] = data["MaxPrice"]
     if data.get("DryRun") is not None:
         out["dry_run"] = data["DryRun"]
-    else:
-        out["dry_run"] = False
     if data.get("Context") is not None:
         import capo_pinpoint_sms_voice_v2.types.context_map
 

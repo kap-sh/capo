@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_cloudsearch_domain.types.query
@@ -15,7 +15,7 @@ class SuggestRequest(TypedDict, closed=True):
     """<p>Specifies the string for which you want to get suggestions.</p>"""
     suggester: "capo_cloudsearch_domain.types.suggester.Suggester"
     """<p>Specifies the name of the suggester to use to find suggested matches.</p>"""
-    size: "capo_cloudsearch_domain.types.suggestions_size.SuggestionsSize"
+    size: NotRequired["capo_cloudsearch_domain.types.suggestions_size.SuggestionsSize"]
     """<p>Specifies the maximum number of suggestions to return. </p>"""
 
 

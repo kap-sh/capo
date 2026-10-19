@@ -123,12 +123,10 @@ def build_request(
     params: list[tuple[str, str]] = []
     if "next_token" in input_:
         params.append(("nextToken", input_["next_token"]))
-    params.append(
-        (
-            "isAscendingOrder",
-            "true" if input_.get("ascending_order", False) else "false",
+    if "ascending_order" in input_:
+        params.append(
+            ("isAscendingOrder", "true" if input_["ascending_order"] else "false")
         )
-    )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

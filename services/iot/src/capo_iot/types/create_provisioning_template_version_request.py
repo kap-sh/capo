@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_iot.errors import DeserializationError
 
@@ -17,7 +17,7 @@ class CreateProvisioningTemplateVersionRequest(TypedDict, closed=True):
     """<p>The name of the provisioning template.</p>"""
     template_body: "capo_iot.types.template_body.TemplateBody"
     """<p>The JSON formatted contents of the provisioning template.</p>"""
-    set_as_default: "capo_iot.types.set_as_default.SetAsDefault"
+    set_as_default: NotRequired["capo_iot.types.set_as_default.SetAsDefault"]
     """<p>Sets a fleet provision template version as the default version.</p>"""
 
 

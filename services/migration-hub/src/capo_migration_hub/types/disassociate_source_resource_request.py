@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_migration_hub.errors import DeserializationError
 
@@ -26,7 +26,7 @@ class DisassociateSourceResourceRequest(TypedDict, closed=True):
         "capo_migration_hub.types.source_resource_name.SourceResourceName"
     )
     """<p>The name that was specified for the source resource.</p>"""
-    dry_run: "capo_migration_hub.types.dry_run.DryRun"
+    dry_run: NotRequired["capo_migration_hub.types.dry_run.DryRun"]
     """<p>This is an optional parameter that you can use to test whether the call will succeed. Set this parameter to <code>true</code> to verify that you have the permissions that are required to make the call, and that you have specified the other parameters in the call correctly.</p>"""
 
 
@@ -36,7 +36,8 @@ def serialize_aws_json_1_1(value: DisassociateSourceResourceRequest) -> dict:
     out["ProgressUpdateStream"] = value["progress_update_stream"]
     out["MigrationTaskName"] = value["migration_task_name"]
     out["SourceResourceName"] = value["source_resource_name"]
-    out["DryRun"] = value.get("dry_run", False)
+    if "dry_run" in value:
+        out["DryRun"] = value["dry_run"]
     return out
 
 
@@ -62,6 +63,4 @@ def deserialize_aws_json_1_1(data: dict) -> DisassociateSourceResourceRequest:
         )
     if data.get("DryRun") is not None:
         out["dry_run"] = data["DryRun"]
-    else:
-        out["dry_run"] = False
     return out

@@ -26,7 +26,7 @@ class CreateMembershipRequest(TypedDict, closed=True):
     """<p>Optional element to enable the monitoring and investigation opt-in features for the service.</p>"""
     tags: NotRequired["capo_security_ir.types.tag_map.TagMap"]
     """<p>Optional element for customer configured tags.</p>"""
-    cover_entire_organization: "bool"
+    cover_entire_organization: NotRequired["bool"]
     """<p>The <code>coverEntireOrganization</code> parameter is a boolean flag that determines whether the membership should be applied to the entire Amazon Web Services Organization. When set to true, the membership will be created for all accounts within the organization. When set to false, the membership will only be created for specified accounts. </p> <p>This parameter is optional. If not specified, the default value is false.</p> <ul> <li> <p>If set to <i>true</i>: The membership will automatically include all existing and future accounts in the Amazon Web Services Organization. </p> </li> <li> <p>If set to <i>false</i>: The membership will only apply to explicitly specified accounts. </p> </li> </ul>"""
 
 
@@ -53,7 +53,8 @@ def serialize_json(value: CreateMembershipRequest) -> dict:
         import capo_security_ir.types.tag_map
 
         out["tags"] = capo_security_ir.types.tag_map.serialize_json(value["tags"])
-    out["coverEntireOrganization"] = value.get("cover_entire_organization", True)
+    if "cover_entire_organization" in value:
+        out["coverEntireOrganization"] = value["cover_entire_organization"]
     return out
 
 
@@ -91,8 +92,6 @@ def deserialize_json(data: dict) -> CreateMembershipRequest:
         out["tags"] = capo_security_ir.types.tag_map.deserialize_json(data["tags"])
     if data.get("coverEntireOrganization") is not None:
         out["cover_entire_organization"] = data["coverEntireOrganization"]
-    else:
-        out["cover_entire_organization"] = True
     return out
 
 

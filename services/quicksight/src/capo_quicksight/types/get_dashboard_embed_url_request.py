@@ -28,11 +28,11 @@ class GetDashboardEmbedUrlRequest(TypedDict, closed=True):
         "capo_quicksight.types.session_lifetime_in_minutes.SessionLifetimeInMinutes"
     ]
     """<p>How many minutes the session is valid. The session lifetime must be 15-600 minutes.</p>"""
-    undo_redo_disabled: "capo_quicksight.types.boolean.Boolean"
+    undo_redo_disabled: NotRequired["capo_quicksight.types.boolean.Boolean"]
     """<p>Remove the undo/redo button on the embedded dashboard. The default is FALSE, which enables the undo/redo button.</p>"""
-    reset_disabled: "capo_quicksight.types.boolean.Boolean"
+    reset_disabled: NotRequired["capo_quicksight.types.boolean.Boolean"]
     """<p>Remove the reset button on the embedded dashboard. The default is FALSE, which enables the reset button.</p>"""
-    state_persistence_enabled: "capo_quicksight.types.boolean.Boolean"
+    state_persistence_enabled: NotRequired["capo_quicksight.types.boolean.Boolean"]
     """<p>Adds persistence of state for the user session in an embedded dashboard. Persistence applies to the sheet and the parameter settings. These are control settings that the dashboard subscriber (Amazon Quick Sight reader) chooses while viewing the dashboard. If this is set to <code>TRUE</code>, the settings are the same when the subscriber reopens the same dashboard URL. The state is stored in Amazon Quick Sight, not in a browser cookie. If this is set to FALSE, the state of the user session is not persisted. The default is <code>FALSE</code>.</p>"""
     user_arn: NotRequired["capo_quicksight.types.arn.Arn"]
     """<p>The Amazon Quick user's Amazon Resource Name (ARN), for use with <code>QUICKSIGHT</code> identity type. You can use this for any Amazon Quick users in your account (readers, authors, or admins) authenticated as one of the following:</p> <ul> <li> <p>Active Directory (AD) users or group members</p> </li> <li> <p>Invited nonfederated users</p> </li> <li> <p>IAM users and IAM role-based sessions authenticated through Federated Single Sign-On using SAML, OpenID Connect, or IAM federation.</p> </li> </ul> <p>Omit this parameter for users in the third group – IAM users and IAM role-based sessions.</p>"""

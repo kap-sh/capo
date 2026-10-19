@@ -19,9 +19,9 @@ class UpdateThingGroupsForThingRequest(TypedDict, closed=True):
         "capo_iot.types.thing_group_list.ThingGroupList"
     ]
     """<p>The groups from which the thing will be removed.</p>"""
-    override_dynamic_groups: (
+    override_dynamic_groups: NotRequired[
         "capo_iot.types.override_dynamic_groups.OverrideDynamicGroups"
-    )
+    ]
     """<p>Override dynamic thing groups with static thing groups when 10-group limit is reached. If a thing belongs to 10 thing groups, and one or more of those groups are dynamic thing groups, adding a thing to a static group removes the thing from the last dynamic group.</p>"""
 
 
@@ -42,7 +42,8 @@ def serialize_json(value: UpdateThingGroupsForThingRequest) -> dict:
         out["thingGroupsToRemove"] = capo_iot.types.thing_group_list.serialize_json(
             value["thing_groups_to_remove"]
         )
-    out["overrideDynamicGroups"] = value.get("override_dynamic_groups", False)
+    if "override_dynamic_groups" in value:
+        out["overrideDynamicGroups"] = value["override_dynamic_groups"]
     return out
 
 
@@ -66,6 +67,4 @@ def deserialize_json(data: dict) -> UpdateThingGroupsForThingRequest:
         )
     if data.get("overrideDynamicGroups") is not None:
         out["override_dynamic_groups"] = data["overrideDynamicGroups"]
-    else:
-        out["override_dynamic_groups"] = False
     return out

@@ -402,19 +402,22 @@ def build_request(
                 input_["vocabulary_filter_method"]
             )
         )
-    headers["x-amzn-transcribe-show-speaker-label"] = (
-        "true" if input_.get("show_speaker_label", False) else "false"
-    )
-    headers["x-amzn-transcribe-enable-channel-identification"] = (
-        "true" if input_.get("enable_channel_identification", False) else "false"
-    )
+    if "show_speaker_label" in input_:
+        headers["x-amzn-transcribe-show-speaker-label"] = (
+            "true" if input_["show_speaker_label"] else "false"
+        )
+    if "enable_channel_identification" in input_:
+        headers["x-amzn-transcribe-enable-channel-identification"] = (
+            "true" if input_["enable_channel_identification"] else "false"
+        )
     if "number_of_channels" in input_:
         headers["x-amzn-transcribe-number-of-channels"] = str(
             input_["number_of_channels"]
         )
-    headers["x-amzn-transcribe-enable-partial-results-stabilization"] = (
-        "true" if input_.get("enable_partial_results_stabilization", False) else "false"
-    )
+    if "enable_partial_results_stabilization" in input_:
+        headers["x-amzn-transcribe-enable-partial-results-stabilization"] = (
+            "true" if input_["enable_partial_results_stabilization"] else "false"
+        )
     if "partial_results_stability" in input_:
         headers["x-amzn-transcribe-partial-results-stability"] = (
             capo_transcribe_streaming.types.partial_results_stability.serialize_json(
@@ -437,9 +440,10 @@ def build_request(
         headers["x-amzn-transcribe-pii-entity-types"] = input_["pii_entity_types"]
     if "language_model_name" in input_:
         headers["x-amzn-transcribe-language-model-name"] = input_["language_model_name"]
-    headers["x-amzn-transcribe-identify-language"] = (
-        "true" if input_.get("identify_language", False) else "false"
-    )
+    if "identify_language" in input_:
+        headers["x-amzn-transcribe-identify-language"] = (
+            "true" if input_["identify_language"] else "false"
+        )
     if "language_options" in input_:
         headers["x-amzn-transcribe-language-options"] = input_["language_options"]
     if "preferred_language" in input_:
@@ -448,9 +452,10 @@ def build_request(
                 input_["preferred_language"]
             )
         )
-    headers["x-amzn-transcribe-identify-multiple-languages"] = (
-        "true" if input_.get("identify_multiple_languages", False) else "false"
-    )
+    if "identify_multiple_languages" in input_:
+        headers["x-amzn-transcribe-identify-multiple-languages"] = (
+            "true" if input_["identify_multiple_languages"] else "false"
+        )
     if "vocabulary_names" in input_:
         headers["x-amzn-transcribe-vocabulary-names"] = input_["vocabulary_names"]
     if "vocabulary_filter_names" in input_:
@@ -540,19 +545,22 @@ def async_build_request(
                 input_["vocabulary_filter_method"]
             )
         )
-    headers["x-amzn-transcribe-show-speaker-label"] = (
-        "true" if input_.get("show_speaker_label", False) else "false"
-    )
-    headers["x-amzn-transcribe-enable-channel-identification"] = (
-        "true" if input_.get("enable_channel_identification", False) else "false"
-    )
+    if "show_speaker_label" in input_:
+        headers["x-amzn-transcribe-show-speaker-label"] = (
+            "true" if input_["show_speaker_label"] else "false"
+        )
+    if "enable_channel_identification" in input_:
+        headers["x-amzn-transcribe-enable-channel-identification"] = (
+            "true" if input_["enable_channel_identification"] else "false"
+        )
     if "number_of_channels" in input_:
         headers["x-amzn-transcribe-number-of-channels"] = str(
             input_["number_of_channels"]
         )
-    headers["x-amzn-transcribe-enable-partial-results-stabilization"] = (
-        "true" if input_.get("enable_partial_results_stabilization", False) else "false"
-    )
+    if "enable_partial_results_stabilization" in input_:
+        headers["x-amzn-transcribe-enable-partial-results-stabilization"] = (
+            "true" if input_["enable_partial_results_stabilization"] else "false"
+        )
     if "partial_results_stability" in input_:
         headers["x-amzn-transcribe-partial-results-stability"] = (
             capo_transcribe_streaming.types.partial_results_stability.serialize_json(
@@ -575,9 +583,10 @@ def async_build_request(
         headers["x-amzn-transcribe-pii-entity-types"] = input_["pii_entity_types"]
     if "language_model_name" in input_:
         headers["x-amzn-transcribe-language-model-name"] = input_["language_model_name"]
-    headers["x-amzn-transcribe-identify-language"] = (
-        "true" if input_.get("identify_language", False) else "false"
-    )
+    if "identify_language" in input_:
+        headers["x-amzn-transcribe-identify-language"] = (
+            "true" if input_["identify_language"] else "false"
+        )
     if "language_options" in input_:
         headers["x-amzn-transcribe-language-options"] = input_["language_options"]
     if "preferred_language" in input_:
@@ -586,9 +595,10 @@ def async_build_request(
                 input_["preferred_language"]
             )
         )
-    headers["x-amzn-transcribe-identify-multiple-languages"] = (
-        "true" if input_.get("identify_multiple_languages", False) else "false"
-    )
+    if "identify_multiple_languages" in input_:
+        headers["x-amzn-transcribe-identify-multiple-languages"] = (
+            "true" if input_["identify_multiple_languages"] else "false"
+        )
     if "vocabulary_names" in input_:
         headers["x-amzn-transcribe-vocabulary-names"] = input_["vocabulary_names"]
     if "vocabulary_filter_names" in input_:

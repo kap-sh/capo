@@ -20,9 +20,9 @@ class CreateApiCacheRequest(TypedDict, closed=True):
     """<p>The GraphQL API ID.</p>"""
     ttl: "capo_appsync.types.long.Long"
     """<p>TTL in seconds for cache entries.</p> <p>Valid values are 1–3,600 seconds.</p>"""
-    transit_encryption_enabled: "capo_appsync.types.boolean.Boolean"
+    transit_encryption_enabled: NotRequired["capo_appsync.types.boolean.Boolean"]
     """<p>Transit encryption flag when connecting to cache. You cannot update this setting after creation.</p>"""
-    at_rest_encryption_enabled: "capo_appsync.types.boolean.Boolean"
+    at_rest_encryption_enabled: NotRequired["capo_appsync.types.boolean.Boolean"]
     """<p>At-rest encryption flag for cache. You cannot update this setting after creation.</p>"""
     api_caching_behavior: "capo_appsync.types.api_caching_behavior.ApiCachingBehavior"
     """<p>Caching behavior.</p> <ul> <li> <p> <b>FULL_REQUEST_CACHING</b>: All requests from the same user are cached. Individual resolvers are automatically cached. All API calls will try to return responses from the cache.</p> </li> <li> <p> <b>PER_RESOLVER_CACHING</b>: Individual resolvers that you specify are cached.</p> </li> <li> <p> <b>OPERATION_LEVEL_CACHING</b>: Full requests are cached together and returned without executing resolvers.</p> </li> </ul>"""
@@ -37,9 +37,11 @@ class CreateApiCacheRequest(TypedDict, closed=True):
 # --- restJson1 ser/de ---
 def serialize_json(value: CreateApiCacheRequest) -> dict:
     out: dict = {}
-    out["ttl"] = value.get("ttl", 0)
-    out["transitEncryptionEnabled"] = value.get("transit_encryption_enabled", False)
-    out["atRestEncryptionEnabled"] = value.get("at_rest_encryption_enabled", False)
+    out["ttl"] = value["ttl"]
+    if "transit_encryption_enabled" in value:
+        out["transitEncryptionEnabled"] = value["transit_encryption_enabled"]
+    if "at_rest_encryption_enabled" in value:
+        out["atRestEncryptionEnabled"] = value["at_rest_encryption_enabled"]
     import capo_appsync.types.api_caching_behavior
 
     out["apiCachingBehavior"] = capo_appsync.types.api_caching_behavior.serialize_json(
@@ -64,15 +66,11 @@ def deserialize_json(data: dict) -> CreateApiCacheRequest:
     if data.get("ttl") is not None:
         out["ttl"] = data["ttl"]
     else:
-        out["ttl"] = 0
+        raise DeserializationError("CreateApiCacheRequest.ttl required")
     if data.get("transitEncryptionEnabled") is not None:
         out["transit_encryption_enabled"] = data["transitEncryptionEnabled"]
-    else:
-        out["transit_encryption_enabled"] = False
     if data.get("atRestEncryptionEnabled") is not None:
         out["at_rest_encryption_enabled"] = data["atRestEncryptionEnabled"]
-    else:
-        out["at_rest_encryption_enabled"] = False
     if data.get("apiCachingBehavior") is not None:
         import capo_appsync.types.api_caching_behavior
 

@@ -16,7 +16,7 @@ class ListQueuedMessagesRequest(TypedDict, closed=True):
     """<p>The ID of a given wireless device which the downlink message packets are being sent.</p>"""
     next_token: NotRequired["capo_iot_wireless.types.next_token.NextToken"]
     """<p>To retrieve the next set of results, the <code>nextToken</code> value from a previous response; otherwise <b>null</b> to receive the first set of results.</p>"""
-    max_results: "capo_iot_wireless.types.max_results.MaxResults"
+    max_results: NotRequired["capo_iot_wireless.types.max_results.MaxResults"]
     """<p>The maximum number of results to return in this operation.</p>"""
     wireless_device_type: NotRequired[
         "capo_iot_wireless.types.wireless_device_type.WirelessDeviceType"

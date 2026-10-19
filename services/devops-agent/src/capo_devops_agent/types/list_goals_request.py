@@ -20,7 +20,7 @@ class ListGoalsRequest(TypedDict, closed=True):
     """<p>Filter goals by goal status</p>"""
     goal_type: NotRequired["capo_devops_agent.types.goal_type.GoalType"]
     """<p>Filter goals by goal type</p>"""
-    limit: "int"
+    limit: NotRequired["int"]
     """<p>Maximum number of goals to return</p>"""
     next_token: NotRequired["capo_devops_agent.types.next_token.NextToken"]
     """<p>Pagination token for the next set of results</p>"""
@@ -41,7 +41,8 @@ def serialize_json(value: ListGoalsRequest) -> dict:
         out["goalType"] = capo_devops_agent.types.goal_type.serialize_json(
             value["goal_type"]
         )
-    out["limit"] = value.get("limit", 50)
+    if "limit" in value:
+        out["limit"] = value["limit"]
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
     return out
@@ -63,8 +64,6 @@ def deserialize_json(data: dict) -> ListGoalsRequest:
         )
     if data.get("limit") is not None:
         out["limit"] = data["limit"]
-    else:
-        out["limit"] = 50
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 class ListStreamsInput(TypedDict, closed=True):
     cluster_identifier: "capo_dsql.types.cluster_id.ClusterId"
     """<p>The ID of the cluster for which to list streams.</p>"""
-    max_results: "capo_dsql.types.max_results.MaxResults"
+    max_results: NotRequired["capo_dsql.types.max_results.MaxResults"]
     """<p>An optional parameter that specifies the maximum number of results to return. You can use nextToken to display the next page of results. Default: 10.</p>"""
     next_token: NotRequired["capo_dsql.types.next_token.NextToken"]
     """<p>If your initial ListStreams operation returns a nextToken, you can include the returned nextToken in following ListStreams operations, which returns results in the next page.</p>"""

@@ -130,7 +130,8 @@ def build_request(
     params: list[tuple[str, str]] = []
     if "next_token" in input_:
         params.append(("NextToken", input_["next_token"]))
-    params.append(("MaxResults", str(input_.get("max_results", 10))))
+    if "max_results" in input_:
+        params.append(("MaxResults", str(input_["max_results"])))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

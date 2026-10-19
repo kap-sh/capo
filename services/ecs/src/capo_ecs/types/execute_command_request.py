@@ -32,7 +32,7 @@ def serialize_aws_json_1_1(value: ExecuteCommandRequest) -> dict:
     if "container" in value:
         out["container"] = value["container"]
     out["command"] = value["command"]
-    out["interactive"] = value.get("interactive", False)
+    out["interactive"] = value["interactive"]
     out["task"] = value["task"]
     return out
 
@@ -50,7 +50,7 @@ def deserialize_aws_json_1_1(data: dict) -> ExecuteCommandRequest:
     if data.get("interactive") is not None:
         out["interactive"] = data["interactive"]
     else:
-        out["interactive"] = False
+        raise DeserializationError("ExecuteCommandRequest.interactive required")
     if data.get("task") is not None:
         out["task"] = data["task"]
     else:

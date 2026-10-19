@@ -36,9 +36,9 @@ class UpdateGatewayRequest(TypedDict, closed=True):
     """<p>The updated description for the gateway.</p>"""
     role_arn: "capo_bedrock_agentcore_control.types.role_arn.RoleArn"
     """<p>The updated IAM role ARN that provides permissions for the gateway.</p>"""
-    protocol_type: (
+    protocol_type: NotRequired[
         "capo_bedrock_agentcore_control.types.gateway_protocol_type.GatewayProtocolType"
-    )
+    ]
     """<p>The updated protocol type for the gateway.</p>"""
     protocol_configuration: NotRequired[
         "capo_bedrock_agentcore_control.types.gateway_protocol_configuration.GatewayProtocolConfiguration"
@@ -84,13 +84,14 @@ def serialize_json(value: UpdateGatewayRequest) -> dict:
     if "description" in value:
         out["description"] = value["description"]
     out["roleArn"] = value["role_arn"]
-    import capo_bedrock_agentcore_control.types.gateway_protocol_type
+    if "protocol_type" in value:
+        import capo_bedrock_agentcore_control.types.gateway_protocol_type
 
-    out["protocolType"] = (
-        capo_bedrock_agentcore_control.types.gateway_protocol_type.serialize_json(
-            value.get("protocol_type", "MCP")
+        out["protocolType"] = (
+            capo_bedrock_agentcore_control.types.gateway_protocol_type.serialize_json(
+                value["protocol_type"]
+            )
         )
-    )
     if "protocol_configuration" in value:
         import capo_bedrock_agentcore_control.types.gateway_protocol_configuration
 
@@ -179,8 +180,6 @@ def deserialize_json(data: dict) -> UpdateGatewayRequest:
                 data["protocolType"]
             )
         )
-    else:
-        out["protocol_type"] = "MCP"
     if data.get("protocolConfiguration") is not None:
         import capo_bedrock_agentcore_control.types.gateway_protocol_configuration
 

@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 class ListAssociationsInput(TypedDict, closed=True):
     agent_space_id: "capo_devops_agent.types.agent_space_id.AgentSpaceId"
     """<p>The unique identifier of the AgentSpace</p>"""
-    max_results: "int"
+    max_results: NotRequired["int"]
     """<p>Maximum number of results to return in a single call.</p>"""
     next_token: NotRequired["capo_devops_agent.types.next_token.NextToken"]
     """<p>Token for the next page of results.</p>"""

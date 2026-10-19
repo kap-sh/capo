@@ -141,7 +141,8 @@ def build_request(
 
     url = endpoint.url.rstrip("/") + "/v1/agentspaces/list"
     params: list[tuple[str, str]] = []
-    params.append(("maxResults", str(input_.get("max_results", 20))))
+    if "max_results" in input_:
+        params.append(("maxResults", str(input_["max_results"])))
     if "next_token" in input_:
         params.append(("nextToken", input_["next_token"]))
     if "included_data" in input_:

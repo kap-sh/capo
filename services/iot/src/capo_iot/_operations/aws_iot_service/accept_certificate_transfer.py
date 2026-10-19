@@ -109,9 +109,8 @@ def build_request(
     url = endpoint.url.rstrip("/") + "/accept-certificate-transfer/{certificateId}"
     url = url.replace("{certificateId}", quote(input_["certificate_id"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(
-        ("setAsActive", "true" if input_.get("set_as_active", False) else "false")
-    )
+    if "set_as_active" in input_:
+        params.append(("setAsActive", "true" if input_["set_as_active"] else "false"))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

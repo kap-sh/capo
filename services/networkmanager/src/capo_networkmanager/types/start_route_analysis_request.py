@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_networkmanager.errors import DeserializationError
 
@@ -19,9 +19,9 @@ class StartRouteAnalysisRequest(TypedDict, closed=True):
     """<p>The source from which traffic originates.</p>"""
     destination: "capo_networkmanager.types.route_analysis_endpoint_options_specification.RouteAnalysisEndpointOptionsSpecification"
     """<p>The destination.</p>"""
-    include_return_path: "capo_networkmanager.types.boolean.Boolean"
+    include_return_path: NotRequired["capo_networkmanager.types.boolean.Boolean"]
     """<p>Indicates whether to analyze the return path. The default is <code>false</code>.</p>"""
-    use_middleboxes: "capo_networkmanager.types.boolean.Boolean"
+    use_middleboxes: NotRequired["capo_networkmanager.types.boolean.Boolean"]
     """<p>Indicates whether to include the location of middlebox appliances in the route analysis. The default is <code>false</code>.</p>"""
 
 
@@ -42,8 +42,10 @@ def serialize_json(value: StartRouteAnalysisRequest) -> dict:
             value["destination"]
         )
     )
-    out["IncludeReturnPath"] = value.get("include_return_path", False)
-    out["UseMiddleboxes"] = value.get("use_middleboxes", False)
+    if "include_return_path" in value:
+        out["IncludeReturnPath"] = value["include_return_path"]
+    if "use_middleboxes" in value:
+        out["UseMiddleboxes"] = value["use_middleboxes"]
     return out
 
 
@@ -71,10 +73,6 @@ def deserialize_json(data: dict) -> StartRouteAnalysisRequest:
         raise DeserializationError("StartRouteAnalysisRequest.destination required")
     if data.get("IncludeReturnPath") is not None:
         out["include_return_path"] = data["IncludeReturnPath"]
-    else:
-        out["include_return_path"] = False
     if data.get("UseMiddleboxes") is not None:
         out["use_middleboxes"] = data["UseMiddleboxes"]
-    else:
-        out["use_middleboxes"] = False
     return out

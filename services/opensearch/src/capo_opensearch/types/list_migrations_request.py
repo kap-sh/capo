@@ -15,7 +15,7 @@ class ListMigrationsRequest(TypedDict, closed=True):
     """<p>The unique identifier of the OpenSearch application to list migrations for.</p>"""
     status: NotRequired["capo_opensearch.types.string.String"]
     """<p>Filters the results by migration status. Valid values are <code>PENDING</code>, <code>IN_PROGRESS</code>, <code>SUCCEEDED</code>, and <code>FAILED</code>.</p>"""
-    max_results: "capo_opensearch.types.integer.Integer"
+    max_results: NotRequired["capo_opensearch.types.integer.Integer"]
     """<p>The maximum number of results to return in a single call.</p>"""
     next_token: NotRequired["capo_opensearch.types.string.String"]
     """<p>The pagination token from a previous call to retrieve the next set of results.</p>"""

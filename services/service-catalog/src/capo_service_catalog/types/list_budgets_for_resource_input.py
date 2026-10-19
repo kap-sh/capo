@@ -20,7 +20,7 @@ class ListBudgetsForResourceInput(TypedDict, closed=True):
     """<p>The language code.</p> <ul> <li> <p> <code>jp</code> - Japanese</p> </li> <li> <p> <code>zh</code> - Chinese</p> </li> </ul>"""
     resource_id: "capo_service_catalog.types.id.Id"
     """<p>The resource identifier.</p>"""
-    page_size: "capo_service_catalog.types.page_size.PageSize"
+    page_size: NotRequired["capo_service_catalog.types.page_size.PageSize"]
     """<p>The maximum number of items to return with this call.</p>"""
     page_token: NotRequired["capo_service_catalog.types.page_token.PageToken"]
     """<p>The page token for the next set of results. To retrieve the first set of results, use null.</p>"""
@@ -32,7 +32,8 @@ def serialize_aws_json_1_1(value: ListBudgetsForResourceInput) -> dict:
     if "accept_language" in value:
         out["AcceptLanguage"] = value["accept_language"]
     out["ResourceId"] = value["resource_id"]
-    out["PageSize"] = value.get("page_size", 0)
+    if "page_size" in value:
+        out["PageSize"] = value["page_size"]
     if "page_token" in value:
         out["PageToken"] = value["page_token"]
     return out
@@ -48,8 +49,6 @@ def deserialize_aws_json_1_1(data: dict) -> ListBudgetsForResourceInput:
         raise DeserializationError("ListBudgetsForResourceInput.resource_id required")
     if data.get("PageSize") is not None:
         out["page_size"] = data["PageSize"]
-    else:
-        out["page_size"] = 0
     if data.get("PageToken") is not None:
         out["page_token"] = data["PageToken"]
     return out

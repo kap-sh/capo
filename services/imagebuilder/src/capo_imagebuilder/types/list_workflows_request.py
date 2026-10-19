@@ -17,7 +17,7 @@ class ListWorkflowsRequest(TypedDict, closed=True):
     """<p>Filters results based on the workflow owner. By default, this request returns the workflows that your account owns (<code>Self</code>). Specify <code>Amazon</code> to list the workflows that Image Builder manages. Image Builder rejects the <code>Shared</code> and <code>ThirdParty</code> owner values for workflows, and <code>AWSMarketplace</code> returns no results.</p>"""
     filters: NotRequired["capo_imagebuilder.types.filter_list.FilterList"]
     """<p>Filters to narrow the list of workflows. You can filter on <code>name</code>, <code>version</code>, <code>description</code>, and <code>type</code>.</p>"""
-    by_name: "capo_imagebuilder.types.boolean.Boolean"
+    by_name: NotRequired["capo_imagebuilder.types.boolean.Boolean"]
     """<p>Specifies whether to return one entry per workflow name, with all versions of each workflow aggregated. Defaults to <code>false</code>, which returns one entry per workflow version. You can't combine this option with the <code>version</code> filter.</p>"""
     max_results: NotRequired[
         "capo_imagebuilder.types.restricted_integer.RestrictedInteger"
@@ -40,7 +40,8 @@ def serialize_json(value: ListWorkflowsRequest) -> dict:
         out["filters"] = capo_imagebuilder.types.filter_list.serialize_json(
             value["filters"]
         )
-    out["byName"] = value.get("by_name", False)
+    if "by_name" in value:
+        out["byName"] = value["by_name"]
     if "max_results" in value:
         out["maxResults"] = value["max_results"]
     if "next_token" in value:
@@ -62,8 +63,6 @@ def deserialize_json(data: dict) -> ListWorkflowsRequest:
         )
     if data.get("byName") is not None:
         out["by_name"] = data["byName"]
-    else:
-        out["by_name"] = False
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     if data.get("nextToken") is not None:

@@ -83,7 +83,7 @@ def serialize_json(value: CreateReplicationConfigurationTemplateRequest) -> dict
     out["ebsEncryption"] = value["ebs_encryption"]
     if "ebs_encryption_key_arn" in value:
         out["ebsEncryptionKeyArn"] = value["ebs_encryption_key_arn"]
-    out["bandwidthThrottling"] = value.get("bandwidth_throttling", 0)
+    out["bandwidthThrottling"] = value["bandwidth_throttling"]
     if "data_plane_routing" in value:
         out["dataPlaneRouting"] = value["data_plane_routing"]
     if "create_public_ip" in value:
@@ -146,7 +146,9 @@ def deserialize_json(data: dict) -> CreateReplicationConfigurationTemplateReques
     if data.get("bandwidthThrottling") is not None:
         out["bandwidth_throttling"] = data["bandwidthThrottling"]
     else:
-        out["bandwidth_throttling"] = 0
+        raise DeserializationError(
+            "CreateReplicationConfigurationTemplateRequest.bandwidth_throttling required"
+        )
     if data.get("dataPlaneRouting") is not None:
         out["data_plane_routing"] = data["dataPlaneRouting"]
     if data.get("createPublicIP") is not None:

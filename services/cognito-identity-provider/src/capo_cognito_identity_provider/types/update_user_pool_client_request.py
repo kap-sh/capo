@@ -41,7 +41,9 @@ class UpdateUserPoolClientRequest(TypedDict, closed=True):
         "capo_cognito_identity_provider.types.client_name_type.ClientNameType"
     ]
     """<p>A friendly name for the app client.</p>"""
-    refresh_token_validity: "capo_cognito_identity_provider.types.refresh_token_validity_type.RefreshTokenValidityType"
+    refresh_token_validity: NotRequired[
+        "capo_cognito_identity_provider.types.refresh_token_validity_type.RefreshTokenValidityType"
+    ]
     """<p>The refresh token time limit. After this limit expires, your user can't use their refresh token. To specify the time unit for <code>RefreshTokenValidity</code> as <code>seconds</code>, <code>minutes</code>, <code>hours</code>, or <code>days</code>, set a <code>TokenValidityUnits</code> value in your API request.</p> <p>For example, when you set <code>RefreshTokenValidity</code> as <code>10</code> and <code>TokenValidityUnits</code> as <code>days</code>, your user can refresh their session and retrieve new access and ID tokens for 10 days.</p> <p>The default time unit for <code>RefreshTokenValidity</code> in an API request is days. You can't set <code>RefreshTokenValidity</code> to 0. If you do, Amazon Cognito overrides the value with the default value of 30 days. <i>Valid range</i> is displayed below in seconds.</p> <p>If you don't specify otherwise in the configuration of your app client, your refresh tokens are valid for 30 days.</p>"""
     access_token_validity: NotRequired[
         "capo_cognito_identity_provider.types.access_token_validity_type.AccessTokenValidityType"
@@ -91,9 +93,9 @@ class UpdateUserPoolClientRequest(TypedDict, closed=True):
         "capo_cognito_identity_provider.types.scope_list_type.ScopeListType"
     ]
     """<p>The OAuth, OpenID Connect (OIDC), and custom scopes that you want to permit your app client to authorize access with. Scopes govern access control to user pool self-service API operations, user data from the <code>userInfo</code> endpoint, and third-party APIs. Scope values include <code>phone</code>, <code>email</code>, <code>openid</code>, and <code>profile</code>. The <code>aws.cognito.signin.user.admin</code> scope authorizes user self-service operations. Custom scopes with resource servers authorize access to external APIs.</p>"""
-    allowed_o_auth_flows_user_pool_client: (
+    allowed_o_auth_flows_user_pool_client: NotRequired[
         "capo_cognito_identity_provider.types.boolean_type.BooleanType"
-    )
+    ]
     """<p>Set to <code>true</code> to use OAuth 2.0 authorization server features in your app client.</p> <p>This parameter must have a value of <code>true</code> before you can configure the following features in your app client.</p> <ul> <li> <p> <code>CallBackURLs</code>: Callback URLs.</p> </li> <li> <p> <code>LogoutURLs</code>: Sign-out redirect URLs.</p> </li> <li> <p> <code>AllowedOAuthScopes</code>: OAuth 2.0 scopes.</p> </li> <li> <p> <code>AllowedOAuthFlows</code>: Support for authorization code, implicit, and client credentials OAuth 2.0 grants.</p> </li> </ul> <p>To use authorization server features, configure one of these features in the Amazon Cognito console or set <code>AllowedOAuthFlowsUserPoolClient</code> to <code>true</code> in a <code>CreateUserPoolClient</code> or <code>UpdateUserPoolClient</code> API request. If you don't set a value for <code>AllowedOAuthFlowsUserPoolClient</code> in a request with the CLI or SDKs, it defaults to <code>false</code>. When <code>false</code>, only SDK-based API sign-in is permitted.</p>"""
     analytics_configuration: NotRequired[
         "capo_cognito_identity_provider.types.analytics_configuration_type.AnalyticsConfigurationType"
@@ -128,7 +130,8 @@ def serialize_aws_json_1_1(value: UpdateUserPoolClientRequest) -> dict:
     out["ClientId"] = value["client_id"]
     if "client_name" in value:
         out["ClientName"] = value["client_name"]
-    out["RefreshTokenValidity"] = value.get("refresh_token_validity", 0)
+    if "refresh_token_validity" in value:
+        out["RefreshTokenValidity"] = value["refresh_token_validity"]
     if "access_token_validity" in value:
         out["AccessTokenValidity"] = value["access_token_validity"]
     if "id_token_validity" in value:
@@ -207,9 +210,10 @@ def serialize_aws_json_1_1(value: UpdateUserPoolClientRequest) -> dict:
                 value["allowed_o_auth_scopes"]
             )
         )
-    out["AllowedOAuthFlowsUserPoolClient"] = value.get(
-        "allowed_o_auth_flows_user_pool_client", False
-    )
+    if "allowed_o_auth_flows_user_pool_client" in value:
+        out["AllowedOAuthFlowsUserPoolClient"] = value[
+            "allowed_o_auth_flows_user_pool_client"
+        ]
     if "analytics_configuration" in value:
         import capo_cognito_identity_provider.types.analytics_configuration_type
 
@@ -259,8 +263,6 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateUserPoolClientRequest:
         out["client_name"] = data["ClientName"]
     if data.get("RefreshTokenValidity") is not None:
         out["refresh_token_validity"] = data["RefreshTokenValidity"]
-    else:
-        out["refresh_token_validity"] = 0
     if data.get("AccessTokenValidity") is not None:
         out["access_token_validity"] = data["AccessTokenValidity"]
     if data.get("IdTokenValidity") is not None:
@@ -343,8 +345,6 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateUserPoolClientRequest:
         out["allowed_o_auth_flows_user_pool_client"] = data[
             "AllowedOAuthFlowsUserPoolClient"
         ]
-    else:
-        out["allowed_o_auth_flows_user_pool_client"] = False
     if data.get("AnalyticsConfiguration") is not None:
         import capo_cognito_identity_provider.types.analytics_configuration_type
 

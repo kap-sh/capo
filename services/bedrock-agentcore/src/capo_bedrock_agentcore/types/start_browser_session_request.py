@@ -26,9 +26,9 @@ class StartBrowserSessionRequest(TypedDict, closed=True):
     """<p>The unique identifier of the browser to use for this session. This identifier specifies which browser environment to initialize for the session.</p>"""
     name: NotRequired["capo_bedrock_agentcore.types.name.Name"]
     """<p>The name of the browser session. This name helps you identify and manage the session. The name does not need to be unique.</p>"""
-    session_timeout_seconds: (
+    session_timeout_seconds: NotRequired[
         "capo_bedrock_agentcore.types.browser_session_timeout.BrowserSessionTimeout"
-    )
+    ]
     """<p>The duration in seconds (time-to-live) after which the session automatically terminates, regardless of ongoing activity. Defaults to 3600 seconds (1 hour). Recommended minimum: 60 seconds. Maximum allowed: 28,800 seconds (8 hours).</p>"""
     view_port: NotRequired["capo_bedrock_agentcore.types.view_port.ViewPort"]
     """<p>The dimensions of the browser viewport for this session. This determines the visible area of the web content and affects how web pages are rendered. If not specified, Amazon Bedrock AgentCore uses a default viewport size.</p>"""
@@ -63,7 +63,8 @@ def serialize_json(value: StartBrowserSessionRequest) -> dict:
     out: dict = {}
     if "name" in value:
         out["name"] = value["name"]
-    out["sessionTimeoutSeconds"] = value.get("session_timeout_seconds", 3600)
+    if "session_timeout_seconds" in value:
+        out["sessionTimeoutSeconds"] = value["session_timeout_seconds"]
     if "view_port" in value:
         import capo_bedrock_agentcore.types.view_port
 
@@ -127,8 +128,6 @@ def deserialize_json(data: dict) -> StartBrowserSessionRequest:
         out["name"] = data["name"]
     if data.get("sessionTimeoutSeconds") is not None:
         out["session_timeout_seconds"] = data["sessionTimeoutSeconds"]
-    else:
-        out["session_timeout_seconds"] = 3600
     if data.get("viewPort") is not None:
         import capo_bedrock_agentcore.types.view_port
 

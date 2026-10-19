@@ -32,7 +32,9 @@ class CreateCommitInput(TypedDict, closed=True):
     """<p>The email address of the person who created the commit.</p>"""
     commit_message: NotRequired["capo_codecommit.types.message.Message"]
     """<p>The commit message you want to include in the commit. Commit messages are limited to 256 KB. If no message is specified, a default message is used.</p>"""
-    keep_empty_folders: "capo_codecommit.types.keep_empty_folders.KeepEmptyFolders"
+    keep_empty_folders: NotRequired[
+        "capo_codecommit.types.keep_empty_folders.KeepEmptyFolders"
+    ]
     """<p>If the commit contains deletions, whether to keep a folder or folder structure if the changes leave the folders empty. If true, a ..gitkeep file is created for empty folders. The default is false.</p>"""
     put_files: NotRequired["capo_codecommit.types.put_file_entries.PutFileEntries"]
     """<p>The files to add or update in this commit.</p>"""
@@ -59,7 +61,8 @@ def serialize_aws_json_1_1(value: CreateCommitInput) -> dict:
         out["email"] = value["email"]
     if "commit_message" in value:
         out["commitMessage"] = value["commit_message"]
-    out["keepEmptyFolders"] = value.get("keep_empty_folders", False)
+    if "keep_empty_folders" in value:
+        out["keepEmptyFolders"] = value["keep_empty_folders"]
     if "put_files" in value:
         import capo_codecommit.types.put_file_entries
 
@@ -105,8 +108,6 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCommitInput:
         out["commit_message"] = data["commitMessage"]
     if data.get("keepEmptyFolders") is not None:
         out["keep_empty_folders"] = data["keepEmptyFolders"]
-    else:
-        out["keep_empty_folders"] = False
     if data.get("putFiles") is not None:
         import capo_codecommit.types.put_file_entries
 

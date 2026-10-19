@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_cleanrooms.errors import DeserializationError
 
@@ -18,7 +18,7 @@ class DisallowIntermediateTableInput(TypedDict, closed=True):
     """<p>The unique identifier of the membership that contains the intermediate table to disallow.</p>"""
     intermediate_table_name: "capo_cleanrooms.types.display_name.DisplayName"
     """<p>The name of the intermediate table to disallow.</p>"""
-    include_descendants: "bool"
+    include_descendants: NotRequired["bool"]
     """<p>Specifies whether to cascade the disallow action to descendant intermediate tables. Default is <code>true</code>.</p>"""
 
 
@@ -26,7 +26,8 @@ class DisallowIntermediateTableInput(TypedDict, closed=True):
 def serialize_json(value: DisallowIntermediateTableInput) -> dict:
     out: dict = {}
     out["intermediateTableName"] = value["intermediate_table_name"]
-    out["includeDescendants"] = value.get("include_descendants", True)
+    if "include_descendants" in value:
+        out["includeDescendants"] = value["include_descendants"]
     return out
 
 
@@ -40,6 +41,4 @@ def deserialize_json(data: dict) -> DisallowIntermediateTableInput:
         )
     if data.get("includeDescendants") is not None:
         out["include_descendants"] = data["includeDescendants"]
-    else:
-        out["include_descendants"] = True
     return out

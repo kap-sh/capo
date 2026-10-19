@@ -18,7 +18,7 @@ class ListAccountActivitiesRequest(TypedDict, closed=True):
     """<p> The activity status filter. This field can be used to filter the response by activities status. </p>"""
     next_token: NotRequired["capo_freetier.types.next_page_token.NextPageToken"]
     """<p> A token from a previous paginated response. If this is specified, the response includes records beginning from this token (inclusive), up to the number specified by <code>maxResults</code>. </p>"""
-    max_results: "capo_freetier.types.max_results.MaxResults"
+    max_results: NotRequired["capo_freetier.types.max_results.MaxResults"]
     """<p> The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. </p>"""
     language_code: NotRequired["capo_freetier.types.language_code.LanguageCode"]
     """<p> The language code used to return translated titles. </p>"""
@@ -37,7 +37,8 @@ def serialize_aws_json_1_0(value: ListAccountActivitiesRequest) -> dict:
         )
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
-    out["maxResults"] = value.get("max_results", 10)
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
     if "language_code" in value:
         import capo_freetier.types.language_code
 
@@ -61,8 +62,6 @@ def deserialize_aws_json_1_0(data: dict) -> ListAccountActivitiesRequest:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
-    else:
-        out["max_results"] = 10
     if data.get("languageCode") is not None:
         import capo_freetier.types.language_code
 

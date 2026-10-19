@@ -15,7 +15,7 @@ class ListLimitsRequest(TypedDict, closed=True):
     """<p>The unique identifier of the farm that contains the limits.</p>"""
     next_token: NotRequired["capo_deadline.types.next_token.NextToken"]
     """<p>The token for the next set of results, or <code>null</code> to start from the beginning.</p>"""
-    max_results: "capo_deadline.types.max_results.MaxResults"
+    max_results: NotRequired["capo_deadline.types.max_results.MaxResults"]
     """<p>The maximum number of limits to return in each page of results.</p>"""
 
 

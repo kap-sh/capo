@@ -34,9 +34,9 @@ def serialize_json(value: CreateAuthCodeRequest) -> dict:
     out["Scope"] = capo_connect.types.auth_scope.serialize_json(value["scope"])
     if "max_session_duration_minutes" in value:
         out["MaxSessionDurationMinutes"] = value["max_session_duration_minutes"]
-    out["SessionInactivityDurationMinutes"] = value.get(
-        "session_inactivity_duration_minutes", 0
-    )
+    out["SessionInactivityDurationMinutes"] = value[
+        "session_inactivity_duration_minutes"
+    ]
     return out
 
 
@@ -55,5 +55,7 @@ def deserialize_json(data: dict) -> CreateAuthCodeRequest:
             "SessionInactivityDurationMinutes"
         ]
     else:
-        out["session_inactivity_duration_minutes"] = 0
+        raise DeserializationError(
+            "CreateAuthCodeRequest.session_inactivity_duration_minutes required"
+        )
     return out

@@ -19,7 +19,7 @@ class ListConfigurationsRequest(TypedDict, closed=True):
     """<p>A valid configuration identified by Application Discovery Service. </p>"""
     filters: NotRequired["capo_application_discovery_service.types.filters.Filters"]
     """<p>You can filter the request using various logical operators and a <i>key</i>-<i>value</i> format. For example: </p> <p> <code>{"key": "serverType", "value": "webServer"}</code> </p> <p>For a complete list of filter options and guidance about using them with this action, see <a href="https://docs.aws.amazon.com/application-discovery/latest/userguide/discovery-api-queries.html#ListConfigurations">Using the ListConfigurations Action</a> in the <i>Amazon Web Services Application Discovery Service User Guide</i>.</p>"""
-    max_results: "capo_application_discovery_service.types.integer.Integer"
+    max_results: NotRequired["capo_application_discovery_service.types.integer.Integer"]
     """<p>The total number of items to return. The maximum value is 100.</p>"""
     next_token: NotRequired[
         "capo_application_discovery_service.types.next_token.NextToken"
@@ -49,7 +49,8 @@ def serialize_aws_json_1_1(value: ListConfigurationsRequest) -> dict:
                 value["filters"]
             )
         )
-    out["maxResults"] = value.get("max_results", 0)
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
     if "order_by" in value:
@@ -87,8 +88,6 @@ def deserialize_aws_json_1_1(data: dict) -> ListConfigurationsRequest:
         )
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
-    else:
-        out["max_results"] = 0
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("orderBy") is not None:

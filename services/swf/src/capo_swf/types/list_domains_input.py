@@ -18,9 +18,9 @@ class ListDomainsInput(TypedDict, closed=True):
     """<p>If <code>NextPageToken</code> is returned there are more results available. The value of <code>NextPageToken</code> is a unique pagination token for each page. Make the call again using the returned token to retrieve the next page. Keep all other arguments unchanged. Each pagination token expires after 24 hours. Using an expired pagination token will return a <code>400</code> error: "<code>Specified token has exceeded its maximum lifetime</code>". </p> <p>The configured <code>maximumPageSize</code> determines how many results can be returned in a single call. </p>"""
     registration_status: "capo_swf.types.registration_status.RegistrationStatus"
     """<p>Specifies the registration status of the domains to list.</p>"""
-    maximum_page_size: "capo_swf.types.page_size.PageSize"
+    maximum_page_size: NotRequired["capo_swf.types.page_size.PageSize"]
     """<p>The maximum number of results that are returned per call. Use <code>nextPageToken</code> to obtain further pages of results. </p>"""
-    reverse_order: "capo_swf.types.reverse_order.ReverseOrder"
+    reverse_order: NotRequired["capo_swf.types.reverse_order.ReverseOrder"]
     """<p>When set to <code>true</code>, returns the results in reverse order. By default, the results are returned in ascending alphabetical order by <code>name</code> of the domains.</p>"""
 
 
@@ -36,8 +36,10 @@ def serialize_aws_json_1_0(value: ListDomainsInput) -> dict:
             value["registration_status"]
         )
     )
-    out["maximumPageSize"] = value.get("maximum_page_size", 0)
-    out["reverseOrder"] = value.get("reverse_order", False)
+    if "maximum_page_size" in value:
+        out["maximumPageSize"] = value["maximum_page_size"]
+    if "reverse_order" in value:
+        out["reverseOrder"] = value["reverse_order"]
     return out
 
 
@@ -57,10 +59,6 @@ def deserialize_aws_json_1_0(data: dict) -> ListDomainsInput:
         raise DeserializationError("ListDomainsInput.registration_status required")
     if data.get("maximumPageSize") is not None:
         out["maximum_page_size"] = data["maximumPageSize"]
-    else:
-        out["maximum_page_size"] = 0
     if data.get("reverseOrder") is not None:
         out["reverse_order"] = data["reverseOrder"]
-    else:
-        out["reverse_order"] = False
     return out

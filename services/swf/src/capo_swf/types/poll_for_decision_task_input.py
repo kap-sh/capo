@@ -25,13 +25,13 @@ class PollForDecisionTaskInput(TypedDict, closed=True):
     """<p>Identity of the decider making the request, which is recorded in the DecisionTaskStarted event in the workflow history. This enables diagnostic tracing when problems arise. The form of this identity is user defined.</p>"""
     next_page_token: NotRequired["capo_swf.types.page_token.PageToken"]
     """<p>If <code>NextPageToken</code> is returned there are more results available. The value of <code>NextPageToken</code> is a unique pagination token for each page. Make the call again using the returned token to retrieve the next page. Keep all other arguments unchanged. Each pagination token expires after 24 hours. Using an expired pagination token will return a <code>400</code> error: "<code>Specified token has exceeded its maximum lifetime</code>". </p> <p>The configured <code>maximumPageSize</code> determines how many results can be returned in a single call. </p> <note> <p>The <code>nextPageToken</code> returned by this action cannot be used with <a>GetWorkflowExecutionHistory</a> to get the next page. You must call <a>PollForDecisionTask</a> again (with the <code>nextPageToken</code>) to retrieve the next page of history records. Calling <a>PollForDecisionTask</a> with a <code>nextPageToken</code> doesn't return a new decision task.</p> </note>"""
-    maximum_page_size: "capo_swf.types.page_size.PageSize"
+    maximum_page_size: NotRequired["capo_swf.types.page_size.PageSize"]
     """<p>The maximum number of results that are returned per call. Use <code>nextPageToken</code> to obtain further pages of results. </p> <p>This is an upper limit only; the actual number of results returned per call may be fewer than the specified maximum.</p>"""
-    reverse_order: "capo_swf.types.reverse_order.ReverseOrder"
+    reverse_order: NotRequired["capo_swf.types.reverse_order.ReverseOrder"]
     """<p>When set to <code>true</code>, returns the events in reverse order. By default the results are returned in ascending order of the <code>eventTimestamp</code> of the events.</p>"""
-    start_at_previous_started_event: (
+    start_at_previous_started_event: NotRequired[
         "capo_swf.types.start_at_previous_started_event.StartAtPreviousStartedEvent"
-    )
+    ]
     """<p>When set to <code>true</code>, returns the events with <code>eventTimestamp</code> greater than or equal to <code>eventTimestamp</code> of the most recent <code>DecisionTaskStarted</code> event. By default, this parameter is set to <code>false</code>.</p>"""
 
 
@@ -48,11 +48,12 @@ def serialize_aws_json_1_0(value: PollForDecisionTaskInput) -> dict:
         out["identity"] = value["identity"]
     if "next_page_token" in value:
         out["nextPageToken"] = value["next_page_token"]
-    out["maximumPageSize"] = value.get("maximum_page_size", 0)
-    out["reverseOrder"] = value.get("reverse_order", False)
-    out["startAtPreviousStartedEvent"] = value.get(
-        "start_at_previous_started_event", False
-    )
+    if "maximum_page_size" in value:
+        out["maximumPageSize"] = value["maximum_page_size"]
+    if "reverse_order" in value:
+        out["reverseOrder"] = value["reverse_order"]
+    if "start_at_previous_started_event" in value:
+        out["startAtPreviousStartedEvent"] = value["start_at_previous_started_event"]
     return out
 
 
@@ -76,14 +77,8 @@ def deserialize_aws_json_1_0(data: dict) -> PollForDecisionTaskInput:
         out["next_page_token"] = data["nextPageToken"]
     if data.get("maximumPageSize") is not None:
         out["maximum_page_size"] = data["maximumPageSize"]
-    else:
-        out["maximum_page_size"] = 0
     if data.get("reverseOrder") is not None:
         out["reverse_order"] = data["reverseOrder"]
-    else:
-        out["reverse_order"] = False
     if data.get("startAtPreviousStartedEvent") is not None:
         out["start_at_previous_started_event"] = data["startAtPreviousStartedEvent"]
-    else:
-        out["start_at_previous_started_event"] = False
     return out

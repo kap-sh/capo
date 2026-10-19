@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 class ListResourcePoliciesRequest(TypedDict, closed=True):
     resource_arn: "capo_eventbridgev2.types.event_bus_arn.EventBusArn"
     next_token: NotRequired["capo_eventbridgev2.types.next_token.NextToken"]
-    max_results: "capo_eventbridgev2.types.max_results.MaxResults"
+    max_results: NotRequired["capo_eventbridgev2.types.max_results.MaxResults"]
 
 
 # --- rpcv2Cbor ser/de ---
@@ -24,7 +24,8 @@ def serialize_cbor(value: ListResourcePoliciesRequest) -> dict:
     out["ResourceArn"] = value["resource_arn"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
-    out["MaxResults"] = value.get("max_results", 100)
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
     return out
 
 
@@ -38,6 +39,4 @@ def deserialize_cbor(data: dict) -> ListResourcePoliciesRequest:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
-    else:
-        out["max_results"] = 100
     return out

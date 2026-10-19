@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 class ListEngagementResourceAssociationsRequest(TypedDict, closed=True):
     catalog: "capo_partnercentral_selling.types.catalog_identifier.CatalogIdentifier"
     """<p>Specifies the catalog in which to search for engagement-resource associations. Valid Values: "AWS" or "Sandbox"</p> <ul> <li> <p> <code>AWS</code> for production environments.</p> </li> <li> <p> <code>Sandbox</code> for testing and development purposes.</p> </li> </ul>"""
-    max_results: "capo_partnercentral_selling.types.page_size.PageSize"
+    max_results: NotRequired["capo_partnercentral_selling.types.page_size.PageSize"]
     """<p>Limits the number of results returned in a single call. Use this to control the number of results returned, especially useful for pagination.</p>"""
     next_token: NotRequired["str"]
     """<p>A token used for pagination of results. Include this token in subsequent requests to retrieve the next set of results.</p>"""
@@ -42,7 +42,8 @@ class ListEngagementResourceAssociationsRequest(TypedDict, closed=True):
 def serialize_aws_json_1_0(value: ListEngagementResourceAssociationsRequest) -> dict:
     out: dict = {}
     out["Catalog"] = value["catalog"]
-    out["MaxResults"] = value.get("max_results", 100)
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
     if "engagement_identifier" in value:
@@ -72,8 +73,6 @@ def deserialize_aws_json_1_0(data: dict) -> ListEngagementResourceAssociationsRe
         )
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
-    else:
-        out["max_results"] = 100
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("EngagementIdentifier") is not None:

@@ -17,7 +17,9 @@ if TYPE_CHECKING:
 class ListConfigurationCheckOperationsInput(TypedDict, closed=True):
     application_id: "capo_ssm_sap.types.application_id.ApplicationId"
     """<p>The ID of the application.</p>"""
-    list_mode: "capo_ssm_sap.types.configuration_check_operation_listing_mode.ConfigurationCheckOperationListingMode"
+    list_mode: NotRequired[
+        "capo_ssm_sap.types.configuration_check_operation_listing_mode.ConfigurationCheckOperationListingMode"
+    ]
     """<p>The mode for listing configuration check operations. Defaults to "LATEST_PER_CHECK".</p> <ul> <li> <p>LATEST_PER_CHECK - Will list the latest configuration check operation per check type.</p> </li> <li> <p>ALL_OPERATIONS - Will list all configuration check operations performed on the application.</p> </li> </ul>"""
     max_results: NotRequired["capo_ssm_sap.types.max_results.MaxResults"]
     """<p>The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned nextToken value.</p>"""
@@ -31,13 +33,14 @@ class ListConfigurationCheckOperationsInput(TypedDict, closed=True):
 def serialize_json(value: ListConfigurationCheckOperationsInput) -> dict:
     out: dict = {}
     out["ApplicationId"] = value["application_id"]
-    import capo_ssm_sap.types.configuration_check_operation_listing_mode
+    if "list_mode" in value:
+        import capo_ssm_sap.types.configuration_check_operation_listing_mode
 
-    out["ListMode"] = (
-        capo_ssm_sap.types.configuration_check_operation_listing_mode.serialize_json(
-            value.get("list_mode", "LATEST_PER_CHECK")
+        out["ListMode"] = (
+            capo_ssm_sap.types.configuration_check_operation_listing_mode.serialize_json(
+                value["list_mode"]
+            )
         )
-    )
     if "max_results" in value:
         out["MaxResults"] = value["max_results"]
     if "next_token" in value:
@@ -65,8 +68,6 @@ def deserialize_json(data: dict) -> ListConfigurationCheckOperationsInput:
                 data["ListMode"]
             )
         )
-    else:
-        out["list_mode"] = "LATEST_PER_CHECK"
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

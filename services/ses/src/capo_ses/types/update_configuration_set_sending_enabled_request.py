@@ -29,9 +29,7 @@ def serialize_query(
     pairs.append(
         (f"{key_prefix}ConfigurationSetName", str(value["configuration_set_name"]))
     )
-    pairs.append(
-        (f"{key_prefix}Enabled", "true" if value.get("enabled", False) else "false")
-    )
+    pairs.append((f"{key_prefix}Enabled", "true" if value["enabled"] else "false"))
 
 
 def deserialize_query(el: Element) -> UpdateConfigurationSetSendingEnabledRequest:
@@ -47,5 +45,7 @@ def deserialize_query(el: Element) -> UpdateConfigurationSetSendingEnabledReques
     if child_enabled is not None:
         out["enabled"] = (child_enabled.text or "").lower() == "true"
     else:
-        out["enabled"] = False
+        raise DeserializationError(
+            "UpdateConfigurationSetSendingEnabledRequest.enabled required"
+        )
     return out

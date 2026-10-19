@@ -20,7 +20,7 @@ class StopPipelineExecutionInput(TypedDict, closed=True):
         "capo_codepipeline.types.pipeline_execution_id.PipelineExecutionId"
     )
     """<p>The ID of the pipeline execution to be stopped in the current stage. Use the <code>GetPipelineState</code> action to retrieve the current pipelineExecutionId.</p>"""
-    abandon: "capo_codepipeline.types.boolean.Boolean"
+    abandon: NotRequired["capo_codepipeline.types.boolean.Boolean"]
     """<p>Use this option to stop the pipeline execution by abandoning, rather than finishing, in-progress actions.</p> <note> <p>This option can lead to failed or out-of-sequence tasks.</p> </note>"""
     reason: NotRequired[
         "capo_codepipeline.types.stop_pipeline_execution_reason.StopPipelineExecutionReason"
@@ -33,7 +33,8 @@ def serialize_aws_json_1_1(value: StopPipelineExecutionInput) -> dict:
     out: dict = {}
     out["pipelineName"] = value["pipeline_name"]
     out["pipelineExecutionId"] = value["pipeline_execution_id"]
-    out["abandon"] = value.get("abandon", False)
+    if "abandon" in value:
+        out["abandon"] = value["abandon"]
     if "reason" in value:
         out["reason"] = value["reason"]
     return out
@@ -53,8 +54,6 @@ def deserialize_aws_json_1_1(data: dict) -> StopPipelineExecutionInput:
         )
     if data.get("abandon") is not None:
         out["abandon"] = data["abandon"]
-    else:
-        out["abandon"] = False
     if data.get("reason") is not None:
         out["reason"] = data["reason"]
     return out

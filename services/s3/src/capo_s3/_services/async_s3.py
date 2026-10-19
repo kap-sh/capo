@@ -8415,12 +8415,9 @@ class AsyncS3Client:
         expected_bucket_owner: Optional["capo_s3.types.account_id.AccountId"] = None,
     ) -> str:
         _, options_ = self.operation_options(config_overrides)
-        import base64
-
         input_: "capo_s3.types.put_object_request.PutObjectRequest" = {
             "bucket": bucket,
             "key": key,
-            "body": ensure_async_iterator(base64.b64decode("")),
         }
         if acl is not None:
             input_["acl"] = acl
@@ -9969,14 +9966,11 @@ class AsyncS3Client:
         expected_bucket_owner: Optional["capo_s3.types.account_id.AccountId"] = None,
     ) -> str:
         _, options_ = self.operation_options(config_overrides)
-        import base64
-
         input_: "capo_s3.types.upload_part_request.UploadPartRequest" = {
             "bucket": bucket,
             "key": key,
             "part_number": part_number,
             "upload_id": upload_id,
-            "body": ensure_async_iterator(base64.b64decode("")),
         }
         if content_length is not None:
             input_["content_length"] = content_length

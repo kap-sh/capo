@@ -20,7 +20,7 @@ class DescribeRuleGroupRequest(TypedDict, closed=True):
     """<p>The Amazon Resource Name (ARN) of the rule group.</p> <p>You must specify the ARN or the name, and you can specify both. </p>"""
     type: NotRequired["capo_network_firewall.types.rule_group_type.RuleGroupType"]
     """<p>Indicates whether the rule group is stateless or stateful. If the rule group is stateless, it contains stateless rules. If it is stateful, it contains stateful rules. </p> <note> <p>This setting is required for requests that do not include the <code>RuleGroupARN</code>.</p> </note>"""
-    analyze_rule_group: "capo_network_firewall.types.boolean.Boolean"
+    analyze_rule_group: NotRequired["capo_network_firewall.types.boolean.Boolean"]
     """<p>Indicates whether you want Network Firewall to analyze the stateless rules in the rule group for rule behavior such as asymmetric routing. If set to <code>TRUE</code>, Network Firewall runs the analysis.</p>"""
 
 
@@ -39,7 +39,8 @@ def serialize_aws_json_1_0(value: DescribeRuleGroupRequest) -> dict:
                 value["type"]
             )
         )
-    out["AnalyzeRuleGroup"] = value.get("analyze_rule_group", False)
+    if "analyze_rule_group" in value:
+        out["AnalyzeRuleGroup"] = value["analyze_rule_group"]
     return out
 
 
@@ -59,6 +60,4 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeRuleGroupRequest:
         )
     if data.get("AnalyzeRuleGroup") is not None:
         out["analyze_rule_group"] = data["AnalyzeRuleGroup"]
-    else:
-        out["analyze_rule_group"] = False
     return out

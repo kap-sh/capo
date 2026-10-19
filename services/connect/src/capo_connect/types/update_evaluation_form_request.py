@@ -52,7 +52,7 @@ class UpdateEvaluationFormRequest(TypedDict, closed=True):
         "capo_connect.types.evaluation_review_configuration.EvaluationReviewConfiguration"
     ]
     """<p>Configuration for evaluation review settings of the evaluation form.</p>"""
-    as_draft: "capo_connect.types.boxed_boolean.BoxedBoolean"
+    as_draft: NotRequired["capo_connect.types.boxed_boolean.BoxedBoolean"]
     """<p>A boolean flag indicating whether to update evaluation form to draft state.</p>"""
     client_token: NotRequired["capo_connect.types.client_token.ClientToken"]
     """<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>"""
@@ -73,7 +73,7 @@ class UpdateEvaluationFormRequest(TypedDict, closed=True):
 # --- restJson1 ser/de ---
 def serialize_json(value: UpdateEvaluationFormRequest) -> dict:
     out: dict = {}
-    out["EvaluationFormVersion"] = value.get("evaluation_form_version", 0)
+    out["EvaluationFormVersion"] = value["evaluation_form_version"]
     if "create_new_version" in value:
         out["CreateNewVersion"] = value["create_new_version"]
     out["Title"] = value["title"]
@@ -108,7 +108,8 @@ def serialize_json(value: UpdateEvaluationFormRequest) -> dict:
                 value["review_configuration"]
             )
         )
-    out["AsDraft"] = value.get("as_draft", False)
+    if "as_draft" in value:
+        out["AsDraft"] = value["as_draft"]
     if "client_token" in value:
         out["ClientToken"] = value["client_token"]
     if "target_configuration" in value:
@@ -137,7 +138,9 @@ def deserialize_json(data: dict) -> UpdateEvaluationFormRequest:
     if data.get("EvaluationFormVersion") is not None:
         out["evaluation_form_version"] = data["EvaluationFormVersion"]
     else:
-        out["evaluation_form_version"] = 0
+        raise DeserializationError(
+            "UpdateEvaluationFormRequest.evaluation_form_version required"
+        )
     if data.get("CreateNewVersion") is not None:
         out["create_new_version"] = data["CreateNewVersion"]
     if data.get("Title") is not None:
@@ -180,8 +183,6 @@ def deserialize_json(data: dict) -> UpdateEvaluationFormRequest:
         )
     if data.get("AsDraft") is not None:
         out["as_draft"] = data["AsDraft"]
-    else:
-        out["as_draft"] = False
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("TargetConfiguration") is not None:

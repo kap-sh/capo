@@ -30,7 +30,7 @@ def serialize_query(
     pairs.append(
         (
             f"{key_prefix}ForwardingEnabled",
-            "true" if value.get("forwarding_enabled", False) else "false",
+            "true" if value["forwarding_enabled"] else "false",
         )
     )
 
@@ -50,5 +50,7 @@ def deserialize_query(el: Element) -> SetIdentityFeedbackForwardingEnabledReques
             child_forwarding_enabled.text or ""
         ).lower() == "true"
     else:
-        out["forwarding_enabled"] = False
+        raise DeserializationError(
+            "SetIdentityFeedbackForwardingEnabledRequest.forwarding_enabled required"
+        )
     return out

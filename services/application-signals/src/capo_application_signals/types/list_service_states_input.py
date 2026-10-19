@@ -20,11 +20,13 @@ class ListServiceStatesInput(TypedDict, closed=True):
     """<p>The start of the time period to retrieve service state information for. When used in a raw HTTP Query API, it is formatted as epoch time in seconds. For example, <code>1698778057</code>.</p>"""
     end_time: "datetime.datetime"
     """<p>The end of the time period to retrieve service state information for. When used in a raw HTTP Query API, it is formatted as epoch time in seconds. For example, <code>1698778057</code>.</p>"""
-    max_results: "capo_application_signals.types.list_service_states_max_results.ListServiceStatesMaxResults"
+    max_results: NotRequired[
+        "capo_application_signals.types.list_service_states_max_results.ListServiceStatesMaxResults"
+    ]
     """<p>The maximum number of service states to return in one operation. If you omit this parameter, the default of 20 is used.</p>"""
     next_token: NotRequired["capo_application_signals.types.next_token.NextToken"]
     """<p>Include this value, if it was returned by the previous operation, to get the next set of service states.</p>"""
-    include_linked_accounts: "bool"
+    include_linked_accounts: NotRequired["bool"]
     """<p>If you are using this operation in a monitoring account, specify <code>true</code> to include service states from source accounts in the returned data.</p>"""
     aws_account_id: NotRequired[
         "capo_application_signals.types.aws_account_id.AwsAccountId"
@@ -49,10 +51,12 @@ def serialize_json(value: ListServiceStatesInput) -> dict:
     out["EndTime"] = capo_application_signals.types._prelude.timestamp.serialize_json(
         value["end_time"]
     )
-    out["MaxResults"] = value.get("max_results", 20)
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
-    out["IncludeLinkedAccounts"] = value.get("include_linked_accounts", False)
+    if "include_linked_accounts" in value:
+        out["IncludeLinkedAccounts"] = value["include_linked_accounts"]
     if "aws_account_id" in value:
         out["AwsAccountId"] = value["aws_account_id"]
     if "attribute_filters" in value:
@@ -90,14 +94,10 @@ def deserialize_json(data: dict) -> ListServiceStatesInput:
         raise DeserializationError("ListServiceStatesInput.end_time required")
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
-    else:
-        out["max_results"] = 20
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("IncludeLinkedAccounts") is not None:
         out["include_linked_accounts"] = data["IncludeLinkedAccounts"]
-    else:
-        out["include_linked_accounts"] = False
     if data.get("AwsAccountId") is not None:
         out["aws_account_id"] = data["AwsAccountId"]
     if data.get("AttributeFilters") is not None:

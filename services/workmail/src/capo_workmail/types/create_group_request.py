@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_workmail.errors import DeserializationError
 
@@ -17,7 +17,7 @@ class CreateGroupRequest(TypedDict, closed=True):
     """<p>The organization under which the group is to be created.</p>"""
     name: "capo_workmail.types.group_name.GroupName"
     """<p>The name of the group.</p>"""
-    hidden_from_global_address_list: "capo_workmail.types.boolean.Boolean"
+    hidden_from_global_address_list: NotRequired["capo_workmail.types.boolean.Boolean"]
     """<p>If this parameter is enabled, the group will be hidden from the address book.</p>"""
 
 
@@ -26,9 +26,8 @@ def serialize_aws_json_1_1(value: CreateGroupRequest) -> dict:
     out: dict = {}
     out["OrganizationId"] = value["organization_id"]
     out["Name"] = value["name"]
-    out["HiddenFromGlobalAddressList"] = value.get(
-        "hidden_from_global_address_list", False
-    )
+    if "hidden_from_global_address_list" in value:
+        out["HiddenFromGlobalAddressList"] = value["hidden_from_global_address_list"]
     return out
 
 
@@ -44,6 +43,4 @@ def deserialize_aws_json_1_1(data: dict) -> CreateGroupRequest:
         raise DeserializationError("CreateGroupRequest.name required")
     if data.get("HiddenFromGlobalAddressList") is not None:
         out["hidden_from_global_address_list"] = data["HiddenFromGlobalAddressList"]
-    else:
-        out["hidden_from_global_address_list"] = False
     return out

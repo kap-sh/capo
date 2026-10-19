@@ -18,7 +18,9 @@ class SearchSpacesRequest(TypedDict, closed=True):
     """<p>The ID of the Amazon Web Services account that contains the spaces.</p>"""
     next_token: NotRequired["capo_quicksight.types.next_token.NextToken"]
     """<p>The token for the next set of results, or null if there are no more results.</p>"""
-    max_results: "capo_quicksight.types.spaces_max_results.SpacesMaxResults"
+    max_results: NotRequired[
+        "capo_quicksight.types.spaces_max_results.SpacesMaxResults"
+    ]
     """<p>The maximum number of results to return.</p>"""
     filters: "capo_quicksight.types.space_quicksight_search_filters.SpaceQuicksightSearchFilters"
     """<p>The filters to apply to the search.</p>"""
@@ -29,7 +31,8 @@ def serialize_json(value: SearchSpacesRequest) -> dict:
     out: dict = {}
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
-    out["MaxResults"] = value.get("max_results", 100)
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
     import capo_quicksight.types.space_quicksight_search_filters
 
     out["Filters"] = (
@@ -46,8 +49,6 @@ def deserialize_json(data: dict) -> SearchSpacesRequest:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
-    else:
-        out["max_results"] = 100
     if data.get("Filters") is not None:
         import capo_quicksight.types.space_quicksight_search_filters
 

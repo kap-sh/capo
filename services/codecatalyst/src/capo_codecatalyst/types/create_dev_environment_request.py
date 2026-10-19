@@ -35,9 +35,9 @@ class CreateDevEnvironmentRequest(TypedDict, closed=True):
     """<p>Information about the integrated development environment (IDE) configured for a Dev Environment.</p> <note> <p>An IDE is required to create a Dev Environment. For Dev Environment creation, this field contains configuration information and must be provided. </p> </note>"""
     instance_type: "capo_codecatalyst.types.instance_type.InstanceType"
     """<p>The Amazon EC2 instace type to use for the Dev Environment. </p>"""
-    inactivity_timeout_minutes: (
+    inactivity_timeout_minutes: NotRequired[
         "capo_codecatalyst.types.inactivity_timeout_minutes.InactivityTimeoutMinutes"
-    )
+    ]
     """<p>The amount of time the Dev Environment will run without any activity detected before stopping, in minutes. Only whole integers are allowed. Dev Environments consume compute minutes when running.</p>"""
     persistent_storage: "capo_codecatalyst.types.persistent_storage_configuration.PersistentStorageConfiguration"
     """<p>Information about the amount of storage allocated to the Dev Environment. </p> <note> <p>By default, a Dev Environment is configured to have 16GB of persistent storage when created from the Amazon CodeCatalyst console, but there is no default when programmatically creating a Dev Environment. Valid values for persistent storage are based on memory sizes in 16GB increments. Valid values are 16, 32, and 64.</p> </note>"""
@@ -65,7 +65,8 @@ def serialize_json(value: CreateDevEnvironmentRequest) -> dict:
             value["ides"]
         )
     out["instanceType"] = value["instance_type"]
-    out["inactivityTimeoutMinutes"] = value.get("inactivity_timeout_minutes", 0)
+    if "inactivity_timeout_minutes" in value:
+        out["inactivityTimeoutMinutes"] = value["inactivity_timeout_minutes"]
     import capo_codecatalyst.types.persistent_storage_configuration
 
     out["persistentStorage"] = (
@@ -104,8 +105,6 @@ def deserialize_json(data: dict) -> CreateDevEnvironmentRequest:
         raise DeserializationError("CreateDevEnvironmentRequest.instance_type required")
     if data.get("inactivityTimeoutMinutes") is not None:
         out["inactivity_timeout_minutes"] = data["inactivityTimeoutMinutes"]
-    else:
-        out["inactivity_timeout_minutes"] = 0
     if data.get("persistentStorage") is not None:
         import capo_codecatalyst.types.persistent_storage_configuration
 

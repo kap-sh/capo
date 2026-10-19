@@ -109,7 +109,8 @@ def build_request(
         "{RecoveryPointArn}", quote(input_["recovery_point_arn"], safe="")
     )
     params: list[tuple[str, str]] = []
-    params.append(("MaxResults", str(input_.get("max_results", 100))))
+    if "max_results" in input_:
+        params.append(("MaxResults", str(input_["max_results"])))
     if "next_token" in input_:
         params.append(("NextToken", input_["next_token"]))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}

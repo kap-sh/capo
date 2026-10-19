@@ -31,7 +31,7 @@ class CreateAgentProfileRequest(TypedDict, closed=True):
     """<p>The business overview for this profile.</p>"""
     pillars: "capo_wellarchitected.types.pillars.Pillars"
     """<p>The Well-Architected Tool Framework pillars to associate with this profile.</p>"""
-    deletion_protection: "bool"
+    deletion_protection: NotRequired["bool"]
     """<p>Indicates whether deletion protection is enabled for the profile.</p>"""
     execution_role_arn: "capo_wellarchitected.types.role_arn.RoleArn"
     """<p>The ARN of the IAM execution role used for recommendation actions.</p>"""
@@ -56,7 +56,8 @@ def serialize_json(value: CreateAgentProfileRequest) -> dict:
     import capo_wellarchitected.types.pillars
 
     out["pillars"] = capo_wellarchitected.types.pillars.serialize_json(value["pillars"])
-    out["deletionProtection"] = value.get("deletion_protection", True)
+    if "deletion_protection" in value:
+        out["deletionProtection"] = value["deletion_protection"]
     out["executionRoleArn"] = value["execution_role_arn"]
     import capo_wellarchitected.types.aggregation_configurations
 
@@ -96,8 +97,6 @@ def deserialize_json(data: dict) -> CreateAgentProfileRequest:
         raise DeserializationError("CreateAgentProfileRequest.pillars required")
     if data.get("deletionProtection") is not None:
         out["deletion_protection"] = data["deletionProtection"]
-    else:
-        out["deletion_protection"] = True
     if data.get("executionRoleArn") is not None:
         out["execution_role_arn"] = data["executionRoleArn"]
     else:

@@ -15,7 +15,7 @@ class DescribeTagsRequest(TypedDict, closed=True):
         "capo_application_discovery_service.types.tag_filters.TagFilters"
     ]
     """<p>You can filter the list using a <i>key</i>-<i>value</i> format. You can separate these items by using logical operators. Allowed filters include <code>tagKey</code>, <code>tagValue</code>, and <code>configurationId</code>. </p>"""
-    max_results: "capo_application_discovery_service.types.integer.Integer"
+    max_results: NotRequired["capo_application_discovery_service.types.integer.Integer"]
     """<p>The total number of items to return in a single page of output. The maximum value is 100.</p>"""
     next_token: NotRequired[
         "capo_application_discovery_service.types.next_token.NextToken"
@@ -34,7 +34,8 @@ def serialize_aws_json_1_1(value: DescribeTagsRequest) -> dict:
                 value["filters"]
             )
         )
-    out["maxResults"] = value.get("max_results", 0)
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
     return out
@@ -52,8 +53,6 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeTagsRequest:
         )
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
-    else:
-        out["max_results"] = 0
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

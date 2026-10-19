@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 
 class ListEnrollmentStatusesRequest(TypedDict, closed=True):
-    include_organization_info: "bool"
+    include_organization_info: NotRequired["bool"]
     """<p>Indicates whether to return the enrollment status for the organization.</p>"""
     account_id: NotRequired["capo_cost_optimization_hub.types.account_id.AccountId"]
     """<p>The account ID of a member account in the organization.</p>"""
@@ -23,7 +23,8 @@ class ListEnrollmentStatusesRequest(TypedDict, closed=True):
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: ListEnrollmentStatusesRequest) -> dict:
     out: dict = {}
-    out["includeOrganizationInfo"] = value.get("include_organization_info", False)
+    if "include_organization_info" in value:
+        out["includeOrganizationInfo"] = value["include_organization_info"]
     if "account_id" in value:
         out["accountId"] = value["account_id"]
     if "next_token" in value:
@@ -37,8 +38,6 @@ def deserialize_aws_json_1_0(data: dict) -> ListEnrollmentStatusesRequest:
     out: ListEnrollmentStatusesRequest = {}  # type: ignore[typeddict-item]
     if data.get("includeOrganizationInfo") is not None:
         out["include_organization_info"] = data["includeOrganizationInfo"]
-    else:
-        out["include_organization_info"] = False
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     if data.get("nextToken") is not None:

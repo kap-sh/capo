@@ -31,7 +31,7 @@ class CreateDataTableAttributeRequest(TypedDict, closed=True):
         "capo_connect.types.data_table_description.DataTableDescription"
     ]
     """<p>An optional description for the attribute. Must conform to Connect human readable string specification and have 0-250 characters. Whitespace trimmed before persisting.</p>"""
-    primary: "capo_connect.types.boolean.Boolean"
+    primary: NotRequired["capo_connect.types.boolean.Boolean"]
     """<p>Optional boolean that defaults to false. Determines if the value is used to identify a record in the table. Values for primary attributes must not be expressions.</p>"""
     validation: NotRequired["capo_connect.types.validation.Validation"]
     """<p>Optional validation rules for the attribute. Borrows heavily from JSON Schema - Draft 2020-12. The maximum length of arrays within validations and depth of validations is 5. There are default limits that apply to all types. Customer specified limits in excess of the default limits are not permitted.</p>"""
@@ -50,7 +50,8 @@ def serialize_json(value: CreateDataTableAttributeRequest) -> dict:
     )
     if "description" in value:
         out["Description"] = value["description"]
-    out["Primary"] = value.get("primary", False)
+    if "primary" in value:
+        out["Primary"] = value["primary"]
     if "validation" in value:
         import capo_connect.types.validation
 
@@ -82,8 +83,6 @@ def deserialize_json(data: dict) -> CreateDataTableAttributeRequest:
         out["description"] = data["Description"]
     if data.get("Primary") is not None:
         out["primary"] = data["Primary"]
-    else:
-        out["primary"] = False
     if data.get("Validation") is not None:
         import capo_connect.types.validation
 

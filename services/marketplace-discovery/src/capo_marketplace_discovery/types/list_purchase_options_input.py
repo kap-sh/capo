@@ -18,7 +18,7 @@ class ListPurchaseOptionsInput(TypedDict, closed=True):
         "capo_marketplace_discovery.types.purchase_option_filter_list.PurchaseOptionFilterList"
     ]
     """<p>Filters to narrow the results. Multiple filters are combined with AND logic. Multiple values within the same filter are combined with OR logic.</p>"""
-    max_results: "capo_marketplace_discovery.types.max_results.MaxResults"
+    max_results: NotRequired["capo_marketplace_discovery.types.max_results.MaxResults"]
     """<p>The maximum number of results that are returned per call. You can use <code>nextToken</code> to get more results.</p>"""
     next_token: NotRequired["capo_marketplace_discovery.types.next_token.NextToken"]
     """<p>If <code>nextToken</code> is returned, there are more results available. Make the call again using the returned token to retrieve the next page.</p>"""
@@ -37,7 +37,8 @@ def serialize_json(value: ListPurchaseOptionsInput) -> dict:
                 value["filters"]
             )
         )
-    out["maxResults"] = value.get("max_results", 25)
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
     return out
@@ -57,8 +58,6 @@ def deserialize_json(data: dict) -> ListPurchaseOptionsInput:
         )
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
-    else:
-        out["max_results"] = 25
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

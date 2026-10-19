@@ -22,7 +22,9 @@ class ListDataIntegrationEventsRequest(TypedDict, closed=True):
         "capo_supplychain.types.data_integration_event_next_token.DataIntegrationEventNextToken"
     ]
     """<p>The pagination token to fetch the next page of the data integration events.</p>"""
-    max_results: "capo_supplychain.types.data_integration_event_max_results.DataIntegrationEventMaxResults"
+    max_results: NotRequired[
+        "capo_supplychain.types.data_integration_event_max_results.DataIntegrationEventMaxResults"
+    ]
     """<p>Specify the maximum number of data integration events to fetch in one paginated request.</p>"""
 
 

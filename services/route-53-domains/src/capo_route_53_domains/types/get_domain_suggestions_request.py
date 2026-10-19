@@ -27,7 +27,7 @@ class GetDomainSuggestionsRequest(TypedDict, closed=True):
 def serialize_aws_json_1_1(value: GetDomainSuggestionsRequest) -> dict:
     out: dict = {}
     out["DomainName"] = value["domain_name"]
-    out["SuggestionCount"] = value.get("suggestion_count", 0)
+    out["SuggestionCount"] = value["suggestion_count"]
     out["OnlyAvailable"] = value["only_available"]
     if "only_standard_prices" in value:
         out["OnlyStandardPrices"] = value["only_standard_prices"]
@@ -43,7 +43,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetDomainSuggestionsRequest:
     if data.get("SuggestionCount") is not None:
         out["suggestion_count"] = data["SuggestionCount"]
     else:
-        out["suggestion_count"] = 0
+        raise DeserializationError(
+            "GetDomainSuggestionsRequest.suggestion_count required"
+        )
     if data.get("OnlyAvailable") is not None:
         out["only_available"] = data["OnlyAvailable"]
     else:

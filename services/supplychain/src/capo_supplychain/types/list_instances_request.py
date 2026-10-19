@@ -16,7 +16,9 @@ class ListInstancesRequest(TypedDict, closed=True):
         "capo_supplychain.types.instance_next_token.InstanceNextToken"
     ]
     """<p>The pagination token to fetch the next page of instances.</p>"""
-    max_results: "capo_supplychain.types.instance_max_results.InstanceMaxResults"
+    max_results: NotRequired[
+        "capo_supplychain.types.instance_max_results.InstanceMaxResults"
+    ]
     """<p>Specify the maximum number of instances to fetch in this paginated request.</p>"""
     instance_name_filter: NotRequired[
         "capo_supplychain.types.instance_name_list.InstanceNameList"

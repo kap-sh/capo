@@ -20,7 +20,7 @@ class DeleteLabelsRequest(TypedDict, closed=True):
     """<p>Amazon WorkDocs authentication token. Not required when using Amazon Web Services administrator credentials to access the API.</p>"""
     labels: NotRequired["capo_workdocs.types.shared_labels.SharedLabels"]
     """<p>List of labels to delete from the resource.</p>"""
-    delete_all: "capo_workdocs.types.boolean_type.BooleanType"
+    delete_all: NotRequired["capo_workdocs.types.boolean_type.BooleanType"]
     """<p>Flag to request removal of all labels from the specified resource.</p>"""
 
 

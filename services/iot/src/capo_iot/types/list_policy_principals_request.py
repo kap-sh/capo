@@ -18,7 +18,7 @@ class ListPolicyPrincipalsRequest(TypedDict, closed=True):
     """<p>The marker for the next set of results.</p>"""
     page_size: NotRequired["capo_iot.types.page_size.PageSize"]
     """<p>The result page size.</p>"""
-    ascending_order: "capo_iot.types.ascending_order.AscendingOrder"
+    ascending_order: NotRequired["capo_iot.types.ascending_order.AscendingOrder"]
     """<p>Specifies the order for results. If true, the results are returned in ascending creation order.</p>"""
 
 

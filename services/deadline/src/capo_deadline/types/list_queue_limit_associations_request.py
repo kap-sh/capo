@@ -17,7 +17,7 @@ class ListQueueLimitAssociationsRequest(TypedDict, closed=True):
     """<p>The unique identifier of the farm that contains the limits and associations.</p>"""
     next_token: NotRequired["capo_deadline.types.next_token.NextToken"]
     """<p>The token for the next set of results, or <code>null</code> to start from the beginning.</p>"""
-    max_results: "capo_deadline.types.max_results.MaxResults"
+    max_results: NotRequired["capo_deadline.types.max_results.MaxResults"]
     """<p>The maximum number of associations to return in each page of results.</p>"""
     queue_id: NotRequired["capo_deadline.types.queue_id.QueueId"]
     """<p>Specifies that the operation should return only the queue limit associations for the specified queue. If you specify both the <code>queueId</code> and the <code>limitId</code>, only the specified limit is returned if it exists.</p>"""

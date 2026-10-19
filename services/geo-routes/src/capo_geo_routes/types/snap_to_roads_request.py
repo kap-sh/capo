@@ -22,7 +22,7 @@ class SnapToRoadsRequest(TypedDict, closed=True):
         "capo_geo_routes.types.geometry_format.GeometryFormat"
     ]
     """<p>Chooses what the returned SnappedGeometry format should be.</p> <p>Default value: <code>FlexiblePolyline</code> </p>"""
-    snap_radius: "capo_geo_routes.types.distance_meters.DistanceMeters"
+    snap_radius: NotRequired["capo_geo_routes.types.distance_meters.DistanceMeters"]
     """<p>The radius around the provided tracepoint that is considered for snapping.</p> <p> <b>Unit</b>: <code>meters</code> </p> <p>Default value: <code>300</code> </p>"""
     trace_points: (
         "capo_geo_routes.types.road_snap_trace_point_list.RoadSnapTracePointList"
@@ -49,7 +49,8 @@ def serialize_json(value: SnapToRoadsRequest) -> dict:
                 value["snapped_geometry_format"]
             )
         )
-    out["SnapRadius"] = value.get("snap_radius", 0)
+    if "snap_radius" in value:
+        out["SnapRadius"] = value["snap_radius"]
     import capo_geo_routes.types.road_snap_trace_point_list
 
     out["TracePoints"] = (
@@ -86,8 +87,6 @@ def deserialize_json(data: dict) -> SnapToRoadsRequest:
         )
     if data.get("SnapRadius") is not None:
         out["snap_radius"] = data["SnapRadius"]
-    else:
-        out["snap_radius"] = 0
     if data.get("TracePoints") is not None:
         import capo_geo_routes.types.road_snap_trace_point_list
 

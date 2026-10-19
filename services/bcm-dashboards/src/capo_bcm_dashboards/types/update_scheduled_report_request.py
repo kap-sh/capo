@@ -42,9 +42,9 @@ class UpdateScheduledReportRequest(TypedDict, closed=True):
         "capo_bcm_dashboards.types.date_time_range.DateTimeRange"
     ]
     """<p>The date range override to apply to widgets in the scheduled report.</p>"""
-    clear_widget_ids: "bool"
+    clear_widget_ids: NotRequired["bool"]
     """Set to true to clear existing widgetIds."""
-    clear_widget_date_range_override: "bool"
+    clear_widget_date_range_override: NotRequired["bool"]
     """Set to true to clear existing widgetDateRangeOverride."""
 
 
@@ -86,10 +86,10 @@ def serialize_aws_json_1_0(value: UpdateScheduledReportRequest) -> dict:
                 value["widget_date_range_override"]
             )
         )
-    out["clearWidgetIds"] = value.get("clear_widget_ids", False)
-    out["clearWidgetDateRangeOverride"] = value.get(
-        "clear_widget_date_range_override", False
-    )
+    if "clear_widget_ids" in value:
+        out["clearWidgetIds"] = value["clear_widget_ids"]
+    if "clear_widget_date_range_override" in value:
+        out["clearWidgetDateRangeOverride"] = value["clear_widget_date_range_override"]
     return out
 
 
@@ -135,10 +135,6 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateScheduledReportRequest:
         )
     if data.get("clearWidgetIds") is not None:
         out["clear_widget_ids"] = data["clearWidgetIds"]
-    else:
-        out["clear_widget_ids"] = False
     if data.get("clearWidgetDateRangeOverride") is not None:
         out["clear_widget_date_range_override"] = data["clearWidgetDateRangeOverride"]
-    else:
-        out["clear_widget_date_range_override"] = False
     return out

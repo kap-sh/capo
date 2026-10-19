@@ -17,7 +17,9 @@ class ListEngagementMembersRequest(TypedDict, closed=True):
     """<p>The catalog related to the request.</p>"""
     identifier: "capo_partnercentral_selling.types.engagement_arn_or_identifier.EngagementArnOrIdentifier"
     """<p>Identifier of the Engagement record to retrieve members from.</p>"""
-    max_results: "capo_partnercentral_selling.types.member_page_size.MemberPageSize"
+    max_results: NotRequired[
+        "capo_partnercentral_selling.types.member_page_size.MemberPageSize"
+    ]
     """<p>The maximum number of results to return in a single call.</p>"""
     next_token: NotRequired["str"]
     """<p>The token for the next set of results.</p>"""
@@ -28,7 +30,8 @@ def serialize_aws_json_1_0(value: ListEngagementMembersRequest) -> dict:
     out: dict = {}
     out["Catalog"] = value["catalog"]
     out["Identifier"] = value["identifier"]
-    out["MaxResults"] = value.get("max_results", 5)
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
     return out
@@ -46,8 +49,6 @@ def deserialize_aws_json_1_0(data: dict) -> ListEngagementMembersRequest:
         raise DeserializationError("ListEngagementMembersRequest.identifier required")
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
-    else:
-        out["max_results"] = 5
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

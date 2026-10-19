@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING, Any
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_cognito_identity_provider.errors import DeserializationError
 
@@ -19,9 +19,9 @@ class DescribeManagedLoginBrandingByClientRequest(TypedDict, closed=True):
     """<p>The ID of the user pool that contains the app client where you want more information about the managed login branding style.</p>"""
     client_id: "capo_cognito_identity_provider.types.client_id_type.ClientIdType"
     """<p>The app client that's assigned to the branding style that you want more information about.</p>"""
-    return_merged_resources: (
+    return_merged_resources: NotRequired[
         "capo_cognito_identity_provider.types.boolean_type.BooleanType"
-    )
+    ]
     """<p>When <code>true</code>, returns values for branding options that are unchanged from Amazon Cognito defaults. When <code>false</code> or when you omit this parameter, returns only values that you customized in your branding style.</p>"""
 
 
@@ -30,7 +30,8 @@ def serialize_aws_json_1_1(value: DescribeManagedLoginBrandingByClientRequest) -
     out: dict = {}
     out["UserPoolId"] = value["user_pool_id"]
     out["ClientId"] = value["client_id"]
-    out["ReturnMergedResources"] = value.get("return_merged_resources", False)
+    if "return_merged_resources" in value:
+        out["ReturnMergedResources"] = value["return_merged_resources"]
     return out
 
 
@@ -50,8 +51,6 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeManagedLoginBrandingByClient
         )
     if data.get("ReturnMergedResources") is not None:
         out["return_merged_resources"] = data["ReturnMergedResources"]
-    else:
-        out["return_merged_resources"] = False
     return out
 
 

@@ -118,12 +118,13 @@ def build_request(
         params.append(("nextToken", input_["next_token"]))
     if "max_results" in input_:
         params.append(("maxResults", str(input_["max_results"])))
-    params.append(
-        (
-            "managedByAWSBackupOnly",
-            "true" if input_.get("managed_by_aws_backup_only", False) else "false",
+    if "managed_by_aws_backup_only" in input_:
+        params.append(
+            (
+                "managedByAWSBackupOnly",
+                "true" if input_["managed_by_aws_backup_only"] else "false",
+            )
         )
-    )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

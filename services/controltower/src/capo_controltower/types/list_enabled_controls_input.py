@@ -23,7 +23,7 @@ class ListEnabledControlsInput(TypedDict, closed=True):
         "capo_controltower.types.enabled_control_filter.EnabledControlFilter"
     ]
     """<p>An input filter for the <code>ListEnabledControls</code> API that lets you select the types of control operations to view.</p>"""
-    include_children: "bool"
+    include_children: NotRequired["bool"]
     """<p>Specifies whether to include enabled controls from child organizational units and child accounts in the response.</p>"""
 
 
@@ -42,7 +42,8 @@ def serialize_json(value: ListEnabledControlsInput) -> dict:
         out["filter"] = capo_controltower.types.enabled_control_filter.serialize_json(
             value["filter"]
         )
-    out["includeChildren"] = value.get("include_children", False)
+    if "include_children" in value:
+        out["includeChildren"] = value["include_children"]
     return out
 
 
@@ -62,6 +63,4 @@ def deserialize_json(data: dict) -> ListEnabledControlsInput:
         )
     if data.get("includeChildren") is not None:
         out["include_children"] = data["includeChildren"]
-    else:
-        out["include_children"] = False
     return out

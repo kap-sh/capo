@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_migration_hub.errors import DeserializationError
 
@@ -26,7 +26,7 @@ class AssociateDiscoveredResourceRequest(TypedDict, closed=True):
         "capo_migration_hub.types.discovered_resource.DiscoveredResource"
     )
     """<p>Object representing a Resource.</p>"""
-    dry_run: "capo_migration_hub.types.dry_run.DryRun"
+    dry_run: NotRequired["capo_migration_hub.types.dry_run.DryRun"]
     """<p>Optional boolean flag to indicate whether any effect should take place. Used to test if the caller has permission to make the call.</p>"""
 
 
@@ -42,7 +42,8 @@ def serialize_aws_json_1_1(value: AssociateDiscoveredResourceRequest) -> dict:
             value["discovered_resource"]
         )
     )
-    out["DryRun"] = value.get("dry_run", False)
+    if "dry_run" in value:
+        out["DryRun"] = value["dry_run"]
     return out
 
 
@@ -74,6 +75,4 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateDiscoveredResourceRequest:
         )
     if data.get("DryRun") is not None:
         out["dry_run"] = data["DryRun"]
-    else:
-        out["dry_run"] = False
     return out

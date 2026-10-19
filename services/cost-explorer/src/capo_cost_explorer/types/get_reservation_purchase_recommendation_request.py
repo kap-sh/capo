@@ -38,9 +38,9 @@ class GetReservationPurchaseRecommendationRequest(TypedDict, closed=True):
         "capo_cost_explorer.types.service_specification.ServiceSpecification"
     ]
     """<p>The hardware specifications for the service instances that you want recommendations for, such as standard or convertible Amazon EC2 instances.</p>"""
-    page_size: (
+    page_size: NotRequired[
         "capo_cost_explorer.types.recommendations_page_size.RecommendationsPageSize"
-    )
+    ]
     """<p>The number of recommendations that you want returned in a single response object.</p>"""
     next_page_token: NotRequired[
         "capo_cost_explorer.types.next_page_token.NextPageToken"
@@ -100,7 +100,8 @@ def serialize_aws_json_1_1(value: GetReservationPurchaseRecommendationRequest) -
                 value["service_specification"]
             )
         )
-    out["PageSize"] = value.get("page_size", 0)
+    if "page_size" in value:
+        out["PageSize"] = value["page_size"]
     if "next_page_token" in value:
         out["NextPageToken"] = value["next_page_token"]
     return out
@@ -164,8 +165,6 @@ def deserialize_aws_json_1_1(data: dict) -> GetReservationPurchaseRecommendation
         )
     if data.get("PageSize") is not None:
         out["page_size"] = data["PageSize"]
-    else:
-        out["page_size"] = 0
     if data.get("NextPageToken") is not None:
         out["next_page_token"] = data["NextPageToken"]
     return out

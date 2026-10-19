@@ -22,11 +22,11 @@ class RegisterCACertificateRequest(TypedDict, closed=True):
         "capo_iot.types.certificate_pem.CertificatePem"
     ]
     """<p>The private key verification certificate. If <code>certificateMode</code> is <code>SNI_ONLY</code>, the <code>verificationCertificate</code> field must be empty. If <code>certificateMode</code> is <code>DEFAULT</code> or not provided, the <code>verificationCertificate</code> field must not be empty. </p>"""
-    set_as_active: "capo_iot.types.set_as_active.SetAsActive"
+    set_as_active: NotRequired["capo_iot.types.set_as_active.SetAsActive"]
     """<p>A boolean value that specifies if the CA certificate is set to active.</p> <p>Valid values: <code>ACTIVE | INACTIVE</code> </p>"""
-    allow_auto_registration: (
+    allow_auto_registration: NotRequired[
         "capo_iot.types.allow_auto_registration.AllowAutoRegistration"
-    )
+    ]
     """<p>Allows this CA certificate to be used for auto registration of device certificates.</p>"""
     registration_config: NotRequired[
         "capo_iot.types.registration_config.RegistrationConfig"

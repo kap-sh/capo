@@ -18,7 +18,9 @@ class PutClusterPolicyInput(TypedDict, closed=True):
     identifier: "capo_dsql.types.cluster_id.ClusterId"
     policy: "capo_dsql.types.policy_document.PolicyDocument"
     """<p>The resource-based policy document to attach to the cluster. This should be a valid JSON policy document that defines permissions and conditions.</p>"""
-    bypass_policy_lockout_safety_check: "capo_dsql.types.bypass_policy_lockout_safety_check.BypassPolicyLockoutSafetyCheck"
+    bypass_policy_lockout_safety_check: NotRequired[
+        "capo_dsql.types.bypass_policy_lockout_safety_check.BypassPolicyLockoutSafetyCheck"
+    ]
     """<p>A flag that allows you to bypass the policy lockout safety check. When set to true, this parameter allows you to apply a policy that might lock you out of the cluster. Use with caution.</p>"""
     expected_policy_version: NotRequired["capo_dsql.types.policy_version.PolicyVersion"]
     """<p>The expected version of the current policy. This parameter ensures that you're updating the correct version of the policy and helps prevent concurrent modification conflicts.</p>"""
@@ -29,9 +31,10 @@ class PutClusterPolicyInput(TypedDict, closed=True):
 def serialize_json(value: PutClusterPolicyInput) -> dict:
     out: dict = {}
     out["policy"] = value["policy"]
-    out["bypassPolicyLockoutSafetyCheck"] = value.get(
-        "bypass_policy_lockout_safety_check", False
-    )
+    if "bypass_policy_lockout_safety_check" in value:
+        out["bypassPolicyLockoutSafetyCheck"] = value[
+            "bypass_policy_lockout_safety_check"
+        ]
     if "expected_policy_version" in value:
         out["expectedPolicyVersion"] = value["expected_policy_version"]
     if "client_token" in value:
@@ -49,8 +52,6 @@ def deserialize_json(data: dict) -> PutClusterPolicyInput:
         out["bypass_policy_lockout_safety_check"] = data[
             "bypassPolicyLockoutSafetyCheck"
         ]
-    else:
-        out["bypass_policy_lockout_safety_check"] = False
     if data.get("expectedPolicyVersion") is not None:
         out["expected_policy_version"] = data["expectedPolicyVersion"]
     if data.get("clientToken") is not None:

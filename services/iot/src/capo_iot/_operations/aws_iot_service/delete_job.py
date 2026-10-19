@@ -104,7 +104,8 @@ def build_request(
     url = endpoint.url.rstrip("/") + "/jobs/{jobId}"
     url = url.replace("{jobId}", quote(input_["job_id"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(("force", "true" if input_.get("force", False) else "false"))
+    if "force" in input_:
+        params.append(("force", "true" if input_["force"] else "false"))
     if "namespace_id" in input_:
         params.append(("namespaceId", input_["namespace_id"]))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}

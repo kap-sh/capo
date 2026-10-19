@@ -20,7 +20,7 @@ class DescribeExportTasksRequest(TypedDict, closed=True):
         "capo_application_discovery_service.types.export_filters.ExportFilters"
     ]
     """<p>One or more filters.</p> <ul> <li> <p> <code>AgentId</code> - ID of the agent whose collected data will be exported</p> </li> </ul>"""
-    max_results: "capo_application_discovery_service.types.integer.Integer"
+    max_results: NotRequired["capo_application_discovery_service.types.integer.Integer"]
     """<p>The maximum number of volume results returned by <code>DescribeExportTasks</code> in paginated output. When this parameter is used, <code>DescribeExportTasks</code> only returns <code>maxResults</code> results in a single page along with a <code>nextToken</code> response element.</p>"""
     next_token: NotRequired[
         "capo_application_discovery_service.types.next_token.NextToken"
@@ -47,7 +47,8 @@ def serialize_aws_json_1_1(value: DescribeExportTasksRequest) -> dict:
                 value["filters"]
             )
         )
-    out["maxResults"] = value.get("max_results", 0)
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
     return out
@@ -73,8 +74,6 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeExportTasksRequest:
         )
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
-    else:
-        out["max_results"] = 0
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

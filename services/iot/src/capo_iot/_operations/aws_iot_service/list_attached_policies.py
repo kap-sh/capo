@@ -133,7 +133,8 @@ def build_request(
     url = endpoint.url.rstrip("/") + "/attached-policies/{target}"
     url = url.replace("{target}", quote(input_["target"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(("recursive", "true" if input_.get("recursive", False) else "false"))
+    if "recursive" in input_:
+        params.append(("recursive", "true" if input_["recursive"] else "false"))
     if "marker" in input_:
         params.append(("marker", input_["marker"]))
     if "page_size" in input_:

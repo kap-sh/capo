@@ -18,9 +18,9 @@ class SelectAggregateResourceConfigRequest(TypedDict, closed=True):
     """<p>The SQL query SELECT command. </p>"""
     configuration_aggregator_name: "capo_config_service.types.configuration_aggregator_name.ConfigurationAggregatorName"
     """<p>The name of the configuration aggregator.</p>"""
-    limit: "capo_config_service.types.limit.Limit"
+    limit: NotRequired["capo_config_service.types.limit.Limit"]
     """<p>The maximum number of query results returned on each page. </p>"""
-    max_results: "capo_config_service.types.limit.Limit"
+    max_results: NotRequired["capo_config_service.types.limit.Limit"]
     """<p>The maximum number of query results returned on each page. Config also allows the Limit request parameter.</p>"""
     next_token: NotRequired["capo_config_service.types.next_token.NextToken"]
     """<p>The nextToken string returned in a previous request that you use to request the next page of results in a paginated response. </p>"""
@@ -31,8 +31,10 @@ def serialize_aws_json_1_1(value: SelectAggregateResourceConfigRequest) -> dict:
     out: dict = {}
     out["Expression"] = value["expression"]
     out["ConfigurationAggregatorName"] = value["configuration_aggregator_name"]
-    out["Limit"] = value.get("limit", 0)
-    out["MaxResults"] = value.get("max_results", 0)
+    if "limit" in value:
+        out["Limit"] = value["limit"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
     return out
@@ -54,12 +56,8 @@ def deserialize_aws_json_1_1(data: dict) -> SelectAggregateResourceConfigRequest
         )
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
-    else:
-        out["limit"] = 0
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
-    else:
-        out["max_results"] = 0
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

@@ -43,7 +43,7 @@ class CreateEvaluationFormRequest(TypedDict, closed=True):
     """<p>Configuration information about automated evaluations.</p>"""
     client_token: NotRequired["capo_connect.types.client_token.ClientToken"]
     """<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>"""
-    as_draft: "capo_connect.types.boxed_boolean.BoxedBoolean"
+    as_draft: NotRequired["capo_connect.types.boxed_boolean.BoxedBoolean"]
     """<p>A boolean flag indicating whether to create evaluation form in draft state.</p>"""
     tags: NotRequired["capo_connect.types.tag_map.TagMap"]
     """<p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>"""
@@ -94,7 +94,8 @@ def serialize_json(value: CreateEvaluationFormRequest) -> dict:
         )
     if "client_token" in value:
         out["ClientToken"] = value["client_token"]
-    out["AsDraft"] = value.get("as_draft", False)
+    if "as_draft" in value:
+        out["AsDraft"] = value["as_draft"]
     if "tags" in value:
         import capo_connect.types.tag_map
 
@@ -164,8 +165,6 @@ def deserialize_json(data: dict) -> CreateEvaluationFormRequest:
         out["client_token"] = data["ClientToken"]
     if data.get("AsDraft") is not None:
         out["as_draft"] = data["AsDraft"]
-    else:
-        out["as_draft"] = False
     if data.get("Tags") is not None:
         import capo_connect.types.tag_map
 

@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING, Any
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_codestar_notifications.errors import DeserializationError
 
@@ -14,9 +14,9 @@ if TYPE_CHECKING:
 class DeleteTargetRequest(TypedDict, closed=True):
     target_address: "capo_codestar_notifications.types.target_address.TargetAddress"
     """<p>The Amazon Resource Name (ARN) of the Amazon Q Developer in chat applications topic or Amazon Q Developer in chat applications client to delete.</p>"""
-    force_unsubscribe_all: (
+    force_unsubscribe_all: NotRequired[
         "capo_codestar_notifications.types.force_unsubscribe_all.ForceUnsubscribeAll"
-    )
+    ]
     """<p>A Boolean value that can be used to delete all associations with this Amazon Q Developer in chat applications topic. The default value is FALSE. If set to TRUE, all associations between that target and every notification rule in your Amazon Web Services account are deleted.</p>"""
 
 
@@ -24,7 +24,8 @@ class DeleteTargetRequest(TypedDict, closed=True):
 def serialize_json(value: DeleteTargetRequest) -> dict:
     out: dict = {}
     out["TargetAddress"] = value["target_address"]
-    out["ForceUnsubscribeAll"] = value.get("force_unsubscribe_all", False)
+    if "force_unsubscribe_all" in value:
+        out["ForceUnsubscribeAll"] = value["force_unsubscribe_all"]
     return out
 
 
@@ -36,8 +37,6 @@ def deserialize_json(data: dict) -> DeleteTargetRequest:
         raise DeserializationError("DeleteTargetRequest.target_address required")
     if data.get("ForceUnsubscribeAll") is not None:
         out["force_unsubscribe_all"] = data["ForceUnsubscribeAll"]
-    else:
-        out["force_unsubscribe_all"] = False
     return out
 
 

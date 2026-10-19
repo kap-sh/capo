@@ -138,7 +138,8 @@ def build_request(
         params.append(("CheckpointToken", input_["checkpoint_token"]))
     if "marker" in input_:
         params.append(("Marker", input_["marker"]))
-    params.append(("MaxItems", str(input_.get("max_items", 0))))
+    if "max_items" in input_:
+        params.append(("MaxItems", str(input_["max_items"])))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

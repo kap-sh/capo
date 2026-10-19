@@ -32,7 +32,7 @@ class UpdateApiCacheRequest(TypedDict, closed=True):
 # --- restJson1 ser/de ---
 def serialize_json(value: UpdateApiCacheRequest) -> dict:
     out: dict = {}
-    out["ttl"] = value.get("ttl", 0)
+    out["ttl"] = value["ttl"]
     import capo_appsync.types.api_caching_behavior
 
     out["apiCachingBehavior"] = capo_appsync.types.api_caching_behavior.serialize_json(
@@ -57,7 +57,7 @@ def deserialize_json(data: dict) -> UpdateApiCacheRequest:
     if data.get("ttl") is not None:
         out["ttl"] = data["ttl"]
     else:
-        out["ttl"] = 0
+        raise DeserializationError("UpdateApiCacheRequest.ttl required")
     if data.get("apiCachingBehavior") is not None:
         import capo_appsync.types.api_caching_behavior
 

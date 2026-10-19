@@ -28,9 +28,9 @@ class StartSchemaExtensionRequest(TypedDict, closed=True):
 def serialize_aws_json_1_1(value: StartSchemaExtensionRequest) -> dict:
     out: dict = {}
     out["DirectoryId"] = value["directory_id"]
-    out["CreateSnapshotBeforeSchemaExtension"] = value.get(
-        "create_snapshot_before_schema_extension", False
-    )
+    out["CreateSnapshotBeforeSchemaExtension"] = value[
+        "create_snapshot_before_schema_extension"
+    ]
     out["LdifContent"] = value["ldif_content"]
     out["Description"] = value["description"]
     return out
@@ -47,7 +47,9 @@ def deserialize_aws_json_1_1(data: dict) -> StartSchemaExtensionRequest:
             "CreateSnapshotBeforeSchemaExtension"
         ]
     else:
-        out["create_snapshot_before_schema_extension"] = False
+        raise DeserializationError(
+            "StartSchemaExtensionRequest.create_snapshot_before_schema_extension required"
+        )
     if data.get("LdifContent") is not None:
         out["ldif_content"] = data["LdifContent"]
     else:

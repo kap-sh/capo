@@ -129,12 +129,13 @@ def build_request(
     url = url.replace("{botAliasId}", quote(input_["bot_alias_id"], safe=""))
     url = url.replace("{botId}", quote(input_["bot_id"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(
-        (
-            "skipResourceInUseCheck",
-            "true" if input_.get("skip_resource_in_use_check", False) else "false",
+    if "skip_resource_in_use_check" in input_:
+        params.append(
+            (
+                "skipResourceInUseCheck",
+                "true" if input_["skip_resource_in_use_check"] else "false",
+            )
         )
-    )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

@@ -23,7 +23,7 @@ class CreateReservationRequest(TypedDict, closed=True):
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: CreateReservationRequest) -> dict:
     out: dict = {}
-    out["capacity"] = value.get("capacity", 0)
+    out["capacity"] = value["capacity"]
     out["offeringId"] = value["offering_id"]
     if "client_token" in value:
         out["clientToken"] = value["client_token"]
@@ -35,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateReservationRequest:
     if data.get("capacity") is not None:
         out["capacity"] = data["capacity"]
     else:
-        out["capacity"] = 0
+        raise DeserializationError("CreateReservationRequest.capacity required")
     if data.get("offeringId") is not None:
         out["offering_id"] = data["offeringId"]
     else:

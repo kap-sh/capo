@@ -24,9 +24,9 @@ class ListThingsRequest(TypedDict, closed=True):
     """<p>The attribute value used to search for things.</p>"""
     thing_type_name: NotRequired["capo_iot.types.thing_type_name.ThingTypeName"]
     """<p>The name of the thing type used to search for things.</p>"""
-    use_prefix_attribute_value: (
+    use_prefix_attribute_value: NotRequired[
         "capo_iot.types.use_prefix_attribute_value.usePrefixAttributeValue"
-    )
+    ]
     """<p>When <code>true</code>, the action returns the thing resources with attribute values that start with the <code>attributeValue</code> provided.</p> <p>When <code>false</code>, or not present, the action returns only the thing resources with attribute values that match the entire <code>attributeValue</code> provided. </p>"""
 
 

@@ -47,7 +47,7 @@ def serialize_aws_json_1_1(value: CreateStorediSCSIVolumeInput) -> dict:
     out["DiskId"] = value["disk_id"]
     if "snapshot_id" in value:
         out["SnapshotId"] = value["snapshot_id"]
-    out["PreserveExistingData"] = value.get("preserve_existing_data", False)
+    out["PreserveExistingData"] = value["preserve_existing_data"]
     out["TargetName"] = value["target_name"]
     out["NetworkInterfaceId"] = value["network_interface_id"]
     if "kms_encrypted" in value:
@@ -78,7 +78,9 @@ def deserialize_aws_json_1_1(data: dict) -> CreateStorediSCSIVolumeInput:
     if data.get("PreserveExistingData") is not None:
         out["preserve_existing_data"] = data["PreserveExistingData"]
     else:
-        out["preserve_existing_data"] = False
+        raise DeserializationError(
+            "CreateStorediSCSIVolumeInput.preserve_existing_data required"
+        )
     if data.get("TargetName") is not None:
         out["target_name"] = data["TargetName"]
     else:

@@ -143,10 +143,10 @@ def build_request(
         params.append(("contentType", input_["content_type"]))
     if "response_topic" in input_:
         params.append(("responseTopic", input_["response_topic"]))
-    params.append(
-        ("confirmation", "true" if input_.get("confirmation", False) else "false")
-    )
-    params.append(("timeout", str(input_.get("timeout", 0))))
+    if "confirmation" in input_:
+        params.append(("confirmation", "true" if input_["confirmation"] else "false"))
+    if "timeout" in input_:
+        params.append(("timeout", str(input_["timeout"])))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     if "user_properties" in input_:
         headers["x-amz-mqtt5-user-properties"] = input_["user_properties"]

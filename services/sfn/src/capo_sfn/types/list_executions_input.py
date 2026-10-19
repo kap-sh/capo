@@ -18,7 +18,7 @@ class ListExecutionsInput(TypedDict, closed=True):
     """<p>The Amazon Resource Name (ARN) of the state machine whose executions is listed.</p> <p>You can specify either a <code>mapRunArn</code> or a <code>stateMachineArn</code>, but not both.</p> <p>You can also return a list of executions associated with a specific <a href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-state-machine-alias.html">alias</a> or <a href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-state-machine-version.html">version</a>, by specifying an alias ARN or a version ARN in the <code>stateMachineArn</code> parameter.</p>"""
     status_filter: NotRequired["capo_sfn.types.execution_status.ExecutionStatus"]
     """<p>If specified, only list the executions whose current execution status matches the given filter.</p> <p>If you provide a <code>PENDING_REDRIVE</code> statusFilter, you must specify <code>mapRunArn</code>. For more information, see <a href="https://docs.aws.amazon.com/step-functions/latest/dg/redrive-map-run.html#redrive-child-workflow-behavior">Child workflow execution redrive behaviour</a> in the <i>Step Functions Developer Guide</i>. </p> <p>If you provide a stateMachineArn and a <code>PENDING_REDRIVE</code> statusFilter, the API returns a validation exception.</p>"""
-    max_results: "capo_sfn.types.page_size.PageSize"
+    max_results: NotRequired["capo_sfn.types.page_size.PageSize"]
     """<p>The maximum number of results that are returned per call. You can use <code>nextToken</code> to obtain further pages of results. The default is 100 and the maximum allowed page size is 1000. A value of 0 uses the default.</p> <p>This is only an upper limit. The actual number of results returned per call might be fewer than the specified maximum.</p>"""
     next_token: NotRequired[
         "capo_sfn.types.list_executions_page_token.ListExecutionsPageToken"
@@ -43,7 +43,8 @@ def serialize_aws_json_1_0(value: ListExecutionsInput) -> dict:
         out["statusFilter"] = capo_sfn.types.execution_status.serialize_aws_json_1_0(
             value["status_filter"]
         )
-    out["maxResults"] = value.get("max_results", 0)
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
     if "map_run_arn" in value:
@@ -71,8 +72,6 @@ def deserialize_aws_json_1_0(data: dict) -> ListExecutionsInput:
         )
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
-    else:
-        out["max_results"] = 0
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("mapRunArn") is not None:

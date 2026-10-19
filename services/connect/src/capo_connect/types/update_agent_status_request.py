@@ -31,7 +31,7 @@ class UpdateAgentStatusRequest(TypedDict, closed=True):
         "capo_connect.types.agent_status_order_number.AgentStatusOrderNumber"
     ]
     """<p>The display order of the agent status.</p>"""
-    reset_order_number: "capo_connect.types.boolean.Boolean"
+    reset_order_number: NotRequired["capo_connect.types.boolean.Boolean"]
     """<p>A number indicating the reset order of the agent status.</p>"""
 
 
@@ -50,7 +50,8 @@ def serialize_json(value: UpdateAgentStatusRequest) -> dict:
         )
     if "display_order" in value:
         out["DisplayOrder"] = value["display_order"]
-    out["ResetOrderNumber"] = value.get("reset_order_number", False)
+    if "reset_order_number" in value:
+        out["ResetOrderNumber"] = value["reset_order_number"]
     return out
 
 
@@ -70,6 +71,4 @@ def deserialize_json(data: dict) -> UpdateAgentStatusRequest:
         out["display_order"] = data["DisplayOrder"]
     if data.get("ResetOrderNumber") is not None:
         out["reset_order_number"] = data["ResetOrderNumber"]
-    else:
-        out["reset_order_number"] = False
     return out

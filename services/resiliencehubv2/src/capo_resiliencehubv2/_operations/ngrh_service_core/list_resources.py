@@ -126,8 +126,10 @@ def build_request(
     if "resource_types" in input_:
         for item in input_["resource_types"]:
             params.append(("resourceTypes", item))
-    params.append(("billable", "true" if input_.get("billable", True) else "false"))
-    params.append(("maxResults", str(input_.get("max_results", 100))))
+    if "billable" in input_:
+        params.append(("billable", "true" if input_["billable"] else "false"))
+    if "max_results" in input_:
+        params.append(("maxResults", str(input_["max_results"])))
     if "next_token" in input_:
         params.append(("nextToken", input_["next_token"]))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}

@@ -24,7 +24,7 @@ class ListParticipantsRequest(TypedDict, closed=True):
     """<p>ID of the session within the stage.</p>"""
     filter_by_user_id: NotRequired["capo_ivs_realtime.types.user_id.UserId"]
     """<p>Filters the response list to match the specified user ID. Only one of <code>filterByUserId</code>, <code>filterByPublished</code>, <code>filterByState</code>, or <code>filterByRecordingState</code> can be provided per request. A <code>userId</code> is a customer-assigned name to help identify the token; this can be used to link a participant to a user in the customer’s own systems.</p>"""
-    filter_by_published: "capo_ivs_realtime.types.published.Published"
+    filter_by_published: NotRequired["capo_ivs_realtime.types.published.Published"]
     """<p>Filters the response list to only show participants who published during the stage session. Only one of <code>filterByUserId</code>, <code>filterByPublished</code>, <code>filterByState</code>, or <code>filterByRecordingState</code> can be provided per request.</p>"""
     filter_by_state: NotRequired[
         "capo_ivs_realtime.types.participant_state.ParticipantState"
@@ -49,7 +49,8 @@ def serialize_json(value: ListParticipantsRequest) -> dict:
     out["sessionId"] = value["session_id"]
     if "filter_by_user_id" in value:
         out["filterByUserId"] = value["filter_by_user_id"]
-    out["filterByPublished"] = value.get("filter_by_published", False)
+    if "filter_by_published" in value:
+        out["filterByPublished"] = value["filter_by_published"]
     if "filter_by_state" in value:
         out["filterByState"] = value["filter_by_state"]
     if "next_token" in value:
@@ -75,8 +76,6 @@ def deserialize_json(data: dict) -> ListParticipantsRequest:
         out["filter_by_user_id"] = data["filterByUserId"]
     if data.get("filterByPublished") is not None:
         out["filter_by_published"] = data["filterByPublished"]
-    else:
-        out["filter_by_published"] = False
     if data.get("filterByState") is not None:
         out["filter_by_state"] = data["filterByState"]
     if data.get("nextToken") is not None:

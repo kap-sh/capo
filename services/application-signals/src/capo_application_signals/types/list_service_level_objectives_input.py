@@ -36,7 +36,7 @@ class ListServiceLevelObjectivesInput(TypedDict, closed=True):
         "capo_application_signals.types.metric_source_types.MetricSourceTypes"
     ]
     """<p>Use this optional field to only include SLOs with the specified metric source types in the output. Supported types are:</p> <ul> <li> <p>Service operation</p> </li> <li> <p>Service dependency</p> </li> <li> <p>Service</p> </li> <li> <p>CloudWatch metric</p> </li> <li> <p>AppMonitor</p> </li> <li> <p>Canary</p> </li> </ul>"""
-    include_linked_accounts: "bool"
+    include_linked_accounts: NotRequired["bool"]
     """<p>If you are using this operation in a monitoring account, specify <code>true</code> to include SLO from source accounts in the returned data. </p> <p>When you are monitoring an account, you can use Amazon Web Services account ID in <code>KeyAttribute</code> filter for service source account and <code>SloOwnerawsaccountID</code> for SLO source account with <code>IncludeLinkedAccounts</code> to filter the returned data to only a single source account. </p>"""
     slo_owner_aws_account_id: NotRequired[
         "capo_application_signals.types.aws_account_id.AwsAccountId"

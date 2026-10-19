@@ -30,7 +30,7 @@ SearchRequest = TypedDict(
             "capo_cloudsearch_domain.types.filter_query.FilterQuery"
         ],
         "highlight": NotRequired["capo_cloudsearch_domain.types.highlight.Highlight"],
-        "partial": "capo_cloudsearch_domain.types.partial.Partial",
+        "partial": NotRequired["capo_cloudsearch_domain.types.partial.Partial"],
         "query": "capo_cloudsearch_domain.types.query.Query",
         "query_options": NotRequired[
             "capo_cloudsearch_domain.types.query_options.QueryOptions"
@@ -39,9 +39,9 @@ SearchRequest = TypedDict(
             "capo_cloudsearch_domain.types.query_parser.QueryParser"
         ],
         "return": NotRequired["capo_cloudsearch_domain.types.return_.Return"],
-        "size": "capo_cloudsearch_domain.types.size.Size",
+        "size": NotRequired["capo_cloudsearch_domain.types.size.Size"],
         "sort": NotRequired["capo_cloudsearch_domain.types.sort.Sort"],
-        "start": "capo_cloudsearch_domain.types.start.Start",
+        "start": NotRequired["capo_cloudsearch_domain.types.start.Start"],
         "stats": NotRequired["capo_cloudsearch_domain.types.stat.Stat"],
     },
     closed=True,

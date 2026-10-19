@@ -32,7 +32,7 @@ def serialize_aws_json_1_1(value: UpdateProvisionedLimitRequest) -> dict:
             value["limit_definition"]
         )
     )
-    out["RequestedLimitValue"] = value.get("requested_limit_value", 0)
+    out["RequestedLimitValue"] = value["requested_limit_value"]
     return out
 
 
@@ -53,5 +53,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateProvisionedLimitRequest:
     if data.get("RequestedLimitValue") is not None:
         out["requested_limit_value"] = data["RequestedLimitValue"]
     else:
-        out["requested_limit_value"] = 0
+        raise DeserializationError(
+            "UpdateProvisionedLimitRequest.requested_limit_value required"
+        )
     return out

@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class GetUpgradeHistoryRequest(TypedDict, closed=True):
     domain_name: "capo_elasticsearch_service.types.domain_name.DomainName"
-    max_results: "capo_elasticsearch_service.types.max_results.MaxResults"
+    max_results: NotRequired["capo_elasticsearch_service.types.max_results.MaxResults"]
     next_token: NotRequired["capo_elasticsearch_service.types.next_token.NextToken"]
 
 

@@ -36,9 +36,9 @@ class AdminCreateUserRequest(TypedDict, closed=True):
         "capo_cognito_identity_provider.types.password_type.PasswordType"
     ]
     """<p>The user's temporary password. This password must conform to the password policy that you specified when you created the user pool.</p> <p>The exception to the requirement for a password is when your user pool supports passwordless sign-in with email or SMS OTPs. To create a user with no password, omit this parameter or submit a blank value. You can only create a passwordless user when passwordless sign-in is available.</p> <p>The temporary password is valid only once. To complete the Admin Create User flow, the user must enter the temporary password in the sign-in page, along with a new password to be used in all future sign-ins.</p> <p>If you don't specify a value, Amazon Cognito generates one for you unless you have passwordless options active for your user pool.</p> <p>The temporary password can only be used until the user account expiration limit that you set for your user pool. To reset the account after that time limit, you must call <code>AdminCreateUser</code> again and specify <code>RESEND</code> for the <code>MessageAction</code> parameter.</p>"""
-    force_alias_creation: (
+    force_alias_creation: NotRequired[
         "capo_cognito_identity_provider.types.force_alias_creation.ForceAliasCreation"
-    )
+    ]
     """<p>This parameter is used only if the <code>phone_number_verified</code> or <code>email_verified</code> attribute is set to <code>True</code>. Otherwise, it is ignored.</p> <p>If this parameter is set to <code>True</code> and the phone number or email address specified in the <code>UserAttributes</code> parameter already exists as an alias with a different user, this request migrates the alias from the previous user to the newly-created user. The previous user will no longer be able to log in using that alias.</p> <p>If this parameter is set to <code>False</code>, the API throws an <code>AliasExistsException</code> error if the alias already exists. The default value is <code>False</code>.</p>"""
     message_action: NotRequired[
         "capo_cognito_identity_provider.types.message_action_type.MessageActionType"
@@ -77,7 +77,8 @@ def serialize_aws_json_1_1(value: AdminCreateUserRequest) -> dict:
         )
     if "temporary_password" in value:
         out["TemporaryPassword"] = value["temporary_password"]
-    out["ForceAliasCreation"] = value.get("force_alias_creation", False)
+    if "force_alias_creation" in value:
+        out["ForceAliasCreation"] = value["force_alias_creation"]
     if "message_action" in value:
         import capo_cognito_identity_provider.types.message_action_type
 
@@ -135,8 +136,6 @@ def deserialize_aws_json_1_1(data: dict) -> AdminCreateUserRequest:
         out["temporary_password"] = data["TemporaryPassword"]
     if data.get("ForceAliasCreation") is not None:
         out["force_alias_creation"] = data["ForceAliasCreation"]
-    else:
-        out["force_alias_creation"] = False
     if data.get("MessageAction") is not None:
         import capo_cognito_identity_provider.types.message_action_type
 

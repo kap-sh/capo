@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_detective.errors import DeserializationError
 
@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 class UpdateOrganizationConfigurationRequest(TypedDict, closed=True):
     graph_arn: "capo_detective.types.graph_arn.GraphArn"
     """<p>The ARN of the organization behavior graph.</p>"""
-    auto_enable: "capo_detective.types.boolean.Boolean"
+    auto_enable: NotRequired["capo_detective.types.boolean.Boolean"]
     """<p>Indicates whether to automatically enable new organization accounts as member accounts in the organization behavior graph.</p>"""
 
 
@@ -22,7 +22,8 @@ class UpdateOrganizationConfigurationRequest(TypedDict, closed=True):
 def serialize_json(value: UpdateOrganizationConfigurationRequest) -> dict:
     out: dict = {}
     out["GraphArn"] = value["graph_arn"]
-    out["AutoEnable"] = value.get("auto_enable", False)
+    if "auto_enable" in value:
+        out["AutoEnable"] = value["auto_enable"]
     return out
 
 
@@ -36,6 +37,4 @@ def deserialize_json(data: dict) -> UpdateOrganizationConfigurationRequest:
         )
     if data.get("AutoEnable") is not None:
         out["auto_enable"] = data["AutoEnable"]
-    else:
-        out["auto_enable"] = False
     return out

@@ -113,12 +113,13 @@ def build_request(
         params.append(("NextToken", input_["next_token"]))
     if "aws_account_id" in input_:
         params.append(("AwsAccountId", input_["aws_account_id"]))
-    params.append(
-        (
-            "IncludeLinkedAccounts",
-            "true" if input_.get("include_linked_accounts", False) else "false",
+    if "include_linked_accounts" in input_:
+        params.append(
+            (
+                "IncludeLinkedAccounts",
+                "true" if input_["include_linked_accounts"] else "false",
+            )
         )
-    )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

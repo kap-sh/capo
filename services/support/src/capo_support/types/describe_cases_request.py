@@ -26,9 +26,9 @@ class DescribeCasesRequest(TypedDict, closed=True):
     """<p>The start date for a filtered date search on support case communications. Case communications are available for 24 months after creation.</p>"""
     before_time: NotRequired["capo_support.types.before_time.BeforeTime"]
     """<p>The end date for a filtered date search on support case communications. Case communications are available for 24 months after creation.</p>"""
-    include_resolved_cases: (
+    include_resolved_cases: NotRequired[
         "capo_support.types.include_resolved_cases.IncludeResolvedCases"
-    )
+    ]
     """<p>Specifies whether to include resolved support cases in the <code>DescribeCases</code> response. By default, resolved cases aren't included.</p>"""
     next_token: NotRequired["capo_support.types.next_token.NextToken"]
     """<p>A resumption point for pagination.</p>"""
@@ -59,7 +59,8 @@ def serialize_aws_json_1_1(value: DescribeCasesRequest) -> dict:
         out["afterTime"] = value["after_time"]
     if "before_time" in value:
         out["beforeTime"] = value["before_time"]
-    out["includeResolvedCases"] = value.get("include_resolved_cases", False)
+    if "include_resolved_cases" in value:
+        out["includeResolvedCases"] = value["include_resolved_cases"]
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
     if "max_results" in value:
@@ -89,8 +90,6 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeCasesRequest:
         out["before_time"] = data["beforeTime"]
     if data.get("includeResolvedCases") is not None:
         out["include_resolved_cases"] = data["includeResolvedCases"]
-    else:
-        out["include_resolved_cases"] = False
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:

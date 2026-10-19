@@ -16,7 +16,7 @@ class ListElasticsearchInstanceTypesRequest(TypedDict, closed=True):
     """<p>Version of Elasticsearch for which list of supported elasticsearch instance types are needed. </p>"""
     domain_name: NotRequired["capo_elasticsearch_service.types.domain_name.DomainName"]
     """<p>DomainName represents the name of the Domain that we are trying to modify. This should be present only if we are querying for list of available Elasticsearch instance types when modifying existing domain. </p>"""
-    max_results: "capo_elasticsearch_service.types.max_results.MaxResults"
+    max_results: NotRequired["capo_elasticsearch_service.types.max_results.MaxResults"]
     """<p> Set this value to limit the number of results returned. Value provided must be greater than 30 else it wont be honored. </p>"""
     next_token: NotRequired["capo_elasticsearch_service.types.next_token.NextToken"]
     """<p>NextToken should be sent in case if earlier API call produced result containing NextToken. It is used for pagination. </p>"""

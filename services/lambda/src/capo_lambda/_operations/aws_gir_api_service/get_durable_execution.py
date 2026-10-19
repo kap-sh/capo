@@ -143,12 +143,13 @@ def build_request(
         "{DurableExecutionArn}", quote(input_["durable_execution_arn"], safe="")
     )
     params: list[tuple[str, str]] = []
-    params.append(
-        (
-            "IncludeExecutionData",
-            "true" if input_.get("include_execution_data", True) else "false",
+    if "include_execution_data" in input_:
+        params.append(
+            (
+                "IncludeExecutionData",
+                "true" if input_["include_execution_data"] else "false",
+            )
         )
-    )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

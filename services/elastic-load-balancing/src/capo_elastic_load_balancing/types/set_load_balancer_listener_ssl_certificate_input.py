@@ -36,9 +36,7 @@ def serialize_query(
 ) -> None:
     key_prefix = f"{prefix}." if prefix else ""
     pairs.append((f"{key_prefix}LoadBalancerName", str(value["load_balancer_name"])))
-    pairs.append(
-        (f"{key_prefix}LoadBalancerPort", str(value.get("load_balancer_port", 0)))
-    )
+    pairs.append((f"{key_prefix}LoadBalancerPort", str(value["load_balancer_port"])))
     pairs.append((f"{key_prefix}SSLCertificateId", str(value["ssl_certificate_id"])))
 
 
@@ -55,7 +53,9 @@ def deserialize_query(el: Element) -> SetLoadBalancerListenerSSLCertificateInput
     if child_load_balancer_port is not None:
         out["load_balancer_port"] = int(child_load_balancer_port.text or "")
     else:
-        out["load_balancer_port"] = 0
+        raise DeserializationError(
+            "SetLoadBalancerListenerSSLCertificateInput.load_balancer_port required"
+        )
     child_ssl_certificate_id = el.find("SSLCertificateId")
     if child_ssl_certificate_id is not None:
         out["ssl_certificate_id"] = str(child_ssl_certificate_id.text or "")

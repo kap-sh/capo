@@ -16,7 +16,7 @@ class ListCACertificatesRequest(TypedDict, closed=True):
     """<p>The result page size.</p>"""
     marker: NotRequired["capo_iot.types.marker.Marker"]
     """<p>The marker for the next set of results.</p>"""
-    ascending_order: "capo_iot.types.ascending_order.AscendingOrder"
+    ascending_order: NotRequired["capo_iot.types.ascending_order.AscendingOrder"]
     """<p>Determines the order of the results.</p>"""
     template_name: NotRequired["capo_iot.types.template_name.TemplateName"]
     """<p>The name of the provisioning template.</p>"""

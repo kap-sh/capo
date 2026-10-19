@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_machine_learning.errors import DeserializationError
 
@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 class GetMLModelInput(TypedDict, closed=True):
     ml_model_id: "capo_machine_learning.types.entity_id.EntityId"
     """<p>The ID assigned to the <code>MLModel</code> at creation.</p>"""
-    verbose: "capo_machine_learning.types.verbose.Verbose"
+    verbose: NotRequired["capo_machine_learning.types.verbose.Verbose"]
     """<p>Specifies whether the <code>GetMLModel</code> operation should return <code>Recipe</code>.</p> <p>If true, <code>Recipe</code> is returned.</p> <p>If false, <code>Recipe</code> is not returned.</p>"""
 
 
@@ -22,7 +22,8 @@ class GetMLModelInput(TypedDict, closed=True):
 def serialize_aws_json_1_1(value: GetMLModelInput) -> dict:
     out: dict = {}
     out["MLModelId"] = value["ml_model_id"]
-    out["Verbose"] = value.get("verbose", False)
+    if "verbose" in value:
+        out["Verbose"] = value["verbose"]
     return out
 
 
@@ -34,6 +35,4 @@ def deserialize_aws_json_1_1(data: dict) -> GetMLModelInput:
         raise DeserializationError("GetMLModelInput.ml_model_id required")
     if data.get("Verbose") is not None:
         out["verbose"] = data["Verbose"]
-    else:
-        out["verbose"] = False
     return out

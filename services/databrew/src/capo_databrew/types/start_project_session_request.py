@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_databrew.types.assume_control
@@ -12,14 +12,15 @@ if TYPE_CHECKING:
 class StartProjectSessionRequest(TypedDict, closed=True):
     name: "capo_databrew.types.project_name.ProjectName"
     """<p>The name of the project to act upon.</p>"""
-    assume_control: "capo_databrew.types.assume_control.AssumeControl"
+    assume_control: NotRequired["capo_databrew.types.assume_control.AssumeControl"]
     """<p>A value that, if true, enables you to take control of a session, even if a different client is currently accessing the project.</p>"""
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: StartProjectSessionRequest) -> dict:
     out: dict = {}
-    out["AssumeControl"] = value.get("assume_control", False)
+    if "assume_control" in value:
+        out["AssumeControl"] = value["assume_control"]
     return out
 
 
@@ -27,6 +28,4 @@ def deserialize_json(data: dict) -> StartProjectSessionRequest:
     out: StartProjectSessionRequest = {}  # type: ignore[typeddict-item]
     if data.get("AssumeControl") is not None:
         out["assume_control"] = data["AssumeControl"]
-    else:
-        out["assume_control"] = False
     return out

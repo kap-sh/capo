@@ -112,7 +112,8 @@ def build_request(
     )  # noqa: F841
     url = endpoint.url.rstrip("/") + "/v2LoggingOptions"
     params: list[tuple[str, str]] = []
-    params.append(("verbose", "true" if input_.get("verbose", False) else "false"))
+    if "verbose" in input_:
+        params.append(("verbose", "true" if input_["verbose"] else "false"))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

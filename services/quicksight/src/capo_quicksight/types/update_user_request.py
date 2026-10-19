@@ -29,7 +29,7 @@ class UpdateUserRequest(TypedDict, closed=True):
     """<p>The Amazon Quick Sight role of the user. The role can be one of the following default security cohorts:</p> <ul> <li> <p> <code>READER</code>: A user who has read-only access to dashboards.</p> </li> <li> <p> <code>AUTHOR</code>: A user who can create data sources, datasets, analyses, and dashboards.</p> </li> <li> <p> <code>ADMIN</code>: A user who is an author, who can also manage Amazon Quick Sight settings.</p> </li> <li> <p> <code>READER_PRO</code>: Reader Pro adds Generative BI capabilities to the Reader role. Reader Pros have access to Amazon Q in Quick Sight, can build stories with Amazon Q, and can generate executive summaries from dashboards.</p> </li> <li> <p> <code>AUTHOR_PRO</code>: Author Pro adds Generative BI capabilities to the Author role. Author Pros can author dashboards with natural language with Amazon Q, build stories with Amazon Q, create Topics for Q&A, and generate executive summaries from dashboards.</p> </li> <li> <p> <code>ADMIN_PRO</code>: Admin Pros are Author Pros who can also manage Amazon Quick Sight administrative settings. Admin Pro users are billed at Author Pro pricing.</p> </li> </ul> <p>The name of the Quick Sight role is invisible to the user except for the console screens dealing with permissions.</p>"""
     custom_permissions_name: NotRequired["capo_quicksight.types.role_name.RoleName"]
     """<p>(Enterprise edition only) The name of the custom permissions profile that you want to assign to this user. Customized permissions allows you to control a user's access by restricting access the following operations:</p> <ul> <li> <p>Create and update data sources</p> </li> <li> <p>Create and update datasets</p> </li> <li> <p>Create and update email reports</p> </li> <li> <p>Subscribe to email reports</p> </li> </ul> <p>A set of custom permissions includes any combination of these restrictions. Currently, you need to create the profile names for custom permission sets by using the Quick Sight console. Then, you use the <code>RegisterUser</code> API operation to assign the named set of permissions to a Quick Sight user. </p> <p>Quick Sight custom permissions are applied through IAM policies. Therefore, they override the permissions typically granted by assigning Quick Sight users to one of the default security cohorts in Quick Sight (admin, author, reader).</p> <p>This feature is available only to Quick Sight Enterprise edition subscriptions.</p>"""
-    unapply_custom_permissions: "capo_quicksight.types.boolean.Boolean"
+    unapply_custom_permissions: NotRequired["capo_quicksight.types.boolean.Boolean"]
     """<p>A flag that you use to indicate that you want to remove all custom permissions from this user. Using this parameter resets the user to the state it was in before a custom permissions profile was applied. This parameter defaults to NULL and it doesn't accept any other value.</p>"""
     external_login_federation_provider_type: NotRequired[
         "capo_quicksight.types.string.String"
@@ -50,7 +50,8 @@ def serialize_json(value: UpdateUserRequest) -> dict:
     out["Role"] = capo_quicksight.types.user_role.serialize_json(value["role"])
     if "custom_permissions_name" in value:
         out["CustomPermissionsName"] = value["custom_permissions_name"]
-    out["UnapplyCustomPermissions"] = value.get("unapply_custom_permissions", False)
+    if "unapply_custom_permissions" in value:
+        out["UnapplyCustomPermissions"] = value["unapply_custom_permissions"]
     if "external_login_federation_provider_type" in value:
         out["ExternalLoginFederationProviderType"] = value[
             "external_login_federation_provider_type"
@@ -78,8 +79,6 @@ def deserialize_json(data: dict) -> UpdateUserRequest:
         out["custom_permissions_name"] = data["CustomPermissionsName"]
     if data.get("UnapplyCustomPermissions") is not None:
         out["unapply_custom_permissions"] = data["UnapplyCustomPermissions"]
-    else:
-        out["unapply_custom_permissions"] = False
     if data.get("ExternalLoginFederationProviderType") is not None:
         out["external_login_federation_provider_type"] = data[
             "ExternalLoginFederationProviderType"

@@ -265,7 +265,7 @@ def build_request(
         )
     if "expected_bucket_owner" in input_:
         headers["x-amz-expected-bucket-owner"] = input_["expected_bucket_owner"]
-    body = input_["body"]
+    body = input_.get("body", b"")
     if isinstance(body, capo_s3._body.Body):
         body = cast(capo_s3._body.Body[Iterator[bytes]], body)
         stream = body.stream
@@ -385,7 +385,7 @@ async def async_build_request(
         )
     if "expected_bucket_owner" in input_:
         headers["x-amz-expected-bucket-owner"] = input_["expected_bucket_owner"]
-    body = input_["body"]
+    body = input_.get("body", b"")
     if isinstance(body, capo_s3._body.Body):
         body = cast(capo_s3._body.Body[AsyncIterator[bytes]], body)
         stream = body.stream

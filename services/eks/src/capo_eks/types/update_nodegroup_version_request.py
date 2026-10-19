@@ -23,7 +23,7 @@ class UpdateNodegroupVersionRequest(TypedDict, closed=True):
         "capo_eks.types.launch_template_specification.LaunchTemplateSpecification"
     ]
     """<p>An object representing a node group's launch template specification. You can only update a node group using a launch template if the node group was originally deployed with a launch template. When updating, you must specify the same launch template ID or name that was used to create the node group.</p>"""
-    force: "capo_eks.types.boolean.Boolean"
+    force: NotRequired["capo_eks.types.boolean.Boolean"]
     """<p>Force the update if any <code>Pod</code> on the existing node group can't be drained due to a <code>Pod</code> disruption budget issue. If an update fails because all Pods can't be drained, you can force the update after it fails to terminate the old node whether or not any <code>Pod</code> is running on the node.</p>"""
     client_request_token: NotRequired["capo_eks.types.string.String"]
     """<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.</p>"""
@@ -44,7 +44,8 @@ def serialize_json(value: UpdateNodegroupVersionRequest) -> dict:
                 value["launch_template"]
             )
         )
-    out["force"] = value.get("force", False)
+    if "force" in value:
+        out["force"] = value["force"]
     if "client_request_token" in value:
         out["clientRequestToken"] = value["client_request_token"]
     return out
@@ -66,8 +67,6 @@ def deserialize_json(data: dict) -> UpdateNodegroupVersionRequest:
         )
     if data.get("force") is not None:
         out["force"] = data["force"]
-    else:
-        out["force"] = False
     if data.get("clientRequestToken") is not None:
         out["client_request_token"] = data["clientRequestToken"]
     return out

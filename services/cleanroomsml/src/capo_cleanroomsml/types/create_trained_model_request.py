@@ -50,7 +50,9 @@ class CreateTrainedModelRequest(TypedDict, closed=True):
         "capo_cleanroomsml.types.model_training_data_channels.ModelTrainingDataChannels"
     )
     """<p>Defines the data channels that are used as input for the trained model request.</p> <p>Limit: Maximum of 20 channels total (including both <code>dataChannels</code> and <code>incrementalTrainingDataChannels</code>).</p>"""
-    training_input_mode: "capo_cleanroomsml.types.training_input_mode.TrainingInputMode"
+    training_input_mode: NotRequired[
+        "capo_cleanroomsml.types.training_input_mode.TrainingInputMode"
+    ]
     """<p>The input mode for accessing the training data. This parameter determines how the training data is made available to the training algorithm. Valid values are:</p> <ul> <li> <p> <code>File</code> - The training data is downloaded to the training instance and made available as files.</p> </li> <li> <p> <code>FastFile</code> - The training data is streamed directly from Amazon S3 to the training algorithm, providing faster access for large datasets.</p> </li> <li> <p> <code>Pipe</code> - The training data is streamed to the training algorithm using named pipes, which can improve performance for certain algorithms.</p> </li> </ul>"""
     description: NotRequired[
         "capo_cleanroomsml.types.resource_description.ResourceDescription"
@@ -115,13 +117,14 @@ def serialize_json(value: CreateTrainedModelRequest) -> dict:
             value["data_channels"]
         )
     )
-    import capo_cleanroomsml.types.training_input_mode
+    if "training_input_mode" in value:
+        import capo_cleanroomsml.types.training_input_mode
 
-    out["trainingInputMode"] = (
-        capo_cleanroomsml.types.training_input_mode.serialize_json(
-            value.get("training_input_mode", "File")
+        out["trainingInputMode"] = (
+            capo_cleanroomsml.types.training_input_mode.serialize_json(
+                value["training_input_mode"]
+            )
         )
-    )
     if "description" in value:
         out["description"] = value["description"]
     if "kms_key_arn" in value:
@@ -209,8 +212,6 @@ def deserialize_json(data: dict) -> CreateTrainedModelRequest:
                 data["trainingInputMode"]
             )
         )
-    else:
-        out["training_input_mode"] = "File"
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("kmsKeyArn") is not None:

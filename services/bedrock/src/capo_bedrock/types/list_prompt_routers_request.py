@@ -15,7 +15,7 @@ class ListPromptRoutersRequest(TypedDict, closed=True):
     """<p>The maximum number of prompt routers to return in one page of results.</p>"""
     next_token: NotRequired["capo_bedrock.types.pagination_token.PaginationToken"]
     """<p>Specify the pagination token from a previous request to retrieve the next page of results.</p>"""
-    type: "capo_bedrock.types.prompt_router_type.PromptRouterType"
+    type: NotRequired["capo_bedrock.types.prompt_router_type.PromptRouterType"]
     """<p>The type of the prompt routers, such as whether it's default or custom.</p>"""
 
 

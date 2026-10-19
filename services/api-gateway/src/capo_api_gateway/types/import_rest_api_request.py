@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 
 class ImportRestApiRequest(TypedDict, closed=True):
-    fail_on_warnings: "capo_api_gateway.types.boolean.Boolean"
+    fail_on_warnings: NotRequired["capo_api_gateway.types.boolean.Boolean"]
     """<p>A query parameter to indicate whether to rollback the API creation (<code>true</code>) or not (<code>false</code>) when a warning is encountered. The default value is <code>false</code>.</p>"""
     parameters: NotRequired[
         "capo_api_gateway.types.map_of_string_to_string.MapOfStringToString"

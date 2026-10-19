@@ -107,12 +107,13 @@ def build_request(
     )  # noqa: F841
     url = endpoint.url.rstrip("/") + "/audit/configuration"
     params: list[tuple[str, str]] = []
-    params.append(
-        (
-            "deleteScheduledAudits",
-            "true" if input_.get("delete_scheduled_audits", False) else "false",
+    if "delete_scheduled_audits" in input_:
+        params.append(
+            (
+                "deleteScheduledAudits",
+                "true" if input_["delete_scheduled_audits"] else "false",
+            )
         )
-    )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

@@ -27,7 +27,7 @@ class RetrieveMemoryRecordsInput(TypedDict, closed=True):
         "capo_bedrock_agentcore.types.pagination_token.PaginationToken"
     ]
     """<p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>"""
-    max_results: "capo_bedrock_agentcore.types.max_results.MaxResults"
+    max_results: NotRequired["capo_bedrock_agentcore.types.max_results.MaxResults"]
     """<p>The maximum number of results to return in a single call. The default value is 20.</p>"""
 
 
@@ -45,7 +45,8 @@ def serialize_json(value: RetrieveMemoryRecordsInput) -> dict:
     )
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
-    out["maxResults"] = value.get("max_results", 100)
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
     return out
 
 
@@ -71,8 +72,6 @@ def deserialize_json(data: dict) -> RetrieveMemoryRecordsInput:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
-    else:
-        out["max_results"] = 100
     return out
 
 

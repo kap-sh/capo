@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_license_manager.errors import DeserializationError
 
@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 class ExtendLicenseConsumptionRequest(TypedDict, closed=True):
     license_consumption_token: "capo_license_manager.types.string.String"
     """<p>License consumption token.</p>"""
-    dry_run: "capo_license_manager.types.boolean.Boolean"
+    dry_run: NotRequired["capo_license_manager.types.boolean.Boolean"]
     """<p>Checks whether you have the required permissions for the action, without actually making the request. Provides an error response if you do not have the required permissions.</p>"""
 
 
@@ -22,7 +22,8 @@ class ExtendLicenseConsumptionRequest(TypedDict, closed=True):
 def serialize_aws_json_1_1(value: ExtendLicenseConsumptionRequest) -> dict:
     out: dict = {}
     out["LicenseConsumptionToken"] = value["license_consumption_token"]
-    out["DryRun"] = value.get("dry_run", False)
+    if "dry_run" in value:
+        out["DryRun"] = value["dry_run"]
     return out
 
 
@@ -36,6 +37,4 @@ def deserialize_aws_json_1_1(data: dict) -> ExtendLicenseConsumptionRequest:
         )
     if data.get("DryRun") is not None:
         out["dry_run"] = data["DryRun"]
-    else:
-        out["dry_run"] = False
     return out

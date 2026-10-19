@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 
 class ListClustersInput(TypedDict, closed=True):
-    max_results: "capo_dsql.types.max_results.MaxResults"
+    max_results: NotRequired["capo_dsql.types.max_results.MaxResults"]
     """<p>An optional parameter that specifies the maximum number of results to return. You can use nextToken to display the next page of results.</p>"""
     next_token: NotRequired["capo_dsql.types.next_token.NextToken"]
     """<p>If your initial ListClusters operation returns a nextToken, you can include the returned nextToken in following ListClusters operations, which returns results in the next page.</p>"""

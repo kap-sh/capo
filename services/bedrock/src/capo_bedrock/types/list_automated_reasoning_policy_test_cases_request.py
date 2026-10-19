@@ -17,7 +17,7 @@ class ListAutomatedReasoningPolicyTestCasesRequest(TypedDict, closed=True):
     """<p>The Amazon Resource Name (ARN) of the Automated Reasoning policy for which to list tests.</p>"""
     next_token: NotRequired["capo_bedrock.types.pagination_token.PaginationToken"]
     """<p>The pagination token from a previous request to retrieve the next page of results.</p>"""
-    max_results: "capo_bedrock.types.max_results.MaxResults"
+    max_results: NotRequired["capo_bedrock.types.max_results.MaxResults"]
     """<p>The maximum number of tests to return in a single call.</p>"""
 
 

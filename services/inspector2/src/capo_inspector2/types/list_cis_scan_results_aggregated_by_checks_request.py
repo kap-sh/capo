@@ -22,15 +22,17 @@ class ListCisScanResultsAggregatedByChecksRequest(TypedDict, closed=True):
         "capo_inspector2.types.cis_scan_results_aggregated_by_checks_filter_criteria.CisScanResultsAggregatedByChecksFilterCriteria"
     ]
     """<p>The filter criteria.</p>"""
-    sort_by: "capo_inspector2.types.cis_scan_results_aggregated_by_checks_sort_by.CisScanResultsAggregatedByChecksSortBy"
+    sort_by: NotRequired[
+        "capo_inspector2.types.cis_scan_results_aggregated_by_checks_sort_by.CisScanResultsAggregatedByChecksSortBy"
+    ]
     """<p>The sort by order.</p>"""
     sort_order: NotRequired["capo_inspector2.types.cis_sort_order.CisSortOrder"]
     """<p>The sort order.</p>"""
     next_token: NotRequired["capo_inspector2.types.next_token.NextToken"]
     """<p>The pagination token from a previous request that's used to retrieve the next page of results.</p>"""
-    max_results: (
+    max_results: NotRequired[
         "capo_inspector2.types.cis_scan_results_max_results.CisScanResultsMaxResults"
-    )
+    ]
     """<p>The maximum number of scan results aggregated by checks to be returned in a single page of results.</p>"""
 
 
@@ -46,13 +48,14 @@ def serialize_json(value: ListCisScanResultsAggregatedByChecksRequest) -> dict:
                 value["filter_criteria"]
             )
         )
-    import capo_inspector2.types.cis_scan_results_aggregated_by_checks_sort_by
+    if "sort_by" in value:
+        import capo_inspector2.types.cis_scan_results_aggregated_by_checks_sort_by
 
-    out["sortBy"] = (
-        capo_inspector2.types.cis_scan_results_aggregated_by_checks_sort_by.serialize_json(
-            value.get("sort_by", "FAILED_COUNTS")
+        out["sortBy"] = (
+            capo_inspector2.types.cis_scan_results_aggregated_by_checks_sort_by.serialize_json(
+                value["sort_by"]
+            )
         )
-    )
     if "sort_order" in value:
         import capo_inspector2.types.cis_sort_order
 
@@ -61,7 +64,8 @@ def serialize_json(value: ListCisScanResultsAggregatedByChecksRequest) -> dict:
         )
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
-    out["maxResults"] = value.get("max_results", 100)
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
     return out
 
 
@@ -89,8 +93,6 @@ def deserialize_json(data: dict) -> ListCisScanResultsAggregatedByChecksRequest:
                 data["sortBy"]
             )
         )
-    else:
-        out["sort_by"] = "FAILED_COUNTS"
     if data.get("sortOrder") is not None:
         import capo_inspector2.types.cis_sort_order
 
@@ -101,6 +103,4 @@ def deserialize_json(data: dict) -> ListCisScanResultsAggregatedByChecksRequest:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
-    else:
-        out["max_results"] = 100
     return out

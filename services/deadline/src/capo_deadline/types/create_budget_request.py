@@ -23,7 +23,7 @@ class CreateBudgetRequest(TypedDict, closed=True):
     """<p>The farm ID to include in this budget.</p>"""
     display_name: "capo_deadline.types.resource_name.ResourceName"
     """<p>The display name of the budget.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
-    description: "capo_deadline.types.description.Description"
+    description: NotRequired["capo_deadline.types.description.Description"]
     """<p>The description of the budget.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     client_token: NotRequired["capo_deadline.types.client_token.ClientToken"]
     """<p>The unique token which the server uses to recognize retries of the same request.</p>"""
@@ -47,7 +47,8 @@ class CreateBudgetRequest(TypedDict, closed=True):
 def serialize_json(value: CreateBudgetRequest) -> dict:
     out: dict = {}
     out["displayName"] = value["display_name"]
-    out["description"] = value.get("description", "")
+    if "description" in value:
+        out["description"] = value["description"]
     import capo_deadline.types.usage_tracking_resource
 
     out["usageTrackingResource"] = (
@@ -89,8 +90,6 @@ def deserialize_json(data: dict) -> CreateBudgetRequest:
         raise DeserializationError("CreateBudgetRequest.display_name required")
     if data.get("description") is not None:
         out["description"] = data["description"]
-    else:
-        out["description"] = ""
     if data.get("usageTrackingResource") is not None:
         import capo_deadline.types.usage_tracking_resource
 

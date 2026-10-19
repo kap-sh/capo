@@ -55,7 +55,7 @@ class SendTextMessageRequest(TypedDict, closed=True):
         "capo_pinpoint_sms_voice_v2.types.destination_country_parameters.DestinationCountryParameters"
     ]
     """<p>This field is used for any country-specific registration requirements. Currently, this setting is only used when you send messages to recipients in India using a sender ID. For more information see <a href="https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-senderid-india.html">Special requirements for sending SMS messages to recipients in India</a>. </p> <ul> <li> <p> <code>IN_ENTITY_ID</code> The entity ID or Principal Entity (PE) ID that you received after completing the sender ID registration process.</p> </li> <li> <p> <code>IN_TEMPLATE_ID</code> The template ID that you received after completing the sender ID registration process.</p> <important> <p>Make sure that the Template ID that you specify matches your message template exactly. If your message doesn't match the template that you provided during the registration process, the mobile carriers might reject your message.</p> </important> </li> </ul>"""
-    dry_run: "bool"
+    dry_run: NotRequired["bool"]
     """<p>When set to true, the message is checked and validated, but isn't sent to the end recipient. You are not charged for using <code>DryRun</code>.</p> <p>The Message Parts per Second (MPS) limit when using <code>DryRun</code> is five. If your origination identity has a lower MPS limit then the lower MPS limit is used. For more information about MPS limits, see <a href="https://docs.aws.amazon.com/sms-voice/latest/userguide/sms-limitations-mps.html">Message Parts per Second (MPS) limits</a> in the <i>End User Messaging SMS User Guide</i>..</p>"""
     protect_configuration_id: NotRequired[
         "capo_pinpoint_sms_voice_v2.types.protect_configuration_id_or_arn.ProtectConfigurationIdOrArn"
@@ -99,7 +99,8 @@ def serialize_aws_json_1_0(value: SendTextMessageRequest) -> dict:
                 value["destination_country_parameters"]
             )
         )
-    out["DryRun"] = value.get("dry_run", False)
+    if "dry_run" in value:
+        out["DryRun"] = value["dry_run"]
     if "protect_configuration_id" in value:
         out["ProtectConfigurationId"] = value["protect_configuration_id"]
     if "message_feedback_enabled" in value:
@@ -147,8 +148,6 @@ def deserialize_aws_json_1_0(data: dict) -> SendTextMessageRequest:
         )
     if data.get("DryRun") is not None:
         out["dry_run"] = data["DryRun"]
-    else:
-        out["dry_run"] = False
     if data.get("ProtectConfigurationId") is not None:
         out["protect_configuration_id"] = data["ProtectConfigurationId"]
     if data.get("MessageFeedbackEnabled") is not None:

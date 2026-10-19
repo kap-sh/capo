@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 class ResetParameterGroupRequest(TypedDict, closed=True):
     parameter_group_name: "capo_memorydb.types.string.String"
     """<p>The name of the parameter group to reset.</p>"""
-    all_parameters: "capo_memorydb.types.boolean.Boolean"
+    all_parameters: NotRequired["capo_memorydb.types.boolean.Boolean"]
     """<p>If true, all parameters in the parameter group are reset to their default values. If false, only the parameters listed by ParameterNames are reset to their default values.</p>"""
     parameter_names: NotRequired[
         "capo_memorydb.types.parameter_name_list.ParameterNameList"
@@ -27,7 +27,8 @@ class ResetParameterGroupRequest(TypedDict, closed=True):
 def serialize_aws_json_1_1(value: ResetParameterGroupRequest) -> dict:
     out: dict = {}
     out["ParameterGroupName"] = value["parameter_group_name"]
-    out["AllParameters"] = value.get("all_parameters", False)
+    if "all_parameters" in value:
+        out["AllParameters"] = value["all_parameters"]
     if "parameter_names" in value:
         import capo_memorydb.types.parameter_name_list
 
@@ -49,8 +50,6 @@ def deserialize_aws_json_1_1(data: dict) -> ResetParameterGroupRequest:
         )
     if data.get("AllParameters") is not None:
         out["all_parameters"] = data["AllParameters"]
-    else:
-        out["all_parameters"] = False
     if data.get("ParameterNames") is not None:
         import capo_memorydb.types.parameter_name_list
 

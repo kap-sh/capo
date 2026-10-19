@@ -31,7 +31,7 @@ class ListFailureModeAssessmentsRequest(TypedDict, closed=True):
     """<p>The field to use for sorting failure mode assessments.</p>"""
     sort_order: NotRequired["capo_resiliencehubv2.types.sort_order.SortOrder"]
     """<p>The sort order for results.</p>"""
-    max_results: "capo_resiliencehubv2.types.max_results.MaxResults"
+    max_results: NotRequired["capo_resiliencehubv2.types.max_results.MaxResults"]
     next_token: NotRequired["capo_resiliencehubv2.types.next_token.NextToken"]
 
 

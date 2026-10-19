@@ -20,7 +20,7 @@ class UploadMultipartPartInput(TypedDict, closed=True):
     """<p>The SHA256 tree hash of the data being uploaded.</p>"""
     range: NotRequired["capo_glacier.types.string.string"]
     """<p>Identifies the range of bytes in the assembled archive that will be uploaded in this part. Amazon Glacier uses this information to assemble the archive in the proper sequence. The format of this header follows RFC 2616. An example header is Content-Range:bytes 0-4194303/*.</p>"""
-    body: "capo_glacier.types.stream.Stream"
+    body: NotRequired["capo_glacier.types.stream.Stream"]
     """<p>The data to upload.</p>"""
 
 

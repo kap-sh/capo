@@ -22,7 +22,7 @@ class SearchProductsInput(TypedDict, closed=True):
         "capo_service_catalog.types.product_view_filters.ProductViewFilters"
     ]
     """<p>The search filters. If no search filters are specified, the output includes all products to which the caller has access.</p>"""
-    page_size: "capo_service_catalog.types.page_size_max100.PageSizeMax100"
+    page_size: NotRequired["capo_service_catalog.types.page_size_max100.PageSizeMax100"]
     """<p>The maximum number of items to return with this call.</p>"""
     sort_by: NotRequired[
         "capo_service_catalog.types.product_view_sort_by.ProductViewSortBy"
@@ -47,7 +47,8 @@ def serialize_aws_json_1_1(value: SearchProductsInput) -> dict:
                 value["filters"]
             )
         )
-    out["PageSize"] = value.get("page_size", 0)
+    if "page_size" in value:
+        out["PageSize"] = value["page_size"]
     if "sort_by" in value:
         import capo_service_catalog.types.product_view_sort_by
 
@@ -81,8 +82,6 @@ def deserialize_aws_json_1_1(data: dict) -> SearchProductsInput:
         )
     if data.get("PageSize") is not None:
         out["page_size"] = data["PageSize"]
-    else:
-        out["page_size"] = 0
     if data.get("SortBy") is not None:
         import capo_service_catalog.types.product_view_sort_by
 

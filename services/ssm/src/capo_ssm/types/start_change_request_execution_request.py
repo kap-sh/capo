@@ -36,7 +36,7 @@ class StartChangeRequestExecutionRequest(TypedDict, closed=True):
     """<p>The name of the change request associated with the runbook workflow to be run.</p>"""
     client_token: NotRequired["capo_ssm.types.idempotency_token.IdempotencyToken"]
     """<p>The user-provided idempotency token. The token must be unique, is case insensitive, enforces the UUID format, and can't be reused.</p>"""
-    auto_approve: "capo_ssm.types.boolean.Boolean"
+    auto_approve: NotRequired["capo_ssm.types.boolean.Boolean"]
     """<p>Indicates whether the change request can be approved automatically without the need for manual approvals.</p> <p>If <code>AutoApprovable</code> is enabled in a change template, then setting <code>AutoApprove</code> to <code>true</code> in <code>StartChangeRequestExecution</code> creates a change request that bypasses approver review.</p> <note> <p>Change Calendar restrictions are not bypassed in this scenario. If the state of an associated calendar is <code>CLOSED</code>, change freeze approvers must still grant permission for this change request to run. If they don't, the change won't be processed until the calendar state is again <code>OPEN</code>. </p> </note>"""
     runbooks: "capo_ssm.types.runbooks.Runbooks"
     """<p>Information about the Automation runbooks that are run during the runbook workflow.</p> <note> <p>The Automation runbooks specified for the runbook workflow can't run until all required approvals for the change request have been received.</p> </note>"""
@@ -74,7 +74,8 @@ def serialize_aws_json_1_1(value: StartChangeRequestExecutionRequest) -> dict:
         out["ChangeRequestName"] = value["change_request_name"]
     if "client_token" in value:
         out["ClientToken"] = value["client_token"]
-    out["AutoApprove"] = value.get("auto_approve", False)
+    if "auto_approve" in value:
+        out["AutoApprove"] = value["auto_approve"]
     import capo_ssm.types.runbooks
 
     out["Runbooks"] = capo_ssm.types.runbooks.serialize_aws_json_1_1(value["runbooks"])
@@ -123,8 +124,6 @@ def deserialize_aws_json_1_1(data: dict) -> StartChangeRequestExecutionRequest:
         out["client_token"] = data["ClientToken"]
     if data.get("AutoApprove") is not None:
         out["auto_approve"] = data["AutoApprove"]
-    else:
-        out["auto_approve"] = False
     if data.get("Runbooks") is not None:
         import capo_ssm.types.runbooks
 

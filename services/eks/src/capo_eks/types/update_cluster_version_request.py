@@ -19,7 +19,7 @@ class UpdateClusterVersionRequest(TypedDict, closed=True):
     """<p>The desired Kubernetes version following a successful update.</p>"""
     client_request_token: NotRequired["capo_eks.types.string.String"]
     """<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.</p>"""
-    force: "capo_eks.types.boolean.Boolean"
+    force: NotRequired["capo_eks.types.boolean.Boolean"]
     """<p>Set this value to <code>true</code> to override upgrade-blocking or rollback-blocking readiness checks when updating a cluster.</p>"""
     rollback_config: NotRequired["capo_eks.types.rollback_config.RollbackConfig"]
     """<p>The rollback configuration for the cluster version rollback.</p>"""
@@ -31,7 +31,8 @@ def serialize_json(value: UpdateClusterVersionRequest) -> dict:
     out["version"] = value["version"]
     if "client_request_token" in value:
         out["clientRequestToken"] = value["client_request_token"]
-    out["force"] = value.get("force", False)
+    if "force" in value:
+        out["force"] = value["force"]
     if "rollback_config" in value:
         import capo_eks.types.rollback_config
 
@@ -51,8 +52,6 @@ def deserialize_json(data: dict) -> UpdateClusterVersionRequest:
         out["client_request_token"] = data["clientRequestToken"]
     if data.get("force") is not None:
         out["force"] = data["force"]
-    else:
-        out["force"] = False
     if data.get("rollbackConfig") is not None:
         import capo_eks.types.rollback_config
 

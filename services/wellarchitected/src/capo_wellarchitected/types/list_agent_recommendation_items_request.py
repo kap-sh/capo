@@ -20,7 +20,7 @@ class ListAgentRecommendationItemsRequest(TypedDict, closed=True):
         "capo_wellarchitected.types.recommendation_item_type.RecommendationItemType"
     ]
     """<p>Optional filter to return only recommendation items of the specified type.</p>"""
-    max_results: "capo_wellarchitected.types.max_results.MaxResults"
+    max_results: NotRequired["capo_wellarchitected.types.max_results.MaxResults"]
     """<p>The maximum number of recommendation items to return in a single response.</p>"""
     next_token: NotRequired["capo_wellarchitected.types.next_token.NextToken"]
     """<p>A pagination token returned from a previous call to continue retrieving results.</p>"""

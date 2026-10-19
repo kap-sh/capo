@@ -106,7 +106,8 @@ def build_request(
     )  # noqa: F841
     url = endpoint.url.rstrip("/") + "/responder-gateways"
     params: list[tuple[str, str]] = []
-    params.append(("maxResults", str(input_.get("max_results", 10))))
+    if "max_results" in input_:
+        params.append(("maxResults", str(input_["max_results"])))
     if "next_token" in input_:
         params.append(("nextToken", input_["next_token"]))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}

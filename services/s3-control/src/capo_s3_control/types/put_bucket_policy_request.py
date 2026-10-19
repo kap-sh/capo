@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
 from capo_s3_control.errors import DeserializationError
@@ -19,7 +19,9 @@ class PutBucketPolicyRequest(TypedDict, closed=True):
     """<p>The Amazon Web Services account ID of the Outposts bucket.</p>"""
     bucket: "capo_s3_control.types.bucket_name.BucketName"
     """<p>Specifies the bucket.</p> <p>For using this parameter with Amazon S3 on Outposts with the REST API, you must specify the name and the x-amz-outpost-id as well.</p> <p>For using this parameter with S3 on Outposts with the Amazon Web Services SDK and CLI, you must specify the ARN of the bucket accessed in the format <code>arn:aws:s3-outposts:<Region>:<account-id>:outpost/<outpost-id>/bucket/<my-bucket-name></code>. For example, to access the bucket <code>reports</code> through Outpost <code>my-outpost</code> owned by account <code>123456789012</code> in Region <code>us-west-2</code>, use the URL encoding of <code>arn:aws:s3-outposts:us-west-2:123456789012:outpost/my-outpost/bucket/reports</code>. The value must be URL encoded. </p>"""
-    confirm_remove_self_bucket_access: "capo_s3_control.types.confirm_remove_self_bucket_access.ConfirmRemoveSelfBucketAccess"
+    confirm_remove_self_bucket_access: NotRequired[
+        "capo_s3_control.types.confirm_remove_self_bucket_access.ConfirmRemoveSelfBucketAccess"
+    ]
     """<p>Set this parameter to true to confirm that you want to remove your permissions to change this bucket policy in the future.</p> <note> <p>This is not supported by Amazon S3 on Outposts buckets.</p> </note>"""
     policy: "capo_s3_control.types.policy.Policy"
     """<p>The bucket policy as a JSON document.</p>"""

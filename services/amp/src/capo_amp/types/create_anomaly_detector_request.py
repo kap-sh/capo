@@ -22,7 +22,9 @@ class CreateAnomalyDetectorRequest(TypedDict, closed=True):
     """<p>The identifier of the workspace where the anomaly detector will be created.</p>"""
     alias: "capo_amp.types.anomaly_detector_alias.AnomalyDetectorAlias"
     """<p>A user-friendly name for the anomaly detector.</p>"""
-    evaluation_interval_in_seconds: "capo_amp.types.anomaly_detector_evaluation_interval.AnomalyDetectorEvaluationInterval"
+    evaluation_interval_in_seconds: NotRequired[
+        "capo_amp.types.anomaly_detector_evaluation_interval.AnomalyDetectorEvaluationInterval"
+    ]
     """<p>The frequency, in seconds, at which the anomaly detector evaluates metrics. The default value is 60 seconds.</p>"""
     missing_data_action: NotRequired[
         "capo_amp.types.anomaly_detector_missing_data_action.AnomalyDetectorMissingDataAction"
@@ -46,7 +48,8 @@ class CreateAnomalyDetectorRequest(TypedDict, closed=True):
 def serialize_json(value: CreateAnomalyDetectorRequest) -> dict:
     out: dict = {}
     out["alias"] = value["alias"]
-    out["evaluationIntervalInSeconds"] = value.get("evaluation_interval_in_seconds", 60)
+    if "evaluation_interval_in_seconds" in value:
+        out["evaluationIntervalInSeconds"] = value["evaluation_interval_in_seconds"]
     if "missing_data_action" in value:
         import capo_amp.types.anomaly_detector_missing_data_action
 
@@ -83,8 +86,6 @@ def deserialize_json(data: dict) -> CreateAnomalyDetectorRequest:
         raise DeserializationError("CreateAnomalyDetectorRequest.alias required")
     if data.get("evaluationIntervalInSeconds") is not None:
         out["evaluation_interval_in_seconds"] = data["evaluationIntervalInSeconds"]
-    else:
-        out["evaluation_interval_in_seconds"] = 60
     if data.get("missingDataAction") is not None:
         import capo_amp.types.anomaly_detector_missing_data_action
 

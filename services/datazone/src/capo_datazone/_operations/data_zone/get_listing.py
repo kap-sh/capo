@@ -132,7 +132,8 @@ def build_request(
     url = url.replace("{domainIdentifier}", quote(input_["domain_identifier"], safe=""))
     url = url.replace("{identifier}", quote(input_["identifier"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(("listingRevision", input_.get("listing_revision", "latest")))
+    if "listing_revision" in input_:
+        params.append(("listingRevision", input_["listing_revision"]))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

@@ -19,7 +19,9 @@ class GetCisScanReportRequest(TypedDict, closed=True):
         "capo_inspector2.types.report_target_accounts.ReportTargetAccounts"
     ]
     """<p>The target accounts.</p>"""
-    report_format: "capo_inspector2.types.cis_report_format.CisReportFormat"
+    report_format: NotRequired[
+        "capo_inspector2.types.cis_report_format.CisReportFormat"
+    ]
     """<p> The format of the report. Valid values are <code>PDF</code> and <code>CSV</code>. If no value is specified, the report format defaults to <code>PDF</code>. </p>"""
 
 
@@ -35,11 +37,12 @@ def serialize_json(value: GetCisScanReportRequest) -> dict:
                 value["target_accounts"]
             )
         )
-    import capo_inspector2.types.cis_report_format
+    if "report_format" in value:
+        import capo_inspector2.types.cis_report_format
 
-    out["reportFormat"] = capo_inspector2.types.cis_report_format.serialize_json(
-        value.get("report_format", "PDF")
-    )
+        out["reportFormat"] = capo_inspector2.types.cis_report_format.serialize_json(
+            value["report_format"]
+        )
     return out
 
 
@@ -63,6 +66,4 @@ def deserialize_json(data: dict) -> GetCisScanReportRequest:
         out["report_format"] = capo_inspector2.types.cis_report_format.deserialize_json(
             data["reportFormat"]
         )
-    else:
-        out["report_format"] = "PDF"
     return out

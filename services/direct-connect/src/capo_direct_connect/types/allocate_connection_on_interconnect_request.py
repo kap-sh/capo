@@ -34,7 +34,7 @@ def serialize_aws_json_1_1(value: AllocateConnectionOnInterconnectRequest) -> di
     out["connectionName"] = value["connection_name"]
     out["ownerAccount"] = value["owner_account"]
     out["interconnectId"] = value["interconnect_id"]
-    out["vlan"] = value.get("vlan", 0)
+    out["vlan"] = value["vlan"]
     return out
 
 
@@ -67,5 +67,7 @@ def deserialize_aws_json_1_1(data: dict) -> AllocateConnectionOnInterconnectRequ
     if data.get("vlan") is not None:
         out["vlan"] = data["vlan"]
     else:
-        out["vlan"] = 0
+        raise DeserializationError(
+            "AllocateConnectionOnInterconnectRequest.vlan required"
+        )
     return out

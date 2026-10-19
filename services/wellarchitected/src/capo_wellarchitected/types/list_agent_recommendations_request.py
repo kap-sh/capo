@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 class ListAgentRecommendationsRequest(TypedDict, closed=True):
     profile_arn: "capo_wellarchitected.types.agent_profile_arn.AgentProfileArn"
     """<p>The Amazon Resource Name (ARN) of the optimization profile to list recommendations for.</p>"""
-    max_results: "capo_wellarchitected.types.max_results.MaxResults"
+    max_results: NotRequired["capo_wellarchitected.types.max_results.MaxResults"]
     """<p>The maximum number of recommendations to return in a single response.</p>"""
     next_token: NotRequired["capo_wellarchitected.types.next_token.NextToken"]
     """<p>A pagination token returned from a previous call to continue retrieving results.</p>"""

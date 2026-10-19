@@ -24,7 +24,7 @@ class ListMemoryRecordsInput(TypedDict, closed=True):
         "capo_bedrock_agentcore.types.memory_strategy_id.MemoryStrategyId"
     ]
     """<p>The memory strategy identifier to filter memory records by. If specified, only memory records with this strategy ID are returned.</p>"""
-    max_results: "capo_bedrock_agentcore.types.max_results.MaxResults"
+    max_results: NotRequired["capo_bedrock_agentcore.types.max_results.MaxResults"]
     """<p>The maximum number of results to return in a single call. The default value is 20.</p>"""
     next_token: NotRequired[
         "capo_bedrock_agentcore.types.pagination_token.PaginationToken"
@@ -45,7 +45,8 @@ def serialize_json(value: ListMemoryRecordsInput) -> dict:
         out["namespacePath"] = value["namespace_path"]
     if "memory_strategy_id" in value:
         out["memoryStrategyId"] = value["memory_strategy_id"]
-    out["maxResults"] = value.get("max_results", 100)
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
     if "metadata_filters" in value:
@@ -69,8 +70,6 @@ def deserialize_json(data: dict) -> ListMemoryRecordsInput:
         out["memory_strategy_id"] = data["memoryStrategyId"]
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
-    else:
-        out["max_results"] = 100
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("metadataFilters") is not None:

@@ -352,9 +352,10 @@ def build_request(
         )
     if "language_model_name" in input_:
         headers["x-amzn-transcribe-language-model-name"] = input_["language_model_name"]
-    headers["x-amzn-transcribe-identify-language"] = (
-        "true" if input_.get("identify_language", False) else "false"
-    )
+    if "identify_language" in input_:
+        headers["x-amzn-transcribe-identify-language"] = (
+            "true" if input_["identify_language"] else "false"
+        )
     if "language_options" in input_:
         headers["x-amzn-transcribe-language-options"] = input_["language_options"]
     if "preferred_language" in input_:
@@ -369,9 +370,10 @@ def build_request(
         headers["x-amzn-transcribe-vocabulary-filter-names"] = input_[
             "vocabulary_filter_names"
         ]
-    headers["x-amzn-transcribe-enable-partial-results-stabilization"] = (
-        "true" if input_.get("enable_partial_results_stabilization", False) else "false"
-    )
+    if "enable_partial_results_stabilization" in input_:
+        headers["x-amzn-transcribe-enable-partial-results-stabilization"] = (
+            "true" if input_["enable_partial_results_stabilization"] else "false"
+        )
     if "partial_results_stability" in input_:
         headers["x-amzn-transcribe-partial-results-stability"] = (
             capo_transcribe_streaming.types.partial_results_stability.serialize_json(
@@ -466,9 +468,10 @@ def async_build_request(
         )
     if "language_model_name" in input_:
         headers["x-amzn-transcribe-language-model-name"] = input_["language_model_name"]
-    headers["x-amzn-transcribe-identify-language"] = (
-        "true" if input_.get("identify_language", False) else "false"
-    )
+    if "identify_language" in input_:
+        headers["x-amzn-transcribe-identify-language"] = (
+            "true" if input_["identify_language"] else "false"
+        )
     if "language_options" in input_:
         headers["x-amzn-transcribe-language-options"] = input_["language_options"]
     if "preferred_language" in input_:
@@ -483,9 +486,10 @@ def async_build_request(
         headers["x-amzn-transcribe-vocabulary-filter-names"] = input_[
             "vocabulary_filter_names"
         ]
-    headers["x-amzn-transcribe-enable-partial-results-stabilization"] = (
-        "true" if input_.get("enable_partial_results_stabilization", False) else "false"
-    )
+    if "enable_partial_results_stabilization" in input_:
+        headers["x-amzn-transcribe-enable-partial-results-stabilization"] = (
+            "true" if input_["enable_partial_results_stabilization"] else "false"
+        )
     if "partial_results_stability" in input_:
         headers["x-amzn-transcribe-partial-results-stability"] = (
             capo_transcribe_streaming.types.partial_results_stability.serialize_json(

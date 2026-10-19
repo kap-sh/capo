@@ -124,15 +124,12 @@ def build_request(
     url = endpoint.url.rstrip("/") + "/otaUpdates/{otaUpdateId}"
     url = url.replace("{otaUpdateId}", quote(input_["ota_update_id"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(
-        ("deleteStream", "true" if input_.get("delete_stream", False) else "false")
-    )
-    params.append(
-        (
-            "forceDeleteAWSJob",
-            "true" if input_.get("force_delete_aws_job", False) else "false",
+    if "delete_stream" in input_:
+        params.append(("deleteStream", "true" if input_["delete_stream"] else "false"))
+    if "force_delete_aws_job" in input_:
+        params.append(
+            ("forceDeleteAWSJob", "true" if input_["force_delete_aws_job"] else "false")
         )
-    )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

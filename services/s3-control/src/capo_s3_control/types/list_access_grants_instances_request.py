@@ -19,7 +19,7 @@ class ListAccessGrantsInstancesRequest(TypedDict, closed=True):
         "capo_s3_control.types.continuation_token.ContinuationToken"
     ]
     """<p>A pagination token to request the next page of results. Pass this value into a subsequent <code>List Access Grants Instances</code> request in order to retrieve the next page of results.</p>"""
-    max_results: "capo_s3_control.types.max_results.MaxResults"
+    max_results: NotRequired["capo_s3_control.types.max_results.MaxResults"]
     """<p>The maximum number of access grants that you would like returned in the <code>List Access Grants</code> response. If the results include the pagination token <code>NextToken</code>, make another call using the <code>NextToken</code> to determine if there are more results.</p>"""
 
 

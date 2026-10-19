@@ -99,15 +99,15 @@ def build_request(
     url = endpoint.url.rstrip("/") + "/connections/{clientId}"
     url = url.replace("{clientId}", quote(input_["client_id"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(
-        ("cleanSession", "true" if input_.get("clean_session", False) else "false")
-    )
-    params.append(
-        (
-            "preventWillMessage",
-            "true" if input_.get("prevent_will_message", False) else "false",
+    if "clean_session" in input_:
+        params.append(("cleanSession", "true" if input_["clean_session"] else "false"))
+    if "prevent_will_message" in input_:
+        params.append(
+            (
+                "preventWillMessage",
+                "true" if input_["prevent_will_message"] else "false",
+            )
         )
-    )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

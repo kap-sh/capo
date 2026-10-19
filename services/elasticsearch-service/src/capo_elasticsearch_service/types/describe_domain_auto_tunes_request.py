@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 class DescribeDomainAutoTunesRequest(TypedDict, closed=True):
     domain_name: "capo_elasticsearch_service.types.domain_name.DomainName"
     """<p>Specifies the domain name for which you want Auto-Tune action details.</p>"""
-    max_results: "capo_elasticsearch_service.types.max_results.MaxResults"
+    max_results: NotRequired["capo_elasticsearch_service.types.max_results.MaxResults"]
     """<p>Set this value to limit the number of results returned. If not specified, defaults to 100.</p>"""
     next_token: NotRequired["capo_elasticsearch_service.types.next_token.NextToken"]
     """<p>NextToken is sent in case the earlier API call results contain the NextToken. It is used for pagination.</p>"""

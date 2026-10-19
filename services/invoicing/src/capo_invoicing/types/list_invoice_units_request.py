@@ -16,7 +16,9 @@ class ListInvoiceUnitsRequest(TypedDict, closed=True):
     """<p> An optional input to the list API. If multiple filters are specified, the returned list will be a configuration that match all of the provided filters. Supported filter types are <code>InvoiceReceivers</code>, <code>Names</code>, and <code>Accounts</code>. </p>"""
     next_token: NotRequired["capo_invoicing.types.next_token_string.NextTokenString"]
     """<p>The next token used to indicate where the returned list should start from. </p>"""
-    max_results: "capo_invoicing.types.max_results_integer.MaxResultsInteger"
+    max_results: NotRequired[
+        "capo_invoicing.types.max_results_integer.MaxResultsInteger"
+    ]
     """<p>The maximum number of invoice units that can be returned. </p>"""
     as_of: NotRequired["capo_invoicing.types.as_of_timestamp.AsOfTimestamp"]
     """<p> The state of an invoice unit at a specified time. You can see legacy invoice units that are currently deleted if the <code>AsOf</code> time is set to before it was deleted. If an <code>AsOf</code> is not provided, the default value is the current time. </p>"""
@@ -33,7 +35,8 @@ def serialize_aws_json_1_0(value: ListInvoiceUnitsRequest) -> dict:
         )
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
-    out["MaxResults"] = value.get("max_results", 500)
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
     if "as_of" in value:
         import capo_invoicing.types.as_of_timestamp
 
@@ -55,8 +58,6 @@ def deserialize_aws_json_1_0(data: dict) -> ListInvoiceUnitsRequest:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
-    else:
-        out["max_results"] = 500
     if data.get("AsOf") is not None:
         import capo_invoicing.types.as_of_timestamp
 

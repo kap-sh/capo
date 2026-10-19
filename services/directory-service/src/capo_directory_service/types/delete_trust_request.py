@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_directory_service.errors import DeserializationError
 
@@ -14,7 +14,9 @@ if TYPE_CHECKING:
 class DeleteTrustRequest(TypedDict, closed=True):
     trust_id: "capo_directory_service.types.trust_id.TrustId"
     """<p>The Trust ID of the trust relationship to be deleted.</p>"""
-    delete_associated_conditional_forwarder: "capo_directory_service.types.delete_associated_conditional_forwarder.DeleteAssociatedConditionalForwarder"
+    delete_associated_conditional_forwarder: NotRequired[
+        "capo_directory_service.types.delete_associated_conditional_forwarder.DeleteAssociatedConditionalForwarder"
+    ]
     """<p>Delete a conditional forwarder as part of a DeleteTrustRequest.</p>"""
 
 
@@ -22,9 +24,10 @@ class DeleteTrustRequest(TypedDict, closed=True):
 def serialize_aws_json_1_1(value: DeleteTrustRequest) -> dict:
     out: dict = {}
     out["TrustId"] = value["trust_id"]
-    out["DeleteAssociatedConditionalForwarder"] = value.get(
-        "delete_associated_conditional_forwarder", False
-    )
+    if "delete_associated_conditional_forwarder" in value:
+        out["DeleteAssociatedConditionalForwarder"] = value[
+            "delete_associated_conditional_forwarder"
+        ]
     return out
 
 
@@ -38,6 +41,4 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteTrustRequest:
         out["delete_associated_conditional_forwarder"] = data[
             "DeleteAssociatedConditionalForwarder"
         ]
-    else:
-        out["delete_associated_conditional_forwarder"] = False
     return out

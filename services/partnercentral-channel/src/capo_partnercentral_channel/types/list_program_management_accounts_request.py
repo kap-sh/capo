@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 class ListProgramManagementAccountsRequest(TypedDict, closed=True):
     catalog: "capo_partnercentral_channel.types.catalog.Catalog"
     """<p>The catalog identifier to filter accounts.</p>"""
-    max_results: "int"
+    max_results: NotRequired["int"]
     """<p>The maximum number of results to return in a single call.</p>"""
     display_names: NotRequired[
         "capo_partnercentral_channel.types.program_management_account_display_name_list.ProgramManagementAccountDisplayNameList"
@@ -47,7 +47,8 @@ class ListProgramManagementAccountsRequest(TypedDict, closed=True):
 def serialize_aws_json_1_0(value: ListProgramManagementAccountsRequest) -> dict:
     out: dict = {}
     out["catalog"] = value["catalog"]
-    out["maxResults"] = value.get("max_results", 20)
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
     if "display_names" in value:
         import capo_partnercentral_channel.types.program_management_account_display_name_list
 
@@ -103,8 +104,6 @@ def deserialize_aws_json_1_0(data: dict) -> ListProgramManagementAccountsRequest
         )
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
-    else:
-        out["max_results"] = 20
     if data.get("displayNames") is not None:
         import capo_partnercentral_channel.types.program_management_account_display_name_list
 

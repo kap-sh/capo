@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_fms.errors import DeserializationError
 
@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 class GetProtocolsListRequest(TypedDict, closed=True):
     list_id: "capo_fms.types.list_id.ListId"
     """<p>The ID of the Firewall Manager protocols list that you want the details for.</p>"""
-    default_list: "capo_fms.types.boolean.Boolean"
+    default_list: NotRequired["capo_fms.types.boolean.Boolean"]
     """<p>Specifies whether the list to retrieve is a default list owned by Firewall Manager.</p>"""
 
 
@@ -22,7 +22,8 @@ class GetProtocolsListRequest(TypedDict, closed=True):
 def serialize_aws_json_1_1(value: GetProtocolsListRequest) -> dict:
     out: dict = {}
     out["ListId"] = value["list_id"]
-    out["DefaultList"] = value.get("default_list", False)
+    if "default_list" in value:
+        out["DefaultList"] = value["default_list"]
     return out
 
 
@@ -34,6 +35,4 @@ def deserialize_aws_json_1_1(data: dict) -> GetProtocolsListRequest:
         raise DeserializationError("GetProtocolsListRequest.list_id required")
     if data.get("DefaultList") is not None:
         out["default_list"] = data["DefaultList"]
-    else:
-        out["default_list"] = False
     return out

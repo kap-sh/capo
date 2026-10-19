@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 class ListSpacesInput(TypedDict, closed=True):
     next_token: NotRequired["str"]
     """<p>The token for the next set of private re:Posts to return. You receive this token from a previous ListSpaces operation.</p>"""
-    max_results: "capo_repostspace.types.list_spaces_limit.ListSpacesLimit"
+    max_results: NotRequired["capo_repostspace.types.list_spaces_limit.ListSpacesLimit"]
     """<p>The maximum number of private re:Posts to include in the results.</p>"""
 
 

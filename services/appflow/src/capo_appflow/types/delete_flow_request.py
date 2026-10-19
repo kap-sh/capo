@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_appflow.errors import DeserializationError
 
@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 class DeleteFlowRequest(TypedDict, closed=True):
     flow_name: "capo_appflow.types.flow_name.FlowName"
     """<p> The specified name of the flow. Spaces are not allowed. Use underscores (_) or hyphens (-) only. </p>"""
-    force_delete: "capo_appflow.types.boolean.Boolean"
+    force_delete: NotRequired["capo_appflow.types.boolean.Boolean"]
     """<p> Indicates whether Amazon AppFlow should delete the flow, even if it is currently in use. </p>"""
 
 
@@ -22,7 +22,8 @@ class DeleteFlowRequest(TypedDict, closed=True):
 def serialize_json(value: DeleteFlowRequest) -> dict:
     out: dict = {}
     out["flowName"] = value["flow_name"]
-    out["forceDelete"] = value.get("force_delete", False)
+    if "force_delete" in value:
+        out["forceDelete"] = value["force_delete"]
     return out
 
 
@@ -34,6 +35,4 @@ def deserialize_json(data: dict) -> DeleteFlowRequest:
         raise DeserializationError("DeleteFlowRequest.flow_name required")
     if data.get("forceDelete") is not None:
         out["force_delete"] = data["forceDelete"]
-    else:
-        out["force_delete"] = False
     return out

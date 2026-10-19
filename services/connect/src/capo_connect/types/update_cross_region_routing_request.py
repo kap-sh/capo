@@ -4,6 +4,8 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
+from capo_connect.errors import DeserializationError
+
 if TYPE_CHECKING:
     import capo_connect.types.acgr_instance_id_or_arn
     import capo_connect.types.boolean
@@ -19,7 +21,7 @@ class UpdateCrossRegionRoutingRequest(TypedDict, closed=True):
 # --- restJson1 ser/de ---
 def serialize_json(value: UpdateCrossRegionRoutingRequest) -> dict:
     out: dict = {}
-    out["IsolatedAll"] = value.get("isolated_all", False)
+    out["IsolatedAll"] = value["isolated_all"]
     return out
 
 
@@ -28,5 +30,7 @@ def deserialize_json(data: dict) -> UpdateCrossRegionRoutingRequest:
     if data.get("IsolatedAll") is not None:
         out["isolated_all"] = data["IsolatedAll"]
     else:
-        out["isolated_all"] = False
+        raise DeserializationError(
+            "UpdateCrossRegionRoutingRequest.isolated_all required"
+        )
     return out

@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_application_discovery_service.errors import DeserializationError
 
@@ -14,7 +14,9 @@ if TYPE_CHECKING:
 class BatchDeleteImportDataRequest(TypedDict, closed=True):
     import_task_ids: "capo_application_discovery_service.types.to_delete_identifier_list.ToDeleteIdentifierList"
     """<p>The IDs for the import tasks that you want to delete.</p>"""
-    delete_history: "capo_application_discovery_service.types.boolean.Boolean"
+    delete_history: NotRequired[
+        "capo_application_discovery_service.types.boolean.Boolean"
+    ]
     """<p> Set to <code>true</code> to remove the deleted import task from <a>DescribeImportTasks</a>. </p>"""
 
 
@@ -28,7 +30,8 @@ def serialize_aws_json_1_1(value: BatchDeleteImportDataRequest) -> dict:
             value["import_task_ids"]
         )
     )
-    out["deleteHistory"] = value.get("delete_history", False)
+    if "delete_history" in value:
+        out["deleteHistory"] = value["delete_history"]
     return out
 
 
@@ -48,6 +51,4 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDeleteImportDataRequest:
         )
     if data.get("deleteHistory") is not None:
         out["delete_history"] = data["deleteHistory"]
-    else:
-        out["delete_history"] = False
     return out

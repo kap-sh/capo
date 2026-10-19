@@ -19,7 +19,7 @@ class GetCatalogsRequest(TypedDict, closed=True):
     """<p>A continuation token, if this is a continuation call.</p>"""
     max_results: NotRequired["capo_glue.types.page_size.PageSize"]
     """<p>The maximum number of catalogs to return in one response.</p>"""
-    recursive: "capo_glue.types.boolean.Boolean"
+    recursive: NotRequired["capo_glue.types.boolean.Boolean"]
     """<p>Whether to list all catalogs across the catalog hierarchy, starting from the <code>ParentCatalogId</code>. Defaults to <code>false</code> . When <code>true</code>, all catalog objects in the <code>ParentCatalogID</code> hierarchy are enumerated in the response.</p>"""
     include_root: NotRequired["capo_glue.types.nullable_boolean.NullableBoolean"]
     """<p>Whether to list the default catalog in the account and region in the response. Defaults to <code>false</code>. When <code>true</code> and <code>ParentCatalogId = NULL | Amazon Web Services Account ID</code>, all catalogs and the default catalog are enumerated in the response.</p> <p>When the <code>ParentCatalogId</code> is not equal to null, and this attribute is passed as <code>false</code> or <code>true</code>, an <code>InvalidInputException</code> is thrown.</p>"""
@@ -36,7 +36,8 @@ def serialize_aws_json_1_1(value: GetCatalogsRequest) -> dict:
         out["NextToken"] = value["next_token"]
     if "max_results" in value:
         out["MaxResults"] = value["max_results"]
-    out["Recursive"] = value.get("recursive", False)
+    if "recursive" in value:
+        out["Recursive"] = value["recursive"]
     if "include_root" in value:
         out["IncludeRoot"] = value["include_root"]
     if "has_databases" in value:
@@ -54,8 +55,6 @@ def deserialize_aws_json_1_1(data: dict) -> GetCatalogsRequest:
         out["max_results"] = data["MaxResults"]
     if data.get("Recursive") is not None:
         out["recursive"] = data["Recursive"]
-    else:
-        out["recursive"] = False
     if data.get("IncludeRoot") is not None:
         out["include_root"] = data["IncludeRoot"]
     if data.get("HasDatabases") is not None:

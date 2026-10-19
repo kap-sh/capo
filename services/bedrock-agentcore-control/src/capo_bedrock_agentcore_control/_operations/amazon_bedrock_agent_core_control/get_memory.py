@@ -131,14 +131,15 @@ def build_request(
     url = endpoint.url.rstrip("/") + "/memories/{memoryId}/details"
     url = url.replace("{memoryId}", quote(input_["memory_id"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(
-        (
-            "view",
-            capo_bedrock_agentcore_control.types.memory_view.serialize_json(
-                input_.get("view", "full")
-            ),
+    if "view" in input_:
+        params.append(
+            (
+                "view",
+                capo_bedrock_agentcore_control.types.memory_view.serialize_json(
+                    input_["view"]
+                ),
+            )
         )
-    )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

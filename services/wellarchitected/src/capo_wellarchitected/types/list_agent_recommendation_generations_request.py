@@ -18,7 +18,7 @@ class ListAgentRecommendationGenerationsRequest(TypedDict, closed=True):
         "capo_wellarchitected.types.recommendation_type.RecommendationType"
     ]
     """<p>Optional filter by recommendation type.</p>"""
-    max_results: "capo_wellarchitected.types.max_results.MaxResults"
+    max_results: NotRequired["capo_wellarchitected.types.max_results.MaxResults"]
     """<p>The maximum number of generation processes to return in a single response.</p>"""
     next_token: NotRequired["capo_wellarchitected.types.next_token.NextToken"]
     """<p>A pagination token returned from a previous call to continue retrieving results.</p>"""

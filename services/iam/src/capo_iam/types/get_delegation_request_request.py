@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
 from capo_iam.errors import DeserializationError
@@ -17,7 +17,7 @@ class GetDelegationRequestRequest(TypedDict, closed=True):
         "capo_iam.types.delegation_request_id_type.delegationRequestIdType"
     )
     """<p>The unique identifier of the delegation request to retrieve.</p>"""
-    delegation_permission_check: "capo_iam.types.boolean_type.booleanType"
+    delegation_permission_check: NotRequired["capo_iam.types.boolean_type.booleanType"]
     """<p>Specifies whether to perform a permission check for the delegation request.</p> <p>If set to true, the <code>GetDelegationRequest</code> API call will start a permission check process. This process calculates whether the caller has sufficient permissions to cover the asks from this delegation request.</p> <p>Setting this parameter to true does not guarantee an answer in the response. See the <code>PermissionCheckStatus</code> and the <code>PermissionCheckResult</code> response attributes for further details.</p>"""
 
 
@@ -29,12 +29,13 @@ def serialize_query(
     pairs.append(
         (f"{key_prefix}DelegationRequestId", str(value["delegation_request_id"]))
     )
-    pairs.append(
-        (
-            f"{key_prefix}DelegationPermissionCheck",
-            "true" if value.get("delegation_permission_check", False) else "false",
+    if "delegation_permission_check" in value:
+        pairs.append(
+            (
+                f"{key_prefix}DelegationPermissionCheck",
+                "true" if value["delegation_permission_check"] else "false",
+            )
         )
-    )
 
 
 def deserialize_query(el: Element) -> GetDelegationRequestRequest:
@@ -51,6 +52,4 @@ def deserialize_query(el: Element) -> GetDelegationRequestRequest:
         out["delegation_permission_check"] = (
             child_delegation_permission_check.text or ""
         ).lower() == "true"
-    else:
-        out["delegation_permission_check"] = False
     return out

@@ -2,14 +2,14 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_iot.types.verbose_flag
 
 
 class GetV2LoggingOptionsRequest(TypedDict, closed=True):
-    verbose: "capo_iot.types.verbose_flag.VerboseFlag"
+    verbose: NotRequired["capo_iot.types.verbose_flag.VerboseFlag"]
     """<p> The flag is used to get all the event types and their respective configuration that event-based logging supports. </p>"""
 
 

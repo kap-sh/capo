@@ -17,7 +17,9 @@ class ListDataLakeNamespacesRequest(TypedDict, closed=True):
         "capo_supplychain.types.data_lake_namespace_next_token.DataLakeNamespaceNextToken"
     ]
     """<p>The pagination token to fetch next page of namespaces.</p>"""
-    max_results: "capo_supplychain.types.data_lake_namespace_max_results.DataLakeNamespaceMaxResults"
+    max_results: NotRequired[
+        "capo_supplychain.types.data_lake_namespace_max_results.DataLakeNamespaceMaxResults"
+    ]
     """<p>The max number of namespaces to fetch in this paginated request.</p>"""
 
 

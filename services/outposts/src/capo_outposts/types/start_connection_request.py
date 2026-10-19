@@ -35,7 +35,7 @@ def serialize_json(value: StartConnectionRequest) -> dict:
         out["DeviceSerialNumber"] = value["device_serial_number"]
     out["AssetId"] = value["asset_id"]
     out["ClientPublicKey"] = value["client_public_key"]
-    out["NetworkInterfaceDeviceIndex"] = value.get("network_interface_device_index", 0)
+    out["NetworkInterfaceDeviceIndex"] = value["network_interface_device_index"]
     return out
 
 
@@ -54,5 +54,7 @@ def deserialize_json(data: dict) -> StartConnectionRequest:
     if data.get("NetworkInterfaceDeviceIndex") is not None:
         out["network_interface_device_index"] = data["NetworkInterfaceDeviceIndex"]
     else:
-        out["network_interface_device_index"] = 0
+        raise DeserializationError(
+            "StartConnectionRequest.network_interface_device_index required"
+        )
     return out

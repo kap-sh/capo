@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 
 class ListIdentitySourcesRequest(TypedDict, closed=True):
-    max_results: "capo_mpa.types.max_results.MaxResults"
+    max_results: NotRequired["capo_mpa.types.max_results.MaxResults"]
     """<p>The maximum number of items to return in the response. If more results exist than the specified <code>MaxResults</code> value, a token is included in the response so that you can retrieve the remaining results.</p>"""
     next_token: NotRequired["capo_mpa.types.token.Token"]
     """<p>If present, indicates that more output is available than is included in the current response. Use this value in the <code>NextToken</code> request parameter in a next call to the operation to get more output. You can repeat this until the <code>NextToken</code> response element returns <code>null</code>.</p>"""

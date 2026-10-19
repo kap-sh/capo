@@ -25,11 +25,13 @@ class CreateFleetRequest(TypedDict, closed=True):
     """<p>The unique token which the server uses to recognize retries of the same request.</p>"""
     display_name: "capo_deadline.types.resource_name.ResourceName"
     """<p>The display name of the fleet.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
-    description: "capo_deadline.types.description.Description"
+    description: NotRequired["capo_deadline.types.description.Description"]
     """<p>The description of the fleet.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     role_arn: "capo_deadline.types.iam_role_arn.IamRoleArn"
     """<p>The IAM role ARN for the role that the fleet's workers will use.</p>"""
-    min_worker_count: "capo_deadline.types.min_zero_max_integer.MinZeroMaxInteger"
+    min_worker_count: NotRequired[
+        "capo_deadline.types.min_zero_max_integer.MinZeroMaxInteger"
+    ]
     """<p>The minimum number of workers for the fleet.</p>"""
     max_worker_count: "capo_deadline.types.min_zero_max_integer.MinZeroMaxInteger"
     """<p>The maximum number of workers for the fleet.</p> <p>Deadline Cloud limits the number of workers to less than or equal to the fleet's maximum worker count. The service maintains eventual consistency for the worker count. If you make multiple rapid calls to <code>CreateWorker</code> before the field updates, you might exceed your fleet's maximum worker count. For example, if your <code>maxWorkerCount</code> is 10 and you currently have 9 workers, making two quick <code>CreateWorker</code> calls might successfully create 2 workers instead of 1, resulting in 11 total workers.</p>"""
@@ -47,9 +49,11 @@ class CreateFleetRequest(TypedDict, closed=True):
 def serialize_json(value: CreateFleetRequest) -> dict:
     out: dict = {}
     out["displayName"] = value["display_name"]
-    out["description"] = value.get("description", "")
+    if "description" in value:
+        out["description"] = value["description"]
     out["roleArn"] = value["role_arn"]
-    out["minWorkerCount"] = value.get("min_worker_count", 0)
+    if "min_worker_count" in value:
+        out["minWorkerCount"] = value["min_worker_count"]
     out["maxWorkerCount"] = value["max_worker_count"]
     import capo_deadline.types.fleet_configuration
 
@@ -79,16 +83,12 @@ def deserialize_json(data: dict) -> CreateFleetRequest:
         raise DeserializationError("CreateFleetRequest.display_name required")
     if data.get("description") is not None:
         out["description"] = data["description"]
-    else:
-        out["description"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
         raise DeserializationError("CreateFleetRequest.role_arn required")
     if data.get("minWorkerCount") is not None:
         out["min_worker_count"] = data["minWorkerCount"]
-    else:
-        out["min_worker_count"] = 0
     if data.get("maxWorkerCount") is not None:
         out["max_worker_count"] = data["maxWorkerCount"]
     else:

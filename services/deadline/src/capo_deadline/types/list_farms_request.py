@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 class ListFarmsRequest(TypedDict, closed=True):
     next_token: NotRequired["capo_deadline.types.next_token.NextToken"]
     """<p>The token for the next set of results, or <code>null</code> to start from the beginning.</p>"""
-    max_results: "capo_deadline.types.max_results.MaxResults"
+    max_results: NotRequired["capo_deadline.types.max_results.MaxResults"]
     """<p>The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.</p>"""
     principal_id: NotRequired[
         "capo_deadline.types.identity_center_principal_id.IdentityCenterPrincipalId"

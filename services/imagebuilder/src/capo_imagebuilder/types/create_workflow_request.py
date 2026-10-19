@@ -41,7 +41,7 @@ class CreateWorkflowRequest(TypedDict, closed=True):
     """<p>A unique, case-sensitive identifier you provide to ensure that the operation runs no more than one time. If you retry a request with the same client token, Image Builder returns the original response without running the operation again. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a> in the <i>Amazon EC2 API Reference</i>.</p>"""
     type: "capo_imagebuilder.types.workflow_type.WorkflowType"
     """<p>The image creation stage that this workflow applies to. Image Builder validates the workflow document steps against the stage you specify.</p>"""
-    dry_run: "capo_imagebuilder.types.boolean.Boolean"
+    dry_run: NotRequired["capo_imagebuilder.types.boolean.Boolean"]
     """<p>Validates the required permissions and request parameters without performing the operation. If validation succeeds, the operation returns a <code>DryRunOperationException</code> error response.</p>"""
 
 
@@ -68,7 +68,8 @@ def serialize_json(value: CreateWorkflowRequest) -> dict:
     import capo_imagebuilder.types.workflow_type
 
     out["type"] = capo_imagebuilder.types.workflow_type.serialize_json(value["type"])
-    out["dryRun"] = value.get("dry_run", False)
+    if "dry_run" in value:
+        out["dryRun"] = value["dry_run"]
     return out
 
 
@@ -110,6 +111,4 @@ def deserialize_json(data: dict) -> CreateWorkflowRequest:
         raise DeserializationError("CreateWorkflowRequest.type required")
     if data.get("dryRun") is not None:
         out["dry_run"] = data["dryRun"]
-    else:
-        out["dry_run"] = False
     return out

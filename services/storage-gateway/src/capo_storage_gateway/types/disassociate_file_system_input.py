@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_storage_gateway.errors import DeserializationError
 
@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 class DisassociateFileSystemInput(TypedDict, closed=True):
     file_system_association_arn: "capo_storage_gateway.types.file_system_association_arn.FileSystemAssociationARN"
     """<p>The Amazon Resource Name (ARN) of the file system association to be deleted.</p>"""
-    force_delete: "capo_storage_gateway.types.boolean2.Boolean2"
+    force_delete: NotRequired["capo_storage_gateway.types.boolean2.Boolean2"]
     """<p>If this value is set to true, the operation disassociates an Amazon FSx file system immediately. It ends all data uploads to the file system, and the file system association enters the <code>FORCE_DELETING</code> status. If this value is set to false, the Amazon FSx file system does not disassociate until all data is uploaded.</p>"""
 
 
@@ -22,7 +22,8 @@ class DisassociateFileSystemInput(TypedDict, closed=True):
 def serialize_aws_json_1_1(value: DisassociateFileSystemInput) -> dict:
     out: dict = {}
     out["FileSystemAssociationARN"] = value["file_system_association_arn"]
-    out["ForceDelete"] = value.get("force_delete", False)
+    if "force_delete" in value:
+        out["ForceDelete"] = value["force_delete"]
     return out
 
 
@@ -36,6 +37,4 @@ def deserialize_aws_json_1_1(data: dict) -> DisassociateFileSystemInput:
         )
     if data.get("ForceDelete") is not None:
         out["force_delete"] = data["ForceDelete"]
-    else:
-        out["force_delete"] = False
     return out

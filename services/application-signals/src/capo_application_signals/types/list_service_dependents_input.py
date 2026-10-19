@@ -21,7 +21,9 @@ class ListServiceDependentsInput(TypedDict, closed=True):
     """<p>The end of the time period to retrieve information about. When used in a raw HTTP Query API, it is formatted as be epoch time in seconds. For example: <code>1698778057</code> </p> <p>Your requested start time will be rounded to the nearest hour.</p>"""
     key_attributes: "capo_application_signals.types.attributes.Attributes"
     """<p>Use this field to specify which service you want to retrieve information for. You must specify at least the <code>Type</code>, <code>Name</code>, and <code>Environment</code> attributes.</p> <p>This is a string-to-string map. It can include the following fields.</p> <ul> <li> <p> <code>Type</code> designates the type of object this is.</p> </li> <li> <p> <code>ResourceType</code> specifies the type of the resource. This field is used only when the value of the <code>Type</code> field is <code>Resource</code> or <code>AWS::Resource</code>.</p> </li> <li> <p> <code>Name</code> specifies the name of the object. This is used only if the value of the <code>Type</code> field is <code>Service</code>, <code>RemoteService</code>, or <code>AWS::Service</code>.</p> </li> <li> <p> <code>Identifier</code> identifies the resource objects of this resource. This is used only if the value of the <code>Type</code> field is <code>Resource</code> or <code>AWS::Resource</code>.</p> </li> <li> <p> <code>Environment</code> specifies the location where this object is hosted, or what it belongs to.</p> </li> </ul>"""
-    max_results: "capo_application_signals.types.list_service_dependents_max_results.ListServiceDependentsMaxResults"
+    max_results: NotRequired[
+        "capo_application_signals.types.list_service_dependents_max_results.ListServiceDependentsMaxResults"
+    ]
     """<p>The maximum number of results to return in one operation. If you omit this parameter, the default of 50 is used.</p>"""
     next_token: NotRequired["capo_application_signals.types.next_token.NextToken"]
     """<p>Include this value, if it was returned by the previous operation, to get the next set of service dependents.</p>"""

@@ -49,7 +49,7 @@ class CreateRestApiRequest(TypedDict, closed=True):
         "capo_api_gateway.types.map_of_string_to_string.MapOfStringToString"
     ]
     """<p>The key-value map of strings. The valid character set is [a-zA-Z+-=._:/]. The tag key can be up to 128 characters and must not start with <code>aws:</code>. The tag value can be up to 256 characters.</p>"""
-    disable_execute_api_endpoint: "capo_api_gateway.types.boolean.Boolean"
+    disable_execute_api_endpoint: NotRequired["capo_api_gateway.types.boolean.Boolean"]
     """<p>Specifies whether clients can invoke your API by using the default <code>execute-api</code> endpoint. By default, clients can invoke your API with the default <code>https://{api_id}.execute-api.{region}.amazonaws.com</code> endpoint. To require that clients use a custom domain name to invoke your API, disable the default endpoint</p>"""
     security_policy: NotRequired[
         "capo_api_gateway.types.security_policy.SecurityPolicy"
@@ -101,7 +101,8 @@ def serialize_json(value: CreateRestApiRequest) -> dict:
         out["tags"] = capo_api_gateway.types.map_of_string_to_string.serialize_json(
             value["tags"]
         )
-    out["disableExecuteApiEndpoint"] = value.get("disable_execute_api_endpoint", False)
+    if "disable_execute_api_endpoint" in value:
+        out["disableExecuteApiEndpoint"] = value["disable_execute_api_endpoint"]
     if "security_policy" in value:
         import capo_api_gateway.types.security_policy
 
@@ -167,8 +168,6 @@ def deserialize_json(data: dict) -> CreateRestApiRequest:
         )
     if data.get("disableExecuteApiEndpoint") is not None:
         out["disable_execute_api_endpoint"] = data["disableExecuteApiEndpoint"]
-    else:
-        out["disable_execute_api_endpoint"] = False
     if data.get("securityPolicy") is not None:
         import capo_api_gateway.types.security_policy
 

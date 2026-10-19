@@ -23,7 +23,7 @@ class CreateSolutionRequest(TypedDict, closed=True):
     """<p>The name for the solution.</p>"""
     perform_hpo: NotRequired["capo_personalize.types.boolean.Boolean"]
     """<p>Whether to perform hyperparameter optimization (HPO) on the specified or selected recipe. The default is <code>false</code>.</p> <p>When performing AutoML, this parameter is always <code>true</code> and you should not set it to <code>false</code>.</p>"""
-    perform_auto_ml: "capo_personalize.types.perform_auto_ml.PerformAutoML"
+    perform_auto_ml: NotRequired["capo_personalize.types.perform_auto_ml.PerformAutoML"]
     """<important> <p>We don't recommend enabling automated machine learning. Instead, match your use case to the available Amazon Personalize recipes. For more information, see <a href="https://docs.aws.amazon.com/personalize/latest/dg/working-with-predefined-recipes.html">Choosing a recipe</a>.</p> </important> <p>Whether to perform automated machine learning (AutoML). The default is <code>false</code>. For this case, you must specify <code>recipeArn</code>.</p> <p>When set to <code>true</code>, Amazon Personalize analyzes your training data and selects the optimal USER_PERSONALIZATION recipe and hyperparameters. In this case, you must omit <code>recipeArn</code>. Amazon Personalize determines the optimal recipe by running tests with different values for the hyperparameters. AutoML lengthens the training process as compared to selecting a specific recipe.</p>"""
     perform_auto_training: NotRequired[
         "capo_personalize.types.perform_auto_training.PerformAutoTraining"
@@ -53,7 +53,8 @@ def serialize_aws_json_1_1(value: CreateSolutionRequest) -> dict:
     out["name"] = value["name"]
     if "perform_hpo" in value:
         out["performHPO"] = value["perform_hpo"]
-    out["performAutoML"] = value.get("perform_auto_ml", False)
+    if "perform_auto_ml" in value:
+        out["performAutoML"] = value["perform_auto_ml"]
     if "perform_auto_training" in value:
         out["performAutoTraining"] = value["perform_auto_training"]
     if "perform_incremental_update" in value:
@@ -88,8 +89,6 @@ def deserialize_aws_json_1_1(data: dict) -> CreateSolutionRequest:
         out["perform_hpo"] = data["performHPO"]
     if data.get("performAutoML") is not None:
         out["perform_auto_ml"] = data["performAutoML"]
-    else:
-        out["perform_auto_ml"] = False
     if data.get("performAutoTraining") is not None:
         out["perform_auto_training"] = data["performAutoTraining"]
     if data.get("performIncrementalUpdate") is not None:

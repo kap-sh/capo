@@ -115,7 +115,8 @@ def build_request(
 
     url = endpoint.url.rstrip("/") + "/wireless-gateway-task-definitions"
     params: list[tuple[str, str]] = []
-    params.append(("maxResults", str(input_.get("max_results", 0))))
+    if "max_results" in input_:
+        params.append(("maxResults", str(input_["max_results"])))
     if "next_token" in input_:
         params.append(("nextToken", input_["next_token"]))
     if "task_definition_type" in input_:

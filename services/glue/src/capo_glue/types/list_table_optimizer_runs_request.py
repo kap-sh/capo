@@ -23,7 +23,9 @@ class ListTableOptimizerRunsRequest(TypedDict, closed=True):
     """<p>The name of the table.</p>"""
     type: "capo_glue.types.table_optimizer_type.TableOptimizerType"
     """<p>The type of table optimizer.</p>"""
-    max_results: "capo_glue.types.max_list_table_optimizer_runs_token_results.MaxListTableOptimizerRunsTokenResults"
+    max_results: NotRequired[
+        "capo_glue.types.max_list_table_optimizer_runs_token_results.MaxListTableOptimizerRunsTokenResults"
+    ]
     """<p>The maximum number of optimizer runs to return on each call.</p>"""
     next_token: NotRequired[
         "capo_glue.types.list_table_optimizer_runs_token.ListTableOptimizerRunsToken"
@@ -42,7 +44,8 @@ def serialize_aws_json_1_1(value: ListTableOptimizerRunsRequest) -> dict:
     out["Type"] = capo_glue.types.table_optimizer_type.serialize_aws_json_1_1(
         value["type"]
     )
-    out["MaxResults"] = value.get("max_results", 0)
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
     return out
@@ -74,8 +77,6 @@ def deserialize_aws_json_1_1(data: dict) -> ListTableOptimizerRunsRequest:
         raise DeserializationError("ListTableOptimizerRunsRequest.type required")
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
-    else:
-        out["max_results"] = 0
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

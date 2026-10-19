@@ -114,7 +114,8 @@ def build_request(
     url = endpoint.url.rstrip("/") + "/thing-groups/{thingGroupName}/things"
     url = url.replace("{thingGroupName}", quote(input_["thing_group_name"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(("recursive", "true" if input_.get("recursive", False) else "false"))
+    if "recursive" in input_:
+        params.append(("recursive", "true" if input_["recursive"] else "false"))
     if "next_token" in input_:
         params.append(("nextToken", input_["next_token"]))
     if "max_results" in input_:

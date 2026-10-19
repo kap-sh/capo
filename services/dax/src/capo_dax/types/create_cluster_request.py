@@ -63,7 +63,7 @@ def serialize_aws_json_1_1(value: CreateClusterRequest) -> dict:
     out["NodeType"] = value["node_type"]
     if "description" in value:
         out["Description"] = value["description"]
-    out["ReplicationFactor"] = value.get("replication_factor", 0)
+    out["ReplicationFactor"] = value["replication_factor"]
     if "availability_zones" in value:
         import capo_dax.types.availability_zone_list
 
@@ -133,7 +133,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateClusterRequest:
     if data.get("ReplicationFactor") is not None:
         out["replication_factor"] = data["ReplicationFactor"]
     else:
-        out["replication_factor"] = 0
+        raise DeserializationError("CreateClusterRequest.replication_factor required")
     if data.get("AvailabilityZones") is not None:
         import capo_dax.types.availability_zone_list
 

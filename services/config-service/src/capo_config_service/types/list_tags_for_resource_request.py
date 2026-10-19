@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 class ListTagsForResourceRequest(TypedDict, closed=True):
     resource_arn: "capo_config_service.types.amazon_resource_name.AmazonResourceName"
     """<p>The Amazon Resource Name (ARN) that identifies the resource for which to list the tags. The following resources are supported:</p> <ul> <li> <p> <code>ConfigurationRecorder</code> </p> </li> <li> <p> <code>ConfigRule</code> </p> </li> <li> <p> <code>OrganizationConfigRule</code> </p> </li> <li> <p> <code>ConformancePack</code> </p> </li> <li> <p> <code>OrganizationConformancePack</code> </p> </li> <li> <p> <code>ConfigurationAggregator</code> </p> </li> <li> <p> <code>AggregationAuthorization</code> </p> </li> <li> <p> <code>StoredQuery</code> </p> </li> <li> <p> <code>Connector</code> </p> </li> </ul>"""
-    limit: "capo_config_service.types.limit.Limit"
+    limit: NotRequired["capo_config_service.types.limit.Limit"]
     """<p>The maximum number of tags returned on each page. The limit maximum is 50. You cannot specify a number greater than 50. If you specify 0, Config uses the default. </p>"""
     next_token: NotRequired["capo_config_service.types.next_token.NextToken"]
     """<p>The <code>nextToken</code> string returned on a previous page that you use to get the next page of results in a paginated response. </p>"""
@@ -25,7 +25,8 @@ class ListTagsForResourceRequest(TypedDict, closed=True):
 def serialize_aws_json_1_1(value: ListTagsForResourceRequest) -> dict:
     out: dict = {}
     out["ResourceArn"] = value["resource_arn"]
-    out["Limit"] = value.get("limit", 0)
+    if "limit" in value:
+        out["Limit"] = value["limit"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
     return out
@@ -39,8 +40,6 @@ def deserialize_aws_json_1_1(data: dict) -> ListTagsForResourceRequest:
         raise DeserializationError("ListTagsForResourceRequest.resource_arn required")
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
-    else:
-        out["limit"] = 0
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

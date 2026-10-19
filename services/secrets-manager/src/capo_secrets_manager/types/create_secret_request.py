@@ -46,9 +46,9 @@ class CreateSecretRequest(TypedDict, closed=True):
         "capo_secrets_manager.types.add_replica_region_list_type.AddReplicaRegionListType"
     ]
     """<p>A list of Regions and KMS keys to replicate secrets.</p>"""
-    force_overwrite_replica_secret: (
+    force_overwrite_replica_secret: NotRequired[
         "capo_secrets_manager.types.boolean_type.BooleanType"
-    )
+    ]
     """<p>Specifies whether to overwrite a secret with the same name in the destination Region. By default, secrets aren't overwritten.</p>"""
     type: NotRequired["capo_secrets_manager.types.medea_type_type.MedeaTypeType"]
     """<p>The exact string that identifies the partner that holds the external secret. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/managed-external-secrets.html">Using Secrets Manager managed external secrets</a>.</p>"""
@@ -88,9 +88,8 @@ def serialize_aws_json_1_1(value: CreateSecretRequest) -> dict:
                 value["add_replica_regions"]
             )
         )
-    out["ForceOverwriteReplicaSecret"] = value.get(
-        "force_overwrite_replica_secret", False
-    )
+    if "force_overwrite_replica_secret" in value:
+        out["ForceOverwriteReplicaSecret"] = value["force_overwrite_replica_secret"]
     if "type" in value:
         out["Type"] = value["type"]
     return out
@@ -134,8 +133,6 @@ def deserialize_aws_json_1_1(data: dict) -> CreateSecretRequest:
         )
     if data.get("ForceOverwriteReplicaSecret") is not None:
         out["force_overwrite_replica_secret"] = data["ForceOverwriteReplicaSecret"]
-    else:
-        out["force_overwrite_replica_secret"] = False
     if data.get("Type") is not None:
         out["type"] = data["Type"]
     return out

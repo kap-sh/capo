@@ -195,7 +195,7 @@ def build_request(
         headers["Content-Type"] = input_["request_content_type"]
     if "response_content_type" in input_:
         headers["Response-Content-Type"] = input_["response_content_type"]
-    body = input_["input_stream"]
+    body = input_.get("input_stream", b"")
     if isinstance(body, capo_lex_runtime_v2._body.Body):
         body = cast(capo_lex_runtime_v2._body.Body[Iterator[bytes]], body)
         stream = body.stream
@@ -256,7 +256,7 @@ async def async_build_request(
         headers["Content-Type"] = input_["request_content_type"]
     if "response_content_type" in input_:
         headers["Response-Content-Type"] = input_["response_content_type"]
-    body = input_["input_stream"]
+    body = input_.get("input_stream", b"")
     if isinstance(body, capo_lex_runtime_v2._body.Body):
         body = cast(capo_lex_runtime_v2._body.Body[AsyncIterator[bytes]], body)
         stream = body.stream

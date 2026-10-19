@@ -16,7 +16,7 @@ class ListGroupingAttributeDefinitionsInput(TypedDict, closed=True):
         "capo_application_signals.types.aws_account_id.AwsAccountId"
     ]
     """<p>The Amazon Web Services account ID to retrieve grouping attribute definitions for. Use this when accessing grouping configurations from a different account in cross-account monitoring scenarios.</p>"""
-    include_linked_accounts: "bool"
+    include_linked_accounts: NotRequired["bool"]
     """<p>If you are using this operation in a monitoring account, specify <code>true</code> to include grouping attributes from source accounts in the returned data.</p>"""
 
 

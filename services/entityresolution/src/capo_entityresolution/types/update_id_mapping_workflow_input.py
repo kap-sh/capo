@@ -35,7 +35,9 @@ class UpdateIdMappingWorkflowInput(TypedDict, closed=True):
         "capo_entityresolution.types.id_mapping_incremental_run_config.IdMappingIncrementalRunConfig"
     ]
     """<p> The incremental run configuration for the update ID mapping workflow.</p>"""
-    role_arn: "capo_entityresolution.types.id_mapping_role_arn.IdMappingRoleArn"
+    role_arn: NotRequired[
+        "capo_entityresolution.types.id_mapping_role_arn.IdMappingRoleArn"
+    ]
     """<p>The Amazon Resource Name (ARN) of the IAM role. Entity Resolution assumes this role to access Amazon Web Services resources on your behalf.</p>"""
 
 
@@ -74,7 +76,8 @@ def serialize_json(value: UpdateIdMappingWorkflowInput) -> dict:
                 value["incremental_run_config"]
             )
         )
-    out["roleArn"] = value.get("role_arn", "")
+    if "role_arn" in value:
+        out["roleArn"] = value["role_arn"]
     return out
 
 
@@ -124,6 +127,4 @@ def deserialize_json(data: dict) -> UpdateIdMappingWorkflowInput:
         )
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
-    else:
-        out["role_arn"] = ""
     return out

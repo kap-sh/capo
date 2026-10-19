@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_appflow.errors import DeserializationError
 
@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 class UnregisterConnectorRequest(TypedDict, closed=True):
     connector_label: "capo_appflow.types.connector_label.ConnectorLabel"
     """<p>The label of the connector. The label is unique for each <code>ConnectorRegistration</code> in your Amazon Web Services account.</p>"""
-    force_delete: "capo_appflow.types.boolean.Boolean"
+    force_delete: NotRequired["capo_appflow.types.boolean.Boolean"]
     """<p>Indicates whether Amazon AppFlow should unregister the connector, even if it is currently in use in one or more connector profiles. The default value is false.</p>"""
 
 
@@ -22,7 +22,8 @@ class UnregisterConnectorRequest(TypedDict, closed=True):
 def serialize_json(value: UnregisterConnectorRequest) -> dict:
     out: dict = {}
     out["connectorLabel"] = value["connector_label"]
-    out["forceDelete"] = value.get("force_delete", False)
+    if "force_delete" in value:
+        out["forceDelete"] = value["force_delete"]
     return out
 
 
@@ -36,6 +37,4 @@ def deserialize_json(data: dict) -> UnregisterConnectorRequest:
         )
     if data.get("forceDelete") is not None:
         out["force_delete"] = data["forceDelete"]
-    else:
-        out["force_delete"] = False
     return out

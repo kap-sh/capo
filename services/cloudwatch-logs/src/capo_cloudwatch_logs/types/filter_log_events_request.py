@@ -53,7 +53,7 @@ class FilterLogEventsRequest(TypedDict, closed=True):
     """<p>If the value is true, the earliest log events are returned first. If the value is false, the latest log events are returned first. The default value is true.</p> <p>The <code>startFromHead</code> parameter sets the sort direction on the first request. On subsequent requests, the <code>nextToken</code> determines the sort direction. To continue paginating in the same direction, provide the returned <code>nextToken</code>. If you provide both <code>nextToken</code> and <code>startFromHead</code>, the direction of the <code>nextToken</code> is used.</p> <note> <p>Setting <code>startFromHead</code> to <code>false</code> is supported only when <code>startTime</code> is on or after <code>Jan 1, 2024 00:00:00 UTC</code>. A request with <code>startFromHead</code> set to <code>false</code> and a <code>startTime</code> before this date returns an <code>InvalidParameterException</code>.</p> </note>"""
     interleaved: NotRequired["capo_cloudwatch_logs.types.interleaved.Interleaved"]
     """<p>If the value is true, the operation attempts to provide responses that contain events from multiple log streams within the log group, interleaved in a single response. If the value is false, all the matched log events in the first log stream are searched first, then those in the next log stream, and so on.</p> <p> <b>Important</b> As of June 17, 2019, this parameter is ignored and the value is assumed to be true. The response from this operation always interleaves events from multiple log streams within a log group.</p>"""
-    unmask: "capo_cloudwatch_logs.types.unmask.Unmask"
+    unmask: NotRequired["capo_cloudwatch_logs.types.unmask.Unmask"]
     """<p>Specify <code>true</code> to display the log event fields with all sensitive data unmasked and visible. The default is <code>false</code>.</p> <p>To use this operation with this parameter, you must be signed into an account with the <code>logs:Unmask</code> permission.</p>"""
 
 
@@ -88,7 +88,8 @@ def serialize_aws_json_1_1(value: FilterLogEventsRequest) -> dict:
         out["startFromHead"] = value["start_from_head"]
     if "interleaved" in value:
         out["interleaved"] = value["interleaved"]
-    out["unmask"] = value.get("unmask", False)
+    if "unmask" in value:
+        out["unmask"] = value["unmask"]
     return out
 
 
@@ -124,6 +125,4 @@ def deserialize_aws_json_1_1(data: dict) -> FilterLogEventsRequest:
         out["interleaved"] = data["interleaved"]
     if data.get("unmask") is not None:
         out["unmask"] = data["unmask"]
-    else:
-        out["unmask"] = False
     return out

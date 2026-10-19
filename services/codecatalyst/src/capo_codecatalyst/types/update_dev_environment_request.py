@@ -28,9 +28,9 @@ class UpdateDevEnvironmentRequest(TypedDict, closed=True):
     """<p>Information about the integrated development environment (IDE) configured for a Dev Environment.</p>"""
     instance_type: NotRequired["capo_codecatalyst.types.instance_type.InstanceType"]
     """<p>The Amazon EC2 instace type to use for the Dev Environment. </p> <note> <p>Changing this value will cause a restart of the Dev Environment if it is running.</p> </note>"""
-    inactivity_timeout_minutes: (
+    inactivity_timeout_minutes: NotRequired[
         "capo_codecatalyst.types.inactivity_timeout_minutes.InactivityTimeoutMinutes"
-    )
+    ]
     """<p>The amount of time the Dev Environment will run without any activity detected before stopping, in minutes. Only whole integers are allowed. Dev Environments consume compute minutes when running.</p> <note> <p>Changing this value will cause a restart of the Dev Environment if it is running.</p> </note>"""
     client_token: NotRequired["capo_codecatalyst.types.client_token.ClientToken"]
     """<p>A user-specified idempotency token. Idempotency ensures that an API request completes only once. With an idempotent request, if the original request completes successfully, the subsequent retries return the result from the original successful request and have no additional effect.</p>"""
@@ -49,7 +49,8 @@ def serialize_json(value: UpdateDevEnvironmentRequest) -> dict:
         )
     if "instance_type" in value:
         out["instanceType"] = value["instance_type"]
-    out["inactivityTimeoutMinutes"] = value.get("inactivity_timeout_minutes", 0)
+    if "inactivity_timeout_minutes" in value:
+        out["inactivityTimeoutMinutes"] = value["inactivity_timeout_minutes"]
     if "client_token" in value:
         out["clientToken"] = value["client_token"]
     return out
@@ -69,8 +70,6 @@ def deserialize_json(data: dict) -> UpdateDevEnvironmentRequest:
         out["instance_type"] = data["instanceType"]
     if data.get("inactivityTimeoutMinutes") is not None:
         out["inactivity_timeout_minutes"] = data["inactivityTimeoutMinutes"]
-    else:
-        out["inactivity_timeout_minutes"] = 0
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

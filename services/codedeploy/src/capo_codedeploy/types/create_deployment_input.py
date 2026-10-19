@@ -35,7 +35,9 @@ class CreateDeploymentInput(TypedDict, closed=True):
     """<p>The name of a deployment configuration associated with the user or Amazon Web Services account.</p> <p>If not specified, the value configured in the deployment group is used as the default. If the deployment group does not have a deployment configuration associated with it, <code>CodeDeployDefault</code>.<code>OneAtATime</code> is used by default.</p>"""
     description: NotRequired["capo_codedeploy.types.description.Description"]
     """<p>A comment about the deployment.</p>"""
-    ignore_application_stop_failures: "capo_codedeploy.types.boolean.Boolean"
+    ignore_application_stop_failures: NotRequired[
+        "capo_codedeploy.types.boolean.Boolean"
+    ]
     """<p> If true, then if an <code>ApplicationStop</code>, <code>BeforeBlockTraffic</code>, or <code>AfterBlockTraffic</code> deployment lifecycle event to an instance fails, then the deployment continues to the next deployment lifecycle event. For example, if <code>ApplicationStop</code> fails, the deployment continues with <code>DownloadBundle</code>. If <code>BeforeBlockTraffic</code> fails, the deployment continues with <code>BlockTraffic</code>. If <code>AfterBlockTraffic</code> fails, the deployment continues with <code>ApplicationStop</code>. </p> <p> If false or not specified, then if a lifecycle event fails during a deployment to an instance, that deployment fails. If deployment to that instance is part of an overall deployment and the number of healthy hosts is not less than the minimum number of healthy hosts, then a deployment to the next instance is attempted. </p> <p> During a deployment, the CodeDeploy agent runs the scripts specified for <code>ApplicationStop</code>, <code>BeforeBlockTraffic</code>, and <code>AfterBlockTraffic</code> in the AppSpec file from the previous successful deployment. (All other scripts are run from the AppSpec file in the current deployment.) If one of these scripts contains an error and does not run successfully, the deployment can fail. </p> <p> If the cause of the failure is a script from the last successful deployment that will never run successfully, create a new deployment and use <code>ignoreApplicationStopFailures</code> to specify that the <code>ApplicationStop</code>, <code>BeforeBlockTraffic</code>, and <code>AfterBlockTraffic</code> failures should be ignored. </p>"""
     target_instances: NotRequired[
         "capo_codedeploy.types.target_instances.TargetInstances"
@@ -45,7 +47,7 @@ class CreateDeploymentInput(TypedDict, closed=True):
         "capo_codedeploy.types.auto_rollback_configuration.AutoRollbackConfiguration"
     ]
     """<p>Configuration information for an automatic rollback that is added when a deployment is created.</p>"""
-    update_outdated_instances_only: "capo_codedeploy.types.boolean.Boolean"
+    update_outdated_instances_only: NotRequired["capo_codedeploy.types.boolean.Boolean"]
     """<p> Indicates whether to deploy to all instances or only to instances that are not running the latest application revision. </p>"""
     file_exists_behavior: NotRequired[
         "capo_codedeploy.types.file_exists_behavior.FileExistsBehavior"
@@ -77,9 +79,8 @@ def serialize_aws_json_1_1(value: CreateDeploymentInput) -> dict:
         out["deploymentConfigName"] = value["deployment_config_name"]
     if "description" in value:
         out["description"] = value["description"]
-    out["ignoreApplicationStopFailures"] = value.get(
-        "ignore_application_stop_failures", False
-    )
+    if "ignore_application_stop_failures" in value:
+        out["ignoreApplicationStopFailures"] = value["ignore_application_stop_failures"]
     if "target_instances" in value:
         import capo_codedeploy.types.target_instances
 
@@ -96,9 +97,8 @@ def serialize_aws_json_1_1(value: CreateDeploymentInput) -> dict:
                 value["auto_rollback_configuration"]
             )
         )
-    out["updateOutdatedInstancesOnly"] = value.get(
-        "update_outdated_instances_only", False
-    )
+    if "update_outdated_instances_only" in value:
+        out["updateOutdatedInstancesOnly"] = value["update_outdated_instances_only"]
     if "file_exists_behavior" in value:
         import capo_codedeploy.types.file_exists_behavior
 
@@ -148,8 +148,6 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDeploymentInput:
         out["description"] = data["description"]
     if data.get("ignoreApplicationStopFailures") is not None:
         out["ignore_application_stop_failures"] = data["ignoreApplicationStopFailures"]
-    else:
-        out["ignore_application_stop_failures"] = False
     if data.get("targetInstances") is not None:
         import capo_codedeploy.types.target_instances
 
@@ -168,8 +166,6 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDeploymentInput:
         )
     if data.get("updateOutdatedInstancesOnly") is not None:
         out["update_outdated_instances_only"] = data["updateOutdatedInstancesOnly"]
-    else:
-        out["update_outdated_instances_only"] = False
     if data.get("fileExistsBehavior") is not None:
         import capo_codedeploy.types.file_exists_behavior
 

@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 class ListSubscribersRequest(TypedDict, closed=True):
     next_token: NotRequired["capo_securitylake.types.next_token.NextToken"]
     """<p>If nextToken is returned, there are more results available. You can repeat the call using the returned token to retrieve the next page.</p>"""
-    max_results: "capo_securitylake.types.max_results.MaxResults"
+    max_results: NotRequired["capo_securitylake.types.max_results.MaxResults"]
     """<p>The maximum number of accounts for which the configuration is displayed.</p>"""
 
 

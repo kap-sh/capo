@@ -45,13 +45,13 @@ class StartFHIRImportJobRequest(TypedDict, closed=True):
         "capo_healthlake.types.bounded_length_string.BoundedLengthString"
     ]
     """<p>The input format of the data to be imported.</p>"""
-    drift_detection_enabled: (
+    drift_detection_enabled: NotRequired[
         "capo_healthlake.types.health_lake_boolean.HealthLakeBoolean"
-    )
+    ]
     """<p>Specifies whether to enable drift detection for the import job.</p>"""
-    provenance_enabled: (
+    provenance_enabled: NotRequired[
         "capo_healthlake.types.default_enabled_boolean.DefaultEnabledBoolean"
-    )
+    ]
     """<p>Specifies whether to enable provenance for the import job.</p>"""
 
 
@@ -90,8 +90,10 @@ def serialize_aws_json_1_0(value: StartFHIRImportJobRequest) -> dict:
         out["ProfileId"] = value["profile_id"]
     if "input_format" in value:
         out["InputFormat"] = value["input_format"]
-    out["DriftDetectionEnabled"] = value.get("drift_detection_enabled", False)
-    out["ProvenanceEnabled"] = value.get("provenance_enabled", True)
+    if "drift_detection_enabled" in value:
+        out["DriftDetectionEnabled"] = value["drift_detection_enabled"]
+    if "provenance_enabled" in value:
+        out["ProvenanceEnabled"] = value["provenance_enabled"]
     return out
 
 
@@ -149,10 +151,6 @@ def deserialize_aws_json_1_0(data: dict) -> StartFHIRImportJobRequest:
         out["input_format"] = data["InputFormat"]
     if data.get("DriftDetectionEnabled") is not None:
         out["drift_detection_enabled"] = data["DriftDetectionEnabled"]
-    else:
-        out["drift_detection_enabled"] = False
     if data.get("ProvenanceEnabled") is not None:
         out["provenance_enabled"] = data["ProvenanceEnabled"]
-    else:
-        out["provenance_enabled"] = True
     return out

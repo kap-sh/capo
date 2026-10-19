@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_migration_hub.errors import DeserializationError
 
@@ -24,7 +24,7 @@ class AssociateCreatedArtifactRequest(TypedDict, closed=True):
     """<p>Unique identifier that references the migration task. <i>Do not store personal data in this field.</i> </p>"""
     created_artifact: "capo_migration_hub.types.created_artifact.CreatedArtifact"
     """<p>An ARN of the AWS resource related to the migration (e.g., AMI, EC2 instance, RDS instance, etc.) </p>"""
-    dry_run: "capo_migration_hub.types.dry_run.DryRun"
+    dry_run: NotRequired["capo_migration_hub.types.dry_run.DryRun"]
     """<p>Optional boolean flag to indicate whether any effect should take place. Used to test if the caller has permission to make the call.</p>"""
 
 
@@ -40,7 +40,8 @@ def serialize_aws_json_1_1(value: AssociateCreatedArtifactRequest) -> dict:
             value["created_artifact"]
         )
     )
-    out["DryRun"] = value.get("dry_run", False)
+    if "dry_run" in value:
+        out["DryRun"] = value["dry_run"]
     return out
 
 
@@ -72,6 +73,4 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateCreatedArtifactRequest:
         )
     if data.get("DryRun") is not None:
         out["dry_run"] = data["DryRun"]
-    else:
-        out["dry_run"] = False
     return out

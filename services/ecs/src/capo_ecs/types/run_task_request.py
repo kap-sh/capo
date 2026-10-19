@@ -30,9 +30,9 @@ class RunTaskRequest(TypedDict, closed=True):
     """<p>The short name or full Amazon Resource Name (ARN) of the cluster to run your task on. If you do not specify a cluster, the default cluster is assumed.</p> <p>Each account receives a default cluster the first time you use the service, but you may also create other clusters.</p>"""
     count: NotRequired["capo_ecs.types.boxed_integer.BoxedInteger"]
     """<p>The number of instantiations of the specified task to place on your cluster. You can specify up to 10 tasks for each call.</p>"""
-    enable_ecs_managed_tags: "capo_ecs.types.boolean.Boolean"
+    enable_ecs_managed_tags: NotRequired["capo_ecs.types.boolean.Boolean"]
     """<p>Specifies whether to use Amazon ECS managed tags for the task. For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html">Tagging Your Amazon ECS Resources</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.</p>"""
-    enable_execute_command: "capo_ecs.types.boolean.Boolean"
+    enable_execute_command: NotRequired["capo_ecs.types.boolean.Boolean"]
     """<p>Determines whether to use the execute command functionality for the containers in this task. If <code>true</code>, this enables execute command functionality on all containers in the task.</p> <p>If <code>true</code>, then the task definition must have a task role, or you must provide one as an override.</p>"""
     group: NotRequired["capo_ecs.types.string.String"]
     """<p>The name of the task group to associate with the task. The default value is the family name of the task definition (for example, <code>family:my-family-name</code>).</p>"""
@@ -87,8 +87,10 @@ def serialize_aws_json_1_1(value: RunTaskRequest) -> dict:
         out["cluster"] = value["cluster"]
     if "count" in value:
         out["count"] = value["count"]
-    out["enableECSManagedTags"] = value.get("enable_ecs_managed_tags", False)
-    out["enableExecuteCommand"] = value.get("enable_execute_command", False)
+    if "enable_ecs_managed_tags" in value:
+        out["enableECSManagedTags"] = value["enable_ecs_managed_tags"]
+    if "enable_execute_command" in value:
+        out["enableExecuteCommand"] = value["enable_execute_command"]
     if "group" in value:
         out["group"] = value["group"]
     if "launch_type" in value:
@@ -173,12 +175,8 @@ def deserialize_aws_json_1_1(data: dict) -> RunTaskRequest:
         out["count"] = data["count"]
     if data.get("enableECSManagedTags") is not None:
         out["enable_ecs_managed_tags"] = data["enableECSManagedTags"]
-    else:
-        out["enable_ecs_managed_tags"] = False
     if data.get("enableExecuteCommand") is not None:
         out["enable_execute_command"] = data["enableExecuteCommand"]
-    else:
-        out["enable_execute_command"] = False
     if data.get("group") is not None:
         out["group"] = data["group"]
     if data.get("launchType") is not None:

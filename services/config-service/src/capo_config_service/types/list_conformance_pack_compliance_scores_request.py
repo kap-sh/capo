@@ -21,7 +21,7 @@ class ListConformancePackComplianceScoresRequest(TypedDict, closed=True):
     """<p>Determines the order in which conformance pack compliance scores are sorted. Either in ascending or descending order.</p> <p>By default, conformance pack compliance scores are sorted in alphabetical order by name of the conformance pack. Conformance pack compliance scores are sorted in reverse alphabetical order if you enter <code>DESCENDING</code>.</p> <p>You can sort conformance pack compliance scores by the numerical value of the compliance score by entering <code>SCORE</code> in the <code>SortBy</code> action. When compliance scores are sorted by <code>SCORE</code>, conformance packs with a compliance score of <code>INSUFFICIENT_DATA</code> will be last when sorting by ascending order and first when sorting by descending order.</p>"""
     sort_by: NotRequired["capo_config_service.types.sort_by.SortBy"]
     """<p>Sorts your conformance pack compliance scores in either ascending or descending order, depending on <code>SortOrder</code>.</p> <p>By default, conformance pack compliance scores are sorted in alphabetical order by name of the conformance pack. Enter <code>SCORE</code>, to sort conformance pack compliance scores by the numerical value of the compliance score.</p>"""
-    limit: "capo_config_service.types.page_size_limit.PageSizeLimit"
+    limit: NotRequired["capo_config_service.types.page_size_limit.PageSizeLimit"]
     """<p>The maximum number of conformance pack compliance scores returned on each page.</p>"""
     next_token: NotRequired["capo_config_service.types.next_token.NextToken"]
     """<p>The <code>nextToken</code> string in a prior request that you can use to get the paginated response for the next set of conformance pack compliance scores.</p>"""
@@ -50,7 +50,8 @@ def serialize_aws_json_1_1(value: ListConformancePackComplianceScoresRequest) ->
         out["SortBy"] = capo_config_service.types.sort_by.serialize_aws_json_1_1(
             value["sort_by"]
         )
-    out["Limit"] = value.get("limit", 0)
+    if "limit" in value:
+        out["Limit"] = value["limit"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
     return out
@@ -82,8 +83,6 @@ def deserialize_aws_json_1_1(data: dict) -> ListConformancePackComplianceScoresR
         )
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
-    else:
-        out["limit"] = 0
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

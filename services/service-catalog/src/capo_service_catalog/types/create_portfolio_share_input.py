@@ -27,9 +27,9 @@ class CreatePortfolioShareInput(TypedDict, closed=True):
         "capo_service_catalog.types.organization_node.OrganizationNode"
     ]
     """<p>The organization node to whom you are going to share. When you pass <code>OrganizationNode</code>, it creates <code>PortfolioShare</code> for all of the Amazon Web Services accounts that are associated to the <code>OrganizationNode</code>. The output returns a <code>PortfolioShareToken</code>, which enables the administrator to monitor the status of the <code>PortfolioShare</code> creation process.</p>"""
-    share_tag_options: "capo_service_catalog.types.boolean.Boolean"
+    share_tag_options: NotRequired["capo_service_catalog.types.boolean.Boolean"]
     """<p>Enables or disables <code>TagOptions </code> sharing when creating the portfolio share. If this flag is not provided, TagOptions sharing is disabled.</p>"""
-    share_principals: "capo_service_catalog.types.boolean.Boolean"
+    share_principals: NotRequired["capo_service_catalog.types.boolean.Boolean"]
     """<p>This parameter is only supported for portfolios with an <b>OrganizationalNode</b> Type of <code>ORGANIZATION</code> or <code>ORGANIZATIONAL_UNIT</code>. </p> <p>Enables or disables <code>Principal</code> sharing when creating the portfolio share. If you do <b>not</b> provide this flag, principal sharing is disabled. </p> <p>When you enable Principal Name Sharing for a portfolio share, the share recipient account end users with a principal that matches any of the associated IAM patterns can provision products from the portfolio. Once shared, the share recipient can view associations of <code>PrincipalType</code>: <code>IAM_PATTERN</code> on their portfolio. You can create the principals in the recipient account before or after creating the share. </p>"""
 
 
@@ -49,8 +49,10 @@ def serialize_aws_json_1_1(value: CreatePortfolioShareInput) -> dict:
                 value["organization_node"]
             )
         )
-    out["ShareTagOptions"] = value.get("share_tag_options", False)
-    out["SharePrincipals"] = value.get("share_principals", False)
+    if "share_tag_options" in value:
+        out["ShareTagOptions"] = value["share_tag_options"]
+    if "share_principals" in value:
+        out["SharePrincipals"] = value["share_principals"]
     return out
 
 
@@ -74,10 +76,6 @@ def deserialize_aws_json_1_1(data: dict) -> CreatePortfolioShareInput:
         )
     if data.get("ShareTagOptions") is not None:
         out["share_tag_options"] = data["ShareTagOptions"]
-    else:
-        out["share_tag_options"] = False
     if data.get("SharePrincipals") is not None:
         out["share_principals"] = data["SharePrincipals"]
-    else:
-        out["share_principals"] = False
     return out

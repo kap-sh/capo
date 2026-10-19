@@ -15,7 +15,7 @@ class ListInputSourcesRequest(TypedDict, closed=True):
     service_arn: "capo_resiliencehubv2.types.arn.Arn"
     type: NotRequired["capo_resiliencehubv2.types.input_source_type.InputSourceType"]
     """<p>Filter input sources by type.</p>"""
-    max_results: "capo_resiliencehubv2.types.max_results.MaxResults"
+    max_results: NotRequired["capo_resiliencehubv2.types.max_results.MaxResults"]
     next_token: NotRequired["capo_resiliencehubv2.types.next_token.NextToken"]
 
 

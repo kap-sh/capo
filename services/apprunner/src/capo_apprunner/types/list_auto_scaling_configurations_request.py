@@ -16,7 +16,7 @@ class ListAutoScalingConfigurationsRequest(TypedDict, closed=True):
         "capo_apprunner.types.auto_scaling_configuration_name.AutoScalingConfigurationName"
     ]
     """<p>The name of the App Runner auto scaling configuration that you want to list. If specified, App Runner lists revisions that share this name. If not specified, App Runner returns revisions of all active configurations.</p>"""
-    latest_only: "capo_apprunner.types.boolean.Boolean"
+    latest_only: NotRequired["capo_apprunner.types.boolean.Boolean"]
     """<p>Set to <code>true</code> to list only the latest revision for each requested configuration name.</p> <p>Set to <code>false</code> to list all revisions for each requested configuration name.</p> <p>Default: <code>true</code> </p>"""
     max_results: NotRequired["capo_apprunner.types.max_results.MaxResults"]
     """<p>The maximum number of results to include in each response (result page). It's used for a paginated request.</p> <p>If you don't specify <code>MaxResults</code>, the request retrieves all available results in a single response.</p>"""
@@ -29,7 +29,8 @@ def serialize_aws_json_1_0(value: ListAutoScalingConfigurationsRequest) -> dict:
     out: dict = {}
     if "auto_scaling_configuration_name" in value:
         out["AutoScalingConfigurationName"] = value["auto_scaling_configuration_name"]
-    out["LatestOnly"] = value.get("latest_only", False)
+    if "latest_only" in value:
+        out["LatestOnly"] = value["latest_only"]
     if "max_results" in value:
         out["MaxResults"] = value["max_results"]
     if "next_token" in value:
@@ -43,8 +44,6 @@ def deserialize_aws_json_1_0(data: dict) -> ListAutoScalingConfigurationsRequest
         out["auto_scaling_configuration_name"] = data["AutoScalingConfigurationName"]
     if data.get("LatestOnly") is not None:
         out["latest_only"] = data["LatestOnly"]
-    else:
-        out["latest_only"] = False
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

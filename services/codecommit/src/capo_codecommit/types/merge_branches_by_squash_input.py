@@ -42,7 +42,9 @@ class MergeBranchesBySquashInput(TypedDict, closed=True):
     """<p>The email address of the person merging the branches. This information is used in the commit information for the merge.</p>"""
     commit_message: NotRequired["capo_codecommit.types.message.Message"]
     """<p>The commit message for the merge.</p>"""
-    keep_empty_folders: "capo_codecommit.types.keep_empty_folders.KeepEmptyFolders"
+    keep_empty_folders: NotRequired[
+        "capo_codecommit.types.keep_empty_folders.KeepEmptyFolders"
+    ]
     """<p>If the commit contains deletions, whether to keep a folder or folder structure if the changes leave the folders empty. If this is specified as true, a .gitkeep file is created for empty folders. The default is false.</p>"""
     conflict_resolution: NotRequired[
         "capo_codecommit.types.conflict_resolution.ConflictResolution"
@@ -80,7 +82,8 @@ def serialize_aws_json_1_1(value: MergeBranchesBySquashInput) -> dict:
         out["email"] = value["email"]
     if "commit_message" in value:
         out["commitMessage"] = value["commit_message"]
-    out["keepEmptyFolders"] = value.get("keep_empty_folders", False)
+    if "keep_empty_folders" in value:
+        out["keepEmptyFolders"] = value["keep_empty_folders"]
     if "conflict_resolution" in value:
         import capo_codecommit.types.conflict_resolution
 
@@ -138,8 +141,6 @@ def deserialize_aws_json_1_1(data: dict) -> MergeBranchesBySquashInput:
         out["commit_message"] = data["commitMessage"]
     if data.get("keepEmptyFolders") is not None:
         out["keep_empty_folders"] = data["keepEmptyFolders"]
-    else:
-        out["keep_empty_folders"] = False
     if data.get("conflictResolution") is not None:
         import capo_codecommit.types.conflict_resolution
 

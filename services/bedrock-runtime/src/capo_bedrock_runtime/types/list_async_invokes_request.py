@@ -28,9 +28,11 @@ class ListAsyncInvokesRequest(TypedDict, closed=True):
         "capo_bedrock_runtime.types.pagination_token.PaginationToken"
     ]
     """<p>Specify the pagination token from a previous request to retrieve the next page of results.</p>"""
-    sort_by: "capo_bedrock_runtime.types.sort_async_invocation_by.SortAsyncInvocationBy"
+    sort_by: NotRequired[
+        "capo_bedrock_runtime.types.sort_async_invocation_by.SortAsyncInvocationBy"
+    ]
     """<p>How to sort the response.</p>"""
-    sort_order: "capo_bedrock_runtime.types.sort_order.SortOrder"
+    sort_order: NotRequired["capo_bedrock_runtime.types.sort_order.SortOrder"]
     """<p>The sorting order for the response.</p>"""
 
 

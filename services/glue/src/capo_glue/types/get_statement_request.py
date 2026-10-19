@@ -27,7 +27,7 @@ class GetStatementRequest(TypedDict, closed=True):
 def serialize_aws_json_1_1(value: GetStatementRequest) -> dict:
     out: dict = {}
     out["SessionId"] = value["session_id"]
-    out["Id"] = value.get("id", 0)
+    out["Id"] = value["id"]
     if "request_origin" in value:
         out["RequestOrigin"] = value["request_origin"]
     return out
@@ -42,7 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetStatementRequest:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        out["id"] = 0
+        raise DeserializationError("GetStatementRequest.id required")
     if data.get("RequestOrigin") is not None:
         out["request_origin"] = data["RequestOrigin"]
     return out

@@ -15,7 +15,9 @@ class ListResourceEvaluationsRequest(TypedDict, closed=True):
         "capo_config_service.types.resource_evaluation_filters.ResourceEvaluationFilters"
     ]
     """<p>Returns a <code>ResourceEvaluationFilters</code> object.</p>"""
-    limit: "capo_config_service.types.list_resource_evaluations_page_item_limit.ListResourceEvaluationsPageItemLimit"
+    limit: NotRequired[
+        "capo_config_service.types.list_resource_evaluations_page_item_limit.ListResourceEvaluationsPageItemLimit"
+    ]
     """<p>The maximum number of evaluations returned on each page. The default is 10. You cannot specify a number greater than 100. If you specify 0, Config uses the default.</p>"""
     next_token: NotRequired["capo_config_service.types.string.String"]
     """<p>The <code>nextToken</code> string returned on a previous page that you use to get the next page of results in a paginated response.</p>"""
@@ -32,7 +34,8 @@ def serialize_aws_json_1_1(value: ListResourceEvaluationsRequest) -> dict:
                 value["filters"]
             )
         )
-    out["Limit"] = value.get("limit", 0)
+    if "limit" in value:
+        out["Limit"] = value["limit"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
     return out
@@ -50,8 +53,6 @@ def deserialize_aws_json_1_1(data: dict) -> ListResourceEvaluationsRequest:
         )
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
-    else:
-        out["limit"] = 0
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

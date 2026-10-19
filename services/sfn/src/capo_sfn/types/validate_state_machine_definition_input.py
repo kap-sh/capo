@@ -22,7 +22,9 @@ class ValidateStateMachineDefinitionInput(TypedDict, closed=True):
         "capo_sfn.types.validate_state_machine_definition_severity.ValidateStateMachineDefinitionSeverity"
     ]
     """<p>Minimum level of diagnostics to return. <code>ERROR</code> returns only <code>ERROR</code> diagnostics, whereas <code>WARNING</code> returns both <code>WARNING</code> and <code>ERROR</code> diagnostics. The default is <code>ERROR</code>. </p>"""
-    max_results: "capo_sfn.types.validate_state_machine_definition_max_result.ValidateStateMachineDefinitionMaxResult"
+    max_results: NotRequired[
+        "capo_sfn.types.validate_state_machine_definition_max_result.ValidateStateMachineDefinitionMaxResult"
+    ]
     """<p>The maximum number of diagnostics that are returned per call. The default and maximum value is 100. Setting the value to 0 will also use the default of 100.</p> <p>If the number of diagnostics returned in the response exceeds <code>maxResults</code>, the value of the <code>truncated</code> field in the response will be set to <code>true</code>.</p>"""
 
 
@@ -44,7 +46,8 @@ def serialize_aws_json_1_0(value: ValidateStateMachineDefinitionInput) -> dict:
                 value["severity"]
             )
         )
-    out["maxResults"] = value.get("max_results", 0)
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
     return out
 
 
@@ -72,8 +75,6 @@ def deserialize_aws_json_1_0(data: dict) -> ValidateStateMachineDefinitionInput:
         )
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
-    else:
-        out["max_results"] = 0
     return out
 
 

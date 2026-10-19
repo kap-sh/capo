@@ -27,7 +27,7 @@ class CreateDeploymentInput(TypedDict, closed=True):
         "capo_launch_wizard.types.deployment_specifications.DeploymentSpecifications"
     )
     """<p>The settings specified for the deployment. These settings define how to deploy and configure your resources created by the deployment. For more information about the specifications required for creating a deployment for a SAP workload, see <a href="https://docs.aws.amazon.com/launchwizard/latest/APIReference/launch-wizard-specifications-sap.html">SAP deployment specifications</a>. To retrieve the specifications required to create a deployment for other workloads, use the <a href="https://docs.aws.amazon.com/launchwizard/latest/APIReference/API_GetWorkloadDeploymentPattern.html"> <code>GetWorkloadDeploymentPattern</code> </a> operation.</p>"""
-    dry_run: "bool"
+    dry_run: NotRequired["bool"]
     """<p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>"""
     tags: NotRequired["capo_launch_wizard.types.tags.Tags"]
     """<p>The tags to add to the deployment.</p>"""
@@ -46,7 +46,8 @@ def serialize_json(value: CreateDeploymentInput) -> dict:
             value["specifications"]
         )
     )
-    out["dryRun"] = value.get("dry_run", False)
+    if "dry_run" in value:
+        out["dryRun"] = value["dry_run"]
     if "tags" in value:
         import capo_launch_wizard.types.tags
 
@@ -82,8 +83,6 @@ def deserialize_json(data: dict) -> CreateDeploymentInput:
         raise DeserializationError("CreateDeploymentInput.specifications required")
     if data.get("dryRun") is not None:
         out["dry_run"] = data["dryRun"]
-    else:
-        out["dry_run"] = False
     if data.get("tags") is not None:
         import capo_launch_wizard.types.tags
 

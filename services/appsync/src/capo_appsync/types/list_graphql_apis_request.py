@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 class ListGraphqlApisRequest(TypedDict, closed=True):
     next_token: NotRequired["capo_appsync.types.pagination_token.PaginationToken"]
     """<p>An identifier that was returned from the previous call to this operation, which you can use to return the next set of items in the list.</p>"""
-    max_results: "capo_appsync.types.max_results.MaxResults"
+    max_results: NotRequired["capo_appsync.types.max_results.MaxResults"]
     """<p>The maximum number of results that you want the request to return.</p>"""
     api_type: NotRequired["capo_appsync.types.graph_ql_api_type.GraphQLApiType"]
     """<p>The value that indicates whether the GraphQL API is a standard API (<code>GRAPHQL</code>) or merged API (<code>MERGED</code>).</p>"""

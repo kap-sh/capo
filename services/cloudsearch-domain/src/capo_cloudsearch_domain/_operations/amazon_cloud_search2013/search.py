@@ -120,7 +120,8 @@ def build_request(
         params.append(("fq", input_["filter_query"]))
     if "highlight" in input_:
         params.append(("highlight", input_["highlight"]))
-    params.append(("partial", "true" if input_.get("partial", False) else "false"))
+    if "partial" in input_:
+        params.append(("partial", "true" if input_["partial"] else "false"))
     if "query" in input_:
         params.append(("q", input_["query"]))
     if "query_options" in input_:
@@ -136,10 +137,12 @@ def build_request(
         )
     if "return" in input_:
         params.append(("return", input_["return"]))
-    params.append(("size", str(input_.get("size", 0))))
+    if "size" in input_:
+        params.append(("size", str(input_["size"])))
     if "sort" in input_:
         params.append(("sort", input_["sort"]))
-    params.append(("start", str(input_.get("start", 0))))
+    if "start" in input_:
+        params.append(("start", str(input_["start"])))
     if "stats" in input_:
         params.append(("stats", input_["stats"]))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}

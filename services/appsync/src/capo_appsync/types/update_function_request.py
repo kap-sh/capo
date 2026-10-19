@@ -38,7 +38,7 @@ class UpdateFunctionRequest(TypedDict, closed=True):
     function_version: NotRequired["capo_appsync.types.string.String"]
     """<p>The <code>version</code> of the request mapping template. Currently, the supported value is 2018-05-29. Note that when using VTL and mapping templates, the <code>functionVersion</code> is required.</p>"""
     sync_config: NotRequired["capo_appsync.types.sync_config.SyncConfig"]
-    max_batch_size: "capo_appsync.types.max_batch_size.MaxBatchSize"
+    max_batch_size: NotRequired["capo_appsync.types.max_batch_size.MaxBatchSize"]
     """<p>The maximum batching size for a resolver.</p>"""
     runtime: NotRequired["capo_appsync.types.app_sync_runtime.AppSyncRuntime"]
     code: NotRequired["capo_appsync.types.code.Code"]
@@ -64,7 +64,8 @@ def serialize_json(value: UpdateFunctionRequest) -> dict:
         out["syncConfig"] = capo_appsync.types.sync_config.serialize_json(
             value["sync_config"]
         )
-    out["maxBatchSize"] = value.get("max_batch_size", 0)
+    if "max_batch_size" in value:
+        out["maxBatchSize"] = value["max_batch_size"]
     if "runtime" in value:
         import capo_appsync.types.app_sync_runtime
 
@@ -102,8 +103,6 @@ def deserialize_json(data: dict) -> UpdateFunctionRequest:
         )
     if data.get("maxBatchSize") is not None:
         out["max_batch_size"] = data["maxBatchSize"]
-    else:
-        out["max_batch_size"] = 0
     if data.get("runtime") is not None:
         import capo_appsync.types.app_sync_runtime
 

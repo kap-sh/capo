@@ -40,7 +40,7 @@ class GetLogEventsRequest(TypedDict, closed=True):
         "capo_cloudwatch_logs.types.start_from_head.StartFromHead"
     ]
     """<p>If the value is true, the earliest log events are returned first. If the value is false, the latest log events are returned first. The default value is false.</p> <p>If you are using a previous <code>nextForwardToken</code> value as the <code>nextToken</code> in this operation, you must specify <code>true</code> for <code>startFromHead</code>.</p>"""
-    unmask: "capo_cloudwatch_logs.types.unmask.Unmask"
+    unmask: NotRequired["capo_cloudwatch_logs.types.unmask.Unmask"]
     """<p>Specify <code>true</code> to display the log event fields with all sensitive data unmasked and visible. The default is <code>false</code>.</p> <p>To use this operation with this parameter, you must be signed into an account with the <code>logs:Unmask</code> permission.</p>"""
 
 
@@ -62,7 +62,8 @@ def serialize_aws_json_1_1(value: GetLogEventsRequest) -> dict:
         out["limit"] = value["limit"]
     if "start_from_head" in value:
         out["startFromHead"] = value["start_from_head"]
-    out["unmask"] = value.get("unmask", False)
+    if "unmask" in value:
+        out["unmask"] = value["unmask"]
     return out
 
 
@@ -88,6 +89,4 @@ def deserialize_aws_json_1_1(data: dict) -> GetLogEventsRequest:
         out["start_from_head"] = data["startFromHead"]
     if data.get("unmask") is not None:
         out["unmask"] = data["unmask"]
-    else:
-        out["unmask"] = False
     return out

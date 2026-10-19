@@ -20,9 +20,9 @@ class CreateDataSourceFromS3Input(TypedDict, closed=True):
     """<p>A user-supplied name or description of the <code>DataSource</code>. </p>"""
     data_spec: "capo_machine_learning.types.s3_data_spec.S3DataSpec"
     r"""<p>The data specification of a <code>DataSource</code>:</p> <ul> <li> <p>DataLocationS3 - The Amazon S3 location of the observation data.</p> </li> <li> <p>DataSchemaLocationS3 - The Amazon S3 location of the <code>DataSchema</code>.</p> </li> <li> <p>DataSchema - A JSON string representing the schema. This is not required if <code>DataSchemaUri</code> is specified. </p> </li> <li> <p>DataRearrangement - A JSON string that represents the splitting and rearrangement requirements for the <code>Datasource</code>. </p> <p> Sample - <code> "{\"splitting\":{\"percentBegin\":10,\"percentEnd\":60}}"</code> </p> </li> </ul>"""
-    compute_statistics: (
+    compute_statistics: NotRequired[
         "capo_machine_learning.types.compute_statistics.ComputeStatistics"
-    )
+    ]
     """<p>The compute statistics for a <code>DataSource</code>. The statistics are generated from the observation data referenced by a <code>DataSource</code>. Amazon ML uses the statistics internally during <code>MLModel</code> training. This parameter must be set to <code>true</code> if the <code></code>DataSource<code></code> needs to be used for <code>MLModel</code> training.</p>"""
 
 
@@ -37,7 +37,8 @@ def serialize_aws_json_1_1(value: CreateDataSourceFromS3Input) -> dict:
     out["DataSpec"] = capo_machine_learning.types.s3_data_spec.serialize_aws_json_1_1(
         value["data_spec"]
     )
-    out["ComputeStatistics"] = value.get("compute_statistics", False)
+    if "compute_statistics" in value:
+        out["ComputeStatistics"] = value["compute_statistics"]
     return out
 
 
@@ -63,6 +64,4 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDataSourceFromS3Input:
         raise DeserializationError("CreateDataSourceFromS3Input.data_spec required")
     if data.get("ComputeStatistics") is not None:
         out["compute_statistics"] = data["ComputeStatistics"]
-    else:
-        out["compute_statistics"] = False
     return out

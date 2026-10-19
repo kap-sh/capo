@@ -36,9 +36,13 @@ class UpdateNetworkProfileRequest(TypedDict, closed=True):
     """<p>Time variation in the delay of received packets in milliseconds as an integer from 0 to 2000.</p>"""
     downlink_jitter_ms: NotRequired["capo_device_farm.types.long.Long"]
     """<p>Time variation in the delay of received packets in milliseconds as an integer from 0 to 2000.</p>"""
-    uplink_loss_percent: "capo_device_farm.types.percent_integer.PercentInteger"
+    uplink_loss_percent: NotRequired[
+        "capo_device_farm.types.percent_integer.PercentInteger"
+    ]
     """<p>Proportion of transmitted packets that fail to arrive from 0 to 100 percent.</p>"""
-    downlink_loss_percent: "capo_device_farm.types.percent_integer.PercentInteger"
+    downlink_loss_percent: NotRequired[
+        "capo_device_farm.types.percent_integer.PercentInteger"
+    ]
     """<p>Proportion of received packets that fail to arrive from 0 to 100 percent.</p>"""
 
 
@@ -70,8 +74,10 @@ def serialize_aws_json_1_1(value: UpdateNetworkProfileRequest) -> dict:
         out["uplinkJitterMs"] = value["uplink_jitter_ms"]
     if "downlink_jitter_ms" in value:
         out["downlinkJitterMs"] = value["downlink_jitter_ms"]
-    out["uplinkLossPercent"] = value.get("uplink_loss_percent", 0)
-    out["downlinkLossPercent"] = value.get("downlink_loss_percent", 0)
+    if "uplink_loss_percent" in value:
+        out["uplinkLossPercent"] = value["uplink_loss_percent"]
+    if "downlink_loss_percent" in value:
+        out["downlinkLossPercent"] = value["downlink_loss_percent"]
     return out
 
 
@@ -107,10 +113,6 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateNetworkProfileRequest:
         out["downlink_jitter_ms"] = data["downlinkJitterMs"]
     if data.get("uplinkLossPercent") is not None:
         out["uplink_loss_percent"] = data["uplinkLossPercent"]
-    else:
-        out["uplink_loss_percent"] = 0
     if data.get("downlinkLossPercent") is not None:
         out["downlink_loss_percent"] = data["downlinkLossPercent"]
-    else:
-        out["downlink_loss_percent"] = 0
     return out

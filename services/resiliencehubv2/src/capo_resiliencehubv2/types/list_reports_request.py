@@ -18,7 +18,7 @@ class ListReportsRequest(TypedDict, closed=True):
     report_type: NotRequired["capo_resiliencehubv2.types.report_type.ReportType"]
     """<p>Filter reports by type.</p>"""
     test_run_id: NotRequired["capo_resiliencehubv2.types.test_run_id.TestRunId"]
-    max_results: "capo_resiliencehubv2.types.max_results.MaxResults"
+    max_results: NotRequired["capo_resiliencehubv2.types.max_results.MaxResults"]
     next_token: NotRequired["capo_resiliencehubv2.types.next_token.NextToken"]
 
 

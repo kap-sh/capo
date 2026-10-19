@@ -24,9 +24,9 @@ class GetVectorsInput(TypedDict, closed=True):
     """<p>The ARN of the vector index.</p>"""
     keys: "capo_s3vectors.types.get_vectors_input_list.GetVectorsInputList"
     """<p>The names of the vectors you want to return attributes for. </p>"""
-    return_data: "bool"
+    return_data: NotRequired["bool"]
     """<p>Indicates whether to include the vector data in the response. The default value is <code>false</code>.</p>"""
-    return_metadata: "bool"
+    return_metadata: NotRequired["bool"]
     """<p>Indicates whether to include metadata in the response. The default value is <code>false</code>.</p>"""
 
 
@@ -44,8 +44,10 @@ def serialize_json(value: GetVectorsInput) -> dict:
     out["keys"] = capo_s3vectors.types.get_vectors_input_list.serialize_json(
         value["keys"]
     )
-    out["returnData"] = value.get("return_data", False)
-    out["returnMetadata"] = value.get("return_metadata", False)
+    if "return_data" in value:
+        out["returnData"] = value["return_data"]
+    if "return_metadata" in value:
+        out["returnMetadata"] = value["return_metadata"]
     return out
 
 
@@ -67,10 +69,6 @@ def deserialize_json(data: dict) -> GetVectorsInput:
         raise DeserializationError("GetVectorsInput.keys required")
     if data.get("returnData") is not None:
         out["return_data"] = data["returnData"]
-    else:
-        out["return_data"] = False
     if data.get("returnMetadata") is not None:
         out["return_metadata"] = data["returnMetadata"]
-    else:
-        out["return_metadata"] = False
     return out

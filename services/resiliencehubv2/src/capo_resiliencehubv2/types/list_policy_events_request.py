@@ -23,7 +23,7 @@ class ListPolicyEventsRequest(TypedDict, closed=True):
     """<p>The start time for filtering events.</p>"""
     end_time: NotRequired["datetime.datetime"]
     """<p>The end time for filtering events.</p>"""
-    max_results: "capo_resiliencehubv2.types.max_results.MaxResults"
+    max_results: NotRequired["capo_resiliencehubv2.types.max_results.MaxResults"]
     next_token: NotRequired["capo_resiliencehubv2.types.next_token.NextToken"]
 
 

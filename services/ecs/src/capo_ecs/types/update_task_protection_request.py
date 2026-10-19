@@ -31,7 +31,7 @@ def serialize_aws_json_1_1(value: UpdateTaskProtectionRequest) -> dict:
     import capo_ecs.types.string_list
 
     out["tasks"] = capo_ecs.types.string_list.serialize_aws_json_1_1(value["tasks"])
-    out["protectionEnabled"] = value.get("protection_enabled", False)
+    out["protectionEnabled"] = value["protection_enabled"]
     if "expires_in_minutes" in value:
         out["expiresInMinutes"] = value["expires_in_minutes"]
     return out
@@ -54,7 +54,9 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateTaskProtectionRequest:
     if data.get("protectionEnabled") is not None:
         out["protection_enabled"] = data["protectionEnabled"]
     else:
-        out["protection_enabled"] = False
+        raise DeserializationError(
+            "UpdateTaskProtectionRequest.protection_enabled required"
+        )
     if data.get("expiresInMinutes") is not None:
         out["expires_in_minutes"] = data["expiresInMinutes"]
     return out

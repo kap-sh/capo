@@ -15,7 +15,7 @@ class ListStreamsRequest(TypedDict, closed=True):
     """<p>The maximum number of results to return at a time.</p>"""
     next_token: NotRequired["capo_iot.types.next_token.NextToken"]
     """<p>A token used to get the next set of results.</p>"""
-    ascending_order: "capo_iot.types.ascending_order.AscendingOrder"
+    ascending_order: NotRequired["capo_iot.types.ascending_order.AscendingOrder"]
     """<p>Set to true to return the list of streams in ascending order.</p>"""
 
 

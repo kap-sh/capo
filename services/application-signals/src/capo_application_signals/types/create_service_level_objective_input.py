@@ -39,7 +39,7 @@ class CreateServiceLevelObjectiveInput(TypedDict, closed=True):
         "capo_application_signals.types.burn_rate_configurations.BurnRateConfigurations"
     ]
     """<p>Use this array to create <i>burn rates</i> for this SLO. Each burn rate is a metric that indicates how fast the service is consuming the error budget, relative to the attainment goal of the SLO.</p>"""
-    create_recommended_slo: "bool"
+    create_recommended_slo: NotRequired["bool"]
     """<p>Set this to <code>true</code> to create a recommended SLO out of the box. When set to <code>true</code>, you don't need to specify the <code>MetricThreshold</code> or <code>ComparisonOperator</code> in the <code>SliConfig</code> or <code>RequestBasedSliConfig</code>. The default value is <code>false</code>.</p> <p>This is supported for SLOs on a service, service operation, or a dependency.</p>"""
     auto_investigation_enabled: NotRequired["bool"]
     """Indicates whether DevOps Agent will automatically investigate this SLO when it is breached"""
@@ -85,7 +85,8 @@ def serialize_json(value: CreateServiceLevelObjectiveInput) -> dict:
                 value["burn_rate_configurations"]
             )
         )
-    out["CreateRecommendedSlo"] = value.get("create_recommended_slo", False)
+    if "create_recommended_slo" in value:
+        out["CreateRecommendedSlo"] = value["create_recommended_slo"]
     if "auto_investigation_enabled" in value:
         out["AutoInvestigationEnabled"] = value["auto_investigation_enabled"]
     return out
@@ -135,8 +136,6 @@ def deserialize_json(data: dict) -> CreateServiceLevelObjectiveInput:
         )
     if data.get("CreateRecommendedSlo") is not None:
         out["create_recommended_slo"] = data["CreateRecommendedSlo"]
-    else:
-        out["create_recommended_slo"] = False
     if data.get("AutoInvestigationEnabled") is not None:
         out["auto_investigation_enabled"] = data["AutoInvestigationEnabled"]
     return out

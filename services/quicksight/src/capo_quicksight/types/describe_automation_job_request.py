@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_quicksight.types.automate_id
@@ -17,9 +17,9 @@ class DescribeAutomationJobRequest(TypedDict, closed=True):
     """<p>The ID of the automation group that contains the automation.</p>"""
     automation_id: "capo_quicksight.types.automate_id.AutomateId"
     """<p>The ID of the automation that the job belongs to.</p>"""
-    include_input_payload: "capo_quicksight.types.boolean.Boolean"
+    include_input_payload: NotRequired["capo_quicksight.types.boolean.Boolean"]
     """<p>A Boolean value that indicates whether to include the input payload in the response. If set to <code>true</code>, the input payload will be included. If set to <code>false</code>, the input payload will be returned as <code>null</code>.</p>"""
-    include_output_payload: "capo_quicksight.types.boolean.Boolean"
+    include_output_payload: NotRequired["capo_quicksight.types.boolean.Boolean"]
     """<p>A Boolean value that indicates whether to include the output payload in the response. If set to <code>true</code>, the output payload will be included. If set to <code>false</code>, the output payload will be returned as <code>null</code>.</p>"""
     job_id: "capo_quicksight.types.automate_id.AutomateId"
     """<p>The ID of the automation job to describe.</p>"""

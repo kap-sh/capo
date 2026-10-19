@@ -144,12 +144,10 @@ def build_request(
     url = url.replace("{AwsAccountId}", quote(input_["aws_account_id"], safe=""))
     url = url.replace("{AnalysisId}", quote(input_["analysis_id"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(
-        (
-            "restore-to-folders",
-            "true" if input_.get("restore_to_folders", False) else "false",
+    if "restore_to_folders" in input_:
+        params.append(
+            ("restore-to-folders", "true" if input_["restore_to_folders"] else "false")
         )
-    )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

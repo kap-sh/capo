@@ -23,7 +23,7 @@ class ListConnectionsRequest(TypedDict, closed=True):
         "capo_partnercentral_account.types.connection_type_filter.ConnectionTypeFilter"
     ]
     """<p>Filter results by connection type (e.g., reseller, distributor, technology partner).</p>"""
-    max_results: "capo_partnercentral_account.types.max_results.MaxResults"
+    max_results: NotRequired["capo_partnercentral_account.types.max_results.MaxResults"]
     """<p>The maximum number of connections to return in a single response.</p>"""
     other_participant_identifiers: NotRequired[
         "capo_partnercentral_account.types.participant_identifier_list.ParticipantIdentifierList"
@@ -39,7 +39,8 @@ def serialize_aws_json_1_0(value: ListConnectionsRequest) -> dict:
         out["NextToken"] = value["next_token"]
     if "connection_type" in value:
         out["ConnectionType"] = value["connection_type"]
-    out["MaxResults"] = value.get("max_results", 20)
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
     if "other_participant_identifiers" in value:
         import capo_partnercentral_account.types.participant_identifier_list
 
@@ -63,8 +64,6 @@ def deserialize_aws_json_1_0(data: dict) -> ListConnectionsRequest:
         out["connection_type"] = data["ConnectionType"]
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
-    else:
-        out["max_results"] = 20
     if data.get("OtherParticipantIdentifiers") is not None:
         import capo_partnercentral_account.types.participant_identifier_list
 

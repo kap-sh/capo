@@ -59,9 +59,7 @@ class CreateIdentityPoolInput(TypedDict, closed=True):
 def serialize_aws_json_1_1(value: CreateIdentityPoolInput) -> dict:
     out: dict = {}
     out["IdentityPoolName"] = value["identity_pool_name"]
-    out["AllowUnauthenticatedIdentities"] = value.get(
-        "allow_unauthenticated_identities", False
-    )
+    out["AllowUnauthenticatedIdentities"] = value["allow_unauthenticated_identities"]
     if "allow_classic_flow" in value:
         out["AllowClassicFlow"] = value["allow_classic_flow"]
     if "supported_login_providers" in value:
@@ -120,7 +118,9 @@ def deserialize_aws_json_1_1(data: dict) -> CreateIdentityPoolInput:
     if data.get("AllowUnauthenticatedIdentities") is not None:
         out["allow_unauthenticated_identities"] = data["AllowUnauthenticatedIdentities"]
     else:
-        out["allow_unauthenticated_identities"] = False
+        raise DeserializationError(
+            "CreateIdentityPoolInput.allow_unauthenticated_identities required"
+        )
     if data.get("AllowClassicFlow") is not None:
         out["allow_classic_flow"] = data["AllowClassicFlow"]
     if data.get("SupportedLoginProviders") is not None:

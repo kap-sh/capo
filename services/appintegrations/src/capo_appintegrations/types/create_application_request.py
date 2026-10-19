@@ -53,7 +53,7 @@ class CreateApplicationRequest(TypedDict, closed=True):
         "capo_appintegrations.types.permission_list.PermissionList"
     ]
     """<p>The configuration of events or requests that the application has access to.</p>"""
-    is_service: "capo_appintegrations.types.boolean.Boolean"
+    is_service: NotRequired["capo_appintegrations.types.boolean.Boolean"]
     """<p>Indicates whether the application is a service.</p>"""
     initialization_timeout: NotRequired[
         "capo_appintegrations.types.initialization_timeout.InitializationTimeout"
@@ -115,7 +115,8 @@ def serialize_json(value: CreateApplicationRequest) -> dict:
         out["Permissions"] = capo_appintegrations.types.permission_list.serialize_json(
             value["permissions"]
         )
-    out["IsService"] = value.get("is_service", False)
+    if "is_service" in value:
+        out["IsService"] = value["is_service"]
     if "initialization_timeout" in value:
         out["InitializationTimeout"] = value["initialization_timeout"]
     if "application_config" in value:
@@ -205,8 +206,6 @@ def deserialize_json(data: dict) -> CreateApplicationRequest:
         )
     if data.get("IsService") is not None:
         out["is_service"] = data["IsService"]
-    else:
-        out["is_service"] = False
     if data.get("InitializationTimeout") is not None:
         out["initialization_timeout"] = data["InitializationTimeout"]
     if data.get("ApplicationConfig") is not None:

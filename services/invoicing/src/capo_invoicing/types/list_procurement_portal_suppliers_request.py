@@ -21,7 +21,7 @@ class ListProcurementPortalSuppliersRequest(TypedDict, closed=True):
         "capo_invoicing.types.basic_string_without_space.BasicStringWithoutSpace"
     ]
     """<p>The token for the next set of results. You received this token from a previous call.</p>"""
-    max_results: "capo_invoicing.types.max_results.MaxResults"
+    max_results: NotRequired["capo_invoicing.types.max_results.MaxResults"]
     """<p>The maximum number of results to return in a single call. To retrieve the remaining results, make another call with the returned NextToken value. Default is 100.</p>"""
 
 
@@ -31,7 +31,8 @@ def serialize_aws_json_1_0(value: ListProcurementPortalSuppliersRequest) -> dict
     out["PortalIdentifier"] = value["portal_identifier"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
-    out["MaxResults"] = value.get("max_results", 100)
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
     return out
 
 
@@ -47,6 +48,4 @@ def deserialize_aws_json_1_0(data: dict) -> ListProcurementPortalSuppliersReques
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
-    else:
-        out["max_results"] = 100
     return out

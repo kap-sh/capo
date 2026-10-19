@@ -24,7 +24,7 @@ class ListInstrumentationConfigurationsRequest(TypedDict, closed=True):
     """Type of instrumentation configuration (BREAKPOINT or PROBE). Required to determine which backing store to query."""
     synced_at: NotRequired["datetime.datetime"]
     """<p>The timestamp from the last successful sync. When provided, the response returns <code>Changed</code> as <code>false</code> if nothing is new since this time, or returns the latest configurations when changes exist.</p>"""
-    max_results: "int"
+    max_results: NotRequired["int"]
     """<p>The maximum number of configurations to return in one call. The default is 50 and the maximum is 100.</p>"""
     next_token: NotRequired["capo_application_signals.types.next_token.NextToken"]
     """<p>Use the token returned by a previous call to retrieve the next page of configurations.</p>"""
@@ -50,7 +50,8 @@ def serialize_json(value: ListInstrumentationConfigurationsRequest) -> dict:
                 value["synced_at"]
             )
         )
-    out["MaxResults"] = value.get("max_results", 50)
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
     return out
@@ -92,8 +93,6 @@ def deserialize_json(data: dict) -> ListInstrumentationConfigurationsRequest:
         )
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
-    else:
-        out["max_results"] = 50
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

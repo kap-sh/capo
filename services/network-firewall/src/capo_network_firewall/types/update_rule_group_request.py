@@ -37,7 +37,7 @@ class UpdateRuleGroupRequest(TypedDict, closed=True):
     """<p>Indicates whether the rule group is stateless or stateful. If the rule group is stateless, it contains stateless rules. If it is stateful, it contains stateful rules. </p> <note> <p>This setting is required for requests that do not include the <code>RuleGroupARN</code>.</p> </note>"""
     description: NotRequired["capo_network_firewall.types.description.Description"]
     """<p>A description of the rule group. </p>"""
-    dry_run: "capo_network_firewall.types.boolean.Boolean"
+    dry_run: NotRequired["capo_network_firewall.types.boolean.Boolean"]
     """<p>Indicates whether you want Network Firewall to just check the validity of the request, rather than run the request. </p> <p>If set to <code>TRUE</code>, Network Firewall checks whether the request can run successfully, but doesn't actually make the requested changes. The call returns the value that the request would return if you ran it with dry run set to <code>FALSE</code>, but doesn't make additions or changes to your resources. This option allows you to make sure that you have the required permissions to run the request and that your request parameters are valid. </p> <p>If set to <code>FALSE</code>, Network Firewall makes the requested changes to your resources. </p>"""
     encryption_configuration: NotRequired[
         "capo_network_firewall.types.encryption_configuration.EncryptionConfiguration"
@@ -47,7 +47,7 @@ class UpdateRuleGroupRequest(TypedDict, closed=True):
         "capo_network_firewall.types.source_metadata.SourceMetadata"
     ]
     """<p>A complex type that contains metadata about the rule group that your own rule group is copied from. You can use the metadata to keep track of updates made to the originating rule group.</p>"""
-    analyze_rule_group: "capo_network_firewall.types.boolean.Boolean"
+    analyze_rule_group: NotRequired["capo_network_firewall.types.boolean.Boolean"]
     """<p>Indicates whether you want Network Firewall to analyze the stateless rules in the rule group for rule behavior such as asymmetric routing. If set to <code>TRUE</code>, Network Firewall runs the analysis and then updates the rule group for you. To run the stateless rule group analyzer without updating the rule group, set <code>DryRun</code> to <code>TRUE</code>. </p>"""
     summary_configuration: NotRequired[
         "capo_network_firewall.types.summary_configuration.SummaryConfiguration"
@@ -83,7 +83,8 @@ def serialize_aws_json_1_0(value: UpdateRuleGroupRequest) -> dict:
         )
     if "description" in value:
         out["Description"] = value["description"]
-    out["DryRun"] = value.get("dry_run", False)
+    if "dry_run" in value:
+        out["DryRun"] = value["dry_run"]
     if "encryption_configuration" in value:
         import capo_network_firewall.types.encryption_configuration
 
@@ -100,7 +101,8 @@ def serialize_aws_json_1_0(value: UpdateRuleGroupRequest) -> dict:
                 value["source_metadata"]
             )
         )
-    out["AnalyzeRuleGroup"] = value.get("analyze_rule_group", False)
+    if "analyze_rule_group" in value:
+        out["AnalyzeRuleGroup"] = value["analyze_rule_group"]
     if "summary_configuration" in value:
         import capo_network_firewall.types.summary_configuration
 
@@ -144,8 +146,6 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateRuleGroupRequest:
         out["description"] = data["Description"]
     if data.get("DryRun") is not None:
         out["dry_run"] = data["DryRun"]
-    else:
-        out["dry_run"] = False
     if data.get("EncryptionConfiguration") is not None:
         import capo_network_firewall.types.encryption_configuration
 
@@ -164,8 +164,6 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateRuleGroupRequest:
         )
     if data.get("AnalyzeRuleGroup") is not None:
         out["analyze_rule_group"] = data["AnalyzeRuleGroup"]
-    else:
-        out["analyze_rule_group"] = False
     if data.get("SummaryConfiguration") is not None:
         import capo_network_firewall.types.summary_configuration
 

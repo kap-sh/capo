@@ -17,7 +17,7 @@ class GetConnectionsRequest(TypedDict, closed=True):
     """<p>The ID of the Data Catalog in which the connections reside. If none is provided, the Amazon Web Services account ID is used by default.</p>"""
     filter: NotRequired["capo_glue.types.get_connections_filter.GetConnectionsFilter"]
     """<p>A filter that controls which connections are returned.</p>"""
-    hide_password: "capo_glue.types.boolean.Boolean"
+    hide_password: NotRequired["capo_glue.types.boolean.Boolean"]
     """<p>Allows you to retrieve the connection metadata without returning the password. For instance, the Glue console uses this flag to retrieve the connection, and does not display the password. Set this parameter when the caller might not have permission to use the KMS key to decrypt the password, but it does have permission to access the rest of the connection properties.</p>"""
     next_token: NotRequired["capo_glue.types.token.Token"]
     """<p>A continuation token, if this is a continuation call.</p>"""
@@ -36,7 +36,8 @@ def serialize_aws_json_1_1(value: GetConnectionsRequest) -> dict:
         out["Filter"] = capo_glue.types.get_connections_filter.serialize_aws_json_1_1(
             value["filter"]
         )
-    out["HidePassword"] = value.get("hide_password", False)
+    if "hide_password" in value:
+        out["HidePassword"] = value["hide_password"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
     if "max_results" in value:
@@ -56,8 +57,6 @@ def deserialize_aws_json_1_1(data: dict) -> GetConnectionsRequest:
         )
     if data.get("HidePassword") is not None:
         out["hide_password"] = data["HidePassword"]
-    else:
-        out["hide_password"] = False
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

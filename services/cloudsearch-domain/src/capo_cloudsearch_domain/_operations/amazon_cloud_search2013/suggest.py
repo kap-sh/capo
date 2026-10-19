@@ -109,7 +109,8 @@ def build_request(
         params.append(("q", input_["query"]))
     if "suggester" in input_:
         params.append(("suggester", input_["suggester"]))
-    params.append(("size", str(input_.get("size", 0))))
+    if "size" in input_:
+        params.append(("size", str(input_["size"])))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

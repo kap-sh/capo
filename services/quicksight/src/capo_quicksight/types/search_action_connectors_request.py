@@ -15,7 +15,9 @@ if TYPE_CHECKING:
 class SearchActionConnectorsRequest(TypedDict, closed=True):
     aws_account_id: "capo_quicksight.types.aws_account_id.AwsAccountId"
     """<p>The Amazon Web Services account ID in which to search for action connectors.</p>"""
-    max_results: "capo_quicksight.types.search_action_connectors_request_max_results_integer.SearchActionConnectorsRequestMaxResultsInteger"
+    max_results: NotRequired[
+        "capo_quicksight.types.search_action_connectors_request_max_results_integer.SearchActionConnectorsRequestMaxResultsInteger"
+    ]
     """<p>The maximum number of action connectors to return in a single response. Valid range is 1 to 100.</p>"""
     next_token: NotRequired["str"]
     """<p>A pagination token to retrieve the next set of results. Use the token returned from a previous call to continue searching.</p>"""

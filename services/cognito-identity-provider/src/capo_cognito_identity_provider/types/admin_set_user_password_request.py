@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING, Any
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_cognito_identity_provider.errors import DeserializationError
 
@@ -22,7 +22,9 @@ class AdminSetUserPasswordRequest(TypedDict, closed=True):
     """<p>The name of the user that you want to query or modify. The value of this parameter is typically your user's username, but it can be any of their alias attributes. If <code>username</code> isn't an alias attribute in your user pool, this value must be the <code>sub</code> of a local user or the username of a user from a third-party IdP.</p>"""
     password: "capo_cognito_identity_provider.types.password_type.PasswordType"
     """<p>The new temporary or permanent password that you want to set for the user. You can't remove the password for a user who already has a password so that they can only sign in with passwordless methods. In this scenario, you must create a new user without a password.</p>"""
-    permanent: "capo_cognito_identity_provider.types.boolean_type.BooleanType"
+    permanent: NotRequired[
+        "capo_cognito_identity_provider.types.boolean_type.BooleanType"
+    ]
     """<p>Set to <code>true</code> to set a password that the user can immediately sign in with. Set to <code>false</code> to set a temporary password that the user must change on their next sign-in.</p>"""
 
 
@@ -32,7 +34,8 @@ def serialize_aws_json_1_1(value: AdminSetUserPasswordRequest) -> dict:
     out["UserPoolId"] = value["user_pool_id"]
     out["Username"] = value["username"]
     out["Password"] = value["password"]
-    out["Permanent"] = value.get("permanent", False)
+    if "permanent" in value:
+        out["Permanent"] = value["permanent"]
     return out
 
 
@@ -52,8 +55,6 @@ def deserialize_aws_json_1_1(data: dict) -> AdminSetUserPasswordRequest:
         raise DeserializationError("AdminSetUserPasswordRequest.password required")
     if data.get("Permanent") is not None:
         out["permanent"] = data["Permanent"]
-    else:
-        out["permanent"] = False
     return out
 
 

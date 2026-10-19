@@ -38,7 +38,7 @@ def serialize_aws_json_1_1(value: CreateLogPatternRequest) -> dict:
     out["PatternSetName"] = value["pattern_set_name"]
     out["PatternName"] = value["pattern_name"]
     out["Pattern"] = value["pattern"]
-    out["Rank"] = value.get("rank", 0)
+    out["Rank"] = value["rank"]
     return out
 
 
@@ -65,5 +65,5 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLogPatternRequest:
     if data.get("Rank") is not None:
         out["rank"] = data["Rank"]
     else:
-        out["rank"] = 0
+        raise DeserializationError("CreateLogPatternRequest.rank required")
     return out

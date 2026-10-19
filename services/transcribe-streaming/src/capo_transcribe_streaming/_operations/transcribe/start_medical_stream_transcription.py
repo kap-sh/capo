@@ -282,14 +282,16 @@ def build_request(
         headers["x-amzn-transcribe-type"] = (
             capo_transcribe_streaming.types.type.serialize_json(input_["type"])
         )
-    headers["x-amzn-transcribe-show-speaker-label"] = (
-        "true" if input_.get("show_speaker_label", False) else "false"
-    )
+    if "show_speaker_label" in input_:
+        headers["x-amzn-transcribe-show-speaker-label"] = (
+            "true" if input_["show_speaker_label"] else "false"
+        )
     if "session_id" in input_:
         headers["x-amzn-transcribe-session-id"] = input_["session_id"]
-    headers["x-amzn-transcribe-enable-channel-identification"] = (
-        "true" if input_.get("enable_channel_identification", False) else "false"
-    )
+    if "enable_channel_identification" in input_:
+        headers["x-amzn-transcribe-enable-channel-identification"] = (
+            "true" if input_["enable_channel_identification"] else "false"
+        )
     if "number_of_channels" in input_:
         headers["x-amzn-transcribe-number-of-channels"] = str(
             input_["number_of_channels"]
@@ -369,14 +371,16 @@ def async_build_request(
         headers["x-amzn-transcribe-type"] = (
             capo_transcribe_streaming.types.type.serialize_json(input_["type"])
         )
-    headers["x-amzn-transcribe-show-speaker-label"] = (
-        "true" if input_.get("show_speaker_label", False) else "false"
-    )
+    if "show_speaker_label" in input_:
+        headers["x-amzn-transcribe-show-speaker-label"] = (
+            "true" if input_["show_speaker_label"] else "false"
+        )
     if "session_id" in input_:
         headers["x-amzn-transcribe-session-id"] = input_["session_id"]
-    headers["x-amzn-transcribe-enable-channel-identification"] = (
-        "true" if input_.get("enable_channel_identification", False) else "false"
-    )
+    if "enable_channel_identification" in input_:
+        headers["x-amzn-transcribe-enable-channel-identification"] = (
+            "true" if input_["enable_channel_identification"] else "false"
+        )
     if "number_of_channels" in input_:
         headers["x-amzn-transcribe-number-of-channels"] = str(
             input_["number_of_channels"]

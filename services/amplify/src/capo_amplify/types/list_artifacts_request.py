@@ -21,7 +21,7 @@ class ListArtifactsRequest(TypedDict, closed=True):
     """<p>The unique ID for a job. </p>"""
     next_token: NotRequired["capo_amplify.types.next_token.NextToken"]
     """<p>A pagination token. Set to null to start listing artifacts from start. If a non-null pagination token is returned in a result, pass its value in here to list more artifacts. </p>"""
-    max_results: "capo_amplify.types.max_results.MaxResults"
+    max_results: NotRequired["capo_amplify.types.max_results.MaxResults"]
     """<p>The maximum number of records to list in a single response. </p>"""
 
 

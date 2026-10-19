@@ -33,9 +33,9 @@ class UpdateRecipeJobRequest(TypedDict, closed=True):
         "capo_databrew.types.log_subscription.LogSubscription"
     ]
     """<p>Enables or disables Amazon CloudWatch logging for the job. If logging is enabled, CloudWatch writes one log stream for each job run.</p>"""
-    max_capacity: "capo_databrew.types.max_capacity.MaxCapacity"
+    max_capacity: NotRequired["capo_databrew.types.max_capacity.MaxCapacity"]
     """<p>The maximum number of nodes that DataBrew can consume when the job processes data.</p>"""
-    max_retries: "capo_databrew.types.max_retries.MaxRetries"
+    max_retries: NotRequired["capo_databrew.types.max_retries.MaxRetries"]
     """<p>The maximum number of times to retry the job after a job run fails.</p>"""
     outputs: NotRequired["capo_databrew.types.output_list.OutputList"]
     """<p>One or more artifacts that represent the output from running the job. </p>"""
@@ -49,7 +49,7 @@ class UpdateRecipeJobRequest(TypedDict, closed=True):
     """<p>Represents a list of JDBC database output objects which defines the output destination for a DataBrew recipe job to write into.</p>"""
     role_arn: "capo_databrew.types.arn.Arn"
     """<p>The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) role to be assumed when DataBrew runs the job.</p>"""
-    timeout: "capo_databrew.types.timeout.Timeout"
+    timeout: NotRequired["capo_databrew.types.timeout.Timeout"]
     """<p>The job's timeout in minutes. A job that attempts to run longer than this timeout period ends with a status of <code>TIMEOUT</code>.</p>"""
 
 
@@ -70,8 +70,10 @@ def serialize_json(value: UpdateRecipeJobRequest) -> dict:
         out["LogSubscription"] = capo_databrew.types.log_subscription.serialize_json(
             value["log_subscription"]
         )
-    out["MaxCapacity"] = value.get("max_capacity", 0)
-    out["MaxRetries"] = value.get("max_retries", 0)
+    if "max_capacity" in value:
+        out["MaxCapacity"] = value["max_capacity"]
+    if "max_retries" in value:
+        out["MaxRetries"] = value["max_retries"]
     if "outputs" in value:
         import capo_databrew.types.output_list
 
@@ -95,7 +97,8 @@ def serialize_json(value: UpdateRecipeJobRequest) -> dict:
             )
         )
     out["RoleArn"] = value["role_arn"]
-    out["Timeout"] = value.get("timeout", 0)
+    if "timeout" in value:
+        out["Timeout"] = value["timeout"]
     return out
 
 
@@ -117,12 +120,8 @@ def deserialize_json(data: dict) -> UpdateRecipeJobRequest:
         )
     if data.get("MaxCapacity") is not None:
         out["max_capacity"] = data["MaxCapacity"]
-    else:
-        out["max_capacity"] = 0
     if data.get("MaxRetries") is not None:
         out["max_retries"] = data["MaxRetries"]
-    else:
-        out["max_retries"] = 0
     if data.get("Outputs") is not None:
         import capo_databrew.types.output_list
 
@@ -151,6 +150,4 @@ def deserialize_json(data: dict) -> UpdateRecipeJobRequest:
         raise DeserializationError("UpdateRecipeJobRequest.role_arn required")
     if data.get("Timeout") is not None:
         out["timeout"] = data["Timeout"]
-    else:
-        out["timeout"] = 0
     return out

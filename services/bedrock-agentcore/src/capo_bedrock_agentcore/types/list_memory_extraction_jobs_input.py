@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 class ListMemoryExtractionJobsInput(TypedDict, closed=True):
     memory_id: "capo_bedrock_agentcore.types.memory_id.MemoryId"
     """<p>The unique identifier of the memory to list extraction jobs for.</p>"""
-    max_results: "int"
+    max_results: NotRequired["int"]
     """<p>The maximum number of results to return in a single call. The default value is 20.</p>"""
     filter: NotRequired[
         "capo_bedrock_agentcore.types.extraction_job_filter_input.ExtractionJobFilterInput"
@@ -28,7 +28,8 @@ class ListMemoryExtractionJobsInput(TypedDict, closed=True):
 # --- restJson1 ser/de ---
 def serialize_json(value: ListMemoryExtractionJobsInput) -> dict:
     out: dict = {}
-    out["maxResults"] = value.get("max_results", 20)
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
     if "filter" in value:
         import capo_bedrock_agentcore.types.extraction_job_filter_input
 
@@ -46,8 +47,6 @@ def deserialize_json(data: dict) -> ListMemoryExtractionJobsInput:
     out: ListMemoryExtractionJobsInput = {}  # type: ignore[typeddict-item]
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
-    else:
-        out["max_results"] = 20
     if data.get("filter") is not None:
         import capo_bedrock_agentcore.types.extraction_job_filter_input
 

@@ -20,7 +20,9 @@ class ListPipelineExecutionsRequest(TypedDict, closed=True):
     """<p>The name of the pipeline.</p>"""
     next_token: NotRequired["capo_iotsitewise.types.pagination_token.PaginationToken"]
     """<p>The token to be used for the next set of paginated results.</p>"""
-    max_results: "capo_iotsitewise.types.list_pipeline_executions_request_max_results_integer.ListPipelineExecutionsRequestMaxResultsInteger"
+    max_results: NotRequired[
+        "capo_iotsitewise.types.list_pipeline_executions_request_max_results_integer.ListPipelineExecutionsRequestMaxResultsInteger"
+    ]
     """<p>The maximum number of results to return per request. This is an upper bound; the actual number of results may be less. Default: 50.</p>"""
     state: NotRequired[
         "capo_iotsitewise.types.pipeline_execution_state.PipelineExecutionState"

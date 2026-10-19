@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 class ListTestsRequest(TypedDict, closed=True):
     service_arn: "capo_resiliencehubv2.types.arn.Arn"
     """<p>The ARN of the service to list tests for.</p>"""
-    max_results: "capo_resiliencehubv2.types.max_results.MaxResults"
+    max_results: NotRequired["capo_resiliencehubv2.types.max_results.MaxResults"]
     next_token: NotRequired["capo_resiliencehubv2.types.next_token.NextToken"]
 
 

@@ -24,7 +24,7 @@ class ListAccessPointsRequest(TypedDict, closed=True):
         "capo_s3_control.types.non_empty_max_length1024_string.NonEmptyMaxLength1024String"
     ]
     """<p>A continuation token. If a previous call to <code>ListAccessPoints</code> returned a continuation token in the <code>NextToken</code> field, then providing that value here causes Amazon S3 to retrieve the next page of results.</p>"""
-    max_results: "capo_s3_control.types.max_results.MaxResults"
+    max_results: NotRequired["capo_s3_control.types.max_results.MaxResults"]
     """<p>The maximum number of access points that you want to include in the list. If the specified bucket has more than this number of access points, then the response will include a continuation token in the <code>NextToken</code> field that you can use to retrieve the next page of access points.</p>"""
     data_source_id: NotRequired["capo_s3_control.types.data_source_id.DataSourceId"]
     """<p>The unique identifier for the data source of the access point.</p>"""

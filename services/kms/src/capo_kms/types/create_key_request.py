@@ -37,7 +37,9 @@ class CreateKeyRequest(TypedDict, closed=True):
         "capo_kms.types.custom_key_store_id_type.CustomKeyStoreIdType"
     ]
     """<p>Creates the KMS key in the specified <a href="https://docs.aws.amazon.com/kms/latest/developerguide/key-store-overview.html">custom key store</a>. The <code>ConnectionState</code> of the custom key store must be <code>CONNECTED</code>. To find the CustomKeyStoreID and ConnectionState use the <a>DescribeCustomKeyStores</a> operation.</p> <p>This parameter is valid only for symmetric encryption KMS keys in a single Region. You cannot create any other type of KMS key in a custom key store.</p> <p>When you create a KMS key in an CloudHSM key store, KMS generates a non-exportable 256-bit symmetric key in its associated CloudHSM cluster and associates it with the KMS key. When you create a KMS key in an external key store, you must use the <code>XksKeyId</code> parameter to specify an external key that serves as key material for the KMS key.</p>"""
-    bypass_policy_lockout_safety_check: "capo_kms.types.boolean_type.BooleanType"
+    bypass_policy_lockout_safety_check: NotRequired[
+        "capo_kms.types.boolean_type.BooleanType"
+    ]
     """<p>Skips ("bypasses") the key policy lockout safety check. The default value is false.</p> <important> <p>Setting this value to true increases the risk that the KMS key becomes unmanageable. Do not set this value to true indiscriminately.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/key-policy-default.html#prevent-unmanageable-key">Default key policy</a> in the <i>Key Management Service Developer Guide</i>.</p> </important> <p>Use this parameter only when you intend to prevent the principal that is making the request from making a subsequent <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html">PutKeyPolicy</a> request on the KMS key.</p>"""
     tags: NotRequired["capo_kms.types.tag_list.TagList"]
     """<p>Assigns one or more tags to the KMS key. Use this parameter to tag the KMS key when it is created. To tag an existing KMS key, use the <a>TagResource</a> operation.</p> <important> <p>Do not include confidential or sensitive information in this field. This field may be displayed in plaintext in CloudTrail logs and other output.</p> </important> <note> <p>Tagging or untagging a KMS key can allow or deny permission to the KMS key. For details, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/abac.html">ABAC for KMS</a> in the <i>Key Management Service Developer Guide</i>.</p> </note> <p>To use this parameter, you must have <a href="https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html">kms:TagResource</a> permission in an IAM policy.</p> <p>Each tag consists of a tag key and a tag value. Both the tag key and the tag value are required, but the tag value can be an empty (null) string. You cannot have more than one tag on a KMS key with the same tag key. If you specify an existing tag key with a different tag value, KMS replaces the current tag value with the specified one.</p> <p>When you add tags to an Amazon Web Services resource, Amazon Web Services generates a cost allocation report with usage and costs aggregated by tags. Tags can also be used to control access to a KMS key. For details, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/tagging-keys.html">Tags in KMS</a>.</p>"""
@@ -84,9 +86,10 @@ def serialize_aws_json_1_1(value: CreateKeyRequest) -> dict:
         )
     if "custom_key_store_id" in value:
         out["CustomKeyStoreId"] = value["custom_key_store_id"]
-    out["BypassPolicyLockoutSafetyCheck"] = value.get(
-        "bypass_policy_lockout_safety_check", False
-    )
+    if "bypass_policy_lockout_safety_check" in value:
+        out["BypassPolicyLockoutSafetyCheck"] = value[
+            "bypass_policy_lockout_safety_check"
+        ]
     if "tags" in value:
         import capo_kms.types.tag_list
 
@@ -136,8 +139,6 @@ def deserialize_aws_json_1_1(data: dict) -> CreateKeyRequest:
         out["bypass_policy_lockout_safety_check"] = data[
             "BypassPolicyLockoutSafetyCheck"
         ]
-    else:
-        out["bypass_policy_lockout_safety_check"] = False
     if data.get("Tags") is not None:
         import capo_kms.types.tag_list
 

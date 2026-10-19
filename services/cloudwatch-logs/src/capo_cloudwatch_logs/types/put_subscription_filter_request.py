@@ -31,9 +31,9 @@ class PutSubscriptionFilterRequest(TypedDict, closed=True):
     """<p>The ARN of an IAM role that grants CloudWatch Logs permissions to deliver ingested log events to the destination stream. You don't need to provide the ARN when you are working with a logical destination for cross-account delivery.</p>"""
     distribution: NotRequired["capo_cloudwatch_logs.types.distribution.Distribution"]
     """<p>The method used to distribute log data to the destination. By default, log data is grouped by log stream, but the grouping can be set to random for a more even distribution. This property is only applicable when the destination is an Amazon Kinesis data stream. </p>"""
-    apply_on_transformed_logs: (
+    apply_on_transformed_logs: NotRequired[
         "capo_cloudwatch_logs.types.apply_on_transformed_logs.ApplyOnTransformedLogs"
-    )
+    ]
     """<p>This parameter is valid only for log groups that have an active log transformer. For more information about log transformers, see <a href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutTransformer.html">PutTransformer</a>.</p> <p>If the log group uses either a log-group level or account-level transformer, and you specify <code>true</code>, the subscription filter will be applied on the transformed version of the log events instead of the original ingested log events.</p>"""
     field_selection_criteria: NotRequired[
         "capo_cloudwatch_logs.types.field_selection_criteria.FieldSelectionCriteria"
@@ -62,7 +62,8 @@ def serialize_aws_json_1_1(value: PutSubscriptionFilterRequest) -> dict:
                 value["distribution"]
             )
         )
-    out["applyOnTransformedLogs"] = value.get("apply_on_transformed_logs", False)
+    if "apply_on_transformed_logs" in value:
+        out["applyOnTransformedLogs"] = value["apply_on_transformed_logs"]
     if "field_selection_criteria" in value:
         out["fieldSelectionCriteria"] = value["field_selection_criteria"]
     if "emit_system_fields" in value:
@@ -112,8 +113,6 @@ def deserialize_aws_json_1_1(data: dict) -> PutSubscriptionFilterRequest:
         )
     if data.get("applyOnTransformedLogs") is not None:
         out["apply_on_transformed_logs"] = data["applyOnTransformedLogs"]
-    else:
-        out["apply_on_transformed_logs"] = False
     if data.get("fieldSelectionCriteria") is not None:
         out["field_selection_criteria"] = data["fieldSelectionCriteria"]
     if data.get("emitSystemFields") is not None:

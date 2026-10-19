@@ -30,9 +30,9 @@ class UpdateDaemonRequest(TypedDict, closed=True):
         "capo_ecs.types.daemon_propagate_tags.DaemonPropagateTags"
     ]
     """<p>Specifies whether to propagate the tags from the daemon to the daemon tasks. If you don't specify a value, the tags aren't propagated. You can only propagate tags to daemon tasks during task creation.</p>"""
-    enable_ecs_managed_tags: "capo_ecs.types.boolean.Boolean"
+    enable_ecs_managed_tags: NotRequired["capo_ecs.types.boolean.Boolean"]
     """<p>Specifies whether to turn on Amazon ECS managed tags for the tasks in the daemon. For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html">Tagging your Amazon ECS resources</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.</p>"""
-    enable_execute_command: "capo_ecs.types.boolean.Boolean"
+    enable_execute_command: NotRequired["capo_ecs.types.boolean.Boolean"]
     """<p>If <code>true</code>, the execute command functionality is turned on for all tasks in the daemon. If <code>false</code>, the execute command functionality is turned off.</p>"""
     critical: NotRequired["capo_ecs.types.boxed_boolean.BoxedBoolean"]
     """<p>If the <code>critical</code> parameter of a daemon is <code>true</code>, and the daemon task fails, stops, or becomes unhealthy, Amazon ECS drains the container instance and stops the other tasks running on it. If the <code>critical</code> parameter is <code>false</code>, the daemon task failure doesn't affect the other tasks on the instance. The default value is <code>true</code>.</p> <p>A non-critical daemon doesn't block instance registration. The container instance becomes active and continues to run your other tasks, whether the daemon task fails during scale-out or during a deployment.</p> <p>Amazon ECS emits an EventBridge event when a daemon task fails to start, for both critical and non-critical daemons.</p> <p>Daemon task launch failures during a deployment are still counted by the deployment circuit breaker. The circuit breaker can roll back an unstable target revision.</p>"""
@@ -64,8 +64,10 @@ def serialize_aws_json_1_1(value: UpdateDaemonRequest) -> dict:
                 value["propagate_tags"]
             )
         )
-    out["enableECSManagedTags"] = value.get("enable_ecs_managed_tags", False)
-    out["enableExecuteCommand"] = value.get("enable_execute_command", False)
+    if "enable_ecs_managed_tags" in value:
+        out["enableECSManagedTags"] = value["enable_ecs_managed_tags"]
+    if "enable_execute_command" in value:
+        out["enableExecuteCommand"] = value["enable_execute_command"]
     if "critical" in value:
         out["critical"] = value["critical"]
     return out
@@ -113,12 +115,8 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDaemonRequest:
         )
     if data.get("enableECSManagedTags") is not None:
         out["enable_ecs_managed_tags"] = data["enableECSManagedTags"]
-    else:
-        out["enable_ecs_managed_tags"] = False
     if data.get("enableExecuteCommand") is not None:
         out["enable_execute_command"] = data["enableExecuteCommand"]
-    else:
-        out["enable_execute_command"] = False
     if data.get("critical") is not None:
         out["critical"] = data["critical"]
     return out

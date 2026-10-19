@@ -117,12 +117,10 @@ def build_request(
     url = endpoint.url.rstrip("/") + "/jobs/{jobId}/job-document"
     url = url.replace("{jobId}", quote(input_["job_id"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(
-        (
-            "beforeSubstitution",
-            "true" if input_.get("before_substitution", False) else "false",
+    if "before_substitution" in input_:
+        params.append(
+            ("beforeSubstitution", "true" if input_["before_substitution"] else "false")
         )
-    )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

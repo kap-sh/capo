@@ -17,7 +17,7 @@ class ListComponentsRequest(TypedDict, closed=True):
     """<p>Filters results based on the type of owner for the component. By default, this request returns a list of components that your account owns. To see results for other types of owners, you can specify components that Amazon manages, components from the Amazon Web Services Marketplace, third party components, or components that other accounts have shared with you.</p>"""
     filters: NotRequired["capo_imagebuilder.types.filter_list.FilterList"]
     """<p>Use the following filters to streamline results:</p> <ul> <li> <p> <code>description</code> </p> </li> <li> <p> <code>name</code> </p> </li> <li> <p> <code>platform</code> </p> </li> <li> <p> <code>productCodes</code> </p> </li> <li> <p> <code>status</code> </p> </li> <li> <p> <code>supportedOsVersion</code> </p> </li> <li> <p> <code>type</code> </p> </li> <li> <p> <code>version</code> </p> </li> </ul>"""
-    by_name: "capo_imagebuilder.types.boolean.Boolean"
+    by_name: NotRequired["capo_imagebuilder.types.boolean.Boolean"]
     """<p>Specifies whether to return one entry per component name, with all versions of each component aggregated. Defaults to <code>false</code>, which returns one entry per component version. You can't combine this option with the <code>version</code> filter.</p>"""
     max_results: NotRequired[
         "capo_imagebuilder.types.restricted_integer.RestrictedInteger"
@@ -40,7 +40,8 @@ def serialize_json(value: ListComponentsRequest) -> dict:
         out["filters"] = capo_imagebuilder.types.filter_list.serialize_json(
             value["filters"]
         )
-    out["byName"] = value.get("by_name", False)
+    if "by_name" in value:
+        out["byName"] = value["by_name"]
     if "max_results" in value:
         out["maxResults"] = value["max_results"]
     if "next_token" in value:
@@ -62,8 +63,6 @@ def deserialize_json(data: dict) -> ListComponentsRequest:
         )
     if data.get("byName") is not None:
         out["by_name"] = data["byName"]
-    else:
-        out["by_name"] = False
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     if data.get("nextToken") is not None:

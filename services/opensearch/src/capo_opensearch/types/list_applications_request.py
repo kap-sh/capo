@@ -16,7 +16,7 @@ class ListApplicationsRequest(TypedDict, closed=True):
         "capo_opensearch.types.application_statuses.ApplicationStatuses"
     ]
     """<p>Filters the list of OpenSearch applications by status. Possible values: <code>CREATING</code>, <code>UPDATING</code>, <code>DELETING</code>, <code>FAILED</code>, <code>ACTIVE</code>, and <code>DELETED</code>.</p>"""
-    max_results: "capo_opensearch.types.max_results.MaxResults"
+    max_results: NotRequired["capo_opensearch.types.max_results.MaxResults"]
 
 
 # --- restJson1 ser/de ---

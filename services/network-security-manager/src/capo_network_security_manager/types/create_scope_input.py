@@ -30,7 +30,9 @@ class CreateScopeInput(TypedDict, closed=True):
         "capo_network_security_manager.types.scope_configuration.ScopeConfiguration"
     )
     """<p>The configuration that defines which accounts and resources are in scope.</p>"""
-    is_published: "capo_network_security_manager.types.is_published.IsPublished"
+    is_published: NotRequired[
+        "capo_network_security_manager.types.is_published.IsPublished"
+    ]
     """<p>Specifies whether to publish the resource. When <code>true</code>, the resource is saved in published (<code>ACTIVE</code>) state. When <code>false</code>, it is saved as a draft (<code>DRAFT</code>). Default: <code>true</code>.</p>"""
     tags: NotRequired["capo_network_security_manager.types.tag_map.TagMap"]
     """<p>The tags to add to the resource when it is created.</p>"""
@@ -51,7 +53,8 @@ def serialize_json(value: CreateScopeInput) -> dict:
             value["scope_configuration"]
         )
     )
-    out["isPublished"] = value.get("is_published", True)
+    if "is_published" in value:
+        out["isPublished"] = value["is_published"]
     if "tags" in value:
         import capo_network_security_manager.types.tag_map
 
@@ -83,8 +86,6 @@ def deserialize_json(data: dict) -> CreateScopeInput:
         raise DeserializationError("CreateScopeInput.scope_configuration required")
     if data.get("isPublished") is not None:
         out["is_published"] = data["isPublished"]
-    else:
-        out["is_published"] = True
     if data.get("tags") is not None:
         import capo_network_security_manager.types.tag_map
 

@@ -18,7 +18,7 @@ class ListTypesRequest(TypedDict, closed=True):
     """<p>The type format: SDL or JSON.</p>"""
     next_token: NotRequired["capo_appsync.types.pagination_token.PaginationToken"]
     """<p>An identifier that was returned from the previous call to this operation, which you can use to return the next set of items in the list.</p>"""
-    max_results: "capo_appsync.types.max_results.MaxResults"
+    max_results: NotRequired["capo_appsync.types.max_results.MaxResults"]
     """<p>The maximum number of results that you want the request to return.</p>"""
 
 

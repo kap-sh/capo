@@ -25,7 +25,7 @@ class SearchRelevantContentRequest(TypedDict, closed=True):
     attribute_filter: NotRequired[
         "capo_qbusiness.types.attribute_filter.AttributeFilter"
     ]
-    max_results: "capo_qbusiness.types.max_results.MaxResults"
+    max_results: NotRequired["capo_qbusiness.types.max_results.MaxResults"]
     """<p>The maximum number of results to return.</p>"""
     next_token: NotRequired["capo_qbusiness.types.next_token.NextToken"]
     """<p>The token for the next set of results. (You received this token from a previous call.)</p>"""
@@ -46,7 +46,8 @@ def serialize_json(value: SearchRelevantContentRequest) -> dict:
         out["attributeFilter"] = capo_qbusiness.types.attribute_filter.serialize_json(
             value["attribute_filter"]
         )
-    out["maxResults"] = value.get("max_results", 10)
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
     return out
@@ -78,8 +79,6 @@ def deserialize_json(data: dict) -> SearchRelevantContentRequest:
         )
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
-    else:
-        out["max_results"] = 10
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

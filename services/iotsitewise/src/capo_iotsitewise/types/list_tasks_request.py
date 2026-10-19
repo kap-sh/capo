@@ -15,7 +15,9 @@ class ListTasksRequest(TypedDict, closed=True):
     """<p>The name of the workspace.</p>"""
     next_token: NotRequired["capo_iotsitewise.types.pagination_token.PaginationToken"]
     """<p>The token to be used for the next set of paginated results.</p>"""
-    max_results: "capo_iotsitewise.types.list_tasks_request_max_results_integer.ListTasksRequestMaxResultsInteger"
+    max_results: NotRequired[
+        "capo_iotsitewise.types.list_tasks_request_max_results_integer.ListTasksRequestMaxResultsInteger"
+    ]
     """<p>The maximum number of results to return for each paginated request. Default: 50.</p>"""
 
 

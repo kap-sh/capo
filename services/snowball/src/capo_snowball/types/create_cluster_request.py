@@ -60,7 +60,7 @@ class CreateClusterRequest(TypedDict, closed=True):
         "capo_snowball.types.initial_cluster_size.InitialClusterSize"
     ]
     """<p>If provided, each job will be automatically created and associated with the new cluster. If not provided, will be treated as 0.</p>"""
-    force_create_jobs: "capo_snowball.types.boolean.Boolean"
+    force_create_jobs: NotRequired["capo_snowball.types.boolean.Boolean"]
     """<p>Force to create cluster when user attempts to overprovision or underprovision a cluster. A cluster is overprovisioned or underprovisioned if the initial size of the cluster is more (overprovisioned) or less (underprovisioned) than what needed to meet capacity requirement specified with <code>OnDeviceServiceConfiguration</code>.</p>"""
     long_term_pricing_ids: NotRequired[
         "capo_snowball.types.long_term_pricing_id_list.LongTermPricingIdList"
@@ -135,7 +135,8 @@ def serialize_aws_json_1_1(value: CreateClusterRequest) -> dict:
         )
     if "initial_cluster_size" in value:
         out["InitialClusterSize"] = value["initial_cluster_size"]
-    out["ForceCreateJobs"] = value.get("force_create_jobs", False)
+    if "force_create_jobs" in value:
+        out["ForceCreateJobs"] = value["force_create_jobs"]
     if "long_term_pricing_ids" in value:
         import capo_snowball.types.long_term_pricing_id_list
 
@@ -237,8 +238,6 @@ def deserialize_aws_json_1_1(data: dict) -> CreateClusterRequest:
         out["initial_cluster_size"] = data["InitialClusterSize"]
     if data.get("ForceCreateJobs") is not None:
         out["force_create_jobs"] = data["ForceCreateJobs"]
-    else:
-        out["force_create_jobs"] = False
     if data.get("LongTermPricingIds") is not None:
         import capo_snowball.types.long_term_pricing_id_list
 

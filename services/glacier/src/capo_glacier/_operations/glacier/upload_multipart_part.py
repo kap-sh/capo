@@ -136,7 +136,7 @@ def build_request(
         headers["x-amz-sha256-tree-hash"] = input_["checksum"]
     if "range" in input_:
         headers["Content-Range"] = input_["range"]
-    body = input_["body"]
+    body = input_.get("body", b"")
     if isinstance(body, capo_glacier._body.Body):
         body = cast(capo_glacier._body.Body[Iterator[bytes]], body)
         stream = body.stream
@@ -192,7 +192,7 @@ async def async_build_request(
         headers["x-amz-sha256-tree-hash"] = input_["checksum"]
     if "range" in input_:
         headers["Content-Range"] = input_["range"]
-    body = input_["body"]
+    body = input_.get("body", b"")
     if isinstance(body, capo_glacier._body.Body):
         body = cast(capo_glacier._body.Body[AsyncIterator[bytes]], body)
         stream = body.stream

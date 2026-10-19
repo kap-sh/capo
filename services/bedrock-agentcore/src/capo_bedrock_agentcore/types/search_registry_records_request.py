@@ -16,7 +16,7 @@ class SearchRegistryRecordsRequest(TypedDict, closed=True):
     """<p> The search query to find matching registry records.</p>"""
     registry_ids: "capo_bedrock_agentcore.types.registry_id_list.RegistryIdList"
     """<p> The list of registry identifiers to search within. Currently, you can specify exactly one registry identifier. You can provide either the full Amazon Web Services Resource Name (ARN) or the 12-character alphanumeric registry ID.</p>"""
-    max_results: "int"
+    max_results: NotRequired["int"]
     """<p> The maximum number of records to return in a single call. Valid values are 1 through 20. The default value is 10.</p>"""
     filters: NotRequired[
         "capo_bedrock_agentcore.types.metadata_filter_expression.MetadataFilterExpression"
@@ -33,7 +33,8 @@ def serialize_json(value: SearchRegistryRecordsRequest) -> dict:
     out["registryIds"] = capo_bedrock_agentcore.types.registry_id_list.serialize_json(
         value["registry_ids"]
     )
-    out["maxResults"] = value.get("max_results", 10)
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
     if "filters" in value:
         out["filters"] = value["filters"]
     return out
@@ -57,8 +58,6 @@ def deserialize_json(data: dict) -> SearchRegistryRecordsRequest:
         raise DeserializationError("SearchRegistryRecordsRequest.registry_ids required")
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
-    else:
-        out["max_results"] = 10
     if data.get("filters") is not None:
         out["filters"] = data["filters"]
     return out

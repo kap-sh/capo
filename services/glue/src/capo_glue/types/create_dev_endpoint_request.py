@@ -33,7 +33,7 @@ class CreateDevEndpointRequest(TypedDict, closed=True):
     """<p>The public key to be used by this <code>DevEndpoint</code> for authentication. This attribute is provided for backward compatibility because the recommended attribute to use is public keys.</p>"""
     public_keys: NotRequired["capo_glue.types.public_keys_list.PublicKeysList"]
     """<p>A list of public keys to be used by the development endpoints for authentication. The use of this attribute is preferred over a single public key because the public keys allow you to have a different private key per client.</p> <note> <p>If you previously created an endpoint with a public key, you must remove that key to be able to set a list of public keys. Call the <code>UpdateDevEndpoint</code> API with the public key content in the <code>deletePublicKeys</code> attribute, and the list of new keys in the <code>addPublicKeys</code> attribute.</p> </note>"""
-    number_of_nodes: "capo_glue.types.integer_value.IntegerValue"
+    number_of_nodes: NotRequired["capo_glue.types.integer_value.IntegerValue"]
     """<p>The number of Glue Data Processing Units (DPUs) to allocate to this <code>DevEndpoint</code>.</p>"""
     worker_type: NotRequired["capo_glue.types.worker_type.WorkerType"]
     """<p>The type of predefined worker that is allocated to the development endpoint. Accepts a value of Standard, G.1X, or G.2X.</p> <ul> <li> <p>For the <code>Standard</code> worker type, each worker provides 4 vCPU, 16 GB of memory and a 50GB disk, and 2 executors per worker.</p> </li> <li> <p>For the <code>G.1X</code> worker type, each worker maps to 1 DPU (4 vCPU, 16 GB of memory, 64 GB disk), and provides 1 executor per worker. We recommend this worker type for memory-intensive jobs.</p> </li> <li> <p>For the <code>G.2X</code> worker type, each worker maps to 2 DPU (8 vCPU, 32 GB of memory, 128 GB disk), and provides 1 executor per worker. We recommend this worker type for memory-intensive jobs.</p> </li> </ul> <p>Known issue: when a development endpoint is created with the <code>G.2X</code> <code>WorkerType</code> configuration, the Spark drivers for the development endpoint will run on 4 vCPU, 16 GB of memory, and a 64 GB disk. </p>"""
@@ -76,7 +76,8 @@ def serialize_aws_json_1_1(value: CreateDevEndpointRequest) -> dict:
         out["PublicKeys"] = capo_glue.types.public_keys_list.serialize_aws_json_1_1(
             value["public_keys"]
         )
-    out["NumberOfNodes"] = value.get("number_of_nodes", 0)
+    if "number_of_nodes" in value:
+        out["NumberOfNodes"] = value["number_of_nodes"]
     if "worker_type" in value:
         import capo_glue.types.worker_type
 
@@ -136,8 +137,6 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDevEndpointRequest:
         )
     if data.get("NumberOfNodes") is not None:
         out["number_of_nodes"] = data["NumberOfNodes"]
-    else:
-        out["number_of_nodes"] = 0
     if data.get("WorkerType") is not None:
         import capo_glue.types.worker_type
 

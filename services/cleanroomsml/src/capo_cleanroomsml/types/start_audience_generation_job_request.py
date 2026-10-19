@@ -22,7 +22,7 @@ class StartAudienceGenerationJobRequest(TypedDict, closed=True):
     """<p>The Amazon Resource Name (ARN) of the configured audience model that is used for this audience generation job.</p>"""
     seed_audience: "capo_cleanroomsml.types.audience_generation_job_data_source.AudienceGenerationJobDataSource"
     """<p>The seed audience that is used to generate the audience.</p>"""
-    include_seed_in_output: "bool"
+    include_seed_in_output: NotRequired["bool"]
     """<p>Whether the seed audience is included in the audience generation output.</p>"""
     collaboration_id: NotRequired["capo_cleanroomsml.types.uuid.UUID"]
     """<p>The identifier of the collaboration that contains the audience generation job.</p>"""
@@ -46,7 +46,8 @@ def serialize_json(value: StartAudienceGenerationJobRequest) -> dict:
             value["seed_audience"]
         )
     )
-    out["includeSeedInOutput"] = value.get("include_seed_in_output", False)
+    if "include_seed_in_output" in value:
+        out["includeSeedInOutput"] = value["include_seed_in_output"]
     if "collaboration_id" in value:
         out["collaborationId"] = value["collaboration_id"]
     if "description" in value:
@@ -84,8 +85,6 @@ def deserialize_json(data: dict) -> StartAudienceGenerationJobRequest:
         )
     if data.get("includeSeedInOutput") is not None:
         out["include_seed_in_output"] = data["includeSeedInOutput"]
-    else:
-        out["include_seed_in_output"] = False
     if data.get("collaborationId") is not None:
         out["collaboration_id"] = data["collaborationId"]
     if data.get("description") is not None:

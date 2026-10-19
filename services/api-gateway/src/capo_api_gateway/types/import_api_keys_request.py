@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_api_gateway.errors import DeserializationError
 
@@ -17,7 +17,7 @@ class ImportApiKeysRequest(TypedDict, closed=True):
     """<p>The payload of the POST request to import API keys. For the payload format, see API Key File Format.</p>"""
     format: "capo_api_gateway.types.api_keys_format.ApiKeysFormat"
     """<p>A query parameter to specify the input format to imported API keys. Currently, only the <code>csv</code> format is supported.</p>"""
-    fail_on_warnings: "capo_api_gateway.types.boolean.Boolean"
+    fail_on_warnings: NotRequired["capo_api_gateway.types.boolean.Boolean"]
     """<p>A query parameter to indicate whether to rollback ApiKey importation (<code>true</code>) or not (<code>false</code>) when error is encountered.</p>"""
 
 

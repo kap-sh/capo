@@ -31,9 +31,9 @@ class ListAuditFindingsRequest(TypedDict, closed=True):
     """<p>A filter to limit results to those found after the specified time. You must specify either the startTime and endTime or the taskId, but not both.</p>"""
     end_time: NotRequired["capo_iot.types.timestamp.Timestamp"]
     """<p>A filter to limit results to those found before the specified time. You must specify either the startTime and endTime or the taskId, but not both.</p>"""
-    list_suppressed_findings: (
+    list_suppressed_findings: NotRequired[
         "capo_iot.types.list_suppressed_findings.ListSuppressedFindings"
-    )
+    ]
     """<p> Boolean flag indicating whether only the suppressed findings or the unsuppressed findings should be listed. If this parameter isn't provided, the response will list both suppressed and unsuppressed findings. </p>"""
 
 
@@ -62,7 +62,8 @@ def serialize_json(value: ListAuditFindingsRequest) -> dict:
         import capo_iot.types.timestamp
 
         out["endTime"] = capo_iot.types.timestamp.serialize_json(value["end_time"])
-    out["listSuppressedFindings"] = value.get("list_suppressed_findings", False)
+    if "list_suppressed_findings" in value:
+        out["listSuppressedFindings"] = value["list_suppressed_findings"]
     return out
 
 
@@ -94,6 +95,4 @@ def deserialize_json(data: dict) -> ListAuditFindingsRequest:
         out["end_time"] = capo_iot.types.timestamp.deserialize_json(data["endTime"])
     if data.get("listSuppressedFindings") is not None:
         out["list_suppressed_findings"] = data["listSuppressedFindings"]
-    else:
-        out["list_suppressed_findings"] = False
     return out

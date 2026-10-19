@@ -123,9 +123,10 @@ def build_request(
     params: list[tuple[str, str]] = []
     if "version_id" in input_:
         params.append(("versionId", input_["version_id"]))
-    params.append(
-        ("MaxScheduledRunsPreview", str(input_.get("max_scheduled_runs_preview", 0)))
-    )
+    if "max_scheduled_runs_preview" in input_:
+        params.append(
+            ("MaxScheduledRunsPreview", str(input_["max_scheduled_runs_preview"]))
+        )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

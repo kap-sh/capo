@@ -28,7 +28,7 @@ class CreateOrganizationRequest(TypedDict, closed=True):
     """<p>The email domains to associate with the organization.</p>"""
     kms_key_arn: NotRequired["capo_workmail.types.kms_key_arn.KmsKeyArn"]
     """<p>The Amazon Resource Name (ARN) of a customer managed key from AWS KMS.</p>"""
-    enable_interoperability: "capo_workmail.types.boolean.Boolean"
+    enable_interoperability: NotRequired["capo_workmail.types.boolean.Boolean"]
     """<p>When <code>true</code>, allows organization interoperability between WorkMail and Microsoft Exchange. If <code>true</code>, you must include a AD Connector directory ID in the request.</p>"""
 
 
@@ -48,7 +48,8 @@ def serialize_aws_json_1_1(value: CreateOrganizationRequest) -> dict:
         )
     if "kms_key_arn" in value:
         out["KmsKeyArn"] = value["kms_key_arn"]
-    out["EnableInteroperability"] = value.get("enable_interoperability", False)
+    if "enable_interoperability" in value:
+        out["EnableInteroperability"] = value["enable_interoperability"]
     return out
 
 
@@ -72,6 +73,4 @@ def deserialize_aws_json_1_1(data: dict) -> CreateOrganizationRequest:
         out["kms_key_arn"] = data["KmsKeyArn"]
     if data.get("EnableInteroperability") is not None:
         out["enable_interoperability"] = data["EnableInteroperability"]
-    else:
-        out["enable_interoperability"] = False
     return out

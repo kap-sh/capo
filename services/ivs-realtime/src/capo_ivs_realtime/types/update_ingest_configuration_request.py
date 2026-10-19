@@ -19,7 +19,9 @@ class UpdateIngestConfigurationRequest(TypedDict, closed=True):
         "capo_ivs_realtime.types.ingest_configuration_stage_arn.IngestConfigurationStageArn"
     ]
     """<p>Stage ARN that needs to be updated.</p>"""
-    redundant_ingest: "capo_ivs_realtime.types.redundant_ingest.RedundantIngest"
+    redundant_ingest: NotRequired[
+        "capo_ivs_realtime.types.redundant_ingest.RedundantIngest"
+    ]
     """<p>Indicates whether redundant ingest is enabled for the ingest configuration. Default: <code>false</code>. </p>"""
 
 
@@ -29,7 +31,8 @@ def serialize_json(value: UpdateIngestConfigurationRequest) -> dict:
     out["arn"] = value["arn"]
     if "stage_arn" in value:
         out["stageArn"] = value["stage_arn"]
-    out["redundantIngest"] = value.get("redundant_ingest", False)
+    if "redundant_ingest" in value:
+        out["redundantIngest"] = value["redundant_ingest"]
     return out
 
 
@@ -43,6 +46,4 @@ def deserialize_json(data: dict) -> UpdateIngestConfigurationRequest:
         out["stage_arn"] = data["stageArn"]
     if data.get("redundantIngest") is not None:
         out["redundant_ingest"] = data["redundantIngest"]
-    else:
-        out["redundant_ingest"] = False
     return out

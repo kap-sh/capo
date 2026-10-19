@@ -125,12 +125,10 @@ def build_request(
     url = endpoint.url.rstrip("/") + "/asset-models/{assetModelId}"
     url = url.replace("{assetModelId}", quote(input_["asset_model_id"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(
-        (
-            "excludeProperties",
-            "true" if input_.get("exclude_properties", False) else "false",
+    if "exclude_properties" in input_:
+        params.append(
+            ("excludeProperties", "true" if input_["exclude_properties"] else "false")
         )
-    )
     if "asset_model_version" in input_:
         params.append(("assetModelVersion", input_["asset_model_version"]))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}

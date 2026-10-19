@@ -126,7 +126,8 @@ def build_request(
     url = endpoint.url.rstrip("/") + "/automated-reasoning-policies/{policyArn}"
     url = url.replace("{policyArn}", quote(input_["policy_arn"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(("force", "true" if input_.get("force", False) else "false"))
+    if "force" in input_:
+        params.append(("force", "true" if input_["force"] else "false"))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

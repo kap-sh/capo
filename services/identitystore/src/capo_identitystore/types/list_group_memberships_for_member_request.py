@@ -33,7 +33,8 @@ def serialize_aws_json_1_1(value: ListGroupMembershipsForMemberRequest) -> dict:
     out["MemberId"] = capo_identitystore.types.member_id.serialize_aws_json_1_1(
         value["member_id"]
     )
-    out["MaxResults"] = value.get("max_results", 100)
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
     return out
@@ -59,8 +60,6 @@ def deserialize_aws_json_1_1(data: dict) -> ListGroupMembershipsForMemberRequest
         )
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
-    else:
-        out["max_results"] = 100
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

@@ -21,7 +21,9 @@ class DescribePipelineExecutionRequest(TypedDict, closed=True):
     """<p>The unique identifier of the pipeline execution.</p>"""
     next_token: NotRequired["capo_iotsitewise.types.pagination_token.PaginationToken"]
     """<p>The token to be used for the next set of paginated results.</p>"""
-    max_results: "capo_iotsitewise.types.describe_pipeline_execution_request_max_results_integer.DescribePipelineExecutionRequestMaxResultsInteger"
+    max_results: NotRequired[
+        "capo_iotsitewise.types.describe_pipeline_execution_request_max_results_integer.DescribePipelineExecutionRequestMaxResultsInteger"
+    ]
     """<p>The maximum number of compute nodes to return per request. This is an upper bound; the actual number of results may be less. Default: 50.</p>"""
 
 

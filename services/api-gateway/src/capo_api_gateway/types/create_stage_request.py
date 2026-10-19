@@ -23,7 +23,7 @@ class CreateStageRequest(TypedDict, closed=True):
     """<p>The identifier of the Deployment resource for the Stage resource.</p>"""
     description: NotRequired["capo_api_gateway.types.string.String"]
     """<p>The description of the Stage resource.</p>"""
-    cache_cluster_enabled: "capo_api_gateway.types.boolean.Boolean"
+    cache_cluster_enabled: NotRequired["capo_api_gateway.types.boolean.Boolean"]
     """<p>Whether cache clustering is enabled for the stage.</p>"""
     cache_cluster_size: NotRequired[
         "capo_api_gateway.types.cache_cluster_size.CacheClusterSize"
@@ -39,7 +39,7 @@ class CreateStageRequest(TypedDict, closed=True):
         "capo_api_gateway.types.canary_settings.CanarySettings"
     ]
     """<p>The canary deployment settings of this stage.</p>"""
-    tracing_enabled: "capo_api_gateway.types.boolean.Boolean"
+    tracing_enabled: NotRequired["capo_api_gateway.types.boolean.Boolean"]
     """<p>Specifies whether active tracing with X-ray is enabled for the Stage.</p>"""
     tags: NotRequired[
         "capo_api_gateway.types.map_of_string_to_string.MapOfStringToString"
@@ -54,7 +54,8 @@ def serialize_json(value: CreateStageRequest) -> dict:
     out["deploymentId"] = value["deployment_id"]
     if "description" in value:
         out["description"] = value["description"]
-    out["cacheClusterEnabled"] = value.get("cache_cluster_enabled", False)
+    if "cache_cluster_enabled" in value:
+        out["cacheClusterEnabled"] = value["cache_cluster_enabled"]
     if "cache_cluster_size" in value:
         import capo_api_gateway.types.cache_cluster_size
 
@@ -79,7 +80,8 @@ def serialize_json(value: CreateStageRequest) -> dict:
         out["canarySettings"] = capo_api_gateway.types.canary_settings.serialize_json(
             value["canary_settings"]
         )
-    out["tracingEnabled"] = value.get("tracing_enabled", False)
+    if "tracing_enabled" in value:
+        out["tracingEnabled"] = value["tracing_enabled"]
     if "tags" in value:
         import capo_api_gateway.types.map_of_string_to_string
 
@@ -103,8 +105,6 @@ def deserialize_json(data: dict) -> CreateStageRequest:
         out["description"] = data["description"]
     if data.get("cacheClusterEnabled") is not None:
         out["cache_cluster_enabled"] = data["cacheClusterEnabled"]
-    else:
-        out["cache_cluster_enabled"] = False
     if data.get("cacheClusterSize") is not None:
         import capo_api_gateway.types.cache_cluster_size
 
@@ -133,8 +133,6 @@ def deserialize_json(data: dict) -> CreateStageRequest:
         )
     if data.get("tracingEnabled") is not None:
         out["tracing_enabled"] = data["tracingEnabled"]
-    else:
-        out["tracing_enabled"] = False
     if data.get("tags") is not None:
         import capo_api_gateway.types.map_of_string_to_string
 

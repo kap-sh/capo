@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_eks.types.boolean
@@ -15,7 +15,7 @@ class DeleteAddonRequest(TypedDict, closed=True):
     """<p>The name of your cluster.</p>"""
     addon_name: "capo_eks.types.string.String"
     """<p>The name of the add-on. The name must match one of the names returned by <a href="https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html"> <code>ListAddons</code> </a>.</p>"""
-    preserve: "capo_eks.types.boolean.Boolean"
+    preserve: NotRequired["capo_eks.types.boolean.Boolean"]
     """<p>Specifying this option preserves the add-on software on your cluster but Amazon EKS stops managing any settings for the add-on. If an IAM account is associated with the add-on, it isn't removed.</p>"""
 
 

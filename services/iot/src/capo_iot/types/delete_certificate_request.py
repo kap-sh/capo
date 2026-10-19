@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_iot.types.certificate_id
@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 class DeleteCertificateRequest(TypedDict, closed=True):
     certificate_id: "capo_iot.types.certificate_id.CertificateId"
     """<p>The ID of the certificate. (The last part of the certificate ARN contains the certificate ID.)</p>"""
-    force_delete: "capo_iot.types.force_delete.ForceDelete"
+    force_delete: NotRequired["capo_iot.types.force_delete.ForceDelete"]
     """<p>Forces the deletion of a certificate if it is inactive and is not attached to an IoT thing.</p>"""
 
 

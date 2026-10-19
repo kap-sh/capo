@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 class ListProvisioningArtifactsForServiceActionInput(TypedDict, closed=True):
     service_action_id: "capo_service_catalog.types.id.Id"
     """<p>The self-service action identifier. For example, <code>act-fs7abcd89wxyz</code>.</p>"""
-    page_size: "capo_service_catalog.types.page_size.PageSize"
+    page_size: NotRequired["capo_service_catalog.types.page_size.PageSize"]
     """<p>The maximum number of items to return with this call.</p>"""
     page_token: NotRequired["capo_service_catalog.types.page_token.PageToken"]
     """<p>The page token for the next set of results. To retrieve the first set of results, use null.</p>"""
@@ -32,7 +32,8 @@ def serialize_aws_json_1_1(
 ) -> dict:
     out: dict = {}
     out["ServiceActionId"] = value["service_action_id"]
-    out["PageSize"] = value.get("page_size", 0)
+    if "page_size" in value:
+        out["PageSize"] = value["page_size"]
     if "page_token" in value:
         out["PageToken"] = value["page_token"]
     if "accept_language" in value:
@@ -52,8 +53,6 @@ def deserialize_aws_json_1_1(
         )
     if data.get("PageSize") is not None:
         out["page_size"] = data["PageSize"]
-    else:
-        out["page_size"] = 0
     if data.get("PageToken") is not None:
         out["page_token"] = data["PageToken"]
     if data.get("AcceptLanguage") is not None:

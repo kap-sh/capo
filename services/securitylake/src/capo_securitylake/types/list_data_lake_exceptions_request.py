@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 class ListDataLakeExceptionsRequest(TypedDict, closed=True):
     regions: NotRequired["capo_securitylake.types.region_list.RegionList"]
     """<p>The Amazon Web Services Regions from which exceptions are retrieved.</p>"""
-    max_results: "capo_securitylake.types.max_results.MaxResults"
+    max_results: NotRequired["capo_securitylake.types.max_results.MaxResults"]
     """<p>Lists the maximum number of failures in Security Lake.</p>"""
     next_token: NotRequired["capo_securitylake.types.next_token.NextToken"]
     """<p>Lists if there are more results available. The value of nextToken is a unique pagination token for each page. Repeat the call using the returned token to retrieve the next page. Keep all other arguments unchanged.</p> <p>Each pagination token expires after 24 hours. Using an expired pagination token will return an HTTP 400 InvalidToken error.</p>"""
@@ -28,7 +28,8 @@ def serialize_json(value: ListDataLakeExceptionsRequest) -> dict:
         out["regions"] = capo_securitylake.types.region_list.serialize_json(
             value["regions"]
         )
-    out["maxResults"] = value.get("max_results", 50)
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
     return out
@@ -44,8 +45,6 @@ def deserialize_json(data: dict) -> ListDataLakeExceptionsRequest:
         )
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
-    else:
-        out["max_results"] = 50
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

@@ -21,7 +21,9 @@ class StartCodeInterpreterSessionRequest(TypedDict, closed=True):
     """<p>The unique identifier of the code interpreter to use for this session. This identifier specifies which code interpreter environment to initialize for the session.</p>"""
     name: NotRequired["capo_bedrock_agentcore.types.name.Name"]
     """<p>The name of the code interpreter session. This name helps you identify and manage the session. The name does not need to be unique.</p>"""
-    session_timeout_seconds: "capo_bedrock_agentcore.types.code_interpreter_session_timeout.CodeInterpreterSessionTimeout"
+    session_timeout_seconds: NotRequired[
+        "capo_bedrock_agentcore.types.code_interpreter_session_timeout.CodeInterpreterSessionTimeout"
+    ]
     """<p>The duration in seconds (time-to-live) after which the session automatically terminates, regardless of ongoing activity. Defaults to 900 seconds (15 minutes). Recommended minimum: 60 seconds. Maximum allowed: 28,800 seconds (8 hours).</p>"""
     certificates: NotRequired["capo_bedrock_agentcore.types.certificates.Certificates"]
     """<p>A list of certificates to install in the code interpreter session.</p>"""
@@ -38,7 +40,8 @@ def serialize_json(value: StartCodeInterpreterSessionRequest) -> dict:
     out: dict = {}
     if "name" in value:
         out["name"] = value["name"]
-    out["sessionTimeoutSeconds"] = value.get("session_timeout_seconds", 900)
+    if "session_timeout_seconds" in value:
+        out["sessionTimeoutSeconds"] = value["session_timeout_seconds"]
     if "certificates" in value:
         import capo_bedrock_agentcore.types.certificates
 
@@ -64,8 +67,6 @@ def deserialize_json(data: dict) -> StartCodeInterpreterSessionRequest:
         out["name"] = data["name"]
     if data.get("sessionTimeoutSeconds") is not None:
         out["session_timeout_seconds"] = data["sessionTimeoutSeconds"]
-    else:
-        out["session_timeout_seconds"] = 900
     if data.get("certificates") is not None:
         import capo_bedrock_agentcore.types.certificates
 

@@ -18,7 +18,7 @@ class DescribeObjectsInput(TypedDict, closed=True):
     """<p>The ID of the pipeline that contains the object definitions.</p>"""
     object_ids: "capo_data_pipeline.types.id_list.idList"
     """<p>The IDs of the pipeline objects that contain the definitions to be described. You can pass as many as 25 identifiers in a single call to <code>DescribeObjects</code>.</p>"""
-    evaluate_expressions: "capo_data_pipeline.types.boolean.boolean"
+    evaluate_expressions: NotRequired["capo_data_pipeline.types.boolean.boolean"]
     """<p>Indicates whether any expressions in the object should be evaluated when the object descriptions are returned.</p>"""
     marker: NotRequired["capo_data_pipeline.types.string.string"]
     """<p>The starting point for the results to be returned. For the first call, this value should be empty. As long as there are more results, continue to call <code>DescribeObjects</code> with the marker value from the previous call to retrieve the next set of results.</p>"""
@@ -33,7 +33,8 @@ def serialize_aws_json_1_1(value: DescribeObjectsInput) -> dict:
     out["objectIds"] = capo_data_pipeline.types.id_list.serialize_aws_json_1_1(
         value["object_ids"]
     )
-    out["evaluateExpressions"] = value.get("evaluate_expressions", False)
+    if "evaluate_expressions" in value:
+        out["evaluateExpressions"] = value["evaluate_expressions"]
     if "marker" in value:
         out["marker"] = value["marker"]
     return out
@@ -55,8 +56,6 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeObjectsInput:
         raise DeserializationError("DescribeObjectsInput.object_ids required")
     if data.get("evaluateExpressions") is not None:
         out["evaluate_expressions"] = data["evaluateExpressions"]
-    else:
-        out["evaluate_expressions"] = False
     if data.get("marker") is not None:
         out["marker"] = data["marker"]
     return out

@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_glue.errors import DeserializationError
 
@@ -17,7 +17,7 @@ class StartImportLabelsTaskRunRequest(TypedDict, closed=True):
     """<p>The unique identifier of the machine learning transform.</p>"""
     input_s3_path: "capo_glue.types.uri_string.UriString"
     """<p>The Amazon Simple Storage Service (Amazon S3) path from where you import the labels.</p>"""
-    replace_all_labels: "capo_glue.types.replace_boolean.ReplaceBoolean"
+    replace_all_labels: NotRequired["capo_glue.types.replace_boolean.ReplaceBoolean"]
     """<p>Indicates whether to overwrite your existing labels.</p>"""
 
 
@@ -26,7 +26,8 @@ def serialize_aws_json_1_1(value: StartImportLabelsTaskRunRequest) -> dict:
     out: dict = {}
     out["TransformId"] = value["transform_id"]
     out["InputS3Path"] = value["input_s3_path"]
-    out["ReplaceAllLabels"] = value.get("replace_all_labels", False)
+    if "replace_all_labels" in value:
+        out["ReplaceAllLabels"] = value["replace_all_labels"]
     return out
 
 
@@ -46,6 +47,4 @@ def deserialize_aws_json_1_1(data: dict) -> StartImportLabelsTaskRunRequest:
         )
     if data.get("ReplaceAllLabels") is not None:
         out["replace_all_labels"] = data["ReplaceAllLabels"]
-    else:
-        out["replace_all_labels"] = False
     return out

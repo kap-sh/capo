@@ -22,7 +22,9 @@ class ListSyslogConfigurationsRequest(TypedDict, closed=True):
     """<p>The ID of the VPC endpoint to filter syslog configurations for.</p>"""
     next_token: NotRequired["capo_cloudwatch_logs.types.next_token.NextToken"]
     """<p>The token for the next set of items to return. You received this token from a previous call.</p>"""
-    max_results: "capo_cloudwatch_logs.types.list_syslog_configurations_max_results.ListSyslogConfigurationsMaxResults"
+    max_results: NotRequired[
+        "capo_cloudwatch_logs.types.list_syslog_configurations_max_results.ListSyslogConfigurationsMaxResults"
+    ]
     """<p>The maximum number of syslog configurations to return in the response.</p>"""
 
 
@@ -35,7 +37,8 @@ def serialize_aws_json_1_1(value: ListSyslogConfigurationsRequest) -> dict:
         out["vpcEndpointId"] = value["vpc_endpoint_id"]
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
-    out["maxResults"] = value.get("max_results", 0)
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
     return out
 
 
@@ -49,6 +52,4 @@ def deserialize_aws_json_1_1(data: dict) -> ListSyslogConfigurationsRequest:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
-    else:
-        out["max_results"] = 0
     return out

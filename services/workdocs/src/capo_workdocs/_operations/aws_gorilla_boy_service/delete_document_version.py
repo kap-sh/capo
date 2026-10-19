@@ -118,12 +118,13 @@ def build_request(
     url = url.replace("{DocumentId}", quote(input_["document_id"], safe=""))
     url = url.replace("{VersionId}", quote(input_["version_id"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(
-        (
-            "deletePriorVersions",
-            "true" if input_.get("delete_prior_versions", False) else "false",
+    if "delete_prior_versions" in input_:
+        params.append(
+            (
+                "deletePriorVersions",
+                "true" if input_["delete_prior_versions"] else "false",
+            )
         )
-    )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     if "authentication_token" in input_:
         headers["Authentication"] = input_["authentication_token"]

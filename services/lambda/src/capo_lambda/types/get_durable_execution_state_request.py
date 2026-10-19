@@ -18,7 +18,7 @@ class GetDurableExecutionStateRequest(TypedDict, closed=True):
     """<p>A checkpoint token that identifies the current state of the execution. This token is provided by the Lambda runtime and ensures that state retrieval is consistent with the current execution context.</p>"""
     marker: NotRequired["capo_lambda.types.string.String"]
     """<p>If <code>NextMarker</code> was returned from a previous request, use this value to retrieve the next page of operations. Each pagination token expires after 24 hours.</p>"""
-    max_items: "capo_lambda.types.item_count.ItemCount"
+    max_items: NotRequired["capo_lambda.types.item_count.ItemCount"]
     """<p>The maximum number of operations to return per call. You can use <code>Marker</code> to retrieve additional pages of results. The default is 100 and the maximum allowed is 1000. A value of 0 uses the default.</p>"""
 
 

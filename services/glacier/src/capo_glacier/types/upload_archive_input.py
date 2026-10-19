@@ -18,7 +18,7 @@ class UploadArchiveInput(TypedDict, closed=True):
     """<p>The optional description of the archive you are uploading.</p>"""
     checksum: NotRequired["capo_glacier.types.string.string"]
     """<p>The SHA256 tree hash of the data being uploaded.</p>"""
-    body: "capo_glacier.types.stream.Stream"
+    body: NotRequired["capo_glacier.types.stream.Stream"]
     """<p>The data to upload.</p>"""
 
 

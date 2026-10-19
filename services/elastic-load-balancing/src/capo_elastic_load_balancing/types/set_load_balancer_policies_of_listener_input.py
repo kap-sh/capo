@@ -34,9 +34,7 @@ def serialize_query(
 ) -> None:
     key_prefix = f"{prefix}." if prefix else ""
     pairs.append((f"{key_prefix}LoadBalancerName", str(value["load_balancer_name"])))
-    pairs.append(
-        (f"{key_prefix}LoadBalancerPort", str(value.get("load_balancer_port", 0)))
-    )
+    pairs.append((f"{key_prefix}LoadBalancerPort", str(value["load_balancer_port"])))
     import capo_elastic_load_balancing.types.policy_names
 
     capo_elastic_load_balancing.types.policy_names.serialize_query(
@@ -57,7 +55,9 @@ def deserialize_query(el: Element) -> SetLoadBalancerPoliciesOfListenerInput:
     if child_load_balancer_port is not None:
         out["load_balancer_port"] = int(child_load_balancer_port.text or "")
     else:
-        out["load_balancer_port"] = 0
+        raise DeserializationError(
+            "SetLoadBalancerPoliciesOfListenerInput.load_balancer_port required"
+        )
     child_policy_names = el.find("PolicyNames")
     if child_policy_names is not None:
         import capo_elastic_load_balancing.types.policy_names

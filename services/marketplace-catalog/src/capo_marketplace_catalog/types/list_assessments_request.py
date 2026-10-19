@@ -28,7 +28,9 @@ class ListAssessmentsRequest(TypedDict, closed=True):
         "capo_marketplace_catalog.types.framework_filters.FrameworkFilters"
     ]
     """<p>Framework-specific filters. Set exactly one member to filter results to assessments performed against that framework.</p>"""
-    max_results: "capo_marketplace_catalog.types.list_assessments_max_result_integer.ListAssessmentsMaxResultInteger"
+    max_results: NotRequired[
+        "capo_marketplace_catalog.types.list_assessments_max_result_integer.ListAssessmentsMaxResultInteger"
+    ]
     """<p>Specifies the upper limit of the elements on a single page. If a value isn't provided, the default value is 20. Valid values range from 1 to 100.</p>"""
     next_token: NotRequired["capo_marketplace_catalog.types.next_token.NextToken"]
     """<p>The value of the next token, if it exists. <code>null</code> if there are no more results.</p>"""
@@ -56,7 +58,8 @@ def serialize_json(value: ListAssessmentsRequest) -> dict:
                 value["framework_filters"]
             )
         )
-    out["MaxResults"] = value.get("max_results", 20)
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
     return out
@@ -88,8 +91,6 @@ def deserialize_json(data: dict) -> ListAssessmentsRequest:
         )
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
-    else:
-        out["max_results"] = 20
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

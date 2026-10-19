@@ -37,7 +37,7 @@ class RecognizeUtteranceRequest(TypedDict, closed=True):
         "capo_lex_runtime_v2.types.non_empty_string.NonEmptyString"
     ]
     """<p>The message that Amazon Lex V2 returns in the response can be either text or speech based on the <code>responseContentType</code> value.</p> <ul> <li> <p>If the value is <code>text/plain;charset=utf-8</code>, Amazon Lex V2 returns text in the response.</p> </li> <li> <p>If the value begins with <code>audio/</code>, Amazon Lex V2 returns speech in the response. Amazon Lex V2 uses Amazon Polly to generate the speech using the configuration that you specified in the <code>responseContentType</code> parameter. For example, if you specify <code>audio/mpeg</code> as the value, Amazon Lex V2 returns speech in the MPEG format.</p> </li> <li> <p>If the value is <code>audio/pcm</code>, the speech returned is <code>audio/pcm</code> at 16 KHz in 16-bit, little-endian format.</p> </li> <li> <p>The following are the accepted values:</p> <ul> <li> <p>audio/mpeg</p> </li> <li> <p>audio/ogg</p> </li> <li> <p>audio/pcm (16 KHz)</p> </li> <li> <p>audio/* (defaults to mpeg)</p> </li> <li> <p>text/plain; charset=utf-8</p> </li> </ul> </li> </ul>"""
-    input_stream: "capo_lex_runtime_v2.types.blob_stream.BlobStream"
+    input_stream: NotRequired["capo_lex_runtime_v2.types.blob_stream.BlobStream"]
     """<p>User input in PCM or Opus audio format or text format as described in the <code>requestContentType</code> parameter.</p>"""
 
 

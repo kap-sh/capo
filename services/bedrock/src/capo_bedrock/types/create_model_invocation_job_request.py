@@ -42,9 +42,9 @@ class CreateModelInvocationJobRequest(TypedDict, closed=True):
     """<p>The number of hours after which to force the batch inference job to time out.</p>"""
     tags: NotRequired["capo_bedrock.types.tag_list.TagList"]
     """<p>Any tags to associate with the batch inference job. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/tagging.html">Tagging Amazon Bedrock resources</a>.</p>"""
-    model_invocation_type: (
+    model_invocation_type: NotRequired[
         "capo_bedrock.types.model_invocation_type.ModelInvocationType"
-    )
+    ]
     """<p>The invocation endpoint for ModelInvocationJob</p>"""
 
 
@@ -82,13 +82,14 @@ def serialize_json(value: CreateModelInvocationJobRequest) -> dict:
         import capo_bedrock.types.tag_list
 
         out["tags"] = capo_bedrock.types.tag_list.serialize_json(value["tags"])
-    import capo_bedrock.types.model_invocation_type
+    if "model_invocation_type" in value:
+        import capo_bedrock.types.model_invocation_type
 
-    out["modelInvocationType"] = (
-        capo_bedrock.types.model_invocation_type.serialize_json(
-            value.get("model_invocation_type", "InvokeModel")
+        out["modelInvocationType"] = (
+            capo_bedrock.types.model_invocation_type.serialize_json(
+                value["model_invocation_type"]
+            )
         )
-    )
     return out
 
 
@@ -152,6 +153,4 @@ def deserialize_json(data: dict) -> CreateModelInvocationJobRequest:
                 data["modelInvocationType"]
             )
         )
-    else:
-        out["model_invocation_type"] = "InvokeModel"
     return out

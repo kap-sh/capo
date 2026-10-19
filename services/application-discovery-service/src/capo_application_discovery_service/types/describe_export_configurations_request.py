@@ -15,7 +15,7 @@ class DescribeExportConfigurationsRequest(TypedDict, closed=True):
         "capo_application_discovery_service.types.export_ids.ExportIds"
     ]
     """<p>A list of continuous export IDs to search for.</p>"""
-    max_results: "capo_application_discovery_service.types.integer.Integer"
+    max_results: NotRequired["capo_application_discovery_service.types.integer.Integer"]
     """<p>A number between 1 and 100 specifying the maximum number of continuous export descriptions returned.</p>"""
     next_token: NotRequired[
         "capo_application_discovery_service.types.next_token.NextToken"
@@ -34,7 +34,8 @@ def serialize_aws_json_1_1(value: DescribeExportConfigurationsRequest) -> dict:
                 value["export_ids"]
             )
         )
-    out["maxResults"] = value.get("max_results", 0)
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
     return out
@@ -52,8 +53,6 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeExportConfigurationsRequest:
         )
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
-    else:
-        out["max_results"] = 0
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

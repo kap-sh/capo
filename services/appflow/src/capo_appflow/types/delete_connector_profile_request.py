@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_appflow.errors import DeserializationError
 
@@ -16,7 +16,7 @@ class DeleteConnectorProfileRequest(TypedDict, closed=True):
         "capo_appflow.types.connector_profile_name.ConnectorProfileName"
     )
     """<p> The name of the connector profile. The name is unique for each <code>ConnectorProfile</code> in your account. </p>"""
-    force_delete: "capo_appflow.types.boolean.Boolean"
+    force_delete: NotRequired["capo_appflow.types.boolean.Boolean"]
     """<p> Indicates whether Amazon AppFlow should delete the profile, even if it is currently in use in one or more flows. </p>"""
 
 
@@ -24,7 +24,8 @@ class DeleteConnectorProfileRequest(TypedDict, closed=True):
 def serialize_json(value: DeleteConnectorProfileRequest) -> dict:
     out: dict = {}
     out["connectorProfileName"] = value["connector_profile_name"]
-    out["forceDelete"] = value.get("force_delete", False)
+    if "force_delete" in value:
+        out["forceDelete"] = value["force_delete"]
     return out
 
 
@@ -38,6 +39,4 @@ def deserialize_json(data: dict) -> DeleteConnectorProfileRequest:
         )
     if data.get("forceDelete") is not None:
         out["force_delete"] = data["forceDelete"]
-    else:
-        out["force_delete"] = False
     return out

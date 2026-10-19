@@ -16,7 +16,7 @@ class GetActionRecommendationsRequest(TypedDict, closed=True):
     """<p>The Amazon Resource Name (ARN) of the campaign to use for getting action recommendations. This campaign must deploy a solution version trained with a PERSONALIZED_ACTIONS recipe.</p>"""
     user_id: NotRequired["capo_personalize_runtime.types.user_id.UserID"]
     """<p>The user ID of the user to provide action recommendations for.</p>"""
-    num_results: "capo_personalize_runtime.types.num_results.NumResults"
+    num_results: NotRequired["capo_personalize_runtime.types.num_results.NumResults"]
     """<p>The number of results to return. The default is 5. The maximum is 100.</p>"""
     filter_arn: NotRequired["capo_personalize_runtime.types.arn.Arn"]
     """<p>The ARN of the filter to apply to the returned recommendations. For more information, see <a href="https://docs.aws.amazon.com/personalize/latest/dg/filter.html">Filtering Recommendations</a>.</p> <p>When using this parameter, be sure the filter resource is <code>ACTIVE</code>.</p>"""
@@ -33,7 +33,8 @@ def serialize_json(value: GetActionRecommendationsRequest) -> dict:
         out["campaignArn"] = value["campaign_arn"]
     if "user_id" in value:
         out["userId"] = value["user_id"]
-    out["numResults"] = value.get("num_results", 0)
+    if "num_results" in value:
+        out["numResults"] = value["num_results"]
     if "filter_arn" in value:
         out["filterArn"] = value["filter_arn"]
     if "filter_values" in value:
@@ -55,8 +56,6 @@ def deserialize_json(data: dict) -> GetActionRecommendationsRequest:
         out["user_id"] = data["userId"]
     if data.get("numResults") is not None:
         out["num_results"] = data["numResults"]
-    else:
-        out["num_results"] = 0
     if data.get("filterArn") is not None:
         out["filter_arn"] = data["filterArn"]
     if data.get("filterValues") is not None:

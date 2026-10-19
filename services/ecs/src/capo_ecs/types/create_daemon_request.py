@@ -35,9 +35,9 @@ class CreateDaemonRequest(TypedDict, closed=True):
         "capo_ecs.types.daemon_propagate_tags.DaemonPropagateTags"
     ]
     """<p>Specifies whether to propagate the tags from the daemon to the daemon tasks. If you don't specify a value, the tags aren't propagated. You can only propagate tags to daemon tasks during task creation. To add tags to a task after task creation, use the <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_TagResource.html">TagResource</a> API action.</p>"""
-    enable_ecs_managed_tags: "capo_ecs.types.boolean.Boolean"
+    enable_ecs_managed_tags: NotRequired["capo_ecs.types.boolean.Boolean"]
     """<p>Specifies whether to turn on Amazon ECS managed tags for the tasks in the daemon. For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html">Tagging your Amazon ECS resources</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.</p>"""
-    enable_execute_command: "capo_ecs.types.boolean.Boolean"
+    enable_execute_command: NotRequired["capo_ecs.types.boolean.Boolean"]
     """<p>Determines whether the execute command functionality is turned on for the daemon. If <code>true</code>, the execute command functionality is turned on for all tasks in the daemon.</p>"""
     client_token: NotRequired["capo_ecs.types.string.String"]
     """<p>An identifier that you provide to ensure the idempotency of the request. It must be unique and is case sensitive. Up to 36 ASCII characters in the range of 33-126 (inclusive) are allowed.</p>"""
@@ -77,8 +77,10 @@ def serialize_aws_json_1_1(value: CreateDaemonRequest) -> dict:
                 value["propagate_tags"]
             )
         )
-    out["enableECSManagedTags"] = value.get("enable_ecs_managed_tags", False)
-    out["enableExecuteCommand"] = value.get("enable_execute_command", False)
+    if "enable_ecs_managed_tags" in value:
+        out["enableECSManagedTags"] = value["enable_ecs_managed_tags"]
+    if "enable_execute_command" in value:
+        out["enableExecuteCommand"] = value["enable_execute_command"]
     if "client_token" in value:
         out["clientToken"] = value["client_token"]
     if "critical" in value:
@@ -134,12 +136,8 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDaemonRequest:
         )
     if data.get("enableECSManagedTags") is not None:
         out["enable_ecs_managed_tags"] = data["enableECSManagedTags"]
-    else:
-        out["enable_ecs_managed_tags"] = False
     if data.get("enableExecuteCommand") is not None:
         out["enable_execute_command"] = data["enableExecuteCommand"]
-    else:
-        out["enable_execute_command"] = False
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("critical") is not None:

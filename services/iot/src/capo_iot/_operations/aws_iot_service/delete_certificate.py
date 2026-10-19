@@ -114,9 +114,8 @@ def build_request(
     url = endpoint.url.rstrip("/") + "/certificates/{certificateId}"
     url = url.replace("{certificateId}", quote(input_["certificate_id"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(
-        ("forceDelete", "true" if input_.get("force_delete", False) else "false")
-    )
+    if "force_delete" in input_:
+        params.append(("forceDelete", "true" if input_["force_delete"] else "false"))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

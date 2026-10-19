@@ -28,7 +28,9 @@ class CreateDataAutomationProjectRequest(TypedDict, closed=True):
     project_stage: NotRequired[
         "capo_bedrock_data_automation.types.data_automation_project_stage.DataAutomationProjectStage"
     ]
-    project_type: "capo_bedrock_data_automation.types.data_automation_project_type.DataAutomationProjectType"
+    project_type: NotRequired[
+        "capo_bedrock_data_automation.types.data_automation_project_type.DataAutomationProjectType"
+    ]
     standard_output_configuration: "capo_bedrock_data_automation.types.standard_output_configuration.StandardOutputConfiguration"
     custom_output_configuration: NotRequired[
         "capo_bedrock_data_automation.types.custom_output_configuration.CustomOutputConfiguration"
@@ -62,13 +64,14 @@ def serialize_json(value: CreateDataAutomationProjectRequest) -> dict:
                 value["project_stage"]
             )
         )
-    import capo_bedrock_data_automation.types.data_automation_project_type
+    if "project_type" in value:
+        import capo_bedrock_data_automation.types.data_automation_project_type
 
-    out["projectType"] = (
-        capo_bedrock_data_automation.types.data_automation_project_type.serialize_json(
-            value.get("project_type", "ASYNC")
+        out["projectType"] = (
+            capo_bedrock_data_automation.types.data_automation_project_type.serialize_json(
+                value["project_type"]
+            )
         )
-    )
     import capo_bedrock_data_automation.types.standard_output_configuration
 
     out["standardOutputConfiguration"] = (
@@ -145,8 +148,6 @@ def deserialize_json(data: dict) -> CreateDataAutomationProjectRequest:
                 data["projectType"]
             )
         )
-    else:
-        out["project_type"] = "ASYNC"
     if data.get("standardOutputConfiguration") is not None:
         import capo_bedrock_data_automation.types.standard_output_configuration
 

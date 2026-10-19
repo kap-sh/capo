@@ -15,7 +15,9 @@ if TYPE_CHECKING:
 class ListPlanExecutionsRequest(TypedDict, closed=True):
     plan_arn: "capo_arc_region_switch.types.plan_arn.PlanArn"
     """<p>The ARN for the plan.</p>"""
-    max_results: "capo_arc_region_switch.types.list_executions_max_results.ListExecutionsMaxResults"
+    max_results: NotRequired[
+        "capo_arc_region_switch.types.list_executions_max_results.ListExecutionsMaxResults"
+    ]
     """<p>The number of objects that you want to return with this call.</p>"""
     next_token: NotRequired["str"]
     """<p>Specifies that you want to receive the next page of results. Valid only if you received a <code>nextToken</code> response in the previous request. If you did, it indicates that more output is available. Set this parameter to the value provided by the previous call's <code>nextToken</code> response to request the next page of results.</p>"""
@@ -27,7 +29,8 @@ class ListPlanExecutionsRequest(TypedDict, closed=True):
 def serialize_aws_json_1_0(value: ListPlanExecutionsRequest) -> dict:
     out: dict = {}
     out["planArn"] = value["plan_arn"]
-    out["maxResults"] = value.get("max_results", 100)
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
     if "state" in value:
@@ -49,8 +52,6 @@ def deserialize_aws_json_1_0(data: dict) -> ListPlanExecutionsRequest:
         raise DeserializationError("ListPlanExecutionsRequest.plan_arn required")
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
-    else:
-        out["max_results"] = 100
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("state") is not None:

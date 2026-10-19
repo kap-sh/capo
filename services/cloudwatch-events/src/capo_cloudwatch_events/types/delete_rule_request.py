@@ -19,7 +19,7 @@ class DeleteRuleRequest(TypedDict, closed=True):
         "capo_cloudwatch_events.types.event_bus_name_or_arn.EventBusNameOrArn"
     ]
     """<p>The name or ARN of the event bus associated with the rule. If you omit this, the default event bus is used.</p>"""
-    force: "capo_cloudwatch_events.types.boolean.Boolean"
+    force: NotRequired["capo_cloudwatch_events.types.boolean.Boolean"]
     """<p>If this is a managed rule, created by an Amazon Web Services service on your behalf, you must specify <code>Force</code> as <code>True</code> to delete the rule. This parameter is ignored for rules that are not managed rules. You can check whether a rule is a managed rule by using <code>DescribeRule</code> or <code>ListRules</code> and checking the <code>ManagedBy</code> field of the response.</p>"""
 
 
@@ -29,7 +29,8 @@ def serialize_aws_json_1_1(value: DeleteRuleRequest) -> dict:
     out["Name"] = value["name"]
     if "event_bus_name" in value:
         out["EventBusName"] = value["event_bus_name"]
-    out["Force"] = value.get("force", False)
+    if "force" in value:
+        out["Force"] = value["force"]
     return out
 
 
@@ -43,6 +44,4 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteRuleRequest:
         out["event_bus_name"] = data["EventBusName"]
     if data.get("Force") is not None:
         out["force"] = data["Force"]
-    else:
-        out["force"] = False
     return out

@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 
 class ListSigningProfilesRequest(TypedDict, closed=True):
-    include_canceled: "capo_signer.types.bool.bool"
+    include_canceled: NotRequired["capo_signer.types.bool.bool"]
     """<p>Designates whether to include profiles with the status of <code>CANCELED</code>.</p>"""
     max_results: NotRequired["capo_signer.types.max_results.MaxResults"]
     """<p>The maximum number of profiles to be returned.</p>"""

@@ -21,9 +21,9 @@ class CreateManagedLoginBrandingRequest(TypedDict, closed=True):
     """<p>The ID of the user pool where you want to create a new branding style.</p>"""
     client_id: "capo_cognito_identity_provider.types.client_id_type.ClientIdType"
     """<p>The app client that you want to create the branding style for. Each style is linked to an app client until you delete it.</p>"""
-    use_cognito_provided_values: (
+    use_cognito_provided_values: NotRequired[
         "capo_cognito_identity_provider.types.boolean_type.BooleanType"
-    )
+    ]
     """<p>When true, applies the default branding style options. These default options are managed by Amazon Cognito. You can modify them later in the branding editor.</p> <p>When you specify <code>true</code> for this option, you must also omit values for <code>Settings</code> and <code>Assets</code> in the request.</p>"""
     settings: NotRequired["capo_cognito_identity_provider.types.document.Document"]
     """<p>A JSON file, encoded as a <code>Document</code> type, with the the settings that you want to apply to your style.</p> <p>The following components are not currently implemented and reserved for future use:</p> <ul> <li> <p> <code>signUp</code> </p> </li> <li> <p> <code>instructions</code> </p> </li> <li> <p> <code>sessionTimerDisplay</code> </p> </li> <li> <p> <code>languageSelector</code> (for localization, see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-managed-login.html#managed-login-localization">Managed login localization)</a> </p> </li> </ul>"""
@@ -38,7 +38,8 @@ def serialize_aws_json_1_1(value: CreateManagedLoginBrandingRequest) -> dict:
     out: dict = {}
     out["UserPoolId"] = value["user_pool_id"]
     out["ClientId"] = value["client_id"]
-    out["UseCognitoProvidedValues"] = value.get("use_cognito_provided_values", False)
+    if "use_cognito_provided_values" in value:
+        out["UseCognitoProvidedValues"] = value["use_cognito_provided_values"]
     if "settings" in value:
         out["Settings"] = value["settings"]
     if "assets" in value:
@@ -68,8 +69,6 @@ def deserialize_aws_json_1_1(data: dict) -> CreateManagedLoginBrandingRequest:
         )
     if data.get("UseCognitoProvidedValues") is not None:
         out["use_cognito_provided_values"] = data["UseCognitoProvidedValues"]
-    else:
-        out["use_cognito_provided_values"] = False
     if data.get("Settings") is not None:
         out["settings"] = data["Settings"]
     if data.get("Assets") is not None:

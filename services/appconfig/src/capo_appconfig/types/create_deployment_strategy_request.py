@@ -25,9 +25,9 @@ class CreateDeploymentStrategyRequest(TypedDict, closed=True):
         "capo_appconfig.types.minutes_between0_and24_hours.MinutesBetween0And24Hours"
     )
     """<p>Total amount of time for a deployment to last.</p> <note> <p>AppConfig Agent supports deploying feature flag or free-form configuration data to specific segments or individual users during a gradual rollout. Entity-based gradual deployments ensure that once a user or segment receives a configuration version, they continue to receive that same version throughout the deployment period, regardless of which compute resource serves their requests. For more information, see <a href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-agent-how-to-use.html#appconfig-entity-based-gradual-deployments">Using AppConfig Agent for user-based or entity-based gradual deployments</a> </p> </note>"""
-    final_bake_time_in_minutes: (
+    final_bake_time_in_minutes: NotRequired[
         "capo_appconfig.types.minutes_between0_and24_hours.MinutesBetween0And24Hours"
-    )
+    ]
     """<p>Specifies the amount of time AppConfig monitors for Amazon CloudWatch alarms after the configuration has been deployed to 100% of its targets, before considering the deployment to be complete. If an alarm is triggered during this time, AppConfig rolls back the deployment. You must configure permissions for AppConfig to roll back based on CloudWatch alarms. For more information, see <a href="https://docs.aws.amazon.com/appconfig/latest/userguide/getting-started-with-appconfig-cloudwatch-alarms-permissions.html">Configuring permissions for rollback based on Amazon CloudWatch alarms</a> in the <i>AppConfig User Guide</i>.</p>"""
     growth_factor: "capo_appconfig.types.growth_factor.GrowthFactor"
     """<p>The percentage of targets to receive a deployed configuration during each interval.</p>"""
@@ -46,7 +46,8 @@ def serialize_json(value: CreateDeploymentStrategyRequest) -> dict:
     if "description" in value:
         out["Description"] = value["description"]
     out["DeploymentDurationInMinutes"] = value["deployment_duration_in_minutes"]
-    out["FinalBakeTimeInMinutes"] = value.get("final_bake_time_in_minutes", 0)
+    if "final_bake_time_in_minutes" in value:
+        out["FinalBakeTimeInMinutes"] = value["final_bake_time_in_minutes"]
     out["GrowthFactor"] = (
         "NaN"
         if value["growth_factor"] != value["growth_factor"]
@@ -91,8 +92,6 @@ def deserialize_json(data: dict) -> CreateDeploymentStrategyRequest:
         )
     if data.get("FinalBakeTimeInMinutes") is not None:
         out["final_bake_time_in_minutes"] = data["FinalBakeTimeInMinutes"]
-    else:
-        out["final_bake_time_in_minutes"] = 0
     if data.get("GrowthFactor") is not None:
         out["growth_factor"] = float(data["GrowthFactor"])
     else:

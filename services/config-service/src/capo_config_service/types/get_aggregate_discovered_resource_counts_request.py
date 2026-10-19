@@ -25,7 +25,7 @@ class GetAggregateDiscoveredResourceCountsRequest(TypedDict, closed=True):
         "capo_config_service.types.resource_count_group_key.ResourceCountGroupKey"
     ]
     """<p>The key to group the resource counts.</p>"""
-    limit: "capo_config_service.types.group_by_api_limit.GroupByAPILimit"
+    limit: NotRequired["capo_config_service.types.group_by_api_limit.GroupByAPILimit"]
     """<p>The maximum number of <a>GroupedResourceCount</a> objects returned on each page. The default is 1000. You cannot specify a number greater than 1000. If you specify 0, Config uses the default.</p>"""
     next_token: NotRequired["capo_config_service.types.next_token.NextToken"]
     """<p>The <code>nextToken</code> string returned on a previous page that you use to get the next page of results in a paginated response. </p>"""
@@ -51,7 +51,8 @@ def serialize_aws_json_1_1(value: GetAggregateDiscoveredResourceCountsRequest) -
                 value["group_by_key"]
             )
         )
-    out["Limit"] = value.get("limit", 0)
+    if "limit" in value:
+        out["Limit"] = value["limit"]
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
     return out
@@ -83,8 +84,6 @@ def deserialize_aws_json_1_1(data: dict) -> GetAggregateDiscoveredResourceCounts
         )
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
-    else:
-        out["limit"] = 0
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

@@ -48,7 +48,7 @@ class CreateLagRequest(TypedDict, closed=True):
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: CreateLagRequest) -> dict:
     out: dict = {}
-    out["numberOfConnections"] = value.get("number_of_connections", 0)
+    out["numberOfConnections"] = value["number_of_connections"]
     out["location"] = value["location"]
     out["connectionsBandwidth"] = value["connections_bandwidth"]
     out["lagName"] = value["lag_name"]
@@ -88,7 +88,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLagRequest:
     if data.get("numberOfConnections") is not None:
         out["number_of_connections"] = data["numberOfConnections"]
     else:
-        out["number_of_connections"] = 0
+        raise DeserializationError("CreateLagRequest.number_of_connections required")
     if data.get("location") is not None:
         out["location"] = data["location"]
     else:

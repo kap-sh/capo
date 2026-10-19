@@ -40,7 +40,9 @@ class CreateManagedEndpointRequest(TypedDict, closed=True):
     """<p>The client idempotency token for this create call.</p>"""
     tags: NotRequired["capo_emr_containers.types.tag_map.TagMap"]
     """<p>The tags of the managed endpoint. </p>"""
-    session_idle_timeout_in_minutes: "capo_emr_containers.types.session_idle_timeout_in_minutes.SessionIdleTimeoutInMinutes"
+    session_idle_timeout_in_minutes: NotRequired[
+        "capo_emr_containers.types.session_idle_timeout_in_minutes.SessionIdleTimeoutInMinutes"
+    ]
     """<p>The number of idle minutes before the managed endpoint session times out.</p>"""
 
 
@@ -66,7 +68,8 @@ def serialize_json(value: CreateManagedEndpointRequest) -> dict:
         import capo_emr_containers.types.tag_map
 
         out["tags"] = capo_emr_containers.types.tag_map.serialize_json(value["tags"])
-    out["sessionIdleTimeoutInMinutes"] = value.get("session_idle_timeout_in_minutes", 0)
+    if "session_idle_timeout_in_minutes" in value:
+        out["sessionIdleTimeoutInMinutes"] = value["session_idle_timeout_in_minutes"]
     return out
 
 
@@ -112,8 +115,6 @@ def deserialize_json(data: dict) -> CreateManagedEndpointRequest:
         out["tags"] = capo_emr_containers.types.tag_map.deserialize_json(data["tags"])
     if data.get("sessionIdleTimeoutInMinutes") is not None:
         out["session_idle_timeout_in_minutes"] = data["sessionIdleTimeoutInMinutes"]
-    else:
-        out["session_idle_timeout_in_minutes"] = 0
     return out
 
 

@@ -25,7 +25,7 @@ class CreateDomainLayoutRequest(TypedDict, closed=True):
     """<p>The description of the layout</p>"""
     display_name: "capo_customer_profiles.types.display_name.displayName"
     """<p>The display name of the layout</p>"""
-    is_default: "capo_customer_profiles.types.boolean.boolean"
+    is_default: NotRequired["capo_customer_profiles.types.boolean.boolean"]
     """<p>If set to true for a layout, this layout will be used by default to view data. If set to false, then the layout will not be used by default, but it can be used to view data by explicitly selecting it in the console.</p>"""
     layout_type: "capo_customer_profiles.types.layout_type.LayoutType"
     """<p>The type of layout that can be used to view data under a Customer Profiles domain.</p>"""
@@ -40,7 +40,8 @@ def serialize_json(value: CreateDomainLayoutRequest) -> dict:
     out: dict = {}
     out["Description"] = value["description"]
     out["DisplayName"] = value["display_name"]
-    out["IsDefault"] = value.get("is_default", False)
+    if "is_default" in value:
+        out["IsDefault"] = value["is_default"]
     import capo_customer_profiles.types.layout_type
 
     out["LayoutType"] = capo_customer_profiles.types.layout_type.serialize_json(
@@ -66,8 +67,6 @@ def deserialize_json(data: dict) -> CreateDomainLayoutRequest:
         raise DeserializationError("CreateDomainLayoutRequest.display_name required")
     if data.get("IsDefault") is not None:
         out["is_default"] = data["IsDefault"]
-    else:
-        out["is_default"] = False
     if data.get("LayoutType") is not None:
         import capo_customer_profiles.types.layout_type
 

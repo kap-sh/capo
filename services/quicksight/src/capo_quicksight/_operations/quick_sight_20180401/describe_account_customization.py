@@ -128,7 +128,8 @@ def build_request(
     params: list[tuple[str, str]] = []
     if "namespace" in input_:
         params.append(("namespace", input_["namespace"]))
-    params.append(("resolved", "true" if input_.get("resolved", False) else "false"))
+    if "resolved" in input_:
+        params.append(("resolved", "true" if input_["resolved"] else "false"))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

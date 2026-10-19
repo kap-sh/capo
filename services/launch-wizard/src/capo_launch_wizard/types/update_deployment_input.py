@@ -28,9 +28,9 @@ class UpdateDeploymentInput(TypedDict, closed=True):
         "capo_launch_wizard.types.deployment_pattern_version_name.DeploymentPatternVersionName"
     ]
     """<p>The name of the deployment pattern version.</p>"""
-    dry_run: "bool"
+    dry_run: NotRequired["bool"]
     """<p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>"""
-    force: "bool"
+    force: NotRequired["bool"]
     """<p>Forces the update even if validation warnings are present.</p>"""
 
 
@@ -49,8 +49,10 @@ def serialize_json(value: UpdateDeploymentInput) -> dict:
         out["workloadVersionName"] = value["workload_version_name"]
     if "deployment_pattern_version_name" in value:
         out["deploymentPatternVersionName"] = value["deployment_pattern_version_name"]
-    out["dryRun"] = value.get("dry_run", False)
-    out["force"] = value.get("force", False)
+    if "dry_run" in value:
+        out["dryRun"] = value["dry_run"]
+    if "force" in value:
+        out["force"] = value["force"]
     return out
 
 
@@ -76,12 +78,8 @@ def deserialize_json(data: dict) -> UpdateDeploymentInput:
         out["deployment_pattern_version_name"] = data["deploymentPatternVersionName"]
     if data.get("dryRun") is not None:
         out["dry_run"] = data["dryRun"]
-    else:
-        out["dry_run"] = False
     if data.get("force") is not None:
         out["force"] = data["force"]
-    else:
-        out["force"] = False
     return out
 
 

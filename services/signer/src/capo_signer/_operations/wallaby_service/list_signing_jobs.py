@@ -136,7 +136,8 @@ def build_request(
         params.append(("maxResults", str(input_["max_results"])))
     if "next_token" in input_:
         params.append(("nextToken", input_["next_token"]))
-    params.append(("isRevoked", "true" if input_.get("is_revoked", False) else "false"))
+    if "is_revoked" in input_:
+        params.append(("isRevoked", "true" if input_["is_revoked"] else "false"))
     if "signature_expires_before" in input_:
         params.append(
             (

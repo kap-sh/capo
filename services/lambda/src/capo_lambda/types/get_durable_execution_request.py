@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_lambda.types.durable_execution_arn
@@ -12,9 +12,9 @@ if TYPE_CHECKING:
 class GetDurableExecutionRequest(TypedDict, closed=True):
     durable_execution_arn: "capo_lambda.types.durable_execution_arn.DurableExecutionArn"
     """<p>The Amazon Resource Name (ARN) of the durable execution.</p>"""
-    include_execution_data: (
+    include_execution_data: NotRequired[
         "capo_lambda.types.include_execution_data.IncludeExecutionData"
-    )
+    ]
     """<p>Specifies whether to include execution data such as input payload, result, and error information in the response. Set to <code>false</code> for a more compact response that includes only execution metadata. The default value is set to <code>true</code>.</p>"""
 
 

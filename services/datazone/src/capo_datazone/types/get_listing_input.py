@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_datazone.types.domain_id
@@ -15,7 +15,7 @@ class GetListingInput(TypedDict, closed=True):
     """<p>The ID of the Amazon DataZone domain.</p>"""
     identifier: "capo_datazone.types.listing_id.ListingId"
     """<p>The ID of the listing.</p>"""
-    listing_revision: "capo_datazone.types.revision.Revision"
+    listing_revision: NotRequired["capo_datazone.types.revision.Revision"]
     """<p>The revision of the listing.</p>"""
 
 

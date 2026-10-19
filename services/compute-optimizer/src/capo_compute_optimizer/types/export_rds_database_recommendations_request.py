@@ -32,9 +32,9 @@ class ExportRDSDatabaseRecommendationsRequest(TypedDict, closed=True):
     )
     file_format: NotRequired["capo_compute_optimizer.types.file_format.FileFormat"]
     """<p> The format of the export file. </p> <p>The CSV file is the only export file format currently supported.</p>"""
-    include_member_accounts: (
+    include_member_accounts: NotRequired[
         "capo_compute_optimizer.types.include_member_accounts.IncludeMemberAccounts"
-    )
+    ]
     """<p>If your account is the management account or the delegated administrator of an organization, this parameter indicates whether to include recommendations for resources in all member accounts of the organization.</p> <p>The member accounts must also be opted in to Compute Optimizer, and trusted access for Compute Optimizer must be enabled in the organization account. For more information, see <a href="https://docs.aws.amazon.com/compute-optimizer/latest/ug/security-iam.html#trusted-service-access">Compute Optimizer and Amazon Web Services Organizations trusted access</a> in the <i>Compute Optimizer User Guide</i>.</p> <p>If this parameter is omitted, recommendations for member accounts of the organization aren't included in the export file.</p> <p>If this parameter or the account ID parameter is omitted, recommendations for member accounts aren't included in the export.</p>"""
     recommendation_preferences: NotRequired[
         "capo_compute_optimizer.types.recommendation_preferences.RecommendationPreferences"
@@ -83,7 +83,8 @@ def serialize_aws_json_1_0(value: ExportRDSDatabaseRecommendationsRequest) -> di
                 value["file_format"]
             )
         )
-    out["includeMemberAccounts"] = value.get("include_member_accounts", False)
+    if "include_member_accounts" in value:
+        out["includeMemberAccounts"] = value["include_member_accounts"]
     if "recommendation_preferences" in value:
         import capo_compute_optimizer.types.recommendation_preferences
 
@@ -143,8 +144,6 @@ def deserialize_aws_json_1_0(data: dict) -> ExportRDSDatabaseRecommendationsRequ
         )
     if data.get("includeMemberAccounts") is not None:
         out["include_member_accounts"] = data["includeMemberAccounts"]
-    else:
-        out["include_member_accounts"] = False
     if data.get("recommendationPreferences") is not None:
         import capo_compute_optimizer.types.recommendation_preferences
 

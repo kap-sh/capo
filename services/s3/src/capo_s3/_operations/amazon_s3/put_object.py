@@ -412,7 +412,7 @@ def build_request(
     if "metadata" in input_:
         for k, v in input_["metadata"].items():
             headers["x-amz-meta-" + k] = v
-    body = input_["body"]
+    body = input_.get("body", b"")
     if isinstance(body, capo_s3._body.Body):
         body = cast(capo_s3._body.Body[Iterator[bytes]], body)
         stream = body.stream
@@ -622,7 +622,7 @@ async def async_build_request(
     if "metadata" in input_:
         for k, v in input_["metadata"].items():
             headers["x-amz-meta-" + k] = v
-    body = input_["body"]
+    body = input_.get("body", b"")
     if isinstance(body, capo_s3._body.Body):
         body = cast(capo_s3._body.Body[AsyncIterator[bytes]], body)
         stream = body.stream

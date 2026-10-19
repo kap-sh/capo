@@ -32,9 +32,9 @@ class CreateDatasetImportJobRequest(TypedDict, closed=True):
     """<p>The format of timestamps in the dataset. The format that you specify depends on the <code>DataFrequency</code> specified when the dataset was created. The following formats are supported</p> <ul> <li> <p>"yyyy-MM-dd"</p> <p>For the following data frequencies: Y, M, W, and D</p> </li> <li> <p>"yyyy-MM-dd HH:mm:ss"</p> <p>For the following data frequencies: H, 30min, 15min, and 1min; and optionally, for: Y, M, W, and D</p> </li> </ul> <p>If the format isn't specified, Amazon Forecast expects the format to be "yyyy-MM-dd HH:mm:ss".</p>"""
     time_zone: NotRequired["capo_forecast.types.time_zone.TimeZone"]
     """<p>A single time zone for every item in your dataset. This option is ideal for datasets with all timestamps within a single time zone, or if all timestamps are normalized to a single time zone. </p> <p>Refer to the <a href="http://joda-time.sourceforge.net/timezones.html">Joda-Time API</a> for a complete list of valid time zone names.</p>"""
-    use_geolocation_for_time_zone: (
+    use_geolocation_for_time_zone: NotRequired[
         "capo_forecast.types.use_geolocation_for_time_zone.UseGeolocationForTimeZone"
-    )
+    ]
     """<p>Automatically derive time zone information from the geolocation attribute. This option is ideal for datasets that contain timestamps in multiple time zones and those timestamps are expressed in local time.</p>"""
     geolocation_format: NotRequired[
         "capo_forecast.types.geolocation_format.GeolocationFormat"
@@ -62,7 +62,8 @@ def serialize_aws_json_1_1(value: CreateDatasetImportJobRequest) -> dict:
         out["TimestampFormat"] = value["timestamp_format"]
     if "time_zone" in value:
         out["TimeZone"] = value["time_zone"]
-    out["UseGeolocationForTimeZone"] = value.get("use_geolocation_for_time_zone", False)
+    if "use_geolocation_for_time_zone" in value:
+        out["UseGeolocationForTimeZone"] = value["use_geolocation_for_time_zone"]
     if "geolocation_format" in value:
         out["GeolocationFormat"] = value["geolocation_format"]
     if "tags" in value:
@@ -106,8 +107,6 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDatasetImportJobRequest:
         out["time_zone"] = data["TimeZone"]
     if data.get("UseGeolocationForTimeZone") is not None:
         out["use_geolocation_for_time_zone"] = data["UseGeolocationForTimeZone"]
-    else:
-        out["use_geolocation_for_time_zone"] = False
     if data.get("GeolocationFormat") is not None:
         out["geolocation_format"] = data["GeolocationFormat"]
     if data.get("Tags") is not None:

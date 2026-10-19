@@ -28,7 +28,7 @@ class UpdateDevEndpointRequest(TypedDict, closed=True):
         "capo_glue.types.dev_endpoint_custom_libraries.DevEndpointCustomLibraries"
     ]
     """<p>Custom Python or Java libraries to be loaded in the <code>DevEndpoint</code>.</p>"""
-    update_etl_libraries: "capo_glue.types.boolean_value.BooleanValue"
+    update_etl_libraries: NotRequired["capo_glue.types.boolean_value.BooleanValue"]
     """<p> <code>True</code> if the list of custom libraries to be loaded in the development endpoint needs to be updated, or <code>False</code> if otherwise.</p>"""
     delete_arguments: NotRequired["capo_glue.types.string_list.StringList"]
     """<p>The list of argument keys to be deleted from the map of arguments used to configure the <code>DevEndpoint</code>.</p>"""
@@ -64,7 +64,8 @@ def serialize_aws_json_1_1(value: UpdateDevEndpointRequest) -> dict:
                 value["custom_libraries"]
             )
         )
-    out["UpdateEtlLibraries"] = value.get("update_etl_libraries", False)
+    if "update_etl_libraries" in value:
+        out["UpdateEtlLibraries"] = value["update_etl_libraries"]
     if "delete_arguments" in value:
         import capo_glue.types.string_list
 
@@ -114,8 +115,6 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDevEndpointRequest:
         )
     if data.get("UpdateEtlLibraries") is not None:
         out["update_etl_libraries"] = data["UpdateEtlLibraries"]
-    else:
-        out["update_etl_libraries"] = False
     if data.get("DeleteArguments") is not None:
         import capo_glue.types.string_list
 

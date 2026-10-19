@@ -25,7 +25,7 @@ class CreateResourceRequest(TypedDict, closed=True):
         "capo_workmail.types.resource_description.ResourceDescription"
     ]
     """<p>Resource description.</p>"""
-    hidden_from_global_address_list: "capo_workmail.types.boolean.Boolean"
+    hidden_from_global_address_list: NotRequired["capo_workmail.types.boolean.Boolean"]
     """<p>If this parameter is enabled, the resource will be hidden from the address book.</p>"""
 
 
@@ -41,9 +41,8 @@ def serialize_aws_json_1_1(value: CreateResourceRequest) -> dict:
     )
     if "description" in value:
         out["Description"] = value["description"]
-    out["HiddenFromGlobalAddressList"] = value.get(
-        "hidden_from_global_address_list", False
-    )
+    if "hidden_from_global_address_list" in value:
+        out["HiddenFromGlobalAddressList"] = value["hidden_from_global_address_list"]
     return out
 
 
@@ -69,8 +68,6 @@ def deserialize_aws_json_1_1(data: dict) -> CreateResourceRequest:
         out["description"] = data["Description"]
     if data.get("HiddenFromGlobalAddressList") is not None:
         out["hidden_from_global_address_list"] = data["HiddenFromGlobalAddressList"]
-    else:
-        out["hidden_from_global_address_list"] = False
     return out
 
 

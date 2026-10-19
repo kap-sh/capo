@@ -22,7 +22,7 @@ class DeleteDocumentRequest(TypedDict, closed=True):
         "capo_ssm.types.document_version_name.DocumentVersionName"
     ]
     """<p>The version name of the document that you want to delete. If not provided, all versions of the document are deleted.</p>"""
-    force: "capo_ssm.types.boolean.Boolean"
+    force: NotRequired["capo_ssm.types.boolean.Boolean"]
     """<p>Some SSM document types require that you specify a <code>Force</code> flag before you can delete the document. For example, you must specify a <code>Force</code> flag to delete a document of type <code>ApplicationConfigurationSchema</code>. You can restrict access to the <code>Force</code> flag in an Identity and Access Management (IAM) policy.</p>"""
 
 
@@ -34,7 +34,8 @@ def serialize_aws_json_1_1(value: DeleteDocumentRequest) -> dict:
         out["DocumentVersion"] = value["document_version"]
     if "version_name" in value:
         out["VersionName"] = value["version_name"]
-    out["Force"] = value.get("force", False)
+    if "force" in value:
+        out["Force"] = value["force"]
     return out
 
 
@@ -50,6 +51,4 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteDocumentRequest:
         out["version_name"] = data["VersionName"]
     if data.get("Force") is not None:
         out["force"] = data["Force"]
-    else:
-        out["force"] = False
     return out

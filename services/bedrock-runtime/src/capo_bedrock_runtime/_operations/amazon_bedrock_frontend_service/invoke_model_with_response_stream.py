@@ -220,11 +220,12 @@ def build_request(
         headers["X-Amzn-Bedrock-GuardrailIdentifier"] = input_["guardrail_identifier"]
     if "guardrail_version" in input_:
         headers["X-Amzn-Bedrock-GuardrailVersion"] = input_["guardrail_version"]
-    headers["X-Amzn-Bedrock-PerformanceConfig-Latency"] = (
-        capo_bedrock_runtime.types.performance_config_latency.serialize_json(
-            input_.get("performance_config_latency", "standard")
+    if "performance_config_latency" in input_:
+        headers["X-Amzn-Bedrock-PerformanceConfig-Latency"] = (
+            capo_bedrock_runtime.types.performance_config_latency.serialize_json(
+                input_["performance_config_latency"]
+            )
         )
-    )
     if "service_tier" in input_:
         headers["X-Amzn-Bedrock-Service-Tier"] = (
             capo_bedrock_runtime.types.service_tier_type.serialize_json(

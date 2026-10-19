@@ -16,7 +16,9 @@ if TYPE_CHECKING:
 class ListStatementsRequest(TypedDict, closed=True):
     next_token: NotRequired["capo_redshift_data.types.string.String"]
     """<p>A value that indicates the starting point for the next set of response records in a subsequent request. If a value is returned in a response, you can retrieve the next set of records by providing this returned NextToken value in the next NextToken parameter and retrying the command. If the NextToken field is empty, all response records have been retrieved for the request. </p>"""
-    max_results: "capo_redshift_data.types.list_statements_limit.ListStatementsLimit"
+    max_results: NotRequired[
+        "capo_redshift_data.types.list_statements_limit.ListStatementsLimit"
+    ]
     """<p>The maximum number of SQL statements to return in the response. If more SQL statements exist than fit in one response, then <code>NextToken</code> is returned to page through the results. </p>"""
     statement_name: NotRequired[
         "capo_redshift_data.types.statement_name_string.StatementNameString"
@@ -43,7 +45,8 @@ def serialize_aws_json_1_1(value: ListStatementsRequest) -> dict:
     out: dict = {}
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
-    out["MaxResults"] = value.get("max_results", 0)
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
     if "statement_name" in value:
         out["StatementName"] = value["statement_name"]
     if "status" in value:
@@ -65,8 +68,6 @@ def deserialize_aws_json_1_1(data: dict) -> ListStatementsRequest:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
-    else:
-        out["max_results"] = 0
     if data.get("StatementName") is not None:
         out["statement_name"] = data["StatementName"]
     if data.get("Status") is not None:

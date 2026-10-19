@@ -13,7 +13,7 @@ class ListKeysRequest(TypedDict, closed=True):
     """<p>The Amazon Resource Name (ARN) of the Key Value Store.</p>"""
     next_token: NotRequired["str"]
     """<p>If nextToken is returned in the response, there are more results available. Make the next call using the returned token to retrieve the next page.</p>"""
-    max_results: "int"
+    max_results: NotRequired["int"]
     """<p>Maximum number of results that are returned per call. The default is 10 and maximum allowed page is 50.</p>"""
 
 

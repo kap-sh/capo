@@ -24,7 +24,7 @@ class ListCommandInvocationsRequest(TypedDict, closed=True):
     """<p>(Optional) The token for the next set of items to return. (You received this token from a previous call.)</p>"""
     filters: NotRequired["capo_ssm.types.command_filter_list.CommandFilterList"]
     """<p>(Optional) One or more filters. Use a filter to return a more specific list of results.</p>"""
-    details: "capo_ssm.types.boolean.Boolean"
+    details: NotRequired["capo_ssm.types.boolean.Boolean"]
     """<p>(Optional) If set this returns the response of the command executions and any command output. The default value is <code>false</code>. </p>"""
 
 
@@ -45,7 +45,8 @@ def serialize_aws_json_1_1(value: ListCommandInvocationsRequest) -> dict:
         out["Filters"] = capo_ssm.types.command_filter_list.serialize_aws_json_1_1(
             value["filters"]
         )
-    out["Details"] = value.get("details", False)
+    if "details" in value:
+        out["Details"] = value["details"]
     return out
 
 
@@ -67,6 +68,4 @@ def deserialize_aws_json_1_1(data: dict) -> ListCommandInvocationsRequest:
         )
     if data.get("Details") is not None:
         out["details"] = data["Details"]
-    else:
-        out["details"] = False
     return out

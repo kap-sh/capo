@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 
 class ListWirelessDeviceImportTasksRequest(TypedDict, closed=True):
-    max_results: "capo_iot_wireless.types.max_results.MaxResults"
+    max_results: NotRequired["capo_iot_wireless.types.max_results.MaxResults"]
     next_token: NotRequired["capo_iot_wireless.types.next_token.NextToken"]
     """<p>To retrieve the next set of results, the <code>nextToken</code> value from a previous response; otherwise <code>null</code> to receive the first set of results.</p>"""
 

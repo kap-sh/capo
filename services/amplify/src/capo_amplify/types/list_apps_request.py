@@ -12,7 +12,9 @@ if TYPE_CHECKING:
 class ListAppsRequest(TypedDict, closed=True):
     next_token: NotRequired["capo_amplify.types.next_token.NextToken"]
     """<p>A pagination token. If non-null, the pagination token is returned in a result. Pass its value in another request to retrieve more entries. </p>"""
-    max_results: "capo_amplify.types.max_results_for_list_apps.MaxResultsForListApps"
+    max_results: NotRequired[
+        "capo_amplify.types.max_results_for_list_apps.MaxResultsForListApps"
+    ]
     """<p>The maximum number of records to list in a single response. </p>"""
 
 

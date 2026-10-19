@@ -18,7 +18,7 @@ class DescribeAgentsRequest(TypedDict, closed=True):
     """<p>The agent or the collector IDs for which you want information. If you specify no IDs, the system returns information about all agents/collectors associated with your user.</p>"""
     filters: NotRequired["capo_application_discovery_service.types.filters.Filters"]
     """<p>You can filter the request using various logical operators and a <i>key</i>-<i>value</i> format. For example: </p> <p> <code>{"key": "collectionStatus", "value": "STARTED"}</code> </p>"""
-    max_results: "capo_application_discovery_service.types.integer.Integer"
+    max_results: NotRequired["capo_application_discovery_service.types.integer.Integer"]
     """<p>The total number of agents/collectors to return in a single page of output. The maximum value is 100.</p>"""
     next_token: NotRequired[
         "capo_application_discovery_service.types.next_token.NextToken"
@@ -45,7 +45,8 @@ def serialize_aws_json_1_1(value: DescribeAgentsRequest) -> dict:
                 value["filters"]
             )
         )
-    out["maxResults"] = value.get("max_results", 0)
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
     return out
@@ -71,8 +72,6 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeAgentsRequest:
         )
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
-    else:
-        out["max_results"] = 0
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

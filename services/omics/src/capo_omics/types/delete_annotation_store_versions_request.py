@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_omics.errors import DeserializationError
 
@@ -15,7 +15,7 @@ class DeleteAnnotationStoreVersionsRequest(TypedDict, closed=True):
     """<p> The name of the annotation store from which versions are being deleted. </p>"""
     versions: "capo_omics.types.version_list.VersionList"
     """<p> The versions of an annotation store to be deleted. </p>"""
-    force: "bool"
+    force: NotRequired["bool"]
     """<p> Forces the deletion of an annotation store version when imports are in-progress.. </p>"""
 
 

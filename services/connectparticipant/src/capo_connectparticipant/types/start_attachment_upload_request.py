@@ -35,7 +35,7 @@ class StartAttachmentUploadRequest(TypedDict, closed=True):
 def serialize_json(value: StartAttachmentUploadRequest) -> dict:
     out: dict = {}
     out["ContentType"] = value["content_type"]
-    out["AttachmentSizeInBytes"] = value.get("attachment_size_in_bytes", 0)
+    out["AttachmentSizeInBytes"] = value["attachment_size_in_bytes"]
     out["AttachmentName"] = value["attachment_name"]
     out["ClientToken"] = value["client_token"]
     return out
@@ -50,7 +50,9 @@ def deserialize_json(data: dict) -> StartAttachmentUploadRequest:
     if data.get("AttachmentSizeInBytes") is not None:
         out["attachment_size_in_bytes"] = data["AttachmentSizeInBytes"]
     else:
-        out["attachment_size_in_bytes"] = 0
+        raise DeserializationError(
+            "StartAttachmentUploadRequest.attachment_size_in_bytes required"
+        )
     if data.get("AttachmentName") is not None:
         out["attachment_name"] = data["AttachmentName"]
     else:

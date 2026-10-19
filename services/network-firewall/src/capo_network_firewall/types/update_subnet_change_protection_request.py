@@ -4,6 +4,8 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
+from capo_network_firewall.errors import DeserializationError
+
 if TYPE_CHECKING:
     import capo_network_firewall.types.boolean
     import capo_network_firewall.types.resource_arn
@@ -31,7 +33,7 @@ def serialize_aws_json_1_0(value: UpdateSubnetChangeProtectionRequest) -> dict:
         out["FirewallArn"] = value["firewall_arn"]
     if "firewall_name" in value:
         out["FirewallName"] = value["firewall_name"]
-    out["SubnetChangeProtection"] = value.get("subnet_change_protection", False)
+    out["SubnetChangeProtection"] = value["subnet_change_protection"]
     return out
 
 
@@ -46,5 +48,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateSubnetChangeProtectionRequest:
     if data.get("SubnetChangeProtection") is not None:
         out["subnet_change_protection"] = data["SubnetChangeProtection"]
     else:
-        out["subnet_change_protection"] = False
+        raise DeserializationError(
+            "UpdateSubnetChangeProtectionRequest.subnet_change_protection required"
+        )
     return out

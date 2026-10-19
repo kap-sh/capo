@@ -16,7 +16,7 @@ class ListSecurityProfilesForTargetRequest(TypedDict, closed=True):
     """<p>The token for the next set of results.</p>"""
     max_results: NotRequired["capo_iot.types.max_results.MaxResults"]
     """<p>The maximum number of results to return at one time.</p>"""
-    recursive: "capo_iot.types.recursive.Recursive"
+    recursive: NotRequired["capo_iot.types.recursive.Recursive"]
     """<p>If true, return child groups too.</p>"""
     security_profile_target_arn: (
         "capo_iot.types.security_profile_target_arn.SecurityProfileTargetArn"

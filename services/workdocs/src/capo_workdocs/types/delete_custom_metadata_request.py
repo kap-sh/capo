@@ -27,7 +27,7 @@ class DeleteCustomMetadataRequest(TypedDict, closed=True):
         "capo_workdocs.types.custom_metadata_key_list.CustomMetadataKeyList"
     ]
     """<p>List of properties to remove.</p>"""
-    delete_all: "capo_workdocs.types.boolean_type.BooleanType"
+    delete_all: NotRequired["capo_workdocs.types.boolean_type.BooleanType"]
     """<p>Flag to indicate removal of all custom metadata properties from the specified resource.</p>"""
 
 

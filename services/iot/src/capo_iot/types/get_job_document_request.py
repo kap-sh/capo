@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_iot.types.before_substitution_flag
@@ -12,9 +12,9 @@ if TYPE_CHECKING:
 class GetJobDocumentRequest(TypedDict, closed=True):
     job_id: "capo_iot.types.job_id.JobId"
     """<p>The unique identifier you assigned to this job when it was created.</p>"""
-    before_substitution: (
+    before_substitution: NotRequired[
         "capo_iot.types.before_substitution_flag.BeforeSubstitutionFlag"
-    )
+    ]
     """<p>Provides a view of the job document before and after the substitution parameters have been resolved with their exact values.</p>"""
 
 

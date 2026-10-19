@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 class ListDevicesForWirelessDeviceImportTaskRequest(TypedDict, closed=True):
     id: "capo_iot_wireless.types.import_task_id.ImportTaskId"
     """<p>The identifier of the import task for which wireless devices are listed.</p>"""
-    max_results: "capo_iot_wireless.types.max_results.MaxResults"
+    max_results: NotRequired["capo_iot_wireless.types.max_results.MaxResults"]
     next_token: NotRequired["capo_iot_wireless.types.next_token.NextToken"]
     """<p>To retrieve the next set of results, the <code>nextToken</code> value from a previous response; otherwise <code>null</code> to receive the first set of results.</p>"""
     status: NotRequired["capo_iot_wireless.types.onboard_status.OnboardStatus"]

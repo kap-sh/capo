@@ -109,9 +109,8 @@ def build_request(
     url = endpoint.url.rstrip("/") + "/canary/{Name}"
     url = url.replace("{Name}", quote(input_["name"], safe=""))
     params: list[tuple[str, str]] = []
-    params.append(
-        ("deleteLambda", "true" if input_.get("delete_lambda", False) else "false")
-    )
+    if "delete_lambda" in input_:
+        params.append(("deleteLambda", "true" if input_["delete_lambda"] else "false"))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

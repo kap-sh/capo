@@ -40,7 +40,7 @@ class CreateTapesInput(TypedDict, closed=True):
     """<p>The Amazon Resource Name (ARN) of a symmetric customer master key (CMK) used for Amazon S3 server-side encryption. Storage Gateway does not support asymmetric CMKs. This value can only be set when <code>KMSEncrypted</code> is <code>true</code>. Optional.</p>"""
     pool_id: NotRequired["capo_storage_gateway.types.pool_id.PoolId"]
     """<p>The ID of the pool that you want to add your tape to for archiving. The tape in this pool is archived in the S3 storage class that is associated with the pool. When you use your backup application to eject the tape, the tape is archived directly into the storage class (S3 Glacier or S3 Glacier Deep Archive) that corresponds to the pool.</p>"""
-    worm: "capo_storage_gateway.types.boolean2.Boolean2"
+    worm: NotRequired["capo_storage_gateway.types.boolean2.Boolean2"]
     """<p>Set to <code>TRUE</code> if the tape you are creating is to be configured as a write-once-read-many (WORM) tape.</p>"""
     tags: NotRequired["capo_storage_gateway.types.tags.Tags"]
     """<p>A list of up to 50 tags that can be assigned to a virtual tape. Each tag is a key-value pair.</p> <note> <p>Valid characters for key and value are letters, spaces, and numbers representable in UTF-8 format, and the following special characters: + - = . _ : / @. The maximum length of a tag's key is 128 characters, and the maximum length for a tag's value is 256.</p> </note>"""
@@ -60,7 +60,8 @@ def serialize_aws_json_1_1(value: CreateTapesInput) -> dict:
         out["KMSKey"] = value["kms_key"]
     if "pool_id" in value:
         out["PoolId"] = value["pool_id"]
-    out["Worm"] = value.get("worm", False)
+    if "worm" in value:
+        out["Worm"] = value["worm"]
     if "tags" in value:
         import capo_storage_gateway.types.tags
 
@@ -100,8 +101,6 @@ def deserialize_aws_json_1_1(data: dict) -> CreateTapesInput:
         out["pool_id"] = data["PoolId"]
     if data.get("Worm") is not None:
         out["worm"] = data["Worm"]
-    else:
-        out["worm"] = False
     if data.get("Tags") is not None:
         import capo_storage_gateway.types.tags
 

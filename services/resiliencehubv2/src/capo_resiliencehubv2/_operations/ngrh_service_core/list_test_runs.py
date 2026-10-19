@@ -120,7 +120,8 @@ def build_request(
         params.append(("serviceArn", input_["service_arn"]))
     if "test_id" in input_:
         params.append(("testId", input_["test_id"]))
-    params.append(("maxResults", str(input_.get("max_results", 100))))
+    if "max_results" in input_:
+        params.append(("maxResults", str(input_["max_results"])))
     if "next_token" in input_:
         params.append(("nextToken", input_["next_token"]))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
