@@ -1,5 +1,11 @@
 # aws-sdk-sagemaker-metrics
 
+## 0.8.0
+
+### Minor Changes
+
+- 2a6dc74: feat: add UnknownUnionMember and UnknownEvent for forward compatibility
+
 ## 0.7.0
 
 ### Minor Changes

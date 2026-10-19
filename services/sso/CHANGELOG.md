@@ -1,5 +1,11 @@
 # aws-sdk-sso
 
+## 0.17.0
+
+### Minor Changes
+
+- 2a6dc74: feat: add UnknownUnionMember and UnknownEvent for forward compatibility
+
 ## 0.16.0
 
 ### Minor Changes

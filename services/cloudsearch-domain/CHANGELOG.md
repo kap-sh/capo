@@ -1,5 +1,12 @@
 # aws-sdk-cloudsearch-domain
 
+## 0.10.0
+
+### Minor Changes
+
+- f8933b0: fix: don't send @default values the caller didn't set
+- 2a6dc74: feat: add UnknownUnionMember and UnknownEvent for forward compatibility
+
 ## 0.9.0
 
 ### Minor Changes

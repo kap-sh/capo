@@ -1,5 +1,13 @@
 # aws-sdk-bedrock-agentcore-control
 
+## 0.13.0
+
+### Minor Changes
+
+- 15fc422: feat(client): fill missing required members on deserialization
+- f8933b0: fix: don't send @default values the caller didn't set
+- 2a6dc74: feat: add UnknownUnionMember and UnknownEvent for forward compatibility
+
 ## 0.12.0
 
 ### Minor Changes

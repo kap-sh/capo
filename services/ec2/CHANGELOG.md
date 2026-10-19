@@ -1,5 +1,11 @@
 # aws-sdk-ec2
 
+## 0.26.0
+
+### Minor Changes
+
+- 2a6dc74: feat: add UnknownUnionMember and UnknownEvent for forward compatibility
+
 ## 0.25.0
 
 ### Minor Changes

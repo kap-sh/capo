@@ -1,5 +1,12 @@
 # aws-sdk-ssm-guiconnect
 
+## 0.8.0
+
+### Minor Changes
+
+- 15fc422: feat(client): fill missing required members on deserialization
+- 2a6dc74: feat: add UnknownUnionMember and UnknownEvent for forward compatibility
+
 ## 0.7.0
 
 ### Minor Changes
