@@ -1,5 +1,11 @@
 # aws-sdk-auto-scaling
 
+## 0.11.0
+
+### Minor Changes
+
+- 2a6dc74: feat: add UnknownUnionMember and UnknownEvent for forward compatibility
+
 ## 0.10.0
 
 ### Minor Changes

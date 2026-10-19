@@ -1,5 +1,12 @@
 # aws-sdk-pricing-plan-manager
 
+## 0.7.0
+
+### Minor Changes
+
+- 15fc422: feat(client): fill missing required members on deserialization
+- 2a6dc74: feat: add UnknownUnionMember and UnknownEvent for forward compatibility
+
 ## 0.6.0
 
 ### Minor Changes
