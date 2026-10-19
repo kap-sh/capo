@@ -77,3 +77,9 @@ from ._services.async_config_service import (
     AsyncConfigServiceClient as AsyncConfigServiceClient,
 )
 from ._services.config_service import ConfigServiceClient as ConfigServiceClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

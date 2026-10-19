@@ -79,3 +79,9 @@ from ._services.async_bcm_pricing_calculator import (
 from ._services.bcm_pricing_calculator import (
     BCMPricingCalculatorClient as BCMPricingCalculatorClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

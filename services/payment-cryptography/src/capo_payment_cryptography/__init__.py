@@ -79,3 +79,9 @@ from ._services.async_payment_cryptography import (
 from ._services.payment_cryptography import (
     PaymentCryptographyClient as PaymentCryptographyClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

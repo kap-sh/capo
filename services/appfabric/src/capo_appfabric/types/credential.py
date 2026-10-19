@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_appfabric.errors import DeserializationError, SerializationError
+from capo_appfabric.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_appfabric.types.api_key_credential
@@ -19,12 +20,18 @@ class _Credential_apiKeyCredential(TypedDict, closed=True):
     apiKeyCredential: "capo_appfabric.types.api_key_credential.ApiKeyCredential"
 
 
-Credential: TypeAlias = _Credential_oauth2Credential | _Credential_apiKeyCredential
+Credential: TypeAlias = (
+    _Credential_oauth2Credential | _Credential_apiKeyCredential | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Credential) -> dict:
-    if "oauth2Credential" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Credential: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "oauth2Credential" in value:
         import capo_appfabric.types.oauth2_credential
 
         return {
@@ -62,10 +69,17 @@ def deserialize_json(data: dict) -> Credential:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Credential: no recognized variant key")
 
 
-def redact_sensitive(value: Credential) -> dict[str, Any]:
+def redact_sensitive(value: Credential) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "oauth2Credential" in value:
         import capo_appfabric.types.oauth2_credential

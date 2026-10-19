@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_runtime.errors import DeserializationError, SerializationError
+from capo_bedrock_runtime.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.converse_tokens_request
@@ -19,12 +20,18 @@ class _CountTokensInput_converse(TypedDict, closed=True):
     converse: "capo_bedrock_runtime.types.converse_tokens_request.ConverseTokensRequest"
 
 
-CountTokensInput: TypeAlias = _CountTokensInput_invokeModel | _CountTokensInput_converse
+CountTokensInput: TypeAlias = (
+    _CountTokensInput_invokeModel | _CountTokensInput_converse | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CountTokensInput) -> dict:
-    if "invokeModel" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"CountTokensInput: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "invokeModel" in value:
         import capo_bedrock_runtime.types.invoke_model_tokens_request
 
         return {
@@ -62,10 +69,17 @@ def deserialize_json(data: dict) -> CountTokensInput:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("CountTokensInput: no recognized variant key")
 
 
-def redact_sensitive(value: CountTokensInput) -> dict[str, Any]:
+def redact_sensitive(value: CountTokensInput) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "invokeModel" in value:
         import capo_bedrock_runtime.types.invoke_model_tokens_request

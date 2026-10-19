@@ -79,3 +79,9 @@ from ._services.async_serverless_application_repository import (
 from ._services.serverless_application_repository import (
     ServerlessApplicationRepositoryClient as ServerlessApplicationRepositoryClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

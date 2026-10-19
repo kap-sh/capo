@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_groundstation.errors import DeserializationError, SerializationError
+from capo_groundstation.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_groundstation.types.contact_reservation_details
@@ -22,13 +23,17 @@ class _ReservationDetails_contact(TypedDict, closed=True):
 
 
 ReservationDetails: TypeAlias = (
-    _ReservationDetails_maintenance | _ReservationDetails_contact
+    _ReservationDetails_maintenance | _ReservationDetails_contact | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ReservationDetails) -> dict:
-    if "maintenance" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ReservationDetails: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "maintenance" in value:
         import capo_groundstation.types.maintenance_reservation_details
 
         return {
@@ -66,4 +71,9 @@ def deserialize_json(data: dict) -> ReservationDetails:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ReservationDetails: no recognized variant key")

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_securityhub.errors import DeserializationError, SerializationError
+from capo_securityhub.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_securityhub.types.boolean_configuration_options
@@ -62,12 +63,17 @@ ConfigurationOptions: TypeAlias = (
     | _ConfigurationOptions_Boolean
     | _ConfigurationOptions_Enum
     | _ConfigurationOptions_EnumList
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ConfigurationOptions) -> dict:
-    if "Integer" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ConfigurationOptions: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "Integer" in value:
         import capo_securityhub.types.integer_configuration_options
 
         return {
@@ -201,4 +207,9 @@ def deserialize_json(data: dict) -> ConfigurationOptions:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ConfigurationOptions: no recognized variant key")

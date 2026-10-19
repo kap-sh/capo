@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_deadline.errors import DeserializationError, SerializationError
+from capo_deadline.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_deadline.types.scheduling_max_priority_override_always_schedule_first
@@ -15,13 +16,17 @@ class _SchedulingMaxPriorityOverride_alwaysScheduleFirst(TypedDict, closed=True)
 
 
 SchedulingMaxPriorityOverride: TypeAlias = (
-    _SchedulingMaxPriorityOverride_alwaysScheduleFirst
+    _SchedulingMaxPriorityOverride_alwaysScheduleFirst | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SchedulingMaxPriorityOverride) -> dict:
-    if "alwaysScheduleFirst" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"SchedulingMaxPriorityOverride: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "alwaysScheduleFirst" in value:
         import capo_deadline.types.scheduling_max_priority_override_always_schedule_first
 
         return {
@@ -43,6 +48,11 @@ def deserialize_json(data: dict) -> SchedulingMaxPriorityOverride:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "SchedulingMaxPriorityOverride: no recognized variant key"
         )

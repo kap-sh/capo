@@ -79,3 +79,9 @@ from ._services.async_bedrock_agent_core_control import (
 from ._services.bedrock_agent_core_control import (
     BedrockAgentCoreControlClient as BedrockAgentCoreControlClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

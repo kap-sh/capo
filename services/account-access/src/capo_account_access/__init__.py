@@ -77,3 +77,9 @@ from ._services.account_access import AccountAccessClient as AccountAccessClient
 from ._services.async_account_access import (
     AsyncAccountAccessClient as AsyncAccountAccessClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

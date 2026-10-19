@@ -77,3 +77,9 @@ from ._services.async_elasti_cache import (
     AsyncElastiCacheClient as AsyncElastiCacheClient,
 )
 from ._services.elasti_cache import ElastiCacheClient as ElastiCacheClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_rtb_fabric import AsyncRTBFabricClient as AsyncRTBFabricClient
 from ._services.rtb_fabric import RTBFabricClient as RTBFabricClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

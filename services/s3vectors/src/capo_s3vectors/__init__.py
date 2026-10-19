@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_s3_vectors import AsyncS3VectorsClient as AsyncS3VectorsClient
 from ._services.s3_vectors import S3VectorsClient as S3VectorsClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_runtime.errors import DeserializationError, SerializationError
+from capo_bedrock_runtime.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.image_block_start
@@ -30,12 +31,17 @@ ContentBlockStart: TypeAlias = (
     _ContentBlockStart_toolUse
     | _ContentBlockStart_toolResult
     | _ContentBlockStart_image
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ContentBlockStart) -> dict:
-    if "toolUse" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ContentBlockStart: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "toolUse" in value:
         import capo_bedrock_runtime.types.tool_use_block_start
 
         return {
@@ -89,4 +95,9 @@ def deserialize_json(data: dict) -> ContentBlockStart:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ContentBlockStart: no recognized variant key")

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_iotfleetwise.errors import DeserializationError, SerializationError
+from capo_iotfleetwise.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.on_change_state_template_update_strategy
@@ -20,13 +21,19 @@ class _StateTemplateUpdateStrategy_onChange(TypedDict, closed=True):
 
 
 StateTemplateUpdateStrategy: TypeAlias = (
-    _StateTemplateUpdateStrategy_periodic | _StateTemplateUpdateStrategy_onChange
+    _StateTemplateUpdateStrategy_periodic
+    | _StateTemplateUpdateStrategy_onChange
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: StateTemplateUpdateStrategy) -> dict:
-    if "periodic" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"StateTemplateUpdateStrategy: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "periodic" in value:
         import capo_iotfleetwise.types.periodic_state_template_update_strategy
 
         return {
@@ -64,6 +71,11 @@ def deserialize_aws_json_1_0(data: dict) -> StateTemplateUpdateStrategy:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "StateTemplateUpdateStrategy: no recognized variant key"
         )

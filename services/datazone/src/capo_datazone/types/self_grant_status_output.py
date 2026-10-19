@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_datazone.errors import DeserializationError, SerializationError
+from capo_datazone.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_datazone.types.glue_self_grant_status_output
@@ -24,12 +25,17 @@ class _SelfGrantStatusOutput_redshiftSelfGrantStatus(TypedDict, closed=True):
 SelfGrantStatusOutput: TypeAlias = (
     _SelfGrantStatusOutput_glueSelfGrantStatus
     | _SelfGrantStatusOutput_redshiftSelfGrantStatus
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SelfGrantStatusOutput) -> dict:
-    if "glueSelfGrantStatus" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"SelfGrantStatusOutput: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "glueSelfGrantStatus" in value:
         import capo_datazone.types.glue_self_grant_status_output
 
         return {
@@ -67,4 +73,9 @@ def deserialize_json(data: dict) -> SelfGrantStatusOutput:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("SelfGrantStatusOutput: no recognized variant key")

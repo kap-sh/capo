@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_glue import AsyncGlueClient as AsyncGlueClient
 from ._services.glue import GlueClient as GlueClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

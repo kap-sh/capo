@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_ivschat.errors import DeserializationError, SerializationError
+from capo_ivschat.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_ivschat.types.cloud_watch_logs_destination_configuration
@@ -28,12 +29,17 @@ DestinationConfiguration: TypeAlias = (
     _DestinationConfiguration_s3
     | _DestinationConfiguration_cloudWatchLogs
     | _DestinationConfiguration_firehose
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DestinationConfiguration) -> dict:
-    if "s3" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"DestinationConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "s3" in value:
         import capo_ivschat.types.s3_destination_configuration
 
         return {
@@ -87,6 +93,11 @@ def deserialize_json(data: dict) -> DestinationConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "DestinationConfiguration: no recognized variant key"
         )

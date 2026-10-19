@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_sagemaker.errors import DeserializationError, SerializationError
+from capo_sagemaker.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_sagemaker.types.efs_file_system_config
@@ -32,12 +33,17 @@ CustomFileSystemConfig: TypeAlias = (
     _CustomFileSystemConfig_EFSFileSystemConfig
     | _CustomFileSystemConfig_FSxLustreFileSystemConfig
     | _CustomFileSystemConfig_S3FileSystemConfig
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: CustomFileSystemConfig) -> dict:
-    if "EFSFileSystemConfig" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"CustomFileSystemConfig: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "EFSFileSystemConfig" in value:
         import capo_sagemaker.types.efs_file_system_config
 
         return {
@@ -91,4 +97,9 @@ def deserialize_aws_json_1_1(data: dict) -> CustomFileSystemConfig:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("CustomFileSystemConfig: no recognized variant key")

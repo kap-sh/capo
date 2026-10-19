@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.kinesis_resource
@@ -17,12 +18,16 @@ class _StreamDeliveryResource_kinesis(TypedDict, closed=True):
     kinesis: "capo_bedrock_agentcore_control.types.kinesis_resource.KinesisResource"
 
 
-StreamDeliveryResource: TypeAlias = _StreamDeliveryResource_kinesis
+StreamDeliveryResource: TypeAlias = _StreamDeliveryResource_kinesis | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: StreamDeliveryResource) -> dict:
-    if "kinesis" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"StreamDeliveryResource: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "kinesis" in value:
         import capo_bedrock_agentcore_control.types.kinesis_resource
 
         return {
@@ -44,4 +49,9 @@ def deserialize_json(data: dict) -> StreamDeliveryResource:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("StreamDeliveryResource: no recognized variant key")

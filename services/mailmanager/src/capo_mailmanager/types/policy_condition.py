@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_mailmanager.errors import DeserializationError, SerializationError
+from capo_mailmanager.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_mailmanager.types.ingress_boolean_expression
@@ -46,12 +47,17 @@ PolicyCondition: TypeAlias = (
     | _PolicyCondition_Ipv6Expression
     | _PolicyCondition_TlsExpression
     | _PolicyCondition_BooleanExpression
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: PolicyCondition) -> dict:
-    if "StringExpression" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"PolicyCondition: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "StringExpression" in value:
         import capo_mailmanager.types.ingress_string_expression
 
         return {
@@ -137,4 +143,9 @@ def deserialize_aws_json_1_0(data: dict) -> PolicyCondition:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("PolicyCondition: no recognized variant key")

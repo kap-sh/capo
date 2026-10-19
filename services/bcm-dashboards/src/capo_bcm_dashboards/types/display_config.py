@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bcm_dashboards.errors import DeserializationError, SerializationError
+from capo_bcm_dashboards.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bcm_dashboards.types.graph_display_config_map
@@ -21,12 +22,18 @@ class _DisplayConfig_table(TypedDict, closed=True):
     )
 
 
-DisplayConfig: TypeAlias = _DisplayConfig_graph | _DisplayConfig_table
+DisplayConfig: TypeAlias = (
+    _DisplayConfig_graph | _DisplayConfig_table | UnknownUnionMember
+)
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: DisplayConfig) -> dict:
-    if "graph" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"DisplayConfig: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "graph" in value:
         import capo_bcm_dashboards.types.graph_display_config_map
 
         return {
@@ -64,4 +71,9 @@ def deserialize_aws_json_1_0(data: dict) -> DisplayConfig:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("DisplayConfig: no recognized variant key")

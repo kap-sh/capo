@@ -77,3 +77,9 @@ from ._services.async_network_firewall import (
     AsyncNetworkFirewallClient as AsyncNetworkFirewallClient,
 )
 from ._services.network_firewall import NetworkFirewallClient as NetworkFirewallClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

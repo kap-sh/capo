@@ -8,6 +8,7 @@ from capo_payment_cryptography_data.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_payment_cryptography_data.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.ibm3624_pin_verification
@@ -25,13 +26,19 @@ class _PinVerificationAttributes_Ibm3624Pin(TypedDict, closed=True):
 
 
 PinVerificationAttributes: TypeAlias = (
-    _PinVerificationAttributes_VisaPin | _PinVerificationAttributes_Ibm3624Pin
+    _PinVerificationAttributes_VisaPin
+    | _PinVerificationAttributes_Ibm3624Pin
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PinVerificationAttributes) -> dict:
-    if "VisaPin" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"PinVerificationAttributes: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "VisaPin" in value:
         import capo_payment_cryptography_data.types.visa_pin_verification
 
         return {
@@ -69,12 +76,21 @@ def deserialize_json(data: dict) -> PinVerificationAttributes:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "PinVerificationAttributes: no recognized variant key"
         )
 
 
-def redact_sensitive(value: PinVerificationAttributes) -> dict[str, Any]:
+def redact_sensitive(
+    value: PinVerificationAttributes,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "VisaPin" in value:
         import capo_payment_cryptography_data.types.visa_pin_verification

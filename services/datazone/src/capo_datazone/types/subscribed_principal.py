@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_datazone.errors import DeserializationError, SerializationError
+from capo_datazone.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_datazone.types.subscribed_group
@@ -34,12 +35,17 @@ SubscribedPrincipal: TypeAlias = (
     | _SubscribedPrincipal_user
     | _SubscribedPrincipal_group
     | _SubscribedPrincipal_iam
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SubscribedPrincipal) -> dict:
-    if "project" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"SubscribedPrincipal: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "project" in value:
         import capo_datazone.types.subscribed_project
 
         return {
@@ -103,10 +109,17 @@ def deserialize_json(data: dict) -> SubscribedPrincipal:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("SubscribedPrincipal: no recognized variant key")
 
 
-def redact_sensitive(value: SubscribedPrincipal) -> dict[str, Any]:
+def redact_sensitive(value: SubscribedPrincipal) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "project" in value:
         import capo_datazone.types.subscribed_project

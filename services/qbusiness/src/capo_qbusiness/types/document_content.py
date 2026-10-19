@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_qbusiness.errors import DeserializationError, SerializationError
+from capo_qbusiness.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_qbusiness.types.s3
@@ -18,12 +19,18 @@ class _DocumentContent_s3(TypedDict, closed=True):
     s3: "capo_qbusiness.types.s3.S3"
 
 
-DocumentContent: TypeAlias = _DocumentContent_blob | _DocumentContent_s3
+DocumentContent: TypeAlias = (
+    _DocumentContent_blob | _DocumentContent_s3 | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DocumentContent) -> dict:
-    if "blob" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"DocumentContent: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "blob" in value:
         import capo_qbusiness.types._prelude.blob
 
         return {
@@ -49,4 +56,9 @@ def deserialize_json(data: dict) -> DocumentContent:
 
         return {"s3": capo_qbusiness.types.s3.deserialize_json(data["s3"])}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("DocumentContent: no recognized variant key")

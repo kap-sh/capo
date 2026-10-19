@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.harness_agent_core_memory_configuration
@@ -31,12 +32,17 @@ HarnessMemoryConfiguration: TypeAlias = (
     _HarnessMemoryConfiguration_agentCoreMemoryConfiguration
     | _HarnessMemoryConfiguration_managedMemoryConfiguration
     | _HarnessMemoryConfiguration_disabled
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: HarnessMemoryConfiguration) -> dict:
-    if "agentCoreMemoryConfiguration" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"HarnessMemoryConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "agentCoreMemoryConfiguration" in value:
         import capo_bedrock_agentcore_control.types.harness_agent_core_memory_configuration
 
         return {
@@ -90,6 +96,11 @@ def deserialize_json(data: dict) -> HarnessMemoryConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "HarnessMemoryConfiguration: no recognized variant key"
         )

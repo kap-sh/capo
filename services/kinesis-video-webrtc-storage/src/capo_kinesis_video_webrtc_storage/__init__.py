@@ -79,3 +79,9 @@ from ._services.async_kinesis_video_web_rtc_storage import (
 from ._services.kinesis_video_web_rtc_storage import (
     KinesisVideoWebRTCStorageClient as KinesisVideoWebRTCStorageClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

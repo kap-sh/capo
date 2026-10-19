@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_mediaconnect.errors import DeserializationError, SerializationError
+from capo_mediaconnect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_mediaconnect.types.rist_router_input_configuration
@@ -22,12 +23,17 @@ class _MergeRouterInputProtocolConfiguration_Rist(TypedDict, closed=True):
 MergeRouterInputProtocolConfiguration: TypeAlias = (
     _MergeRouterInputProtocolConfiguration_Rtp
     | _MergeRouterInputProtocolConfiguration_Rist
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MergeRouterInputProtocolConfiguration) -> dict:
-    if "Rtp" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"MergeRouterInputProtocolConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "Rtp" in value:
         import capo_mediaconnect.types.rtp_router_input_configuration
 
         return {
@@ -67,6 +73,11 @@ def deserialize_json(data: dict) -> MergeRouterInputProtocolConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "MergeRouterInputProtocolConfiguration: no recognized variant key"
         )

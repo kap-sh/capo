@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_data_zone import AsyncDataZoneClient as AsyncDataZoneClient
 from ._services.data_zone import DataZoneClient as DataZoneClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -79,3 +79,9 @@ from ._services.async_observability_admin import (
 from ._services.observability_admin import (
     ObservabilityAdminClient as ObservabilityAdminClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

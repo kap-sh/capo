@@ -77,3 +77,9 @@ from ._services.async_emr_serverless import (
     AsyncEMRServerlessClient as AsyncEMRServerlessClient,
 )
 from ._services.emr_serverless import EMRServerlessClient as EMRServerlessClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agent.errors import DeserializationError, SerializationError
+from capo_bedrock_agent.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.daily_schedule
@@ -25,13 +26,20 @@ class _SyncSchedule_monthly(TypedDict, closed=True):
 
 
 SyncSchedule: TypeAlias = (
-    _SyncSchedule_daily | _SyncSchedule_weekly | _SyncSchedule_monthly
+    _SyncSchedule_daily
+    | _SyncSchedule_weekly
+    | _SyncSchedule_monthly
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SyncSchedule) -> dict:
-    if "daily" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"SyncSchedule: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "daily" in value:
         import capo_bedrock_agent.types.daily_schedule
 
         return {
@@ -85,4 +93,9 @@ def deserialize_json(data: dict) -> SyncSchedule:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("SyncSchedule: no recognized variant key")

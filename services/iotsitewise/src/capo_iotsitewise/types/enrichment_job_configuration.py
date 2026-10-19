@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_iotsitewise.errors import DeserializationError, SerializationError
+from capo_iotsitewise.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_iotsitewise.types.event_detection
@@ -14,12 +15,18 @@ class _EnrichmentJobConfiguration_eventDetection(TypedDict, closed=True):
     eventDetection: "capo_iotsitewise.types.event_detection.EventDetection"
 
 
-EnrichmentJobConfiguration: TypeAlias = _EnrichmentJobConfiguration_eventDetection
+EnrichmentJobConfiguration: TypeAlias = (
+    _EnrichmentJobConfiguration_eventDetection | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: EnrichmentJobConfiguration) -> dict:
-    if "eventDetection" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"EnrichmentJobConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "eventDetection" in value:
         import capo_iotsitewise.types.event_detection
 
         return {
@@ -41,6 +48,11 @@ def deserialize_json(data: dict) -> EnrichmentJobConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "EnrichmentJobConfiguration: no recognized variant key"
         )

@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_doc_db import AsyncDocDBClient as AsyncDocDBClient
 from ._services.doc_db import DocDBClient as DocDBClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

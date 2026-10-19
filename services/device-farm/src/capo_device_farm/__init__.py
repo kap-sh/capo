@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_device_farm import AsyncDeviceFarmClient as AsyncDeviceFarmClient
 from ._services.device_farm import DeviceFarmClient as DeviceFarmClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

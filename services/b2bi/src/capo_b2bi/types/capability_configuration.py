@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_b2bi.errors import DeserializationError, SerializationError
+from capo_b2bi.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_b2bi.types.edi_configuration
@@ -14,12 +15,16 @@ class _CapabilityConfiguration_edi(TypedDict, closed=True):
     edi: "capo_b2bi.types.edi_configuration.EdiConfiguration"
 
 
-CapabilityConfiguration: TypeAlias = _CapabilityConfiguration_edi
+CapabilityConfiguration: TypeAlias = _CapabilityConfiguration_edi | UnknownUnionMember
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: CapabilityConfiguration) -> dict:
-    if "edi" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"CapabilityConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "edi" in value:
         import capo_b2bi.types.edi_configuration
 
         return {
@@ -41,4 +46,9 @@ def deserialize_aws_json_1_0(data: dict) -> CapabilityConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("CapabilityConfiguration: no recognized variant key")

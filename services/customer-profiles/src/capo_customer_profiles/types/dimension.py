@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_customer_profiles.errors import DeserializationError, SerializationError
+from capo_customer_profiles.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_customer_profiles.types.calculated_custom_attributes
@@ -21,12 +22,18 @@ class _Dimension_CalculatedAttributes(TypedDict, closed=True):
     CalculatedAttributes: "capo_customer_profiles.types.calculated_custom_attributes.CalculatedCustomAttributes"
 
 
-Dimension: TypeAlias = _Dimension_ProfileAttributes | _Dimension_CalculatedAttributes
+Dimension: TypeAlias = (
+    _Dimension_ProfileAttributes | _Dimension_CalculatedAttributes | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Dimension) -> dict:
-    if "ProfileAttributes" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Dimension: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "ProfileAttributes" in value:
         import capo_customer_profiles.types.profile_attributes
 
         return {
@@ -64,10 +71,17 @@ def deserialize_json(data: dict) -> Dimension:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Dimension: no recognized variant key")
 
 
-def redact_sensitive(value: Dimension) -> dict[str, Any]:
+def redact_sensitive(value: Dimension) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "ProfileAttributes" in value:
         out["ProfileAttributes"] = "*** Sensitive Data Redacted ***"

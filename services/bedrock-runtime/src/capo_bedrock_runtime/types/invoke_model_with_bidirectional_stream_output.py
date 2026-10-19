@@ -10,6 +10,7 @@ from capo_bedrock_runtime._protocol.eventstream import Message
 from capo_bedrock_runtime.errors import (
     UnknownServiceError,
 )
+from capo_bedrock_runtime.types._unknown import UnknownEvent
 
 if TYPE_CHECKING:
     import capo_bedrock_runtime.errors.internal_server_exception
@@ -77,6 +78,7 @@ _InvokeModelWithBidirectionalStreamOutput: TypeAlias = (
     | _InvokeModelWithBidirectionalStreamOutput_throttlingException
     | _InvokeModelWithBidirectionalStreamOutput_modelTimeoutException
     | _InvokeModelWithBidirectionalStreamOutput_serviceUnavailableException
+    | UnknownEvent
 )
 InvokeModelWithBidirectionalStreamOutput: TypeAlias = AnyIterator[
     _InvokeModelWithBidirectionalStreamOutput
@@ -84,6 +86,10 @@ InvokeModelWithBidirectionalStreamOutput: TypeAlias = AnyIterator[
 
 
 def serialize_event_json(value: _InvokeModelWithBidirectionalStreamOutput) -> bytes:
+    if isinstance(value, UnknownEvent):
+        raise ValueError(
+            f"InvokeModelWithBidirectionalStreamOutput: cannot serialize unknown event {value.event_type!r}"
+        )
     match value:
         case {"chunk": payload}:
             import capo_bedrock_runtime.types.bidirectional_output_payload_part
@@ -220,6 +226,8 @@ def deserialize_event_json(
                     message
                 )
             }
+        case str():
+            return UnknownEvent(event_type, message)
         case _:
             raise ValueError(
                 f"InvokeModelWithBidirectionalStreamOutput: unrecognized event-type {event_type!r}"

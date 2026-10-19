@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_security_ir import AsyncSecurityIRClient as AsyncSecurityIRClient
 from ._services.security_ir import SecurityIRClient as SecurityIRClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_accessanalyzer.errors import DeserializationError, SerializationError
+from capo_accessanalyzer.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.rds_db_cluster_snapshot_account_ids_list
@@ -15,13 +16,17 @@ class _RdsDbClusterSnapshotAttributeValue_accountIds(TypedDict, closed=True):
 
 
 RdsDbClusterSnapshotAttributeValue: TypeAlias = (
-    _RdsDbClusterSnapshotAttributeValue_accountIds
+    _RdsDbClusterSnapshotAttributeValue_accountIds | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RdsDbClusterSnapshotAttributeValue) -> dict:
-    if "accountIds" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RdsDbClusterSnapshotAttributeValue: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "accountIds" in value:
         import capo_accessanalyzer.types.rds_db_cluster_snapshot_account_ids_list
 
         return {
@@ -45,6 +50,11 @@ def deserialize_json(data: dict) -> RdsDbClusterSnapshotAttributeValue:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "RdsDbClusterSnapshotAttributeValue: no recognized variant key"
         )

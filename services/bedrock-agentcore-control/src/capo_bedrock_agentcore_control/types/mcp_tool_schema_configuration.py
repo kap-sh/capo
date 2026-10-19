@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.inline_payload
@@ -23,13 +24,19 @@ class _McpToolSchemaConfiguration_inlinePayload(TypedDict, closed=True):
 
 
 McpToolSchemaConfiguration: TypeAlias = (
-    _McpToolSchemaConfiguration_s3 | _McpToolSchemaConfiguration_inlinePayload
+    _McpToolSchemaConfiguration_s3
+    | _McpToolSchemaConfiguration_inlinePayload
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: McpToolSchemaConfiguration) -> dict:
-    if "s3" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"McpToolSchemaConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "s3" in value:
         import capo_bedrock_agentcore_control.types.s3_configuration
 
         return {
@@ -55,12 +62,21 @@ def deserialize_json(data: dict) -> McpToolSchemaConfiguration:
     elif data.get("inlinePayload") is not None:
         return {"inlinePayload": data["inlinePayload"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "McpToolSchemaConfiguration: no recognized variant key"
         )
 
 
-def redact_sensitive(value: McpToolSchemaConfiguration) -> dict[str, Any]:
+def redact_sensitive(
+    value: McpToolSchemaConfiguration,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "inlinePayload" in value:
         out["inlinePayload"] = "*** Sensitive Data Redacted ***"

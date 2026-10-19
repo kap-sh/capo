@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_support import AsyncSupportClient as AsyncSupportClient
 from ._services.support import SupportClient as SupportClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

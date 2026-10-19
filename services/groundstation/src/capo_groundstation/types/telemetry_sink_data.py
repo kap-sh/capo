@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_groundstation.errors import DeserializationError, SerializationError
+from capo_groundstation.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_groundstation.types.kinesis_data_stream_data
@@ -16,12 +17,18 @@ class _TelemetrySinkData_kinesisDataStreamData(TypedDict, closed=True):
     )
 
 
-TelemetrySinkData: TypeAlias = _TelemetrySinkData_kinesisDataStreamData
+TelemetrySinkData: TypeAlias = (
+    _TelemetrySinkData_kinesisDataStreamData | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: TelemetrySinkData) -> dict:
-    if "kinesisDataStreamData" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"TelemetrySinkData: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "kinesisDataStreamData" in value:
         import capo_groundstation.types.kinesis_data_stream_data
 
         return {
@@ -43,4 +50,9 @@ def deserialize_json(data: dict) -> TelemetrySinkData:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("TelemetrySinkData: no recognized variant key")

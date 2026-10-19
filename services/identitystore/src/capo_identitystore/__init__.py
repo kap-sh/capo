@@ -77,3 +77,9 @@ from ._services.async_identitystore import (
     AsyncidentitystoreClient as AsyncidentitystoreClient,
 )
 from ._services.identitystore import identitystoreClient as identitystoreClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

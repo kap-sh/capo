@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_ssm_incidents.errors import DeserializationError, SerializationError
+from capo_ssm_incidents.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_ssm_incidents.types.add_region_action
@@ -24,12 +25,17 @@ class _UpdateReplicationSetAction_deleteRegionAction(TypedDict, closed=True):
 UpdateReplicationSetAction: TypeAlias = (
     _UpdateReplicationSetAction_addRegionAction
     | _UpdateReplicationSetAction_deleteRegionAction
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: UpdateReplicationSetAction) -> dict:
-    if "addRegionAction" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"UpdateReplicationSetAction: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "addRegionAction" in value:
         import capo_ssm_incidents.types.add_region_action
 
         return {
@@ -67,6 +73,11 @@ def deserialize_json(data: dict) -> UpdateReplicationSetAction:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "UpdateReplicationSetAction: no recognized variant key"
         )

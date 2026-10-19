@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_migrationhubstrategy.errors import DeserializationError, SerializationError
+from capo_migrationhubstrategy.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_migrationhubstrategy.types.aws_managed_resources
@@ -32,12 +33,17 @@ ManagementPreference: TypeAlias = (
     _ManagementPreference_awsManagedResources
     | _ManagementPreference_selfManageResources
     | _ManagementPreference_noPreference
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ManagementPreference) -> dict:
-    if "awsManagedResources" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ManagementPreference: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "awsManagedResources" in value:
         import capo_migrationhubstrategy.types.aws_managed_resources
 
         return {
@@ -91,4 +97,9 @@ def deserialize_json(data: dict) -> ManagementPreference:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ManagementPreference: no recognized variant key")

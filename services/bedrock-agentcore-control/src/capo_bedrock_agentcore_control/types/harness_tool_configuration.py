@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.harness_agent_core_browser_config
@@ -43,12 +44,17 @@ HarnessToolConfiguration: TypeAlias = (
     | _HarnessToolConfiguration_agentCoreGateway
     | _HarnessToolConfiguration_inlineFunction
     | _HarnessToolConfiguration_agentCoreCodeInterpreter
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: HarnessToolConfiguration) -> dict:
-    if "remoteMcp" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"HarnessToolConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "remoteMcp" in value:
         import capo_bedrock_agentcore_control.types.harness_remote_mcp_config
 
         return {
@@ -134,12 +140,21 @@ def deserialize_json(data: dict) -> HarnessToolConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "HarnessToolConfiguration: no recognized variant key"
         )
 
 
-def redact_sensitive(value: HarnessToolConfiguration) -> dict[str, Any]:
+def redact_sensitive(
+    value: HarnessToolConfiguration,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "remoteMcp" in value:
         import capo_bedrock_agentcore_control.types.harness_remote_mcp_config

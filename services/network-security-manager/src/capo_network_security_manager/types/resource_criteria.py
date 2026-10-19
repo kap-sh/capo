@@ -8,6 +8,7 @@ from capo_network_security_manager.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_network_security_manager.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_network_security_manager.types.alb_configuration
@@ -22,12 +23,18 @@ class _ResourceCriteria_albConfig(TypedDict, closed=True):
     albConfig: "capo_network_security_manager.types.alb_configuration.AlbConfiguration"
 
 
-ResourceCriteria: TypeAlias = _ResourceCriteria_tags | _ResourceCriteria_albConfig
+ResourceCriteria: TypeAlias = (
+    _ResourceCriteria_tags | _ResourceCriteria_albConfig | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ResourceCriteria) -> dict:
-    if "tags" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ResourceCriteria: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "tags" in value:
         import capo_network_security_manager.types.string_map
 
         return {
@@ -65,4 +72,9 @@ def deserialize_json(data: dict) -> ResourceCriteria:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ResourceCriteria: no recognized variant key")

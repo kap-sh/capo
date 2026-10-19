@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_xray.errors import DeserializationError, SerializationError
+from capo_xray.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_xray.types.nullable_boolean
@@ -28,12 +29,17 @@ AnnotationValue: TypeAlias = (
     _AnnotationValue_NumberValue
     | _AnnotationValue_BooleanValue
     | _AnnotationValue_StringValue
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AnnotationValue) -> dict:
-    if "NumberValue" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AnnotationValue: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "NumberValue" in value:
         return {
             "NumberValue": (
                 "NaN"
@@ -61,4 +67,9 @@ def deserialize_json(data: dict) -> AnnotationValue:
     elif data.get("StringValue") is not None:
         return {"StringValue": data["StringValue"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("AnnotationValue: no recognized variant key")

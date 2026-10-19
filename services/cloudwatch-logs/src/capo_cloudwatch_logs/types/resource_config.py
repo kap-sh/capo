@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_cloudwatch_logs.errors import DeserializationError, SerializationError
+from capo_cloudwatch_logs.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.open_search_resource_config
@@ -14,12 +15,18 @@ class _ResourceConfig_openSearchResourceConfig(TypedDict, closed=True):
     openSearchResourceConfig: "capo_cloudwatch_logs.types.open_search_resource_config.OpenSearchResourceConfig"
 
 
-ResourceConfig: TypeAlias = _ResourceConfig_openSearchResourceConfig
+ResourceConfig: TypeAlias = (
+    _ResourceConfig_openSearchResourceConfig | UnknownUnionMember
+)
 
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: ResourceConfig) -> dict:
-    if "openSearchResourceConfig" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ResourceConfig: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "openSearchResourceConfig" in value:
         import capo_cloudwatch_logs.types.open_search_resource_config
 
         return {
@@ -41,4 +48,9 @@ def deserialize_aws_json_1_1(data: dict) -> ResourceConfig:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ResourceConfig: no recognized variant key")

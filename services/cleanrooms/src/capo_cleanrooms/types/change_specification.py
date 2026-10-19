@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_cleanrooms.errors import DeserializationError, SerializationError
+from capo_cleanrooms.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_cleanrooms.types.collaboration_change_specification
@@ -22,13 +23,19 @@ class _ChangeSpecification_collaboration(TypedDict, closed=True):
 
 
 ChangeSpecification: TypeAlias = (
-    _ChangeSpecification_member | _ChangeSpecification_collaboration
+    _ChangeSpecification_member
+    | _ChangeSpecification_collaboration
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ChangeSpecification) -> dict:
-    if "member" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ChangeSpecification: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "member" in value:
         import capo_cleanrooms.types.member_change_specification
 
         return {
@@ -66,4 +73,9 @@ def deserialize_json(data: dict) -> ChangeSpecification:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ChangeSpecification: no recognized variant key")

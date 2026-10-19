@@ -77,3 +77,9 @@ from ._services.async_event_bridge_v2 import (
     AsyncEventBridgeV2Client as AsyncEventBridgeV2Client,
 )
 from ._services.event_bridge_v2 import EventBridgeV2Client as EventBridgeV2Client
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

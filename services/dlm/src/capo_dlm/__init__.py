@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_dlm import AsyncDLMClient as AsyncDLMClient
 from ._services.dlm import DLMClient as DLMClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

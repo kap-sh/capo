@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_polly import AsyncPollyClient as AsyncPollyClient
 from ._services.polly import PollyClient as PollyClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

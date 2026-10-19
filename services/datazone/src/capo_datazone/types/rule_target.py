@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_datazone.errors import DeserializationError, SerializationError
+from capo_datazone.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_datazone.types.domain_unit_target
@@ -14,12 +15,16 @@ class _RuleTarget_domainUnitTarget(TypedDict, closed=True):
     domainUnitTarget: "capo_datazone.types.domain_unit_target.DomainUnitTarget"
 
 
-RuleTarget: TypeAlias = _RuleTarget_domainUnitTarget
+RuleTarget: TypeAlias = _RuleTarget_domainUnitTarget | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RuleTarget) -> dict:
-    if "domainUnitTarget" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RuleTarget: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "domainUnitTarget" in value:
         import capo_datazone.types.domain_unit_target
 
         return {
@@ -41,4 +46,9 @@ def deserialize_json(data: dict) -> RuleTarget:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("RuleTarget: no recognized variant key")

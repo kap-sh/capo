@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_pricing import AsyncPricingClient as AsyncPricingClient
 from ._services.pricing import PricingClient as PricingClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

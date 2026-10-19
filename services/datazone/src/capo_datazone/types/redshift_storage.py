@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_datazone.errors import DeserializationError, SerializationError
+from capo_datazone.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_datazone.types.redshift_cluster_storage
@@ -24,13 +25,19 @@ class _RedshiftStorage_redshiftServerlessSource(TypedDict, closed=True):
 
 
 RedshiftStorage: TypeAlias = (
-    _RedshiftStorage_redshiftClusterSource | _RedshiftStorage_redshiftServerlessSource
+    _RedshiftStorage_redshiftClusterSource
+    | _RedshiftStorage_redshiftServerlessSource
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RedshiftStorage) -> dict:
-    if "redshiftClusterSource" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RedshiftStorage: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "redshiftClusterSource" in value:
         import capo_datazone.types.redshift_cluster_storage
 
         return {
@@ -68,4 +75,9 @@ def deserialize_json(data: dict) -> RedshiftStorage:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("RedshiftStorage: no recognized variant key")

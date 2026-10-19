@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock.errors import DeserializationError, SerializationError
+from capo_bedrock.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_build_log
@@ -64,12 +65,17 @@ AutomatedReasoningPolicyBuildResultAssets: TypeAlias = (
     | _AutomatedReasoningPolicyBuildResultAssets_assetManifest
     | _AutomatedReasoningPolicyBuildResultAssets_document
     | _AutomatedReasoningPolicyBuildResultAssets_fidelityReport
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AutomatedReasoningPolicyBuildResultAssets) -> dict:
-    if "policyDefinition" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AutomatedReasoningPolicyBuildResultAssets: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "policyDefinition" in value:
         import capo_bedrock.types.automated_reasoning_policy_definition
 
         return {
@@ -205,6 +211,11 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyBuildResultAssets:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "AutomatedReasoningPolicyBuildResultAssets: no recognized variant key"
         )
@@ -212,7 +223,9 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyBuildResultAssets:
 
 def redact_sensitive(
     value: AutomatedReasoningPolicyBuildResultAssets,
-) -> dict[str, Any]:
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "policyDefinition" in value:
         import capo_bedrock.types.automated_reasoning_policy_definition

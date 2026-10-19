@@ -79,3 +79,9 @@ from ._services.async_kinesis_analytics_v2 import (
 from ._services.kinesis_analytics_v2 import (
     KinesisAnalyticsV2Client as KinesisAnalyticsV2Client,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

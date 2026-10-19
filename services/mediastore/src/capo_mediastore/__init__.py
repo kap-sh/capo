@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_media_store import AsyncMediaStoreClient as AsyncMediaStoreClient
 from ._services.media_store import MediaStoreClient as MediaStoreClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -79,3 +79,9 @@ from ._services.async_route53_recovery_readiness import (
 from ._services.route53_recovery_readiness import (
     Route53RecoveryReadinessClient as Route53RecoveryReadinessClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -8,6 +8,7 @@ from capo_payment_cryptography_data.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_payment_cryptography_data.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.mac_algorithm
@@ -47,12 +48,17 @@ MacAttributes: TypeAlias = (
     | _MacAttributes_DukptIso9797Algorithm1
     | _MacAttributes_DukptIso9797Algorithm3
     | _MacAttributes_DukptCmac
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MacAttributes) -> dict:
-    if "Algorithm" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"MacAttributes: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "Algorithm" in value:
         import capo_payment_cryptography_data.types.mac_algorithm
 
         return {
@@ -138,10 +144,17 @@ def deserialize_json(data: dict) -> MacAttributes:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("MacAttributes: no recognized variant key")
 
 
-def redact_sensitive(value: MacAttributes) -> dict[str, Any]:
+def redact_sensitive(value: MacAttributes) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "EmvMac" in value:
         import capo_payment_cryptography_data.types.mac_algorithm_emv

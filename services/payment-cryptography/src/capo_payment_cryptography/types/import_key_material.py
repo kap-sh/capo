@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_payment_cryptography.errors import DeserializationError, SerializationError
+from capo_payment_cryptography.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_payment_cryptography.types.import_as2805_key_cryptogram
@@ -58,12 +59,17 @@ ImportKeyMaterial: TypeAlias = (
     | _ImportKeyMaterial_KeyCryptogram
     | _ImportKeyMaterial_DiffieHellmanTr31KeyBlock
     | _ImportKeyMaterial_As2805KeyCryptogram
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: ImportKeyMaterial) -> dict:
-    if "RootCertificatePublicKey" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ImportKeyMaterial: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "RootCertificatePublicKey" in value:
         import capo_payment_cryptography.types.root_certificate_public_key
 
         return {
@@ -181,10 +187,17 @@ def deserialize_aws_json_1_0(data: dict) -> ImportKeyMaterial:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ImportKeyMaterial: no recognized variant key")
 
 
-def redact_sensitive(value: ImportKeyMaterial) -> dict[str, Any]:
+def redact_sensitive(value: ImportKeyMaterial) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "Tr31KeyBlock" in value:
         import capo_payment_cryptography.types.import_tr31_key_block

@@ -6,6 +6,7 @@ from typing_extensions import TypedDict
 
 from capo_redshift._protocol.xml import Element
 from capo_redshift.errors import DeserializationError, SerializationError
+from capo_redshift.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_redshift.types.read_write_access
@@ -15,14 +16,20 @@ class _S3AccessGrantsScopeUnion_ReadWriteAccess(TypedDict, closed=True):
     ReadWriteAccess: "capo_redshift.types.read_write_access.ReadWriteAccess"
 
 
-S3AccessGrantsScopeUnion: TypeAlias = _S3AccessGrantsScopeUnion_ReadWriteAccess
+S3AccessGrantsScopeUnion: TypeAlias = (
+    _S3AccessGrantsScopeUnion_ReadWriteAccess | UnknownUnionMember
+)
 
 
 # --- awsQuery ser/de ---
 def serialize_query(
     value: S3AccessGrantsScopeUnion, pairs: list[tuple[str, str]], prefix: str
 ) -> None:
-    if "ReadWriteAccess" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"S3AccessGrantsScopeUnion: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "ReadWriteAccess" in value:
         import capo_redshift.types.read_write_access
 
         capo_redshift.types.read_write_access.serialize_query(
@@ -42,6 +49,8 @@ def deserialize_query(el: Element) -> S3AccessGrantsScopeUnion:
                     child
                 )
             }
+        else:
+            return UnknownUnionMember(child.tag)
     raise DeserializationError(
         "S3AccessGrantsScopeUnion: no recognized variant element"
     )

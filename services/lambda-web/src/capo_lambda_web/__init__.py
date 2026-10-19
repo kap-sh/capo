@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_lambda_web import AsyncLambdaWebClient as AsyncLambdaWebClient
 from ._services.lambda_web import LambdaWebClient as LambdaWebClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

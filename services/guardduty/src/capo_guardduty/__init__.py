@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_guard_duty import AsyncGuardDutyClient as AsyncGuardDutyClient
 from ._services.guard_duty import GuardDutyClient as GuardDutyClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

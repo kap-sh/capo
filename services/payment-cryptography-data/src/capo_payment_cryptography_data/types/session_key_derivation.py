@@ -8,6 +8,7 @@ from capo_payment_cryptography_data.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_payment_cryptography_data.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.session_key_amex
@@ -53,12 +54,17 @@ SessionKeyDerivation: TypeAlias = (
     | _SessionKeyDerivation_Amex
     | _SessionKeyDerivation_Visa
     | _SessionKeyDerivation_UnionPay
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SessionKeyDerivation) -> dict:
-    if "EmvCommon" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"SessionKeyDerivation: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "EmvCommon" in value:
         import capo_payment_cryptography_data.types.session_key_emv_common
 
         return {
@@ -160,10 +166,19 @@ def deserialize_json(data: dict) -> SessionKeyDerivation:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("SessionKeyDerivation: no recognized variant key")
 
 
-def redact_sensitive(value: SessionKeyDerivation) -> dict[str, Any]:
+def redact_sensitive(
+    value: SessionKeyDerivation,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "EmvCommon" in value:
         import capo_payment_cryptography_data.types.session_key_emv_common

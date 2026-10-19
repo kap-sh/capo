@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_transfer.errors import DeserializationError, SerializationError
+from capo_transfer.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_transfer.types.update_connector_vpc_lattice_egress_config
@@ -14,12 +15,18 @@ class _UpdateConnectorEgressConfig_VpcLattice(TypedDict, closed=True):
     VpcLattice: "capo_transfer.types.update_connector_vpc_lattice_egress_config.UpdateConnectorVpcLatticeEgressConfig"
 
 
-UpdateConnectorEgressConfig: TypeAlias = _UpdateConnectorEgressConfig_VpcLattice
+UpdateConnectorEgressConfig: TypeAlias = (
+    _UpdateConnectorEgressConfig_VpcLattice | UnknownUnionMember
+)
 
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: UpdateConnectorEgressConfig) -> dict:
-    if "VpcLattice" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"UpdateConnectorEgressConfig: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "VpcLattice" in value:
         import capo_transfer.types.update_connector_vpc_lattice_egress_config
 
         return {
@@ -41,6 +48,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateConnectorEgressConfig:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "UpdateConnectorEgressConfig: no recognized variant key"
         )

@@ -77,3 +77,9 @@ from ._services.async_forecastquery import (
     AsyncforecastqueryClient as AsyncforecastqueryClient,
 )
 from ._services.forecastquery import forecastqueryClient as forecastqueryClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

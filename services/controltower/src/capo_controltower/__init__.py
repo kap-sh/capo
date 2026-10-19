@@ -77,3 +77,9 @@ from ._services.async_control_tower import (
     AsyncControlTowerClient as AsyncControlTowerClient,
 )
 from ._services.control_tower import ControlTowerClient as ControlTowerClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

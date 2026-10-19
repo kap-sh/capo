@@ -8,6 +8,7 @@ from capo_payment_cryptography_data.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_payment_cryptography_data.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.cryptogram_verification_arpc_method1
@@ -23,13 +24,19 @@ class _CryptogramAuthResponse_ArpcMethod2(TypedDict, closed=True):
 
 
 CryptogramAuthResponse: TypeAlias = (
-    _CryptogramAuthResponse_ArpcMethod1 | _CryptogramAuthResponse_ArpcMethod2
+    _CryptogramAuthResponse_ArpcMethod1
+    | _CryptogramAuthResponse_ArpcMethod2
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CryptogramAuthResponse) -> dict:
-    if "ArpcMethod1" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"CryptogramAuthResponse: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "ArpcMethod1" in value:
         import capo_payment_cryptography_data.types.cryptogram_verification_arpc_method1
 
         return {
@@ -67,10 +74,19 @@ def deserialize_json(data: dict) -> CryptogramAuthResponse:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("CryptogramAuthResponse: no recognized variant key")
 
 
-def redact_sensitive(value: CryptogramAuthResponse) -> dict[str, Any]:
+def redact_sensitive(
+    value: CryptogramAuthResponse,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "ArpcMethod2" in value:
         import capo_payment_cryptography_data.types.cryptogram_verification_arpc_method2

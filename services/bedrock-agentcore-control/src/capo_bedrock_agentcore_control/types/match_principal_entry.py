@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.iam_principal
@@ -17,12 +18,16 @@ class _MatchPrincipalEntry_iamPrincipal(TypedDict, closed=True):
     iamPrincipal: "capo_bedrock_agentcore_control.types.iam_principal.IamPrincipal"
 
 
-MatchPrincipalEntry: TypeAlias = _MatchPrincipalEntry_iamPrincipal
+MatchPrincipalEntry: TypeAlias = _MatchPrincipalEntry_iamPrincipal | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MatchPrincipalEntry) -> dict:
-    if "iamPrincipal" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"MatchPrincipalEntry: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "iamPrincipal" in value:
         import capo_bedrock_agentcore_control.types.iam_principal
 
         return {
@@ -44,4 +49,9 @@ def deserialize_json(data: dict) -> MatchPrincipalEntry:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("MatchPrincipalEntry: no recognized variant key")

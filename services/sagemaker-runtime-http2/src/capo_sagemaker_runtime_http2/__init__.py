@@ -79,3 +79,9 @@ from ._services.async_sage_maker_runtime_http2 import (
 from ._services.sage_maker_runtime_http2 import (
     SageMakerRuntimeHTTP2Client as SageMakerRuntimeHTTP2Client,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

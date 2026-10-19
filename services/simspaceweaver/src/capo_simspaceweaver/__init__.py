@@ -77,3 +77,9 @@ from ._services.async_sim_space_weaver import (
     AsyncSimSpaceWeaverClient as AsyncSimSpaceWeaverClient,
 )
 from ._services.sim_space_weaver import SimSpaceWeaverClient as SimSpaceWeaverClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

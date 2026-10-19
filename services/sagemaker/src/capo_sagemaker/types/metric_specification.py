@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_sagemaker.errors import DeserializationError, SerializationError
+from capo_sagemaker.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_sagemaker.types.customized_metric_specification
@@ -20,13 +21,19 @@ class _MetricSpecification_Customized(TypedDict, closed=True):
 
 
 MetricSpecification: TypeAlias = (
-    _MetricSpecification_Predefined | _MetricSpecification_Customized
+    _MetricSpecification_Predefined
+    | _MetricSpecification_Customized
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: MetricSpecification) -> dict:
-    if "Predefined" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"MetricSpecification: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "Predefined" in value:
         import capo_sagemaker.types.predefined_metric_specification
 
         return {
@@ -64,4 +71,9 @@ def deserialize_aws_json_1_1(data: dict) -> MetricSpecification:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("MetricSpecification: no recognized variant key")

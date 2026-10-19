@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_io_t_events import AsyncIoTEventsClient as AsyncIoTEventsClient
 from ._services.io_t_events import IoTEventsClient as IoTEventsClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

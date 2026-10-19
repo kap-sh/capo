@@ -79,3 +79,9 @@ from ._services.async_migration_hub_orchestrator import (
 from ._services.migration_hub_orchestrator import (
     MigrationHubOrchestratorClient as MigrationHubOrchestratorClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

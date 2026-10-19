@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agentcore.errors import DeserializationError, SerializationError
+from capo_bedrock_agentcore.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.record_expiry_action
@@ -22,12 +23,17 @@ class _RecordExpirySpecification_action(TypedDict, closed=True):
 RecordExpirySpecification: TypeAlias = (
     _RecordExpirySpecification_recordExpiryDurationDays
     | _RecordExpirySpecification_action
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RecordExpirySpecification) -> dict:
-    if "recordExpiryDurationDays" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RecordExpirySpecification: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "recordExpiryDurationDays" in value:
         return {"recordExpiryDurationDays": value["recordExpiryDurationDays"]}
     elif "action" in value:
         import capo_bedrock_agentcore.types.record_expiry_action
@@ -53,6 +59,11 @@ def deserialize_json(data: dict) -> RecordExpirySpecification:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "RecordExpirySpecification: no recognized variant key"
         )

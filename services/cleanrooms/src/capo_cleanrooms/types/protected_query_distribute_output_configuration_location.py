@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_cleanrooms.errors import DeserializationError, SerializationError
+from capo_cleanrooms.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_cleanrooms.types.protected_query_member_output_configuration
@@ -24,12 +25,17 @@ class _ProtectedQueryDistributeOutputConfigurationLocation_member(
 ProtectedQueryDistributeOutputConfigurationLocation: TypeAlias = (
     _ProtectedQueryDistributeOutputConfigurationLocation_s3
     | _ProtectedQueryDistributeOutputConfigurationLocation_member
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ProtectedQueryDistributeOutputConfigurationLocation) -> dict:
-    if "s3" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ProtectedQueryDistributeOutputConfigurationLocation: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "s3" in value:
         import capo_cleanrooms.types.protected_query_s3_output_configuration
 
         return {
@@ -69,6 +75,11 @@ def deserialize_json(data: dict) -> ProtectedQueryDistributeOutputConfigurationL
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "ProtectedQueryDistributeOutputConfigurationLocation: no recognized variant key"
         )

@@ -79,3 +79,9 @@ from ._services.async_workspaces_instances import (
 from ._services.workspaces_instances import (
     WorkspacesInstancesClient as WorkspacesInstancesClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

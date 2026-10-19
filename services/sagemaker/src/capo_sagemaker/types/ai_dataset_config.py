@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_sagemaker.errors import DeserializationError, SerializationError
+from capo_sagemaker.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_sagemaker.types.ai_workload_input_data_config_list
@@ -14,12 +15,16 @@ class _AIDatasetConfig_InputDataConfig(TypedDict, closed=True):
     InputDataConfig: "capo_sagemaker.types.ai_workload_input_data_config_list.AIWorkloadInputDataConfigList"
 
 
-AIDatasetConfig: TypeAlias = _AIDatasetConfig_InputDataConfig
+AIDatasetConfig: TypeAlias = _AIDatasetConfig_InputDataConfig | UnknownUnionMember
 
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: AIDatasetConfig) -> dict:
-    if "InputDataConfig" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AIDatasetConfig: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "InputDataConfig" in value:
         import capo_sagemaker.types.ai_workload_input_data_config_list
 
         return {
@@ -41,4 +46,9 @@ def deserialize_aws_json_1_1(data: dict) -> AIDatasetConfig:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("AIDatasetConfig: no recognized variant key")

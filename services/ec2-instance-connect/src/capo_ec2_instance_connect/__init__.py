@@ -79,3 +79,9 @@ from ._services.async_ec2_instance_connect import (
 from ._services.ec2_instance_connect import (
     EC2InstanceConnectClient as EC2InstanceConnectClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

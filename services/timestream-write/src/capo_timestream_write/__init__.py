@@ -77,3 +77,9 @@ from ._services.async_timestream_write import (
     AsyncTimestreamWriteClient as AsyncTimestreamWriteClient,
 )
 from ._services.timestream_write import TimestreamWriteClient as TimestreamWriteClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

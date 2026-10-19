@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_rtbfabric.errors import DeserializationError, SerializationError
+from capo_rtbfabric.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_rtbfabric.types.header_tag_action
@@ -19,12 +20,16 @@ class _Action_headerTag(TypedDict, closed=True):
     headerTag: "capo_rtbfabric.types.header_tag_action.HeaderTagAction"
 
 
-Action: TypeAlias = _Action_noBid | _Action_headerTag
+Action: TypeAlias = _Action_noBid | _Action_headerTag | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Action) -> dict:
-    if "noBid" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Action: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "noBid" in value:
         import capo_rtbfabric.types.no_bid_action
 
         return {
@@ -58,4 +63,9 @@ def deserialize_json(data: dict) -> Action:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Action: no recognized variant key")

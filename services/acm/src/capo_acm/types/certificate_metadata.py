@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_acm.errors import DeserializationError, SerializationError
+from capo_acm.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_acm.types.acm_certificate_metadata
@@ -16,12 +17,18 @@ class _CertificateMetadata_AcmCertificateMetadata(TypedDict, closed=True):
     )
 
 
-CertificateMetadata: TypeAlias = _CertificateMetadata_AcmCertificateMetadata
+CertificateMetadata: TypeAlias = (
+    _CertificateMetadata_AcmCertificateMetadata | UnknownUnionMember
+)
 
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: CertificateMetadata) -> dict:
-    if "AcmCertificateMetadata" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"CertificateMetadata: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "AcmCertificateMetadata" in value:
         import capo_acm.types.acm_certificate_metadata
 
         return {
@@ -43,4 +50,9 @@ def deserialize_aws_json_1_1(data: dict) -> CertificateMetadata:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("CertificateMetadata: no recognized variant key")

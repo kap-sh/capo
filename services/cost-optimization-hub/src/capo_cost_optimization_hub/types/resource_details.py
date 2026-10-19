@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_cost_optimization_hub.errors import DeserializationError, SerializationError
+from capo_cost_optimization_hub.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_cost_optimization_hub.types.aurora_db_cluster_storage
@@ -178,12 +179,17 @@ ResourceDetails: TypeAlias = (
     | _ResourceDetails_documentDbCluster
     | _ResourceDetails_workSpaces
     | _ResourceDetails_sageMakerEndpoint
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: ResourceDetails) -> dict:
-    if "lambdaFunction" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ResourceDetails: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "lambdaFunction" in value:
         import capo_cost_optimization_hub.types.lambda_function
 
         return {
@@ -589,4 +595,9 @@ def deserialize_aws_json_1_0(data: dict) -> ResourceDetails:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ResourceDetails: no recognized variant key")

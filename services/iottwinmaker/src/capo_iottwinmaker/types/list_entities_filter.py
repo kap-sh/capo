@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_iottwinmaker.errors import DeserializationError, SerializationError
+from capo_iottwinmaker.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.component_type_id
@@ -28,12 +29,17 @@ ListEntitiesFilter: TypeAlias = (
     _ListEntitiesFilter_parentEntityId
     | _ListEntitiesFilter_componentTypeId
     | _ListEntitiesFilter_externalId
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ListEntitiesFilter) -> dict:
-    if "parentEntityId" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ListEntitiesFilter: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "parentEntityId" in value:
         return {"parentEntityId": value["parentEntityId"]}
     elif "componentTypeId" in value:
         return {"componentTypeId": value["componentTypeId"]}
@@ -51,4 +57,9 @@ def deserialize_json(data: dict) -> ListEntitiesFilter:
     elif data.get("externalId") is not None:
         return {"externalId": data["externalId"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ListEntitiesFilter: no recognized variant key")

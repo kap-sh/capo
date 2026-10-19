@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_mediaconnect.errors import DeserializationError, SerializationError
+from capo_mediaconnect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_mediaconnect.types.failover_router_input_stream_details
@@ -40,12 +41,17 @@ RouterInputStreamDetails: TypeAlias = (
     | _RouterInputStreamDetails_Failover
     | _RouterInputStreamDetails_MediaConnectFlow
     | _RouterInputStreamDetails_Merge
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RouterInputStreamDetails) -> dict:
-    if "Standard" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RouterInputStreamDetails: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "Standard" in value:
         import capo_mediaconnect.types.standard_router_input_stream_details
 
         return {
@@ -131,6 +137,11 @@ def deserialize_json(data: dict) -> RouterInputStreamDetails:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "RouterInputStreamDetails: no recognized variant key"
         )

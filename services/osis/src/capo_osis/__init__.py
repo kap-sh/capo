@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_osis import AsyncOSISClient as AsyncOSISClient
 from ._services.osis import OSISClient as OSISClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_media_live import AsyncMediaLiveClient as AsyncMediaLiveClient
 from ._services.media_live import MediaLiveClient as MediaLiveClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

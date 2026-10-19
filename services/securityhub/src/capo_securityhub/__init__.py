@@ -77,3 +77,9 @@ from ._services.async_security_hub import (
     AsyncSecurityHubClient as AsyncSecurityHubClient,
 )
 from ._services.security_hub import SecurityHubClient as SecurityHubClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

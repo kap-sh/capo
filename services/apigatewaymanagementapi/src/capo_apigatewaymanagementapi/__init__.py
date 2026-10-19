@@ -79,3 +79,9 @@ from ._services.api_gateway_management_api import (
 from ._services.async_api_gateway_management_api import (
     AsyncApiGatewayManagementApiClient as AsyncApiGatewayManagementApiClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

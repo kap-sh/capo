@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_qconnect.errors import DeserializationError, SerializationError
+from capo_qconnect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_qconnect.types.text_full_ai_prompt_edit_template_configuration
@@ -18,12 +19,17 @@ class _AIPromptTemplateConfiguration_textFullAIPromptEditTemplateConfiguration(
 
 AIPromptTemplateConfiguration: TypeAlias = (
     _AIPromptTemplateConfiguration_textFullAIPromptEditTemplateConfiguration
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AIPromptTemplateConfiguration) -> dict:
-    if "textFullAIPromptEditTemplateConfiguration" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AIPromptTemplateConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "textFullAIPromptEditTemplateConfiguration" in value:
         import capo_qconnect.types.text_full_ai_prompt_edit_template_configuration
 
         return {
@@ -45,12 +51,21 @@ def deserialize_json(data: dict) -> AIPromptTemplateConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "AIPromptTemplateConfiguration: no recognized variant key"
         )
 
 
-def redact_sensitive(value: AIPromptTemplateConfiguration) -> dict[str, Any]:
+def redact_sensitive(
+    value: AIPromptTemplateConfiguration,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "textFullAIPromptEditTemplateConfiguration" in value:
         import capo_qconnect.types.text_full_ai_prompt_edit_template_configuration

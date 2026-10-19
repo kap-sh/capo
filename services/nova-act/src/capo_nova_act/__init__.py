@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_nova_act import AsyncNovaActClient as AsyncNovaActClient
 from ._services.nova_act import NovaActClient as NovaActClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

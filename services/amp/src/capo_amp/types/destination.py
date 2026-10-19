@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_amp.errors import DeserializationError, SerializationError
+from capo_amp.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_amp.types.amp_configuration
@@ -22,13 +23,19 @@ class _Destination_cloudWatchConfiguration(TypedDict, closed=True):
 
 
 Destination: TypeAlias = (
-    _Destination_ampConfiguration | _Destination_cloudWatchConfiguration
+    _Destination_ampConfiguration
+    | _Destination_cloudWatchConfiguration
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Destination) -> dict:
-    if "ampConfiguration" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Destination: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "ampConfiguration" in value:
         import capo_amp.types.amp_configuration
 
         return {
@@ -66,4 +73,9 @@ def deserialize_json(data: dict) -> Destination:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Destination: no recognized variant key")

@@ -77,3 +77,9 @@ from ._services.async_cloud_formation import (
     AsyncCloudFormationClient as AsyncCloudFormationClient,
 )
 from ._services.cloud_formation import CloudFormationClient as CloudFormationClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_geo_routes import AsyncGeoRoutesClient as AsyncGeoRoutesClient
 from ._services.geo_routes import GeoRoutesClient as GeoRoutesClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

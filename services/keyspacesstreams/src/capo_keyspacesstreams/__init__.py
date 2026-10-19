@@ -79,3 +79,9 @@ from ._services.async_keyspaces_streams import (
 from ._services.keyspaces_streams import (
     KeyspacesStreamsClient as KeyspacesStreamsClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

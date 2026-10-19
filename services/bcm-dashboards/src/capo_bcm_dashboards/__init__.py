@@ -77,3 +77,9 @@ from ._services.async_bcm_dashboards import (
     AsyncBCMDashboardsClient as AsyncBCMDashboardsClient,
 )
 from ._services.bcm_dashboards import BCMDashboardsClient as BCMDashboardsClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

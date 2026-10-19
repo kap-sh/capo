@@ -79,3 +79,9 @@ from ._services.async_io_t_jobs_data_plane import (
 from ._services.io_t_jobs_data_plane import (
     IoTJobsDataPlaneClient as IoTJobsDataPlaneClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

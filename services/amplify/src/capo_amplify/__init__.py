@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.amplify import AmplifyClient as AmplifyClient
 from ._services.async_amplify import AsyncAmplifyClient as AsyncAmplifyClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

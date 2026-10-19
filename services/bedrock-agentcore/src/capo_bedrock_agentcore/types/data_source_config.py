@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agentcore.errors import DeserializationError, SerializationError
+from capo_bedrock_agentcore.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.cloud_watch_logs_source
@@ -22,13 +23,19 @@ class _DataSourceConfig_onlineEvaluationConfigSource(TypedDict, closed=True):
 
 
 DataSourceConfig: TypeAlias = (
-    _DataSourceConfig_cloudWatchLogs | _DataSourceConfig_onlineEvaluationConfigSource
+    _DataSourceConfig_cloudWatchLogs
+    | _DataSourceConfig_onlineEvaluationConfigSource
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DataSourceConfig) -> dict:
-    if "cloudWatchLogs" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"DataSourceConfig: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "cloudWatchLogs" in value:
         import capo_bedrock_agentcore.types.cloud_watch_logs_source
 
         return {
@@ -66,4 +73,9 @@ def deserialize_json(data: dict) -> DataSourceConfig:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("DataSourceConfig: no recognized variant key")

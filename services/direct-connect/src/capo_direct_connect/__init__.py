@@ -77,3 +77,9 @@ from ._services.async_direct_connect import (
     AsyncDirectConnectClient as AsyncDirectConnectClient,
 )
 from ._services.direct_connect import DirectConnectClient as DirectConnectClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

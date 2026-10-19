@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agent.errors import DeserializationError, SerializationError
+from capo_bedrock_agent.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.agent_flow_node_configuration
@@ -106,12 +107,17 @@ FlowNodeConfiguration: TypeAlias = (
     | _FlowNodeConfiguration_loop
     | _FlowNodeConfiguration_loopInput
     | _FlowNodeConfiguration_loopController
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: FlowNodeConfiguration) -> dict:
-    if "input" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"FlowNodeConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "input" in value:
         import capo_bedrock_agent.types.input_flow_node_configuration
 
         return {
@@ -373,10 +379,19 @@ def deserialize_json(data: dict) -> FlowNodeConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("FlowNodeConfiguration: no recognized variant key")
 
 
-def redact_sensitive(value: FlowNodeConfiguration) -> dict[str, Any]:
+def redact_sensitive(
+    value: FlowNodeConfiguration,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "knowledgeBase" in value:
         import capo_bedrock_agent.types.knowledge_base_flow_node_configuration

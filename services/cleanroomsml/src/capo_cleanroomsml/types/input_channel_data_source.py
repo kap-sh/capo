@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_cleanroomsml.errors import DeserializationError, SerializationError
+from capo_cleanroomsml.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.protected_query_input_parameters
@@ -15,13 +16,17 @@ class _InputChannelDataSource_protectedQueryInputParameters(TypedDict, closed=Tr
 
 
 InputChannelDataSource: TypeAlias = (
-    _InputChannelDataSource_protectedQueryInputParameters
+    _InputChannelDataSource_protectedQueryInputParameters | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: InputChannelDataSource) -> dict:
-    if "protectedQueryInputParameters" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"InputChannelDataSource: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "protectedQueryInputParameters" in value:
         import capo_cleanroomsml.types.protected_query_input_parameters
 
         return {
@@ -43,10 +48,19 @@ def deserialize_json(data: dict) -> InputChannelDataSource:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("InputChannelDataSource: no recognized variant key")
 
 
-def redact_sensitive(value: InputChannelDataSource) -> dict[str, Any]:
+def redact_sensitive(
+    value: InputChannelDataSource,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "protectedQueryInputParameters" in value:
         import capo_cleanroomsml.types.protected_query_input_parameters

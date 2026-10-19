@@ -77,3 +77,9 @@ from ._services.async_machine_learning import (
     AsyncMachineLearningClient as AsyncMachineLearningClient,
 )
 from ._services.machine_learning import MachineLearningClient as MachineLearningClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

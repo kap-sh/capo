@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.acmpca import ACMPCAClient as ACMPCAClient
 from ._services.async_acmpca import AsyncACMPCAClient as AsyncACMPCAClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

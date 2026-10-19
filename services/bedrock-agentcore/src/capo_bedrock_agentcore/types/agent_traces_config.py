@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agentcore.errors import DeserializationError, SerializationError
+from capo_bedrock_agentcore.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.batch_evaluation_trace_config
@@ -34,12 +35,17 @@ AgentTracesConfig: TypeAlias = (
     | _AgentTracesConfig_cloudwatchLogs
     | _AgentTracesConfig_batchEvaluation
     | _AgentTracesConfig_onlineEvaluation
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AgentTracesConfig) -> dict:
-    if "sessionSpans" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AgentTracesConfig: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "sessionSpans" in value:
         import capo_bedrock_agentcore.types.spans
 
         return {
@@ -109,10 +115,17 @@ def deserialize_json(data: dict) -> AgentTracesConfig:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("AgentTracesConfig: no recognized variant key")
 
 
-def redact_sensitive(value: AgentTracesConfig) -> dict[str, Any]:
+def redact_sensitive(value: AgentTracesConfig) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "sessionSpans" in value:
         out["sessionSpans"] = "*** Sensitive Data Redacted ***"

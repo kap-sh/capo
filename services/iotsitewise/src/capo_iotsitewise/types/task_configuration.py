@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_iotsitewise.errors import DeserializationError, SerializationError
+from capo_iotsitewise.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_iotsitewise.types.container_task_configuration
@@ -16,12 +17,18 @@ class _TaskConfiguration_containerTaskConfiguration(TypedDict, closed=True):
     )
 
 
-TaskConfiguration: TypeAlias = _TaskConfiguration_containerTaskConfiguration
+TaskConfiguration: TypeAlias = (
+    _TaskConfiguration_containerTaskConfiguration | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: TaskConfiguration) -> dict:
-    if "containerTaskConfiguration" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"TaskConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "containerTaskConfiguration" in value:
         import capo_iotsitewise.types.container_task_configuration
 
         return {
@@ -43,10 +50,17 @@ def deserialize_json(data: dict) -> TaskConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("TaskConfiguration: no recognized variant key")
 
 
-def redact_sensitive(value: TaskConfiguration) -> dict[str, Any]:
+def redact_sensitive(value: TaskConfiguration) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "containerTaskConfiguration" in value:
         import capo_iotsitewise.types.container_task_configuration

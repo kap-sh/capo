@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_securityhub.errors import DeserializationError, SerializationError
+from capo_securityhub.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_securityhub.types.ocsf_finding_filters
@@ -21,12 +22,18 @@ class _Criteria_ResourceCriteria(TypedDict, closed=True):
     ResourceCriteria: "capo_securityhub.types.resources_filters.ResourcesFilters"
 
 
-Criteria: TypeAlias = _Criteria_OcsfFindingCriteria | _Criteria_ResourceCriteria
+Criteria: TypeAlias = (
+    _Criteria_OcsfFindingCriteria | _Criteria_ResourceCriteria | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Criteria) -> dict:
-    if "OcsfFindingCriteria" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Criteria: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "OcsfFindingCriteria" in value:
         import capo_securityhub.types.ocsf_finding_filters
 
         return {
@@ -64,4 +71,9 @@ def deserialize_json(data: dict) -> Criteria:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Criteria: no recognized variant key")

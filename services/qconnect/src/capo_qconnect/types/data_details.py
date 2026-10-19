@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_qconnect.errors import DeserializationError, SerializationError
+from capo_qconnect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_qconnect.types.case_summarization_chunk_data_details
@@ -96,12 +97,17 @@ DataDetails: TypeAlias = (
     | _DataDetails_notesData
     | _DataDetails_notesChunkData
     | _DataDetails_proactiveRecommendationData
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DataDetails) -> dict:
-    if "contentData" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"DataDetails: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "contentData" in value:
         import capo_qconnect.types.content_data_details
 
         return {
@@ -315,10 +321,17 @@ def deserialize_json(data: dict) -> DataDetails:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("DataDetails: no recognized variant key")
 
 
-def redact_sensitive(value: DataDetails) -> dict[str, Any]:
+def redact_sensitive(value: DataDetails) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "contentData" in value:
         import capo_qconnect.types.content_data_details

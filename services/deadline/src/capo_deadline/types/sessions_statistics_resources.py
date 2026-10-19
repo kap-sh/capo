@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_deadline.errors import DeserializationError, SerializationError
+from capo_deadline.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_deadline.types.fleet_ids
@@ -20,13 +21,19 @@ class _SessionsStatisticsResources_fleetIds(TypedDict, closed=True):
 
 
 SessionsStatisticsResources: TypeAlias = (
-    _SessionsStatisticsResources_queueIds | _SessionsStatisticsResources_fleetIds
+    _SessionsStatisticsResources_queueIds
+    | _SessionsStatisticsResources_fleetIds
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SessionsStatisticsResources) -> dict:
-    if "queueIds" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"SessionsStatisticsResources: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "queueIds" in value:
         import capo_deadline.types.queue_ids
 
         return {
@@ -56,6 +63,11 @@ def deserialize_json(data: dict) -> SessionsStatisticsResources:
             "fleetIds": capo_deadline.types.fleet_ids.deserialize_json(data["fleetIds"])
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "SessionsStatisticsResources: no recognized variant key"
         )

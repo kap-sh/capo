@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_marketplace_agreement.errors import DeserializationError, SerializationError
+from capo_marketplace_agreement.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_marketplace_agreement.types.byol_pricing_term
@@ -98,12 +99,17 @@ AcceptedTerm: TypeAlias = (
     | _AcceptedTerm_fixedUpfrontPricingTerm
     | _AcceptedTerm_variablePaymentTerm
     | _AcceptedTerm_netPaymentTerm
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: AcceptedTerm) -> dict:
-    if "legalTerm" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AcceptedTerm: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "legalTerm" in value:
         import capo_marketplace_agreement.types.legal_term
 
         return {
@@ -317,4 +323,9 @@ def deserialize_aws_json_1_0(data: dict) -> AcceptedTerm:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("AcceptedTerm: no recognized variant key")

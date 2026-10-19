@@ -87,3 +87,9 @@ from ._transfer import TransferConfig as TransferConfig
 from ._transfer import TransferManager as TransferManager
 from ._transfer import Transferred as Transferred
 from ._transfer import Upload as Upload
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

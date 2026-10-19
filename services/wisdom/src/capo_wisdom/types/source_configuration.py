@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_wisdom.errors import DeserializationError, SerializationError
+from capo_wisdom.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_wisdom.types.app_integrations_configuration
@@ -16,12 +17,18 @@ class _SourceConfiguration_appIntegrations(TypedDict, closed=True):
     )
 
 
-SourceConfiguration: TypeAlias = _SourceConfiguration_appIntegrations
+SourceConfiguration: TypeAlias = (
+    _SourceConfiguration_appIntegrations | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SourceConfiguration) -> dict:
-    if "appIntegrations" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"SourceConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "appIntegrations" in value:
         import capo_wisdom.types.app_integrations_configuration
 
         return {
@@ -43,4 +50,9 @@ def deserialize_json(data: dict) -> SourceConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("SourceConfiguration: no recognized variant key")

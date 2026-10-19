@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_vpc_lattice.errors import DeserializationError, SerializationError
+from capo_vpc_lattice.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_vpc_lattice.types.fixed_response_action
@@ -19,12 +20,18 @@ class _RuleAction_fixedResponse(TypedDict, closed=True):
     fixedResponse: "capo_vpc_lattice.types.fixed_response_action.FixedResponseAction"
 
 
-RuleAction: TypeAlias = _RuleAction_forward | _RuleAction_fixedResponse
+RuleAction: TypeAlias = (
+    _RuleAction_forward | _RuleAction_fixedResponse | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RuleAction) -> dict:
-    if "forward" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RuleAction: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "forward" in value:
         import capo_vpc_lattice.types.forward_action
 
         return {
@@ -62,4 +69,9 @@ def deserialize_json(data: dict) -> RuleAction:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("RuleAction: no recognized variant key")

@@ -77,3 +77,9 @@ from ._services.async_finspacedata import (
     AsyncfinspacedataClient as AsyncfinspacedataClient,
 )
 from ._services.finspacedata import finspacedataClient as finspacedataClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

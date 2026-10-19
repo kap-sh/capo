@@ -77,3 +77,9 @@ from ._services.async_media_store_data import (
     AsyncMediaStoreDataClient as AsyncMediaStoreDataClient,
 )
 from ._services.media_store_data import MediaStoreDataClient as MediaStoreDataClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

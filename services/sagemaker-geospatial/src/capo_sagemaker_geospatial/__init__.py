@@ -79,3 +79,9 @@ from ._services.async_sage_maker_geospatial import (
 from ._services.sage_maker_geospatial import (
     SageMakerGeospatialClient as SageMakerGeospatialClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

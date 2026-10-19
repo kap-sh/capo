@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_controlcatalog.errors import DeserializationError, SerializationError
+from capo_controlcatalog.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_controlcatalog.types.common_control_mapping_details
@@ -27,13 +28,20 @@ class _Mapping_RelatedControl(TypedDict, closed=True):
 
 
 Mapping: TypeAlias = (
-    _Mapping_Framework | _Mapping_CommonControl | _Mapping_RelatedControl
+    _Mapping_Framework
+    | _Mapping_CommonControl
+    | _Mapping_RelatedControl
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Mapping) -> dict:
-    if "Framework" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Mapping: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "Framework" in value:
         import capo_controlcatalog.types.framework_mapping_details
 
         return {
@@ -87,4 +95,9 @@ def deserialize_json(data: dict) -> Mapping:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Mapping: no recognized variant key")

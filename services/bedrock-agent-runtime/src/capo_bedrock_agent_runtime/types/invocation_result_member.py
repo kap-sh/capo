@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agent_runtime.errors import DeserializationError, SerializationError
+from capo_bedrock_agent_runtime.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.api_result
@@ -20,13 +21,19 @@ class _InvocationResultMember_functionResult(TypedDict, closed=True):
 
 
 InvocationResultMember: TypeAlias = (
-    _InvocationResultMember_apiResult | _InvocationResultMember_functionResult
+    _InvocationResultMember_apiResult
+    | _InvocationResultMember_functionResult
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: InvocationResultMember) -> dict:
-    if "apiResult" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"InvocationResultMember: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "apiResult" in value:
         import capo_bedrock_agent_runtime.types.api_result
 
         return {
@@ -64,10 +71,19 @@ def deserialize_json(data: dict) -> InvocationResultMember:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("InvocationResultMember: no recognized variant key")
 
 
-def redact_sensitive(value: InvocationResultMember) -> dict[str, Any]:
+def redact_sensitive(
+    value: InvocationResultMember,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "apiResult" in value:
         import capo_bedrock_agent_runtime.types.api_result

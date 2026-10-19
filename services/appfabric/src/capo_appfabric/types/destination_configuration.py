@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_appfabric.errors import DeserializationError, SerializationError
+from capo_appfabric.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_appfabric.types.audit_log_destination_configuration
@@ -14,12 +15,18 @@ class _DestinationConfiguration_auditLog(TypedDict, closed=True):
     auditLog: "capo_appfabric.types.audit_log_destination_configuration.AuditLogDestinationConfiguration"
 
 
-DestinationConfiguration: TypeAlias = _DestinationConfiguration_auditLog
+DestinationConfiguration: TypeAlias = (
+    _DestinationConfiguration_auditLog | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DestinationConfiguration) -> dict:
-    if "auditLog" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"DestinationConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "auditLog" in value:
         import capo_appfabric.types.audit_log_destination_configuration
 
         return {
@@ -41,6 +48,11 @@ def deserialize_json(data: dict) -> DestinationConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "DestinationConfiguration: no recognized variant key"
         )

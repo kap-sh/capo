@@ -79,3 +79,9 @@ from ._services.async_database_migration_service import (
 from ._services.database_migration_service import (
     DatabaseMigrationServiceClient as DatabaseMigrationServiceClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

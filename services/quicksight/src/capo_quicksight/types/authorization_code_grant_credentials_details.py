@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_quicksight.errors import DeserializationError, SerializationError
+from capo_quicksight.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_quicksight.types.authorization_code_grant_details
@@ -18,12 +19,17 @@ class _AuthorizationCodeGrantCredentialsDetails_AuthorizationCodeGrantDetails(
 
 AuthorizationCodeGrantCredentialsDetails: TypeAlias = (
     _AuthorizationCodeGrantCredentialsDetails_AuthorizationCodeGrantDetails
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AuthorizationCodeGrantCredentialsDetails) -> dict:
-    if "AuthorizationCodeGrantDetails" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AuthorizationCodeGrantCredentialsDetails: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "AuthorizationCodeGrantDetails" in value:
         import capo_quicksight.types.authorization_code_grant_details
 
         return {
@@ -47,12 +53,21 @@ def deserialize_json(data: dict) -> AuthorizationCodeGrantCredentialsDetails:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "AuthorizationCodeGrantCredentialsDetails: no recognized variant key"
         )
 
 
-def redact_sensitive(value: AuthorizationCodeGrantCredentialsDetails) -> dict[str, Any]:
+def redact_sensitive(
+    value: AuthorizationCodeGrantCredentialsDetails,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "AuthorizationCodeGrantDetails" in value:
         import capo_quicksight.types.authorization_code_grant_details

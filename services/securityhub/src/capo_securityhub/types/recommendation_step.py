@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_securityhub.errors import DeserializationError, SerializationError
+from capo_securityhub.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_securityhub.types.unused_permissions_recommendation_step
@@ -14,12 +15,18 @@ class _RecommendationStep_UnusedPermissions(TypedDict, closed=True):
     UnusedPermissions: "capo_securityhub.types.unused_permissions_recommendation_step.UnusedPermissionsRecommendationStep"
 
 
-RecommendationStep: TypeAlias = _RecommendationStep_UnusedPermissions
+RecommendationStep: TypeAlias = (
+    _RecommendationStep_UnusedPermissions | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RecommendationStep) -> dict:
-    if "UnusedPermissions" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RecommendationStep: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "UnusedPermissions" in value:
         import capo_securityhub.types.unused_permissions_recommendation_step
 
         return {
@@ -41,4 +48,9 @@ def deserialize_json(data: dict) -> RecommendationStep:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("RecommendationStep: no recognized variant key")

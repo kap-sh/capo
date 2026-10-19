@@ -79,3 +79,9 @@ from ._services.async_customer_profiles import (
 from ._services.customer_profiles import (
     CustomerProfilesClient as CustomerProfilesClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

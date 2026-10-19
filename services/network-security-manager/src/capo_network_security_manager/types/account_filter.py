@@ -8,6 +8,7 @@ from capo_network_security_manager.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_network_security_manager.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_network_security_manager.types.account_set
@@ -26,13 +27,20 @@ class _AccountFilter_exclude(TypedDict, closed=True):
 
 
 AccountFilter: TypeAlias = (
-    _AccountFilter_includeAll | _AccountFilter_include | _AccountFilter_exclude
+    _AccountFilter_includeAll
+    | _AccountFilter_include
+    | _AccountFilter_exclude
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AccountFilter) -> dict:
-    if "includeAll" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AccountFilter: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "includeAll" in value:
         return {"includeAll": {}}
     elif "include" in value:
         import capo_network_security_manager.types.account_set
@@ -74,4 +82,9 @@ def deserialize_json(data: dict) -> AccountFilter:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("AccountFilter: no recognized variant key")

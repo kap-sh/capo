@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_ebs import AsyncEBSClient as AsyncEBSClient
 from ._services.ebs import EBSClient as EBSClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

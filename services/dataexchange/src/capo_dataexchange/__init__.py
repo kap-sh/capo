@@ -77,3 +77,9 @@ from ._services.async_data_exchange import (
     AsyncDataExchangeClient as AsyncDataExchangeClient,
 )
 from ._services.data_exchange import DataExchangeClient as DataExchangeClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_datazone.errors import DeserializationError, SerializationError
+from capo_datazone.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_datazone.types.s3_files_location
@@ -19,12 +20,18 @@ class _SourceLocation_s3Files(TypedDict, closed=True):
     s3Files: "capo_datazone.types.s3_files_location.S3FilesLocation"
 
 
-SourceLocation: TypeAlias = _SourceLocation_s3 | _SourceLocation_s3Files
+SourceLocation: TypeAlias = (
+    _SourceLocation_s3 | _SourceLocation_s3Files | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SourceLocation) -> dict:
-    if "s3" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"SourceLocation: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "s3" in value:
         return {"s3": value["s3"]}
     elif "s3Files" in value:
         import capo_datazone.types.s3_files_location
@@ -50,10 +57,17 @@ def deserialize_json(data: dict) -> SourceLocation:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("SourceLocation: no recognized variant key")
 
 
-def redact_sensitive(value: SourceLocation) -> dict[str, Any]:
+def redact_sensitive(value: SourceLocation) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "s3" in value:
         out["s3"] = "*** Sensitive Data Redacted ***"

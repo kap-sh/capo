@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_appfabric.errors import DeserializationError, SerializationError
+from capo_appfabric.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_appfabric.types.firehose_stream
@@ -19,12 +20,18 @@ class _Destination_firehoseStream(TypedDict, closed=True):
     firehoseStream: "capo_appfabric.types.firehose_stream.FirehoseStream"
 
 
-Destination: TypeAlias = _Destination_s3Bucket | _Destination_firehoseStream
+Destination: TypeAlias = (
+    _Destination_s3Bucket | _Destination_firehoseStream | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Destination) -> dict:
-    if "s3Bucket" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Destination: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "s3Bucket" in value:
         import capo_appfabric.types.s3_bucket
 
         return {
@@ -60,4 +67,9 @@ def deserialize_json(data: dict) -> Destination:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Destination: no recognized variant key")

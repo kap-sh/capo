@@ -10,6 +10,7 @@ from capo_bedrock_agent_runtime._protocol.eventstream import Message
 from capo_bedrock_agent_runtime.errors import (
     UnknownServiceError,
 )
+from capo_bedrock_agent_runtime.types._unknown import UnknownEvent
 
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.errors.access_denied_exception
@@ -113,6 +114,7 @@ _RetrieveAndGenerateStreamResponseOutput: TypeAlias = (
     | _RetrieveAndGenerateStreamResponseOutput_conflictException
     | _RetrieveAndGenerateStreamResponseOutput_dependencyFailedException
     | _RetrieveAndGenerateStreamResponseOutput_badGatewayException
+    | UnknownEvent
 )
 RetrieveAndGenerateStreamResponseOutput: TypeAlias = AnyIterator[
     _RetrieveAndGenerateStreamResponseOutput
@@ -120,6 +122,10 @@ RetrieveAndGenerateStreamResponseOutput: TypeAlias = AnyIterator[
 
 
 def serialize_event_json(value: _RetrieveAndGenerateStreamResponseOutput) -> bytes:
+    if isinstance(value, UnknownEvent):
+        raise ValueError(
+            f"RetrieveAndGenerateStreamResponseOutput: cannot serialize unknown event {value.event_type!r}"
+        )
     match value:
         case {"output": payload}:
             import capo_bedrock_agent_runtime.types.retrieve_and_generate_output_event
@@ -327,6 +333,8 @@ def deserialize_event_json(
                     message
                 )
             }
+        case str():
+            return UnknownEvent(event_type, message)
         case _:
             raise ValueError(
                 f"RetrieveAndGenerateStreamResponseOutput: unrecognized event-type {event_type!r}"

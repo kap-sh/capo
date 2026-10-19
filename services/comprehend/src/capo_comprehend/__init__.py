@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_comprehend import AsyncComprehendClient as AsyncComprehendClient
 from ._services.comprehend import ComprehendClient as ComprehendClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

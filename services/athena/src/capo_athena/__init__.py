@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_athena import AsyncAthenaClient as AsyncAthenaClient
 from ._services.athena import AthenaClient as AthenaClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

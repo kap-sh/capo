@@ -79,3 +79,9 @@ from ._services.async_elastic_load_balancing import (
 from ._services.elastic_load_balancing import (
     ElasticLoadBalancingClient as ElasticLoadBalancingClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

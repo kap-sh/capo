@@ -77,3 +77,9 @@ from ._services.async_io_t_fleet_wise import (
     AsyncIoTFleetWiseClient as AsyncIoTFleetWiseClient,
 )
 from ._services.io_t_fleet_wise import IoTFleetWiseClient as IoTFleetWiseClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

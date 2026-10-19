@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_qapps.errors import DeserializationError, SerializationError
+from capo_qapps.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_qapps.types.message_list
@@ -19,13 +20,19 @@ class _PredictQAppInputOptions_problemStatement(TypedDict, closed=True):
 
 
 PredictQAppInputOptions: TypeAlias = (
-    _PredictQAppInputOptions_conversation | _PredictQAppInputOptions_problemStatement
+    _PredictQAppInputOptions_conversation
+    | _PredictQAppInputOptions_problemStatement
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PredictQAppInputOptions) -> dict:
-    if "conversation" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"PredictQAppInputOptions: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "conversation" in value:
         import capo_qapps.types.message_list
 
         return {
@@ -51,4 +58,9 @@ def deserialize_json(data: dict) -> PredictQAppInputOptions:
     elif data.get("problemStatement") is not None:
         return {"problemStatement": data["problemStatement"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("PredictQAppInputOptions: no recognized variant key")

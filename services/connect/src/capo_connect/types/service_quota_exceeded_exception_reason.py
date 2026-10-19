@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_connect.errors import DeserializationError, SerializationError
+from capo_connect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_connect.types.attached_file_service_quota_exceeded_exception_reason
@@ -18,12 +19,17 @@ class _ServiceQuotaExceededExceptionReason_AttachedFileServiceQuotaExceededExcep
 
 ServiceQuotaExceededExceptionReason: TypeAlias = (
     _ServiceQuotaExceededExceptionReason_AttachedFileServiceQuotaExceededExceptionReason
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ServiceQuotaExceededExceptionReason) -> dict:
-    if "AttachedFileServiceQuotaExceededExceptionReason" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ServiceQuotaExceededExceptionReason: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "AttachedFileServiceQuotaExceededExceptionReason" in value:
         import capo_connect.types.attached_file_service_quota_exceeded_exception_reason
 
         return {
@@ -47,6 +53,11 @@ def deserialize_json(data: dict) -> ServiceQuotaExceededExceptionReason:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "ServiceQuotaExceededExceptionReason: no recognized variant key"
         )

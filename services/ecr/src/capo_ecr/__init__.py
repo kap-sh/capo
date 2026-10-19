@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_ecr import AsyncECRClient as AsyncECRClient
 from ._services.ecr import ECRClient as ECRClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

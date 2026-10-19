@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_datazone.errors import DeserializationError, SerializationError
+from capo_datazone.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_datazone.types.equal_to_expression
@@ -87,12 +88,17 @@ RowFilterExpression: TypeAlias = (
     | _RowFilterExpression_notIn
     | _RowFilterExpression_like
     | _RowFilterExpression_notLike
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RowFilterExpression) -> dict:
-    if "equalTo" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RowFilterExpression: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "equalTo" in value:
         import capo_datazone.types.equal_to_expression
 
         return {
@@ -278,4 +284,9 @@ def deserialize_json(data: dict) -> RowFilterExpression:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("RowFilterExpression: no recognized variant key")

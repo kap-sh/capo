@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_iotfleetwise.errors import DeserializationError, SerializationError
+from capo_iotfleetwise.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.mqtt_topic_config
@@ -28,12 +29,17 @@ DataDestinationConfig: TypeAlias = (
     _DataDestinationConfig_s3Config
     | _DataDestinationConfig_timestreamConfig
     | _DataDestinationConfig_mqttTopicConfig
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: DataDestinationConfig) -> dict:
-    if "s3Config" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"DataDestinationConfig: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "s3Config" in value:
         import capo_iotfleetwise.types.s3_config
 
         return {
@@ -87,4 +93,9 @@ def deserialize_aws_json_1_0(data: dict) -> DataDestinationConfig:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("DataDestinationConfig: no recognized variant key")

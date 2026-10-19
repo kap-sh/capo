@@ -10,6 +10,7 @@ from capo_bedrock_runtime._protocol.eventstream import Message
 from capo_bedrock_runtime.errors import (
     UnknownServiceError,
 )
+from capo_bedrock_runtime.types._unknown import UnknownEvent
 
 if TYPE_CHECKING:
     import capo_bedrock_runtime.errors.internal_server_exception
@@ -93,11 +94,16 @@ _ConverseStreamOutput: TypeAlias = (
     | _ConverseStreamOutput_validationException
     | _ConverseStreamOutput_throttlingException
     | _ConverseStreamOutput_serviceUnavailableException
+    | UnknownEvent
 )
 ConverseStreamOutput: TypeAlias = AnyIterator[_ConverseStreamOutput]
 
 
 def serialize_event_json(value: _ConverseStreamOutput) -> bytes:
+    if isinstance(value, UnknownEvent):
+        raise ValueError(
+            f"ConverseStreamOutput: cannot serialize unknown event {value.event_type!r}"
+        )
     match value:
         case {"messageStart": payload}:
             import capo_bedrock_runtime.types.message_start_event
@@ -287,6 +293,8 @@ def deserialize_event_json(
                     message
                 )
             }
+        case str():
+            return UnknownEvent(event_type, message)
         case _:
             raise ValueError(
                 f"ConverseStreamOutput: unrecognized event-type {event_type!r}"

@@ -77,3 +77,9 @@ from ._services.async_ssm_quick_setup import (
     AsyncSSMQuickSetupClient as AsyncSSMQuickSetupClient,
 )
 from ._services.ssm_quick_setup import SSMQuickSetupClient as SSMQuickSetupClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

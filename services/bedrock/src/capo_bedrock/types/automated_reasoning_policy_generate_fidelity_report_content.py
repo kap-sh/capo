@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock.errors import DeserializationError, SerializationError
+from capo_bedrock.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_generate_fidelity_report_document_list
@@ -18,6 +19,7 @@ class _AutomatedReasoningPolicyGenerateFidelityReportContent_documents(
 
 AutomatedReasoningPolicyGenerateFidelityReportContent: TypeAlias = (
     _AutomatedReasoningPolicyGenerateFidelityReportContent_documents
+    | UnknownUnionMember
 )
 
 
@@ -25,7 +27,11 @@ AutomatedReasoningPolicyGenerateFidelityReportContent: TypeAlias = (
 def serialize_json(
     value: AutomatedReasoningPolicyGenerateFidelityReportContent,
 ) -> dict:
-    if "documents" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AutomatedReasoningPolicyGenerateFidelityReportContent: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "documents" in value:
         import capo_bedrock.types.automated_reasoning_policy_generate_fidelity_report_document_list
 
         return {
@@ -51,6 +57,11 @@ def deserialize_json(
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "AutomatedReasoningPolicyGenerateFidelityReportContent: no recognized variant key"
         )
@@ -58,7 +69,9 @@ def deserialize_json(
 
 def redact_sensitive(
     value: AutomatedReasoningPolicyGenerateFidelityReportContent,
-) -> dict[str, Any]:
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "documents" in value:
         import capo_bedrock.types.automated_reasoning_policy_generate_fidelity_report_document_list

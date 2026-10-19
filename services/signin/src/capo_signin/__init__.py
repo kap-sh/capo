@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_signin import AsyncSigninClient as AsyncSigninClient
 from ._services.signin import SigninClient as SigninClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

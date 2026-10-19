@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_qbusiness.errors import DeserializationError, SerializationError
+from capo_qbusiness.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_qbusiness.types.principal_group
@@ -19,12 +20,16 @@ class _Principal_group(TypedDict, closed=True):
     group: "capo_qbusiness.types.principal_group.PrincipalGroup"
 
 
-Principal: TypeAlias = _Principal_user | _Principal_group
+Principal: TypeAlias = _Principal_user | _Principal_group | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Principal) -> dict:
-    if "user" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Principal: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "user" in value:
         import capo_qbusiness.types.principal_user
 
         return {
@@ -56,4 +61,9 @@ def deserialize_json(data: dict) -> Principal:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Principal: no recognized variant key")

@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.amp import ampClient as ampClient
 from ._services.async_amp import AsyncampClient as AsyncampClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_inspector2.errors import DeserializationError, SerializationError
+from capo_inspector2.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_inspector2.types.azure_provider_detail_update
@@ -16,12 +17,16 @@ class _ProviderDetailUpdate_azure(TypedDict, closed=True):
     )
 
 
-ProviderDetailUpdate: TypeAlias = _ProviderDetailUpdate_azure
+ProviderDetailUpdate: TypeAlias = _ProviderDetailUpdate_azure | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ProviderDetailUpdate) -> dict:
-    if "azure" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ProviderDetailUpdate: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "azure" in value:
         import capo_inspector2.types.azure_provider_detail_update
 
         return {
@@ -43,4 +48,9 @@ def deserialize_json(data: dict) -> ProviderDetailUpdate:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ProviderDetailUpdate: no recognized variant key")

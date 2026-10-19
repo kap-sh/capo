@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.app_fabric import AppFabricClient as AppFabricClient
 from ._services.async_app_fabric import AsyncAppFabricClient as AsyncAppFabricClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

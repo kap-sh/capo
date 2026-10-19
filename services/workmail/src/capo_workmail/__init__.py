@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_work_mail import AsyncWorkMailClient as AsyncWorkMailClient
 from ._services.work_mail import WorkMailClient as WorkMailClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

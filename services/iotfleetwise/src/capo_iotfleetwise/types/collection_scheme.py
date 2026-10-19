@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_iotfleetwise.errors import DeserializationError, SerializationError
+from capo_iotfleetwise.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.condition_based_collection_scheme
@@ -24,12 +25,17 @@ class _CollectionScheme_conditionBasedCollectionScheme(TypedDict, closed=True):
 CollectionScheme: TypeAlias = (
     _CollectionScheme_timeBasedCollectionScheme
     | _CollectionScheme_conditionBasedCollectionScheme
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: CollectionScheme) -> dict:
-    if "timeBasedCollectionScheme" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"CollectionScheme: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "timeBasedCollectionScheme" in value:
         import capo_iotfleetwise.types.time_based_collection_scheme
 
         return {
@@ -67,10 +73,17 @@ def deserialize_aws_json_1_0(data: dict) -> CollectionScheme:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("CollectionScheme: no recognized variant key")
 
 
-def redact_sensitive(value: CollectionScheme) -> dict[str, Any]:
+def redact_sensitive(value: CollectionScheme) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "conditionBasedCollectionScheme" in value:
         import capo_iotfleetwise.types.condition_based_collection_scheme

@@ -77,3 +77,9 @@ from ._services.arc_regionswitch import ARCRegionswitchClient as ARCRegionswitch
 from ._services.async_arc_regionswitch import (
     AsyncARCRegionswitchClient as AsyncARCRegionswitchClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

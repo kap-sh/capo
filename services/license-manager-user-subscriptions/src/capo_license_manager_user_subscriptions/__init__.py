@@ -79,3 +79,9 @@ from ._services.async_license_manager_user_subscriptions import (
 from ._services.license_manager_user_subscriptions import (
     LicenseManagerUserSubscriptionsClient as LicenseManagerUserSubscriptionsClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

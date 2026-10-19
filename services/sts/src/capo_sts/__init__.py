@@ -64,3 +64,9 @@ from ._services._pipeline import (
 )
 from ._services.async_sts import AsyncSTSClient as AsyncSTSClient
 from ._services.sts import STSClient as STSClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

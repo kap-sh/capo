@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_qconnect.errors import DeserializationError, SerializationError
+from capo_qconnect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_qconnect.types.and_conditions
@@ -19,12 +20,18 @@ class _OrCondition_tagCondition(TypedDict, closed=True):
     tagCondition: "capo_qconnect.types.tag_condition.TagCondition"
 
 
-OrCondition: TypeAlias = _OrCondition_andConditions | _OrCondition_tagCondition
+OrCondition: TypeAlias = (
+    _OrCondition_andConditions | _OrCondition_tagCondition | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: OrCondition) -> dict:
-    if "andConditions" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"OrCondition: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "andConditions" in value:
         import capo_qconnect.types.and_conditions
 
         return {
@@ -62,4 +69,9 @@ def deserialize_json(data: dict) -> OrCondition:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("OrCondition: no recognized variant key")

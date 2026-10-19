@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_opensearch.errors import DeserializationError, SerializationError
+from capo_opensearch.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_opensearch.types.s3_glue_data_catalog
@@ -14,12 +15,16 @@ class _DataSourceType_S3GlueDataCatalog(TypedDict, closed=True):
     S3GlueDataCatalog: "capo_opensearch.types.s3_glue_data_catalog.S3GlueDataCatalog"
 
 
-DataSourceType: TypeAlias = _DataSourceType_S3GlueDataCatalog
+DataSourceType: TypeAlias = _DataSourceType_S3GlueDataCatalog | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DataSourceType) -> dict:
-    if "S3GlueDataCatalog" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"DataSourceType: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "S3GlueDataCatalog" in value:
         import capo_opensearch.types.s3_glue_data_catalog
 
         return {
@@ -41,4 +46,9 @@ def deserialize_json(data: dict) -> DataSourceType:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("DataSourceType: no recognized variant key")

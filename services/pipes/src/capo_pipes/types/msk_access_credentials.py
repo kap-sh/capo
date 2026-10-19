@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_pipes.errors import DeserializationError, SerializationError
+from capo_pipes.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_pipes.types.secret_manager_arn
@@ -21,12 +22,17 @@ class _MSKAccessCredentials_ClientCertificateTlsAuth(TypedDict, closed=True):
 MSKAccessCredentials: TypeAlias = (
     _MSKAccessCredentials_SaslScram512Auth
     | _MSKAccessCredentials_ClientCertificateTlsAuth
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MSKAccessCredentials) -> dict:
-    if "SaslScram512Auth" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"MSKAccessCredentials: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "SaslScram512Auth" in value:
         return {"SaslScram512Auth": value["SaslScram512Auth"]}
     elif "ClientCertificateTlsAuth" in value:
         return {"ClientCertificateTlsAuth": value["ClientCertificateTlsAuth"]}
@@ -40,4 +46,9 @@ def deserialize_json(data: dict) -> MSKAccessCredentials:
     elif data.get("ClientCertificateTlsAuth") is not None:
         return {"ClientCertificateTlsAuth": data["ClientCertificateTlsAuth"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("MSKAccessCredentials: no recognized variant key")

@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_simple_d_bv2 import AsyncSimpleDBv2Client as AsyncSimpleDBv2Client
 from ._services.simple_d_bv2 import SimpleDBv2Client as SimpleDBv2Client
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

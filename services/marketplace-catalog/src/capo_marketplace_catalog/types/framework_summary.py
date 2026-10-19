@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_marketplace_catalog.errors import DeserializationError, SerializationError
+from capo_marketplace_catalog.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_marketplace_catalog.types.ami_security_summary
@@ -22,13 +23,19 @@ class _FrameworkSummary_ContainerSecuritySummary(TypedDict, closed=True):
 
 
 FrameworkSummary: TypeAlias = (
-    _FrameworkSummary_AMISecuritySummary | _FrameworkSummary_ContainerSecuritySummary
+    _FrameworkSummary_AMISecuritySummary
+    | _FrameworkSummary_ContainerSecuritySummary
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: FrameworkSummary) -> dict:
-    if "AMISecuritySummary" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"FrameworkSummary: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "AMISecuritySummary" in value:
         import capo_marketplace_catalog.types.ami_security_summary
 
         return {
@@ -66,4 +73,9 @@ def deserialize_json(data: dict) -> FrameworkSummary:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("FrameworkSummary: no recognized variant key")

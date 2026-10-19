@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_runtime.errors import DeserializationError, SerializationError
+from capo_bedrock_runtime.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.audio_block
@@ -97,12 +98,17 @@ ContentBlock: TypeAlias = (
     | _ContentBlock_searchResult
     | _ContentBlock_toolAddition
     | _ContentBlock_toolRemoval
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ContentBlock) -> dict:
-    if "text" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ContentBlock: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "text" in value:
         return {"text": value["text"]}
     elif "image" in value:
         import capo_bedrock_runtime.types.image_block
@@ -320,10 +326,17 @@ def deserialize_json(data: dict) -> ContentBlock:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ContentBlock: no recognized variant key")
 
 
-def redact_sensitive(value: ContentBlock) -> dict[str, Any]:
+def redact_sensitive(value: ContentBlock) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "image" in value:
         import capo_bedrock_runtime.types.image_block

@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_pipes import AsyncPipesClient as AsyncPipesClient
 from ._services.pipes import PipesClient as PipesClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

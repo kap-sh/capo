@@ -77,3 +77,9 @@ from ._services.async_service_catalog import (
     AsyncServiceCatalogClient as AsyncServiceCatalogClient,
 )
 from ._services.service_catalog import ServiceCatalogClient as ServiceCatalogClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

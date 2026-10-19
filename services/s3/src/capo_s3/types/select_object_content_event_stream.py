@@ -8,6 +8,7 @@ from typing_extensions import TypedDict
 from capo_s3._iter import AnyIterator
 from capo_s3._protocol.eventstream import Message
 from capo_s3.errors import UnknownServiceError
+from capo_s3.types._unknown import UnknownEvent
 
 if TYPE_CHECKING:
     import capo_s3.types.continuation_event
@@ -43,11 +44,16 @@ _SelectObjectContentEventStream: TypeAlias = (
     | _SelectObjectContentEventStream_Progress
     | _SelectObjectContentEventStream_Cont
     | _SelectObjectContentEventStream_End
+    | UnknownEvent
 )
 SelectObjectContentEventStream: TypeAlias = AnyIterator[_SelectObjectContentEventStream]
 
 
 def serialize_event_xml(value: _SelectObjectContentEventStream) -> bytes:
+    if isinstance(value, UnknownEvent):
+        raise ValueError(
+            f"SelectObjectContentEventStream: cannot serialize unknown event {value.event_type!r}"
+        )
     match value:
         case {"Records": payload}:
             import capo_s3.types.records_event
@@ -121,6 +127,8 @@ def deserialize_event_xml(
             import capo_s3.types.end_event
 
             return {"End": capo_s3.types.end_event.deserialize_event_xml(message)}
+        case str():
+            return UnknownEvent(event_type, message)
         case _:
             raise ValueError(
                 f"SelectObjectContentEventStream: unrecognized event-type {event_type!r}"

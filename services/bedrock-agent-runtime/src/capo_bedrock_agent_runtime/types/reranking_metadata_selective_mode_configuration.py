@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agent_runtime.errors import DeserializationError, SerializationError
+from capo_bedrock_agent_runtime.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.fields_for_reranking
@@ -29,12 +30,17 @@ class _RerankingMetadataSelectiveModeConfiguration_fieldsToExclude(
 RerankingMetadataSelectiveModeConfiguration: TypeAlias = (
     _RerankingMetadataSelectiveModeConfiguration_fieldsToInclude
     | _RerankingMetadataSelectiveModeConfiguration_fieldsToExclude
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RerankingMetadataSelectiveModeConfiguration) -> dict:
-    if "fieldsToInclude" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RerankingMetadataSelectiveModeConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "fieldsToInclude" in value:
         import capo_bedrock_agent_runtime.types.fields_for_reranking
 
         return {
@@ -74,6 +80,11 @@ def deserialize_json(data: dict) -> RerankingMetadataSelectiveModeConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "RerankingMetadataSelectiveModeConfiguration: no recognized variant key"
         )
@@ -81,7 +92,9 @@ def deserialize_json(data: dict) -> RerankingMetadataSelectiveModeConfiguration:
 
 def redact_sensitive(
     value: RerankingMetadataSelectiveModeConfiguration,
-) -> dict[str, Any]:
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "fieldsToInclude" in value:
         out["fieldsToInclude"] = "*** Sensitive Data Redacted ***"

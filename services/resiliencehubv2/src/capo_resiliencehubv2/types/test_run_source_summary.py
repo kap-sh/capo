@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_resiliencehubv2.errors import DeserializationError, SerializationError
+from capo_resiliencehubv2.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.test_run_observability_alarm_summary
@@ -22,12 +23,17 @@ class _TestRunSourceSummary_observabilityAlarm(TypedDict, closed=True):
 TestRunSourceSummary: TypeAlias = (
     _TestRunSourceSummary_successCriteriaAlarm
     | _TestRunSourceSummary_observabilityAlarm
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: TestRunSourceSummary) -> dict:
-    if "successCriteriaAlarm" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"TestRunSourceSummary: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "successCriteriaAlarm" in value:
         import capo_resiliencehubv2.types.test_run_success_criteria_alarm_summary
 
         return {
@@ -65,4 +71,9 @@ def deserialize_json(data: dict) -> TestRunSourceSummary:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("TestRunSourceSummary: no recognized variant key")

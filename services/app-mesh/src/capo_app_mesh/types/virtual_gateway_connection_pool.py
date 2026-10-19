@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_app_mesh.errors import DeserializationError, SerializationError
+from capo_app_mesh.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_app_mesh.types.virtual_gateway_grpc_connection_pool
@@ -28,12 +29,17 @@ VirtualGatewayConnectionPool: TypeAlias = (
     _VirtualGatewayConnectionPool_http
     | _VirtualGatewayConnectionPool_http2
     | _VirtualGatewayConnectionPool_grpc
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: VirtualGatewayConnectionPool) -> dict:
-    if "http" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"VirtualGatewayConnectionPool: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "http" in value:
         import capo_app_mesh.types.virtual_gateway_http_connection_pool
 
         return {
@@ -87,6 +93,11 @@ def deserialize_json(data: dict) -> VirtualGatewayConnectionPool:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "VirtualGatewayConnectionPool: no recognized variant key"
         )

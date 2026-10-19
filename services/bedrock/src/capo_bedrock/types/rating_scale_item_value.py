@@ -5,6 +5,7 @@ from typing import TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock.errors import DeserializationError, SerializationError
+from capo_bedrock.types._unknown import UnknownUnionMember
 
 
 class _RatingScaleItemValue_stringValue(TypedDict, closed=True):
@@ -16,13 +17,19 @@ class _RatingScaleItemValue_floatValue(TypedDict, closed=True):
 
 
 RatingScaleItemValue: TypeAlias = (
-    _RatingScaleItemValue_stringValue | _RatingScaleItemValue_floatValue
+    _RatingScaleItemValue_stringValue
+    | _RatingScaleItemValue_floatValue
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RatingScaleItemValue) -> dict:
-    if "stringValue" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RatingScaleItemValue: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "stringValue" in value:
         return {"stringValue": value["stringValue"]}
     elif "floatValue" in value:
         return {
@@ -46,4 +53,9 @@ def deserialize_json(data: dict) -> RatingScaleItemValue:
     elif data.get("floatValue") is not None:
         return {"floatValue": float(data["floatValue"])}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("RatingScaleItemValue: no recognized variant key")

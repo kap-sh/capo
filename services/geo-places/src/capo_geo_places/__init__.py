@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_geo_places import AsyncGeoPlacesClient as AsyncGeoPlacesClient
 from ._services.geo_places import GeoPlacesClient as GeoPlacesClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

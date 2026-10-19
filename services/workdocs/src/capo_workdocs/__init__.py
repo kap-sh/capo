@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_work_docs import AsyncWorkDocsClient as AsyncWorkDocsClient
 from ._services.work_docs import WorkDocsClient as WorkDocsClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -77,3 +77,9 @@ from ._services.access_analyzer import AccessAnalyzerClient as AccessAnalyzerCli
 from ._services.async_access_analyzer import (
     AsyncAccessAnalyzerClient as AsyncAccessAnalyzerClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

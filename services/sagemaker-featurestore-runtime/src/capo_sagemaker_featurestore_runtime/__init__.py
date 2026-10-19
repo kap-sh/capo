@@ -79,3 +79,9 @@ from ._services.async_sage_maker_feature_store_runtime import (
 from ._services.sage_maker_feature_store_runtime import (
     SageMakerFeatureStoreRuntimeClient as SageMakerFeatureStoreRuntimeClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

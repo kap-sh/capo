@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_s3vectors.errors import DeserializationError, SerializationError
+from capo_s3vectors.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_s3vectors.types.float32_vector_data
@@ -14,12 +15,16 @@ class _VectorData_float32(TypedDict, closed=True):
     float32: "capo_s3vectors.types.float32_vector_data.Float32VectorData"
 
 
-VectorData: TypeAlias = _VectorData_float32
+VectorData: TypeAlias = _VectorData_float32 | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: VectorData) -> dict:
-    if "float32" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"VectorData: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "float32" in value:
         import capo_s3vectors.types.float32_vector_data
 
         return {
@@ -41,4 +46,9 @@ def deserialize_json(data: dict) -> VectorData:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("VectorData: no recognized variant key")

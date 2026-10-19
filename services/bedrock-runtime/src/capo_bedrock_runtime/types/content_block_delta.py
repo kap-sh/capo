@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_runtime.errors import DeserializationError, SerializationError
+from capo_bedrock_runtime.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.citations_delta
@@ -47,12 +48,17 @@ ContentBlockDelta: TypeAlias = (
     | _ContentBlockDelta_reasoningContent
     | _ContentBlockDelta_citation
     | _ContentBlockDelta_image
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ContentBlockDelta) -> dict:
-    if "text" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ContentBlockDelta: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "text" in value:
         return {"text": value["text"]}
     elif "toolUse" in value:
         import capo_bedrock_runtime.types.tool_use_block_delta
@@ -142,10 +148,17 @@ def deserialize_json(data: dict) -> ContentBlockDelta:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ContentBlockDelta: no recognized variant key")
 
 
-def redact_sensitive(value: ContentBlockDelta) -> dict[str, Any]:
+def redact_sensitive(value: ContentBlockDelta) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "reasoningContent" in value:
         out["reasoningContent"] = "*** Sensitive Data Redacted ***"

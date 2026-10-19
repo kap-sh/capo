@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_free_tier import AsyncFreeTierClient as AsyncFreeTierClient
 from ._services.free_tier import FreeTierClient as FreeTierClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

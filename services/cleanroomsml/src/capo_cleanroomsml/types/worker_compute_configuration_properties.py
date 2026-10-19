@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_cleanroomsml.errors import DeserializationError, SerializationError
+from capo_cleanroomsml.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.spark_properties
@@ -15,13 +16,17 @@ class _WorkerComputeConfigurationProperties_spark(TypedDict, closed=True):
 
 
 WorkerComputeConfigurationProperties: TypeAlias = (
-    _WorkerComputeConfigurationProperties_spark
+    _WorkerComputeConfigurationProperties_spark | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: WorkerComputeConfigurationProperties) -> dict:
-    if "spark" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"WorkerComputeConfigurationProperties: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "spark" in value:
         import capo_cleanroomsml.types.spark_properties
 
         return {
@@ -45,6 +50,11 @@ def deserialize_json(data: dict) -> WorkerComputeConfigurationProperties:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "WorkerComputeConfigurationProperties: no recognized variant key"
         )

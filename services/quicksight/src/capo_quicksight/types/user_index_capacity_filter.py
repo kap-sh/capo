@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_quicksight.errors import DeserializationError, SerializationError
+from capo_quicksight.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_quicksight.types.capacity_bytes_range_filter
@@ -26,12 +27,17 @@ class _UserIndexCapacityFilter_totalCapacityBytes(TypedDict, closed=True):
 UserIndexCapacityFilter: TypeAlias = (
     _UserIndexCapacityFilter_userNameOrEmail
     | _UserIndexCapacityFilter_totalCapacityBytes
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: UserIndexCapacityFilter) -> dict:
-    if "userNameOrEmail" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"UserIndexCapacityFilter: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "userNameOrEmail" in value:
         import capo_quicksight.types.user_name_or_email_filter
 
         return {
@@ -69,4 +75,9 @@ def deserialize_json(data: dict) -> UserIndexCapacityFilter:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("UserIndexCapacityFilter: no recognized variant key")

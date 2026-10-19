@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agent_runtime.errors import DeserializationError, SerializationError
+from capo_bedrock_agent_runtime.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.condition_result_event
@@ -76,12 +77,17 @@ FlowExecutionEvent: TypeAlias = (
     | _FlowExecutionEvent_flowFailureEvent
     | _FlowExecutionEvent_nodeActionEvent
     | _FlowExecutionEvent_nodeDependencyEvent
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: FlowExecutionEvent) -> dict:
-    if "flowInputEvent" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"FlowExecutionEvent: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "flowInputEvent" in value:
         import capo_bedrock_agent_runtime.types.flow_execution_input_event
 
         return {
@@ -231,10 +237,17 @@ def deserialize_json(data: dict) -> FlowExecutionEvent:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("FlowExecutionEvent: no recognized variant key")
 
 
-def redact_sensitive(value: FlowExecutionEvent) -> dict[str, Any]:
+def redact_sensitive(value: FlowExecutionEvent) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "flowInputEvent" in value:
         out["flowInputEvent"] = "*** Sensitive Data Redacted ***"

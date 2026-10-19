@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_lambda_microvms.errors import DeserializationError, SerializationError
+from capo_lambda_microvms.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_lambda_microvms.types.port_number
@@ -24,13 +25,20 @@ class _PortSpecification_allPorts(TypedDict, closed=True):
 
 
 PortSpecification: TypeAlias = (
-    _PortSpecification_port | _PortSpecification_range | _PortSpecification_allPorts
+    _PortSpecification_port
+    | _PortSpecification_range
+    | _PortSpecification_allPorts
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PortSpecification) -> dict:
-    if "port" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"PortSpecification: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "port" in value:
         return {"port": value["port"]}
     elif "range" in value:
         import capo_lambda_microvms.types.port_range
@@ -60,4 +68,9 @@ def deserialize_json(data: dict) -> PortSpecification:
     elif data.get("allPorts") is not None:
         return {"allPorts": None}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("PortSpecification: no recognized variant key")

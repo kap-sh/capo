@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_securitylake.errors import DeserializationError, SerializationError
+from capo_securitylake.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_securitylake.types.https_notification_configuration
@@ -22,12 +23,17 @@ class _NotificationConfiguration_httpsNotificationConfiguration(TypedDict, close
 NotificationConfiguration: TypeAlias = (
     _NotificationConfiguration_sqsNotificationConfiguration
     | _NotificationConfiguration_httpsNotificationConfiguration
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: NotificationConfiguration) -> dict:
-    if "sqsNotificationConfiguration" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"NotificationConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "sqsNotificationConfiguration" in value:
         import capo_securitylake.types.sqs_notification_configuration
 
         return {
@@ -65,6 +71,11 @@ def deserialize_json(data: dict) -> NotificationConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "NotificationConfiguration: no recognized variant key"
         )

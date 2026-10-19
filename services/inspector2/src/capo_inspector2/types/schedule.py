@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_inspector2.errors import DeserializationError, SerializationError
+from capo_inspector2.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_inspector2.types.daily_schedule
@@ -30,13 +31,21 @@ class _Schedule_monthly(TypedDict, closed=True):
 
 
 Schedule: TypeAlias = (
-    _Schedule_oneTime | _Schedule_daily | _Schedule_weekly | _Schedule_monthly
+    _Schedule_oneTime
+    | _Schedule_daily
+    | _Schedule_weekly
+    | _Schedule_monthly
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Schedule) -> dict:
-    if "oneTime" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Schedule: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "oneTime" in value:
         import capo_inspector2.types.one_time_schedule
 
         return {
@@ -104,4 +113,9 @@ def deserialize_json(data: dict) -> Schedule:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Schedule: no recognized variant key")

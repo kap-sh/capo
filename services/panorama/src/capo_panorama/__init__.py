@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_panorama import AsyncPanoramaClient as AsyncPanoramaClient
 from ._services.panorama import PanoramaClient as PanoramaClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_ssm import AsyncSSMClient as AsyncSSMClient
 from ._services.ssm import SSMClient as SSMClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

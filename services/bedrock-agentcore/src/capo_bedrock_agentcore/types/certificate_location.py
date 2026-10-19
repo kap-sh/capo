@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agentcore.errors import DeserializationError, SerializationError
+from capo_bedrock_agentcore.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.secrets_manager_location
@@ -16,12 +17,18 @@ class _CertificateLocation_secretsManager(TypedDict, closed=True):
     )
 
 
-CertificateLocation: TypeAlias = _CertificateLocation_secretsManager
+CertificateLocation: TypeAlias = (
+    _CertificateLocation_secretsManager | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CertificateLocation) -> dict:
-    if "secretsManager" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"CertificateLocation: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "secretsManager" in value:
         import capo_bedrock_agentcore.types.secrets_manager_location
 
         return {
@@ -43,4 +50,9 @@ def deserialize_json(data: dict) -> CertificateLocation:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("CertificateLocation: no recognized variant key")

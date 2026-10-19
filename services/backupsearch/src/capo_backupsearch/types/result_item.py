@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_backupsearch.errors import DeserializationError, SerializationError
+from capo_backupsearch.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_backupsearch.types.ebs_result_item
@@ -19,12 +20,18 @@ class _ResultItem_EBSResultItem(TypedDict, closed=True):
     EBSResultItem: "capo_backupsearch.types.ebs_result_item.EBSResultItem"
 
 
-ResultItem: TypeAlias = _ResultItem_S3ResultItem | _ResultItem_EBSResultItem
+ResultItem: TypeAlias = (
+    _ResultItem_S3ResultItem | _ResultItem_EBSResultItem | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ResultItem) -> dict:
-    if "S3ResultItem" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ResultItem: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "S3ResultItem" in value:
         import capo_backupsearch.types.s3_result_item
 
         return {
@@ -62,10 +69,17 @@ def deserialize_json(data: dict) -> ResultItem:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ResultItem: no recognized variant key")
 
 
-def redact_sensitive(value: ResultItem) -> dict[str, Any]:
+def redact_sensitive(value: ResultItem) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "S3ResultItem" in value:
         import capo_backupsearch.types.s3_result_item

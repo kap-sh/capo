@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_timestream_influxdb.errors import DeserializationError, SerializationError
+from capo_timestream_influxdb.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_timestream_influxdb.types.influx_d_bv2_parameters
@@ -30,12 +31,17 @@ Parameters: TypeAlias = (
     _Parameters_InfluxDBv2
     | _Parameters_InfluxDBv3Core
     | _Parameters_InfluxDBv3Enterprise
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: Parameters) -> dict:
-    if "InfluxDBv2" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Parameters: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "InfluxDBv2" in value:
         import capo_timestream_influxdb.types.influx_d_bv2_parameters
 
         return {
@@ -89,4 +95,9 @@ def deserialize_aws_json_1_0(data: dict) -> Parameters:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Parameters: no recognized variant key")

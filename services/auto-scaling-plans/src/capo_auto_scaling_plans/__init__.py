@@ -79,3 +79,9 @@ from ._services.async_auto_scaling_plans import (
 from ._services.auto_scaling_plans import (
     AutoScalingPlansClient as AutoScalingPlansClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

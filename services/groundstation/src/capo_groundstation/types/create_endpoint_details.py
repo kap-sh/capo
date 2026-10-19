@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_groundstation.errors import DeserializationError, SerializationError
+from capo_groundstation.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_groundstation.types.downlink_aws_ground_station_agent_endpoint
@@ -26,12 +27,17 @@ class _CreateEndpointDetails_downlinkAwsGroundStationAgentEndpoint(
 CreateEndpointDetails: TypeAlias = (
     _CreateEndpointDetails_uplinkAwsGroundStationAgentEndpoint
     | _CreateEndpointDetails_downlinkAwsGroundStationAgentEndpoint
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CreateEndpointDetails) -> dict:
-    if "uplinkAwsGroundStationAgentEndpoint" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"CreateEndpointDetails: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "uplinkAwsGroundStationAgentEndpoint" in value:
         import capo_groundstation.types.uplink_aws_ground_station_agent_endpoint
 
         return {
@@ -69,4 +75,9 @@ def deserialize_json(data: dict) -> CreateEndpointDetails:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("CreateEndpointDetails: no recognized variant key")

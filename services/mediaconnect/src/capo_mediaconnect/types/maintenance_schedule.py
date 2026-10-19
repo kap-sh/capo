@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_mediaconnect.errors import DeserializationError, SerializationError
+from capo_mediaconnect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_mediaconnect.types.window_maintenance_schedule
@@ -16,12 +17,16 @@ class _MaintenanceSchedule_Window(TypedDict, closed=True):
     )
 
 
-MaintenanceSchedule: TypeAlias = _MaintenanceSchedule_Window
+MaintenanceSchedule: TypeAlias = _MaintenanceSchedule_Window | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MaintenanceSchedule) -> dict:
-    if "Window" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"MaintenanceSchedule: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "Window" in value:
         import capo_mediaconnect.types.window_maintenance_schedule
 
         return {
@@ -43,4 +48,9 @@ def deserialize_json(data: dict) -> MaintenanceSchedule:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("MaintenanceSchedule: no recognized variant key")

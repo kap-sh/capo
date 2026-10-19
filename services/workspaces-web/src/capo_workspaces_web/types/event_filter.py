@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_workspaces_web.errors import DeserializationError, SerializationError
+from capo_workspaces_web.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_workspaces_web.types.events
@@ -18,12 +19,16 @@ class _EventFilter_include(TypedDict, closed=True):
     include: "capo_workspaces_web.types.events.Events"
 
 
-EventFilter: TypeAlias = _EventFilter_all | _EventFilter_include
+EventFilter: TypeAlias = _EventFilter_all | _EventFilter_include | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: EventFilter) -> dict:
-    if "all" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"EventFilter: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "all" in value:
         return {"all": {}}
     elif "include" in value:
         import capo_workspaces_web.types.events
@@ -47,4 +52,9 @@ def deserialize_json(data: dict) -> EventFilter:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("EventFilter: no recognized variant key")

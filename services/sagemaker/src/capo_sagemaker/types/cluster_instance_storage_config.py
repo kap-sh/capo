@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_sagemaker.errors import DeserializationError, SerializationError
+from capo_sagemaker.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_sagemaker.types.cluster_ebs_volume_config
@@ -34,12 +35,17 @@ ClusterInstanceStorageConfig: TypeAlias = (
     _ClusterInstanceStorageConfig_EbsVolumeConfig
     | _ClusterInstanceStorageConfig_FsxLustreConfig
     | _ClusterInstanceStorageConfig_FsxOpenZfsConfig
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: ClusterInstanceStorageConfig) -> dict:
-    if "EbsVolumeConfig" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ClusterInstanceStorageConfig: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "EbsVolumeConfig" in value:
         import capo_sagemaker.types.cluster_ebs_volume_config
 
         return {
@@ -93,6 +99,11 @@ def deserialize_aws_json_1_1(data: dict) -> ClusterInstanceStorageConfig:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "ClusterInstanceStorageConfig: no recognized variant key"
         )

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_amp.errors import DeserializationError, SerializationError
+from capo_amp.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_amp.types.open_search_exporter_configuration
@@ -14,12 +15,18 @@ class _ExporterConfiguration_openSearchConfiguration(TypedDict, closed=True):
     openSearchConfiguration: "capo_amp.types.open_search_exporter_configuration.OpenSearchExporterConfiguration"
 
 
-ExporterConfiguration: TypeAlias = _ExporterConfiguration_openSearchConfiguration
+ExporterConfiguration: TypeAlias = (
+    _ExporterConfiguration_openSearchConfiguration | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ExporterConfiguration) -> dict:
-    if "openSearchConfiguration" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ExporterConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "openSearchConfiguration" in value:
         import capo_amp.types.open_search_exporter_configuration
 
         return {
@@ -41,4 +48,9 @@ def deserialize_json(data: dict) -> ExporterConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ExporterConfiguration: no recognized variant key")

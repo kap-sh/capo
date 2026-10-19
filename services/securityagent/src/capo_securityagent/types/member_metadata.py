@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_securityagent.errors import DeserializationError, SerializationError
+from capo_securityagent.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_securityagent.types.user_metadata
@@ -14,12 +15,16 @@ class _MemberMetadata_user(TypedDict, closed=True):
     user: "capo_securityagent.types.user_metadata.UserMetadata"
 
 
-MemberMetadata: TypeAlias = _MemberMetadata_user
+MemberMetadata: TypeAlias = _MemberMetadata_user | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MemberMetadata) -> dict:
-    if "user" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"MemberMetadata: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "user" in value:
         import capo_securityagent.types.user_metadata
 
         return {
@@ -39,4 +44,9 @@ def deserialize_json(data: dict) -> MemberMetadata:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("MemberMetadata: no recognized variant key")

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agentcore.errors import DeserializationError, SerializationError
+from capo_bedrock_agentcore.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.key_press_result
@@ -58,12 +59,17 @@ BrowserActionResult: TypeAlias = (
     | _BrowserActionResult_keyPress
     | _BrowserActionResult_keyShortcut
     | _BrowserActionResult_screenshot
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: BrowserActionResult) -> dict:
-    if "mouseClick" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"BrowserActionResult: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "mouseClick" in value:
         import capo_bedrock_agentcore.types.mouse_click_result
 
         return {
@@ -197,4 +203,9 @@ def deserialize_json(data: dict) -> BrowserActionResult:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("BrowserActionResult: no recognized variant key")

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_amplifyuibuilder.errors import DeserializationError, SerializationError
+from capo_amplifyuibuilder.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_amplifyuibuilder.types.fixed_position
@@ -23,13 +24,20 @@ class _FieldPosition_below(TypedDict, closed=True):
 
 
 FieldPosition: TypeAlias = (
-    _FieldPosition_fixed | _FieldPosition_rightOf | _FieldPosition_below
+    _FieldPosition_fixed
+    | _FieldPosition_rightOf
+    | _FieldPosition_below
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: FieldPosition) -> dict:
-    if "fixed" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"FieldPosition: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "fixed" in value:
         import capo_amplifyuibuilder.types.fixed_position
 
         return {
@@ -59,4 +67,9 @@ def deserialize_json(data: dict) -> FieldPosition:
     elif data.get("below") is not None:
         return {"below": data["below"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("FieldPosition: no recognized variant key")

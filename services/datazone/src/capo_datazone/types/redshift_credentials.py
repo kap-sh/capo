@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_datazone.errors import DeserializationError, SerializationError
+from capo_datazone.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_datazone.types.username_password
@@ -19,13 +20,19 @@ class _RedshiftCredentials_usernamePassword(TypedDict, closed=True):
 
 
 RedshiftCredentials: TypeAlias = (
-    _RedshiftCredentials_secretArn | _RedshiftCredentials_usernamePassword
+    _RedshiftCredentials_secretArn
+    | _RedshiftCredentials_usernamePassword
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RedshiftCredentials) -> dict:
-    if "secretArn" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RedshiftCredentials: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "secretArn" in value:
         return {"secretArn": value["secretArn"]}
     elif "usernamePassword" in value:
         import capo_datazone.types.username_password
@@ -51,4 +58,9 @@ def deserialize_json(data: dict) -> RedshiftCredentials:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("RedshiftCredentials: no recognized variant key")

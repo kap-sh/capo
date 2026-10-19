@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_transcribe.errors import DeserializationError, SerializationError
+from capo_transcribe.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_transcribe.types.interruption_filter
@@ -34,12 +35,17 @@ Rule: TypeAlias = (
     | _Rule_InterruptionFilter
     | _Rule_TranscriptFilter
     | _Rule_SentimentFilter
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: Rule) -> dict:
-    if "NonTalkTimeFilter" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Rule: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "NonTalkTimeFilter" in value:
         import capo_transcribe.types.non_talk_time_filter
 
         return {
@@ -109,4 +115,9 @@ def deserialize_aws_json_1_1(data: dict) -> Rule:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Rule: no recognized variant key")

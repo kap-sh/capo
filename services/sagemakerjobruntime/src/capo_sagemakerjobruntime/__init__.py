@@ -79,3 +79,9 @@ from ._services.async_sagemaker_job_runtime import (
 from ._services.sagemaker_job_runtime import (
     SagemakerJobRuntimeClient as SagemakerJobRuntimeClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

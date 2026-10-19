@@ -77,3 +77,9 @@ from ._services.async_well_architected import (
     AsyncWellArchitectedClient as AsyncWellArchitectedClient,
 )
 from ._services.well_architected import WellArchitectedClient as WellArchitectedClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock.errors import DeserializationError, SerializationError
+from capo_bedrock.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_build_workflow_document_list
@@ -40,12 +41,17 @@ AutomatedReasoningPolicyWorkflowTypeContent: TypeAlias = (
     | _AutomatedReasoningPolicyWorkflowTypeContent_policyRepairAssets
     | _AutomatedReasoningPolicyWorkflowTypeContent_generateFidelityReportContent
     | _AutomatedReasoningPolicyWorkflowTypeContent_iterativeRefinementContent
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AutomatedReasoningPolicyWorkflowTypeContent) -> dict:
-    if "documents" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AutomatedReasoningPolicyWorkflowTypeContent: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "documents" in value:
         import capo_bedrock.types.automated_reasoning_policy_build_workflow_document_list
 
         return {
@@ -117,6 +123,11 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyWorkflowTypeContent:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "AutomatedReasoningPolicyWorkflowTypeContent: no recognized variant key"
         )
@@ -124,7 +135,9 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyWorkflowTypeContent:
 
 def redact_sensitive(
     value: AutomatedReasoningPolicyWorkflowTypeContent,
-) -> dict[str, Any]:
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "documents" in value:
         import capo_bedrock.types.automated_reasoning_policy_build_workflow_document_list

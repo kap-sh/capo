@@ -77,3 +77,9 @@ from ._services.async_fraud_detector import (
     AsyncFraudDetectorClient as AsyncFraudDetectorClient,
 )
 from ._services.fraud_detector import FraudDetectorClient as FraudDetectorClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

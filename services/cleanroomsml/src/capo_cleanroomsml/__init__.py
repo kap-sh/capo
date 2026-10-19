@@ -77,3 +77,9 @@ from ._services.async_clean_rooms_ml import (
     AsyncCleanRoomsMLClient as AsyncCleanRoomsMLClient,
 )
 from ._services.clean_rooms_ml import CleanRoomsMLClient as CleanRoomsMLClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

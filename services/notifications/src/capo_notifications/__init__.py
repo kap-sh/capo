@@ -77,3 +77,9 @@ from ._services.async_notifications import (
     AsyncNotificationsClient as AsyncNotificationsClient,
 )
 from ._services.notifications import NotificationsClient as NotificationsClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

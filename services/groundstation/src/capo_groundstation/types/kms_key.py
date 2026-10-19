@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_groundstation.errors import DeserializationError, SerializationError
+from capo_groundstation.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_groundstation.types.key_alias_arn
@@ -24,12 +25,18 @@ class _KmsKey_kmsAliasName(TypedDict, closed=True):
     kmsAliasName: "capo_groundstation.types.key_alias_name.KeyAliasName"
 
 
-KmsKey: TypeAlias = _KmsKey_kmsKeyArn | _KmsKey_kmsAliasArn | _KmsKey_kmsAliasName
+KmsKey: TypeAlias = (
+    _KmsKey_kmsKeyArn | _KmsKey_kmsAliasArn | _KmsKey_kmsAliasName | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: KmsKey) -> dict:
-    if "kmsKeyArn" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"KmsKey: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "kmsKeyArn" in value:
         return {"kmsKeyArn": value["kmsKeyArn"]}
     elif "kmsAliasArn" in value:
         return {"kmsAliasArn": value["kmsAliasArn"]}
@@ -47,4 +54,9 @@ def deserialize_json(data: dict) -> KmsKey:
     elif data.get("kmsAliasName") is not None:
         return {"kmsAliasName": data["kmsAliasName"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("KmsKey: no recognized variant key")

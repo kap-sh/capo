@@ -77,3 +77,9 @@ from ._services.api_gateway_v2 import ApiGatewayV2Client as ApiGatewayV2Client
 from ._services.async_api_gateway_v2 import (
     AsyncApiGatewayV2Client as AsyncApiGatewayV2Client,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

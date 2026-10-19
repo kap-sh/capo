@@ -10,6 +10,7 @@ from capo_bedrock_agentcore._protocol.eventstream import Message
 from capo_bedrock_agentcore.errors import (
     UnknownServiceError,
 )
+from capo_bedrock_agentcore.types._unknown import UnknownEvent
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.errors.access_denied_exception
@@ -83,6 +84,7 @@ _InvokeAgentRuntimeCommandStreamOutput: TypeAlias = (
     | _InvokeAgentRuntimeCommandStreamOutput_throttlingException
     | _InvokeAgentRuntimeCommandStreamOutput_validationException
     | _InvokeAgentRuntimeCommandStreamOutput_runtimeClientError
+    | UnknownEvent
 )
 InvokeAgentRuntimeCommandStreamOutput: TypeAlias = AnyIterator[
     _InvokeAgentRuntimeCommandStreamOutput
@@ -90,6 +92,10 @@ InvokeAgentRuntimeCommandStreamOutput: TypeAlias = AnyIterator[
 
 
 def serialize_event_json(value: _InvokeAgentRuntimeCommandStreamOutput) -> bytes:
+    if isinstance(value, UnknownEvent):
+        raise ValueError(
+            f"InvokeAgentRuntimeCommandStreamOutput: cannot serialize unknown event {value.event_type!r}"
+        )
     match value:
         case {"chunk": payload}:
             import capo_bedrock_agentcore.types.response_chunk
@@ -243,6 +249,8 @@ def deserialize_event_json(
                     message
                 )
             }
+        case str():
+            return UnknownEvent(event_type, message)
         case _:
             raise ValueError(
                 f"InvokeAgentRuntimeCommandStreamOutput: unrecognized event-type {event_type!r}"

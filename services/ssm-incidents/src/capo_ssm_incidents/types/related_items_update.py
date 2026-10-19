@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_ssm_incidents.errors import DeserializationError, SerializationError
+from capo_ssm_incidents.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_ssm_incidents.types.item_identifier
@@ -20,13 +21,19 @@ class _RelatedItemsUpdate_itemToRemove(TypedDict, closed=True):
 
 
 RelatedItemsUpdate: TypeAlias = (
-    _RelatedItemsUpdate_itemToAdd | _RelatedItemsUpdate_itemToRemove
+    _RelatedItemsUpdate_itemToAdd
+    | _RelatedItemsUpdate_itemToRemove
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RelatedItemsUpdate) -> dict:
-    if "itemToAdd" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RelatedItemsUpdate: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "itemToAdd" in value:
         import capo_ssm_incidents.types.related_item
 
         return {
@@ -64,4 +71,9 @@ def deserialize_json(data: dict) -> RelatedItemsUpdate:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("RelatedItemsUpdate: no recognized variant key")

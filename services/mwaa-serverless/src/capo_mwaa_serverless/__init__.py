@@ -77,3 +77,9 @@ from ._services.async_mwaa_serverless import (
     AsyncMWAAServerlessClient as AsyncMWAAServerlessClient,
 )
 from ._services.mwaa_serverless import MWAAServerlessClient as MWAAServerlessClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

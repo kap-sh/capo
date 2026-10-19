@@ -79,3 +79,9 @@ from ._services.async_entity_resolution import (
 from ._services.entity_resolution import (
     EntityResolutionClient as EntityResolutionClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

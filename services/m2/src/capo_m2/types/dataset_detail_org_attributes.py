@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_m2.errors import DeserializationError, SerializationError
+from capo_m2.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_m2.types.gdg_detail_attributes
@@ -34,12 +35,17 @@ DatasetDetailOrgAttributes: TypeAlias = (
     | _DatasetDetailOrgAttributes_gdg
     | _DatasetDetailOrgAttributes_po
     | _DatasetDetailOrgAttributes_ps
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DatasetDetailOrgAttributes) -> dict:
-    if "vsam" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"DatasetDetailOrgAttributes: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "vsam" in value:
         import capo_m2.types.vsam_detail_attributes
 
         return {
@@ -83,6 +89,11 @@ def deserialize_json(data: dict) -> DatasetDetailOrgAttributes:
 
         return {"ps": capo_m2.types.ps_detail_attributes.deserialize_json(data["ps"])}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "DatasetDetailOrgAttributes: no recognized variant key"
         )

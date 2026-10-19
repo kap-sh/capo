@@ -77,3 +77,9 @@ from ._services.async_neptune_graph import (
     AsyncNeptuneGraphClient as AsyncNeptuneGraphClient,
 )
 from ._services.neptune_graph import NeptuneGraphClient as NeptuneGraphClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_outposts import AsyncOutpostsClient as AsyncOutpostsClient
 from ._services.outposts import OutpostsClient as OutpostsClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

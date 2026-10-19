@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_connectcases.errors import DeserializationError, SerializationError
+from capo_connectcases.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_connectcases.types.boolean_operands
@@ -32,12 +33,17 @@ BooleanCondition: TypeAlias = (
     | _BooleanCondition_notEqualTo
     | _BooleanCondition_andAll
     | _BooleanCondition_orAll
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: BooleanCondition) -> dict:
-    if "equalTo" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"BooleanCondition: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "equalTo" in value:
         import capo_connectcases.types.boolean_operands
 
         return {
@@ -107,4 +113,9 @@ def deserialize_json(data: dict) -> BooleanCondition:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("BooleanCondition: no recognized variant key")

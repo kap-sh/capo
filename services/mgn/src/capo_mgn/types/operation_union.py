@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_mgn.errors import DeserializationError, SerializationError
+from capo_mgn.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_mgn.types.delete_operation
@@ -34,12 +35,17 @@ OperationUnion: TypeAlias = (
     | _OperationUnion_split
     | _OperationUnion_delete
     | _OperationUnion_update
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: OperationUnion) -> dict:
-    if "merge" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"OperationUnion: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "merge" in value:
         import capo_mgn.types.merge_operation
 
         return {"merge": capo_mgn.types.merge_operation.serialize_json(value["merge"])}
@@ -85,4 +91,9 @@ def deserialize_json(data: dict) -> OperationUnion:
             "update": capo_mgn.types.update_operation.deserialize_json(data["update"])
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("OperationUnion: no recognized variant key")

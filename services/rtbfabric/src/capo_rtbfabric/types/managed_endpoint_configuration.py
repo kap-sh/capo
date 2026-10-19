@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_rtbfabric.errors import DeserializationError, SerializationError
+from capo_rtbfabric.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_rtbfabric.types.auto_scaling_groups_configuration
@@ -24,12 +25,17 @@ class _ManagedEndpointConfiguration_eksEndpoints(TypedDict, closed=True):
 ManagedEndpointConfiguration: TypeAlias = (
     _ManagedEndpointConfiguration_autoScalingGroups
     | _ManagedEndpointConfiguration_eksEndpoints
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ManagedEndpointConfiguration) -> dict:
-    if "autoScalingGroups" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ManagedEndpointConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "autoScalingGroups" in value:
         import capo_rtbfabric.types.auto_scaling_groups_configuration
 
         return {
@@ -67,12 +73,21 @@ def deserialize_json(data: dict) -> ManagedEndpointConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "ManagedEndpointConfiguration: no recognized variant key"
         )
 
 
-def redact_sensitive(value: ManagedEndpointConfiguration) -> dict[str, Any]:
+def redact_sensitive(
+    value: ManagedEndpointConfiguration,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "eksEndpoints" in value:
         import capo_rtbfabric.types.eks_endpoints_configuration

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_deadline.errors import DeserializationError, SerializationError
+from capo_deadline.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_deadline.types.fixed_budget_schedule
@@ -14,12 +15,16 @@ class _BudgetSchedule_fixed(TypedDict, closed=True):
     fixed: "capo_deadline.types.fixed_budget_schedule.FixedBudgetSchedule"
 
 
-BudgetSchedule: TypeAlias = _BudgetSchedule_fixed
+BudgetSchedule: TypeAlias = _BudgetSchedule_fixed | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: BudgetSchedule) -> dict:
-    if "fixed" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"BudgetSchedule: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "fixed" in value:
         import capo_deadline.types.fixed_budget_schedule
 
         return {
@@ -41,4 +46,9 @@ def deserialize_json(data: dict) -> BudgetSchedule:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("BudgetSchedule: no recognized variant key")

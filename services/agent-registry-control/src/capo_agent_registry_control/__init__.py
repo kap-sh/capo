@@ -79,3 +79,9 @@ from ._services.agent_registry_control import (
 from ._services.async_agent_registry_control import (
     AsyncAgentRegistryControlClient as AsyncAgentRegistryControlClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

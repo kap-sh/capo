@@ -77,3 +77,9 @@ from ._services.async_pinpoint_email import (
     AsyncPinpointEmailClient as AsyncPinpointEmailClient,
 )
 from ._services.pinpoint_email import PinpointEmailClient as PinpointEmailClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

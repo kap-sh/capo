@@ -79,3 +79,9 @@ from ._services.async_chime_sdk_messaging import (
 from ._services.chime_sdk_messaging import (
     ChimeSDKMessagingClient as ChimeSDKMessagingClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

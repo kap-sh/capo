@@ -79,3 +79,9 @@ from ._services.async_marketplace_metering import (
 from ._services.marketplace_metering import (
     MarketplaceMeteringClient as MarketplaceMeteringClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

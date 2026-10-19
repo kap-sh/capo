@@ -77,3 +77,9 @@ from ._services.app_config_data import AppConfigDataClient as AppConfigDataClien
 from ._services.async_app_config_data import (
     AsyncAppConfigDataClient as AsyncAppConfigDataClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

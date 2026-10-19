@@ -77,3 +77,9 @@ from ._services.async_doc_db_elastic import (
     AsyncDocDBElasticClient as AsyncDocDBElasticClient,
 )
 from ._services.doc_db_elastic import DocDBElasticClient as DocDBElasticClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

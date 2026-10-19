@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_swf import AsyncSWFClient as AsyncSWFClient
 from ._services.swf import SWFClient as SWFClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

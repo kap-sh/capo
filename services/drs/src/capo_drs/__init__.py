@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_drs import AsyncdrsClient as AsyncdrsClient
 from ._services.drs import drsClient as drsClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

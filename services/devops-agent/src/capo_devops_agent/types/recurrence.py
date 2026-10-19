@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_devops_agent.errors import DeserializationError, SerializationError
+from capo_devops_agent.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_devops_agent.types.daily_recurrence
@@ -24,12 +25,18 @@ class _Recurrence_monthly(TypedDict, closed=True):
     monthly: "capo_devops_agent.types.monthly_recurrence.MonthlyRecurrence"
 
 
-Recurrence: TypeAlias = _Recurrence_daily | _Recurrence_weekly | _Recurrence_monthly
+Recurrence: TypeAlias = (
+    _Recurrence_daily | _Recurrence_weekly | _Recurrence_monthly | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Recurrence) -> dict:
-    if "daily" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Recurrence: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "daily" in value:
         import capo_devops_agent.types.daily_recurrence
 
         return {
@@ -83,4 +90,9 @@ def deserialize_json(data: dict) -> Recurrence:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Recurrence: no recognized variant key")

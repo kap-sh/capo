@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_qbusiness.errors import DeserializationError, SerializationError
+from capo_qbusiness.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_qbusiness.types.payload
@@ -19,12 +20,16 @@ class _APISchema_s3(TypedDict, closed=True):
     s3: "capo_qbusiness.types.s3.S3"
 
 
-APISchema: TypeAlias = _APISchema_payload | _APISchema_s3
+APISchema: TypeAlias = _APISchema_payload | _APISchema_s3 | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: APISchema) -> dict:
-    if "payload" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"APISchema: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "payload" in value:
         return {"payload": value["payload"]}
     elif "s3" in value:
         import capo_qbusiness.types.s3
@@ -42,10 +47,17 @@ def deserialize_json(data: dict) -> APISchema:
 
         return {"s3": capo_qbusiness.types.s3.deserialize_json(data["s3"])}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("APISchema: no recognized variant key")
 
 
-def redact_sensitive(value: APISchema) -> dict[str, Any]:
+def redact_sensitive(value: APISchema) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "payload" in value:
         out["payload"] = "*** Sensitive Data Redacted ***"

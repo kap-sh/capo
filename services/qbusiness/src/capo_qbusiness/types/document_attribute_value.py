@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_qbusiness.errors import DeserializationError, SerializationError
+from capo_qbusiness.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_qbusiness.types.document_attribute_string_list_value
@@ -34,12 +35,17 @@ DocumentAttributeValue: TypeAlias = (
     | _DocumentAttributeValue_stringListValue
     | _DocumentAttributeValue_longValue
     | _DocumentAttributeValue_dateValue
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DocumentAttributeValue) -> dict:
-    if "stringValue" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"DocumentAttributeValue: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "stringValue" in value:
         return {"stringValue": value["stringValue"]}
     elif "stringListValue" in value:
         import capo_qbusiness.types.document_attribute_string_list_value
@@ -85,4 +91,9 @@ def deserialize_json(data: dict) -> DocumentAttributeValue:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("DocumentAttributeValue: no recognized variant key")

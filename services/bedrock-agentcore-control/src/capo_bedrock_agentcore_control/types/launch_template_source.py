@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.launch_parameters
@@ -19,12 +20,18 @@ class _LaunchTemplateSource_launchParameters(TypedDict, closed=True):
     )
 
 
-LaunchTemplateSource: TypeAlias = _LaunchTemplateSource_launchParameters
+LaunchTemplateSource: TypeAlias = (
+    _LaunchTemplateSource_launchParameters | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: LaunchTemplateSource) -> dict:
-    if "launchParameters" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"LaunchTemplateSource: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "launchParameters" in value:
         import capo_bedrock_agentcore_control.types.launch_parameters
 
         return {
@@ -46,4 +53,9 @@ def deserialize_json(data: dict) -> LaunchTemplateSource:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("LaunchTemplateSource: no recognized variant key")

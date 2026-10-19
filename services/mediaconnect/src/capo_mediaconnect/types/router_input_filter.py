@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_mediaconnect.errors import DeserializationError, SerializationError
+from capo_mediaconnect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_mediaconnect.types.router_input_type_list
@@ -39,12 +40,17 @@ RouterInputFilter: TypeAlias = (
     | _RouterInputFilter_NetworkInterfaceArns
     | _RouterInputFilter_RoutingScopes
     | _RouterInputFilter_InputTypes
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RouterInputFilter) -> dict:
-    if "NameContains" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RouterInputFilter: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "NameContains" in value:
         import capo_mediaconnect.types.string_list
 
         return {
@@ -130,4 +136,9 @@ def deserialize_json(data: dict) -> RouterInputFilter:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("RouterInputFilter: no recognized variant key")

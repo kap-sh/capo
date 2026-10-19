@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_keyspacesstreams.errors import DeserializationError, SerializationError
+from capo_keyspacesstreams.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_keyspacesstreams.types.keyspaces_cell_list
@@ -143,12 +144,17 @@ KeyspacesCellValue: TypeAlias = (
     | _KeyspacesCellValue_varcharT
     | _KeyspacesCellValue_varintT
     | _KeyspacesCellValue_udtT
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: KeyspacesCellValue) -> dict:
-    if "asciiT" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"KeyspacesCellValue: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "asciiT" in value:
         return {"asciiT": value["asciiT"]}
     elif "bigintT" in value:
         return {"bigintT": value["bigintT"]}
@@ -330,4 +336,9 @@ def deserialize_aws_json_1_0(data: dict) -> KeyspacesCellValue:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("KeyspacesCellValue: no recognized variant key")

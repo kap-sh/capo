@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_app_mesh.errors import DeserializationError, SerializationError
+from capo_app_mesh.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_app_mesh.types.json_format
@@ -19,12 +20,18 @@ class _LoggingFormat_json(TypedDict, closed=True):
     json: "capo_app_mesh.types.json_format.JsonFormat"
 
 
-LoggingFormat: TypeAlias = _LoggingFormat_text | _LoggingFormat_json
+LoggingFormat: TypeAlias = (
+    _LoggingFormat_text | _LoggingFormat_json | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: LoggingFormat) -> dict:
-    if "text" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"LoggingFormat: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "text" in value:
         return {"text": value["text"]}
     elif "json" in value:
         import capo_app_mesh.types.json_format
@@ -42,4 +49,9 @@ def deserialize_json(data: dict) -> LoggingFormat:
 
         return {"json": capo_app_mesh.types.json_format.deserialize_json(data["json"])}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("LoggingFormat: no recognized variant key")

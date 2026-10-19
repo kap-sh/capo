@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_sagemaker.errors import DeserializationError, SerializationError
+from capo_sagemaker.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_sagemaker.types.ai_benchmark_endpoint
@@ -14,12 +15,16 @@ class _AIBenchmarkTarget_Endpoint(TypedDict, closed=True):
     Endpoint: "capo_sagemaker.types.ai_benchmark_endpoint.AIBenchmarkEndpoint"
 
 
-AIBenchmarkTarget: TypeAlias = _AIBenchmarkTarget_Endpoint
+AIBenchmarkTarget: TypeAlias = _AIBenchmarkTarget_Endpoint | UnknownUnionMember
 
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: AIBenchmarkTarget) -> dict:
-    if "Endpoint" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AIBenchmarkTarget: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "Endpoint" in value:
         import capo_sagemaker.types.ai_benchmark_endpoint
 
         return {
@@ -41,4 +46,9 @@ def deserialize_aws_json_1_1(data: dict) -> AIBenchmarkTarget:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("AIBenchmarkTarget: no recognized variant key")

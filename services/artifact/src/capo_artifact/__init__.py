@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.artifact import ArtifactClient as ArtifactClient
 from ._services.async_artifact import AsyncArtifactClient as AsyncArtifactClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

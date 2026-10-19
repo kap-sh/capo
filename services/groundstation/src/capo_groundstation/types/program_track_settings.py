@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_groundstation.errors import DeserializationError, SerializationError
+from capo_groundstation.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_groundstation.types.az_el_program_track_settings
@@ -27,13 +28,20 @@ class _ProgramTrackSettings_tle(TypedDict, closed=True):
 
 
 ProgramTrackSettings: TypeAlias = (
-    _ProgramTrackSettings_azEl | _ProgramTrackSettings_oem | _ProgramTrackSettings_tle
+    _ProgramTrackSettings_azEl
+    | _ProgramTrackSettings_oem
+    | _ProgramTrackSettings_tle
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ProgramTrackSettings) -> dict:
-    if "azEl" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ProgramTrackSettings: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "azEl" in value:
         import capo_groundstation.types.az_el_program_track_settings
 
         return {
@@ -87,4 +95,9 @@ def deserialize_json(data: dict) -> ProgramTrackSettings:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ProgramTrackSettings: no recognized variant key")

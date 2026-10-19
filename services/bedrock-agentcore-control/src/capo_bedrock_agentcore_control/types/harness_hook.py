@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.harness_after_invocation_hook
@@ -37,12 +38,17 @@ HarnessHook: TypeAlias = (
     | _HarnessHook_afterInvocation
     | _HarnessHook_beforeToolCall
     | _HarnessHook_afterToolCall
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: HarnessHook) -> dict:
-    if "beforeInvocation" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"HarnessHook: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "beforeInvocation" in value:
         import capo_bedrock_agentcore_control.types.harness_before_invocation_hook
 
         return {
@@ -112,4 +118,9 @@ def deserialize_json(data: dict) -> HarnessHook:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("HarnessHook: no recognized variant key")

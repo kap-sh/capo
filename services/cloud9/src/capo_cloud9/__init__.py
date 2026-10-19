@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_cloud9 import AsyncCloud9Client as AsyncCloud9Client
 from ._services.cloud9 import Cloud9Client as Cloud9Client
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

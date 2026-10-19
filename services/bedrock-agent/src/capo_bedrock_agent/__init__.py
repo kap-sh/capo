@@ -77,3 +77,9 @@ from ._services.async_bedrock_agent import (
     AsyncBedrockAgentClient as AsyncBedrockAgentClient,
 )
 from ._services.bedrock_agent import BedrockAgentClient as BedrockAgentClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

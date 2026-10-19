@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_mpa import AsyncMPAClient as AsyncMPAClient
 from ._services.mpa import MPAClient as MPAClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

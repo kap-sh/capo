@@ -77,3 +77,9 @@ from ._services.async_io_t_things_graph import (
     AsyncIoTThingsGraphClient as AsyncIoTThingsGraphClient,
 )
 from ._services.io_t_things_graph import IoTThingsGraphClient as IoTThingsGraphClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

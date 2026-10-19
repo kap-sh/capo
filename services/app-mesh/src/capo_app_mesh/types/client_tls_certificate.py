@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_app_mesh.errors import DeserializationError, SerializationError
+from capo_app_mesh.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_app_mesh.types.listener_tls_file_certificate
@@ -19,12 +20,18 @@ class _ClientTlsCertificate_sds(TypedDict, closed=True):
     sds: "capo_app_mesh.types.listener_tls_sds_certificate.ListenerTlsSdsCertificate"
 
 
-ClientTlsCertificate: TypeAlias = _ClientTlsCertificate_file | _ClientTlsCertificate_sds
+ClientTlsCertificate: TypeAlias = (
+    _ClientTlsCertificate_file | _ClientTlsCertificate_sds | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ClientTlsCertificate) -> dict:
-    if "file" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ClientTlsCertificate: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "file" in value:
         import capo_app_mesh.types.listener_tls_file_certificate
 
         return {
@@ -62,4 +69,9 @@ def deserialize_json(data: dict) -> ClientTlsCertificate:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ClientTlsCertificate: no recognized variant key")

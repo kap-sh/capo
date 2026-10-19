@@ -86,3 +86,9 @@ from ._services.async_partner_central_channel import (
 from ._services.partner_central_channel import (
     PartnerCentralChannelClient as PartnerCentralChannelClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

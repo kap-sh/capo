@@ -77,3 +77,9 @@ from ._services.async_social_messaging import (
     AsyncSocialMessagingClient as AsyncSocialMessagingClient,
 )
 from ._services.social_messaging import SocialMessagingClient as SocialMessagingClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.lambda_evaluator_config
@@ -17,12 +18,18 @@ class _CodeBasedEvaluatorConfig_lambdaConfig(TypedDict, closed=True):
     lambdaConfig: "capo_bedrock_agentcore_control.types.lambda_evaluator_config.LambdaEvaluatorConfig"
 
 
-CodeBasedEvaluatorConfig: TypeAlias = _CodeBasedEvaluatorConfig_lambdaConfig
+CodeBasedEvaluatorConfig: TypeAlias = (
+    _CodeBasedEvaluatorConfig_lambdaConfig | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CodeBasedEvaluatorConfig) -> dict:
-    if "lambdaConfig" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"CodeBasedEvaluatorConfig: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "lambdaConfig" in value:
         import capo_bedrock_agentcore_control.types.lambda_evaluator_config
 
         return {
@@ -44,6 +51,11 @@ def deserialize_json(data: dict) -> CodeBasedEvaluatorConfig:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "CodeBasedEvaluatorConfig: no recognized variant key"
         )

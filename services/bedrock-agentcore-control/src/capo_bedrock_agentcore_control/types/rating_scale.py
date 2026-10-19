@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.categorical_scale_definitions
@@ -22,12 +23,18 @@ class _RatingScale_categorical(TypedDict, closed=True):
     categorical: "capo_bedrock_agentcore_control.types.categorical_scale_definitions.CategoricalScaleDefinitions"
 
 
-RatingScale: TypeAlias = _RatingScale_numerical | _RatingScale_categorical
+RatingScale: TypeAlias = (
+    _RatingScale_numerical | _RatingScale_categorical | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RatingScale) -> dict:
-    if "numerical" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RatingScale: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "numerical" in value:
         import capo_bedrock_agentcore_control.types.numerical_scale_definitions
 
         return {
@@ -65,4 +72,9 @@ def deserialize_json(data: dict) -> RatingScale:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("RatingScale: no recognized variant key")

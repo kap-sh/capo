@@ -79,3 +79,9 @@ from ._services.async_marketplace_reporting import (
 from ._services.marketplace_reporting import (
     MarketplaceReportingClient as MarketplaceReportingClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

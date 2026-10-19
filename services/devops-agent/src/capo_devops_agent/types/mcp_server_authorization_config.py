@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_devops_agent.errors import DeserializationError, SerializationError
+from capo_devops_agent.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_devops_agent.types.mcp_server_api_key_config
@@ -48,12 +49,17 @@ MCPServerAuthorizationConfig: TypeAlias = (
     | _MCPServerAuthorizationConfig_bearerToken
     | _MCPServerAuthorizationConfig_customHeaders
     | _MCPServerAuthorizationConfig_authorizationDiscovery
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MCPServerAuthorizationConfig) -> dict:
-    if "oAuthClientCredentials" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"MCPServerAuthorizationConfig: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "oAuthClientCredentials" in value:
         import capo_devops_agent.types.mcp_server_o_auth_client_credentials_config
 
         return {
@@ -155,12 +161,21 @@ def deserialize_json(data: dict) -> MCPServerAuthorizationConfig:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "MCPServerAuthorizationConfig: no recognized variant key"
         )
 
 
-def redact_sensitive(value: MCPServerAuthorizationConfig) -> dict[str, Any]:
+def redact_sensitive(
+    value: MCPServerAuthorizationConfig,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "oAuthClientCredentials" in value:
         import capo_devops_agent.types.mcp_server_o_auth_client_credentials_config

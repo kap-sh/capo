@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_clean_rooms import AsyncCleanRoomsClient as AsyncCleanRoomsClient
 from ._services.clean_rooms import CleanRoomsClient as CleanRoomsClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

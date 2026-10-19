@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_connect.errors import DeserializationError, SerializationError
+from capo_connect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_connect.types.real_time_contact_analysis_time_instant
@@ -15,13 +16,17 @@ class _RealTimeContactAnalysisTimeData_AbsoluteTime(TypedDict, closed=True):
 
 
 RealTimeContactAnalysisTimeData: TypeAlias = (
-    _RealTimeContactAnalysisTimeData_AbsoluteTime
+    _RealTimeContactAnalysisTimeData_AbsoluteTime | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RealTimeContactAnalysisTimeData) -> dict:
-    if "AbsoluteTime" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RealTimeContactAnalysisTimeData: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "AbsoluteTime" in value:
         import capo_connect.types.real_time_contact_analysis_time_instant
 
         return {
@@ -43,6 +48,11 @@ def deserialize_json(data: dict) -> RealTimeContactAnalysisTimeData:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "RealTimeContactAnalysisTimeData: no recognized variant key"
         )

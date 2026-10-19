@@ -10,6 +10,7 @@ from capo_sagemaker_runtime._protocol.eventstream import Message
 from capo_sagemaker_runtime.errors import (
     UnknownServiceError,
 )
+from capo_sagemaker_runtime.types._unknown import UnknownEvent
 
 if TYPE_CHECKING:
     import capo_sagemaker_runtime.errors.internal_stream_failure
@@ -37,11 +38,16 @@ _ResponseStream: TypeAlias = (
     _ResponseStream_PayloadPart
     | _ResponseStream_ModelStreamError
     | _ResponseStream_InternalStreamFailure
+    | UnknownEvent
 )
 ResponseStream: TypeAlias = AnyIterator[_ResponseStream]
 
 
 def serialize_event_json(value: _ResponseStream) -> bytes:
+    if isinstance(value, UnknownEvent):
+        raise ValueError(
+            f"ResponseStream: cannot serialize unknown event {value.event_type!r}"
+        )
     match value:
         case {"PayloadPart": payload}:
             import capo_sagemaker_runtime.types.payload_part
@@ -114,5 +120,7 @@ def deserialize_event_json(
                     message
                 )
             }
+        case str():
+            return UnknownEvent(event_type, message)
         case _:
             raise ValueError(f"ResponseStream: unrecognized event-type {event_type!r}")

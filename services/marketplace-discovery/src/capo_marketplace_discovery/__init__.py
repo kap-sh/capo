@@ -86,3 +86,9 @@ from ._services.async_marketplace_discovery import (
 from ._services.marketplace_discovery import (
     MarketplaceDiscoveryClient as MarketplaceDiscoveryClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

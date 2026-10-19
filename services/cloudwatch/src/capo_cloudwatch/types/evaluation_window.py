@@ -6,6 +6,7 @@ from typing_extensions import TypedDict
 
 from capo_cloudwatch._protocol.xml import Element
 from capo_cloudwatch.errors import DeserializationError, SerializationError
+from capo_cloudwatch.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_cloudwatch.types.sliding_window
@@ -21,7 +22,9 @@ class _EvaluationWindow_SlidingWindow(TypedDict, closed=True):
 
 
 EvaluationWindow: TypeAlias = (
-    _EvaluationWindow_WallClockWindow | _EvaluationWindow_SlidingWindow
+    _EvaluationWindow_WallClockWindow
+    | _EvaluationWindow_SlidingWindow
+    | UnknownUnionMember
 )
 
 
@@ -29,7 +32,11 @@ EvaluationWindow: TypeAlias = (
 def serialize_query(
     value: EvaluationWindow, pairs: list[tuple[str, str]], prefix: str
 ) -> None:
-    if "WallClockWindow" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"EvaluationWindow: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "WallClockWindow" in value:
         import capo_cloudwatch.types.wall_clock_window
 
         capo_cloudwatch.types.wall_clock_window.serialize_query(
@@ -63,12 +70,18 @@ def deserialize_query(el: Element) -> EvaluationWindow:
                     child
                 )
             }
+        else:
+            return UnknownUnionMember(child.tag)
     raise DeserializationError("EvaluationWindow: no recognized variant element")
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: EvaluationWindow) -> dict:
-    if "WallClockWindow" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"EvaluationWindow: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "WallClockWindow" in value:
         import capo_cloudwatch.types.wall_clock_window
 
         return {
@@ -106,4 +119,9 @@ def deserialize_aws_json_1_0(data: dict) -> EvaluationWindow:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("EvaluationWindow: no recognized variant key")

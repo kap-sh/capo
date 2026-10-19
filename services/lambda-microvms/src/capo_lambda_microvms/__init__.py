@@ -77,3 +77,9 @@ from ._services.async_lambda_microvms import (
     AsyncLambdaMicrovmsClient as AsyncLambdaMicrovmsClient,
 )
 from ._services.lambda_microvms import LambdaMicrovmsClient as LambdaMicrovmsClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

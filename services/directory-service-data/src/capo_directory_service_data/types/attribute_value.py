@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_directory_service_data.errors import DeserializationError, SerializationError
+from capo_directory_service_data.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_directory_service_data.types.boolean_attribute_value
@@ -30,13 +31,21 @@ class _AttributeValue_SS(TypedDict, closed=True):
 
 
 AttributeValue: TypeAlias = (
-    _AttributeValue_S | _AttributeValue_N | _AttributeValue_BOOL | _AttributeValue_SS
+    _AttributeValue_S
+    | _AttributeValue_N
+    | _AttributeValue_BOOL
+    | _AttributeValue_SS
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AttributeValue) -> dict:
-    if "S" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AttributeValue: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "S" in value:
         return {"S": value["S"]}
     elif "N" in value:
         return {"N": value["N"]}
@@ -70,10 +79,17 @@ def deserialize_json(data: dict) -> AttributeValue:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("AttributeValue: no recognized variant key")
 
 
-def redact_sensitive(value: AttributeValue) -> dict[str, Any]:
+def redact_sensitive(value: AttributeValue) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "S" in value:
         out["S"] = "*** Sensitive Data Redacted ***"

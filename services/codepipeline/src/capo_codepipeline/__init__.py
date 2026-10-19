@@ -77,3 +77,9 @@ from ._services.async_code_pipeline import (
     AsyncCodePipelineClient as AsyncCodePipelineClient,
 )
 from ._services.code_pipeline import CodePipelineClient as CodePipelineClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

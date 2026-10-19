@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_proton.errors import DeserializationError, SerializationError
+from capo_proton.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_proton.types.component_state
@@ -34,12 +35,17 @@ DeploymentState: TypeAlias = (
     | _DeploymentState_environment
     | _DeploymentState_servicePipeline
     | _DeploymentState_component
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: DeploymentState) -> dict:
-    if "serviceInstance" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"DeploymentState: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "serviceInstance" in value:
         import capo_proton.types.service_instance_state
 
         return {
@@ -109,10 +115,17 @@ def deserialize_aws_json_1_0(data: dict) -> DeploymentState:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("DeploymentState: no recognized variant key")
 
 
-def redact_sensitive(value: DeploymentState) -> dict[str, Any]:
+def redact_sensitive(value: DeploymentState) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "serviceInstance" in value:
         import capo_proton.types.service_instance_state

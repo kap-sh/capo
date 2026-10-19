@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_connectcampaignsv2.errors import DeserializationError, SerializationError
+from capo_connectcampaignsv2.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.agentless_config
@@ -34,12 +35,17 @@ TelephonyOutboundMode: TypeAlias = (
     | _TelephonyOutboundMode_predictive
     | _TelephonyOutboundMode_agentless
     | _TelephonyOutboundMode_preview
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: TelephonyOutboundMode) -> dict:
-    if "progressive" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"TelephonyOutboundMode: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "progressive" in value:
         import capo_connectcampaignsv2.types.progressive_config
 
         return {
@@ -109,4 +115,9 @@ def deserialize_json(data: dict) -> TelephonyOutboundMode:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("TelephonyOutboundMode: no recognized variant key")

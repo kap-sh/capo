@@ -77,3 +77,9 @@ from ._services.async_billingconductor import (
     AsyncbillingconductorClient as AsyncbillingconductorClient,
 )
 from ._services.billingconductor import billingconductorClient as billingconductorClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

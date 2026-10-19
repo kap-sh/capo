@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_datazone.errors import DeserializationError, SerializationError
+from capo_datazone.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_datazone.types.amazon_q_properties_patch
@@ -96,12 +97,17 @@ ConnectionPropertiesPatch: TypeAlias = (
     | _ConnectionPropertiesPatch_lakehouseProperties
     | _ConnectionPropertiesPatch_vpcProperties
     | _ConnectionPropertiesPatch_gitProperties
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ConnectionPropertiesPatch) -> dict:
-    if "athenaProperties" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ConnectionPropertiesPatch: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "athenaProperties" in value:
         import capo_datazone.types.athena_properties_patch
 
         return {
@@ -299,12 +305,21 @@ def deserialize_json(data: dict) -> ConnectionPropertiesPatch:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "ConnectionPropertiesPatch: no recognized variant key"
         )
 
 
-def redact_sensitive(value: ConnectionPropertiesPatch) -> dict[str, Any]:
+def redact_sensitive(
+    value: ConnectionPropertiesPatch,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "glueProperties" in value:
         import capo_datazone.types.glue_properties_patch

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agent.errors import DeserializationError, SerializationError
+from capo_bedrock_agent.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.chat_prompt_template_configuration
@@ -20,13 +21,19 @@ class _PromptTemplateConfiguration_chat(TypedDict, closed=True):
 
 
 PromptTemplateConfiguration: TypeAlias = (
-    _PromptTemplateConfiguration_text | _PromptTemplateConfiguration_chat
+    _PromptTemplateConfiguration_text
+    | _PromptTemplateConfiguration_chat
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PromptTemplateConfiguration) -> dict:
-    if "text" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"PromptTemplateConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "text" in value:
         import capo_bedrock_agent.types.text_prompt_template_configuration
 
         return {
@@ -64,12 +71,21 @@ def deserialize_json(data: dict) -> PromptTemplateConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "PromptTemplateConfiguration: no recognized variant key"
         )
 
 
-def redact_sensitive(value: PromptTemplateConfiguration) -> dict[str, Any]:
+def redact_sensitive(
+    value: PromptTemplateConfiguration,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "text" in value:
         out["text"] = "*** Sensitive Data Redacted ***"

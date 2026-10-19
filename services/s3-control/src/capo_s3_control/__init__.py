@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_s3_control import AsyncS3ControlClient as AsyncS3ControlClient
 from ._services.s3_control import S3ControlClient as S3ControlClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

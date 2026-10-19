@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_datazone.errors import DeserializationError, SerializationError
+from capo_datazone.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_datazone.types.column_filter_configuration
@@ -26,12 +27,17 @@ class _AssetFilterConfiguration_rowConfiguration(TypedDict, closed=True):
 AssetFilterConfiguration: TypeAlias = (
     _AssetFilterConfiguration_columnConfiguration
     | _AssetFilterConfiguration_rowConfiguration
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AssetFilterConfiguration) -> dict:
-    if "columnConfiguration" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AssetFilterConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "columnConfiguration" in value:
         import capo_datazone.types.column_filter_configuration
 
         return {
@@ -69,6 +75,11 @@ def deserialize_json(data: dict) -> AssetFilterConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "AssetFilterConfiguration: no recognized variant key"
         )

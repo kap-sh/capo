@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_mgn import AsyncmgnClient as AsyncmgnClient
 from ._services.mgn import mgnClient as mgnClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -79,3 +79,9 @@ from ._services.async_cloud_search_domain import (
 from ._services.cloud_search_domain import (
     CloudSearchDomainClient as CloudSearchDomainClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

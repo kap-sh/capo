@@ -50,3 +50,9 @@ from ._services.async_code_catalyst import (
     AsyncCodeCatalystClient as AsyncCodeCatalystClient,
 )
 from ._services.code_catalyst import CodeCatalystClient as CodeCatalystClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

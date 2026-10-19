@@ -77,3 +77,9 @@ from ._services.async_kafka_connect import (
     AsyncKafkaConnectClient as AsyncKafkaConnectClient,
 )
 from ._services.kafka_connect import KafkaConnectClient as KafkaConnectClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

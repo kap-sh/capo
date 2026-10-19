@@ -77,3 +77,9 @@ from ._services.async_redshift_data import (
     AsyncRedshiftDataClient as AsyncRedshiftDataClient,
 )
 from ._services.redshift_data import RedshiftDataClient as RedshiftDataClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

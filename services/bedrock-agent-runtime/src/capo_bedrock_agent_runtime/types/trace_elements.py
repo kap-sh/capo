@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agent_runtime.errors import DeserializationError, SerializationError
+from capo_bedrock_agent_runtime.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.agent_traces
@@ -14,12 +15,16 @@ class _TraceElements_agentTraces(TypedDict, closed=True):
     agentTraces: "capo_bedrock_agent_runtime.types.agent_traces.AgentTraces"
 
 
-TraceElements: TypeAlias = _TraceElements_agentTraces
+TraceElements: TypeAlias = _TraceElements_agentTraces | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: TraceElements) -> dict:
-    if "agentTraces" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"TraceElements: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "agentTraces" in value:
         import capo_bedrock_agent_runtime.types.agent_traces
 
         return {
@@ -41,4 +46,9 @@ def deserialize_json(data: dict) -> TraceElements:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("TraceElements: no recognized variant key")

@@ -77,3 +77,9 @@ from ._services.async_neptunedata import (
     AsyncneptunedataClient as AsyncneptunedataClient,
 )
 from ._services.neptunedata import neptunedataClient as neptunedataClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

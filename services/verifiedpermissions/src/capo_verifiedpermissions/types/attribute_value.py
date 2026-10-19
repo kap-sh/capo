@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_verifiedpermissions.errors import DeserializationError, SerializationError
+from capo_verifiedpermissions.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.boolean_attribute
@@ -72,12 +73,17 @@ AttributeValue: TypeAlias = (
     | _AttributeValue_decimal
     | _AttributeValue_datetime
     | _AttributeValue_duration
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: AttributeValue) -> dict:
-    if "boolean" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AttributeValue: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "boolean" in value:
         return {"boolean": value["boolean"]}
     elif "entityIdentifier" in value:
         import capo_verifiedpermissions.types.entity_identifier
@@ -159,10 +165,17 @@ def deserialize_aws_json_1_0(data: dict) -> AttributeValue:
     elif data.get("duration") is not None:
         return {"duration": data["duration"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("AttributeValue: no recognized variant key")
 
 
-def redact_sensitive(value: AttributeValue) -> dict[str, Any]:
+def redact_sensitive(value: AttributeValue) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "boolean" in value:
         out["boolean"] = "*** Sensitive Data Redacted ***"

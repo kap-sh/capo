@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_mediapackagev2.errors import DeserializationError, SerializationError
+from capo_mediapackagev2.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import datetime
@@ -18,12 +19,17 @@ class _DashAvailabilityStartTimeConfiguration_FixedAvailabilityStartTime(
 
 DashAvailabilityStartTimeConfiguration: TypeAlias = (
     _DashAvailabilityStartTimeConfiguration_FixedAvailabilityStartTime
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DashAvailabilityStartTimeConfiguration) -> dict:
-    if "FixedAvailabilityStartTime" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"DashAvailabilityStartTimeConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "FixedAvailabilityStartTime" in value:
         import capo_mediapackagev2.types._prelude.timestamp
 
         return {
@@ -47,6 +53,11 @@ def deserialize_json(data: dict) -> DashAvailabilityStartTimeConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "DashAvailabilityStartTimeConfiguration: no recognized variant key"
         )

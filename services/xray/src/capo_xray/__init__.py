@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_x_ray import AsyncXRayClient as AsyncXRayClient
 from ._services.x_ray import XRayClient as XRayClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

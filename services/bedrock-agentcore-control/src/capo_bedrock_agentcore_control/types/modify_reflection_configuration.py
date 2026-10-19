@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.custom_reflection_configuration_input
@@ -29,12 +30,17 @@ class _ModifyReflectionConfiguration_customReflectionConfiguration(
 ModifyReflectionConfiguration: TypeAlias = (
     _ModifyReflectionConfiguration_episodicReflectionConfiguration
     | _ModifyReflectionConfiguration_customReflectionConfiguration
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ModifyReflectionConfiguration) -> dict:
-    if "episodicReflectionConfiguration" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ModifyReflectionConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "episodicReflectionConfiguration" in value:
         import capo_bedrock_agentcore_control.types.episodic_reflection_configuration_input
 
         return {
@@ -72,12 +78,21 @@ def deserialize_json(data: dict) -> ModifyReflectionConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "ModifyReflectionConfiguration: no recognized variant key"
         )
 
 
-def redact_sensitive(value: ModifyReflectionConfiguration) -> dict[str, Any]:
+def redact_sensitive(
+    value: ModifyReflectionConfiguration,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "episodicReflectionConfiguration" in value:
         import capo_bedrock_agentcore_control.types.episodic_reflection_configuration_input

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_account_access.errors import DeserializationError, SerializationError
+from capo_account_access.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_account_access.types.identity_center_details
@@ -16,12 +17,18 @@ class _IdentitySourceDetails_identityCenter(TypedDict, closed=True):
     )
 
 
-IdentitySourceDetails: TypeAlias = _IdentitySourceDetails_identityCenter
+IdentitySourceDetails: TypeAlias = (
+    _IdentitySourceDetails_identityCenter | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: IdentitySourceDetails) -> dict:
-    if "identityCenter" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"IdentitySourceDetails: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "identityCenter" in value:
         import capo_account_access.types.identity_center_details
 
         return {
@@ -43,4 +50,9 @@ def deserialize_json(data: dict) -> IdentitySourceDetails:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("IdentitySourceDetails: no recognized variant key")

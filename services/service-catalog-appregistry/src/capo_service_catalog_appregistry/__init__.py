@@ -79,3 +79,9 @@ from ._services.async_service_catalog_app_registry import (
 from ._services.service_catalog_app_registry import (
     ServiceCatalogAppRegistryClient as ServiceCatalogAppRegistryClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -77,3 +77,9 @@ from ._services.async_resource_groups import (
     AsyncResourceGroupsClient as AsyncResourceGroupsClient,
 )
 from ._services.resource_groups import ResourceGroupsClient as ResourceGroupsClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

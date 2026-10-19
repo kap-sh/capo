@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_xray.errors import DeserializationError, SerializationError
+from capo_xray.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_xray.types.probabilistic_rule_value_update
@@ -16,12 +17,18 @@ class _IndexingRuleValueUpdate_Probabilistic(TypedDict, closed=True):
     )
 
 
-IndexingRuleValueUpdate: TypeAlias = _IndexingRuleValueUpdate_Probabilistic
+IndexingRuleValueUpdate: TypeAlias = (
+    _IndexingRuleValueUpdate_Probabilistic | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: IndexingRuleValueUpdate) -> dict:
-    if "Probabilistic" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"IndexingRuleValueUpdate: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "Probabilistic" in value:
         import capo_xray.types.probabilistic_rule_value_update
 
         return {
@@ -43,4 +50,9 @@ def deserialize_json(data: dict) -> IndexingRuleValueUpdate:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("IndexingRuleValueUpdate: no recognized variant key")

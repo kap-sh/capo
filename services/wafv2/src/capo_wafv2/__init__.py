@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_wafv2 import AsyncWAFV2Client as AsyncWAFV2Client
 from ._services.wafv2 import WAFV2Client as WAFV2Client
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agent_runtime.errors import DeserializationError, SerializationError
+from capo_bedrock_agent_runtime.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.model_invocation_input
@@ -24,12 +25,17 @@ class _PostProcessingTrace_modelInvocationOutput(TypedDict, closed=True):
 PostProcessingTrace: TypeAlias = (
     _PostProcessingTrace_modelInvocationInput
     | _PostProcessingTrace_modelInvocationOutput
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PostProcessingTrace) -> dict:
-    if "modelInvocationInput" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"PostProcessingTrace: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "modelInvocationInput" in value:
         import capo_bedrock_agent_runtime.types.model_invocation_input
 
         return {
@@ -67,4 +73,9 @@ def deserialize_json(data: dict) -> PostProcessingTrace:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("PostProcessingTrace: no recognized variant key")

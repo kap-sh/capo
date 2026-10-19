@@ -8,6 +8,7 @@ from capo_payment_cryptography_data.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_payment_cryptography_data.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.amex_attributes
@@ -45,12 +46,17 @@ DerivationMethodAttributes: TypeAlias = (
     | _DerivationMethodAttributes_Visa
     | _DerivationMethodAttributes_Emv2000
     | _DerivationMethodAttributes_Mastercard
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DerivationMethodAttributes) -> dict:
-    if "EmvCommon" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"DerivationMethodAttributes: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "EmvCommon" in value:
         import capo_payment_cryptography_data.types.emv_common_attributes
 
         return {
@@ -136,12 +142,21 @@ def deserialize_json(data: dict) -> DerivationMethodAttributes:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "DerivationMethodAttributes: no recognized variant key"
         )
 
 
-def redact_sensitive(value: DerivationMethodAttributes) -> dict[str, Any]:
+def redact_sensitive(
+    value: DerivationMethodAttributes,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "EmvCommon" in value:
         import capo_payment_cryptography_data.types.emv_common_attributes

@@ -79,3 +79,9 @@ from ._services.application_insights import (
 from ._services.async_application_insights import (
     AsyncApplicationInsightsClient as AsyncApplicationInsightsClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

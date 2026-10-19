@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_data_automation.errors import DeserializationError, SerializationError
+from capo_bedrock_data_automation.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_data_automation.types.delete_entities_info
@@ -24,13 +25,19 @@ class _InlinePayload_deleteEntitiesInfo(TypedDict, closed=True):
 
 
 InlinePayload: TypeAlias = (
-    _InlinePayload_upsertEntitiesInfo | _InlinePayload_deleteEntitiesInfo
+    _InlinePayload_upsertEntitiesInfo
+    | _InlinePayload_deleteEntitiesInfo
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: InlinePayload) -> dict:
-    if "upsertEntitiesInfo" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"InlinePayload: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "upsertEntitiesInfo" in value:
         import capo_bedrock_data_automation.types.upsert_entities_info
 
         return {
@@ -68,10 +75,17 @@ def deserialize_json(data: dict) -> InlinePayload:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("InlinePayload: no recognized variant key")
 
 
-def redact_sensitive(value: InlinePayload) -> dict[str, Any]:
+def redact_sensitive(value: InlinePayload) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "upsertEntitiesInfo" in value:
         import capo_bedrock_data_automation.types.upsert_entities_info

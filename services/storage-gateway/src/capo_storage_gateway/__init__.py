@@ -77,3 +77,9 @@ from ._services.async_storage_gateway import (
     AsyncStorageGatewayClient as AsyncStorageGatewayClient,
 )
 from ._services.storage_gateway import StorageGatewayClient as StorageGatewayClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

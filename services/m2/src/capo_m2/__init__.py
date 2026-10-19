@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_m2 import Asyncm2Client as Asyncm2Client
 from ._services.m2 import m2Client as m2Client
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

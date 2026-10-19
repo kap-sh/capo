@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_connect.errors import DeserializationError, SerializationError
+from capo_connect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_connect.types.evaluation_form_question
@@ -20,13 +21,17 @@ class _EvaluationFormItem_Question(TypedDict, closed=True):
 
 
 EvaluationFormItem: TypeAlias = (
-    _EvaluationFormItem_Section | _EvaluationFormItem_Question
+    _EvaluationFormItem_Section | _EvaluationFormItem_Question | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: EvaluationFormItem) -> dict:
-    if "Section" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"EvaluationFormItem: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "Section" in value:
         import capo_connect.types.evaluation_form_section
 
         return {
@@ -64,4 +69,9 @@ def deserialize_json(data: dict) -> EvaluationFormItem:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("EvaluationFormItem: no recognized variant key")

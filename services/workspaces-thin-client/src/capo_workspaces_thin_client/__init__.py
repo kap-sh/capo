@@ -79,3 +79,9 @@ from ._services.async_work_spaces_thin_client import (
 from ._services.work_spaces_thin_client import (
     WorkSpacesThinClientClient as WorkSpacesThinClientClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

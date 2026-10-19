@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_connectcases.errors import DeserializationError, SerializationError
+from capo_connectcases.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_connectcases.types.field_group
@@ -14,12 +15,16 @@ class _Section_fieldGroup(TypedDict, closed=True):
     fieldGroup: "capo_connectcases.types.field_group.FieldGroup"
 
 
-Section: TypeAlias = _Section_fieldGroup
+Section: TypeAlias = _Section_fieldGroup | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Section) -> dict:
-    if "fieldGroup" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Section: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "fieldGroup" in value:
         import capo_connectcases.types.field_group
 
         return {
@@ -41,4 +46,9 @@ def deserialize_json(data: dict) -> Section:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Section: no recognized variant key")

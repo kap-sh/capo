@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_dax import AsyncDAXClient as AsyncDAXClient
 from ._services.dax import DAXClient as DAXClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

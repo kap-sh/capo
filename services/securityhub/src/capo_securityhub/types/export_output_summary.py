@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_securityhub.errors import DeserializationError, SerializationError
+from capo_securityhub.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_securityhub.types.findings_output_summary
@@ -14,12 +15,16 @@ class _ExportOutputSummary_Findings(TypedDict, closed=True):
     Findings: "capo_securityhub.types.findings_output_summary.FindingsOutputSummary"
 
 
-ExportOutputSummary: TypeAlias = _ExportOutputSummary_Findings
+ExportOutputSummary: TypeAlias = _ExportOutputSummary_Findings | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ExportOutputSummary) -> dict:
-    if "Findings" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ExportOutputSummary: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "Findings" in value:
         import capo_securityhub.types.findings_output_summary
 
         return {
@@ -41,4 +46,9 @@ def deserialize_json(data: dict) -> ExportOutputSummary:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ExportOutputSummary: no recognized variant key")

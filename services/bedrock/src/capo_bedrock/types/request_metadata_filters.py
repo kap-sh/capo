@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock.errors import DeserializationError, SerializationError
+from capo_bedrock.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock.types.request_metadata_filters_list
@@ -34,12 +35,17 @@ RequestMetadataFilters: TypeAlias = (
     | _RequestMetadataFilters_notEquals
     | _RequestMetadataFilters_andAll
     | _RequestMetadataFilters_orAll
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RequestMetadataFilters) -> dict:
-    if "equals" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RequestMetadataFilters: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "equals" in value:
         import capo_bedrock.types.request_metadata_map
 
         return {
@@ -109,10 +115,19 @@ def deserialize_json(data: dict) -> RequestMetadataFilters:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("RequestMetadataFilters: no recognized variant key")
 
 
-def redact_sensitive(value: RequestMetadataFilters) -> dict[str, Any]:
+def redact_sensitive(
+    value: RequestMetadataFilters,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "equals" in value:
         out["equals"] = "*** Sensitive Data Redacted ***"

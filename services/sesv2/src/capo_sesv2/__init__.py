@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_se_sv2 import AsyncSESv2Client as AsyncSESv2Client
 from ._services.se_sv2 import SESv2Client as SESv2Client
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

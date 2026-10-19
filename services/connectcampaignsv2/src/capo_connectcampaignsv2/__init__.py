@@ -79,3 +79,9 @@ from ._services.async_connect_campaigns_v2 import (
 from ._services.connect_campaigns_v2 import (
     ConnectCampaignsV2Client as ConnectCampaignsV2Client,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

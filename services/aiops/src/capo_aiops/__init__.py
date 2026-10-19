@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.ai_ops import AIOpsClient as AIOpsClient
 from ._services.async_ai_ops import AsyncAIOpsClient as AsyncAIOpsClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

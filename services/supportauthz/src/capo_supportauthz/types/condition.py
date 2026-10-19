@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_supportauthz.errors import DeserializationError, SerializationError
+from capo_supportauthz.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import datetime
@@ -18,12 +19,18 @@ class _Condition_allowBefore(TypedDict, closed=True):
     allowBefore: "datetime.datetime"
 
 
-Condition: TypeAlias = _Condition_allowAfter | _Condition_allowBefore
+Condition: TypeAlias = (
+    _Condition_allowAfter | _Condition_allowBefore | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Condition) -> dict:
-    if "allowAfter" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Condition: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "allowAfter" in value:
         import capo_supportauthz.types._prelude.timestamp
 
         return {
@@ -61,4 +68,9 @@ def deserialize_json(data: dict) -> Condition:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Condition: no recognized variant key")

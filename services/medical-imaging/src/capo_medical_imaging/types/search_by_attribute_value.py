@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_medical_imaging.errors import DeserializationError, SerializationError
+from capo_medical_imaging.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_medical_imaging.types.date
@@ -70,12 +71,17 @@ SearchByAttributeValue: TypeAlias = (
     | _SearchByAttributeValue_updatedAt
     | _SearchByAttributeValue_DICOMStudyDateAndTime
     | _SearchByAttributeValue_isPrimary
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SearchByAttributeValue) -> dict:
-    if "DICOMPatientId" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"SearchByAttributeValue: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "DICOMPatientId" in value:
         return {"DICOMPatientId": value["DICOMPatientId"]}
     elif "DICOMAccessionNumber" in value:
         return {"DICOMAccessionNumber": value["DICOMAccessionNumber"]}
@@ -153,10 +159,19 @@ def deserialize_json(data: dict) -> SearchByAttributeValue:
     elif data.get("isPrimary") is not None:
         return {"isPrimary": data["isPrimary"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("SearchByAttributeValue: no recognized variant key")
 
 
-def redact_sensitive(value: SearchByAttributeValue) -> dict[str, Any]:
+def redact_sensitive(
+    value: SearchByAttributeValue,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "DICOMPatientId" in value:
         out["DICOMPatientId"] = "*** Sensitive Data Redacted ***"

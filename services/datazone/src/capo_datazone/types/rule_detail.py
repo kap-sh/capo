@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_datazone.errors import DeserializationError, SerializationError
+from capo_datazone.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_datazone.types.glossary_term_enforcement_detail
@@ -22,12 +23,17 @@ class _RuleDetail_glossaryTermEnforcementDetail(TypedDict, closed=True):
 RuleDetail: TypeAlias = (
     _RuleDetail_metadataFormEnforcementDetail
     | _RuleDetail_glossaryTermEnforcementDetail
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RuleDetail) -> dict:
-    if "metadataFormEnforcementDetail" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RuleDetail: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "metadataFormEnforcementDetail" in value:
         import capo_datazone.types.metadata_form_enforcement_detail
 
         return {
@@ -65,4 +71,9 @@ def deserialize_json(data: dict) -> RuleDetail:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("RuleDetail: no recognized variant key")

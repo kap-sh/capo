@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agentcore.errors import DeserializationError, SerializationError
+from capo_bedrock_agentcore.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.metadata_value
@@ -14,12 +15,16 @@ class _RightExpression_metadataValue(TypedDict, closed=True):
     metadataValue: "capo_bedrock_agentcore.types.metadata_value.MetadataValue"
 
 
-RightExpression: TypeAlias = _RightExpression_metadataValue
+RightExpression: TypeAlias = _RightExpression_metadataValue | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RightExpression) -> dict:
-    if "metadataValue" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RightExpression: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "metadataValue" in value:
         import capo_bedrock_agentcore.types.metadata_value
 
         return {
@@ -41,4 +46,9 @@ def deserialize_json(data: dict) -> RightExpression:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("RightExpression: no recognized variant key")

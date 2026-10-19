@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_deadline.errors import DeserializationError, SerializationError
+from capo_deadline.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_deadline.types.customer_managed_fleet_configuration
@@ -20,13 +21,19 @@ class _FleetConfiguration_serviceManagedEc2(TypedDict, closed=True):
 
 
 FleetConfiguration: TypeAlias = (
-    _FleetConfiguration_customerManaged | _FleetConfiguration_serviceManagedEc2
+    _FleetConfiguration_customerManaged
+    | _FleetConfiguration_serviceManagedEc2
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: FleetConfiguration) -> dict:
-    if "customerManaged" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"FleetConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "customerManaged" in value:
         import capo_deadline.types.customer_managed_fleet_configuration
 
         return {
@@ -64,4 +71,9 @@ def deserialize_json(data: dict) -> FleetConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("FleetConfiguration: no recognized variant key")

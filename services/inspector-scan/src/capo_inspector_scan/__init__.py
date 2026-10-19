@@ -77,3 +77,9 @@ from ._services.async_inspector_scan import (
     AsyncInspectorScanClient as AsyncInspectorScanClient,
 )
 from ._services.inspector_scan import InspectorScanClient as InspectorScanClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

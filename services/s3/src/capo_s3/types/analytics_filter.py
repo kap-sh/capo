@@ -6,6 +6,7 @@ from typing_extensions import TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
 from capo_s3.errors import DeserializationError, SerializationError
+from capo_s3.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_s3.types.analytics_and_operator
@@ -26,14 +27,21 @@ class _AnalyticsFilter_And(TypedDict, closed=True):
 
 
 AnalyticsFilter: TypeAlias = (
-    _AnalyticsFilter_Prefix | _AnalyticsFilter_Tag | _AnalyticsFilter_And
+    _AnalyticsFilter_Prefix
+    | _AnalyticsFilter_Tag
+    | _AnalyticsFilter_And
+    | UnknownUnionMember
 )
 
 
 # --- restXml ser/de ---
 def serialize_xml(value: AnalyticsFilter, parent: Element, tag: str) -> None:
     el = SubElement(parent, tag)
-    if "Prefix" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AnalyticsFilter: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "Prefix" in value:
         SubElement(el, "Prefix").text = str(value["Prefix"])
     elif "Tag" in value:
         import capo_s3.types.tag
@@ -59,4 +67,6 @@ def deserialize_xml(el: Element) -> AnalyticsFilter:
             import capo_s3.types.analytics_and_operator
 
             return {"And": capo_s3.types.analytics_and_operator.deserialize_xml(child)}
+        else:
+            return UnknownUnionMember(child.tag)
     raise DeserializationError("AnalyticsFilter: no recognized variant element")

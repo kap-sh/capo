@@ -77,3 +77,9 @@ from ._services.async_secrets_manager import (
     AsyncSecretsManagerClient as AsyncSecretsManagerClient,
 )
 from ._services.secrets_manager import SecretsManagerClient as SecretsManagerClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

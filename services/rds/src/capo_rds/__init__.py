@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_rds import AsyncRDSClient as AsyncRDSClient
 from ._services.rds import RDSClient as RDSClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

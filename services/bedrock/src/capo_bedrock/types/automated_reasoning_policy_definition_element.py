@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock.errors import DeserializationError, SerializationError
+from capo_bedrock.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_definition_rule
@@ -34,12 +35,17 @@ AutomatedReasoningPolicyDefinitionElement: TypeAlias = (
     _AutomatedReasoningPolicyDefinitionElement_policyDefinitionVariable
     | _AutomatedReasoningPolicyDefinitionElement_policyDefinitionType
     | _AutomatedReasoningPolicyDefinitionElement_policyDefinitionRule
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AutomatedReasoningPolicyDefinitionElement) -> dict:
-    if "policyDefinitionVariable" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AutomatedReasoningPolicyDefinitionElement: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "policyDefinitionVariable" in value:
         import capo_bedrock.types.automated_reasoning_policy_definition_variable
 
         return {
@@ -95,6 +101,11 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyDefinitionElement:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "AutomatedReasoningPolicyDefinitionElement: no recognized variant key"
         )
@@ -102,7 +113,9 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyDefinitionElement:
 
 def redact_sensitive(
     value: AutomatedReasoningPolicyDefinitionElement,
-) -> dict[str, Any]:
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "policyDefinitionVariable" in value:
         import capo_bedrock.types.automated_reasoning_policy_definition_variable

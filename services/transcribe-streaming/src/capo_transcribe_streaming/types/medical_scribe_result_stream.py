@@ -10,6 +10,7 @@ from capo_transcribe_streaming._protocol.eventstream import Message
 from capo_transcribe_streaming.errors import (
     UnknownServiceError,
 )
+from capo_transcribe_streaming.types._unknown import UnknownEvent
 
 if TYPE_CHECKING:
     import capo_transcribe_streaming.errors.bad_request_exception
@@ -55,11 +56,16 @@ _MedicalScribeResultStream: TypeAlias = (
     | _MedicalScribeResultStream_InternalFailureException
     | _MedicalScribeResultStream_ConflictException
     | _MedicalScribeResultStream_ServiceUnavailableException
+    | UnknownEvent
 )
 MedicalScribeResultStream: TypeAlias = AnyIterator[_MedicalScribeResultStream]
 
 
 def serialize_event_json(value: _MedicalScribeResultStream) -> bytes:
+    if isinstance(value, UnknownEvent):
+        raise ValueError(
+            f"MedicalScribeResultStream: cannot serialize unknown event {value.event_type!r}"
+        )
     match value:
         case {"TranscriptEvent": payload}:
             import capo_transcribe_streaming.types.medical_scribe_transcript_event
@@ -177,6 +183,8 @@ def deserialize_event_json(
                     message
                 )
             }
+        case str():
+            return UnknownEvent(event_type, message)
         case _:
             raise ValueError(
                 f"MedicalScribeResultStream: unrecognized event-type {event_type!r}"

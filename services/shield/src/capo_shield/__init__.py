@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_shield import AsyncShieldClient as AsyncShieldClient
 from ._services.shield import ShieldClient as ShieldClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

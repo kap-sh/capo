@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_connect.errors import DeserializationError, SerializationError
+from capo_connect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_connect.types.evaluation_form_multi_select_question_properties
@@ -34,12 +35,17 @@ EvaluationFormQuestionTypeProperties: TypeAlias = (
     | _EvaluationFormQuestionTypeProperties_SingleSelect
     | _EvaluationFormQuestionTypeProperties_Text
     | _EvaluationFormQuestionTypeProperties_MultiSelect
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: EvaluationFormQuestionTypeProperties) -> dict:
-    if "Numeric" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"EvaluationFormQuestionTypeProperties: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "Numeric" in value:
         import capo_connect.types.evaluation_form_numeric_question_properties
 
         return {
@@ -111,6 +117,11 @@ def deserialize_json(data: dict) -> EvaluationFormQuestionTypeProperties:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "EvaluationFormQuestionTypeProperties: no recognized variant key"
         )

@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.discovery_url_type
@@ -25,13 +26,19 @@ class _Oauth2Discovery_authorizationServerMetadata(TypedDict, closed=True):
 
 
 Oauth2Discovery: TypeAlias = (
-    _Oauth2Discovery_discoveryUrl | _Oauth2Discovery_authorizationServerMetadata
+    _Oauth2Discovery_discoveryUrl
+    | _Oauth2Discovery_authorizationServerMetadata
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Oauth2Discovery) -> dict:
-    if "discoveryUrl" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Oauth2Discovery: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "discoveryUrl" in value:
         return {"discoveryUrl": value["discoveryUrl"]}
     elif "authorizationServerMetadata" in value:
         import capo_bedrock_agentcore_control.types.oauth2_authorization_server_metadata
@@ -57,4 +64,9 @@ def deserialize_json(data: dict) -> Oauth2Discovery:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Oauth2Discovery: no recognized variant key")

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agent.errors import DeserializationError, SerializationError
+from capo_bedrock_agent.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.retrieval_flow_node_s3_configuration
@@ -15,13 +16,17 @@ class _RetrievalFlowNodeServiceConfiguration_s3(TypedDict, closed=True):
 
 
 RetrievalFlowNodeServiceConfiguration: TypeAlias = (
-    _RetrievalFlowNodeServiceConfiguration_s3
+    _RetrievalFlowNodeServiceConfiguration_s3 | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RetrievalFlowNodeServiceConfiguration) -> dict:
-    if "s3" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RetrievalFlowNodeServiceConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "s3" in value:
         import capo_bedrock_agent.types.retrieval_flow_node_s3_configuration
 
         return {
@@ -45,6 +50,11 @@ def deserialize_json(data: dict) -> RetrievalFlowNodeServiceConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "RetrievalFlowNodeServiceConfiguration: no recognized variant key"
         )

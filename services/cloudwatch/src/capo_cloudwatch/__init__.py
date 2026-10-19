@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_cloud_watch import AsyncCloudWatchClient as AsyncCloudWatchClient
 from ._services.cloud_watch import CloudWatchClient as CloudWatchClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

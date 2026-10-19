@@ -79,3 +79,9 @@ from ._services.async_personalize_events import (
 from ._services.personalize_events import (
     PersonalizeEventsClient as PersonalizeEventsClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

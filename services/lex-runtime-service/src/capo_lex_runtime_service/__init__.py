@@ -79,3 +79,9 @@ from ._services.async_lex_runtime_service import (
 from ._services.lex_runtime_service import (
     LexRuntimeServiceClient as LexRuntimeServiceClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

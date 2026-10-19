@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_backupsearch.errors import DeserializationError, SerializationError
+from capo_backupsearch.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_backupsearch.types.s3_export_specification
@@ -16,12 +17,18 @@ class _ExportSpecification_s3ExportSpecification(TypedDict, closed=True):
     )
 
 
-ExportSpecification: TypeAlias = _ExportSpecification_s3ExportSpecification
+ExportSpecification: TypeAlias = (
+    _ExportSpecification_s3ExportSpecification | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ExportSpecification) -> dict:
-    if "s3ExportSpecification" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ExportSpecification: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "s3ExportSpecification" in value:
         import capo_backupsearch.types.s3_export_specification
 
         return {
@@ -43,4 +50,9 @@ def deserialize_json(data: dict) -> ExportSpecification:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ExportSpecification: no recognized variant key")

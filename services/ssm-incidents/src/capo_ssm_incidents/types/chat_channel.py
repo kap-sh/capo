@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_ssm_incidents.errors import DeserializationError, SerializationError
+from capo_ssm_incidents.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_ssm_incidents.types.chatbot_sns_configuration_set
@@ -19,12 +20,18 @@ class _ChatChannel_chatbotSns(TypedDict, closed=True):
     chatbotSns: "capo_ssm_incidents.types.chatbot_sns_configuration_set.ChatbotSnsConfigurationSet"
 
 
-ChatChannel: TypeAlias = _ChatChannel_empty | _ChatChannel_chatbotSns
+ChatChannel: TypeAlias = (
+    _ChatChannel_empty | _ChatChannel_chatbotSns | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ChatChannel) -> dict:
-    if "empty" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ChatChannel: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "empty" in value:
         import capo_ssm_incidents.types.empty_chat_channel
 
         return {
@@ -62,4 +69,9 @@ def deserialize_json(data: dict) -> ChatChannel:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ChatChannel: no recognized variant key")

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_datazone.errors import DeserializationError, SerializationError
+from capo_datazone.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_datazone.types.listing_revision
@@ -14,12 +15,16 @@ class _GrantedEntity_listing(TypedDict, closed=True):
     listing: "capo_datazone.types.listing_revision.ListingRevision"
 
 
-GrantedEntity: TypeAlias = _GrantedEntity_listing
+GrantedEntity: TypeAlias = _GrantedEntity_listing | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: GrantedEntity) -> dict:
-    if "listing" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"GrantedEntity: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "listing" in value:
         import capo_datazone.types.listing_revision
 
         return {
@@ -41,4 +46,9 @@ def deserialize_json(data: dict) -> GrantedEntity:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("GrantedEntity: no recognized variant key")

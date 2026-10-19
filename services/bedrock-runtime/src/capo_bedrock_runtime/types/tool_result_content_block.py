@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_runtime.errors import DeserializationError, SerializationError
+from capo_bedrock_runtime.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.document_block
@@ -44,12 +45,17 @@ ToolResultContentBlock: TypeAlias = (
     | _ToolResultContentBlock_document
     | _ToolResultContentBlock_video
     | _ToolResultContentBlock_searchResult
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ToolResultContentBlock) -> dict:
-    if "json" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ToolResultContentBlock: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "json" in value:
         return {"json": value["json"]}
     elif "text" in value:
         return {"text": value["text"]}
@@ -127,10 +133,19 @@ def deserialize_json(data: dict) -> ToolResultContentBlock:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ToolResultContentBlock: no recognized variant key")
 
 
-def redact_sensitive(value: ToolResultContentBlock) -> dict[str, Any]:
+def redact_sensitive(
+    value: ToolResultContentBlock,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "image" in value:
         import capo_bedrock_runtime.types.image_block

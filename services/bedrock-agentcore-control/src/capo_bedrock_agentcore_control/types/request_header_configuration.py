@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.request_header_allowlist
@@ -18,13 +19,17 @@ class _RequestHeaderConfiguration_requestHeaderAllowlist(TypedDict, closed=True)
 
 
 RequestHeaderConfiguration: TypeAlias = (
-    _RequestHeaderConfiguration_requestHeaderAllowlist
+    _RequestHeaderConfiguration_requestHeaderAllowlist | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RequestHeaderConfiguration) -> dict:
-    if "requestHeaderAllowlist" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RequestHeaderConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "requestHeaderAllowlist" in value:
         import capo_bedrock_agentcore_control.types.request_header_allowlist
 
         return {
@@ -46,6 +51,11 @@ def deserialize_json(data: dict) -> RequestHeaderConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "RequestHeaderConfiguration: no recognized variant key"
         )

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_s3tables.errors import DeserializationError, SerializationError
+from capo_s3tables.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_s3tables.types.iceberg_unreferenced_file_removal_settings
@@ -17,13 +18,17 @@ class _TableBucketMaintenanceSettings_icebergUnreferencedFileRemoval(
 
 
 TableBucketMaintenanceSettings: TypeAlias = (
-    _TableBucketMaintenanceSettings_icebergUnreferencedFileRemoval
+    _TableBucketMaintenanceSettings_icebergUnreferencedFileRemoval | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: TableBucketMaintenanceSettings) -> dict:
-    if "icebergUnreferencedFileRemoval" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"TableBucketMaintenanceSettings: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "icebergUnreferencedFileRemoval" in value:
         import capo_s3tables.types.iceberg_unreferenced_file_removal_settings
 
         return {
@@ -45,6 +50,11 @@ def deserialize_json(data: dict) -> TableBucketMaintenanceSettings:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "TableBucketMaintenanceSettings: no recognized variant key"
         )

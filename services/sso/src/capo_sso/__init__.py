@@ -57,3 +57,9 @@ from ._services._pipeline import (
 )
 from ._services.async_sso import AsyncSSOClient as AsyncSSOClient
 from ._services.sso import SSOClient as SSOClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

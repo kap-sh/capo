@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_emr import AsyncEMRClient as AsyncEMRClient
 from ._services.emr import EMRClient as EMRClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

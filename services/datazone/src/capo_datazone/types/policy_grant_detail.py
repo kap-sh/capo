@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_datazone.errors import DeserializationError, SerializationError
+from capo_datazone.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_datazone.types.add_to_project_member_pool_policy_grant_detail
@@ -92,12 +93,17 @@ PolicyGrantDetail: TypeAlias = (
     | _PolicyGrantDetail_createEnvironmentFromBlueprint
     | _PolicyGrantDetail_createProjectFromProjectProfile
     | _PolicyGrantDetail_useAssetType
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PolicyGrantDetail) -> dict:
-    if "createDomainUnit" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"PolicyGrantDetail: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "createDomainUnit" in value:
         import capo_datazone.types.create_domain_unit_policy_grant_detail
 
         return {
@@ -327,4 +333,9 @@ def deserialize_json(data: dict) -> PolicyGrantDetail:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("PolicyGrantDetail: no recognized variant key")

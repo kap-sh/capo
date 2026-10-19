@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_s3_outposts import AsyncS3OutpostsClient as AsyncS3OutpostsClient
 from ._services.s3_outposts import S3OutpostsClient as S3OutpostsClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

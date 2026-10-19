@@ -77,3 +77,9 @@ from ._services.async_cloud_trail_data import (
     AsyncCloudTrailDataClient as AsyncCloudTrailDataClient,
 )
 from ._services.cloud_trail_data import CloudTrailDataClient as CloudTrailDataClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

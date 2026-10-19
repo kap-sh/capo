@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_iottwinmaker.errors import DeserializationError, SerializationError
+from capo_iottwinmaker.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.id
@@ -33,12 +34,17 @@ SyncResourceFilter: TypeAlias = (
     | _SyncResourceFilter_resourceType
     | _SyncResourceFilter_resourceId
     | _SyncResourceFilter_externalId
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SyncResourceFilter) -> dict:
-    if "state" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"SyncResourceFilter: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "state" in value:
         return {"state": value["state"]}
     elif "resourceType" in value:
         return {"resourceType": value["resourceType"]}
@@ -60,4 +66,9 @@ def deserialize_json(data: dict) -> SyncResourceFilter:
     elif data.get("externalId") is not None:
         return {"externalId": data["externalId"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("SyncResourceFilter: no recognized variant key")

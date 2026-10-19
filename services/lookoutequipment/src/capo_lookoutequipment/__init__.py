@@ -79,3 +79,9 @@ from ._services.async_lookout_equipment import (
 from ._services.lookout_equipment import (
     LookoutEquipmentClient as LookoutEquipmentClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

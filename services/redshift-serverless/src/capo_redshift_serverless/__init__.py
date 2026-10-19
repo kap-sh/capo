@@ -79,3 +79,9 @@ from ._services.async_redshift_serverless import (
 from ._services.redshift_serverless import (
     RedshiftServerlessClient as RedshiftServerlessClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

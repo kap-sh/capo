@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock.errors import DeserializationError, SerializationError
+from capo_bedrock.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock.types.filter_attribute
@@ -82,12 +83,17 @@ RetrievalFilter: TypeAlias = (
     | _RetrievalFilter_stringContains
     | _RetrievalFilter_andAll
     | _RetrievalFilter_orAll
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RetrievalFilter) -> dict:
-    if "equals" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RetrievalFilter: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "equals" in value:
         import capo_bedrock.types.filter_attribute
 
         return {
@@ -289,4 +295,9 @@ def deserialize_json(data: dict) -> RetrievalFilter:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("RetrievalFilter: no recognized variant key")

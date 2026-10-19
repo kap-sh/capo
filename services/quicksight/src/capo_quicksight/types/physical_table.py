@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_quicksight.errors import DeserializationError, SerializationError
+from capo_quicksight.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_quicksight.types.custom_sql
@@ -40,12 +41,17 @@ PhysicalTable: TypeAlias = (
     | _PhysicalTable_S3Source
     | _PhysicalTable_SaaSTable
     | _PhysicalTable_FileSource
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PhysicalTable) -> dict:
-    if "RelationalTable" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"PhysicalTable: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "RelationalTable" in value:
         import capo_quicksight.types.relational_table
 
         return {
@@ -131,10 +137,17 @@ def deserialize_json(data: dict) -> PhysicalTable:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("PhysicalTable: no recognized variant key")
 
 
-def redact_sensitive(value: PhysicalTable) -> dict[str, Any]:
+def redact_sensitive(value: PhysicalTable) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "CustomSql" in value:
         import capo_quicksight.types.custom_sql

@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_invoicing import AsyncInvoicingClient as AsyncInvoicingClient
 from ._services.invoicing import InvoicingClient as InvoicingClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_deadline.errors import DeserializationError, SerializationError
+from capo_deadline.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_deadline.types.float_string
@@ -40,12 +41,17 @@ TaskParameterValue: TypeAlias = (
     | _TaskParameterValue_string
     | _TaskParameterValue_path
     | _TaskParameterValue_chunkInt
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: TaskParameterValue) -> dict:
-    if "int" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"TaskParameterValue: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "int" in value:
         return {"int": value["int"]}
     elif "float" in value:
         return {"float": value["float"]}
@@ -71,4 +77,9 @@ def deserialize_json(data: dict) -> TaskParameterValue:
     elif data.get("chunkInt") is not None:
         return {"chunkInt": data["chunkInt"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("TaskParameterValue: no recognized variant key")

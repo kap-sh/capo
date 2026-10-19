@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_groundstation.errors import DeserializationError, SerializationError
+from capo_groundstation.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_groundstation.types.antenna_demod_decode_details
@@ -30,12 +31,17 @@ ConfigDetails: TypeAlias = (
     _ConfigDetails_endpointDetails
     | _ConfigDetails_antennaDemodDecodeDetails
     | _ConfigDetails_s3RecordingDetails
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ConfigDetails) -> dict:
-    if "endpointDetails" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ConfigDetails: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "endpointDetails" in value:
         import capo_groundstation.types.endpoint_details
 
         return {
@@ -89,4 +95,9 @@ def deserialize_json(data: dict) -> ConfigDetails:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ConfigDetails: no recognized variant key")

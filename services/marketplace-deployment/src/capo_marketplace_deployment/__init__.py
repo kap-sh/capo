@@ -79,3 +79,9 @@ from ._services.async_marketplace_deployment import (
 from ._services.marketplace_deployment import (
     MarketplaceDeploymentClient as MarketplaceDeploymentClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

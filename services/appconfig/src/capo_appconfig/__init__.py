@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.app_config import AppConfigClient as AppConfigClient
 from ._services.async_app_config import AsyncAppConfigClient as AsyncAppConfigClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

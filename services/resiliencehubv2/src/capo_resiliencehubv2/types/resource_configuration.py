@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_resiliencehubv2.errors import DeserializationError, SerializationError
+from capo_resiliencehubv2.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.arn
@@ -39,12 +40,17 @@ ResourceConfiguration: TypeAlias = (
     | _ResourceConfiguration_tfStateFileUrl
     | _ResourceConfiguration_eks
     | _ResourceConfiguration_designFileS3Url
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ResourceConfiguration) -> dict:
-    if "resourceTags" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ResourceConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "resourceTags" in value:
         import capo_resiliencehubv2.types.resource_tag_list
 
         return {
@@ -90,10 +96,19 @@ def deserialize_json(data: dict) -> ResourceConfiguration:
     elif data.get("designFileS3Url") is not None:
         return {"designFileS3Url": data["designFileS3Url"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ResourceConfiguration: no recognized variant key")
 
 
-def redact_sensitive(value: ResourceConfiguration) -> dict[str, Any]:
+def redact_sensitive(
+    value: ResourceConfiguration,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "eks" in value:
         import capo_resiliencehubv2.types.eks_source

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_qbusiness.errors import DeserializationError, SerializationError
+from capo_qbusiness.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_qbusiness.types.kendra_index_configuration
@@ -26,12 +27,17 @@ class _RetrieverConfiguration_kendraIndexConfiguration(TypedDict, closed=True):
 RetrieverConfiguration: TypeAlias = (
     _RetrieverConfiguration_nativeIndexConfiguration
     | _RetrieverConfiguration_kendraIndexConfiguration
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RetrieverConfiguration) -> dict:
-    if "nativeIndexConfiguration" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RetrieverConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "nativeIndexConfiguration" in value:
         import capo_qbusiness.types.native_index_configuration
 
         return {
@@ -69,4 +75,9 @@ def deserialize_json(data: dict) -> RetrieverConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("RetrieverConfiguration: no recognized variant key")

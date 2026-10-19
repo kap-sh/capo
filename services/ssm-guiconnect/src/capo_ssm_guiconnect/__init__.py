@@ -77,3 +77,9 @@ from ._services.async_ssm_gui_connect import (
     AsyncSSMGuiConnectClient as AsyncSSMGuiConnectClient,
 )
 from ._services.ssm_gui_connect import SSMGuiConnectClient as SSMGuiConnectClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

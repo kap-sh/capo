@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_backup import AsyncBackupClient as AsyncBackupClient
 from ._services.backup import BackupClient as BackupClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

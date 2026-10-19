@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agentcore.errors import DeserializationError, SerializationError
+from capo_bedrock_agentcore.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.sensitive_string
@@ -14,12 +15,16 @@ class _Content_text(TypedDict, closed=True):
     text: "capo_bedrock_agentcore.types.sensitive_string.SensitiveString"
 
 
-Content: TypeAlias = _Content_text
+Content: TypeAlias = _Content_text | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Content) -> dict:
-    if "text" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Content: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "text" in value:
         return {"text": value["text"]}
     else:
         raise SerializationError("Content: no variant present")
@@ -29,10 +34,17 @@ def deserialize_json(data: dict) -> Content:
     if data.get("text") is not None:
         return {"text": data["text"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Content: no recognized variant key")
 
 
-def redact_sensitive(value: Content) -> dict[str, Any]:
+def redact_sensitive(value: Content) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "text" in value:
         out["text"] = "*** Sensitive Data Redacted ***"

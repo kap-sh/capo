@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.code_configuration
@@ -27,12 +28,17 @@ class _AgentRuntimeArtifact_codeConfiguration(TypedDict, closed=True):
 AgentRuntimeArtifact: TypeAlias = (
     _AgentRuntimeArtifact_containerConfiguration
     | _AgentRuntimeArtifact_codeConfiguration
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AgentRuntimeArtifact) -> dict:
-    if "containerConfiguration" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AgentRuntimeArtifact: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "containerConfiguration" in value:
         import capo_bedrock_agentcore_control.types.container_configuration
 
         return {
@@ -70,4 +76,9 @@ def deserialize_json(data: dict) -> AgentRuntimeArtifact:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("AgentRuntimeArtifact: no recognized variant key")

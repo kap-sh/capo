@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_accessanalyzer.errors import DeserializationError, SerializationError
+from capo_accessanalyzer.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.internet_configuration
@@ -24,12 +25,17 @@ class _NetworkOriginConfiguration_internetConfiguration(TypedDict, closed=True):
 NetworkOriginConfiguration: TypeAlias = (
     _NetworkOriginConfiguration_vpcConfiguration
     | _NetworkOriginConfiguration_internetConfiguration
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: NetworkOriginConfiguration) -> dict:
-    if "vpcConfiguration" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"NetworkOriginConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "vpcConfiguration" in value:
         import capo_accessanalyzer.types.vpc_configuration
 
         return {
@@ -67,6 +73,11 @@ def deserialize_json(data: dict) -> NetworkOriginConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "NetworkOriginConfiguration: no recognized variant key"
         )

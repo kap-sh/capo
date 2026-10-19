@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_omics.errors import DeserializationError, SerializationError
+from capo_omics.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_omics.types.inline_settings
@@ -20,13 +21,19 @@ class _BatchRunSettings_s3UriSettings(TypedDict, closed=True):
 
 
 BatchRunSettings: TypeAlias = (
-    _BatchRunSettings_inlineSettings | _BatchRunSettings_s3UriSettings
+    _BatchRunSettings_inlineSettings
+    | _BatchRunSettings_s3UriSettings
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: BatchRunSettings) -> dict:
-    if "inlineSettings" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"BatchRunSettings: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "inlineSettings" in value:
         import capo_omics.types.inline_settings
 
         return {
@@ -52,4 +59,9 @@ def deserialize_json(data: dict) -> BatchRunSettings:
     elif data.get("s3UriSettings") is not None:
         return {"s3UriSettings": data["s3UriSettings"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("BatchRunSettings: no recognized variant key")

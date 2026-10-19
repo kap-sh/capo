@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_work_spaces import AsyncWorkSpacesClient as AsyncWorkSpacesClient
 from ._services.work_spaces import WorkSpacesClient as WorkSpacesClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

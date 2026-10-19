@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_sfn import AsyncSFNClient as AsyncSFNClient
 from ._services.sfn import SFNClient as SFNClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

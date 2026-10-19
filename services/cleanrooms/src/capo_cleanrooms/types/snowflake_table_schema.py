@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_cleanrooms.errors import DeserializationError, SerializationError
+from capo_cleanrooms.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_cleanrooms.types.snowflake_table_schema_list
@@ -14,12 +15,16 @@ class _SnowflakeTableSchema_v1(TypedDict, closed=True):
     v1: "capo_cleanrooms.types.snowflake_table_schema_list.SnowflakeTableSchemaList"
 
 
-SnowflakeTableSchema: TypeAlias = _SnowflakeTableSchema_v1
+SnowflakeTableSchema: TypeAlias = _SnowflakeTableSchema_v1 | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SnowflakeTableSchema) -> dict:
-    if "v1" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"SnowflakeTableSchema: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "v1" in value:
         import capo_cleanrooms.types.snowflake_table_schema_list
 
         return {
@@ -41,4 +46,9 @@ def deserialize_json(data: dict) -> SnowflakeTableSchema:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("SnowflakeTableSchema: no recognized variant key")

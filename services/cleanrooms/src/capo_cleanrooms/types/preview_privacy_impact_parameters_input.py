@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_cleanrooms.errors import DeserializationError, SerializationError
+from capo_cleanrooms.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_cleanrooms.types.differential_privacy_preview_parameters_input
@@ -15,13 +16,17 @@ class _PreviewPrivacyImpactParametersInput_differentialPrivacy(TypedDict, closed
 
 
 PreviewPrivacyImpactParametersInput: TypeAlias = (
-    _PreviewPrivacyImpactParametersInput_differentialPrivacy
+    _PreviewPrivacyImpactParametersInput_differentialPrivacy | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PreviewPrivacyImpactParametersInput) -> dict:
-    if "differentialPrivacy" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"PreviewPrivacyImpactParametersInput: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "differentialPrivacy" in value:
         import capo_cleanrooms.types.differential_privacy_preview_parameters_input
 
         return {
@@ -45,6 +50,11 @@ def deserialize_json(data: dict) -> PreviewPrivacyImpactParametersInput:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "PreviewPrivacyImpactParametersInput: no recognized variant key"
         )

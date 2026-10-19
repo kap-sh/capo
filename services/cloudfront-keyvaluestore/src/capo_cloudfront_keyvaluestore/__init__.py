@@ -79,3 +79,9 @@ from ._services.async_cloud_front_key_value_store import (
 from ._services.cloud_front_key_value_store import (
     CloudFrontKeyValueStoreClient as CloudFrontKeyValueStoreClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_fms import AsyncFMSClient as AsyncFMSClient
 from ._services.fms import FMSClient as FMSClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

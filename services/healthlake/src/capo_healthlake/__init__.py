@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_health_lake import AsyncHealthLakeClient as AsyncHealthLakeClient
 from ._services.health_lake import HealthLakeClient as HealthLakeClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

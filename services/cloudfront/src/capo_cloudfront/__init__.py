@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_cloud_front import AsyncCloudFrontClient as AsyncCloudFrontClient
 from ._services.cloud_front import CloudFrontClient as CloudFrontClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

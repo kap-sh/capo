@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_connectcases.errors import DeserializationError, SerializationError
+from capo_connectcases.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_connectcases.types.sla_input_configuration
@@ -16,12 +17,16 @@ class _SlaInputContent_slaInputConfiguration(TypedDict, closed=True):
     )
 
 
-SlaInputContent: TypeAlias = _SlaInputContent_slaInputConfiguration
+SlaInputContent: TypeAlias = _SlaInputContent_slaInputConfiguration | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SlaInputContent) -> dict:
-    if "slaInputConfiguration" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"SlaInputContent: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "slaInputConfiguration" in value:
         import capo_connectcases.types.sla_input_configuration
 
         return {
@@ -43,10 +48,17 @@ def deserialize_json(data: dict) -> SlaInputContent:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("SlaInputContent: no recognized variant key")
 
 
-def redact_sensitive(value: SlaInputContent) -> dict[str, Any]:
+def redact_sensitive(value: SlaInputContent) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "slaInputConfiguration" in value:
         import capo_connectcases.types.sla_input_configuration

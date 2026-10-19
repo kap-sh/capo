@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_sagemaker.errors import DeserializationError, SerializationError
+from capo_sagemaker.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_sagemaker.types.target_tracking_scaling_policy_configuration
@@ -14,12 +15,16 @@ class _ScalingPolicy_TargetTracking(TypedDict, closed=True):
     TargetTracking: "capo_sagemaker.types.target_tracking_scaling_policy_configuration.TargetTrackingScalingPolicyConfiguration"
 
 
-ScalingPolicy: TypeAlias = _ScalingPolicy_TargetTracking
+ScalingPolicy: TypeAlias = _ScalingPolicy_TargetTracking | UnknownUnionMember
 
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: ScalingPolicy) -> dict:
-    if "TargetTracking" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ScalingPolicy: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "TargetTracking" in value:
         import capo_sagemaker.types.target_tracking_scaling_policy_configuration
 
         return {
@@ -41,4 +46,9 @@ def deserialize_aws_json_1_1(data: dict) -> ScalingPolicy:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ScalingPolicy: no recognized variant key")

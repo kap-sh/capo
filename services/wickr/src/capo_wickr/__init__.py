@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_wickr import AsyncWickrClient as AsyncWickrClient
 from ._services.wickr import WickrClient as WickrClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

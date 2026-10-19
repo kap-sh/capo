@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_app_mesh.errors import DeserializationError, SerializationError
+from capo_app_mesh.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_app_mesh.types.tls_validation_context_acm_trust
@@ -28,12 +29,17 @@ TlsValidationContextTrust: TypeAlias = (
     _TlsValidationContextTrust_acm
     | _TlsValidationContextTrust_file
     | _TlsValidationContextTrust_sds
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: TlsValidationContextTrust) -> dict:
-    if "acm" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"TlsValidationContextTrust: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "acm" in value:
         import capo_app_mesh.types.tls_validation_context_acm_trust
 
         return {
@@ -87,6 +93,11 @@ def deserialize_json(data: dict) -> TlsValidationContextTrust:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "TlsValidationContextTrust: no recognized variant key"
         )

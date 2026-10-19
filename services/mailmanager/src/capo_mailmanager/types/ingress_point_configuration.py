@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_mailmanager.errors import DeserializationError, SerializationError
+from capo_mailmanager.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_mailmanager.types.secret_arn
@@ -30,12 +31,17 @@ IngressPointConfiguration: TypeAlias = (
     _IngressPointConfiguration_SmtpPassword
     | _IngressPointConfiguration_SecretArn
     | _IngressPointConfiguration_TlsAuthConfiguration
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: IngressPointConfiguration) -> dict:
-    if "SmtpPassword" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"IngressPointConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "SmtpPassword" in value:
         return {"SmtpPassword": value["SmtpPassword"]}
     elif "SecretArn" in value:
         return {"SecretArn": value["SecretArn"]}
@@ -65,12 +71,21 @@ def deserialize_aws_json_1_0(data: dict) -> IngressPointConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "IngressPointConfiguration: no recognized variant key"
         )
 
 
-def redact_sensitive(value: IngressPointConfiguration) -> dict[str, Any]:
+def redact_sensitive(
+    value: IngressPointConfiguration,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "SmtpPassword" in value:
         out["SmtpPassword"] = "*** Sensitive Data Redacted ***"

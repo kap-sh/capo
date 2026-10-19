@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_arc_region_switch.errors import DeserializationError, SerializationError
+from capo_arc_region_switch.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.arc_routing_control_configuration
@@ -136,12 +137,17 @@ ExecutionBlockConfiguration: TypeAlias = (
     | _ExecutionBlockConfiguration_neptuneGlobalDatabaseConfig
     | _ExecutionBlockConfiguration_rdsSwitchoverReadReplicaConfig
     | _ExecutionBlockConfiguration_ssmSendCommandConfig
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: ExecutionBlockConfiguration) -> dict:
-    if "customActionLambdaConfig" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ExecutionBlockConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "customActionLambdaConfig" in value:
         import capo_arc_region_switch.types.custom_action_lambda_configuration
 
         return {
@@ -451,12 +457,21 @@ def deserialize_aws_json_1_0(data: dict) -> ExecutionBlockConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "ExecutionBlockConfiguration: no recognized variant key"
         )
 
 
-def redact_sensitive(value: ExecutionBlockConfiguration) -> dict[str, Any]:
+def redact_sensitive(
+    value: ExecutionBlockConfiguration,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "customActionLambdaConfig" in value:
         import capo_arc_region_switch.types.custom_action_lambda_configuration

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agentcore.errors import DeserializationError, SerializationError
+from capo_bedrock_agentcore.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.harness_reasoning_text_block
@@ -21,12 +22,17 @@ class _HarnessReasoningContentBlock_redactedContent(TypedDict, closed=True):
 HarnessReasoningContentBlock: TypeAlias = (
     _HarnessReasoningContentBlock_reasoningText
     | _HarnessReasoningContentBlock_redactedContent
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: HarnessReasoningContentBlock) -> dict:
-    if "reasoningText" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"HarnessReasoningContentBlock: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "reasoningText" in value:
         import capo_bedrock_agentcore.types.harness_reasoning_text_block
 
         return {
@@ -64,6 +70,11 @@ def deserialize_json(data: dict) -> HarnessReasoningContentBlock:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "HarnessReasoningContentBlock: no recognized variant key"
         )

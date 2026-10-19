@@ -77,3 +77,9 @@ from ._services.async_cloud_watch_omni import (
     AsyncCloudWatchOmniClient as AsyncCloudWatchOmniClient,
 )
 from ._services.cloud_watch_omni import CloudWatchOmniClient as CloudWatchOmniClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

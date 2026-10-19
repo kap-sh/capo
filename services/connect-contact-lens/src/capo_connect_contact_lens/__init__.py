@@ -79,3 +79,9 @@ from ._services.async_connect_contact_lens import (
 from ._services.connect_contact_lens import (
     ConnectContactLensClient as ConnectContactLensClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -77,3 +77,9 @@ from ._services.async_media_package_vod import (
     AsyncMediaPackageVodClient as AsyncMediaPackageVodClient,
 )
 from ._services.media_package_vod import MediaPackageVodClient as MediaPackageVodClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

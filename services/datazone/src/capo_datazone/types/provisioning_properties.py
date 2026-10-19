@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_datazone.errors import DeserializationError, SerializationError
+from capo_datazone.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_datazone.types.cloud_formation_properties
@@ -16,12 +17,18 @@ class _ProvisioningProperties_cloudFormation(TypedDict, closed=True):
     )
 
 
-ProvisioningProperties: TypeAlias = _ProvisioningProperties_cloudFormation
+ProvisioningProperties: TypeAlias = (
+    _ProvisioningProperties_cloudFormation | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ProvisioningProperties) -> dict:
-    if "cloudFormation" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ProvisioningProperties: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "cloudFormation" in value:
         import capo_datazone.types.cloud_formation_properties
 
         return {
@@ -43,4 +50,9 @@ def deserialize_json(data: dict) -> ProvisioningProperties:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ProvisioningProperties: no recognized variant key")

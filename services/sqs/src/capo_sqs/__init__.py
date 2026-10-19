@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_sqs import AsyncSQSClient as AsyncSQSClient
 from ._services.sqs import SQSClient as SQSClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

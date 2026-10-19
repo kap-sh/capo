@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.app_stream import AppStreamClient as AppStreamClient
 from ._services.async_app_stream import AsyncAppStreamClient as AsyncAppStreamClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

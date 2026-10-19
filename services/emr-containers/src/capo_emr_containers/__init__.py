@@ -77,3 +77,9 @@ from ._services.async_em_rcontainers import (
     AsyncEMRcontainersClient as AsyncEMRcontainersClient,
 )
 from ._services.em_rcontainers import EMRcontainersClient as EMRcontainersClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_resiliencehubv2.errors import DeserializationError, SerializationError
+from capo_resiliencehubv2.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.policy_attached_to_service_metadata
@@ -36,12 +37,17 @@ PolicyEventMetadata: TypeAlias = (
     | _PolicyEventMetadata_policyDetachedFromService
     | _PolicyEventMetadata_policySharingRevoked
     | _PolicyEventMetadata_policyDeleted
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PolicyEventMetadata) -> dict:
-    if "policyAttachedToService" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"PolicyEventMetadata: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "policyAttachedToService" in value:
         import capo_resiliencehubv2.types.policy_attached_to_service_metadata
 
         return {
@@ -111,4 +117,9 @@ def deserialize_json(data: dict) -> PolicyEventMetadata:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("PolicyEventMetadata: no recognized variant key")

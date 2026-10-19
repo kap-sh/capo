@@ -10,6 +10,7 @@ from capo_qbusiness._protocol.eventstream import Message
 from capo_qbusiness.errors import (
     UnknownServiceError,
 )
+from capo_qbusiness.types._unknown import UnknownEvent
 
 if TYPE_CHECKING:
     import capo_qbusiness.types.action_review_event
@@ -49,11 +50,16 @@ _ChatOutputStream: TypeAlias = (
     | _ChatOutputStream_actionReviewEvent
     | _ChatOutputStream_failedAttachmentEvent
     | _ChatOutputStream_authChallengeRequestEvent
+    | UnknownEvent
 )
 ChatOutputStream: TypeAlias = AnyIterator[_ChatOutputStream]
 
 
 def serialize_event_json(value: _ChatOutputStream) -> bytes:
+    if isinstance(value, UnknownEvent):
+        raise ValueError(
+            f"ChatOutputStream: cannot serialize unknown event {value.event_type!r}"
+        )
     match value:
         case {"textEvent": payload}:
             import capo_qbusiness.types.text_output_event
@@ -147,6 +153,8 @@ def deserialize_event_json(
                     message
                 )
             }
+        case str():
+            return UnknownEvent(event_type, message)
         case _:
             raise ValueError(
                 f"ChatOutputStream: unrecognized event-type {event_type!r}"

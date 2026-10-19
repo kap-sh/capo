@@ -77,3 +77,9 @@ from ._services.async_io_t_data_plane import (
     AsyncIoTDataPlaneClient as AsyncIoTDataPlaneClient,
 )
 from ._services.io_t_data_plane import IoTDataPlaneClient as IoTDataPlaneClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

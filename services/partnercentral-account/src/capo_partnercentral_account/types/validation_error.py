@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_partnercentral_account.errors import DeserializationError, SerializationError
+from capo_partnercentral_account.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.business_validation_error
@@ -22,13 +23,19 @@ class _ValidationError_BusinessValidationError(TypedDict, closed=True):
 
 
 ValidationError: TypeAlias = (
-    _ValidationError_FieldValidationError | _ValidationError_BusinessValidationError
+    _ValidationError_FieldValidationError
+    | _ValidationError_BusinessValidationError
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: ValidationError) -> dict:
-    if "FieldValidationError" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ValidationError: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "FieldValidationError" in value:
         import capo_partnercentral_account.types.field_validation_error
 
         return {
@@ -66,4 +73,9 @@ def deserialize_aws_json_1_0(data: dict) -> ValidationError:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ValidationError: no recognized variant key")

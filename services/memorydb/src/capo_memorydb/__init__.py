@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_memory_db import AsyncMemoryDBClient as AsyncMemoryDBClient
 from ._services.memory_db import MemoryDBClient as MemoryDBClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

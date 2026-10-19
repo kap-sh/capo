@@ -77,3 +77,9 @@ from ._services.async_ground_station import (
     AsyncGroundStationClient as AsyncGroundStationClient,
 )
 from ._services.ground_station import GroundStationClient as GroundStationClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

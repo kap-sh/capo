@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_schemas import AsyncschemasClient as AsyncschemasClient
 from ._services.schemas import schemasClient as schemasClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

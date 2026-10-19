@@ -79,3 +79,9 @@ from ._services.async_elastic_beanstalk import (
 from ._services.elastic_beanstalk import (
     ElasticBeanstalkClient as ElasticBeanstalkClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

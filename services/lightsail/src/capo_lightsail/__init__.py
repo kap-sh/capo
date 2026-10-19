@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_lightsail import AsyncLightsailClient as AsyncLightsailClient
 from ._services.lightsail import LightsailClient as LightsailClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

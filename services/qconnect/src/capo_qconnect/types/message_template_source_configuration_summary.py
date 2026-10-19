@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_qconnect.errors import DeserializationError, SerializationError
+from capo_qconnect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_qconnect.types.whats_app_message_template_source_configuration_summary
@@ -15,13 +16,17 @@ class _MessageTemplateSourceConfigurationSummary_whatsApp(TypedDict, closed=True
 
 
 MessageTemplateSourceConfigurationSummary: TypeAlias = (
-    _MessageTemplateSourceConfigurationSummary_whatsApp
+    _MessageTemplateSourceConfigurationSummary_whatsApp | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MessageTemplateSourceConfigurationSummary) -> dict:
-    if "whatsApp" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"MessageTemplateSourceConfigurationSummary: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "whatsApp" in value:
         import capo_qconnect.types.whats_app_message_template_source_configuration_summary
 
         return {
@@ -45,6 +50,11 @@ def deserialize_json(data: dict) -> MessageTemplateSourceConfigurationSummary:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "MessageTemplateSourceConfigurationSummary: no recognized variant key"
         )
@@ -52,7 +62,9 @@ def deserialize_json(data: dict) -> MessageTemplateSourceConfigurationSummary:
 
 def redact_sensitive(
     value: MessageTemplateSourceConfigurationSummary,
-) -> dict[str, Any]:
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "whatsApp" in value:
         import capo_qconnect.types.whats_app_message_template_source_configuration_summary

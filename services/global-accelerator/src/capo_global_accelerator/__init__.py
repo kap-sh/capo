@@ -79,3 +79,9 @@ from ._services.async_global_accelerator import (
 from ._services.global_accelerator import (
     GlobalAcceleratorClient as GlobalAcceleratorClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

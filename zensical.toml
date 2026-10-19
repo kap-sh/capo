@@ -16,6 +16,7 @@ nav = [
   { "Configuration" = "configuration.md" },
   { "Authentication" = "authentication.md" },
   { "Streaming" = "streaming.md" },
+  { "Forward Compatibility" = "forward-compatibility.md" },
   { "Waiters, Pagination, Presigning" = "operations.md" },
   { "Interceptors & HTTP" = "http.md" },
   { "Logging" = "logging.md" },

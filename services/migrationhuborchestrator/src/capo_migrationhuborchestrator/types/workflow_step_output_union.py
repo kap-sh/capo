@@ -8,6 +8,7 @@ from capo_migrationhuborchestrator.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_migrationhuborchestrator.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_migrationhuborchestrator.types.max_string_list
@@ -32,12 +33,17 @@ WorkflowStepOutputUnion: TypeAlias = (
     _WorkflowStepOutputUnion_integerValue
     | _WorkflowStepOutputUnion_stringValue
     | _WorkflowStepOutputUnion_listOfStringValue
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: WorkflowStepOutputUnion) -> dict:
-    if "integerValue" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"WorkflowStepOutputUnion: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "integerValue" in value:
         return {"integerValue": value["integerValue"]}
     elif "stringValue" in value:
         return {"stringValue": value["stringValue"]}
@@ -67,4 +73,9 @@ def deserialize_json(data: dict) -> WorkflowStepOutputUnion:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("WorkflowStepOutputUnion: no recognized variant key")

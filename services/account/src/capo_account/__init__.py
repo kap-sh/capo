@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.account import AccountClient as AccountClient
 from ._services.async_account import AsyncAccountClient as AsyncAccountClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

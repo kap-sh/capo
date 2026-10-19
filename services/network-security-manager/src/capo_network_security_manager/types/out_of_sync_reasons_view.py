@@ -8,6 +8,7 @@ from capo_network_security_manager.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_network_security_manager.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_network_security_manager.types.not_visible_marker
@@ -25,13 +26,19 @@ class _OutOfSyncReasonsView_notVisible(TypedDict, closed=True):
 
 
 OutOfSyncReasonsView: TypeAlias = (
-    _OutOfSyncReasonsView_reasons | _OutOfSyncReasonsView_notVisible
+    _OutOfSyncReasonsView_reasons
+    | _OutOfSyncReasonsView_notVisible
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: OutOfSyncReasonsView) -> dict:
-    if "reasons" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"OutOfSyncReasonsView: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "reasons" in value:
         import capo_network_security_manager.types.out_of_sync_reasons
 
         return {
@@ -69,4 +76,9 @@ def deserialize_json(data: dict) -> OutOfSyncReasonsView:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("OutOfSyncReasonsView: no recognized variant key")

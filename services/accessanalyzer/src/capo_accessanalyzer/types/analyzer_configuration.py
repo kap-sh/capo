@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_accessanalyzer.errors import DeserializationError, SerializationError
+from capo_accessanalyzer.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.internal_access_configuration
@@ -20,13 +21,19 @@ class _AnalyzerConfiguration_internalAccess(TypedDict, closed=True):
 
 
 AnalyzerConfiguration: TypeAlias = (
-    _AnalyzerConfiguration_unusedAccess | _AnalyzerConfiguration_internalAccess
+    _AnalyzerConfiguration_unusedAccess
+    | _AnalyzerConfiguration_internalAccess
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AnalyzerConfiguration) -> dict:
-    if "unusedAccess" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AnalyzerConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "unusedAccess" in value:
         import capo_accessanalyzer.types.unused_access_configuration
 
         return {
@@ -64,4 +71,9 @@ def deserialize_json(data: dict) -> AnalyzerConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("AnalyzerConfiguration: no recognized variant key")

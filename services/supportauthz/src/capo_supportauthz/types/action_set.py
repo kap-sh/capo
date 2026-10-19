@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_supportauthz.errors import DeserializationError, SerializationError
+from capo_supportauthz.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_supportauthz.types.actions
@@ -18,12 +19,16 @@ class _ActionSet_actions(TypedDict, closed=True):
     actions: "capo_supportauthz.types.actions.Actions"
 
 
-ActionSet: TypeAlias = _ActionSet_allActions | _ActionSet_actions
+ActionSet: TypeAlias = _ActionSet_allActions | _ActionSet_actions | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ActionSet) -> dict:
-    if "allActions" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ActionSet: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "allActions" in value:
         return {"allActions": {}}
     elif "actions" in value:
         import capo_supportauthz.types.actions
@@ -45,4 +50,9 @@ def deserialize_json(data: dict) -> ActionSet:
             "actions": capo_supportauthz.types.actions.deserialize_json(data["actions"])
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ActionSet: no recognized variant key")

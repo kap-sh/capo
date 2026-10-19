@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_devops_agent.errors import DeserializationError, SerializationError
+from capo_devops_agent.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_devops_agent.types.pager_duty_o_auth_client_credentials_config
@@ -15,13 +16,17 @@ class _PagerDutyAuthorizationConfig_oAuthClientCredentials(TypedDict, closed=Tru
 
 
 PagerDutyAuthorizationConfig: TypeAlias = (
-    _PagerDutyAuthorizationConfig_oAuthClientCredentials
+    _PagerDutyAuthorizationConfig_oAuthClientCredentials | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PagerDutyAuthorizationConfig) -> dict:
-    if "oAuthClientCredentials" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"PagerDutyAuthorizationConfig: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "oAuthClientCredentials" in value:
         import capo_devops_agent.types.pager_duty_o_auth_client_credentials_config
 
         return {
@@ -43,12 +48,21 @@ def deserialize_json(data: dict) -> PagerDutyAuthorizationConfig:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "PagerDutyAuthorizationConfig: no recognized variant key"
         )
 
 
-def redact_sensitive(value: PagerDutyAuthorizationConfig) -> dict[str, Any]:
+def redact_sensitive(
+    value: PagerDutyAuthorizationConfig,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "oAuthClientCredentials" in value:
         import capo_devops_agent.types.pager_duty_o_auth_client_credentials_config

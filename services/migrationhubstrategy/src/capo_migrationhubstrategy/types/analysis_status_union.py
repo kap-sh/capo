@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_migrationhubstrategy.errors import DeserializationError, SerializationError
+from capo_migrationhubstrategy.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_migrationhubstrategy.types.runtime_analysis_status
@@ -24,12 +25,17 @@ class _AnalysisStatusUnion_srcCodeOrDbAnalysisStatus(TypedDict, closed=True):
 AnalysisStatusUnion: TypeAlias = (
     _AnalysisStatusUnion_runtimeAnalysisStatus
     | _AnalysisStatusUnion_srcCodeOrDbAnalysisStatus
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AnalysisStatusUnion) -> dict:
-    if "runtimeAnalysisStatus" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AnalysisStatusUnion: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "runtimeAnalysisStatus" in value:
         return {"runtimeAnalysisStatus": value["runtimeAnalysisStatus"]}
     elif "srcCodeOrDbAnalysisStatus" in value:
         return {"srcCodeOrDbAnalysisStatus": value["srcCodeOrDbAnalysisStatus"]}
@@ -43,4 +49,9 @@ def deserialize_json(data: dict) -> AnalysisStatusUnion:
     elif data.get("srcCodeOrDbAnalysisStatus") is not None:
         return {"srcCodeOrDbAnalysisStatus": data["srcCodeOrDbAnalysisStatus"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("AnalysisStatusUnion: no recognized variant key")

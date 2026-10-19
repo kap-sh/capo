@@ -79,3 +79,9 @@ from ._services.async_codestarnotifications import (
 from ._services.codestarnotifications import (
     codestarnotificationsClient as codestarnotificationsClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_dynamo_db import AsyncDynamoDBClient as AsyncDynamoDBClient
 from ._services.dynamo_db import DynamoDBClient as DynamoDBClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

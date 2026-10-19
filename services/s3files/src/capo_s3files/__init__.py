@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_s3_files import AsyncS3FilesClient as AsyncS3FilesClient
 from ._services.s3_files import S3FilesClient as S3FilesClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

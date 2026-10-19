@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_chime import AsyncChimeClient as AsyncChimeClient
 from ._services.chime import ChimeClient as ChimeClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

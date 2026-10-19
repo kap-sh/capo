@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_quicksight.errors import DeserializationError, SerializationError
+from capo_quicksight.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_quicksight.types.custom_prompt_input_parameters
@@ -20,13 +21,19 @@ class _CustomPromptInput_NewPrompt(TypedDict, closed=True):
 
 
 CustomPromptInput: TypeAlias = (
-    _CustomPromptInput_ExistingPrompt | _CustomPromptInput_NewPrompt
+    _CustomPromptInput_ExistingPrompt
+    | _CustomPromptInput_NewPrompt
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CustomPromptInput) -> dict:
-    if "ExistingPrompt" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"CustomPromptInput: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "ExistingPrompt" in value:
         import capo_quicksight.types.custom_prompt_profile
 
         return {
@@ -64,4 +71,9 @@ def deserialize_json(data: dict) -> CustomPromptInput:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("CustomPromptInput: no recognized variant key")

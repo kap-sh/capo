@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_securityhub.errors import DeserializationError, SerializationError
+from capo_securityhub.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_securityhub.types.azure_detail
@@ -25,13 +26,20 @@ class _ProviderDetail_Azure(TypedDict, closed=True):
 
 
 ProviderDetail: TypeAlias = (
-    _ProviderDetail_JiraCloud | _ProviderDetail_ServiceNow | _ProviderDetail_Azure
+    _ProviderDetail_JiraCloud
+    | _ProviderDetail_ServiceNow
+    | _ProviderDetail_Azure
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ProviderDetail) -> dict:
-    if "JiraCloud" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ProviderDetail: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "JiraCloud" in value:
         import capo_securityhub.types.jira_cloud_detail
 
         return {
@@ -81,4 +89,9 @@ def deserialize_json(data: dict) -> ProviderDetail:
             "Azure": capo_securityhub.types.azure_detail.deserialize_json(data["Azure"])
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ProviderDetail: no recognized variant key")

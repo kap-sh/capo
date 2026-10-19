@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_marketplace_discovery.errors import DeserializationError, SerializationError
+from capo_marketplace_discovery.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.amazon_machine_image_fulfillment_option
@@ -90,12 +91,17 @@ FulfillmentOption: TypeAlias = (
     | _FulfillmentOption_saasFulfillmentOption
     | _FulfillmentOption_sageMakerAlgorithmFulfillmentOption
     | _FulfillmentOption_sageMakerModelFulfillmentOption
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: FulfillmentOption) -> dict:
-    if "amazonMachineImageFulfillmentOption" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"FulfillmentOption: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "amazonMachineImageFulfillmentOption" in value:
         import capo_marketplace_discovery.types.amazon_machine_image_fulfillment_option
 
         return {
@@ -293,4 +299,9 @@ def deserialize_json(data: dict) -> FulfillmentOption:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("FulfillmentOption: no recognized variant key")

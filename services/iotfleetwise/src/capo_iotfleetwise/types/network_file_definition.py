@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_iotfleetwise.errors import DeserializationError, SerializationError
+from capo_iotfleetwise.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.can_dbc_definition
@@ -14,12 +15,16 @@ class _NetworkFileDefinition_canDbc(TypedDict, closed=True):
     canDbc: "capo_iotfleetwise.types.can_dbc_definition.CanDbcDefinition"
 
 
-NetworkFileDefinition: TypeAlias = _NetworkFileDefinition_canDbc
+NetworkFileDefinition: TypeAlias = _NetworkFileDefinition_canDbc | UnknownUnionMember
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: NetworkFileDefinition) -> dict:
-    if "canDbc" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"NetworkFileDefinition: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "canDbc" in value:
         import capo_iotfleetwise.types.can_dbc_definition
 
         return {
@@ -41,4 +46,9 @@ def deserialize_aws_json_1_0(data: dict) -> NetworkFileDefinition:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("NetworkFileDefinition: no recognized variant key")

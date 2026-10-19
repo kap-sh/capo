@@ -77,3 +77,9 @@ from ._services.async_lex_models_v2 import (
     AsyncLexModelsV2Client as AsyncLexModelsV2Client,
 )
 from ._services.lex_models_v2 import LexModelsV2Client as LexModelsV2Client
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

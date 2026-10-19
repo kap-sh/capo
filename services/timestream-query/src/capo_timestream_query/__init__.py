@@ -77,3 +77,9 @@ from ._services.async_timestream_query import (
     AsyncTimestreamQueryClient as AsyncTimestreamQueryClient,
 )
 from ._services.timestream_query import TimestreamQueryClient as TimestreamQueryClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

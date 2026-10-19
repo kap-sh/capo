@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_vpc_lattice.errors import DeserializationError, SerializationError
+from capo_vpc_lattice.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_vpc_lattice.types.header_match_contains
@@ -25,13 +26,20 @@ class _HeaderMatchType_contains(TypedDict, closed=True):
 
 
 HeaderMatchType: TypeAlias = (
-    _HeaderMatchType_exact | _HeaderMatchType_prefix | _HeaderMatchType_contains
+    _HeaderMatchType_exact
+    | _HeaderMatchType_prefix
+    | _HeaderMatchType_contains
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: HeaderMatchType) -> dict:
-    if "exact" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"HeaderMatchType: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "exact" in value:
         return {"exact": value["exact"]}
     elif "prefix" in value:
         return {"prefix": value["prefix"]}
@@ -49,4 +57,9 @@ def deserialize_json(data: dict) -> HeaderMatchType:
     elif data.get("contains") is not None:
         return {"contains": data["contains"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("HeaderMatchType: no recognized variant key")

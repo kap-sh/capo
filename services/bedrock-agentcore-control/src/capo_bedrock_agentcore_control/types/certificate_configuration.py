@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.s3_certificate_configuration
@@ -23,13 +24,19 @@ class _CertificateConfiguration_secretsManager(TypedDict, closed=True):
 
 
 CertificateConfiguration: TypeAlias = (
-    _CertificateConfiguration_s3 | _CertificateConfiguration_secretsManager
+    _CertificateConfiguration_s3
+    | _CertificateConfiguration_secretsManager
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CertificateConfiguration) -> dict:
-    if "s3" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"CertificateConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "s3" in value:
         import capo_bedrock_agentcore_control.types.s3_certificate_configuration
 
         return {
@@ -67,6 +74,11 @@ def deserialize_json(data: dict) -> CertificateConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "CertificateConfiguration: no recognized variant key"
         )

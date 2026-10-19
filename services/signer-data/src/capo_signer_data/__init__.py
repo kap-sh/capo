@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_signer_data import AsyncSignerDataClient as AsyncSignerDataClient
 from ._services.signer_data import SignerDataClient as SignerDataClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

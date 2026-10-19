@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_iotfleetwise.errors import DeserializationError, SerializationError
+from capo_iotfleetwise.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.condition_based_signal_fetch_config
@@ -20,13 +21,19 @@ class _SignalFetchConfig_conditionBased(TypedDict, closed=True):
 
 
 SignalFetchConfig: TypeAlias = (
-    _SignalFetchConfig_timeBased | _SignalFetchConfig_conditionBased
+    _SignalFetchConfig_timeBased
+    | _SignalFetchConfig_conditionBased
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: SignalFetchConfig) -> dict:
-    if "timeBased" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"SignalFetchConfig: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "timeBased" in value:
         import capo_iotfleetwise.types.time_based_signal_fetch_config
 
         return {
@@ -64,10 +71,17 @@ def deserialize_aws_json_1_0(data: dict) -> SignalFetchConfig:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("SignalFetchConfig: no recognized variant key")
 
 
-def redact_sensitive(value: SignalFetchConfig) -> dict[str, Any]:
+def redact_sensitive(value: SignalFetchConfig) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "conditionBased" in value:
         import capo_iotfleetwise.types.condition_based_signal_fetch_config

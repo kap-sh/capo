@@ -10,6 +10,7 @@ from capo_lambda._protocol.eventstream import Message
 from capo_lambda.errors import (
     UnknownServiceError,
 )
+from capo_lambda.types._unknown import UnknownEvent
 
 if TYPE_CHECKING:
     import capo_lambda.types.invoke_response_stream_update
@@ -29,6 +30,7 @@ class _InvokeWithResponseStreamResponseEvent_InvokeComplete(TypedDict, closed=Tr
 _InvokeWithResponseStreamResponseEvent: TypeAlias = (
     _InvokeWithResponseStreamResponseEvent_PayloadChunk
     | _InvokeWithResponseStreamResponseEvent_InvokeComplete
+    | UnknownEvent
 )
 InvokeWithResponseStreamResponseEvent: TypeAlias = AnyIterator[
     _InvokeWithResponseStreamResponseEvent
@@ -36,6 +38,10 @@ InvokeWithResponseStreamResponseEvent: TypeAlias = AnyIterator[
 
 
 def serialize_event_json(value: _InvokeWithResponseStreamResponseEvent) -> bytes:
+    if isinstance(value, UnknownEvent):
+        raise ValueError(
+            f"InvokeWithResponseStreamResponseEvent: cannot serialize unknown event {value.event_type!r}"
+        )
     match value:
         case {"PayloadChunk": payload}:
             import capo_lambda.types.invoke_response_stream_update
@@ -91,6 +97,8 @@ def deserialize_event_json(
                     message
                 )
             }
+        case str():
+            return UnknownEvent(event_type, message)
         case _:
             raise ValueError(
                 f"InvokeWithResponseStreamResponseEvent: unrecognized event-type {event_type!r}"

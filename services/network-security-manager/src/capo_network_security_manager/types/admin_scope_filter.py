@@ -8,6 +8,7 @@ from capo_network_security_manager.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_network_security_manager.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_network_security_manager.types.admin_scope_selection
@@ -33,12 +34,17 @@ AdminScopeFilter: TypeAlias = (
     _AdminScopeFilter_includeAll
     | _AdminScopeFilter_includeOnly
     | _AdminScopeFilter_excludeOnly
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AdminScopeFilter) -> dict:
-    if "includeAll" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AdminScopeFilter: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "includeAll" in value:
         return {"includeAll": {}}
     elif "includeOnly" in value:
         import capo_network_security_manager.types.admin_scope_selection
@@ -80,10 +86,17 @@ def deserialize_json(data: dict) -> AdminScopeFilter:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("AdminScopeFilter: no recognized variant key")
 
 
-def redact_sensitive(value: AdminScopeFilter) -> dict[str, Any]:
+def redact_sensitive(value: AdminScopeFilter) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "includeOnly" in value:
         import capo_network_security_manager.types.admin_scope_selection

@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_eks_auth import AsyncEKSAuthClient as AsyncEKSAuthClient
 from ._services.eks_auth import EKSAuthClient as EKSAuthClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_code_deploy import AsyncCodeDeployClient as AsyncCodeDeployClient
 from ._services.code_deploy import CodeDeployClient as CodeDeployClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

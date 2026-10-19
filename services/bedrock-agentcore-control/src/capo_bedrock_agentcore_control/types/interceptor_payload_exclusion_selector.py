@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.interceptor_payload_exclusion
@@ -18,13 +19,17 @@ class _InterceptorPayloadExclusionSelector_field(TypedDict, closed=True):
 
 
 InterceptorPayloadExclusionSelector: TypeAlias = (
-    _InterceptorPayloadExclusionSelector_field
+    _InterceptorPayloadExclusionSelector_field | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: InterceptorPayloadExclusionSelector) -> dict:
-    if "field" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"InterceptorPayloadExclusionSelector: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "field" in value:
         import capo_bedrock_agentcore_control.types.interceptor_payload_exclusion
 
         return {
@@ -48,6 +53,11 @@ def deserialize_json(data: dict) -> InterceptorPayloadExclusionSelector:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "InterceptorPayloadExclusionSelector: no recognized variant key"
         )

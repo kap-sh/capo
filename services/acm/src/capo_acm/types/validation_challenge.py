@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_acm.errors import DeserializationError, SerializationError
+from capo_acm.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_acm.types.dns_validation_challenge
@@ -26,12 +27,17 @@ class _ValidationChallenge_DnsValidationChallenge(TypedDict, closed=True):
 ValidationChallenge: TypeAlias = (
     _ValidationChallenge_EmailValidationChallenge
     | _ValidationChallenge_DnsValidationChallenge
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: ValidationChallenge) -> dict:
-    if "EmailValidationChallenge" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ValidationChallenge: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "EmailValidationChallenge" in value:
         import capo_acm.types.email_validation_challenge
 
         return {
@@ -69,4 +75,9 @@ def deserialize_aws_json_1_1(data: dict) -> ValidationChallenge:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ValidationChallenge: no recognized variant key")

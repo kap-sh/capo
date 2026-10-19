@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_amplifyuibuilder.errors import DeserializationError, SerializationError
+from capo_amplifyuibuilder.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_amplifyuibuilder.types.data_store_render_config
@@ -32,12 +33,17 @@ ApiConfiguration: TypeAlias = (
     _ApiConfiguration_graphQLConfig
     | _ApiConfiguration_dataStoreConfig
     | _ApiConfiguration_noApiConfig
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ApiConfiguration) -> dict:
-    if "graphQLConfig" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ApiConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "graphQLConfig" in value:
         import capo_amplifyuibuilder.types.graph_ql_render_config
 
         return {
@@ -91,4 +97,9 @@ def deserialize_json(data: dict) -> ApiConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ApiConfiguration: no recognized variant key")

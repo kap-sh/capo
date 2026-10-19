@@ -79,3 +79,9 @@ from ._services.async_comprehend_medical import (
 from ._services.comprehend_medical import (
     ComprehendMedicalClient as ComprehendMedicalClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

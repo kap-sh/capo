@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agentcore.errors import DeserializationError, SerializationError
+from capo_bedrock_agentcore.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.online_evaluation_config_arn
@@ -22,12 +23,17 @@ class _ABTestEvaluationConfig_perVariantOnlineEvaluationConfig(TypedDict, closed
 ABTestEvaluationConfig: TypeAlias = (
     _ABTestEvaluationConfig_onlineEvaluationConfigArn
     | _ABTestEvaluationConfig_perVariantOnlineEvaluationConfig
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ABTestEvaluationConfig) -> dict:
-    if "onlineEvaluationConfigArn" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ABTestEvaluationConfig: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "onlineEvaluationConfigArn" in value:
         return {"onlineEvaluationConfigArn": value["onlineEvaluationConfigArn"]}
     elif "perVariantOnlineEvaluationConfig" in value:
         import capo_bedrock_agentcore.types.per_variant_online_evaluation_config_list
@@ -53,4 +59,9 @@ def deserialize_json(data: dict) -> ABTestEvaluationConfig:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ABTestEvaluationConfig: no recognized variant key")

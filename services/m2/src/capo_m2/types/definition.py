@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_m2.errors import DeserializationError, SerializationError
+from capo_m2.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_m2.types.string2000
@@ -19,12 +20,18 @@ class _Definition_content(TypedDict, closed=True):
     content: "capo_m2.types.string_free65000.StringFree65000"
 
 
-Definition: TypeAlias = _Definition_s3Location | _Definition_content
+Definition: TypeAlias = (
+    _Definition_s3Location | _Definition_content | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Definition) -> dict:
-    if "s3Location" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Definition: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "s3Location" in value:
         return {"s3Location": value["s3Location"]}
     elif "content" in value:
         return {"content": value["content"]}
@@ -38,4 +45,9 @@ def deserialize_json(data: dict) -> Definition:
     elif data.get("content") is not None:
         return {"content": data["content"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Definition: no recognized variant key")

@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_transcribe import AsyncTranscribeClient as AsyncTranscribeClient
 from ._services.transcribe import TranscribeClient as TranscribeClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

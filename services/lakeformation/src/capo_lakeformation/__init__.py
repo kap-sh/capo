@@ -77,3 +77,9 @@ from ._services.async_lake_formation import (
     AsyncLakeFormationClient as AsyncLakeFormationClient,
 )
 from ._services.lake_formation import LakeFormationClient as LakeFormationClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_securityhub.errors import DeserializationError, SerializationError
+from capo_securityhub.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_securityhub.types.azure_detail
@@ -14,12 +15,16 @@ class _CspmProviderDetail_Azure(TypedDict, closed=True):
     Azure: "capo_securityhub.types.azure_detail.AzureDetail"
 
 
-CspmProviderDetail: TypeAlias = _CspmProviderDetail_Azure
+CspmProviderDetail: TypeAlias = _CspmProviderDetail_Azure | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CspmProviderDetail) -> dict:
-    if "Azure" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"CspmProviderDetail: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "Azure" in value:
         import capo_securityhub.types.azure_detail
 
         return {
@@ -37,4 +42,9 @@ def deserialize_json(data: dict) -> CspmProviderDetail:
             "Azure": capo_securityhub.types.azure_detail.deserialize_json(data["Azure"])
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("CspmProviderDetail: no recognized variant key")

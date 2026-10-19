@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_translate import AsyncTranslateClient as AsyncTranslateClient
 from ._services.translate import TranslateClient as TranslateClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agent_runtime.errors import DeserializationError, SerializationError
+from capo_bedrock_agent_runtime.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.flow_trace_condition_node_result_event
@@ -40,12 +41,17 @@ FlowTrace: TypeAlias = (
     | _FlowTrace_conditionNodeResultTrace
     | _FlowTrace_nodeActionTrace
     | _FlowTrace_nodeDependencyTrace
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: FlowTrace) -> dict:
-    if "nodeInputTrace" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"FlowTrace: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "nodeInputTrace" in value:
         import capo_bedrock_agent_runtime.types.flow_trace_node_input_event
 
         return {
@@ -131,4 +137,9 @@ def deserialize_json(data: dict) -> FlowTrace:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("FlowTrace: no recognized variant key")

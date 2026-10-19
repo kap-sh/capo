@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.ebs_volume_configuration
@@ -17,12 +18,18 @@ class _VolumeConfiguration_ebsConfiguration(TypedDict, closed=True):
     ebsConfiguration: "capo_bedrock_agentcore_control.types.ebs_volume_configuration.EbsVolumeConfiguration"
 
 
-VolumeConfiguration: TypeAlias = _VolumeConfiguration_ebsConfiguration
+VolumeConfiguration: TypeAlias = (
+    _VolumeConfiguration_ebsConfiguration | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: VolumeConfiguration) -> dict:
-    if "ebsConfiguration" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"VolumeConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "ebsConfiguration" in value:
         import capo_bedrock_agentcore_control.types.ebs_volume_configuration
 
         return {
@@ -44,4 +51,9 @@ def deserialize_json(data: dict) -> VolumeConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("VolumeConfiguration: no recognized variant key")

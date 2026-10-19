@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_ssm.errors import DeserializationError, SerializationError
+from capo_ssm.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_ssm.types.azure_configuration
@@ -14,12 +15,18 @@ class _CloudConnectorConfiguration_AzureConfiguration(TypedDict, closed=True):
     AzureConfiguration: "capo_ssm.types.azure_configuration.AzureConfiguration"
 
 
-CloudConnectorConfiguration: TypeAlias = _CloudConnectorConfiguration_AzureConfiguration
+CloudConnectorConfiguration: TypeAlias = (
+    _CloudConnectorConfiguration_AzureConfiguration | UnknownUnionMember
+)
 
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: CloudConnectorConfiguration) -> dict:
-    if "AzureConfiguration" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"CloudConnectorConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "AzureConfiguration" in value:
         import capo_ssm.types.azure_configuration
 
         return {
@@ -41,6 +48,11 @@ def deserialize_aws_json_1_1(data: dict) -> CloudConnectorConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "CloudConnectorConfiguration: no recognized variant key"
         )

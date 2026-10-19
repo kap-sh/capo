@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agent.errors import DeserializationError, SerializationError
+from capo_bedrock_agent.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.storage_flow_node_s3_configuration
@@ -14,12 +15,18 @@ class _StorageFlowNodeServiceConfiguration_s3(TypedDict, closed=True):
     s3: "capo_bedrock_agent.types.storage_flow_node_s3_configuration.StorageFlowNodeS3Configuration"
 
 
-StorageFlowNodeServiceConfiguration: TypeAlias = _StorageFlowNodeServiceConfiguration_s3
+StorageFlowNodeServiceConfiguration: TypeAlias = (
+    _StorageFlowNodeServiceConfiguration_s3 | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: StorageFlowNodeServiceConfiguration) -> dict:
-    if "s3" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"StorageFlowNodeServiceConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "s3" in value:
         import capo_bedrock_agent.types.storage_flow_node_s3_configuration
 
         return {
@@ -43,6 +50,11 @@ def deserialize_json(data: dict) -> StorageFlowNodeServiceConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "StorageFlowNodeServiceConfiguration: no recognized variant key"
         )

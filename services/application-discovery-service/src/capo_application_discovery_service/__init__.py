@@ -79,3 +79,9 @@ from ._services.application_discovery_service import (
 from ._services.async_application_discovery_service import (
     AsyncApplicationDiscoveryServiceClient as AsyncApplicationDiscoveryServiceClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

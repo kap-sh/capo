@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_artifact.errors import DeserializationError, SerializationError
+from capo_artifact.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_artifact.types.inquiry_file_content
@@ -19,12 +20,18 @@ class _InquiryContent_fileContent(TypedDict, closed=True):
     fileContent: "capo_artifact.types.inquiry_file_content.InquiryFileContent"
 
 
-InquiryContent: TypeAlias = _InquiryContent_query | _InquiryContent_fileContent
+InquiryContent: TypeAlias = (
+    _InquiryContent_query | _InquiryContent_fileContent | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: InquiryContent) -> dict:
-    if "query" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"InquiryContent: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "query" in value:
         return {"query": value["query"]}
     elif "fileContent" in value:
         import capo_artifact.types.inquiry_file_content
@@ -50,4 +57,9 @@ def deserialize_json(data: dict) -> InquiryContent:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("InquiryContent: no recognized variant key")

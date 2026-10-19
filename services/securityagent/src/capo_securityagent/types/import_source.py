@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_securityagent.errors import DeserializationError, SerializationError
+from capo_securityagent.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_securityagent.types.security_requirement_artifact_list
@@ -14,12 +15,16 @@ class _ImportSource_documents(TypedDict, closed=True):
     documents: "capo_securityagent.types.security_requirement_artifact_list.SecurityRequirementArtifactList"
 
 
-ImportSource: TypeAlias = _ImportSource_documents
+ImportSource: TypeAlias = _ImportSource_documents | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ImportSource) -> dict:
-    if "documents" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ImportSource: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "documents" in value:
         import capo_securityagent.types.security_requirement_artifact_list
 
         return {
@@ -41,10 +46,17 @@ def deserialize_json(data: dict) -> ImportSource:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ImportSource: no recognized variant key")
 
 
-def redact_sensitive(value: ImportSource) -> dict[str, Any]:
+def redact_sensitive(value: ImportSource) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "documents" in value:
         import capo_securityagent.types.security_requirement_artifact_list

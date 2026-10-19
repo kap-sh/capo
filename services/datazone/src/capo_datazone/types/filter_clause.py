@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_datazone.errors import DeserializationError, SerializationError
+from capo_datazone.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_datazone.types.filter
@@ -30,12 +31,18 @@ _FilterClause_or = TypedDict(
     closed=True,
 )
 
-FilterClause: TypeAlias = _FilterClause_filter | _FilterClause_and | _FilterClause_or
+FilterClause: TypeAlias = (
+    _FilterClause_filter | _FilterClause_and | _FilterClause_or | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: FilterClause) -> dict:
-    if "filter" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"FilterClause: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "filter" in value:
         import capo_datazone.types.filter
 
         return {"filter": capo_datazone.types.filter.serialize_json(value["filter"])}
@@ -65,4 +72,9 @@ def deserialize_json(data: dict) -> FilterClause:
 
         return {"or": capo_datazone.types.filter_list.deserialize_json(data["or"])}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("FilterClause: no recognized variant key")

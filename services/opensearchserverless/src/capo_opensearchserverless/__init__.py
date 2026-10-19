@@ -79,3 +79,9 @@ from ._services.async_open_search_serverless import (
 from ._services.open_search_serverless import (
     OpenSearchServerlessClient as OpenSearchServerlessClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

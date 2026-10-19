@@ -77,3 +77,9 @@ from ._services.async_io_t_twin_maker import (
     AsyncIoTTwinMakerClient as AsyncIoTTwinMakerClient,
 )
 from ._services.io_t_twin_maker import IoTTwinMakerClient as IoTTwinMakerClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

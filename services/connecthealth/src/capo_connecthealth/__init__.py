@@ -77,3 +77,9 @@ from ._services.async_connect_health import (
     AsyncConnectHealthClient as AsyncConnectHealthClient,
 )
 from ._services.connect_health import ConnectHealthClient as ConnectHealthClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

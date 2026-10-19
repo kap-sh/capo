@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_route53 import AsyncRoute53Client as AsyncRoute53Client
 from ._services.route53 import Route53Client as Route53Client
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

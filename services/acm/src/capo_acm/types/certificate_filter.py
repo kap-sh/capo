@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_acm.errors import DeserializationError, SerializationError
+from capo_acm.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_acm.types.acm_certificate_metadata_filter
@@ -30,12 +31,17 @@ CertificateFilter: TypeAlias = (
     _CertificateFilter_CertificateArn
     | _CertificateFilter_X509AttributeFilter
     | _CertificateFilter_AcmCertificateMetadataFilter
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: CertificateFilter) -> dict:
-    if "CertificateArn" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"CertificateFilter: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "CertificateArn" in value:
         return {"CertificateArn": value["CertificateArn"]}
     elif "X509AttributeFilter" in value:
         import capo_acm.types.x509_attribute_filter
@@ -77,4 +83,9 @@ def deserialize_aws_json_1_1(data: dict) -> CertificateFilter:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("CertificateFilter: no recognized variant key")

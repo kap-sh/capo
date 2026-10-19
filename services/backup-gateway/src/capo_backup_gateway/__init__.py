@@ -77,3 +77,9 @@ from ._services.async_backup_gateway import (
     AsyncBackupGatewayClient as AsyncBackupGatewayClient,
 )
 from ._services.backup_gateway import BackupGatewayClient as BackupGatewayClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

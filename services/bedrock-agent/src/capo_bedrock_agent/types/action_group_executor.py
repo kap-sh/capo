@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agent.errors import DeserializationError, SerializationError
+from capo_bedrock_agent.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.custom_control_method
@@ -24,13 +25,19 @@ class _ActionGroupExecutor_customControl(TypedDict, closed=True):
 
 
 ActionGroupExecutor: TypeAlias = (
-    _ActionGroupExecutor_lambda | _ActionGroupExecutor_customControl
+    _ActionGroupExecutor_lambda
+    | _ActionGroupExecutor_customControl
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ActionGroupExecutor) -> dict:
-    if "lambda" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ActionGroupExecutor: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "lambda" in value:
         return {"lambda": value["lambda"]}
     elif "customControl" in value:
         import capo_bedrock_agent.types.custom_control_method
@@ -56,4 +63,9 @@ def deserialize_json(data: dict) -> ActionGroupExecutor:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ActionGroupExecutor: no recognized variant key")

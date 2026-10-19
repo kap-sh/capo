@@ -79,3 +79,9 @@ from ._services.async_elemental_inference import (
 from ._services.elemental_inference import (
     ElementalInferenceClient as ElementalInferenceClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

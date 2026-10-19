@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_efs import AsyncEFSClient as AsyncEFSClient
 from ._services.efs import EFSClient as EFSClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

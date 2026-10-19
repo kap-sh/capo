@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_resiliencehubv2.errors import DeserializationError, SerializationError
+from capo_resiliencehubv2.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.system_created_metadata
@@ -68,12 +69,17 @@ SystemEventMetadata: TypeAlias = (
     | _SystemEventMetadata_systemServiceDisassociated
     | _SystemEventMetadata_systemPolicyAssociated
     | _SystemEventMetadata_systemPolicyDisassociated
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SystemEventMetadata) -> dict:
-    if "systemCreated" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"SystemEventMetadata: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "systemCreated" in value:
         import capo_resiliencehubv2.types.system_created_metadata
 
         return {
@@ -223,4 +229,9 @@ def deserialize_json(data: dict) -> SystemEventMetadata:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("SystemEventMetadata: no recognized variant key")

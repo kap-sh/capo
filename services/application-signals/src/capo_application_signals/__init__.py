@@ -79,3 +79,9 @@ from ._services.application_signals import (
 from ._services.async_application_signals import (
     AsyncApplicationSignalsClient as AsyncApplicationSignalsClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

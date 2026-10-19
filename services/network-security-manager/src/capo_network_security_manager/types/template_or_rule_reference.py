@@ -8,6 +8,7 @@ from capo_network_security_manager.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_network_security_manager.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_network_security_manager.types.rule_identifier
@@ -27,12 +28,17 @@ class _TemplateOrRuleReference_ruleIdentifier(TypedDict, closed=True):
 TemplateOrRuleReference: TypeAlias = (
     _TemplateOrRuleReference_templateIdentifier
     | _TemplateOrRuleReference_ruleIdentifier
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: TemplateOrRuleReference) -> dict:
-    if "templateIdentifier" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"TemplateOrRuleReference: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "templateIdentifier" in value:
         return {"templateIdentifier": value["templateIdentifier"]}
     elif "ruleIdentifier" in value:
         return {"ruleIdentifier": value["ruleIdentifier"]}
@@ -46,4 +52,9 @@ def deserialize_json(data: dict) -> TemplateOrRuleReference:
     elif data.get("ruleIdentifier") is not None:
         return {"ruleIdentifier": data["ruleIdentifier"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("TemplateOrRuleReference: no recognized variant key")

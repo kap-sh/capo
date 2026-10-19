@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_datazone.errors import DeserializationError, SerializationError
+from capo_datazone.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_datazone.types.all_users_grant_filter
@@ -24,12 +25,17 @@ class _UserPolicyGrantPrincipal_allUsersGrantFilter(TypedDict, closed=True):
 UserPolicyGrantPrincipal: TypeAlias = (
     _UserPolicyGrantPrincipal_userIdentifier
     | _UserPolicyGrantPrincipal_allUsersGrantFilter
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: UserPolicyGrantPrincipal) -> dict:
-    if "userIdentifier" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"UserPolicyGrantPrincipal: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "userIdentifier" in value:
         return {"userIdentifier": value["userIdentifier"]}
     elif "allUsersGrantFilter" in value:
         import capo_datazone.types.all_users_grant_filter
@@ -55,6 +61,11 @@ def deserialize_json(data: dict) -> UserPolicyGrantPrincipal:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "UserPolicyGrantPrincipal: no recognized variant key"
         )

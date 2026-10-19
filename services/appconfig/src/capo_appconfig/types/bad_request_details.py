@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_appconfig.errors import DeserializationError, SerializationError
+from capo_appconfig.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_appconfig.types.invalid_configuration_detail_list
@@ -14,12 +15,18 @@ class _BadRequestDetails_InvalidConfiguration(TypedDict, closed=True):
     InvalidConfiguration: "capo_appconfig.types.invalid_configuration_detail_list.InvalidConfigurationDetailList"
 
 
-BadRequestDetails: TypeAlias = _BadRequestDetails_InvalidConfiguration
+BadRequestDetails: TypeAlias = (
+    _BadRequestDetails_InvalidConfiguration | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: BadRequestDetails) -> dict:
-    if "InvalidConfiguration" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"BadRequestDetails: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "InvalidConfiguration" in value:
         import capo_appconfig.types.invalid_configuration_detail_list
 
         return {
@@ -41,4 +48,9 @@ def deserialize_json(data: dict) -> BadRequestDetails:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("BadRequestDetails: no recognized variant key")

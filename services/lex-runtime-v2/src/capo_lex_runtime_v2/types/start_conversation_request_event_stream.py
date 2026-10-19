@@ -10,6 +10,7 @@ from capo_lex_runtime_v2._protocol.eventstream import Message
 from capo_lex_runtime_v2.errors import (
     UnknownServiceError,
 )
+from capo_lex_runtime_v2.types._unknown import UnknownEvent
 
 if TYPE_CHECKING:
     import capo_lex_runtime_v2.types.audio_input_event
@@ -59,6 +60,7 @@ _StartConversationRequestEventStream: TypeAlias = (
     | _StartConversationRequestEventStream_TextInputEvent
     | _StartConversationRequestEventStream_PlaybackCompletionEvent
     | _StartConversationRequestEventStream_DisconnectionEvent
+    | UnknownEvent
 )
 StartConversationRequestEventStream: TypeAlias = AnyIterator[
     _StartConversationRequestEventStream
@@ -66,6 +68,10 @@ StartConversationRequestEventStream: TypeAlias = AnyIterator[
 
 
 def serialize_event_json(value: _StartConversationRequestEventStream) -> bytes:
+    if isinstance(value, UnknownEvent):
+        raise ValueError(
+            f"StartConversationRequestEventStream: cannot serialize unknown event {value.event_type!r}"
+        )
     match value:
         case {"ConfigurationEvent": payload}:
             import capo_lex_runtime_v2.types.configuration_event
@@ -177,6 +183,8 @@ def deserialize_event_json(
                     message
                 )
             }
+        case str():
+            return UnknownEvent(event_type, message)
         case _:
             raise ValueError(
                 f"StartConversationRequestEventStream: unrecognized event-type {event_type!r}"

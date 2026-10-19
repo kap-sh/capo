@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_securityhub.errors import DeserializationError, SerializationError
+from capo_securityhub.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_securityhub.types.azure_update_configuration
@@ -28,12 +29,17 @@ ProviderUpdateConfiguration: TypeAlias = (
     _ProviderUpdateConfiguration_JiraCloud
     | _ProviderUpdateConfiguration_ServiceNow
     | _ProviderUpdateConfiguration_Azure
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ProviderUpdateConfiguration) -> dict:
-    if "JiraCloud" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ProviderUpdateConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "JiraCloud" in value:
         import capo_securityhub.types.jira_cloud_update_configuration
 
         return {
@@ -87,6 +93,11 @@ def deserialize_json(data: dict) -> ProviderUpdateConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "ProviderUpdateConfiguration: no recognized variant key"
         )

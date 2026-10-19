@@ -77,3 +77,9 @@ from ._services.async_connect_cases import (
     AsyncConnectCasesClient as AsyncConnectCasesClient,
 )
 from ._services.connect_cases import ConnectCasesClient as ConnectCasesClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

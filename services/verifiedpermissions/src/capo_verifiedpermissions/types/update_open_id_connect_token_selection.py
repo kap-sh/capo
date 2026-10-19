@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_verifiedpermissions.errors import DeserializationError, SerializationError
+from capo_verifiedpermissions.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.update_open_id_connect_access_token_configuration
@@ -22,12 +23,17 @@ class _UpdateOpenIdConnectTokenSelection_identityTokenOnly(TypedDict, closed=Tru
 UpdateOpenIdConnectTokenSelection: TypeAlias = (
     _UpdateOpenIdConnectTokenSelection_accessTokenOnly
     | _UpdateOpenIdConnectTokenSelection_identityTokenOnly
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: UpdateOpenIdConnectTokenSelection) -> dict:
-    if "accessTokenOnly" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"UpdateOpenIdConnectTokenSelection: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "accessTokenOnly" in value:
         import capo_verifiedpermissions.types.update_open_id_connect_access_token_configuration
 
         return {
@@ -67,12 +73,21 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateOpenIdConnectTokenSelection:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "UpdateOpenIdConnectTokenSelection: no recognized variant key"
         )
 
 
-def redact_sensitive(value: UpdateOpenIdConnectTokenSelection) -> dict[str, Any]:
+def redact_sensitive(
+    value: UpdateOpenIdConnectTokenSelection,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "accessTokenOnly" in value:
         import capo_verifiedpermissions.types.update_open_id_connect_access_token_configuration

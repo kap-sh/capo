@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_account_access.errors import DeserializationError, SerializationError
+from capo_account_access.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_account_access.types.principal_role_entitlement
@@ -16,12 +17,16 @@ class _Entitlement_principalRole(TypedDict, closed=True):
     )
 
 
-Entitlement: TypeAlias = _Entitlement_principalRole
+Entitlement: TypeAlias = _Entitlement_principalRole | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Entitlement) -> dict:
-    if "principalRole" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Entitlement: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "principalRole" in value:
         import capo_account_access.types.principal_role_entitlement
 
         return {
@@ -43,4 +48,9 @@ def deserialize_json(data: dict) -> Entitlement:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Entitlement: no recognized variant key")

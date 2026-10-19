@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_proton.errors import DeserializationError, SerializationError
+from capo_proton.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_proton.types.s3_object_source
@@ -14,12 +15,18 @@ class _TemplateVersionSourceInput_s3(TypedDict, closed=True):
     s3: "capo_proton.types.s3_object_source.S3ObjectSource"
 
 
-TemplateVersionSourceInput: TypeAlias = _TemplateVersionSourceInput_s3
+TemplateVersionSourceInput: TypeAlias = (
+    _TemplateVersionSourceInput_s3 | UnknownUnionMember
+)
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: TemplateVersionSourceInput) -> dict:
-    if "s3" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"TemplateVersionSourceInput: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "s3" in value:
         import capo_proton.types.s3_object_source
 
         return {
@@ -39,6 +46,11 @@ def deserialize_aws_json_1_0(data: dict) -> TemplateVersionSourceInput:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "TemplateVersionSourceInput: no recognized variant key"
         )

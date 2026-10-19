@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_datazone.errors import DeserializationError, SerializationError
+from capo_datazone.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_datazone.types.group_details
@@ -19,12 +20,18 @@ class _MemberDetails_group(TypedDict, closed=True):
     group: "capo_datazone.types.group_details.GroupDetails"
 
 
-MemberDetails: TypeAlias = _MemberDetails_user | _MemberDetails_group
+MemberDetails: TypeAlias = (
+    _MemberDetails_user | _MemberDetails_group | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MemberDetails) -> dict:
-    if "user" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"MemberDetails: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "user" in value:
         import capo_datazone.types.user_details
 
         return {"user": capo_datazone.types.user_details.serialize_json(value["user"])}
@@ -50,4 +57,9 @@ def deserialize_json(data: dict) -> MemberDetails:
             "group": capo_datazone.types.group_details.deserialize_json(data["group"])
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("MemberDetails: no recognized variant key")

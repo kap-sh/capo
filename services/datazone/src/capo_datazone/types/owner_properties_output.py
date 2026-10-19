@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_datazone.errors import DeserializationError, SerializationError
+from capo_datazone.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_datazone.types.owner_group_properties_output
@@ -22,13 +23,17 @@ class _OwnerPropertiesOutput_group(TypedDict, closed=True):
 
 
 OwnerPropertiesOutput: TypeAlias = (
-    _OwnerPropertiesOutput_user | _OwnerPropertiesOutput_group
+    _OwnerPropertiesOutput_user | _OwnerPropertiesOutput_group | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: OwnerPropertiesOutput) -> dict:
-    if "user" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"OwnerPropertiesOutput: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "user" in value:
         import capo_datazone.types.owner_user_properties_output
 
         return {
@@ -66,4 +71,9 @@ def deserialize_json(data: dict) -> OwnerPropertiesOutput:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("OwnerPropertiesOutput: no recognized variant key")

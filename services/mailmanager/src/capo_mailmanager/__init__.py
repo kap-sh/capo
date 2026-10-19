@@ -77,3 +77,9 @@ from ._services.async_mail_manager import (
     AsyncMailManagerClient as AsyncMailManagerClient,
 )
 from ._services.mail_manager import MailManagerClient as MailManagerClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

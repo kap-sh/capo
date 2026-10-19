@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_detective import AsyncDetectiveClient as AsyncDetectiveClient
 from ._services.detective import DetectiveClient as DetectiveClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

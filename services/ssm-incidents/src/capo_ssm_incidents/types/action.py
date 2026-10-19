@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_ssm_incidents.errors import DeserializationError, SerializationError
+from capo_ssm_incidents.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_ssm_incidents.types.ssm_automation
@@ -14,12 +15,16 @@ class _Action_ssmAutomation(TypedDict, closed=True):
     ssmAutomation: "capo_ssm_incidents.types.ssm_automation.SsmAutomation"
 
 
-Action: TypeAlias = _Action_ssmAutomation
+Action: TypeAlias = _Action_ssmAutomation | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Action) -> dict:
-    if "ssmAutomation" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Action: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "ssmAutomation" in value:
         import capo_ssm_incidents.types.ssm_automation
 
         return {
@@ -41,4 +46,9 @@ def deserialize_json(data: dict) -> Action:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Action: no recognized variant key")

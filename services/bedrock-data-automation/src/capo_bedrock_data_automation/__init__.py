@@ -79,3 +79,9 @@ from ._services.async_bedrock_data_automation import (
 from ._services.bedrock_data_automation import (
     BedrockDataAutomationClient as BedrockDataAutomationClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

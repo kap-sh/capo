@@ -77,3 +77,9 @@ from ._services.async_sagemaker_edge import (
     AsyncSagemakerEdgeClient as AsyncSagemakerEdgeClient,
 )
 from ._services.sagemaker_edge import SagemakerEdgeClient as SagemakerEdgeClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

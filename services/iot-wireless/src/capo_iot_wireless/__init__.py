@@ -77,3 +77,9 @@ from ._services.async_io_t_wireless import (
     AsyncIoTWirelessClient as AsyncIoTWirelessClient,
 )
 from ._services.io_t_wireless import IoTWirelessClient as IoTWirelessClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -77,3 +77,9 @@ from ._services.async_route53_resolver import (
     AsyncRoute53ResolverClient as AsyncRoute53ResolverClient,
 )
 from ._services.route53_resolver import Route53ResolverClient as Route53ResolverClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

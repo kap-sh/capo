@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_rds_data.errors import DeserializationError, SerializationError
+from capo_rds_data.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_rds_data.types.array_of_array
@@ -40,12 +41,17 @@ ArrayValue: TypeAlias = (
     | _ArrayValue_doubleValues
     | _ArrayValue_stringValues
     | _ArrayValue_arrayValues
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ArrayValue) -> dict:
-    if "booleanValues" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ArrayValue: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "booleanValues" in value:
         import capo_rds_data.types.boolean_array
 
         return {
@@ -131,4 +137,9 @@ def deserialize_json(data: dict) -> ArrayValue:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ArrayValue: no recognized variant key")

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_vpc_lattice.errors import DeserializationError, SerializationError
+from capo_vpc_lattice.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_vpc_lattice.types.path_match_exact
@@ -19,12 +20,18 @@ class _PathMatchType_prefix(TypedDict, closed=True):
     prefix: "capo_vpc_lattice.types.path_match_prefix.PathMatchPrefix"
 
 
-PathMatchType: TypeAlias = _PathMatchType_exact | _PathMatchType_prefix
+PathMatchType: TypeAlias = (
+    _PathMatchType_exact | _PathMatchType_prefix | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PathMatchType) -> dict:
-    if "exact" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"PathMatchType: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "exact" in value:
         return {"exact": value["exact"]}
     elif "prefix" in value:
         return {"prefix": value["prefix"]}
@@ -38,4 +45,9 @@ def deserialize_json(data: dict) -> PathMatchType:
     elif data.get("prefix") is not None:
         return {"prefix": data["prefix"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("PathMatchType: no recognized variant key")

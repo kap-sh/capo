@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_datazone.errors import DeserializationError, SerializationError
+from capo_datazone.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_datazone.types.parameter_store_path
@@ -19,12 +20,16 @@ class _Region_regionNamePath(TypedDict, closed=True):
     regionNamePath: "capo_datazone.types.parameter_store_path.ParameterStorePath"
 
 
-Region: TypeAlias = _Region_regionName | _Region_regionNamePath
+Region: TypeAlias = _Region_regionName | _Region_regionNamePath | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Region) -> dict:
-    if "regionName" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Region: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "regionName" in value:
         return {"regionName": value["regionName"]}
     elif "regionNamePath" in value:
         return {"regionNamePath": value["regionNamePath"]}
@@ -38,4 +43,9 @@ def deserialize_json(data: dict) -> Region:
     elif data.get("regionNamePath") is not None:
         return {"regionNamePath": data["regionNamePath"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Region: no recognized variant key")

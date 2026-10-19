@@ -77,3 +77,9 @@ from ._services.async_imagebuilder import (
     AsyncimagebuilderClient as AsyncimagebuilderClient,
 )
 from ._services.imagebuilder import imagebuilderClient as imagebuilderClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -77,3 +77,9 @@ from ._services.async_cloud_watch_logs import (
     AsyncCloudWatchLogsClient as AsyncCloudWatchLogsClient,
 )
 from ._services.cloud_watch_logs import CloudWatchLogsClient as CloudWatchLogsClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

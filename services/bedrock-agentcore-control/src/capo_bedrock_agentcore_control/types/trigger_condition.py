@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.message_based_trigger
@@ -37,12 +38,17 @@ TriggerCondition: TypeAlias = (
     _TriggerCondition_messageBasedTrigger
     | _TriggerCondition_tokenBasedTrigger
     | _TriggerCondition_timeBasedTrigger
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: TriggerCondition) -> dict:
-    if "messageBasedTrigger" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"TriggerCondition: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "messageBasedTrigger" in value:
         import capo_bedrock_agentcore_control.types.message_based_trigger
 
         return {
@@ -96,4 +102,9 @@ def deserialize_json(data: dict) -> TriggerCondition:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("TriggerCondition: no recognized variant key")

@@ -79,3 +79,9 @@ from ._services.application_cost_profiler import (
 from ._services.async_application_cost_profiler import (
     AsyncApplicationCostProfilerClient as AsyncApplicationCostProfilerClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

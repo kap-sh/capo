@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_datazone.errors import DeserializationError, SerializationError
+from capo_datazone.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_datazone.types.account_info_list
@@ -22,13 +23,19 @@ class _AccountSource_customAccountPoolHandler(TypedDict, closed=True):
 
 
 AccountSource: TypeAlias = (
-    _AccountSource_accounts | _AccountSource_customAccountPoolHandler
+    _AccountSource_accounts
+    | _AccountSource_customAccountPoolHandler
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AccountSource) -> dict:
-    if "accounts" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AccountSource: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "accounts" in value:
         import capo_datazone.types.account_info_list
 
         return {
@@ -66,10 +73,17 @@ def deserialize_json(data: dict) -> AccountSource:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("AccountSource: no recognized variant key")
 
 
-def redact_sensitive(value: AccountSource) -> dict[str, Any]:
+def redact_sensitive(value: AccountSource) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "accounts" in value:
         import capo_datazone.types.account_info_list

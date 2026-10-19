@@ -77,3 +77,9 @@ from ._services.async_codeartifact import (
     AsynccodeartifactClient as AsynccodeartifactClient,
 )
 from ._services.codeartifact import codeartifactClient as codeartifactClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

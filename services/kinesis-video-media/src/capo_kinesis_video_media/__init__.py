@@ -79,3 +79,9 @@ from ._services.async_kinesis_video_media import (
 from ._services.kinesis_video_media import (
     KinesisVideoMediaClient as KinesisVideoMediaClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

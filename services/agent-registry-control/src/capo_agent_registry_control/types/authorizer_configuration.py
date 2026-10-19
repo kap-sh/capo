@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_agent_registry_control.errors import DeserializationError, SerializationError
+from capo_agent_registry_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_agent_registry_control.types.custom_jwt_authorizer_configuration
@@ -14,12 +15,18 @@ class _AuthorizerConfiguration_customJWTAuthorizer(TypedDict, closed=True):
     customJWTAuthorizer: "capo_agent_registry_control.types.custom_jwt_authorizer_configuration.CustomJWTAuthorizerConfiguration"
 
 
-AuthorizerConfiguration: TypeAlias = _AuthorizerConfiguration_customJWTAuthorizer
+AuthorizerConfiguration: TypeAlias = (
+    _AuthorizerConfiguration_customJWTAuthorizer | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AuthorizerConfiguration) -> dict:
-    if "customJWTAuthorizer" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AuthorizerConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "customJWTAuthorizer" in value:
         import capo_agent_registry_control.types.custom_jwt_authorizer_configuration
 
         return {
@@ -41,4 +48,9 @@ def deserialize_json(data: dict) -> AuthorizerConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("AuthorizerConfiguration: no recognized variant key")

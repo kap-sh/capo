@@ -77,3 +77,9 @@ from ._services.async_route53_domains import (
     AsyncRoute53DomainsClient as AsyncRoute53DomainsClient,
 )
 from ._services.route53_domains import Route53DomainsClient as Route53DomainsClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

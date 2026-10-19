@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_ssm_incidents.errors import DeserializationError, SerializationError
+from capo_ssm_incidents.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_ssm_incidents.types.pager_duty_configuration
@@ -16,12 +17,16 @@ class _Integration_pagerDutyConfiguration(TypedDict, closed=True):
     )
 
 
-Integration: TypeAlias = _Integration_pagerDutyConfiguration
+Integration: TypeAlias = _Integration_pagerDutyConfiguration | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Integration) -> dict:
-    if "pagerDutyConfiguration" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Integration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "pagerDutyConfiguration" in value:
         import capo_ssm_incidents.types.pager_duty_configuration
 
         return {
@@ -43,4 +48,9 @@ def deserialize_json(data: dict) -> Integration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Integration: no recognized variant key")

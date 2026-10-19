@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_qconnect.errors import DeserializationError, SerializationError
+from capo_qconnect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_qconnect.types.web_crawler_configuration
@@ -17,13 +18,17 @@ class _ManagedSourceConfiguration_webCrawlerConfiguration(TypedDict, closed=True
 
 
 ManagedSourceConfiguration: TypeAlias = (
-    _ManagedSourceConfiguration_webCrawlerConfiguration
+    _ManagedSourceConfiguration_webCrawlerConfiguration | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ManagedSourceConfiguration) -> dict:
-    if "webCrawlerConfiguration" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ManagedSourceConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "webCrawlerConfiguration" in value:
         import capo_qconnect.types.web_crawler_configuration
 
         return {
@@ -45,12 +50,21 @@ def deserialize_json(data: dict) -> ManagedSourceConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "ManagedSourceConfiguration: no recognized variant key"
         )
 
 
-def redact_sensitive(value: ManagedSourceConfiguration) -> dict[str, Any]:
+def redact_sensitive(
+    value: ManagedSourceConfiguration,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "webCrawlerConfiguration" in value:
         import capo_qconnect.types.web_crawler_configuration

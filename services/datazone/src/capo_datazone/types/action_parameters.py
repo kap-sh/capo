@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_datazone.errors import DeserializationError, SerializationError
+from capo_datazone.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_datazone.types.aws_console_link_parameters
@@ -16,12 +17,16 @@ class _ActionParameters_awsConsoleLink(TypedDict, closed=True):
     )
 
 
-ActionParameters: TypeAlias = _ActionParameters_awsConsoleLink
+ActionParameters: TypeAlias = _ActionParameters_awsConsoleLink | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ActionParameters) -> dict:
-    if "awsConsoleLink" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ActionParameters: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "awsConsoleLink" in value:
         import capo_datazone.types.aws_console_link_parameters
 
         return {
@@ -43,4 +48,9 @@ def deserialize_json(data: dict) -> ActionParameters:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ActionParameters: no recognized variant key")

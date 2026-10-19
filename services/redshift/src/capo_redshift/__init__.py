@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_redshift import AsyncRedshiftClient as AsyncRedshiftClient
 from ._services.redshift import RedshiftClient as RedshiftClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

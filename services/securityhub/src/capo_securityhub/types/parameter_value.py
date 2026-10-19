@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_securityhub.errors import DeserializationError, SerializationError
+from capo_securityhub.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_securityhub.types.boolean
@@ -56,12 +57,17 @@ ParameterValue: TypeAlias = (
     | _ParameterValue_Boolean
     | _ParameterValue_Enum
     | _ParameterValue_EnumList
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ParameterValue) -> dict:
-    if "Integer" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ParameterValue: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "Integer" in value:
         return {"Integer": value["Integer"]}
     elif "IntegerList" in value:
         import capo_securityhub.types.integer_list
@@ -145,4 +151,9 @@ def deserialize_json(data: dict) -> ParameterValue:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ParameterValue: no recognized variant key")

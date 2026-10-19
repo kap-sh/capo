@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_quicksight.errors import DeserializationError, SerializationError
+from capo_quicksight.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_quicksight.types.amazon_elasticsearch_parameters
@@ -264,12 +265,17 @@ DataSourceParameters: TypeAlias = (
     | _DataSourceParameters_GoogleDriveParameters
     | _DataSourceParameters_OneDriveParameters
     | _DataSourceParameters_FMKBParameters
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DataSourceParameters) -> dict:
-    if "AmazonElasticsearchParameters" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"DataSourceParameters: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "AmazonElasticsearchParameters" in value:
         import capo_quicksight.types.amazon_elasticsearch_parameters
 
         return {
@@ -867,4 +873,9 @@ def deserialize_json(data: dict) -> DataSourceParameters:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("DataSourceParameters: no recognized variant key")

@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_dsql import AsyncDSQLClient as AsyncDSQLClient
 from ._services.dsql import DSQLClient as DSQLClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

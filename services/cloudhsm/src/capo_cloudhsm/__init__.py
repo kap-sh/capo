@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_cloud_hsm import AsyncCloudHSMClient as AsyncCloudHSMClient
 from ._services.cloud_hsm import CloudHSMClient as CloudHSMClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_kafka import AsyncKafkaClient as AsyncKafkaClient
 from ._services.kafka import KafkaClient as KafkaClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

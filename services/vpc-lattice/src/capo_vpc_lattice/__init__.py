@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_vpc_lattice import AsyncVPCLatticeClient as AsyncVPCLatticeClient
 from ._services.vpc_lattice import VPCLatticeClient as VPCLatticeClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

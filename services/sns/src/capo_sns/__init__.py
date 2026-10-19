@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_sns import AsyncSNSClient as AsyncSNSClient
 from ._services.sns import SNSClient as SNSClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

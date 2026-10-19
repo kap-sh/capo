@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_qconnect.errors import DeserializationError, SerializationError
+from capo_qconnect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_qconnect.types.span_reasoning_value
@@ -34,12 +35,17 @@ SpanMessageValue: TypeAlias = (
     | _SpanMessageValue_toolUse
     | _SpanMessageValue_toolResult
     | _SpanMessageValue_reasoning
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SpanMessageValue) -> dict:
-    if "text" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"SpanMessageValue: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "text" in value:
         import capo_qconnect.types.span_text_value
 
         return {
@@ -105,10 +111,17 @@ def deserialize_json(data: dict) -> SpanMessageValue:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("SpanMessageValue: no recognized variant key")
 
 
-def redact_sensitive(value: SpanMessageValue) -> dict[str, Any]:
+def redact_sensitive(value: SpanMessageValue) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "text" in value:
         import capo_qconnect.types.span_text_value

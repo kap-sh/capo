@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_proton import AsyncProtonClient as AsyncProtonClient
 from ._services.proton import ProtonClient as ProtonClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

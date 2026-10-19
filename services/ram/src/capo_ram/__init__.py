@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_ram import AsyncRAMClient as AsyncRAMClient
 from ._services.ram import RAMClient as RAMClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

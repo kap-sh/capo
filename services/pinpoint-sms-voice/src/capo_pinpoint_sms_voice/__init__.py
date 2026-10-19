@@ -79,3 +79,9 @@ from ._services.async_pinpoint_sms_voice import (
 from ._services.pinpoint_sms_voice import (
     PinpointSMSVoiceClient as PinpointSMSVoiceClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

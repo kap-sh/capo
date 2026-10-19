@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_sagemaker_geospatial.errors import DeserializationError, SerializationError
+from capo_sagemaker_geospatial.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_sagemaker_geospatial.types.eo_cloud_cover_input
@@ -54,12 +55,17 @@ Property: TypeAlias = (
     | _Property_ViewSunElevation
     | _Property_Platform
     | _Property_LandsatCloudCoverLand
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Property) -> dict:
-    if "EoCloudCover" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Property: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "EoCloudCover" in value:
         import capo_sagemaker_geospatial.types.eo_cloud_cover_input
 
         return {
@@ -161,4 +167,9 @@ def deserialize_json(data: dict) -> Property:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Property: no recognized variant key")

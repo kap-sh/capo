@@ -79,3 +79,9 @@ from ._services.async_pca_connector_scep import (
 from ._services.pca_connector_scep import (
     PcaConnectorScepClient as PcaConnectorScepClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

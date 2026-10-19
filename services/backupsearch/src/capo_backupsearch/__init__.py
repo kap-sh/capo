@@ -77,3 +77,9 @@ from ._services.async_backup_search import (
     AsyncBackupSearchClient as AsyncBackupSearchClient,
 )
 from ._services.backup_search import BackupSearchClient as BackupSearchClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

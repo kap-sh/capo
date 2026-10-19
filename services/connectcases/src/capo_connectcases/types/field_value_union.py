@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_connectcases.errors import DeserializationError, SerializationError
+from capo_connectcases.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_connectcases.types.empty_field_value
@@ -36,12 +37,17 @@ FieldValueUnion: TypeAlias = (
     | _FieldValueUnion_booleanValue
     | _FieldValueUnion_emptyValue
     | _FieldValueUnion_userArnValue
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: FieldValueUnion) -> dict:
-    if "stringValue" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"FieldValueUnion: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "stringValue" in value:
         return {"stringValue": value["stringValue"]}
     elif "doubleValue" in value:
         return {
@@ -89,4 +95,9 @@ def deserialize_json(data: dict) -> FieldValueUnion:
     elif data.get("userArnValue") is not None:
         return {"userArnValue": data["userArnValue"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("FieldValueUnion: no recognized variant key")

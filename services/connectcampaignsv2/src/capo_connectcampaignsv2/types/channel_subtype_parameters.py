@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_connectcampaignsv2.errors import DeserializationError, SerializationError
+from capo_connectcampaignsv2.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.email_channel_subtype_parameters
@@ -34,12 +35,17 @@ ChannelSubtypeParameters: TypeAlias = (
     | _ChannelSubtypeParameters_sms
     | _ChannelSubtypeParameters_email
     | _ChannelSubtypeParameters_whatsApp
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ChannelSubtypeParameters) -> dict:
-    if "telephony" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ChannelSubtypeParameters: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "telephony" in value:
         import capo_connectcampaignsv2.types.telephony_channel_subtype_parameters
 
         return {
@@ -109,12 +115,21 @@ def deserialize_json(data: dict) -> ChannelSubtypeParameters:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "ChannelSubtypeParameters: no recognized variant key"
         )
 
 
-def redact_sensitive(value: ChannelSubtypeParameters) -> dict[str, Any]:
+def redact_sensitive(
+    value: ChannelSubtypeParameters,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "telephony" in value:
         import capo_connectcampaignsv2.types.telephony_channel_subtype_parameters

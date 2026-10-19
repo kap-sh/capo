@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.episodic_consolidation_override
@@ -45,12 +46,17 @@ CustomConsolidationConfiguration: TypeAlias = (
     | _CustomConsolidationConfiguration_summaryConsolidationOverride
     | _CustomConsolidationConfiguration_userPreferenceConsolidationOverride
     | _CustomConsolidationConfiguration_episodicConsolidationOverride
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CustomConsolidationConfiguration) -> dict:
-    if "semanticConsolidationOverride" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"CustomConsolidationConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "semanticConsolidationOverride" in value:
         import capo_bedrock_agentcore_control.types.semantic_consolidation_override
 
         return {
@@ -120,12 +126,21 @@ def deserialize_json(data: dict) -> CustomConsolidationConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "CustomConsolidationConfiguration: no recognized variant key"
         )
 
 
-def redact_sensitive(value: CustomConsolidationConfiguration) -> dict[str, Any]:
+def redact_sensitive(
+    value: CustomConsolidationConfiguration,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "semanticConsolidationOverride" in value:
         import capo_bedrock_agentcore_control.types.semantic_consolidation_override

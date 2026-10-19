@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_account_access.errors import DeserializationError, SerializationError
+from capo_account_access.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_account_access.types.identity_center_principal_filter
@@ -14,12 +15,16 @@ class _PrincipalFilter_identityCenter(TypedDict, closed=True):
     identityCenter: "capo_account_access.types.identity_center_principal_filter.IdentityCenterPrincipalFilter"
 
 
-PrincipalFilter: TypeAlias = _PrincipalFilter_identityCenter
+PrincipalFilter: TypeAlias = _PrincipalFilter_identityCenter | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PrincipalFilter) -> dict:
-    if "identityCenter" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"PrincipalFilter: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "identityCenter" in value:
         import capo_account_access.types.identity_center_principal_filter
 
         return {
@@ -41,4 +46,9 @@ def deserialize_json(data: dict) -> PrincipalFilter:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("PrincipalFilter: no recognized variant key")

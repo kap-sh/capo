@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_inspector import AsyncInspectorClient as AsyncInspectorClient
 from ._services.inspector import InspectorClient as InspectorClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

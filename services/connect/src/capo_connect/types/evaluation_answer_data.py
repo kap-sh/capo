@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_connect.errors import DeserializationError, SerializationError
+from capo_connect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_connect.types.boolean
@@ -40,12 +41,17 @@ EvaluationAnswerData: TypeAlias = (
     | _EvaluationAnswerData_StringValues
     | _EvaluationAnswerData_DateTimeValue
     | _EvaluationAnswerData_NotApplicable
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: EvaluationAnswerData) -> dict:
-    if "StringValue" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"EvaluationAnswerData: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "StringValue" in value:
         return {"StringValue": value["StringValue"]}
     elif "NumericValue" in value:
         return {
@@ -93,4 +99,9 @@ def deserialize_json(data: dict) -> EvaluationAnswerData:
     elif data.get("NotApplicable") is not None:
         return {"NotApplicable": data["NotApplicable"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("EvaluationAnswerData: no recognized variant key")

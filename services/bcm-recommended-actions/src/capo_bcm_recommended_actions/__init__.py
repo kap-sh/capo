@@ -79,3 +79,9 @@ from ._services.async_bcm_recommended_actions import (
 from ._services.bcm_recommended_actions import (
     BCMRecommendedActionsClient as BCMRecommendedActionsClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

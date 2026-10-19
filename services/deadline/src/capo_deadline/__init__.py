@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_deadline import AsyncdeadlineClient as AsyncdeadlineClient
 from ._services.deadline import deadlineClient as deadlineClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

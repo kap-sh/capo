@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_securityagent.errors import DeserializationError, SerializationError
+from capo_securityagent.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_securityagent.types.azure_dev_ops_integration_input
@@ -54,12 +55,17 @@ ProviderInput: TypeAlias = (
     | _ProviderInput_azureDevOps
     | _ProviderInput_bitbucketDataCenter
     | _ProviderInput_jira
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ProviderInput) -> dict:
-    if "github" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ProviderInput: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "github" in value:
         import capo_securityagent.types.git_hub_integration_input
 
         return {
@@ -177,10 +183,17 @@ def deserialize_json(data: dict) -> ProviderInput:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ProviderInput: no recognized variant key")
 
 
-def redact_sensitive(value: ProviderInput) -> dict[str, Any]:
+def redact_sensitive(value: ProviderInput) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "gitlab" in value:
         import capo_securityagent.types.git_lab_integration_input

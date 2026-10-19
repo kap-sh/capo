@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_connectcampaignsv2.errors import DeserializationError, SerializationError
+from capo_connectcampaignsv2.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.customer_profiles_integration_config
@@ -32,12 +33,17 @@ IntegrationConfig: TypeAlias = (
     _IntegrationConfig_customerProfiles
     | _IntegrationConfig_qConnect
     | _IntegrationConfig_lambda
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: IntegrationConfig) -> dict:
-    if "customerProfiles" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"IntegrationConfig: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "customerProfiles" in value:
         import capo_connectcampaignsv2.types.customer_profiles_integration_config
 
         return {
@@ -91,4 +97,9 @@ def deserialize_json(data: dict) -> IntegrationConfig:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("IntegrationConfig: no recognized variant key")

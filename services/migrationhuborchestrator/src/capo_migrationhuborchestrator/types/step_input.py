@@ -8,6 +8,7 @@ from capo_migrationhuborchestrator.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_migrationhuborchestrator.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_migrationhuborchestrator.types.string_list
@@ -36,12 +37,17 @@ StepInput: TypeAlias = (
     | _StepInput_stringValue
     | _StepInput_listOfStringsValue
     | _StepInput_mapOfStringValue
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: StepInput) -> dict:
-    if "integerValue" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"StepInput: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "integerValue" in value:
         return {"integerValue": value["integerValue"]}
     elif "stringValue" in value:
         return {"stringValue": value["stringValue"]}
@@ -87,4 +93,9 @@ def deserialize_json(data: dict) -> StepInput:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("StepInput: no recognized variant key")

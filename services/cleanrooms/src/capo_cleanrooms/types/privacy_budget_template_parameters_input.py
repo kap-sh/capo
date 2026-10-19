@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_cleanrooms.errors import DeserializationError, SerializationError
+from capo_cleanrooms.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_cleanrooms.types.access_budgets_privacy_template_parameters_input
@@ -22,12 +23,17 @@ class _PrivacyBudgetTemplateParametersInput_accessBudget(TypedDict, closed=True)
 PrivacyBudgetTemplateParametersInput: TypeAlias = (
     _PrivacyBudgetTemplateParametersInput_differentialPrivacy
     | _PrivacyBudgetTemplateParametersInput_accessBudget
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PrivacyBudgetTemplateParametersInput) -> dict:
-    if "differentialPrivacy" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"PrivacyBudgetTemplateParametersInput: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "differentialPrivacy" in value:
         import capo_cleanrooms.types.differential_privacy_template_parameters_input
 
         return {
@@ -67,6 +73,11 @@ def deserialize_json(data: dict) -> PrivacyBudgetTemplateParametersInput:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "PrivacyBudgetTemplateParametersInput: no recognized variant key"
         )

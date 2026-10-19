@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_quicksight.errors import DeserializationError, SerializationError
+from capo_quicksight.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_quicksight.types.arn
@@ -24,13 +25,20 @@ class _UserIdentifier_UserArn(TypedDict, closed=True):
 
 
 UserIdentifier: TypeAlias = (
-    _UserIdentifier_UserName | _UserIdentifier_Email | _UserIdentifier_UserArn
+    _UserIdentifier_UserName
+    | _UserIdentifier_Email
+    | _UserIdentifier_UserArn
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: UserIdentifier) -> dict:
-    if "UserName" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"UserIdentifier: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "UserName" in value:
         return {"UserName": value["UserName"]}
     elif "Email" in value:
         return {"Email": value["Email"]}
@@ -48,10 +56,17 @@ def deserialize_json(data: dict) -> UserIdentifier:
     elif data.get("UserArn") is not None:
         return {"UserArn": data["UserArn"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("UserIdentifier: no recognized variant key")
 
 
-def redact_sensitive(value: UserIdentifier) -> dict[str, Any]:
+def redact_sensitive(value: UserIdentifier) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "UserName" in value:
         out["UserName"] = "*** Sensitive Data Redacted ***"

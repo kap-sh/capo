@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_sage_maker import AsyncSageMakerClient as AsyncSageMakerClient
 from ._services.sage_maker import SageMakerClient as SageMakerClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

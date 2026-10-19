@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.match_paths
@@ -24,12 +25,18 @@ class _Condition_matchPaths(TypedDict, closed=True):
     matchPaths: "capo_bedrock_agentcore_control.types.match_paths.MatchPaths"
 
 
-Condition: TypeAlias = _Condition_matchPrincipals | _Condition_matchPaths
+Condition: TypeAlias = (
+    _Condition_matchPrincipals | _Condition_matchPaths | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Condition) -> dict:
-    if "matchPrincipals" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Condition: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "matchPrincipals" in value:
         import capo_bedrock_agentcore_control.types.match_principals
 
         return {
@@ -67,4 +74,9 @@ def deserialize_json(data: dict) -> Condition:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Condition: no recognized variant key")

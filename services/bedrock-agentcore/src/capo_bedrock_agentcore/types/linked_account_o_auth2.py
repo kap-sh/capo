@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agentcore.errors import DeserializationError, SerializationError
+from capo_bedrock_agentcore.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.o_auth2_authentication
@@ -36,12 +37,17 @@ LinkedAccountOAuth2: TypeAlias = (
     | _LinkedAccountOAuth2_x
     | _LinkedAccountOAuth2_telegram
     | _LinkedAccountOAuth2_github
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: LinkedAccountOAuth2) -> dict:
-    if "google" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"LinkedAccountOAuth2: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "google" in value:
         import capo_bedrock_agentcore.types.o_auth2_authentication
 
         return {
@@ -127,10 +133,17 @@ def deserialize_json(data: dict) -> LinkedAccountOAuth2:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("LinkedAccountOAuth2: no recognized variant key")
 
 
-def redact_sensitive(value: LinkedAccountOAuth2) -> dict[str, Any]:
+def redact_sensitive(value: LinkedAccountOAuth2) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "google" in value:
         out["google"] = "*** Sensitive Data Redacted ***"

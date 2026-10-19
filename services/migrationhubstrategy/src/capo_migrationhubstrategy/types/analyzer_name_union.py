@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_migrationhubstrategy.errors import DeserializationError, SerializationError
+from capo_migrationhubstrategy.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_migrationhubstrategy.types.binary_analyzer_name
@@ -32,12 +33,17 @@ AnalyzerNameUnion: TypeAlias = (
     _AnalyzerNameUnion_binaryAnalyzerName
     | _AnalyzerNameUnion_runTimeAnalyzerName
     | _AnalyzerNameUnion_sourceCodeAnalyzerName
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AnalyzerNameUnion) -> dict:
-    if "binaryAnalyzerName" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AnalyzerNameUnion: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "binaryAnalyzerName" in value:
         return {"binaryAnalyzerName": value["binaryAnalyzerName"]}
     elif "runTimeAnalyzerName" in value:
         return {"runTimeAnalyzerName": value["runTimeAnalyzerName"]}
@@ -55,4 +61,9 @@ def deserialize_json(data: dict) -> AnalyzerNameUnion:
     elif data.get("sourceCodeAnalyzerName") is not None:
         return {"sourceCodeAnalyzerName": data["sourceCodeAnalyzerName"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("AnalyzerNameUnion: no recognized variant key")

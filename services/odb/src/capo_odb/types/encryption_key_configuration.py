@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_odb.errors import DeserializationError, SerializationError
+from capo_odb.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_odb.types.aws_encryption_key_configuration
@@ -34,12 +35,17 @@ EncryptionKeyConfiguration: TypeAlias = (
     _EncryptionKeyConfiguration_awsEncryptionKey
     | _EncryptionKeyConfiguration_ociEncryptionKey
     | _EncryptionKeyConfiguration_okvEncryptionKey
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: EncryptionKeyConfiguration) -> dict:
-    if "awsEncryptionKey" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"EncryptionKeyConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "awsEncryptionKey" in value:
         import capo_odb.types.aws_encryption_key_configuration
 
         return {
@@ -93,6 +99,11 @@ def deserialize_aws_json_1_0(data: dict) -> EncryptionKeyConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "EncryptionKeyConfiguration: no recognized variant key"
         )

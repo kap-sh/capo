@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agentcore.errors import DeserializationError, SerializationError
+from capo_bedrock_agentcore.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.crypto_x402_payment_output
@@ -19,12 +20,18 @@ class _PaymentOutput_mpp(TypedDict, closed=True):
     mpp: "capo_bedrock_agentcore.types.mpp_payment_output.MppPaymentOutput"
 
 
-PaymentOutput: TypeAlias = _PaymentOutput_cryptoX402 | _PaymentOutput_mpp
+PaymentOutput: TypeAlias = (
+    _PaymentOutput_cryptoX402 | _PaymentOutput_mpp | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PaymentOutput) -> dict:
-    if "cryptoX402" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"PaymentOutput: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "cryptoX402" in value:
         import capo_bedrock_agentcore.types.crypto_x402_payment_output
 
         return {
@@ -62,10 +69,17 @@ def deserialize_json(data: dict) -> PaymentOutput:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("PaymentOutput: no recognized variant key")
 
 
-def redact_sensitive(value: PaymentOutput) -> dict[str, Any]:
+def redact_sensitive(value: PaymentOutput) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "cryptoX402" in value:
         import capo_bedrock_agentcore.types.crypto_x402_payment_output

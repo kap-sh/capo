@@ -6,6 +6,7 @@ from typing_extensions import TypedDict
 
 from capo_redshift._protocol.xml import Element
 from capo_redshift.errors import DeserializationError, SerializationError
+from capo_redshift.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_redshift.types.lake_formation_service_integrations
@@ -31,6 +32,7 @@ ServiceIntegrationsUnion: TypeAlias = (
     _ServiceIntegrationsUnion_LakeFormation
     | _ServiceIntegrationsUnion_S3AccessGrants
     | _ServiceIntegrationsUnion_Redshift
+    | UnknownUnionMember
 )
 
 
@@ -38,7 +40,11 @@ ServiceIntegrationsUnion: TypeAlias = (
 def serialize_query(
     value: ServiceIntegrationsUnion, pairs: list[tuple[str, str]], prefix: str
 ) -> None:
-    if "LakeFormation" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ServiceIntegrationsUnion: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "LakeFormation" in value:
         import capo_redshift.types.lake_formation_service_integrations
 
         capo_redshift.types.lake_formation_service_integrations.serialize_query(
@@ -86,6 +92,8 @@ def deserialize_query(el: Element) -> ServiceIntegrationsUnion:
                     child
                 )
             }
+        else:
+            return UnknownUnionMember(child.tag)
     raise DeserializationError(
         "ServiceIntegrationsUnion: no recognized variant element"
     )

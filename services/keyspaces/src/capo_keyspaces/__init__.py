@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_keyspaces import AsyncKeyspacesClient as AsyncKeyspacesClient
 from ._services.keyspaces import KeyspacesClient as KeyspacesClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

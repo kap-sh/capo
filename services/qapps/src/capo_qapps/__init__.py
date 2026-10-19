@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_q_apps import AsyncQAppsClient as AsyncQAppsClient
 from ._services.q_apps import QAppsClient as QAppsClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

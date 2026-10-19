@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_code_commit import AsyncCodeCommitClient as AsyncCodeCommitClient
 from ._services.code_commit import CodeCommitClient as CodeCommitClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

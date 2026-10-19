@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_neptune import AsyncNeptuneClient as AsyncNeptuneClient
 from ._services.neptune import NeptuneClient as NeptuneClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

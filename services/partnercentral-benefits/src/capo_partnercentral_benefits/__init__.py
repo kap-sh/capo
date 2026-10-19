@@ -79,3 +79,9 @@ from ._services.async_partner_central_benefits import (
 from ._services.partner_central_benefits import (
     PartnerCentralBenefitsClient as PartnerCentralBenefitsClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

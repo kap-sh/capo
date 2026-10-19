@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.inference_connector_target_configuration
@@ -23,13 +24,19 @@ class _InferenceTargetConfiguration_provider(TypedDict, closed=True):
 
 
 InferenceTargetConfiguration: TypeAlias = (
-    _InferenceTargetConfiguration_connector | _InferenceTargetConfiguration_provider
+    _InferenceTargetConfiguration_connector
+    | _InferenceTargetConfiguration_provider
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: InferenceTargetConfiguration) -> dict:
-    if "connector" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"InferenceTargetConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "connector" in value:
         import capo_bedrock_agentcore_control.types.inference_connector_target_configuration
 
         return {
@@ -67,6 +74,11 @@ def deserialize_json(data: dict) -> InferenceTargetConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "InferenceTargetConfiguration: no recognized variant key"
         )

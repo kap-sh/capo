@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_rum import AsyncRUMClient as AsyncRUMClient
 from ._services.rum import RUMClient as RUMClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

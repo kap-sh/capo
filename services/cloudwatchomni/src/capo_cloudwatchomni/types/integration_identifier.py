@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_cloudwatchomni.errors import DeserializationError, SerializationError
+from capo_cloudwatchomni.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_cloudwatchomni.types.integration_arn
@@ -26,12 +27,17 @@ IntegrationIdentifier: TypeAlias = (
     _IntegrationIdentifier_integrationId
     | _IntegrationIdentifier_integrationArn
     | _IntegrationIdentifier_integrationName
+    | UnknownUnionMember
 )
 
 
 # --- rpcv2Cbor ser/de ---
 def serialize_cbor(value: IntegrationIdentifier) -> dict:
-    if "integrationId" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"IntegrationIdentifier: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "integrationId" in value:
         return {"integrationId": value["integrationId"]}
     elif "integrationArn" in value:
         return {"integrationArn": value["integrationArn"]}
@@ -49,4 +55,9 @@ def deserialize_cbor(data: dict) -> IntegrationIdentifier:
     elif data.get("integrationName") is not None:
         return {"integrationName": data["integrationName"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("IntegrationIdentifier: no recognized variant key")

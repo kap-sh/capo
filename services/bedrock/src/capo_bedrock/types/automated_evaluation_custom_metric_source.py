@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock.errors import DeserializationError, SerializationError
+from capo_bedrock.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock.types.custom_metric_definition
@@ -19,13 +20,17 @@ class _AutomatedEvaluationCustomMetricSource_customMetricDefinition(
 
 
 AutomatedEvaluationCustomMetricSource: TypeAlias = (
-    _AutomatedEvaluationCustomMetricSource_customMetricDefinition
+    _AutomatedEvaluationCustomMetricSource_customMetricDefinition | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AutomatedEvaluationCustomMetricSource) -> dict:
-    if "customMetricDefinition" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AutomatedEvaluationCustomMetricSource: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "customMetricDefinition" in value:
         import capo_bedrock.types.custom_metric_definition
 
         return {
@@ -49,12 +54,21 @@ def deserialize_json(data: dict) -> AutomatedEvaluationCustomMetricSource:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "AutomatedEvaluationCustomMetricSource: no recognized variant key"
         )
 
 
-def redact_sensitive(value: AutomatedEvaluationCustomMetricSource) -> dict[str, Any]:
+def redact_sensitive(
+    value: AutomatedEvaluationCustomMetricSource,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "customMetricDefinition" in value:
         out["customMetricDefinition"] = "*** Sensitive Data Redacted ***"

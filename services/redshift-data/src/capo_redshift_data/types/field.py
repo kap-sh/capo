@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_redshift_data.errors import DeserializationError, SerializationError
+from capo_redshift_data.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_redshift_data.types.blob
@@ -45,12 +46,17 @@ Field: TypeAlias = (
     | _Field_doubleValue
     | _Field_stringValue
     | _Field_blobValue
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: Field) -> dict:
-    if "isNull" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Field: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "isNull" in value:
         return {"isNull": value["isNull"]}
     elif "booleanValue" in value:
         return {"booleanValue": value["booleanValue"]}
@@ -102,4 +108,9 @@ def deserialize_aws_json_1_1(data: dict) -> Field:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Field: no recognized variant key")

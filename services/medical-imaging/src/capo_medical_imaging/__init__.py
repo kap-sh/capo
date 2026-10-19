@@ -77,3 +77,9 @@ from ._services.async_medical_imaging import (
     AsyncMedicalImagingClient as AsyncMedicalImagingClient,
 )
 from ._services.medical_imaging import MedicalImagingClient as MedicalImagingClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

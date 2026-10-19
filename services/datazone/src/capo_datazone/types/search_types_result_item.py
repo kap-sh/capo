@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_datazone.errors import DeserializationError, SerializationError
+from capo_datazone.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_datazone.types.asset_type_item
@@ -30,12 +31,17 @@ SearchTypesResultItem: TypeAlias = (
     _SearchTypesResultItem_assetTypeItem
     | _SearchTypesResultItem_formTypeItem
     | _SearchTypesResultItem_lineageNodeTypeItem
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SearchTypesResultItem) -> dict:
-    if "assetTypeItem" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"SearchTypesResultItem: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "assetTypeItem" in value:
         import capo_datazone.types.asset_type_item
 
         return {
@@ -89,10 +95,19 @@ def deserialize_json(data: dict) -> SearchTypesResultItem:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("SearchTypesResultItem: no recognized variant key")
 
 
-def redact_sensitive(value: SearchTypesResultItem) -> dict[str, Any]:
+def redact_sensitive(
+    value: SearchTypesResultItem,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "assetTypeItem" in value:
         import capo_datazone.types.asset_type_item

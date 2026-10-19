@@ -8,6 +8,7 @@ from capo_database_migration_service.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_database_migration_service.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_database_migration_service.types.doc_db_data_provider_settings
@@ -79,12 +80,17 @@ DataProviderSettings: TypeAlias = (
     | _DataProviderSettings_IbmDb2LuwSettings
     | _DataProviderSettings_IbmDb2zOsSettings
     | _DataProviderSettings_MongoDbSettings
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: DataProviderSettings) -> dict:
-    if "RedshiftSettings" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"DataProviderSettings: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "RedshiftSettings" in value:
         import capo_database_migration_service.types.redshift_data_provider_settings
 
         return {
@@ -266,4 +272,9 @@ def deserialize_aws_json_1_1(data: dict) -> DataProviderSettings:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("DataProviderSettings: no recognized variant key")

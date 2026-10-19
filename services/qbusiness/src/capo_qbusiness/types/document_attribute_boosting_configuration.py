@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_qbusiness.errors import DeserializationError, SerializationError
+from capo_qbusiness.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_qbusiness.types.date_attribute_boosting_configuration
@@ -40,12 +41,17 @@ DocumentAttributeBoostingConfiguration: TypeAlias = (
     | _DocumentAttributeBoostingConfiguration_stringConfiguration
     | _DocumentAttributeBoostingConfiguration_dateConfiguration
     | _DocumentAttributeBoostingConfiguration_stringListConfiguration
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DocumentAttributeBoostingConfiguration) -> dict:
-    if "numberConfiguration" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"DocumentAttributeBoostingConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "numberConfiguration" in value:
         import capo_qbusiness.types.number_attribute_boosting_configuration
 
         return {
@@ -117,6 +123,11 @@ def deserialize_json(data: dict) -> DocumentAttributeBoostingConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "DocumentAttributeBoostingConfiguration: no recognized variant key"
         )

@@ -79,3 +79,9 @@ from ._services.async_route53_recovery_cluster import (
 from ._services.route53_recovery_cluster import (
     Route53RecoveryClusterClient as Route53RecoveryClusterClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

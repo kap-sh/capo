@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_ecrpublic import AsyncECRPUBLICClient as AsyncECRPUBLICClient
 from ._services.ecrpublic import ECRPUBLICClient as ECRPUBLICClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_omics.errors import DeserializationError, SerializationError
+from capo_omics.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_omics.types.tsv_store_options
@@ -14,12 +15,16 @@ class _StoreOptions_tsvStoreOptions(TypedDict, closed=True):
     tsvStoreOptions: "capo_omics.types.tsv_store_options.TsvStoreOptions"
 
 
-StoreOptions: TypeAlias = _StoreOptions_tsvStoreOptions
+StoreOptions: TypeAlias = _StoreOptions_tsvStoreOptions | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: StoreOptions) -> dict:
-    if "tsvStoreOptions" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"StoreOptions: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "tsvStoreOptions" in value:
         import capo_omics.types.tsv_store_options
 
         return {
@@ -41,4 +46,9 @@ def deserialize_json(data: dict) -> StoreOptions:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("StoreOptions: no recognized variant key")

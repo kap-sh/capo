@@ -10,6 +10,7 @@ from capo_cloudwatch_logs._protocol.eventstream import Message
 from capo_cloudwatch_logs.errors import (
     UnknownServiceError,
 )
+from capo_cloudwatch_logs.types._unknown import UnknownEvent
 
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.errors.internal_streaming_exception
@@ -27,11 +28,16 @@ class _GetLogObjectResponseStream_InternalStreamingException(TypedDict, closed=T
 _GetLogObjectResponseStream: TypeAlias = (
     _GetLogObjectResponseStream_fields
     | _GetLogObjectResponseStream_InternalStreamingException
+    | UnknownEvent
 )
 GetLogObjectResponseStream: TypeAlias = AnyIterator[_GetLogObjectResponseStream]
 
 
 def serialize_event_aws_json_1_1(value: _GetLogObjectResponseStream) -> bytes:
+    if isinstance(value, UnknownEvent):
+        raise ValueError(
+            f"GetLogObjectResponseStream: cannot serialize unknown event {value.event_type!r}"
+        )
     match value:
         case {"fields": payload}:
             import capo_cloudwatch_logs.types.fields_data
@@ -89,6 +95,8 @@ def deserialize_event_aws_json_1_1(
                     message
                 )
             }
+        case str():
+            return UnknownEvent(event_type, message)
         case _:
             raise ValueError(
                 f"GetLogObjectResponseStream: unrecognized event-type {event_type!r}"

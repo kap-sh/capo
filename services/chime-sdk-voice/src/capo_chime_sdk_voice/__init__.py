@@ -77,3 +77,9 @@ from ._services.async_chime_sdk_voice import (
     AsyncChimeSDKVoiceClient as AsyncChimeSDKVoiceClient,
 )
 from ._services.chime_sdk_voice import ChimeSDKVoiceClient as ChimeSDKVoiceClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

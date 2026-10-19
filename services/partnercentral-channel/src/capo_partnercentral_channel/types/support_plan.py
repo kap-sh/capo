@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_partnercentral_channel.errors import DeserializationError, SerializationError
+from capo_partnercentral_channel.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_partnercentral_channel.types.partner_led_support
@@ -32,12 +33,17 @@ SupportPlan: TypeAlias = (
     _SupportPlan_resoldEnterprise
     | _SupportPlan_partnerLedSupport
     | _SupportPlan_resoldUnifiedOperations
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: SupportPlan) -> dict:
-    if "resoldEnterprise" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"SupportPlan: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "resoldEnterprise" in value:
         import capo_partnercentral_channel.types.resold_enterprise
 
         return {
@@ -91,4 +97,9 @@ def deserialize_aws_json_1_0(data: dict) -> SupportPlan:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("SupportPlan: no recognized variant key")

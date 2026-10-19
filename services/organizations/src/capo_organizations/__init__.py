@@ -77,3 +77,9 @@ from ._services.async_organizations import (
     AsyncOrganizationsClient as AsyncOrganizationsClient,
 )
 from ._services.organizations import OrganizationsClient as OrganizationsClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

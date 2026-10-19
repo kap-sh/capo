@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_accessanalyzer.errors import DeserializationError, SerializationError
+from capo_accessanalyzer.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.substring
@@ -27,13 +28,21 @@ class _PathElement_value(TypedDict, closed=True):
 
 
 PathElement: TypeAlias = (
-    _PathElement_index | _PathElement_key | _PathElement_substring | _PathElement_value
+    _PathElement_index
+    | _PathElement_key
+    | _PathElement_substring
+    | _PathElement_value
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PathElement) -> dict:
-    if "index" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"PathElement: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "index" in value:
         return {"index": value["index"]}
     elif "key" in value:
         return {"key": value["key"]}
@@ -67,4 +76,9 @@ def deserialize_json(data: dict) -> PathElement:
     elif data.get("value") is not None:
         return {"value": data["value"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("PathElement: no recognized variant key")

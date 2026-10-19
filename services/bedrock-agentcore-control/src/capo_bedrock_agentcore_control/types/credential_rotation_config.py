@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.coinbase_cdp_rotation_targets
@@ -17,12 +18,18 @@ class _CredentialRotationConfig_coinbaseCDP(TypedDict, closed=True):
     coinbaseCDP: "capo_bedrock_agentcore_control.types.coinbase_cdp_rotation_targets.CoinbaseCdpRotationTargets"
 
 
-CredentialRotationConfig: TypeAlias = _CredentialRotationConfig_coinbaseCDP
+CredentialRotationConfig: TypeAlias = (
+    _CredentialRotationConfig_coinbaseCDP | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CredentialRotationConfig) -> dict:
-    if "coinbaseCDP" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"CredentialRotationConfig: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "coinbaseCDP" in value:
         import capo_bedrock_agentcore_control.types.coinbase_cdp_rotation_targets
 
         return {
@@ -44,6 +51,11 @@ def deserialize_json(data: dict) -> CredentialRotationConfig:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "CredentialRotationConfig: no recognized variant key"
         )

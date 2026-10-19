@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_data_brew import AsyncDataBrewClient as AsyncDataBrewClient
 from ._services.data_brew import DataBrewClient as DataBrewClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

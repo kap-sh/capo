@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_connectcases.errors import DeserializationError, SerializationError
+from capo_connectcases.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_connectcases.types.comment_content
@@ -46,12 +47,17 @@ RelatedItemContent: TypeAlias = (
     | _RelatedItemContent_sla
     | _RelatedItemContent_connectCase
     | _RelatedItemContent_custom
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RelatedItemContent) -> dict:
-    if "contact" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RelatedItemContent: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "contact" in value:
         import capo_connectcases.types.contact_content
 
         return {
@@ -143,10 +149,17 @@ def deserialize_json(data: dict) -> RelatedItemContent:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("RelatedItemContent: no recognized variant key")
 
 
-def redact_sensitive(value: RelatedItemContent) -> dict[str, Any]:
+def redact_sensitive(value: RelatedItemContent) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "sla" in value:
         import capo_connectcases.types.sla_content

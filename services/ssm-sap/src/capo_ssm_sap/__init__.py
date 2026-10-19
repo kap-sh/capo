@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_ssm_sap import AsyncSsmSapClient as AsyncSsmSapClient
 from ._services.ssm_sap import SsmSapClient as SsmSapClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

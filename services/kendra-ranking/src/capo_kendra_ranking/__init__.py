@@ -77,3 +77,9 @@ from ._services.async_kendra_ranking import (
     AsyncKendraRankingClient as AsyncKendraRankingClient,
 )
 from ._services.kendra_ranking import KendraRankingClient as KendraRankingClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -79,3 +79,9 @@ from ._services.async_snow_device_management import (
 from ._services.snow_device_management import (
     SnowDeviceManagementClient as SnowDeviceManagementClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

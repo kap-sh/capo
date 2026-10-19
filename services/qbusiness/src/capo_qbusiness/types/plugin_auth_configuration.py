@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_qbusiness.errors import DeserializationError, SerializationError
+from capo_qbusiness.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_qbusiness.types.basic_auth_configuration
@@ -42,12 +43,17 @@ PluginAuthConfiguration: TypeAlias = (
     | _PluginAuthConfiguration_oAuth2ClientCredentialConfiguration
     | _PluginAuthConfiguration_noAuthConfiguration
     | _PluginAuthConfiguration_idcAuthConfiguration
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PluginAuthConfiguration) -> dict:
-    if "basicAuthConfiguration" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"PluginAuthConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "basicAuthConfiguration" in value:
         import capo_qbusiness.types.basic_auth_configuration
 
         return {
@@ -117,4 +123,9 @@ def deserialize_json(data: dict) -> PluginAuthConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("PluginAuthConfiguration: no recognized variant key")

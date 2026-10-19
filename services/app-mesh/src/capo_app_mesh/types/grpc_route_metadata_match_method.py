@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_app_mesh.errors import DeserializationError, SerializationError
+from capo_app_mesh.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_app_mesh.types.header_match
@@ -37,12 +38,17 @@ GrpcRouteMetadataMatchMethod: TypeAlias = (
     | _GrpcRouteMetadataMatchMethod_range
     | _GrpcRouteMetadataMatchMethod_prefix
     | _GrpcRouteMetadataMatchMethod_suffix
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: GrpcRouteMetadataMatchMethod) -> dict:
-    if "exact" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"GrpcRouteMetadataMatchMethod: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "exact" in value:
         return {"exact": value["exact"]}
     elif "regex" in value:
         return {"regex": value["regex"]}
@@ -74,6 +80,11 @@ def deserialize_json(data: dict) -> GrpcRouteMetadataMatchMethod:
     elif data.get("suffix") is not None:
         return {"suffix": data["suffix"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "GrpcRouteMetadataMatchMethod: no recognized variant key"
         )

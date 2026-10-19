@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_firehose import AsyncFirehoseClient as AsyncFirehoseClient
 from ._services.firehose import FirehoseClient as FirehoseClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

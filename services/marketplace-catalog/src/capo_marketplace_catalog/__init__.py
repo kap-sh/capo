@@ -79,3 +79,9 @@ from ._services.async_marketplace_catalog import (
 from ._services.marketplace_catalog import (
     MarketplaceCatalogClient as MarketplaceCatalogClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

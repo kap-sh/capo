@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_geo_maps import AsyncGeoMapsClient as AsyncGeoMapsClient
 from ._services.geo_maps import GeoMapsClient as GeoMapsClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

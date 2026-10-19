@@ -79,3 +79,9 @@ from ._services.async_chime_sdk_media_pipelines import (
 from ._services.chime_sdk_media_pipelines import (
     ChimeSDKMediaPipelinesClient as ChimeSDKMediaPipelinesClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

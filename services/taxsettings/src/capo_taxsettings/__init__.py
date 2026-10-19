@@ -77,3 +77,9 @@ from ._services.async_tax_settings import (
     AsyncTaxSettingsClient as AsyncTaxSettingsClient,
 )
 from ._services.tax_settings import TaxSettingsClient as TaxSettingsClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

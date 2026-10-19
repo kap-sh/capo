@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_devops_agent.errors import DeserializationError, SerializationError
+from capo_devops_agent.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_devops_agent.types.registered_azure_dev_ops_service_details
@@ -100,12 +101,17 @@ AdditionalServiceDetails: TypeAlias = (
     | _AdditionalServiceDetails_mcpserversigv4
     | _AdditionalServiceDetails_remoteagent
     | _AdditionalServiceDetails_remoteagentsigv4
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AdditionalServiceDetails) -> dict:
-    if "github" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AdditionalServiceDetails: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "github" in value:
         import capo_devops_agent.types.registered_github_service_details
 
         return {
@@ -351,12 +357,21 @@ def deserialize_json(data: dict) -> AdditionalServiceDetails:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "AdditionalServiceDetails: no recognized variant key"
         )
 
 
-def redact_sensitive(value: AdditionalServiceDetails) -> dict[str, Any]:
+def redact_sensitive(
+    value: AdditionalServiceDetails,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "mcpserverdatadog" in value:
         import capo_devops_agent.types.registered_mcp_server_details

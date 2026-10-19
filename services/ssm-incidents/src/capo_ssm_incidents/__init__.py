@@ -77,3 +77,9 @@ from ._services.async_ssm_incidents import (
     AsyncSSMIncidentsClient as AsyncSSMIncidentsClient,
 )
 from ._services.ssm_incidents import SSMIncidentsClient as SSMIncidentsClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

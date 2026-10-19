@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_evs import AsyncevsClient as AsyncevsClient
 from ._services.evs import evsClient as evsClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

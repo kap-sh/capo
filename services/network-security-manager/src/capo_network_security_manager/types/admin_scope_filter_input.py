@@ -8,6 +8,7 @@ from capo_network_security_manager.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_network_security_manager.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_network_security_manager.types.admin_scope_selection_input
@@ -29,12 +30,17 @@ AdminScopeFilterInput: TypeAlias = (
     _AdminScopeFilterInput_includeAll
     | _AdminScopeFilterInput_includeOnly
     | _AdminScopeFilterInput_excludeOnly
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AdminScopeFilterInput) -> dict:
-    if "includeAll" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AdminScopeFilterInput: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "includeAll" in value:
         return {"includeAll": {}}
     elif "includeOnly" in value:
         import capo_network_security_manager.types.admin_scope_selection_input
@@ -76,4 +82,9 @@ def deserialize_json(data: dict) -> AdminScopeFilterInput:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("AdminScopeFilterInput: no recognized variant key")

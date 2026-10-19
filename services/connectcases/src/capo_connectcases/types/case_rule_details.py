@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_connectcases.errors import DeserializationError, SerializationError
+from capo_connectcases.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_connectcases.types.field_options_case_rule
@@ -25,13 +26,20 @@ class _CaseRuleDetails_hidden(TypedDict, closed=True):
 
 
 CaseRuleDetails: TypeAlias = (
-    _CaseRuleDetails_required | _CaseRuleDetails_fieldOptions | _CaseRuleDetails_hidden
+    _CaseRuleDetails_required
+    | _CaseRuleDetails_fieldOptions
+    | _CaseRuleDetails_hidden
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CaseRuleDetails) -> dict:
-    if "required" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"CaseRuleDetails: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "required" in value:
         import capo_connectcases.types.required_case_rule
 
         return {
@@ -85,4 +93,9 @@ def deserialize_json(data: dict) -> CaseRuleDetails:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("CaseRuleDetails: no recognized variant key")

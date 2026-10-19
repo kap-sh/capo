@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_elementalinference.errors import DeserializationError, SerializationError
+from capo_elementalinference.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_elementalinference.types.clipping_config
@@ -34,12 +35,17 @@ OutputConfig: TypeAlias = (
     | _OutputConfig_clipping
     | _OutputConfig_subtitling
     | _OutputConfig_contextualMetadata
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: OutputConfig) -> dict:
-    if "cropping" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"OutputConfig: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "cropping" in value:
         import capo_elementalinference.types.cropping_config
 
         return {
@@ -109,4 +115,9 @@ def deserialize_json(data: dict) -> OutputConfig:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("OutputConfig: no recognized variant key")

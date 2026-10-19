@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_lambda_microvms.errors import DeserializationError, SerializationError
+from capo_lambda_microvms.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_lambda_microvms.types.cloud_watch_logging
@@ -19,12 +20,16 @@ class _Logging_cloudWatch(TypedDict, closed=True):
     cloudWatch: "capo_lambda_microvms.types.cloud_watch_logging.CloudWatchLogging"
 
 
-Logging: TypeAlias = _Logging_disabled | _Logging_cloudWatch
+Logging: TypeAlias = _Logging_disabled | _Logging_cloudWatch | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Logging) -> dict:
-    if "disabled" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Logging: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "disabled" in value:
         import capo_lambda_microvms.types.logging_disabled
 
         return {
@@ -62,4 +67,9 @@ def deserialize_json(data: dict) -> Logging:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Logging: no recognized variant key")

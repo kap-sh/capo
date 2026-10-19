@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_pinpoint import AsyncPinpointClient as AsyncPinpointClient
 from ._services.pinpoint import PinpointClient as PinpointClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

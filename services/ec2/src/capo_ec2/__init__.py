@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_ec2 import AsyncEC2Client as AsyncEC2Client
 from ._services.ec2 import EC2Client as EC2Client
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

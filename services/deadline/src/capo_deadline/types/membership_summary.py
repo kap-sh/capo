@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_deadline.errors import DeserializationError, SerializationError
+from capo_deadline.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_deadline.types.farm_member
@@ -34,12 +35,17 @@ MembershipSummary: TypeAlias = (
     | _MembershipSummary_queue
     | _MembershipSummary_fleet
     | _MembershipSummary_job
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MembershipSummary) -> dict:
-    if "farm" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"MembershipSummary: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "farm" in value:
         import capo_deadline.types.farm_member
 
         return {"farm": capo_deadline.types.farm_member.serialize_json(value["farm"])}
@@ -85,4 +91,9 @@ def deserialize_json(data: dict) -> MembershipSummary:
 
         return {"job": capo_deadline.types.job_member.deserialize_json(data["job"])}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("MembershipSummary: no recognized variant key")

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_app_mesh.errors import DeserializationError, SerializationError
+from capo_app_mesh.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_app_mesh.types.virtual_node_service_provider
@@ -22,13 +23,19 @@ class _VirtualServiceProvider_virtualRouter(TypedDict, closed=True):
 
 
 VirtualServiceProvider: TypeAlias = (
-    _VirtualServiceProvider_virtualNode | _VirtualServiceProvider_virtualRouter
+    _VirtualServiceProvider_virtualNode
+    | _VirtualServiceProvider_virtualRouter
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: VirtualServiceProvider) -> dict:
-    if "virtualNode" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"VirtualServiceProvider: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "virtualNode" in value:
         import capo_app_mesh.types.virtual_node_service_provider
 
         return {
@@ -66,4 +73,9 @@ def deserialize_json(data: dict) -> VirtualServiceProvider:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("VirtualServiceProvider: no recognized variant key")

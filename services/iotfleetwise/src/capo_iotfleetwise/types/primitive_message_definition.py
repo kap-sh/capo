@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_iotfleetwise.errors import DeserializationError, SerializationError
+from capo_iotfleetwise.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.ros2_primitive_message_definition
@@ -17,13 +18,17 @@ class _PrimitiveMessageDefinition_ros2PrimitiveMessageDefinition(
 
 
 PrimitiveMessageDefinition: TypeAlias = (
-    _PrimitiveMessageDefinition_ros2PrimitiveMessageDefinition
+    _PrimitiveMessageDefinition_ros2PrimitiveMessageDefinition | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: PrimitiveMessageDefinition) -> dict:
-    if "ros2PrimitiveMessageDefinition" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"PrimitiveMessageDefinition: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "ros2PrimitiveMessageDefinition" in value:
         import capo_iotfleetwise.types.ros2_primitive_message_definition
 
         return {
@@ -45,6 +50,11 @@ def deserialize_aws_json_1_0(data: dict) -> PrimitiveMessageDefinition:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "PrimitiveMessageDefinition: no recognized variant key"
         )

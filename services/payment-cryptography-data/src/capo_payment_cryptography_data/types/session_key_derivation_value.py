@@ -8,6 +8,7 @@ from capo_payment_cryptography_data.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_payment_cryptography_data.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.application_cryptogram_type
@@ -27,12 +28,17 @@ class _SessionKeyDerivationValue_ApplicationTransactionCounter(TypedDict, closed
 SessionKeyDerivationValue: TypeAlias = (
     _SessionKeyDerivationValue_ApplicationCryptogram
     | _SessionKeyDerivationValue_ApplicationTransactionCounter
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SessionKeyDerivationValue) -> dict:
-    if "ApplicationCryptogram" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"SessionKeyDerivationValue: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "ApplicationCryptogram" in value:
         return {"ApplicationCryptogram": value["ApplicationCryptogram"]}
     elif "ApplicationTransactionCounter" in value:
         return {"ApplicationTransactionCounter": value["ApplicationTransactionCounter"]}
@@ -46,12 +52,21 @@ def deserialize_json(data: dict) -> SessionKeyDerivationValue:
     elif data.get("ApplicationTransactionCounter") is not None:
         return {"ApplicationTransactionCounter": data["ApplicationTransactionCounter"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "SessionKeyDerivationValue: no recognized variant key"
         )
 
 
-def redact_sensitive(value: SessionKeyDerivationValue) -> dict[str, Any]:
+def redact_sensitive(
+    value: SessionKeyDerivationValue,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "ApplicationCryptogram" in value:
         out["ApplicationCryptogram"] = "*** Sensitive Data Redacted ***"

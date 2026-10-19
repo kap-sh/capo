@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_wisdom.errors import DeserializationError, SerializationError
+from capo_wisdom.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_wisdom.types.query_recommendation_trigger_data
@@ -14,12 +15,18 @@ class _RecommendationTriggerData_query(TypedDict, closed=True):
     query: "capo_wisdom.types.query_recommendation_trigger_data.QueryRecommendationTriggerData"
 
 
-RecommendationTriggerData: TypeAlias = _RecommendationTriggerData_query
+RecommendationTriggerData: TypeAlias = (
+    _RecommendationTriggerData_query | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RecommendationTriggerData) -> dict:
-    if "query" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RecommendationTriggerData: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "query" in value:
         import capo_wisdom.types.query_recommendation_trigger_data
 
         return {
@@ -41,12 +48,21 @@ def deserialize_json(data: dict) -> RecommendationTriggerData:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "RecommendationTriggerData: no recognized variant key"
         )
 
 
-def redact_sensitive(value: RecommendationTriggerData) -> dict[str, Any]:
+def redact_sensitive(
+    value: RecommendationTriggerData,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "query" in value:
         import capo_wisdom.types.query_recommendation_trigger_data

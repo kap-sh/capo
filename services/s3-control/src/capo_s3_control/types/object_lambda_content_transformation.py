@@ -6,6 +6,7 @@ from typing_extensions import TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
 from capo_s3_control.errors import DeserializationError, SerializationError
+from capo_s3_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_s3_control.types.aws_lambda_transformation
@@ -16,7 +17,7 @@ class _ObjectLambdaContentTransformation_AwsLambda(TypedDict, closed=True):
 
 
 ObjectLambdaContentTransformation: TypeAlias = (
-    _ObjectLambdaContentTransformation_AwsLambda
+    _ObjectLambdaContentTransformation_AwsLambda | UnknownUnionMember
 )
 
 
@@ -25,7 +26,11 @@ def serialize_xml(
     value: ObjectLambdaContentTransformation, parent: Element, tag: str
 ) -> None:
     el = SubElement(parent, tag)
-    if "AwsLambda" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ObjectLambdaContentTransformation: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "AwsLambda" in value:
         import capo_s3_control.types.aws_lambda_transformation
 
         capo_s3_control.types.aws_lambda_transformation.serialize_xml(
@@ -47,6 +52,8 @@ def deserialize_xml(el: Element) -> ObjectLambdaContentTransformation:
                     child
                 )
             }
+        else:
+            return UnknownUnionMember(child.tag)
     raise DeserializationError(
         "ObjectLambdaContentTransformation: no recognized variant element"
     )

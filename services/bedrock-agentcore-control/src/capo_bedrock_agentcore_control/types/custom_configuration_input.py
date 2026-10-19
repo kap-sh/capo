@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.episodic_override_configuration_input
@@ -43,12 +44,17 @@ CustomConfigurationInput: TypeAlias = (
     | _CustomConfigurationInput_userPreferenceOverride
     | _CustomConfigurationInput_episodicOverride
     | _CustomConfigurationInput_selfManagedConfiguration
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CustomConfigurationInput) -> dict:
-    if "semanticOverride" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"CustomConfigurationInput: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "semanticOverride" in value:
         import capo_bedrock_agentcore_control.types.semantic_override_configuration_input
 
         return {
@@ -134,12 +140,21 @@ def deserialize_json(data: dict) -> CustomConfigurationInput:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "CustomConfigurationInput: no recognized variant key"
         )
 
 
-def redact_sensitive(value: CustomConfigurationInput) -> dict[str, Any]:
+def redact_sensitive(
+    value: CustomConfigurationInput,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "semanticOverride" in value:
         import capo_bedrock_agentcore_control.types.semantic_override_configuration_input

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_qbusiness.errors import DeserializationError, SerializationError
+from capo_qbusiness.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_qbusiness.types.plugin_configuration
@@ -14,12 +15,18 @@ class _ChatModeConfiguration_pluginConfiguration(TypedDict, closed=True):
     pluginConfiguration: "capo_qbusiness.types.plugin_configuration.PluginConfiguration"
 
 
-ChatModeConfiguration: TypeAlias = _ChatModeConfiguration_pluginConfiguration
+ChatModeConfiguration: TypeAlias = (
+    _ChatModeConfiguration_pluginConfiguration | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ChatModeConfiguration) -> dict:
-    if "pluginConfiguration" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ChatModeConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "pluginConfiguration" in value:
         import capo_qbusiness.types.plugin_configuration
 
         return {
@@ -41,4 +48,9 @@ def deserialize_json(data: dict) -> ChatModeConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ChatModeConfiguration: no recognized variant key")

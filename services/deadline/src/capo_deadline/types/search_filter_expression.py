@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_deadline.errors import DeserializationError, SerializationError
+from capo_deadline.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_deadline.types.date_time_filter_expression
@@ -54,12 +55,17 @@ SearchFilterExpression: TypeAlias = (
     | _SearchFilterExpression_stringFilter
     | _SearchFilterExpression_stringListFilter
     | _SearchFilterExpression_groupFilter
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SearchFilterExpression) -> dict:
-    if "dateTimeFilter" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"SearchFilterExpression: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "dateTimeFilter" in value:
         import capo_deadline.types.date_time_filter_expression
 
         return {
@@ -161,4 +167,9 @@ def deserialize_json(data: dict) -> SearchFilterExpression:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("SearchFilterExpression: no recognized variant key")

@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_braket import AsyncBraketClient as AsyncBraketClient
 from ._services.braket import BraketClient as BraketClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_account_access.errors import DeserializationError, SerializationError
+from capo_account_access.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_account_access.types.group_id
@@ -20,13 +21,19 @@ class _IdentityCenterPrincipal_groupId(TypedDict, closed=True):
 
 
 IdentityCenterPrincipal: TypeAlias = (
-    _IdentityCenterPrincipal_userId | _IdentityCenterPrincipal_groupId
+    _IdentityCenterPrincipal_userId
+    | _IdentityCenterPrincipal_groupId
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: IdentityCenterPrincipal) -> dict:
-    if "userId" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"IdentityCenterPrincipal: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "userId" in value:
         return {"userId": value["userId"]}
     elif "groupId" in value:
         return {"groupId": value["groupId"]}
@@ -40,4 +47,9 @@ def deserialize_json(data: dict) -> IdentityCenterPrincipal:
     elif data.get("groupId") is not None:
         return {"groupId": data["groupId"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("IdentityCenterPrincipal: no recognized variant key")

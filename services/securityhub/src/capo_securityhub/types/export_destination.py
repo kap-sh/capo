@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_securityhub.errors import DeserializationError, SerializationError
+from capo_securityhub.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_securityhub.types.s3_export_destination
@@ -14,12 +15,16 @@ class _ExportDestination_S3(TypedDict, closed=True):
     S3: "capo_securityhub.types.s3_export_destination.S3ExportDestination"
 
 
-ExportDestination: TypeAlias = _ExportDestination_S3
+ExportDestination: TypeAlias = _ExportDestination_S3 | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ExportDestination) -> dict:
-    if "S3" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ExportDestination: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "S3" in value:
         import capo_securityhub.types.s3_export_destination
 
         return {
@@ -41,4 +46,9 @@ def deserialize_json(data: dict) -> ExportDestination:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ExportDestination: no recognized variant key")

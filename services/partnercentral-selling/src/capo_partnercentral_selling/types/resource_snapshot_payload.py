@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_partnercentral_selling.errors import DeserializationError, SerializationError
+from capo_partnercentral_selling.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.aws_opportunity_summary_full_view
@@ -22,12 +23,17 @@ class _ResourceSnapshotPayload_AwsOpportunitySummaryFullView(TypedDict, closed=T
 ResourceSnapshotPayload: TypeAlias = (
     _ResourceSnapshotPayload_OpportunitySummary
     | _ResourceSnapshotPayload_AwsOpportunitySummaryFullView
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: ResourceSnapshotPayload) -> dict:
-    if "OpportunitySummary" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ResourceSnapshotPayload: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "OpportunitySummary" in value:
         import capo_partnercentral_selling.types.opportunity_summary_view
 
         return {
@@ -65,10 +71,19 @@ def deserialize_aws_json_1_0(data: dict) -> ResourceSnapshotPayload:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ResourceSnapshotPayload: no recognized variant key")
 
 
-def redact_sensitive(value: ResourceSnapshotPayload) -> dict[str, Any]:
+def redact_sensitive(
+    value: ResourceSnapshotPayload,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "OpportunitySummary" in value:
         import capo_partnercentral_selling.types.opportunity_summary_view

@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_quick_sight import AsyncQuickSightClient as AsyncQuickSightClient
 from ._services.quick_sight import QuickSightClient as QuickSightClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

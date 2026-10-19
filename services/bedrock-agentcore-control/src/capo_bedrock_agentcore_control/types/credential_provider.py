@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.gateway_api_key_credential_provider
@@ -31,12 +32,17 @@ CredentialProvider: TypeAlias = (
     _CredentialProvider_oauthCredentialProvider
     | _CredentialProvider_apiKeyCredentialProvider
     | _CredentialProvider_iamCredentialProvider
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CredentialProvider) -> dict:
-    if "oauthCredentialProvider" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"CredentialProvider: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "oauthCredentialProvider" in value:
         import capo_bedrock_agentcore_control.types.o_auth_credential_provider
 
         return {
@@ -90,10 +96,17 @@ def deserialize_json(data: dict) -> CredentialProvider:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("CredentialProvider: no recognized variant key")
 
 
-def redact_sensitive(value: CredentialProvider) -> dict[str, Any]:
+def redact_sensitive(value: CredentialProvider) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "oauthCredentialProvider" in value:
         import capo_bedrock_agentcore_control.types.o_auth_credential_provider

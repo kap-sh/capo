@@ -77,3 +77,9 @@ from ._services.arc_zonal_shift import ARCZonalShiftClient as ARCZonalShiftClien
 from ._services.async_arc_zonal_shift import (
     AsyncARCZonalShiftClient as AsyncARCZonalShiftClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

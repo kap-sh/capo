@@ -79,3 +79,9 @@ from ._services.async_sage_maker_a2_i_runtime import (
 from ._services.sage_maker_a2_i_runtime import (
     SageMakerA2IRuntimeClient as SageMakerA2IRuntimeClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

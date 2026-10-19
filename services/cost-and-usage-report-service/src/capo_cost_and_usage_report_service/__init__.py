@@ -79,3 +79,9 @@ from ._services.async_costand_usage_report_service import (
 from ._services.costand_usage_report_service import (
     CostandUsageReportServiceClient as CostandUsageReportServiceClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

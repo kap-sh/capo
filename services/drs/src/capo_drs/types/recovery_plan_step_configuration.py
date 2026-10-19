@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_drs.errors import DeserializationError, SerializationError
+from capo_drs.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_drs.types.server_step_configuration
@@ -26,12 +27,17 @@ class _RecoveryPlanStepConfiguration_waitStepConfiguration(TypedDict, closed=Tru
 RecoveryPlanStepConfiguration: TypeAlias = (
     _RecoveryPlanStepConfiguration_serverStepConfiguration
     | _RecoveryPlanStepConfiguration_waitStepConfiguration
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RecoveryPlanStepConfiguration) -> dict:
-    if "serverStepConfiguration" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RecoveryPlanStepConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "serverStepConfiguration" in value:
         import capo_drs.types.server_step_configuration
 
         return {
@@ -69,6 +75,11 @@ def deserialize_json(data: dict) -> RecoveryPlanStepConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "RecoveryPlanStepConfiguration: no recognized variant key"
         )

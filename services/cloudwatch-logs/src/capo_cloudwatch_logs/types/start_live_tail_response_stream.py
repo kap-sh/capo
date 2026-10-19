@@ -10,6 +10,7 @@ from capo_cloudwatch_logs._protocol.eventstream import Message
 from capo_cloudwatch_logs.errors import (
     UnknownServiceError,
 )
+from capo_cloudwatch_logs.types._unknown import UnknownEvent
 
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.errors.session_streaming_exception
@@ -45,11 +46,16 @@ _StartLiveTailResponseStream: TypeAlias = (
     | _StartLiveTailResponseStream_sessionUpdate
     | _StartLiveTailResponseStream_SessionTimeoutException
     | _StartLiveTailResponseStream_SessionStreamingException
+    | UnknownEvent
 )
 StartLiveTailResponseStream: TypeAlias = AnyIterator[_StartLiveTailResponseStream]
 
 
 def serialize_event_aws_json_1_1(value: _StartLiveTailResponseStream) -> bytes:
+    if isinstance(value, UnknownEvent):
+        raise ValueError(
+            f"StartLiveTailResponseStream: cannot serialize unknown event {value.event_type!r}"
+        )
     match value:
         case {"sessionStart": payload}:
             import capo_cloudwatch_logs.types.live_tail_session_start
@@ -136,6 +142,8 @@ def deserialize_event_aws_json_1_1(
                     message
                 )
             }
+        case str():
+            return UnknownEvent(event_type, message)
         case _:
             raise ValueError(
                 f"StartLiveTailResponseStream: unrecognized event-type {event_type!r}"

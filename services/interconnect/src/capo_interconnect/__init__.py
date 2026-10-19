@@ -77,3 +77,9 @@ from ._services.async_interconnect import (
     AsyncInterconnectClient as AsyncInterconnectClient,
 )
 from ._services.interconnect import InterconnectClient as InterconnectClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

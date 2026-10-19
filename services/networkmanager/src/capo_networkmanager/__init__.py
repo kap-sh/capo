@@ -77,3 +77,9 @@ from ._services.async_network_manager import (
     AsyncNetworkManagerClient as AsyncNetworkManagerClient,
 )
 from ._services.network_manager import NetworkManagerClient as NetworkManagerClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -6,6 +6,7 @@ from typing_extensions import TypedDict
 
 from capo_redshift._protocol.xml import Element
 from capo_redshift.errors import DeserializationError, SerializationError
+from capo_redshift.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_redshift.types.provisioned_identifier
@@ -27,6 +28,7 @@ class _NamespaceIdentifierUnion_ProvisionedIdentifier(TypedDict, closed=True):
 NamespaceIdentifierUnion: TypeAlias = (
     _NamespaceIdentifierUnion_ServerlessIdentifier
     | _NamespaceIdentifierUnion_ProvisionedIdentifier
+    | UnknownUnionMember
 )
 
 
@@ -34,7 +36,11 @@ NamespaceIdentifierUnion: TypeAlias = (
 def serialize_query(
     value: NamespaceIdentifierUnion, pairs: list[tuple[str, str]], prefix: str
 ) -> None:
-    if "ServerlessIdentifier" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"NamespaceIdentifierUnion: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "ServerlessIdentifier" in value:
         import capo_redshift.types.serverless_identifier
 
         capo_redshift.types.serverless_identifier.serialize_query(
@@ -68,6 +74,8 @@ def deserialize_query(el: Element) -> NamespaceIdentifierUnion:
                     child
                 )
             }
+        else:
+            return UnknownUnionMember(child.tag)
     raise DeserializationError(
         "NamespaceIdentifierUnion: no recognized variant element"
     )

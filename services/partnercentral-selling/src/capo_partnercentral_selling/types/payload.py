@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_partnercentral_selling.errors import DeserializationError, SerializationError
+from capo_partnercentral_selling.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.lead_invitation_payload
@@ -19,12 +20,18 @@ class _Payload_LeadInvitation(TypedDict, closed=True):
     LeadInvitation: "capo_partnercentral_selling.types.lead_invitation_payload.LeadInvitationPayload"
 
 
-Payload: TypeAlias = _Payload_OpportunityInvitation | _Payload_LeadInvitation
+Payload: TypeAlias = (
+    _Payload_OpportunityInvitation | _Payload_LeadInvitation | UnknownUnionMember
+)
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: Payload) -> dict:
-    if "OpportunityInvitation" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Payload: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "OpportunityInvitation" in value:
         import capo_partnercentral_selling.types.opportunity_invitation_payload
 
         return {
@@ -62,10 +69,17 @@ def deserialize_aws_json_1_0(data: dict) -> Payload:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Payload: no recognized variant key")
 
 
-def redact_sensitive(value: Payload) -> dict[str, Any]:
+def redact_sensitive(value: Payload) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "OpportunityInvitation" in value:
         import capo_partnercentral_selling.types.opportunity_invitation_payload

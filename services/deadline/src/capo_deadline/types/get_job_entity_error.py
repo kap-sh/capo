@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_deadline.errors import DeserializationError, SerializationError
+from capo_deadline.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_deadline.types.environment_details_error
@@ -38,12 +39,17 @@ GetJobEntityError: TypeAlias = (
     | _GetJobEntityError_jobAttachmentDetails
     | _GetJobEntityError_stepDetails
     | _GetJobEntityError_environmentDetails
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: GetJobEntityError) -> dict:
-    if "jobDetails" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"GetJobEntityError: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "jobDetails" in value:
         import capo_deadline.types.job_details_error
 
         return {
@@ -113,4 +119,9 @@ def deserialize_json(data: dict) -> GetJobEntityError:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("GetJobEntityError: no recognized variant key")

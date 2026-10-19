@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_m2.errors import DeserializationError, SerializationError
+from capo_m2.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_m2.types.file_batch_job_definition
@@ -26,12 +27,17 @@ class _BatchJobDefinition_scriptBatchJobDefinition(TypedDict, closed=True):
 BatchJobDefinition: TypeAlias = (
     _BatchJobDefinition_fileBatchJobDefinition
     | _BatchJobDefinition_scriptBatchJobDefinition
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: BatchJobDefinition) -> dict:
-    if "fileBatchJobDefinition" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"BatchJobDefinition: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "fileBatchJobDefinition" in value:
         import capo_m2.types.file_batch_job_definition
 
         return {
@@ -69,4 +75,9 @@ def deserialize_json(data: dict) -> BatchJobDefinition:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("BatchJobDefinition: no recognized variant key")

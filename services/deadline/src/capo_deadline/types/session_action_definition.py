@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_deadline.errors import DeserializationError, SerializationError
+from capo_deadline.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_deadline.types.environment_enter_session_action_definition
@@ -34,12 +35,17 @@ SessionActionDefinition: TypeAlias = (
     | _SessionActionDefinition_envExit
     | _SessionActionDefinition_taskRun
     | _SessionActionDefinition_syncInputJobAttachments
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SessionActionDefinition) -> dict:
-    if "envEnter" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"SessionActionDefinition: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "envEnter" in value:
         import capo_deadline.types.environment_enter_session_action_definition
 
         return {
@@ -109,10 +115,19 @@ def deserialize_json(data: dict) -> SessionActionDefinition:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("SessionActionDefinition: no recognized variant key")
 
 
-def redact_sensitive(value: SessionActionDefinition) -> dict[str, Any]:
+def redact_sensitive(
+    value: SessionActionDefinition,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "taskRun" in value:
         import capo_deadline.types.task_run_session_action_definition

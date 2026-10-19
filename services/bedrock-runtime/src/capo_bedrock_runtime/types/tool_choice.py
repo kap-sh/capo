@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_runtime.errors import DeserializationError, SerializationError
+from capo_bedrock_runtime.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.any_tool_choice
@@ -24,12 +25,18 @@ class _ToolChoice_tool(TypedDict, closed=True):
     tool: "capo_bedrock_runtime.types.specific_tool_choice.SpecificToolChoice"
 
 
-ToolChoice: TypeAlias = _ToolChoice_auto | _ToolChoice_any | _ToolChoice_tool
+ToolChoice: TypeAlias = (
+    _ToolChoice_auto | _ToolChoice_any | _ToolChoice_tool | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ToolChoice) -> dict:
-    if "auto" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ToolChoice: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "auto" in value:
         import capo_bedrock_runtime.types.auto_tool_choice
 
         return {
@@ -83,4 +90,9 @@ def deserialize_json(data: dict) -> ToolChoice:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ToolChoice: no recognized variant key")

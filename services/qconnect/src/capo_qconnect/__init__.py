@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_q_connect import AsyncQConnectClient as AsyncQConnectClient
 from ._services.q_connect import QConnectClient as QConnectClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

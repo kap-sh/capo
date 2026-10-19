@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_verifiedpermissions.errors import DeserializationError, SerializationError
+from capo_verifiedpermissions.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.static_policy_definition_detail
@@ -20,13 +21,19 @@ class _PolicyDefinitionDetail_templateLinked(TypedDict, closed=True):
 
 
 PolicyDefinitionDetail: TypeAlias = (
-    _PolicyDefinitionDetail_static | _PolicyDefinitionDetail_templateLinked
+    _PolicyDefinitionDetail_static
+    | _PolicyDefinitionDetail_templateLinked
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: PolicyDefinitionDetail) -> dict:
-    if "static" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"PolicyDefinitionDetail: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "static" in value:
         import capo_verifiedpermissions.types.static_policy_definition_detail
 
         return {
@@ -64,10 +71,19 @@ def deserialize_aws_json_1_0(data: dict) -> PolicyDefinitionDetail:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("PolicyDefinitionDetail: no recognized variant key")
 
 
-def redact_sensitive(value: PolicyDefinitionDetail) -> dict[str, Any]:
+def redact_sensitive(
+    value: PolicyDefinitionDetail,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "static" in value:
         import capo_verifiedpermissions.types.static_policy_definition_detail

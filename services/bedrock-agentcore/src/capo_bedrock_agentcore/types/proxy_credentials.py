@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agentcore.errors import DeserializationError, SerializationError
+from capo_bedrock_agentcore.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.basic_auth
@@ -14,12 +15,16 @@ class _ProxyCredentials_basicAuth(TypedDict, closed=True):
     basicAuth: "capo_bedrock_agentcore.types.basic_auth.BasicAuth"
 
 
-ProxyCredentials: TypeAlias = _ProxyCredentials_basicAuth
+ProxyCredentials: TypeAlias = _ProxyCredentials_basicAuth | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ProxyCredentials) -> dict:
-    if "basicAuth" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ProxyCredentials: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "basicAuth" in value:
         import capo_bedrock_agentcore.types.basic_auth
 
         return {
@@ -41,4 +46,9 @@ def deserialize_json(data: dict) -> ProxyCredentials:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ProxyCredentials: no recognized variant key")

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_application_signals.errors import DeserializationError, SerializationError
+from capo_application_signals.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_application_signals.types.calendar_interval
@@ -21,12 +22,18 @@ class _Interval_CalendarInterval(TypedDict, closed=True):
     )
 
 
-Interval: TypeAlias = _Interval_RollingInterval | _Interval_CalendarInterval
+Interval: TypeAlias = (
+    _Interval_RollingInterval | _Interval_CalendarInterval | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Interval) -> dict:
-    if "RollingInterval" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Interval: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "RollingInterval" in value:
         import capo_application_signals.types.rolling_interval
 
         return {
@@ -64,4 +71,9 @@ def deserialize_json(data: dict) -> Interval:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Interval: no recognized variant key")

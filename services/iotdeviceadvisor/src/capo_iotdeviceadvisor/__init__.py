@@ -79,3 +79,9 @@ from ._services.async_iot_device_advisor import (
 from ._services.iot_device_advisor import (
     IotDeviceAdvisorClient as IotDeviceAdvisorClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

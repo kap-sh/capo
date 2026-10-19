@@ -8,6 +8,7 @@ from capo_license_manager_user_subscriptions.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_license_manager_user_subscriptions.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_license_manager_user_subscriptions.types.secrets_manager_credentials_provider
@@ -17,12 +18,18 @@ class _CredentialsProvider_SecretsManagerCredentialsProvider(TypedDict, closed=T
     SecretsManagerCredentialsProvider: "capo_license_manager_user_subscriptions.types.secrets_manager_credentials_provider.SecretsManagerCredentialsProvider"
 
 
-CredentialsProvider: TypeAlias = _CredentialsProvider_SecretsManagerCredentialsProvider
+CredentialsProvider: TypeAlias = (
+    _CredentialsProvider_SecretsManagerCredentialsProvider | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CredentialsProvider) -> dict:
-    if "SecretsManagerCredentialsProvider" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"CredentialsProvider: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "SecretsManagerCredentialsProvider" in value:
         import capo_license_manager_user_subscriptions.types.secrets_manager_credentials_provider
 
         return {
@@ -44,4 +51,9 @@ def deserialize_json(data: dict) -> CredentialsProvider:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("CredentialsProvider: no recognized variant key")

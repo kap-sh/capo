@@ -77,3 +77,9 @@ from ._services.amplify_backend import AmplifyBackendClient as AmplifyBackendCli
 from ._services.async_amplify_backend import (
     AsyncAmplifyBackendClient as AsyncAmplifyBackendClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

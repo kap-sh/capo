@@ -5,6 +5,7 @@ from typing import TypeAlias
 from typing_extensions import TypedDict
 
 from capo_amp.errors import DeserializationError, SerializationError
+from capo_amp.types._unknown import UnknownUnionMember
 
 
 class _IgnoreNearExpected_amount(TypedDict, closed=True):
@@ -15,12 +16,18 @@ class _IgnoreNearExpected_ratio(TypedDict, closed=True):
     ratio: "float"
 
 
-IgnoreNearExpected: TypeAlias = _IgnoreNearExpected_amount | _IgnoreNearExpected_ratio
+IgnoreNearExpected: TypeAlias = (
+    _IgnoreNearExpected_amount | _IgnoreNearExpected_ratio | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: IgnoreNearExpected) -> dict:
-    if "amount" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"IgnoreNearExpected: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "amount" in value:
         return {
             "amount": (
                 "NaN"
@@ -54,4 +61,9 @@ def deserialize_json(data: dict) -> IgnoreNearExpected:
     elif data.get("ratio") is not None:
         return {"ratio": float(data["ratio"])}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("IgnoreNearExpected: no recognized variant key")

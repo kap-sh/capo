@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_securitylake.errors import DeserializationError, SerializationError
+from capo_securitylake.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_securitylake.types.aws_log_source_resource
@@ -22,13 +23,19 @@ class _LogSourceResource_customLogSource(TypedDict, closed=True):
 
 
 LogSourceResource: TypeAlias = (
-    _LogSourceResource_awsLogSource | _LogSourceResource_customLogSource
+    _LogSourceResource_awsLogSource
+    | _LogSourceResource_customLogSource
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: LogSourceResource) -> dict:
-    if "awsLogSource" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"LogSourceResource: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "awsLogSource" in value:
         import capo_securitylake.types.aws_log_source_resource
 
         return {
@@ -66,4 +73,9 @@ def deserialize_json(data: dict) -> LogSourceResource:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("LogSourceResource: no recognized variant key")

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_pca_connector_ad.errors import DeserializationError, SerializationError
+from capo_pca_connector_ad.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_pca_connector_ad.types.template_v2
@@ -28,12 +29,17 @@ TemplateDefinition: TypeAlias = (
     _TemplateDefinition_TemplateV2
     | _TemplateDefinition_TemplateV3
     | _TemplateDefinition_TemplateV4
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: TemplateDefinition) -> dict:
-    if "TemplateV2" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"TemplateDefinition: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "TemplateV2" in value:
         import capo_pca_connector_ad.types.template_v2
 
         return {
@@ -87,4 +93,9 @@ def deserialize_json(data: dict) -> TemplateDefinition:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("TemplateDefinition: no recognized variant key")

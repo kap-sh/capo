@@ -10,6 +10,7 @@ from capo_devops_agent._protocol.eventstream import Message
 from capo_devops_agent.errors import (
     UnknownServiceError,
 )
+from capo_devops_agent.types._unknown import UnknownEvent
 
 if TYPE_CHECKING:
     import capo_devops_agent.types.send_message_content_block_delta_event
@@ -73,11 +74,16 @@ _SendMessageEvents: TypeAlias = (
     | _SendMessageEvents_contentBlockStart
     | _SendMessageEvents_contentBlockDelta
     | _SendMessageEvents_contentBlockStop
+    | UnknownEvent
 )
 SendMessageEvents: TypeAlias = AnyIterator[_SendMessageEvents]
 
 
 def serialize_event_json(value: _SendMessageEvents) -> bytes:
+    if isinstance(value, UnknownEvent):
+        raise ValueError(
+            f"SendMessageEvents: cannot serialize unknown event {value.event_type!r}"
+        )
     match value:
         case {"responseCreated": payload}:
             import capo_devops_agent.types.send_message_response_created_event
@@ -231,6 +237,8 @@ def deserialize_event_json(
                     message
                 )
             }
+        case str():
+            return UnknownEvent(event_type, message)
         case _:
             raise ValueError(
                 f"SendMessageEvents: unrecognized event-type {event_type!r}"

@@ -79,3 +79,9 @@ from ._services.async_notifications_contacts import (
 from ._services.notifications_contacts import (
     NotificationsContactsClient as NotificationsContactsClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

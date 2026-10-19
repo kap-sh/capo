@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_identitystore.errors import DeserializationError, SerializationError
+from capo_identitystore.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_identitystore.types.external_id
@@ -20,13 +21,19 @@ class _AlternateIdentifier_UniqueAttribute(TypedDict, closed=True):
 
 
 AlternateIdentifier: TypeAlias = (
-    _AlternateIdentifier_ExternalId | _AlternateIdentifier_UniqueAttribute
+    _AlternateIdentifier_ExternalId
+    | _AlternateIdentifier_UniqueAttribute
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: AlternateIdentifier) -> dict:
-    if "ExternalId" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AlternateIdentifier: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "ExternalId" in value:
         import capo_identitystore.types.external_id
 
         return {
@@ -64,10 +71,17 @@ def deserialize_aws_json_1_1(data: dict) -> AlternateIdentifier:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("AlternateIdentifier: no recognized variant key")
 
 
-def redact_sensitive(value: AlternateIdentifier) -> dict[str, Any]:
+def redact_sensitive(value: AlternateIdentifier) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "ExternalId" in value:
         import capo_identitystore.types.external_id

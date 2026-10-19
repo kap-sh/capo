@@ -10,6 +10,7 @@ from capo_bedrock_agentcore._protocol.eventstream import Message
 from capo_bedrock_agentcore.errors import (
     UnknownServiceError,
 )
+from capo_bedrock_agentcore.types._unknown import UnknownEvent
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.errors.access_denied_exception
@@ -73,11 +74,16 @@ _CodeInterpreterStreamOutput: TypeAlias = (
     | _CodeInterpreterStreamOutput_serviceQuotaExceededException
     | _CodeInterpreterStreamOutput_throttlingException
     | _CodeInterpreterStreamOutput_validationException
+    | UnknownEvent
 )
 CodeInterpreterStreamOutput: TypeAlias = AnyIterator[_CodeInterpreterStreamOutput]
 
 
 def serialize_event_json(value: _CodeInterpreterStreamOutput) -> bytes:
+    if isinstance(value, UnknownEvent):
+        raise ValueError(
+            f"CodeInterpreterStreamOutput: cannot serialize unknown event {value.event_type!r}"
+        )
     match value:
         case {"result": payload}:
             import capo_bedrock_agentcore.types.code_interpreter_result
@@ -231,6 +237,8 @@ def deserialize_event_json(
                     message
                 )
             }
+        case str():
+            return UnknownEvent(event_type, message)
         case _:
             raise ValueError(
                 f"CodeInterpreterStreamOutput: unrecognized event-type {event_type!r}"

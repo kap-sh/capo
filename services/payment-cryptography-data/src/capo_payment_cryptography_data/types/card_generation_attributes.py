@@ -8,6 +8,7 @@ from capo_payment_cryptography_data.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_payment_cryptography_data.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.amex_card_security_code_version1
@@ -55,12 +56,17 @@ CardGenerationAttributes: TypeAlias = (
     | _CardGenerationAttributes_CardHolderVerificationValue
     | _CardGenerationAttributes_DynamicCardVerificationCode
     | _CardGenerationAttributes_DynamicCardVerificationValue
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CardGenerationAttributes) -> dict:
-    if "AmexCardSecurityCodeVersion1" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"CardGenerationAttributes: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "AmexCardSecurityCodeVersion1" in value:
         import capo_payment_cryptography_data.types.amex_card_security_code_version1
 
         return {
@@ -178,12 +184,21 @@ def deserialize_json(data: dict) -> CardGenerationAttributes:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "CardGenerationAttributes: no recognized variant key"
         )
 
 
-def redact_sensitive(value: CardGenerationAttributes) -> dict[str, Any]:
+def redact_sensitive(
+    value: CardGenerationAttributes,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "AmexCardSecurityCodeVersion1" in value:
         import capo_payment_cryptography_data.types.amex_card_security_code_version1

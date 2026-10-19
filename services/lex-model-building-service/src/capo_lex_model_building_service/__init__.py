@@ -79,3 +79,9 @@ from ._services.async_lex_model_building_service import (
 from ._services.lex_model_building_service import (
     LexModelBuildingServiceClient as LexModelBuildingServiceClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

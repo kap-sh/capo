@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.app_sync import AppSyncClient as AppSyncClient
 from ._services.async_app_sync import AsyncAppSyncClient as AsyncAppSyncClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

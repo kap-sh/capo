@@ -77,3 +77,9 @@ from ._services.async_dynamo_db_streams import (
     AsyncDynamoDBStreamsClient as AsyncDynamoDBStreamsClient,
 )
 from ._services.dynamo_db_streams import DynamoDBStreamsClient as DynamoDBStreamsClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

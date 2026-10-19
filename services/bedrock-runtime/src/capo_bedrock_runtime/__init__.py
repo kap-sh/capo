@@ -100,3 +100,9 @@ from ._services.async_bedrock_runtime import (
     AsyncBedrockRuntimeClient as AsyncBedrockRuntimeClient,
 )
 from ._services.bedrock_runtime import BedrockRuntimeClient as BedrockRuntimeClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

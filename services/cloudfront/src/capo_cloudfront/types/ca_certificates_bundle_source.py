@@ -6,6 +6,7 @@ from typing_extensions import TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
 from capo_cloudfront.errors import DeserializationError, SerializationError
+from capo_cloudfront.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.ca_certificates_bundle_s3_location
@@ -18,14 +19,18 @@ class _CaCertificatesBundleSource_CaCertificatesBundleS3Location(
 
 
 CaCertificatesBundleSource: TypeAlias = (
-    _CaCertificatesBundleSource_CaCertificatesBundleS3Location
+    _CaCertificatesBundleSource_CaCertificatesBundleS3Location | UnknownUnionMember
 )
 
 
 # --- restXml ser/de ---
 def serialize_xml(value: CaCertificatesBundleSource, parent: Element, tag: str) -> None:
     el = SubElement(parent, tag)
-    if "CaCertificatesBundleS3Location" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"CaCertificatesBundleSource: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "CaCertificatesBundleS3Location" in value:
         import capo_cloudfront.types.ca_certificates_bundle_s3_location
 
         capo_cloudfront.types.ca_certificates_bundle_s3_location.serialize_xml(
@@ -47,6 +52,8 @@ def deserialize_xml(el: Element) -> CaCertificatesBundleSource:
                     child
                 )
             }
+        else:
+            return UnknownUnionMember(child.tag)
     raise DeserializationError(
         "CaCertificatesBundleSource: no recognized variant element"
     )

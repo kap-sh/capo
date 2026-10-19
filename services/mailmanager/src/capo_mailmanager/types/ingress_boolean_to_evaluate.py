@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_mailmanager.errors import DeserializationError, SerializationError
+from capo_mailmanager.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_mailmanager.types.ingress_analysis
@@ -22,13 +23,19 @@ class _IngressBooleanToEvaluate_IsInAddressList(TypedDict, closed=True):
 
 
 IngressBooleanToEvaluate: TypeAlias = (
-    _IngressBooleanToEvaluate_Analysis | _IngressBooleanToEvaluate_IsInAddressList
+    _IngressBooleanToEvaluate_Analysis
+    | _IngressBooleanToEvaluate_IsInAddressList
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: IngressBooleanToEvaluate) -> dict:
-    if "Analysis" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"IngressBooleanToEvaluate: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "Analysis" in value:
         import capo_mailmanager.types.ingress_analysis
 
         return {
@@ -66,6 +73,11 @@ def deserialize_aws_json_1_0(data: dict) -> IngressBooleanToEvaluate:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "IngressBooleanToEvaluate: no recognized variant key"
         )

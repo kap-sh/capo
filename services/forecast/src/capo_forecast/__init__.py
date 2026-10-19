@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_forecast import AsyncforecastClient as AsyncforecastClient
 from ._services.forecast import forecastClient as forecastClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

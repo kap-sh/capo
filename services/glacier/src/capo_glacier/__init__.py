@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_glacier import AsyncGlacierClient as AsyncGlacierClient
 from ._services.glacier import GlacierClient as GlacierClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

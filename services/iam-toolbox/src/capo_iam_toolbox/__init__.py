@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_iam_toolbox import AsyncIAMToolboxClient as AsyncIAMToolboxClient
 from ._services.iam_toolbox import IAMToolboxClient as IAMToolboxClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

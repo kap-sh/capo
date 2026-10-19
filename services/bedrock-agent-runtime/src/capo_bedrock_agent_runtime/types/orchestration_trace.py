@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agent_runtime.errors import DeserializationError, SerializationError
+from capo_bedrock_agent_runtime.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.invocation_input
@@ -42,12 +43,17 @@ OrchestrationTrace: TypeAlias = (
     | _OrchestrationTrace_observation
     | _OrchestrationTrace_modelInvocationInput
     | _OrchestrationTrace_modelInvocationOutput
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: OrchestrationTrace) -> dict:
-    if "rationale" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"OrchestrationTrace: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "rationale" in value:
         import capo_bedrock_agent_runtime.types.rationale
 
         return {
@@ -133,4 +139,9 @@ def deserialize_json(data: dict) -> OrchestrationTrace:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("OrchestrationTrace: no recognized variant key")

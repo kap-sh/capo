@@ -6,6 +6,7 @@ from typing_extensions import TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
 from capo_s3_control.errors import DeserializationError, SerializationError
+from capo_s3_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_s3_control.types.dssekms_filter
@@ -41,13 +42,18 @@ ObjectEncryptionFilter: TypeAlias = (
     | _ObjectEncryptionFilter_DSSEKMS
     | _ObjectEncryptionFilter_SSEC
     | _ObjectEncryptionFilter_NOTSSE
+    | UnknownUnionMember
 )
 
 
 # --- restXml ser/de ---
 def serialize_xml(value: ObjectEncryptionFilter, parent: Element, tag: str) -> None:
     el = SubElement(parent, tag)
-    if "SSES3" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ObjectEncryptionFilter: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "SSES3" in value:
         import capo_s3_control.types.sses3_filter
 
         capo_s3_control.types.sses3_filter.serialize_xml(value["SSES3"], el, "SSE-S3")
@@ -105,4 +111,6 @@ def deserialize_xml(el: Element) -> ObjectEncryptionFilter:
             return {
                 "NOTSSE": capo_s3_control.types.not_sse_filter.deserialize_xml(child)
             }
+        else:
+            return UnknownUnionMember(child.tag)
     raise DeserializationError("ObjectEncryptionFilter: no recognized variant element")

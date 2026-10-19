@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_iottwinmaker.errors import DeserializationError, SerializationError
+from capo_iottwinmaker.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.id
@@ -22,13 +23,19 @@ class _ListMetadataTransferJobsFilter_state(TypedDict, closed=True):
 
 
 ListMetadataTransferJobsFilter: TypeAlias = (
-    _ListMetadataTransferJobsFilter_workspaceId | _ListMetadataTransferJobsFilter_state
+    _ListMetadataTransferJobsFilter_workspaceId
+    | _ListMetadataTransferJobsFilter_state
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ListMetadataTransferJobsFilter) -> dict:
-    if "workspaceId" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ListMetadataTransferJobsFilter: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "workspaceId" in value:
         return {"workspaceId": value["workspaceId"]}
     elif "state" in value:
         return {"state": value["state"]}
@@ -42,6 +49,11 @@ def deserialize_json(data: dict) -> ListMetadataTransferJobsFilter:
     elif data.get("state") is not None:
         return {"state": data["state"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "ListMetadataTransferJobsFilter: no recognized variant key"
         )

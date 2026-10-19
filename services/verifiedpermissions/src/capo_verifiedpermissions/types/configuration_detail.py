@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_verifiedpermissions.errors import DeserializationError, SerializationError
+from capo_verifiedpermissions.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.cognito_user_pool_configuration_detail
@@ -22,12 +23,17 @@ class _ConfigurationDetail_openIdConnectConfiguration(TypedDict, closed=True):
 ConfigurationDetail: TypeAlias = (
     _ConfigurationDetail_cognitoUserPoolConfiguration
     | _ConfigurationDetail_openIdConnectConfiguration
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: ConfigurationDetail) -> dict:
-    if "cognitoUserPoolConfiguration" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ConfigurationDetail: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "cognitoUserPoolConfiguration" in value:
         import capo_verifiedpermissions.types.cognito_user_pool_configuration_detail
 
         return {
@@ -65,10 +71,17 @@ def deserialize_aws_json_1_0(data: dict) -> ConfigurationDetail:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ConfigurationDetail: no recognized variant key")
 
 
-def redact_sensitive(value: ConfigurationDetail) -> dict[str, Any]:
+def redact_sensitive(value: ConfigurationDetail) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "cognitoUserPoolConfiguration" in value:
         import capo_verifiedpermissions.types.cognito_user_pool_configuration_detail

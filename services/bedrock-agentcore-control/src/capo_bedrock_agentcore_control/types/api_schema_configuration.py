@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.inline_payload
@@ -23,13 +24,19 @@ class _ApiSchemaConfiguration_inlinePayload(TypedDict, closed=True):
 
 
 ApiSchemaConfiguration: TypeAlias = (
-    _ApiSchemaConfiguration_s3 | _ApiSchemaConfiguration_inlinePayload
+    _ApiSchemaConfiguration_s3
+    | _ApiSchemaConfiguration_inlinePayload
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ApiSchemaConfiguration) -> dict:
-    if "s3" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ApiSchemaConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "s3" in value:
         import capo_bedrock_agentcore_control.types.s3_configuration
 
         return {
@@ -55,10 +62,19 @@ def deserialize_json(data: dict) -> ApiSchemaConfiguration:
     elif data.get("inlinePayload") is not None:
         return {"inlinePayload": data["inlinePayload"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ApiSchemaConfiguration: no recognized variant key")
 
 
-def redact_sensitive(value: ApiSchemaConfiguration) -> dict[str, Any]:
+def redact_sensitive(
+    value: ApiSchemaConfiguration,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "inlinePayload" in value:
         out["inlinePayload"] = "*** Sensitive Data Redacted ***"

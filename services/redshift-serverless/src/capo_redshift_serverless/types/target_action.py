@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_redshift_serverless.errors import DeserializationError, SerializationError
+from capo_redshift_serverless.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_redshift_serverless.types.create_snapshot_schedule_action_parameters
@@ -14,12 +15,16 @@ class _TargetAction_createSnapshot(TypedDict, closed=True):
     createSnapshot: "capo_redshift_serverless.types.create_snapshot_schedule_action_parameters.CreateSnapshotScheduleActionParameters"
 
 
-TargetAction: TypeAlias = _TargetAction_createSnapshot
+TargetAction: TypeAlias = _TargetAction_createSnapshot | UnknownUnionMember
 
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: TargetAction) -> dict:
-    if "createSnapshot" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"TargetAction: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "createSnapshot" in value:
         import capo_redshift_serverless.types.create_snapshot_schedule_action_parameters
 
         return {
@@ -41,4 +46,9 @@ def deserialize_aws_json_1_1(data: dict) -> TargetAction:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("TargetAction: no recognized variant key")

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_connect.errors import DeserializationError, SerializationError
+from capo_connect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_connect.types.attachment_reference
@@ -81,12 +82,17 @@ ReferenceSummary: TypeAlias = (
     | _ReferenceSummary_Date
     | _ReferenceSummary_Email
     | _ReferenceSummary_ContactAnalysis
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ReferenceSummary) -> dict:
-    if "Url" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ReferenceSummary: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "Url" in value:
         import capo_connect.types.url_reference
 
         return {"Url": capo_connect.types.url_reference.serialize_json(value["Url"])}
@@ -250,4 +256,9 @@ def deserialize_json(data: dict) -> ReferenceSummary:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ReferenceSummary: no recognized variant key")

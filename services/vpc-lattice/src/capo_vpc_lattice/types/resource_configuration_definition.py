@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_vpc_lattice.errors import DeserializationError, SerializationError
+from capo_vpc_lattice.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_vpc_lattice.types.arn_resource
@@ -34,12 +35,17 @@ ResourceConfigurationDefinition: TypeAlias = (
     | _ResourceConfigurationDefinition_ipResource
     | _ResourceConfigurationDefinition_arnResource
     | _ResourceConfigurationDefinition_cidrResource
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ResourceConfigurationDefinition) -> dict:
-    if "dnsResource" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ResourceConfigurationDefinition: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "dnsResource" in value:
         import capo_vpc_lattice.types.dns_resource
 
         return {
@@ -109,6 +115,11 @@ def deserialize_json(data: dict) -> ResourceConfigurationDefinition:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "ResourceConfigurationDefinition: no recognized variant key"
         )

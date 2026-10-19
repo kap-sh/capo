@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agentcore.errors import DeserializationError, SerializationError
+from capo_bedrock_agentcore.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.o_auth_credential_provider
@@ -26,12 +27,17 @@ HarnessGatewayOutboundAuth: TypeAlias = (
     _HarnessGatewayOutboundAuth_awsIam
     | _HarnessGatewayOutboundAuth_none
     | _HarnessGatewayOutboundAuth_oauth
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: HarnessGatewayOutboundAuth) -> dict:
-    if "awsIam" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"HarnessGatewayOutboundAuth: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "awsIam" in value:
         return {"awsIam": {}}
     elif "none" in value:
         return {"none": {}}
@@ -61,12 +67,21 @@ def deserialize_json(data: dict) -> HarnessGatewayOutboundAuth:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "HarnessGatewayOutboundAuth: no recognized variant key"
         )
 
 
-def redact_sensitive(value: HarnessGatewayOutboundAuth) -> dict[str, Any]:
+def redact_sensitive(
+    value: HarnessGatewayOutboundAuth,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "oauth" in value:
         import capo_bedrock_agentcore.types.o_auth_credential_provider

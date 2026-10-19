@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agentcore.errors import DeserializationError, SerializationError
+from capo_bedrock_agentcore.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.harness_bedrock_model_config
@@ -34,12 +35,17 @@ HarnessModelConfiguration: TypeAlias = (
     | _HarnessModelConfiguration_openAiModelConfig
     | _HarnessModelConfiguration_geminiModelConfig
     | _HarnessModelConfiguration_liteLlmModelConfig
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: HarnessModelConfiguration) -> dict:
-    if "bedrockModelConfig" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"HarnessModelConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "bedrockModelConfig" in value:
         import capo_bedrock_agentcore.types.harness_bedrock_model_config
 
         return {
@@ -109,12 +115,21 @@ def deserialize_json(data: dict) -> HarnessModelConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "HarnessModelConfiguration: no recognized variant key"
         )
 
 
-def redact_sensitive(value: HarnessModelConfiguration) -> dict[str, Any]:
+def redact_sensitive(
+    value: HarnessModelConfiguration,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "openAiModelConfig" in value:
         import capo_bedrock_agentcore.types.harness_open_ai_model_config

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_devops_agent.errors import DeserializationError, SerializationError
+from capo_devops_agent.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_devops_agent.types.asset_file_bytes
@@ -19,12 +20,18 @@ class _AssetFileBody_text(TypedDict, closed=True):
     text: "capo_devops_agent.types.asset_file_text.AssetFileText"
 
 
-AssetFileBody: TypeAlias = _AssetFileBody_bytes | _AssetFileBody_text
+AssetFileBody: TypeAlias = (
+    _AssetFileBody_bytes | _AssetFileBody_text | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AssetFileBody) -> dict:
-    if "bytes" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AssetFileBody: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "bytes" in value:
         import capo_devops_agent.types.asset_file_bytes
 
         return {
@@ -50,4 +57,9 @@ def deserialize_json(data: dict) -> AssetFileBody:
     elif data.get("text") is not None:
         return {"text": data["text"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("AssetFileBody: no recognized variant key")

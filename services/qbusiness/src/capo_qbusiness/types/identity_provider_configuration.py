@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_qbusiness.errors import DeserializationError, SerializationError
+from capo_qbusiness.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_qbusiness.types.open_id_connect_provider_configuration
@@ -24,12 +25,17 @@ class _IdentityProviderConfiguration_openIDConnectConfiguration(TypedDict, close
 IdentityProviderConfiguration: TypeAlias = (
     _IdentityProviderConfiguration_samlConfiguration
     | _IdentityProviderConfiguration_openIDConnectConfiguration
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: IdentityProviderConfiguration) -> dict:
-    if "samlConfiguration" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"IdentityProviderConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "samlConfiguration" in value:
         import capo_qbusiness.types.saml_provider_configuration
 
         return {
@@ -67,6 +73,11 @@ def deserialize_json(data: dict) -> IdentityProviderConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "IdentityProviderConfiguration: no recognized variant key"
         )

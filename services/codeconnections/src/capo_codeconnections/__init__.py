@@ -77,3 +77,9 @@ from ._services.async_code_connections import (
     AsyncCodeConnectionsClient as AsyncCodeConnectionsClient,
 )
 from ._services.code_connections import CodeConnectionsClient as CodeConnectionsClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

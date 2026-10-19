@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.http_target_configuration
@@ -31,12 +32,17 @@ TargetConfiguration: TypeAlias = (
     _TargetConfiguration_mcp
     | _TargetConfiguration_http
     | _TargetConfiguration_inference
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: TargetConfiguration) -> dict:
-    if "mcp" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"TargetConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "mcp" in value:
         import capo_bedrock_agentcore_control.types.mcp_target_configuration
 
         return {
@@ -90,10 +96,17 @@ def deserialize_json(data: dict) -> TargetConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("TargetConfiguration: no recognized variant key")
 
 
-def redact_sensitive(value: TargetConfiguration) -> dict[str, Any]:
+def redact_sensitive(value: TargetConfiguration) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "mcp" in value:
         import capo_bedrock_agentcore_control.types.mcp_target_configuration

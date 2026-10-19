@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_mediaconnect.errors import DeserializationError, SerializationError
+from capo_mediaconnect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_mediaconnect.types.automatic_encryption_key_configuration
@@ -22,12 +23,17 @@ class _FlowTransitEncryptionKeyConfiguration_Automatic(TypedDict, closed=True):
 FlowTransitEncryptionKeyConfiguration: TypeAlias = (
     _FlowTransitEncryptionKeyConfiguration_SecretsManager
     | _FlowTransitEncryptionKeyConfiguration_Automatic
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: FlowTransitEncryptionKeyConfiguration) -> dict:
-    if "SecretsManager" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"FlowTransitEncryptionKeyConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "SecretsManager" in value:
         import capo_mediaconnect.types.secrets_manager_encryption_key_configuration
 
         return {
@@ -67,6 +73,11 @@ def deserialize_json(data: dict) -> FlowTransitEncryptionKeyConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "FlowTransitEncryptionKeyConfiguration: no recognized variant key"
         )

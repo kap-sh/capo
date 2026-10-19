@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_eventbridgev2.errors import DeserializationError, SerializationError
+from capo_eventbridgev2.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_eventbridgev2.types.aws_service_events_source_configuration
@@ -22,12 +23,17 @@ class _EventSourceConfiguration_PartnerEventsConfiguration(TypedDict, closed=Tru
 EventSourceConfiguration: TypeAlias = (
     _EventSourceConfiguration_AwsServiceEventsConfiguration
     | _EventSourceConfiguration_PartnerEventsConfiguration
+    | UnknownUnionMember
 )
 
 
 # --- rpcv2Cbor ser/de ---
 def serialize_cbor(value: EventSourceConfiguration) -> dict:
-    if "AwsServiceEventsConfiguration" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"EventSourceConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "AwsServiceEventsConfiguration" in value:
         import capo_eventbridgev2.types.aws_service_events_source_configuration
 
         return {
@@ -65,12 +71,21 @@ def deserialize_cbor(data: dict) -> EventSourceConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "EventSourceConfiguration: no recognized variant key"
         )
 
 
-def redact_sensitive(value: EventSourceConfiguration) -> dict[str, Any]:
+def redact_sensitive(
+    value: EventSourceConfiguration,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "AwsServiceEventsConfiguration" in value:
         import capo_eventbridgev2.types.aws_service_events_source_configuration

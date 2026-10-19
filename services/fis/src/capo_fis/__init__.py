@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_fis import AsyncfisClient as AsyncfisClient
 from ._services.fis import fisClient as fisClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

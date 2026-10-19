@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_m2.errors import DeserializationError, SerializationError
+from capo_m2.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_m2.types.data_set_import_list
@@ -20,13 +21,17 @@ class _DataSetImportConfig_dataSets(TypedDict, closed=True):
 
 
 DataSetImportConfig: TypeAlias = (
-    _DataSetImportConfig_s3Location | _DataSetImportConfig_dataSets
+    _DataSetImportConfig_s3Location | _DataSetImportConfig_dataSets | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DataSetImportConfig) -> dict:
-    if "s3Location" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"DataSetImportConfig: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "s3Location" in value:
         return {"s3Location": value["s3Location"]}
     elif "dataSets" in value:
         import capo_m2.types.data_set_import_list
@@ -52,4 +57,9 @@ def deserialize_json(data: dict) -> DataSetImportConfig:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("DataSetImportConfig: no recognized variant key")

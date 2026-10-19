@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_glue.errors import DeserializationError, SerializationError
+from capo_glue.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_glue.types.search_attribute_filter
@@ -33,12 +34,17 @@ SearchFilterClause: TypeAlias = (
     | _SearchFilterClause_OrAnyFilters
     | _SearchFilterClause_AttributeFilter
     | _SearchFilterClause_MapFilter
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: SearchFilterClause) -> dict:
-    if "AndAllFilters" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"SearchFilterClause: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "AndAllFilters" in value:
         import capo_glue.types.search_filter_clause_list
 
         return {
@@ -108,4 +114,9 @@ def deserialize_aws_json_1_1(data: dict) -> SearchFilterClause:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("SearchFilterClause: no recognized variant key")

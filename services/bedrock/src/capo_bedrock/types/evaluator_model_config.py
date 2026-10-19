@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock.errors import DeserializationError, SerializationError
+from capo_bedrock.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock.types.bedrock_evaluator_models
@@ -16,12 +17,18 @@ class _EvaluatorModelConfig_bedrockEvaluatorModels(TypedDict, closed=True):
     )
 
 
-EvaluatorModelConfig: TypeAlias = _EvaluatorModelConfig_bedrockEvaluatorModels
+EvaluatorModelConfig: TypeAlias = (
+    _EvaluatorModelConfig_bedrockEvaluatorModels | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: EvaluatorModelConfig) -> dict:
-    if "bedrockEvaluatorModels" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"EvaluatorModelConfig: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "bedrockEvaluatorModels" in value:
         import capo_bedrock.types.bedrock_evaluator_models
 
         return {
@@ -43,4 +50,9 @@ def deserialize_json(data: dict) -> EvaluatorModelConfig:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("EvaluatorModelConfig: no recognized variant key")

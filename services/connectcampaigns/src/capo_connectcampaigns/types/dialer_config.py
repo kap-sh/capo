@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_connectcampaigns.errors import DeserializationError, SerializationError
+from capo_connectcampaigns.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_connectcampaigns.types.agentless_dialer_config
@@ -34,12 +35,17 @@ DialerConfig: TypeAlias = (
     _DialerConfig_progressiveDialerConfig
     | _DialerConfig_predictiveDialerConfig
     | _DialerConfig_agentlessDialerConfig
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DialerConfig) -> dict:
-    if "progressiveDialerConfig" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"DialerConfig: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "progressiveDialerConfig" in value:
         import capo_connectcampaigns.types.progressive_dialer_config
 
         return {
@@ -93,4 +99,9 @@ def deserialize_json(data: dict) -> DialerConfig:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("DialerConfig: no recognized variant key")

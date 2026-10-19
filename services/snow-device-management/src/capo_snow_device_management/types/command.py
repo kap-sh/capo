@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_snow_device_management.errors import DeserializationError, SerializationError
+from capo_snow_device_management.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_snow_device_management.types.reboot
@@ -19,12 +20,16 @@ class _Command_reboot(TypedDict, closed=True):
     reboot: "capo_snow_device_management.types.reboot.Reboot"
 
 
-Command: TypeAlias = _Command_unlock | _Command_reboot
+Command: TypeAlias = _Command_unlock | _Command_reboot | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Command) -> dict:
-    if "unlock" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Command: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "unlock" in value:
         import capo_snow_device_management.types.unlock
 
         return {
@@ -62,4 +67,9 @@ def deserialize_json(data: dict) -> Command:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Command: no recognized variant key")

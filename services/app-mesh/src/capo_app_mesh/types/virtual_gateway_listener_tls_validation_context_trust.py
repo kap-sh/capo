@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_app_mesh.errors import DeserializationError, SerializationError
+from capo_app_mesh.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_app_mesh.types.virtual_gateway_tls_validation_context_file_trust
@@ -22,12 +23,17 @@ class _VirtualGatewayListenerTlsValidationContextTrust_sds(TypedDict, closed=Tru
 VirtualGatewayListenerTlsValidationContextTrust: TypeAlias = (
     _VirtualGatewayListenerTlsValidationContextTrust_file
     | _VirtualGatewayListenerTlsValidationContextTrust_sds
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: VirtualGatewayListenerTlsValidationContextTrust) -> dict:
-    if "file" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"VirtualGatewayListenerTlsValidationContextTrust: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "file" in value:
         import capo_app_mesh.types.virtual_gateway_tls_validation_context_file_trust
 
         return {
@@ -67,6 +73,11 @@ def deserialize_json(data: dict) -> VirtualGatewayListenerTlsValidationContextTr
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "VirtualGatewayListenerTlsValidationContextTrust: no recognized variant key"
         )

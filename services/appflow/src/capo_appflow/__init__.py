@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.appflow import AppflowClient as AppflowClient
 from ._services.async_appflow import AsyncAppflowClient as AsyncAppflowClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

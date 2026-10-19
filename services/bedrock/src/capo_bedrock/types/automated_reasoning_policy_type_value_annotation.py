@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock.errors import DeserializationError, SerializationError
+from capo_bedrock.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_add_type_value
@@ -32,12 +33,17 @@ AutomatedReasoningPolicyTypeValueAnnotation: TypeAlias = (
     _AutomatedReasoningPolicyTypeValueAnnotation_addTypeValue
     | _AutomatedReasoningPolicyTypeValueAnnotation_updateTypeValue
     | _AutomatedReasoningPolicyTypeValueAnnotation_deleteTypeValue
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AutomatedReasoningPolicyTypeValueAnnotation) -> dict:
-    if "addTypeValue" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AutomatedReasoningPolicyTypeValueAnnotation: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "addTypeValue" in value:
         import capo_bedrock.types.automated_reasoning_policy_add_type_value
 
         return {
@@ -93,6 +99,11 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyTypeValueAnnotation:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "AutomatedReasoningPolicyTypeValueAnnotation: no recognized variant key"
         )
@@ -100,7 +111,9 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyTypeValueAnnotation:
 
 def redact_sensitive(
     value: AutomatedReasoningPolicyTypeValueAnnotation,
-) -> dict[str, Any]:
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "addTypeValue" in value:
         import capo_bedrock.types.automated_reasoning_policy_add_type_value

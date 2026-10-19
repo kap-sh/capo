@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.natural_language
@@ -17,12 +18,16 @@ class _Content_rawText(TypedDict, closed=True):
     rawText: "capo_bedrock_agentcore_control.types.natural_language.NaturalLanguage"
 
 
-Content: TypeAlias = _Content_rawText
+Content: TypeAlias = _Content_rawText | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Content) -> dict:
-    if "rawText" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Content: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "rawText" in value:
         return {"rawText": value["rawText"]}
     else:
         raise SerializationError("Content: no variant present")
@@ -32,4 +37,9 @@ def deserialize_json(data: dict) -> Content:
     if data.get("rawText") is not None:
         return {"rawText": data["rawText"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Content: no recognized variant key")

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agentcore.errors import DeserializationError, SerializationError
+from capo_bedrock_agentcore.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.sensitive_json
@@ -20,13 +21,19 @@ class _HarnessToolResultBlockDelta_json(TypedDict, closed=True):
 
 
 HarnessToolResultBlockDelta: TypeAlias = (
-    _HarnessToolResultBlockDelta_text | _HarnessToolResultBlockDelta_json
+    _HarnessToolResultBlockDelta_text
+    | _HarnessToolResultBlockDelta_json
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: HarnessToolResultBlockDelta) -> dict:
-    if "text" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"HarnessToolResultBlockDelta: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "text" in value:
         return {"text": value["text"]}
     elif "json" in value:
         return {"json": value["json"]}
@@ -40,12 +47,21 @@ def deserialize_json(data: dict) -> HarnessToolResultBlockDelta:
     elif data.get("json") is not None:
         return {"json": data["json"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "HarnessToolResultBlockDelta: no recognized variant key"
         )
 
 
-def redact_sensitive(value: HarnessToolResultBlockDelta) -> dict[str, Any]:
+def redact_sensitive(
+    value: HarnessToolResultBlockDelta,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "text" in value:
         out["text"] = "*** Sensitive Data Redacted ***"

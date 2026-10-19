@@ -77,3 +77,9 @@ from ._services.async_media_convert import (
     AsyncMediaConvertClient as AsyncMediaConvertClient,
 )
 from ._services.media_convert import MediaConvertClient as MediaConvertClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

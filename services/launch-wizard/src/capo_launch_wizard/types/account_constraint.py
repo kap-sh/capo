@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_launch_wizard.errors import DeserializationError, SerializationError
+from capo_launch_wizard.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_launch_wizard.types.delegated_admin_constraint
@@ -22,13 +23,19 @@ class _AccountConstraint_delegatedAdmin(TypedDict, closed=True):
 
 
 AccountConstraint: TypeAlias = (
-    _AccountConstraint_managementAccount | _AccountConstraint_delegatedAdmin
+    _AccountConstraint_managementAccount
+    | _AccountConstraint_delegatedAdmin
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AccountConstraint) -> dict:
-    if "managementAccount" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AccountConstraint: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "managementAccount" in value:
         import capo_launch_wizard.types.management_account_constraint
 
         return {
@@ -66,4 +73,9 @@ def deserialize_json(data: dict) -> AccountConstraint:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("AccountConstraint: no recognized variant key")

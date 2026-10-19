@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_voice_id import AsyncVoiceIDClient as AsyncVoiceIDClient
 from ._services.voice_id import VoiceIDClient as VoiceIDClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

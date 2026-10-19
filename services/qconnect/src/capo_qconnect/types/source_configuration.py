@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_qconnect.errors import DeserializationError, SerializationError
+from capo_qconnect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_qconnect.types.app_integrations_configuration
@@ -24,12 +25,17 @@ class _SourceConfiguration_managedSourceConfiguration(TypedDict, closed=True):
 SourceConfiguration: TypeAlias = (
     _SourceConfiguration_appIntegrations
     | _SourceConfiguration_managedSourceConfiguration
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SourceConfiguration) -> dict:
-    if "appIntegrations" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"SourceConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "appIntegrations" in value:
         import capo_qconnect.types.app_integrations_configuration
 
         return {
@@ -67,10 +73,17 @@ def deserialize_json(data: dict) -> SourceConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("SourceConfiguration: no recognized variant key")
 
 
-def redact_sensitive(value: SourceConfiguration) -> dict[str, Any]:
+def redact_sensitive(value: SourceConfiguration) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "managedSourceConfiguration" in value:
         import capo_qconnect.types.managed_source_configuration

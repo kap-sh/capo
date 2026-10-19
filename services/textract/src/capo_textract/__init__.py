@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_textract import AsyncTextractClient as AsyncTextractClient
 from ._services.textract import TextractClient as TextractClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

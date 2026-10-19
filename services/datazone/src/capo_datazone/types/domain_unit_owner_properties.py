@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_datazone.errors import DeserializationError, SerializationError
+from capo_datazone.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_datazone.types.domain_unit_group_properties
@@ -20,13 +21,19 @@ class _DomainUnitOwnerProperties_group(TypedDict, closed=True):
 
 
 DomainUnitOwnerProperties: TypeAlias = (
-    _DomainUnitOwnerProperties_user | _DomainUnitOwnerProperties_group
+    _DomainUnitOwnerProperties_user
+    | _DomainUnitOwnerProperties_group
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DomainUnitOwnerProperties) -> dict:
-    if "user" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"DomainUnitOwnerProperties: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "user" in value:
         import capo_datazone.types.domain_unit_user_properties
 
         return {
@@ -64,6 +71,11 @@ def deserialize_json(data: dict) -> DomainUnitOwnerProperties:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "DomainUnitOwnerProperties: no recognized variant key"
         )

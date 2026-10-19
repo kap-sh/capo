@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_connecthealth.errors import DeserializationError, SerializationError
+from capo_connecthealth.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_connecthealth.types.custom_template_response
@@ -26,12 +27,17 @@ class _NoteTemplateSettingsResponse_customTemplate(TypedDict, closed=True):
 NoteTemplateSettingsResponse: TypeAlias = (
     _NoteTemplateSettingsResponse_managedTemplate
     | _NoteTemplateSettingsResponse_customTemplate
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: NoteTemplateSettingsResponse) -> dict:
-    if "managedTemplate" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"NoteTemplateSettingsResponse: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "managedTemplate" in value:
         import capo_connecthealth.types.managed_template_response
 
         return {
@@ -69,6 +75,11 @@ def deserialize_json(data: dict) -> NoteTemplateSettingsResponse:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "NoteTemplateSettingsResponse: no recognized variant key"
         )

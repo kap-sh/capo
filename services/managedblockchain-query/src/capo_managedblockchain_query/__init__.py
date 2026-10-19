@@ -79,3 +79,9 @@ from ._services.async_managed_blockchain_query import (
 from ._services.managed_blockchain_query import (
     ManagedBlockchainQueryClient as ManagedBlockchainQueryClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

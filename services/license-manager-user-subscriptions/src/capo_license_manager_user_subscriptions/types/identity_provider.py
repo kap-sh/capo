@@ -8,6 +8,7 @@ from capo_license_manager_user_subscriptions.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_license_manager_user_subscriptions.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_license_manager_user_subscriptions.types.active_directory_identity_provider
@@ -17,12 +18,18 @@ class _IdentityProvider_ActiveDirectoryIdentityProvider(TypedDict, closed=True):
     ActiveDirectoryIdentityProvider: "capo_license_manager_user_subscriptions.types.active_directory_identity_provider.ActiveDirectoryIdentityProvider"
 
 
-IdentityProvider: TypeAlias = _IdentityProvider_ActiveDirectoryIdentityProvider
+IdentityProvider: TypeAlias = (
+    _IdentityProvider_ActiveDirectoryIdentityProvider | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: IdentityProvider) -> dict:
-    if "ActiveDirectoryIdentityProvider" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"IdentityProvider: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "ActiveDirectoryIdentityProvider" in value:
         import capo_license_manager_user_subscriptions.types.active_directory_identity_provider
 
         return {
@@ -44,4 +51,9 @@ def deserialize_json(data: dict) -> IdentityProvider:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("IdentityProvider: no recognized variant key")

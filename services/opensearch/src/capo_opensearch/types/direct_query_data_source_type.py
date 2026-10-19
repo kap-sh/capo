@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_opensearch.errors import DeserializationError, SerializationError
+from capo_opensearch.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_opensearch.types.cloud_watch_direct_query_data_source
@@ -28,12 +29,17 @@ DirectQueryDataSourceType: TypeAlias = (
     _DirectQueryDataSourceType_CloudWatchLog
     | _DirectQueryDataSourceType_SecurityLake
     | _DirectQueryDataSourceType_Prometheus
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DirectQueryDataSourceType) -> dict:
-    if "CloudWatchLog" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"DirectQueryDataSourceType: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "CloudWatchLog" in value:
         import capo_opensearch.types.cloud_watch_direct_query_data_source
 
         return {
@@ -87,6 +93,11 @@ def deserialize_json(data: dict) -> DirectQueryDataSourceType:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "DirectQueryDataSourceType: no recognized variant key"
         )

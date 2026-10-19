@@ -79,3 +79,9 @@ from ._services.async_connect_participant import (
 from ._services.connect_participant import (
     ConnectParticipantClient as ConnectParticipantClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

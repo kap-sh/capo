@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_scheduler import AsyncSchedulerClient as AsyncSchedulerClient
 from ._services.scheduler import SchedulerClient as SchedulerClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

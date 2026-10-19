@@ -79,3 +79,9 @@ from ._services.async_verified_permissions import (
 from ._services.verified_permissions import (
     VerifiedPermissionsClient as VerifiedPermissionsClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

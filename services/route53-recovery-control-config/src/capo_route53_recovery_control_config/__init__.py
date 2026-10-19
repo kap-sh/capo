@@ -79,3 +79,9 @@ from ._services.async_route53_recovery_control_config import (
 from ._services.route53_recovery_control_config import (
     Route53RecoveryControlConfigClient as Route53RecoveryControlConfigClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

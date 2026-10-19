@@ -6,6 +6,7 @@ from typing_extensions import TypedDict
 
 from capo_iam._protocol.xml import Element
 from capo_iam.errors import DeserializationError, SerializationError
+from capo_iam.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_iam.types.arn_type
@@ -33,6 +34,7 @@ PolicyIdentifier: TypeAlias = (
     _PolicyIdentifier_PolicyType
     | _PolicyIdentifier_PolicyArn
     | _PolicyIdentifier_InlinePolicyIdentifier
+    | UnknownUnionMember
 )
 
 
@@ -40,7 +42,11 @@ PolicyIdentifier: TypeAlias = (
 def serialize_query(
     value: PolicyIdentifier, pairs: list[tuple[str, str]], prefix: str
 ) -> None:
-    if "PolicyType" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"PolicyIdentifier: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "PolicyType" in value:
         import capo_iam.types.policy_identifier_policy_type
 
         capo_iam.types.policy_identifier_policy_type.serialize_query(
@@ -78,4 +84,6 @@ def deserialize_query(el: Element) -> PolicyIdentifier:
                     child
                 )
             }
+        else:
+            return UnknownUnionMember(child.tag)
     raise DeserializationError("PolicyIdentifier: no recognized variant element")

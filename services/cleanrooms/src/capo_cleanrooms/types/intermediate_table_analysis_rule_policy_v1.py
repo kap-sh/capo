@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_cleanrooms.errors import DeserializationError, SerializationError
+from capo_cleanrooms.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_cleanrooms.types.intermediate_table_analysis_rule_custom
@@ -15,13 +16,17 @@ class _IntermediateTableAnalysisRulePolicyV1_custom(TypedDict, closed=True):
 
 
 IntermediateTableAnalysisRulePolicyV1: TypeAlias = (
-    _IntermediateTableAnalysisRulePolicyV1_custom
+    _IntermediateTableAnalysisRulePolicyV1_custom | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: IntermediateTableAnalysisRulePolicyV1) -> dict:
-    if "custom" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"IntermediateTableAnalysisRulePolicyV1: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "custom" in value:
         import capo_cleanrooms.types.intermediate_table_analysis_rule_custom
 
         return {
@@ -45,6 +50,11 @@ def deserialize_json(data: dict) -> IntermediateTableAnalysisRulePolicyV1:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "IntermediateTableAnalysisRulePolicyV1: no recognized variant key"
         )

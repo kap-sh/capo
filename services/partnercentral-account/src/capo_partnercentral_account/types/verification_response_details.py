@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_partnercentral_account.errors import DeserializationError, SerializationError
+from capo_partnercentral_account.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.business_verification_response
@@ -24,12 +25,17 @@ class _VerificationResponseDetails_RegistrantVerificationResponse(
 VerificationResponseDetails: TypeAlias = (
     _VerificationResponseDetails_BusinessVerificationResponse
     | _VerificationResponseDetails_RegistrantVerificationResponse
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: VerificationResponseDetails) -> dict:
-    if "BusinessVerificationResponse" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"VerificationResponseDetails: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "BusinessVerificationResponse" in value:
         import capo_partnercentral_account.types.business_verification_response
 
         return {
@@ -67,12 +73,21 @@ def deserialize_aws_json_1_0(data: dict) -> VerificationResponseDetails:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "VerificationResponseDetails: no recognized variant key"
         )
 
 
-def redact_sensitive(value: VerificationResponseDetails) -> dict[str, Any]:
+def redact_sensitive(
+    value: VerificationResponseDetails,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "BusinessVerificationResponse" in value:
         import capo_partnercentral_account.types.business_verification_response

@@ -79,3 +79,9 @@ from ._services.async_marketplace_entitlement_service import (
 from ._services.marketplace_entitlement_service import (
     MarketplaceEntitlementServiceClient as MarketplaceEntitlementServiceClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

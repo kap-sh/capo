@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_inspector2.errors import DeserializationError, SerializationError
+from capo_inspector2.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_inspector2.types.update_git_hub_integration_detail
@@ -20,13 +21,19 @@ class _UpdateIntegrationDetails_github(TypedDict, closed=True):
 
 
 UpdateIntegrationDetails: TypeAlias = (
-    _UpdateIntegrationDetails_gitlabSelfManaged | _UpdateIntegrationDetails_github
+    _UpdateIntegrationDetails_gitlabSelfManaged
+    | _UpdateIntegrationDetails_github
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: UpdateIntegrationDetails) -> dict:
-    if "gitlabSelfManaged" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"UpdateIntegrationDetails: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "gitlabSelfManaged" in value:
         import capo_inspector2.types.update_git_lab_self_managed_integration_detail
 
         return {
@@ -64,12 +71,21 @@ def deserialize_json(data: dict) -> UpdateIntegrationDetails:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "UpdateIntegrationDetails: no recognized variant key"
         )
 
 
-def redact_sensitive(value: UpdateIntegrationDetails) -> dict[str, Any]:
+def redact_sensitive(
+    value: UpdateIntegrationDetails,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "gitlabSelfManaged" in value:
         import capo_inspector2.types.update_git_lab_self_managed_integration_detail

@@ -77,3 +77,9 @@ from ._services.async_roles_anywhere import (
     AsyncRolesAnywhereClient as AsyncRolesAnywhereClient,
 )
 from ._services.roles_anywhere import RolesAnywhereClient as RolesAnywhereClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

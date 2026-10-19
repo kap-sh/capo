@@ -77,3 +77,9 @@ from ._services.async_resiliencehubv2 import (
     Asyncresiliencehubv2Client as Asyncresiliencehubv2Client,
 )
 from ._services.resiliencehubv2 import resiliencehubv2Client as resiliencehubv2Client
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

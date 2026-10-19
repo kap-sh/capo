@@ -77,3 +77,9 @@ from ._services.async_media_tailor import (
     AsyncMediaTailorClient as AsyncMediaTailorClient,
 )
 from ._services.media_tailor import MediaTailorClient as MediaTailorClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

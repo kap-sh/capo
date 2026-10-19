@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_transfer import AsyncTransferClient as AsyncTransferClient
 from ._services.transfer import TransferClient as TransferClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

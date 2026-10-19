@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_sagemaker_geospatial.errors import DeserializationError, SerializationError
+from capo_sagemaker_geospatial.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_sagemaker_geospatial.types.multi_polygon_geometry_input
@@ -24,12 +25,17 @@ class _AreaOfInterestGeometry_MultiPolygonGeometry(TypedDict, closed=True):
 AreaOfInterestGeometry: TypeAlias = (
     _AreaOfInterestGeometry_PolygonGeometry
     | _AreaOfInterestGeometry_MultiPolygonGeometry
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AreaOfInterestGeometry) -> dict:
-    if "PolygonGeometry" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AreaOfInterestGeometry: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "PolygonGeometry" in value:
         import capo_sagemaker_geospatial.types.polygon_geometry_input
 
         return {
@@ -67,10 +73,19 @@ def deserialize_json(data: dict) -> AreaOfInterestGeometry:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("AreaOfInterestGeometry: no recognized variant key")
 
 
-def redact_sensitive(value: AreaOfInterestGeometry) -> dict[str, Any]:
+def redact_sensitive(
+    value: AreaOfInterestGeometry,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "PolygonGeometry" in value:
         import capo_sagemaker_geospatial.types.polygon_geometry_input

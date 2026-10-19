@@ -77,3 +77,9 @@ from ._services.async_cost_explorer import (
     AsyncCostExplorerClient as AsyncCostExplorerClient,
 )
 from ._services.cost_explorer import CostExplorerClient as CostExplorerClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

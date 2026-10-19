@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_macie2 import AsyncMacie2Client as AsyncMacie2Client
 from ._services.macie2 import Macie2Client as Macie2Client
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

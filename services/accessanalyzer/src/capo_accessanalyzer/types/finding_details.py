@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_accessanalyzer.errors import DeserializationError, SerializationError
+from capo_accessanalyzer.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.external_access_details
@@ -54,12 +55,17 @@ FindingDetails: TypeAlias = (
     | _FindingDetails_unusedIamUserAccessKeyDetails
     | _FindingDetails_unusedIamRoleDetails
     | _FindingDetails_unusedIamUserPasswordDetails
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: FindingDetails) -> dict:
-    if "internalAccessDetails" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"FindingDetails: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "internalAccessDetails" in value:
         import capo_accessanalyzer.types.internal_access_details
 
         return {
@@ -161,4 +167,9 @@ def deserialize_json(data: dict) -> FindingDetails:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("FindingDetails: no recognized variant key")

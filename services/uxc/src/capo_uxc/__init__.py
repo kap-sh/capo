@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_uxc import AsyncuxcClient as AsyncuxcClient
 from ._services.uxc import uxcClient as uxcClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -77,3 +77,9 @@ from ._services.async_security_agent import (
     AsyncSecurityAgentClient as AsyncSecurityAgentClient,
 )
 from ._services.security_agent import SecurityAgentClient as SecurityAgentClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

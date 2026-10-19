@@ -77,3 +77,9 @@ from ._services.async_savingsplans import (
     AsyncsavingsplansClient as AsyncsavingsplansClient,
 )
 from ._services.savingsplans import savingsplansClient as savingsplansClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

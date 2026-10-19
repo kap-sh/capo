@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_amp.errors import DeserializationError, SerializationError
+from capo_amp.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_amp.types.random_cut_forest_configuration
@@ -16,12 +17,18 @@ class _AnomalyDetectorConfiguration_randomCutForest(TypedDict, closed=True):
     )
 
 
-AnomalyDetectorConfiguration: TypeAlias = _AnomalyDetectorConfiguration_randomCutForest
+AnomalyDetectorConfiguration: TypeAlias = (
+    _AnomalyDetectorConfiguration_randomCutForest | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AnomalyDetectorConfiguration) -> dict:
-    if "randomCutForest" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AnomalyDetectorConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "randomCutForest" in value:
         import capo_amp.types.random_cut_forest_configuration
 
         return {
@@ -43,6 +50,11 @@ def deserialize_json(data: dict) -> AnomalyDetectorConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "AnomalyDetectorConfiguration: no recognized variant key"
         )

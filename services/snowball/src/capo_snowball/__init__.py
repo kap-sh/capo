@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_snowball import AsyncSnowballClient as AsyncSnowballClient
 from ._services.snowball import SnowballClient as SnowballClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

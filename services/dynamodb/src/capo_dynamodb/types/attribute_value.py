@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_dynamodb.errors import DeserializationError, SerializationError
+from capo_dynamodb.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_dynamodb.types.binary_attribute_value
@@ -70,12 +71,17 @@ AttributeValue: TypeAlias = (
     | _AttributeValue_L
     | _AttributeValue_NULL
     | _AttributeValue_BOOL
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: AttributeValue) -> dict:
-    if "S" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AttributeValue: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "S" in value:
         return {"S": value["S"]}
     elif "N" in value:
         return {"N": value["N"]}
@@ -193,4 +199,9 @@ def deserialize_aws_json_1_0(data: dict) -> AttributeValue:
     elif data.get("BOOL") is not None:
         return {"BOOL": data["BOOL"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("AttributeValue: no recognized variant key")

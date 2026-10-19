@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_app_mesh.errors import DeserializationError, SerializationError
+from capo_app_mesh.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_app_mesh.types.listener_tls_acm_certificate
@@ -28,12 +29,17 @@ ListenerTlsCertificate: TypeAlias = (
     _ListenerTlsCertificate_acm
     | _ListenerTlsCertificate_file
     | _ListenerTlsCertificate_sds
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ListenerTlsCertificate) -> dict:
-    if "acm" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ListenerTlsCertificate: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "acm" in value:
         import capo_app_mesh.types.listener_tls_acm_certificate
 
         return {
@@ -87,4 +93,9 @@ def deserialize_json(data: dict) -> ListenerTlsCertificate:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ListenerTlsCertificate: no recognized variant key")

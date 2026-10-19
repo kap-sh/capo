@@ -79,3 +79,9 @@ from ._services.async_directory_service_data import (
 from ._services.directory_service_data import (
     DirectoryServiceDataClient as DirectoryServiceDataClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

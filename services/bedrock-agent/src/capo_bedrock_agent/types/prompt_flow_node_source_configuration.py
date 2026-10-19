@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agent.errors import DeserializationError, SerializationError
+from capo_bedrock_agent.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.prompt_flow_node_inline_configuration
@@ -22,12 +23,17 @@ class _PromptFlowNodeSourceConfiguration_inline(TypedDict, closed=True):
 PromptFlowNodeSourceConfiguration: TypeAlias = (
     _PromptFlowNodeSourceConfiguration_resource
     | _PromptFlowNodeSourceConfiguration_inline
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PromptFlowNodeSourceConfiguration) -> dict:
-    if "resource" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"PromptFlowNodeSourceConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "resource" in value:
         import capo_bedrock_agent.types.prompt_flow_node_resource_configuration
 
         return {
@@ -67,12 +73,21 @@ def deserialize_json(data: dict) -> PromptFlowNodeSourceConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "PromptFlowNodeSourceConfiguration: no recognized variant key"
         )
 
 
-def redact_sensitive(value: PromptFlowNodeSourceConfiguration) -> dict[str, Any]:
+def redact_sensitive(
+    value: PromptFlowNodeSourceConfiguration,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "inline" in value:
         import capo_bedrock_agent.types.prompt_flow_node_inline_configuration

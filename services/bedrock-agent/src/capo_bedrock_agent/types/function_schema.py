@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agent.errors import DeserializationError, SerializationError
+from capo_bedrock_agent.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.functions
@@ -14,12 +15,16 @@ class _FunctionSchema_functions(TypedDict, closed=True):
     functions: "capo_bedrock_agent.types.functions.Functions"
 
 
-FunctionSchema: TypeAlias = _FunctionSchema_functions
+FunctionSchema: TypeAlias = _FunctionSchema_functions | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: FunctionSchema) -> dict:
-    if "functions" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"FunctionSchema: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "functions" in value:
         import capo_bedrock_agent.types.functions
 
         return {
@@ -41,4 +46,9 @@ def deserialize_json(data: dict) -> FunctionSchema:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("FunctionSchema: no recognized variant key")

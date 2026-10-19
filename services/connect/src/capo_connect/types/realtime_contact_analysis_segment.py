@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_connect.errors import DeserializationError, SerializationError
+from capo_connect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_connect.types.real_time_contact_analysis_segment_attachments
@@ -52,12 +53,17 @@ RealtimeContactAnalysisSegment: TypeAlias = (
     | _RealtimeContactAnalysisSegment_Attachments
     | _RealtimeContactAnalysisSegment_PostContactSummary
     | _RealtimeContactAnalysisSegment_ExtractedInformation
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RealtimeContactAnalysisSegment) -> dict:
-    if "Transcript" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RealtimeContactAnalysisSegment: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "Transcript" in value:
         import capo_connect.types.real_time_contact_analysis_segment_transcript
 
         return {
@@ -175,6 +181,11 @@ def deserialize_json(data: dict) -> RealtimeContactAnalysisSegment:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "RealtimeContactAnalysisSegment: no recognized variant key"
         )

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_lakeformation.errors import DeserializationError, SerializationError
+from capo_lakeformation.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_lakeformation.types.redshift_service_integrations
@@ -14,12 +15,18 @@ class _ServiceIntegrationUnion_Redshift(TypedDict, closed=True):
     Redshift: "capo_lakeformation.types.redshift_service_integrations.RedshiftServiceIntegrations"
 
 
-ServiceIntegrationUnion: TypeAlias = _ServiceIntegrationUnion_Redshift
+ServiceIntegrationUnion: TypeAlias = (
+    _ServiceIntegrationUnion_Redshift | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ServiceIntegrationUnion) -> dict:
-    if "Redshift" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ServiceIntegrationUnion: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "Redshift" in value:
         import capo_lakeformation.types.redshift_service_integrations
 
         return {
@@ -41,4 +48,9 @@ def deserialize_json(data: dict) -> ServiceIntegrationUnion:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ServiceIntegrationUnion: no recognized variant key")

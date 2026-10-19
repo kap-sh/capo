@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_verifiedpermissions.errors import DeserializationError, SerializationError
+from capo_verifiedpermissions.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.cedar_json
@@ -20,13 +21,17 @@ class _ContextDefinition_cedarJson(TypedDict, closed=True):
 
 
 ContextDefinition: TypeAlias = (
-    _ContextDefinition_contextMap | _ContextDefinition_cedarJson
+    _ContextDefinition_contextMap | _ContextDefinition_cedarJson | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: ContextDefinition) -> dict:
-    if "contextMap" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ContextDefinition: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "contextMap" in value:
         import capo_verifiedpermissions.types.context_map
 
         return {
@@ -52,10 +57,17 @@ def deserialize_aws_json_1_0(data: dict) -> ContextDefinition:
     elif data.get("cedarJson") is not None:
         return {"cedarJson": data["cedarJson"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ContextDefinition: no recognized variant key")
 
 
-def redact_sensitive(value: ContextDefinition) -> dict[str, Any]:
+def redact_sensitive(value: ContextDefinition) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "contextMap" in value:
         out["contextMap"] = "*** Sensitive Data Redacted ***"

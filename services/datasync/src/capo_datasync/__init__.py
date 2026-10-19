@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_data_sync import AsyncDataSyncClient as AsyncDataSyncClient
 from ._services.data_sync import DataSyncClient as DataSyncClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

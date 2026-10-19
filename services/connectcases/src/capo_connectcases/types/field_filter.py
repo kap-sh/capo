@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_connectcases.errors import DeserializationError, SerializationError
+from capo_connectcases.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_connectcases.types.field_value
@@ -41,12 +42,17 @@ FieldFilter: TypeAlias = (
     | _FieldFilter_greaterThanOrEqualTo
     | _FieldFilter_lessThan
     | _FieldFilter_lessThanOrEqualTo
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: FieldFilter) -> dict:
-    if "equalTo" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"FieldFilter: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "equalTo" in value:
         import capo_connectcases.types.field_value
 
         return {
@@ -148,4 +154,9 @@ def deserialize_json(data: dict) -> FieldFilter:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("FieldFilter: no recognized variant key")

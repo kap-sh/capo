@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_iot.errors import DeserializationError, SerializationError
+from capo_iot.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_iot.types.asset_property_boolean_value
@@ -38,12 +39,17 @@ AssetPropertyVariant: TypeAlias = (
     | _AssetPropertyVariant_integerValue
     | _AssetPropertyVariant_doubleValue
     | _AssetPropertyVariant_booleanValue
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AssetPropertyVariant) -> dict:
-    if "stringValue" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AssetPropertyVariant: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "stringValue" in value:
         return {"stringValue": value["stringValue"]}
     elif "integerValue" in value:
         return {"integerValue": value["integerValue"]}
@@ -65,4 +71,9 @@ def deserialize_json(data: dict) -> AssetPropertyVariant:
     elif data.get("booleanValue") is not None:
         return {"booleanValue": data["booleanValue"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("AssetPropertyVariant: no recognized variant key")

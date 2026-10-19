@@ -10,6 +10,7 @@ from capo_lex_runtime_v2._protocol.eventstream import Message
 from capo_lex_runtime_v2.errors import (
     UnknownServiceError,
 )
+from capo_lex_runtime_v2.types._unknown import UnknownEvent
 
 if TYPE_CHECKING:
     import capo_lex_runtime_v2.errors.access_denied_exception
@@ -123,6 +124,7 @@ _StartConversationResponseEventStream: TypeAlias = (
     | _StartConversationResponseEventStream_ConflictException
     | _StartConversationResponseEventStream_DependencyFailedException
     | _StartConversationResponseEventStream_BadGatewayException
+    | UnknownEvent
 )
 StartConversationResponseEventStream: TypeAlias = AnyIterator[
     _StartConversationResponseEventStream
@@ -130,6 +132,10 @@ StartConversationResponseEventStream: TypeAlias = AnyIterator[
 
 
 def serialize_event_json(value: _StartConversationResponseEventStream) -> bytes:
+    if isinstance(value, UnknownEvent):
+        raise ValueError(
+            f"StartConversationResponseEventStream: cannot serialize unknown event {value.event_type!r}"
+        )
     match value:
         case {"PlaybackInterruptionEvent": payload}:
             import capo_lex_runtime_v2.types.playback_interruption_event
@@ -366,6 +372,8 @@ def deserialize_event_json(
                     message
                 )
             }
+        case str():
+            return UnknownEvent(event_type, message)
         case _:
             raise ValueError(
                 f"StartConversationResponseEventStream: unrecognized event-type {event_type!r}"

@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.api_gateway import APIGatewayClient as APIGatewayClient
 from ._services.async_api_gateway import AsyncAPIGatewayClient as AsyncAPIGatewayClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

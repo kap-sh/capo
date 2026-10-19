@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_resiliencehubv2.errors import DeserializationError, SerializationError
+from capo_resiliencehubv2.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.s3_report_output_configuration
@@ -14,12 +15,18 @@ class _ReportOutputConfiguration_s3(TypedDict, closed=True):
     s3: "capo_resiliencehubv2.types.s3_report_output_configuration.S3ReportOutputConfiguration"
 
 
-ReportOutputConfiguration: TypeAlias = _ReportOutputConfiguration_s3
+ReportOutputConfiguration: TypeAlias = (
+    _ReportOutputConfiguration_s3 | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ReportOutputConfiguration) -> dict:
-    if "s3" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ReportOutputConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "s3" in value:
         import capo_resiliencehubv2.types.s3_report_output_configuration
 
         return {
@@ -41,6 +48,11 @@ def deserialize_json(data: dict) -> ReportOutputConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "ReportOutputConfiguration: no recognized variant key"
         )

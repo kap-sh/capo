@@ -77,3 +77,9 @@ from ._services.async_work_spaces_web import (
     AsyncWorkSpacesWebClient as AsyncWorkSpacesWebClient,
 )
 from ._services.work_spaces_web import WorkSpacesWebClient as WorkSpacesWebClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

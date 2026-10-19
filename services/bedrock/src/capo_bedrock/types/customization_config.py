@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock.errors import DeserializationError, SerializationError
+from capo_bedrock.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock.types.distillation_config
@@ -20,13 +21,19 @@ class _CustomizationConfig_rftConfig(TypedDict, closed=True):
 
 
 CustomizationConfig: TypeAlias = (
-    _CustomizationConfig_distillationConfig | _CustomizationConfig_rftConfig
+    _CustomizationConfig_distillationConfig
+    | _CustomizationConfig_rftConfig
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CustomizationConfig) -> dict:
-    if "distillationConfig" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"CustomizationConfig: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "distillationConfig" in value:
         import capo_bedrock.types.distillation_config
 
         return {
@@ -64,4 +71,9 @@ def deserialize_json(data: dict) -> CustomizationConfig:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("CustomizationConfig: no recognized variant key")

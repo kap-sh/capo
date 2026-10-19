@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_open_search import AsyncOpenSearchClient as AsyncOpenSearchClient
 from ._services.open_search import OpenSearchClient as OpenSearchClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock.errors import DeserializationError, SerializationError
+from capo_bedrock.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_evaluation_config
@@ -21,12 +22,18 @@ class _EvaluationConfig_human(TypedDict, closed=True):
     human: "capo_bedrock.types.human_evaluation_config.HumanEvaluationConfig"
 
 
-EvaluationConfig: TypeAlias = _EvaluationConfig_automated | _EvaluationConfig_human
+EvaluationConfig: TypeAlias = (
+    _EvaluationConfig_automated | _EvaluationConfig_human | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: EvaluationConfig) -> dict:
-    if "automated" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"EvaluationConfig: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "automated" in value:
         import capo_bedrock.types.automated_evaluation_config
 
         return {
@@ -64,10 +71,17 @@ def deserialize_json(data: dict) -> EvaluationConfig:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("EvaluationConfig: no recognized variant key")
 
 
-def redact_sensitive(value: EvaluationConfig) -> dict[str, Any]:
+def redact_sensitive(value: EvaluationConfig) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "automated" in value:
         import capo_bedrock.types.automated_evaluation_config

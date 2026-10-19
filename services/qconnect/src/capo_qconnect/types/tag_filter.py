@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_qconnect.errors import DeserializationError, SerializationError
+from capo_qconnect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_qconnect.types.and_conditions
@@ -25,13 +26,20 @@ class _TagFilter_orConditions(TypedDict, closed=True):
 
 
 TagFilter: TypeAlias = (
-    _TagFilter_tagCondition | _TagFilter_andConditions | _TagFilter_orConditions
+    _TagFilter_tagCondition
+    | _TagFilter_andConditions
+    | _TagFilter_orConditions
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: TagFilter) -> dict:
-    if "tagCondition" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"TagFilter: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "tagCondition" in value:
         import capo_qconnect.types.tag_condition
 
         return {
@@ -85,4 +93,9 @@ def deserialize_json(data: dict) -> TagFilter:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("TagFilter: no recognized variant key")

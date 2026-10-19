@@ -8,6 +8,7 @@ from capo_network_security_manager.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_network_security_manager.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_network_security_manager.types.resource_criteria
@@ -46,12 +47,17 @@ ResourceLogicalExpression: TypeAlias = (
     | _ResourceLogicalExpression_and
     | _ResourceLogicalExpression_or
     | _ResourceLogicalExpression_not
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ResourceLogicalExpression) -> dict:
-    if "criteria" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ResourceLogicalExpression: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "criteria" in value:
         import capo_network_security_manager.types.resource_criteria
 
         return {
@@ -121,6 +127,11 @@ def deserialize_json(data: dict) -> ResourceLogicalExpression:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "ResourceLogicalExpression: no recognized variant key"
         )

@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.managed_vpc_resource
@@ -25,13 +26,19 @@ class _PrivateEndpoint_managedVpcResource(TypedDict, closed=True):
 
 
 PrivateEndpoint: TypeAlias = (
-    _PrivateEndpoint_selfManagedLatticeResource | _PrivateEndpoint_managedVpcResource
+    _PrivateEndpoint_selfManagedLatticeResource
+    | _PrivateEndpoint_managedVpcResource
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PrivateEndpoint) -> dict:
-    if "selfManagedLatticeResource" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"PrivateEndpoint: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "selfManagedLatticeResource" in value:
         import capo_bedrock_agentcore_control.types.self_managed_lattice_resource
 
         return {
@@ -69,4 +76,9 @@ def deserialize_json(data: dict) -> PrivateEndpoint:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("PrivateEndpoint: no recognized variant key")

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_marketplace_agreement.errors import DeserializationError, SerializationError
+from capo_marketplace_agreement.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_marketplace_agreement.types.payment_schedule_term_template
@@ -14,12 +15,16 @@ class _TermTemplate_paymentScheduleTermTemplate(TypedDict, closed=True):
     paymentScheduleTermTemplate: "capo_marketplace_agreement.types.payment_schedule_term_template.PaymentScheduleTermTemplate"
 
 
-TermTemplate: TypeAlias = _TermTemplate_paymentScheduleTermTemplate
+TermTemplate: TypeAlias = _TermTemplate_paymentScheduleTermTemplate | UnknownUnionMember
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: TermTemplate) -> dict:
-    if "paymentScheduleTermTemplate" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"TermTemplate: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "paymentScheduleTermTemplate" in value:
         import capo_marketplace_agreement.types.payment_schedule_term_template
 
         return {
@@ -41,4 +46,9 @@ def deserialize_aws_json_1_0(data: dict) -> TermTemplate:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("TermTemplate: no recognized variant key")

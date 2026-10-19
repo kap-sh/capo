@@ -79,3 +79,9 @@ from ._services.async_code_guru_reviewer import (
 from ._services.code_guru_reviewer import (
     CodeGuruReviewerClient as CodeGuruReviewerClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

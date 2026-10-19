@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_dev_ops_guru import AsyncDevOpsGuruClient as AsyncDevOpsGuruClient
 from ._services.dev_ops_guru import DevOpsGuruClient as DevOpsGuruClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

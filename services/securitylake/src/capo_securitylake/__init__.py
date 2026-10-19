@@ -77,3 +77,9 @@ from ._services.async_security_lake import (
     AsyncSecurityLakeClient as AsyncSecurityLakeClient,
 )
 from ._services.security_lake import SecurityLakeClient as SecurityLakeClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

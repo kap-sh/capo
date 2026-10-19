@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agent_runtime.errors import DeserializationError, SerializationError
+from capo_bedrock_agent_runtime.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import datetime
@@ -34,12 +35,17 @@ AgenticRetrieveMemoryMetadataValue: TypeAlias = (
     | _AgenticRetrieveMemoryMetadataValue_numberValue
     | _AgenticRetrieveMemoryMetadataValue_stringListValue
     | _AgenticRetrieveMemoryMetadataValue_dateTimeValue
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AgenticRetrieveMemoryMetadataValue) -> dict:
-    if "stringValue" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AgenticRetrieveMemoryMetadataValue: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "stringValue" in value:
         return {"stringValue": value["stringValue"]}
     elif "numberValue" in value:
         return {
@@ -97,6 +103,11 @@ def deserialize_json(data: dict) -> AgenticRetrieveMemoryMetadataValue:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "AgenticRetrieveMemoryMetadataValue: no recognized variant key"
         )

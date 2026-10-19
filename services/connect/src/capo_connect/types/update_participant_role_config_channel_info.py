@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_connect.errors import DeserializationError, SerializationError
+from capo_connect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_connect.types.chat_participant_role_config
@@ -15,13 +16,17 @@ class _UpdateParticipantRoleConfigChannelInfo_Chat(TypedDict, closed=True):
 
 
 UpdateParticipantRoleConfigChannelInfo: TypeAlias = (
-    _UpdateParticipantRoleConfigChannelInfo_Chat
+    _UpdateParticipantRoleConfigChannelInfo_Chat | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: UpdateParticipantRoleConfigChannelInfo) -> dict:
-    if "Chat" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"UpdateParticipantRoleConfigChannelInfo: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "Chat" in value:
         import capo_connect.types.chat_participant_role_config
 
         return {
@@ -45,6 +50,11 @@ def deserialize_json(data: dict) -> UpdateParticipantRoleConfigChannelInfo:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "UpdateParticipantRoleConfigChannelInfo: no recognized variant key"
         )

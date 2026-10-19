@@ -8,6 +8,7 @@ from capo_network_security_manager.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_network_security_manager.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_network_security_manager.types.invalid_firewall_reasons
@@ -22,13 +23,19 @@ class _FirewallSyncReason_invalidFirewall(TypedDict, closed=True):
 
 
 FirewallSyncReason: TypeAlias = (
-    _FirewallSyncReason_missingFirewall | _FirewallSyncReason_invalidFirewall
+    _FirewallSyncReason_missingFirewall
+    | _FirewallSyncReason_invalidFirewall
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: FirewallSyncReason) -> dict:
-    if "missingFirewall" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"FirewallSyncReason: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "missingFirewall" in value:
         return {"missingFirewall": value["missingFirewall"]}
     elif "invalidFirewall" in value:
         import capo_network_security_manager.types.invalid_firewall_reasons
@@ -54,4 +61,9 @@ def deserialize_json(data: dict) -> FirewallSyncReason:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("FirewallSyncReason: no recognized variant key")

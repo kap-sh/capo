@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_cloud_hsmv2 import AsyncCloudHSMV2Client as AsyncCloudHSMV2Client
 from ._services.cloud_hsmv2 import CloudHSMV2Client as CloudHSMV2Client
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

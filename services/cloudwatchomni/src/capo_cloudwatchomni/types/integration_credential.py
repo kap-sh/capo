@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_cloudwatchomni.errors import DeserializationError, SerializationError
+from capo_cloudwatchomni.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_cloudwatchomni.types.api_key_credential
@@ -32,12 +33,17 @@ IntegrationCredential: TypeAlias = (
     _IntegrationCredential_oauthCodeCredential
     | _IntegrationCredential_oauthClientCredential
     | _IntegrationCredential_apiKeyCredential
+    | UnknownUnionMember
 )
 
 
 # --- rpcv2Cbor ser/de ---
 def serialize_cbor(value: IntegrationCredential) -> dict:
-    if "oauthCodeCredential" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"IntegrationCredential: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "oauthCodeCredential" in value:
         import capo_cloudwatchomni.types.o_auth_code_credential
 
         return {
@@ -91,10 +97,19 @@ def deserialize_cbor(data: dict) -> IntegrationCredential:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("IntegrationCredential: no recognized variant key")
 
 
-def redact_sensitive(value: IntegrationCredential) -> dict[str, Any]:
+def redact_sensitive(
+    value: IntegrationCredential,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "oauthCodeCredential" in value:
         out["oauthCodeCredential"] = "*** Sensitive Data Redacted ***"

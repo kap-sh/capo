@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_quicksight.errors import DeserializationError, SerializationError
+from capo_quicksight.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_quicksight.types.string
@@ -18,12 +19,18 @@ class _ImageSource_S3Uri(TypedDict, closed=True):
     S3Uri: "capo_quicksight.types.string.String"
 
 
-ImageSource: TypeAlias = _ImageSource_PublicUrl | _ImageSource_S3Uri
+ImageSource: TypeAlias = (
+    _ImageSource_PublicUrl | _ImageSource_S3Uri | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ImageSource) -> dict:
-    if "PublicUrl" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ImageSource: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "PublicUrl" in value:
         return {"PublicUrl": value["PublicUrl"]}
     elif "S3Uri" in value:
         return {"S3Uri": value["S3Uri"]}
@@ -37,4 +44,9 @@ def deserialize_json(data: dict) -> ImageSource:
     elif data.get("S3Uri") is not None:
         return {"S3Uri": data["S3Uri"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ImageSource: no recognized variant key")

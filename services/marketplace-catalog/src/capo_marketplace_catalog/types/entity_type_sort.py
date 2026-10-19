@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_marketplace_catalog.errors import DeserializationError, SerializationError
+from capo_marketplace_catalog.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_marketplace_catalog.types.ami_product_sort
@@ -60,12 +61,17 @@ EntityTypeSort: TypeAlias = (
     | _EntityTypeSort_ResaleAuthorizationSort
     | _EntityTypeSort_MachineLearningProductSort
     | _EntityTypeSort_OfferSetSort
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: EntityTypeSort) -> dict:
-    if "DataProductSort" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"EntityTypeSort: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "DataProductSort" in value:
         import capo_marketplace_catalog.types.data_product_sort
 
         return {
@@ -199,4 +205,9 @@ def deserialize_json(data: dict) -> EntityTypeSort:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("EntityTypeSort: no recognized variant key")

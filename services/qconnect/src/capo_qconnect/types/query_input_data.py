@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_qconnect.errors import DeserializationError, SerializationError
+from capo_qconnect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_qconnect.types.case_summarization_input_data
@@ -30,12 +31,17 @@ QueryInputData: TypeAlias = (
     _QueryInputData_queryTextInputData
     | _QueryInputData_intentInputData
     | _QueryInputData_caseSummarizationInputData
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: QueryInputData) -> dict:
-    if "queryTextInputData" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"QueryInputData: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "queryTextInputData" in value:
         import capo_qconnect.types.query_text_input_data
 
         return {
@@ -89,10 +95,17 @@ def deserialize_json(data: dict) -> QueryInputData:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("QueryInputData: no recognized variant key")
 
 
-def redact_sensitive(value: QueryInputData) -> dict[str, Any]:
+def redact_sensitive(value: QueryInputData) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "queryTextInputData" in value:
         import capo_qconnect.types.query_text_input_data

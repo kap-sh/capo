@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_runtime.errors import DeserializationError, SerializationError
+from capo_bedrock_runtime.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.s3_location
@@ -18,12 +19,18 @@ class _ImageSource_s3Location(TypedDict, closed=True):
     s3Location: "capo_bedrock_runtime.types.s3_location.S3Location"
 
 
-ImageSource: TypeAlias = _ImageSource_bytes | _ImageSource_s3Location
+ImageSource: TypeAlias = (
+    _ImageSource_bytes | _ImageSource_s3Location | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ImageSource) -> dict:
-    if "bytes" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ImageSource: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "bytes" in value:
         import capo_bedrock_runtime.types._prelude.blob
 
         return {
@@ -61,4 +68,9 @@ def deserialize_json(data: dict) -> ImageSource:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ImageSource: no recognized variant key")

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_sagemaker_geospatial.errors import DeserializationError, SerializationError
+from capo_sagemaker_geospatial.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_sagemaker_geospatial.types.band_math_config_input
@@ -70,12 +71,17 @@ JobConfigInput: TypeAlias = (
     | _JobConfigInput_StackConfig
     | _JobConfigInput_CloudMaskingConfig
     | _JobConfigInput_LandCoverSegmentationConfig
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: JobConfigInput) -> dict:
-    if "BandMathConfig" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"JobConfigInput: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "BandMathConfig" in value:
         import capo_sagemaker_geospatial.types.band_math_config_input
 
         return {
@@ -225,4 +231,9 @@ def deserialize_json(data: dict) -> JobConfigInput:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("JobConfigInput: no recognized variant key")

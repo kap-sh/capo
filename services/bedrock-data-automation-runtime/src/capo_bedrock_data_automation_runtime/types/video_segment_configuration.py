@@ -8,6 +8,7 @@ from capo_bedrock_data_automation_runtime.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_data_automation_runtime.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_data_automation_runtime.types.timestamp_segment
@@ -19,12 +20,18 @@ class _VideoSegmentConfiguration_timestampSegment(TypedDict, closed=True):
     )
 
 
-VideoSegmentConfiguration: TypeAlias = _VideoSegmentConfiguration_timestampSegment
+VideoSegmentConfiguration: TypeAlias = (
+    _VideoSegmentConfiguration_timestampSegment | UnknownUnionMember
+)
 
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: VideoSegmentConfiguration) -> dict:
-    if "timestampSegment" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"VideoSegmentConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "timestampSegment" in value:
         import capo_bedrock_data_automation_runtime.types.timestamp_segment
 
         return {
@@ -46,6 +53,11 @@ def deserialize_aws_json_1_1(data: dict) -> VideoSegmentConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "VideoSegmentConfiguration: no recognized variant key"
         )

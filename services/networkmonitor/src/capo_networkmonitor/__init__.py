@@ -77,3 +77,9 @@ from ._services.async_network_monitor import (
     AsyncNetworkMonitorClient as AsyncNetworkMonitorClient,
 )
 from ._services.network_monitor import NetworkMonitorClient as NetworkMonitorClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

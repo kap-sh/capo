@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 
 class _FilterValue_stringValue(TypedDict, closed=True):
@@ -23,13 +24,20 @@ class _FilterValue_booleanValue(TypedDict, closed=True):
 
 
 FilterValue: TypeAlias = (
-    _FilterValue_stringValue | _FilterValue_doubleValue | _FilterValue_booleanValue
+    _FilterValue_stringValue
+    | _FilterValue_doubleValue
+    | _FilterValue_booleanValue
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: FilterValue) -> dict:
-    if "stringValue" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"FilterValue: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "stringValue" in value:
         return {"stringValue": value["stringValue"]}
     elif "doubleValue" in value:
         return {
@@ -57,4 +65,9 @@ def deserialize_json(data: dict) -> FilterValue:
     elif data.get("booleanValue") is not None:
         return {"booleanValue": data["booleanValue"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("FilterValue: no recognized variant key")

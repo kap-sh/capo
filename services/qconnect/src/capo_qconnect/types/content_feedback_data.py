@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_qconnect.errors import DeserializationError, SerializationError
+from capo_qconnect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_qconnect.types.generative_content_feedback_data
@@ -14,12 +15,18 @@ class _ContentFeedbackData_generativeContentFeedbackData(TypedDict, closed=True)
     generativeContentFeedbackData: "capo_qconnect.types.generative_content_feedback_data.GenerativeContentFeedbackData"
 
 
-ContentFeedbackData: TypeAlias = _ContentFeedbackData_generativeContentFeedbackData
+ContentFeedbackData: TypeAlias = (
+    _ContentFeedbackData_generativeContentFeedbackData | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ContentFeedbackData) -> dict:
-    if "generativeContentFeedbackData" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ContentFeedbackData: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "generativeContentFeedbackData" in value:
         import capo_qconnect.types.generative_content_feedback_data
 
         return {
@@ -41,4 +48,9 @@ def deserialize_json(data: dict) -> ContentFeedbackData:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ContentFeedbackData: no recognized variant key")

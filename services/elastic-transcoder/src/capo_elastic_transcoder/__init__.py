@@ -79,3 +79,9 @@ from ._services.async_elastic_transcoder import (
 from ._services.elastic_transcoder import (
     ElasticTranscoderClient as ElasticTranscoderClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

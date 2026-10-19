@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_sso_admin.errors import DeserializationError, SerializationError
+from capo_sso_admin.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_sso_admin.types.oidc_jwt_configuration
@@ -17,13 +18,17 @@ class _TrustedTokenIssuerConfiguration_OidcJwtConfiguration(TypedDict, closed=Tr
 
 
 TrustedTokenIssuerConfiguration: TypeAlias = (
-    _TrustedTokenIssuerConfiguration_OidcJwtConfiguration
+    _TrustedTokenIssuerConfiguration_OidcJwtConfiguration | UnknownUnionMember
 )
 
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: TrustedTokenIssuerConfiguration) -> dict:
-    if "OidcJwtConfiguration" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"TrustedTokenIssuerConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "OidcJwtConfiguration" in value:
         import capo_sso_admin.types.oidc_jwt_configuration
 
         return {
@@ -45,6 +50,11 @@ def deserialize_aws_json_1_1(data: dict) -> TrustedTokenIssuerConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "TrustedTokenIssuerConfiguration: no recognized variant key"
         )

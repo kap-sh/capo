@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_pca_connector_ad.errors import DeserializationError, SerializationError
+from capo_pca_connector_ad.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_pca_connector_ad.types.application_policy_type
@@ -24,13 +25,19 @@ class _ApplicationPolicy_PolicyObjectIdentifier(TypedDict, closed=True):
 
 
 ApplicationPolicy: TypeAlias = (
-    _ApplicationPolicy_PolicyType | _ApplicationPolicy_PolicyObjectIdentifier
+    _ApplicationPolicy_PolicyType
+    | _ApplicationPolicy_PolicyObjectIdentifier
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ApplicationPolicy) -> dict:
-    if "PolicyType" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ApplicationPolicy: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "PolicyType" in value:
         import capo_pca_connector_ad.types.application_policy_type
 
         return {
@@ -56,4 +63,9 @@ def deserialize_json(data: dict) -> ApplicationPolicy:
     elif data.get("PolicyObjectIdentifier") is not None:
         return {"PolicyObjectIdentifier": data["PolicyObjectIdentifier"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ApplicationPolicy: no recognized variant key")

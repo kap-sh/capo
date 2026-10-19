@@ -79,3 +79,9 @@ from ._services.async_compute_optimizer import (
 from ._services.compute_optimizer import (
     ComputeOptimizerClient as ComputeOptimizerClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

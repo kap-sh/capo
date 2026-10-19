@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_budgets import AsyncBudgetsClient as AsyncBudgetsClient
 from ._services.budgets import BudgetsClient as BudgetsClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

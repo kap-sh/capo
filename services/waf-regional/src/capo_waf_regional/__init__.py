@@ -77,3 +77,9 @@ from ._services.async_waf_regional import (
     AsyncWAFRegionalClient as AsyncWAFRegionalClient,
 )
 from ._services.waf_regional import WAFRegionalClient as WAFRegionalClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

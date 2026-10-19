@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_mailmanager.errors import DeserializationError, SerializationError
+from capo_mailmanager.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_mailmanager.types.analysis
@@ -32,12 +33,17 @@ RuleBooleanToEvaluate: TypeAlias = (
     _RuleBooleanToEvaluate_Attribute
     | _RuleBooleanToEvaluate_Analysis
     | _RuleBooleanToEvaluate_IsInAddressList
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: RuleBooleanToEvaluate) -> dict:
-    if "Attribute" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RuleBooleanToEvaluate: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "Attribute" in value:
         import capo_mailmanager.types.rule_boolean_email_attribute
 
         return {
@@ -91,4 +97,9 @@ def deserialize_aws_json_1_0(data: dict) -> RuleBooleanToEvaluate:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("RuleBooleanToEvaluate: no recognized variant key")

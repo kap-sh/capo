@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_kinesis import AsyncKinesisClient as AsyncKinesisClient
 from ._services.kinesis import KinesisClient as KinesisClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

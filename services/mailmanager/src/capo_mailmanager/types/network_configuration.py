@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_mailmanager.errors import DeserializationError, SerializationError
+from capo_mailmanager.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_mailmanager.types.private_network_configuration
@@ -24,12 +25,17 @@ class _NetworkConfiguration_PrivateNetworkConfiguration(TypedDict, closed=True):
 NetworkConfiguration: TypeAlias = (
     _NetworkConfiguration_PublicNetworkConfiguration
     | _NetworkConfiguration_PrivateNetworkConfiguration
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: NetworkConfiguration) -> dict:
-    if "PublicNetworkConfiguration" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"NetworkConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "PublicNetworkConfiguration" in value:
         import capo_mailmanager.types.public_network_configuration
 
         return {
@@ -67,4 +73,9 @@ def deserialize_aws_json_1_0(data: dict) -> NetworkConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("NetworkConfiguration: no recognized variant key")

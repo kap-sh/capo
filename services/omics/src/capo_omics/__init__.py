@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_omics import AsyncOmicsClient as AsyncOmicsClient
 from ._services.omics import OmicsClient as OmicsClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

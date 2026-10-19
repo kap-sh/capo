@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_securityagent.errors import DeserializationError, SerializationError
+from capo_securityagent.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_securityagent.types.azure_dev_ops_repository_resource
@@ -50,12 +51,17 @@ IntegratedResource: TypeAlias = (
     | _IntegratedResource_confluenceDocument
     | _IntegratedResource_azureDevOpsRepository
     | _IntegratedResource_jiraProject
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: IntegratedResource) -> dict:
-    if "githubRepository" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"IntegratedResource: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "githubRepository" in value:
         import capo_securityagent.types.git_hub_repository_resource
 
         return {
@@ -157,4 +163,9 @@ def deserialize_json(data: dict) -> IntegratedResource:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("IntegratedResource: no recognized variant key")

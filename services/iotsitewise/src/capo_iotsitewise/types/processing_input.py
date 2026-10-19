@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_iotsitewise.errors import DeserializationError, SerializationError
+from capo_iotsitewise.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_iotsitewise.types.dataset_item
@@ -19,12 +20,18 @@ class _ProcessingInput_dataset(TypedDict, closed=True):
     dataset: "capo_iotsitewise.types.dataset_item.DatasetItem"
 
 
-ProcessingInput: TypeAlias = _ProcessingInput_timeseries | _ProcessingInput_dataset
+ProcessingInput: TypeAlias = (
+    _ProcessingInput_timeseries | _ProcessingInput_dataset | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ProcessingInput) -> dict:
-    if "timeseries" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ProcessingInput: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "timeseries" in value:
         import capo_iotsitewise.types.timeseries_list
 
         return {
@@ -62,4 +69,9 @@ def deserialize_json(data: dict) -> ProcessingInput:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ProcessingInput: no recognized variant key")

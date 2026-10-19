@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.harness_agent_core_runtime_environment_request
@@ -20,13 +21,17 @@ class _HarnessEnvironmentProviderRequest_agentCoreRuntimeEnvironment(
 
 
 HarnessEnvironmentProviderRequest: TypeAlias = (
-    _HarnessEnvironmentProviderRequest_agentCoreRuntimeEnvironment
+    _HarnessEnvironmentProviderRequest_agentCoreRuntimeEnvironment | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: HarnessEnvironmentProviderRequest) -> dict:
-    if "agentCoreRuntimeEnvironment" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"HarnessEnvironmentProviderRequest: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "agentCoreRuntimeEnvironment" in value:
         import capo_bedrock_agentcore_control.types.harness_agent_core_runtime_environment_request
 
         return {
@@ -50,6 +55,11 @@ def deserialize_json(data: dict) -> HarnessEnvironmentProviderRequest:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "HarnessEnvironmentProviderRequest: no recognized variant key"
         )

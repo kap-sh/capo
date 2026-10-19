@@ -77,3 +77,9 @@ from ._services.async_game_lift_streams import (
     AsyncGameLiftStreamsClient as AsyncGameLiftStreamsClient,
 )
 from ._services.game_lift_streams import GameLiftStreamsClient as GameLiftStreamsClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

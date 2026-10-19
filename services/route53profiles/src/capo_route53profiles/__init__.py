@@ -77,3 +77,9 @@ from ._services.async_route53_profiles import (
     AsyncRoute53ProfilesClient as AsyncRoute53ProfilesClient,
 )
 from ._services.route53_profiles import Route53ProfilesClient as Route53ProfilesClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

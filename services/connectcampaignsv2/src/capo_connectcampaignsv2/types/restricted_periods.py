@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_connectcampaignsv2.errors import DeserializationError, SerializationError
+from capo_connectcampaignsv2.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.restricted_period_list
@@ -16,12 +17,18 @@ class _RestrictedPeriods_restrictedPeriodList(TypedDict, closed=True):
     )
 
 
-RestrictedPeriods: TypeAlias = _RestrictedPeriods_restrictedPeriodList
+RestrictedPeriods: TypeAlias = (
+    _RestrictedPeriods_restrictedPeriodList | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RestrictedPeriods) -> dict:
-    if "restrictedPeriodList" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RestrictedPeriods: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "restrictedPeriodList" in value:
         import capo_connectcampaignsv2.types.restricted_period_list
 
         return {
@@ -43,4 +50,9 @@ def deserialize_json(data: dict) -> RestrictedPeriods:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("RestrictedPeriods: no recognized variant key")

@@ -77,3 +77,9 @@ from ._services.async_service_quotas import (
     AsyncServiceQuotasClient as AsyncServiceQuotasClient,
 )
 from ._services.service_quotas import ServiceQuotasClient as ServiceQuotasClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

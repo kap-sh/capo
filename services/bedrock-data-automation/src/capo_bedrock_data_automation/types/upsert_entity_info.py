@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_data_automation.errors import DeserializationError, SerializationError
+from capo_bedrock_data_automation.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_data_automation.types.vocabulary_entity_info
@@ -16,12 +17,16 @@ class _UpsertEntityInfo_vocabulary(TypedDict, closed=True):
     )
 
 
-UpsertEntityInfo: TypeAlias = _UpsertEntityInfo_vocabulary
+UpsertEntityInfo: TypeAlias = _UpsertEntityInfo_vocabulary | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: UpsertEntityInfo) -> dict:
-    if "vocabulary" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"UpsertEntityInfo: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "vocabulary" in value:
         import capo_bedrock_data_automation.types.vocabulary_entity_info
 
         return {
@@ -43,10 +48,17 @@ def deserialize_json(data: dict) -> UpsertEntityInfo:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("UpsertEntityInfo: no recognized variant key")
 
 
-def redact_sensitive(value: UpsertEntityInfo) -> dict[str, Any]:
+def redact_sensitive(value: UpsertEntityInfo) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "vocabulary" in value:
         import capo_bedrock_data_automation.types.vocabulary_entity_info

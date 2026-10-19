@@ -79,3 +79,9 @@ from ._services.async_timestream_influx_db import (
 from ._services.timestream_influx_db import (
     TimestreamInfluxDBClient as TimestreamInfluxDBClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

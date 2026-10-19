@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_rbin import AsyncrbinClient as AsyncrbinClient
 from ._services.rbin import rbinClient as rbinClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

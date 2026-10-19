@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_inspector2.errors import DeserializationError, SerializationError
+from capo_inspector2.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_inspector2.types.account_aggregation
@@ -120,12 +121,17 @@ AggregationRequest: TypeAlias = (
     | _AggregationRequest_vmInstanceAggregation
     | _AggregationRequest_containerImageAggregation
     | _AggregationRequest_serverlessFunctionAggregation
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AggregationRequest) -> dict:
-    if "accountAggregation" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AggregationRequest: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "accountAggregation" in value:
         import capo_inspector2.types.account_aggregation
 
         return {
@@ -371,4 +377,9 @@ def deserialize_json(data: dict) -> AggregationRequest:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("AggregationRequest: no recognized variant key")

@@ -79,3 +79,9 @@ from ._services.async_resource_explorer2 import (
 from ._services.resource_explorer2 import (
     ResourceExplorer2Client as ResourceExplorer2Client,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

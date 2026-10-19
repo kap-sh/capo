@@ -8,6 +8,7 @@ from capo_application_discovery_service.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_application_discovery_service.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_application_discovery_service.types.ec2_recommendations_export_preferences
@@ -17,12 +18,18 @@ class _ExportPreferences_ec2RecommendationsPreferences(TypedDict, closed=True):
     ec2RecommendationsPreferences: "capo_application_discovery_service.types.ec2_recommendations_export_preferences.Ec2RecommendationsExportPreferences"
 
 
-ExportPreferences: TypeAlias = _ExportPreferences_ec2RecommendationsPreferences
+ExportPreferences: TypeAlias = (
+    _ExportPreferences_ec2RecommendationsPreferences | UnknownUnionMember
+)
 
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: ExportPreferences) -> dict:
-    if "ec2RecommendationsPreferences" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ExportPreferences: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "ec2RecommendationsPreferences" in value:
         import capo_application_discovery_service.types.ec2_recommendations_export_preferences
 
         return {
@@ -44,4 +51,9 @@ def deserialize_aws_json_1_1(data: dict) -> ExportPreferences:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ExportPreferences: no recognized variant key")

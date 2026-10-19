@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_account_access.errors import DeserializationError, SerializationError
+from capo_account_access.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_account_access.types.group_id
@@ -20,13 +21,19 @@ class _IdentityCenterPrincipalFilter_groupId(TypedDict, closed=True):
 
 
 IdentityCenterPrincipalFilter: TypeAlias = (
-    _IdentityCenterPrincipalFilter_userId | _IdentityCenterPrincipalFilter_groupId
+    _IdentityCenterPrincipalFilter_userId
+    | _IdentityCenterPrincipalFilter_groupId
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: IdentityCenterPrincipalFilter) -> dict:
-    if "userId" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"IdentityCenterPrincipalFilter: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "userId" in value:
         return {"userId": value["userId"]}
     elif "groupId" in value:
         return {"groupId": value["groupId"]}
@@ -40,6 +47,11 @@ def deserialize_json(data: dict) -> IdentityCenterPrincipalFilter:
     elif data.get("groupId") is not None:
         return {"groupId": data["groupId"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "IdentityCenterPrincipalFilter: no recognized variant key"
         )

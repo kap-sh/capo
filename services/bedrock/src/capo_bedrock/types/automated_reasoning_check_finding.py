@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock.errors import DeserializationError, SerializationError
+from capo_bedrock.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_check_impossible_finding
@@ -52,12 +53,17 @@ AutomatedReasoningCheckFinding: TypeAlias = (
     | _AutomatedReasoningCheckFinding_translationAmbiguous
     | _AutomatedReasoningCheckFinding_tooComplex
     | _AutomatedReasoningCheckFinding_noTranslations
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AutomatedReasoningCheckFinding) -> dict:
-    if "valid" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AutomatedReasoningCheckFinding: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "valid" in value:
         import capo_bedrock.types.automated_reasoning_check_valid_finding
 
         return {
@@ -175,12 +181,21 @@ def deserialize_json(data: dict) -> AutomatedReasoningCheckFinding:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "AutomatedReasoningCheckFinding: no recognized variant key"
         )
 
 
-def redact_sensitive(value: AutomatedReasoningCheckFinding) -> dict[str, Any]:
+def redact_sensitive(
+    value: AutomatedReasoningCheckFinding,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "valid" in value:
         import capo_bedrock.types.automated_reasoning_check_valid_finding

@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_q_business import AsyncQBusinessClient as AsyncQBusinessClient
 from ._services.q_business import QBusinessClient as QBusinessClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

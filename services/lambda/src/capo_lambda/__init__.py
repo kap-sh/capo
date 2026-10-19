@@ -75,3 +75,9 @@ from ._services._pipeline import (
     OperationResponse as OperationResponse,
 )
 from ._services.async__lambda import AsyncLambdaClient as AsyncLambdaClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

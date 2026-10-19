@@ -79,3 +79,9 @@ from ._services.async_resource_groups_tagging_api import (
 from ._services.resource_groups_tagging_api import (
     ResourceGroupsTaggingAPIClient as ResourceGroupsTaggingAPIClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

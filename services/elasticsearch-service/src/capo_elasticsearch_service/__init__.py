@@ -79,3 +79,9 @@ from ._services.async_elasticsearch_service import (
 from ._services.elasticsearch_service import (
     ElasticsearchServiceClient as ElasticsearchServiceClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

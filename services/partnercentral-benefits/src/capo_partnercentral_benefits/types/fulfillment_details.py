@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_partnercentral_benefits.errors import DeserializationError, SerializationError
+from capo_partnercentral_benefits.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_partnercentral_benefits.types.access_details
@@ -38,12 +39,17 @@ FulfillmentDetails: TypeAlias = (
     | _FulfillmentDetails_ConsumableDetails
     | _FulfillmentDetails_CreditDetails
     | _FulfillmentDetails_AccessDetails
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: FulfillmentDetails) -> dict:
-    if "DisbursementDetails" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"FulfillmentDetails: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "DisbursementDetails" in value:
         import capo_partnercentral_benefits.types.disbursement_details
 
         return {
@@ -113,4 +119,9 @@ def deserialize_aws_json_1_0(data: dict) -> FulfillmentDetails:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("FulfillmentDetails: no recognized variant key")

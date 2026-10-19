@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_application_signals.errors import DeserializationError, SerializationError
+from capo_application_signals.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_application_signals.types.metric_data_queries
@@ -25,12 +26,17 @@ class _MonitoredRequestCountMetricDataQueries_BadCountMetric(TypedDict, closed=T
 MonitoredRequestCountMetricDataQueries: TypeAlias = (
     _MonitoredRequestCountMetricDataQueries_GoodCountMetric
     | _MonitoredRequestCountMetricDataQueries_BadCountMetric
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MonitoredRequestCountMetricDataQueries) -> dict:
-    if "GoodCountMetric" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"MonitoredRequestCountMetricDataQueries: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "GoodCountMetric" in value:
         import capo_application_signals.types.metric_data_queries
 
         return {
@@ -70,6 +76,11 @@ def deserialize_json(data: dict) -> MonitoredRequestCountMetricDataQueries:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "MonitoredRequestCountMetricDataQueries: no recognized variant key"
         )

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_connectcases.errors import DeserializationError, SerializationError
+from capo_connectcases.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_connectcases.types.custom_fields_filter
@@ -38,12 +39,17 @@ CustomFieldsFilter: TypeAlias = (
     | _CustomFieldsFilter_not
     | _CustomFieldsFilter_andAll
     | _CustomFieldsFilter_orAll
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CustomFieldsFilter) -> dict:
-    if "field" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"CustomFieldsFilter: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "field" in value:
         import capo_connectcases.types.field_filter
 
         return {
@@ -111,4 +117,9 @@ def deserialize_json(data: dict) -> CustomFieldsFilter:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("CustomFieldsFilter: no recognized variant key")

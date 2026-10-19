@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_qconnect.errors import DeserializationError, SerializationError
+from capo_qconnect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_qconnect.types.whats_app_message_template_source_configuration
@@ -15,13 +16,17 @@ class _MessageTemplateSourceConfiguration_whatsApp(TypedDict, closed=True):
 
 
 MessageTemplateSourceConfiguration: TypeAlias = (
-    _MessageTemplateSourceConfiguration_whatsApp
+    _MessageTemplateSourceConfiguration_whatsApp | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MessageTemplateSourceConfiguration) -> dict:
-    if "whatsApp" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"MessageTemplateSourceConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "whatsApp" in value:
         import capo_qconnect.types.whats_app_message_template_source_configuration
 
         return {
@@ -45,6 +50,11 @@ def deserialize_json(data: dict) -> MessageTemplateSourceConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "MessageTemplateSourceConfiguration: no recognized variant key"
         )

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_partnercentral_channel.errors import DeserializationError, SerializationError
+from capo_partnercentral_channel.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_partnercentral_channel.types.revoke_service_period_payload
@@ -22,12 +23,17 @@ class _ChannelHandshakePayload_revokeServicePeriodPayload(TypedDict, closed=True
 ChannelHandshakePayload: TypeAlias = (
     _ChannelHandshakePayload_startServicePeriodPayload
     | _ChannelHandshakePayload_revokeServicePeriodPayload
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: ChannelHandshakePayload) -> dict:
-    if "startServicePeriodPayload" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ChannelHandshakePayload: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "startServicePeriodPayload" in value:
         import capo_partnercentral_channel.types.start_service_period_payload
 
         return {
@@ -65,4 +71,9 @@ def deserialize_aws_json_1_0(data: dict) -> ChannelHandshakePayload:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ChannelHandshakePayload: no recognized variant key")

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_medical_imaging.errors import DeserializationError, SerializationError
+from capo_medical_imaging.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_medical_imaging.types.dicom_updates
@@ -20,13 +21,19 @@ class _MetadataUpdates_revertToVersionId(TypedDict, closed=True):
 
 
 MetadataUpdates: TypeAlias = (
-    _MetadataUpdates_DICOMUpdates | _MetadataUpdates_revertToVersionId
+    _MetadataUpdates_DICOMUpdates
+    | _MetadataUpdates_revertToVersionId
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MetadataUpdates) -> dict:
-    if "DICOMUpdates" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"MetadataUpdates: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "DICOMUpdates" in value:
         import capo_medical_imaging.types.dicom_updates
 
         return {
@@ -52,10 +59,17 @@ def deserialize_json(data: dict) -> MetadataUpdates:
     elif data.get("revertToVersionId") is not None:
         return {"revertToVersionId": data["revertToVersionId"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("MetadataUpdates: no recognized variant key")
 
 
-def redact_sensitive(value: MetadataUpdates) -> dict[str, Any]:
+def redact_sensitive(value: MetadataUpdates) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "DICOMUpdates" in value:
         import capo_medical_imaging.types.dicom_updates

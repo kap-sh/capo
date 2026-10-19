@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_connect import AsyncConnectClient as AsyncConnectClient
 from ._services.connect import ConnectClient as ConnectClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

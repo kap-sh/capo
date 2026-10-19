@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_pipes.errors import DeserializationError, SerializationError
+from capo_pipes.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_pipes.types.secret_manager_arn
@@ -37,12 +38,17 @@ SelfManagedKafkaAccessConfigurationCredentials: TypeAlias = (
     | _SelfManagedKafkaAccessConfigurationCredentials_SaslScram512Auth
     | _SelfManagedKafkaAccessConfigurationCredentials_SaslScram256Auth
     | _SelfManagedKafkaAccessConfigurationCredentials_ClientCertificateTlsAuth
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SelfManagedKafkaAccessConfigurationCredentials) -> dict:
-    if "BasicAuth" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"SelfManagedKafkaAccessConfigurationCredentials: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "BasicAuth" in value:
         return {"BasicAuth": value["BasicAuth"]}
     elif "SaslScram512Auth" in value:
         return {"SaslScram512Auth": value["SaslScram512Auth"]}
@@ -66,6 +72,11 @@ def deserialize_json(data: dict) -> SelfManagedKafkaAccessConfigurationCredentia
     elif data.get("ClientCertificateTlsAuth") is not None:
         return {"ClientCertificateTlsAuth": data["ClientCertificateTlsAuth"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "SelfManagedKafkaAccessConfigurationCredentials: no recognized variant key"
         )

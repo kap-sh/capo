@@ -77,3 +77,9 @@ from ._services.async_ivs_real_time import (
     AsyncIVSRealTimeClient as AsyncIVSRealTimeClient,
 )
 from ._services.ivs_real_time import IVSRealTimeClient as IVSRealTimeClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

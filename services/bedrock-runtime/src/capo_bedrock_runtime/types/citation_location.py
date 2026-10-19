@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_runtime.errors import DeserializationError, SerializationError
+from capo_bedrock_runtime.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.document_char_location
@@ -48,12 +49,17 @@ CitationLocation: TypeAlias = (
     | _CitationLocation_documentPage
     | _CitationLocation_documentChunk
     | _CitationLocation_searchResultLocation
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CitationLocation) -> dict:
-    if "web" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"CitationLocation: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "web" in value:
         import capo_bedrock_runtime.types.web_location
 
         return {
@@ -135,4 +141,9 @@ def deserialize_json(data: dict) -> CitationLocation:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("CitationLocation: no recognized variant key")

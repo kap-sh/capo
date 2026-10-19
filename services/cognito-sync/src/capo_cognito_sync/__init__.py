@@ -77,3 +77,9 @@ from ._services.async_cognito_sync import (
     AsyncCognitoSyncClient as AsyncCognitoSyncClient,
 )
 from ._services.cognito_sync import CognitoSyncClient as CognitoSyncClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

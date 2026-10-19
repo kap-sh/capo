@@ -79,3 +79,9 @@ from ._services.async_end_user_messaging import (
 from ._services.end_user_messaging import (
     EndUserMessagingClient as EndUserMessagingClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

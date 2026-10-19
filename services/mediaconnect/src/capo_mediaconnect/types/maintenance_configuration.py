@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_mediaconnect.errors import DeserializationError, SerializationError
+from capo_mediaconnect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_mediaconnect.types.default_maintenance_configuration
@@ -20,13 +21,19 @@ class _MaintenanceConfiguration_Default(TypedDict, closed=True):
 
 
 MaintenanceConfiguration: TypeAlias = (
-    _MaintenanceConfiguration_PreferredDayTime | _MaintenanceConfiguration_Default
+    _MaintenanceConfiguration_PreferredDayTime
+    | _MaintenanceConfiguration_Default
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MaintenanceConfiguration) -> dict:
-    if "PreferredDayTime" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"MaintenanceConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "PreferredDayTime" in value:
         import capo_mediaconnect.types.preferred_day_time_maintenance_configuration
 
         return {
@@ -64,6 +71,11 @@ def deserialize_json(data: dict) -> MaintenanceConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "MaintenanceConfiguration: no recognized variant key"
         )

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_qconnect.errors import DeserializationError, SerializationError
+from capo_qconnect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_qconnect.types.json_document
@@ -25,13 +26,20 @@ class _MessageData_data(TypedDict, closed=True):
 
 
 MessageData: TypeAlias = (
-    _MessageData_text | _MessageData_toolUseResult | _MessageData_data
+    _MessageData_text
+    | _MessageData_toolUseResult
+    | _MessageData_data
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MessageData) -> dict:
-    if "text" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"MessageData: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "text" in value:
         import capo_qconnect.types.text_message
 
         return {"text": capo_qconnect.types.text_message.serialize_json(value["text"])}
@@ -65,10 +73,17 @@ def deserialize_json(data: dict) -> MessageData:
     elif data.get("data") is not None:
         return {"data": data["data"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("MessageData: no recognized variant key")
 
 
-def redact_sensitive(value: MessageData) -> dict[str, Any]:
+def redact_sensitive(value: MessageData) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "text" in value:
         import capo_qconnect.types.text_message

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_cleanrooms.errors import DeserializationError, SerializationError
+from capo_cleanrooms.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_cleanrooms.types.protected_job_member_output_configuration_input
@@ -15,13 +16,17 @@ class _ProtectedJobOutputConfigurationInput_member(TypedDict, closed=True):
 
 
 ProtectedJobOutputConfigurationInput: TypeAlias = (
-    _ProtectedJobOutputConfigurationInput_member
+    _ProtectedJobOutputConfigurationInput_member | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ProtectedJobOutputConfigurationInput) -> dict:
-    if "member" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ProtectedJobOutputConfigurationInput: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "member" in value:
         import capo_cleanrooms.types.protected_job_member_output_configuration_input
 
         return {
@@ -45,6 +50,11 @@ def deserialize_json(data: dict) -> ProtectedJobOutputConfigurationInput:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "ProtectedJobOutputConfigurationInput: no recognized variant key"
         )

@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_synthetics import AsyncsyntheticsClient as AsyncsyntheticsClient
 from ._services.synthetics import syntheticsClient as syntheticsClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

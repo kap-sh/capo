@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_pcs import AsyncPCSClient as AsyncPCSClient
 from ._services.pcs import PCSClient as PCSClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

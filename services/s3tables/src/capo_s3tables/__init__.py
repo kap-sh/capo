@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_s3_tables import AsyncS3TablesClient as AsyncS3TablesClient
 from ._services.s3_tables import S3TablesClient as S3TablesClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

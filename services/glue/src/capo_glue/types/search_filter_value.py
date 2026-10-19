@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_glue.errors import DeserializationError, SerializationError
+from capo_glue.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_glue.types.search_filter_long_value
@@ -20,13 +21,17 @@ class _SearchFilterValue_LongValue(TypedDict, closed=True):
 
 
 SearchFilterValue: TypeAlias = (
-    _SearchFilterValue_StringValue | _SearchFilterValue_LongValue
+    _SearchFilterValue_StringValue | _SearchFilterValue_LongValue | UnknownUnionMember
 )
 
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: SearchFilterValue) -> dict:
-    if "StringValue" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"SearchFilterValue: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "StringValue" in value:
         return {"StringValue": value["StringValue"]}
     elif "LongValue" in value:
         return {"LongValue": value["LongValue"]}
@@ -40,4 +45,9 @@ def deserialize_aws_json_1_1(data: dict) -> SearchFilterValue:
     elif data.get("LongValue") is not None:
         return {"LongValue": data["LongValue"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("SearchFilterValue: no recognized variant key")

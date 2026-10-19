@@ -77,3 +77,9 @@ from ._services.async_repostspace import (
     AsyncrepostspaceClient as AsyncrepostspaceClient,
 )
 from ._services.repostspace import repostspaceClient as repostspaceClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

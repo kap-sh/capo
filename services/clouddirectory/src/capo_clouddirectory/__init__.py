@@ -77,3 +77,9 @@ from ._services.async_cloud_directory import (
     AsyncCloudDirectoryClient as AsyncCloudDirectoryClient,
 )
 from ._services.cloud_directory import CloudDirectoryClient as CloudDirectoryClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

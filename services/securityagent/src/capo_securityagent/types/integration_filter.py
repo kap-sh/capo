@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_securityagent.errors import DeserializationError, SerializationError
+from capo_securityagent.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_securityagent.types.provider
@@ -20,13 +21,17 @@ class _IntegrationFilter_providerType(TypedDict, closed=True):
 
 
 IntegrationFilter: TypeAlias = (
-    _IntegrationFilter_provider | _IntegrationFilter_providerType
+    _IntegrationFilter_provider | _IntegrationFilter_providerType | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: IntegrationFilter) -> dict:
-    if "provider" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"IntegrationFilter: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "provider" in value:
         import capo_securityagent.types.provider
 
         return {
@@ -64,4 +69,9 @@ def deserialize_json(data: dict) -> IntegrationFilter:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("IntegrationFilter: no recognized variant key")

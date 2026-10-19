@@ -10,6 +10,7 @@ from capo_connecthealth._protocol.eventstream import Message
 from capo_connecthealth.errors import (
     UnknownServiceError,
 )
+from capo_connecthealth.types._unknown import UnknownEvent
 
 if TYPE_CHECKING:
     import capo_connecthealth.errors.internal_server_exception
@@ -37,11 +38,16 @@ _MedicalScribeOutputStream: TypeAlias = (
     _MedicalScribeOutputStream_transcriptEvent
     | _MedicalScribeOutputStream_internalFailureException
     | _MedicalScribeOutputStream_validationException
+    | UnknownEvent
 )
 MedicalScribeOutputStream: TypeAlias = AnyIterator[_MedicalScribeOutputStream]
 
 
 def serialize_event_json(value: _MedicalScribeOutputStream) -> bytes:
+    if isinstance(value, UnknownEvent):
+        raise ValueError(
+            f"MedicalScribeOutputStream: cannot serialize unknown event {value.event_type!r}"
+        )
     match value:
         case {"transcriptEvent": payload}:
             import capo_connecthealth.types.medical_scribe_transcript_event
@@ -114,6 +120,8 @@ def deserialize_event_json(
                     message
                 )
             }
+        case str():
+            return UnknownEvent(event_type, message)
         case _:
             raise ValueError(
                 f"MedicalScribeOutputStream: unrecognized event-type {event_type!r}"

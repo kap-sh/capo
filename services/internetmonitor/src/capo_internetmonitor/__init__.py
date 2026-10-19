@@ -77,3 +77,9 @@ from ._services.async_internet_monitor import (
     AsyncInternetMonitorClient as AsyncInternetMonitorClient,
 )
 from ._services.internet_monitor import InternetMonitorClient as InternetMonitorClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

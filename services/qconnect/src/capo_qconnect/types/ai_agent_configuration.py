@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_qconnect.errors import DeserializationError, SerializationError
+from capo_qconnect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_qconnect.types.answer_recommendation_ai_agent_configuration
@@ -70,12 +71,17 @@ AIAgentConfiguration: TypeAlias = (
     | _AIAgentConfiguration_orchestrationAIAgentConfiguration
     | _AIAgentConfiguration_noteTakingAIAgentConfiguration
     | _AIAgentConfiguration_caseSummarizationAIAgentConfiguration
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AIAgentConfiguration) -> dict:
-    if "manualSearchAIAgentConfiguration" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"AIAgentConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "manualSearchAIAgentConfiguration" in value:
         import capo_qconnect.types.manual_search_ai_agent_configuration
 
         return {
@@ -225,10 +231,19 @@ def deserialize_json(data: dict) -> AIAgentConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("AIAgentConfiguration: no recognized variant key")
 
 
-def redact_sensitive(value: AIAgentConfiguration) -> dict[str, Any]:
+def redact_sensitive(
+    value: AIAgentConfiguration,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "answerRecommendationAIAgentConfiguration" in value:
         import capo_qconnect.types.answer_recommendation_ai_agent_configuration

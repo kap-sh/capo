@@ -98,3 +98,9 @@ from ._services._pipeline import (
 )
 from ._services.async_bedrock import AsyncBedrockClient as AsyncBedrockClient
 from ._services.bedrock import BedrockClient as BedrockClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

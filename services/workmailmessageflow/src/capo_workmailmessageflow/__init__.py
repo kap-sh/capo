@@ -79,3 +79,9 @@ from ._services.async_work_mail_message_flow import (
 from ._services.work_mail_message_flow import (
     WorkMailMessageFlowClient as WorkMailMessageFlowClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

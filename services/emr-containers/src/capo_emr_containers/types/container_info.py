@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_emr_containers.errors import DeserializationError, SerializationError
+from capo_emr_containers.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_emr_containers.types.eks_info
@@ -14,12 +15,16 @@ class _ContainerInfo_eksInfo(TypedDict, closed=True):
     eksInfo: "capo_emr_containers.types.eks_info.EksInfo"
 
 
-ContainerInfo: TypeAlias = _ContainerInfo_eksInfo
+ContainerInfo: TypeAlias = _ContainerInfo_eksInfo | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ContainerInfo) -> dict:
-    if "eksInfo" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ContainerInfo: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "eksInfo" in value:
         import capo_emr_containers.types.eks_info
 
         return {
@@ -41,4 +46,9 @@ def deserialize_json(data: dict) -> ContainerInfo:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ContainerInfo: no recognized variant key")

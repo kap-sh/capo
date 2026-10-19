@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_application_signals.errors import DeserializationError, SerializationError
+from capo_application_signals.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_application_signals.types.code_location
@@ -19,13 +20,19 @@ class _LocationIdentifier_LocationHash(TypedDict, closed=True):
 
 
 LocationIdentifier: TypeAlias = (
-    _LocationIdentifier_CodeLocation | _LocationIdentifier_LocationHash
+    _LocationIdentifier_CodeLocation
+    | _LocationIdentifier_LocationHash
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: LocationIdentifier) -> dict:
-    if "CodeLocation" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"LocationIdentifier: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "CodeLocation" in value:
         import capo_application_signals.types.code_location
 
         return {
@@ -51,4 +58,9 @@ def deserialize_json(data: dict) -> LocationIdentifier:
     elif data.get("LocationHash") is not None:
         return {"LocationHash": data["LocationHash"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("LocationIdentifier: no recognized variant key")

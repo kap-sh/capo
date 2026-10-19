@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_pi import AsyncPIClient as AsyncPIClient
 from ._services.pi import PIClient as PIClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

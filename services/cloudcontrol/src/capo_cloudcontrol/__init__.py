@@ -77,3 +77,9 @@ from ._services.async_cloud_control import (
     AsyncCloudControlClient as AsyncCloudControlClient,
 )
 from ._services.cloud_control import CloudControlClient as CloudControlClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -77,3 +77,9 @@ from ._services.app_integrations import AppIntegrationsClient as AppIntegrations
 from ._services.async_app_integrations import (
     AsyncAppIntegrationsClient as AsyncAppIntegrationsClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

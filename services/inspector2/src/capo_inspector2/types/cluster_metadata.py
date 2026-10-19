@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_inspector2.errors import DeserializationError, SerializationError
+from capo_inspector2.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_inspector2.types.aws_ecs_metadata_details
@@ -24,13 +25,19 @@ class _ClusterMetadata_awsEksMetadataDetails(TypedDict, closed=True):
 
 
 ClusterMetadata: TypeAlias = (
-    _ClusterMetadata_awsEcsMetadataDetails | _ClusterMetadata_awsEksMetadataDetails
+    _ClusterMetadata_awsEcsMetadataDetails
+    | _ClusterMetadata_awsEksMetadataDetails
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ClusterMetadata) -> dict:
-    if "awsEcsMetadataDetails" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ClusterMetadata: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "awsEcsMetadataDetails" in value:
         import capo_inspector2.types.aws_ecs_metadata_details
 
         return {
@@ -68,4 +75,9 @@ def deserialize_json(data: dict) -> ClusterMetadata:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ClusterMetadata: no recognized variant key")

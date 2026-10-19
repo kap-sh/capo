@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_sso_admin import AsyncSSOAdminClient as AsyncSSOAdminClient
 from ._services.sso_admin import SSOAdminClient as SSOAdminClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

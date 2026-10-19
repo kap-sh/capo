@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_rtbfabric.errors import DeserializationError, SerializationError
+from capo_rtbfabric.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_rtbfabric.types.no_bid_module_parameters
@@ -28,12 +29,17 @@ ModuleParameters: TypeAlias = (
     _ModuleParameters_noBid
     | _ModuleParameters_openRtbAttribute
     | _ModuleParameters_rateLimiter
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ModuleParameters) -> dict:
-    if "noBid" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ModuleParameters: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "noBid" in value:
         import capo_rtbfabric.types.no_bid_module_parameters
 
         return {
@@ -87,4 +93,9 @@ def deserialize_json(data: dict) -> ModuleParameters:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ModuleParameters: no recognized variant key")

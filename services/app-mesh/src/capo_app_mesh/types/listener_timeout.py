@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_app_mesh.errors import DeserializationError, SerializationError
+from capo_app_mesh.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_app_mesh.types.grpc_timeout
@@ -33,12 +34,17 @@ ListenerTimeout: TypeAlias = (
     | _ListenerTimeout_http
     | _ListenerTimeout_http2
     | _ListenerTimeout_grpc
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ListenerTimeout) -> dict:
-    if "tcp" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ListenerTimeout: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "tcp" in value:
         import capo_app_mesh.types.tcp_timeout
 
         return {"tcp": capo_app_mesh.types.tcp_timeout.serialize_json(value["tcp"])}
@@ -80,4 +86,9 @@ def deserialize_json(data: dict) -> ListenerTimeout:
 
         return {"grpc": capo_app_mesh.types.grpc_timeout.deserialize_json(data["grpc"])}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ListenerTimeout: no recognized variant key")

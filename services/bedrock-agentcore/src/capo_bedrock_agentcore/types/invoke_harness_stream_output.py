@@ -10,6 +10,7 @@ from capo_bedrock_agentcore._protocol.eventstream import Message
 from capo_bedrock_agentcore.errors import (
     UnknownServiceError,
 )
+from capo_bedrock_agentcore.types._unknown import UnknownEvent
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.errors.internal_server_exception
@@ -79,11 +80,16 @@ _InvokeHarnessStreamOutput: TypeAlias = (
     | _InvokeHarnessStreamOutput_validationException
     | _InvokeHarnessStreamOutput_runtimeClientError
     | _InvokeHarnessStreamOutput_hookEvent
+    | UnknownEvent
 )
 InvokeHarnessStreamOutput: TypeAlias = AnyIterator[_InvokeHarnessStreamOutput]
 
 
 def serialize_event_json(value: _InvokeHarnessStreamOutput) -> bytes:
+    if isinstance(value, UnknownEvent):
+        raise ValueError(
+            f"InvokeHarnessStreamOutput: cannot serialize unknown event {value.event_type!r}"
+        )
     match value:
         case {"messageStart": payload}:
             import capo_bedrock_agentcore.types.harness_message_start_event
@@ -259,6 +265,8 @@ def deserialize_event_json(
                     message
                 )
             }
+        case str():
+            return UnknownEvent(event_type, message)
         case _:
             raise ValueError(
                 f"InvokeHarnessStreamOutput: unrecognized event-type {event_type!r}"

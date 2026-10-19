@@ -77,3 +77,9 @@ from ._services.async_ssm_contacts import (
     AsyncSSMContactsClient as AsyncSSMContactsClient,
 )
 from ._services.ssm_contacts import SSMContactsClient as SSMContactsClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

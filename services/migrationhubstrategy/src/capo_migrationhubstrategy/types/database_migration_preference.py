@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_migrationhubstrategy.errors import DeserializationError, SerializationError
+from capo_migrationhubstrategy.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_migrationhubstrategy.types.heterogeneous
@@ -28,12 +29,17 @@ DatabaseMigrationPreference: TypeAlias = (
     _DatabaseMigrationPreference_heterogeneous
     | _DatabaseMigrationPreference_homogeneous
     | _DatabaseMigrationPreference_noPreference
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DatabaseMigrationPreference) -> dict:
-    if "heterogeneous" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"DatabaseMigrationPreference: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "heterogeneous" in value:
         import capo_migrationhubstrategy.types.heterogeneous
 
         return {
@@ -87,6 +93,11 @@ def deserialize_json(data: dict) -> DatabaseMigrationPreference:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "DatabaseMigrationPreference: no recognized variant key"
         )

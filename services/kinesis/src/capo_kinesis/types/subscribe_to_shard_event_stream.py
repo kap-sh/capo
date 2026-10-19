@@ -10,6 +10,7 @@ from capo_kinesis._protocol.eventstream import Message
 from capo_kinesis.errors import (
     UnknownServiceError,
 )
+from capo_kinesis.types._unknown import UnknownEvent
 
 if TYPE_CHECKING:
     import capo_kinesis.errors.internal_failure_exception
@@ -93,11 +94,16 @@ _SubscribeToShardEventStream: TypeAlias = (
     | _SubscribeToShardEventStream_KMSOptInRequired
     | _SubscribeToShardEventStream_KMSThrottlingException
     | _SubscribeToShardEventStream_InternalFailureException
+    | UnknownEvent
 )
 SubscribeToShardEventStream: TypeAlias = AnyIterator[_SubscribeToShardEventStream]
 
 
 def serialize_event_aws_json_1_1(value: _SubscribeToShardEventStream) -> bytes:
+    if isinstance(value, UnknownEvent):
+        raise ValueError(
+            f"SubscribeToShardEventStream: cannot serialize unknown event {value.event_type!r}"
+        )
     match value:
         case {"SubscribeToShardEvent": payload}:
             import capo_kinesis.types.subscribe_to_shard_event
@@ -277,6 +283,8 @@ def deserialize_event_aws_json_1_1(
                     message
                 )
             }
+        case str():
+            return UnknownEvent(event_type, message)
         case _:
             raise ValueError(
                 f"SubscribeToShardEventStream: unrecognized event-type {event_type!r}"

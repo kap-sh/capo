@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.code_based_evaluator_config
@@ -28,13 +29,20 @@ class _EvaluatorConfig_derived(TypedDict, closed=True):
 
 
 EvaluatorConfig: TypeAlias = (
-    _EvaluatorConfig_llmAsAJudge | _EvaluatorConfig_codeBased | _EvaluatorConfig_derived
+    _EvaluatorConfig_llmAsAJudge
+    | _EvaluatorConfig_codeBased
+    | _EvaluatorConfig_derived
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: EvaluatorConfig) -> dict:
-    if "llmAsAJudge" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"EvaluatorConfig: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "llmAsAJudge" in value:
         import capo_bedrock_agentcore_control.types.llm_as_a_judge_evaluator_config
 
         return {
@@ -88,10 +96,17 @@ def deserialize_json(data: dict) -> EvaluatorConfig:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("EvaluatorConfig: no recognized variant key")
 
 
-def redact_sensitive(value: EvaluatorConfig) -> dict[str, Any]:
+def redact_sensitive(value: EvaluatorConfig) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "llmAsAJudge" in value:
         import capo_bedrock_agentcore_control.types.llm_as_a_judge_evaluator_config

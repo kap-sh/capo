@@ -77,3 +77,9 @@ from ._services.async_pca_connector_ad import (
     AsyncPcaConnectorAdClient as AsyncPcaConnectorAdClient,
 )
 from ._services.pca_connector_ad import PcaConnectorAdClient as PcaConnectorAdClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

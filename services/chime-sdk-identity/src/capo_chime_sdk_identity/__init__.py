@@ -79,3 +79,9 @@ from ._services.async_chime_sdk_identity import (
 from ._services.chime_sdk_identity import (
     ChimeSDKIdentityClient as ChimeSDKIdentityClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -79,3 +79,9 @@ from ._services.async_pricing_plan_manager import (
 from ._services.pricing_plan_manager import (
     PricingPlanManagerClient as PricingPlanManagerClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

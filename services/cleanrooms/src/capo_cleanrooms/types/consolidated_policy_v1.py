@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_cleanrooms.errors import DeserializationError, SerializationError
+from capo_cleanrooms.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_cleanrooms.types.consolidated_policy_aggregation
@@ -28,12 +29,17 @@ ConsolidatedPolicyV1: TypeAlias = (
     _ConsolidatedPolicyV1_list
     | _ConsolidatedPolicyV1_aggregation
     | _ConsolidatedPolicyV1_custom
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ConsolidatedPolicyV1) -> dict:
-    if "list" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ConsolidatedPolicyV1: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "list" in value:
         import capo_cleanrooms.types.consolidated_policy_list
 
         return {
@@ -87,4 +93,9 @@ def deserialize_json(data: dict) -> ConsolidatedPolicyV1:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ConsolidatedPolicyV1: no recognized variant key")

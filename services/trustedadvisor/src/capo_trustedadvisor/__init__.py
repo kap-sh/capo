@@ -77,3 +77,9 @@ from ._services.async_trusted_advisor import (
     AsyncTrustedAdvisorClient as AsyncTrustedAdvisorClient,
 )
 from ._services.trusted_advisor import TrustedAdvisorClient as TrustedAdvisorClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -79,3 +79,9 @@ from ._services.async_network_flow_monitor import (
 from ._services.network_flow_monitor import (
     NetworkFlowMonitorClient as NetworkFlowMonitorClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -419,6 +419,67 @@ async def main():
 ```
 <!-- --8<-- [end:streaming] -->
 
+<!-- --8<-- [start:forward-compatibility] -->
+## Forward Compatibility
+
+AWS keeps adding enum values, union members and event-stream events to existing APIs. A client generated before such a change keeps working: it doesn't fail on a name it doesn't know, it hands it to you.
+
+Enum values are typed as `Literal[...]`, but they are plain strings at runtime. A value newer than your client comes back as the string AWS sent, so match enums with a fallback branch. You can send a new value too. The type checker doesn't know about it, so `cast` it:
+
+```python
+from typing import cast
+
+from capo_s3 import AsyncS3Client
+from capo_s3.types.storage_class import StorageClass
+
+async with AsyncS3Client() as s3:
+    await s3.put_object("bucket_name", "key", body=b"data", storage_class=cast(StorageClass, "NEW_STORAGE_CLASS"))
+```
+
+A union variant your client doesn't know comes back as `UnknownUnionMember`, whose `name` is the variant's name on the wire. Check for it before you look inside the union, because `"text" in block` raises `TypeError` on an `UnknownUnionMember`:
+
+```python
+from capo_bedrock_runtime import AsyncBedrockRuntimeClient, UnknownUnionMember
+
+async with AsyncBedrockRuntimeClient() as bedrock:
+    response = await bedrock.converse(
+        "amazon.nova-lite-v1:0",
+        messages=[{"role": "user", "content": [{"text": "Hello"}]}],
+    )
+
+output = response["output"]
+if not isinstance(output, UnknownUnionMember):
+    for block in output["message"]["content"]:
+        if isinstance(block, UnknownUnionMember):
+            print(f"skipping a {block.name} block, newer than this client")
+        elif "text" in block:
+            print(block["text"])
+```
+
+An `UnknownUnionMember` carries no data and can't be sent back: passing one as input raises `SerializationError`.
+
+In an event stream, an event your client doesn't know comes back as `UnknownEvent`, and the stream goes on. It keeps the event's `event_type` and the raw `message`, with its headers and undecoded payload:
+
+```python
+from capo_s3 import AsyncS3Client, UnknownEvent
+
+async with AsyncS3Client() as s3:
+    async with s3.select_object_content(
+        "bucket_name",
+        "key",
+        expression="SELECT * FROM S3Object",
+        expression_type="SQL",
+        input_serialization={"csv": {}},
+        output_serialization={"csv": {}},
+    ) as response:
+        async for event in response["payload"]:
+            if isinstance(event, UnknownEvent):
+                print(f"skipping {event.event_type}: {event.message.payload!r}")
+            elif "Records" in event:
+                print(event["Records"]["payload"])
+```
+<!-- --8<-- [end:forward-compatibility] -->
+
 <!-- --8<-- [start:operations] -->
 ## Waiters
 

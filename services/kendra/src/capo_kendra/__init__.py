@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_kendra import AsynckendraClient as AsynckendraClient
 from ._services.kendra import kendraClient as kendraClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

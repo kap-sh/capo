@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_datazone.errors import DeserializationError, SerializationError
+from capo_datazone.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_datazone.types.open_lineage_run_event_summary
@@ -16,12 +17,16 @@ class _EventSummary_openLineageRunEventSummary(TypedDict, closed=True):
     )
 
 
-EventSummary: TypeAlias = _EventSummary_openLineageRunEventSummary
+EventSummary: TypeAlias = _EventSummary_openLineageRunEventSummary | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: EventSummary) -> dict:
-    if "openLineageRunEventSummary" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"EventSummary: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "openLineageRunEventSummary" in value:
         import capo_datazone.types.open_lineage_run_event_summary
 
         return {
@@ -43,4 +48,9 @@ def deserialize_json(data: dict) -> EventSummary:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("EventSummary: no recognized variant key")

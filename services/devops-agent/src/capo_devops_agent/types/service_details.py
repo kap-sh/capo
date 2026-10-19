@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_devops_agent.errors import DeserializationError, SerializationError
+from capo_devops_agent.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_devops_agent.types.datadog_service_details
@@ -105,12 +106,17 @@ ServiceDetails: TypeAlias = (
     | _ServiceDetails_mcpserversigv4
     | _ServiceDetails_remoteagent
     | _ServiceDetails_remoteagentsigv4
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ServiceDetails) -> dict:
-    if "dynatrace" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ServiceDetails: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "dynatrace" in value:
         import capo_devops_agent.types.dynatrace_service_details
 
         return {
@@ -340,10 +346,17 @@ def deserialize_json(data: dict) -> ServiceDetails:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ServiceDetails: no recognized variant key")
 
 
-def redact_sensitive(value: ServiceDetails) -> dict[str, Any]:
+def redact_sensitive(value: ServiceDetails) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "dynatrace" in value:
         import capo_devops_agent.types.dynatrace_service_details

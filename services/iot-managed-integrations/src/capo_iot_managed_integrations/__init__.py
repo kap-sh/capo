@@ -79,3 +79,9 @@ from ._services.async_io_t_managed_integrations import (
 from ._services.io_t_managed_integrations import (
     IoTManagedIntegrationsClient as IoTManagedIntegrationsClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

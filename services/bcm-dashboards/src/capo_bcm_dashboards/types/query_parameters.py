@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bcm_dashboards.errors import DeserializationError, SerializationError
+from capo_bcm_dashboards.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bcm_dashboards.types.cost_and_usage_query
@@ -42,12 +43,17 @@ QueryParameters: TypeAlias = (
     | _QueryParameters_savingsPlansUtilization
     | _QueryParameters_reservationCoverage
     | _QueryParameters_reservationUtilization
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: QueryParameters) -> dict:
-    if "costAndUsage" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"QueryParameters: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "costAndUsage" in value:
         import capo_bcm_dashboards.types.cost_and_usage_query
 
         return {
@@ -133,4 +139,9 @@ def deserialize_aws_json_1_0(data: dict) -> QueryParameters:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("QueryParameters: no recognized variant key")

@@ -79,3 +79,9 @@ from ._services.async_marketplace_agreement import (
 from ._services.marketplace_agreement import (
     MarketplaceAgreementClient as MarketplaceAgreementClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

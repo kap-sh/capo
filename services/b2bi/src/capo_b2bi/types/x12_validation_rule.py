@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_b2bi.errors import DeserializationError, SerializationError
+from capo_b2bi.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_b2bi.types.x12_code_list_validation_rule
@@ -30,12 +31,17 @@ X12ValidationRule: TypeAlias = (
     _X12ValidationRule_codeListValidationRule
     | _X12ValidationRule_elementLengthValidationRule
     | _X12ValidationRule_elementRequirementValidationRule
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: X12ValidationRule) -> dict:
-    if "codeListValidationRule" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"X12ValidationRule: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "codeListValidationRule" in value:
         import capo_b2bi.types.x12_code_list_validation_rule
 
         return {
@@ -89,4 +95,9 @@ def deserialize_aws_json_1_0(data: dict) -> X12ValidationRule:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("X12ValidationRule: no recognized variant key")

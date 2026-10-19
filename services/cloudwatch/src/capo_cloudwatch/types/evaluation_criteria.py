@@ -6,6 +6,7 @@ from typing_extensions import TypedDict
 
 from capo_cloudwatch._protocol.xml import Element
 from capo_cloudwatch.errors import DeserializationError, SerializationError
+from capo_cloudwatch.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_cloudwatch.types.alarm_prom_ql_criteria
@@ -15,14 +16,18 @@ class _EvaluationCriteria_PromQLCriteria(TypedDict, closed=True):
     PromQLCriteria: "capo_cloudwatch.types.alarm_prom_ql_criteria.AlarmPromQLCriteria"
 
 
-EvaluationCriteria: TypeAlias = _EvaluationCriteria_PromQLCriteria
+EvaluationCriteria: TypeAlias = _EvaluationCriteria_PromQLCriteria | UnknownUnionMember
 
 
 # --- awsQuery ser/de ---
 def serialize_query(
     value: EvaluationCriteria, pairs: list[tuple[str, str]], prefix: str
 ) -> None:
-    if "PromQLCriteria" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"EvaluationCriteria: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "PromQLCriteria" in value:
         import capo_cloudwatch.types.alarm_prom_ql_criteria
 
         capo_cloudwatch.types.alarm_prom_ql_criteria.serialize_query(
@@ -42,12 +47,18 @@ def deserialize_query(el: Element) -> EvaluationCriteria:
                     child
                 )
             }
+        else:
+            return UnknownUnionMember(child.tag)
     raise DeserializationError("EvaluationCriteria: no recognized variant element")
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: EvaluationCriteria) -> dict:
-    if "PromQLCriteria" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"EvaluationCriteria: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "PromQLCriteria" in value:
         import capo_cloudwatch.types.alarm_prom_ql_criteria
 
         return {
@@ -69,4 +80,9 @@ def deserialize_aws_json_1_0(data: dict) -> EvaluationCriteria:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("EvaluationCriteria: no recognized variant key")

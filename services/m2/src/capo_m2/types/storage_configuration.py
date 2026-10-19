@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_m2.errors import DeserializationError, SerializationError
+from capo_m2.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_m2.types.efs_storage_configuration
@@ -19,12 +20,18 @@ class _StorageConfiguration_fsx(TypedDict, closed=True):
     fsx: "capo_m2.types.fsx_storage_configuration.FsxStorageConfiguration"
 
 
-StorageConfiguration: TypeAlias = _StorageConfiguration_efs | _StorageConfiguration_fsx
+StorageConfiguration: TypeAlias = (
+    _StorageConfiguration_efs | _StorageConfiguration_fsx | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: StorageConfiguration) -> dict:
-    if "efs" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"StorageConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "efs" in value:
         import capo_m2.types.efs_storage_configuration
 
         return {
@@ -54,4 +61,9 @@ def deserialize_json(data: dict) -> StorageConfiguration:
             "fsx": capo_m2.types.fsx_storage_configuration.deserialize_json(data["fsx"])
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("StorageConfiguration: no recognized variant key")

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_acm.errors import DeserializationError, SerializationError
+from capo_acm.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_acm.types.distinguished_name
@@ -48,12 +49,17 @@ GeneralName: TypeAlias = (
     | _GeneralName_RegisteredId
     | _GeneralName_Rfc822Name
     | _GeneralName_UniformResourceIdentifier
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: GeneralName) -> dict:
-    if "DirectoryName" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"GeneralName: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "DirectoryName" in value:
         import capo_acm.types.distinguished_name
 
         return {
@@ -111,4 +117,9 @@ def deserialize_aws_json_1_1(data: dict) -> GeneralName:
     elif data.get("UniformResourceIdentifier") is not None:
         return {"UniformResourceIdentifier": data["UniformResourceIdentifier"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("GeneralName: no recognized variant key")

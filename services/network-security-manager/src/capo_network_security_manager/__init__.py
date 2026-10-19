@@ -79,3 +79,9 @@ from ._services.async_network_security_manager import (
 from ._services.network_security_manager import (
     NetworkSecurityManagerClient as NetworkSecurityManagerClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

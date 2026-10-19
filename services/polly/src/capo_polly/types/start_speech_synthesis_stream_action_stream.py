@@ -10,6 +10,7 @@ from capo_polly._protocol.eventstream import Message
 from capo_polly.errors import (
     UnknownServiceError,
 )
+from capo_polly.types._unknown import UnknownEvent
 
 if TYPE_CHECKING:
     import capo_polly.types.close_stream_event
@@ -27,6 +28,7 @@ class _StartSpeechSynthesisStreamActionStream_CloseStreamEvent(TypedDict, closed
 _StartSpeechSynthesisStreamActionStream: TypeAlias = (
     _StartSpeechSynthesisStreamActionStream_TextEvent
     | _StartSpeechSynthesisStreamActionStream_CloseStreamEvent
+    | UnknownEvent
 )
 StartSpeechSynthesisStreamActionStream: TypeAlias = AnyIterator[
     _StartSpeechSynthesisStreamActionStream
@@ -34,6 +36,10 @@ StartSpeechSynthesisStreamActionStream: TypeAlias = AnyIterator[
 
 
 def serialize_event_json(value: _StartSpeechSynthesisStreamActionStream) -> bytes:
+    if isinstance(value, UnknownEvent):
+        raise ValueError(
+            f"StartSpeechSynthesisStreamActionStream: cannot serialize unknown event {value.event_type!r}"
+        )
     match value:
         case {"TextEvent": payload}:
             import capo_polly.types.text_event
@@ -83,6 +89,8 @@ def deserialize_event_json(
                     message
                 )
             }
+        case str():
+            return UnknownEvent(event_type, message)
         case _:
             raise ValueError(
                 f"StartSpeechSynthesisStreamActionStream: unrecognized event-type {event_type!r}"

@@ -77,3 +77,9 @@ from ._services.async_audit_manager import (
     AsyncAuditManagerClient as AsyncAuditManagerClient,
 )
 from ._services.audit_manager import AuditManagerClient as AuditManagerClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_quicksight.errors import DeserializationError, SerializationError
+from capo_quicksight.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_quicksight.types.read_api_key_connection_metadata
@@ -54,12 +55,17 @@ ReadAuthenticationMetadata: TypeAlias = (
     | _ReadAuthenticationMetadata_ApiKeyConnectionMetadata
     | _ReadAuthenticationMetadata_NoneConnectionMetadata
     | _ReadAuthenticationMetadata_IamConnectionMetadata
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ReadAuthenticationMetadata) -> dict:
-    if "AuthorizationCodeGrantMetadata" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ReadAuthenticationMetadata: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "AuthorizationCodeGrantMetadata" in value:
         import capo_quicksight.types.read_authorization_code_grant_metadata
 
         return {
@@ -161,12 +167,21 @@ def deserialize_json(data: dict) -> ReadAuthenticationMetadata:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "ReadAuthenticationMetadata: no recognized variant key"
         )
 
 
-def redact_sensitive(value: ReadAuthenticationMetadata) -> dict[str, Any]:
+def redact_sensitive(
+    value: ReadAuthenticationMetadata,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "BasicAuthConnectionMetadata" in value:
         import capo_quicksight.types.read_basic_auth_connection_metadata

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_agentcore.errors import DeserializationError, SerializationError
+from capo_bedrock_agentcore.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.s3_location
@@ -14,12 +15,16 @@ class _ResourceLocation_s3(TypedDict, closed=True):
     s3: "capo_bedrock_agentcore.types.s3_location.S3Location"
 
 
-ResourceLocation: TypeAlias = _ResourceLocation_s3
+ResourceLocation: TypeAlias = _ResourceLocation_s3 | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ResourceLocation) -> dict:
-    if "s3" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ResourceLocation: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "s3" in value:
         import capo_bedrock_agentcore.types.s3_location
 
         return {
@@ -37,4 +42,9 @@ def deserialize_json(data: dict) -> ResourceLocation:
             "s3": capo_bedrock_agentcore.types.s3_location.deserialize_json(data["s3"])
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ResourceLocation: no recognized variant key")

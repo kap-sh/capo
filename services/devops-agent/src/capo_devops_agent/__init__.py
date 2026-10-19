@@ -77,3 +77,9 @@ from ._services.async_dev_ops_agent import (
     AsyncDevOpsAgentClient as AsyncDevOpsAgentClient,
 )
 from ._services.dev_ops_agent import DevOpsAgentClient as DevOpsAgentClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock.errors import DeserializationError, SerializationError
+from capo_bedrock.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock.types.s3_data_source
@@ -14,12 +15,16 @@ class _ModelDataSource_s3DataSource(TypedDict, closed=True):
     s3DataSource: "capo_bedrock.types.s3_data_source.S3DataSource"
 
 
-ModelDataSource: TypeAlias = _ModelDataSource_s3DataSource
+ModelDataSource: TypeAlias = _ModelDataSource_s3DataSource | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ModelDataSource) -> dict:
-    if "s3DataSource" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ModelDataSource: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "s3DataSource" in value:
         import capo_bedrock.types.s3_data_source
 
         return {
@@ -41,4 +46,9 @@ def deserialize_json(data: dict) -> ModelDataSource:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ModelDataSource: no recognized variant key")

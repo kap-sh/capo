@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_qapps.errors import DeserializationError, SerializationError
+from capo_qapps.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_qapps.types.file_upload_card
@@ -35,13 +36,22 @@ class _Card_formInput(TypedDict, closed=True):
 
 
 Card: TypeAlias = (
-    _Card_textInput | _Card_qQuery | _Card_qPlugin | _Card_fileUpload | _Card_formInput
+    _Card_textInput
+    | _Card_qQuery
+    | _Card_qPlugin
+    | _Card_fileUpload
+    | _Card_formInput
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Card) -> dict:
-    if "textInput" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Card: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "textInput" in value:
         import capo_qapps.types.text_input_card
 
         return {
@@ -117,4 +127,9 @@ def deserialize_json(data: dict) -> Card:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Card: no recognized variant key")

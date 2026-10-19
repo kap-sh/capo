@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_application_signals.errors import DeserializationError, SerializationError
+from capo_application_signals.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_application_signals.types.code_capture_configuration
@@ -14,12 +15,16 @@ class _CaptureConfiguration_CodeCapture(TypedDict, closed=True):
     CodeCapture: "capo_application_signals.types.code_capture_configuration.CodeCaptureConfiguration"
 
 
-CaptureConfiguration: TypeAlias = _CaptureConfiguration_CodeCapture
+CaptureConfiguration: TypeAlias = _CaptureConfiguration_CodeCapture | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CaptureConfiguration) -> dict:
-    if "CodeCapture" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"CaptureConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "CodeCapture" in value:
         import capo_application_signals.types.code_capture_configuration
 
         return {
@@ -41,4 +46,9 @@ def deserialize_json(data: dict) -> CaptureConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("CaptureConfiguration: no recognized variant key")

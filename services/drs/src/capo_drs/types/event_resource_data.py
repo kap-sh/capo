@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_drs.errors import DeserializationError, SerializationError
+from capo_drs.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_drs.types.source_network_data
@@ -14,12 +15,16 @@ class _EventResourceData_sourceNetworkData(TypedDict, closed=True):
     sourceNetworkData: "capo_drs.types.source_network_data.SourceNetworkData"
 
 
-EventResourceData: TypeAlias = _EventResourceData_sourceNetworkData
+EventResourceData: TypeAlias = _EventResourceData_sourceNetworkData | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: EventResourceData) -> dict:
-    if "sourceNetworkData" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"EventResourceData: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "sourceNetworkData" in value:
         import capo_drs.types.source_network_data
 
         return {
@@ -41,4 +46,9 @@ def deserialize_json(data: dict) -> EventResourceData:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("EventResourceData: no recognized variant key")

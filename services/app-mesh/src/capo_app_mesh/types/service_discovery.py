@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_app_mesh.errors import DeserializationError, SerializationError
+from capo_app_mesh.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_app_mesh.types.aws_cloud_map_service_discovery
@@ -19,12 +20,18 @@ class _ServiceDiscovery_awsCloudMap(TypedDict, closed=True):
     awsCloudMap: "capo_app_mesh.types.aws_cloud_map_service_discovery.AwsCloudMapServiceDiscovery"
 
 
-ServiceDiscovery: TypeAlias = _ServiceDiscovery_dns | _ServiceDiscovery_awsCloudMap
+ServiceDiscovery: TypeAlias = (
+    _ServiceDiscovery_dns | _ServiceDiscovery_awsCloudMap | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ServiceDiscovery) -> dict:
-    if "dns" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ServiceDiscovery: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "dns" in value:
         import capo_app_mesh.types.dns_service_discovery
 
         return {
@@ -62,4 +69,9 @@ def deserialize_json(data: dict) -> ServiceDiscovery:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ServiceDiscovery: no recognized variant key")

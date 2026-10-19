@@ -77,3 +77,9 @@ from ._services.async_media_package import (
     AsyncMediaPackageClient as AsyncMediaPackageClient,
 )
 from ._services.media_package import MediaPackageClient as MediaPackageClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

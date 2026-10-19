@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_ssm_incidents.errors import DeserializationError, SerializationError
+from capo_ssm_incidents.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_ssm_incidents.types.arn
@@ -19,12 +20,18 @@ class _EventReference_relatedItemId(TypedDict, closed=True):
     relatedItemId: "capo_ssm_incidents.types.generated_id.GeneratedId"
 
 
-EventReference: TypeAlias = _EventReference_resource | _EventReference_relatedItemId
+EventReference: TypeAlias = (
+    _EventReference_resource | _EventReference_relatedItemId | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: EventReference) -> dict:
-    if "resource" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"EventReference: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "resource" in value:
         return {"resource": value["resource"]}
     elif "relatedItemId" in value:
         return {"relatedItemId": value["relatedItemId"]}
@@ -38,4 +45,9 @@ def deserialize_json(data: dict) -> EventReference:
     elif data.get("relatedItemId") is not None:
         return {"relatedItemId": data["relatedItemId"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("EventReference: no recognized variant key")

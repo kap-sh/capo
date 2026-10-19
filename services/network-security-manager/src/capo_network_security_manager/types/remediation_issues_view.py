@@ -8,6 +8,7 @@ from capo_network_security_manager.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_network_security_manager.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_network_security_manager.types.not_visible_marker
@@ -25,13 +26,19 @@ class _RemediationIssuesView_notVisible(TypedDict, closed=True):
 
 
 RemediationIssuesView: TypeAlias = (
-    _RemediationIssuesView_issues | _RemediationIssuesView_notVisible
+    _RemediationIssuesView_issues
+    | _RemediationIssuesView_notVisible
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RemediationIssuesView) -> dict:
-    if "issues" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RemediationIssuesView: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "issues" in value:
         import capo_network_security_manager.types.remediation_issues
 
         return {
@@ -69,4 +76,9 @@ def deserialize_json(data: dict) -> RemediationIssuesView:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("RemediationIssuesView: no recognized variant key")

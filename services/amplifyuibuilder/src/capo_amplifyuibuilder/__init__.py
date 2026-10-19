@@ -79,3 +79,9 @@ from ._services.amplify_ui_builder import (
 from ._services.async_amplify_ui_builder import (
     AsyncAmplifyUIBuilderClient as AsyncAmplifyUIBuilderClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -79,3 +79,9 @@ from ._services.async_migration_hub_strategy import (
 from ._services.migration_hub_strategy import (
     MigrationHubStrategyClient as MigrationHubStrategyClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

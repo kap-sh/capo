@@ -79,3 +79,9 @@ from ._services.async_marketplace_commerce_analytics import (
 from ._services.marketplace_commerce_analytics import (
     MarketplaceCommerceAnalyticsClient as MarketplaceCommerceAnalyticsClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

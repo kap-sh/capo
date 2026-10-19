@@ -77,3 +77,9 @@ from ._services.async_greengrass_v2 import (
     AsyncGreengrassV2Client as AsyncGreengrassV2Client,
 )
 from ._services.greengrass_v2 import GreengrassV2Client as GreengrassV2Client
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

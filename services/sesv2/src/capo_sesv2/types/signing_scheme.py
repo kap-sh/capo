@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_sesv2.errors import DeserializationError, SerializationError
+from capo_sesv2.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_sesv2.types.default_signing_scheme
@@ -19,12 +20,18 @@ class _SigningScheme_SmimeScheme(TypedDict, closed=True):
     SmimeScheme: "capo_sesv2.types.smime_signing_scheme.SmimeSigningScheme"
 
 
-SigningScheme: TypeAlias = _SigningScheme_DefaultScheme | _SigningScheme_SmimeScheme
+SigningScheme: TypeAlias = (
+    _SigningScheme_DefaultScheme | _SigningScheme_SmimeScheme | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SigningScheme) -> dict:
-    if "DefaultScheme" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"SigningScheme: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "DefaultScheme" in value:
         import capo_sesv2.types.default_signing_scheme
 
         return {
@@ -62,4 +69,9 @@ def deserialize_json(data: dict) -> SigningScheme:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("SigningScheme: no recognized variant key")

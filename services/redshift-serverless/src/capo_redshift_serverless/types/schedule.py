@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_redshift_serverless.errors import DeserializationError, SerializationError
+from capo_redshift_serverless.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import datetime
@@ -18,12 +19,16 @@ class _Schedule_cron(TypedDict, closed=True):
     cron: "str"
 
 
-Schedule: TypeAlias = _Schedule_at | _Schedule_cron
+Schedule: TypeAlias = _Schedule_at | _Schedule_cron | UnknownUnionMember
 
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: Schedule) -> dict:
-    if "at" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Schedule: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "at" in value:
         import capo_redshift_serverless.types._prelude.timestamp
 
         return {
@@ -49,4 +54,9 @@ def deserialize_aws_json_1_1(data: dict) -> Schedule:
     elif data.get("cron") is not None:
         return {"cron": data["cron"]}
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Schedule: no recognized variant key")

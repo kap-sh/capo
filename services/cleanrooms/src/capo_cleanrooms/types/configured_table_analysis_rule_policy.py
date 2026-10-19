@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_cleanrooms.errors import DeserializationError, SerializationError
+from capo_cleanrooms.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_cleanrooms.types.configured_table_analysis_rule_policy_v1
@@ -14,12 +15,18 @@ class _ConfiguredTableAnalysisRulePolicy_v1(TypedDict, closed=True):
     v1: "capo_cleanrooms.types.configured_table_analysis_rule_policy_v1.ConfiguredTableAnalysisRulePolicyV1"
 
 
-ConfiguredTableAnalysisRulePolicy: TypeAlias = _ConfiguredTableAnalysisRulePolicy_v1
+ConfiguredTableAnalysisRulePolicy: TypeAlias = (
+    _ConfiguredTableAnalysisRulePolicy_v1 | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ConfiguredTableAnalysisRulePolicy) -> dict:
-    if "v1" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ConfiguredTableAnalysisRulePolicy: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "v1" in value:
         import capo_cleanrooms.types.configured_table_analysis_rule_policy_v1
 
         return {
@@ -43,6 +50,11 @@ def deserialize_json(data: dict) -> ConfiguredTableAnalysisRulePolicy:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "ConfiguredTableAnalysisRulePolicy: no recognized variant key"
         )

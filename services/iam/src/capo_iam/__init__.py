@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_iam import AsyncIAMClient as AsyncIAMClient
 from ._services.iam import IAMClient as IAMClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_agent_registry_control.errors import DeserializationError, SerializationError
+from capo_agent_registry_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_agent_registry_control.types.agent_core_gateway_source_details
@@ -20,13 +21,19 @@ class _SourceDetails_agentcoreGateway(TypedDict, closed=True):
 
 
 SourceDetails: TypeAlias = (
-    _SourceDetails_agentcoreRuntime | _SourceDetails_agentcoreGateway
+    _SourceDetails_agentcoreRuntime
+    | _SourceDetails_agentcoreGateway
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SourceDetails) -> dict:
-    if "agentcoreRuntime" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"SourceDetails: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "agentcoreRuntime" in value:
         import capo_agent_registry_control.types.agent_core_runtime_source_details
 
         return {
@@ -64,4 +71,9 @@ def deserialize_json(data: dict) -> SourceDetails:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("SourceDetails: no recognized variant key")

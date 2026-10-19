@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_acm.errors import DeserializationError, SerializationError
+from capo_acm.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_acm.types.dns_prevalidation_details
@@ -14,12 +15,18 @@ class _PrevalidationDetails_DnsPrevalidation(TypedDict, closed=True):
     DnsPrevalidation: "capo_acm.types.dns_prevalidation_details.DnsPrevalidationDetails"
 
 
-PrevalidationDetails: TypeAlias = _PrevalidationDetails_DnsPrevalidation
+PrevalidationDetails: TypeAlias = (
+    _PrevalidationDetails_DnsPrevalidation | UnknownUnionMember
+)
 
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: PrevalidationDetails) -> dict:
-    if "DnsPrevalidation" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"PrevalidationDetails: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "DnsPrevalidation" in value:
         import capo_acm.types.dns_prevalidation_details
 
         return {
@@ -41,4 +48,9 @@ def deserialize_aws_json_1_1(data: dict) -> PrevalidationDetails:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("PrevalidationDetails: no recognized variant key")

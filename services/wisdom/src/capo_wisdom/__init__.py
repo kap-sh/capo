@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_wisdom import AsyncWisdomClient as AsyncWisdomClient
 from ._services.wisdom import WisdomClient as WisdomClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

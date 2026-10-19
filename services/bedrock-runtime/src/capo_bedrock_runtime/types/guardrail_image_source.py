@@ -5,18 +5,23 @@ from typing import TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_runtime.errors import DeserializationError, SerializationError
+from capo_bedrock_runtime.types._unknown import UnknownUnionMember
 
 
 class _GuardrailImageSource_bytes(TypedDict, closed=True):
     bytes: "bytes"
 
 
-GuardrailImageSource: TypeAlias = _GuardrailImageSource_bytes
+GuardrailImageSource: TypeAlias = _GuardrailImageSource_bytes | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: GuardrailImageSource) -> dict:
-    if "bytes" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"GuardrailImageSource: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "bytes" in value:
         import capo_bedrock_runtime.types._prelude.blob
 
         return {
@@ -38,4 +43,9 @@ def deserialize_json(data: dict) -> GuardrailImageSource:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("GuardrailImageSource: no recognized variant key")

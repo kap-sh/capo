@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.configuration_bundle_action
@@ -22,12 +23,18 @@ class _Action_routeToTarget(TypedDict, closed=True):
     routeToTarget: "capo_bedrock_agentcore_control.types.route_to_target_action.RouteToTargetAction"
 
 
-Action: TypeAlias = _Action_configurationBundle | _Action_routeToTarget
+Action: TypeAlias = (
+    _Action_configurationBundle | _Action_routeToTarget | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Action) -> dict:
-    if "configurationBundle" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"Action: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "configurationBundle" in value:
         import capo_bedrock_agentcore_control.types.configuration_bundle_action
 
         return {
@@ -65,10 +72,17 @@ def deserialize_json(data: dict) -> Action:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("Action: no recognized variant key")
 
 
-def redact_sensitive(value: Action) -> dict[str, Any]:
+def redact_sensitive(value: Action) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "routeToTarget" in value:
         import capo_bedrock_agentcore_control.types.route_to_target_action

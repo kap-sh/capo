@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_b2bi import Asyncb2biClient as Asyncb2biClient
 from ._services.b2bi import b2biClient as b2biClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.inline_examples_source
@@ -22,12 +23,18 @@ class _DataSourceType_s3Source(TypedDict, closed=True):
     s3Source: "capo_bedrock_agentcore_control.types.s3_source.S3Source"
 
 
-DataSourceType: TypeAlias = _DataSourceType_inlineExamples | _DataSourceType_s3Source
+DataSourceType: TypeAlias = (
+    _DataSourceType_inlineExamples | _DataSourceType_s3Source | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DataSourceType) -> dict:
-    if "inlineExamples" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"DataSourceType: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "inlineExamples" in value:
         import capo_bedrock_agentcore_control.types.inline_examples_source
 
         return {
@@ -65,10 +72,17 @@ def deserialize_json(data: dict) -> DataSourceType:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("DataSourceType: no recognized variant key")
 
 
-def redact_sensitive(value: DataSourceType) -> dict[str, Any]:
+def redact_sensitive(value: DataSourceType) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "inlineExamples" in value:
         import capo_bedrock_agentcore_control.types.inline_examples_source

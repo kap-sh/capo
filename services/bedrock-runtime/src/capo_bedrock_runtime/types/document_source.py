@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_runtime.errors import DeserializationError, SerializationError
+from capo_bedrock_runtime.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.document_content_blocks
@@ -32,12 +33,17 @@ DocumentSource: TypeAlias = (
     | _DocumentSource_s3Location
     | _DocumentSource_text
     | _DocumentSource_content
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DocumentSource) -> dict:
-    if "bytes" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"DocumentSource: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "bytes" in value:
         import capo_bedrock_runtime.types._prelude.blob
 
         return {
@@ -95,4 +101,9 @@ def deserialize_json(data: dict) -> DocumentSource:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("DocumentSource: no recognized variant key")

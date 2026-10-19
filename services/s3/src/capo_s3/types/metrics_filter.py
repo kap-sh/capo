@@ -6,6 +6,7 @@ from typing_extensions import TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
 from capo_s3.errors import DeserializationError, SerializationError
+from capo_s3.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_s3.types.access_point_arn
@@ -35,13 +36,18 @@ MetricsFilter: TypeAlias = (
     | _MetricsFilter_Tag
     | _MetricsFilter_AccessPointArn
     | _MetricsFilter_And
+    | UnknownUnionMember
 )
 
 
 # --- restXml ser/de ---
 def serialize_xml(value: MetricsFilter, parent: Element, tag: str) -> None:
     el = SubElement(parent, tag)
-    if "Prefix" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"MetricsFilter: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "Prefix" in value:
         SubElement(el, "Prefix").text = str(value["Prefix"])
     elif "Tag" in value:
         import capo_s3.types.tag
@@ -71,4 +77,6 @@ def deserialize_xml(el: Element) -> MetricsFilter:
             import capo_s3.types.metrics_and_operator
 
             return {"And": capo_s3.types.metrics_and_operator.deserialize_xml(child)}
+        else:
+            return UnknownUnionMember(child.tag)
     raise DeserializationError("MetricsFilter: no recognized variant element")

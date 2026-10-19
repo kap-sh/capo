@@ -79,3 +79,9 @@ from ._services.async_code_guru_profiler import (
 from ._services.code_guru_profiler import (
     CodeGuruProfilerClient as CodeGuruProfilerClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

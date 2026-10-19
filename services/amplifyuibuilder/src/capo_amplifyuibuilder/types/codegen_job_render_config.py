@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_amplifyuibuilder.errors import DeserializationError, SerializationError
+from capo_amplifyuibuilder.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_amplifyuibuilder.types.react_start_codegen_job_data
@@ -14,12 +15,16 @@ class _CodegenJobRenderConfig_react(TypedDict, closed=True):
     react: "capo_amplifyuibuilder.types.react_start_codegen_job_data.ReactStartCodegenJobData"
 
 
-CodegenJobRenderConfig: TypeAlias = _CodegenJobRenderConfig_react
+CodegenJobRenderConfig: TypeAlias = _CodegenJobRenderConfig_react | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CodegenJobRenderConfig) -> dict:
-    if "react" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"CodegenJobRenderConfig: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "react" in value:
         import capo_amplifyuibuilder.types.react_start_codegen_job_data
 
         return {
@@ -41,4 +46,9 @@ def deserialize_json(data: dict) -> CodegenJobRenderConfig:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("CodegenJobRenderConfig: no recognized variant key")

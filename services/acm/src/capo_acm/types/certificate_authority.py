@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_acm.errors import DeserializationError, SerializationError
+from capo_acm.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_acm.types.public_certificate_authority
@@ -16,12 +17,18 @@ class _CertificateAuthority_PublicCertificateAuthority(TypedDict, closed=True):
     )
 
 
-CertificateAuthority: TypeAlias = _CertificateAuthority_PublicCertificateAuthority
+CertificateAuthority: TypeAlias = (
+    _CertificateAuthority_PublicCertificateAuthority | UnknownUnionMember
+)
 
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: CertificateAuthority) -> dict:
-    if "PublicCertificateAuthority" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"CertificateAuthority: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "PublicCertificateAuthority" in value:
         import capo_acm.types.public_certificate_authority
 
         return {
@@ -43,4 +50,9 @@ def deserialize_aws_json_1_1(data: dict) -> CertificateAuthority:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("CertificateAuthority: no recognized variant key")

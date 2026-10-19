@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_dsql.errors import DeserializationError, SerializationError
+from capo_dsql.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_dsql.types.kinesis_target_definition
@@ -14,12 +15,16 @@ class _TargetDefinition_kinesis(TypedDict, closed=True):
     kinesis: "capo_dsql.types.kinesis_target_definition.KinesisTargetDefinition"
 
 
-TargetDefinition: TypeAlias = _TargetDefinition_kinesis
+TargetDefinition: TypeAlias = _TargetDefinition_kinesis | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: TargetDefinition) -> dict:
-    if "kinesis" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"TargetDefinition: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "kinesis" in value:
         import capo_dsql.types.kinesis_target_definition
 
         return {
@@ -41,4 +46,9 @@ def deserialize_json(data: dict) -> TargetDefinition:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("TargetDefinition: no recognized variant key")

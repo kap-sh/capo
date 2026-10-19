@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_groundstation.errors import DeserializationError, SerializationError
+from capo_groundstation.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_groundstation.types.ephemeris_description
@@ -26,12 +27,17 @@ EphemerisTypeDescription: TypeAlias = (
     _EphemerisTypeDescription_tle
     | _EphemerisTypeDescription_oem
     | _EphemerisTypeDescription_azEl
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: EphemerisTypeDescription) -> dict:
-    if "tle" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"EphemerisTypeDescription: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "tle" in value:
         import capo_groundstation.types.ephemeris_description
 
         return {
@@ -85,6 +91,11 @@ def deserialize_json(data: dict) -> EphemerisTypeDescription:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "EphemerisTypeDescription: no recognized variant key"
         )

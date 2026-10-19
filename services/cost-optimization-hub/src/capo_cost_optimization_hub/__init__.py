@@ -79,3 +79,9 @@ from ._services.async_cost_optimization_hub import (
 from ._services.cost_optimization_hub import (
     CostOptimizationHubClient as CostOptimizationHubClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

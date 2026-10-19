@@ -77,3 +77,9 @@ from ._services.async_supply_chain import (
     AsyncSupplyChainClient as AsyncSupplyChainClient,
 )
 from ._services.supply_chain import SupplyChainClient as SupplyChainClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

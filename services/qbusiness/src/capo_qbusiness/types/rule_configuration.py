@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_qbusiness.errors import DeserializationError, SerializationError
+from capo_qbusiness.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_qbusiness.types.content_blocker_rule
@@ -22,13 +23,19 @@ class _RuleConfiguration_contentRetrievalRule(TypedDict, closed=True):
 
 
 RuleConfiguration: TypeAlias = (
-    _RuleConfiguration_contentBlockerRule | _RuleConfiguration_contentRetrievalRule
+    _RuleConfiguration_contentBlockerRule
+    | _RuleConfiguration_contentRetrievalRule
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RuleConfiguration) -> dict:
-    if "contentBlockerRule" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"RuleConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "contentBlockerRule" in value:
         import capo_qbusiness.types.content_blocker_rule
 
         return {
@@ -66,4 +73,9 @@ def deserialize_json(data: dict) -> RuleConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("RuleConfiguration: no recognized variant key")

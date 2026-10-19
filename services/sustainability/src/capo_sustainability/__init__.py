@@ -84,3 +84,9 @@ from ._services.async_sustainability import (
     AsyncSustainabilityClient as AsyncSustainabilityClient,
 )
 from ._services.sustainability import SustainabilityClient as SustainabilityClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_runtime.errors import DeserializationError, SerializationError
+from capo_bedrock_runtime.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.guardrail_automated_reasoning_impossible_finding
@@ -52,12 +53,17 @@ GuardrailAutomatedReasoningFinding: TypeAlias = (
     | _GuardrailAutomatedReasoningFinding_translationAmbiguous
     | _GuardrailAutomatedReasoningFinding_tooComplex
     | _GuardrailAutomatedReasoningFinding_noTranslations
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: GuardrailAutomatedReasoningFinding) -> dict:
-    if "valid" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"GuardrailAutomatedReasoningFinding: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "valid" in value:
         import capo_bedrock_runtime.types.guardrail_automated_reasoning_valid_finding
 
         return {
@@ -177,12 +183,21 @@ def deserialize_json(data: dict) -> GuardrailAutomatedReasoningFinding:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "GuardrailAutomatedReasoningFinding: no recognized variant key"
         )
 
 
-def redact_sensitive(value: GuardrailAutomatedReasoningFinding) -> dict[str, Any]:
+def redact_sensitive(
+    value: GuardrailAutomatedReasoningFinding,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "valid" in value:
         import capo_bedrock_runtime.types.guardrail_automated_reasoning_valid_finding

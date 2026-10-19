@@ -79,3 +79,9 @@ from ._services.async_io_t_secure_tunneling import (
 from ._services.io_t_secure_tunneling import (
     IoTSecureTunnelingClient as IoTSecureTunnelingClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.custom_memory_strategy_input
@@ -43,12 +44,17 @@ MemoryStrategyInput: TypeAlias = (
     | _MemoryStrategyInput_userPreferenceMemoryStrategy
     | _MemoryStrategyInput_customMemoryStrategy
     | _MemoryStrategyInput_episodicMemoryStrategy
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MemoryStrategyInput) -> dict:
-    if "semanticMemoryStrategy" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"MemoryStrategyInput: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "semanticMemoryStrategy" in value:
         import capo_bedrock_agentcore_control.types.semantic_memory_strategy_input
 
         return {
@@ -134,10 +140,17 @@ def deserialize_json(data: dict) -> MemoryStrategyInput:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("MemoryStrategyInput: no recognized variant key")
 
 
-def redact_sensitive(value: MemoryStrategyInput) -> dict[str, Any]:
+def redact_sensitive(value: MemoryStrategyInput) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "semanticMemoryStrategy" in value:
         import capo_bedrock_agentcore_control.types.semantic_memory_strategy_input

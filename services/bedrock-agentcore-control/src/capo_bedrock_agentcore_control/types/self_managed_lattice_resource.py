@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.resource_configuration_identifier
@@ -20,13 +21,17 @@ class _SelfManagedLatticeResource_resourceConfigurationIdentifier(
 
 
 SelfManagedLatticeResource: TypeAlias = (
-    _SelfManagedLatticeResource_resourceConfigurationIdentifier
+    _SelfManagedLatticeResource_resourceConfigurationIdentifier | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SelfManagedLatticeResource) -> dict:
-    if "resourceConfigurationIdentifier" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"SelfManagedLatticeResource: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "resourceConfigurationIdentifier" in value:
         return {
             "resourceConfigurationIdentifier": value["resourceConfigurationIdentifier"]
         }
@@ -40,6 +45,11 @@ def deserialize_json(data: dict) -> SelfManagedLatticeResource:
             "resourceConfigurationIdentifier": data["resourceConfigurationIdentifier"]
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "SelfManagedLatticeResource: no recognized variant key"
         )

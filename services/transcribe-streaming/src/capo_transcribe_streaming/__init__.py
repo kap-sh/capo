@@ -79,3 +79,9 @@ from ._services.async_transcribe_streaming import (
 from ._services.transcribe_streaming import (
     TranscribeStreamingClient as TranscribeStreamingClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

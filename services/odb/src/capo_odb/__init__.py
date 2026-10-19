@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_odb import AsyncodbClient as AsyncodbClient
 from ._services.odb import odbClient as odbClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

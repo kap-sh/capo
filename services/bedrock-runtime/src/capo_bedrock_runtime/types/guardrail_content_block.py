@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_bedrock_runtime.errors import DeserializationError, SerializationError
+from capo_bedrock_runtime.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.guardrail_image_block
@@ -20,13 +21,17 @@ class _GuardrailContentBlock_image(TypedDict, closed=True):
 
 
 GuardrailContentBlock: TypeAlias = (
-    _GuardrailContentBlock_text | _GuardrailContentBlock_image
+    _GuardrailContentBlock_text | _GuardrailContentBlock_image | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: GuardrailContentBlock) -> dict:
-    if "text" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"GuardrailContentBlock: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "text" in value:
         import capo_bedrock_runtime.types.guardrail_text_block
 
         return {
@@ -64,10 +69,19 @@ def deserialize_json(data: dict) -> GuardrailContentBlock:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("GuardrailContentBlock: no recognized variant key")
 
 
-def redact_sensitive(value: GuardrailContentBlock) -> dict[str, Any]:
+def redact_sensitive(
+    value: GuardrailContentBlock,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "image" in value:
         out["image"] = "*** Sensitive Data Redacted ***"

@@ -79,3 +79,9 @@ from ._services.async_route53_global_resolver import (
 from ._services.route53_global_resolver import (
     Route53GlobalResolverClient as Route53GlobalResolverClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

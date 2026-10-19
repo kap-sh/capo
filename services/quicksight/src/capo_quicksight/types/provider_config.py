@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_quicksight.errors import DeserializationError, SerializationError
+from capo_quicksight.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_quicksight.types.microsoft_purview_provider_config
@@ -14,12 +15,16 @@ class _ProviderConfig_MicrosoftPurview(TypedDict, closed=True):
     MicrosoftPurview: "capo_quicksight.types.microsoft_purview_provider_config.MicrosoftPurviewProviderConfig"
 
 
-ProviderConfig: TypeAlias = _ProviderConfig_MicrosoftPurview
+ProviderConfig: TypeAlias = _ProviderConfig_MicrosoftPurview | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ProviderConfig) -> dict:
-    if "MicrosoftPurview" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ProviderConfig: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "MicrosoftPurview" in value:
         import capo_quicksight.types.microsoft_purview_provider_config
 
         return {
@@ -41,4 +46,9 @@ def deserialize_json(data: dict) -> ProviderConfig:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ProviderConfig: no recognized variant key")

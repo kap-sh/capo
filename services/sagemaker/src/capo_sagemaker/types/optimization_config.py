@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_sagemaker.errors import DeserializationError, SerializationError
+from capo_sagemaker.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_sagemaker.types.model_compilation_config
@@ -40,12 +41,17 @@ OptimizationConfig: TypeAlias = (
     | _OptimizationConfig_ModelCompilationConfig
     | _OptimizationConfig_ModelShardingConfig
     | _OptimizationConfig_ModelSpeculativeDecodingConfig
+    | UnknownUnionMember
 )
 
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: OptimizationConfig) -> dict:
-    if "ModelQuantizationConfig" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"OptimizationConfig: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "ModelQuantizationConfig" in value:
         import capo_sagemaker.types.model_quantization_config
 
         return {
@@ -115,4 +121,9 @@ def deserialize_aws_json_1_1(data: dict) -> OptimizationConfig:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("OptimizationConfig: no recognized variant key")

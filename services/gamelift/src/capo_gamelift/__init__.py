@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_game_lift import AsyncGameLiftClient as AsyncGameLiftClient
 from ._services.game_lift import GameLiftClient as GameLiftClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

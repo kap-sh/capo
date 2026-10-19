@@ -8,6 +8,7 @@ from capo_payment_cryptography_data.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_payment_cryptography_data.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.asymmetric_encryption_attributes
@@ -31,12 +32,17 @@ ReEncryptionAttributes: TypeAlias = (
     _ReEncryptionAttributes_Symmetric
     | _ReEncryptionAttributes_Asymmetric
     | _ReEncryptionAttributes_Dukpt
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ReEncryptionAttributes) -> dict:
-    if "Symmetric" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"ReEncryptionAttributes: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "Symmetric" in value:
         import capo_payment_cryptography_data.types.symmetric_encryption_attributes
 
         return {
@@ -90,10 +96,19 @@ def deserialize_json(data: dict) -> ReEncryptionAttributes:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("ReEncryptionAttributes: no recognized variant key")
 
 
-def redact_sensitive(value: ReEncryptionAttributes) -> dict[str, Any]:
+def redact_sensitive(
+    value: ReEncryptionAttributes,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "Symmetric" in value:
         import capo_payment_cryptography_data.types.symmetric_encryption_attributes

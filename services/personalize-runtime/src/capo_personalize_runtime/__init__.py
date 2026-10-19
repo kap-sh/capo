@@ -79,3 +79,9 @@ from ._services.async_personalize_runtime import (
 from ._services.personalize_runtime import (
     PersonalizeRuntimeClient as PersonalizeRuntimeClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

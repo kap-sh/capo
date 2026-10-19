@@ -77,3 +77,9 @@ from ._services.async_io_t_events_data import (
     AsyncIoTEventsDataClient as AsyncIoTEventsDataClient,
 )
 from ._services.io_t_events_data import IoTEventsDataClient as IoTEventsDataClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

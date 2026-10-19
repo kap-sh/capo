@@ -77,3 +77,9 @@ from ._services.async_bcm_data_exports import (
     AsyncBCMDataExportsClient as AsyncBCMDataExportsClient,
 )
 from ._services.bcm_data_exports import BCMDataExportsClient as BCMDataExportsClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

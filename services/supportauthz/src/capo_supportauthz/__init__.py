@@ -77,3 +77,9 @@ from ._services.async_support_auth_z import (
     AsyncSupportAuthZClient as AsyncSupportAuthZClient,
 )
 from ._services.support_auth_z import SupportAuthZClient as SupportAuthZClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

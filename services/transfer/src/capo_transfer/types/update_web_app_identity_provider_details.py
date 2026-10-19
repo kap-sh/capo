@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_transfer.errors import DeserializationError, SerializationError
+from capo_transfer.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_transfer.types.update_web_app_identity_center_config
@@ -15,13 +16,17 @@ class _UpdateWebAppIdentityProviderDetails_IdentityCenterConfig(TypedDict, close
 
 
 UpdateWebAppIdentityProviderDetails: TypeAlias = (
-    _UpdateWebAppIdentityProviderDetails_IdentityCenterConfig
+    _UpdateWebAppIdentityProviderDetails_IdentityCenterConfig | UnknownUnionMember
 )
 
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: UpdateWebAppIdentityProviderDetails) -> dict:
-    if "IdentityCenterConfig" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"UpdateWebAppIdentityProviderDetails: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "IdentityCenterConfig" in value:
         import capo_transfer.types.update_web_app_identity_center_config
 
         return {
@@ -45,6 +50,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateWebAppIdentityProviderDetails:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "UpdateWebAppIdentityProviderDetails: no recognized variant key"
         )

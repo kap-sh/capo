@@ -77,3 +77,9 @@ from ._services.async_data_pipeline import (
     AsyncDataPipelineClient as AsyncDataPipelineClient,
 )
 from ._services.data_pipeline import DataPipelineClient as DataPipelineClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

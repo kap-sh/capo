@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_kms import AsyncKMSClient as AsyncKMSClient
 from ._services.kms import KMSClient as KMSClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

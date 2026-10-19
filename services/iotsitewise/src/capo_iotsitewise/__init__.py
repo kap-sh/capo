@@ -77,3 +77,9 @@ from ._services.async_io_t_site_wise import (
     AsyncIoTSiteWiseClient as AsyncIoTSiteWiseClient,
 )
 from ._services.io_t_site_wise import IoTSiteWiseClient as IoTSiteWiseClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

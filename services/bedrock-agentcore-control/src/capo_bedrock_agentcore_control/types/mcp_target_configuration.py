@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import (
     DeserializationError,
     SerializationError,
 )
+from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.api_gateway_target_configuration
@@ -53,12 +54,17 @@ McpTargetConfiguration: TypeAlias = (
     | _McpTargetConfiguration_mcpServer
     | _McpTargetConfiguration_apiGateway
     | _McpTargetConfiguration_connector
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: McpTargetConfiguration) -> dict:
-    if "openApiSchema" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"McpTargetConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "openApiSchema" in value:
         import capo_bedrock_agentcore_control.types.api_schema_configuration
 
         return {
@@ -160,10 +166,19 @@ def deserialize_json(data: dict) -> McpTargetConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("McpTargetConfiguration: no recognized variant key")
 
 
-def redact_sensitive(value: McpTargetConfiguration) -> dict[str, Any]:
+def redact_sensitive(
+    value: McpTargetConfiguration,
+) -> dict[str, Any] | UnknownUnionMember:
+    if isinstance(value, UnknownUnionMember):
+        return value
     out: dict[str, Any] = dict(value)
     if "openApiSchema" in value:
         import capo_bedrock_agentcore_control.types.api_schema_configuration

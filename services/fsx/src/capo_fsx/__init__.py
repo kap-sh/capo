@@ -75,3 +75,9 @@ from ._services._pipeline import (
 )
 from ._services.async_f_sx import AsyncFSxClient as AsyncFSxClient
 from ._services.f_sx import FSxClient as FSxClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

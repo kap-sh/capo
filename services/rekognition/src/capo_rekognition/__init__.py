@@ -77,3 +77,9 @@ from ._services.async_rekognition import (
     AsyncRekognitionClient as AsyncRekognitionClient,
 )
 from ._services.rekognition import RekognitionClient as RekognitionClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

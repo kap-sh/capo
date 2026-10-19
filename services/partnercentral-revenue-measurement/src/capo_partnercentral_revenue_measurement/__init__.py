@@ -86,3 +86,9 @@ from ._services.async_partner_central_revenue_measurement import (
 from ._services.partner_central_revenue_measurement import (
     PartnerCentralRevenueMeasurementClient as PartnerCentralRevenueMeasurementClient,
 )
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)

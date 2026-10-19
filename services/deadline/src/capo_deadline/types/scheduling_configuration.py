@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_deadline.errors import DeserializationError, SerializationError
+from capo_deadline.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_deadline.types.priority_balanced_scheduling_configuration
@@ -28,12 +29,17 @@ SchedulingConfiguration: TypeAlias = (
     _SchedulingConfiguration_priorityFifo
     | _SchedulingConfiguration_priorityBalanced
     | _SchedulingConfiguration_weightedBalanced
+    | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SchedulingConfiguration) -> dict:
-    if "priorityFifo" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"SchedulingConfiguration: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "priorityFifo" in value:
         import capo_deadline.types.priority_fifo_scheduling_configuration
 
         return {
@@ -87,4 +93,9 @@ def deserialize_json(data: dict) -> SchedulingConfiguration:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError("SchedulingConfiguration: no recognized variant key")

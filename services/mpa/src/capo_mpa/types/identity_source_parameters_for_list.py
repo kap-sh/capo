@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from typing_extensions import TypedDict
 
 from capo_mpa.errors import DeserializationError, SerializationError
+from capo_mpa.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_mpa.types.iam_identity_center_for_list
@@ -17,13 +18,17 @@ class _IdentitySourceParametersForList_IamIdentityCenter(TypedDict, closed=True)
 
 
 IdentitySourceParametersForList: TypeAlias = (
-    _IdentitySourceParametersForList_IamIdentityCenter
+    _IdentitySourceParametersForList_IamIdentityCenter | UnknownUnionMember
 )
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: IdentitySourceParametersForList) -> dict:
-    if "IamIdentityCenter" in value:
+    if isinstance(value, UnknownUnionMember):
+        raise SerializationError(
+            f"IdentitySourceParametersForList: cannot serialize unknown variant {value.name!r}"
+        )
+    elif "IamIdentityCenter" in value:
         import capo_mpa.types.iam_identity_center_for_list
 
         return {
@@ -45,6 +50,11 @@ def deserialize_json(data: dict) -> IdentitySourceParametersForList:
             )
         }
     else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return UnknownUnionMember(name)
         raise DeserializationError(
             "IdentitySourceParametersForList: no recognized variant key"
         )

@@ -77,3 +77,9 @@ from ._services.async_media_connect import (
     AsyncMediaConnectClient as AsyncMediaConnectClient,
 )
 from ._services.media_connect import MediaConnectClient as MediaConnectClient
+from .types._unknown import (
+    UnknownEvent as UnknownEvent,
+)
+from .types._unknown import (
+    UnknownUnionMember as UnknownUnionMember,
+)
