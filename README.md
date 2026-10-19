@@ -436,7 +436,7 @@ async with AsyncS3Client() as s3:
     await s3.put_object("bucket_name", "key", body=b"data", storage_class=cast(StorageClass, "NEW_STORAGE_CLASS"))
 ```
 
-A union variant your client doesn't know comes back as `UnknownUnionMember`, whose `name` is the variant's name on the wire. Check for it before you look inside the union, because `"text" in block` raises `TypeError` on an `UnknownUnionMember`:
+A union variant your client doesn't know comes back as `UnknownUnionMember`, whose `name` is the variant's name on the wire, or `""` if the service sent no variant. Check for it before you look inside the union, because `"text" in block` raises `TypeError` on an `UnknownUnionMember`:
 
 ```python
 from capo_bedrock_runtime import AsyncBedrockRuntimeClient, UnknownUnionMember
@@ -457,6 +457,8 @@ if not isinstance(output, UnknownUnionMember):
 ```
 
 An `UnknownUnionMember` carries no data and can't be sent back: passing one as input raises `SerializationError`.
+
+A response that leaves out a required member doesn't fail either. The client fills in the member's `@default` if it has one, and otherwise an empty value for its type: `0`, `False`, `""`, `b""`, `[]`, `{}`, `None` for documents, the Unix epoch for timestamps, and `""` (or `0`) for enums. A missing union comes back as `UnknownUnionMember` with an empty `name`. A missing required structure still raises `DeserializationError`.
 
 In an event stream, an event your client doesn't know comes back as `UnknownEvent`, and the stream goes on. It keeps the event's `event_type` and the raw `message`, with its headers and undecoded payload:
 
