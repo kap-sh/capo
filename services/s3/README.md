@@ -1,6 +1,6 @@
 # capo-s3: typed, async Python SDK for Amazon S3
 
-`capo-s3` is a typed Python SDK for Amazon S3 and S3-compatible storage such as RustFS and MinIO. `AsyncS3Client` works with asyncio and trio, and `S3Client` has the same methods for sync code. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+`capo-s3` is a typed Python SDK for Amazon S3 and S3-compatible storage such as RustFS, MinIO and Cloudflare R2. `AsyncS3Client` works with asyncio and trio, and `S3Client` has the same methods for sync code. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
 
 Beyond the S3 API it has a transfer manager for multipart uploads and downloads of large files, presigned URLs and presigned POST forms, paginators and waiters.
 
@@ -43,7 +43,7 @@ def main():
                 print(chunk)
 ```
 
-## Use RustFS, MinIO or other S3-compatible storage
+## Use RustFS, MinIO, Cloudflare R2 or other S3-compatible storage
 
 ```python
 from capo_s3 import AsyncS3Client, Credentials
