@@ -371,7 +371,7 @@ class AsyncCodeCommitClient:
             capo_codecommit.errors.encryption_key_disabled_exception.EncryptionKeyDisabledException: <p>The encryption key is disabled.</p>
             capo_codecommit.errors.encryption_key_not_found_exception.EncryptionKeyNotFoundException: <p>No encryption key was found.</p>
             capo_codecommit.errors.encryption_key_unavailable_exception.EncryptionKeyUnavailableException: <p>The encryption key is not available.</p>
-            capo_codecommit.errors.invalid_approval_rule_template_name_exception.InvalidApprovalRuleTemplateNameException: <p>The name of the approval rule template is not valid. Template names must be between 1 and 100 valid characters in length. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i>CodeCommit User Guide</i>.</p>
+            capo_codecommit.errors.invalid_approval_rule_template_name_exception.InvalidApprovalRuleTemplateNameException: <p>The name of the approval rule template is not valid. Template names must be between 1 and 100 valid characters in length. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i> CodeCommit User Guide</i>.</p>
             capo_codecommit.errors.invalid_repository_name_exception.InvalidRepositoryNameException: <p>A specified repository name is not valid.</p> <note> <p>This exception occurs only when a specified repository name is not valid. Other exceptions occur when a required repository parameter is missing, or when a specified repository does not exist.</p> </note>
             capo_codecommit.errors.maximum_rule_templates_associated_with_repository_exception.MaximumRuleTemplatesAssociatedWithRepositoryException: <p>The maximum number of approval rule templates for a repository has been exceeded. You cannot associate more than 25 approval rule templates with a repository.</p>
             capo_codecommit.errors.repository_does_not_exist_exception.RepositoryDoesNotExistException: <p>The specified repository does not exist.</p>
@@ -430,7 +430,7 @@ class AsyncCodeCommitClient:
             capo_codecommit.errors.encryption_key_disabled_exception.EncryptionKeyDisabledException: <p>The encryption key is disabled.</p>
             capo_codecommit.errors.encryption_key_not_found_exception.EncryptionKeyNotFoundException: <p>No encryption key was found.</p>
             capo_codecommit.errors.encryption_key_unavailable_exception.EncryptionKeyUnavailableException: <p>The encryption key is not available.</p>
-            capo_codecommit.errors.invalid_approval_rule_template_name_exception.InvalidApprovalRuleTemplateNameException: <p>The name of the approval rule template is not valid. Template names must be between 1 and 100 valid characters in length. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i>CodeCommit User Guide</i>.</p>
+            capo_codecommit.errors.invalid_approval_rule_template_name_exception.InvalidApprovalRuleTemplateNameException: <p>The name of the approval rule template is not valid. Template names must be between 1 and 100 valid characters in length. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i> CodeCommit User Guide</i>.</p>
             capo_codecommit.errors.maximum_repository_names_exceeded_exception.MaximumRepositoryNamesExceededException: <p>The maximum number of allowed repository names was exceeded. Currently, this number is 100.</p>
             capo_codecommit.errors.repository_names_required_exception.RepositoryNamesRequiredException: <p>At least one repository name object is required, but was not specified.</p>
             capo_codecommit.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -596,7 +596,7 @@ class AsyncCodeCommitClient:
             capo_codecommit.errors.encryption_key_disabled_exception.EncryptionKeyDisabledException: <p>The encryption key is disabled.</p>
             capo_codecommit.errors.encryption_key_not_found_exception.EncryptionKeyNotFoundException: <p>No encryption key was found.</p>
             capo_codecommit.errors.encryption_key_unavailable_exception.EncryptionKeyUnavailableException: <p>The encryption key is not available.</p>
-            capo_codecommit.errors.invalid_approval_rule_template_name_exception.InvalidApprovalRuleTemplateNameException: <p>The name of the approval rule template is not valid. Template names must be between 1 and 100 valid characters in length. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i>CodeCommit User Guide</i>.</p>
+            capo_codecommit.errors.invalid_approval_rule_template_name_exception.InvalidApprovalRuleTemplateNameException: <p>The name of the approval rule template is not valid. Template names must be between 1 and 100 valid characters in length. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i> CodeCommit User Guide</i>.</p>
             capo_codecommit.errors.maximum_repository_names_exceeded_exception.MaximumRepositoryNamesExceededException: <p>The maximum number of allowed repository names was exceeded. Currently, this number is 100.</p>
             capo_codecommit.errors.repository_names_required_exception.RepositoryNamesRequiredException: <p>At least one repository name object is required, but was not specified.</p>
             capo_codecommit.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -769,8 +769,8 @@ class AsyncCodeCommitClient:
             capo_codecommit.errors.approval_rule_template_name_already_exists_exception.ApprovalRuleTemplateNameAlreadyExistsException: <p>You cannot create an approval rule template with that name because a template with that name already exists in this Amazon Web Services Region for your Amazon Web Services account. Approval rule template names must be unique.</p>
             capo_codecommit.errors.approval_rule_template_name_required_exception.ApprovalRuleTemplateNameRequiredException: <p>An approval rule template name is required, but was not specified.</p>
             capo_codecommit.errors.invalid_approval_rule_template_content_exception.InvalidApprovalRuleTemplateContentException: <p>The content of the approval rule template is not valid.</p>
-            capo_codecommit.errors.invalid_approval_rule_template_description_exception.InvalidApprovalRuleTemplateDescriptionException: <p>The description for the approval rule template is not valid because it exceeds the maximum characters allowed for a description. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i>CodeCommit User Guide</i>.</p>
-            capo_codecommit.errors.invalid_approval_rule_template_name_exception.InvalidApprovalRuleTemplateNameException: <p>The name of the approval rule template is not valid. Template names must be between 1 and 100 valid characters in length. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i>CodeCommit User Guide</i>.</p>
+            capo_codecommit.errors.invalid_approval_rule_template_description_exception.InvalidApprovalRuleTemplateDescriptionException: <p>The description for the approval rule template is not valid because it exceeds the maximum characters allowed for a description. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i> CodeCommit User Guide</i>.</p>
+            capo_codecommit.errors.invalid_approval_rule_template_name_exception.InvalidApprovalRuleTemplateNameException: <p>The name of the approval rule template is not valid. Template names must be between 1 and 100 valid characters in length. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i> CodeCommit User Guide</i>.</p>
             capo_codecommit.errors.number_of_rule_templates_exceeded_exception.NumberOfRuleTemplatesExceededException: <p>The maximum number of approval rule templates has been exceeded for this Amazon Web Services Region. </p>
             capo_codecommit.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1163,10 +1163,10 @@ class AsyncCodeCommitClient:
         """<p>Creates a new, empty repository.</p>
 
         Args:
-            repository_name: <p>The name of the new repository to be created.</p> <note> <p>The repository name must be unique across the calling Amazon Web Services account. Repository names are limited to 100 alphanumeric, dash, and underscore characters, and cannot include certain characters. For more information about the limits on repository names, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i>CodeCommit User Guide</i>. The suffix .git is prohibited.</p> </note>
+            repository_name: <p>The name of the new repository to be created.</p> <note> <p>The repository name must be unique across the calling Amazon Web Services account. Repository names are limited to 100 alphanumeric, dash, and underscore characters, and cannot include certain characters. For more information about the limits on repository names, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i> CodeCommit User Guide</i>. The suffix .git is prohibited.</p> </note>
             repository_description: <p>A comment or description about the new repository.</p> <note> <p>The description field for a repository accepts all HTML characters and all valid Unicode characters. Applications that do not HTML-encode the description and display it in a webpage can expose users to potentially malicious code. Make sure that you HTML-encode the description field in any application that uses this API to display the repository description on a webpage.</p> </note>
             tags: <p>One or more tag key-value pairs to use when tagging this repository.</p>
-            kms_key_id: <p>The ID of the encryption key. You can view the ID of an encryption key in the KMS console, or use the KMS APIs to programmatically retrieve a key ID. For more information about acceptable values for kmsKeyID, see <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html#KMS-Decrypt-request-KeyId">KeyId</a> in the Decrypt API description in the <i>Key Management Service API Reference</i>.</p> <p>If no key is specified, the default <code>aws/codecommit</code> Amazon Web Services managed key is used.</p>
+            kms_key_id: <p>The ID of the encryption key. You can view the ID of an encryption key in the KMS console, or use the KMS APIs to programmatically retrieve a key ID. For more information about acceptable values for kmsKeyID, see <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html#KMS-Decrypt-request-KeyId">KeyId</a> in the Decrypt API description in the <i> Key Management Service API Reference</i>.</p> <p>If no key is specified, the default <code>aws/codecommit</code> Amazon Web Services managed key is used.</p>
 
         Raises:
             capo_codecommit.errors.encryption_integrity_checks_failed_exception.EncryptionIntegrityChecksFailedException: <p>An encryption integrity check failed.</p>
@@ -1365,7 +1365,7 @@ class AsyncCodeCommitClient:
         Raises:
             capo_codecommit.errors.approval_rule_template_in_use_exception.ApprovalRuleTemplateInUseException: <p>The approval rule template is associated with one or more repositories. You cannot delete a template that is associated with a repository. Remove all associations, and then try again.</p>
             capo_codecommit.errors.approval_rule_template_name_required_exception.ApprovalRuleTemplateNameRequiredException: <p>An approval rule template name is required, but was not specified.</p>
-            capo_codecommit.errors.invalid_approval_rule_template_name_exception.InvalidApprovalRuleTemplateNameException: <p>The name of the approval rule template is not valid. Template names must be between 1 and 100 valid characters in length. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i>CodeCommit User Guide</i>.</p>
+            capo_codecommit.errors.invalid_approval_rule_template_name_exception.InvalidApprovalRuleTemplateNameException: <p>The name of the approval rule template is not valid. Template names must be between 1 and 100 valid characters in length. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i> CodeCommit User Guide</i>.</p>
             capo_codecommit.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1980,7 +1980,7 @@ class AsyncCodeCommitClient:
             capo_codecommit.errors.encryption_key_disabled_exception.EncryptionKeyDisabledException: <p>The encryption key is disabled.</p>
             capo_codecommit.errors.encryption_key_not_found_exception.EncryptionKeyNotFoundException: <p>No encryption key was found.</p>
             capo_codecommit.errors.encryption_key_unavailable_exception.EncryptionKeyUnavailableException: <p>The encryption key is not available.</p>
-            capo_codecommit.errors.invalid_approval_rule_template_name_exception.InvalidApprovalRuleTemplateNameException: <p>The name of the approval rule template is not valid. Template names must be between 1 and 100 valid characters in length. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i>CodeCommit User Guide</i>.</p>
+            capo_codecommit.errors.invalid_approval_rule_template_name_exception.InvalidApprovalRuleTemplateNameException: <p>The name of the approval rule template is not valid. Template names must be between 1 and 100 valid characters in length. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i> CodeCommit User Guide</i>.</p>
             capo_codecommit.errors.invalid_repository_name_exception.InvalidRepositoryNameException: <p>A specified repository name is not valid.</p> <note> <p>This exception occurs only when a specified repository name is not valid. Other exceptions occur when a required repository parameter is missing, or when a specified repository does not exist.</p> </note>
             capo_codecommit.errors.repository_does_not_exist_exception.RepositoryDoesNotExistException: <p>The specified repository does not exist.</p>
             capo_codecommit.errors.repository_name_required_exception.RepositoryNameRequiredException: <p>A repository name is required, but was not specified.</p>
@@ -2090,7 +2090,7 @@ class AsyncCodeCommitClient:
         Raises:
             capo_codecommit.errors.approval_rule_template_does_not_exist_exception.ApprovalRuleTemplateDoesNotExistException: <p>The specified approval rule template does not exist. Verify that the name is correct and that you are signed in to the Amazon Web Services Region where the template was created, and then try again.</p>
             capo_codecommit.errors.approval_rule_template_name_required_exception.ApprovalRuleTemplateNameRequiredException: <p>An approval rule template name is required, but was not specified.</p>
-            capo_codecommit.errors.invalid_approval_rule_template_name_exception.InvalidApprovalRuleTemplateNameException: <p>The name of the approval rule template is not valid. Template names must be between 1 and 100 valid characters in length. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i>CodeCommit User Guide</i>.</p>
+            capo_codecommit.errors.invalid_approval_rule_template_name_exception.InvalidApprovalRuleTemplateNameException: <p>The name of the approval rule template is not valid. Template names must be between 1 and 100 valid characters in length. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i> CodeCommit User Guide</i>.</p>
             capo_codecommit.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2145,7 +2145,7 @@ class AsyncCodeCommitClient:
             capo_codecommit.errors.encryption_key_disabled_exception.EncryptionKeyDisabledException: <p>The encryption key is disabled.</p>
             capo_codecommit.errors.encryption_key_not_found_exception.EncryptionKeyNotFoundException: <p>No encryption key was found.</p>
             capo_codecommit.errors.encryption_key_unavailable_exception.EncryptionKeyUnavailableException: <p>The encryption key is not available.</p>
-            capo_codecommit.errors.file_too_large_exception.FileTooLargeException: <p>The specified file exceeds the file size limit for CodeCommit. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i>CodeCommit User Guide</i>.</p>
+            capo_codecommit.errors.file_too_large_exception.FileTooLargeException: <p>The specified file exceeds the file size limit for CodeCommit. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i> CodeCommit User Guide</i>.</p>
             capo_codecommit.errors.invalid_blob_id_exception.InvalidBlobIdException: <p>The specified blob is not valid.</p>
             capo_codecommit.errors.invalid_repository_name_exception.InvalidRepositoryNameException: <p>A specified repository name is not valid.</p> <note> <p>This exception occurs only when a specified repository name is not valid. Other exceptions occur when a required repository parameter is missing, or when a specified repository does not exist.</p> </note>
             capo_codecommit.errors.repository_does_not_exist_exception.RepositoryDoesNotExistException: <p>The specified repository does not exist.</p>
@@ -2219,7 +2219,7 @@ class AsyncCodeCommitClient:
             capo_codecommit.errors.encryption_key_disabled_exception.EncryptionKeyDisabledException: <p>The encryption key is disabled.</p>
             capo_codecommit.errors.encryption_key_not_found_exception.EncryptionKeyNotFoundException: <p>No encryption key was found.</p>
             capo_codecommit.errors.encryption_key_unavailable_exception.EncryptionKeyUnavailableException: <p>The encryption key is not available.</p>
-            capo_codecommit.errors.file_too_large_exception.FileTooLargeException: <p>The specified file exceeds the file size limit for CodeCommit. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i>CodeCommit User Guide</i>.</p>
+            capo_codecommit.errors.file_too_large_exception.FileTooLargeException: <p>The specified file exceeds the file size limit for CodeCommit. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i> CodeCommit User Guide</i>.</p>
             capo_codecommit.errors.invalid_blob_id_exception.InvalidBlobIdException: <p>The specified blob is not valid.</p>
             capo_codecommit.errors.invalid_continuation_token_exception.InvalidContinuationTokenException: <p>The specified continuation token is not valid.</p>
             capo_codecommit.errors.invalid_max_results_exception.InvalidMaxResultsException: <p>The specified number of maximum results is not valid.</p>
@@ -2921,7 +2921,7 @@ class AsyncCodeCommitClient:
             capo_codecommit.errors.encryption_key_not_found_exception.EncryptionKeyNotFoundException: <p>No encryption key was found.</p>
             capo_codecommit.errors.encryption_key_unavailable_exception.EncryptionKeyUnavailableException: <p>The encryption key is not available.</p>
             capo_codecommit.errors.file_does_not_exist_exception.FileDoesNotExistException: <p>The specified file does not exist. Verify that you have used the correct file name, full path, and extension.</p>
-            capo_codecommit.errors.file_too_large_exception.FileTooLargeException: <p>The specified file exceeds the file size limit for CodeCommit. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i>CodeCommit User Guide</i>.</p>
+            capo_codecommit.errors.file_too_large_exception.FileTooLargeException: <p>The specified file exceeds the file size limit for CodeCommit. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i> CodeCommit User Guide</i>.</p>
             capo_codecommit.errors.invalid_commit_exception.InvalidCommitException: <p>The specified commit is not valid.</p>
             capo_codecommit.errors.invalid_path_exception.InvalidPathException: <p>The specified path is not valid.</p>
             capo_codecommit.errors.invalid_repository_name_exception.InvalidRepositoryNameException: <p>A specified repository name is not valid.</p> <note> <p>This exception occurs only when a specified repository name is not valid. Other exceptions occur when a required repository parameter is missing, or when a specified repository does not exist.</p> </note>
@@ -4140,7 +4140,7 @@ class AsyncCodeCommitClient:
             capo_codecommit.errors.encryption_key_disabled_exception.EncryptionKeyDisabledException: <p>The encryption key is disabled.</p>
             capo_codecommit.errors.encryption_key_not_found_exception.EncryptionKeyNotFoundException: <p>No encryption key was found.</p>
             capo_codecommit.errors.encryption_key_unavailable_exception.EncryptionKeyUnavailableException: <p>The encryption key is not available.</p>
-            capo_codecommit.errors.invalid_approval_rule_template_name_exception.InvalidApprovalRuleTemplateNameException: <p>The name of the approval rule template is not valid. Template names must be between 1 and 100 valid characters in length. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i>CodeCommit User Guide</i>.</p>
+            capo_codecommit.errors.invalid_approval_rule_template_name_exception.InvalidApprovalRuleTemplateNameException: <p>The name of the approval rule template is not valid. Template names must be between 1 and 100 valid characters in length. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i> CodeCommit User Guide</i>.</p>
             capo_codecommit.errors.invalid_continuation_token_exception.InvalidContinuationTokenException: <p>The specified continuation token is not valid.</p>
             capo_codecommit.errors.invalid_max_results_exception.InvalidMaxResultsException: <p>The specified number of maximum results is not valid.</p>
             capo_codecommit.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -4211,7 +4211,7 @@ class AsyncCodeCommitClient:
     ) -> (
         "capo_codecommit.types.list_tags_for_resource_output.ListTagsForResourceOutput"
     ):
-        """<p>Gets information about Amazon Web Servicestags for a specified Amazon Resource Name (ARN) in CodeCommit. For a list of valid resources in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats">CodeCommit Resources and Operations</a> in the<i> CodeCommit User Guide</i>.</p>
+        """<p>Gets information about Amazon Web Servicestags for a specified Amazon Resource Name (ARN) in CodeCommit. For a list of valid resources in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats"> CodeCommit Resources and Operations</a> in the<i> CodeCommit User Guide</i>.</p>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) of the resource for which you want to get information about tags, if any.</p>
@@ -4219,9 +4219,9 @@ class AsyncCodeCommitClient:
 
         Raises:
             capo_codecommit.errors.invalid_repository_name_exception.InvalidRepositoryNameException: <p>A specified repository name is not valid.</p> <note> <p>This exception occurs only when a specified repository name is not valid. Other exceptions occur when a required repository parameter is missing, or when a specified repository does not exist.</p> </note>
-            capo_codecommit.errors.invalid_resource_arn_exception.InvalidResourceArnException: <p>The value for the resource ARN is not valid. For more information about resources in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats">CodeCommit Resources and Operations</a> in the CodeCommit User Guide.</p>
+            capo_codecommit.errors.invalid_resource_arn_exception.InvalidResourceArnException: <p>The value for the resource ARN is not valid. For more information about resources in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats"> CodeCommit Resources and Operations</a> in the CodeCommit User Guide.</p>
             capo_codecommit.errors.repository_does_not_exist_exception.RepositoryDoesNotExistException: <p>The specified repository does not exist.</p>
-            capo_codecommit.errors.resource_arn_required_exception.ResourceArnRequiredException: <p>A valid Amazon Resource Name (ARN) for an CodeCommit resource is required. For a list of valid resources in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats">CodeCommit Resources and Operations</a> in the CodeCommit User Guide.</p>
+            capo_codecommit.errors.resource_arn_required_exception.ResourceArnRequiredException: <p>A valid Amazon Resource Name (ARN) for an CodeCommit resource is required. For a list of valid resources in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats"> CodeCommit Resources and Operations</a> in the CodeCommit User Guide.</p>
             capo_codecommit.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -5236,14 +5236,14 @@ class AsyncCodeCommitClient:
 
         Args:
             comment_id: <p>The ID of the comment to which you want to add or update a reaction.</p>
-            reaction_value: <p>The emoji reaction you want to add or update. To remove a reaction, provide a value of blank or null. You can also provide the value of none. For information about emoji reaction values supported in CodeCommit, see the <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-commit-comment.html#emoji-reaction-table">CodeCommit User Guide</a>.</p>
+            reaction_value: <p>The emoji reaction you want to add or update. To remove a reaction, provide a value of blank or null. You can also provide the value of none. For information about emoji reaction values supported in CodeCommit, see the <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-commit-comment.html#emoji-reaction-table"> CodeCommit User Guide</a>.</p>
 
         Raises:
             capo_codecommit.errors.comment_deleted_exception.CommentDeletedException: <p>This comment has already been deleted. You cannot edit or delete a deleted comment.</p>
             capo_codecommit.errors.comment_does_not_exist_exception.CommentDoesNotExistException: <p>No comment exists with the provided ID. Verify that you have used the correct ID, and then try again.</p>
             capo_codecommit.errors.comment_id_required_exception.CommentIdRequiredException: <p>The comment ID is missing or null. A comment ID is required.</p>
             capo_codecommit.errors.invalid_comment_id_exception.InvalidCommentIdException: <p>The comment ID is not in a valid format. Make sure that you have provided the full comment ID.</p>
-            capo_codecommit.errors.invalid_reaction_value_exception.InvalidReactionValueException: <p>The value of the reaction is not valid. For more information, see the <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html">CodeCommit User Guide</a>.</p>
+            capo_codecommit.errors.invalid_reaction_value_exception.InvalidReactionValueException: <p>The value of the reaction is not valid. For more information, see the <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html"> CodeCommit User Guide</a>.</p>
             capo_codecommit.errors.reaction_limit_exceeded_exception.ReactionLimitExceededException: <p>The number of reactions has been exceeded. Reactions are limited to one reaction per user for each individual comment ID.</p>
             capo_codecommit.errors.reaction_value_required_exception.ReactionValueRequiredException: <p>A reaction value is required. </p>
             capo_codecommit.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -5460,7 +5460,7 @@ class AsyncCodeCommitClient:
         *,
         config_overrides: Optional[AsyncCodeCommitClientConfig] = None,
     ) -> None:
-        """<p>Adds or updates tags for a resource in CodeCommit. For a list of valid resources in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats">CodeCommit Resources and Operations</a> in the <i>CodeCommit User Guide</i>.</p>
+        """<p>Adds or updates tags for a resource in CodeCommit. For a list of valid resources in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats"> CodeCommit Resources and Operations</a> in the <i> CodeCommit User Guide</i>.</p>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) of the resource to which you want to add or update tags.</p>
@@ -5468,11 +5468,11 @@ class AsyncCodeCommitClient:
 
         Raises:
             capo_codecommit.errors.invalid_repository_name_exception.InvalidRepositoryNameException: <p>A specified repository name is not valid.</p> <note> <p>This exception occurs only when a specified repository name is not valid. Other exceptions occur when a required repository parameter is missing, or when a specified repository does not exist.</p> </note>
-            capo_codecommit.errors.invalid_resource_arn_exception.InvalidResourceArnException: <p>The value for the resource ARN is not valid. For more information about resources in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats">CodeCommit Resources and Operations</a> in the CodeCommit User Guide.</p>
+            capo_codecommit.errors.invalid_resource_arn_exception.InvalidResourceArnException: <p>The value for the resource ARN is not valid. For more information about resources in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats"> CodeCommit Resources and Operations</a> in the CodeCommit User Guide.</p>
             capo_codecommit.errors.invalid_system_tag_usage_exception.InvalidSystemTagUsageException: <p>The specified tag is not valid. Key names cannot be prefixed with aws:.</p>
             capo_codecommit.errors.invalid_tags_map_exception.InvalidTagsMapException: <p>The map of tags is not valid.</p>
             capo_codecommit.errors.repository_does_not_exist_exception.RepositoryDoesNotExistException: <p>The specified repository does not exist.</p>
-            capo_codecommit.errors.resource_arn_required_exception.ResourceArnRequiredException: <p>A valid Amazon Resource Name (ARN) for an CodeCommit resource is required. For a list of valid resources in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats">CodeCommit Resources and Operations</a> in the CodeCommit User Guide.</p>
+            capo_codecommit.errors.resource_arn_required_exception.ResourceArnRequiredException: <p>A valid Amazon Resource Name (ARN) for an CodeCommit resource is required. For a list of valid resources in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats"> CodeCommit Resources and Operations</a> in the CodeCommit User Guide.</p>
             capo_codecommit.errors.tag_policy_exception.TagPolicyException: <p>The tag policy is not valid.</p>
             capo_codecommit.errors.tags_map_required_exception.TagsMapRequiredException: <p>A map of tags is required.</p>
             capo_codecommit.errors.too_many_tags_exception.TooManyTagsException: <p>The maximum number of tags for an CodeCommit resource has been exceeded.</p>
@@ -5584,7 +5584,7 @@ class AsyncCodeCommitClient:
         *,
         config_overrides: Optional[AsyncCodeCommitClientConfig] = None,
     ) -> None:
-        """<p>Removes tags for a resource in CodeCommit. For a list of valid resources in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats">CodeCommit Resources and Operations</a> in the <i>CodeCommit User Guide</i>.</p>
+        """<p>Removes tags for a resource in CodeCommit. For a list of valid resources in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats"> CodeCommit Resources and Operations</a> in the <i> CodeCommit User Guide</i>.</p>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) of the resource to which you want to remove tags.</p>
@@ -5592,11 +5592,11 @@ class AsyncCodeCommitClient:
 
         Raises:
             capo_codecommit.errors.invalid_repository_name_exception.InvalidRepositoryNameException: <p>A specified repository name is not valid.</p> <note> <p>This exception occurs only when a specified repository name is not valid. Other exceptions occur when a required repository parameter is missing, or when a specified repository does not exist.</p> </note>
-            capo_codecommit.errors.invalid_resource_arn_exception.InvalidResourceArnException: <p>The value for the resource ARN is not valid. For more information about resources in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats">CodeCommit Resources and Operations</a> in the CodeCommit User Guide.</p>
+            capo_codecommit.errors.invalid_resource_arn_exception.InvalidResourceArnException: <p>The value for the resource ARN is not valid. For more information about resources in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats"> CodeCommit Resources and Operations</a> in the CodeCommit User Guide.</p>
             capo_codecommit.errors.invalid_system_tag_usage_exception.InvalidSystemTagUsageException: <p>The specified tag is not valid. Key names cannot be prefixed with aws:.</p>
             capo_codecommit.errors.invalid_tag_keys_list_exception.InvalidTagKeysListException: <p>The list of tags is not valid.</p>
             capo_codecommit.errors.repository_does_not_exist_exception.RepositoryDoesNotExistException: <p>The specified repository does not exist.</p>
-            capo_codecommit.errors.resource_arn_required_exception.ResourceArnRequiredException: <p>A valid Amazon Resource Name (ARN) for an CodeCommit resource is required. For a list of valid resources in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats">CodeCommit Resources and Operations</a> in the CodeCommit User Guide.</p>
+            capo_codecommit.errors.resource_arn_required_exception.ResourceArnRequiredException: <p>A valid Amazon Resource Name (ARN) for an CodeCommit resource is required. For a list of valid resources in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats"> CodeCommit Resources and Operations</a> in the CodeCommit User Guide.</p>
             capo_codecommit.errors.tag_keys_list_required_exception.TagKeysListRequiredException: <p>A list of tag keys is required. The list cannot be empty or null.</p>
             capo_codecommit.errors.tag_policy_exception.TagPolicyException: <p>The tag policy is not valid.</p>
             capo_codecommit.errors.too_many_tags_exception.TooManyTagsException: <p>The maximum number of tags for an CodeCommit resource has been exceeded.</p>
@@ -5654,7 +5654,7 @@ class AsyncCodeCommitClient:
             capo_codecommit.errors.approval_rule_template_does_not_exist_exception.ApprovalRuleTemplateDoesNotExistException: <p>The specified approval rule template does not exist. Verify that the name is correct and that you are signed in to the Amazon Web Services Region where the template was created, and then try again.</p>
             capo_codecommit.errors.approval_rule_template_name_required_exception.ApprovalRuleTemplateNameRequiredException: <p>An approval rule template name is required, but was not specified.</p>
             capo_codecommit.errors.invalid_approval_rule_template_content_exception.InvalidApprovalRuleTemplateContentException: <p>The content of the approval rule template is not valid.</p>
-            capo_codecommit.errors.invalid_approval_rule_template_name_exception.InvalidApprovalRuleTemplateNameException: <p>The name of the approval rule template is not valid. Template names must be between 1 and 100 valid characters in length. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i>CodeCommit User Guide</i>.</p>
+            capo_codecommit.errors.invalid_approval_rule_template_name_exception.InvalidApprovalRuleTemplateNameException: <p>The name of the approval rule template is not valid. Template names must be between 1 and 100 valid characters in length. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i> CodeCommit User Guide</i>.</p>
             capo_codecommit.errors.invalid_rule_content_sha256_exception.InvalidRuleContentSha256Exception: <p>The SHA-256 hash signature for the rule content is not valid.</p>
             capo_codecommit.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -5708,8 +5708,8 @@ class AsyncCodeCommitClient:
         Raises:
             capo_codecommit.errors.approval_rule_template_does_not_exist_exception.ApprovalRuleTemplateDoesNotExistException: <p>The specified approval rule template does not exist. Verify that the name is correct and that you are signed in to the Amazon Web Services Region where the template was created, and then try again.</p>
             capo_codecommit.errors.approval_rule_template_name_required_exception.ApprovalRuleTemplateNameRequiredException: <p>An approval rule template name is required, but was not specified.</p>
-            capo_codecommit.errors.invalid_approval_rule_template_description_exception.InvalidApprovalRuleTemplateDescriptionException: <p>The description for the approval rule template is not valid because it exceeds the maximum characters allowed for a description. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i>CodeCommit User Guide</i>.</p>
-            capo_codecommit.errors.invalid_approval_rule_template_name_exception.InvalidApprovalRuleTemplateNameException: <p>The name of the approval rule template is not valid. Template names must be between 1 and 100 valid characters in length. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i>CodeCommit User Guide</i>.</p>
+            capo_codecommit.errors.invalid_approval_rule_template_description_exception.InvalidApprovalRuleTemplateDescriptionException: <p>The description for the approval rule template is not valid because it exceeds the maximum characters allowed for a description. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i> CodeCommit User Guide</i>.</p>
+            capo_codecommit.errors.invalid_approval_rule_template_name_exception.InvalidApprovalRuleTemplateNameException: <p>The name of the approval rule template is not valid. Template names must be between 1 and 100 valid characters in length. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i> CodeCommit User Guide</i>.</p>
             capo_codecommit.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -5761,7 +5761,7 @@ class AsyncCodeCommitClient:
             capo_codecommit.errors.approval_rule_template_does_not_exist_exception.ApprovalRuleTemplateDoesNotExistException: <p>The specified approval rule template does not exist. Verify that the name is correct and that you are signed in to the Amazon Web Services Region where the template was created, and then try again.</p>
             capo_codecommit.errors.approval_rule_template_name_already_exists_exception.ApprovalRuleTemplateNameAlreadyExistsException: <p>You cannot create an approval rule template with that name because a template with that name already exists in this Amazon Web Services Region for your Amazon Web Services account. Approval rule template names must be unique.</p>
             capo_codecommit.errors.approval_rule_template_name_required_exception.ApprovalRuleTemplateNameRequiredException: <p>An approval rule template name is required, but was not specified.</p>
-            capo_codecommit.errors.invalid_approval_rule_template_name_exception.InvalidApprovalRuleTemplateNameException: <p>The name of the approval rule template is not valid. Template names must be between 1 and 100 valid characters in length. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i>CodeCommit User Guide</i>.</p>
+            capo_codecommit.errors.invalid_approval_rule_template_name_exception.InvalidApprovalRuleTemplateNameException: <p>The name of the approval rule template is not valid. Template names must be between 1 and 100 valid characters in length. For more information about limits in CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i> CodeCommit User Guide</i>.</p>
             capo_codecommit.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -6281,7 +6281,7 @@ class AsyncCodeCommitClient:
 
         Args:
             repository_name: <p>The name of the repository for which you want to update the KMS encryption key used to encrypt and decrypt the repository.</p>
-            kms_key_id: <p>The ID of the encryption key. You can view the ID of an encryption key in the KMS console, or use the KMS APIs to programmatically retrieve a key ID. For more information about acceptable values for keyID, see <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html#KMS-Decrypt-request-KeyId">KeyId</a> in the Decrypt API description in the <i>Key Management Service API Reference</i>.</p>
+            kms_key_id: <p>The ID of the encryption key. You can view the ID of an encryption key in the KMS console, or use the KMS APIs to programmatically retrieve a key ID. For more information about acceptable values for keyID, see <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html#KMS-Decrypt-request-KeyId">KeyId</a> in the Decrypt API description in the <i> Key Management Service API Reference</i>.</p>
 
         Raises:
             capo_codecommit.errors.encryption_integrity_checks_failed_exception.EncryptionIntegrityChecksFailedException: <p>An encryption integrity check failed.</p>

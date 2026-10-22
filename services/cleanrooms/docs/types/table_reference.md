@@ -24,3 +24,9 @@ title: TableReference
       show_source: true
       merge_init_into_class: false
       heading_level: 2
+
+::: capo_cleanrooms.types.table_reference._TableReference_databricks
+    options:
+      show_source: true
+      merge_init_into_class: false
+      heading_level: 2

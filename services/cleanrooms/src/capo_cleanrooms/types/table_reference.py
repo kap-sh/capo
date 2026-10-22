@@ -9,6 +9,7 @@ from capo_cleanrooms.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_cleanrooms.types.athena_table_reference
+    import capo_cleanrooms.types.databricks_table_reference
     import capo_cleanrooms.types.glue_table_reference
     import capo_cleanrooms.types.snowflake_table_reference
 
@@ -25,10 +26,17 @@ class _TableReference_athena(TypedDict, closed=True):
     athena: "capo_cleanrooms.types.athena_table_reference.AthenaTableReference"
 
 
+class _TableReference_databricks(TypedDict, closed=True):
+    databricks: (
+        "capo_cleanrooms.types.databricks_table_reference.DatabricksTableReference"
+    )
+
+
 TableReference: TypeAlias = (
     _TableReference_glue
     | _TableReference_snowflake
     | _TableReference_athena
+    | _TableReference_databricks
     | UnknownUnionMember
 )
 
@@ -63,6 +71,14 @@ def serialize_json(value: TableReference) -> dict:
                 value["athena"]
             )
         }
+    elif "databricks" in value:
+        import capo_cleanrooms.types.databricks_table_reference
+
+        return {
+            "databricks": capo_cleanrooms.types.databricks_table_reference.serialize_json(
+                value["databricks"]
+            )
+        }
     else:
         raise SerializationError("TableReference: no variant present")
 
@@ -90,6 +106,14 @@ def deserialize_json(data: dict) -> TableReference:
         return {
             "athena": capo_cleanrooms.types.athena_table_reference.deserialize_json(
                 data["athena"]
+            )
+        }
+    elif data.get("databricks") is not None:
+        import capo_cleanrooms.types.databricks_table_reference
+
+        return {
+            "databricks": capo_cleanrooms.types.databricks_table_reference.deserialize_json(
+                data["databricks"]
             )
         }
     else:

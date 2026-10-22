@@ -2,6 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
+"""<p>Specifies whether a resource is publicly accessible from the internet or private to a VPC.</p>"""
 AccessType: TypeAlias = Literal[
     "PUBLIC",
     "PRIVATE",

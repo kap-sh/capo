@@ -7,6 +7,7 @@ FileStatusType: TypeAlias = Literal[
     "REJECTED",
     "PROCESSING",
     "FAILED",
+    "DRAFTING",
 ]
 
 

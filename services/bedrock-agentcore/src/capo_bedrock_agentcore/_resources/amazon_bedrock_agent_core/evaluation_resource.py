@@ -510,8 +510,18 @@ class EvaluationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.get_batch_evaluation_response.GetBatchEvaluationResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.get_batch_evaluation_response
+
+            return capo_bedrock_agentcore.types.get_batch_evaluation_response.redact_sensitive(
+                output
+            )
+
         interceptors_, options_ = self._service.operation_options(
-            config_overrides, OperationLogging("GetBatchEvaluation")
+            config_overrides,
+            OperationLogging("GetBatchEvaluation", redact_output=_redact_output),
         )
         input_: capo_bedrock_agentcore.types.get_batch_evaluation_request.GetBatchEvaluationRequest = {
             "batch_evaluation_id": batch_evaluation_id
@@ -1528,8 +1538,18 @@ class AsyncEvaluationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.get_batch_evaluation_response.GetBatchEvaluationResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.get_batch_evaluation_response
+
+            return capo_bedrock_agentcore.types.get_batch_evaluation_response.redact_sensitive(
+                output
+            )
+
         interceptors_, options_ = self._service.operation_options(
-            config_overrides, OperationLogging("GetBatchEvaluation")
+            config_overrides,
+            OperationLogging("GetBatchEvaluation", redact_output=_redact_output),
         )
         input_: capo_bedrock_agentcore.types.get_batch_evaluation_request.GetBatchEvaluationRequest = {
             "batch_evaluation_id": batch_evaluation_id

@@ -45,6 +45,8 @@ def deserialize_aws_json_1_0(data: dict) -> SendTaskFailureInput:
 
 def redact_sensitive(value: SendTaskFailureInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
+    if "task_token" in value:
+        out["task_token"] = "*** Sensitive Data Redacted ***"
     if "error" in value:
         out["error"] = "*** Sensitive Data Redacted ***"
     if "cause" in value:

@@ -14,6 +14,7 @@ if TYPE_CHECKING:
     import capo_ec2.types.instance_status_event_list
     import capo_ec2.types.instance_status_summary
     import capo_ec2.types.operator_response
+    import capo_ec2.types.performance_status_summary
     import capo_ec2.types.string
 
 
@@ -52,6 +53,10 @@ class InstanceStatus(TypedDict, closed=True):
         "capo_ec2.types.application_status_summary.ApplicationStatusSummary"
     ]
     """<p>Reports the application-level health status for the instance.</p>"""
+    performance_status: NotRequired[
+        "capo_ec2.types.performance_status_summary.PerformanceStatusSummary"
+    ]
+    """<p>Reports the performance-related health status for the instance. This information is returned only when performance status checks are enabled for the instance.</p>"""
 
 
 # --- ec2Query ser/de ---
@@ -110,6 +115,12 @@ def serialize_ec2_query(
 
         capo_ec2.types.application_status_summary.serialize_ec2_query(
             value["application_status"], pairs, f"{key_prefix}ApplicationStatus"
+        )
+    if "performance_status" in value:
+        import capo_ec2.types.performance_status_summary
+
+        capo_ec2.types.performance_status_summary.serialize_ec2_query(
+            value["performance_status"], pairs, f"{key_prefix}PerformanceStatus"
         )
 
 
@@ -182,6 +193,15 @@ def deserialize_ec2_query(el: Element) -> InstanceStatus:
         out["application_status"] = (
             capo_ec2.types.application_status_summary.deserialize_ec2_query(
                 child_application_status
+            )
+        )
+    child_performance_status = el.find("performanceStatus")
+    if child_performance_status is not None:
+        import capo_ec2.types.performance_status_summary
+
+        out["performance_status"] = (
+            capo_ec2.types.performance_status_summary.deserialize_ec2_query(
+                child_performance_status
             )
         )
     return out

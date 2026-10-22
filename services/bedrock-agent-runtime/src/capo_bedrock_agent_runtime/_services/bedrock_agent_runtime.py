@@ -89,6 +89,7 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.agent_collaboration
     import capo_bedrock_agent_runtime.types.agent_id
     import capo_bedrock_agent_runtime.types.agentic_retrieve_configuration
+    import capo_bedrock_agent_runtime.types.agentic_retrieve_instruction_configuration
     import capo_bedrock_agent_runtime.types.agentic_retrieve_memory_configuration
     import capo_bedrock_agent_runtime.types.agentic_retrieve_messages
     import capo_bedrock_agent_runtime.types.agentic_retrieve_policy_configuration
@@ -384,6 +385,9 @@ class BedrockAgentRuntimeClient:
         memory_configuration: Optional[
             "capo_bedrock_agent_runtime.types.agentic_retrieve_memory_configuration.AgenticRetrieveMemoryConfiguration"
         ] = None,
+        retrieval_instruction_configuration: Optional[
+            "capo_bedrock_agent_runtime.types.agentic_retrieve_instruction_configuration.AgenticRetrieveInstructionConfiguration"
+        ] = None,
         generate_response: Optional[bool] = None,
     ) -> "Generator[capo_bedrock_agent_runtime.types.agentic_retrieve_stream_response.AgenticRetrieveStreamResponse]":
         """<p>Retrieves information from one or more knowledge bases using an agentic approach. Agentic retrieval uses a foundation model to intelligently decompose complex queries into sub-queries and iteratively retrieve relevant information from your knowledge bases. This approach improves retrieval accuracy for complex, multi-step questions that a single retrieval pass might not fully address.</p> <p>The operation returns results through a stream that includes retrieval results, trace events for visibility into the process, and a generated response synthesized from the results by default, which can be turned off.</p>
@@ -396,6 +400,7 @@ class BedrockAgentRuntimeClient:
             next_token: <p>Opaque continuation token for paginated results.</p>
             user_context: <p>Contains information about the user making the request. This is used for access control filtering to ensure that retrieval results only include documents the user is authorized to access.</p>
             memory_configuration: <p>The configuration for using an Amazon Bedrock AgentCore Memory resource with this retrieval.</p>
+            retrieval_instruction_configuration: <p>A retrieval instruction to apply to this request.</p>
             generate_response: <p>Whether to generate a response based on the retrieved results.</p>
 
         Raises:
@@ -464,6 +469,10 @@ class BedrockAgentRuntimeClient:
             input_["user_context"] = user_context
         if memory_configuration is not None:
             input_["memory_configuration"] = memory_configuration
+        if retrieval_instruction_configuration is not None:
+            input_["retrieval_instruction_configuration"] = (
+                retrieval_instruction_configuration
+            )
         if generate_response is not None:
             input_["generate_response"] = generate_response
 

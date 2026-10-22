@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 from capo_cloudwatch._protocol.xml import Element
 
 if TYPE_CHECKING:
+    import capo_cloudwatch.types.action_configuration
     import capo_cloudwatch.types.actions_enabled
     import capo_cloudwatch.types.actions_suppressed_by
     import capo_cloudwatch.types.actions_suppressed_reason
@@ -79,6 +80,10 @@ class CompositeAlarm(TypedDict, closed=True):
         "capo_cloudwatch.types.suppressor_period.SuppressorPeriod"
     ]
     """<p> The maximum time in seconds that the composite alarm waits after suppressor alarm goes out of the <code>ALARM</code> state. After this time, the composite alarm performs its actions. </p> <important> <p> <code>ExtensionPeriod</code> is required only when <code>ActionsSuppressor</code> is specified. </p> </important>"""
+    action_configuration: NotRequired[
+        "capo_cloudwatch.types.action_configuration.ActionConfiguration"
+    ]
+    """<p>Settings that change the content of the notifications and events that the alarm sends when its state changes. These settings apply to the alarm's actions, whichever state triggers them.</p>"""
 
 
 # --- awsJson1_0 ser/de ---
@@ -168,6 +173,14 @@ def serialize_aws_json_1_0(value: CompositeAlarm) -> dict:
         out["ActionsSuppressorExtensionPeriod"] = value[
             "actions_suppressor_extension_period"
         ]
+    if "action_configuration" in value:
+        import capo_cloudwatch.types.action_configuration
+
+        out["ActionConfiguration"] = (
+            capo_cloudwatch.types.action_configuration.serialize_aws_json_1_0(
+                value["action_configuration"]
+            )
+        )
     return out
 
 
@@ -259,6 +272,14 @@ def deserialize_aws_json_1_0(data: dict) -> CompositeAlarm:
         out["actions_suppressor_extension_period"] = data[
             "ActionsSuppressorExtensionPeriod"
         ]
+    if data.get("ActionConfiguration") is not None:
+        import capo_cloudwatch.types.action_configuration
+
+        out["action_configuration"] = (
+            capo_cloudwatch.types.action_configuration.deserialize_aws_json_1_0(
+                data["ActionConfiguration"]
+            )
+        )
     return out
 
 
@@ -366,6 +387,12 @@ def serialize_query(
                 f"{key_prefix}ActionsSuppressorExtensionPeriod",
                 str(value["actions_suppressor_extension_period"]),
             )
+        )
+    if "action_configuration" in value:
+        import capo_cloudwatch.types.action_configuration
+
+        capo_cloudwatch.types.action_configuration.serialize_query(
+            value["action_configuration"], pairs, f"{key_prefix}ActionConfiguration"
         )
 
 
@@ -479,5 +506,14 @@ def deserialize_query(el: Element) -> CompositeAlarm:
     if child_actions_suppressor_extension_period is not None:
         out["actions_suppressor_extension_period"] = int(
             child_actions_suppressor_extension_period.text or ""
+        )
+    child_action_configuration = el.find("ActionConfiguration")
+    if child_action_configuration is not None:
+        import capo_cloudwatch.types.action_configuration
+
+        out["action_configuration"] = (
+            capo_cloudwatch.types.action_configuration.deserialize_query(
+                child_action_configuration
+            )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sfn#SendTaskHeartbeatInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -26,4 +26,11 @@ def deserialize_aws_json_1_0(data: dict) -> SendTaskHeartbeatInput:
         out["task_token"] = data["taskToken"]
     else:
         out["task_token"] = ""
+    return out
+
+
+def redact_sensitive(value: SendTaskHeartbeatInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "task_token" in value:
+        out["task_token"] = "*** Sensitive Data Redacted ***"
     return out

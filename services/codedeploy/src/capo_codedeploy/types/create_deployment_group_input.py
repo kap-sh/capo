@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     import capo_codedeploy.types.deployment_config_name
     import capo_codedeploy.types.deployment_group_name
     import capo_codedeploy.types.deployment_style
+    import capo_codedeploy.types.ec2_deployment_options
     import capo_codedeploy.types.ec2_tag_filter_list
     import capo_codedeploy.types.ec2_tag_set
     import capo_codedeploy.types.ecs_service_list
@@ -89,6 +90,9 @@ class CreateDeploymentGroupInput(TypedDict, closed=True):
     """<p>Information about groups of tags applied to on-premises instances. The deployment group includes only on-premises instances identified by all of the tag groups. Cannot be used in the same call as <code>onPremisesInstanceTagFilters</code>.</p>"""
     tags: NotRequired["capo_codedeploy.types.tag_list.TagList"]
     """<p> The metadata that you apply to CodeDeploy deployment groups to help you organize and categorize them. Each tag consists of a key and an optional value, both of which you define. </p>"""
+    ec2_deployment_options: NotRequired[
+        "capo_codedeploy.types.ec2_deployment_options.EC2DeploymentOptions"
+    ]
     termination_hook_enabled: NotRequired[
         "capo_codedeploy.types.nullable_boolean.NullableBoolean"
     ]
@@ -210,6 +214,14 @@ def serialize_aws_json_1_1(value: CreateDeploymentGroupInput) -> dict:
 
         out["tags"] = capo_codedeploy.types.tag_list.serialize_aws_json_1_1(
             value["tags"]
+        )
+    if "ec2_deployment_options" in value:
+        import capo_codedeploy.types.ec2_deployment_options
+
+        out["ec2DeploymentOptions"] = (
+            capo_codedeploy.types.ec2_deployment_options.serialize_aws_json_1_1(
+                value["ec2_deployment_options"]
+            )
         )
     if "termination_hook_enabled" in value:
         out["terminationHookEnabled"] = value["termination_hook_enabled"]
@@ -339,6 +351,14 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDeploymentGroupInput:
 
         out["tags"] = capo_codedeploy.types.tag_list.deserialize_aws_json_1_1(
             data["tags"]
+        )
+    if data.get("ec2DeploymentOptions") is not None:
+        import capo_codedeploy.types.ec2_deployment_options
+
+        out["ec2_deployment_options"] = (
+            capo_codedeploy.types.ec2_deployment_options.deserialize_aws_json_1_1(
+                data["ec2DeploymentOptions"]
+            )
         )
     if data.get("terminationHookEnabled") is not None:
         out["termination_hook_enabled"] = data["terminationHookEnabled"]

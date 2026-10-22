@@ -21,6 +21,7 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.mcp_server_new_relic_configuration
     import capo_devops_agent.types.mcp_server_sig_v4_configuration
     import capo_devops_agent.types.mcp_server_splunk_configuration
+    import capo_devops_agent.types.ms_teams_configuration
     import capo_devops_agent.types.pager_duty_configuration
     import capo_devops_agent.types.release_management_configuration
     import capo_devops_agent.types.remote_agent_configuration
@@ -114,6 +115,10 @@ class _ServiceConfiguration_remoteagentsigv4(TypedDict, closed=True):
     remoteagentsigv4: "capo_devops_agent.types.remote_agent_sig_v4_configuration.RemoteAgentSigV4Configuration"
 
 
+class _ServiceConfiguration_msteams(TypedDict, closed=True):
+    msteams: "capo_devops_agent.types.ms_teams_configuration.MSTeamsConfiguration"
+
+
 class _ServiceConfiguration_releaseManagement(TypedDict, closed=True):
     releaseManagement: "capo_devops_agent.types.release_management_configuration.ReleaseManagementConfiguration"
 
@@ -138,6 +143,7 @@ ServiceConfiguration: TypeAlias = (
     | _ServiceConfiguration_mcpserversigv4
     | _ServiceConfiguration_remoteagent
     | _ServiceConfiguration_remoteagentsigv4
+    | _ServiceConfiguration_msteams
     | _ServiceConfiguration_releaseManagement
     | UnknownUnionMember
 )
@@ -299,6 +305,14 @@ def serialize_json(value: ServiceConfiguration) -> dict:
         return {
             "remoteagentsigv4": capo_devops_agent.types.remote_agent_sig_v4_configuration.serialize_json(
                 value["remoteagentsigv4"]
+            )
+        }
+    elif "msteams" in value:
+        import capo_devops_agent.types.ms_teams_configuration
+
+        return {
+            "msteams": capo_devops_agent.types.ms_teams_configuration.serialize_json(
+                value["msteams"]
             )
         }
     elif "releaseManagement" in value:
@@ -464,6 +478,14 @@ def deserialize_json(data: dict) -> ServiceConfiguration:
         return {
             "remoteagentsigv4": capo_devops_agent.types.remote_agent_sig_v4_configuration.deserialize_json(
                 data["remoteagentsigv4"]
+            )
+        }
+    elif data.get("msteams") is not None:
+        import capo_devops_agent.types.ms_teams_configuration
+
+        return {
+            "msteams": capo_devops_agent.types.ms_teams_configuration.deserialize_json(
+                data["msteams"]
             )
         }
     elif data.get("releaseManagement") is not None:

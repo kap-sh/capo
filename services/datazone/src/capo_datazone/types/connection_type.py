@@ -27,6 +27,9 @@ ConnectionType: TypeAlias = Literal[
     "MLFLOW",
     "VPC",
     "GIT",
+    "ICEBERGRESTCATALOG",
+    "SNOWFLAKEICEBERGRESTCATALOG",
+    "DATABRICKSICEBERGRESTCATALOG",
 ]
 
 

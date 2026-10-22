@@ -270,6 +270,7 @@
 - [ImageResourceAssociationList](image_resource_association_list.md)
 - [ImageSourceIdentifier](image_source_identifier.md)
 - [ImageType](image_type.md)
+- [ImageValidationMode](image_validation_mode.md)
 - [ImportClientBrandingRequest](import_client_branding_request.md)
 - [ImportClientBrandingResult](import_client_branding_result.md)
 - [ImportCustomWorkspaceImageRequest](import_custom_workspace_image_request.md)

@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     import capo_marketplace_catalog.types.ami_product_filters
     import capo_marketplace_catalog.types.container_product_filters
     import capo_marketplace_catalog.types.data_product_filters
+    import capo_marketplace_catalog.types.express_private_offer_configuration_filters
     import capo_marketplace_catalog.types.machine_learning_product_filters
     import capo_marketplace_catalog.types.offer_filters
     import capo_marketplace_catalog.types.offer_set_filters
@@ -56,6 +57,12 @@ class _EntityTypeFilters_OfferSetFilters(TypedDict, closed=True):
     OfferSetFilters: "capo_marketplace_catalog.types.offer_set_filters.OfferSetFilters"
 
 
+class _EntityTypeFilters_ExpressPrivateOfferConfigurationFilters(
+    TypedDict, closed=True
+):
+    ExpressPrivateOfferConfigurationFilters: "capo_marketplace_catalog.types.express_private_offer_configuration_filters.ExpressPrivateOfferConfigurationFilters"
+
+
 EntityTypeFilters: TypeAlias = (
     _EntityTypeFilters_DataProductFilters
     | _EntityTypeFilters_SaaSProductFilters
@@ -65,6 +72,7 @@ EntityTypeFilters: TypeAlias = (
     | _EntityTypeFilters_ResaleAuthorizationFilters
     | _EntityTypeFilters_MachineLearningProductFilters
     | _EntityTypeFilters_OfferSetFilters
+    | _EntityTypeFilters_ExpressPrivateOfferConfigurationFilters
     | UnknownUnionMember
 )
 
@@ -139,6 +147,14 @@ def serialize_json(value: EntityTypeFilters) -> dict:
                 value["OfferSetFilters"]
             )
         }
+    elif "ExpressPrivateOfferConfigurationFilters" in value:
+        import capo_marketplace_catalog.types.express_private_offer_configuration_filters
+
+        return {
+            "ExpressPrivateOfferConfigurationFilters": capo_marketplace_catalog.types.express_private_offer_configuration_filters.serialize_json(
+                value["ExpressPrivateOfferConfigurationFilters"]
+            )
+        }
     else:
         raise SerializationError("EntityTypeFilters: no variant present")
 
@@ -206,6 +222,14 @@ def deserialize_json(data: dict) -> EntityTypeFilters:
         return {
             "OfferSetFilters": capo_marketplace_catalog.types.offer_set_filters.deserialize_json(
                 data["OfferSetFilters"]
+            )
+        }
+    elif data.get("ExpressPrivateOfferConfigurationFilters") is not None:
+        import capo_marketplace_catalog.types.express_private_offer_configuration_filters
+
+        return {
+            "ExpressPrivateOfferConfigurationFilters": capo_marketplace_catalog.types.express_private_offer_configuration_filters.deserialize_json(
+                data["ExpressPrivateOfferConfigurationFilters"]
             )
         }
     else:

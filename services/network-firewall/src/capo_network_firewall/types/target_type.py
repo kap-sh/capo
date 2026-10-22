@@ -5,6 +5,7 @@ from typing import Literal, TypeAlias, cast
 TargetType: TypeAlias = Literal[
     "TLS_SNI",
     "HTTP_HOST",
+    "AWS_ROUTE_53_RESOLVED_DOMAIN",
 ]
 
 

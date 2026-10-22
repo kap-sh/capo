@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class CreateDeviceProfileRequest(TypedDict, closed=True):
     name: NotRequired["capo_iot_wireless.types.device_profile_name.DeviceProfileName"]
-    """<p>The name of the new resource.</p> <note> <p>The following special characters aren't accepted: <code><>^#~$</code> </p> </note>"""
+    """<p>The name of the new resource.</p> <note> <p>The following special characters aren't accepted: <code>&lt;&gt;^#~$</code> </p> </note>"""
     lo_ra_wan: NotRequired[
         "capo_iot_wireless.types.lo_ra_wan_device_profile.LoRaWANDeviceProfile"
     ]

@@ -18,6 +18,7 @@ import capo_cloudwatch_logs.errors.validation_exception
 import capo_cloudwatch_logs.types.delivery_sources
 import capo_cloudwatch_logs.types.describe_delivery_sources_request
 import capo_cloudwatch_logs.types.describe_delivery_sources_response
+import capo_cloudwatch_logs.types.filter_resource_arns
 from capo_cloudwatch_logs._protocol.errors import parse_error_metadata_json
 from capo_cloudwatch_logs._rule_engine._endpoint_rule_set import EndpointParams, resolve
 from capo_cloudwatch_logs._services._pipeline import (

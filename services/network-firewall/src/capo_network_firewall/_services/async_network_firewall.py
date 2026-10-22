@@ -48,6 +48,7 @@ if TYPE_CHECKING:
     import capo_network_firewall.types.attach_rule_groups_to_proxy_configuration_request
     import capo_network_firewall.types.attach_rule_groups_to_proxy_configuration_response
     import capo_network_firewall.types.availability_zone
+    import capo_network_firewall.types.availability_zone_id
     import capo_network_firewall.types.availability_zone_mappings
     import capo_network_firewall.types.az_subnets
     import capo_network_firewall.types.boolean
@@ -955,6 +956,7 @@ class AsyncNetworkFirewallClient:
         Raises:
             capo_network_firewall.errors.insufficient_capacity_exception.InsufficientCapacityException: <p>Amazon Web Services doesn't currently have enough available capacity to fulfill your request. Try your request later. </p>
             capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
+            capo_network_firewall.errors.invalid_operation_exception.InvalidOperationException: <p>The operation failed because it's not valid. For example, you might have tried to delete a rule group or firewall policy that's in use.</p>
             capo_network_firewall.errors.invalid_request_exception.InvalidRequestException: <p>The operation failed because of a problem with your request. Examples include: </p> <ul> <li> <p>You specified an unsupported parameter name or value.</p> </li> <li> <p>You tried to update a property with a value that isn't among the available types.</p> </li> <li> <p>Your request references an ARN that is malformed, or corresponds to a resource that isn't valid in the context of the request.</p> </li> </ul>
             capo_network_firewall.errors.limit_exceeded_exception.LimitExceededException: <p>Unable to perform the operation because doing so would violate a limit setting. </p>
             capo_network_firewall.errors.throttling_exception.ThrottlingException: <p>Unable to process the request due to throttling limitations.</p>
@@ -2441,6 +2443,9 @@ class AsyncNetworkFirewallClient:
         availability_zone: Optional[
             "capo_network_firewall.types.availability_zone.AvailabilityZone"
         ] = None,
+        availability_zone_id: Optional[
+            "capo_network_firewall.types.availability_zone_id.AvailabilityZoneId"
+        ] = None,
         vpc_endpoint_association_arn: Optional[
             "capo_network_firewall.types.resource_arn.ResourceArn"
         ] = None,
@@ -2452,7 +2457,8 @@ class AsyncNetworkFirewallClient:
 
         Args:
             firewall_arn: <p>The Amazon Resource Name (ARN) of the firewall.</p>
-            availability_zone: <p>The ID of the Availability Zone where the firewall is located. For example, <code>us-east-2a</code>.</p> <p>Defines the scope a flow operation. You can use up to 20 filters to configure a single flow operation.</p>
+            availability_zone: <p>The name of the Availability Zone where the firewall is located. For example, <code>us-east-2a</code>.</p> <p>Defines the scope a flow operation. You can use up to 20 filters to configure a single flow operation.</p>
+            availability_zone_id: <p>The ID of the Availability Zone where the firewall is located. For example, <code>use2-az1</code>. Availability Zone IDs are the same in every Amazon Web Services account, so use this parameter when you coordinate resources across accounts. Specify either <code>AvailabilityZone</code> or <code>AvailabilityZoneId</code>, not both. If you specify both, the request fails.</p>
             vpc_endpoint_association_arn: <p>The Amazon Resource Name (ARN) of a VPC endpoint association.</p>
             vpc_endpoint_id: <p>A unique identifier for the primary endpoint associated with a firewall.</p>
             flow_operation_id: <p>A unique identifier for the flow operation. This ID is returned in the responses to start and list commands. You provide to describe commands.</p>
@@ -2489,6 +2495,8 @@ class AsyncNetworkFirewallClient:
         }
         if availability_zone is not None:
             input_["availability_zone"] = availability_zone
+        if availability_zone_id is not None:
+            input_["availability_zone_id"] = availability_zone_id
         if vpc_endpoint_association_arn is not None:
             input_["vpc_endpoint_association_arn"] = vpc_endpoint_association_arn
         if vpc_endpoint_id is not None:
@@ -3832,6 +3840,9 @@ class AsyncNetworkFirewallClient:
         availability_zone: Optional[
             "capo_network_firewall.types.availability_zone.AvailabilityZone"
         ] = None,
+        availability_zone_id: Optional[
+            "capo_network_firewall.types.availability_zone_id.AvailabilityZoneId"
+        ] = None,
         vpc_endpoint_id: Optional[
             "capo_network_firewall.types.vpc_endpoint_id.VpcEndpointId"
         ] = None,
@@ -3846,7 +3857,8 @@ class AsyncNetworkFirewallClient:
             flow_operation_id: <p>A unique identifier for the flow operation. This ID is returned in the responses to start and list commands. You provide to describe commands.</p>
             next_token: <p>When you request a list of objects with a <code>MaxResults</code> setting, if the number of objects that are still available for retrieval exceeds the maximum you requested, Network Firewall returns a <code>NextToken</code> value in the response. To retrieve the next batch of objects, use the token returned from the prior request in your next request.</p>
             max_results: <p>The maximum number of objects that you want Network Firewall to return for this request. If more objects are available, in the response, Network Firewall provides a <code>NextToken</code> value that you can use in a subsequent call to get the next batch of objects.</p>
-            availability_zone: <p>The ID of the Availability Zone where the firewall is located. For example, <code>us-east-2a</code>.</p> <p>Defines the scope a flow operation. You can use up to 20 filters to configure a single flow operation.</p>
+            availability_zone: <p>The name of the Availability Zone where the firewall is located. For example, <code>us-east-2a</code>.</p> <p>Defines the scope a flow operation. You can use up to 20 filters to configure a single flow operation.</p>
+            availability_zone_id: <p>The ID of the Availability Zone where the firewall is located. For example, <code>use2-az1</code>. Availability Zone IDs are the same in every Amazon Web Services account, so use this parameter when you coordinate resources across accounts. Specify either <code>AvailabilityZone</code> or <code>AvailabilityZoneId</code>, not both. If you specify both, the request fails.</p>
             vpc_endpoint_id: <p>A unique identifier for the primary endpoint associated with a firewall.</p>
             vpc_endpoint_association_arn: <p>The Amazon Resource Name (ARN) of a VPC endpoint association.</p>
 
@@ -3886,6 +3898,8 @@ class AsyncNetworkFirewallClient:
             input_["max_results"] = max_results
         if availability_zone is not None:
             input_["availability_zone"] = availability_zone
+        if availability_zone_id is not None:
+            input_["availability_zone_id"] = availability_zone_id
         if vpc_endpoint_id is not None:
             input_["vpc_endpoint_id"] = vpc_endpoint_id
         if vpc_endpoint_association_arn is not None:
@@ -3914,6 +3928,9 @@ class AsyncNetworkFirewallClient:
         availability_zone: Optional[
             "capo_network_firewall.types.availability_zone.AvailabilityZone"
         ] = None,
+        availability_zone_id: Optional[
+            "capo_network_firewall.types.availability_zone_id.AvailabilityZoneId"
+        ] = None,
         vpc_endpoint_id: Optional[
             "capo_network_firewall.types.vpc_endpoint_id.VpcEndpointId"
         ] = None,
@@ -3930,6 +3947,7 @@ class AsyncNetworkFirewallClient:
                 next_token=_token,
                 max_results=max_results,
                 availability_zone=availability_zone,
+                availability_zone_id=availability_zone_id,
                 vpc_endpoint_id=vpc_endpoint_id,
                 vpc_endpoint_association_arn=vpc_endpoint_association_arn,
             )
@@ -3947,6 +3965,9 @@ class AsyncNetworkFirewallClient:
         config_overrides: Optional[AsyncNetworkFirewallClientConfig] = None,
         availability_zone: Optional[
             "capo_network_firewall.types.availability_zone.AvailabilityZone"
+        ] = None,
+        availability_zone_id: Optional[
+            "capo_network_firewall.types.availability_zone_id.AvailabilityZoneId"
         ] = None,
         vpc_endpoint_association_arn: Optional[
             "capo_network_firewall.types.resource_arn.ResourceArn"
@@ -3968,7 +3989,8 @@ class AsyncNetworkFirewallClient:
 
         Args:
             firewall_arn: <p>The Amazon Resource Name (ARN) of the firewall.</p>
-            availability_zone: <p>The ID of the Availability Zone where the firewall is located. For example, <code>us-east-2a</code>.</p> <p>Defines the scope a flow operation. You can use up to 20 filters to configure a single flow operation.</p>
+            availability_zone: <p>The name of the Availability Zone where the firewall is located. For example, <code>us-east-2a</code>.</p> <p>Defines the scope a flow operation. You can use up to 20 filters to configure a single flow operation.</p>
+            availability_zone_id: <p>The ID of the Availability Zone where the firewall is located. For example, <code>use2-az1</code>. Availability Zone IDs are the same in every Amazon Web Services account, so use this parameter when you coordinate resources across accounts. Specify either <code>AvailabilityZone</code> or <code>AvailabilityZoneId</code>, not both. If you specify both, the request fails.</p>
             vpc_endpoint_association_arn: <p>The Amazon Resource Name (ARN) of a VPC endpoint association.</p>
             vpc_endpoint_id: <p>A unique identifier for the primary endpoint associated with a firewall.</p>
             flow_operation_type: <p>An optional string that defines whether any or all operation types are returned.</p>
@@ -4006,6 +4028,8 @@ class AsyncNetworkFirewallClient:
         }
         if availability_zone is not None:
             input_["availability_zone"] = availability_zone
+        if availability_zone_id is not None:
+            input_["availability_zone_id"] = availability_zone_id
         if vpc_endpoint_association_arn is not None:
             input_["vpc_endpoint_association_arn"] = vpc_endpoint_association_arn
         if vpc_endpoint_id is not None:
@@ -4033,6 +4057,9 @@ class AsyncNetworkFirewallClient:
         availability_zone: Optional[
             "capo_network_firewall.types.availability_zone.AvailabilityZone"
         ] = None,
+        availability_zone_id: Optional[
+            "capo_network_firewall.types.availability_zone_id.AvailabilityZoneId"
+        ] = None,
         vpc_endpoint_association_arn: Optional[
             "capo_network_firewall.types.resource_arn.ResourceArn"
         ] = None,
@@ -4055,6 +4082,7 @@ class AsyncNetworkFirewallClient:
                 firewall_arn,
                 config_overrides=config_overrides,
                 availability_zone=availability_zone,
+                availability_zone_id=availability_zone_id,
                 vpc_endpoint_association_arn=vpc_endpoint_association_arn,
                 vpc_endpoint_id=vpc_endpoint_id,
                 flow_operation_type=flow_operation_type,
@@ -4867,6 +4895,9 @@ class AsyncNetworkFirewallClient:
         availability_zone: Optional[
             "capo_network_firewall.types.availability_zone.AvailabilityZone"
         ] = None,
+        availability_zone_id: Optional[
+            "capo_network_firewall.types.availability_zone_id.AvailabilityZoneId"
+        ] = None,
         vpc_endpoint_association_arn: Optional[
             "capo_network_firewall.types.resource_arn.ResourceArn"
         ] = None,
@@ -4881,7 +4912,8 @@ class AsyncNetworkFirewallClient:
 
         Args:
             firewall_arn: <p>The Amazon Resource Name (ARN) of the firewall.</p>
-            availability_zone: <p>The ID of the Availability Zone where the firewall is located. For example, <code>us-east-2a</code>.</p> <p>Defines the scope a flow operation. You can use up to 20 filters to configure a single flow operation.</p>
+            availability_zone: <p>The name of the Availability Zone where the firewall is located. For example, <code>us-east-2a</code>.</p> <p>Defines the scope a flow operation. You can use up to 20 filters to configure a single flow operation.</p>
+            availability_zone_id: <p>The ID of the Availability Zone where the firewall is located. For example, <code>use2-az1</code>. Availability Zone IDs are the same in every Amazon Web Services account, so use this parameter when you coordinate resources across accounts. Specify either <code>AvailabilityZone</code> or <code>AvailabilityZoneId</code>, not both. If you specify both, the request fails.</p>
             vpc_endpoint_association_arn: <p>The Amazon Resource Name (ARN) of a VPC endpoint association.</p>
             vpc_endpoint_id: <p>A unique identifier for the primary endpoint associated with a firewall.</p>
             minimum_flow_age_in_seconds: <p>The reqested <code>FlowOperation</code> ignores flows with an age (in seconds) lower than <code>MinimumFlowAgeInSeconds</code>. You provide this for start commands.</p> <note> <p>We recommend setting this value to at least 1 minute (60 seconds) to reduce chance of capturing flows that are not yet established.</p> </note>
@@ -4919,6 +4951,8 @@ class AsyncNetworkFirewallClient:
         }
         if availability_zone is not None:
             input_["availability_zone"] = availability_zone
+        if availability_zone_id is not None:
+            input_["availability_zone_id"] = availability_zone_id
         if vpc_endpoint_association_arn is not None:
             input_["vpc_endpoint_association_arn"] = vpc_endpoint_association_arn
         if vpc_endpoint_id is not None:
@@ -4943,6 +4977,9 @@ class AsyncNetworkFirewallClient:
         availability_zone: Optional[
             "capo_network_firewall.types.availability_zone.AvailabilityZone"
         ] = None,
+        availability_zone_id: Optional[
+            "capo_network_firewall.types.availability_zone_id.AvailabilityZoneId"
+        ] = None,
         vpc_endpoint_association_arn: Optional[
             "capo_network_firewall.types.resource_arn.ResourceArn"
         ] = None,
@@ -4957,7 +4994,8 @@ class AsyncNetworkFirewallClient:
 
         Args:
             firewall_arn: <p>The Amazon Resource Name (ARN) of the firewall.</p>
-            availability_zone: <p>The ID of the Availability Zone where the firewall is located. For example, <code>us-east-2a</code>.</p> <p>Defines the scope a flow operation. You can use up to 20 filters to configure a single flow operation.</p>
+            availability_zone: <p>The name of the Availability Zone where the firewall is located. For example, <code>us-east-2a</code>.</p> <p>Defines the scope a flow operation. You can use up to 20 filters to configure a single flow operation.</p>
+            availability_zone_id: <p>The ID of the Availability Zone where the firewall is located. For example, <code>use2-az1</code>. Availability Zone IDs are the same in every Amazon Web Services account, so use this parameter when you coordinate resources across accounts. Specify either <code>AvailabilityZone</code> or <code>AvailabilityZoneId</code>, not both. If you specify both, the request fails.</p>
             vpc_endpoint_association_arn: <p>The Amazon Resource Name (ARN) of a VPC endpoint association.</p>
             vpc_endpoint_id: <p>A unique identifier for the primary endpoint associated with a firewall.</p>
             minimum_flow_age_in_seconds: <p>The reqested <code>FlowOperation</code> ignores flows with an age (in seconds) lower than <code>MinimumFlowAgeInSeconds</code>. You provide this for start commands.</p>
@@ -4995,6 +5033,8 @@ class AsyncNetworkFirewallClient:
         }
         if availability_zone is not None:
             input_["availability_zone"] = availability_zone
+        if availability_zone_id is not None:
+            input_["availability_zone_id"] = availability_zone_id
         if vpc_endpoint_association_arn is not None:
             input_["vpc_endpoint_association_arn"] = vpc_endpoint_association_arn
         if vpc_endpoint_id is not None:
@@ -5216,6 +5256,7 @@ class AsyncNetworkFirewallClient:
             capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
             capo_network_firewall.errors.invalid_request_exception.InvalidRequestException: <p>The operation failed because of a problem with your request. Examples include: </p> <ul> <li> <p>You specified an unsupported parameter name or value.</p> </li> <li> <p>You tried to update a property with a value that isn't among the available types.</p> </li> <li> <p>Your request references an ARN that is malformed, or corresponds to a resource that isn't valid in the context of the request.</p> </li> </ul>
             capo_network_firewall.errors.invalid_token_exception.InvalidTokenException: <p>The token you provided is stale or isn't valid for the operation. </p>
+            capo_network_firewall.errors.limit_exceeded_exception.LimitExceededException: <p>Unable to perform the operation because doing so would violate a limit setting. </p>
             capo_network_firewall.errors.resource_not_found_exception.ResourceNotFoundException: <p>Unable to locate a resource using the parameters that you provided.</p>
             capo_network_firewall.errors.throttling_exception.ThrottlingException: <p>Unable to process the request due to throttling limitations.</p>
             capo_network_firewall.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -5573,6 +5614,7 @@ class AsyncNetworkFirewallClient:
 
         Raises:
             capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
+            capo_network_firewall.errors.invalid_operation_exception.InvalidOperationException: <p>The operation failed because it's not valid. For example, you might have tried to delete a rule group or firewall policy that's in use.</p>
             capo_network_firewall.errors.invalid_request_exception.InvalidRequestException: <p>The operation failed because of a problem with your request. Examples include: </p> <ul> <li> <p>You specified an unsupported parameter name or value.</p> </li> <li> <p>You tried to update a property with a value that isn't among the available types.</p> </li> <li> <p>Your request references an ARN that is malformed, or corresponds to a resource that isn't valid in the context of the request.</p> </li> </ul>
             capo_network_firewall.errors.invalid_token_exception.InvalidTokenException: <p>The token you provided is stale or isn't valid for the operation. </p>
             capo_network_firewall.errors.resource_not_found_exception.ResourceNotFoundException: <p>Unable to locate a resource using the parameters that you provided.</p>

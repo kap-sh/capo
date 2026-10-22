@@ -19,7 +19,7 @@ class UpdateWirelessGatewayRequest(TypedDict, closed=True):
     name: NotRequired[
         "capo_iot_wireless.types.wireless_gateway_name.WirelessGatewayName"
     ]
-    """<p>The new name of the resource.</p> <note> <p>The following special characters aren't accepted: <code><>^#~$</code> </p> </note>"""
+    """<p>The new name of the resource.</p> <note> <p>The following special characters aren't accepted: <code>&lt;&gt;^#~$</code> </p> </note>"""
     description: NotRequired["capo_iot_wireless.types.description.Description"]
     """<p>A new description of the resource.</p>"""
     join_eui_filters: NotRequired[

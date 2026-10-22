@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     import capo_workspaces_instances.types.snapshot_id
     import capo_workspaces_instances.types.string64
     import capo_workspaces_instances.types.tag_specifications
+    import capo_workspaces_instances.types.volume_size_in_gb
     import capo_workspaces_instances.types.volume_type_enum
 
 
@@ -30,7 +31,7 @@ class CreateVolumeRequest(TypedDict, closed=True):
     kms_key_id: NotRequired["capo_workspaces_instances.types.kms_key_id.KmsKeyId"]
     """<p>KMS key for volume encryption.</p>"""
     size_in_gb: NotRequired[
-        "capo_workspaces_instances.types.non_negative_integer.NonNegativeInteger"
+        "capo_workspaces_instances.types.volume_size_in_gb.VolumeSizeInGB"
     ]
     """<p>Volume size in gigabytes.</p>"""
     snapshot_id: NotRequired["capo_workspaces_instances.types.snapshot_id.SnapshotId"]

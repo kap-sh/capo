@@ -9,6 +9,7 @@ LifeCycleState: TypeAlias = Literal[
     "deleted",
     "error",
     "updating",
+    "misconfigured",
 ]
 
 

@@ -13,7 +13,7 @@ class AuthorizationConfiguration(TypedDict, closed=True):
     lake_formation_configuration: NotRequired[
         "capo_emr_containers.types.lake_formation_configuration.LakeFormationConfiguration"
     ]
-    """<p>Lake Formation related configuration inputs for the security configuration.</p>"""
+    """<p> Lake Formation related configuration inputs for the security configuration.</p>"""
     encryption_configuration: NotRequired[
         "capo_emr_containers.types.encryption_configuration.EncryptionConfiguration"
     ]

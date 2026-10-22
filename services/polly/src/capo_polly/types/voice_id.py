@@ -109,6 +109,16 @@ VoiceId: TypeAlias = Literal[
     "Lennart",
     "Lorenzo",
     "Tiffany",
+    "Arjun",
+    "Carlos",
+    "Carolina",
+    "Curtis",
+    "Hyunduk",
+    "Kenneth",
+    "Kiara",
+    "Leo",
+    "Nate",
+    "Tina",
 ]
 
 

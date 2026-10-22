@@ -14,6 +14,7 @@ import capo_network_firewall._protocol.eventstream
 import capo_network_firewall.errors.internal_server_error
 import capo_network_firewall.errors.invalid_request_exception
 import capo_network_firewall.errors.invalid_token_exception
+import capo_network_firewall.errors.limit_exceeded_exception
 import capo_network_firewall.errors.resource_not_found_exception
 import capo_network_firewall.errors.throttling_exception
 import capo_network_firewall.types.container_association_status
@@ -49,6 +50,10 @@ def handle_error(response: zapros.Response) -> Never:
             )
         case "InvalidTokenException":
             raise capo_network_firewall.errors.invalid_token_exception.InvalidTokenException.from_aws_json_1_0(
+                data, message, response=response
+            )
+        case "LimitExceededException":
+            raise capo_network_firewall.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_0(
                 data, message, response=response
             )
         case "ResourceNotFoundException":

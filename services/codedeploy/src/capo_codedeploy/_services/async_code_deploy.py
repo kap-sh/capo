@@ -85,6 +85,7 @@ if TYPE_CHECKING:
     import capo_codedeploy.types.deployments_list
     import capo_codedeploy.types.deregister_on_premises_instance_input
     import capo_codedeploy.types.description
+    import capo_codedeploy.types.ec2_deployment_options
     import capo_codedeploy.types.ec2_tag_filter_list
     import capo_codedeploy.types.ec2_tag_set
     import capo_codedeploy.types.ecs_service_list
@@ -865,6 +866,9 @@ class AsyncCodeDeployClient:
         override_alarm_configuration: Optional[
             "capo_codedeploy.types.alarm_configuration.AlarmConfiguration"
         ] = None,
+        ec2_deployment_options: Optional[
+            "capo_codedeploy.types.ec2_deployment_options.EC2DeploymentOptions"
+        ] = None,
     ) -> "capo_codedeploy.types.create_deployment_output.CreateDeploymentOutput":
         """<p>Deploys an application revision through the specified deployment group.</p>
 
@@ -895,6 +899,7 @@ class AsyncCodeDeployClient:
             capo_codedeploy.errors.invalid_application_name_exception.InvalidApplicationNameException: <p>The application name was specified in an invalid format.</p>
             capo_codedeploy.errors.invalid_auto_rollback_config_exception.InvalidAutoRollbackConfigException: <p>The automatic rollback configuration was specified in an invalid format. For example, automatic rollback is enabled, but an invalid triggering event type or no event types were listed.</p>
             capo_codedeploy.errors.invalid_auto_scaling_group_exception.InvalidAutoScalingGroupException: <p>The Auto Scaling group was specified in an invalid format or does not exist.</p>
+            capo_codedeploy.errors.invalid_auto_scaling_group_process_to_suspend_exception.InvalidAutoScalingGroupProcessToSuspendException: <p>The <code>autoScalingGroupProcessesToSuspend</code> list in <code>ec2DeploymentOptions</code> contains a process that is not valid. Valid values are <code>Terminate</code>, <code>AZRebalance</code>, <code>InstanceRefresh</code>, and <code>ScheduledActions</code>. Process names are case sensitive.</p>
             capo_codedeploy.errors.invalid_compute_platform_exception.InvalidComputePlatformException: <p>The computePlatform is invalid. The computePlatform should be <code>Lambda</code>, <code>Server</code>, or <code>ECS</code>.</p>
             capo_codedeploy.errors.invalid_deployment_config_name_exception.InvalidDeploymentConfigNameException: <p>The deployment configuration name was specified in an invalid format.</p>
             capo_codedeploy.errors.invalid_deployment_group_name_exception.InvalidDeploymentGroupNameException: <p>The deployment group name was specified in an invalid format.</p>
@@ -960,6 +965,8 @@ class AsyncCodeDeployClient:
             input_["deployment_mode"] = deployment_mode
         if override_alarm_configuration is not None:
             input_["override_alarm_configuration"] = override_alarm_configuration
+        if ec2_deployment_options is not None:
+            input_["ec2_deployment_options"] = ec2_deployment_options
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -1092,6 +1099,9 @@ class AsyncCodeDeployClient:
             "capo_codedeploy.types.on_premises_tag_set.OnPremisesTagSet"
         ] = None,
         tags: Optional["capo_codedeploy.types.tag_list.TagList"] = None,
+        ec2_deployment_options: Optional[
+            "capo_codedeploy.types.ec2_deployment_options.EC2DeploymentOptions"
+        ] = None,
         termination_hook_enabled: Optional[
             "capo_codedeploy.types.nullable_boolean.NullableBoolean"
         ] = None,
@@ -1132,6 +1142,7 @@ class AsyncCodeDeployClient:
             capo_codedeploy.errors.invalid_application_name_exception.InvalidApplicationNameException: <p>The application name was specified in an invalid format.</p>
             capo_codedeploy.errors.invalid_auto_rollback_config_exception.InvalidAutoRollbackConfigException: <p>The automatic rollback configuration was specified in an invalid format. For example, automatic rollback is enabled, but an invalid triggering event type or no event types were listed.</p>
             capo_codedeploy.errors.invalid_auto_scaling_group_exception.InvalidAutoScalingGroupException: <p>The Auto Scaling group was specified in an invalid format or does not exist.</p>
+            capo_codedeploy.errors.invalid_auto_scaling_group_process_to_suspend_exception.InvalidAutoScalingGroupProcessToSuspendException: <p>The <code>autoScalingGroupProcessesToSuspend</code> list in <code>ec2DeploymentOptions</code> contains a process that is not valid. Valid values are <code>Terminate</code>, <code>AZRebalance</code>, <code>InstanceRefresh</code>, and <code>ScheduledActions</code>. Process names are case sensitive.</p>
             capo_codedeploy.errors.invalid_blue_green_deployment_configuration_exception.InvalidBlueGreenDeploymentConfigurationException: <p>The configuration for the blue/green deployment group was provided in an invalid format. For information about deployment configuration format, see <a>CreateDeploymentConfig</a>.</p>
             capo_codedeploy.errors.invalid_deployment_config_name_exception.InvalidDeploymentConfigNameException: <p>The deployment configuration name was specified in an invalid format.</p>
             capo_codedeploy.errors.invalid_deployment_group_name_exception.InvalidDeploymentGroupNameException: <p>The deployment group name was specified in an invalid format.</p>
@@ -1213,6 +1224,8 @@ class AsyncCodeDeployClient:
             input_["on_premises_tag_set"] = on_premises_tag_set
         if tags is not None:
             input_["tags"] = tags
+        if ec2_deployment_options is not None:
+            input_["ec2_deployment_options"] = ec2_deployment_options
         if termination_hook_enabled is not None:
             input_["termination_hook_enabled"] = termination_hook_enabled
 
@@ -3267,6 +3280,9 @@ class AsyncCodeDeployClient:
         on_premises_tag_set: Optional[
             "capo_codedeploy.types.on_premises_tag_set.OnPremisesTagSet"
         ] = None,
+        ec2_deployment_options: Optional[
+            "capo_codedeploy.types.ec2_deployment_options.EC2DeploymentOptions"
+        ] = None,
         termination_hook_enabled: Optional[
             "capo_codedeploy.types.nullable_boolean.NullableBoolean"
         ] = None,
@@ -3307,6 +3323,7 @@ class AsyncCodeDeployClient:
             capo_codedeploy.errors.invalid_application_name_exception.InvalidApplicationNameException: <p>The application name was specified in an invalid format.</p>
             capo_codedeploy.errors.invalid_auto_rollback_config_exception.InvalidAutoRollbackConfigException: <p>The automatic rollback configuration was specified in an invalid format. For example, automatic rollback is enabled, but an invalid triggering event type or no event types were listed.</p>
             capo_codedeploy.errors.invalid_auto_scaling_group_exception.InvalidAutoScalingGroupException: <p>The Auto Scaling group was specified in an invalid format or does not exist.</p>
+            capo_codedeploy.errors.invalid_auto_scaling_group_process_to_suspend_exception.InvalidAutoScalingGroupProcessToSuspendException: <p>The <code>autoScalingGroupProcessesToSuspend</code> list in <code>ec2DeploymentOptions</code> contains a process that is not valid. Valid values are <code>Terminate</code>, <code>AZRebalance</code>, <code>InstanceRefresh</code>, and <code>ScheduledActions</code>. Process names are case sensitive.</p>
             capo_codedeploy.errors.invalid_blue_green_deployment_configuration_exception.InvalidBlueGreenDeploymentConfigurationException: <p>The configuration for the blue/green deployment group was provided in an invalid format. For information about deployment configuration format, see <a>CreateDeploymentConfig</a>.</p>
             capo_codedeploy.errors.invalid_deployment_config_name_exception.InvalidDeploymentConfigNameException: <p>The deployment configuration name was specified in an invalid format.</p>
             capo_codedeploy.errors.invalid_deployment_group_name_exception.InvalidDeploymentGroupNameException: <p>The deployment group name was specified in an invalid format.</p>
@@ -3387,6 +3404,8 @@ class AsyncCodeDeployClient:
             input_["ecs_services"] = ecs_services
         if on_premises_tag_set is not None:
             input_["on_premises_tag_set"] = on_premises_tag_set
+        if ec2_deployment_options is not None:
+            input_["ec2_deployment_options"] = ec2_deployment_options
         if termination_hook_enabled is not None:
             input_["termination_hook_enabled"] = termination_hook_enabled
 

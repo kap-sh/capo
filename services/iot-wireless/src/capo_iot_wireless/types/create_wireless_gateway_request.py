@@ -18,7 +18,7 @@ class CreateWirelessGatewayRequest(TypedDict, closed=True):
     name: NotRequired[
         "capo_iot_wireless.types.wireless_gateway_name.WirelessGatewayName"
     ]
-    """<p>The name of the new resource.</p> <note> <p>The following special characters aren't accepted: <code><>^#~$</code> </p> </note>"""
+    """<p>The name of the new resource.</p> <note> <p>The following special characters aren't accepted: <code>&lt;&gt;^#~$</code> </p> </note>"""
     description: NotRequired["capo_iot_wireless.types.description.Description"]
     """<p>The description of the new resource.</p>"""
     lo_ra_wan: "capo_iot_wireless.types.lo_ra_wan_gateway.LoRaWANGateway"

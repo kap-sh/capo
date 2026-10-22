@@ -1,0 +1,8 @@
+---
+title: GatewayClusterAssociationStatusList
+---
+
+::: capo_ecs.types.gateway_cluster_association_status_list.GatewayClusterAssociationStatusList
+    options:
+      show_source: true
+      merge_init_into_class: false

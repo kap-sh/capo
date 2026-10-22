@@ -22,6 +22,7 @@ if TYPE_CHECKING:
     import capo_codedeploy.types.deployment_status_message_list
     import capo_codedeploy.types.deployment_style
     import capo_codedeploy.types.description
+    import capo_codedeploy.types.ec2_deployment_options
     import capo_codedeploy.types.error_information
     import capo_codedeploy.types.external_id
     import capo_codedeploy.types.file_exists_behavior
@@ -127,6 +128,9 @@ class DeploymentInfo(TypedDict, closed=True):
     ]
     override_alarm_configuration: NotRequired[
         "capo_codedeploy.types.alarm_configuration.AlarmConfiguration"
+    ]
+    ec2_deployment_options: NotRequired[
+        "capo_codedeploy.types.ec2_deployment_options.EC2DeploymentOptions"
     ]
 
 
@@ -316,6 +320,14 @@ def serialize_aws_json_1_1(value: DeploymentInfo) -> dict:
         out["overrideAlarmConfiguration"] = (
             capo_codedeploy.types.alarm_configuration.serialize_aws_json_1_1(
                 value["override_alarm_configuration"]
+            )
+        )
+    if "ec2_deployment_options" in value:
+        import capo_codedeploy.types.ec2_deployment_options
+
+        out["ec2DeploymentOptions"] = (
+            capo_codedeploy.types.ec2_deployment_options.serialize_aws_json_1_1(
+                value["ec2_deployment_options"]
             )
         )
     return out
@@ -513,6 +525,14 @@ def deserialize_aws_json_1_1(data: dict) -> DeploymentInfo:
         out["override_alarm_configuration"] = (
             capo_codedeploy.types.alarm_configuration.deserialize_aws_json_1_1(
                 data["overrideAlarmConfiguration"]
+            )
+        )
+    if data.get("ec2DeploymentOptions") is not None:
+        import capo_codedeploy.types.ec2_deployment_options
+
+        out["ec2_deployment_options"] = (
+            capo_codedeploy.types.ec2_deployment_options.deserialize_aws_json_1_1(
+                data["ec2DeploymentOptions"]
             )
         )
     return out

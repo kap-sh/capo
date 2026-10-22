@@ -38,6 +38,7 @@ if TYPE_CHECKING:
     import capo_xray.types.boolean
     import capo_xray.types.cancel_trace_retrieval_request
     import capo_xray.types.cancel_trace_retrieval_result
+    import capo_xray.types.cloud_watch_logs_configuration
     import capo_xray.types.create_group_request
     import capo_xray.types.create_group_result
     import capo_xray.types.create_sampling_rule_request
@@ -2568,11 +2569,15 @@ class AsyncXRayClient:
         destination: Optional[
             "capo_xray.types.trace_segment_destination.TraceSegmentDestination"
         ] = None,
+        cloud_watch_logs_configuration: Optional[
+            "capo_xray.types.cloud_watch_logs_configuration.CloudWatchLogsConfiguration"
+        ] = None,
     ) -> "capo_xray.types.update_trace_segment_destination_result.UpdateTraceSegmentDestinationResult":
         """<p> Modifies the destination of data sent to <code>PutTraceSegments</code>. The Transaction Search feature requires the CloudWatchLogs destination. For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Transaction-Search.html">Transaction Search</a>. </p>
 
         Args:
             destination: <p> The configured destination of trace segments. </p>
+            cloud_watch_logs_configuration: <p> Specifies settings for the CloudWatch Logs log groups that X-Ray creates for Transaction Search. Specify this only when <code>Destination</code> is <code>CloudWatchLogs</code>. </p>
 
         Raises:
             capo_xray.errors.invalid_request_exception.InvalidRequestException: <p>The request is missing required parameters or has invalid parameters.</p>
@@ -2601,6 +2606,8 @@ class AsyncXRayClient:
         input_: capo_xray.types.update_trace_segment_destination_request.UpdateTraceSegmentDestinationRequest = {}
         if destination is not None:
             input_["destination"] = destination
+        if cloud_watch_logs_configuration is not None:
+            input_["cloud_watch_logs_configuration"] = cloud_watch_logs_configuration
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

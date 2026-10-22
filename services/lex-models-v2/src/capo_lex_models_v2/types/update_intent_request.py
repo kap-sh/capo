@@ -90,7 +90,7 @@ class UpdateIntentRequest(TypedDict, closed=True):
     qn_a_intent_configuration: NotRequired[
         "capo_lex_models_v2.types.qn_a_intent_configuration.QnAIntentConfiguration"
     ]
-    """<p>Specifies the configuration of the built-in <code>Amazon.QnAIntent</code>. The <code>AMAZON.QnAIntent</code> intent is called when Amazon Lex can't determine another intent to invoke. If you specify this field, you can't specify the <code>kendraConfiguration</code> field.</p>"""
+    """<p>Specifies the configuration of the built-in <code>Amazon.QnAIntent</code>. The <code>AMAZON.QnAIntent</code> intent is called when Amazon Lex V2 can't determine another intent to invoke. If you specify this field, you can't specify the <code>kendraConfiguration</code> field.</p>"""
     q_in_connect_intent_configuration: NotRequired[
         "capo_lex_models_v2.types.q_in_connect_intent_configuration.QInConnectIntentConfiguration"
     ]

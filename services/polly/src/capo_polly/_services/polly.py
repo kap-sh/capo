@@ -549,7 +549,7 @@ class PollyClient:
             capo_polly.errors.max_lexeme_length_exceeded_exception.MaxLexemeLengthExceededException: <p>The maximum size of the lexeme would be exceeded by this operation.</p>
             capo_polly.errors.max_lexicons_number_exceeded_exception.MaxLexiconsNumberExceededException: <p>The maximum number of lexicons would be exceeded by this operation.</p>
             capo_polly.errors.service_failure_exception.ServiceFailureException: <p>An unknown condition has caused a service failure.</p>
-            capo_polly.errors.unsupported_pls_alphabet_exception.UnsupportedPlsAlphabetException: <p>The alphabet specified by the lexicon is not a supported alphabet. Valid values are <code>x-sampa</code> and <code>ipa</code>.</p>
+            capo_polly.errors.unsupported_pls_alphabet_exception.UnsupportedPlsAlphabetException: <p>The alphabet specified by the lexicon is not a supported alphabet. Valid values are <code>ipa</code>, <code>x-sampa</code>, <code>x-amazon-pinyin</code>, <code>x-amazon-jyutping</code>, <code>x-amazon-pron-kana</code>, and <code>x-amazon-yomigana</code>. Replace the unsupported alphabet with one of the valid values and resubmit your request.</p>
             capo_polly.errors.unsupported_pls_language_exception.UnsupportedPlsLanguageException: <p>The language specified in the lexicon is unsupported. For a list of supported languages, see <a href="https://docs.aws.amazon.com/polly/latest/dg/API_LexiconAttributes.html">Lexicon Attributes</a>.</p>
             capo_polly.errors.UnknownServiceError: The service returned an error code this client does not model.
 
@@ -612,7 +612,7 @@ class PollyClient:
             "Iterator[capo_polly.types.start_speech_synthesis_stream_action_stream._StartSpeechSynthesisStreamActionStream] | capo_polly.types.start_speech_synthesis_stream_action_stream._StartSpeechSynthesisStreamActionStream"
         ] = None,
     ) -> "Generator[capo_polly.types.start_speech_synthesis_stream_output.StartSpeechSynthesisStreamOutput]":
-        """<p>Synthesizes UTF-8 input, plain text, or SSML over a bidirectional streaming connection. Specify synthesis parameters in HTTP/2 headers, send text incrementally as events on the input stream, and receive synthesized audio as it becomes available.</p> <p>This operation serves as a bidirectional counterpart to <code>SynthesizeSpeech</code>:</p> <ul> <li> <p> <a href="https://docs.aws.amazon.com/polly/latest/API/API_SynthesizeSpeech.html">SynthesizeSpeech</a> </p> </li> </ul>
+        """<p>Synthesizes UTF-8 input, plain text, or SSML over a bidirectional streaming connection. Specify synthesis parameters in HTTP/2 headers, send text incrementally as events on the input stream, and receive synthesized audio as it becomes available.</p> <p>This operation serves as a bidirectional counterpart to <code>SynthesizeSpeech</code>:</p> <ul> <li> <p> <a href="https://docs.aws.amazon.com/polly/latest/dg/API_SynthesizeSpeech.html">SynthesizeSpeech</a> </p> </li> </ul>
 
         Args:
             engine: <p>Specifies the engine for Amazon Polly to use when processing input text for speech synthesis. Currently, only the <code>generative</code> engine is supported. If you specify a voice that the selected engine doesn't support, Amazon Polly returns an error.</p>
@@ -620,7 +620,7 @@ class PollyClient:
             lexicon_names: <p>The names of one or more pronunciation lexicons for the service to apply during synthesis. Amazon Polly applies lexicons only when the lexicon language matches the voice language.</p>
             output_format: <p>The audio format for the synthesized speech. Currently, Amazon Polly does not support JSON speech marks.</p>
             sample_rate: <p>The audio frequency, specified in Hz.</p>
-            voice_id: <p>The voice to use in synthesis. To get a list of available voice IDs, use the <a href="https://docs.aws.amazon.com/polly/latest/API/API_DescribeVoices.html">DescribeVoices</a> operation.</p>
+            voice_id: <p>The voice to use in synthesis. To get a list of available voice IDs, use the <a href="https://docs.aws.amazon.com/polly/latest/dg/API_DescribeVoices.html">DescribeVoices</a> operation.</p>
             action_stream: <p>The input event stream that contains text events and stream control events.</p>
 
         Raises:

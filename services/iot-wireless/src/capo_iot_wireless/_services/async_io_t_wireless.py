@@ -1024,7 +1024,7 @@ class AsyncIoTWirelessClient:
         """<p>Creates a new device profile.</p>
 
         Args:
-            name: <p>The name of the new resource.</p> <note> <p>The following special characters aren't accepted: <code><>^#~$</code> </p> </note>
+            name: <p>The name of the new resource.</p> <note> <p>The following special characters aren't accepted: <code>&lt;&gt;^#~$</code> </p> </note>
             lo_ra_wan: <p>The device profile information to use to create the device profile.</p>
             tags: <p>The tags to attach to the new device profile. Tags are metadata that you can use to manage a resource.</p>
             client_request_token: <p>Each resource must have a unique client request token. The client token is used to implement idempotency. It ensures that the request completes no more than one time. If you retry a request with the same token and the same parameters, the request will complete successfully. However, if you try to create a new resource using the same token but different parameters, an HTTP 409 conflict occurs. If you omit this value, AWS SDKs will automatically generate a unique client request. For more information about idempotency, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency in Amazon EC2 API requests</a>.</p>
@@ -1340,7 +1340,7 @@ class AsyncIoTWirelessClient:
         """<p>Creates a new service profile.</p>
 
         Args:
-            name: <p>The name of the new resource.</p> <note> <p>The following special characters aren't accepted: <code><>^#~$</code> </p> </note>
+            name: <p>The name of the new resource.</p> <note> <p>The following special characters aren't accepted: <code>&lt;&gt;^#~$</code> </p> </note>
             lo_ra_wan: <p>The service profile information to use to create the service profile.</p>
             tags: <p>The tags to attach to the new service profile. Tags are metadata that you can use to manage a resource.</p>
             client_request_token: <p>Each resource must have a unique client request token. The client token is used to implement idempotency. It ensures that the request completes no more than one time. If you retry a request with the same token and the same parameters, the request will complete successfully. However, if you try to create a new resource using the same token but different parameters, an HTTP 409 conflict occurs. If you omit this value, AWS SDKs will automatically generate a unique client request. For more information about idempotency, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency in Amazon EC2 API requests</a>.</p>
@@ -1419,7 +1419,7 @@ class AsyncIoTWirelessClient:
 
         Args:
             type: <p>The wireless device type.</p>
-            name: <p>The name of the new resource.</p> <note> <p>The following special characters aren't accepted: <code><>^#~$</code> </p> </note>
+            name: <p>The name of the new resource.</p> <note> <p>The following special characters aren't accepted: <code>&lt;&gt;^#~$</code> </p> </note>
             description: <p>The description of the new resource.</p>
             destination_name: <p>The name of the destination to assign to the new wireless device.</p>
             client_request_token: <p>Each resource must have a unique client request token. The client token is used to implement idempotency. It ensures that the request completes no more than one time. If you retry a request with the same token and the same parameters, the request will complete successfully. However, if you try to create a new resource using the same token but different parameters, an HTTP 409 conflict occurs. If you omit this value, AWS SDKs will automatically generate a unique client request. For more information about idempotency, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency in Amazon EC2 API requests</a>.</p>
@@ -1501,7 +1501,7 @@ class AsyncIoTWirelessClient:
         """<p>Provisions a wireless gateway.</p> <note> <p>When provisioning a wireless gateway, you might run into duplication errors for the following reasons.</p> <ul> <li> <p>If you specify a <code>GatewayEui</code> value that already exists.</p> </li> <li> <p>If you used a <code>ClientRequestToken</code> with the same parameters within the last 10 minutes.</p> </li> </ul> <p>To avoid this error, make sure that you use unique identifiers and parameters for each request within the specified time period.</p> </note>
 
         Args:
-            name: <p>The name of the new resource.</p> <note> <p>The following special characters aren't accepted: <code><>^#~$</code> </p> </note>
+            name: <p>The name of the new resource.</p> <note> <p>The following special characters aren't accepted: <code>&lt;&gt;^#~$</code> </p> </note>
             description: <p>The description of the new resource.</p>
             lo_ra_wan: <p>The gateway configuration information to use to create the wireless gateway.</p>
             tags: <p>The tags to attach to the new wireless gateway. Tags are metadata that you can use to manage a resource.</p>
@@ -7039,7 +7039,7 @@ class AsyncIoTWirelessClient:
         Args:
             id: <p>The ID of the resource to update.</p>
             destination_name: <p>The name of the new destination for the device.</p>
-            name: <p>The new name of the resource.</p> <note> <p>The following special characters aren't accepted: <code><>^#~$</code> </p> </note>
+            name: <p>The new name of the resource.</p> <note> <p>The following special characters aren't accepted: <code>&lt;&gt;^#~$</code> </p> </note>
             description: <p>A new description of the resource.</p>
             lo_ra_wan: <p>The updated wireless device's configuration.</p>
             positioning: <p>The integration status of the Device Location feature for LoRaWAN and Sidewalk devices.</p>
@@ -7173,7 +7173,7 @@ class AsyncIoTWirelessClient:
 
         Args:
             id: <p>The ID of the resource to update.</p>
-            name: <p>The new name of the resource.</p> <note> <p>The following special characters aren't accepted: <code><>^#~$</code> </p> </note>
+            name: <p>The new name of the resource.</p> <note> <p>The following special characters aren't accepted: <code>&lt;&gt;^#~$</code> </p> </note>
             description: <p>A new description of the resource.</p>
             max_eirp: <p>The MaxEIRP value.</p>
 

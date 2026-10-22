@@ -38,6 +38,7 @@ if TYPE_CHECKING:
     import capo_ecs.types.express_gateway_scaling_target
     import capo_ecs.types.express_gateway_service_include_list
     import capo_ecs.types.express_gateway_service_network_configuration
+    import capo_ecs.types.gateway_connector_list
     import capo_ecs.types.launch_type
     import capo_ecs.types.list_service_deployments_request
     import capo_ecs.types.list_service_deployments_response
@@ -337,6 +338,9 @@ class ServiceResource:
         vpc_lattice_configurations: Optional[
             "capo_ecs.types.vpc_lattice_configurations.VpcLatticeConfigurations"
         ] = None,
+        gateway_connectors: Optional[
+            "capo_ecs.types.gateway_connector_list.GatewayConnectorList"
+        ] = None,
         monitoring: Optional[
             "capo_ecs.types.monitoring_configuration.MonitoringConfiguration"
         ] = None,
@@ -370,6 +374,7 @@ class ServiceResource:
             service_connect_configuration: <p>The configuration for this service to discover and connect to services, and be discovered by, and connected from, other services within a namespace.</p> <p>Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can connect to services across all of the clusters in the namespace. Tasks connect through a managed proxy container that collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services create are supported with Service Connect. For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html">Service Connect</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.</p>
             volume_configurations: <p>The configuration for a volume specified in the task definition as a volume that is configured at launch time. Currently, the only supported volume type is an Amazon EBS volume.</p>
             vpc_lattice_configurations: <p>The VPC Lattice configuration for the service being created.</p>
+            gateway_connectors: <p>The gateway connectors that attach the service to a gateway ingress path. You can specify at most one gateway connector.</p>
             monitoring: <p>The optional monitoring configuration for the service, which defines the resolution for the service-level <code>CPUUtilization</code> and <code>MemoryUtilization</code> Amazon CloudWatch metrics. When not specified, Amazon ECS uses the default resolution of <code>60</code> seconds.</p>
 
         Raises:
@@ -475,6 +480,8 @@ class ServiceResource:
             input_["volume_configurations"] = volume_configurations
         if vpc_lattice_configurations is not None:
             input_["vpc_lattice_configurations"] = vpc_lattice_configurations
+        if gateway_connectors is not None:
+            input_["gateway_connectors"] = gateway_connectors
         if monitoring is not None:
             input_["monitoring"] = monitoring
 
@@ -1156,6 +1163,9 @@ class ServiceResource:
         vpc_lattice_configurations: Optional[
             "capo_ecs.types.vpc_lattice_configurations.VpcLatticeConfigurations"
         ] = None,
+        gateway_connectors: Optional[
+            "capo_ecs.types.gateway_connector_list.GatewayConnectorList"
+        ] = None,
         monitoring: Optional[
             "capo_ecs.types.monitoring_configuration.MonitoringConfiguration"
         ] = None,
@@ -1184,6 +1194,7 @@ class ServiceResource:
             service_connect_configuration: <p>The configuration for this service to discover and connect to services, and be discovered by, and connected from, other services within a namespace.</p> <p>Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can connect to services across all of the clusters in the namespace. Tasks connect through a managed proxy container that collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services create are supported with Service Connect. For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html">Service Connect</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.</p> <p>This parameter triggers a new service deployment.</p>
             volume_configurations: <p>The details of the volume that was <code>configuredAtLaunch</code>. You can configure the size, volumeType, IOPS, throughput, snapshot and encryption in <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ServiceManagedEBSVolumeConfiguration.html">ServiceManagedEBSVolumeConfiguration</a>. The <code>name</code> of the volume must match the <code>name</code> from the task definition. If set to null, no new deployment is triggered. Otherwise, if this configuration differs from the existing one, it triggers a new deployment.</p> <p>This parameter triggers a new service deployment.</p>
             vpc_lattice_configurations: <p>An object representing the VPC Lattice configuration for the service being updated.</p> <p>This parameter triggers a new service deployment.</p>
+            gateway_connectors: <p>The updated set of gateway connectors that connect the service to a gateway ingress path. A service supports no more than one gateway connector.</p>
             monitoring: <p>The optional monitoring configuration for the service, which defines the resolution for the service-level <code>CPUUtilization</code> and <code>MemoryUtilization</code> Amazon CloudWatch metrics. When not specified, Amazon ECS uses the default resolution of <code>60</code> seconds.</p>
 
         Raises:
@@ -1283,6 +1294,8 @@ class ServiceResource:
             input_["volume_configurations"] = volume_configurations
         if vpc_lattice_configurations is not None:
             input_["vpc_lattice_configurations"] = vpc_lattice_configurations
+        if gateway_connectors is not None:
+            input_["gateway_connectors"] = gateway_connectors
         if monitoring is not None:
             input_["monitoring"] = monitoring
 
@@ -1561,6 +1574,9 @@ class AsyncServiceResource:
         vpc_lattice_configurations: Optional[
             "capo_ecs.types.vpc_lattice_configurations.VpcLatticeConfigurations"
         ] = None,
+        gateway_connectors: Optional[
+            "capo_ecs.types.gateway_connector_list.GatewayConnectorList"
+        ] = None,
         monitoring: Optional[
             "capo_ecs.types.monitoring_configuration.MonitoringConfiguration"
         ] = None,
@@ -1594,6 +1610,7 @@ class AsyncServiceResource:
             service_connect_configuration: <p>The configuration for this service to discover and connect to services, and be discovered by, and connected from, other services within a namespace.</p> <p>Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can connect to services across all of the clusters in the namespace. Tasks connect through a managed proxy container that collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services create are supported with Service Connect. For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html">Service Connect</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.</p>
             volume_configurations: <p>The configuration for a volume specified in the task definition as a volume that is configured at launch time. Currently, the only supported volume type is an Amazon EBS volume.</p>
             vpc_lattice_configurations: <p>The VPC Lattice configuration for the service being created.</p>
+            gateway_connectors: <p>The gateway connectors that attach the service to a gateway ingress path. You can specify at most one gateway connector.</p>
             monitoring: <p>The optional monitoring configuration for the service, which defines the resolution for the service-level <code>CPUUtilization</code> and <code>MemoryUtilization</code> Amazon CloudWatch metrics. When not specified, Amazon ECS uses the default resolution of <code>60</code> seconds.</p>
 
         Raises:
@@ -1700,6 +1717,8 @@ class AsyncServiceResource:
             input_["volume_configurations"] = volume_configurations
         if vpc_lattice_configurations is not None:
             input_["vpc_lattice_configurations"] = vpc_lattice_configurations
+        if gateway_connectors is not None:
+            input_["gateway_connectors"] = gateway_connectors
         if monitoring is not None:
             input_["monitoring"] = monitoring
 
@@ -2389,6 +2408,9 @@ class AsyncServiceResource:
         vpc_lattice_configurations: Optional[
             "capo_ecs.types.vpc_lattice_configurations.VpcLatticeConfigurations"
         ] = None,
+        gateway_connectors: Optional[
+            "capo_ecs.types.gateway_connector_list.GatewayConnectorList"
+        ] = None,
         monitoring: Optional[
             "capo_ecs.types.monitoring_configuration.MonitoringConfiguration"
         ] = None,
@@ -2417,6 +2439,7 @@ class AsyncServiceResource:
             service_connect_configuration: <p>The configuration for this service to discover and connect to services, and be discovered by, and connected from, other services within a namespace.</p> <p>Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can connect to services across all of the clusters in the namespace. Tasks connect through a managed proxy container that collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services create are supported with Service Connect. For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html">Service Connect</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.</p> <p>This parameter triggers a new service deployment.</p>
             volume_configurations: <p>The details of the volume that was <code>configuredAtLaunch</code>. You can configure the size, volumeType, IOPS, throughput, snapshot and encryption in <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ServiceManagedEBSVolumeConfiguration.html">ServiceManagedEBSVolumeConfiguration</a>. The <code>name</code> of the volume must match the <code>name</code> from the task definition. If set to null, no new deployment is triggered. Otherwise, if this configuration differs from the existing one, it triggers a new deployment.</p> <p>This parameter triggers a new service deployment.</p>
             vpc_lattice_configurations: <p>An object representing the VPC Lattice configuration for the service being updated.</p> <p>This parameter triggers a new service deployment.</p>
+            gateway_connectors: <p>The updated set of gateway connectors that connect the service to a gateway ingress path. A service supports no more than one gateway connector.</p>
             monitoring: <p>The optional monitoring configuration for the service, which defines the resolution for the service-level <code>CPUUtilization</code> and <code>MemoryUtilization</code> Amazon CloudWatch metrics. When not specified, Amazon ECS uses the default resolution of <code>60</code> seconds.</p>
 
         Raises:
@@ -2517,6 +2540,8 @@ class AsyncServiceResource:
             input_["volume_configurations"] = volume_configurations
         if vpc_lattice_configurations is not None:
             input_["vpc_lattice_configurations"] = vpc_lattice_configurations
+        if gateway_connectors is not None:
+            input_["gateway_connectors"] = gateway_connectors
         if monitoring is not None:
             input_["monitoring"] = monitoring
 

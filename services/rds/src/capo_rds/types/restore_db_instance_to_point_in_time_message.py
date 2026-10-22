@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_rds.types.additional_storage_volumes_list
     import capo_rds.types.boolean
     import capo_rds.types.boolean_optional
+    import capo_rds.types.db_capacity_reservation_identifier
     import capo_rds.types.integer_optional
     import capo_rds.types.log_type_list
     import capo_rds.types.processor_feature_list
@@ -136,6 +137,10 @@ class RestoreDBInstanceToPointInTimeMessage(TypedDict, closed=True):
     """<p>The number of days to retain automated backups. Setting this parameter to a positive number enables backups. Setting this parameter to 0 disables automated backups.</p> <note> <p>Enabling and disabling backups can result in a brief I/O suspension that lasts from a few seconds to a few minutes, depending on the size and class of your DB instance.</p> </note> <p>This setting doesn't apply to Amazon Aurora DB instances. The retention period for automated backups is managed by the DB cluster. For more information, see <code>ModifyDBCluster</code>.</p> <p>Default: Uses existing setting</p> <p>Constraints:</p> <ul> <li> <p>Must be a value from 0 to 35.</p> </li> <li> <p>Can't be set to 0 if the DB instance is a source to read replicas.</p> </li> <li> <p>Can't be set to 0 for an RDS Custom for Oracle DB instance.</p> </li> </ul>"""
     preferred_backup_window: NotRequired["capo_rds.types.string.String"]
     """<p>The daily time range during which automated backups are created if automated backups are enabled, as determined by the <code>BackupRetentionPeriod</code> parameter. Changing this parameter doesn't result in an outage and the change is asynchronously applied as soon as possible. The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web Services Region. For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow">Backup window</a> in the <i>Amazon RDS User Guide</i>.</p> <p>This setting doesn't apply to Amazon Aurora DB instances. The daily time range for creating automated backups is managed by the DB cluster. For more information, see <code>ModifyDBCluster</code>.</p> <p>Constraints:</p> <ul> <li> <p>Must be in the format <code>hh24:mi-hh24:mi</code>.</p> </li> <li> <p>Must be in Universal Coordinated Time (UTC).</p> </li> <li> <p>Must not conflict with the preferred maintenance window.</p> </li> <li> <p>Must be at least 30 minutes.</p> </li> </ul>"""
+    db_capacity_reservation_identifier: NotRequired[
+        "capo_rds.types.db_capacity_reservation_identifier.DBCapacityReservationIdentifier"
+    ]
+    """<p>The identifier or the name of the DB capacity reservation to associate with this DB instance. You can specify the identifier, which has the prefix <code>dbcr-</code>, or the reservation name. When you specify this parameter, the DB instance uses reserved capacity from the specified reservation.</p> <p>If you specify <code>AvailabilityZone</code>, Amazon RDS places the DB instance in that Availability Zone, and the reservation must cover it.</p> <p>Constraints:</p> <ul> <li> <p>The reservation must reserve capacity for the DB instance class and the database engine of the DB instance.</p> </li> <li> <p>If the reservation reserves capacity for a specific license model, the license model of the DB instance must match it.</p> </li> <li> <p>The reservation must be in the <code>active</code> state, and it must not be past its end date.</p> </li> <li> <p>If you specify <code>AvailabilityZone</code>, it must be one of the Availability Zones of the reservation.</p> </li> <li> <p>For a Multi-AZ DB instance, the reservation must cover two or more Availability Zones. A Multi-AZ DB instance uses one unit of reserved capacity in each of two Availability Zones. If the reservation covers more than two Availability Zones, Amazon RDS chooses the two that the DB instance uses.</p> </li> <li> <p>The reservation must have available capacity in each Availability Zone that the DB instance uses.</p> </li> <li> <p>The DB subnet group must be in a VPC with default tenancy.</p> </li> <li> <p>The DB subnet group must cover each Availability Zone that the DB instance uses.</p> </li> </ul>"""
     dedicated_log_volume: NotRequired["capo_rds.types.boolean_optional.BooleanOptional"]
     """<p>Specifies whether to enable a dedicated log volume (DLV) for the DB instance.</p>"""
     ca_certificate_identifier: NotRequired["capo_rds.types.string.String"]
@@ -370,6 +375,13 @@ def serialize_query(
             (
                 f"{key_prefix}PreferredBackupWindow",
                 str(value["preferred_backup_window"]),
+            )
+        )
+    if "db_capacity_reservation_identifier" in value:
+        pairs.append(
+            (
+                f"{key_prefix}DBCapacityReservationIdentifier",
+                str(value["db_capacity_reservation_identifier"]),
             )
         )
     if "dedicated_log_volume" in value:
@@ -616,6 +628,13 @@ def deserialize_query(el: Element) -> RestoreDBInstanceToPointInTimeMessage:
     child_preferred_backup_window = el.find("PreferredBackupWindow")
     if child_preferred_backup_window is not None:
         out["preferred_backup_window"] = str(child_preferred_backup_window.text or "")
+    child_db_capacity_reservation_identifier = el.find(
+        "DBCapacityReservationIdentifier"
+    )
+    if child_db_capacity_reservation_identifier is not None:
+        out["db_capacity_reservation_identifier"] = str(
+            child_db_capacity_reservation_identifier.text or ""
+        )
     child_dedicated_log_volume = el.find("DedicatedLogVolume")
     if child_dedicated_log_volume is not None:
         out["dedicated_log_volume"] = (

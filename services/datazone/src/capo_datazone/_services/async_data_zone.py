@@ -104,6 +104,7 @@ if TYPE_CHECKING:
     import capo_datazone.types.cancel_metadata_generation_run_output
     import capo_datazone.types.cancel_subscription_input
     import capo_datazone.types.cancel_subscription_output
+    import capo_datazone.types.cedar_designation_policy
     import capo_datazone.types.cell_order
     import capo_datazone.types.change_action
     import capo_datazone.types.client_token
@@ -134,6 +135,8 @@ if TYPE_CHECKING:
     import capo_datazone.types.create_data_product_revision_output
     import capo_datazone.types.create_data_source_input
     import capo_datazone.types.create_data_source_output
+    import capo_datazone.types.create_designation_input
+    import capo_datazone.types.create_designation_output
     import capo_datazone.types.create_domain_input
     import capo_datazone.types.create_domain_output
     import capo_datazone.types.create_domain_unit_input
@@ -207,6 +210,8 @@ if TYPE_CHECKING:
     import capo_datazone.types.delete_data_product_output
     import capo_datazone.types.delete_data_source_input
     import capo_datazone.types.delete_data_source_output
+    import capo_datazone.types.delete_designation_input
+    import capo_datazone.types.delete_designation_output
     import capo_datazone.types.delete_domain_input
     import capo_datazone.types.delete_domain_output
     import capo_datazone.types.delete_domain_unit_input
@@ -244,6 +249,9 @@ if TYPE_CHECKING:
     import capo_datazone.types.delete_time_series_data_points_input
     import capo_datazone.types.delete_time_series_data_points_output
     import capo_datazone.types.description
+    import capo_datazone.types.designation_id
+    import capo_datazone.types.designation_name
+    import capo_datazone.types.designation_summary
     import capo_datazone.types.disassociate_environment_role_input
     import capo_datazone.types.disassociate_environment_role_output
     import capo_datazone.types.disassociate_governed_terms_input
@@ -311,6 +319,8 @@ if TYPE_CHECKING:
     import capo_datazone.types.get_data_source_output
     import capo_datazone.types.get_data_source_run_input
     import capo_datazone.types.get_data_source_run_output
+    import capo_datazone.types.get_designation_input
+    import capo_datazone.types.get_designation_output
     import capo_datazone.types.get_domain_input
     import capo_datazone.types.get_domain_output
     import capo_datazone.types.get_domain_unit_input
@@ -422,6 +432,9 @@ if TYPE_CHECKING:
     import capo_datazone.types.list_data_source_runs_output
     import capo_datazone.types.list_data_sources_input
     import capo_datazone.types.list_data_sources_output
+    import capo_datazone.types.list_designations_input
+    import capo_datazone.types.list_designations_max_results
+    import capo_datazone.types.list_designations_output
     import capo_datazone.types.list_domain_units_for_parent_input
     import capo_datazone.types.list_domain_units_for_parent_output
     import capo_datazone.types.list_domains_input
@@ -649,6 +662,8 @@ if TYPE_CHECKING:
     import capo_datazone.types.update_connection_output
     import capo_datazone.types.update_data_source_input
     import capo_datazone.types.update_data_source_output
+    import capo_datazone.types.update_designation_input
+    import capo_datazone.types.update_designation_output
     import capo_datazone.types.update_domain_input
     import capo_datazone.types.update_domain_output
     import capo_datazone.types.update_domain_unit_input
@@ -1775,6 +1790,94 @@ class AsyncDataZoneClient:
         await response.response.aclose()
         return response.output
 
+    async def create_designation(
+        self,
+        domain_identifier: "capo_datazone.types.domain_id.DomainId",
+        name: "capo_datazone.types.designation_name.DesignationName",
+        policy: "capo_datazone.types.cedar_designation_policy.CedarDesignationPolicy",
+        *,
+        config_overrides: Optional[AsyncDataZoneClientConfig] = None,
+        description: Optional["capo_datazone.types.description.Description"] = None,
+        deletion_protection: Optional[bool] = None,
+    ) -> "capo_datazone.types.create_designation_output.CreateDesignationOutput":
+        """Creates a new user-defined designation with a Cedar permit policy. The designation defines a named role that can be assigned to project members.
+
+        Args:
+            domain_identifier: <p>The identifier of the Amazon DataZone domain in which the designation is created.</p>
+            name: <p>The name of the designation. The name must be unique within the domain.</p>
+            description: <p>A human-readable description of the designation and its intended use.</p>
+            policy: The Cedar permit policy that defines what actions holders of this designation are allowed to perform.
+            deletion_protection: Whether deletion protection is enabled for this designation. Defaults to true when omitted.
+
+        Raises:
+            capo_datazone.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_datazone.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_datazone.errors.unauthorized_exception.UnauthorizedException: <p>You do not have permission to perform this action.</p>
+            capo_datazone.errors.conflict_exception.ConflictException: <p>There is a conflict while performing this action.</p>
+            capo_datazone.errors.internal_server_exception.InternalServerException: <p>The request has failed because of an unknown error, exception or failure.</p>
+            capo_datazone.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found.</p>
+            capo_datazone.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request has exceeded the specified service quota.</p>
+            capo_datazone.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the Amazon Web Services service.</p>
+            capo_datazone.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_datazone.types.create_designation_input.CreateDesignationInput]",
+        ) -> AsyncOperationResponse[
+            "capo_datazone.types.create_designation_output.CreateDesignationOutput"
+        ]:
+            import capo_datazone._operations.data_zone.create_designation
+
+            (
+                output,
+                http_response,
+            ) = await capo_datazone._operations.data_zone.create_designation.async_create_designation(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_datazone.types.create_designation_input.CreateDesignationInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_designation_input
+
+            return capo_datazone.types.create_designation_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.create_designation_output.CreateDesignationOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_designation_output
+
+            return capo_datazone.types.create_designation_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDesignation",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
+        input_: capo_datazone.types.create_designation_input.CreateDesignationInput = {
+            "domain_identifier": domain_identifier,
+            "name": name,
+            "policy": policy,
+        }
+        if description is not None:
+            input_["description"] = description
+        if deletion_protection is not None:
+            input_["deletion_protection"] = deletion_protection
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def create_environment(
         self,
         project_identifier: "capo_datazone.types.project_id.ProjectId",
@@ -2454,6 +2557,9 @@ class AsyncDataZoneClient:
         designation: "capo_datazone.types.user_designation.UserDesignation",
         *,
         config_overrides: Optional[AsyncDataZoneClientConfig] = None,
+        user_created_designation_id: Optional[
+            "capo_datazone.types.designation_id.DesignationId"
+        ] = None,
     ) -> "capo_datazone.types.create_project_membership_output.CreateProjectMembershipOutput":
         """<p>Creates a project membership in Amazon DataZone.</p>
 
@@ -2462,6 +2568,7 @@ class AsyncDataZoneClient:
             project_identifier: <p>The ID of the project for which this project membership was created.</p>
             member: <p>The project member whose project membership was created.</p>
             designation: <p>The designation of the project membership.</p>
+            user_created_designation_id: <p>The ID of the user-created designation to assign to the project member. Required when <code>designation</code> is <code>USER_CREATED_DESIGNATION</code>; must not be provided otherwise.</p>
 
         Raises:
             capo_datazone.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -2497,6 +2604,8 @@ class AsyncDataZoneClient:
             "member": member,
             "designation": designation,
         }
+        if user_created_designation_id is not None:
+            input_["user_created_designation_id"] = user_created_designation_id
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -3212,6 +3321,61 @@ class AsyncDataZoneClient:
         )
         input_: capo_datazone.types.delete_data_export_configuration_input.DeleteDataExportConfigurationInput = {
             "domain_identifier": domain_identifier
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def delete_designation(
+        self,
+        domain_identifier: "capo_datazone.types.domain_id.DomainId",
+        identifier: "capo_datazone.types.designation_id.DesignationId",
+        *,
+        config_overrides: Optional[AsyncDataZoneClientConfig] = None,
+    ) -> "capo_datazone.types.delete_designation_output.DeleteDesignationOutput":
+        """Deletes a designation. Managed designations cannot be deleted. This operation is idempotent.
+
+        Args:
+            domain_identifier: <p>The identifier of the Amazon DataZone domain that contains the designation to delete.</p>
+            identifier: <p>The unique ID of the designation to delete.</p>
+
+        Raises:
+            capo_datazone.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_datazone.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_datazone.errors.unauthorized_exception.UnauthorizedException: <p>You do not have permission to perform this action.</p>
+            capo_datazone.errors.conflict_exception.ConflictException: <p>There is a conflict while performing this action.</p>
+            capo_datazone.errors.internal_server_exception.InternalServerException: <p>The request has failed because of an unknown error, exception or failure.</p>
+            capo_datazone.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found.</p>
+            capo_datazone.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the Amazon Web Services service.</p>
+            capo_datazone.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_datazone.types.delete_designation_input.DeleteDesignationInput]",
+        ) -> AsyncOperationResponse[
+            "capo_datazone.types.delete_designation_output.DeleteDesignationOutput"
+        ]:
+            import capo_datazone._operations.data_zone.delete_designation
+
+            (
+                output,
+                http_response,
+            ) = await capo_datazone._operations.data_zone.delete_designation.async_delete_designation(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDesignation")
+        )
+        input_: capo_datazone.types.delete_designation_input.DeleteDesignationInput = {
+            "domain_identifier": domain_identifier,
+            "identifier": identifier,
         }
 
         response = await aexecute_pipeline(
@@ -4241,6 +4405,68 @@ class AsyncDataZoneClient:
         )
         input_: capo_datazone.types.get_data_export_configuration_input.GetDataExportConfigurationInput = {
             "domain_identifier": domain_identifier
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def get_designation(
+        self,
+        domain_identifier: "capo_datazone.types.domain_id.DomainId",
+        identifier: "capo_datazone.types.designation_id.DesignationId",
+        *,
+        config_overrides: Optional[AsyncDataZoneClientConfig] = None,
+    ) -> "capo_datazone.types.get_designation_output.GetDesignationOutput":
+        """Gets the details of a designation, including its Cedar policy.
+
+        Args:
+            domain_identifier: <p>The identifier of the Amazon DataZone domain that contains the designation.</p>
+            identifier: <p>The unique ID of the designation to retrieve.</p>
+
+        Raises:
+            capo_datazone.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_datazone.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_datazone.errors.unauthorized_exception.UnauthorizedException: <p>You do not have permission to perform this action.</p>
+            capo_datazone.errors.internal_server_exception.InternalServerException: <p>The request has failed because of an unknown error, exception or failure.</p>
+            capo_datazone.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found.</p>
+            capo_datazone.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the Amazon Web Services service.</p>
+            capo_datazone.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_datazone.types.get_designation_input.GetDesignationInput]",
+        ) -> AsyncOperationResponse[
+            "capo_datazone.types.get_designation_output.GetDesignationOutput"
+        ]:
+            import capo_datazone._operations.data_zone.get_designation
+
+            (
+                output,
+                http_response,
+            ) = await capo_datazone._operations.data_zone.get_designation.async_get_designation(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        def _redact_output(
+            output: "capo_datazone.types.get_designation_output.GetDesignationOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_designation_output
+
+            return capo_datazone.types.get_designation_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetDesignation", redact_output=_redact_output),
+        )
+        input_: capo_datazone.types.get_designation_input.GetDesignationInput = {
+            "domain_identifier": domain_identifier,
+            "identifier": identifier,
         }
 
         response = await aexecute_pipeline(
@@ -6103,6 +6329,104 @@ class AsyncDataZoneClient:
                 identifier,
                 config_overrides=config_overrides,
                 status=status,
+                next_token=_token,
+                max_results=max_results,
+            )
+            _page = _resolve_path(_response, ("items",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    async def list_designations(
+        self,
+        domain_identifier: "capo_datazone.types.domain_id.DomainId",
+        *,
+        config_overrides: Optional[AsyncDataZoneClientConfig] = None,
+        next_token: Optional[
+            "capo_datazone.types.pagination_token.PaginationToken"
+        ] = None,
+        max_results: Optional[
+            "capo_datazone.types.list_designations_max_results.ListDesignationsMaxResults"
+        ] = None,
+    ) -> "capo_datazone.types.list_designations_output.ListDesignationsOutput":
+        """Lists the designations in a domain. Returns system-managed designations first, followed by user-created designations sorted alphabetically by name.
+
+        Args:
+            domain_identifier: <p>The identifier of the Amazon DataZone domain that contains the designations to list.</p>
+            next_token: <p>If the results exceed the value of <code>MaxResults</code>, the previous call returns a pagination token. Specify this token in a subsequent call to <code>ListDesignations</code> to retrieve the next set of results. If not specified, the operation returns the first page of results.</p>
+            max_results: <p>The maximum number of designations to return in a single call to <code>ListDesignations</code>. If the number of designations exceeds <code>MaxResults</code>, the response includes a <code>NextToken</code> value. Use that token in a subsequent call to <code>ListDesignations</code> to retrieve the next set of designations. The default value is 20.</p>
+
+        Raises:
+            capo_datazone.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_datazone.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_datazone.errors.unauthorized_exception.UnauthorizedException: <p>You do not have permission to perform this action.</p>
+            capo_datazone.errors.internal_server_exception.InternalServerException: <p>The request has failed because of an unknown error, exception or failure.</p>
+            capo_datazone.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found.</p>
+            capo_datazone.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the Amazon Web Services service.</p>
+            capo_datazone.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_datazone.types.list_designations_input.ListDesignationsInput]",
+        ) -> AsyncOperationResponse[
+            "capo_datazone.types.list_designations_output.ListDesignationsOutput"
+        ]:
+            import capo_datazone._operations.data_zone.list_designations
+
+            (
+                output,
+                http_response,
+            ) = await capo_datazone._operations.data_zone.list_designations.async_list_designations(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        def _redact_output(
+            output: "capo_datazone.types.list_designations_output.ListDesignationsOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_designations_output
+
+            return capo_datazone.types.list_designations_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListDesignations", redact_output=_redact_output),
+        )
+        input_: capo_datazone.types.list_designations_input.ListDesignationsInput = {
+            "domain_identifier": domain_identifier
+        }
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if max_results is not None:
+            input_["max_results"] = max_results
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_designations(
+        self,
+        domain_identifier: "capo_datazone.types.domain_id.DomainId",
+        *,
+        config_overrides: Optional[AsyncDataZoneClientConfig] = None,
+        next_token: Optional[
+            "capo_datazone.types.pagination_token.PaginationToken"
+        ] = None,
+        max_results: Optional[
+            "capo_datazone.types.list_designations_max_results.ListDesignationsMaxResults"
+        ] = None,
+    ) -> "AsyncIterator[capo_datazone.types.designation_summary.DesignationSummary]":
+        _token = next_token
+        while True:
+            _response = await self.list_designations(
+                domain_identifier,
+                config_overrides=config_overrides,
                 next_token=_token,
                 max_results=max_results,
             )
@@ -10391,6 +10715,100 @@ class AsyncDataZoneClient:
             input_["aws_location"] = aws_location
         if props is not None:
             input_["props"] = props
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def update_designation(
+        self,
+        domain_identifier: "capo_datazone.types.domain_id.DomainId",
+        identifier: "capo_datazone.types.designation_id.DesignationId",
+        *,
+        config_overrides: Optional[AsyncDataZoneClientConfig] = None,
+        name: Optional["capo_datazone.types.designation_name.DesignationName"] = None,
+        description: Optional["capo_datazone.types.description.Description"] = None,
+        policy: Optional[
+            "capo_datazone.types.cedar_designation_policy.CedarDesignationPolicy"
+        ] = None,
+        deletion_protection: Optional[bool] = None,
+    ) -> "capo_datazone.types.update_designation_output.UpdateDesignationOutput":
+        """Updates an existing designation. Managed designations cannot be modified.
+
+        Args:
+            domain_identifier: <p>The identifier of the Amazon DataZone domain that contains the designation to update.</p>
+            identifier: <p>The unique ID of the designation to update.</p>
+            name: <p>The updated name of the designation. The name must be unique within the domain.</p>
+            description: <p>The updated human-readable description of the designation and its intended use.</p>
+            policy: The updated Cedar permit policy.
+            deletion_protection: Whether deletion protection is enabled for this designation. Omit to keep the existing value.
+
+        Raises:
+            capo_datazone.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_datazone.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_datazone.errors.unauthorized_exception.UnauthorizedException: <p>You do not have permission to perform this action.</p>
+            capo_datazone.errors.conflict_exception.ConflictException: <p>There is a conflict while performing this action.</p>
+            capo_datazone.errors.internal_server_exception.InternalServerException: <p>The request has failed because of an unknown error, exception or failure.</p>
+            capo_datazone.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found.</p>
+            capo_datazone.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the Amazon Web Services service.</p>
+            capo_datazone.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_datazone.types.update_designation_input.UpdateDesignationInput]",
+        ) -> AsyncOperationResponse[
+            "capo_datazone.types.update_designation_output.UpdateDesignationOutput"
+        ]:
+            import capo_datazone._operations.data_zone.update_designation
+
+            (
+                output,
+                http_response,
+            ) = await capo_datazone._operations.data_zone.update_designation.async_update_designation(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_datazone.types.update_designation_input.UpdateDesignationInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_designation_input
+
+            return capo_datazone.types.update_designation_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.update_designation_output.UpdateDesignationOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_designation_output
+
+            return capo_datazone.types.update_designation_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateDesignation",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
+        input_: capo_datazone.types.update_designation_input.UpdateDesignationInput = {
+            "domain_identifier": domain_identifier,
+            "identifier": identifier,
+        }
+        if name is not None:
+            input_["name"] = name
+        if description is not None:
+            input_["description"] = description
+        if policy is not None:
+            input_["policy"] = policy
+        if deletion_protection is not None:
+            input_["deletion_protection"] = deletion_protection
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

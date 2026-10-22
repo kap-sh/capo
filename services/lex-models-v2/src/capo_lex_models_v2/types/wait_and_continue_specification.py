@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.boxed_boolean
     import capo_lex_models_v2.types.response_specification
@@ -13,14 +11,14 @@ if TYPE_CHECKING:
 
 
 class WaitAndContinueSpecification(TypedDict, closed=True):
-    waiting_response: (
+    waiting_response: NotRequired[
         "capo_lex_models_v2.types.response_specification.ResponseSpecification"
-    )
-    """<p>The response that Amazon Lex sends to indicate that the bot is waiting for the conversation to continue.</p>"""
-    continue_response: (
+    ]
+    """<p>The response that Amazon Lex sends to indicate that the bot is waiting for the conversation to continue. Required unless the bot locale's <code>assistedNluMode</code> is <code>DialogManager</code>.</p>"""
+    continue_response: NotRequired[
         "capo_lex_models_v2.types.response_specification.ResponseSpecification"
-    )
-    """<p>The response that Amazon Lex sends to indicate that the bot is ready to continue the conversation.</p>"""
+    ]
+    """<p>The response that Amazon Lex sends to indicate that the bot is ready to continue the conversation. Required unless the bot locale's <code>assistedNluMode</code> is <code>DialogManager</code>.</p>"""
     still_waiting_response: NotRequired[
         "capo_lex_models_v2.types.still_waiting_response_specification.StillWaitingResponseSpecification"
     ]
@@ -32,20 +30,22 @@ class WaitAndContinueSpecification(TypedDict, closed=True):
 # --- restJson1 ser/de ---
 def serialize_json(value: WaitAndContinueSpecification) -> dict:
     out: dict = {}
-    import capo_lex_models_v2.types.response_specification
+    if "waiting_response" in value:
+        import capo_lex_models_v2.types.response_specification
 
-    out["waitingResponse"] = (
-        capo_lex_models_v2.types.response_specification.serialize_json(
-            value["waiting_response"]
+        out["waitingResponse"] = (
+            capo_lex_models_v2.types.response_specification.serialize_json(
+                value["waiting_response"]
+            )
         )
-    )
-    import capo_lex_models_v2.types.response_specification
+    if "continue_response" in value:
+        import capo_lex_models_v2.types.response_specification
 
-    out["continueResponse"] = (
-        capo_lex_models_v2.types.response_specification.serialize_json(
-            value["continue_response"]
+        out["continueResponse"] = (
+            capo_lex_models_v2.types.response_specification.serialize_json(
+                value["continue_response"]
+            )
         )
-    )
     if "still_waiting_response" in value:
         import capo_lex_models_v2.types.still_waiting_response_specification
 
@@ -69,10 +69,6 @@ def deserialize_json(data: dict) -> WaitAndContinueSpecification:
                 data["waitingResponse"]
             )
         )
-    else:
-        raise DeserializationError(
-            "WaitAndContinueSpecification.waiting_response required"
-        )
     if data.get("continueResponse") is not None:
         import capo_lex_models_v2.types.response_specification
 
@@ -80,10 +76,6 @@ def deserialize_json(data: dict) -> WaitAndContinueSpecification:
             capo_lex_models_v2.types.response_specification.deserialize_json(
                 data["continueResponse"]
             )
-        )
-    else:
-        raise DeserializationError(
-            "WaitAndContinueSpecification.continue_response required"
         )
     if data.get("stillWaitingResponse") is not None:
         import capo_lex_models_v2.types.still_waiting_response_specification

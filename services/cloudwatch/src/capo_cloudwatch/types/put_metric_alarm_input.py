@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 from capo_cloudwatch._protocol.xml import Element
 
 if TYPE_CHECKING:
+    import capo_cloudwatch.types.action_configuration
     import capo_cloudwatch.types.actions_enabled
     import capo_cloudwatch.types.alarm_description
     import capo_cloudwatch.types.alarm_name
@@ -110,6 +111,10 @@ class PutMetricAlarmInput(TypedDict, closed=True):
         "capo_cloudwatch.types.evaluation_interval.EvaluationInterval"
     ]
     """<p>The frequency, in seconds, at which the alarm is evaluated. Valid values are 10, 20, 30, and any multiple of 60.</p> <p>This parameter is required for alarms that use <code>EvaluationCriteria</code>, and cannot be specified for alarms configured with <code>MetricName</code> or <code>Metrics</code>.</p>"""
+    action_configuration: NotRequired[
+        "capo_cloudwatch.types.action_configuration.ActionConfiguration"
+    ]
+    """<p>Settings that change the content of the notifications and events that the alarm sends when its state changes. These settings apply to the alarm's actions, whichever state triggers them.</p>"""
 
 
 # --- awsJson1_0 ser/de ---
@@ -239,6 +244,14 @@ def serialize_aws_json_1_0(value: PutMetricAlarmInput) -> dict:
         )
     if "evaluation_interval" in value:
         out["EvaluationInterval"] = value["evaluation_interval"]
+    if "action_configuration" in value:
+        import capo_cloudwatch.types.action_configuration
+
+        out["ActionConfiguration"] = (
+            capo_cloudwatch.types.action_configuration.serialize_aws_json_1_0(
+                value["action_configuration"]
+            )
+        )
     return out
 
 
@@ -362,6 +375,14 @@ def deserialize_aws_json_1_0(data: dict) -> PutMetricAlarmInput:
         )
     if data.get("EvaluationInterval") is not None:
         out["evaluation_interval"] = data["EvaluationInterval"]
+    if data.get("ActionConfiguration") is not None:
+        import capo_cloudwatch.types.action_configuration
+
+        out["action_configuration"] = (
+            capo_cloudwatch.types.action_configuration.deserialize_aws_json_1_0(
+                data["ActionConfiguration"]
+            )
+        )
     return out
 
 
@@ -507,6 +528,12 @@ def serialize_query(
         pairs.append(
             (f"{key_prefix}EvaluationInterval", str(value["evaluation_interval"]))
         )
+    if "action_configuration" in value:
+        import capo_cloudwatch.types.action_configuration
+
+        capo_cloudwatch.types.action_configuration.serialize_query(
+            value["action_configuration"], pairs, f"{key_prefix}ActionConfiguration"
+        )
 
 
 def deserialize_query(el: Element) -> PutMetricAlarmInput:
@@ -647,4 +674,13 @@ def deserialize_query(el: Element) -> PutMetricAlarmInput:
     child_evaluation_interval = el.find("EvaluationInterval")
     if child_evaluation_interval is not None:
         out["evaluation_interval"] = int(child_evaluation_interval.text or "")
+    child_action_configuration = el.find("ActionConfiguration")
+    if child_action_configuration is not None:
+        import capo_cloudwatch.types.action_configuration
+
+        out["action_configuration"] = (
+            capo_cloudwatch.types.action_configuration.deserialize_query(
+                child_action_configuration
+            )
+        )
     return out

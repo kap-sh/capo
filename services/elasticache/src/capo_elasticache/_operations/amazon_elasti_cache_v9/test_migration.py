@@ -11,6 +11,8 @@ from typing_extensions import Never
 import capo_elasticache._auth._signers
 import capo_elasticache._auth._sigv4
 import capo_elasticache._protocol.eventstream
+import capo_elasticache.errors.invalid_cache_cluster_state_fault
+import capo_elasticache.errors.invalid_parameter_combination_exception
 import capo_elasticache.errors.invalid_parameter_value_exception
 import capo_elasticache.errors.invalid_replication_group_state_fault
 import capo_elasticache.errors.replication_group_already_under_migration_fault
@@ -35,6 +37,14 @@ def handle_error(response: zapros.Response) -> Never:
     code, message = parse_error_metadata(root)
     error_el = find_error_element(root)
     match code:
+        case "InvalidCacheClusterState":
+            raise capo_elasticache.errors.invalid_cache_cluster_state_fault.InvalidCacheClusterStateFault.from_query(
+                error_el, message, response=response
+            )
+        case "InvalidParameterCombination":
+            raise capo_elasticache.errors.invalid_parameter_combination_exception.InvalidParameterCombinationException.from_query(
+                error_el, message, response=response
+            )
         case "InvalidParameterValue":
             raise capo_elasticache.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_query(
                 error_el, message, response=response

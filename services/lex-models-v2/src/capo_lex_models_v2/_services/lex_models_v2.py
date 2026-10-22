@@ -1249,7 +1249,7 @@ class LexModelsV2Client:
             bot_version: <p>The version of the bot associated with this intent.</p>
             locale_id: <p>The identifier of the language and locale where this intent is used. All of the bots, slot types, and slots used by the intent must have the same locale. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>
             initial_response_setting: <p>Configuration settings for the response that is sent to the user at the beginning of a conversation, before eliciting slot values.</p>
-            qn_a_intent_configuration: <p>Specifies the configuration of the built-in <code>Amazon.QnAIntent</code>. The <code>AMAZON.QnAIntent</code> intent is called when Amazon Lex can't determine another intent to invoke. If you specify this field, you can't specify the <code>kendraConfiguration</code> field.</p>
+            qn_a_intent_configuration: <p>Specifies the configuration of the built-in <code>Amazon.QnAIntent</code>. The <code>AMAZON.QnAIntent</code> intent is called when Amazon Lex V2 can't determine another intent to invoke. If you specify this field, you can't specify the <code>kendraConfiguration</code> field.</p>
             q_in_connect_intent_configuration: <p>Qinconnect intent configuration details for the create intent request.</p>
 
         Raises:
@@ -8004,7 +8004,7 @@ class LexModelsV2Client:
             bot_version: <p>The version of the bot that contains the intent. Must be <code>DRAFT</code>.</p>
             locale_id: <p>The identifier of the language and locale where this intent is used. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>
             initial_response_setting: <p>Configuration settings for a response sent to the user before Amazon Lex starts eliciting slots.</p>
-            qn_a_intent_configuration: <p>Specifies the configuration of the built-in <code>Amazon.QnAIntent</code>. The <code>AMAZON.QnAIntent</code> intent is called when Amazon Lex can't determine another intent to invoke. If you specify this field, you can't specify the <code>kendraConfiguration</code> field.</p>
+            qn_a_intent_configuration: <p>Specifies the configuration of the built-in <code>Amazon.QnAIntent</code>. The <code>AMAZON.QnAIntent</code> intent is called when Amazon Lex V2 can't determine another intent to invoke. If you specify this field, you can't specify the <code>kendraConfiguration</code> field.</p>
             q_in_connect_intent_configuration: <p>Qinconnect intent configuration details for the update intent request.</p>
 
         Raises:

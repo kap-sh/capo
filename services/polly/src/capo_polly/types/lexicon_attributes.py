@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class LexiconAttributes(TypedDict, closed=True):
     alphabet: NotRequired["capo_polly.types.alphabet.Alphabet"]
-    """<p>Phonetic alphabet used in the lexicon. Valid values are <code>ipa</code> and <code>x-sampa</code>.</p>"""
+    """<p>Phonetic alphabet used in the lexicon. Valid values are <code>ipa</code>, <code>x-sampa</code>, <code>x-amazon-pinyin</code>, <code>x-amazon-jyutping</code>, <code>x-amazon-pron-kana</code>, and <code>x-amazon-yomigana</code>.</p>"""
     language_code: NotRequired["capo_polly.types.language_code.LanguageCode"]
     """<p>Language code that the lexicon applies to. A lexicon with a language code such as "en" would be applied to all English languages (en-GB, en-US, en-AUS, en-WLS, and so on.</p>"""
     last_modified: NotRequired["capo_polly.types.last_modified.LastModified"]

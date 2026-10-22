@@ -13,6 +13,7 @@ import capo_network_firewall._auth._sigv4
 import capo_network_firewall._protocol.eventstream
 import capo_network_firewall.errors.insufficient_capacity_exception
 import capo_network_firewall.errors.internal_server_error
+import capo_network_firewall.errors.invalid_operation_exception
 import capo_network_firewall.errors.invalid_request_exception
 import capo_network_firewall.errors.limit_exceeded_exception
 import capo_network_firewall.errors.throttling_exception
@@ -45,6 +46,10 @@ def handle_error(response: zapros.Response) -> Never:
             )
         case "InternalServerError":
             raise capo_network_firewall.errors.internal_server_error.InternalServerError.from_aws_json_1_0(
+                data, message, response=response
+            )
+        case "InvalidOperationException":
+            raise capo_network_firewall.errors.invalid_operation_exception.InvalidOperationException.from_aws_json_1_0(
                 data, message, response=response
             )
         case "InvalidRequestException":

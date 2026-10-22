@@ -1904,8 +1904,16 @@ class SFNClient:
             )
             return OperationResponse(output=output, response=http_response)
 
+        def _redact_input(
+            input_: "capo_sfn.types.send_task_heartbeat_input.SendTaskHeartbeatInput",
+        ) -> dict[str, Any]:
+            import capo_sfn.types.send_task_heartbeat_input
+
+            return capo_sfn.types.send_task_heartbeat_input.redact_sensitive(input_)
+
         interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("SendTaskHeartbeat")
+            config_overrides,
+            OperationLogging("SendTaskHeartbeat", redact_input=_redact_input),
         )
         input_: capo_sfn.types.send_task_heartbeat_input.SendTaskHeartbeatInput = {
             "task_token": task_token

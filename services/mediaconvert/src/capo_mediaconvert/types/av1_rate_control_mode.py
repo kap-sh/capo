@@ -2,8 +2,11 @@
 
 from typing import Literal, TypeAlias, cast
 
-"""'With AV1 outputs, for rate control mode, MediaConvert supports only quality-defined variable bitrate (QVBR). You can''t use CBR or VBR.'"""
-Av1RateControlMode: TypeAlias = Literal["QVBR",]
+"""'With AV1 outputs, for rate control mode, MediaConvert supports quality-defined variable bitrate (QVBR) and constant bitrate (CBR). You can''t use VBR.'"""
+Av1RateControlMode: TypeAlias = Literal[
+    "CBR",
+    "QVBR",
+]
 
 
 # --- restJson1 ser/de ---

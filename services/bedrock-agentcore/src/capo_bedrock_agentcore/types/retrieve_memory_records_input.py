@@ -18,7 +18,7 @@ class RetrieveMemoryRecordsInput(TypedDict, closed=True):
     memory_id: "capo_bedrock_agentcore.types.memory_id.MemoryId"
     """<p>The identifier of the AgentCore Memory resource from which to retrieve memory records.</p>"""
     namespace: NotRequired["capo_bedrock_agentcore.types.namespace.Namespace"]
-    """<p>The namespace prefix to filter memory records by. Searches for memory records in namespaces that start with the provided prefix. Either <code>namespace</code> or <code>namespacePath</code> is required.</p>"""
+    """<p>The exact namespace to filter memory records by. Searches for memory records that matches the provided namespace value. Either <code>namespace</code> or <code>namespacePath</code> is required.</p>"""
     namespace_path: NotRequired["capo_bedrock_agentcore.types.namespace.Namespace"]
     """<p>Use namespacePath for hierarchical retrievals. Return all memory records where namespace falls under the same parent hierarchy. Either <code>namespace</code> or <code>namespacePath</code> is required.</p>"""
     search_criteria: "capo_bedrock_agentcore.types.search_criteria.SearchCriteria"

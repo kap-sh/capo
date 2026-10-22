@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_rds.types.additional_storage_volumes_list
     import capo_rds.types.boolean_optional
     import capo_rds.types.database_insights_mode
+    import capo_rds.types.db_capacity_reservation_identifier
     import capo_rds.types.integer_optional
     import capo_rds.types.log_type_list
     import capo_rds.types.processor_feature_list
@@ -67,7 +68,7 @@ class CreateDBInstanceReadReplicaMessage(TypedDict, closed=True):
     monitoring_role_arn: NotRequired["capo_rds.types.string.String"]
     """<p>The ARN for the IAM role that permits RDS to send enhanced monitoring metrics to Amazon CloudWatch Logs. For example, <code>arn:aws:iam:123456789012:role/emaccess</code>. For information on creating a monitoring role, go to <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole">To create an IAM role for Amazon RDS Enhanced Monitoring</a> in the <i>Amazon RDS User Guide</i>.</p> <p>If <code>MonitoringInterval</code> is set to a value other than 0, then you must supply a <code>MonitoringRoleArn</code> value.</p> <p>This setting doesn't apply to RDS Custom DB instances.</p>"""
     kms_key_id: NotRequired["capo_rds.types.string.String"]
-    """<p>The Amazon Web Services KMS key identifier for an encrypted read replica.</p> <p>The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.</p> <p>If you create an encrypted read replica in the same Amazon Web Services Region as the source DB instance or Multi-AZ DB cluster, don't specify a value for this parameter. A read replica in the same Amazon Web Services Region is always encrypted with the same KMS key as the source DB instance or cluster.</p> <p>If you create an encrypted read replica in a different Amazon Web Services Region, then you must specify a KMS key identifier for the destination Amazon Web Services Region. KMS keys are specific to the Amazon Web Services Region that they are created in, and you can't use KMS keys from one Amazon Web Services Region in another Amazon Web Services Region.</p> <p>You can't create an encrypted read replica from an unencrypted DB instance or Multi-AZ DB cluster.</p> <p>This setting doesn't apply to RDS Custom, which uses the same KMS key as the primary replica.</p>"""
+    """<p>The Amazon Web Services KMS key identifier for an encrypted read replica.</p> <p>The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.</p> <p>For a read replica in the same Amazon Web Services Region as the source DB instance or Multi-AZ DB cluster, specifying this parameter is optional. If you specify a KMS key identifier, the read replica is encrypted with that KMS key, which can be different from the KMS key of the source.</p> <p>If you don't specify a value for this parameter, the read replica is encrypted with the same KMS key as the source DB instance or Multi-AZ DB cluster.</p> <p>If you create an encrypted read replica in a different Amazon Web Services Region, then you must specify a KMS key identifier for the destination Amazon Web Services Region. KMS keys are specific to the Amazon Web Services Region that they are created in, and you can't use KMS keys from one Amazon Web Services Region in another Amazon Web Services Region.</p> <p>You can't create an encrypted read replica from an unencrypted DB instance or Multi-AZ DB cluster.</p> <p>This setting doesn't apply to RDS Custom, which uses the same KMS key as the primary replica.</p>"""
     pre_signed_url: NotRequired["capo_rds.types.sensitive_string.SensitiveString"]
     """<p>When you are creating a read replica from one Amazon Web Services GovCloud (US) Region to another or from one China Amazon Web Services Region to another, the URL that contains a Signature Version 4 signed request for the <code>CreateDBInstanceReadReplica</code> API operation in the source Amazon Web Services Region that contains the source DB instance.</p> <p>This setting applies only to Amazon Web Services GovCloud (US) Regions and China Amazon Web Services Regions. It's ignored in other Amazon Web Services Regions.</p> <p>This setting applies only when replicating from a source DB <i>instance</i>. Source DB clusters aren't supported in Amazon Web Services GovCloud (US) Regions and China Amazon Web Services Regions.</p> <p>You must specify this parameter when you create an encrypted read replica from another Amazon Web Services Region by using the Amazon RDS API. Don't specify <code>PreSignedUrl</code> when you are creating an encrypted read replica in the same Amazon Web Services Region.</p> <p>The presigned URL must be a valid request for the <code>CreateDBInstanceReadReplica</code> API operation that can run in the source Amazon Web Services Region that contains the encrypted source DB instance. The presigned URL request must contain the following parameter values:</p> <ul> <li> <p> <code>DestinationRegion</code> - The Amazon Web Services Region that the encrypted read replica is created in. This Amazon Web Services Region is the same one where the <code>CreateDBInstanceReadReplica</code> operation is called that contains this presigned URL.</p> <p>For example, if you create an encrypted DB instance in the us-west-1 Amazon Web Services Region, from a source DB instance in the us-east-2 Amazon Web Services Region, then you call the <code>CreateDBInstanceReadReplica</code> operation in the us-east-1 Amazon Web Services Region and provide a presigned URL that contains a call to the <code>CreateDBInstanceReadReplica</code> operation in the us-west-2 Amazon Web Services Region. For this example, the <code>DestinationRegion</code> in the presigned URL must be set to the us-east-1 Amazon Web Services Region.</p> </li> <li> <p> <code>KmsKeyId</code> - The KMS key identifier for the key to use to encrypt the read replica in the destination Amazon Web Services Region. This is the same identifier for both the <code>CreateDBInstanceReadReplica</code> operation that is called in the destination Amazon Web Services Region, and the operation contained in the presigned URL.</p> </li> <li> <p> <code>SourceDBInstanceIdentifier</code> - The DB instance identifier for the encrypted DB instance to be replicated. This identifier must be in the Amazon Resource Name (ARN) format for the source Amazon Web Services Region. For example, if you are creating an encrypted read replica from a DB instance in the us-west-2 Amazon Web Services Region, then your <code>SourceDBInstanceIdentifier</code> looks like the following example: <code>arn:aws:rds:us-west-2:123456789012:instance:mysql-instance1-20161115</code>.</p> </li> </ul> <p>To learn how to generate a Signature Version 4 signed request, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html">Authenticating Requests: Using Query Parameters (Amazon Web Services Signature Version 4)</a> and <a href="https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html">Signature Version 4 Signing Process</a>.</p> <note> <p>If you are using an Amazon Web Services SDK tool or the CLI, you can specify <code>SourceRegion</code> (or <code>--source-region</code> for the CLI) instead of specifying <code>PreSignedUrl</code> manually. Specifying <code>SourceRegion</code> autogenerates a presigned URL that is a valid request for the operation that can run in the source Amazon Web Services Region.</p> </note> <p>This setting doesn't apply to RDS Custom DB instances.</p>"""
     enable_iam_database_authentication: NotRequired[
@@ -150,6 +151,10 @@ class CreateDBInstanceReadReplicaMessage(TypedDict, closed=True):
         "capo_rds.types.tag_specification_list.TagSpecificationList"
     ]
     """<p>Tags to assign to resources associated with the DB instance.</p> <p>Valid Values: </p> <ul> <li> <p> <code>auto-backup</code> - The DB instance's automated backup.</p> </li> </ul>"""
+    db_capacity_reservation_identifier: NotRequired[
+        "capo_rds.types.db_capacity_reservation_identifier.DBCapacityReservationIdentifier"
+    ]
+    """<p>The identifier or the name of the DB capacity reservation to associate with this read replica. You can specify the identifier, which has the prefix <code>dbcr-</code>, or the reservation name. When you specify this parameter, the read replica uses reserved capacity from the specified reservation. A read replica uses one unit of reserved capacity, in the same way as any other DB instance.</p> <p>If you specify <code>AvailabilityZone</code>, Amazon RDS places the DB instance in that Availability Zone, and the reservation must cover it.</p> <p>Constraints:</p> <ul> <li> <p>The reservation must reserve capacity for the DB instance class and the database engine of the DB instance.</p> </li> <li> <p>If the reservation reserves capacity for a specific license model, the license model of the source DB instance must match it. A read replica inherits its license model from the source DB instance.</p> </li> <li> <p>The reservation must be in the <code>active</code> state, and it must not be past its end date.</p> </li> <li> <p>If you specify <code>AvailabilityZone</code>, it must be one of the Availability Zones of the reservation.</p> </li> <li> <p>For a Multi-AZ DB instance, the reservation must cover two or more Availability Zones. A Multi-AZ DB instance uses one unit of reserved capacity in each of two Availability Zones. If the reservation covers more than two Availability Zones, Amazon RDS chooses the two that the DB instance uses.</p> </li> <li> <p>The reservation must have available capacity in each Availability Zone that the DB instance uses.</p> </li> <li> <p>The DB subnet group must be in a VPC with default tenancy.</p> </li> <li> <p>The DB subnet group must cover each Availability Zone that the DB instance uses.</p> </li> </ul>"""
 
 
 # --- awsQuery ser/de ---
@@ -393,6 +398,13 @@ def serialize_query(
         capo_rds.types.tag_specification_list.serialize_query(
             value["tag_specifications"], pairs, f"{key_prefix}TagSpecifications"
         )
+    if "db_capacity_reservation_identifier" in value:
+        pairs.append(
+            (
+                f"{key_prefix}DBCapacityReservationIdentifier",
+                str(value["db_capacity_reservation_identifier"]),
+            )
+        )
 
 
 def deserialize_query(el: Element) -> CreateDBInstanceReadReplicaMessage:
@@ -625,6 +637,13 @@ def deserialize_query(el: Element) -> CreateDBInstanceReadReplicaMessage:
             capo_rds.types.tag_specification_list.deserialize_query(
                 child_tag_specifications
             )
+        )
+    child_db_capacity_reservation_identifier = el.find(
+        "DBCapacityReservationIdentifier"
+    )
+    if child_db_capacity_reservation_identifier is not None:
+        out["db_capacity_reservation_identifier"] = str(
+            child_db_capacity_reservation_identifier.text or ""
         )
     return out
 

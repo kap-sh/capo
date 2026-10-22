@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     import capo_marketplace_catalog.types.date_time_iso8601
     import capo_marketplace_catalog.types.entity_name_string
     import capo_marketplace_catalog.types.entity_type
+    import capo_marketplace_catalog.types.express_private_offer_configuration_summary
     import capo_marketplace_catalog.types.machine_learning_product_summary
     import capo_marketplace_catalog.types.offer_set_summary
     import capo_marketplace_catalog.types.offer_summary
@@ -71,6 +72,10 @@ class EntitySummary(TypedDict, closed=True):
         "capo_marketplace_catalog.types.offer_set_summary.OfferSetSummary"
     ]
     """<p>An object that contains summary information about the offer set.</p>"""
+    express_private_offer_configuration_summary: NotRequired[
+        "capo_marketplace_catalog.types.express_private_offer_configuration_summary.ExpressPrivateOfferConfigurationSummary"
+    ]
+    """<p>An object that contains summary information about the express private offer configuration.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -152,6 +157,14 @@ def serialize_json(value: EntitySummary) -> dict:
                 value["offer_set_summary"]
             )
         )
+    if "express_private_offer_configuration_summary" in value:
+        import capo_marketplace_catalog.types.express_private_offer_configuration_summary
+
+        out["ExpressPrivateOfferConfigurationSummary"] = (
+            capo_marketplace_catalog.types.express_private_offer_configuration_summary.serialize_json(
+                value["express_private_offer_configuration_summary"]
+            )
+        )
     return out
 
 
@@ -231,6 +244,14 @@ def deserialize_json(data: dict) -> EntitySummary:
         out["offer_set_summary"] = (
             capo_marketplace_catalog.types.offer_set_summary.deserialize_json(
                 data["OfferSetSummary"]
+            )
+        )
+    if data.get("ExpressPrivateOfferConfigurationSummary") is not None:
+        import capo_marketplace_catalog.types.express_private_offer_configuration_summary
+
+        out["express_private_offer_configuration_summary"] = (
+            capo_marketplace_catalog.types.express_private_offer_configuration_summary.deserialize_json(
+                data["ExpressPrivateOfferConfigurationSummary"]
             )
         )
     return out

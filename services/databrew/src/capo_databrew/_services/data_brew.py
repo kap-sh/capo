@@ -821,7 +821,7 @@ class DataBrewClient:
 
         Args:
             job_names: <p>The name or names of one or more jobs to be run.</p>
-            cron_expression: <p>The date or dates and time or times when the jobs are to be run. For more information, see <a href="https://docs.aws.amazon.com/databrew/latest/dg/jobs.cron.html">Cron expressions</a> in the <i>Glue DataBrew Developer Guide</i>.</p>
+            cron_expression: <p>The date or dates and time or times when the jobs are to be run. For more information, see <a href="https://docs.aws.amazon.com/databrew/latest/dg/jobs.cron.html">Cron expressions</a> in the <i> Glue DataBrew Developer Guide</i>.</p>
             tags: <p>Metadata tags to apply to this schedule.</p>
             name: <p>A unique name for the schedule. Valid characters are alphanumeric (A-Z, a-z, 0-9), hyphen (-), period (.), and space.</p>
 
@@ -2992,7 +2992,7 @@ class DataBrewClient:
 
         Args:
             job_names: <p>The name or names of one or more jobs to be run for this schedule.</p>
-            cron_expression: <p>The date or dates and time or times when the jobs are to be run. For more information, see <a href="https://docs.aws.amazon.com/databrew/latest/dg/jobs.cron.html">Cron expressions</a> in the <i>Glue DataBrew Developer Guide</i>.</p>
+            cron_expression: <p>The date or dates and time or times when the jobs are to be run. For more information, see <a href="https://docs.aws.amazon.com/databrew/latest/dg/jobs.cron.html">Cron expressions</a> in the <i> Glue DataBrew Developer Guide</i>.</p>
             name: <p>The name of the schedule to update.</p>
 
         Raises:

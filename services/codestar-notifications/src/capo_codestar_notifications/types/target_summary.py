@@ -16,7 +16,7 @@ class TargetSummary(TypedDict, closed=True):
     ]
     """<p>The Amazon Resource Name (ARN) of the Amazon Q Developer in chat applications topic or Amazon Q Developer in chat applications client.</p>"""
     target_type: NotRequired["capo_codestar_notifications.types.target_type.TargetType"]
-    """<p>The type of the target (for example, <code>SNS</code>).</p> <ul> <li> <p>Amazon Q Developer in chat applications topics are specified as <code>SNS</code>.</p> </li> <li> <p>Amazon Q Developer in chat applications clients are specified as <code>AWSChatbotSlack</code>.</p> </li> </ul>"""
+    """<p>The type of the target (for example, <code>SNS</code>).</p> <ul> <li> <p> Amazon Q Developer in chat applications topics are specified as <code>SNS</code>.</p> </li> <li> <p> Amazon Q Developer in chat applications clients for Slack are specified as <code>AWSChatbotSlack</code>.</p> </li> <li> <p> Amazon Q Developer in chat applications clients for Microsoft Teams are specified as <code>AWSChatbotMicrosoftTeams</code>.</p> </li> </ul>"""
     target_status: NotRequired[
         "capo_codestar_notifications.types.target_status.TargetStatus"
     ]

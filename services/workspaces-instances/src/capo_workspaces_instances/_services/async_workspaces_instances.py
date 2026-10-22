@@ -65,6 +65,8 @@ if TYPE_CHECKING:
     import capo_workspaces_instances.types.list_workspace_instances_response
     import capo_workspaces_instances.types.managed_instance_request
     import capo_workspaces_instances.types.max_results
+    import capo_workspaces_instances.types.modify_volume_request
+    import capo_workspaces_instances.types.modify_volume_response
     import capo_workspaces_instances.types.next_token
     import capo_workspaces_instances.types.non_negative_integer
     import capo_workspaces_instances.types.provision_states
@@ -79,6 +81,7 @@ if TYPE_CHECKING:
     import capo_workspaces_instances.types.untag_resource_request
     import capo_workspaces_instances.types.untag_resource_response
     import capo_workspaces_instances.types.volume_id
+    import capo_workspaces_instances.types.volume_size_in_gb
     import capo_workspaces_instances.types.volume_type_enum
     import capo_workspaces_instances.types.workspace_instance
     import capo_workspaces_instances.types.workspace_instance_id
@@ -258,7 +261,7 @@ class AsyncWorkspacesInstancesClient:
             "capo_workspaces_instances.types.kms_key_id.KmsKeyId"
         ] = None,
         size_in_gb: Optional[
-            "capo_workspaces_instances.types.non_negative_integer.NonNegativeInteger"
+            "capo_workspaces_instances.types.volume_size_in_gb.VolumeSizeInGB"
         ] = None,
         snapshot_id: Optional[
             "capo_workspaces_instances.types.snapshot_id.SnapshotId"
@@ -1040,6 +1043,102 @@ class AsyncWorkspacesInstancesClient:
             _token = _resolve_path(_response, ("next_token",))
             if not _token:
                 break
+
+    async def modify_volume(
+        self,
+        volume_id: "capo_workspaces_instances.types.volume_id.VolumeId",
+        *,
+        config_overrides: Optional[AsyncWorkspacesInstancesClientConfig] = None,
+        size_in_gb: Optional[
+            "capo_workspaces_instances.types.volume_size_in_gb.VolumeSizeInGB"
+        ] = None,
+        volume_type: Optional[
+            "capo_workspaces_instances.types.volume_type_enum.VolumeTypeEnum"
+        ] = None,
+        iops: Optional[
+            "capo_workspaces_instances.types.non_negative_integer.NonNegativeInteger"
+        ] = None,
+        throughput: Optional[
+            "capo_workspaces_instances.types.non_negative_integer.NonNegativeInteger"
+        ] = None,
+        client_token: Optional[
+            "capo_workspaces_instances.types.client_token.ClientToken"
+        ] = None,
+    ) -> "capo_workspaces_instances.types.modify_volume_response.ModifyVolumeResponse":
+        """<p>Modifies the size, volume type, IOPS (input/output operations per second), or throughput of a volume. When you modify a volume, you must specify at least one of these parameters. You can modify a volume only after any previous modification for that volume has finished.</p> <p>To track the progress of a modification, use the Amazon EC2 <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeVolumesModifications.html">DescribeVolumesModifications</a> operation. For more information, see <a href="https://docs.aws.amazon.com/ebs/latest/userguide/monitoring-volume-modifications.html">Monitor the progress of Amazon EBS volume modifications</a> in the <i>Amazon EBS User Guide</i>.</p> <p>After you increase the size of a volume, you must extend the partition and file system to use the new storage capacity. For more information, see <a href="https://docs.aws.amazon.com/ebs/latest/userguide/recognize-expanded-volume-linux.html">Extend the file system after resizing an Amazon EBS volume</a> in the <i>Amazon EBS User Guide</i>, which covers both <a href="https://docs.aws.amazon.com/ebs/latest/userguide/recognize-expanded-volume-linux.html#extend-linux">Linux</a> and <a href="https://docs.aws.amazon.com/ebs/latest/userguide/recognize-expanded-volume-linux.html#extend-windows">Windows</a> instances.</p>
+
+        Args:
+            volume_id: <p>Specifies the identifier of the volume to modify.</p>
+            size_in_gb: <p>Specifies the target size of the volume, in GiB. The target size must be greater than or equal to the current size of the volume. If you don't specify a size, the current size is retained.</p>
+            volume_type: <p>Specifies the target Amazon Elastic Block Store (Amazon EBS) volume type. If you don't specify a volume type, the current volume type is retained.</p>
+            iops: <p>Specifies the target IOPS rate of the volume. This parameter is valid only for <code>gp3</code>, <code>io1</code>, and <code>io2</code> volumes. If you don't specify IOPS and keep the same volume type, the current IOPS rate is retained.</p>
+            throughput: <p>Specifies the target throughput of the volume, in MiB/s. This parameter is valid only for <code>gp3</code> volumes. If you don't specify throughput and the volume remains <code>gp3</code>, the current throughput is retained.</p>
+            client_token: <p>Unique token to ensure idempotent volume modification, preventing duplicate volume modifications.</p>
+
+        Raises:
+            capo_workspaces_instances.errors.access_denied_exception.AccessDeniedException: <p>Indicates insufficient permissions to perform the requested action.</p>
+            capo_workspaces_instances.errors.conflict_exception.ConflictException: <p>Signals a conflict with the current state of the resource.</p>
+            capo_workspaces_instances.errors.internal_server_exception.InternalServerException: <p>Indicates an unexpected server-side error occurred.</p>
+            capo_workspaces_instances.errors.resource_not_found_exception.ResourceNotFoundException: <p>Indicates the requested resource could not be found.</p>
+            capo_workspaces_instances.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>Indicates that a service quota has been exceeded.</p>
+            capo_workspaces_instances.errors.throttling_exception.ThrottlingException: <p>Indicates the request rate has exceeded limits.</p>
+            capo_workspaces_instances.errors.validation_exception.ValidationException: <p>Indicates invalid input parameters in the request.</p>
+            capo_workspaces_instances.errors.volume_modification_rate_exceeded_exception.VolumeModificationRateExceededException: <p>The volume has a previous modification that is still in progress, or has reached the limit of four modifications in a rolling 24-hour period. Wait for the current modification to finish, or wait until the time indicated in the error message, and then retry the request.</p>
+            capo_workspaces_instances.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_workspaces_instances.types.modify_volume_request.ModifyVolumeRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_workspaces_instances.types.modify_volume_response.ModifyVolumeResponse"
+        ]:
+            import capo_workspaces_instances._operations.eucmi_frontend_api_service.modify_volume
+
+            (
+                output,
+                http_response,
+            ) = await capo_workspaces_instances._operations.eucmi_frontend_api_service.modify_volume.async_modify_volume(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_workspaces_instances.types.modify_volume_request.ModifyVolumeRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_instances.types.modify_volume_request
+
+            return (
+                capo_workspaces_instances.types.modify_volume_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ModifyVolume", redact_input=_redact_input),
+        )
+        input_: capo_workspaces_instances.types.modify_volume_request.ModifyVolumeRequest = {
+            "volume_id": volume_id
+        }
+        if size_in_gb is not None:
+            input_["size_in_gb"] = size_in_gb
+        if volume_type is not None:
+            input_["volume_type"] = volume_type
+        if iops is not None:
+            input_["iops"] = iops
+        if throughput is not None:
+            input_["throughput"] = throughput
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
 
     async def tag_resource(
         self,

@@ -16,6 +16,7 @@ if TYPE_CHECKING:
     import capo_codedeploy.types.deployment_group_id
     import capo_codedeploy.types.deployment_group_name
     import capo_codedeploy.types.deployment_style
+    import capo_codedeploy.types.ec2_deployment_options
     import capo_codedeploy.types.ec2_tag_filter_list
     import capo_codedeploy.types.ec2_tag_set
     import capo_codedeploy.types.ecs_service_list
@@ -112,6 +113,9 @@ class DeploymentGroupInfo(TypedDict, closed=True):
     """<p>The destination platform type for the deployment (<code>Lambda</code>, <code>Server</code>, or <code>ECS</code>).</p>"""
     ecs_services: NotRequired["capo_codedeploy.types.ecs_service_list.ECSServiceList"]
     """<p> The target Amazon ECS services in the deployment group. This applies only to deployment groups that use the Amazon ECS compute platform. A target Amazon ECS service is specified as an Amazon ECS cluster and service name pair using the format <code><clustername>:<servicename></code>. </p>"""
+    ec2_deployment_options: NotRequired[
+        "capo_codedeploy.types.ec2_deployment_options.EC2DeploymentOptions"
+    ]
     termination_hook_enabled: "capo_codedeploy.types.boolean.Boolean"
     """<p>Indicates whether the deployment group was configured to have CodeDeploy install a termination hook into an Auto Scaling group.</p> <p>For more information about the termination hook, see <a href="https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors">How Amazon EC2 Auto Scaling works with CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.</p>"""
 
@@ -263,6 +267,14 @@ def serialize_aws_json_1_1(value: DeploymentGroupInfo) -> dict:
                 value["ecs_services"]
             )
         )
+    if "ec2_deployment_options" in value:
+        import capo_codedeploy.types.ec2_deployment_options
+
+        out["ec2DeploymentOptions"] = (
+            capo_codedeploy.types.ec2_deployment_options.serialize_aws_json_1_1(
+                value["ec2_deployment_options"]
+            )
+        )
     out["terminationHookEnabled"] = value.get("termination_hook_enabled", False)
     return out
 
@@ -411,6 +423,14 @@ def deserialize_aws_json_1_1(data: dict) -> DeploymentGroupInfo:
         out["ecs_services"] = (
             capo_codedeploy.types.ecs_service_list.deserialize_aws_json_1_1(
                 data["ecsServices"]
+            )
+        )
+    if data.get("ec2DeploymentOptions") is not None:
+        import capo_codedeploy.types.ec2_deployment_options
+
+        out["ec2_deployment_options"] = (
+            capo_codedeploy.types.ec2_deployment_options.deserialize_aws_json_1_1(
+                data["ec2DeploymentOptions"]
             )
         )
     if data.get("terminationHookEnabled") is not None:

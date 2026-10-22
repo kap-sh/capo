@@ -13,6 +13,7 @@ import capo_xray._auth._sigv4
 import capo_xray._protocol.eventstream
 import capo_xray.errors.invalid_request_exception
 import capo_xray.errors.throttled_exception
+import capo_xray.types.cloud_watch_logs_configuration
 import capo_xray.types.trace_segment_destination
 import capo_xray.types.trace_segment_destination_status
 import capo_xray.types.update_trace_segment_destination_request

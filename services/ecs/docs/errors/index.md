@@ -14,6 +14,7 @@
 - [DaemonNotFoundException](DaemonNotFoundException.md)
 - [DeserializationError](DeserializationError.md)
 - [ECSError](ECSError.md)
+- [GatewayNotFoundException](GatewayNotFoundException.md)
 - [InvalidParameterException](InvalidParameterException.md)
 - [LimitExceededException](LimitExceededException.md)
 - [MissingVersionException](MissingVersionException.md)

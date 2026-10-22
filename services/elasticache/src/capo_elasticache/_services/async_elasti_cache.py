@@ -187,6 +187,8 @@ if TYPE_CHECKING:
     import capo_elasticache.types.password_list_input
     import capo_elasticache.types.preferred_availability_zone_list
     import capo_elasticache.types.preferred_outpost_arn_list
+    import capo_elasticache.types.prepare_migration_request
+    import capo_elasticache.types.prepare_migration_response
     import capo_elasticache.types.purchase_reserved_cache_nodes_offering_message
     import capo_elasticache.types.purchase_reserved_cache_nodes_offering_result
     import capo_elasticache.types.rebalance_slots_in_global_replication_group_message
@@ -217,9 +219,13 @@ if TYPE_CHECKING:
     import capo_elasticache.types.service_updates_message
     import capo_elasticache.types.snapshot
     import capo_elasticache.types.snapshot_arns_list
+    import capo_elasticache.types.source_authentication_configuration
+    import capo_elasticache.types.source_tls_configuration
     import capo_elasticache.types.source_type
     import capo_elasticache.types.start_migration_message
     import capo_elasticache.types.start_migration_response
+    import capo_elasticache.types.stop_migration_request
+    import capo_elasticache.types.stop_migration_response
     import capo_elasticache.types.string
     import capo_elasticache.types.subnet_identifier_list
     import capo_elasticache.types.subnet_ids_list
@@ -619,18 +625,27 @@ class AsyncElastiCacheClient:
         *,
         config_overrides: Optional[AsyncElastiCacheClientConfig] = None,
         replication_group_id: Optional["capo_elasticache.types.string.String"] = None,
+        serverless_cache_name: Optional["capo_elasticache.types.string.String"] = None,
         force: Optional["capo_elasticache.types.boolean.Boolean"] = None,
     ) -> "capo_elasticache.types.complete_migration_response.CompleteMigrationResponse":
-        """<p>Complete the migration of data.</p>
+        """<p>Completes the migration of data.</p>
 
         Args:
             replication_group_id: <p>The ID of the replication group to which data is being migrated.</p>
+            serverless_cache_name: <p>The name of the serverless cache to which data is being migrated.</p>
             force: <p>Forces the migration to stop without ensuring that data is in sync. It is recommended to use this option only to abort the migration and not recommended when application wants to continue migration to ElastiCache.</p>
 
         Raises:
+            capo_elasticache.errors.invalid_cache_cluster_state_fault.InvalidCacheClusterStateFault: <p>The requested cluster is not in the <code>available</code> state.</p>
+            capo_elasticache.errors.invalid_parameter_combination_exception.InvalidParameterCombinationException: <p>Two or more incompatible parameters were specified.</p>
+            capo_elasticache.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>The value for a parameter is invalid.</p>
             capo_elasticache.errors.invalid_replication_group_state_fault.InvalidReplicationGroupStateFault: <p>The requested replication group is not in the <code>available</code> state.</p>
+            capo_elasticache.errors.invalid_serverless_cache_state_fault.InvalidServerlessCacheStateFault: <p>The account for these credentials is not currently active.</p>
+            capo_elasticache.errors.migration_health_fault.MigrationHealthFault: <p>The migration is not healthy. Check the events for this serverless cache for more details. For <code>CompleteMigration</code>, set <code>Force</code> to true to bypass this check.</p>
             capo_elasticache.errors.replication_group_not_found_fault.ReplicationGroupNotFoundFault: <p>The specified replication group does not exist.</p>
             capo_elasticache.errors.replication_group_not_under_migration_fault.ReplicationGroupNotUnderMigrationFault: <p>The designated replication group is not available for data migration.</p>
+            capo_elasticache.errors.serverless_cache_not_found_fault.ServerlessCacheNotFoundFault: <p>The serverless cache was not found or does not exist.</p>
+            capo_elasticache.errors.serverless_cache_not_under_migration_fault.ServerlessCacheNotUnderMigrationFault: <p>The serverless cache is not currently under migration.</p>
             capo_elasticache.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -655,6 +670,8 @@ class AsyncElastiCacheClient:
         input_: capo_elasticache.types.complete_migration_message.CompleteMigrationMessage = {}
         if replication_group_id is not None:
             input_["replication_group_id"] = replication_group_id
+        if serverless_cache_name is not None:
+            input_["serverless_cache_name"] = serverless_cache_name
         if force is not None:
             input_["force"] = force
 
@@ -6178,6 +6195,75 @@ class AsyncElastiCacheClient:
         await response.response.aclose()
         return response.output
 
+    async def prepare_migration(
+        self,
+        *,
+        config_overrides: Optional[AsyncElastiCacheClientConfig] = None,
+        serverless_cache_name: Optional["capo_elasticache.types.string.String"] = None,
+        customer_node_endpoint_list: Optional[
+            "capo_elasticache.types.customer_node_endpoint_list.CustomerNodeEndpointList"
+        ] = None,
+        source_authentication_configuration: Optional[
+            "capo_elasticache.types.source_authentication_configuration.SourceAuthenticationConfiguration"
+        ] = None,
+        source_tls_configuration: Optional[
+            "capo_elasticache.types.source_tls_configuration.SourceTlsConfiguration"
+        ] = None,
+    ) -> "capo_elasticache.types.prepare_migration_response.PrepareMigrationResponse":
+        """<p>Prepares the serverless cache for data migration by validating the configuration and setting up the migration resources.</p>
+
+        Args:
+            serverless_cache_name: <p>The name of the serverless cache to prepare for migration.</p>
+            customer_node_endpoint_list: <p>The list of endpoints from which to migrate data. For serverless cache migrations, the list should have only one element.</p>
+            source_authentication_configuration: <p>The authentication configuration for connecting to the source during migration.</p>
+            source_tls_configuration: <p>The TLS configuration for connecting to the source during migration.</p>
+
+        Raises:
+            capo_elasticache.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>The value for a parameter is invalid.</p>
+            capo_elasticache.errors.invalid_serverless_cache_state_fault.InvalidServerlessCacheStateFault: <p>The account for these credentials is not currently active.</p>
+            capo_elasticache.errors.serverless_cache_already_under_migration_fault.ServerlessCacheAlreadyUnderMigrationFault: <p>A migration is already in progress for this serverless cache. You cannot start another migration until the current one completes.</p>
+            capo_elasticache.errors.serverless_cache_not_found_fault.ServerlessCacheNotFoundFault: <p>The serverless cache was not found or does not exist.</p>
+            capo_elasticache.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_elasticache.types.prepare_migration_request.PrepareMigrationRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_elasticache.types.prepare_migration_response.PrepareMigrationResponse"
+        ]:
+            import capo_elasticache._operations.amazon_elasti_cache_v9.prepare_migration
+
+            (
+                output,
+                http_response,
+            ) = await capo_elasticache._operations.amazon_elasti_cache_v9.prepare_migration.async_prepare_migration(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PrepareMigration")
+        )
+        input_: capo_elasticache.types.prepare_migration_request.PrepareMigrationRequest = {}
+        if serverless_cache_name is not None:
+            input_["serverless_cache_name"] = serverless_cache_name
+        if customer_node_endpoint_list is not None:
+            input_["customer_node_endpoint_list"] = customer_node_endpoint_list
+        if source_authentication_configuration is not None:
+            input_["source_authentication_configuration"] = (
+                source_authentication_configuration
+            )
+        if source_tls_configuration is not None:
+            input_["source_tls_configuration"] = source_tls_configuration
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def purchase_reserved_cache_nodes_offering(
         self,
         *,
@@ -6581,22 +6667,38 @@ class AsyncElastiCacheClient:
         self,
         *,
         config_overrides: Optional[AsyncElastiCacheClientConfig] = None,
+        serverless_cache_name: Optional["capo_elasticache.types.string.String"] = None,
         replication_group_id: Optional["capo_elasticache.types.string.String"] = None,
         customer_node_endpoint_list: Optional[
             "capo_elasticache.types.customer_node_endpoint_list.CustomerNodeEndpointList"
         ] = None,
+        auto_cutover: Optional[
+            "capo_elasticache.types.boolean_optional.BooleanOptional"
+        ] = None,
+        clear_target_cache_data: Optional[
+            "capo_elasticache.types.boolean_optional.BooleanOptional"
+        ] = None,
     ) -> "capo_elasticache.types.start_migration_response.StartMigrationResponse":
-        """<p>Start the migration of data.</p>
+        """<p>Starts the migration of data.</p>
 
         Args:
+            serverless_cache_name: <p>The name of the serverless cache to which data is being migrated.</p>
             replication_group_id: <p>The ID of the replication group to which data should be migrated.</p>
-            customer_node_endpoint_list: <p>List of endpoints from which data should be migrated. For Valkey or Redis OSS (cluster mode disabled), the list should have only one element.</p>
+            customer_node_endpoint_list: <p>The list of endpoints from which to migrate data. For Valkey or Redis OSS (cluster mode disabled), the list should have only one element. For serverless cache migrations, ElastiCache uses the endpoint that you provided in <code>PrepareMigration</code>.</p>
+            auto_cutover: <p>Specifies whether ElastiCache automatically attempts to complete the migration after data sync is established.</p>
+            clear_target_cache_data: <p>Specifies whether ElastiCache deletes existing data in the serverless cache before migration begins. After <code>StopMigration</code>, <code>StartMigration</code> requires this option to restart the data sync.</p>
 
         Raises:
+            capo_elasticache.errors.invalid_cache_cluster_state_fault.InvalidCacheClusterStateFault: <p>The requested cluster is not in the <code>available</code> state.</p>
+            capo_elasticache.errors.invalid_parameter_combination_exception.InvalidParameterCombinationException: <p>Two or more incompatible parameters were specified.</p>
             capo_elasticache.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>The value for a parameter is invalid.</p>
             capo_elasticache.errors.invalid_replication_group_state_fault.InvalidReplicationGroupStateFault: <p>The requested replication group is not in the <code>available</code> state.</p>
+            capo_elasticache.errors.invalid_serverless_cache_state_fault.InvalidServerlessCacheStateFault: <p>The account for these credentials is not currently active.</p>
+            capo_elasticache.errors.migration_health_fault.MigrationHealthFault: <p>The migration is not healthy. Check the events for this serverless cache for more details. For <code>CompleteMigration</code>, set <code>Force</code> to true to bypass this check.</p>
             capo_elasticache.errors.replication_group_already_under_migration_fault.ReplicationGroupAlreadyUnderMigrationFault: <p>The targeted replication group is not available. </p>
             capo_elasticache.errors.replication_group_not_found_fault.ReplicationGroupNotFoundFault: <p>The specified replication group does not exist.</p>
+            capo_elasticache.errors.serverless_cache_not_found_fault.ServerlessCacheNotFoundFault: <p>The serverless cache was not found or does not exist.</p>
+            capo_elasticache.errors.serverless_cache_not_under_migration_fault.ServerlessCacheNotUnderMigrationFault: <p>The serverless cache is not currently under migration.</p>
             capo_elasticache.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -6619,10 +6721,65 @@ class AsyncElastiCacheClient:
             config_overrides, OperationLogging("StartMigration")
         )
         input_: capo_elasticache.types.start_migration_message.StartMigrationMessage = {}
+        if serverless_cache_name is not None:
+            input_["serverless_cache_name"] = serverless_cache_name
         if replication_group_id is not None:
             input_["replication_group_id"] = replication_group_id
         if customer_node_endpoint_list is not None:
             input_["customer_node_endpoint_list"] = customer_node_endpoint_list
+        if auto_cutover is not None:
+            input_["auto_cutover"] = auto_cutover
+        if clear_target_cache_data is not None:
+            input_["clear_target_cache_data"] = clear_target_cache_data
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def stop_migration(
+        self,
+        *,
+        config_overrides: Optional[AsyncElastiCacheClientConfig] = None,
+        serverless_cache_name: Optional["capo_elasticache.types.string.String"] = None,
+    ) -> "capo_elasticache.types.stop_migration_response.StopMigrationResponse":
+        """<p>Stops an ongoing data sync between the source and the serverless cache. The migration remains open and the data sync can be restarted. This operation is valid only while the migration is syncing; during cutover it returns <code>InvalidServerlessCacheStateFault</code>.</p>
+
+        Args:
+            serverless_cache_name: <p>The name of the serverless cache for which to stop the data sync.</p>
+
+        Raises:
+            capo_elasticache.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>The value for a parameter is invalid.</p>
+            capo_elasticache.errors.invalid_serverless_cache_state_fault.InvalidServerlessCacheStateFault: <p>The account for these credentials is not currently active.</p>
+            capo_elasticache.errors.serverless_cache_not_found_fault.ServerlessCacheNotFoundFault: <p>The serverless cache was not found or does not exist.</p>
+            capo_elasticache.errors.serverless_cache_not_under_migration_fault.ServerlessCacheNotUnderMigrationFault: <p>The serverless cache is not currently under migration.</p>
+            capo_elasticache.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_elasticache.types.stop_migration_request.StopMigrationRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_elasticache.types.stop_migration_response.StopMigrationResponse"
+        ]:
+            import capo_elasticache._operations.amazon_elasti_cache_v9.stop_migration
+
+            (
+                output,
+                http_response,
+            ) = await capo_elasticache._operations.amazon_elasti_cache_v9.stop_migration.async_stop_migration(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopMigration")
+        )
+        input_: capo_elasticache.types.stop_migration_request.StopMigrationRequest = {}
+        if serverless_cache_name is not None:
+            input_["serverless_cache_name"] = serverless_cache_name
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -6708,6 +6865,8 @@ class AsyncElastiCacheClient:
             customer_node_endpoint_list: <p> List of endpoints from which data should be migrated. List should have only one element. </p>
 
         Raises:
+            capo_elasticache.errors.invalid_cache_cluster_state_fault.InvalidCacheClusterStateFault: <p>The requested cluster is not in the <code>available</code> state.</p>
+            capo_elasticache.errors.invalid_parameter_combination_exception.InvalidParameterCombinationException: <p>Two or more incompatible parameters were specified.</p>
             capo_elasticache.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>The value for a parameter is invalid.</p>
             capo_elasticache.errors.invalid_replication_group_state_fault.InvalidReplicationGroupStateFault: <p>The requested replication group is not in the <code>available</code> state.</p>
             capo_elasticache.errors.replication_group_already_under_migration_fault.ReplicationGroupAlreadyUnderMigrationFault: <p>The targeted replication group is not available. </p>

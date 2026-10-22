@@ -120,7 +120,7 @@ class DBCluster(TypedDict, closed=True):
     hosted_zone_id: NotRequired["capo_rds.types.string.String"]
     """<p>The ID that Amazon Route 53 assigns when you create a hosted zone.</p>"""
     storage_encrypted: NotRequired["capo_rds.types.boolean.Boolean"]
-    """<p>Indicates whether the DB cluster is encrypted.</p>"""
+    """<p>Specifies whether the DB cluster is encrypted with an Amazon Web Services managed key or a customer managed key.</p> <p>If the DB cluster is encrypted with an Amazon Web Services owned key, this value is <code>false</code> and <code>StorageEncryptionType</code> is <code>sse-rds</code>. In that case, the data at rest is still encrypted. To determine how the data at rest is protected, use <code>StorageEncryptionType</code>.</p>"""
     storage_encryption_type: NotRequired[
         "capo_rds.types.storage_encryption_type.StorageEncryptionType"
     ]

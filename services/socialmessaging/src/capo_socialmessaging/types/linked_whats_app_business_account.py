@@ -5,6 +5,8 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_socialmessaging.types.direct_send_enforcement_status
+    import capo_socialmessaging.types.direct_send_enforcement_status_expires_at
     import capo_socialmessaging.types.linked_whats_app_business_account_arn
     import capo_socialmessaging.types.linked_whats_app_business_account_id
     import capo_socialmessaging.types.registration_status
@@ -38,6 +40,14 @@ class LinkedWhatsAppBusinessAccount(TypedDict, closed=True):
         "capo_socialmessaging.types.whats_app_business_account_marketing_messages_onboarding_status.WhatsAppBusinessAccountMarketingMessagesOnboardingStatus"
     ]
     """<p>The onboarding status for the Marketing Messages API. This value is fetched from Meta and indicates whether the WhatsApp Business Account is onboarded for Meta's Marketing Messages API.</p>"""
+    direct_send_enforcement_status: NotRequired[
+        "capo_socialmessaging.types.direct_send_enforcement_status.DirectSendEnforcementStatus"
+    ]
+    """<p>The Direct Send enforcement status for the WhatsApp Business Account. Enforcement applies when an account repeatedly sends messages in a category that does not match the content. This field is not present when no enforcement is active.</p>"""
+    direct_send_enforcement_status_expires_at: NotRequired[
+        "capo_socialmessaging.types.direct_send_enforcement_status_expires_at.DirectSendEnforcementStatusExpiresAt"
+    ]
+    """<p>The time when the current Direct Send enforcement is expected to lift. This field is not present for permanent enforcement or when no enforcement is active.</p>"""
     dataset_id: NotRequired[
         "capo_socialmessaging.types.whats_app_dataset_id.WhatsAppDatasetId"
     ]
@@ -78,6 +88,16 @@ def serialize_json(value: LinkedWhatsAppBusinessAccount) -> dict:
         out["marketingMessagesOnboardingStatus"] = value[
             "marketing_messages_onboarding_status"
         ]
+    if "direct_send_enforcement_status" in value:
+        out["directSendEnforcementStatus"] = value["direct_send_enforcement_status"]
+    if "direct_send_enforcement_status_expires_at" in value:
+        import capo_socialmessaging.types.direct_send_enforcement_status_expires_at
+
+        out["directSendEnforcementStatusExpiresAt"] = (
+            capo_socialmessaging.types.direct_send_enforcement_status_expires_at.serialize_json(
+                value["direct_send_enforcement_status_expires_at"]
+            )
+        )
     if "dataset_id" in value:
         out["datasetId"] = value["dataset_id"]
     import capo_socialmessaging.types.whats_app_phone_number_summary_list
@@ -148,6 +168,16 @@ def deserialize_json(data: dict) -> LinkedWhatsAppBusinessAccount:
         out["marketing_messages_onboarding_status"] = data[
             "marketingMessagesOnboardingStatus"
         ]
+    if data.get("directSendEnforcementStatus") is not None:
+        out["direct_send_enforcement_status"] = data["directSendEnforcementStatus"]
+    if data.get("directSendEnforcementStatusExpiresAt") is not None:
+        import capo_socialmessaging.types.direct_send_enforcement_status_expires_at
+
+        out["direct_send_enforcement_status_expires_at"] = (
+            capo_socialmessaging.types.direct_send_enforcement_status_expires_at.deserialize_json(
+                data["directSendEnforcementStatusExpiresAt"]
+            )
+        )
     if data.get("datasetId") is not None:
         out["dataset_id"] = data["datasetId"]
     if data.get("phoneNumbers") is not None:

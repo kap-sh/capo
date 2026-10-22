@@ -6,6 +6,7 @@ ResourceStatus: TypeAlias = Literal[
     "ACTIVE",
     "DELETING",
     "ERROR",
+    "UPDATING",
 ]
 
 

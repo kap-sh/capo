@@ -23,6 +23,7 @@ import capo_codedeploy.errors.invalid_alarm_config_exception
 import capo_codedeploy.errors.invalid_application_name_exception
 import capo_codedeploy.errors.invalid_auto_rollback_config_exception
 import capo_codedeploy.errors.invalid_auto_scaling_group_exception
+import capo_codedeploy.errors.invalid_auto_scaling_group_process_to_suspend_exception
 import capo_codedeploy.errors.invalid_blue_green_deployment_configuration_exception
 import capo_codedeploy.errors.invalid_deployment_config_name_exception
 import capo_codedeploy.errors.invalid_deployment_group_name_exception
@@ -51,6 +52,7 @@ import capo_codedeploy.types.blue_green_deployment_configuration
 import capo_codedeploy.types.create_deployment_group_input
 import capo_codedeploy.types.create_deployment_group_output
 import capo_codedeploy.types.deployment_style
+import capo_codedeploy.types.ec2_deployment_options
 import capo_codedeploy.types.ec2_tag_filter_list
 import capo_codedeploy.types.ec2_tag_set
 import capo_codedeploy.types.ecs_service_list
@@ -120,6 +122,10 @@ def handle_error(response: zapros.Response) -> Never:
             )
         case "InvalidAutoScalingGroupException":
             raise capo_codedeploy.errors.invalid_auto_scaling_group_exception.InvalidAutoScalingGroupException.from_aws_json_1_1(
+                data, message, response=response
+            )
+        case "InvalidAutoScalingGroupProcessToSuspendException":
+            raise capo_codedeploy.errors.invalid_auto_scaling_group_process_to_suspend_exception.InvalidAutoScalingGroupProcessToSuspendException.from_aws_json_1_1(
                 data, message, response=response
             )
         case "InvalidBlueGreenDeploymentConfigurationException":

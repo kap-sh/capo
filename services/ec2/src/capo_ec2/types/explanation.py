@@ -14,6 +14,7 @@ if TYPE_CHECKING:
     import capo_ec2.types.analysis_load_balancer_target
     import capo_ec2.types.analysis_route_table_route
     import capo_ec2.types.analysis_security_group_rule
+    import capo_ec2.types.analysis_transit_gateway_policy_table_entry
     import capo_ec2.types.component_account
     import capo_ec2.types.component_region
     import capo_ec2.types.firewall_stateful_rule
@@ -158,6 +159,14 @@ class Explanation(TypedDict, closed=True):
         "capo_ec2.types.transit_gateway_route_table_route.TransitGatewayRouteTableRoute"
     ]
     """<p>The transit gateway route table route.</p>"""
+    transit_gateway_policy_table: NotRequired[
+        "capo_ec2.types.analysis_component.AnalysisComponent"
+    ]
+    """<p>The transit gateway policy table.</p>"""
+    transit_gateway_policy_table_entry: NotRequired[
+        "capo_ec2.types.analysis_transit_gateway_policy_table_entry.AnalysisTransitGatewayPolicyTableEntry"
+    ]
+    """<p>The transit gateway policy table entry.</p>"""
     transit_gateway_attachment: NotRequired[
         "capo_ec2.types.analysis_component.AnalysisComponent"
     ]
@@ -456,6 +465,22 @@ def serialize_ec2_query(
             value["transit_gateway_route_table_route"],
             pairs,
             f"{key_prefix}TransitGatewayRouteTableRoute",
+        )
+    if "transit_gateway_policy_table" in value:
+        import capo_ec2.types.analysis_component
+
+        capo_ec2.types.analysis_component.serialize_ec2_query(
+            value["transit_gateway_policy_table"],
+            pairs,
+            f"{key_prefix}TransitGatewayPolicyTable",
+        )
+    if "transit_gateway_policy_table_entry" in value:
+        import capo_ec2.types.analysis_transit_gateway_policy_table_entry
+
+        capo_ec2.types.analysis_transit_gateway_policy_table_entry.serialize_ec2_query(
+            value["transit_gateway_policy_table_entry"],
+            pairs,
+            f"{key_prefix}TransitGatewayPolicyTableEntry",
         )
     if "transit_gateway_attachment" in value:
         import capo_ec2.types.analysis_component
@@ -828,6 +853,24 @@ def deserialize_ec2_query(el: Element) -> Explanation:
         out["transit_gateway_route_table_route"] = (
             capo_ec2.types.transit_gateway_route_table_route.deserialize_ec2_query(
                 child_transit_gateway_route_table_route
+            )
+        )
+    child_transit_gateway_policy_table = el.find("transitGatewayPolicyTable")
+    if child_transit_gateway_policy_table is not None:
+        import capo_ec2.types.analysis_component
+
+        out["transit_gateway_policy_table"] = (
+            capo_ec2.types.analysis_component.deserialize_ec2_query(
+                child_transit_gateway_policy_table
+            )
+        )
+    child_transit_gateway_policy_table_entry = el.find("transitGatewayPolicyTableEntry")
+    if child_transit_gateway_policy_table_entry is not None:
+        import capo_ec2.types.analysis_transit_gateway_policy_table_entry
+
+        out["transit_gateway_policy_table_entry"] = (
+            capo_ec2.types.analysis_transit_gateway_policy_table_entry.deserialize_ec2_query(
+                child_transit_gateway_policy_table_entry
             )
         )
     child_transit_gateway_attachment = el.find("transitGatewayAttachment")

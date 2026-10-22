@@ -190,6 +190,7 @@ if TYPE_CHECKING:
     import capo_connect.types.contact_search_summary
     import capo_connect.types.contact_tag_keys
     import capo_connect.types.contact_tag_map
+    import capo_connect.types.content_disposition
     import capo_connect.types.create_agent_status_request
     import capo_connect.types.create_agent_status_response
     import capo_connect.types.create_attached_file_request
@@ -12187,6 +12188,9 @@ class AsyncConnectClient:
         url_expiry_in_seconds: Optional[
             "capo_connect.types.url_expiry_in_seconds.URLExpiryInSeconds"
         ] = None,
+        url_content_disposition: Optional[
+            "capo_connect.types.content_disposition.ContentDisposition"
+        ] = None,
     ) -> "capo_connect.types.get_attached_file_response.GetAttachedFileResponse":
         """<p>Provides a pre-signed URL for download of an approved attached file. This API also returns metadata about the attached file. It will only return a downloadURL if the status of the attached file is <code>APPROVED</code>.</p>
 
@@ -12195,6 +12199,7 @@ class AsyncConnectClient:
             file_id: <p>The unique identifier of the attached file resource.</p>
             url_expiry_in_seconds: <p>Optional override for the expiry of the pre-signed S3 URL in seconds. The default value is 300.</p>
             associated_resource_arn: <p>The resource to which the attached file is (being) uploaded to. The supported resources are <a href="https://docs.aws.amazon.com/connect/latest/adminguide/cases.html">Cases</a>, <a href="https://docs.aws.amazon.com/connect/latest/adminguide/setup-email-channel.html">Email</a>, and <a href="https://docs.aws.amazon.com/connect/latest/adminguide/concepts-getting-started-tasks.html">Task</a>.</p> <note> <p>This value must be a valid ARN.</p> </note>
+            url_content_disposition: <p>Specifies how a browser handles the file at the pre-signed URL. The valid values are the following:</p> <dl> <dt>INLINE</dt> <dd> <p>Displays the file in the browser.</p> </dd> <dt>ATTACHMENT</dt> <dd> <p>Downloads the file. This is the default.</p> </dd> </dl>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -12230,6 +12235,8 @@ class AsyncConnectClient:
         }
         if url_expiry_in_seconds is not None:
             input_["url_expiry_in_seconds"] = url_expiry_in_seconds
+        if url_content_disposition is not None:
+            input_["url_content_disposition"] = url_content_disposition
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

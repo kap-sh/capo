@@ -8,6 +8,7 @@ UserDesignation: TypeAlias = Literal[
     "PROJECT_CATALOG_VIEWER",
     "PROJECT_CATALOG_CONSUMER",
     "PROJECT_CATALOG_STEWARD",
+    "USER_CREATED_DESIGNATION",
 ]
 
 

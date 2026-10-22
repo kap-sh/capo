@@ -12,6 +12,7 @@ import capo_network_firewall._auth._signers
 import capo_network_firewall._auth._sigv4
 import capo_network_firewall._protocol.eventstream
 import capo_network_firewall.errors.internal_server_error
+import capo_network_firewall.errors.invalid_operation_exception
 import capo_network_firewall.errors.invalid_request_exception
 import capo_network_firewall.errors.invalid_token_exception
 import capo_network_firewall.errors.resource_not_found_exception
@@ -40,6 +41,10 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InternalServerError":
             raise capo_network_firewall.errors.internal_server_error.InternalServerError.from_aws_json_1_0(
+                data, message, response=response
+            )
+        case "InvalidOperationException":
+            raise capo_network_firewall.errors.invalid_operation_exception.InvalidOperationException.from_aws_json_1_0(
                 data, message, response=response
             )
         case "InvalidRequestException":

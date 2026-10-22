@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.agentic_retrieve_actions
+    import capo_bedrock_agent_runtime.types.agentic_retrieve_applied_instruction
     import capo_bedrock_agent_runtime.types.agentic_retrieve_failures
     import capo_bedrock_agent_runtime.types.agentic_retrieve_source_metadata_list
     import capo_bedrock_agent_runtime.types.agentic_retrieve_status
@@ -43,6 +44,10 @@ class AgenticRetrieveTraceEventAttributes(TypedDict, closed=True):
         "capo_bedrock_agent_runtime.types.agentic_retrieve_trace_results.AgenticRetrieveTraceResults"
     ]
     """<p>The retrieval results from this step.</p>"""
+    applied_instruction: NotRequired[
+        "capo_bedrock_agent_runtime.types.agentic_retrieve_applied_instruction.AgenticRetrieveAppliedInstruction"
+    ]
+    """<p>The agent reports the retrieval instruction applied to this request on the first planning step.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -99,6 +104,14 @@ def serialize_json(value: AgenticRetrieveTraceEventAttributes) -> dict:
         out["retrievalResponse"] = (
             capo_bedrock_agent_runtime.types.agentic_retrieve_trace_results.serialize_json(
                 value["retrieval_response"]
+            )
+        )
+    if "applied_instruction" in value:
+        import capo_bedrock_agent_runtime.types.agentic_retrieve_applied_instruction
+
+        out["appliedInstruction"] = (
+            capo_bedrock_agent_runtime.types.agentic_retrieve_applied_instruction.serialize_json(
+                value["applied_instruction"]
             )
         )
     return out
@@ -178,6 +191,14 @@ def deserialize_json(data: dict) -> AgenticRetrieveTraceEventAttributes:
         out["retrieval_response"] = (
             capo_bedrock_agent_runtime.types.agentic_retrieve_trace_results.deserialize_json(
                 data["retrievalResponse"]
+            )
+        )
+    if data.get("appliedInstruction") is not None:
+        import capo_bedrock_agent_runtime.types.agentic_retrieve_applied_instruction
+
+        out["applied_instruction"] = (
+            capo_bedrock_agent_runtime.types.agentic_retrieve_applied_instruction.deserialize_json(
+                data["appliedInstruction"]
             )
         )
     return out

@@ -2,31 +2,32 @@
 
 from __future__ import annotations
 
+import functools
 import json
-from typing import Any
+from typing import Any, cast
 
 import zapros
 from typing_extensions import Never
 
 import capo_healthlake._auth._signers
 import capo_healthlake._auth._sigv4
+import capo_healthlake._iter
 import capo_healthlake._protocol.eventstream
 import capo_healthlake.errors.access_denied_exception
-import capo_healthlake.errors.agent_message_out_of_context_exception
-import capo_healthlake.errors.conversation_not_found_exception
 import capo_healthlake.errors.internal_server_exception
-import capo_healthlake.errors.not_implemented_operation_exception
 import capo_healthlake.errors.resource_not_found_exception
 import capo_healthlake.errors.throttling_exception
-import capo_healthlake.errors.unauthorized_exception
-import capo_healthlake.errors.unsupported_mime_type_exception
 import capo_healthlake.errors.validation_exception
 import capo_healthlake.types.agent_input_message
-import capo_healthlake.types.agent_output_message
-import capo_healthlake.types.source_format
+import capo_healthlake.types.agent_output_message_stream
 import capo_healthlake.types.update_profile_with_agent_request
 import capo_healthlake.types.update_profile_with_agent_response
 from capo_healthlake._protocol.errors import parse_error_metadata_json
+from capo_healthlake._protocol.eventstream import (
+    MessageDecoder,
+    async_read_messages,
+    read_messages,
+)
 from capo_healthlake._rule_engine._endpoint_rule_set import EndpointParams, resolve
 from capo_healthlake._services._pipeline import (
     AsyncOperationOptions,
@@ -44,20 +45,8 @@ def handle_error(response: zapros.Response) -> Never:
             raise capo_healthlake.errors.access_denied_exception.AccessDeniedException.from_aws_json_1_0(
                 data, message, response=response
             )
-        case "AgentMessageOutOfContextException":
-            raise capo_healthlake.errors.agent_message_out_of_context_exception.AgentMessageOutOfContextException.from_aws_json_1_0(
-                data, message, response=response
-            )
-        case "ConversationNotFoundException":
-            raise capo_healthlake.errors.conversation_not_found_exception.ConversationNotFoundException.from_aws_json_1_0(
-                data, message, response=response
-            )
         case "InternalServerException":
             raise capo_healthlake.errors.internal_server_exception.InternalServerException.from_aws_json_1_0(
-                data, message, response=response
-            )
-        case "NotImplementedOperationException":
-            raise capo_healthlake.errors.not_implemented_operation_exception.NotImplementedOperationException.from_aws_json_1_0(
                 data, message, response=response
             )
         case "ResourceNotFoundException":
@@ -66,14 +55,6 @@ def handle_error(response: zapros.Response) -> Never:
             )
         case "ThrottlingException":
             raise capo_healthlake.errors.throttling_exception.ThrottlingException.from_aws_json_1_0(
-                data, message, response=response
-            )
-        case "UnauthorizedException":
-            raise capo_healthlake.errors.unauthorized_exception.UnauthorizedException.from_aws_json_1_0(
-                data, message, response=response
-            )
-        case "UnsupportedMIMETypeException":
-            raise capo_healthlake.errors.unsupported_mime_type_exception.UnsupportedMIMETypeException.from_aws_json_1_0(
                 data, message, response=response
             )
         case "ValidationException":
@@ -87,8 +68,18 @@ def handle_error(response: zapros.Response) -> Never:
 def handle_response(
     response: zapros.Response,
 ) -> capo_healthlake.types.update_profile_with_agent_response.UpdateProfileWithAgentResponse:
-    out: capo_healthlake.types.update_profile_with_agent_response.UpdateProfileWithAgentResponse = capo_healthlake.types.update_profile_with_agent_response.deserialize_aws_json_1_0(
-        json.loads(response.read())
+    _decoder = MessageDecoder()
+    _messages = read_messages(response.iter_bytes(), _decoder)
+    out: capo_healthlake.types.update_profile_with_agent_response.UpdateProfileWithAgentResponse = {}  # type: ignore[typeddict-item]
+    out["agent_response"] = cast(
+        Any,
+        capo_healthlake._iter.map_sync_iterator(
+            _messages,
+            functools.partial(
+                capo_healthlake.types.agent_output_message_stream.deserialize_event_aws_json_1_0,
+                response=response,
+            ),
+        ),
     )
     return out
 
@@ -96,8 +87,18 @@ def handle_response(
 async def async_handle_response(
     response: zapros.Response,
 ) -> capo_healthlake.types.update_profile_with_agent_response.UpdateProfileWithAgentResponse:
-    out: capo_healthlake.types.update_profile_with_agent_response.UpdateProfileWithAgentResponse = capo_healthlake.types.update_profile_with_agent_response.deserialize_aws_json_1_0(
-        json.loads(await response.aread())
+    _decoder = MessageDecoder()
+    _messages = async_read_messages(response.async_iter_bytes(), _decoder)
+    out: capo_healthlake.types.update_profile_with_agent_response.UpdateProfileWithAgentResponse = {}  # type: ignore[typeddict-item]
+    out["agent_response"] = cast(
+        Any,
+        capo_healthlake._iter.map_async_iterator(
+            _messages,
+            functools.partial(
+                capo_healthlake.types.agent_output_message_stream.deserialize_event_aws_json_1_0,
+                response=response,
+            ),
+        ),
     )
     return out
 

@@ -12,11 +12,13 @@ import capo_rds._auth._signers
 import capo_rds._auth._sigv4
 import capo_rds._protocol.eventstream
 import capo_rds.errors.authorization_not_found_fault
+import capo_rds.errors.db_capacity_reservation_not_found_fault
 import capo_rds.errors.db_cluster_not_found_fault
 import capo_rds.errors.db_instance_not_found_fault
 import capo_rds.errors.db_subnet_group_does_not_cover_enough_a_zs
 import capo_rds.errors.db_subnet_group_not_found_fault
 import capo_rds.errors.insufficient_db_instance_capacity_fault
+import capo_rds.errors.invalid_db_capacity_reservation_state_fault
 import capo_rds.errors.invalid_db_cluster_state_fault
 import capo_rds.errors.invalid_db_instance_state_fault
 import capo_rds.errors.invalid_subnet
@@ -46,6 +48,10 @@ def handle_error(response: zapros.Response) -> Never:
             raise capo_rds.errors.authorization_not_found_fault.AuthorizationNotFoundFault.from_query(
                 error_el, message, response=response
             )
+        case "DBCapacityReservationNotFound":
+            raise capo_rds.errors.db_capacity_reservation_not_found_fault.DBCapacityReservationNotFoundFault.from_query(
+                error_el, message, response=response
+            )
         case "DBClusterNotFoundFault":
             raise capo_rds.errors.db_cluster_not_found_fault.DBClusterNotFoundFault.from_query(
                 error_el, message, response=response
@@ -64,6 +70,10 @@ def handle_error(response: zapros.Response) -> Never:
             )
         case "InsufficientDBInstanceCapacity":
             raise capo_rds.errors.insufficient_db_instance_capacity_fault.InsufficientDBInstanceCapacityFault.from_query(
+                error_el, message, response=response
+            )
+        case "InvalidDBCapacityReservationState":
+            raise capo_rds.errors.invalid_db_capacity_reservation_state_fault.InvalidDBCapacityReservationStateFault.from_query(
                 error_el, message, response=response
             )
         case "InvalidDBClusterStateFault":

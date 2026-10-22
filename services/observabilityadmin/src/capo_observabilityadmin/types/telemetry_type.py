@@ -6,6 +6,7 @@ TelemetryType: TypeAlias = Literal[
     "Logs",
     "Metrics",
     "Traces",
+    "Insights",
 ]
 
 

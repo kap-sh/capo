@@ -2,7 +2,8 @@
 
 import uuid
 import warnings
-from collections.abc import AsyncIterator
+from collections.abc import AsyncGenerator, AsyncIterator
+from contextlib import asynccontextmanager
 from typing import TYPE_CHECKING, Any, Iterable, Optional
 
 from typing_extensions import Self, TypedDict
@@ -2140,35 +2141,29 @@ class AsyncHealthLakeClient:
         await response.response.aclose()
         return response.output
 
+    @asynccontextmanager
     async def update_profile_with_agent(
         self,
         profile_id: "capo_healthlake.types.profile_id_string.ProfileIdString",
-        source_format: "capo_healthlake.types.source_format.SourceFormat",
         input_message: "capo_healthlake.types.agent_input_message.AgentInputMessage",
         *,
         config_overrides: Optional[AsyncHealthLakeClientConfig] = None,
         conversation_id: Optional[
             "capo_healthlake.types.conversation_id_string.ConversationIdString"
         ] = None,
-    ) -> "capo_healthlake.types.update_profile_with_agent_response.UpdateProfileWithAgentResponse":
+    ) -> "AsyncGenerator[capo_healthlake.types.update_profile_with_agent_response.UpdateProfileWithAgentResponse]":
         """<p>Updates a data transformation profile using chat-based interaction with an agent. Supports multi-turn conversations for iteratively customizing profiles.</p>
 
         Args:
             profile_id: <p>The unique identifier of the profile to update via the agent.</p>
-            source_format: <p>The source data format for the transformation.</p>
             input_message: <p>The message to send to the agent.</p>
             conversation_id: <p>The conversation identifier for multi-turn interactions. Omit to start a new conversation.</p>
 
         Raises:
             capo_healthlake.errors.access_denied_exception.AccessDeniedException: <p>Access is denied. Your account is not authorized to perform this operation.</p>
-            capo_healthlake.errors.agent_message_out_of_context_exception.AgentMessageOutOfContextException: <p>The agent message does not fit within the current conversation context. Start a new conversation or provide a message that relates to the current profile customization session.</p>
-            capo_healthlake.errors.conversation_not_found_exception.ConversationNotFoundException: <p>The specified conversation identifier does not exist. Verify the conversation ID or omit it to start a new conversation.</p>
             capo_healthlake.errors.internal_server_exception.InternalServerException: <p>An unknown internal error occurred in the service.</p>
-            capo_healthlake.errors.not_implemented_operation_exception.NotImplementedOperationException: <p>The requested operation is not yet available. Check the service documentation for a list of supported operations.</p>
             capo_healthlake.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested data store was not found.</p>
             capo_healthlake.errors.throttling_exception.ThrottlingException: <p>The user has exceeded their maximum number of allowed calls to the given API. </p>
-            capo_healthlake.errors.unauthorized_exception.UnauthorizedException: <p>You are not authorized to make this request. Verify that your Amazon Web Services credentials are valid and that you have the required permissions.</p>
-            capo_healthlake.errors.unsupported_mime_type_exception.UnsupportedMIMETypeException: <p>The content type in your request is not supported. Use a supported content type for this operation.</p>
             capo_healthlake.errors.validation_exception.ValidationException: <p>The user input parameter was invalid.</p>
             capo_healthlake.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -2216,7 +2211,6 @@ class AsyncHealthLakeClient:
         )
         input_: capo_healthlake.types.update_profile_with_agent_request.UpdateProfileWithAgentRequest = {
             "profile_id": profile_id,
-            "source_format": source_format,
             "input_message": input_message,
         }
         if conversation_id is not None:
@@ -2227,8 +2221,10 @@ class AsyncHealthLakeClient:
             handler=_handler,
             interceptors=list(interceptors_),
         )
-        await response.response.aclose()
-        return response.output
+        try:
+            yield response.output
+        finally:
+            await response.response.aclose()
 
     async def __aenter__(self) -> Self:
         return self

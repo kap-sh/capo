@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_dynamodb.types.billing_mode_summary
     import capo_dynamodb.types.date
     import capo_dynamodb.types.deletion_protection_enabled
+    import capo_dynamodb.types.disassociation_protection_enabled
     import capo_dynamodb.types.global_secondary_index_description_list
     import capo_dynamodb.types.global_table_settings_replication_mode
     import capo_dynamodb.types.global_table_witness_description_list
@@ -83,7 +84,7 @@ class TableDescription(TypedDict, closed=True):
     replicas: NotRequired[
         "capo_dynamodb.types.replica_description_list.ReplicaDescriptionList"
     ]
-    """<p>Represents replicas of the table.</p>"""
+    """<p>Represents replicas of the table.</p> <p>After a successful disassociation, this list is absent or empty. To confirm disassociation, also verify that <code>TableStatus</code> is <code>ACTIVE</code>.</p>"""
     global_table_witnesses: NotRequired[
         "capo_dynamodb.types.global_table_witness_description_list.GlobalTableWitnessDescriptionList"
     ]
@@ -108,6 +109,10 @@ class TableDescription(TypedDict, closed=True):
         "capo_dynamodb.types.deletion_protection_enabled.DeletionProtectionEnabled"
     ]
     """<p>Indicates whether deletion protection is enabled (true) or disabled (false) on the table.</p>"""
+    disassociation_protection_enabled: NotRequired[
+        "capo_dynamodb.types.disassociation_protection_enabled.DisassociationProtectionEnabled"
+    ]
+    """<p>Specifies whether disassociation protection is enabled (<code>true</code>) or disabled (<code>false</code>) for the local global table replica. Protection is enabled by default.</p>"""
     on_demand_throughput: NotRequired[
         "capo_dynamodb.types.on_demand_throughput.OnDemandThroughput"
     ]
@@ -269,6 +274,10 @@ def serialize_aws_json_1_0(value: TableDescription) -> dict:
         )
     if "deletion_protection_enabled" in value:
         out["DeletionProtectionEnabled"] = value["deletion_protection_enabled"]
+    if "disassociation_protection_enabled" in value:
+        out["DisassociationProtectionEnabled"] = value[
+            "disassociation_protection_enabled"
+        ]
     if "on_demand_throughput" in value:
         import capo_dynamodb.types.on_demand_throughput
 
@@ -446,6 +455,10 @@ def deserialize_aws_json_1_0(data: dict) -> TableDescription:
         )
     if data.get("DeletionProtectionEnabled") is not None:
         out["deletion_protection_enabled"] = data["DeletionProtectionEnabled"]
+    if data.get("DisassociationProtectionEnabled") is not None:
+        out["disassociation_protection_enabled"] = data[
+            "DisassociationProtectionEnabled"
+        ]
     if data.get("OnDemandThroughput") is not None:
         import capo_dynamodb.types.on_demand_throughput
 

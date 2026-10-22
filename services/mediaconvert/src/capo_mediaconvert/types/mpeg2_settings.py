@@ -15,6 +15,7 @@ if TYPE_CHECKING:
     import capo_mediaconvert.types.__integer_min1_max1001
     import capo_mediaconvert.types.__integer_min1_max2147483647
     import capo_mediaconvert.types.__integer_min24_max60000
+    import capo_mediaconvert.types.__integer_min1000_max3000
     import capo_mediaconvert.types.__integer_min1000_max288000000
     import capo_mediaconvert.types.__integer_min1000_max300000000
     import capo_mediaconvert.types.__list_of_frame_metric_type
@@ -150,6 +151,14 @@ class Mpeg2Settings(TypedDict, closed=True):
         "capo_mediaconvert.types.mpeg2_scene_change_detect.Mpeg2SceneChangeDetect"
     ]
     """Enable this setting to insert I-frames at scene changes that the service automatically detects. This improves video quality and is enabled by default."""
+    sliding_window_ms: NotRequired[
+        "capo_mediaconvert.types.__integer_min1000_max3000.__integerMin1000Max3000"
+    ]
+    """Optional. Specify the duration, in milliseconds, of the sliding window over which MediaConvert enforces your Peak bitrate. When you specify a Peak bitrate but omit this value, MediaConvert uses a default sliding window of 1000."""
+    sliding_window_peak_bitrate: NotRequired[
+        "capo_mediaconvert.types.__integer_min1000_max300000000.__integerMin1000Max300000000"
+    ]
+    """Optional. Specify an instantaneous peak bitrate ceiling, in bits/second, that MediaConvert enforces over the sliding window set by Peak bitrate window. For example, enter fifty megabits per second as 50000000. Applies in the VBR and CBR rate control modes. When you specify a value below Max bitrate, MediaConvert raises it to Max bitrate."""
     slow_pal: NotRequired["capo_mediaconvert.types.mpeg2_slow_pal.Mpeg2SlowPal"]
     """Ignore this setting unless your input frame rate is 23.976 or 24 frames per second (fps). Enable slow PAL to create a 25 fps output. When you enable slow PAL, MediaConvert relabels the video frames to 25 fps and resamples your audio to keep it synchronized with the video. Note that enabling this setting will slightly reduce the duration of your video. Required settings: You must also set Framerate to 25."""
     softness: NotRequired[
@@ -327,6 +336,10 @@ def serialize_json(value: Mpeg2Settings) -> dict:
                 value["scene_change_detect"]
             )
         )
+    if "sliding_window_ms" in value:
+        out["slidingWindowMs"] = value["sliding_window_ms"]
+    if "sliding_window_peak_bitrate" in value:
+        out["slidingWindowPeakBitrate"] = value["sliding_window_peak_bitrate"]
     if "slow_pal" in value:
         import capo_mediaconvert.types.mpeg2_slow_pal
 
@@ -514,6 +527,10 @@ def deserialize_json(data: dict) -> Mpeg2Settings:
                 data["sceneChangeDetect"]
             )
         )
+    if data.get("slidingWindowMs") is not None:
+        out["sliding_window_ms"] = data["slidingWindowMs"]
+    if data.get("slidingWindowPeakBitrate") is not None:
+        out["sliding_window_peak_bitrate"] = data["slidingWindowPeakBitrate"]
     if data.get("slowPal") is not None:
         import capo_mediaconvert.types.mpeg2_slow_pal
 

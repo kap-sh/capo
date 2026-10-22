@@ -3898,8 +3898,8 @@ class CloudWatchOmniClient:
         Args:
             domain_id: The ID of the domain to search within.
             search_query: A search term to match against user names, display names, and IDs. Pass * to list all principals. Maximum 128 characters.
-            max_results: The maximum number of results to return. Defaults to 10. Valid only when searchQuery is *; other searches reject this parameter and return at most 10 results.
-            next_token: A token to retrieve the next page of results. Valid only when searchQuery is *; other searches do not paginate and reject this parameter. Tokens expire after 24 hours.
+            max_results: The maximum number of results to return. Defaults to 100.
+            next_token: A token to retrieve the next page of results. Supply the same searchQuery used on the request that returned it. Tokens expire after 24 hours.
 
         Raises:
             capo_cloudwatchomni.errors.access_denied_exception.AccessDeniedException: The caller is not authorized to perform this action.
@@ -3911,7 +3911,7 @@ class CloudWatchOmniClient:
 
         Examples:
             Search principals by name
-            The following example searches a domain for principals whose name matches a text query. A text search (any searchQuery other than *) returns at most 10 results and does not paginate, so maxResults and nextToken are not supplied and no nextToken is returned. To grant access to a result, pass its principalId to CreateAccessGrant with a principalType of IDC_USER for a user or IDC_GROUP for a group. Payloads are shown as JSON; on the wire they are CBOR-encoded.
+            The following example searches a domain for principals whose name matches a text query. No nextToken is returned, so there are no more results. To grant access to a result, pass its principalId to CreateAccessGrant with a principalType of IDC_USER for a user or IDC_GROUP for a group. Payloads are shown as JSON; on the wire they are CBOR-encoded.
 
             >>> client.search_principals(domain_id='d-1a2b3c4d5e', search_query='jane')
         """

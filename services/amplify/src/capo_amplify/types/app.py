@@ -56,7 +56,7 @@ class App(TypedDict, closed=True):
     update_time: "capo_amplify.types.update_time.UpdateTime"
     """<p>A timestamp of when Amplify updated the application.</p>"""
     compute_role_arn: NotRequired["capo_amplify.types.compute_role_arn.ComputeRoleArn"]
-    """<p>The Amazon Resource Name (ARN) of the IAM role for an SSR app. The Compute role allows the Amplify Hosting compute service to securely access specific Amazon Web Services resources based on the role's permissions. For more information about the SSR Compute role, see <a href="https://docs.aws.amazon.com/amplify/latest/userguide/amplify-SSR-compute-role.html">Adding an SSR Compute role</a> in the <i>Amplify User Guide</i>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the IAM role for an SSR app. The Compute role allows the Amplify Hosting compute service to securely access specific Amazon Web Services resources based on the role's permissions. For more information about the SSR Compute role, see <a href="https://docs.aws.amazon.com/amplify/latest/userguide/amplify-SSR-compute-role.html">Adding an SSR Compute role</a> in the <i> Amplify User Guide</i>.</p>"""
     iam_service_role_arn: NotRequired[
         "capo_amplify.types.service_role_arn.ServiceRoleArn"
     ]

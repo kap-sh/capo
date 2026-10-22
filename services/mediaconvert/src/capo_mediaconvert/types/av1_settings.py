@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     import capo_mediaconvert.types.__integer_min0_max15
     import capo_mediaconvert.types.__integer_min1_max32
     import capo_mediaconvert.types.__integer_min1_max2147483647
+    import capo_mediaconvert.types.__integer_min1000_max3000
     import capo_mediaconvert.types.__integer_min1000_max1152000000
     import capo_mediaconvert.types.__list_of_frame_metric_type
     import capo_mediaconvert.types.av1_adaptive_quantization
@@ -18,6 +19,7 @@ if TYPE_CHECKING:
     import capo_mediaconvert.types.av1_framerate_conversion_algorithm
     import capo_mediaconvert.types.av1_qvbr_settings
     import capo_mediaconvert.types.av1_rate_control_mode
+    import capo_mediaconvert.types.av1_scene_change_detect
     import capo_mediaconvert.types.av1_spatial_adaptive_quantization
 
 
@@ -28,6 +30,10 @@ class Av1Settings(TypedDict, closed=True):
     """Specify the strength of any adaptive quantization filters that you enable. The value that you choose here applies to Spatial adaptive quantization."""
     bit_depth: NotRequired["capo_mediaconvert.types.av1_bit_depth.Av1BitDepth"]
     """Specify the Bit depth. You can choose 8-bit or 10-bit."""
+    bitrate: NotRequired[
+        "capo_mediaconvert.types.__integer_min1000_max1152000000.__integerMin1000Max1152000000"
+    ]
+    """Specify the average bitrate in bits per second. Required when Rate control mode is CBR."""
     film_grain_synthesis: NotRequired[
         "capo_mediaconvert.types.av1_film_grain_synthesis.Av1FilmGrainSynthesis"
     ]
@@ -65,15 +71,27 @@ class Av1Settings(TypedDict, closed=True):
     qvbr_settings: NotRequired[
         "capo_mediaconvert.types.av1_qvbr_settings.Av1QvbrSettings"
     ]
-    """Settings for quality-defined variable bitrate encoding with the H.265 codec. Use these settings only when you set QVBR for Rate control mode."""
+    """Settings for quality-defined variable bitrate encoding with the AV1 codec. Use these settings only when you set QVBR for Rate control mode."""
     rate_control_mode: NotRequired[
         "capo_mediaconvert.types.av1_rate_control_mode.Av1RateControlMode"
     ]
-    """'With AV1 outputs, for rate control mode, MediaConvert supports only quality-defined variable bitrate (QVBR). You can''t use CBR or VBR.'"""
+    """'With AV1 outputs, for rate control mode, MediaConvert supports quality-defined variable bitrate (QVBR) and constant bitrate (CBR). You can''t use VBR.'"""
+    scene_change_detect: NotRequired[
+        "capo_mediaconvert.types.av1_scene_change_detect.Av1SceneChangeDetect"
+    ]
+    """Optional. Use this setting to have the service insert I-frames at scene changes that it automatically detects. For AV1, scene change detection is disabled by default. Choose Enabled to insert I-frames at detected scene changes, which can improve video quality. If this output uses QVBR, you can instead choose Transition detection for further video quality improvement. For more information about QVBR, see https://docs.aws.amazon.com/console/mediaconvert/cbr-vbr-qvbr."""
     slices: NotRequired[
         "capo_mediaconvert.types.__integer_min1_max32.__integerMin1Max32"
     ]
     """Specify the number of slices per picture. This value must be 1, 2, 4, 8, 16, or 32. For progressive pictures, this value must be less than or equal to the number of macroblock rows. For interlaced pictures, this value must be less than or equal to half the number of macroblock rows."""
+    sliding_window_ms: NotRequired[
+        "capo_mediaconvert.types.__integer_min1000_max3000.__integerMin1000Max3000"
+    ]
+    """Optional. Specify the duration, in milliseconds, of the sliding window over which MediaConvert enforces your Peak bitrate. When you specify a Peak bitrate but omit this value, MediaConvert uses a default sliding window of 1000."""
+    sliding_window_peak_bitrate: NotRequired[
+        "capo_mediaconvert.types.__integer_min1000_max1152000000.__integerMin1000Max1152000000"
+    ]
+    """Optional. Specify an instantaneous peak bitrate ceiling, in bits/second, that MediaConvert enforces over the sliding window set by Peak bitrate window. For example, enter fifty megabits per second as 50000000. Applies in the QVBR rate control mode. When you specify a value below Max bitrate, MediaConvert raises it to Max bitrate."""
     spatial_adaptive_quantization: NotRequired[
         "capo_mediaconvert.types.av1_spatial_adaptive_quantization.Av1SpatialAdaptiveQuantization"
     ]
@@ -97,6 +115,8 @@ def serialize_json(value: Av1Settings) -> dict:
         out["bitDepth"] = capo_mediaconvert.types.av1_bit_depth.serialize_json(
             value["bit_depth"]
         )
+    if "bitrate" in value:
+        out["bitrate"] = value["bitrate"]
     if "film_grain_synthesis" in value:
         import capo_mediaconvert.types.av1_film_grain_synthesis
 
@@ -163,8 +183,20 @@ def serialize_json(value: Av1Settings) -> dict:
                 value["rate_control_mode"]
             )
         )
+    if "scene_change_detect" in value:
+        import capo_mediaconvert.types.av1_scene_change_detect
+
+        out["sceneChangeDetect"] = (
+            capo_mediaconvert.types.av1_scene_change_detect.serialize_json(
+                value["scene_change_detect"]
+            )
+        )
     if "slices" in value:
         out["slices"] = value["slices"]
+    if "sliding_window_ms" in value:
+        out["slidingWindowMs"] = value["sliding_window_ms"]
+    if "sliding_window_peak_bitrate" in value:
+        out["slidingWindowPeakBitrate"] = value["sliding_window_peak_bitrate"]
     if "spatial_adaptive_quantization" in value:
         import capo_mediaconvert.types.av1_spatial_adaptive_quantization
 
@@ -192,6 +224,8 @@ def deserialize_json(data: dict) -> Av1Settings:
         out["bit_depth"] = capo_mediaconvert.types.av1_bit_depth.deserialize_json(
             data["bitDepth"]
         )
+    if data.get("bitrate") is not None:
+        out["bitrate"] = data["bitrate"]
     if data.get("filmGrainSynthesis") is not None:
         import capo_mediaconvert.types.av1_film_grain_synthesis
 
@@ -252,8 +286,20 @@ def deserialize_json(data: dict) -> Av1Settings:
                 data["rateControlMode"]
             )
         )
+    if data.get("sceneChangeDetect") is not None:
+        import capo_mediaconvert.types.av1_scene_change_detect
+
+        out["scene_change_detect"] = (
+            capo_mediaconvert.types.av1_scene_change_detect.deserialize_json(
+                data["sceneChangeDetect"]
+            )
+        )
     if data.get("slices") is not None:
         out["slices"] = data["slices"]
+    if data.get("slidingWindowMs") is not None:
+        out["sliding_window_ms"] = data["slidingWindowMs"]
+    if data.get("slidingWindowPeakBitrate") is not None:
+        out["sliding_window_peak_bitrate"] = data["slidingWindowPeakBitrate"]
     if data.get("spatialAdaptiveQuantization") is not None:
         import capo_mediaconvert.types.av1_spatial_adaptive_quantization
 

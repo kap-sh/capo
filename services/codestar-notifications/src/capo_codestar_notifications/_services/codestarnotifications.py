@@ -220,8 +220,8 @@ class codestarnotificationsClient:
             status: <p>The status of the notification rule. The default value is <code>ENABLED</code>. If the status is set to <code>DISABLED</code>, notifications aren't sent for the notification rule.</p>
 
         Raises:
-            capo_codestar_notifications.errors.access_denied_exception.AccessDeniedException: <p>CodeStar Notifications can't create the notification rule because you do not have sufficient permissions.</p>
-            capo_codestar_notifications.errors.concurrent_modification_exception.ConcurrentModificationException: <p>CodeStar Notifications can't complete the request because the resource is being modified by another process. Wait a few minutes and try again.</p>
+            capo_codestar_notifications.errors.access_denied_exception.AccessDeniedException: <p> CodeStar Notifications can't create the notification rule because you do not have sufficient permissions.</p>
+            capo_codestar_notifications.errors.concurrent_modification_exception.ConcurrentModificationException: <p> CodeStar Notifications can't complete the request because the resource is being modified by another process. Wait a few minutes and try again.</p>
             capo_codestar_notifications.errors.configuration_exception.ConfigurationException: <p>Some or all of the configuration is incomplete, missing, or not valid.</p>
             capo_codestar_notifications.errors.limit_exceeded_exception.LimitExceededException: <p>One of the CodeStar Notifications limits has been exceeded. Limits apply to accounts, notification rules, notifications, resources, and targets. For more information, see Limits.</p>
             capo_codestar_notifications.errors.resource_already_exists_exception.ResourceAlreadyExistsException: <p>A resource with the same name or ID already exists. Notification rule names must be unique in your Amazon Web Services account.</p>
@@ -291,7 +291,7 @@ class codestarnotificationsClient:
             arn: <p>The Amazon Resource Name (ARN) of the notification rule you want to delete.</p>
 
         Raises:
-            capo_codestar_notifications.errors.concurrent_modification_exception.ConcurrentModificationException: <p>CodeStar Notifications can't complete the request because the resource is being modified by another process. Wait a few minutes and try again.</p>
+            capo_codestar_notifications.errors.concurrent_modification_exception.ConcurrentModificationException: <p> CodeStar Notifications can't complete the request because the resource is being modified by another process. Wait a few minutes and try again.</p>
             capo_codestar_notifications.errors.limit_exceeded_exception.LimitExceededException: <p>One of the CodeStar Notifications limits has been exceeded. Limits apply to accounts, notification rules, notifications, resources, and targets. For more information, see Limits.</p>
             capo_codestar_notifications.errors.validation_exception.ValidationException: <p>One or more parameter values are not valid.</p>
             capo_codestar_notifications.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -399,7 +399,7 @@ class codestarnotificationsClient:
             arn: <p>The Amazon Resource Name (ARN) of the notification rule.</p>
 
         Raises:
-            capo_codestar_notifications.errors.resource_not_found_exception.ResourceNotFoundException: <p>CodeStar Notifications can't find a resource that matches the provided ARN. </p>
+            capo_codestar_notifications.errors.resource_not_found_exception.ResourceNotFoundException: <p> CodeStar Notifications can't find a resource that matches the provided ARN. </p>
             capo_codestar_notifications.errors.validation_exception.ValidationException: <p>One or more parameter values are not valid.</p>
             capo_codestar_notifications.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -635,7 +635,7 @@ class codestarnotificationsClient:
             arn: <p>The Amazon Resource Name (ARN) for the notification rule.</p>
 
         Raises:
-            capo_codestar_notifications.errors.resource_not_found_exception.ResourceNotFoundException: <p>CodeStar Notifications can't find a resource that matches the provided ARN. </p>
+            capo_codestar_notifications.errors.resource_not_found_exception.ResourceNotFoundException: <p> CodeStar Notifications can't find a resource that matches the provided ARN. </p>
             capo_codestar_notifications.errors.validation_exception.ValidationException: <p>One or more parameter values are not valid.</p>
             capo_codestar_notifications.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -788,7 +788,7 @@ class codestarnotificationsClient:
 
         Raises:
             capo_codestar_notifications.errors.configuration_exception.ConfigurationException: <p>Some or all of the configuration is incomplete, missing, or not valid.</p>
-            capo_codestar_notifications.errors.resource_not_found_exception.ResourceNotFoundException: <p>CodeStar Notifications can't find a resource that matches the provided ARN. </p>
+            capo_codestar_notifications.errors.resource_not_found_exception.ResourceNotFoundException: <p> CodeStar Notifications can't find a resource that matches the provided ARN. </p>
             capo_codestar_notifications.errors.validation_exception.ValidationException: <p>One or more parameter values are not valid.</p>
             capo_codestar_notifications.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -848,9 +848,9 @@ class codestarnotificationsClient:
             tags: <p>The list of tags to associate with the resource. Tag key names cannot start with "<code>aws</code>".</p>
 
         Raises:
-            capo_codestar_notifications.errors.concurrent_modification_exception.ConcurrentModificationException: <p>CodeStar Notifications can't complete the request because the resource is being modified by another process. Wait a few minutes and try again.</p>
+            capo_codestar_notifications.errors.concurrent_modification_exception.ConcurrentModificationException: <p> CodeStar Notifications can't complete the request because the resource is being modified by another process. Wait a few minutes and try again.</p>
             capo_codestar_notifications.errors.limit_exceeded_exception.LimitExceededException: <p>One of the CodeStar Notifications limits has been exceeded. Limits apply to accounts, notification rules, notifications, resources, and targets. For more information, see Limits.</p>
-            capo_codestar_notifications.errors.resource_not_found_exception.ResourceNotFoundException: <p>CodeStar Notifications can't find a resource that matches the provided ARN. </p>
+            capo_codestar_notifications.errors.resource_not_found_exception.ResourceNotFoundException: <p> CodeStar Notifications can't find a resource that matches the provided ARN. </p>
             capo_codestar_notifications.errors.validation_exception.ValidationException: <p>One or more parameter values are not valid.</p>
             capo_codestar_notifications.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -959,9 +959,9 @@ class codestarnotificationsClient:
             tag_keys: <p>The key names of the tags to remove.</p>
 
         Raises:
-            capo_codestar_notifications.errors.concurrent_modification_exception.ConcurrentModificationException: <p>CodeStar Notifications can't complete the request because the resource is being modified by another process. Wait a few minutes and try again.</p>
+            capo_codestar_notifications.errors.concurrent_modification_exception.ConcurrentModificationException: <p> CodeStar Notifications can't complete the request because the resource is being modified by another process. Wait a few minutes and try again.</p>
             capo_codestar_notifications.errors.limit_exceeded_exception.LimitExceededException: <p>One of the CodeStar Notifications limits has been exceeded. Limits apply to accounts, notification rules, notifications, resources, and targets. For more information, see Limits.</p>
-            capo_codestar_notifications.errors.resource_not_found_exception.ResourceNotFoundException: <p>CodeStar Notifications can't find a resource that matches the provided ARN. </p>
+            capo_codestar_notifications.errors.resource_not_found_exception.ResourceNotFoundException: <p> CodeStar Notifications can't find a resource that matches the provided ARN. </p>
             capo_codestar_notifications.errors.validation_exception.ValidationException: <p>One or more parameter values are not valid.</p>
             capo_codestar_notifications.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1027,7 +1027,7 @@ class codestarnotificationsClient:
 
         Raises:
             capo_codestar_notifications.errors.configuration_exception.ConfigurationException: <p>Some or all of the configuration is incomplete, missing, or not valid.</p>
-            capo_codestar_notifications.errors.resource_not_found_exception.ResourceNotFoundException: <p>CodeStar Notifications can't find a resource that matches the provided ARN. </p>
+            capo_codestar_notifications.errors.resource_not_found_exception.ResourceNotFoundException: <p> CodeStar Notifications can't find a resource that matches the provided ARN. </p>
             capo_codestar_notifications.errors.validation_exception.ValidationException: <p>One or more parameter values are not valid.</p>
             capo_codestar_notifications.errors.UnknownServiceError: The service returned an error code this client does not model.
         """

@@ -106,6 +106,7 @@ if TYPE_CHECKING:
     import capo_dynamodb.types.describe_table_replica_auto_scaling_output
     import capo_dynamodb.types.describe_time_to_live_input
     import capo_dynamodb.types.describe_time_to_live_output
+    import capo_dynamodb.types.disassociation_protection_enabled
     import capo_dynamodb.types.enable_kinesis_streaming_configuration
     import capo_dynamodb.types.execute_statement_input
     import capo_dynamodb.types.execute_statement_output
@@ -4516,11 +4517,14 @@ class AsyncDynamoDBClient:
         global_table_settings_replication_mode: Optional[
             "capo_dynamodb.types.global_table_settings_replication_mode.GlobalTableSettingsReplicationMode"
         ] = None,
+        disassociation_protection_enabled: Optional[
+            "capo_dynamodb.types.disassociation_protection_enabled.DisassociationProtectionEnabled"
+        ] = None,
         vector_index_updates: Optional[
             "capo_dynamodb.types.vector_index_update_list.VectorIndexUpdateList"
         ] = None,
     ) -> "capo_dynamodb.types.update_table_output.UpdateTableOutput":
-        """<p>Modifies the provisioned throughput settings, global secondary indexes, or DynamoDB Streams settings for a given table.</p> <p>You can only perform one of the following operations at once:</p> <ul> <li> <p>Modify the provisioned throughput settings of the table.</p> </li> <li> <p>Remove a global secondary index from the table.</p> </li> <li> <p>Create a new global secondary index on the table. After the index begins backfilling, you can use <code>UpdateTable</code> to perform other operations.</p> </li> </ul> <p> <code>UpdateTable</code> is an asynchronous operation; while it's executing, the table status changes from <code>ACTIVE</code> to <code>UPDATING</code>. While it's <code>UPDATING</code>, you can't issue another <code>UpdateTable</code> request. When the table returns to the <code>ACTIVE</code> state, the <code>UpdateTable</code> operation is complete.</p>
+        """<p>Modifies the provisioned throughput settings, global secondary indexes, DynamoDB Streams settings, or global table replica settings for a given table.</p> <p>You can only perform one of the following operations at once:</p> <ul> <li> <p>Modify the provisioned throughput settings of the table.</p> </li> <li> <p>Remove a global secondary index from the table.</p> </li> <li> <p>Create a new global secondary index on the table. After the index begins backfilling, you can use <code>UpdateTable</code> to perform other operations.</p> </li> <li> <p>Enable or disable disassociation protection for the local global table replica.</p> </li> <li> <p>Disassociate the local global table replica and keep it as a standalone regional table. The <code>Disassociate</code> action must be the only replica update in the request. If the request includes any other update, <code>UpdateTable</code> fails with a <code>ValidationException</code> and the disassociation does not start.</p> </li> </ul> <p> <code>UpdateTable</code> is an asynchronous operation; while it's executing, the table status changes from <code>ACTIVE</code> to <code>UPDATING</code>. While it's <code>UPDATING</code>, you can't issue another <code>UpdateTable</code> request. Use <code>DescribeTable</code> to monitor the table's status.</p> <p>To use this operation to disassociate a local replica, you must have the <code>dynamodb:UpdateTable</code> and <code>dynamodb:DisassociateTableReplica</code> IAM permissions on the local replica. Send disassociation and disassociation protection requests to the replica's Region using credentials for the account that owns the replica. For prerequisites and the procedure, see <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables-disassociate.html">Disassociating a global table replica</a> in the <i>Amazon DynamoDB Developer Guide</i>.</p> <p>To confirm successful disassociation, call <code>DescribeTable</code> in the replica's Region and verify that <code>TableStatus</code> is <code>ACTIVE</code> and <code>Replicas</code> is absent or empty. If <code>TableStatus</code> returns to <code>ACTIVE</code> but the response still includes a <code>Replicas</code> list, the disassociation did not complete. Check <code>ReplicaStatus</code> for a replication-permission or encryption-access problem, resolve it, and retry.</p>
 
         Args:
             attribute_definitions: <p>An array of attributes that describe the key schema for the table and indexes. If you are adding a new global secondary index to the table, <code>AttributeDefinitions</code> must include the key element(s) of the new index.</p>
@@ -4530,7 +4534,7 @@ class AsyncDynamoDBClient:
             global_secondary_index_updates: <p>An array of one or more global secondary indexes for the table. For each index in the array, you can request one action:</p> <ul> <li> <p> <code>Create</code> - add a new global secondary index to the table.</p> </li> <li> <p> <code>Update</code> - modify the provisioned throughput settings of an existing global secondary index.</p> </li> <li> <p> <code>Delete</code> - remove a global secondary index from the table.</p> </li> </ul> <p>You can create or delete only one global secondary index per <code>UpdateTable</code> operation.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GSI.OnlineOps.html">Managing Global Secondary Indexes</a> in the <i>Amazon DynamoDB Developer Guide</i>. </p>
             stream_specification: <p>Represents the DynamoDB Streams configuration for the table.</p> <note> <p>You receive a <code>ValidationException</code> if you try to enable a stream on a table that already has a stream, or if you try to disable a stream on a table that doesn't have a stream.</p> </note>
             sse_specification: <p>The new server-side encryption settings for the specified table.</p>
-            replica_updates: <p>A list of replica update actions (create, delete, or update) for the table.</p>
+            replica_updates: <p>A list of replica update actions (create, delete, update, or disassociate) for the table.</p>
             table_class: <p>The table class of the table to be updated. Valid values are <code>STANDARD</code> and <code>STANDARD_INFREQUENT_ACCESS</code>.</p>
             deletion_protection_enabled: <p>Indicates whether deletion protection is to be enabled (true) or disabled (false) on the table.</p>
             multi_region_consistency: <p>Specifies the consistency mode for a new global table. This parameter is only valid when you create a global table by specifying one or more <a href="https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ReplicationGroupUpdate.html#DDB-Type-ReplicationGroupUpdate-Create">Create</a> actions in the <a href="https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTable.html#DDB-UpdateTable-request-ReplicaUpdates">ReplicaUpdates</a> action list.</p> <p>You can specify one of the following consistency modes:</p> <ul> <li> <p> <code>EVENTUAL</code>: Configures a new global table for multi-Region eventual consistency (MREC). This is the default consistency mode for global tables.</p> </li> <li> <p> <code>STRONG</code>: Configures a new global table for multi-Region strong consistency (MRSC).</p> </li> </ul> <p>If you don't specify this field, the global table consistency mode defaults to <code>EVENTUAL</code>. For more information about global tables consistency modes, see <a href="https://docs.aws.amazon.com/V2globaltables_HowItWorks.html#V2globaltables_HowItWorks.consistency-modes"> Consistency modes</a> in DynamoDB developer guide. </p>
@@ -4538,6 +4542,7 @@ class AsyncDynamoDBClient:
             on_demand_throughput: <p>Updates the maximum number of read and write units for the specified table in on-demand capacity mode. If you use this parameter, you must specify <code>MaxReadRequestUnits</code>, <code>MaxWriteRequestUnits</code>, or both.</p>
             warm_throughput: <p>Represents the warm throughput (in read units per second and write units per second) for updating a table.</p>
             global_table_settings_replication_mode: <p>Controls the settings replication mode for a global table replica. This attribute can be defined using UpdateTable operation only on a regional table with values:</p> <ul> <li> <p> <code>ENABLED</code>: Defines settings replication on a regional table to be used as a source table for creating Multi-Account Global Table.</p> </li> <li> <p> <code>DISABLED</code>: Remove settings replication on a regional table. Settings replication needs to be defined to ENABLED again in order to create a Multi-Account Global Table using this table. </p> </li> </ul>
+            disassociation_protection_enabled: <p>Specifies whether disassociation protection is enabled (<code>true</code>) or disabled (<code>false</code>) for the local replica of a multi-Region eventual consistency (MREC) global table using Version 2019.11.21.</p> <p>Disassociation protection is enabled by default. If you omit this parameter, the existing setting is unchanged. This setting is independent of <code>DeletionProtectionEnabled</code>.</p> <p>You can't combine this change with any other change in the same <code>UpdateTable</code> request.</p>
             vector_index_updates: <p>A list of vector indexes to be added to or removed from the table. You can add or remove one vector index for each <code>UpdateTable</code> operation.</p> <p>To add a vector index, specify <code>IndexName</code>, <code>VectorAttribute</code>, <code>Dimensions</code>, <code>DistanceFunction</code>, and <code>Projection</code>. To remove a vector index, specify only the <code>IndexName</code>.</p>
 
         Raises:
@@ -4547,6 +4552,20 @@ class AsyncDynamoDBClient:
             capo_dynamodb.errors.resource_in_use_exception.ResourceInUseException: <p>The operation conflicts with the resource's availability. For example:</p> <ul> <li> <p>You attempted to recreate an existing table.</p> </li> <li> <p>You tried to delete a table currently in the <code>CREATING</code> state.</p> </li> <li> <p>You tried to update a resource that was already being updated.</p> </li> </ul> <p>When appropriate, wait for the ongoing update to complete and attempt the request again.</p>
             capo_dynamodb.errors.resource_not_found_exception.ResourceNotFoundException: <p>The operation tried to access a nonexistent table or index. The resource might not be specified correctly, or its status might not be <code>ACTIVE</code>.</p>
             capo_dynamodb.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            To modify a table's provisioned throughput
+            This example increases the provisioned read and write capacity on the Music table.
+
+            >>> await client.update_table(provisioned_throughput={'ReadCapacityUnits': 10, 'WriteCapacityUnits': 10}, table_name='MusicCollection')
+            To disable disassociation protection on a local replica
+            This example disables disassociation protection on the MusicCollection replica in us-west-2. You must send the request to us-west-2 using credentials for the account that owns the replica. Your table must be a global table that uses Version 2019.11.21 and multi-Region eventual consistency (MREC). You cannot combine this change with any other change in the same UpdateTable request. Before requesting disassociation, use DescribeTable to confirm that DisassociationProtectionEnabled is false and TableStatus is ACTIVE.
+
+            >>> await client.update_table(table_name='MusicCollection', disassociation_protection_enabled=False)
+            To disassociate a local global table replica
+            This example disassociates the MusicCollection replica in us-west-2. You must first disable protection in a separate UpdateTable request. You must send the request to us-west-2 using credentials for account 123456789012, the account that owns the replica. This request works for global tables that use Version 2019.11.21 and multi-Region eventual consistency (MREC). Replicas can belong to one account or multiple accounts. You must specify WAIT_FOR_REPLICATION. The response shows that DynamoDB accepted the asynchronous request. To confirm completion, use DescribeTable in us-west-2. Verify that TableStatus is ACTIVE and Replicas is absent or empty. ACTIVE alone does not confirm successful disassociation.
+
+            >>> await client.update_table(table_name='arn:aws:dynamodb:us-west-2:123456789012:table/MusicCollection', replica_updates=[{'Disassociate': {'RegionName': 'us-west-2', 'DisassociationMode': 'WAIT_FOR_REPLICATION'}}])
         """
 
         async def _handler(
@@ -4599,6 +4618,10 @@ class AsyncDynamoDBClient:
         if global_table_settings_replication_mode is not None:
             input_["global_table_settings_replication_mode"] = (
                 global_table_settings_replication_mode
+            )
+        if disassociation_protection_enabled is not None:
+            input_["disassociation_protection_enabled"] = (
+                disassociation_protection_enabled
             )
         if vector_index_updates is not None:
             input_["vector_index_updates"] = vector_index_updates

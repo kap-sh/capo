@@ -36,6 +36,7 @@ from capo_cloudwatch.errors import ServiceError, WaiterTimeoutError
 
 if TYPE_CHECKING:
     import capo_cloudwatch.types.account_id
+    import capo_cloudwatch.types.action_configuration
     import capo_cloudwatch.types.action_log_line_count
     import capo_cloudwatch.types.action_log_line_role_arn
     import capo_cloudwatch.types.action_prefix
@@ -2119,7 +2120,7 @@ class CloudWatchClient:
             "capo_cloudwatch.types.output_format.OutputFormat"
         ] = None,
     ) -> "capo_cloudwatch.types.get_metric_widget_image_output.GetMetricWidgetImageOutput":
-        """<p>You can use the <code>GetMetricWidgetImage</code> API to retrieve a snapshot graph of one or more Amazon CloudWatch metrics as a bitmap image. You can then embed this image into your services and products, such as wiki pages, reports, and documents. You could also retrieve images regularly, such as every minute, and create your own custom live dashboard.</p> <p>The graph you retrieve can include all CloudWatch metric graph features, including metric math and horizontal and vertical annotations.</p> <p>There is a limit of 20 transactions per second for this API. Each <code>GetMetricWidgetImage</code> action has the following limits:</p> <ul> <li> <p>As many as 100 metrics in the graph.</p> </li> <li> <p>Up to 100 KB uncompressed payload.</p> </li> </ul>
+        """<p>You can use the <code>GetMetricWidgetImage</code> API to retrieve a snapshot graph of one or more Amazon CloudWatch metrics as a bitmap image. You can then embed this image into your services and products, such as wiki pages, reports, and documents. You could also retrieve images regularly, such as every minute, and create your own custom live dashboard.</p> <note> <p> <code>GetMetricWidgetImage</code> is not available in the Amazon Web Services GovCloud (US) Regions. In those Regions, calls to this operation fail. For the list of Amazon CloudWatch features that are not available in Amazon Web Services GovCloud (US), see <a href="https://docs.aws.amazon.com/govcloud-us/latest/UserGuide/govcloud-cw.html">Amazon CloudWatch in Amazon Web Services GovCloud (US)</a>.</p> </note> <p>The graph you retrieve can include all CloudWatch metric graph features, including metric math and horizontal and vertical annotations.</p> <p>There is a limit of 20 transactions per second for this API. Each <code>GetMetricWidgetImage</code> action has the following limits:</p> <ul> <li> <p>As many as 100 metrics in the graph.</p> </li> <li> <p>Up to 100 KB uncompressed payload.</p> </li> </ul>
 
         Args:
             metric_widget: <p>A JSON string that defines the bitmap graph to be retrieved. The string includes the metrics to include in the graph, statistics, annotations, title, axis limits, and so on. You can include only one <code>MetricWidget</code> parameter in each <code>GetMetricWidgetImage</code> call.</p> <p>For more information about the syntax of <code>MetricWidget</code> see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Metric-Widget-Structure.html">GetMetricWidgetImage: Metric Widget Structure and Syntax</a>.</p> <p>If any metric on the graph could not load all the requested data points, an orange triangle with an exclamation point appears next to the graph legend.</p>
@@ -2907,6 +2908,9 @@ class CloudWatchClient:
         actions_suppressor_extension_period: Optional[
             "capo_cloudwatch.types.suppressor_period.SuppressorPeriod"
         ] = None,
+        action_configuration: Optional[
+            "capo_cloudwatch.types.action_configuration.ActionConfiguration"
+        ] = None,
     ) -> None:
         """<p>Creates or updates a <i>composite alarm</i>. When you create a composite alarm, you specify a rule expression for the alarm that takes into account the alarm states of other alarms that you have created. The composite alarm goes into ALARM state only if all conditions of the rule are met.</p> <p>The alarms specified in a composite alarm's rule expression can include metric alarms and other composite alarms. The rule expression of a composite alarm can include as many as 100 underlying alarms. Any single alarm can be included in the rule expressions of as many as 150 composite alarms.</p> <p>Using composite alarms can reduce alarm noise. You can create multiple metric alarms, and also create a composite alarm and set up alerts only for the composite alarm. For example, you could create a composite alarm that goes into ALARM state only when more than one of the underlying metric alarms are in ALARM state.</p> <p>Composite alarms can take the following actions:</p> <ul> <li> <p>Notify Amazon SNS topics.</p> </li> <li> <p>Invoke Lambda functions.</p> </li> <li> <p>Create OpsItems in Systems Manager Ops Center.</p> </li> <li> <p>Create incidents in Systems Manager Incident Manager.</p> </li> </ul> <note> <p>It is possible to create a loop or cycle of composite alarms, where composite alarm A depends on composite alarm B, and composite alarm B also depends on composite alarm A. In this scenario, you can't delete any composite alarm that is part of the cycle because there is always still a composite alarm that depends on that alarm that you want to delete.</p> <p>To get out of such a situation, you must break the cycle by changing the rule of one of the composite alarms in the cycle to remove a dependency that creates the cycle. The simplest change to make to break a cycle is to change the <code>AlarmRule</code> of one of the alarms to <code>false</code>. </p> <p>Additionally, the evaluation of composite alarms stops if CloudWatch detects a cycle in the evaluation path. </p> </note> <p>When this operation creates an alarm, the alarm state is immediately set to <code>INSUFFICIENT_DATA</code>. The alarm is then evaluated and its state is set appropriately. Any actions associated with the new state are then executed. For a composite alarm, this initial time after creation is the only time that the alarm can be in <code>INSUFFICIENT_DATA</code> state.</p> <p>When you update an existing alarm, its state is left unchanged, but the update completely overwrites the previous configuration of the alarm.</p> <p>To use this operation, you must be signed on with the <code>cloudwatch:PutCompositeAlarm</code> permission that is scoped to <code>*</code>. You can't create a composite alarms if your <code>cloudwatch:PutCompositeAlarm</code> permission has a narrower scope.</p> <p>If you are an IAM user, you must have <code>iam:CreateServiceLinkedRole</code> to create a composite alarm that has Systems Manager OpsItem actions.</p>
 
@@ -2922,6 +2926,7 @@ class CloudWatchClient:
             actions_suppressor: <p> Actions will be suppressed if the suppressor alarm is in the <code>ALARM</code> state. <code>ActionsSuppressor</code> can be an AlarmName or an Amazon Resource Name (ARN) from an existing alarm. </p>
             actions_suppressor_wait_period: <p> The maximum time in seconds that the composite alarm waits for the suppressor alarm to go into the <code>ALARM</code> state. After this time, the composite alarm performs its actions. </p> <important> <p> <code>WaitPeriod</code> is required only when <code>ActionsSuppressor</code> is specified. </p> </important>
             actions_suppressor_extension_period: <p> The maximum time in seconds that the composite alarm waits after suppressor alarm goes out of the <code>ALARM</code> state. After this time, the composite alarm performs its actions. </p> <important> <p> <code>ExtensionPeriod</code> is required only when <code>ActionsSuppressor</code> is specified. </p> </important>
+            action_configuration: <p>Settings that change the content of the notifications and events that the alarm sends when its state changes. These settings apply to the alarm's actions, whichever state triggers them.</p>
 
         Raises:
             capo_cloudwatch.errors.limit_exceeded_fault.LimitExceededFault: <p>The quota for alarms for this customer has already been reached.</p>
@@ -2968,6 +2973,8 @@ class CloudWatchClient:
             input_["actions_suppressor_extension_period"] = (
                 actions_suppressor_extension_period
             )
+        if action_configuration is not None:
+            input_["action_configuration"] = action_configuration
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -3151,6 +3158,9 @@ class CloudWatchClient:
         warm_up_configuration: Optional[
             "capo_cloudwatch.types.warm_up_configuration.WarmUpConfiguration"
         ] = None,
+        action_configuration: Optional[
+            "capo_cloudwatch.types.action_configuration.ActionConfiguration"
+        ] = None,
     ) -> None:
         """<p>Creates or updates a log alarm. A log alarm evaluates the results of a CloudWatch Logs scheduled query against the configured threshold and comparison operator to determine its state.</p> <p>When you create a log alarm, the operation creates a service-managed CloudWatch Logs scheduled query that runs the query string you provide on the schedule you configure. Each scheduled query execution returns one or more aggregated values determined by the <code>AggregationExpression</code>, and each aggregated value is compared against the alarm <code>Threshold</code> to determine the alarm state. The alarm uses M-out-of-N evaluation: if <code>QueryResultsToAlarm</code> out of the most recent <code>QueryResultsToEvaluate</code> query results breach the threshold, the alarm transitions to <code>ALARM</code>.</p> <p>Log alarms support the alarm states (<code>OK</code>, <code>ALARM</code>, <code>INSUFFICIENT_DATA</code>). Configure transition actions using <code>OKActions</code>, <code>AlarmActions</code>, and <code>InsufficientDataActions</code>.</p> <p>If you call this operation with the name of an existing log alarm, the operation replaces the previous configuration of that alarm.</p> <p> <b>Permissions</b> </p> <p>To create or update a log alarm, you must have the <code>cloudwatch:PutLogAlarm</code> permission. The IAM role specified in <code>ScheduledQueryRoleARN</code> must grant the CloudWatch Alarms service permission to execute scheduled queries on the specified log groups. If you set <code>ActionLogLineCount</code>, the role specified in <code>ActionLogLineRoleArn</code> must grant permission to retrieve log events for inclusion in alarm notifications.</p>
 
@@ -3171,6 +3181,7 @@ class CloudWatchClient:
             treat_missing_data: <p>Sets how this alarm is to handle missing data points. Valid values are <code>breaching</code>, <code>notBreaching</code>, <code>ignore</code>, and <code>missing</code>. If this parameter is omitted, the default behavior of <code>missing</code> is used.</p>
             tags: <p>A list of key-value pairs to associate with the alarm. You can use tags to categorize and manage your alarms.</p>
             warm_up_configuration: <p>The warm-up configuration for the alarm. A warm-up period delays alarm evaluation after you create or update the alarm. The warm-up period reduces alarm noise from missing data while a new resource or service starts publishing data.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/alarm-warm-up.html">Alarm warm-up periods</a> in the <i>Amazon CloudWatch User Guide</i>.</p>
+            action_configuration: <p>Settings that change the content of the notifications and events that the alarm sends when its state changes. These settings apply to the alarm's actions, whichever state triggers them.</p>
 
         Raises:
             capo_cloudwatch.errors.limit_exceeded_fault.LimitExceededFault: <p>The quota for alarms for this customer has already been reached.</p>
@@ -3226,6 +3237,8 @@ class CloudWatchClient:
             input_["tags"] = tags
         if warm_up_configuration is not None:
             input_["warm_up_configuration"] = warm_up_configuration
+        if action_configuration is not None:
+            input_["action_configuration"] = action_configuration
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -3345,6 +3358,9 @@ class CloudWatchClient:
         evaluation_interval: Optional[
             "capo_cloudwatch.types.evaluation_interval.EvaluationInterval"
         ] = None,
+        action_configuration: Optional[
+            "capo_cloudwatch.types.action_configuration.ActionConfiguration"
+        ] = None,
     ) -> None:
         """<p>Creates or updates an alarm and associates it with the specified metric, metric math expression, anomaly detection model, Metrics Insights query, or PromQL query. For more information about using a Metrics Insights query for an alarm, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Create_Metrics_Insights_Alarm.html">Create alarms on Metrics Insights queries</a>.</p> <p>Alarms based on anomaly detection models cannot have Auto Scaling actions.</p> <p>When this operation creates an alarm, the alarm state is immediately set to <code>INSUFFICIENT_DATA</code>. For PromQL alarms, the alarm state is instead immediately set to <code>OK</code>. The alarm is then evaluated and its state is set appropriately. Any actions associated with the new state are then executed.</p> <p>When you update an existing alarm, its state is left unchanged, but the update completely overwrites the previous configuration of the alarm.</p> <p>If you are an IAM user, you must have Amazon EC2 permissions for some alarm operations:</p> <ul> <li> <p>The <code>iam:CreateServiceLinkedRole</code> permission for all alarms with EC2 actions</p> </li> <li> <p>The <code>iam:CreateServiceLinkedRole</code> permissions to create an alarm with Systems Manager OpsItem or response plan actions.</p> </li> </ul> <p>The first time you create an alarm in the Amazon Web Services Management Console, the CLI, or by using the PutMetricAlarm API, CloudWatch creates the necessary service-linked role for you. The service-linked roles are called <code>AWSServiceRoleForCloudWatchEvents</code> and <code>AWSServiceRoleForCloudWatchAlarms_ActionSSM</code>. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-linked-role">Amazon Web Services service-linked role</a>.</p> <p>Each <code>PutMetricAlarm</code> action has a maximum uncompressed payload of 120 KB.</p> <p> <b>Cross-account alarms</b> </p> <p>You can set an alarm on metrics in the current account, or in another account. To create a cross-account alarm that watches a metric in a different account, you must have completed the following pre-requisites:</p> <ul> <li> <p>The account where the metrics are located (the <i>sharing account</i>) must already have a sharing role named <b>CloudWatch-CrossAccountSharingRole</b>. If it does not already have this role, you must create it using the instructions in <b>Set up a sharing account</b> in <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Cross-Account-Cross-Region.html#enable-cross-account-cross-Region"> Cross-account cross-Region CloudWatch console</a>. The policy for that role must grant access to the ID of the account where you are creating the alarm. </p> </li> <li> <p>The account where you are creating the alarm (the <i>monitoring account</i>) must already have a service-linked role named <b>AWSServiceRoleForCloudWatchCrossAccount</b> to allow CloudWatch to assume the sharing role in the sharing account. If it does not, you must create it following the directions in <b>Set up a monitoring account</b> in <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Cross-Account-Cross-Region.html#enable-cross-account-cross-Region"> Cross-account cross-Region CloudWatch console</a>.</p> </li> </ul>
 
@@ -3375,6 +3391,7 @@ class CloudWatchClient:
             warm_up_configuration: <p>The warm-up configuration for the alarm. A warm-up period delays alarm evaluation after you create or update the alarm. The warm-up period reduces alarm noise from missing data while a new resource or service starts publishing metrics.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/alarm-warm-up.html">Alarm warm-up periods</a> in the <i>Amazon CloudWatch User Guide</i>.</p>
             evaluation_criteria: <p>The evaluation criteria for the alarm. For each <code>PutMetricAlarm</code> operation, you must specify either <code>MetricName</code>, a <code>Metrics</code> array, or an <code>EvaluationCriteria</code>.</p> <p>If you use the <code>EvaluationCriteria</code> parameter, you cannot include the <code>Namespace</code>, <code>MetricName</code>, <code>Dimensions</code>, <code>Period</code>, <code>Unit</code>, <code>Statistic</code>, <code>ExtendedStatistic</code>, <code>Metrics</code>, <code>Threshold</code>, <code>ComparisonOperator</code>, <code>ThresholdMetricId</code>, <code>EvaluationPeriods</code>, or <code>DatapointsToAlarm</code> parameters of <code>PutMetricAlarm</code> in the same operation. Instead, all evaluation parameters are defined within this structure.</p> <p>For an example of how to use this parameter, see the <b>PromQL alarm</b> example on this page.</p>
             evaluation_interval: <p>The frequency, in seconds, at which the alarm is evaluated. Valid values are 10, 20, 30, and any multiple of 60.</p> <p>This parameter is required for alarms that use <code>EvaluationCriteria</code>, and cannot be specified for alarms configured with <code>MetricName</code> or <code>Metrics</code>.</p>
+            action_configuration: <p>Settings that change the content of the notifications and events that the alarm sends when its state changes. These settings apply to the alarm's actions, whichever state triggers them.</p>
 
         Raises:
             capo_cloudwatch.errors.limit_exceeded_fault.LimitExceededFault: <p>The quota for alarms for this customer has already been reached.</p>
@@ -3451,6 +3468,8 @@ class CloudWatchClient:
             input_["evaluation_criteria"] = evaluation_criteria
         if evaluation_interval is not None:
             input_["evaluation_interval"] = evaluation_interval
+        if action_configuration is not None:
+            input_["action_configuration"] = action_configuration
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

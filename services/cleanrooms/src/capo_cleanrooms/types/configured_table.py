@@ -15,6 +15,7 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.selected_analysis_methods
     import capo_cleanrooms.types.table_description
     import capo_cleanrooms.types.table_reference
+    import capo_cleanrooms.types.table_reference_type
     import capo_cleanrooms.types.uuid
 
 
@@ -29,6 +30,10 @@ class ConfiguredTable(TypedDict, closed=True):
     """<p>A description for the configured table.</p>"""
     table_reference: "capo_cleanrooms.types.table_reference.TableReference"
     """<p>The table that this configured table represents.</p>"""
+    table_type: NotRequired[
+        "capo_cleanrooms.types.table_reference_type.TableReferenceType"
+    ]
+    """<p>Type of the Configured Table DataSource, example: Glue, Snowflake, Athena, Databricks</p>"""
     create_time: "datetime.datetime"
     """<p>The time the configured table was created.</p>"""
     update_time: "datetime.datetime"
@@ -58,6 +63,12 @@ def serialize_json(value: ConfiguredTable) -> dict:
     out["tableReference"] = capo_cleanrooms.types.table_reference.serialize_json(
         value["table_reference"]
     )
+    if "table_type" in value:
+        import capo_cleanrooms.types.table_reference_type
+
+        out["tableType"] = capo_cleanrooms.types.table_reference_type.serialize_json(
+            value["table_type"]
+        )
     import capo_cleanrooms.types._prelude.timestamp
 
     out["createTime"] = capo_cleanrooms.types._prelude.timestamp.serialize_json(
@@ -122,6 +133,12 @@ def deserialize_json(data: dict) -> ConfiguredTable:
         import capo_cleanrooms.types._unknown
 
         out["table_reference"] = capo_cleanrooms.types._unknown.UnknownUnionMember("")
+    if data.get("tableType") is not None:
+        import capo_cleanrooms.types.table_reference_type
+
+        out["table_type"] = capo_cleanrooms.types.table_reference_type.deserialize_json(
+            data["tableType"]
+        )
     if data.get("createTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
 

@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_connect.types.security_profile_description
     import capo_connect.types.security_profile_id
     import capo_connect.types.security_profile_name
+    import capo_connect.types.security_profile_type
     import capo_connect.types.tag_map
 
 
@@ -30,6 +31,8 @@ class SecurityProfileSearchSummary(TypedDict, closed=True):
     """<p>The description of the security profile.</p>"""
     tags: NotRequired["capo_connect.types.tag_map.TagMap"]
     """<p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>"""
+    type: NotRequired["capo_connect.types.security_profile_type.SecurityProfileType"]
+    """<p>The type of the security profile: <code>AWS_MANAGED</code> or <code>CUSTOMER_MANAGED</code>.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -49,6 +52,12 @@ def serialize_json(value: SecurityProfileSearchSummary) -> dict:
         import capo_connect.types.tag_map
 
         out["Tags"] = capo_connect.types.tag_map.serialize_json(value["tags"])
+    if "type" in value:
+        import capo_connect.types.security_profile_type
+
+        out["Type"] = capo_connect.types.security_profile_type.serialize_json(
+            value["type"]
+        )
     return out
 
 
@@ -68,4 +77,10 @@ def deserialize_json(data: dict) -> SecurityProfileSearchSummary:
         import capo_connect.types.tag_map
 
         out["tags"] = capo_connect.types.tag_map.deserialize_json(data["Tags"])
+    if data.get("Type") is not None:
+        import capo_connect.types.security_profile_type
+
+        out["type"] = capo_connect.types.security_profile_type.deserialize_json(
+            data["Type"]
+        )
     return out

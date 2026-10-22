@@ -26,6 +26,7 @@ import capo_ecs.types.create_service_request
 import capo_ecs.types.create_service_response
 import capo_ecs.types.deployment_configuration
 import capo_ecs.types.deployment_controller
+import capo_ecs.types.gateway_connector_list
 import capo_ecs.types.launch_type
 import capo_ecs.types.load_balancers
 import capo_ecs.types.monitoring_configuration

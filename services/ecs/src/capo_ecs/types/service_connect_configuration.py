@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_ecs.types.boolean
     import capo_ecs.types.log_configuration
     import capo_ecs.types.service_connect_access_log_configuration
+    import capo_ecs.types.service_connect_container_configurations
     import capo_ecs.types.service_connect_service_list
     import capo_ecs.types.string
 
@@ -26,6 +27,10 @@ class ServiceConnectConfiguration(TypedDict, closed=True):
         "capo_ecs.types.service_connect_access_log_configuration.ServiceConnectAccessLogConfiguration"
     ]
     """<p>The configuration for Service Connect access logging. Access logs capture detailed information about requests made to your service, including request patterns, response codes, and timing data. They can be useful for debugging connectivity issues, monitoring service performance, and auditing service-to-service communication for security and compliance purposes.</p> <note> <p>To enable access logs, you must also specify a <code>logConfiguration</code> in the <code>serviceConnectConfiguration</code>.</p> </note>"""
+    container_configurations: NotRequired[
+        "capo_ecs.types.service_connect_container_configurations.ServiceConnectContainerConfigurations"
+    ]
+    """<p>The settings for the Service Connect proxy container that Amazon ECS adds to each task in this service. Each object in the list sets exactly one setting, and each setting can appear only once in the list.</p> <p>Your changes to these settings apply only to tasks that Amazon ECS launches after you update the service. Your running tasks keep their existing settings until Amazon ECS replaces them. If you update the <code>serviceConnectConfiguration</code> of your service and don't include <code>containerConfigurations</code>, the proxy container settings return to their defaults.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -56,6 +61,14 @@ def serialize_aws_json_1_1(value: ServiceConnectConfiguration) -> dict:
         out["accessLogConfiguration"] = (
             capo_ecs.types.service_connect_access_log_configuration.serialize_aws_json_1_1(
                 value["access_log_configuration"]
+            )
+        )
+    if "container_configurations" in value:
+        import capo_ecs.types.service_connect_container_configurations
+
+        out["containerConfigurations"] = (
+            capo_ecs.types.service_connect_container_configurations.serialize_aws_json_1_1(
+                value["container_configurations"]
             )
         )
     return out
@@ -91,6 +104,14 @@ def deserialize_aws_json_1_1(data: dict) -> ServiceConnectConfiguration:
         out["access_log_configuration"] = (
             capo_ecs.types.service_connect_access_log_configuration.deserialize_aws_json_1_1(
                 data["accessLogConfiguration"]
+            )
+        )
+    if data.get("containerConfigurations") is not None:
+        import capo_ecs.types.service_connect_container_configurations
+
+        out["container_configurations"] = (
+            capo_ecs.types.service_connect_container_configurations.deserialize_aws_json_1_1(
+                data["containerConfigurations"]
             )
         )
     return out

@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_dynamodb.types.attribute_definitions
     import capo_dynamodb.types.billing_mode
     import capo_dynamodb.types.deletion_protection_enabled
+    import capo_dynamodb.types.disassociation_protection_enabled
     import capo_dynamodb.types.global_secondary_index_update_list
     import capo_dynamodb.types.global_table_settings_replication_mode
     import capo_dynamodb.types.global_table_witness_group_update_list
@@ -51,7 +52,7 @@ class UpdateTableInput(TypedDict, closed=True):
     replica_updates: NotRequired[
         "capo_dynamodb.types.replication_group_update_list.ReplicationGroupUpdateList"
     ]
-    """<p>A list of replica update actions (create, delete, or update) for the table.</p>"""
+    """<p>A list of replica update actions (create, delete, update, or disassociate) for the table.</p>"""
     table_class: NotRequired["capo_dynamodb.types.table_class.TableClass"]
     """<p>The table class of the table to be updated. Valid values are <code>STANDARD</code> and <code>STANDARD_INFREQUENT_ACCESS</code>.</p>"""
     deletion_protection_enabled: NotRequired[
@@ -76,6 +77,10 @@ class UpdateTableInput(TypedDict, closed=True):
         "capo_dynamodb.types.global_table_settings_replication_mode.GlobalTableSettingsReplicationMode"
     ]
     """<p>Controls the settings replication mode for a global table replica. This attribute can be defined using UpdateTable operation only on a regional table with values:</p> <ul> <li> <p> <code>ENABLED</code>: Defines settings replication on a regional table to be used as a source table for creating Multi-Account Global Table.</p> </li> <li> <p> <code>DISABLED</code>: Remove settings replication on a regional table. Settings replication needs to be defined to ENABLED again in order to create a Multi-Account Global Table using this table. </p> </li> </ul>"""
+    disassociation_protection_enabled: NotRequired[
+        "capo_dynamodb.types.disassociation_protection_enabled.DisassociationProtectionEnabled"
+    ]
+    """<p>Specifies whether disassociation protection is enabled (<code>true</code>) or disabled (<code>false</code>) for the local replica of a multi-Region eventual consistency (MREC) global table using Version 2019.11.21.</p> <p>Disassociation protection is enabled by default. If you omit this parameter, the existing setting is unchanged. This setting is independent of <code>DeletionProtectionEnabled</code>.</p> <p>You can't combine this change with any other change in the same <code>UpdateTable</code> request.</p>"""
     vector_index_updates: NotRequired[
         "capo_dynamodb.types.vector_index_update_list.VectorIndexUpdateList"
     ]
@@ -188,6 +193,10 @@ def serialize_aws_json_1_0(value: UpdateTableInput) -> dict:
                 value["global_table_settings_replication_mode"]
             )
         )
+    if "disassociation_protection_enabled" in value:
+        out["DisassociationProtectionEnabled"] = value[
+            "disassociation_protection_enabled"
+        ]
     if "vector_index_updates" in value:
         import capo_dynamodb.types.vector_index_update_list
 
@@ -307,6 +316,10 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateTableInput:
                 data["GlobalTableSettingsReplicationMode"]
             )
         )
+    if data.get("DisassociationProtectionEnabled") is not None:
+        out["disassociation_protection_enabled"] = data[
+            "DisassociationProtectionEnabled"
+        ]
     if data.get("VectorIndexUpdates") is not None:
         import capo_dynamodb.types.vector_index_update_list
 

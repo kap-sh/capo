@@ -8,6 +8,7 @@ from capo_bedrock_agent_runtime.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.agentic_retrieve_configuration
+    import capo_bedrock_agent_runtime.types.agentic_retrieve_instruction_configuration
     import capo_bedrock_agent_runtime.types.agentic_retrieve_memory_configuration
     import capo_bedrock_agent_runtime.types.agentic_retrieve_messages
     import capo_bedrock_agent_runtime.types.agentic_retrieve_policy_configuration
@@ -37,6 +38,10 @@ class AgenticRetrieveStreamRequest(TypedDict, closed=True):
         "capo_bedrock_agent_runtime.types.agentic_retrieve_memory_configuration.AgenticRetrieveMemoryConfiguration"
     ]
     """<p>The configuration for using an Amazon Bedrock AgentCore Memory resource with this retrieval.</p>"""
+    retrieval_instruction_configuration: NotRequired[
+        "capo_bedrock_agent_runtime.types.agentic_retrieve_instruction_configuration.AgenticRetrieveInstructionConfiguration"
+    ]
+    """<p>A retrieval instruction to apply to this request.</p>"""
     generate_response: NotRequired["bool"]
     """<p>Whether to generate a response based on the retrieved results.</p>"""
 
@@ -89,6 +94,14 @@ def serialize_json(value: AgenticRetrieveStreamRequest) -> dict:
         out["memoryConfiguration"] = (
             capo_bedrock_agent_runtime.types.agentic_retrieve_memory_configuration.serialize_json(
                 value["memory_configuration"]
+            )
+        )
+    if "retrieval_instruction_configuration" in value:
+        import capo_bedrock_agent_runtime.types.agentic_retrieve_instruction_configuration
+
+        out["retrievalInstructionConfiguration"] = (
+            capo_bedrock_agent_runtime.types.agentic_retrieve_instruction_configuration.serialize_json(
+                value["retrieval_instruction_configuration"]
             )
         )
     if "generate_response" in value:
@@ -154,6 +167,14 @@ def deserialize_json(data: dict) -> AgenticRetrieveStreamRequest:
         out["memory_configuration"] = (
             capo_bedrock_agent_runtime.types.agentic_retrieve_memory_configuration.deserialize_json(
                 data["memoryConfiguration"]
+            )
+        )
+    if data.get("retrievalInstructionConfiguration") is not None:
+        import capo_bedrock_agent_runtime.types.agentic_retrieve_instruction_configuration
+
+        out["retrieval_instruction_configuration"] = (
+            capo_bedrock_agent_runtime.types.agentic_retrieve_instruction_configuration.deserialize_json(
+                data["retrievalInstructionConfiguration"]
             )
         )
     if data.get("generateResponse") is not None:

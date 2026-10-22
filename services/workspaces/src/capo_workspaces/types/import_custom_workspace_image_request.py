@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_workspaces.types.custom_image_protocol
     import capo_workspaces.types.image_compute_type
     import capo_workspaces.types.image_source_identifier
+    import capo_workspaces.types.image_validation_mode
     import capo_workspaces.types.infrastructure_configuration_arn
     import capo_workspaces.types.os_version
     import capo_workspaces.types.platform
@@ -37,6 +38,10 @@ class ImportCustomWorkspaceImageRequest(TypedDict, closed=True):
     """<p>The OS version for the WorkSpace image source.</p>"""
     tags: NotRequired["capo_workspaces.types.tag_list.TagList"]
     """<p>The resource tags. Each WorkSpaces resource can have a maximum of 50 tags.</p>"""
+    image_validation_mode: NotRequired[
+        "capo_workspaces.types.image_validation_mode.ImageValidationMode"
+    ]
+    """<p>The image validation mode for the WorkSpace image import.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -81,6 +86,14 @@ def serialize_aws_json_1_1(value: ImportCustomWorkspaceImageRequest) -> dict:
 
         out["Tags"] = capo_workspaces.types.tag_list.serialize_aws_json_1_1(
             value["tags"]
+        )
+    if "image_validation_mode" in value:
+        import capo_workspaces.types.image_validation_mode
+
+        out["ImageValidationMode"] = (
+            capo_workspaces.types.image_validation_mode.serialize_aws_json_1_1(
+                value["image_validation_mode"]
+            )
         )
     return out
 
@@ -166,5 +179,13 @@ def deserialize_aws_json_1_1(data: dict) -> ImportCustomWorkspaceImageRequest:
 
         out["tags"] = capo_workspaces.types.tag_list.deserialize_aws_json_1_1(
             data["Tags"]
+        )
+    if data.get("ImageValidationMode") is not None:
+        import capo_workspaces.types.image_validation_mode
+
+        out["image_validation_mode"] = (
+            capo_workspaces.types.image_validation_mode.deserialize_aws_json_1_1(
+                data["ImageValidationMode"]
+            )
         )
     return out

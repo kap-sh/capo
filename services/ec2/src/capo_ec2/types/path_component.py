@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     import capo_ec2.types.analysis_packet_header
     import capo_ec2.types.analysis_route_table_route
     import capo_ec2.types.analysis_security_group_rule
+    import capo_ec2.types.analysis_transit_gateway_policy_table_entry
     import capo_ec2.types.explanation_list
     import capo_ec2.types.firewall_stateful_rule
     import capo_ec2.types.firewall_stateless_rule
@@ -64,6 +65,10 @@ class PathComponent(TypedDict, closed=True):
         "capo_ec2.types.transit_gateway_route_table_route.TransitGatewayRouteTableRoute"
     ]
     """<p>The route in a transit gateway route table.</p>"""
+    transit_gateway_policy_table_entry: NotRequired[
+        "capo_ec2.types.analysis_transit_gateway_policy_table_entry.AnalysisTransitGatewayPolicyTableEntry"
+    ]
+    """<p>The entry in a transit gateway policy table.</p>"""
     explanations: NotRequired["capo_ec2.types.explanation_list.ExplanationList"]
     """<p>The explanation codes.</p>"""
     elastic_load_balancer_listener: NotRequired[
@@ -174,6 +179,14 @@ def serialize_ec2_query(
             value["transit_gateway_route_table_route"],
             pairs,
             f"{key_prefix}TransitGatewayRouteTableRoute",
+        )
+    if "transit_gateway_policy_table_entry" in value:
+        import capo_ec2.types.analysis_transit_gateway_policy_table_entry
+
+        capo_ec2.types.analysis_transit_gateway_policy_table_entry.serialize_ec2_query(
+            value["transit_gateway_policy_table_entry"],
+            pairs,
+            f"{key_prefix}TransitGatewayPolicyTableEntry",
         )
     if "explanations" in value:
         import capo_ec2.types.explanation_list
@@ -322,6 +335,15 @@ def deserialize_ec2_query(el: Element) -> PathComponent:
         out["transit_gateway_route_table_route"] = (
             capo_ec2.types.transit_gateway_route_table_route.deserialize_ec2_query(
                 child_transit_gateway_route_table_route
+            )
+        )
+    child_transit_gateway_policy_table_entry = el.find("transitGatewayPolicyTableEntry")
+    if child_transit_gateway_policy_table_entry is not None:
+        import capo_ec2.types.analysis_transit_gateway_policy_table_entry
+
+        out["transit_gateway_policy_table_entry"] = (
+            capo_ec2.types.analysis_transit_gateway_policy_table_entry.deserialize_ec2_query(
+                child_transit_gateway_policy_table_entry
             )
         )
     child_explanations = el.find("explanationSet")

@@ -37,6 +37,8 @@ def deserialize_aws_json_1_0(data: dict) -> GetActivityTaskOutput:
 
 def redact_sensitive(value: GetActivityTaskOutput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
+    if "task_token" in value:
+        out["task_token"] = "*** Sensitive Data Redacted ***"
     if "input" in value:
         out["input"] = "*** Sensitive Data Redacted ***"
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.boxed_boolean
     import capo_lex_models_v2.types.conditional_specification
@@ -17,10 +15,10 @@ if TYPE_CHECKING:
 
 
 class IntentConfirmationSetting(TypedDict, closed=True):
-    prompt_specification: (
+    prompt_specification: NotRequired[
         "capo_lex_models_v2.types.prompt_specification.PromptSpecification"
-    )
-    """<p>Prompts the user to confirm the intent. This question should have a yes or no answer.</p> <p>Amazon Lex uses this prompt to ensure that the user acknowledges that the intent is ready for fulfillment. For example, with the <code>OrderPizza</code> intent, you might want to confirm that the order is correct before placing it. For other intents, such as intents that simply respond to user questions, you might not need to ask the user for confirmation before providing the information. </p>"""
+    ]
+    """<p>Prompts the user to confirm the intent. This question should have a yes or no answer.</p> <p>Amazon Lex uses this prompt to ensure that the user acknowledges that the intent is ready for fulfillment. For example, with the <code>OrderPizza</code> intent, you might want to confirm that the order is correct before placing it. For other intents, such as intents that simply respond to user questions, you might not need to ask the user for confirmation before providing the information. </p> <p>Required unless the bot locale's <code>assistedNluMode</code> is <code>DialogManager</code>, in which case Amazon Lex generates the confirmation prompt.</p>"""
     declination_response: NotRequired[
         "capo_lex_models_v2.types.response_specification.ResponseSpecification"
     ]
@@ -67,13 +65,14 @@ class IntentConfirmationSetting(TypedDict, closed=True):
 # --- restJson1 ser/de ---
 def serialize_json(value: IntentConfirmationSetting) -> dict:
     out: dict = {}
-    import capo_lex_models_v2.types.prompt_specification
+    if "prompt_specification" in value:
+        import capo_lex_models_v2.types.prompt_specification
 
-    out["promptSpecification"] = (
-        capo_lex_models_v2.types.prompt_specification.serialize_json(
-            value["prompt_specification"]
+        out["promptSpecification"] = (
+            capo_lex_models_v2.types.prompt_specification.serialize_json(
+                value["prompt_specification"]
+            )
         )
-    )
     if "declination_response" in value:
         import capo_lex_models_v2.types.response_specification
 
@@ -174,10 +173,6 @@ def deserialize_json(data: dict) -> IntentConfirmationSetting:
             capo_lex_models_v2.types.prompt_specification.deserialize_json(
                 data["promptSpecification"]
             )
-        )
-    else:
-        raise DeserializationError(
-            "IntentConfirmationSetting.prompt_specification required"
         )
     if data.get("declinationResponse") is not None:
         import capo_lex_models_v2.types.response_specification

@@ -127,6 +127,7 @@ from .invalid_user_state_fault import InvalidUserStateFault as InvalidUserStateF
 from .invalid_vpc_network_state_fault import (
     InvalidVPCNetworkStateFault as InvalidVPCNetworkStateFault,
 )
+from .migration_health_fault import MigrationHealthFault as MigrationHealthFault
 from .no_operation_fault import NoOperationFault as NoOperationFault
 from .node_group_not_found_fault import NodeGroupNotFoundFault as NodeGroupNotFoundFault
 from .node_groups_per_replication_group_quota_exceeded_fault import (
@@ -165,8 +166,14 @@ from .reserved_cache_nodes_offering_not_found_fault import (
 from .serverless_cache_already_exists_fault import (
     ServerlessCacheAlreadyExistsFault as ServerlessCacheAlreadyExistsFault,
 )
+from .serverless_cache_already_under_migration_fault import (
+    ServerlessCacheAlreadyUnderMigrationFault as ServerlessCacheAlreadyUnderMigrationFault,
+)
 from .serverless_cache_not_found_fault import (
     ServerlessCacheNotFoundFault as ServerlessCacheNotFoundFault,
+)
+from .serverless_cache_not_under_migration_fault import (
+    ServerlessCacheNotUnderMigrationFault as ServerlessCacheNotUnderMigrationFault,
 )
 from .serverless_cache_quota_for_customer_exceeded_fault import (
     ServerlessCacheQuotaForCustomerExceededFault as ServerlessCacheQuotaForCustomerExceededFault,

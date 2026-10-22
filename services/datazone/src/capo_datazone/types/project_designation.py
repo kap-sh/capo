@@ -6,6 +6,7 @@ ProjectDesignation: TypeAlias = Literal[
     "OWNER",
     "CONTRIBUTOR",
     "PROJECT_CATALOG_STEWARD",
+    "USER_CREATED_DESIGNATION",
 ]
 
 

@@ -12,6 +12,7 @@ import capo_rds._auth._signers
 import capo_rds._auth._sigv4
 import capo_rds._protocol.eventstream
 import capo_rds.errors.blue_green_deployment_not_found_fault
+import capo_rds.errors.db_capacity_reservation_not_found_fault
 import capo_rds.errors.db_cluster_not_found_fault
 import capo_rds.errors.db_instance_not_found_fault
 import capo_rds.errors.db_proxy_endpoint_not_found_fault
@@ -45,6 +46,10 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "BlueGreenDeploymentNotFoundFault":
             raise capo_rds.errors.blue_green_deployment_not_found_fault.BlueGreenDeploymentNotFoundFault.from_query(
+                error_el, message, response=response
+            )
+        case "DBCapacityReservationNotFound":
+            raise capo_rds.errors.db_capacity_reservation_not_found_fault.DBCapacityReservationNotFoundFault.from_query(
                 error_el, message, response=response
             )
         case "DBClusterNotFoundFault":

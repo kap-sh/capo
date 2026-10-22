@@ -2881,8 +2881,18 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.get_batch_evaluation_response.GetBatchEvaluationResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.get_batch_evaluation_response
+
+            return capo_bedrock_agentcore.types.get_batch_evaluation_response.redact_sensitive(
+                output
+            )
+
         interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("GetBatchEvaluation")
+            config_overrides,
+            OperationLogging("GetBatchEvaluation", redact_output=_redact_output),
         )
         input_: capo_bedrock_agentcore.types.get_batch_evaluation_request.GetBatchEvaluationRequest = {
             "batch_evaluation_id": batch_evaluation_id
@@ -4536,7 +4546,7 @@ class BedrockAgentCoreClient:
 
         Args:
             memory_id: <p>The identifier of the AgentCore Memory resource for which to list memory records.</p>
-            namespace: <p>The namespace prefix to filter memory records by. Returns all memory records in namespaces that start with the provided prefix. Either <code>namespace</code> or <code>namespacePath</code> is required.</p>
+            namespace: <p>The exact namespace to filter memory records by. Returns all memory records that matches the provided namespace. Either <code>namespace</code> or <code>namespacePath</code> is required.</p>
             namespace_path: <p>Use namespacePath for hierarchical retrievals. Return all memory records where namespace falls under the same parent hierarchy. Either <code>namespace</code> or <code>namespacePath</code> is required.</p>
             memory_strategy_id: <p>The memory strategy identifier to filter memory records by. If specified, only memory records with this strategy ID are returned.</p>
             max_results: <p>The maximum number of results to return in a single call. The default value is 20.</p>
@@ -4772,7 +4782,7 @@ class BedrockAgentCoreClient:
 
         Args:
             memory_id: <p>The identifier of the AgentCore Memory resource from which to retrieve memory records.</p>
-            namespace: <p>The namespace prefix to filter memory records by. Searches for memory records in namespaces that start with the provided prefix. Either <code>namespace</code> or <code>namespacePath</code> is required.</p>
+            namespace: <p>The exact namespace to filter memory records by. Searches for memory records that matches the provided namespace value. Either <code>namespace</code> or <code>namespacePath</code> is required.</p>
             namespace_path: <p>Use namespacePath for hierarchical retrievals. Return all memory records where namespace falls under the same parent hierarchy. Either <code>namespace</code> or <code>namespacePath</code> is required.</p>
             search_criteria: <p>The search criteria to use for finding relevant memory records. This includes the search query, memory strategy ID, and other search parameters.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>

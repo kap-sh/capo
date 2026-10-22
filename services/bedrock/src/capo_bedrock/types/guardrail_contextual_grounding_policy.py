@@ -2,15 +2,20 @@
 
 from typing import TYPE_CHECKING, Any
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_bedrock.types.guardrail_contextual_grounding_filters
+    import capo_bedrock.types.guardrail_contextual_grounding_tier
 
 
 class GuardrailContextualGroundingPolicy(TypedDict, closed=True):
     filters: "capo_bedrock.types.guardrail_contextual_grounding_filters.GuardrailContextualGroundingFilters"
     """<p>The filter details for the guardrails contextual grounding policy.</p>"""
+    tier: NotRequired[
+        "capo_bedrock.types.guardrail_contextual_grounding_tier.GuardrailContextualGroundingTier"
+    ]
+    """<p>The tier that your guardrail uses for contextual grounding.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -23,6 +28,14 @@ def serialize_json(value: GuardrailContextualGroundingPolicy) -> dict:
             value["filters"]
         )
     )
+    if "tier" in value:
+        import capo_bedrock.types.guardrail_contextual_grounding_tier
+
+        out["tier"] = (
+            capo_bedrock.types.guardrail_contextual_grounding_tier.serialize_json(
+                value["tier"]
+            )
+        )
     return out
 
 
@@ -38,6 +51,14 @@ def deserialize_json(data: dict) -> GuardrailContextualGroundingPolicy:
         )
     else:
         out["filters"] = []
+    if data.get("tier") is not None:
+        import capo_bedrock.types.guardrail_contextual_grounding_tier
+
+        out["tier"] = (
+            capo_bedrock.types.guardrail_contextual_grounding_tier.deserialize_json(
+                data["tier"]
+            )
+        )
     return out
 
 
@@ -49,6 +70,14 @@ def redact_sensitive(value: GuardrailContextualGroundingPolicy) -> dict[str, Any
         out["filters"] = (
             capo_bedrock.types.guardrail_contextual_grounding_filters.redact_sensitive(
                 value["filters"]
+            )
+        )
+    if "tier" in value:
+        import capo_bedrock.types.guardrail_contextual_grounding_tier
+
+        out["tier"] = (
+            capo_bedrock.types.guardrail_contextual_grounding_tier.redact_sensitive(
+                value["tier"]
             )
         )
     return out

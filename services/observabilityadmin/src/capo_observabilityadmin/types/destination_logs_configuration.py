@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_observabilityadmin.types.deletion_protection
     import capo_observabilityadmin.types.log_group_name_configuration
     import capo_observabilityadmin.types.logs_backup_configuration
     import capo_observabilityadmin.types.logs_encryption_configuration
@@ -28,6 +29,10 @@ class DestinationLogsConfiguration(TypedDict, closed=True):
         "capo_observabilityadmin.types.tag_propagation_configuration.TagPropagationConfiguration"
     ]
     """<p>Specifies the tag propagation configuration for this centralization rule. When present, <code>LogGroupNameConfiguration</code> must use a <code>LogGroupNamePattern</code> that contains <code>${source.logGroup}</code>, <code>${source.accountId}</code>, and <code>${source.region}</code>.</p>"""
+    log_group_deletion_protection: NotRequired[
+        "capo_observabilityadmin.types.deletion_protection.DeletionProtection"
+    ]
+    """<p>Specifies whether this centralization rule enables deletion protection on the destination log groups that it creates. If you don't specify this setting, the rule doesn't enable deletion protection on the log groups that it creates. If you specify a backup Region in <code>BackupConfiguration</code>, the setting also applies to the log groups that the rule creates in the backup Region.</p> <p>When you set this to <code>ENABLED</code>, the rule enables deletion protection only on log groups that it creates after you enable the setting. It does not add deletion protection to log groups the rule created before you enabled the setting.</p> <p>If you remove this setting from the rule or delete the rule, deletion protection stays enabled on log groups that already have it. To delete one of these log groups, first disable deletion protection on the log group in the destination account.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -65,6 +70,14 @@ def serialize_json(value: DestinationLogsConfiguration) -> dict:
                 value["tag_propagation_configuration"]
             )
         )
+    if "log_group_deletion_protection" in value:
+        import capo_observabilityadmin.types.deletion_protection
+
+        out["LogGroupDeletionProtection"] = (
+            capo_observabilityadmin.types.deletion_protection.serialize_json(
+                value["log_group_deletion_protection"]
+            )
+        )
     return out
 
 
@@ -100,6 +113,14 @@ def deserialize_json(data: dict) -> DestinationLogsConfiguration:
         out["tag_propagation_configuration"] = (
             capo_observabilityadmin.types.tag_propagation_configuration.deserialize_json(
                 data["TagPropagationConfiguration"]
+            )
+        )
+    if data.get("LogGroupDeletionProtection") is not None:
+        import capo_observabilityadmin.types.deletion_protection
+
+        out["log_group_deletion_protection"] = (
+            capo_observabilityadmin.types.deletion_protection.deserialize_json(
+                data["LogGroupDeletionProtection"]
             )
         )
     return out

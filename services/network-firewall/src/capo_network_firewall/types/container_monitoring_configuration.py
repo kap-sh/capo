@@ -15,7 +15,7 @@ class ContainerMonitoringConfiguration(TypedDict, closed=True):
     attribute_filters: NotRequired[
         "capo_network_firewall.types.container_attributes.ContainerAttributes"
     ]
-    """<p>Key-value pairs that filter which containers are tracked. For Amazon EKS, you can filter by namespace and Kubernetes labels. For Amazon ECS, you can filter by container instance attributes (EC2 launch type only).</p>"""
+    """<p>Key-value pairs that filter which containers are tracked. For Amazon EKS, you can filter by namespace and Kubernetes labels. For Amazon ECS, you can filter by container instance attributes (EC2 launch type only).</p> <p>Attribute values can contain wildcard patterns, for example <code>payments-*</code>. Attribute keys must match exactly.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

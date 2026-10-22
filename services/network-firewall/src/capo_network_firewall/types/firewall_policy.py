@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     import capo_network_firewall.types.enable_tls_session_holding
     import capo_network_firewall.types.policy_variables
     import capo_network_firewall.types.resource_arn
+    import capo_network_firewall.types.route53_resolved_ip_validation
     import capo_network_firewall.types.stateful_actions
     import capo_network_firewall.types.stateful_engine_options
     import capo_network_firewall.types.stateful_rule_group_references
@@ -57,6 +58,10 @@ class FirewallPolicy(TypedDict, closed=True):
         "capo_network_firewall.types.enable_tls_session_holding.EnableTLSSessionHolding"
     ]
     """<p>When true, prevents TCP and TLS packets from reaching destination servers until TLS Inspection has evaluated Server Name Indication (SNI) rules. Requires an associated TLS Inspection configuration.</p>"""
+    route53_resolved_ip_validation: NotRequired[
+        "capo_network_firewall.types.route53_resolved_ip_validation.Route53ResolvedIPValidation"
+    ]
+    """<p>The settings that enable resolved IP validation for the policy. Resolved IP validation verifies that a connection's destination IP address is one that the Amazon Route 53 Resolver returned in a DNS response for a domain. The response must come from a VPC that's associated with the Route 53 Resolver DNS Firewall rule group that you specify. This checks how the destination IP address was obtained, instead of relying only on the domain that the client asserts in its TLS Server Name Indication (SNI) or HTTP <code>Host</code> header. For more information, see <a>Route53ResolvedIPValidation</a>.</p>"""
 
 
 # --- awsJson1_0 ser/de ---
@@ -128,6 +133,14 @@ def serialize_aws_json_1_0(value: FirewallPolicy) -> dict:
         )
     if "enable_tls_session_holding" in value:
         out["EnableTLSSessionHolding"] = value["enable_tls_session_holding"]
+    if "route53_resolved_ip_validation" in value:
+        import capo_network_firewall.types.route53_resolved_ip_validation
+
+        out["Route53ResolvedIPValidation"] = (
+            capo_network_firewall.types.route53_resolved_ip_validation.serialize_aws_json_1_0(
+                value["route53_resolved_ip_validation"]
+            )
+        )
     return out
 
 
@@ -205,4 +218,12 @@ def deserialize_aws_json_1_0(data: dict) -> FirewallPolicy:
         )
     if data.get("EnableTLSSessionHolding") is not None:
         out["enable_tls_session_holding"] = data["EnableTLSSessionHolding"]
+    if data.get("Route53ResolvedIPValidation") is not None:
+        import capo_network_firewall.types.route53_resolved_ip_validation
+
+        out["route53_resolved_ip_validation"] = (
+            capo_network_firewall.types.route53_resolved_ip_validation.deserialize_aws_json_1_0(
+                data["Route53ResolvedIPValidation"]
+            )
+        )
     return out

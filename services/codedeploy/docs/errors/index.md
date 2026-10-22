@@ -47,6 +47,7 @@
 - [InvalidArnException](InvalidArnException.md)
 - [InvalidAutoRollbackConfigException](InvalidAutoRollbackConfigException.md)
 - [InvalidAutoScalingGroupException](InvalidAutoScalingGroupException.md)
+- [InvalidAutoScalingGroupProcessToSuspendException](InvalidAutoScalingGroupProcessToSuspendException.md)
 - [InvalidBlueGreenDeploymentConfigurationException](InvalidBlueGreenDeploymentConfigurationException.md)
 - [InvalidBucketNameFilterException](InvalidBucketNameFilterException.md)
 - [InvalidComputePlatformException](InvalidComputePlatformException.md)

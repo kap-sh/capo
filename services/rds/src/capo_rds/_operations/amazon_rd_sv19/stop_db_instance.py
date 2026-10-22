@@ -13,6 +13,7 @@ import capo_rds._auth._sigv4
 import capo_rds._protocol.eventstream
 import capo_rds.errors.db_instance_not_found_fault
 import capo_rds.errors.db_snapshot_already_exists_fault
+import capo_rds.errors.invalid_db_capacity_reservation_state_fault
 import capo_rds.errors.invalid_db_cluster_state_fault
 import capo_rds.errors.invalid_db_instance_state_fault
 import capo_rds.errors.snapshot_quota_exceeded_fault
@@ -41,6 +42,10 @@ def handle_error(response: zapros.Response) -> Never:
             )
         case "DBSnapshotAlreadyExists":
             raise capo_rds.errors.db_snapshot_already_exists_fault.DBSnapshotAlreadyExistsFault.from_query(
+                error_el, message, response=response
+            )
+        case "InvalidDBCapacityReservationState":
+            raise capo_rds.errors.invalid_db_capacity_reservation_state_fault.InvalidDBCapacityReservationStateFault.from_query(
                 error_el, message, response=response
             )
         case "InvalidDBClusterStateFault":

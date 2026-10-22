@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_rds.types.additional_storage_volumes_list
     import capo_rds.types.boolean_optional
     import capo_rds.types.database_insights_mode
+    import capo_rds.types.db_capacity_reservation_identifier
     import capo_rds.types.db_security_group_name_list
     import capo_rds.types.integer_optional
     import capo_rds.types.log_type_list
@@ -148,6 +149,10 @@ class RestoreDBInstanceFromS3Message(TypedDict, closed=True):
     """<p>Specifies whether to manage the master user password with Amazon Web Services Secrets Manager.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password management with Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide.</i> </p> <p>Constraints:</p> <ul> <li> <p>Can't manage the master user password with Amazon Web Services Secrets Manager if <code>MasterUserPassword</code> is specified.</p> </li> </ul>"""
     master_user_secret_kms_key_id: NotRequired["capo_rds.types.string.String"]
     """<p>The Amazon Web Services KMS key identifier to encrypt a secret that is automatically generated and managed in Amazon Web Services Secrets Manager.</p> <p>This setting is valid only if the master user password is managed by RDS in Amazon Web Services Secrets Manager for the DB instance.</p> <p>The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key. To use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.</p> <p>If you don't specify <code>MasterUserSecretKmsKeyId</code>, then the <code>aws/secretsmanager</code> KMS key is used to encrypt the secret. If the secret is in a different Amazon Web Services account, then you can't use the <code>aws/secretsmanager</code> KMS key to encrypt the secret, and you must use a customer managed KMS key.</p> <p>There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a different default KMS key for each Amazon Web Services Region.</p>"""
+    db_capacity_reservation_identifier: NotRequired[
+        "capo_rds.types.db_capacity_reservation_identifier.DBCapacityReservationIdentifier"
+    ]
+    """<p>The identifier or the name of the DB capacity reservation to associate with this DB instance. You can specify the identifier, which has the prefix <code>dbcr-</code>, or the reservation name. When you specify this parameter, the DB instance uses reserved capacity from the specified reservation.</p> <p>If you specify <code>AvailabilityZone</code>, Amazon RDS places the DB instance in that Availability Zone, and the reservation must cover it.</p> <p>Constraints:</p> <ul> <li> <p>The reservation must reserve capacity for the DB instance class and the database engine of the DB instance.</p> </li> <li> <p>If the reservation reserves capacity for a specific license model, the license model of the DB instance must match it.</p> </li> <li> <p>The reservation must be in the <code>active</code> state, and it must not be past its end date.</p> </li> <li> <p>If you specify <code>AvailabilityZone</code>, it must be one of the Availability Zones of the reservation.</p> </li> <li> <p>For a Multi-AZ DB instance, the reservation must cover two or more Availability Zones. A Multi-AZ DB instance uses one unit of reserved capacity in each of two Availability Zones. If the reservation covers more than two Availability Zones, Amazon RDS chooses the two that the DB instance uses.</p> </li> <li> <p>The reservation must have available capacity in each Availability Zone that the DB instance uses.</p> </li> <li> <p>The DB subnet group must be in a VPC with default tenancy.</p> </li> <li> <p>The DB subnet group must cover each Availability Zone that the DB instance uses.</p> </li> </ul>"""
     dedicated_log_volume: NotRequired["capo_rds.types.boolean_optional.BooleanOptional"]
     """<p>Specifies whether to enable a dedicated log volume (DLV) for the DB instance.</p>"""
     ca_certificate_identifier: NotRequired["capo_rds.types.string.String"]
@@ -386,6 +391,13 @@ def serialize_query(
             (
                 f"{key_prefix}MasterUserSecretKmsKeyId",
                 str(value["master_user_secret_kms_key_id"]),
+            )
+        )
+    if "db_capacity_reservation_identifier" in value:
+        pairs.append(
+            (
+                f"{key_prefix}DBCapacityReservationIdentifier",
+                str(value["db_capacity_reservation_identifier"]),
             )
         )
     if "dedicated_log_volume" in value:
@@ -635,6 +647,13 @@ def deserialize_query(el: Element) -> RestoreDBInstanceFromS3Message:
     if child_master_user_secret_kms_key_id is not None:
         out["master_user_secret_kms_key_id"] = str(
             child_master_user_secret_kms_key_id.text or ""
+        )
+    child_db_capacity_reservation_identifier = el.find(
+        "DBCapacityReservationIdentifier"
+    )
+    if child_db_capacity_reservation_identifier is not None:
+        out["db_capacity_reservation_identifier"] = str(
+            child_db_capacity_reservation_identifier.text or ""
         )
     child_dedicated_log_volume = el.find("DedicatedLogVolume")
     if child_dedicated_log_volume is not None:

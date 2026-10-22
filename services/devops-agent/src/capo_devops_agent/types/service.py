@@ -8,6 +8,7 @@ Service: TypeAlias = Literal[
     "slack",
     "azure",
     "azuredevops",
+    "msteams",
     "dynatrace",
     "servicenow",
     "pagerduty",

@@ -17,6 +17,7 @@ import capo_connect.errors.internal_service_exception
 import capo_connect.errors.invalid_request_exception
 import capo_connect.errors.resource_not_found_exception
 import capo_connect.errors.throttling_exception
+import capo_connect.types.content_disposition
 import capo_connect.types.created_by_info
 import capo_connect.types.download_url_metadata
 import capo_connect.types.file_status_type
@@ -124,6 +125,8 @@ def build_request(
             Endpoint=options.endpoint,
         )
     )  # noqa: F841
+    import capo_connect.types.content_disposition
+
     url = endpoint.url.rstrip("/") + "/attached-files/{InstanceId}/{FileId}"
     url = url.replace("{InstanceId}", quote(input_["instance_id"], safe=""))
     url = url.replace("{FileId}", quote(input_["file_id"], safe=""))
@@ -132,6 +135,15 @@ def build_request(
         params.append(("urlExpiryInSeconds", str(input_["url_expiry_in_seconds"])))
     if "associated_resource_arn" in input_:
         params.append(("associatedResourceArn", input_["associated_resource_arn"]))
+    if "url_content_disposition" in input_:
+        params.append(
+            (
+                "urlContentDisposition",
+                capo_connect.types.content_disposition.serialize_json(
+                    input_["url_content_disposition"]
+                ),
+            )
+        )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

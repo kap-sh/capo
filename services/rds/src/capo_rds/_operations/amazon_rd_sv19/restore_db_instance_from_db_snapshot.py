@@ -14,6 +14,7 @@ import capo_rds._protocol.eventstream
 import capo_rds.errors.authorization_not_found_fault
 import capo_rds.errors.backup_policy_not_found_fault
 import capo_rds.errors.certificate_not_found_fault
+import capo_rds.errors.db_capacity_reservation_not_found_fault
 import capo_rds.errors.db_cluster_snapshot_not_found_fault
 import capo_rds.errors.db_instance_already_exists_fault
 import capo_rds.errors.db_parameter_group_not_found_fault
@@ -24,6 +25,7 @@ import capo_rds.errors.db_subnet_group_not_found_fault
 import capo_rds.errors.domain_not_found_fault
 import capo_rds.errors.instance_quota_exceeded_fault
 import capo_rds.errors.insufficient_db_instance_capacity_fault
+import capo_rds.errors.invalid_db_capacity_reservation_state_fault
 import capo_rds.errors.invalid_db_snapshot_state_fault
 import capo_rds.errors.invalid_restore_fault
 import capo_rds.errors.invalid_subnet
@@ -74,6 +76,10 @@ def handle_error(response: zapros.Response) -> Never:
             raise capo_rds.errors.certificate_not_found_fault.CertificateNotFoundFault.from_query(
                 error_el, message, response=response
             )
+        case "DBCapacityReservationNotFound":
+            raise capo_rds.errors.db_capacity_reservation_not_found_fault.DBCapacityReservationNotFoundFault.from_query(
+                error_el, message, response=response
+            )
         case "DBClusterSnapshotNotFoundFault":
             raise capo_rds.errors.db_cluster_snapshot_not_found_fault.DBClusterSnapshotNotFoundFault.from_query(
                 error_el, message, response=response
@@ -112,6 +118,10 @@ def handle_error(response: zapros.Response) -> Never:
             )
         case "InsufficientDBInstanceCapacity":
             raise capo_rds.errors.insufficient_db_instance_capacity_fault.InsufficientDBInstanceCapacityFault.from_query(
+                error_el, message, response=response
+            )
+        case "InvalidDBCapacityReservationState":
+            raise capo_rds.errors.invalid_db_capacity_reservation_state_fault.InvalidDBCapacityReservationStateFault.from_query(
                 error_el, message, response=response
             )
         case "InvalidDBSnapshotState":

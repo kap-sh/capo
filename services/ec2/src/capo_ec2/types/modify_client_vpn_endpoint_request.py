@@ -79,7 +79,7 @@ class ModifyClientVpnEndpointRequest(TypedDict, closed=True):
     device_posture_options: NotRequired[
         "capo_ec2.types.device_posture_options.DevicePostureOptions"
     ]
-    """<p>The device posture options for the Client VPN endpoint. Specifying this parameter replaces the entire device posture configuration for the endpoint. To remove all device trust providers, specify an empty list.</p>"""
+    """<p>The device posture options for the Client VPN endpoint. Specifying this parameter replaces the entire device posture configuration for the endpoint. To disable device posture and remove all device trust providers, specify <code>false</code> for <code>Enabled</code>.</p>"""
 
 
 # --- ec2Query ser/de ---

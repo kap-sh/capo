@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_ecs.types.container_images
     import capo_ecs.types.deployment_ephemeral_storage
     import capo_ecs.types.ecs_managed_resources
+    import capo_ecs.types.gateway_connector_list
     import capo_ecs.types.launch_type
     import capo_ecs.types.load_balancers
     import capo_ecs.types.monitoring_configuration
@@ -84,6 +85,10 @@ class ServiceRevision(TypedDict, closed=True):
         "capo_ecs.types.service_revision_overrides.ServiceRevisionOverrides"
     ]
     """<p>The effective runtime overrides that Amazon ECS applies to this service revision. This value is present only when Amazon ECS detects a difference between the task definition and the actual runtime configuration.</p>"""
+    gateway_connectors: NotRequired[
+        "capo_ecs.types.gateway_connector_list.GatewayConnectorList"
+    ]
+    """<p>The gateway connectors that are associated with the service revision.</p>"""
     monitoring: NotRequired[
         "capo_ecs.types.monitoring_configuration.MonitoringConfiguration"
     ]
@@ -208,6 +213,14 @@ def serialize_aws_json_1_1(value: ServiceRevision) -> dict:
         out["overrides"] = (
             capo_ecs.types.service_revision_overrides.serialize_aws_json_1_1(
                 value["overrides"]
+            )
+        )
+    if "gateway_connectors" in value:
+        import capo_ecs.types.gateway_connector_list
+
+        out["gatewayConnectors"] = (
+            capo_ecs.types.gateway_connector_list.serialize_aws_json_1_1(
+                value["gateway_connectors"]
             )
         )
     if "monitoring" in value:
@@ -343,6 +356,14 @@ def deserialize_aws_json_1_1(data: dict) -> ServiceRevision:
         out["overrides"] = (
             capo_ecs.types.service_revision_overrides.deserialize_aws_json_1_1(
                 data["overrides"]
+            )
+        )
+    if data.get("gatewayConnectors") is not None:
+        import capo_ecs.types.gateway_connector_list
+
+        out["gateway_connectors"] = (
+            capo_ecs.types.gateway_connector_list.deserialize_aws_json_1_1(
+                data["gatewayConnectors"]
             )
         )
     if data.get("monitoring") is not None:

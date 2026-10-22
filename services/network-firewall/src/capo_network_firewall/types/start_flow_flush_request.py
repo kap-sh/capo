@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import capo_network_firewall.types.age
     import capo_network_firewall.types.availability_zone
+    import capo_network_firewall.types.availability_zone_id
     import capo_network_firewall.types.flow_filters
     import capo_network_firewall.types.resource_arn
     import capo_network_firewall.types.vpc_endpoint_id
@@ -18,7 +19,11 @@ class StartFlowFlushRequest(TypedDict, closed=True):
     availability_zone: NotRequired[
         "capo_network_firewall.types.availability_zone.AvailabilityZone"
     ]
-    """<p>The ID of the Availability Zone where the firewall is located. For example, <code>us-east-2a</code>.</p> <p>Defines the scope a flow operation. You can use up to 20 filters to configure a single flow operation.</p>"""
+    """<p>The name of the Availability Zone where the firewall is located. For example, <code>us-east-2a</code>.</p> <p>Defines the scope a flow operation. You can use up to 20 filters to configure a single flow operation.</p>"""
+    availability_zone_id: NotRequired[
+        "capo_network_firewall.types.availability_zone_id.AvailabilityZoneId"
+    ]
+    """<p>The ID of the Availability Zone where the firewall is located. For example, <code>use2-az1</code>. Availability Zone IDs are the same in every Amazon Web Services account, so use this parameter when you coordinate resources across accounts. Specify either <code>AvailabilityZone</code> or <code>AvailabilityZoneId</code>, not both. If you specify both, the request fails.</p>"""
     vpc_endpoint_association_arn: NotRequired[
         "capo_network_firewall.types.resource_arn.ResourceArn"
     ]
@@ -39,6 +44,8 @@ def serialize_aws_json_1_0(value: StartFlowFlushRequest) -> dict:
     out["FirewallArn"] = value["firewall_arn"]
     if "availability_zone" in value:
         out["AvailabilityZone"] = value["availability_zone"]
+    if "availability_zone_id" in value:
+        out["AvailabilityZoneId"] = value["availability_zone_id"]
     if "vpc_endpoint_association_arn" in value:
         out["VpcEndpointAssociationArn"] = value["vpc_endpoint_association_arn"]
     if "vpc_endpoint_id" in value:
@@ -63,6 +70,8 @@ def deserialize_aws_json_1_0(data: dict) -> StartFlowFlushRequest:
         out["firewall_arn"] = ""
     if data.get("AvailabilityZone") is not None:
         out["availability_zone"] = data["AvailabilityZone"]
+    if data.get("AvailabilityZoneId") is not None:
+        out["availability_zone_id"] = data["AvailabilityZoneId"]
     if data.get("VpcEndpointAssociationArn") is not None:
         out["vpc_endpoint_association_arn"] = data["VpcEndpointAssociationArn"]
     if data.get("VpcEndpointId") is not None:

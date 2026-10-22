@@ -185,6 +185,7 @@ if TYPE_CHECKING:
     import capo_workspaces.types.image_compute_type
     import capo_workspaces.types.image_source_identifier
     import capo_workspaces.types.image_type
+    import capo_workspaces.types.image_validation_mode
     import capo_workspaces.types.import_client_branding_request
     import capo_workspaces.types.import_client_branding_result
     import capo_workspaces.types.import_custom_workspace_image_request
@@ -3752,6 +3753,9 @@ class WorkSpacesClient:
         *,
         config_overrides: Optional[WorkSpacesClientConfig] = None,
         tags: Optional["capo_workspaces.types.tag_list.TagList"] = None,
+        image_validation_mode: Optional[
+            "capo_workspaces.types.image_validation_mode.ImageValidationMode"
+        ] = None,
     ) -> "capo_workspaces.types.import_custom_workspace_image_result.ImportCustomWorkspaceImageResult":
         """<p>Imports the specified Windows 10 or 11 Bring Your Own License (BYOL) image into Amazon WorkSpaces using EC2 Image Builder. The image must be an already licensed image that is in your Amazon Web Services account, and you must own the image. For more information about creating BYOL images, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html"> Bring Your Own Windows Desktop Licenses</a>. </p>
 
@@ -3765,6 +3769,7 @@ class WorkSpacesClient:
             platform: <p>The platform for the WorkSpace image source.</p>
             os_version: <p>The OS version for the WorkSpace image source.</p>
             tags: <p>The resource tags. Each WorkSpaces resource can have a maximum of 50 tags.</p>
+            image_validation_mode: <p>The image validation mode for the WorkSpace image import.</p>
 
         Raises:
             capo_workspaces.errors.access_denied_exception.AccessDeniedException: <p>The user is not authorized to access a resource.</p>
@@ -3805,6 +3810,8 @@ class WorkSpacesClient:
         }
         if tags is not None:
             input_["tags"] = tags
+        if image_validation_mode is not None:
+            input_["image_validation_mode"] = image_validation_mode
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

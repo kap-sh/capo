@@ -10,14 +10,11 @@ if TYPE_CHECKING:
     import capo_healthlake.types.agent_input_message
     import capo_healthlake.types.conversation_id_string
     import capo_healthlake.types.profile_id_string
-    import capo_healthlake.types.source_format
 
 
 class UpdateProfileWithAgentRequest(TypedDict, closed=True):
     profile_id: "capo_healthlake.types.profile_id_string.ProfileIdString"
     """<p>The unique identifier of the profile to update via the agent.</p>"""
-    source_format: "capo_healthlake.types.source_format.SourceFormat"
-    """<p>The source data format for the transformation.</p>"""
     input_message: "capo_healthlake.types.agent_input_message.AgentInputMessage"
     """<p>The message to send to the agent.</p>"""
     conversation_id: NotRequired[
@@ -30,11 +27,6 @@ class UpdateProfileWithAgentRequest(TypedDict, closed=True):
 def serialize_aws_json_1_0(value: UpdateProfileWithAgentRequest) -> dict:
     out: dict = {}
     out["ProfileId"] = value["profile_id"]
-    import capo_healthlake.types.source_format
-
-    out["SourceFormat"] = capo_healthlake.types.source_format.serialize_aws_json_1_0(
-        value["source_format"]
-    )
     import capo_healthlake.types.agent_input_message
 
     out["InputMessage"] = (
@@ -53,20 +45,6 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateProfileWithAgentRequest:
         out["profile_id"] = data["ProfileId"]
     else:
         out["profile_id"] = ""
-    if data.get("SourceFormat") is not None:
-        import capo_healthlake.types.source_format
-
-        out["source_format"] = (
-            capo_healthlake.types.source_format.deserialize_aws_json_1_0(
-                data["SourceFormat"]
-            )
-        )
-    else:
-        import typing
-
-        out["source_format"] = typing.cast(
-            "capo_healthlake.types.source_format.SourceFormat", ""
-        )
     if data.get("InputMessage") is not None:
         import capo_healthlake.types.agent_input_message
 

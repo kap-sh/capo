@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class Target(TypedDict, closed=True):
     target_type: NotRequired["capo_codestar_notifications.types.target_type.TargetType"]
-    """<p>The target type. Can be an Amazon Q Developer in chat applications topic or Amazon Q Developer in chat applications client.</p> <ul> <li> <p>Amazon Q Developer in chat applications topics are specified as <code>SNS</code>.</p> </li> <li> <p>Amazon Q Developer in chat applications clients are specified as <code>AWSChatbotSlack</code>.</p> </li> </ul>"""
+    """<p>The target type. Can be an Amazon Q Developer in chat applications topic or Amazon Q Developer in chat applications client.</p> <ul> <li> <p> Amazon Q Developer in chat applications topics are specified as <code>SNS</code>.</p> </li> <li> <p> Amazon Q Developer in chat applications clients are specified as <code>AWSChatbotSlack</code>.</p> </li> <li> <p> Amazon Q Developer in chat applications clients for Microsoft Teams are specified as <code>AWSChatbotMicrosoftTeams</code>.</p> </li> </ul>"""
     target_address: NotRequired[
         "capo_codestar_notifications.types.target_address.TargetAddress"
     ]

@@ -158,8 +158,8 @@ def resolve(p: EndpointParams) -> Endpoint:  # type: ignore
                         "authSchemes": [
                             {
                                 "signingRegion": interpolate("us-east-1", p, _locals),
-                                "signingName": interpolate("dynamodb", p, _locals),
                                 "name": interpolate("sigv4", p, _locals),
+                                "signingName": interpolate("dynamodb", p, _locals),
                             }
                         ]
                     },
@@ -193,6 +193,61 @@ def resolve(p: EndpointParams) -> Endpoint:  # type: ignore
                                             _locals,
                                         )
                                     )
+                            if not (
+                                string_equals(
+                                    get_attr(
+                                        _locals["PartitionResult"],
+                                        interpolate("name", p, _locals),
+                                    ),
+                                    interpolate("aws", p, _locals),
+                                )
+                            ):
+                                if not (
+                                    string_equals(
+                                        p.Region,
+                                        interpolate("us-gov-east-1", p, _locals),
+                                    )
+                                ):
+                                    if not (
+                                        string_equals(
+                                            p.Region,
+                                            interpolate("us-gov-west-1", p, _locals),
+                                        )
+                                    ):
+                                        if not (
+                                            string_equals(
+                                                p.Region,
+                                                interpolate("cn-north-1", p, _locals),
+                                            )
+                                        ):
+                                            if not (
+                                                string_equals(
+                                                    p.Region,
+                                                    interpolate(
+                                                        "cn-northwest-1", p, _locals
+                                                    ),
+                                                )
+                                            ):
+                                                if p.IsSearchOperation is not None:
+                                                    if p.IsSearchOperation is True:
+                                                        return Endpoint(
+                                                            url=interpolate(
+                                                                "https://search-dynamodb-fips.{Region}.{PartitionResult#dualStackDnsSuffix}",
+                                                                p,
+                                                                _locals,
+                                                            ),
+                                                            properties={},
+                                                            headers={},
+                                                        )
+                                                return Endpoint(
+                                                    url=interpolate(
+                                                        "https://dynamodb-fips.{Region}.{PartitionResult#dualStackDnsSuffix}",
+                                                        p,
+                                                        _locals,
+                                                    ),
+                                                    properties={},
+                                                    headers={},
+                                                )
                             if p.IsSearchOperation is not None:
                                 if p.IsSearchOperation is True:
                                     return Endpoint(
@@ -228,24 +283,77 @@ def resolve(p: EndpointParams) -> Endpoint:  # type: ignore
                     )
                     is True
                 ):
+                    if p.AccountIdEndpointMode is not None:
+                        if string_equals(
+                            p.AccountIdEndpointMode, interpolate("required", p, _locals)
+                        ):
+                            raise EndpointError(
+                                interpolate(
+                                    "Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported",
+                                    p,
+                                    _locals,
+                                )
+                            )
                     if string_equals(
                         get_attr(
                             _locals["PartitionResult"], interpolate("name", p, _locals)
                         ),
                         interpolate("aws-us-gov", p, _locals),
                     ):
-                        if p.AccountIdEndpointMode is not None:
-                            if string_equals(
-                                p.AccountIdEndpointMode,
-                                interpolate("required", p, _locals),
-                            ):
-                                raise EndpointError(
-                                    interpolate(
-                                        "Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported",
-                                        p,
-                                        _locals,
-                                    )
+                        if not (
+                            string_equals(
+                                get_attr(
+                                    _locals["PartitionResult"],
+                                    interpolate("name", p, _locals),
+                                ),
+                                interpolate("aws", p, _locals),
+                            )
+                        ):
+                            if not (
+                                string_equals(
+                                    p.Region, interpolate("us-gov-east-1", p, _locals)
                                 )
+                            ):
+                                if not (
+                                    string_equals(
+                                        p.Region,
+                                        interpolate("us-gov-west-1", p, _locals),
+                                    )
+                                ):
+                                    if not (
+                                        string_equals(
+                                            p.Region,
+                                            interpolate("cn-north-1", p, _locals),
+                                        )
+                                    ):
+                                        if not (
+                                            string_equals(
+                                                p.Region,
+                                                interpolate(
+                                                    "cn-northwest-1", p, _locals
+                                                ),
+                                            )
+                                        ):
+                                            if p.IsSearchOperation is not None:
+                                                if p.IsSearchOperation is True:
+                                                    return Endpoint(
+                                                        url=interpolate(
+                                                            "https://search-dynamodb.{Region}.{PartitionResult#dnsSuffix}",
+                                                            p,
+                                                            _locals,
+                                                        ),
+                                                        properties={},
+                                                        headers={},
+                                                    )
+                                            return Endpoint(
+                                                url=interpolate(
+                                                    "https://dynamodb.{Region}.{PartitionResult#dnsSuffix}",
+                                                    p,
+                                                    _locals,
+                                                ),
+                                                properties={},
+                                                headers={},
+                                            )
                         if p.IsSearchOperation is not None:
                             if p.IsSearchOperation is True:
                                 return Endpoint(
@@ -266,17 +374,56 @@ def resolve(p: EndpointParams) -> Endpoint:  # type: ignore
                             properties={},
                             headers={},
                         )
-                    if p.AccountIdEndpointMode is not None:
-                        if string_equals(
-                            p.AccountIdEndpointMode, interpolate("required", p, _locals)
-                        ):
-                            raise EndpointError(
-                                interpolate(
-                                    "Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported",
-                                    p,
-                                    _locals,
-                                )
+                    if not (
+                        string_equals(
+                            get_attr(
+                                _locals["PartitionResult"],
+                                interpolate("name", p, _locals),
+                            ),
+                            interpolate("aws", p, _locals),
+                        )
+                    ):
+                        if not (
+                            string_equals(
+                                p.Region, interpolate("us-gov-east-1", p, _locals)
                             )
+                        ):
+                            if not (
+                                string_equals(
+                                    p.Region, interpolate("us-gov-west-1", p, _locals)
+                                )
+                            ):
+                                if not (
+                                    string_equals(
+                                        p.Region, interpolate("cn-north-1", p, _locals)
+                                    )
+                                ):
+                                    if not (
+                                        string_equals(
+                                            p.Region,
+                                            interpolate("cn-northwest-1", p, _locals),
+                                        )
+                                    ):
+                                        if p.IsSearchOperation is not None:
+                                            if p.IsSearchOperation is True:
+                                                return Endpoint(
+                                                    url=interpolate(
+                                                        "https://search-dynamodb-fips.{Region}.{PartitionResult#dnsSuffix}",
+                                                        p,
+                                                        _locals,
+                                                    ),
+                                                    properties={},
+                                                    headers={},
+                                                )
+                                        return Endpoint(
+                                            url=interpolate(
+                                                "https://dynamodb-fips.{Region}.{PartitionResult#dnsSuffix}",
+                                                p,
+                                                _locals,
+                                            ),
+                                            properties={},
+                                            headers={},
+                                        )
                     if p.IsSearchOperation is not None:
                         if p.IsSearchOperation is True:
                             return Endpoint(
@@ -312,6 +459,68 @@ def resolve(p: EndpointParams) -> Endpoint:  # type: ignore
                     )
                     is True
                 ):
+                    if not (
+                        string_equals(
+                            get_attr(
+                                _locals["PartitionResult"],
+                                interpolate("name", p, _locals),
+                            ),
+                            interpolate("aws", p, _locals),
+                        )
+                    ):
+                        if not (
+                            string_equals(
+                                p.Region, interpolate("us-gov-east-1", p, _locals)
+                            )
+                        ):
+                            if not (
+                                string_equals(
+                                    p.Region, interpolate("us-gov-west-1", p, _locals)
+                                )
+                            ):
+                                if not (
+                                    string_equals(
+                                        p.Region, interpolate("cn-north-1", p, _locals)
+                                    )
+                                ):
+                                    if not (
+                                        string_equals(
+                                            p.Region,
+                                            interpolate("cn-northwest-1", p, _locals),
+                                        )
+                                    ):
+                                        if p.AccountIdEndpointMode is not None:
+                                            if string_equals(
+                                                p.AccountIdEndpointMode,
+                                                interpolate("required", p, _locals),
+                                            ):
+                                                raise EndpointError(
+                                                    interpolate(
+                                                        "Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this region",
+                                                        p,
+                                                        _locals,
+                                                    )
+                                                )
+                                        if p.IsSearchOperation is not None:
+                                            if p.IsSearchOperation is True:
+                                                return Endpoint(
+                                                    url=interpolate(
+                                                        "https://search-dynamodb.{Region}.{PartitionResult#dualStackDnsSuffix}",
+                                                        p,
+                                                        _locals,
+                                                    ),
+                                                    properties={},
+                                                    headers={},
+                                                )
+                                        return Endpoint(
+                                            url=interpolate(
+                                                "https://dynamodb.{Region}.{PartitionResult#dualStackDnsSuffix}",
+                                                p,
+                                                _locals,
+                                            ),
+                                            properties={},
+                                            headers={},
+                                        )
                     if p.AccountIdEndpointMode is not None:
                         if not (
                             string_equals(
@@ -319,17 +528,98 @@ def resolve(p: EndpointParams) -> Endpoint:  # type: ignore
                                 interpolate("disabled", p, _locals),
                             )
                         ):
-                            if string_equals(
-                                get_attr(
-                                    _locals["PartitionResult"],
-                                    interpolate("name", p, _locals),
-                                ),
-                                interpolate("aws", p, _locals),
-                            ):
-                                if p.UseFIPS is not True:
-                                    if p.ResourceArn is not None:
+                            if p.UseFIPS is not True:
+                                if p.ResourceArn is not None:
+                                    _locals["ParsedArn"] = aws_parse_arn(p.ResourceArn)
+                                    if _locals["ParsedArn"] is not None:
+                                        if string_equals(
+                                            get_attr(
+                                                _locals["ParsedArn"],
+                                                interpolate("service", p, _locals),
+                                            ),
+                                            interpolate("dynamodb", p, _locals),
+                                        ):
+                                            if is_valid_host_label(
+                                                get_attr(
+                                                    _locals["ParsedArn"],
+                                                    interpolate("region", p, _locals),
+                                                ),
+                                                False,
+                                            ):
+                                                if string_equals(
+                                                    get_attr(
+                                                        _locals["ParsedArn"],
+                                                        interpolate(
+                                                            "region", p, _locals
+                                                        ),
+                                                    ),
+                                                    interpolate("{Region}", p, _locals),
+                                                ):
+                                                    if is_valid_host_label(
+                                                        get_attr(
+                                                            _locals["ParsedArn"],
+                                                            interpolate(
+                                                                "accountId", p, _locals
+                                                            ),
+                                                        ),
+                                                        False,
+                                                    ):
+                                                        if (
+                                                            p.IsSearchOperation
+                                                            is not None
+                                                        ):
+                                                            if (
+                                                                p.IsSearchOperation
+                                                                is True
+                                                            ):
+                                                                return Endpoint(
+                                                                    url=interpolate(
+                                                                        "https://{ParsedArn#accountId}.search-ddb.{Region}.{PartitionResult#dualStackDnsSuffix}",
+                                                                        p,
+                                                                        _locals,
+                                                                    ),
+                                                                    properties={
+                                                                        "metricValues": [
+                                                                            interpolate(
+                                                                                "O",
+                                                                                p,
+                                                                                _locals,
+                                                                            )
+                                                                        ]
+                                                                    },
+                                                                    headers={},
+                                                                )
+                                                        return Endpoint(
+                                                            url=interpolate(
+                                                                "https://{ParsedArn#accountId}.ddb.{Region}.{PartitionResult#dualStackDnsSuffix}",
+                                                                p,
+                                                                _locals,
+                                                            ),
+                                                            properties={
+                                                                "metricValues": [
+                                                                    interpolate(
+                                                                        "O", p, _locals
+                                                                    )
+                                                                ]
+                                                            },
+                                                            headers={},
+                                                        )
+                    if p.AccountIdEndpointMode is not None:
+                        if not (
+                            string_equals(
+                                p.AccountIdEndpointMode,
+                                interpolate("disabled", p, _locals),
+                            )
+                        ):
+                            if p.UseFIPS is not True:
+                                if p.ResourceArnList is not None:
+                                    _locals["FirstArn"] = get_attr(
+                                        p.ResourceArnList,
+                                        interpolate("[0]", p, _locals),
+                                    )
+                                    if _locals["FirstArn"] is not None:
                                         _locals["ParsedArn"] = aws_parse_arn(
-                                            p.ResourceArn
+                                            _locals["FirstArn"]
                                         )
                                         if _locals["ParsedArn"] is not None:
                                             if string_equals(
@@ -419,191 +709,51 @@ def resolve(p: EndpointParams) -> Endpoint:  # type: ignore
                                 interpolate("disabled", p, _locals),
                             )
                         ):
-                            if string_equals(
-                                get_attr(
-                                    _locals["PartitionResult"],
-                                    interpolate("name", p, _locals),
-                                ),
-                                interpolate("aws", p, _locals),
-                            ):
-                                if p.UseFIPS is not True:
-                                    if p.ResourceArnList is not None:
-                                        _locals["FirstArn"] = get_attr(
-                                            p.ResourceArnList,
-                                            interpolate("[0]", p, _locals),
-                                        )
-                                        if _locals["FirstArn"] is not None:
-                                            _locals["ParsedArn"] = aws_parse_arn(
-                                                _locals["FirstArn"]
-                                            )
-                                            if _locals["ParsedArn"] is not None:
-                                                if string_equals(
-                                                    get_attr(
-                                                        _locals["ParsedArn"],
-                                                        interpolate(
-                                                            "service", p, _locals
-                                                        ),
+                            if p.UseFIPS is not True:
+                                if p.AccountId is not None:
+                                    if is_valid_host_label(p.AccountId, False):
+                                        if p.IsSearchOperation is not None:
+                                            if p.IsSearchOperation is True:
+                                                return Endpoint(
+                                                    url=interpolate(
+                                                        "https://{AccountId}.search-ddb.{Region}.{PartitionResult#dualStackDnsSuffix}",
+                                                        p,
+                                                        _locals,
                                                     ),
-                                                    interpolate("dynamodb", p, _locals),
-                                                ):
-                                                    if is_valid_host_label(
-                                                        get_attr(
-                                                            _locals["ParsedArn"],
-                                                            interpolate(
-                                                                "region", p, _locals
-                                                            ),
-                                                        ),
-                                                        False,
-                                                    ):
-                                                        if string_equals(
-                                                            get_attr(
-                                                                _locals["ParsedArn"],
-                                                                interpolate(
-                                                                    "region", p, _locals
-                                                                ),
-                                                            ),
-                                                            interpolate(
-                                                                "{Region}", p, _locals
-                                                            ),
-                                                        ):
-                                                            if is_valid_host_label(
-                                                                get_attr(
-                                                                    _locals[
-                                                                        "ParsedArn"
-                                                                    ],
-                                                                    interpolate(
-                                                                        "accountId",
-                                                                        p,
-                                                                        _locals,
-                                                                    ),
-                                                                ),
-                                                                False,
-                                                            ):
-                                                                if (
-                                                                    p.IsSearchOperation
-                                                                    is not None
-                                                                ):
-                                                                    if (
-                                                                        p.IsSearchOperation
-                                                                        is True
-                                                                    ):
-                                                                        return Endpoint(
-                                                                            url=interpolate(
-                                                                                "https://{ParsedArn#accountId}.search-ddb.{Region}.{PartitionResult#dualStackDnsSuffix}",
-                                                                                p,
-                                                                                _locals,
-                                                                            ),
-                                                                            properties={
-                                                                                "metricValues": [
-                                                                                    interpolate(
-                                                                                        "O",
-                                                                                        p,
-                                                                                        _locals,
-                                                                                    )
-                                                                                ]
-                                                                            },
-                                                                            headers={},
-                                                                        )
-                                                                return Endpoint(
-                                                                    url=interpolate(
-                                                                        "https://{ParsedArn#accountId}.ddb.{Region}.{PartitionResult#dualStackDnsSuffix}",
-                                                                        p,
-                                                                        _locals,
-                                                                    ),
-                                                                    properties={
-                                                                        "metricValues": [
-                                                                            interpolate(
-                                                                                "O",
-                                                                                p,
-                                                                                _locals,
-                                                                            )
-                                                                        ]
-                                                                    },
-                                                                    headers={},
-                                                                )
-                    if p.AccountIdEndpointMode is not None:
-                        if not (
-                            string_equals(
-                                p.AccountIdEndpointMode,
-                                interpolate("disabled", p, _locals),
-                            )
-                        ):
-                            if string_equals(
-                                get_attr(
-                                    _locals["PartitionResult"],
-                                    interpolate("name", p, _locals),
-                                ),
-                                interpolate("aws", p, _locals),
-                            ):
-                                if p.UseFIPS is not True:
-                                    if p.AccountId is not None:
-                                        if is_valid_host_label(p.AccountId, False):
-                                            if p.IsSearchOperation is not None:
-                                                if p.IsSearchOperation is True:
-                                                    return Endpoint(
-                                                        url=interpolate(
-                                                            "https://{AccountId}.search-ddb.{Region}.{PartitionResult#dualStackDnsSuffix}",
-                                                            p,
-                                                            _locals,
-                                                        ),
-                                                        properties={
-                                                            "metricValues": [
-                                                                interpolate(
-                                                                    "O", p, _locals
-                                                                )
-                                                            ]
-                                                        },
-                                                        headers={},
-                                                    )
-                                            return Endpoint(
-                                                url=interpolate(
-                                                    "https://{AccountId}.ddb.{Region}.{PartitionResult#dualStackDnsSuffix}",
-                                                    p,
-                                                    _locals,
-                                                ),
-                                                properties={
-                                                    "metricValues": [
-                                                        interpolate("O", p, _locals)
-                                                    ]
-                                                },
-                                                headers={},
-                                            )
-                                        raise EndpointError(
-                                            interpolate(
-                                                "Credentials-sourced account ID parameter is invalid",
+                                                    properties={
+                                                        "metricValues": [
+                                                            interpolate("O", p, _locals)
+                                                        ]
+                                                    },
+                                                    headers={},
+                                                )
+                                        return Endpoint(
+                                            url=interpolate(
+                                                "https://{AccountId}.ddb.{Region}.{PartitionResult#dualStackDnsSuffix}",
                                                 p,
                                                 _locals,
-                                            )
+                                            ),
+                                            properties={
+                                                "metricValues": [
+                                                    interpolate("O", p, _locals)
+                                                ]
+                                            },
+                                            headers={},
                                         )
-                    if p.AccountIdEndpointMode is not None:
-                        if string_equals(
-                            p.AccountIdEndpointMode, interpolate("required", p, _locals)
-                        ):
-                            if p.UseFIPS is not True:
-                                if string_equals(
-                                    get_attr(
-                                        _locals["PartitionResult"],
-                                        interpolate("name", p, _locals),
-                                    ),
-                                    interpolate("aws", p, _locals),
-                                ):
                                     raise EndpointError(
                                         interpolate(
-                                            "AccountIdEndpointMode is required but no AccountID was provided or able to be loaded",
+                                            "Credentials-sourced account ID parameter is invalid",
                                             p,
                                             _locals,
                                         )
                                     )
-                                raise EndpointError(
-                                    interpolate(
-                                        "Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition",
-                                        p,
-                                        _locals,
-                                    )
-                                )
+                    if p.AccountIdEndpointMode is not None:
+                        if string_equals(
+                            p.AccountIdEndpointMode, interpolate("required", p, _locals)
+                        ):
                             raise EndpointError(
                                 interpolate(
-                                    "Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported",
+                                    "AccountIdEndpointMode is required but no AccountID was provided or able to be loaded",
                                     p,
                                     _locals,
                                 )
@@ -635,21 +785,149 @@ def resolve(p: EndpointParams) -> Endpoint:  # type: ignore
                         _locals,
                     )
                 )
+            if not (
+                string_equals(
+                    get_attr(
+                        _locals["PartitionResult"], interpolate("name", p, _locals)
+                    ),
+                    interpolate("aws", p, _locals),
+                )
+            ):
+                if not (
+                    string_equals(p.Region, interpolate("us-gov-east-1", p, _locals))
+                ):
+                    if not (
+                        string_equals(
+                            p.Region, interpolate("us-gov-west-1", p, _locals)
+                        )
+                    ):
+                        if not (
+                            string_equals(
+                                p.Region, interpolate("cn-north-1", p, _locals)
+                            )
+                        ):
+                            if not (
+                                string_equals(
+                                    p.Region, interpolate("cn-northwest-1", p, _locals)
+                                )
+                            ):
+                                if p.AccountIdEndpointMode is not None:
+                                    if string_equals(
+                                        p.AccountIdEndpointMode,
+                                        interpolate("required", p, _locals),
+                                    ):
+                                        raise EndpointError(
+                                            interpolate(
+                                                "Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this region",
+                                                p,
+                                                _locals,
+                                            )
+                                        )
+                                if p.IsSearchOperation is not None:
+                                    if p.IsSearchOperation is True:
+                                        return Endpoint(
+                                            url=interpolate(
+                                                "https://search-dynamodb.{Region}.{PartitionResult#dnsSuffix}",
+                                                p,
+                                                _locals,
+                                            ),
+                                            properties={},
+                                            headers={},
+                                        )
+                                return Endpoint(
+                                    url=interpolate(
+                                        "https://dynamodb.{Region}.{PartitionResult#dnsSuffix}",
+                                        p,
+                                        _locals,
+                                    ),
+                                    properties={},
+                                    headers={},
+                                )
             if p.AccountIdEndpointMode is not None:
                 if not (
                     string_equals(
                         p.AccountIdEndpointMode, interpolate("disabled", p, _locals)
                     )
                 ):
-                    if string_equals(
-                        get_attr(
-                            _locals["PartitionResult"], interpolate("name", p, _locals)
-                        ),
-                        interpolate("aws", p, _locals),
-                    ):
-                        if p.UseFIPS is not True:
-                            if p.ResourceArn is not None:
-                                _locals["ParsedArn"] = aws_parse_arn(p.ResourceArn)
+                    if p.UseFIPS is not True:
+                        if p.ResourceArn is not None:
+                            _locals["ParsedArn"] = aws_parse_arn(p.ResourceArn)
+                            if _locals["ParsedArn"] is not None:
+                                if string_equals(
+                                    get_attr(
+                                        _locals["ParsedArn"],
+                                        interpolate("service", p, _locals),
+                                    ),
+                                    interpolate("dynamodb", p, _locals),
+                                ):
+                                    if is_valid_host_label(
+                                        get_attr(
+                                            _locals["ParsedArn"],
+                                            interpolate("region", p, _locals),
+                                        ),
+                                        False,
+                                    ):
+                                        if string_equals(
+                                            get_attr(
+                                                _locals["ParsedArn"],
+                                                interpolate("region", p, _locals),
+                                            ),
+                                            interpolate("{Region}", p, _locals),
+                                        ):
+                                            if is_valid_host_label(
+                                                get_attr(
+                                                    _locals["ParsedArn"],
+                                                    interpolate(
+                                                        "accountId", p, _locals
+                                                    ),
+                                                ),
+                                                False,
+                                            ):
+                                                if p.IsSearchOperation is not None:
+                                                    if p.IsSearchOperation is True:
+                                                        return Endpoint(
+                                                            url=interpolate(
+                                                                "https://{ParsedArn#accountId}.search-ddb.{Region}.{PartitionResult#dnsSuffix}",
+                                                                p,
+                                                                _locals,
+                                                            ),
+                                                            properties={
+                                                                "metricValues": [
+                                                                    interpolate(
+                                                                        "O", p, _locals
+                                                                    )
+                                                                ]
+                                                            },
+                                                            headers={},
+                                                        )
+                                                return Endpoint(
+                                                    url=interpolate(
+                                                        "https://{ParsedArn#accountId}.ddb.{Region}.{PartitionResult#dnsSuffix}",
+                                                        p,
+                                                        _locals,
+                                                    ),
+                                                    properties={
+                                                        "metricValues": [
+                                                            interpolate("O", p, _locals)
+                                                        ]
+                                                    },
+                                                    headers={},
+                                                )
+            if p.AccountIdEndpointMode is not None:
+                if not (
+                    string_equals(
+                        p.AccountIdEndpointMode, interpolate("disabled", p, _locals)
+                    )
+                ):
+                    if p.UseFIPS is not True:
+                        if p.ResourceArnList is not None:
+                            _locals["FirstArn"] = get_attr(
+                                p.ResourceArnList, interpolate("[0]", p, _locals)
+                            )
+                            if _locals["FirstArn"] is not None:
+                                _locals["ParsedArn"] = aws_parse_arn(
+                                    _locals["FirstArn"]
+                                )
                                 if _locals["ParsedArn"] is not None:
                                     if string_equals(
                                         get_attr(
@@ -721,173 +999,49 @@ def resolve(p: EndpointParams) -> Endpoint:  # type: ignore
                         p.AccountIdEndpointMode, interpolate("disabled", p, _locals)
                     )
                 ):
-                    if string_equals(
-                        get_attr(
-                            _locals["PartitionResult"], interpolate("name", p, _locals)
-                        ),
-                        interpolate("aws", p, _locals),
-                    ):
-                        if p.UseFIPS is not True:
-                            if p.ResourceArnList is not None:
-                                _locals["FirstArn"] = get_attr(
-                                    p.ResourceArnList, interpolate("[0]", p, _locals)
-                                )
-                                if _locals["FirstArn"] is not None:
-                                    _locals["ParsedArn"] = aws_parse_arn(
-                                        _locals["FirstArn"]
-                                    )
-                                    if _locals["ParsedArn"] is not None:
-                                        if string_equals(
-                                            get_attr(
-                                                _locals["ParsedArn"],
-                                                interpolate("service", p, _locals),
+                    if p.UseFIPS is not True:
+                        if p.AccountId is not None:
+                            if is_valid_host_label(p.AccountId, False):
+                                if p.IsSearchOperation is not None:
+                                    if p.IsSearchOperation is True:
+                                        return Endpoint(
+                                            url=interpolate(
+                                                "https://{AccountId}.search-ddb.{Region}.{PartitionResult#dnsSuffix}",
+                                                p,
+                                                _locals,
                                             ),
-                                            interpolate("dynamodb", p, _locals),
-                                        ):
-                                            if is_valid_host_label(
-                                                get_attr(
-                                                    _locals["ParsedArn"],
-                                                    interpolate("region", p, _locals),
-                                                ),
-                                                False,
-                                            ):
-                                                if string_equals(
-                                                    get_attr(
-                                                        _locals["ParsedArn"],
-                                                        interpolate(
-                                                            "region", p, _locals
-                                                        ),
-                                                    ),
-                                                    interpolate("{Region}", p, _locals),
-                                                ):
-                                                    if is_valid_host_label(
-                                                        get_attr(
-                                                            _locals["ParsedArn"],
-                                                            interpolate(
-                                                                "accountId", p, _locals
-                                                            ),
-                                                        ),
-                                                        False,
-                                                    ):
-                                                        if (
-                                                            p.IsSearchOperation
-                                                            is not None
-                                                        ):
-                                                            if (
-                                                                p.IsSearchOperation
-                                                                is True
-                                                            ):
-                                                                return Endpoint(
-                                                                    url=interpolate(
-                                                                        "https://{ParsedArn#accountId}.search-ddb.{Region}.{PartitionResult#dnsSuffix}",
-                                                                        p,
-                                                                        _locals,
-                                                                    ),
-                                                                    properties={
-                                                                        "metricValues": [
-                                                                            interpolate(
-                                                                                "O",
-                                                                                p,
-                                                                                _locals,
-                                                                            )
-                                                                        ]
-                                                                    },
-                                                                    headers={},
-                                                                )
-                                                        return Endpoint(
-                                                            url=interpolate(
-                                                                "https://{ParsedArn#accountId}.ddb.{Region}.{PartitionResult#dnsSuffix}",
-                                                                p,
-                                                                _locals,
-                                                            ),
-                                                            properties={
-                                                                "metricValues": [
-                                                                    interpolate(
-                                                                        "O", p, _locals
-                                                                    )
-                                                                ]
-                                                            },
-                                                            headers={},
-                                                        )
-            if p.AccountIdEndpointMode is not None:
-                if not (
-                    string_equals(
-                        p.AccountIdEndpointMode, interpolate("disabled", p, _locals)
-                    )
-                ):
-                    if string_equals(
-                        get_attr(
-                            _locals["PartitionResult"], interpolate("name", p, _locals)
-                        ),
-                        interpolate("aws", p, _locals),
-                    ):
-                        if p.UseFIPS is not True:
-                            if p.AccountId is not None:
-                                if is_valid_host_label(p.AccountId, False):
-                                    if p.IsSearchOperation is not None:
-                                        if p.IsSearchOperation is True:
-                                            return Endpoint(
-                                                url=interpolate(
-                                                    "https://{AccountId}.search-ddb.{Region}.{PartitionResult#dnsSuffix}",
-                                                    p,
-                                                    _locals,
-                                                ),
-                                                properties={
-                                                    "metricValues": [
-                                                        interpolate("O", p, _locals)
-                                                    ]
-                                                },
-                                                headers={},
-                                            )
-                                    return Endpoint(
-                                        url=interpolate(
-                                            "https://{AccountId}.ddb.{Region}.{PartitionResult#dnsSuffix}",
-                                            p,
-                                            _locals,
-                                        ),
-                                        properties={
-                                            "metricValues": [
-                                                interpolate("O", p, _locals)
-                                            ]
-                                        },
-                                        headers={},
-                                    )
-                                raise EndpointError(
-                                    interpolate(
-                                        "Credentials-sourced account ID parameter is invalid",
+                                            properties={
+                                                "metricValues": [
+                                                    interpolate("O", p, _locals)
+                                                ]
+                                            },
+                                            headers={},
+                                        )
+                                return Endpoint(
+                                    url=interpolate(
+                                        "https://{AccountId}.ddb.{Region}.{PartitionResult#dnsSuffix}",
                                         p,
                                         _locals,
-                                    )
+                                    ),
+                                    properties={
+                                        "metricValues": [interpolate("O", p, _locals)]
+                                    },
+                                    headers={},
                                 )
-            if p.AccountIdEndpointMode is not None:
-                if string_equals(
-                    p.AccountIdEndpointMode, interpolate("required", p, _locals)
-                ):
-                    if p.UseFIPS is not True:
-                        if string_equals(
-                            get_attr(
-                                _locals["PartitionResult"],
-                                interpolate("name", p, _locals),
-                            ),
-                            interpolate("aws", p, _locals),
-                        ):
                             raise EndpointError(
                                 interpolate(
-                                    "AccountIdEndpointMode is required but no AccountID was provided or able to be loaded",
+                                    "Credentials-sourced account ID parameter is invalid",
                                     p,
                                     _locals,
                                 )
                             )
-                        raise EndpointError(
-                            interpolate(
-                                "Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition",
-                                p,
-                                _locals,
-                            )
-                        )
+            if p.AccountIdEndpointMode is not None:
+                if string_equals(
+                    p.AccountIdEndpointMode, interpolate("required", p, _locals)
+                ):
                     raise EndpointError(
                         interpolate(
-                            "Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported",
+                            "AccountIdEndpointMode is required but no AccountID was provided or able to be loaded",
                             p,
                             _locals,
                         )

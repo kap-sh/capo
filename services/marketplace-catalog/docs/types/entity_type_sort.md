@@ -54,3 +54,9 @@ title: EntityTypeSort
       show_source: true
       merge_init_into_class: false
       heading_level: 2
+
+::: capo_marketplace_catalog.types.entity_type_sort._EntityTypeSort_ExpressPrivateOfferConfigurationSort
+    options:
+      show_source: true
+      merge_init_into_class: false
+      heading_level: 2

@@ -16,7 +16,7 @@ class NluImprovementSpecification(TypedDict, closed=True):
     assisted_nlu_mode: NotRequired[
         "capo_lex_models_v2.types.assisted_nlu_mode.AssistedNluMode"
     ]
-    """<p>Specifies the mode for Assisted NLU operation. Use <code>Primary</code> to make Assisted NLU the primary intent recognition method, or <code>Fallback</code> to use it only when standard NLU confidence is low.</p>"""
+    """<p>Specifies the mode for Assisted NLU operation. Use <code>Primary</code> to make Assisted NLU the primary intent recognition method, <code>Fallback</code> to use it only when standard NLU confidence is low, or <code>DialogManager</code> to use a large language model to manage the conversation, including intent recognition, slot elicitation, and confirmation.</p>"""
     intent_disambiguation_settings: NotRequired[
         "capo_lex_models_v2.types.intent_disambiguation_settings.IntentDisambiguationSettings"
     ]

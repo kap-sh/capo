@@ -16,6 +16,7 @@ if TYPE_CHECKING:
     import capo_rds.types.boolean_optional
     import capo_rds.types.certificate_details
     import capo_rds.types.database_insights_mode
+    import capo_rds.types.db_capacity_reservation_identifier
     import capo_rds.types.db_instance_automated_backups_replication_list
     import capo_rds.types.db_instance_roles
     import capo_rds.types.db_instance_status_info_list
@@ -288,6 +289,10 @@ class DBInstance(TypedDict, closed=True):
         "capo_rds.types.integer_optional.IntegerOptional"
     ]
     """<p>The percentage of the in-progress storage operation on the DB instance that has completed, from <code>0</code> to <code>100</code>. This field appears only while a storage operation is in progress. It isn't present when no storage operation is active.</p>"""
+    db_capacity_reservation_identifier: NotRequired[
+        "capo_rds.types.db_capacity_reservation_identifier.DBCapacityReservationIdentifier"
+    ]
+    """<p>The identifier of the DB capacity reservation associated with this DB instance. Amazon RDS doesn't return this value if the DB instance doesn't use a DB capacity reservation.</p>"""
 
 
 # --- awsQuery ser/de ---
@@ -796,6 +801,13 @@ def serialize_query(
             (
                 f"{key_prefix}StorageOperationPercentProgress",
                 str(value["storage_operation_percent_progress"]),
+            )
+        )
+    if "db_capacity_reservation_identifier" in value:
+        pairs.append(
+            (
+                f"{key_prefix}DBCapacityReservationIdentifier",
+                str(value["db_capacity_reservation_identifier"]),
             )
         )
 
@@ -1316,6 +1328,13 @@ def deserialize_query(el: Element) -> DBInstance:
     if child_storage_operation_percent_progress is not None:
         out["storage_operation_percent_progress"] = int(
             child_storage_operation_percent_progress.text or ""
+        )
+    child_db_capacity_reservation_identifier = el.find(
+        "DBCapacityReservationIdentifier"
+    )
+    if child_db_capacity_reservation_identifier is not None:
+        out["db_capacity_reservation_identifier"] = str(
+            child_db_capacity_reservation_identifier.text or ""
         )
     return out
 

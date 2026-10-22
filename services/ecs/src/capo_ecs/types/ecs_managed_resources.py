@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_ecs.types.gateway_connection_list
     import capo_ecs.types.managed_auto_scaling
     import capo_ecs.types.managed_ingress_paths
     import capo_ecs.types.managed_log_groups
@@ -29,6 +30,10 @@ class ECSManagedResources(TypedDict, closed=True):
     """<p>The security groups managed by the Express service.</p>"""
     log_groups: NotRequired["capo_ecs.types.managed_log_groups.ManagedLogGroups"]
     """<p>The log groups managed by the Express service.</p>"""
+    gateway_connections: NotRequired[
+        "capo_ecs.types.gateway_connection_list.GatewayConnectionList"
+    ]
+    """<p>The gateway-managed connections for the service revision, including the gateway routes and infrastructure that a gateway created for the service's connector.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -69,6 +74,14 @@ def serialize_aws_json_1_1(value: ECSManagedResources) -> dict:
 
         out["logGroups"] = capo_ecs.types.managed_log_groups.serialize_aws_json_1_1(
             value["log_groups"]
+        )
+    if "gateway_connections" in value:
+        import capo_ecs.types.gateway_connection_list
+
+        out["gatewayConnections"] = (
+            capo_ecs.types.gateway_connection_list.serialize_aws_json_1_1(
+                value["gateway_connections"]
+            )
         )
     return out
 
@@ -112,5 +125,13 @@ def deserialize_aws_json_1_1(data: dict) -> ECSManagedResources:
 
         out["log_groups"] = capo_ecs.types.managed_log_groups.deserialize_aws_json_1_1(
             data["logGroups"]
+        )
+    if data.get("gatewayConnections") is not None:
+        import capo_ecs.types.gateway_connection_list
+
+        out["gateway_connections"] = (
+            capo_ecs.types.gateway_connection_list.deserialize_aws_json_1_1(
+                data["gatewayConnections"]
+            )
         )
     return out

@@ -21,6 +21,7 @@ import capo_workspaces.types.custom_image_protocol
 import capo_workspaces.types.custom_workspace_image_import_state
 import capo_workspaces.types.image_compute_type
 import capo_workspaces.types.image_source_identifier
+import capo_workspaces.types.image_validation_mode
 import capo_workspaces.types.import_custom_workspace_image_request
 import capo_workspaces.types.import_custom_workspace_image_result
 import capo_workspaces.types.os_version

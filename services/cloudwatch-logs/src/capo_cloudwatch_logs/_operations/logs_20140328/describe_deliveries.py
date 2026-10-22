@@ -16,6 +16,7 @@ import capo_cloudwatch_logs.errors.service_unavailable_exception
 import capo_cloudwatch_logs.errors.throttling_exception
 import capo_cloudwatch_logs.errors.validation_exception
 import capo_cloudwatch_logs.types.deliveries
+import capo_cloudwatch_logs.types.delivery_source_names
 import capo_cloudwatch_logs.types.describe_deliveries_request
 import capo_cloudwatch_logs.types.describe_deliveries_response
 from capo_cloudwatch_logs._protocol.errors import parse_error_metadata_json

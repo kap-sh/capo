@@ -94,6 +94,8 @@ if TYPE_CHECKING:
     import capo_auto_scaling.types.delete_warm_pool_type
     import capo_auto_scaling.types.deletion_protection
     import capo_auto_scaling.types.describe_account_limits_answer
+    import capo_auto_scaling.types.describe_account_settings_answer
+    import capo_auto_scaling.types.describe_account_settings_type
     import capo_auto_scaling.types.describe_adjustment_types_answer
     import capo_auto_scaling.types.describe_auto_scaling_instances_type
     import capo_auto_scaling.types.describe_auto_scaling_notification_types_answer
@@ -188,6 +190,8 @@ if TYPE_CHECKING:
     import capo_auto_scaling.types.process_names
     import capo_auto_scaling.types.processes_type
     import capo_auto_scaling.types.protected_from_scale_in
+    import capo_auto_scaling.types.put_account_setting_answer
+    import capo_auto_scaling.types.put_account_setting_type
     import capo_auto_scaling.types.put_lifecycle_hook_answer
     import capo_auto_scaling.types.put_lifecycle_hook_type
     import capo_auto_scaling.types.put_notification_configuration_type
@@ -1834,6 +1838,61 @@ class AutoScalingClient:
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def describe_account_settings(
+        self,
+        *,
+        config_overrides: Optional[AutoScalingClientConfig] = None,
+        name: Optional[
+            "capo_auto_scaling.types.ascii_string_max_len255.AsciiStringMaxLen255"
+        ] = None,
+        next_token: Optional["capo_auto_scaling.types.xml_string.XmlString"] = None,
+        max_records: Optional["capo_auto_scaling.types.max_records.MaxRecords"] = None,
+    ) -> "capo_auto_scaling.types.describe_account_settings_answer.DescribeAccountSettingsAnswer":
+        """<p> Describes the current Amazon EC2 Auto Scaling account settings for your account. Account settings are a framework that allows you to enable or disable features for your account. The framework also gives you visibility into features that will be enforced by a given date, providing a time window to prepare for backwards-incompatible changes. </p>
+
+        Args:
+            name: <p> The name of the account setting to describe. If you omit this parameter, all account settings are described. </p>
+            next_token: <p> The token for the next set of items to return. (You received this token from a previous call.) </p>
+            max_records: <p> The maximum number of items to return with this call. The default value is <code>50</code> and the maximum value is <code>100</code>. </p>
+
+        Raises:
+            capo_auto_scaling.errors.invalid_next_token.InvalidNextToken: <p>The <code>NextToken</code> value is not valid.</p>
+            capo_auto_scaling.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_auto_scaling.types.describe_account_settings_type.DescribeAccountSettingsType]",
+        ) -> OperationResponse[
+            "capo_auto_scaling.types.describe_account_settings_answer.DescribeAccountSettingsAnswer"
+        ]:
+            import capo_auto_scaling._operations.auto_scaling_2011_01_01.describe_account_settings
+
+            output, http_response = (
+                capo_auto_scaling._operations.auto_scaling_2011_01_01.describe_account_settings.describe_account_settings(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccountSettings")
+        )
+        input_: capo_auto_scaling.types.describe_account_settings_type.DescribeAccountSettingsType = {}
+        if name is not None:
+            input_["name"] = name
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if max_records is not None:
+            input_["max_records"] = max_records
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
             handler=_handler,
             interceptors=list(interceptors_),
         )
@@ -4070,6 +4129,58 @@ class AutoScalingClient:
             input_["subnet_ids"] = subnet_ids
         if retry_strategy is not None:
             input_["retry_strategy"] = retry_strategy
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def put_account_setting(
+        self,
+        *,
+        config_overrides: Optional[AutoScalingClientConfig] = None,
+        name: Optional[
+            "capo_auto_scaling.types.ascii_string_max_len255.AsciiStringMaxLen255"
+        ] = None,
+        value: Optional[
+            "capo_auto_scaling.types.ascii_string_max_len255.AsciiStringMaxLen255"
+        ] = None,
+    ) -> "capo_auto_scaling.types.put_account_setting_answer.PutAccountSettingAnswer":
+        """<p> Modifies an account setting for your account. You can use this operation to opt in or opt out of features provided through account settings when permitted. Account settings give you control over features that might have backwards-incompatible changes. When Amazon EC2 Auto Scaling introduces such changes, account settings allow you to test and adopt new features. Some account settings are enforced after a specified date. This means that after the enforcement date, you can no longer modify the setting. </p>
+
+        Args:
+            name: <p> The name of the account setting to modify. Each account setting has a unique name that identifies the specific feature it controls. </p>
+            value: <p> The value for the account setting. </p>
+
+        Raises:
+            capo_auto_scaling.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_auto_scaling.types.put_account_setting_type.PutAccountSettingType]",
+        ) -> OperationResponse[
+            "capo_auto_scaling.types.put_account_setting_answer.PutAccountSettingAnswer"
+        ]:
+            import capo_auto_scaling._operations.auto_scaling_2011_01_01.put_account_setting
+
+            output, http_response = (
+                capo_auto_scaling._operations.auto_scaling_2011_01_01.put_account_setting.put_account_setting(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAccountSetting")
+        )
+        input_: capo_auto_scaling.types.put_account_setting_type.PutAccountSettingType = {}
+        if name is not None:
+            input_["name"] = name
+        if value is not None:
+            input_["value"] = value
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

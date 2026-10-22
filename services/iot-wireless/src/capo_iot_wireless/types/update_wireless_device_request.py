@@ -22,7 +22,7 @@ class UpdateWirelessDeviceRequest(TypedDict, closed=True):
     ]
     """<p>The name of the new destination for the device.</p>"""
     name: NotRequired["capo_iot_wireless.types.wireless_device_name.WirelessDeviceName"]
-    """<p>The new name of the resource.</p> <note> <p>The following special characters aren't accepted: <code><>^#~$</code> </p> </note>"""
+    """<p>The new name of the resource.</p> <note> <p>The following special characters aren't accepted: <code>&lt;&gt;^#~$</code> </p> </note>"""
     description: NotRequired["capo_iot_wireless.types.description.Description"]
     """<p>A new description of the resource.</p>"""
     lo_ra_wan: NotRequired[

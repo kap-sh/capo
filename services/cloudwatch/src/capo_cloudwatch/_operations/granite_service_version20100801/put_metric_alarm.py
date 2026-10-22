@@ -13,6 +13,7 @@ import capo_cloudwatch._auth._signers
 import capo_cloudwatch._auth._sigv4
 import capo_cloudwatch._protocol.eventstream
 import capo_cloudwatch.errors.limit_exceeded_fault
+import capo_cloudwatch.types.action_configuration
 import capo_cloudwatch.types.comparison_operator
 import capo_cloudwatch.types.dimensions
 import capo_cloudwatch.types.evaluation_criteria

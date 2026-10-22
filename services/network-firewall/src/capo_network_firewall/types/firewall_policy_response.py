@@ -7,12 +7,14 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import capo_network_firewall.types.description
     import capo_network_firewall.types.encryption_configuration
+    import capo_network_firewall.types.firewall_policy_errors
     import capo_network_firewall.types.last_update_time
     import capo_network_firewall.types.number_of_associations
     import capo_network_firewall.types.resource_arn
     import capo_network_firewall.types.resource_id
     import capo_network_firewall.types.resource_name
     import capo_network_firewall.types.resource_status
+    import capo_network_firewall.types.resource_status_message
     import capo_network_firewall.types.rule_capacity
     import capo_network_firewall.types.tag_list
 
@@ -30,6 +32,10 @@ class FirewallPolicyResponse(TypedDict, closed=True):
         "capo_network_firewall.types.resource_status.ResourceStatus"
     ]
     """<p>The current status of the firewall policy. You can retrieve this for a firewall policy by calling <a>DescribeFirewallPolicy</a> and providing the firewall policy's name or ARN.</p>"""
+    status_message: NotRequired[
+        "capo_network_firewall.types.resource_status_message.ResourceStatusMessage"
+    ]
+    """<p>Additional detail about the firewall policy's current status, when applicable. For example, while an Amazon Route 53 Resolver DNS Firewall rule group change is in progress, the status is <code>UPDATING</code> and this message is "A DNS Firewall rule group change is in progress."</p>"""
     tags: NotRequired["capo_network_firewall.types.tag_list.TagList"]
     """<p>The key:value pairs to associate with the resource.</p>"""
     consumed_stateless_rule_capacity: NotRequired[
@@ -52,6 +58,10 @@ class FirewallPolicyResponse(TypedDict, closed=True):
         "capo_network_firewall.types.encryption_configuration.EncryptionConfiguration"
     ]
     """<p>A complex type that contains the Amazon Web Services KMS encryption configuration settings for your firewall policy.</p>"""
+    errors: NotRequired[
+        "capo_network_firewall.types.firewall_policy_errors.FirewallPolicyErrors"
+    ]
+    """<p>Any configuration errors that apply to the firewall policy. Network Firewall detects these errors asynchronously, after you create or update the policy, so an error can appear after the request that caused it has already succeeded. Each entry describes the problem and how to resolve it, and Network Firewall clears it automatically after you resolve the problem.</p>"""
     last_modified_time: NotRequired[
         "capo_network_firewall.types.last_update_time.LastUpdateTime"
     ]
@@ -74,6 +84,8 @@ def serialize_aws_json_1_0(value: FirewallPolicyResponse) -> dict:
                 value["firewall_policy_status"]
             )
         )
+    if "status_message" in value:
+        out["StatusMessage"] = value["status_message"]
     if "tags" in value:
         import capo_network_firewall.types.tag_list
 
@@ -96,6 +108,14 @@ def serialize_aws_json_1_0(value: FirewallPolicyResponse) -> dict:
         out["EncryptionConfiguration"] = (
             capo_network_firewall.types.encryption_configuration.serialize_aws_json_1_0(
                 value["encryption_configuration"]
+            )
+        )
+    if "errors" in value:
+        import capo_network_firewall.types.firewall_policy_errors
+
+        out["Errors"] = (
+            capo_network_firewall.types.firewall_policy_errors.serialize_aws_json_1_0(
+                value["errors"]
             )
         )
     if "last_modified_time" in value:
@@ -133,6 +153,8 @@ def deserialize_aws_json_1_0(data: dict) -> FirewallPolicyResponse:
                 data["FirewallPolicyStatus"]
             )
         )
+    if data.get("StatusMessage") is not None:
+        out["status_message"] = data["StatusMessage"]
     if data.get("Tags") is not None:
         import capo_network_firewall.types.tag_list
 
@@ -155,6 +177,14 @@ def deserialize_aws_json_1_0(data: dict) -> FirewallPolicyResponse:
         out["encryption_configuration"] = (
             capo_network_firewall.types.encryption_configuration.deserialize_aws_json_1_0(
                 data["EncryptionConfiguration"]
+            )
+        )
+    if data.get("Errors") is not None:
+        import capo_network_firewall.types.firewall_policy_errors
+
+        out["errors"] = (
+            capo_network_firewall.types.firewall_policy_errors.deserialize_aws_json_1_0(
+                data["Errors"]
             )
         )
     if data.get("LastModifiedTime") is not None:

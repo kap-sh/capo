@@ -106,6 +106,7 @@ if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.delivery_destination
     import capo_cloudwatch_logs.types.delivery_destination_configuration
     import capo_cloudwatch_logs.types.delivery_destination_name
+    import capo_cloudwatch_logs.types.delivery_destination_names
     import capo_cloudwatch_logs.types.delivery_destination_policy
     import capo_cloudwatch_logs.types.delivery_destination_type
     import capo_cloudwatch_logs.types.delivery_destination_types
@@ -113,6 +114,7 @@ if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.delivery_source
     import capo_cloudwatch_logs.types.delivery_source_configuration
     import capo_cloudwatch_logs.types.delivery_source_name
+    import capo_cloudwatch_logs.types.delivery_source_names
     import capo_cloudwatch_logs.types.descending
     import capo_cloudwatch_logs.types.describe_account_policies_request
     import capo_cloudwatch_logs.types.describe_account_policies_response
@@ -188,6 +190,7 @@ if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.filter_log_events_response
     import capo_cloudwatch_logs.types.filter_name
     import capo_cloudwatch_logs.types.filter_pattern
+    import capo_cloudwatch_logs.types.filter_resource_arns
     import capo_cloudwatch_logs.types.force
     import capo_cloudwatch_logs.types.force_update
     import capo_cloudwatch_logs.types.get_data_protection_policy_request
@@ -2529,11 +2532,15 @@ class CloudWatchLogsClient:
         limit: Optional[
             "capo_cloudwatch_logs.types.describe_limit.DescribeLimit"
         ] = None,
+        delivery_source_names: Optional[
+            "capo_cloudwatch_logs.types.delivery_source_names.DeliverySourceNames"
+        ] = None,
     ) -> "capo_cloudwatch_logs.types.describe_deliveries_response.DescribeDeliveriesResponse":
         """<p>Retrieves a list of the deliveries that have been created in the account.</p> <p>A <i>delivery</i> is a connection between a <a href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutDeliverySource.html"> <i>delivery source</i> </a> and a <a href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutDeliveryDestination.html"> <i>delivery destination</i> </a>.</p> <p>A delivery source represents an Amazon Web Services resource that sends logs to an logs delivery destination. The destination can be CloudWatch Logs, Amazon S3, Firehose or X-Ray. Only some Amazon Web Services services support being configured as a delivery source. These services are listed in <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AWS-logs-and-resource-policy.html">Enable logging from Amazon Web Services services.</a> </p>
 
         Args:
             limit: <p>Optionally specify the maximum number of deliveries to return in the response.</p>
+            delivery_source_names: <p>An array of delivery source names that filters the results to deliveries associated with any specified delivery source.</p>
 
         Raises:
             capo_cloudwatch_logs.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>This request exceeds a service quota.</p>
@@ -2565,6 +2572,8 @@ class CloudWatchLogsClient:
             input_["next_token"] = next_token
         if limit is not None:
             input_["limit"] = limit
+        if delivery_source_names is not None:
+            input_["delivery_source_names"] = delivery_source_names
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -2582,6 +2591,9 @@ class CloudWatchLogsClient:
         limit: Optional[
             "capo_cloudwatch_logs.types.describe_limit.DescribeLimit"
         ] = None,
+        delivery_source_names: Optional[
+            "capo_cloudwatch_logs.types.delivery_source_names.DeliverySourceNames"
+        ] = None,
     ) -> "Iterator[capo_cloudwatch_logs.types.delivery.Delivery]":
         _token = next_token
         while True:
@@ -2589,6 +2601,7 @@ class CloudWatchLogsClient:
                 config_overrides=config_overrides,
                 next_token=_token,
                 limit=limit,
+                delivery_source_names=delivery_source_names,
             )
             _page = _resolve_path(_response, ("deliveries",))
             for _item in _page or []:
@@ -2605,11 +2618,15 @@ class CloudWatchLogsClient:
         limit: Optional[
             "capo_cloudwatch_logs.types.describe_limit.DescribeLimit"
         ] = None,
+        names: Optional[
+            "capo_cloudwatch_logs.types.delivery_destination_names.DeliveryDestinationNames"
+        ] = None,
     ) -> "capo_cloudwatch_logs.types.describe_delivery_destinations_response.DescribeDeliveryDestinationsResponse":
         """<p>Retrieves a list of the delivery destinations that have been created in the account.</p>
 
         Args:
             limit: <p>Optionally specify the maximum number of delivery destinations to return in the response.</p>
+            names: <p>An array of delivery destination names that filters the results to delivery destinations with any specified name.</p>
 
         Raises:
             capo_cloudwatch_logs.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>This request exceeds a service quota.</p>
@@ -2641,6 +2658,8 @@ class CloudWatchLogsClient:
             input_["next_token"] = next_token
         if limit is not None:
             input_["limit"] = limit
+        if names is not None:
+            input_["names"] = names
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -2658,6 +2677,9 @@ class CloudWatchLogsClient:
         limit: Optional[
             "capo_cloudwatch_logs.types.describe_limit.DescribeLimit"
         ] = None,
+        names: Optional[
+            "capo_cloudwatch_logs.types.delivery_destination_names.DeliveryDestinationNames"
+        ] = None,
     ) -> (
         "Iterator[capo_cloudwatch_logs.types.delivery_destination.DeliveryDestination]"
     ):
@@ -2667,6 +2689,7 @@ class CloudWatchLogsClient:
                 config_overrides=config_overrides,
                 next_token=_token,
                 limit=limit,
+                names=names,
             )
             _page = _resolve_path(_response, ("delivery_destinations",))
             for _item in _page or []:
@@ -2683,11 +2706,15 @@ class CloudWatchLogsClient:
         limit: Optional[
             "capo_cloudwatch_logs.types.describe_limit.DescribeLimit"
         ] = None,
+        resource_arns: Optional[
+            "capo_cloudwatch_logs.types.filter_resource_arns.FilterResourceArns"
+        ] = None,
     ) -> "capo_cloudwatch_logs.types.describe_delivery_sources_response.DescribeDeliverySourcesResponse":
         """<p>Retrieves a list of the delivery sources that have been created in the account.</p>
 
         Args:
             limit: <p>Optionally specify the maximum number of delivery sources to return in the response.</p>
+            resource_arns: <p>An array of Amazon Resource Names (ARNs) that filters the results to delivery sources associated with any specified ARN.</p>
 
         Raises:
             capo_cloudwatch_logs.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>This request exceeds a service quota.</p>
@@ -2719,6 +2746,8 @@ class CloudWatchLogsClient:
             input_["next_token"] = next_token
         if limit is not None:
             input_["limit"] = limit
+        if resource_arns is not None:
+            input_["resource_arns"] = resource_arns
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -2736,6 +2765,9 @@ class CloudWatchLogsClient:
         limit: Optional[
             "capo_cloudwatch_logs.types.describe_limit.DescribeLimit"
         ] = None,
+        resource_arns: Optional[
+            "capo_cloudwatch_logs.types.filter_resource_arns.FilterResourceArns"
+        ] = None,
     ) -> "Iterator[capo_cloudwatch_logs.types.delivery_source.DeliverySource]":
         _token = next_token
         while True:
@@ -2743,6 +2775,7 @@ class CloudWatchLogsClient:
                 config_overrides=config_overrides,
                 next_token=_token,
                 limit=limit,
+                resource_arns=resource_arns,
             )
             _page = _resolve_path(_response, ("delivery_sources",))
             for _item in _page or []:
@@ -6360,7 +6393,7 @@ class CloudWatchLogsClient:
         Args:
             name: <p>A name for this delivery source. This name must be unique for all delivery sources in your account.</p>
             resource_arn: <p>The ARN of the Amazon Web Services resource that is generating and sending logs. For example, <code>arn:aws:workmail:us-east-1:123456789012:organization/m-1234EXAMPLEabcd1234abcd1234abcd1234</code> </p> <p>For the <code>SECURITY_FINDING_LOGS</code> logType, use a wildcard ARN for the hub resource. For Amazon Web Services Security Hub CSPM, use <code>arn:aws:securityhub:us-east-1:111122223333:hub/*</code> and for Amazon Web Services Security Hub, use <code>arn:aws:securityhub:us-east-1:111122223333:hubv2/*</code> </p> <p>For the <code>INSIGHTS_QUERY_LOGS</code> log type, use a wildcard log group ARN, such as <code>arn:aws:logs:us-east-1:111122223333:log-group:*</code>. Amazon Web Services does not support a specific log group ARN for this log type.</p>
-            log_type: <p>Defines the type of log that the source is sending.</p> <ul> <li> <p>For Amazon Web Services Amplify, the valid values are <code>ACCESS_LOGS</code> and <code>WAF_LOGS</code>.</p> </li> <li> <p>For Application Load Balancer, the valid values are <code>ALB_ACCESS_LOGS</code>, <code>ALB_CONNECTION_LOGS</code>, and <code>ALB_HEALTH_CHECK_LOGS</code>.</p> </li> <li> <p>For Amazon Bedrock AgentCore Gateway, the valid values are <code>APPLICATION_LOGS</code> and <code>TRACES</code>.</p> </li> <li> <p>For Amazon Bedrock AgentCore Identity, the valid values are <code>APPLICATION_LOGS</code> and <code>TRACES</code>.</p> </li> <li> <p>For Amazon Bedrock AgentCore Memory, the valid values are <code>APPLICATION_LOGS</code> and <code>TRACES</code>.</p> </li> <li> <p>For Amazon Bedrock AgentCore Payments, the valid values are <code>APPLICATION_LOGS</code> and <code>TRACES</code>.</p> </li> <li> <p>For Amazon Bedrock AgentCore Runtime, the valid values are <code>APPLICATION_LOGS</code>, <code>USAGE_LOGS</code>, and <code>TRACES</code>.</p> </li> <li> <p>For Amazon Bedrock AgentCore Tools, the valid values are <code>APPLICATION_LOGS</code>, <code>USAGE_LOGS</code>, and <code>TRACES</code>.</p> </li> <li> <p>For Amazon Bedrock Agents, the valid values are <code>APPLICATION_LOGS</code> and <code>EVENT_LOGS</code>.</p> </li> <li> <p>For Amazon Bedrock Knowledge Bases, the valid values are <code>APPLICATION_LOGS</code> and <code>TRACES</code>.</p> </li> <li> <p>For CloudFront, the valid value is <code>ACCESS_LOGS</code>.</p> </li> <li> <p>For query execution logs from CloudWatch Logs Insights, the valid value is <code>INSIGHTS_QUERY_LOGS</code>.</p> </li> <li> <p>For Amazon CodeWhisperer, the valid value is <code>EVENT_LOGS</code>.</p> </li> <li> <p>For DevOps Agent, the valid value is <code>APPLICATION_LOGS</code>.</p> </li> <li> <p>For Amazon EKS Auto Mode, the valid values are <code>AUTO_MODE_BLOCK_STORAGE_LOGS</code>, <code>AUTO_MODE_COMPUTE_LOGS</code>, <code>AUTO_MODE_IPAM_LOGS</code>, and <code>AUTO_MODE_LOAD_BALANCING_LOGS</code>.</p> </li> <li> <p>For Amazon EKS Capability Logs, the valid values are <code>EKS_CAPABILITY_ACK_LOGS</code>, <code>EKS_CAPABILITY_ARGOCD_APPLICATION_LOGS</code>, <code>EKS_CAPABILITY_ARGOCD_APPLICATIONSET_LOGS</code>, <code>EKS_CAPABILITY_ARGOCD_COMMITSERVER_LOGS</code>, <code>EKS_CAPABILITY_ARGOCD_REPOSERVER_LOGS</code>, <code>EKS_CAPABILITY_ARGOCD_SERVER_LOGS</code>, and <code>EKS_CAPABILITY_KRO_LOGS</code>.</p> </li> <li> <p>For Amazon Web Services Elemental Inference, the valid value is <code>APPLICATION_LOGS</code>.</p> </li> <li> <p>For Elemental MediaPackage, the valid values are <code>EGRESS_ACCESS_LOGS</code> and <code>INGRESS_ACCESS_LOGS</code>.</p> </li> <li> <p>For Elemental MediaTailor, the valid values are <code>AD_DECISION_SERVER_LOGS</code>, <code>MANIFEST_SERVICE_LOGS</code>, and <code>TRANSCODE_LOGS</code>.</p> </li> <li> <p>For Entity Resolution, the valid value is <code>WORKFLOW_LOGS</code>.</p> </li> <li> <p>For IAM Identity Center, the valid value is <code>ERROR_LOGS</code>.</p> </li> <li> <p>For Network Firewall Proxy, the valid values are <code>ALERT_LOGS</code>, <code>ALLOW_LOGS</code>, and <code>DENY_LOGS</code>.</p> </li> <li> <p>For Network Load Balancer, the valid value is <code>NLB_ACCESS_LOGS</code>.</p> </li> <li> <p>For PCS, the valid values are <code>PCS_SCHEDULER_LOGS</code>, <code>PCS_JOBCOMP_LOGS</code>, and <code>PCS_SCHEDULER_AUDIT_LOGS</code>.</p> </li> <li> <p>For Amazon Q, the valid values are <code>EVENT_LOGS</code> and <code>SYNC_JOB_LOGS</code>.</p> </li> <li> <p>For Amazon Q in Connect AI agents, the valid value is <code>EVENT_LOGS</code>.</p> </li> <li> <p>For Quick, the valid values are <code>AGENT_HOURS_LOGS</code>, <code>AGENT_METADATA_LOGS</code>, <code>CHAT_LOGS</code>, <code>DLP_LOGS</code>, <code>FEEDBACK_LOGS</code>, <code>INDEX_USAGE_LOGS</code>, and <code>KB_FILE_SYNC_LOGS</code>.</p> </li> <li> <p>For Route 53 Global Resolver, the valid value is <code>GLOBAL_RESOLVER_LOGS</code>.</p> </li> <li> <p>For Amazon Web Services RTB Fabric, the valid value is <code>APPLICATION_LOGS</code>.</p> </li> <li> <p>For Amazon S3, the valid value is <code>S3_SERVER_ACCESS_LOGS</code>.</p> </li> <li> <p>For Amazon Web Services Security Hub, the valid value is <code>SECURITY_FINDING_LOGS</code>.</p> </li> <li> <p>For Amazon Web Services Security Hub CSPM, the valid value is <code>SECURITY_FINDING_LOGS</code>.</p> </li> <li> <p>For Amazon SES mail manager, the valid values are <code>APPLICATION_LOGS</code> and <code>TRAFFIC_POLICY_DEBUG_LOGS</code>.</p> </li> <li> <p>For Amazon Web Services Shield Advanced, the valid value is <code>FLOW_LOGS</code>.</p> </li> <li> <p>For Amazon VPC Route Server, the valid value is <code>EVENT_LOGS</code>.</p> </li> <li> <p>For Amazon WorkMail, the valid values are <code>ACCESS_CONTROL_LOGS</code>, <code>AUTHENTICATION_LOGS</code>, <code>WORKMAIL_AVAILABILITY_PROVIDER_LOGS</code>, <code>WORKMAIL_MAILBOX_ACCESS_LOGS</code>, and <code>WORKMAIL_PERSONAL_ACCESS_TOKEN_LOGS</code>.</p> </li> </ul>
+            log_type: <p>Defines the type of log that the source is sending.</p> <ul> <li> <p>For Amazon Web Services Amplify, the valid values are <code>ACCESS_LOGS</code> and <code>WAF_LOGS</code>.</p> </li> <li> <p>For Application Load Balancer, the valid values are <code>ALB_ACCESS_LOGS</code>, <code>ALB_CONNECTION_LOGS</code>, and <code>ALB_HEALTH_CHECK_LOGS</code>.</p> </li> <li> <p>For Amazon Bedrock AgentCore Gateway, the valid values are <code>APPLICATION_LOGS</code> and <code>TRACES</code>.</p> </li> <li> <p>For Amazon Bedrock AgentCore Identity, the valid values are <code>APPLICATION_LOGS</code> and <code>TRACES</code>.</p> </li> <li> <p>For Amazon Bedrock AgentCore Memory, the valid values are <code>APPLICATION_LOGS</code> and <code>TRACES</code>.</p> </li> <li> <p>For Amazon Bedrock AgentCore Payments, the valid values are <code>APPLICATION_LOGS</code> and <code>TRACES</code>.</p> </li> <li> <p>For Amazon Bedrock AgentCore Runtime, the valid values are <code>APPLICATION_LOGS</code>, <code>USAGE_LOGS</code>, and <code>TRACES</code>.</p> </li> <li> <p>For Amazon Bedrock AgentCore Tools, the valid values are <code>APPLICATION_LOGS</code>, <code>USAGE_LOGS</code>, and <code>TRACES</code>.</p> </li> <li> <p>For Amazon Bedrock Agents, the valid values are <code>APPLICATION_LOGS</code> and <code>EVENT_LOGS</code>.</p> </li> <li> <p>For Amazon Bedrock Knowledge Bases, the valid values are <code>APPLICATION_LOGS</code> and <code>TRACES</code>.</p> </li> <li> <p>For CloudFront, the valid value is <code>ACCESS_LOGS</code>.</p> </li> <li> <p>For query execution logs from CloudWatch Logs Insights, the valid value is <code>INSIGHTS_QUERY_LOGS</code>.</p> </li> <li> <p>For Amazon CodeWhisperer, the valid value is <code>EVENT_LOGS</code>.</p> </li> <li> <p>For DevOps Agent, the valid value is <code>APPLICATION_LOGS</code>.</p> </li> <li> <p>For Amazon EKS Auto Mode, the valid values are <code>AUTO_MODE_BLOCK_STORAGE_LOGS</code>, <code>AUTO_MODE_COMPUTE_LOGS</code>, <code>AUTO_MODE_IPAM_LOGS</code>, and <code>AUTO_MODE_LOAD_BALANCING_LOGS</code>.</p> </li> <li> <p>For Amazon EKS Capability Logs, the valid values are <code>EKS_CAPABILITY_ACK_LOGS</code>, <code>EKS_CAPABILITY_ARGOCD_APPLICATION_LOGS</code>, <code>EKS_CAPABILITY_ARGOCD_APPLICATIONSET_LOGS</code>, <code>EKS_CAPABILITY_ARGOCD_COMMITSERVER_LOGS</code>, <code>EKS_CAPABILITY_ARGOCD_REPOSERVER_LOGS</code>, <code>EKS_CAPABILITY_ARGOCD_SERVER_LOGS</code>, and <code>EKS_CAPABILITY_KRO_LOGS</code>.</p> </li> <li> <p>For Amazon Web Services Elemental Inference, the valid value is <code>APPLICATION_LOGS</code>.</p> </li> <li> <p>For Elemental MediaPackage, the valid values are <code>EGRESS_ACCESS_LOGS</code> and <code>INGRESS_ACCESS_LOGS</code>.</p> </li> <li> <p>For Elemental MediaTailor, the valid values are <code>AD_DECISION_SERVER_LOGS</code>, <code>MANIFEST_SERVICE_LOGS</code>, and <code>TRANSCODE_LOGS</code>.</p> </li> <li> <p>For Amazon ECS, the valid value is <code>ACTION_LOGS</code>.</p> </li> <li> <p>For Entity Resolution, the valid value is <code>WORKFLOW_LOGS</code>.</p> </li> <li> <p>For Amazon EventBridge Event Bus (Custom), the valid values are <code>INFO_LOGS</code> and <code>ERROR_LOGS</code>.</p> </li> <li> <p>For IAM Identity Center, the valid value is <code>ERROR_LOGS</code>.</p> </li> <li> <p>For Network Firewall Proxy, the valid values are <code>ALERT_LOGS</code>, <code>ALLOW_LOGS</code>, and <code>DENY_LOGS</code>.</p> </li> <li> <p>For Network Load Balancer, the valid value is <code>NLB_ACCESS_LOGS</code>.</p> </li> <li> <p>For PCS, the valid values are <code>PCS_SCHEDULER_LOGS</code>, <code>PCS_JOBCOMP_LOGS</code>, <code>PCS_SCHEDULER_AUDIT_LOGS</code>, and <code>PCS_SCALING_LOGS</code>.</p> </li> <li> <p>For Amazon Q, the valid values are <code>EVENT_LOGS</code> and <code>SYNC_JOB_LOGS</code>.</p> </li> <li> <p>For Amazon Q in Connect AI agents, the valid value is <code>EVENT_LOGS</code>.</p> </li> <li> <p>For Quick, the valid values are <code>AGENT_HOURS_LOGS</code>, <code>AGENT_METADATA_LOGS</code>, <code>CHAT_LOGS</code>, <code>DLP_LOGS</code>, <code>FEEDBACK_LOGS</code>, <code>INDEX_USAGE_LOGS</code>, and <code>KB_FILE_SYNC_LOGS</code>.</p> </li> <li> <p>For Route 53 Global Resolver, the valid value is <code>GLOBAL_RESOLVER_LOGS</code>.</p> </li> <li> <p>For Amazon Web Services RTB Fabric, the valid value is <code>APPLICATION_LOGS</code>.</p> </li> <li> <p>For Amazon S3, the valid value is <code>S3_SERVER_ACCESS_LOGS</code>.</p> </li> <li> <p>For Amazon Web Services Security Hub, the valid value is <code>SECURITY_FINDING_LOGS</code>.</p> </li> <li> <p>For Amazon Web Services Security Hub CSPM, the valid value is <code>SECURITY_FINDING_LOGS</code>.</p> </li> <li> <p>For Amazon SES mail manager, the valid values are <code>APPLICATION_LOGS</code> and <code>TRAFFIC_POLICY_DEBUG_LOGS</code>.</p> </li> <li> <p>For Amazon Web Services Shield Advanced, the valid value is <code>FLOW_LOGS</code>.</p> </li> <li> <p>For Amazon VPC Route Server, the valid value is <code>EVENT_LOGS</code>.</p> </li> <li> <p>For Amazon WorkMail, the valid values are <code>ACCESS_CONTROL_LOGS</code>, <code>AUTHENTICATION_LOGS</code>, <code>WORKMAIL_AVAILABILITY_PROVIDER_LOGS</code>, <code>WORKMAIL_MAILBOX_ACCESS_LOGS</code>, and <code>WORKMAIL_PERSONAL_ACCESS_TOKEN_LOGS</code>.</p> </li> </ul>
             tags: <p>An optional list of key-value pairs to associate with the resource.</p> <p>For more information about tagging, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services resources</a> </p>
             delivery_source_configuration: <p>A map of key-value pairs to configure the delivery source. Both keys and values must be between 1 and 255 characters in length. For example, <code>{"samplingRate": "50"}</code>.</p>
 
@@ -6915,7 +6948,7 @@ class CloudWatchLogsClient:
             "capo_cloudwatch_logs.types.expected_revision_id.ExpectedRevisionId"
         ] = None,
     ) -> "capo_cloudwatch_logs.types.put_resource_policy_response.PutResourcePolicyResponse":
-        """<p>Creates or updates a resource policy allowing other Amazon Web Services services to put log events to this account, such as Amazon Route 53. This API has the following restrictions:</p> <ul> <li> <p> <b>Supported actions</b> - Policy only supports <code>logs:PutLogEvents</code> and <code>logs:CreateLogStream </code> actions</p> </li> <li> <p> <b>Supported principals</b> - Policy only applies when operations are invoked by Amazon Web Services service principals (not IAM users, roles, or cross-account principals</p> </li> <li> <p> <b>Policy limits</b> - An account can have a maximum of 10 policies without resourceARN and one per LogGroup resourceARN</p> </li> </ul> <important> <p>Resource policies with actions invoked by non-Amazon Web Services service principals (such as IAM users, roles, or other Amazon Web Services accounts) will not be enforced. For access control involving these principals, use the IAM policies.</p> </important>
+        """<p>Creates or updates a resource policy allowing other Amazon Web Services services to put log events to this account, such as Amazon Route 53. This API has the following restrictions:</p> <ul> <li> <p> <b>Supported actions</b> - Policy only supports <code>logs:PutLogEvents</code> and <code>logs:CreateLogStream </code> actions</p> </li> <li> <p> <b>Supported principals</b> - Policy only applies when operations are invoked by Amazon Web Services service principals (not IAM users, roles, or cross-account principals)</p> </li> <li> <p> <b>Policy limits</b> - An account can have a maximum of 10 policies without resourceARN and one per LogGroup resourceARN</p> </li> </ul> <important> <p>Resource policies with actions invoked by non-Amazon Web Services service principals (such as IAM users, roles, or other Amazon Web Services accounts) will not be enforced. For access control involving these principals, use the IAM policies.</p> </important>
 
         Args:
             policy_name: <p>Name of the new policy. This parameter is required.</p>

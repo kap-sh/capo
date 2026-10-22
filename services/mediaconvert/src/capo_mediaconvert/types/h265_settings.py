@@ -16,6 +16,7 @@ if TYPE_CHECKING:
     import capo_mediaconvert.types.__integer_min1_max2147483647
     import capo_mediaconvert.types.__integer_min64_max2160
     import capo_mediaconvert.types.__integer_min256_max3840
+    import capo_mediaconvert.types.__integer_min1000_max3000
     import capo_mediaconvert.types.__integer_min1000_max1466400000
     import capo_mediaconvert.types.__list_of_frame_metric_type
     import capo_mediaconvert.types.bandwidth_reduction_filter
@@ -202,6 +203,14 @@ class H265Settings(TypedDict, closed=True):
         "capo_mediaconvert.types.__integer_min1_max32.__integerMin1Max32"
     ]
     """Number of slices per picture. Must be less than or equal to the number of macroblock rows for progressive pictures, and less than or equal to half the number of macroblock rows for interlaced pictures."""
+    sliding_window_ms: NotRequired[
+        "capo_mediaconvert.types.__integer_min1000_max3000.__integerMin1000Max3000"
+    ]
+    """Optional. Specify the duration, in milliseconds, of the sliding window over which MediaConvert enforces your Peak bitrate. When you specify a Peak bitrate but omit this value, MediaConvert uses a default sliding window of 1000."""
+    sliding_window_peak_bitrate: NotRequired[
+        "capo_mediaconvert.types.__integer_min1000_max1466400000.__integerMin1000Max1466400000"
+    ]
+    """Optional. Specify an instantaneous peak bitrate ceiling, in bits/second, that MediaConvert enforces over the sliding window set by Peak bitrate window. For example, enter fifty megabits per second as 50000000. Applies in the VBR, CBR, and QVBR rate control modes. When you specify a value below Max bitrate, MediaConvert raises it to Max bitrate."""
     slow_pal: NotRequired["capo_mediaconvert.types.h265_slow_pal.H265SlowPal"]
     """Ignore this setting unless your input frame rate is 23.976 or 24 frames per second (fps). Enable slow PAL to create a 25 fps output. When you enable slow PAL, MediaConvert relabels the video frames to 25 fps and resamples your audio to keep it synchronized with the video. Note that enabling this setting will slightly reduce the duration of your video. Required settings: You must also set Framerate to 25."""
     spatial_adaptive_quantization: NotRequired[
@@ -473,6 +482,10 @@ def serialize_json(value: H265Settings) -> dict:
         )
     if "slices" in value:
         out["slices"] = value["slices"]
+    if "sliding_window_ms" in value:
+        out["slidingWindowMs"] = value["sliding_window_ms"]
+    if "sliding_window_peak_bitrate" in value:
+        out["slidingWindowPeakBitrate"] = value["sliding_window_peak_bitrate"]
     if "slow_pal" in value:
         import capo_mediaconvert.types.h265_slow_pal
 
@@ -770,6 +783,10 @@ def deserialize_json(data: dict) -> H265Settings:
         )
     if data.get("slices") is not None:
         out["slices"] = data["slices"]
+    if data.get("slidingWindowMs") is not None:
+        out["sliding_window_ms"] = data["slidingWindowMs"]
+    if data.get("slidingWindowPeakBitrate") is not None:
+        out["sliding_window_peak_bitrate"] = data["slidingWindowPeakBitrate"]
     if data.get("slowPal") is not None:
         import capo_mediaconvert.types.h265_slow_pal
 

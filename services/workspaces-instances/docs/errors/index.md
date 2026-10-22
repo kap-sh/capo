@@ -11,6 +11,7 @@
 - [ThrottlingException](ThrottlingException.md)
 - [UnknownServiceError](UnknownServiceError.md)
 - [ValidationException](ValidationException.md)
+- [VolumeModificationRateExceededException](VolumeModificationRateExceededException.md)
 - [WaiterFailedError](WaiterFailedError.md)
 - [WaiterTimeoutError](WaiterTimeoutError.md)
 - [WorkspacesInstancesError](WorkspacesInstancesError.md)

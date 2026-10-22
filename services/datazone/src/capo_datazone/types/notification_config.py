@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class NotificationConfig(TypedDict, closed=True):
     notify_on: "capo_datazone.types.notify_on_states.NotifyOnStates"
-    """Notebook run states that trigger notifications. Ordering is not significant."""
+    """<p>The notebook run states that trigger notifications. You can specify up to 7 states, and the ordering of the states is not significant.</p>"""
 
 
 # --- restJson1 ser/de ---

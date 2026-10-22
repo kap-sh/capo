@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#GetBatchEvaluationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -19,6 +19,7 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.execution_summary_clustering_result_content
     import capo_bedrock_agentcore.types.failure_analysis_result_content
     import capo_bedrock_agentcore.types.insight_list
+    import capo_bedrock_agentcore.types.insight_result_list
     import capo_bedrock_agentcore.types.kms_key_arn
     import capo_bedrock_agentcore.types.output_config
     import capo_bedrock_agentcore.types.user_intent_clustering_result_content
@@ -57,6 +58,10 @@ class GetBatchEvaluationResponse(TypedDict, closed=True):
         "capo_bedrock_agentcore.types.evaluation_job_results.EvaluationJobResults"
     ]
     """<p>The aggregated evaluation results, including session completion counts and evaluator score summaries.</p>"""
+    insight_results: NotRequired[
+        "capo_bedrock_agentcore.types.insight_result_list.InsightResultList"
+    ]
+    """<p>The insights generated when the batch evaluation includes the <code>Builtin.FailureAnalysis</code> evaluator. Each insight groups related failures found across the evaluated sessions. An empty list means that no failures were found. If the analysis fails, this field is omitted and <code>errorDetails</code> describes the error.</p>"""
     failure_analysis_result: NotRequired[
         "capo_bedrock_agentcore.types.failure_analysis_result_content.FailureAnalysisResultContent"
     ]
@@ -131,6 +136,14 @@ def serialize_json(value: GetBatchEvaluationResponse) -> dict:
         out["evaluationResults"] = (
             capo_bedrock_agentcore.types.evaluation_job_results.serialize_json(
                 value["evaluation_results"]
+            )
+        )
+    if "insight_results" in value:
+        import capo_bedrock_agentcore.types.insight_result_list
+
+        out["insightResults"] = (
+            capo_bedrock_agentcore.types.insight_result_list.serialize_json(
+                value["insight_results"]
             )
         )
     if "failure_analysis_result" in value:
@@ -255,6 +268,14 @@ def deserialize_json(data: dict) -> GetBatchEvaluationResponse:
                 data["evaluationResults"]
             )
         )
+    if data.get("insightResults") is not None:
+        import capo_bedrock_agentcore.types.insight_result_list
+
+        out["insight_results"] = (
+            capo_bedrock_agentcore.types.insight_result_list.deserialize_json(
+                data["insightResults"]
+            )
+        )
     if data.get("failureAnalysisResult") is not None:
         import capo_bedrock_agentcore.types.failure_analysis_result_content
 
@@ -297,4 +318,17 @@ def deserialize_json(data: dict) -> GetBatchEvaluationResponse:
         )
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
+    return out
+
+
+def redact_sensitive(value: GetBatchEvaluationResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "insight_results" in value:
+        import capo_bedrock_agentcore.types.insight_result_list
+
+        out["insight_results"] = (
+            capo_bedrock_agentcore.types.insight_result_list.redact_sensitive(
+                value["insight_results"]
+            )
+        )
     return out

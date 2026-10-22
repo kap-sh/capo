@@ -30,6 +30,13 @@ MetricName: TypeAlias = Literal[
     "SwapUsage",
     "BurstCapacityTime",
     "BurstCapacityPercentage",
+    "DiskReadOps",
+    "DiskWriteOps",
+    "DiskReadBytes",
+    "DiskWriteBytes",
+    "DiskTotalReadTime",
+    "DiskTotalWriteTime",
+    "DiskQueueLength",
 ]
 
 

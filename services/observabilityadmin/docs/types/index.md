@@ -44,6 +44,7 @@
 - [DeleteTelemetryPipelineOutput](delete_telemetry_pipeline_output.md)
 - [DeleteTelemetryRuleForOrganizationInput](delete_telemetry_rule_for_organization_input.md)
 - [DeleteTelemetryRuleInput](delete_telemetry_rule_input.md)
+- [DeletionProtection](deletion_protection.md)
 - [DestinationLogsConfiguration](destination_logs_configuration.md)
 - [DestinationMetricsConfiguration](destination_metrics_configuration.md)
 - [DestinationType](destination_type.md)

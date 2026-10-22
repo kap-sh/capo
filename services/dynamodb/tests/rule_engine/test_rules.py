@@ -310,2984 +310,2294 @@ def test_missing_region():
     with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Missing Region')):
         resolve(params)
 
-def test__usefips_true__usedualstack_true__accoun():
-    """{UseFIPS=true, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
-        resolve(params)
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false, Endpoint=https://example.com}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False, Endpoint='https://example.com')
+    result = resolve(params)
+    assert result.url == 'https://example.com'
 
-def test__usefips_true__usedualstack_false__accou():
-    """{UseFIPS=true, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__accou():
-    """{UseFIPS=false, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com')
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=true, Endpoint=https://example.com}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=True, Endpoint='https://example.com')
     with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and custom endpoint are not supported')):
         resolve(params)
 
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-west-2:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-west-2:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, ResourceArnList=[arn:aws:s3:us-east-1:333333333333:stream/testStream], AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', ResourceArnList=['arn:aws:s3:us-east-1:333333333333:stream/testStream'], AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=, AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='', AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com')
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=false, Endpoint=https://example.com}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=False, Endpoint='https://example.com')
     with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
         resolve(params)
 
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com')
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=true, Endpoint=https://example.com}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=True, Endpoint='https://example.com')
     with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
         resolve(params)
 
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com')
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false, Endpoint=https://example.com}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False, Endpoint='https://example.com')
+    result = resolve(params)
+    assert result.url == 'https://example.com'
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=true, Endpoint=https://example.com}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=True, Endpoint='https://example.com')
     with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and custom endpoint are not supported')):
         resolve(params)
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=, AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='', AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com')
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=false, Endpoint=https://example.com}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=False, Endpoint='https://example.com')
     with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
         resolve(params)
 
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com')
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=true, Endpoint=https://example.com}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=True, Endpoint='https://example.com')
     with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
         resolve(params)
 
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com')
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false, Endpoint=https://example.com}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False, Endpoint='https://example.com')
+    result = resolve(params)
+    assert result.url == 'https://example.com'
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=true, Endpoint=https://example.com}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=True, Endpoint='https://example.com')
     with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and custom endpoint are not supported')):
         resolve(params)
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_true__usedualstack_true__accoun():
-    """{UseFIPS=true, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com')
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=false, Endpoint=https://example.com}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=False, Endpoint='https://example.com')
     with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
         resolve(params)
 
-def test__usefips_true__usedualstack_false__accou():
-    """{UseFIPS=true, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com')
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=true, Endpoint=https://example.com}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=True, Endpoint='https://example.com')
     with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
         resolve(params)
-
-def test__usefips_false__usedualstack_true__accou():
-    """{UseFIPS=false, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-west-2:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-west-2:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, ResourceArnList=[arn:aws:s3:us-east-1:333333333333:stream/testStream], AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', ResourceArnList=['arn:aws:s3:us-east-1:333333333333:stream/testStream'], AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=, AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='', AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=, AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='', AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_true__usedualstack_true__accoun():
-    """{UseFIPS=true, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__accou():
-    """{UseFIPS=true, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__accou():
-    """{UseFIPS=false, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-west-2:333333333333:table/table_name], AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-west-2:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, ResourceArnList=[arn:aws:s3:us-east-1:333333333333:stream/testStream], AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', ResourceArnList=['arn:aws:s3:us-east-1:333333333333:stream/testStream'], AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=, AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='', AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=, AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='', AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com')
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_true__usedualstack_true__accoun():
-    """{UseFIPS=true, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=local}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='local')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__accou():
-    """{UseFIPS=true, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=local}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='local')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__accou():
-    """{UseFIPS=false, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='local')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-west-2:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-west-2:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, ResourceArnList=[arn:aws:s3:us-east-1:333333333333:stream/testStream], AccountIdEndpointMode=preferred, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', ResourceArnList=['arn:aws:s3:us-east-1:333333333333:stream/testStream'], AccountIdEndpointMode='preferred', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=, AccountIdEndpointMode=preferred, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='', AccountIdEndpointMode='preferred', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=local}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='local')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=local}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='local')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='local')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, AccountIdEndpointMode=preferred, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', AccountIdEndpointMode='preferred', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=, AccountIdEndpointMode=preferred, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='', AccountIdEndpointMode='preferred', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=local}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='local')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=local}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='local')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='local')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountIdEndpointMode=preferred, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountIdEndpointMode='preferred', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_true__usedualstack_true__accoun():
-    """{UseFIPS=true, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=disabled, Region=local}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='disabled', Region='local')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__accou():
-    """{UseFIPS=true, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=disabled, Region=local}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='disabled', Region='local')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__accou():
-    """{UseFIPS=false, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=disabled, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='disabled', Region='local')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=disabled, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='disabled', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-west-2:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-west-2:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, ResourceArnList=[arn:aws:s3:us-east-1:333333333333:stream/testStream], AccountIdEndpointMode=disabled, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', ResourceArnList=['arn:aws:s3:us-east-1:333333333333:stream/testStream'], AccountIdEndpointMode='disabled', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=, AccountIdEndpointMode=disabled, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='', AccountIdEndpointMode='disabled', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=local}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='local')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=local}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='local')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='local')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, AccountIdEndpointMode=disabled, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', AccountIdEndpointMode='disabled', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=, AccountIdEndpointMode=disabled, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='', AccountIdEndpointMode='disabled', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=local}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='local')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=local}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='local')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='local')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountIdEndpointMode=disabled, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountIdEndpointMode='disabled', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_true__usedualstack_true__accoun():
-    """{UseFIPS=true, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=required, Region=local}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='required', Region='local')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__accou():
-    """{UseFIPS=true, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=required, Region=local}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='required', Region='local')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__accou():
-    """{UseFIPS=false, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=required, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='required', Region='local')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=required, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='required', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-west-2:333333333333:table/table_name], AccountIdEndpointMode=required, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-west-2:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, ResourceArnList=[arn:aws:s3:us-east-1:333333333333:stream/testStream], AccountIdEndpointMode=required, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', ResourceArnList=['arn:aws:s3:us-east-1:333333333333:stream/testStream'], AccountIdEndpointMode='required', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=, AccountIdEndpointMode=required, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='', AccountIdEndpointMode='required', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=local}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='local')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=local}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='local')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='local')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, AccountIdEndpointMode=required, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', AccountIdEndpointMode='required', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, AccountIdEndpointMode=required, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', AccountIdEndpointMode='required', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=, AccountIdEndpointMode=required, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='', AccountIdEndpointMode='required', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=local}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='local')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=local}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='local')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='local')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountIdEndpointMode=required, Region=local}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountIdEndpointMode='required', Region='local')
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_true__usedualstack_true__accoun():
-    """{UseFIPS=true, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb-fips.us-east-1.api.aws'
-
-def test__usefips_true__usedualstack_false__accou():
-    """{UseFIPS=true, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb-fips.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_true__accou():
-    """{UseFIPS=false, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://111111111111.ddb.us-east-1.api.aws'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://111111111111.ddb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://333333333333.ddb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://222222222222.ddb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://333333333333.ddb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://333333333333.ddb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-west-2:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-west-2:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://111111111111.ddb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, ResourceArnList=[arn:aws:s3:us-east-1:333333333333:stream/testStream], AccountIdEndpointMode=preferred, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', ResourceArnList=['arn:aws:s3:us-east-1:333333333333:stream/testStream'], AccountIdEndpointMode='preferred', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://111111111111.ddb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=, AccountIdEndpointMode=preferred, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='', AccountIdEndpointMode='preferred', Region='us-east-1')
-    with pytest.raises(EndpointError, match=re.escape('Credentials-sourced account ID parameter is invalid')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb-fips.us-east-1.api.aws'
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb-fips.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://222222222222.ddb.us-east-1.api.aws'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://222222222222.ddb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, AccountIdEndpointMode=preferred, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', AccountIdEndpointMode='preferred', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=, AccountIdEndpointMode=preferred, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='', AccountIdEndpointMode='preferred', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb-fips.us-east-1.api.aws'
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb-fips.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://333333333333.ddb.us-east-1.api.aws'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://333333333333.ddb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://222222222222.ddb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountIdEndpointMode=preferred, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountIdEndpointMode='preferred', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
-
-def test__usefips_true__usedualstack_true__accoun():
-    """{UseFIPS=true, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=required, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='required', Region='us-east-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__accou():
-    """{UseFIPS=true, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=required, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='required', Region='us-east-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__accou():
-    """{UseFIPS=false, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=required, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='required', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://111111111111.ddb.us-east-1.api.aws'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=required, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='required', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://111111111111.ddb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://333333333333.ddb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://222222222222.ddb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://333333333333.ddb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://333333333333.ddb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-west-2:333333333333:table/table_name], AccountIdEndpointMode=required, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-west-2:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://111111111111.ddb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, ResourceArnList=[arn:aws:s3:us-east-1:333333333333:stream/testStream], AccountIdEndpointMode=required, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', ResourceArnList=['arn:aws:s3:us-east-1:333333333333:stream/testStream'], AccountIdEndpointMode='required', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://111111111111.ddb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=, AccountIdEndpointMode=required, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='', AccountIdEndpointMode='required', Region='us-east-1')
-    with pytest.raises(EndpointError, match=re.escape('Credentials-sourced account ID parameter is invalid')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='us-east-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='us-east-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://222222222222.ddb.us-east-1.api.aws'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://222222222222.ddb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, AccountIdEndpointMode=required, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', AccountIdEndpointMode='required', Region='us-east-1')
-    with pytest.raises(EndpointError, match=re.escape('AccountIdEndpointMode is required but no AccountID was provided or able to be loaded')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, AccountIdEndpointMode=required, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', AccountIdEndpointMode='required', Region='us-east-1')
-    with pytest.raises(EndpointError, match=re.escape('AccountIdEndpointMode is required but no AccountID was provided or able to be loaded')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=, AccountIdEndpointMode=required, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='', AccountIdEndpointMode='required', Region='us-east-1')
-    with pytest.raises(EndpointError, match=re.escape('AccountIdEndpointMode is required but no AccountID was provided or able to be loaded')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='us-east-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='us-east-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://333333333333.ddb.us-east-1.api.aws'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://333333333333.ddb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://222222222222.ddb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountIdEndpointMode=required, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountIdEndpointMode='required', Region='us-east-1')
-    with pytest.raises(EndpointError, match=re.escape('AccountIdEndpointMode is required but no AccountID was provided or able to be loaded')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_true__accoun():
-    """{UseFIPS=true, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=required, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='required', Region='cn-north-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__accou():
-    """{UseFIPS=true, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=required, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='required', Region='cn-north-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__accou():
-    """{UseFIPS=false, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=required, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='required', Region='cn-north-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=required, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='required', Region='cn-north-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='cn-north-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='cn-north-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='cn-north-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='cn-north-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-west-2:333333333333:table/table_name], AccountIdEndpointMode=required, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-west-2:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='cn-north-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, ResourceArnList=[arn:aws:s3:us-east-1:333333333333:stream/testStream], AccountIdEndpointMode=required, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', ResourceArnList=['arn:aws:s3:us-east-1:333333333333:stream/testStream'], AccountIdEndpointMode='required', Region='cn-north-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=, AccountIdEndpointMode=required, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='', AccountIdEndpointMode='required', Region='cn-north-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='cn-north-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='cn-north-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='cn-north-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='cn-north-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, AccountIdEndpointMode=required, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', AccountIdEndpointMode='required', Region='cn-north-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, AccountIdEndpointMode=required, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', AccountIdEndpointMode='required', Region='cn-north-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=, AccountIdEndpointMode=required, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='', AccountIdEndpointMode='required', Region='cn-north-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='cn-north-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='cn-north-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='cn-north-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='cn-north-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=required, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='required', Region='cn-north-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountIdEndpointMode=required, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountIdEndpointMode='required', Region='cn-north-1')
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_true__accoun():
-    """{UseFIPS=true, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=disabled, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='disabled', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb-fips.us-east-1.api.aws'
-
-def test__usefips_true__usedualstack_false__accou():
-    """{UseFIPS=true, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=disabled, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='disabled', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb-fips.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_true__accou():
-    """{UseFIPS=false, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=disabled, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='disabled', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-east-1.api.aws'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=disabled, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='disabled', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-west-2:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-west-2:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, ResourceArnList=[arn:aws:s3:us-east-1:333333333333:stream/testStream], AccountIdEndpointMode=disabled, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', ResourceArnList=['arn:aws:s3:us-east-1:333333333333:stream/testStream'], AccountIdEndpointMode='disabled', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=, AccountIdEndpointMode=disabled, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='', AccountIdEndpointMode='disabled', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb-fips.us-east-1.api.aws'
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb-fips.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-east-1.api.aws'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, AccountIdEndpointMode=disabled, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', AccountIdEndpointMode='disabled', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=, AccountIdEndpointMode=disabled, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='', AccountIdEndpointMode='disabled', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb-fips.us-east-1.api.aws'
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb-fips.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-east-1.api.aws'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=disabled, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='disabled', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountIdEndpointMode=disabled, Region=us-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountIdEndpointMode='disabled', Region='us-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
-
-def test__usefips_true__usedualstack_true__accoun():
-    """{UseFIPS=true, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='cn-north-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb-fips.cn-north-1.api.amazonwebservices.com.cn'
-
-def test__usefips_true__usedualstack_false__accou():
-    """{UseFIPS=true, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='cn-north-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb-fips.cn-north-1.amazonaws.com.cn'
-
-def test__usefips_false__usedualstack_true__accou():
-    """{UseFIPS=false, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='cn-north-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.cn-north-1.api.amazonwebservices.com.cn'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='cn-north-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.cn-north-1.amazonaws.com.cn'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='cn-north-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.cn-north-1.amazonaws.com.cn'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='cn-north-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.cn-north-1.amazonaws.com.cn'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='cn-north-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.cn-north-1.amazonaws.com.cn'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='cn-north-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.cn-north-1.amazonaws.com.cn'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-west-2:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-west-2:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='cn-north-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.cn-north-1.amazonaws.com.cn'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, ResourceArnList=[arn:aws:s3:us-east-1:333333333333:stream/testStream], AccountIdEndpointMode=preferred, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', ResourceArnList=['arn:aws:s3:us-east-1:333333333333:stream/testStream'], AccountIdEndpointMode='preferred', Region='cn-north-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.cn-north-1.amazonaws.com.cn'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=, AccountIdEndpointMode=preferred, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='', AccountIdEndpointMode='preferred', Region='cn-north-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.cn-north-1.amazonaws.com.cn'
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='cn-north-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb-fips.cn-north-1.api.amazonwebservices.com.cn'
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='cn-north-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb-fips.cn-north-1.amazonaws.com.cn'
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='cn-north-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.cn-north-1.api.amazonwebservices.com.cn'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='cn-north-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.cn-north-1.amazonaws.com.cn'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='cn-north-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.cn-north-1.amazonaws.com.cn'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, AccountIdEndpointMode=preferred, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', AccountIdEndpointMode='preferred', Region='cn-north-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.cn-north-1.amazonaws.com.cn'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=, AccountIdEndpointMode=preferred, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='', AccountIdEndpointMode='preferred', Region='cn-north-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.cn-north-1.amazonaws.com.cn'
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='cn-north-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb-fips.cn-north-1.api.amazonwebservices.com.cn'
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='cn-north-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb-fips.cn-north-1.amazonaws.com.cn'
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='cn-north-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.cn-north-1.api.amazonwebservices.com.cn'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='cn-north-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.cn-north-1.amazonaws.com.cn'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='cn-north-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.cn-north-1.amazonaws.com.cn'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountIdEndpointMode=preferred, Region=cn-north-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountIdEndpointMode='preferred', Region='cn-north-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.cn-north-1.amazonaws.com.cn'
-
-def test__usefips_true__usedualstack_true__accoun():
-    """{UseFIPS=true, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-iso-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-iso-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb-fips.us-iso-east-1.api.aws.ic.gov'
-
-def test__usefips_true__usedualstack_false__accou():
-    """{UseFIPS=true, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-iso-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-iso-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb-fips.us-iso-east-1.c2s.ic.gov'
-
-def test__usefips_false__usedualstack_true__accou():
-    """{UseFIPS=false, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-iso-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-iso-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-iso-east-1.api.aws.ic.gov'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-iso-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-iso-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-iso-east-1.c2s.ic.gov'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-iso-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-iso-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-iso-east-1.c2s.ic.gov'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-iso-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-iso-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-iso-east-1.c2s.ic.gov'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-iso-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-iso-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-iso-east-1.c2s.ic.gov'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-iso-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-iso-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-iso-east-1.c2s.ic.gov'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-west-2:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-iso-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-west-2:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-iso-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-iso-east-1.c2s.ic.gov'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, ResourceArnList=[arn:aws:s3:us-east-1:333333333333:stream/testStream], AccountIdEndpointMode=preferred, Region=us-iso-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', ResourceArnList=['arn:aws:s3:us-east-1:333333333333:stream/testStream'], AccountIdEndpointMode='preferred', Region='us-iso-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-iso-east-1.c2s.ic.gov'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=, AccountIdEndpointMode=preferred, Region=us-iso-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='', AccountIdEndpointMode='preferred', Region='us-iso-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-iso-east-1.c2s.ic.gov'
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-iso-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-iso-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb-fips.us-iso-east-1.api.aws.ic.gov'
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-iso-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-iso-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb-fips.us-iso-east-1.c2s.ic.gov'
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-iso-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-iso-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-iso-east-1.api.aws.ic.gov'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-iso-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-iso-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-iso-east-1.c2s.ic.gov'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-iso-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-iso-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-iso-east-1.c2s.ic.gov'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, AccountIdEndpointMode=preferred, Region=us-iso-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', AccountIdEndpointMode='preferred', Region='us-iso-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-iso-east-1.c2s.ic.gov'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=, AccountIdEndpointMode=preferred, Region=us-iso-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='', AccountIdEndpointMode='preferred', Region='us-iso-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-iso-east-1.c2s.ic.gov'
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-iso-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-iso-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb-fips.us-iso-east-1.api.aws.ic.gov'
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-iso-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-iso-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb-fips.us-iso-east-1.c2s.ic.gov'
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-iso-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-iso-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-iso-east-1.api.aws.ic.gov'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-iso-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-iso-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-iso-east-1.c2s.ic.gov'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-iso-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-iso-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-iso-east-1.c2s.ic.gov'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountIdEndpointMode=preferred, Region=us-iso-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountIdEndpointMode='preferred', Region='us-iso-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-iso-east-1.c2s.ic.gov'
-
-def test__usefips_true__usedualstack_true__accoun():
-    """{UseFIPS=true, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-gov-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-gov-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb-fips.us-gov-east-1.api.aws'
-
-def test__usefips_true__usedualstack_false__accou():
-    """{UseFIPS=true, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-gov-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-gov-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-gov-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_true__accou():
-    """{UseFIPS=false, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-gov-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-gov-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-gov-east-1.api.aws'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-gov-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-gov-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-gov-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-gov-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-gov-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-gov-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-gov-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-gov-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-gov-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-gov-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-gov-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-gov-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-gov-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-gov-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-gov-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-west-2:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-gov-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-west-2:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-gov-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-gov-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, ResourceArnList=[arn:aws:s3:us-east-1:333333333333:stream/testStream], AccountIdEndpointMode=preferred, Region=us-gov-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', ResourceArnList=['arn:aws:s3:us-east-1:333333333333:stream/testStream'], AccountIdEndpointMode='preferred', Region='us-gov-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-gov-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=, AccountIdEndpointMode=preferred, Region=us-gov-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='', AccountIdEndpointMode='preferred', Region='us-gov-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-gov-east-1.amazonaws.com'
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-gov-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-gov-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb-fips.us-gov-east-1.api.aws'
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-gov-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-gov-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-gov-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-gov-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-gov-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-gov-east-1.api.aws'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-gov-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-gov-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-gov-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-gov-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-gov-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-gov-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, AccountIdEndpointMode=preferred, Region=us-gov-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', AccountIdEndpointMode='preferred', Region='us-gov-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-gov-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=, AccountIdEndpointMode=preferred, Region=us-gov-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='', AccountIdEndpointMode='preferred', Region='us-gov-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-gov-east-1.amazonaws.com'
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-gov-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-gov-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb-fips.us-gov-east-1.api.aws'
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-gov-east-1}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-gov-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-gov-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-gov-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-gov-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-gov-east-1.api.aws'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-gov-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-gov-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-gov-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], AccountIdEndpointMode=preferred, Region=us-gov-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], AccountIdEndpointMode='preferred', Region='us-gov-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-gov-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountIdEndpointMode=preferred, Region=us-gov-east-1}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountIdEndpointMode='preferred', Region='us-gov-east-1')
-    result = resolve(params)
-    assert result.url == 'https://dynamodb.us-gov-east-1.amazonaws.com'
 
 def test__endpoint_https___dynamodb_cn_north_1_ap():
-    """{Endpoint=https://dynamodb.cn-north-1.api.amazonwebservices.com.cn, Region=cn-north-1}"""
-    params = EndpointParams(Endpoint='https://dynamodb.cn-north-1.api.amazonwebservices.com.cn', Region='cn-north-1')
+    """{Endpoint=https://dynamodb.cn-north-1.api.amazonwebservices.com.cn, Region=cn-north-1, AccountIdEndpointMode=preferred}"""
+    params = EndpointParams(Endpoint='https://dynamodb.cn-north-1.api.amazonwebservices.com.cn', Region='cn-north-1', AccountIdEndpointMode='preferred')
     with pytest.raises(EndpointError, match=re.escape('Endpoint override is not supported for dual-stack endpoints. Please enable dual-stack functionality by enabling the configuration. For more details, see: https://docs.aws.amazon.com/sdkref/latest/guide/feature-endpoints.html')):
         resolve(params)
 
 def test__endpoint_https___dynamodb_us_gov_east_1():
-    """{Endpoint=https://dynamodb.us-gov-east-1.api.aws, Region=us-gov-east-1}"""
-    params = EndpointParams(Endpoint='https://dynamodb.us-gov-east-1.api.aws', Region='us-gov-east-1')
+    """{Endpoint=https://dynamodb.us-gov-east-1.api.aws, Region=us-gov-east-1, AccountIdEndpointMode=preferred}"""
+    params = EndpointParams(Endpoint='https://dynamodb.us-gov-east-1.api.aws', Region='us-gov-east-1', AccountIdEndpointMode='preferred')
     with pytest.raises(EndpointError, match=re.escape('Endpoint override is not supported for dual-stack endpoints. Please enable dual-stack functionality by enabling the configuration. For more details, see: https://docs.aws.amazon.com/sdkref/latest/guide/feature-endpoints.html')):
         resolve(params)
 
 def test__endpoint_https___dynamodb_us_east_1_api():
-    """{Endpoint=https://dynamodb.us-east-1.api.aws, Region=us-east-1}"""
-    params = EndpointParams(Endpoint='https://dynamodb.us-east-1.api.aws', Region='us-east-1')
+    """{Endpoint=https://dynamodb.us-east-1.api.aws, Region=us-east-1, AccountIdEndpointMode=preferred}"""
+    params = EndpointParams(Endpoint='https://dynamodb.us-east-1.api.aws', Region='us-east-1', AccountIdEndpointMode='preferred')
     with pytest.raises(EndpointError, match=re.escape('Endpoint override is not supported for dual-stack endpoints. Please enable dual-stack functionality by enabling the configuration. For more details, see: https://docs.aws.amazon.com/sdkref/latest/guide/feature-endpoints.html')):
         resolve(params)
 
 def test__endpoint_https___111111111111_ddb_us_ea():
-    """{Endpoint=https://111111111111.ddb.us-east-1.api.aws, Region=us-east-1}"""
-    params = EndpointParams(Endpoint='https://111111111111.ddb.us-east-1.api.aws', Region='us-east-1')
+    """{Endpoint=https://111111111111.ddb.us-east-1.api.aws, Region=us-east-1, AccountIdEndpointMode=preferred}"""
+    params = EndpointParams(Endpoint='https://111111111111.ddb.us-east-1.api.aws', Region='us-east-1', AccountIdEndpointMode='preferred')
     result = resolve(params)
     assert result.url == 'https://111111111111.ddb.us-east-1.api.aws'
 
 def test__endpoint_https___vpce_1a2b3c4d_5e6f_dyn():
-    """{Endpoint=https://vpce-1a2b3c4d-5e6f.dynamodb.us-east-1.vpce.api.aws, Region=us-east-1}"""
-    params = EndpointParams(Endpoint='https://vpce-1a2b3c4d-5e6f.dynamodb.us-east-1.vpce.api.aws', Region='us-east-1')
+    """{Endpoint=https://vpce-1a2b3c4d-5e6f.dynamodb.us-east-1.vpce.api.aws, Region=us-east-1, AccountIdEndpointMode=preferred}"""
+    params = EndpointParams(Endpoint='https://vpce-1a2b3c4d-5e6f.dynamodb.us-east-1.vpce.api.aws', Region='us-east-1', AccountIdEndpointMode='preferred')
     result = resolve(params)
     assert result.url == 'https://vpce-1a2b3c4d-5e6f.dynamodb.us-east-1.vpce.api.aws'
 
 def test__endpoint_https___dynamodb_eu_west_1_api():
-    """{Endpoint=https://dynamodb.eu-west-1.api.aws, Region=eu-west-1}"""
-    params = EndpointParams(Endpoint='https://dynamodb.eu-west-1.api.aws', Region='eu-west-1')
+    """{Endpoint=https://dynamodb.eu-west-1.api.aws, Region=eu-west-1, AccountIdEndpointMode=preferred}"""
+    params = EndpointParams(Endpoint='https://dynamodb.eu-west-1.api.aws', Region='eu-west-1', AccountIdEndpointMode='preferred')
     with pytest.raises(EndpointError, match=re.escape('Endpoint override is not supported for dual-stack endpoints. Please enable dual-stack functionality by enabling the configuration. For more details, see: https://docs.aws.amazon.com/sdkref/latest/guide/feature-endpoints.html')):
         resolve(params)
 
 def test__endpoint_https___dynamodb_us_west_2_api():
-    """{Endpoint=https://dynamodb.us-west-2.api.aws, Region=us-west-2}"""
-    params = EndpointParams(Endpoint='https://dynamodb.us-west-2.api.aws', Region='us-west-2')
+    """{Endpoint=https://dynamodb.us-west-2.api.aws, Region=us-west-2, AccountIdEndpointMode=preferred}"""
+    params = EndpointParams(Endpoint='https://dynamodb.us-west-2.api.aws', Region='us-west-2', AccountIdEndpointMode='preferred')
     with pytest.raises(EndpointError, match=re.escape('Endpoint override is not supported for dual-stack endpoints. Please enable dual-stack functionality by enabling the configuration. For more details, see: https://docs.aws.amazon.com/sdkref/latest/guide/feature-endpoints.html')):
         resolve(params)
 
 def test__endpoint_https___dynamodb_us_east_1_api():
-    """{Endpoint=https://dynamodb.us-east-1.api.aws/, Region=us-east-1}"""
-    params = EndpointParams(Endpoint='https://dynamodb.us-east-1.api.aws/', Region='us-east-1')
+    """{Endpoint=https://dynamodb.us-east-1.api.aws/, Region=us-east-1, AccountIdEndpointMode=preferred}"""
+    params = EndpointParams(Endpoint='https://dynamodb.us-east-1.api.aws/', Region='us-east-1', AccountIdEndpointMode='preferred')
     with pytest.raises(EndpointError, match=re.escape('Endpoint override is not supported for dual-stack endpoints. Please enable dual-stack functionality by enabling the configuration. For more details, see: https://docs.aws.amazon.com/sdkref/latest/guide/feature-endpoints.html')):
         resolve(params)
 
-def test__usefips_true__usedualstack_true__accoun():
-    """{UseFIPS=true, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__accou():
-    """{UseFIPS=true, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__accou():
-    """{UseFIPS=false, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
+def test__accountid_111111111111__region_local__a():
+    """{AccountId=111111111111, Region=local, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='local', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://example.com'
+    assert result.url == 'http://localhost:8000'
 
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=, AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='', AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=, AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='', AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountIdEndpointMode=preferred, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountIdEndpointMode='preferred', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_true__usedualstack_true__accoun():
-    """{UseFIPS=true, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__accou():
-    """{UseFIPS=true, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__accou():
-    """{UseFIPS=false, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=, AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='', AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=, AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='', AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountIdEndpointMode=disabled, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountIdEndpointMode='disabled', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_true__usedualstack_true__accoun():
-    """{UseFIPS=true, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__accou():
-    """{UseFIPS=true, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__accou():
-    """{UseFIPS=false, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=, AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='', AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and custom endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=, AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='', AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountIdEndpointMode=required, Region=us-east-1, Endpoint=https://example.com, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountIdEndpointMode='required', Region='us-east-1', Endpoint='https://example.com', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://example.com'
-
-def test__usefips_true__usedualstack_true__accoun():
-    """{UseFIPS=true, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='local', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__accou():
-    """{UseFIPS=true, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='local', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__accou():
-    """{UseFIPS=false, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='local', IsSearchOperation=True)
+def test__accountid_111111111111__region_local__a():
+    """{AccountId=111111111111, Region=local, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='local', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=True)
     with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and local endpoint are not supported')):
         resolve(params)
 
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='local', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=, AccountIdEndpointMode=preferred, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='', AccountIdEndpointMode='preferred', Region='local', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='local', IsSearchOperation=True)
+def test__accountid_111111111111__region_local__a():
+    """{AccountId=111111111111, Region=local, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='local', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=False)
     with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
         resolve(params)
 
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='local', IsSearchOperation=True)
+def test__accountid_111111111111__region_local__a():
+    """{AccountId=111111111111, Region=local, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='local', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=True)
     with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
         resolve(params)
 
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='local', IsSearchOperation=True)
+def test__accountid_111111111111__region_local__a():
+    """{AccountId=111111111111, Region=local, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='local', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'http://localhost:8000'
+
+def test__accountid_111111111111__region_local__a():
+    """{AccountId=111111111111, Region=local, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='local', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=True)
     with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and local endpoint are not supported')):
         resolve(params)
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='local', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='local', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, AccountIdEndpointMode=preferred, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', AccountIdEndpointMode='preferred', Region='local', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=, AccountIdEndpointMode=preferred, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='', AccountIdEndpointMode='preferred', Region='local', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountIdEndpointMode=preferred, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountIdEndpointMode='preferred', Region='local', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_true__usedualstack_true__accoun():
-    """{UseFIPS=true, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=disabled, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='disabled', Region='local', IsSearchOperation=True)
+def test__accountid_111111111111__region_local__a():
+    """{AccountId=111111111111, Region=local, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='local', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=False)
     with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
         resolve(params)
 
-def test__usefips_true__usedualstack_false__accou():
-    """{UseFIPS=true, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=disabled, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='disabled', Region='local', IsSearchOperation=True)
+def test__accountid_111111111111__region_local__a():
+    """{AccountId=111111111111, Region=local, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='local', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=True)
     with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
         resolve(params)
 
-def test__usefips_false__usedualstack_true__accou():
-    """{UseFIPS=false, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=disabled, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='disabled', Region='local', IsSearchOperation=True)
+def test__accountid_111111111111__region_local__a():
+    """{AccountId=111111111111, Region=local, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='local', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'http://localhost:8000'
+
+def test__accountid_111111111111__region_local__a():
+    """{AccountId=111111111111, Region=local, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='local', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=True)
     with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and local endpoint are not supported')):
         resolve(params)
 
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=disabled, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='disabled', Region='local', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=, AccountIdEndpointMode=disabled, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='', AccountIdEndpointMode='disabled', Region='local', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='local', IsSearchOperation=True)
+def test__accountid_111111111111__region_local__a():
+    """{AccountId=111111111111, Region=local, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='local', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=False)
     with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
         resolve(params)
 
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='local', IsSearchOperation=True)
+def test__accountid_111111111111__region_local__a():
+    """{AccountId=111111111111, Region=local, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='local', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=True)
     with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
         resolve(params)
 
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='local', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and local endpoint are not supported')):
+def test__usefips_false__usedualstack_false_():
+    """{UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(UseFIPS=False, UseDualStack=False)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Missing Region')):
         resolve(params)
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='local', IsSearchOperation=True)
+def test__region_us_east_1__accountidendpointmode():
+    """{Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:not_an_account:table/table_name}"""
+    params = EndpointParams(Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:not_an_account:table/table_name')
     result = resolve(params)
-    assert result.url == 'http://localhost:8000'
+    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='local', IsSearchOperation=True)
+def test__region_us_east_1__accountidendpointmode():
+    """{Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'http://localhost:8000'
+    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, AccountIdEndpointMode=disabled, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', AccountIdEndpointMode='disabled', Region='local', IsSearchOperation=True)
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'http://localhost:8000'
+    assert result.url == 'https://111111111111.ddb.us-east-1.amazonaws.com'
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=, AccountIdEndpointMode=disabled, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='', AccountIdEndpointMode='disabled', Region='local', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountIdEndpointMode=disabled, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountIdEndpointMode='disabled', Region='local', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_true__usedualstack_true__accoun():
-    """{UseFIPS=true, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=required, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='required', Region='local', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__accou():
-    """{UseFIPS=true, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=required, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='required', Region='local', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__accou():
-    """{UseFIPS=false, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=required, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='required', Region='local', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=required, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='required', Region='local', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=, AccountIdEndpointMode=required, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='', AccountIdEndpointMode='required', Region='local', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='local', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='local', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='local', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and local endpoint are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='local', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, AccountIdEndpointMode=required, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', AccountIdEndpointMode='required', Region='local', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, AccountIdEndpointMode=required, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', AccountIdEndpointMode='required', Region='local', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=, AccountIdEndpointMode=required, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='', AccountIdEndpointMode='required', Region='local', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountIdEndpointMode=required, Region=local, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountIdEndpointMode='required', Region='local', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'http://localhost:8000'
-
-def test__usefips_true__usedualstack_true__accoun():
-    """{UseFIPS=true, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-east-1', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://search-dynamodb-fips.us-east-1.api.aws'
-
-def test__usefips_true__usedualstack_false__accou():
-    """{UseFIPS=true, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-east-1', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://search-dynamodb-fips.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_true__accou():
-    """{UseFIPS=false, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-east-1', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://111111111111.search-ddb.us-east-1.api.aws'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-east-1', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://111111111111.search-ddb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=, AccountIdEndpointMode=preferred, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='', AccountIdEndpointMode='preferred', Region='us-east-1', IsSearchOperation=True)
+def test__accountid___region_us_east_1__accountid():
+    """{AccountId=, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
     with pytest.raises(EndpointError, match=re.escape('Credentials-sourced account ID parameter is invalid')):
         resolve(params)
 
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-east-1', IsSearchOperation=True)
+def test__resourcearn_arn_aws_dynamodb_us_east_1_():
+    """{ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb-fips.us-east-1.api.aws'
+    assert result.url == 'https://222222222222.ddb.us-east-1.amazonaws.com'
 
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-east-1', IsSearchOperation=True)
+def test__resourcearn___region_us_east_1__account():
+    """{ResourceArn=, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb-fips.us-east-1.amazonaws.com'
+    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
 
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-east-1', IsSearchOperation=True)
+def test__resourcearnlist_____region_us_east_1__a():
+    """{ResourceArnList=[], Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArnList=[], Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://222222222222.search-ddb.us-east-1.api.aws'
+    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-east-1', IsSearchOperation=True)
+def test__resourcearn_arn_aws_dynamodb_af_south_1():
+    """{ResourceArn=arn:aws:dynamodb:af-south-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:af-south-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://222222222222.search-ddb.us-east-1.amazonaws.com'
+    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-east-1', IsSearchOperation=True)
+def test__resourcearn_arn_aws_s3_us_east_1_222222():
+    """{ResourceArn=arn:aws:s3:us-east-1:222222222222:stream/testStream, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws:s3:us-east-1:222222222222:stream/testStream', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-east-1.amazonaws.com'
+    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, AccountIdEndpointMode=preferred, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', AccountIdEndpointMode='preferred', Region='us-east-1', IsSearchOperation=True)
+def test__resourcearnlist__arn_aws_dynamodb_us_ea():
+    """{ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-east-1.amazonaws.com'
+    assert result.url == 'https://333333333333.ddb.us-east-1.amazonaws.com'
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=, AccountIdEndpointMode=preferred, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='', AccountIdEndpointMode='preferred', Region='us-east-1', IsSearchOperation=True)
+def test__resourcearn_arn_aws_dynamodb_us_east_1_():
+    """{ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-east-1.amazonaws.com'
+    assert result.url == 'https://222222222222.ddb.us-east-1.amazonaws.com'
 
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountIdEndpointMode=preferred, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountIdEndpointMode='preferred', Region='us-east-1', IsSearchOperation=True)
+def test__accountid_111111111111__resourcearnlist():
+    """{AccountId=111111111111, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-east-1.amazonaws.com'
+    assert result.url == 'https://333333333333.ddb.us-east-1.amazonaws.com'
 
-def test__usefips_true__usedualstack_true__accoun():
-    """{UseFIPS=true, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=required, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='required', Region='us-east-1', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+def test__accountid_111111111111__resourcearn_arn():
+    """{AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://222222222222.ddb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__resourcearn_arn():
+    """{AccountId=111111111111, ResourceArn=arn:aws:dynamodb:af-south-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', ResourceArn='arn:aws:dynamodb:af-south-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://333333333333.ddb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__resourcearn_arn():
+    """{AccountId=111111111111, ResourceArn=arn:aws:s3:us-east-1:222222222222:stream/testStream, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', ResourceArn='arn:aws:s3:us-east-1:222222222222:stream/testStream', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://333333333333.ddb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__resourcearn_arn():
+    """{AccountId=111111111111, ResourceArn=arn:aws:s3:af-south-1:222222222222:stream/testStream, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', ResourceArn='arn:aws:s3:af-south-1:222222222222:stream/testStream', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://333333333333.ddb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__resourcearn_arn():
+    """{AccountId=111111111111, ResourceArn=arn:aws:s3:af-south-1:222222222222:stream/testStream, ResourceArnList=[arn:aws:s3:us-east-1:333333333333:stream/testStream], Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', ResourceArn='arn:aws:s3:af-south-1:222222222222:stream/testStream', ResourceArnList=['arn:aws:s3:us-east-1:333333333333:stream/testStream'], Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://111111111111.ddb.us-east-1.amazonaws.com'
+
+def test__resourcearn_arn_aws_s3_af_south_1_22222():
+    """{ResourceArn=arn:aws:s3:af-south-1:222222222222:stream/testStream, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws:s3:af-south-1:222222222222:stream/testStream', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__resourcearn_arn():
+    """{AccountId=111111111111, ResourceArn=arn:aws:dynamodb:af-south-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:af-south-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', ResourceArn='arn:aws:dynamodb:af-south-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:af-south-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://111111111111.ddb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__resourcearn_arn():
+    """{AccountId=111111111111, ResourceArn=arn:aws:s3:us-east-1:222222222222:stream/testStream, ResourceArnList=[arn:aws:s3:us-east-1:333333333333:stream/testStream], Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', ResourceArn='arn:aws:s3:us-east-1:222222222222:stream/testStream', ResourceArnList=['arn:aws:s3:us-east-1:333333333333:stream/testStream'], Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://111111111111.ddb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://111111111111.ddb.us-east-1.api.aws'
+
+def test__resourcearn_arn_aws_dynamodb_us_east_1_():
+    """{ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://222222222222.ddb.us-east-1.api.aws'
+
+def test__resourcearnlist__arn_aws_dynamodb_us_ea():
+    """{ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://333333333333.ddb.us-east-1.api.aws'
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.us-east-1.amazonaws.com'
+
+def test__resourcearn_arn_aws_dynamodb_us_east_1_():
+    """{ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.us-east-1.amazonaws.com'
+
+def test__resourcearnlist__arn_aws_dynamodb_us_ea():
+    """{ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.us-east-1.api.aws'
+
+def test__resourcearn_arn_aws_dynamodb_us_east_1_():
+    """{ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.us-east-1.api.aws'
+
+def test__resourcearnlist__arn_aws_dynamodb_us_ea():
+    """{ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.us-east-1.api.aws'
+
+def test__region_us_east_1__accountidendpointmode():
+    """{Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
+
+def test__accountid___region_us_east_1__accountid():
+    """{AccountId=, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
+
+def test__resourcearn_arn_aws_dynamodb_us_east_1_():
+    """{ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
+
+def test__resourcearn___region_us_east_1__account():
+    """{ResourceArn=, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
+
+def test__resourcearnlist_____region_us_east_1__a():
+    """{ResourceArnList=[], Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArnList=[], Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
+
+def test__resourcearn_arn_aws_dynamodb_af_south_1():
+    """{ResourceArn=arn:aws:dynamodb:af-south-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:af-south-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
+
+def test__resourcearn_arn_aws_s3_us_east_1_222222():
+    """{ResourceArn=arn:aws:s3:us-east-1:222222222222:stream/testStream, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws:s3:us-east-1:222222222222:stream/testStream', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
+
+def test__resourcearnlist__arn_aws_dynamodb_us_ea():
+    """{ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
+
+def test__resourcearn_arn_aws_dynamodb_us_east_1_():
+    """{ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__resourcearnlist():
+    """{AccountId=111111111111, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__resourcearn_arn():
+    """{AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__resourcearn_arn():
+    """{AccountId=111111111111, ResourceArn=arn:aws:dynamodb:af-south-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', ResourceArn='arn:aws:dynamodb:af-south-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__resourcearn_arn():
+    """{AccountId=111111111111, ResourceArn=arn:aws:s3:us-east-1:222222222222:stream/testStream, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', ResourceArn='arn:aws:s3:us-east-1:222222222222:stream/testStream', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__resourcearn_arn():
+    """{AccountId=111111111111, ResourceArn=arn:aws:s3:af-south-1:222222222222:stream/testStream, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', ResourceArn='arn:aws:s3:af-south-1:222222222222:stream/testStream', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__resourcearn_arn():
+    """{AccountId=111111111111, ResourceArn=arn:aws:s3:af-south-1:222222222222:stream/testStream, ResourceArnList=[arn:aws:s3:us-east-1:333333333333:stream/testStream], Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', ResourceArn='arn:aws:s3:af-south-1:222222222222:stream/testStream', ResourceArnList=['arn:aws:s3:us-east-1:333333333333:stream/testStream'], Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
+
+def test__resourcearn_arn_aws_s3_af_south_1_22222():
+    """{ResourceArn=arn:aws:s3:af-south-1:222222222222:stream/testStream, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws:s3:af-south-1:222222222222:stream/testStream', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__resourcearn_arn():
+    """{AccountId=111111111111, ResourceArn=arn:aws:dynamodb:af-south-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:af-south-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', ResourceArn='arn:aws:dynamodb:af-south-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:af-south-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__resourcearn_arn():
+    """{AccountId=111111111111, ResourceArn=arn:aws:s3:us-east-1:222222222222:stream/testStream, ResourceArnList=[arn:aws:s3:us-east-1:333333333333:stream/testStream], Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', ResourceArn='arn:aws:s3:us-east-1:222222222222:stream/testStream', ResourceArnList=['arn:aws:s3:us-east-1:333333333333:stream/testStream'], Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-east-1.api.aws'
+
+def test__resourcearn_arn_aws_dynamodb_us_east_1_():
+    """{ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-east-1.api.aws'
+
+def test__resourcearnlist__arn_aws_dynamodb_us_ea():
+    """{ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-east-1.api.aws'
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.us-east-1.amazonaws.com'
+
+def test__resourcearn_arn_aws_dynamodb_us_east_1_():
+    """{ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.us-east-1.amazonaws.com'
+
+def test__resourcearnlist__arn_aws_dynamodb_us_ea():
+    """{ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.us-east-1.api.aws'
+
+def test__resourcearn_arn_aws_dynamodb_us_east_1_():
+    """{ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.us-east-1.api.aws'
+
+def test__resourcearnlist__arn_aws_dynamodb_us_ea():
+    """{ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.us-east-1.api.aws'
+
+def test__region_us_east_1__accountidendpointmode():
+    """{Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
+    with pytest.raises(EndpointError, match=re.escape('AccountIdEndpointMode is required but no AccountID was provided or able to be loaded')):
         resolve(params)
 
-def test__usefips_true__usedualstack_false__accou():
-    """{UseFIPS=true, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=required, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='required', Region='us-east-1', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__accou():
-    """{UseFIPS=false, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=required, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='required', Region='us-east-1', IsSearchOperation=True)
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://111111111111.search-ddb.us-east-1.api.aws'
+    assert result.url == 'https://111111111111.ddb.us-east-1.amazonaws.com'
 
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=required, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='required', Region='us-east-1', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://111111111111.search-ddb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=, AccountIdEndpointMode=required, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='', AccountIdEndpointMode='required', Region='us-east-1', IsSearchOperation=True)
+def test__accountid___region_us_east_1__accountid():
+    """{AccountId=, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
     with pytest.raises(EndpointError, match=re.escape('Credentials-sourced account ID parameter is invalid')):
         resolve(params)
 
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='us-east-1', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='us-east-1', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='us-east-1', IsSearchOperation=True)
+def test__resourcearn_arn_aws_dynamodb_us_east_1_():
+    """{ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://222222222222.search-ddb.us-east-1.api.aws'
+    assert result.url == 'https://222222222222.ddb.us-east-1.amazonaws.com'
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='us-east-1', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://222222222222.search-ddb.us-east-1.amazonaws.com'
-
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, AccountIdEndpointMode=required, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', AccountIdEndpointMode='required', Region='us-east-1', IsSearchOperation=True)
+def test__resourcearn___region_us_east_1__account():
+    """{ResourceArn=, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
     with pytest.raises(EndpointError, match=re.escape('AccountIdEndpointMode is required but no AccountID was provided or able to be loaded')):
         resolve(params)
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, AccountIdEndpointMode=required, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', AccountIdEndpointMode='required', Region='us-east-1', IsSearchOperation=True)
+def test__resourcearnlist_____region_us_east_1__a():
+    """{ResourceArnList=[], Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArnList=[], Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
     with pytest.raises(EndpointError, match=re.escape('AccountIdEndpointMode is required but no AccountID was provided or able to be loaded')):
         resolve(params)
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=, AccountIdEndpointMode=required, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='', AccountIdEndpointMode='required', Region='us-east-1', IsSearchOperation=True)
+def test__resourcearn_arn_aws_dynamodb_af_south_1():
+    """{ResourceArn=arn:aws:dynamodb:af-south-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:af-south-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
     with pytest.raises(EndpointError, match=re.escape('AccountIdEndpointMode is required but no AccountID was provided or able to be loaded')):
         resolve(params)
 
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountIdEndpointMode=required, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountIdEndpointMode='required', Region='us-east-1', IsSearchOperation=True)
+def test__resourcearn_arn_aws_s3_us_east_1_222222():
+    """{ResourceArn=arn:aws:s3:us-east-1:222222222222:stream/testStream, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws:s3:us-east-1:222222222222:stream/testStream', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
     with pytest.raises(EndpointError, match=re.escape('AccountIdEndpointMode is required but no AccountID was provided or able to be loaded')):
         resolve(params)
 
-def test__usefips_true__usedualstack_true__accoun():
-    """{UseFIPS=true, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=required, Region=cn-north-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='required', Region='cn-north-1', IsSearchOperation=True)
+def test__resourcearnlist__arn_aws_dynamodb_us_ea():
+    """{ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://333333333333.ddb.us-east-1.amazonaws.com'
+
+def test__resourcearn_arn_aws_dynamodb_us_east_1_():
+    """{ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://222222222222.ddb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__resourcearnlist():
+    """{AccountId=111111111111, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://333333333333.ddb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__resourcearn_arn():
+    """{AccountId=111111111111, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://222222222222.ddb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__resourcearn_arn():
+    """{AccountId=111111111111, ResourceArn=arn:aws:dynamodb:af-south-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', ResourceArn='arn:aws:dynamodb:af-south-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://333333333333.ddb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__resourcearn_arn():
+    """{AccountId=111111111111, ResourceArn=arn:aws:s3:us-east-1:222222222222:stream/testStream, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', ResourceArn='arn:aws:s3:us-east-1:222222222222:stream/testStream', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://333333333333.ddb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__resourcearn_arn():
+    """{AccountId=111111111111, ResourceArn=arn:aws:s3:af-south-1:222222222222:stream/testStream, ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', ResourceArn='arn:aws:s3:af-south-1:222222222222:stream/testStream', ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://333333333333.ddb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__resourcearn_arn():
+    """{AccountId=111111111111, ResourceArn=arn:aws:s3:af-south-1:222222222222:stream/testStream, ResourceArnList=[arn:aws:s3:us-east-1:333333333333:stream/testStream], Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', ResourceArn='arn:aws:s3:af-south-1:222222222222:stream/testStream', ResourceArnList=['arn:aws:s3:us-east-1:333333333333:stream/testStream'], Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://111111111111.ddb.us-east-1.amazonaws.com'
+
+def test__resourcearn_arn_aws_s3_af_south_1_22222():
+    """{ResourceArn=arn:aws:s3:af-south-1:222222222222:stream/testStream, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws:s3:af-south-1:222222222222:stream/testStream', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
+    with pytest.raises(EndpointError, match=re.escape('AccountIdEndpointMode is required but no AccountID was provided or able to be loaded')):
+        resolve(params)
+
+def test__accountid_111111111111__resourcearn_arn():
+    """{AccountId=111111111111, ResourceArn=arn:aws:dynamodb:af-south-1:222222222222:table/table_name, ResourceArnList=[arn:aws:dynamodb:af-south-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', ResourceArn='arn:aws:dynamodb:af-south-1:222222222222:table/table_name', ResourceArnList=['arn:aws:dynamodb:af-south-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://111111111111.ddb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__resourcearn_arn():
+    """{AccountId=111111111111, ResourceArn=arn:aws:s3:us-east-1:222222222222:stream/testStream, ResourceArnList=[arn:aws:s3:us-east-1:333333333333:stream/testStream], Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', ResourceArn='arn:aws:s3:us-east-1:222222222222:stream/testStream', ResourceArnList=['arn:aws:s3:us-east-1:333333333333:stream/testStream'], Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://111111111111.ddb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://111111111111.ddb.us-east-1.api.aws'
+
+def test__resourcearn_arn_aws_dynamodb_us_east_1_():
+    """{ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://222222222222.ddb.us-east-1.api.aws'
+
+def test__resourcearnlist__arn_aws_dynamodb_us_ea():
+    """{ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://333333333333.ddb.us-east-1.api.aws'
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=False)
     with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
         resolve(params)
 
-def test__usefips_true__usedualstack_false__accou():
-    """{UseFIPS=true, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=required, Region=cn-north-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='required', Region='cn-north-1', IsSearchOperation=True)
+def test__resourcearn_arn_aws_dynamodb_us_east_1_():
+    """{ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=False)
     with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
         resolve(params)
 
-def test__usefips_false__usedualstack_true__accou():
-    """{UseFIPS=false, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=required, Region=cn-north-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='required', Region='cn-north-1', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=required, Region=cn-north-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='required', Region='cn-north-1', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition')):
-        resolve(params)
-
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=, AccountIdEndpointMode=required, Region=cn-north-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='', AccountIdEndpointMode='required', Region='cn-north-1', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition')):
-        resolve(params)
-
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=cn-north-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='cn-north-1', IsSearchOperation=True)
+def test__resourcearnlist__arn_aws_dynamodb_us_ea():
+    """{ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=False)
     with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
         resolve(params)
 
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=cn-north-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='cn-north-1', IsSearchOperation=True)
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=True)
     with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
         resolve(params)
 
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=cn-north-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='cn-north-1', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition')):
+def test__resourcearn_arn_aws_dynamodb_us_east_1_():
+    """{ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
         resolve(params)
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=required, Region=cn-north-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='required', Region='cn-north-1', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition')):
+def test__resourcearnlist__arn_aws_dynamodb_us_ea():
+    """{ResourceArnList=[arn:aws:dynamodb:us-east-1:333333333333:table/table_name], Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(ResourceArnList=['arn:aws:dynamodb:us-east-1:333333333333:table/table_name'], Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
         resolve(params)
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, AccountIdEndpointMode=required, Region=cn-north-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', AccountIdEndpointMode='required', Region='cn-north-1', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition')):
+def test__region_us_new_1__accountidendpointmode_():
+    """{Region=us-new-1, AccountIdEndpointMode=preferred, AccountId=111111111111, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(Region='us-new-1', AccountIdEndpointMode='preferred', AccountId='111111111111', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://111111111111.ddb.us-new-1.amazonaws.com'
+
+def test__accountid_111111111111__region_cn_north():
+    """{AccountId=111111111111, Region=cn-north-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='cn-north-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://111111111111.ddb.cn-north-1.amazonaws.com.cn'
+
+def test__resourcearn_arn_aws_cn_dynamodb_cn_nort():
+    """{ResourceArn=arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name, Region=cn-north-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name', Region='cn-north-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://222222222222.ddb.cn-north-1.amazonaws.com.cn'
+
+def test__resourcearnlist__arn_aws_cn_dynamodb_cn():
+    """{ResourceArnList=[arn:aws-cn:dynamodb:cn-north-1:333333333333:table/table_name], Region=cn-north-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-cn:dynamodb:cn-north-1:333333333333:table/table_name'], Region='cn-north-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://333333333333.ddb.cn-north-1.amazonaws.com.cn'
+
+def test__accountid_111111111111__region_cn_north():
+    """{AccountId=111111111111, Region=cn-north-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='cn-north-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://111111111111.ddb.cn-north-1.api.amazonwebservices.com.cn'
+
+def test__resourcearn_arn_aws_cn_dynamodb_cn_nort():
+    """{ResourceArn=arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name, Region=cn-north-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name', Region='cn-north-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://222222222222.ddb.cn-north-1.api.amazonwebservices.com.cn'
+
+def test__resourcearnlist__arn_aws_cn_dynamodb_cn():
+    """{ResourceArnList=[arn:aws-cn:dynamodb:cn-north-1:333333333333:table/table_name], Region=cn-north-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-cn:dynamodb:cn-north-1:333333333333:table/table_name'], Region='cn-north-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://333333333333.ddb.cn-north-1.api.amazonwebservices.com.cn'
+
+def test__accountid_111111111111__region_cn_north():
+    """{AccountId=111111111111, Region=cn-north-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='cn-north-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.cn-north-1.amazonaws.com.cn'
+
+def test__resourcearn_arn_aws_cn_dynamodb_cn_nort():
+    """{ResourceArn=arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name, Region=cn-north-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name', Region='cn-north-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.cn-north-1.amazonaws.com.cn'
+
+def test__resourcearnlist__arn_aws_cn_dynamodb_cn():
+    """{ResourceArnList=[arn:aws-cn:dynamodb:cn-north-1:333333333333:table/table_name], Region=cn-north-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-cn:dynamodb:cn-north-1:333333333333:table/table_name'], Region='cn-north-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.cn-north-1.amazonaws.com.cn'
+
+def test__accountid_111111111111__region_cn_north():
+    """{AccountId=111111111111, Region=cn-north-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='cn-north-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.cn-north-1.api.amazonwebservices.com.cn'
+
+def test__resourcearn_arn_aws_cn_dynamodb_cn_nort():
+    """{ResourceArn=arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name, Region=cn-north-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name', Region='cn-north-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.cn-north-1.api.amazonwebservices.com.cn'
+
+def test__resourcearnlist__arn_aws_cn_dynamodb_cn():
+    """{ResourceArnList=[arn:aws-cn:dynamodb:cn-north-1:333333333333:table/table_name], Region=cn-north-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-cn:dynamodb:cn-north-1:333333333333:table/table_name'], Region='cn-north-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.cn-north-1.api.amazonwebservices.com.cn'
+
+def test__accountid_111111111111__region_cn_north():
+    """{AccountId=111111111111, Region=cn-north-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='cn-north-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.cn-north-1.amazonaws.com.cn'
+
+def test__resourcearn_arn_aws_cn_dynamodb_cn_nort():
+    """{ResourceArn=arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name, Region=cn-north-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name', Region='cn-north-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.cn-north-1.amazonaws.com.cn'
+
+def test__resourcearnlist__arn_aws_cn_dynamodb_cn():
+    """{ResourceArnList=[arn:aws-cn:dynamodb:cn-north-1:333333333333:table/table_name], Region=cn-north-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-cn:dynamodb:cn-north-1:333333333333:table/table_name'], Region='cn-north-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.cn-north-1.amazonaws.com.cn'
+
+def test__accountid_111111111111__region_cn_north():
+    """{AccountId=111111111111, Region=cn-north-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='cn-north-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.cn-north-1.api.amazonwebservices.com.cn'
+
+def test__resourcearn_arn_aws_cn_dynamodb_cn_nort():
+    """{ResourceArn=arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name, Region=cn-north-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name', Region='cn-north-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.cn-north-1.api.amazonwebservices.com.cn'
+
+def test__resourcearnlist__arn_aws_cn_dynamodb_cn():
+    """{ResourceArnList=[arn:aws-cn:dynamodb:cn-north-1:333333333333:table/table_name], Region=cn-north-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-cn:dynamodb:cn-north-1:333333333333:table/table_name'], Region='cn-north-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.cn-north-1.api.amazonwebservices.com.cn'
+
+def test__accountid_111111111111__region_cn_north():
+    """{AccountId=111111111111, Region=cn-north-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='cn-north-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.cn-north-1.amazonaws.com.cn'
+
+def test__resourcearn_arn_aws_cn_dynamodb_cn_nort():
+    """{ResourceArn=arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name, Region=cn-north-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name', Region='cn-north-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.cn-north-1.amazonaws.com.cn'
+
+def test__resourcearnlist__arn_aws_cn_dynamodb_cn():
+    """{ResourceArnList=[arn:aws-cn:dynamodb:cn-north-1:333333333333:table/table_name], Region=cn-north-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-cn:dynamodb:cn-north-1:333333333333:table/table_name'], Region='cn-north-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.cn-north-1.amazonaws.com.cn'
+
+def test__accountid_111111111111__region_cn_north():
+    """{AccountId=111111111111, Region=cn-north-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='cn-north-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.cn-north-1.api.amazonwebservices.com.cn'
+
+def test__resourcearn_arn_aws_cn_dynamodb_cn_nort():
+    """{ResourceArn=arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name, Region=cn-north-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name', Region='cn-north-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.cn-north-1.api.amazonwebservices.com.cn'
+
+def test__resourcearnlist__arn_aws_cn_dynamodb_cn():
+    """{ResourceArnList=[arn:aws-cn:dynamodb:cn-north-1:333333333333:table/table_name], Region=cn-north-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-cn:dynamodb:cn-north-1:333333333333:table/table_name'], Region='cn-north-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.cn-north-1.api.amazonwebservices.com.cn'
+
+def test__accountid_111111111111__region_cn_north():
+    """{AccountId=111111111111, Region=cn-north-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='cn-north-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://111111111111.ddb.cn-north-1.amazonaws.com.cn'
+
+def test__resourcearn_arn_aws_cn_dynamodb_cn_nort():
+    """{ResourceArn=arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name, Region=cn-north-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name', Region='cn-north-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://222222222222.ddb.cn-north-1.amazonaws.com.cn'
+
+def test__resourcearnlist__arn_aws_cn_dynamodb_cn():
+    """{ResourceArnList=[arn:aws-cn:dynamodb:cn-north-1:333333333333:table/table_name], Region=cn-north-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-cn:dynamodb:cn-north-1:333333333333:table/table_name'], Region='cn-north-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://333333333333.ddb.cn-north-1.amazonaws.com.cn'
+
+def test__accountid_111111111111__region_cn_north():
+    """{AccountId=111111111111, Region=cn-north-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='cn-north-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://111111111111.ddb.cn-north-1.api.amazonwebservices.com.cn'
+
+def test__resourcearn_arn_aws_cn_dynamodb_cn_nort():
+    """{ResourceArn=arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name, Region=cn-north-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name', Region='cn-north-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://222222222222.ddb.cn-north-1.api.amazonwebservices.com.cn'
+
+def test__resourcearnlist__arn_aws_cn_dynamodb_cn():
+    """{ResourceArnList=[arn:aws-cn:dynamodb:cn-north-1:333333333333:table/table_name], Region=cn-north-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-cn:dynamodb:cn-north-1:333333333333:table/table_name'], Region='cn-north-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://333333333333.ddb.cn-north-1.api.amazonwebservices.com.cn'
+
+def test__accountid_111111111111__region_cn_north():
+    """{AccountId=111111111111, Region=cn-north-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='cn-north-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=False)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
         resolve(params)
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, AccountIdEndpointMode=required, Region=cn-north-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', AccountIdEndpointMode='required', Region='cn-north-1', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition')):
+def test__resourcearn_arn_aws_cn_dynamodb_cn_nort():
+    """{ResourceArn=arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name, Region=cn-north-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name', Region='cn-north-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=False)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
         resolve(params)
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=, AccountIdEndpointMode=required, Region=cn-north-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='', AccountIdEndpointMode='required', Region='cn-north-1', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition')):
+def test__resourcearnlist__arn_aws_cn_dynamodb_cn():
+    """{ResourceArnList=[arn:aws-cn:dynamodb:cn-north-1:333333333333:table/table_name], Region=cn-north-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-cn:dynamodb:cn-north-1:333333333333:table/table_name'], Region='cn-north-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=False)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
         resolve(params)
 
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountIdEndpointMode=required, Region=cn-north-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountIdEndpointMode='required', Region='cn-north-1', IsSearchOperation=True)
-    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this partition')):
+def test__accountid_111111111111__region_cn_north():
+    """{AccountId=111111111111, Region=cn-north-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='cn-north-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
         resolve(params)
 
-def test__usefips_true__usedualstack_true__accoun():
-    """{UseFIPS=true, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=disabled, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='disabled', Region='us-east-1', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://search-dynamodb-fips.us-east-1.api.aws'
+def test__resourcearn_arn_aws_cn_dynamodb_cn_nort():
+    """{ResourceArn=arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name, Region=cn-north-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name', Region='cn-north-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
 
-def test__usefips_true__usedualstack_false__accou():
-    """{UseFIPS=true, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=disabled, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='disabled', Region='us-east-1', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://search-dynamodb-fips.us-east-1.amazonaws.com'
+def test__resourcearnlist__arn_aws_cn_dynamodb_cn():
+    """{ResourceArnList=[arn:aws-cn:dynamodb:cn-north-1:333333333333:table/table_name], Region=cn-north-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-cn:dynamodb:cn-north-1:333333333333:table/table_name'], Region='cn-north-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
 
-def test__usefips_false__usedualstack_true__accou():
-    """{UseFIPS=false, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=disabled, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='disabled', Region='us-east-1', IsSearchOperation=True)
+def test__region_cn_new_1__accountidendpointmode_():
+    """{Region=cn-new-1, AccountIdEndpointMode=preferred, AccountId=111111111111, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(Region='cn-new-1', AccountIdEndpointMode='preferred', AccountId='111111111111', UseFIPS=False, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-east-1.api.aws'
+    assert result.url == 'https://dynamodb.cn-new-1.amazonaws.com.cn'
 
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=disabled, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='disabled', Region='us-east-1', IsSearchOperation=True)
+def test__accountid_111111111111__region_us_gov_e():
+    """{AccountId=111111111111, Region=us-gov-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-gov-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-east-1.amazonaws.com'
+    assert result.url == 'https://111111111111.ddb.us-gov-east-1.amazonaws.com'
 
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=, AccountIdEndpointMode=disabled, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='', AccountIdEndpointMode='disabled', Region='us-east-1', IsSearchOperation=True)
+def test__resourcearn_arn_aws_us_gov_dynamodb_us_():
+    """{ResourceArn=arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name, Region=us-gov-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name', Region='us-gov-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-east-1.amazonaws.com'
+    assert result.url == 'https://222222222222.ddb.us-gov-east-1.amazonaws.com'
 
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='us-east-1', IsSearchOperation=True)
+def test__resourcearnlist__arn_aws_us_gov_dynamod():
+    """{ResourceArnList=[arn:aws-us-gov:dynamodb:us-gov-east-1:333333333333:table/table_name], Region=us-gov-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-us-gov:dynamodb:us-gov-east-1:333333333333:table/table_name'], Region='us-gov-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb-fips.us-east-1.api.aws'
+    assert result.url == 'https://333333333333.ddb.us-gov-east-1.amazonaws.com'
 
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='us-east-1', IsSearchOperation=True)
+def test__accountid_111111111111__region_us_gov_e():
+    """{AccountId=111111111111, Region=us-gov-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-gov-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=True)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb-fips.us-east-1.amazonaws.com'
+    assert result.url == 'https://111111111111.ddb.us-gov-east-1.api.aws'
 
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='us-east-1', IsSearchOperation=True)
+def test__resourcearn_arn_aws_us_gov_dynamodb_us_():
+    """{ResourceArn=arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name, Region=us-gov-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name', Region='us-gov-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=True)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-east-1.api.aws'
+    assert result.url == 'https://222222222222.ddb.us-gov-east-1.api.aws'
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='us-east-1', IsSearchOperation=True)
+def test__resourcearnlist__arn_aws_us_gov_dynamod():
+    """{ResourceArnList=[arn:aws-us-gov:dynamodb:us-gov-east-1:333333333333:table/table_name], Region=us-gov-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-us-gov:dynamodb:us-gov-east-1:333333333333:table/table_name'], Region='us-gov-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=True)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-east-1.amazonaws.com'
+    assert result.url == 'https://333333333333.ddb.us-gov-east-1.api.aws'
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, AccountIdEndpointMode=disabled, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', AccountIdEndpointMode='disabled', Region='us-east-1', IsSearchOperation=True)
+def test__accountid_111111111111__region_us_gov_e():
+    """{AccountId=111111111111, Region=us-gov-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-gov-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-east-1.amazonaws.com'
+    assert result.url == 'https://dynamodb.us-gov-east-1.amazonaws.com'
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, AccountIdEndpointMode=disabled, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', AccountIdEndpointMode='disabled', Region='us-east-1', IsSearchOperation=True)
+def test__resourcearn_arn_aws_us_gov_dynamodb_us_():
+    """{ResourceArn=arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name, Region=us-gov-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name', Region='us-gov-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-east-1.amazonaws.com'
+    assert result.url == 'https://dynamodb.us-gov-east-1.amazonaws.com'
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=, AccountIdEndpointMode=disabled, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='', AccountIdEndpointMode='disabled', Region='us-east-1', IsSearchOperation=True)
+def test__resourcearnlist__arn_aws_us_gov_dynamod():
+    """{ResourceArnList=[arn:aws-us-gov:dynamodb:us-gov-east-1:333333333333:table/table_name], Region=us-gov-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-us-gov:dynamodb:us-gov-east-1:333333333333:table/table_name'], Region='us-gov-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-east-1.amazonaws.com'
+    assert result.url == 'https://dynamodb.us-gov-east-1.amazonaws.com'
 
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountIdEndpointMode=disabled, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountIdEndpointMode='disabled', Region='us-east-1', IsSearchOperation=True)
+def test__accountid_111111111111__region_us_gov_e():
+    """{AccountId=111111111111, Region=us-gov-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-gov-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=True)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-east-1.amazonaws.com'
+    assert result.url == 'https://dynamodb-fips.us-gov-east-1.api.aws'
 
-def test__usefips_true__usedualstack_true__accoun():
-    """{UseFIPS=true, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=cn-north-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='cn-north-1', IsSearchOperation=True)
+def test__resourcearn_arn_aws_us_gov_dynamodb_us_():
+    """{ResourceArn=arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name, Region=us-gov-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name', Region='us-gov-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=True)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb-fips.cn-north-1.api.amazonwebservices.com.cn'
+    assert result.url == 'https://dynamodb-fips.us-gov-east-1.api.aws'
 
-def test__usefips_true__usedualstack_false__accou():
-    """{UseFIPS=true, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=cn-north-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='cn-north-1', IsSearchOperation=True)
+def test__resourcearnlist__arn_aws_us_gov_dynamod():
+    """{ResourceArnList=[arn:aws-us-gov:dynamodb:us-gov-east-1:333333333333:table/table_name], Region=us-gov-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-us-gov:dynamodb:us-gov-east-1:333333333333:table/table_name'], Region='us-gov-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=True)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb-fips.cn-north-1.amazonaws.com.cn'
+    assert result.url == 'https://dynamodb-fips.us-gov-east-1.api.aws'
 
-def test__usefips_false__usedualstack_true__accou():
-    """{UseFIPS=false, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=cn-north-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='cn-north-1', IsSearchOperation=True)
+def test__accountid_111111111111__region_us_gov_e():
+    """{AccountId=111111111111, Region=us-gov-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-gov-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.cn-north-1.api.amazonwebservices.com.cn'
+    assert result.url == 'https://dynamodb.us-gov-east-1.amazonaws.com'
 
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=cn-north-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='cn-north-1', IsSearchOperation=True)
+def test__resourcearn_arn_aws_us_gov_dynamodb_us_():
+    """{ResourceArn=arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name, Region=us-gov-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name', Region='us-gov-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.cn-north-1.amazonaws.com.cn'
+    assert result.url == 'https://dynamodb.us-gov-east-1.amazonaws.com'
 
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=, AccountIdEndpointMode=preferred, Region=cn-north-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='', AccountIdEndpointMode='preferred', Region='cn-north-1', IsSearchOperation=True)
+def test__resourcearnlist__arn_aws_us_gov_dynamod():
+    """{ResourceArnList=[arn:aws-us-gov:dynamodb:us-gov-east-1:333333333333:table/table_name], Region=us-gov-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-us-gov:dynamodb:us-gov-east-1:333333333333:table/table_name'], Region='us-gov-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.cn-north-1.amazonaws.com.cn'
+    assert result.url == 'https://dynamodb.us-gov-east-1.amazonaws.com'
 
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=cn-north-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='cn-north-1', IsSearchOperation=True)
+def test__accountid_111111111111__region_us_gov_e():
+    """{AccountId=111111111111, Region=us-gov-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-gov-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=True)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb-fips.cn-north-1.api.amazonwebservices.com.cn'
+    assert result.url == 'https://dynamodb.us-gov-east-1.api.aws'
 
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=cn-north-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='cn-north-1', IsSearchOperation=True)
+def test__resourcearn_arn_aws_us_gov_dynamodb_us_():
+    """{ResourceArn=arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name, Region=us-gov-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name', Region='us-gov-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=True)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb-fips.cn-north-1.amazonaws.com.cn'
+    assert result.url == 'https://dynamodb.us-gov-east-1.api.aws'
 
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=cn-north-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='cn-north-1', IsSearchOperation=True)
+def test__resourcearnlist__arn_aws_us_gov_dynamod():
+    """{ResourceArnList=[arn:aws-us-gov:dynamodb:us-gov-east-1:333333333333:table/table_name], Region=us-gov-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-us-gov:dynamodb:us-gov-east-1:333333333333:table/table_name'], Region='us-gov-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=True)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.cn-north-1.api.amazonwebservices.com.cn'
+    assert result.url == 'https://dynamodb.us-gov-east-1.api.aws'
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=cn-north-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='cn-north-1', IsSearchOperation=True)
+def test__accountid_111111111111__region_us_gov_e():
+    """{AccountId=111111111111, Region=us-gov-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-gov-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.cn-north-1.amazonaws.com.cn'
+    assert result.url == 'https://dynamodb.us-gov-east-1.amazonaws.com'
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=cn-north-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='cn-north-1', IsSearchOperation=True)
+def test__resourcearn_arn_aws_us_gov_dynamodb_us_():
+    """{ResourceArn=arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name, Region=us-gov-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name', Region='us-gov-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.cn-north-1.amazonaws.com.cn'
+    assert result.url == 'https://dynamodb.us-gov-east-1.amazonaws.com'
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, AccountIdEndpointMode=preferred, Region=cn-north-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', AccountIdEndpointMode='preferred', Region='cn-north-1', IsSearchOperation=True)
+def test__resourcearnlist__arn_aws_us_gov_dynamod():
+    """{ResourceArnList=[arn:aws-us-gov:dynamodb:us-gov-east-1:333333333333:table/table_name], Region=us-gov-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-us-gov:dynamodb:us-gov-east-1:333333333333:table/table_name'], Region='us-gov-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.cn-north-1.amazonaws.com.cn'
+    assert result.url == 'https://dynamodb.us-gov-east-1.amazonaws.com'
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=, AccountIdEndpointMode=preferred, Region=cn-north-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='', AccountIdEndpointMode='preferred', Region='cn-north-1', IsSearchOperation=True)
+def test__accountid_111111111111__region_us_gov_e():
+    """{AccountId=111111111111, Region=us-gov-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-gov-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=True)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.cn-north-1.amazonaws.com.cn'
+    assert result.url == 'https://dynamodb-fips.us-gov-east-1.api.aws'
 
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountIdEndpointMode=preferred, Region=cn-north-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountIdEndpointMode='preferred', Region='cn-north-1', IsSearchOperation=True)
+def test__resourcearn_arn_aws_us_gov_dynamodb_us_():
+    """{ResourceArn=arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name, Region=us-gov-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name', Region='us-gov-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=True)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.cn-north-1.amazonaws.com.cn'
+    assert result.url == 'https://dynamodb-fips.us-gov-east-1.api.aws'
 
-def test__usefips_true__usedualstack_true__accoun():
-    """{UseFIPS=true, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-iso-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-iso-east-1', IsSearchOperation=True)
+def test__resourcearnlist__arn_aws_us_gov_dynamod():
+    """{ResourceArnList=[arn:aws-us-gov:dynamodb:us-gov-east-1:333333333333:table/table_name], Region=us-gov-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-us-gov:dynamodb:us-gov-east-1:333333333333:table/table_name'], Region='us-gov-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=True)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb-fips.us-iso-east-1.api.aws.ic.gov'
+    assert result.url == 'https://dynamodb-fips.us-gov-east-1.api.aws'
 
-def test__usefips_true__usedualstack_false__accou():
-    """{UseFIPS=true, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-iso-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-iso-east-1', IsSearchOperation=True)
+def test__accountid_111111111111__region_us_gov_e():
+    """{AccountId=111111111111, Region=us-gov-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-gov-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb-fips.us-iso-east-1.c2s.ic.gov'
+    assert result.url == 'https://111111111111.ddb.us-gov-east-1.amazonaws.com'
 
-def test__usefips_false__usedualstack_true__accou():
-    """{UseFIPS=false, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-iso-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-iso-east-1', IsSearchOperation=True)
+def test__resourcearn_arn_aws_us_gov_dynamodb_us_():
+    """{ResourceArn=arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name, Region=us-gov-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name', Region='us-gov-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-iso-east-1.api.aws.ic.gov'
+    assert result.url == 'https://222222222222.ddb.us-gov-east-1.amazonaws.com'
 
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-iso-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-iso-east-1', IsSearchOperation=True)
+def test__resourcearnlist__arn_aws_us_gov_dynamod():
+    """{ResourceArnList=[arn:aws-us-gov:dynamodb:us-gov-east-1:333333333333:table/table_name], Region=us-gov-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-us-gov:dynamodb:us-gov-east-1:333333333333:table/table_name'], Region='us-gov-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-iso-east-1.c2s.ic.gov'
+    assert result.url == 'https://333333333333.ddb.us-gov-east-1.amazonaws.com'
 
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=, AccountIdEndpointMode=preferred, Region=us-iso-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='', AccountIdEndpointMode='preferred', Region='us-iso-east-1', IsSearchOperation=True)
+def test__accountid_111111111111__region_us_gov_e():
+    """{AccountId=111111111111, Region=us-gov-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-gov-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=True)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-iso-east-1.c2s.ic.gov'
+    assert result.url == 'https://111111111111.ddb.us-gov-east-1.api.aws'
 
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-iso-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-iso-east-1', IsSearchOperation=True)
+def test__resourcearn_arn_aws_us_gov_dynamodb_us_():
+    """{ResourceArn=arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name, Region=us-gov-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name', Region='us-gov-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=True)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb-fips.us-iso-east-1.api.aws.ic.gov'
+    assert result.url == 'https://222222222222.ddb.us-gov-east-1.api.aws'
 
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-iso-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-iso-east-1', IsSearchOperation=True)
+def test__resourcearnlist__arn_aws_us_gov_dynamod():
+    """{ResourceArnList=[arn:aws-us-gov:dynamodb:us-gov-east-1:333333333333:table/table_name], Region=us-gov-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-us-gov:dynamodb:us-gov-east-1:333333333333:table/table_name'], Region='us-gov-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=True)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb-fips.us-iso-east-1.c2s.ic.gov'
+    assert result.url == 'https://333333333333.ddb.us-gov-east-1.api.aws'
 
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-iso-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-iso-east-1', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-iso-east-1.api.aws.ic.gov'
+def test__accountid_111111111111__region_us_gov_e():
+    """{AccountId=111111111111, Region=us-gov-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-gov-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=False)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-iso-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-iso-east-1', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-iso-east-1.c2s.ic.gov'
+def test__resourcearn_arn_aws_us_gov_dynamodb_us_():
+    """{ResourceArn=arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name, Region=us-gov-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name', Region='us-gov-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=False)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-iso-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-iso-east-1', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-iso-east-1.c2s.ic.gov'
+def test__resourcearnlist__arn_aws_us_gov_dynamod():
+    """{ResourceArnList=[arn:aws-us-gov:dynamodb:us-gov-east-1:333333333333:table/table_name], Region=us-gov-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-us-gov:dynamodb:us-gov-east-1:333333333333:table/table_name'], Region='us-gov-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=False)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, AccountIdEndpointMode=preferred, Region=us-iso-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', AccountIdEndpointMode='preferred', Region='us-iso-east-1', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-iso-east-1.c2s.ic.gov'
+def test__accountid_111111111111__region_us_gov_e():
+    """{AccountId=111111111111, Region=us-gov-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-gov-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=, AccountIdEndpointMode=preferred, Region=us-iso-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='', AccountIdEndpointMode='preferred', Region='us-iso-east-1', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-iso-east-1.c2s.ic.gov'
+def test__resourcearn_arn_aws_us_gov_dynamodb_us_():
+    """{ResourceArn=arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name, Region=us-gov-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name', Region='us-gov-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
 
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountIdEndpointMode=preferred, Region=us-iso-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountIdEndpointMode='preferred', Region='us-iso-east-1', IsSearchOperation=True)
-    result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-iso-east-1.c2s.ic.gov'
+def test__resourcearnlist__arn_aws_us_gov_dynamod():
+    """{ResourceArnList=[arn:aws-us-gov:dynamodb:us-gov-east-1:333333333333:table/table_name], Region=us-gov-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-us-gov:dynamodb:us-gov-east-1:333333333333:table/table_name'], Region='us-gov-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
 
-def test__usefips_true__usedualstack_true__accoun():
-    """{UseFIPS=true, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-gov-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-gov-east-1', IsSearchOperation=True)
+def test__region_us_gov_new_1__accountidendpointm():
+    """{Region=us-gov-new-1, AccountIdEndpointMode=preferred, AccountId=111111111111, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(Region='us-gov-new-1', AccountIdEndpointMode='preferred', AccountId='111111111111', UseFIPS=False, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb-fips.us-gov-east-1.api.aws'
+    assert result.url == 'https://dynamodb.us-gov-new-1.amazonaws.com'
 
-def test__usefips_true__usedualstack_false__accou():
-    """{UseFIPS=true, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-gov-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-gov-east-1', IsSearchOperation=True)
+def test__accountid_111111111111__region_us_iso_e():
+    """{AccountId=111111111111, Region=us-iso-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-iso-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-gov-east-1.amazonaws.com'
+    assert result.url == 'https://dynamodb.us-iso-east-1.c2s.ic.gov'
 
-def test__usefips_false__usedualstack_true__accou():
-    """{UseFIPS=false, UseDualStack=true, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-gov-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-gov-east-1', IsSearchOperation=True)
+def test__resourcearn_arn_aws_iso_dynamodb_us_iso():
+    """{ResourceArn=arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name, Region=us-iso-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name', Region='us-iso-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-gov-east-1.api.aws'
+    assert result.url == 'https://dynamodb.us-iso-east-1.c2s.ic.gov'
 
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=111111111111, AccountIdEndpointMode=preferred, Region=us-gov-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='111111111111', AccountIdEndpointMode='preferred', Region='us-gov-east-1', IsSearchOperation=True)
+def test__resourcearnlist__arn_aws_iso_dynamodb_u():
+    """{ResourceArnList=[arn:aws-iso:dynamodb:us-iso-east-1:333333333333:table/table_name], Region=us-iso-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-iso:dynamodb:us-iso-east-1:333333333333:table/table_name'], Region='us-iso-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-gov-east-1.amazonaws.com'
+    assert result.url == 'https://dynamodb.us-iso-east-1.c2s.ic.gov'
 
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountId=, AccountIdEndpointMode=preferred, Region=us-gov-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountId='', AccountIdEndpointMode='preferred', Region='us-gov-east-1', IsSearchOperation=True)
+def test__accountid_111111111111__region_us_iso_e():
+    """{AccountId=111111111111, Region=us-iso-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-iso-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=True)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-gov-east-1.amazonaws.com'
+    assert result.url == 'https://dynamodb.us-iso-east-1.api.aws.ic.gov'
 
-def test__usefips_true__usedualstack_true__resour():
-    """{UseFIPS=true, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-gov-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-gov-east-1', IsSearchOperation=True)
+def test__resourcearn_arn_aws_iso_dynamodb_us_iso():
+    """{ResourceArn=arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name, Region=us-iso-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name', Region='us-iso-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=True)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb-fips.us-gov-east-1.api.aws'
+    assert result.url == 'https://dynamodb.us-iso-east-1.api.aws.ic.gov'
 
-def test__usefips_true__usedualstack_false__resou():
-    """{UseFIPS=true, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-gov-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=True, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-gov-east-1', IsSearchOperation=True)
+def test__resourcearnlist__arn_aws_iso_dynamodb_u():
+    """{ResourceArnList=[arn:aws-iso:dynamodb:us-iso-east-1:333333333333:table/table_name], Region=us-iso-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-iso:dynamodb:us-iso-east-1:333333333333:table/table_name'], Region='us-iso-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=True)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-gov-east-1.amazonaws.com'
+    assert result.url == 'https://dynamodb.us-iso-east-1.api.aws.ic.gov'
 
-def test__usefips_false__usedualstack_true__resou():
-    """{UseFIPS=false, UseDualStack=true, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-gov-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=True, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-gov-east-1', IsSearchOperation=True)
+def test__accountid_111111111111__region_us_iso_e():
+    """{AccountId=111111111111, Region=us-iso-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-iso-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-gov-east-1.api.aws'
+    assert result.url == 'https://dynamodb-fips.us-iso-east-1.c2s.ic.gov'
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-gov-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-gov-east-1', IsSearchOperation=True)
+def test__resourcearn_arn_aws_iso_dynamodb_us_iso():
+    """{ResourceArn=arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name, Region=us-iso-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name', Region='us-iso-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-gov-east-1.amazonaws.com'
+    assert result.url == 'https://dynamodb-fips.us-iso-east-1.c2s.ic.gov'
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-west-2:222222222222:table/table_name, AccountIdEndpointMode=preferred, Region=us-gov-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-west-2:222222222222:table/table_name', AccountIdEndpointMode='preferred', Region='us-gov-east-1', IsSearchOperation=True)
+def test__resourcearnlist__arn_aws_iso_dynamodb_u():
+    """{ResourceArnList=[arn:aws-iso:dynamodb:us-iso-east-1:333333333333:table/table_name], Region=us-iso-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-iso:dynamodb:us-iso-east-1:333333333333:table/table_name'], Region='us-iso-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=False)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-gov-east-1.amazonaws.com'
+    assert result.url == 'https://dynamodb-fips.us-iso-east-1.c2s.ic.gov'
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:s3:us-west-2:222222222222:stream/testStream, AccountIdEndpointMode=preferred, Region=us-gov-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:s3:us-west-2:222222222222:stream/testStream', AccountIdEndpointMode='preferred', Region='us-gov-east-1', IsSearchOperation=True)
+def test__accountid_111111111111__region_us_iso_e():
+    """{AccountId=111111111111, Region=us-iso-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-iso-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=True)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-gov-east-1.amazonaws.com'
+    assert result.url == 'https://dynamodb-fips.us-iso-east-1.api.aws.ic.gov'
 
-def test__usefips_false__usedualstack_false__reso():
-    """{UseFIPS=false, UseDualStack=false, ResourceArn=, AccountIdEndpointMode=preferred, Region=us-gov-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, ResourceArn='', AccountIdEndpointMode='preferred', Region='us-gov-east-1', IsSearchOperation=True)
+def test__resourcearn_arn_aws_iso_dynamodb_us_iso():
+    """{ResourceArn=arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name, Region=us-iso-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name', Region='us-iso-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=True)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-gov-east-1.amazonaws.com'
+    assert result.url == 'https://dynamodb-fips.us-iso-east-1.api.aws.ic.gov'
 
-def test__usefips_false__usedualstack_false__acco():
-    """{UseFIPS=false, UseDualStack=false, AccountIdEndpointMode=preferred, Region=us-gov-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(UseFIPS=False, UseDualStack=False, AccountIdEndpointMode='preferred', Region='us-gov-east-1', IsSearchOperation=True)
+def test__resourcearnlist__arn_aws_iso_dynamodb_u():
+    """{ResourceArnList=[arn:aws-iso:dynamodb:us-iso-east-1:333333333333:table/table_name], Region=us-iso-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-iso:dynamodb:us-iso-east-1:333333333333:table/table_name'], Region='us-iso-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=True)
     result = resolve(params)
-    assert result.url == 'https://search-dynamodb.us-gov-east-1.amazonaws.com'
+    assert result.url == 'https://dynamodb-fips.us-iso-east-1.api.aws.ic.gov'
+
+def test__accountid_111111111111__region_us_iso_e():
+    """{AccountId=111111111111, Region=us-iso-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-iso-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-iso-east-1.c2s.ic.gov'
+
+def test__resourcearn_arn_aws_iso_dynamodb_us_iso():
+    """{ResourceArn=arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name, Region=us-iso-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name', Region='us-iso-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-iso-east-1.c2s.ic.gov'
+
+def test__resourcearnlist__arn_aws_iso_dynamodb_u():
+    """{ResourceArnList=[arn:aws-iso:dynamodb:us-iso-east-1:333333333333:table/table_name], Region=us-iso-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-iso:dynamodb:us-iso-east-1:333333333333:table/table_name'], Region='us-iso-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-iso-east-1.c2s.ic.gov'
+
+def test__accountid_111111111111__region_us_iso_e():
+    """{AccountId=111111111111, Region=us-iso-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-iso-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-iso-east-1.api.aws.ic.gov'
+
+def test__resourcearn_arn_aws_iso_dynamodb_us_iso():
+    """{ResourceArn=arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name, Region=us-iso-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name', Region='us-iso-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-iso-east-1.api.aws.ic.gov'
+
+def test__resourcearnlist__arn_aws_iso_dynamodb_u():
+    """{ResourceArnList=[arn:aws-iso:dynamodb:us-iso-east-1:333333333333:table/table_name], Region=us-iso-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-iso:dynamodb:us-iso-east-1:333333333333:table/table_name'], Region='us-iso-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-iso-east-1.api.aws.ic.gov'
+
+def test__accountid_111111111111__region_us_iso_e():
+    """{AccountId=111111111111, Region=us-iso-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-iso-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.us-iso-east-1.c2s.ic.gov'
+
+def test__resourcearn_arn_aws_iso_dynamodb_us_iso():
+    """{ResourceArn=arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name, Region=us-iso-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name', Region='us-iso-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.us-iso-east-1.c2s.ic.gov'
+
+def test__resourcearnlist__arn_aws_iso_dynamodb_u():
+    """{ResourceArnList=[arn:aws-iso:dynamodb:us-iso-east-1:333333333333:table/table_name], Region=us-iso-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-iso:dynamodb:us-iso-east-1:333333333333:table/table_name'], Region='us-iso-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.us-iso-east-1.c2s.ic.gov'
+
+def test__accountid_111111111111__region_us_iso_e():
+    """{AccountId=111111111111, Region=us-iso-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-iso-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.us-iso-east-1.api.aws.ic.gov'
+
+def test__resourcearn_arn_aws_iso_dynamodb_us_iso():
+    """{ResourceArn=arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name, Region=us-iso-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name', Region='us-iso-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.us-iso-east-1.api.aws.ic.gov'
+
+def test__resourcearnlist__arn_aws_iso_dynamodb_u():
+    """{ResourceArnList=[arn:aws-iso:dynamodb:us-iso-east-1:333333333333:table/table_name], Region=us-iso-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-iso:dynamodb:us-iso-east-1:333333333333:table/table_name'], Region='us-iso-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=True)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb-fips.us-iso-east-1.api.aws.ic.gov'
+
+def test__accountid_111111111111__region_us_iso_e():
+    """{AccountId=111111111111, Region=us-iso-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-iso-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this region')):
+        resolve(params)
+
+def test__resourcearn_arn_aws_iso_dynamodb_us_iso():
+    """{ResourceArn=arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name, Region=us-iso-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name', Region='us-iso-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this region')):
+        resolve(params)
+
+def test__resourcearnlist__arn_aws_iso_dynamodb_u():
+    """{ResourceArnList=[arn:aws-iso:dynamodb:us-iso-east-1:333333333333:table/table_name], Region=us-iso-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-iso:dynamodb:us-iso-east-1:333333333333:table/table_name'], Region='us-iso-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this region')):
+        resolve(params)
+
+def test__accountid_111111111111__region_us_iso_e():
+    """{AccountId=111111111111, Region=us-iso-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-iso-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this region')):
+        resolve(params)
+
+def test__resourcearn_arn_aws_iso_dynamodb_us_iso():
+    """{ResourceArn=arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name, Region=us-iso-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name', Region='us-iso-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this region')):
+        resolve(params)
+
+def test__resourcearnlist__arn_aws_iso_dynamodb_u():
+    """{ResourceArnList=[arn:aws-iso:dynamodb:us-iso-east-1:333333333333:table/table_name], Region=us-iso-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=true}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-iso:dynamodb:us-iso-east-1:333333333333:table/table_name'], Region='us-iso-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this region')):
+        resolve(params)
+
+def test__accountid_111111111111__region_us_iso_e():
+    """{AccountId=111111111111, Region=us-iso-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-iso-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=False)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
+
+def test__resourcearn_arn_aws_iso_dynamodb_us_iso():
+    """{ResourceArn=arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name, Region=us-iso-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(ResourceArn='arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name', Region='us-iso-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=False)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
+
+def test__resourcearnlist__arn_aws_iso_dynamodb_u():
+    """{ResourceArnList=[arn:aws-iso:dynamodb:us-iso-east-1:333333333333:table/table_name], Region=us-iso-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=false}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-iso:dynamodb:us-iso-east-1:333333333333:table/table_name'], Region='us-iso-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=False)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
+
+def test__accountid_111111111111__region_us_iso_e():
+    """{AccountId=111111111111, Region=us-iso-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-iso-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
+
+def test__resourcearn_arn_aws_iso_dynamodb_us_iso():
+    """{ResourceArn=arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name, Region=us-iso-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name', Region='us-iso-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
+
+def test__resourcearnlist__arn_aws_iso_dynamodb_u():
+    """{ResourceArnList=[arn:aws-iso:dynamodb:us-iso-east-1:333333333333:table/table_name], Region=us-iso-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=true}"""
+    params = EndpointParams(ResourceArnList=['arn:aws-iso:dynamodb:us-iso-east-1:333333333333:table/table_name'], Region='us-iso-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
+
+def test__region_us_iso_new_1__accountidendpointm():
+    """{Region=us-iso-new-1, AccountIdEndpointMode=preferred, AccountId=111111111111, UseFIPS=false, UseDualStack=false}"""
+    params = EndpointParams(Region='us-iso-new-1', AccountIdEndpointMode='preferred', AccountId='111111111111', UseFIPS=False, UseDualStack=False)
+    result = resolve(params)
+    assert result.url == 'https://dynamodb.us-iso-new-1.c2s.ic.gov'
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false, Endpoint=https://example.com, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False, Endpoint='https://example.com', IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://example.com'
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=true, Endpoint=https://example.com, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=True, Endpoint='https://example.com', IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and custom endpoint are not supported')):
+        resolve(params)
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=false, Endpoint=https://example.com, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=False, Endpoint='https://example.com', IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
+        resolve(params)
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=true, Endpoint=https://example.com, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=True, Endpoint='https://example.com', IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
+        resolve(params)
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false, Endpoint=https://example.com, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False, Endpoint='https://example.com', IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://example.com'
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=true, Endpoint=https://example.com, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=True, Endpoint='https://example.com', IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and custom endpoint are not supported')):
+        resolve(params)
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=false, Endpoint=https://example.com, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=False, Endpoint='https://example.com', IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
+        resolve(params)
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=true, Endpoint=https://example.com, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=True, Endpoint='https://example.com', IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
+        resolve(params)
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false, Endpoint=https://example.com, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False, Endpoint='https://example.com', IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://example.com'
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=true, Endpoint=https://example.com, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=True, Endpoint='https://example.com', IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and custom endpoint are not supported')):
+        resolve(params)
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=false, Endpoint=https://example.com, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=False, Endpoint='https://example.com', IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
+        resolve(params)
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=true, Endpoint=https://example.com, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=True, Endpoint='https://example.com', IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and custom endpoint are not supported')):
+        resolve(params)
 
 def test__endpoint_https___dynamodb_cn_north_1_ap():
-    """{Endpoint=https://dynamodb.cn-north-1.api.amazonwebservices.com.cn, Region=cn-north-1, IsSearchOperation=true}"""
-    params = EndpointParams(Endpoint='https://dynamodb.cn-north-1.api.amazonwebservices.com.cn', Region='cn-north-1', IsSearchOperation=True)
+    """{Endpoint=https://dynamodb.cn-north-1.api.amazonwebservices.com.cn, Region=cn-north-1, AccountIdEndpointMode=preferred, IsSearchOperation=true}"""
+    params = EndpointParams(Endpoint='https://dynamodb.cn-north-1.api.amazonwebservices.com.cn', Region='cn-north-1', AccountIdEndpointMode='preferred', IsSearchOperation=True)
     with pytest.raises(EndpointError, match=re.escape('Endpoint override is not supported for dual-stack endpoints. Please enable dual-stack functionality by enabling the configuration. For more details, see: https://docs.aws.amazon.com/sdkref/latest/guide/feature-endpoints.html')):
         resolve(params)
 
 def test__endpoint_https___dynamodb_us_gov_east_1():
-    """{Endpoint=https://dynamodb.us-gov-east-1.api.aws, Region=us-gov-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(Endpoint='https://dynamodb.us-gov-east-1.api.aws', Region='us-gov-east-1', IsSearchOperation=True)
+    """{Endpoint=https://dynamodb.us-gov-east-1.api.aws, Region=us-gov-east-1, AccountIdEndpointMode=preferred, IsSearchOperation=true}"""
+    params = EndpointParams(Endpoint='https://dynamodb.us-gov-east-1.api.aws', Region='us-gov-east-1', AccountIdEndpointMode='preferred', IsSearchOperation=True)
     with pytest.raises(EndpointError, match=re.escape('Endpoint override is not supported for dual-stack endpoints. Please enable dual-stack functionality by enabling the configuration. For more details, see: https://docs.aws.amazon.com/sdkref/latest/guide/feature-endpoints.html')):
         resolve(params)
 
 def test__endpoint_https___dynamodb_us_east_1_api():
-    """{Endpoint=https://dynamodb.us-east-1.api.aws, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(Endpoint='https://dynamodb.us-east-1.api.aws', Region='us-east-1', IsSearchOperation=True)
+    """{Endpoint=https://dynamodb.us-east-1.api.aws, Region=us-east-1, AccountIdEndpointMode=preferred, IsSearchOperation=true}"""
+    params = EndpointParams(Endpoint='https://dynamodb.us-east-1.api.aws', Region='us-east-1', AccountIdEndpointMode='preferred', IsSearchOperation=True)
     with pytest.raises(EndpointError, match=re.escape('Endpoint override is not supported for dual-stack endpoints. Please enable dual-stack functionality by enabling the configuration. For more details, see: https://docs.aws.amazon.com/sdkref/latest/guide/feature-endpoints.html')):
         resolve(params)
 
 def test__endpoint_https___111111111111_ddb_us_ea():
-    """{Endpoint=https://111111111111.ddb.us-east-1.api.aws, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(Endpoint='https://111111111111.ddb.us-east-1.api.aws', Region='us-east-1', IsSearchOperation=True)
+    """{Endpoint=https://111111111111.ddb.us-east-1.api.aws, Region=us-east-1, AccountIdEndpointMode=preferred, IsSearchOperation=true}"""
+    params = EndpointParams(Endpoint='https://111111111111.ddb.us-east-1.api.aws', Region='us-east-1', AccountIdEndpointMode='preferred', IsSearchOperation=True)
     result = resolve(params)
     assert result.url == 'https://111111111111.ddb.us-east-1.api.aws'
 
 def test__endpoint_https___vpce_1a2b3c4d_5e6f_dyn():
-    """{Endpoint=https://vpce-1a2b3c4d-5e6f.dynamodb.us-east-1.vpce.api.aws, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(Endpoint='https://vpce-1a2b3c4d-5e6f.dynamodb.us-east-1.vpce.api.aws', Region='us-east-1', IsSearchOperation=True)
+    """{Endpoint=https://vpce-1a2b3c4d-5e6f.dynamodb.us-east-1.vpce.api.aws, Region=us-east-1, AccountIdEndpointMode=preferred, IsSearchOperation=true}"""
+    params = EndpointParams(Endpoint='https://vpce-1a2b3c4d-5e6f.dynamodb.us-east-1.vpce.api.aws', Region='us-east-1', AccountIdEndpointMode='preferred', IsSearchOperation=True)
     result = resolve(params)
     assert result.url == 'https://vpce-1a2b3c4d-5e6f.dynamodb.us-east-1.vpce.api.aws'
 
 def test__endpoint_https___dynamodb_eu_west_1_api():
-    """{Endpoint=https://dynamodb.eu-west-1.api.aws, Region=eu-west-1, IsSearchOperation=true}"""
-    params = EndpointParams(Endpoint='https://dynamodb.eu-west-1.api.aws', Region='eu-west-1', IsSearchOperation=True)
+    """{Endpoint=https://dynamodb.eu-west-1.api.aws, Region=eu-west-1, AccountIdEndpointMode=preferred, IsSearchOperation=true}"""
+    params = EndpointParams(Endpoint='https://dynamodb.eu-west-1.api.aws', Region='eu-west-1', AccountIdEndpointMode='preferred', IsSearchOperation=True)
     with pytest.raises(EndpointError, match=re.escape('Endpoint override is not supported for dual-stack endpoints. Please enable dual-stack functionality by enabling the configuration. For more details, see: https://docs.aws.amazon.com/sdkref/latest/guide/feature-endpoints.html')):
         resolve(params)
 
 def test__endpoint_https___dynamodb_us_west_2_api():
-    """{Endpoint=https://dynamodb.us-west-2.api.aws, Region=us-west-2, IsSearchOperation=true}"""
-    params = EndpointParams(Endpoint='https://dynamodb.us-west-2.api.aws', Region='us-west-2', IsSearchOperation=True)
+    """{Endpoint=https://dynamodb.us-west-2.api.aws, Region=us-west-2, AccountIdEndpointMode=preferred, IsSearchOperation=true}"""
+    params = EndpointParams(Endpoint='https://dynamodb.us-west-2.api.aws', Region='us-west-2', AccountIdEndpointMode='preferred', IsSearchOperation=True)
     with pytest.raises(EndpointError, match=re.escape('Endpoint override is not supported for dual-stack endpoints. Please enable dual-stack functionality by enabling the configuration. For more details, see: https://docs.aws.amazon.com/sdkref/latest/guide/feature-endpoints.html')):
         resolve(params)
 
 def test__endpoint_https___dynamodb_us_east_1_api():
-    """{Endpoint=https://dynamodb.us-east-1.api.aws/, Region=us-east-1, IsSearchOperation=true}"""
-    params = EndpointParams(Endpoint='https://dynamodb.us-east-1.api.aws/', Region='us-east-1', IsSearchOperation=True)
+    """{Endpoint=https://dynamodb.us-east-1.api.aws/, Region=us-east-1, AccountIdEndpointMode=preferred, IsSearchOperation=true}"""
+    params = EndpointParams(Endpoint='https://dynamodb.us-east-1.api.aws/', Region='us-east-1', AccountIdEndpointMode='preferred', IsSearchOperation=True)
     with pytest.raises(EndpointError, match=re.escape('Endpoint override is not supported for dual-stack endpoints. Please enable dual-stack functionality by enabling the configuration. For more details, see: https://docs.aws.amazon.com/sdkref/latest/guide/feature-endpoints.html')):
         resolve(params)
+
+def test__accountid_111111111111__region_local__a():
+    """{AccountId=111111111111, Region=local, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='local', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'http://localhost:8000'
+
+def test__accountid_111111111111__region_local__a():
+    """{AccountId=111111111111, Region=local, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='local', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=True, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and local endpoint are not supported')):
+        resolve(params)
+
+def test__accountid_111111111111__region_local__a():
+    """{AccountId=111111111111, Region=local, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='local', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=False, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
+        resolve(params)
+
+def test__accountid_111111111111__region_local__a():
+    """{AccountId=111111111111, Region=local, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='local', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=True, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
+        resolve(params)
+
+def test__accountid_111111111111__region_local__a():
+    """{AccountId=111111111111, Region=local, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='local', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'http://localhost:8000'
+
+def test__accountid_111111111111__region_local__a():
+    """{AccountId=111111111111, Region=local, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='local', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=True, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and local endpoint are not supported')):
+        resolve(params)
+
+def test__accountid_111111111111__region_local__a():
+    """{AccountId=111111111111, Region=local, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='local', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=False, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
+        resolve(params)
+
+def test__accountid_111111111111__region_local__a():
+    """{AccountId=111111111111, Region=local, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='local', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=True, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
+        resolve(params)
+
+def test__accountid_111111111111__region_local__a():
+    """{AccountId=111111111111, Region=local, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='local', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'http://localhost:8000'
+
+def test__accountid_111111111111__region_local__a():
+    """{AccountId=111111111111, Region=local, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='local', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=True, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Dualstack and local endpoint are not supported')):
+        resolve(params)
+
+def test__accountid_111111111111__region_local__a():
+    """{AccountId=111111111111, Region=local, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='local', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=False, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
+        resolve(params)
+
+def test__accountid_111111111111__region_local__a():
+    """{AccountId=111111111111, Region=local, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='local', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=True, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: FIPS and local endpoint are not supported')):
+        resolve(params)
+
+def test__usefips_false__usedualstack_false__isse():
+    """{UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: Missing Region')):
+        resolve(params)
+
+def test__region_us_east_1__accountidendpointmode():
+    """{Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false, ResourceArn=arn:aws:dynamodb:us-east-1:not_an_account:table/table_name, IsSearchOperation=true}"""
+    params = EndpointParams(Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False, ResourceArn='arn:aws:dynamodb:us-east-1:not_an_account:table/table_name', IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-east-1.amazonaws.com'
+
+def test__region_us_east_1__accountidendpointmode():
+    """{Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://111111111111.search-ddb.us-east-1.amazonaws.com'
+
+def test__accountid___region_us_east_1__accountid():
+    """{AccountId=, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Credentials-sourced account ID parameter is invalid')):
+        resolve(params)
+
+def test__resourcearn_arn_aws_dynamodb_us_east_1_():
+    """{ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://222222222222.search-ddb.us-east-1.amazonaws.com'
+
+def test__resourcearn___region_us_east_1__account():
+    """{ResourceArn=, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-east-1.amazonaws.com'
+
+def test__resourcearn_arn_aws_dynamodb_af_south_1():
+    """{ResourceArn=arn:aws:dynamodb:af-south-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:af-south-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-east-1.amazonaws.com'
+
+def test__resourcearn_arn_aws_s3_us_east_1_222222():
+    """{ResourceArn=arn:aws:s3:us-east-1:222222222222:stream/testStream, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws:s3:us-east-1:222222222222:stream/testStream', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-east-1.amazonaws.com'
+
+def test__resourcearn_arn_aws_s3_af_south_1_22222():
+    """{ResourceArn=arn:aws:s3:af-south-1:222222222222:stream/testStream, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws:s3:af-south-1:222222222222:stream/testStream', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://111111111111.search-ddb.us-east-1.api.aws'
+
+def test__resourcearn_arn_aws_dynamodb_us_east_1_():
+    """{ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://222222222222.search-ddb.us-east-1.api.aws'
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb-fips.us-east-1.amazonaws.com'
+
+def test__resourcearn_arn_aws_dynamodb_us_east_1_():
+    """{ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb-fips.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb-fips.us-east-1.api.aws'
+
+def test__resourcearn_arn_aws_dynamodb_us_east_1_():
+    """{ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb-fips.us-east-1.api.aws'
+
+def test__region_us_east_1__accountidendpointmode():
+    """{Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-east-1.amazonaws.com'
+
+def test__accountid___region_us_east_1__accountid():
+    """{AccountId=, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-east-1.amazonaws.com'
+
+def test__resourcearn_arn_aws_dynamodb_us_east_1_():
+    """{ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-east-1.amazonaws.com'
+
+def test__resourcearn___region_us_east_1__account():
+    """{ResourceArn=, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-east-1.amazonaws.com'
+
+def test__resourcearn_arn_aws_dynamodb_af_south_1():
+    """{ResourceArn=arn:aws:dynamodb:af-south-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:af-south-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-east-1.amazonaws.com'
+
+def test__resourcearn_arn_aws_s3_us_east_1_222222():
+    """{ResourceArn=arn:aws:s3:us-east-1:222222222222:stream/testStream, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws:s3:us-east-1:222222222222:stream/testStream', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-east-1.amazonaws.com'
+
+def test__resourcearn_arn_aws_s3_af_south_1_22222():
+    """{ResourceArn=arn:aws:s3:af-south-1:222222222222:stream/testStream, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws:s3:af-south-1:222222222222:stream/testStream', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-east-1.api.aws'
+
+def test__resourcearn_arn_aws_dynamodb_us_east_1_():
+    """{ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-east-1.api.aws'
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb-fips.us-east-1.amazonaws.com'
+
+def test__resourcearn_arn_aws_dynamodb_us_east_1_():
+    """{ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb-fips.us-east-1.amazonaws.com'
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb-fips.us-east-1.api.aws'
+
+def test__resourcearn_arn_aws_dynamodb_us_east_1_():
+    """{ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb-fips.us-east-1.api.aws'
+
+def test__region_us_east_1__accountidendpointmode():
+    """{Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('AccountIdEndpointMode is required but no AccountID was provided or able to be loaded')):
+        resolve(params)
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://111111111111.search-ddb.us-east-1.amazonaws.com'
+
+def test__accountid___region_us_east_1__accountid():
+    """{AccountId=, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Credentials-sourced account ID parameter is invalid')):
+        resolve(params)
+
+def test__resourcearn_arn_aws_dynamodb_us_east_1_():
+    """{ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://222222222222.search-ddb.us-east-1.amazonaws.com'
+
+def test__resourcearn___region_us_east_1__account():
+    """{ResourceArn=, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('AccountIdEndpointMode is required but no AccountID was provided or able to be loaded')):
+        resolve(params)
+
+def test__resourcearn_arn_aws_dynamodb_af_south_1():
+    """{ResourceArn=arn:aws:dynamodb:af-south-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:af-south-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('AccountIdEndpointMode is required but no AccountID was provided or able to be loaded')):
+        resolve(params)
+
+def test__resourcearn_arn_aws_s3_us_east_1_222222():
+    """{ResourceArn=arn:aws:s3:us-east-1:222222222222:stream/testStream, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws:s3:us-east-1:222222222222:stream/testStream', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('AccountIdEndpointMode is required but no AccountID was provided or able to be loaded')):
+        resolve(params)
+
+def test__resourcearn_arn_aws_s3_af_south_1_22222():
+    """{ResourceArn=arn:aws:s3:af-south-1:222222222222:stream/testStream, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws:s3:af-south-1:222222222222:stream/testStream', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('AccountIdEndpointMode is required but no AccountID was provided or able to be loaded')):
+        resolve(params)
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://111111111111.search-ddb.us-east-1.api.aws'
+
+def test__resourcearn_arn_aws_dynamodb_us_east_1_():
+    """{ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://222222222222.search-ddb.us-east-1.api.aws'
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=False, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
+
+def test__resourcearn_arn_aws_dynamodb_us_east_1_():
+    """{ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=False, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
+
+def test__accountid_111111111111__region_us_east_():
+    """{AccountId=111111111111, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=True, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
+
+def test__resourcearn_arn_aws_dynamodb_us_east_1_():
+    """{ResourceArn=arn:aws:dynamodb:us-east-1:222222222222:table/table_name, Region=us-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws:dynamodb:us-east-1:222222222222:table/table_name', Region='us-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=True, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
+
+def test__region_us_new_1__accountidendpointmode_():
+    """{Region=us-new-1, AccountIdEndpointMode=preferred, AccountId=111111111111, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(Region='us-new-1', AccountIdEndpointMode='preferred', AccountId='111111111111', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://111111111111.search-ddb.us-new-1.amazonaws.com'
+
+def test__accountid_111111111111__region_cn_north():
+    """{AccountId=111111111111, Region=cn-north-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='cn-north-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://111111111111.search-ddb.cn-north-1.amazonaws.com.cn'
+
+def test__resourcearn_arn_aws_cn_dynamodb_cn_nort():
+    """{ResourceArn=arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name, Region=cn-north-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name', Region='cn-north-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://222222222222.search-ddb.cn-north-1.amazonaws.com.cn'
+
+def test__accountid_111111111111__region_cn_north():
+    """{AccountId=111111111111, Region=cn-north-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='cn-north-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://111111111111.search-ddb.cn-north-1.api.amazonwebservices.com.cn'
+
+def test__resourcearn_arn_aws_cn_dynamodb_cn_nort():
+    """{ResourceArn=arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name, Region=cn-north-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name', Region='cn-north-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://222222222222.search-ddb.cn-north-1.api.amazonwebservices.com.cn'
+
+def test__accountid_111111111111__region_cn_north():
+    """{AccountId=111111111111, Region=cn-north-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='cn-north-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb-fips.cn-north-1.amazonaws.com.cn'
+
+def test__resourcearn_arn_aws_cn_dynamodb_cn_nort():
+    """{ResourceArn=arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name, Region=cn-north-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name', Region='cn-north-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb-fips.cn-north-1.amazonaws.com.cn'
+
+def test__accountid_111111111111__region_cn_north():
+    """{AccountId=111111111111, Region=cn-north-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='cn-north-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb-fips.cn-north-1.api.amazonwebservices.com.cn'
+
+def test__resourcearn_arn_aws_cn_dynamodb_cn_nort():
+    """{ResourceArn=arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name, Region=cn-north-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name', Region='cn-north-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb-fips.cn-north-1.api.amazonwebservices.com.cn'
+
+def test__accountid_111111111111__region_cn_north():
+    """{AccountId=111111111111, Region=cn-north-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='cn-north-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.cn-north-1.amazonaws.com.cn'
+
+def test__resourcearn_arn_aws_cn_dynamodb_cn_nort():
+    """{ResourceArn=arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name, Region=cn-north-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name', Region='cn-north-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.cn-north-1.amazonaws.com.cn'
+
+def test__accountid_111111111111__region_cn_north():
+    """{AccountId=111111111111, Region=cn-north-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='cn-north-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.cn-north-1.api.amazonwebservices.com.cn'
+
+def test__resourcearn_arn_aws_cn_dynamodb_cn_nort():
+    """{ResourceArn=arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name, Region=cn-north-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name', Region='cn-north-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.cn-north-1.api.amazonwebservices.com.cn'
+
+def test__accountid_111111111111__region_cn_north():
+    """{AccountId=111111111111, Region=cn-north-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='cn-north-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb-fips.cn-north-1.amazonaws.com.cn'
+
+def test__resourcearn_arn_aws_cn_dynamodb_cn_nort():
+    """{ResourceArn=arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name, Region=cn-north-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name', Region='cn-north-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb-fips.cn-north-1.amazonaws.com.cn'
+
+def test__accountid_111111111111__region_cn_north():
+    """{AccountId=111111111111, Region=cn-north-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='cn-north-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb-fips.cn-north-1.api.amazonwebservices.com.cn'
+
+def test__resourcearn_arn_aws_cn_dynamodb_cn_nort():
+    """{ResourceArn=arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name, Region=cn-north-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name', Region='cn-north-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb-fips.cn-north-1.api.amazonwebservices.com.cn'
+
+def test__accountid_111111111111__region_cn_north():
+    """{AccountId=111111111111, Region=cn-north-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='cn-north-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://111111111111.search-ddb.cn-north-1.amazonaws.com.cn'
+
+def test__resourcearn_arn_aws_cn_dynamodb_cn_nort():
+    """{ResourceArn=arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name, Region=cn-north-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name', Region='cn-north-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://222222222222.search-ddb.cn-north-1.amazonaws.com.cn'
+
+def test__accountid_111111111111__region_cn_north():
+    """{AccountId=111111111111, Region=cn-north-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='cn-north-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://111111111111.search-ddb.cn-north-1.api.amazonwebservices.com.cn'
+
+def test__resourcearn_arn_aws_cn_dynamodb_cn_nort():
+    """{ResourceArn=arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name, Region=cn-north-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name', Region='cn-north-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://222222222222.search-ddb.cn-north-1.api.amazonwebservices.com.cn'
+
+def test__accountid_111111111111__region_cn_north():
+    """{AccountId=111111111111, Region=cn-north-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='cn-north-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=False, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
+
+def test__resourcearn_arn_aws_cn_dynamodb_cn_nort():
+    """{ResourceArn=arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name, Region=cn-north-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name', Region='cn-north-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=False, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
+
+def test__accountid_111111111111__region_cn_north():
+    """{AccountId=111111111111, Region=cn-north-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='cn-north-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=True, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
+
+def test__resourcearn_arn_aws_cn_dynamodb_cn_nort():
+    """{ResourceArn=arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name, Region=cn-north-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-cn:dynamodb:cn-north-1:222222222222:table/table_name', Region='cn-north-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=True, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
+
+def test__region_cn_new_1__accountidendpointmode_():
+    """{Region=cn-new-1, AccountIdEndpointMode=preferred, AccountId=111111111111, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(Region='cn-new-1', AccountIdEndpointMode='preferred', AccountId='111111111111', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.cn-new-1.amazonaws.com.cn'
+
+def test__accountid_111111111111__region_us_gov_e():
+    """{AccountId=111111111111, Region=us-gov-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-gov-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://111111111111.search-ddb.us-gov-east-1.amazonaws.com'
+
+def test__resourcearn_arn_aws_us_gov_dynamodb_us_():
+    """{ResourceArn=arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name, Region=us-gov-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name', Region='us-gov-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://222222222222.search-ddb.us-gov-east-1.amazonaws.com'
+
+def test__accountid_111111111111__region_us_gov_e():
+    """{AccountId=111111111111, Region=us-gov-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-gov-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://111111111111.search-ddb.us-gov-east-1.api.aws'
+
+def test__resourcearn_arn_aws_us_gov_dynamodb_us_():
+    """{ResourceArn=arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name, Region=us-gov-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name', Region='us-gov-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://222222222222.search-ddb.us-gov-east-1.api.aws'
+
+def test__accountid_111111111111__region_us_gov_e():
+    """{AccountId=111111111111, Region=us-gov-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-gov-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-gov-east-1.amazonaws.com'
+
+def test__resourcearn_arn_aws_us_gov_dynamodb_us_():
+    """{ResourceArn=arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name, Region=us-gov-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name', Region='us-gov-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-gov-east-1.amazonaws.com'
+
+def test__accountid_111111111111__region_us_gov_e():
+    """{AccountId=111111111111, Region=us-gov-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-gov-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb-fips.us-gov-east-1.api.aws'
+
+def test__resourcearn_arn_aws_us_gov_dynamodb_us_():
+    """{ResourceArn=arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name, Region=us-gov-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name', Region='us-gov-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb-fips.us-gov-east-1.api.aws'
+
+def test__accountid_111111111111__region_us_gov_e():
+    """{AccountId=111111111111, Region=us-gov-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-gov-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-gov-east-1.amazonaws.com'
+
+def test__resourcearn_arn_aws_us_gov_dynamodb_us_():
+    """{ResourceArn=arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name, Region=us-gov-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name', Region='us-gov-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-gov-east-1.amazonaws.com'
+
+def test__accountid_111111111111__region_us_gov_e():
+    """{AccountId=111111111111, Region=us-gov-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-gov-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-gov-east-1.api.aws'
+
+def test__resourcearn_arn_aws_us_gov_dynamodb_us_():
+    """{ResourceArn=arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name, Region=us-gov-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name', Region='us-gov-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-gov-east-1.api.aws'
+
+def test__accountid_111111111111__region_us_gov_e():
+    """{AccountId=111111111111, Region=us-gov-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-gov-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-gov-east-1.amazonaws.com'
+
+def test__resourcearn_arn_aws_us_gov_dynamodb_us_():
+    """{ResourceArn=arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name, Region=us-gov-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name', Region='us-gov-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-gov-east-1.amazonaws.com'
+
+def test__accountid_111111111111__region_us_gov_e():
+    """{AccountId=111111111111, Region=us-gov-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-gov-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb-fips.us-gov-east-1.api.aws'
+
+def test__resourcearn_arn_aws_us_gov_dynamodb_us_():
+    """{ResourceArn=arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name, Region=us-gov-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name', Region='us-gov-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb-fips.us-gov-east-1.api.aws'
+
+def test__accountid_111111111111__region_us_gov_e():
+    """{AccountId=111111111111, Region=us-gov-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-gov-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://111111111111.search-ddb.us-gov-east-1.amazonaws.com'
+
+def test__resourcearn_arn_aws_us_gov_dynamodb_us_():
+    """{ResourceArn=arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name, Region=us-gov-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name', Region='us-gov-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://222222222222.search-ddb.us-gov-east-1.amazonaws.com'
+
+def test__accountid_111111111111__region_us_gov_e():
+    """{AccountId=111111111111, Region=us-gov-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-gov-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://111111111111.search-ddb.us-gov-east-1.api.aws'
+
+def test__resourcearn_arn_aws_us_gov_dynamodb_us_():
+    """{ResourceArn=arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name, Region=us-gov-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name', Region='us-gov-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://222222222222.search-ddb.us-gov-east-1.api.aws'
+
+def test__accountid_111111111111__region_us_gov_e():
+    """{AccountId=111111111111, Region=us-gov-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-gov-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=False, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
+
+def test__resourcearn_arn_aws_us_gov_dynamodb_us_():
+    """{ResourceArn=arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name, Region=us-gov-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name', Region='us-gov-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=False, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
+
+def test__accountid_111111111111__region_us_gov_e():
+    """{AccountId=111111111111, Region=us-gov-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-gov-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=True, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
+
+def test__resourcearn_arn_aws_us_gov_dynamodb_us_():
+    """{ResourceArn=arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name, Region=us-gov-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-us-gov:dynamodb:us-gov-east-1:222222222222:table/table_name', Region='us-gov-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=True, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
+
+def test__region_us_gov_new_1__accountidendpointm():
+    """{Region=us-gov-new-1, AccountIdEndpointMode=preferred, AccountId=111111111111, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(Region='us-gov-new-1', AccountIdEndpointMode='preferred', AccountId='111111111111', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-gov-new-1.amazonaws.com'
+
+def test__accountid_111111111111__region_us_iso_e():
+    """{AccountId=111111111111, Region=us-iso-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-iso-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-iso-east-1.c2s.ic.gov'
+
+def test__resourcearn_arn_aws_iso_dynamodb_us_iso():
+    """{ResourceArn=arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name, Region=us-iso-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name', Region='us-iso-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-iso-east-1.c2s.ic.gov'
+
+def test__accountid_111111111111__region_us_iso_e():
+    """{AccountId=111111111111, Region=us-iso-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-iso-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-iso-east-1.api.aws.ic.gov'
+
+def test__resourcearn_arn_aws_iso_dynamodb_us_iso():
+    """{ResourceArn=arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name, Region=us-iso-east-1, AccountIdEndpointMode=preferred, UseFIPS=false, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name', Region='us-iso-east-1', AccountIdEndpointMode='preferred', UseFIPS=False, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-iso-east-1.api.aws.ic.gov'
+
+def test__accountid_111111111111__region_us_iso_e():
+    """{AccountId=111111111111, Region=us-iso-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-iso-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb-fips.us-iso-east-1.c2s.ic.gov'
+
+def test__resourcearn_arn_aws_iso_dynamodb_us_iso():
+    """{ResourceArn=arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name, Region=us-iso-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name', Region='us-iso-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb-fips.us-iso-east-1.c2s.ic.gov'
+
+def test__accountid_111111111111__region_us_iso_e():
+    """{AccountId=111111111111, Region=us-iso-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-iso-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb-fips.us-iso-east-1.api.aws.ic.gov'
+
+def test__resourcearn_arn_aws_iso_dynamodb_us_iso():
+    """{ResourceArn=arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name, Region=us-iso-east-1, AccountIdEndpointMode=preferred, UseFIPS=true, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name', Region='us-iso-east-1', AccountIdEndpointMode='preferred', UseFIPS=True, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb-fips.us-iso-east-1.api.aws.ic.gov'
+
+def test__accountid_111111111111__region_us_iso_e():
+    """{AccountId=111111111111, Region=us-iso-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-iso-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-iso-east-1.c2s.ic.gov'
+
+def test__resourcearn_arn_aws_iso_dynamodb_us_iso():
+    """{ResourceArn=arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name, Region=us-iso-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name', Region='us-iso-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-iso-east-1.c2s.ic.gov'
+
+def test__accountid_111111111111__region_us_iso_e():
+    """{AccountId=111111111111, Region=us-iso-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-iso-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-iso-east-1.api.aws.ic.gov'
+
+def test__resourcearn_arn_aws_iso_dynamodb_us_iso():
+    """{ResourceArn=arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name, Region=us-iso-east-1, AccountIdEndpointMode=disabled, UseFIPS=false, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name', Region='us-iso-east-1', AccountIdEndpointMode='disabled', UseFIPS=False, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-iso-east-1.api.aws.ic.gov'
+
+def test__accountid_111111111111__region_us_iso_e():
+    """{AccountId=111111111111, Region=us-iso-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-iso-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb-fips.us-iso-east-1.c2s.ic.gov'
+
+def test__resourcearn_arn_aws_iso_dynamodb_us_iso():
+    """{ResourceArn=arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name, Region=us-iso-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name', Region='us-iso-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb-fips.us-iso-east-1.c2s.ic.gov'
+
+def test__accountid_111111111111__region_us_iso_e():
+    """{AccountId=111111111111, Region=us-iso-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-iso-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb-fips.us-iso-east-1.api.aws.ic.gov'
+
+def test__resourcearn_arn_aws_iso_dynamodb_us_iso():
+    """{ResourceArn=arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name, Region=us-iso-east-1, AccountIdEndpointMode=disabled, UseFIPS=true, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name', Region='us-iso-east-1', AccountIdEndpointMode='disabled', UseFIPS=True, UseDualStack=True, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb-fips.us-iso-east-1.api.aws.ic.gov'
+
+def test__accountid_111111111111__region_us_iso_e():
+    """{AccountId=111111111111, Region=us-iso-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-iso-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this region')):
+        resolve(params)
+
+def test__resourcearn_arn_aws_iso_dynamodb_us_iso():
+    """{ResourceArn=arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name, Region=us-iso-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name', Region='us-iso-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this region')):
+        resolve(params)
+
+def test__accountid_111111111111__region_us_iso_e():
+    """{AccountId=111111111111, Region=us-iso-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-iso-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=True, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this region')):
+        resolve(params)
+
+def test__resourcearn_arn_aws_iso_dynamodb_us_iso():
+    """{ResourceArn=arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name, Region=us-iso-east-1, AccountIdEndpointMode=required, UseFIPS=false, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name', Region='us-iso-east-1', AccountIdEndpointMode='required', UseFIPS=False, UseDualStack=True, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required but account endpoints are not supported in this region')):
+        resolve(params)
+
+def test__accountid_111111111111__region_us_iso_e():
+    """{AccountId=111111111111, Region=us-iso-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-iso-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=False, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
+
+def test__resourcearn_arn_aws_iso_dynamodb_us_iso():
+    """{ResourceArn=arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name, Region=us-iso-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name', Region='us-iso-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=False, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
+
+def test__accountid_111111111111__region_us_iso_e():
+    """{AccountId=111111111111, Region=us-iso-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(AccountId='111111111111', Region='us-iso-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=True, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
+
+def test__resourcearn_arn_aws_iso_dynamodb_us_iso():
+    """{ResourceArn=arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name, Region=us-iso-east-1, AccountIdEndpointMode=required, UseFIPS=true, UseDualStack=true, IsSearchOperation=true}"""
+    params = EndpointParams(ResourceArn='arn:aws-iso:dynamodb:us-iso-east-1:222222222222:table/table_name', Region='us-iso-east-1', AccountIdEndpointMode='required', UseFIPS=True, UseDualStack=True, IsSearchOperation=True)
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: AccountIdEndpointMode is required and FIPS is enabled, but FIPS account endpoints are not supported')):
+        resolve(params)
+
+def test__region_us_iso_new_1__accountidendpointm():
+    """{Region=us-iso-new-1, AccountIdEndpointMode=preferred, AccountId=111111111111, UseFIPS=false, UseDualStack=false, IsSearchOperation=true}"""
+    params = EndpointParams(Region='us-iso-new-1', AccountIdEndpointMode='preferred', AccountId='111111111111', UseFIPS=False, UseDualStack=False, IsSearchOperation=True)
+    result = resolve(params)
+    assert result.url == 'https://search-dynamodb.us-iso-new-1.c2s.ic.gov'

@@ -36,7 +36,7 @@ class CreateFileSystemResponse(TypedDict, closed=True):
     kms_key_id: NotRequired["capo_s3files.types.kms_key_id.KmsKeyId"]
     """<p>The ARN or alias of the KMS key used for encryption.</p>"""
     status: NotRequired["capo_s3files.types.life_cycle_state.LifeCycleState"]
-    """<p>The lifecycle state of the file system. Valid values are: <code>AVAILABLE</code> (the file system is available for use), <code>CREATING</code> (the file system is being created), <code>DELETING</code> (the file system is being deleted), <code>DELETED</code> (the file system has been deleted), <code>ERROR</code> (the file system is in an error state), or <code>UPDATING</code> (the file system is being updated).</p>"""
+    """<p>The lifecycle state of the file system. Valid values are: <code>AVAILABLE</code> (the file system is available for use), <code>CREATING</code> (the file system is being created), <code>DELETING</code> (the file system is being deleted), <code>DELETED</code> (the file system has been deleted), <code>ERROR</code> (the file system is in an error state), <code>MISCONFIGURED</code> (the file system has a misconfiguration), or <code>UPDATING</code> (the file system is being updated).</p>"""
     status_message: NotRequired["capo_s3files.types.status_message.StatusMessage"]
     """<p>Additional information about the file system status. This field provides more details when the status is <code>ERROR</code>, or during state transitions.</p>"""
     role_arn: NotRequired["capo_s3files.types.role_arn.RoleArn"]

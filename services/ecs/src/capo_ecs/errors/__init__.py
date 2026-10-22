@@ -49,6 +49,9 @@ from .daemon_not_active_exception import (
 from .daemon_not_found_exception import (
     DaemonNotFoundException as DaemonNotFoundException,
 )
+from .gateway_not_found_exception import (
+    GatewayNotFoundException as GatewayNotFoundException,
+)
 from .invalid_parameter_exception import (
     InvalidParameterException as InvalidParameterException,
 )

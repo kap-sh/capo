@@ -159,6 +159,16 @@ class InfluxDBv3EnterpriseParameters(TypedDict, closed=True):
         "capo_timestream_influxdb.types.duration.Duration"
     ]
     """<p>Defines how often the catalog synchronizes across cluster nodes.</p> <p>Default: 10s</p>"""
+    upgrade_pacha_tree: NotRequired["bool"]
+    """<p>Specifies whether to migrate the cluster from the Parquet storage engine to PachaTree. This action cannot be reversed. To create a new cluster on Parquet, set this to false.</p>"""
+    wal_buffer_size: NotRequired["int"]
+    """<p>The maximum size, in bytes, of the in-memory WAL buffer before a flush is triggered regardless of the flush interval. Increase this value if WAL files are flushed before the interval elapses.</p>"""
+    snapshot_size: NotRequired[
+        "capo_timestream_influxdb.types.percent_or_absolute_long.PercentOrAbsoluteLong"
+    ]
+    """<p>The maximum size of the active snapshot bucket before it is rotated for snapshotting.</p>"""
+    snapshot_duration: NotRequired["capo_timestream_influxdb.types.duration.Duration"]
+    """<p>The time-based trigger that controls how often the ingester creates snapshots. This value is also used on query nodes as the bucket rotation interval for the replica buffer.</p>"""
 
 
 # --- awsJson1_0 ser/de ---
@@ -422,6 +432,26 @@ def serialize_aws_json_1_0(value: InfluxDBv3EnterpriseParameters) -> dict:
         out["catalogSyncInterval"] = (
             capo_timestream_influxdb.types.duration.serialize_aws_json_1_0(
                 value["catalog_sync_interval"]
+            )
+        )
+    if "upgrade_pacha_tree" in value:
+        out["upgradePachaTree"] = value["upgrade_pacha_tree"]
+    if "wal_buffer_size" in value:
+        out["walBufferSize"] = value["wal_buffer_size"]
+    if "snapshot_size" in value:
+        import capo_timestream_influxdb.types.percent_or_absolute_long
+
+        out["snapshotSize"] = (
+            capo_timestream_influxdb.types.percent_or_absolute_long.serialize_aws_json_1_0(
+                value["snapshot_size"]
+            )
+        )
+    if "snapshot_duration" in value:
+        import capo_timestream_influxdb.types.duration
+
+        out["snapshotDuration"] = (
+            capo_timestream_influxdb.types.duration.serialize_aws_json_1_0(
+                value["snapshot_duration"]
             )
         )
     return out
@@ -689,6 +719,26 @@ def deserialize_aws_json_1_0(data: dict) -> InfluxDBv3EnterpriseParameters:
         out["catalog_sync_interval"] = (
             capo_timestream_influxdb.types.duration.deserialize_aws_json_1_0(
                 data["catalogSyncInterval"]
+            )
+        )
+    if data.get("upgradePachaTree") is not None:
+        out["upgrade_pacha_tree"] = data["upgradePachaTree"]
+    if data.get("walBufferSize") is not None:
+        out["wal_buffer_size"] = data["walBufferSize"]
+    if data.get("snapshotSize") is not None:
+        import capo_timestream_influxdb.types.percent_or_absolute_long
+
+        out["snapshot_size"] = (
+            capo_timestream_influxdb.types.percent_or_absolute_long.deserialize_aws_json_1_0(
+                data["snapshotSize"]
+            )
+        )
+    if data.get("snapshotDuration") is not None:
+        import capo_timestream_influxdb.types.duration
+
+        out["snapshot_duration"] = (
+            capo_timestream_influxdb.types.duration.deserialize_aws_json_1_0(
+                data["snapshotDuration"]
             )
         )
     return out

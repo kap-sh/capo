@@ -57,6 +57,15 @@ from .custom_db_engine_version_not_found_fault import (
 from .custom_db_engine_version_quota_exceeded_fault import (
     CustomDBEngineVersionQuotaExceededFault as CustomDBEngineVersionQuotaExceededFault,
 )
+from .db_capacity_reservation_already_exists_fault import (
+    DBCapacityReservationAlreadyExistsFault as DBCapacityReservationAlreadyExistsFault,
+)
+from .db_capacity_reservation_not_found_fault import (
+    DBCapacityReservationNotFoundFault as DBCapacityReservationNotFoundFault,
+)
+from .db_capacity_reservation_unsupported_fault import (
+    DBCapacityReservationUnsupportedFault as DBCapacityReservationUnsupportedFault,
+)
 from .db_cluster_already_exists_fault import (
     DBClusterAlreadyExistsFault as DBClusterAlreadyExistsFault,
 )
@@ -267,6 +276,9 @@ from .invalid_blue_green_deployment_state_fault import (
 )
 from .invalid_custom_db_engine_version_state_fault import (
     InvalidCustomDBEngineVersionStateFault as InvalidCustomDBEngineVersionStateFault,
+)
+from .invalid_db_capacity_reservation_state_fault import (
+    InvalidDBCapacityReservationStateFault as InvalidDBCapacityReservationStateFault,
 )
 from .invalid_db_cluster_automated_backup_state_fault import (
     InvalidDBClusterAutomatedBackupStateFault as InvalidDBClusterAutomatedBackupStateFault,

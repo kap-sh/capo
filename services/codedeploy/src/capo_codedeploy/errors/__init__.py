@@ -154,6 +154,9 @@ from .invalid_auto_rollback_config_exception import (
 from .invalid_auto_scaling_group_exception import (
     InvalidAutoScalingGroupException as InvalidAutoScalingGroupException,
 )
+from .invalid_auto_scaling_group_process_to_suspend_exception import (
+    InvalidAutoScalingGroupProcessToSuspendException as InvalidAutoScalingGroupProcessToSuspendException,
+)
 from .invalid_blue_green_deployment_configuration_exception import (
     InvalidBlueGreenDeploymentConfigurationException as InvalidBlueGreenDeploymentConfigurationException,
 )

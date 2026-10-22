@@ -6,6 +6,7 @@ from typing import Literal, TypeAlias, cast
 AssistedNluMode: TypeAlias = Literal[
     "Primary",
     "Fallback",
+    "DialogManager",
 ]
 
 

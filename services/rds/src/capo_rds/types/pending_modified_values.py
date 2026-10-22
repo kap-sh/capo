@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_rds.types.additional_storage_volumes_list
     import capo_rds.types.automation_mode
     import capo_rds.types.boolean_optional
+    import capo_rds.types.db_capacity_reservation_identifier
     import capo_rds.types.integer_optional
     import capo_rds.types.pending_cloudwatch_logs_exports
     import capo_rds.types.processor_feature_list
@@ -74,6 +75,10 @@ class PendingModifiedValues(TypedDict, closed=True):
         "capo_rds.types.additional_storage_volumes_list.AdditionalStorageVolumesList"
     ]
     """<p>The additional storage volume modifications that are pending for the DB instance.</p>"""
+    db_capacity_reservation_identifier: NotRequired[
+        "capo_rds.types.db_capacity_reservation_identifier.DBCapacityReservationIdentifier"
+    ]
+    """<p>The identifier of the DB capacity reservation that the DB instance uses after a pending modification completes. Amazon RDS returns this value when a <code>ModifyDBInstance</code> request changes the DB capacity reservation, and the change hasn't been applied yet.</p>"""
 
 
 # --- awsQuery ser/de ---
@@ -183,6 +188,13 @@ def serialize_query(
             pairs,
             f"{key_prefix}AdditionalStorageVolumes",
         )
+    if "db_capacity_reservation_identifier" in value:
+        pairs.append(
+            (
+                f"{key_prefix}DBCapacityReservationIdentifier",
+                str(value["db_capacity_reservation_identifier"]),
+            )
+        )
 
 
 def deserialize_query(el: Element) -> PendingModifiedValues:
@@ -291,6 +303,13 @@ def deserialize_query(el: Element) -> PendingModifiedValues:
             capo_rds.types.additional_storage_volumes_list.deserialize_query(
                 child_additional_storage_volumes
             )
+        )
+    child_db_capacity_reservation_identifier = el.find(
+        "DBCapacityReservationIdentifier"
+    )
+    if child_db_capacity_reservation_identifier is not None:
+        out["db_capacity_reservation_identifier"] = str(
+            child_db_capacity_reservation_identifier.text or ""
         )
     return out
 

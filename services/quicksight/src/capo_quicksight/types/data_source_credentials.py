@@ -9,7 +9,10 @@ if TYPE_CHECKING:
     import capo_quicksight.types.credential_pair
     import capo_quicksight.types.key_pair_credentials
     import capo_quicksight.types.o_auth_client_credentials
+    import capo_quicksight.types.one_drive_client_credentials
     import capo_quicksight.types.secret_arn
+    import capo_quicksight.types.service_account_credentials
+    import capo_quicksight.types.share_point_client_credentials
     import capo_quicksight.types.web_proxy_credentials
 
 
@@ -32,6 +35,18 @@ class DataSourceCredentials(TypedDict, closed=True):
         "capo_quicksight.types.o_auth_client_credentials.OAuthClientCredentials"
     ]
     """<p>The OAuth client credentials for connecting to a data source using OAuth 2.0 client credentials (2LO) authentication. For more information, see <code> <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_OAuthClientCredentials.html">OAuthClientCredentials</a> </code>.</p>"""
+    service_account_credentials: NotRequired[
+        "capo_quicksight.types.service_account_credentials.ServiceAccountCredentials"
+    ]
+    """<p>The service account credentials for connecting to a data source that uses Google Workspace domain-wide delegation.</p>"""
+    share_point_client_credentials: NotRequired[
+        "capo_quicksight.types.share_point_client_credentials.SharePointClientCredentials"
+    ]
+    """<p>The client credentials for connecting to a Microsoft SharePoint data source using two-legged OAuth (2LO) certificate-based authentication.</p>"""
+    one_drive_client_credentials: NotRequired[
+        "capo_quicksight.types.one_drive_client_credentials.OneDriveClientCredentials"
+    ]
+    """<p>The client credentials for connecting to a Microsoft OneDrive data source using two-legged OAuth (2LO) certificate-based authentication.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -71,6 +86,30 @@ def serialize_json(value: DataSourceCredentials) -> dict:
                 value["o_auth_client_credentials"]
             )
         )
+    if "service_account_credentials" in value:
+        import capo_quicksight.types.service_account_credentials
+
+        out["ServiceAccountCredentials"] = (
+            capo_quicksight.types.service_account_credentials.serialize_json(
+                value["service_account_credentials"]
+            )
+        )
+    if "share_point_client_credentials" in value:
+        import capo_quicksight.types.share_point_client_credentials
+
+        out["SharePointClientCredentials"] = (
+            capo_quicksight.types.share_point_client_credentials.serialize_json(
+                value["share_point_client_credentials"]
+            )
+        )
+    if "one_drive_client_credentials" in value:
+        import capo_quicksight.types.one_drive_client_credentials
+
+        out["OneDriveClientCredentials"] = (
+            capo_quicksight.types.one_drive_client_credentials.serialize_json(
+                value["one_drive_client_credentials"]
+            )
+        )
     return out
 
 
@@ -108,6 +147,30 @@ def deserialize_json(data: dict) -> DataSourceCredentials:
         out["o_auth_client_credentials"] = (
             capo_quicksight.types.o_auth_client_credentials.deserialize_json(
                 data["OAuthClientCredentials"]
+            )
+        )
+    if data.get("ServiceAccountCredentials") is not None:
+        import capo_quicksight.types.service_account_credentials
+
+        out["service_account_credentials"] = (
+            capo_quicksight.types.service_account_credentials.deserialize_json(
+                data["ServiceAccountCredentials"]
+            )
+        )
+    if data.get("SharePointClientCredentials") is not None:
+        import capo_quicksight.types.share_point_client_credentials
+
+        out["share_point_client_credentials"] = (
+            capo_quicksight.types.share_point_client_credentials.deserialize_json(
+                data["SharePointClientCredentials"]
+            )
+        )
+    if data.get("OneDriveClientCredentials") is not None:
+        import capo_quicksight.types.one_drive_client_credentials
+
+        out["one_drive_client_credentials"] = (
+            capo_quicksight.types.one_drive_client_credentials.deserialize_json(
+                data["OneDriveClientCredentials"]
             )
         )
     return out

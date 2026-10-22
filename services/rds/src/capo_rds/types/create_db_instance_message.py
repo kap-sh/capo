@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_rds.types.additional_storage_volumes_list
     import capo_rds.types.boolean_optional
     import capo_rds.types.database_insights_mode
+    import capo_rds.types.db_capacity_reservation_identifier
     import capo_rds.types.db_security_group_name_list
     import capo_rds.types.integer_optional
     import capo_rds.types.log_type_list
@@ -190,6 +191,10 @@ class CreateDBInstanceMessage(TypedDict, closed=True):
         "capo_rds.types.tag_specification_list.TagSpecificationList"
     ]
     """<p>Tags to assign to resources associated with the DB instance.</p> <p>Valid Values: </p> <ul> <li> <p> <code>auto-backup</code> - The DB instance's automated backup.</p> </li> </ul>"""
+    db_capacity_reservation_identifier: NotRequired[
+        "capo_rds.types.db_capacity_reservation_identifier.DBCapacityReservationIdentifier"
+    ]
+    """<p>The identifier or the name of the DB capacity reservation to associate with this DB instance. You can specify the identifier, which has the prefix <code>dbcr-</code>, or the reservation name. When you specify this parameter, the DB instance uses reserved capacity from the specified reservation.</p> <p>If you specify <code>AvailabilityZone</code>, Amazon RDS places the DB instance in that Availability Zone, and the reservation must cover it.</p> <p>Constraints:</p> <ul> <li> <p>The reservation must reserve capacity for the DB instance class and the database engine of the DB instance.</p> </li> <li> <p>If the reservation reserves capacity for a specific license model, the license model of the DB instance must match it.</p> </li> <li> <p>The reservation must be in the <code>active</code> state, and it must not be past its end date.</p> </li> <li> <p>If you specify <code>AvailabilityZone</code>, it must be one of the Availability Zones of the reservation.</p> </li> <li> <p>For a Multi-AZ DB instance, the reservation must cover two or more Availability Zones. A Multi-AZ DB instance uses one unit of reserved capacity in each of two Availability Zones. If the reservation covers more than two Availability Zones, Amazon RDS chooses the two that the DB instance uses.</p> </li> <li> <p>The reservation must have available capacity in each Availability Zone that the DB instance uses.</p> </li> <li> <p>The DB subnet group must be in a VPC with default tenancy.</p> </li> <li> <p>The DB subnet group must cover each Availability Zone that the DB instance uses.</p> </li> </ul>"""
     master_user_authentication_type: NotRequired[
         "capo_rds.types.master_user_authentication_type.MasterUserAuthenticationType"
     ]
@@ -506,6 +511,13 @@ def serialize_query(
         capo_rds.types.tag_specification_list.serialize_query(
             value["tag_specifications"], pairs, f"{key_prefix}TagSpecifications"
         )
+    if "db_capacity_reservation_identifier" in value:
+        pairs.append(
+            (
+                f"{key_prefix}DBCapacityReservationIdentifier",
+                str(value["db_capacity_reservation_identifier"]),
+            )
+        )
     if "master_user_authentication_type" in value:
         import capo_rds.types.master_user_authentication_type
 
@@ -799,6 +811,13 @@ def deserialize_query(el: Element) -> CreateDBInstanceMessage:
             capo_rds.types.tag_specification_list.deserialize_query(
                 child_tag_specifications
             )
+        )
+    child_db_capacity_reservation_identifier = el.find(
+        "DBCapacityReservationIdentifier"
+    )
+    if child_db_capacity_reservation_identifier is not None:
+        out["db_capacity_reservation_identifier"] = str(
+            child_db_capacity_reservation_identifier.text or ""
         )
     child_master_user_authentication_type = el.find("MasterUserAuthenticationType")
     if child_master_user_authentication_type is not None:

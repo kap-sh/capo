@@ -57,6 +57,8 @@ if TYPE_CHECKING:
     import capo_rds.types.boolean
     import capo_rds.types.boolean_optional
     import capo_rds.types.bucket_name
+    import capo_rds.types.cancel_db_capacity_reservation_request
+    import capo_rds.types.cancel_db_capacity_reservation_response
     import capo_rds.types.cancel_export_task_message
     import capo_rds.types.certificate
     import capo_rds.types.certificate_message
@@ -76,6 +78,8 @@ if TYPE_CHECKING:
     import capo_rds.types.create_blue_green_deployment_request
     import capo_rds.types.create_blue_green_deployment_response
     import capo_rds.types.create_custom_db_engine_version_message
+    import capo_rds.types.create_db_capacity_reservation_request
+    import capo_rds.types.create_db_capacity_reservation_response
     import capo_rds.types.create_db_cluster_endpoint_message
     import capo_rds.types.create_db_cluster_message
     import capo_rds.types.create_db_cluster_parameter_group_message
@@ -116,6 +120,9 @@ if TYPE_CHECKING:
     import capo_rds.types.data_filter
     import capo_rds.types.database_arn
     import capo_rds.types.database_insights_mode
+    import capo_rds.types.db_capacity_reservation
+    import capo_rds.types.db_capacity_reservation_identifier
+    import capo_rds.types.db_capacity_reservation_name
     import capo_rds.types.db_cluster
     import capo_rds.types.db_cluster_associated_roles
     import capo_rds.types.db_cluster_automated_backup
@@ -138,6 +145,7 @@ if TYPE_CHECKING:
     import capo_rds.types.db_instance
     import capo_rds.types.db_instance_automated_backup
     import capo_rds.types.db_instance_automated_backup_message
+    import capo_rds.types.db_instance_class
     import capo_rds.types.db_instance_message
     import capo_rds.types.db_major_engine_version
     import capo_rds.types.db_parameter_group
@@ -206,6 +214,8 @@ if TYPE_CHECKING:
     import capo_rds.types.describe_blue_green_deployments_request
     import capo_rds.types.describe_blue_green_deployments_response
     import capo_rds.types.describe_certificates_message
+    import capo_rds.types.describe_db_capacity_reservations_request
+    import capo_rds.types.describe_db_capacity_reservations_response
     import capo_rds.types.describe_db_cluster_automated_backups_message
     import capo_rds.types.describe_db_cluster_backtracks_message
     import capo_rds.types.describe_db_cluster_endpoints_message
@@ -273,6 +283,7 @@ if TYPE_CHECKING:
     import capo_rds.types.enable_http_endpoint_request
     import capo_rds.types.enable_http_endpoint_response
     import capo_rds.types.encryption_context_map
+    import capo_rds.types.end_date_type
     import capo_rds.types.endpoint_network_type
     import capo_rds.types.engine
     import capo_rds.types.engine_family
@@ -317,6 +328,8 @@ if TYPE_CHECKING:
     import capo_rds.types.modify_certificates_result
     import capo_rds.types.modify_current_db_cluster_capacity_message
     import capo_rds.types.modify_custom_db_engine_version_message
+    import capo_rds.types.modify_db_capacity_reservation_request
+    import capo_rds.types.modify_db_capacity_reservation_response
     import capo_rds.types.modify_db_cluster_endpoint_message
     import capo_rds.types.modify_db_cluster_message
     import capo_rds.types.modify_db_cluster_parameter_group_message
@@ -759,6 +772,7 @@ class RDSClient:
 
         Raises:
             capo_rds.errors.blue_green_deployment_not_found_fault.BlueGreenDeploymentNotFoundFault: <p> <code>BlueGreenDeploymentIdentifier</code> doesn't refer to an existing blue/green deployment.</p>
+            capo_rds.errors.db_capacity_reservation_not_found_fault.DBCapacityReservationNotFoundFault: <p> <code>DBCapacityReservationIdentifier</code> doesn't refer to an existing DB capacity reservation.</p>
             capo_rds.errors.db_cluster_not_found_fault.DBClusterNotFoundFault: <p> <code>DBClusterIdentifier</code> doesn't refer to an existing DB cluster.</p>
             capo_rds.errors.db_instance_not_found_fault.DBInstanceNotFoundFault: <p> <code>DBInstanceIdentifier</code> doesn't refer to an existing DB instance.</p>
             capo_rds.errors.db_proxy_endpoint_not_found_fault.DBProxyEndpointNotFoundFault: <p>The DB proxy endpoint doesn't exist.</p>
@@ -993,6 +1007,62 @@ class RDSClient:
         if use_earliest_time_on_point_in_time_unavailable is not None:
             input_["use_earliest_time_on_point_in_time_unavailable"] = (
                 use_earliest_time_on_point_in_time_unavailable
+            )
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def cancel_db_capacity_reservation(
+        self,
+        *,
+        config_overrides: Optional[RDSClientConfig] = None,
+        db_capacity_reservation_identifier: Optional[
+            "capo_rds.types.db_capacity_reservation_identifier.DBCapacityReservationIdentifier"
+        ] = None,
+    ) -> "capo_rds.types.cancel_db_capacity_reservation_response.CancelDBCapacityReservationResponse":
+        """<p>Cancels a DB capacity reservation. Amazon RDS changes the state of the reservation to <code>cancelled</code> and stops reporting available capacity for it. Amazon RDS then releases the reserved capacity.</p> <p>A DB instance that uses the reservation keeps running. It continues on unreserved capacity, and Amazon RDS doesn't stop it or modify it. However, Amazon RDS no longer reserves capacity for the DB instance. If Amazon RDS later moves the DB instance to different hardware, for example during hardware maintenance, that move can fail when the Amazon Web Services Region has insufficient capacity for the DB instance class.</p> <p>You can't cancel a reservation in the <code>active</code> state during a capacity commitment. The response of <code>DescribeDBCapacityReservations</code> reports the end of the commitment in <code>CommitmentInfo</code>.</p> <p>Constraints:</p> <ul> <li> <p>The reservation must be in the <code>active</code>, <code>assessing</code>, or <code>delayed</code> state.</p> </li> <li> <p>The reservation must not be past its end date.</p> </li> </ul>
+
+        Args:
+            db_capacity_reservation_identifier: <p>The identifier or the name of the DB capacity reservation to cancel. You can specify the identifier, which has the prefix <code>dbcr-</code>, or the reservation name.</p>
+
+        Raises:
+            capo_rds.errors.db_capacity_reservation_not_found_fault.DBCapacityReservationNotFoundFault: <p> <code>DBCapacityReservationIdentifier</code> doesn't refer to an existing DB capacity reservation.</p>
+            capo_rds.errors.invalid_db_capacity_reservation_state_fault.InvalidDBCapacityReservationStateFault: <p>The DB capacity reservation isn't in a valid state.</p>
+            capo_rds.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            To cancel a DB capacity reservation
+            The following example cancels the specified DB capacity reservation. Amazon RDS releases the reserved capacity. A DB instance that uses the reservation keeps running on unreserved capacity.
+
+            >>> client.cancel_db_capacity_reservation(db_capacity_reservation_identifier='dbcr-7hqk2m9xv4t1bn6cz3ws8dj5fp0gyr2a')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_rds.types.cancel_db_capacity_reservation_request.CancelDBCapacityReservationRequest]",
+        ) -> OperationResponse[
+            "capo_rds.types.cancel_db_capacity_reservation_response.CancelDBCapacityReservationResponse"
+        ]:
+            import capo_rds._operations.amazon_rd_sv19.cancel_db_capacity_reservation
+
+            output, http_response = (
+                capo_rds._operations.amazon_rd_sv19.cancel_db_capacity_reservation.cancel_db_capacity_reservation(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelDBCapacityReservation")
+        )
+        input_: capo_rds.types.cancel_db_capacity_reservation_request.CancelDBCapacityReservationRequest = {}
+        if db_capacity_reservation_identifier is not None:
+            input_["db_capacity_reservation_identifier"] = (
+                db_capacity_reservation_identifier
             )
 
         response = execute_pipeline(
@@ -1720,6 +1790,106 @@ class RDSClient:
             input_["description"] = description
         if manifest is not None:
             input_["manifest"] = manifest
+        if tags is not None:
+            input_["tags"] = tags
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def create_db_capacity_reservation(
+        self,
+        *,
+        config_overrides: Optional[RDSClientConfig] = None,
+        db_capacity_reservation_name: Optional[
+            "capo_rds.types.db_capacity_reservation_name.DBCapacityReservationName"
+        ] = None,
+        db_instance_class: Optional[
+            "capo_rds.types.db_instance_class.DBInstanceClass"
+        ] = None,
+        engine: Optional["capo_rds.types.string.String"] = None,
+        capacity_per_availability_zone: Optional[
+            "capo_rds.types.integer_optional.IntegerOptional"
+        ] = None,
+        availability_zones: Optional[
+            "capo_rds.types.availability_zones.AvailabilityZones"
+        ] = None,
+        end_date: Optional["capo_rds.types.t_stamp.TStamp"] = None,
+        start_date: Optional["capo_rds.types.t_stamp.TStamp"] = None,
+        commitment_duration: Optional[
+            "capo_rds.types.long_optional.LongOptional"
+        ] = None,
+        license_model: Optional["capo_rds.types.string.String"] = None,
+        tags: Optional["capo_rds.types.tag_list.TagList"] = None,
+    ) -> "capo_rds.types.create_db_capacity_reservation_response.CreateDBCapacityReservationResponse":
+        """<p>Creates a DB capacity reservation. A DB capacity reservation reserves compute and memory capacity for DB instances of one DB instance class and one database engine. Amazon RDS reserves that capacity in each Availability Zone that you specify.</p> <p>Amazon RDS reserves the same amount of capacity in every Availability Zone in the request. You set that amount with <code>CapacityPerAvailabilityZone</code>, and you set the Availability Zones with <code>AvailabilityZones</code>. The total reserved capacity is <code>CapacityPerAvailabilityZone</code> multiplied by the number of Availability Zones.</p> <p>Specify <code>StartDate</code> and <code>CommitmentDuration</code> together to create a future-dated reservation. A future-dated reservation reserves capacity for a period that starts later. Amazon RDS holds that capacity for the length of the commitment.</p> <p>A future-dated reservation has the following additional constraints:</p> <ul> <li> <p> <code>DBInstanceClass</code> must be a <code>db.c</code>, <code>db.m</code>, <code>db.r</code>, <code>db.t</code>, or <code>db.x</code> DB instance class. The letter after <code>db.</code> gives the DB instance class family. For example, <code>db.x2g.xlarge</code> qualifies, and <code>db.z1d.xlarge</code> doesn't.</p> </li> <li> <p>If <code>DBInstanceClass</code> is a <code>db.m</code> or <code>db.r</code> DB instance class, it must be from generation 7 or later. The digit after the family letter gives the generation. For example, <code>db.m7g.xlarge</code> qualifies, and <code>db.m5.xlarge</code> doesn't. A <code>db.c</code>, <code>db.t</code>, or <code>db.x</code> DB instance class has no generation requirement.</p> </li> <li> <p>The reserved capacity must total at least 32 vCPUs in each Availability Zone. Multiply <code>CapacityPerAvailabilityZone</code> by the number of vCPUs of the DB instance class. The product must be 32 or more.</p> </li> <li> <p> <code>CommitmentDuration</code> must be at least 14 days. For a <code>db.x</code> DB instance class, it must be at least 84 days.</p> </li> <li> <p> <code>StartDate</code> must be from 5 to 120 days in the future.</p> </li> </ul> <p>Therefore, a DB instance class with 2 vCPUs needs a <code>CapacityPerAvailabilityZone</code> of 16 or more, a class with 4 vCPUs needs 8 or more, a class with 8 vCPUs needs 4 or more, and a class with 16 vCPUs needs 2 or more. For the number of vCPUs of each DB instance class, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">DB instance classes</a> in the <i>Amazon RDS User Guide</i>.</p> <note> <p>You can't modify a future-dated reservation before it starts. You can't cancel a future-dated reservation in the <code>scheduled</code> state. You can't cancel a reservation in the <code>active</code> state during its capacity commitment. Therefore, you can't cancel a future-dated reservation from the time that Amazon RDS schedules it until the commitment ends.</p> </note>
+
+        Args:
+            db_capacity_reservation_name: <p>The name of the DB capacity reservation. This name must be unique for your Amazon Web Services account in the Amazon Web Services Region.</p> <p>Constraints:</p> <ul> <li> <p>Must contain from 1 to 63 lowercase letters, digits, or hyphens.</p> </li> <li> <p>First character must be a lowercase letter.</p> </li> <li> <p>Can't end with a hyphen or contain two consecutive hyphens.</p> </li> <li> <p>Can't contain more than 16 groups of characters separated by hyphens.</p> </li> <li> <p>Can't begin with <code>dbcr-</code>.</p> </li> </ul>
+            db_instance_class: <p>The compute and memory capacity to reserve, for example <code>db.m5.large</code>. Not all DB instance classes are available in all Amazon Web Services Regions, or for all database engines. For the full list of DB instance classes, and availability for your engine, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">DB instance classes</a> in the <i>Amazon RDS User Guide</i>.</p> <p>Constraints:</p> <ul> <li> <p>Must be a DB instance class that the specified <code>Engine</code> supports.</p> </li> <li> <p>For RDS for Oracle with <code>LicenseModel</code> set to <code>license-included</code>, some DB instance classes aren't supported. Either choose a supported DB instance class, or set <code>LicenseModel</code> to <code>bring-your-own-license</code>.</p> </li> </ul>
+            engine: <p>The database engine to reserve capacity for.</p> <p>Valid Values: <code>aurora-mysql</code> | <code>aurora-postgresql</code> | <code>mysql</code> | <code>postgres</code> | <code>mariadb</code> | <code>oracle-ee</code> | <code>oracle-ee-cdb</code> | <code>oracle-se2</code> | <code>oracle-se2-cdb</code> | <code>sqlserver-ee</code> | <code>sqlserver-se</code> | <code>sqlserver-web</code> | <code>sqlserver-ex</code> | <code>sqlserver-dev-ee</code> | <code>sqlserver-dev-se</code> | <code>db2-ae</code> | <code>db2-ce</code> | <code>db2-se</code> </p> <note> <p>The Developer Edition engines <code>sqlserver-dev-ee</code> and <code>sqlserver-dev-se</code> support no Multi-AZ DB instance and no read replica. Therefore, a reservation for either engine serves Single-AZ DB instances only.</p> </note>
+            capacity_per_availability_zone: <p>The number of DB instances to reserve in each Availability Zone that you list in <code>AvailabilityZones</code>. Amazon RDS reserves this number of DB instances in every listed Availability Zone.</p> <p>A Single-AZ DB instance uses one unit of reserved capacity, in one Availability Zone. A Multi-AZ DB instance is one DB instance, and it uses one unit of reserved capacity in each of two Availability Zones. Therefore, a Multi-AZ DB instance uses two units in total. A read replica uses one unit of reserved capacity, in the same way as any other DB instance.</p> <p>Amazon RDS reserves capacity in each Availability Zone separately. Reserved capacity in one Availability Zone can't serve a DB instance in another Availability Zone. A request for a DB instance fails when the Availability Zone of the DB instance has no available capacity.</p> <p>Therefore, set this value to the number of DB instances that you want to run at the same time in one Availability Zone. Don't set it to the number that you want in total.</p> <p>This value multiplied by the number of Availability Zones counts against the DB instances quota for your Amazon Web Services account in the Amazon Web Services Region. Your existing DB instances, and the unused capacity of your other reservations, count against the same quota.</p> <p>To find the value of the DB instances quota, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Limits.html">Quotas and constraints for Amazon RDS</a> in the <i>Amazon RDS User Guide</i>.</p> <p>Constraints:</p> <ul> <li> <p>Minimum 1.</p> </li> </ul>
+            availability_zones: <p>A list of Availability Zones for the reservation.</p> <p>You can't change the Availability Zones of a reservation after you create it. Reserved capacity in an Availability Zone that no DB instance uses stays unused.</p> <p>Constraints:</p> <ul> <li> <p>Must specify one or more Availability Zones.</p> </li> <li> <p>Each Availability Zone can appear only once.</p> </li> <li> <p>Each Availability Zone must be in the Amazon Web Services Region of the request.</p> </li> <li> <p>Each Availability Zone must have capacity for the requested DB instance class.</p> </li> <li> <p>Must include two or more Availability Zones to use the reservation for a Multi-AZ DB instance.</p> </li> <li> <p>A DB instance can use reserved capacity only in an Availability Zone that its DB subnet group covers.</p> </li> </ul> <p>Example: <code>us-east-1a</code> </p>
+            end_date: <p>The date and time when the reservation expires, in Universal Coordinated Time (UTC). If you don't specify a value, the reservation doesn't expire.</p> <p>To change the expiration of an existing reservation, use <code>ModifyDBCapacityReservation</code>. That operation takes <code>EndDateType</code> along with <code>EndDate</code>.</p> <p>Constraints:</p> <ul> <li> <p>Must be a date and time in the future.</p> </li> <li> <p>For a future-dated reservation, must be at or after <code>StartDate</code> plus <code>CommitmentDuration</code>. For example, a reservation that starts on 2026-12-01 with a 30-day commitment can't expire before 2026-12-31. To reserve capacity for one calendar month, set <code>CommitmentDuration</code> to 30 days or fewer, not to the length of the month.</p> </li> </ul> <p>Example: <code>2026-12-31T23:59:59Z</code> </p>
+            start_date: <p>The date and time when the reservation starts, in Universal Coordinated Time (UTC). Specify this parameter to create a future-dated reservation. If you don't specify a value, the reservation starts immediately.</p> <p>A reservation that starts later always carries a capacity commitment. Therefore, a request that specifies <code>StartDate</code> must also meet every constraint of a future-dated reservation, including the minimum reserved capacity in each Availability Zone.</p> <p>Constraints:</p> <ul> <li> <p>Must be from 5 to 120 days in the future.</p> </li> <li> <p>You must also specify <code>CommitmentDuration</code>.</p> </li> </ul> <p>Example: <code>2026-12-01T00:00:00Z</code> </p>
+            commitment_duration: <p>The length of the capacity commitment that you request for a future-dated reservation, in seconds. Amazon RDS measures this length from <code>StartDate</code>.</p> <note> <p>Amazon RDS can grant a shorter capacity commitment than you request. Therefore, read <code>CommitmentEndDate</code> in <code>CommitmentInfo</code> for the commitment that Amazon RDS granted.</p> </note> <p>The commitment doesn't end the reservation. Specify <code>EndDate</code> to set an expiration date. You can't cancel a reservation in the <code>active</code> state during the commitment.</p> <p>Constraints:</p> <ul> <li> <p>Minimum 1209600, which is 14 days. For a <code>db.x</code> DB instance class, such as <code>db.x2g.xlarge</code>, the minimum is 7257600, which is 84 days.</p> </li> <li> <p>Must be less than 315576000, which is 10 years.</p> </li> <li> <p>You must also specify <code>StartDate</code>.</p> </li> </ul> <p>Example: <code>2592000</code> </p>
+            license_model: <p>The license model to reserve capacity for. Specify this parameter only for RDS for Microsoft SQL Server Enterprise Edition, Standard Edition, and Developer Edition, for RDS for Oracle, or for RDS for Db2 Standard Edition and Advanced Edition. Amazon RDS rejects the request for any other engine. This includes Amazon Aurora, the Web and Express editions of RDS for Microsoft SQL Server, and RDS for Db2 Community Edition.</p> <p>Valid Values:</p> <ul> <li> <p>RDS for Microsoft SQL Server Enterprise Edition and Standard Edition - <code>license-included | bring-your-own-media</code> </p> </li> <li> <p>RDS for Microsoft SQL Server Developer Edition - <code>bring-your-own-license</code> </p> </li> <li> <p>RDS for Oracle - <code>bring-your-own-license | license-included</code> </p> </li> <li> <p>RDS for Db2 Standard Edition and Advanced Edition - <code>bring-your-own-license | marketplace-license</code> </p> </li> </ul> <p>A DB instance launches into the reservation only when the license model of the DB instance matches the license model of the reservation. For a reservation that holds no license model, Amazon RDS applies no license model check at launch.</p> <p>For RDS for Microsoft SQL Server Enterprise Edition and Standard Edition, if you don't specify a value, Amazon RDS uses <code>license-included</code>.</p> <p>For RDS for Microsoft SQL Server Developer Edition, if you don't specify a value, Amazon RDS uses <code>bring-your-own-license</code>. That is the only license model that these engines accept, and Amazon RDS rejects any other value.</p> <p>For RDS for Oracle, if you don't specify a value, Amazon RDS uses the only orderable license model for the DB instance class. If more than one license model is orderable, you must specify one.</p> <p>For RDS for Db2 Standard Edition and Advanced Edition, if you don't specify a value, Amazon RDS uses <code>bring-your-own-license</code>. To reserve capacity for Db2 DB instances that you license through Amazon Web Services Marketplace, specify <code>marketplace-license</code>.</p> <note> <p>For RDS for Oracle, the license models that you can reserve depend on the engine and the DB instance class. RDS for Oracle Enterprise Edition doesn't support <code>license-included</code>.</p> </note>
+            tags: <p>Tags to assign to the DB capacity reservation.</p>
+
+        Raises:
+            capo_rds.errors.db_capacity_reservation_already_exists_fault.DBCapacityReservationAlreadyExistsFault: <p>You already have a DB capacity reservation with the given name. Choose a different name for the new reservation, or use the existing reservation.</p>
+            capo_rds.errors.db_capacity_reservation_unsupported_fault.DBCapacityReservationUnsupportedFault: <p>The specified configuration isn't supported for DB capacity reservations.</p>
+            capo_rds.errors.instance_quota_exceeded_fault.InstanceQuotaExceededFault: <p>The request would result in the user exceeding the allowed number of DB instances.</p>
+            capo_rds.errors.insufficient_db_instance_capacity_fault.InsufficientDBInstanceCapacityFault: <p>The specified DB instance class isn't available in the specified Availability Zone.</p>
+            capo_rds.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            To create a DB capacity reservation in two Availability Zones
+            The following example reserves capacity for two db.m5.large RDS for MySQL DB instances in each of two Availability Zones. Amazon RDS reserves the same capacity in every Availability Zone in the request. The total reserved capacity is four units. Four units serve four Single-AZ DB instances, or two Multi-AZ DB instances, because a Multi-AZ DB instance uses one unit in each of two Availability Zones.
+
+            >>> client.create_db_capacity_reservation(db_capacity_reservation_name='my-mysql-reservation', db_instance_class='db.m5.large', engine='mysql', capacity_per_availability_zone=2, availability_zones=['us-east-1a', 'us-east-1b'])
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_rds.types.create_db_capacity_reservation_request.CreateDBCapacityReservationRequest]",
+        ) -> OperationResponse[
+            "capo_rds.types.create_db_capacity_reservation_response.CreateDBCapacityReservationResponse"
+        ]:
+            import capo_rds._operations.amazon_rd_sv19.create_db_capacity_reservation
+
+            output, http_response = (
+                capo_rds._operations.amazon_rd_sv19.create_db_capacity_reservation.create_db_capacity_reservation(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDBCapacityReservation")
+        )
+        input_: capo_rds.types.create_db_capacity_reservation_request.CreateDBCapacityReservationRequest = {}
+        if db_capacity_reservation_name is not None:
+            input_["db_capacity_reservation_name"] = db_capacity_reservation_name
+        if db_instance_class is not None:
+            input_["db_instance_class"] = db_instance_class
+        if engine is not None:
+            input_["engine"] = engine
+        if capacity_per_availability_zone is not None:
+            input_["capacity_per_availability_zone"] = capacity_per_availability_zone
+        if availability_zones is not None:
+            input_["availability_zones"] = availability_zones
+        if end_date is not None:
+            input_["end_date"] = end_date
+        if start_date is not None:
+            input_["start_date"] = start_date
+        if commitment_duration is not None:
+            input_["commitment_duration"] = commitment_duration
+        if license_model is not None:
+            input_["license_model"] = license_model
         if tags is not None:
             input_["tags"] = tags
 
@@ -2477,6 +2647,9 @@ class RDSClient:
         tag_specifications: Optional[
             "capo_rds.types.tag_specification_list.TagSpecificationList"
         ] = None,
+        db_capacity_reservation_identifier: Optional[
+            "capo_rds.types.db_capacity_reservation_identifier.DBCapacityReservationIdentifier"
+        ] = None,
         master_user_authentication_type: Optional[
             "capo_rds.types.master_user_authentication_type.MasterUserAuthenticationType"
         ] = None,
@@ -2550,12 +2723,14 @@ class RDSClient:
             engine_lifecycle_support: <p>The lifecycle type for this DB instance.</p> <note> <p>By default, this value is set to <code>open-source-rds-extended-support</code>, which enrolls your DB instance into Amazon RDS Extended Support. At the end of standard support, you can avoid charges for Extended Support by setting the value to <code>open-source-rds-extended-support-disabled</code>. In this case, creating the DB instance will fail if the DB major version is past its end of standard support date.</p> </note> <p>This setting applies only to RDS for MySQL and RDS for PostgreSQL. For Amazon Aurora DB instances, the engine lifecycle support is managed by the DB cluster.</p> <p>You can use this setting to enroll your DB instance into Amazon RDS Extended Support. With RDS Extended Support, you can run the selected major engine version on your DB instance past the end of standard support for that engine version. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html\">Amazon RDS Extended Support with Amazon RDS</a> in the <i>Amazon RDS User Guide</i>.</p> <p>Valid Values: <code>open-source-rds-extended-support | open-source-rds-extended-support-disabled</code> </p> <p>Default: <code>open-source-rds-extended-support</code> </p>
             additional_storage_volumes: <p>A list of additional storage volumes to create for the DB instance. You can create up to three additional storage volumes using the names <code>rdsdbdata2</code>, <code>rdsdbdata3</code>, and <code>rdsdbdata4</code>. Additional storage volumes are supported for RDS for Oracle and RDS for SQL Server DB instances only.</p>
             tag_specifications: <p>Tags to assign to resources associated with the DB instance.</p> <p>Valid Values: </p> <ul> <li> <p> <code>auto-backup</code> - The DB instance's automated backup.</p> </li> </ul>
+            db_capacity_reservation_identifier: <p>The identifier or the name of the DB capacity reservation to associate with this DB instance. You can specify the identifier, which has the prefix <code>dbcr-</code>, or the reservation name. When you specify this parameter, the DB instance uses reserved capacity from the specified reservation.</p> <p>If you specify <code>AvailabilityZone</code>, Amazon RDS places the DB instance in that Availability Zone, and the reservation must cover it.</p> <p>Constraints:</p> <ul> <li> <p>The reservation must reserve capacity for the DB instance class and the database engine of the DB instance.</p> </li> <li> <p>If the reservation reserves capacity for a specific license model, the license model of the DB instance must match it.</p> </li> <li> <p>The reservation must be in the <code>active</code> state, and it must not be past its end date.</p> </li> <li> <p>If you specify <code>AvailabilityZone</code>, it must be one of the Availability Zones of the reservation.</p> </li> <li> <p>For a Multi-AZ DB instance, the reservation must cover two or more Availability Zones. A Multi-AZ DB instance uses one unit of reserved capacity in each of two Availability Zones. If the reservation covers more than two Availability Zones, Amazon RDS chooses the two that the DB instance uses.</p> </li> <li> <p>The reservation must have available capacity in each Availability Zone that the DB instance uses.</p> </li> <li> <p>The DB subnet group must be in a VPC with default tenancy.</p> </li> <li> <p>The DB subnet group must cover each Availability Zone that the DB instance uses.</p> </li> </ul>
             master_user_authentication_type: <p>Specifies the authentication type for the master user. With IAM master user authentication, you can configure the master DB user with IAM database authentication when you create a DB instance.</p> <p>You can specify one of the following values:</p> <ul> <li> <p> <code>password</code> - Use standard database authentication with a password.</p> </li> <li> <p> <code>iam-db-auth</code> - Use IAM database authentication for the master user.</p> </li> </ul> <p>This option is only valid for RDS for PostgreSQL and Aurora PostgreSQL engines.</p>
 
         Raises:
             capo_rds.errors.authorization_not_found_fault.AuthorizationNotFoundFault: <p>The specified CIDR IP range or Amazon EC2 security group might not be authorized for the specified DB security group.</p> <p>Or, RDS might not be authorized to perform necessary actions using IAM on your behalf.</p>
             capo_rds.errors.backup_policy_not_found_fault.BackupPolicyNotFoundFault: <p/>
             capo_rds.errors.certificate_not_found_fault.CertificateNotFoundFault: <p> <code>CertificateIdentifier</code> doesn't refer to an existing certificate.</p>
+            capo_rds.errors.db_capacity_reservation_not_found_fault.DBCapacityReservationNotFoundFault: <p> <code>DBCapacityReservationIdentifier</code> doesn't refer to an existing DB capacity reservation.</p>
             capo_rds.errors.db_cluster_not_found_fault.DBClusterNotFoundFault: <p> <code>DBClusterIdentifier</code> doesn't refer to an existing DB cluster.</p>
             capo_rds.errors.db_instance_already_exists_fault.DBInstanceAlreadyExistsFault: <p>The user already has a DB instance with the given identifier.</p>
             capo_rds.errors.db_parameter_group_not_found_fault.DBParameterGroupNotFoundFault: <p> <code>DBParameterGroupName</code> doesn't refer to an existing DB parameter group.</p>
@@ -2565,6 +2740,7 @@ class RDSClient:
             capo_rds.errors.domain_not_found_fault.DomainNotFoundFault: <p> <code>Domain</code> doesn't refer to an existing Active Directory domain.</p>
             capo_rds.errors.instance_quota_exceeded_fault.InstanceQuotaExceededFault: <p>The request would result in the user exceeding the allowed number of DB instances.</p>
             capo_rds.errors.insufficient_db_instance_capacity_fault.InsufficientDBInstanceCapacityFault: <p>The specified DB instance class isn't available in the specified Availability Zone.</p>
+            capo_rds.errors.invalid_db_capacity_reservation_state_fault.InvalidDBCapacityReservationStateFault: <p>The DB capacity reservation isn't in a valid state.</p>
             capo_rds.errors.invalid_db_cluster_state_fault.InvalidDBClusterStateFault: <p>The requested operation can't be performed while the cluster is in this state.</p>
             capo_rds.errors.invalid_subnet.InvalidSubnet: <p>The requested subnet is invalid, or multiple subnets were requested that are not all in a common VPC.</p>
             capo_rds.errors.invalid_vpc_network_state_fault.InvalidVPCNetworkStateFault: <p>The DB subnet group doesn't cover all Availability Zones after it's created because of users' change.</p>
@@ -2758,6 +2934,10 @@ class RDSClient:
             input_["additional_storage_volumes"] = additional_storage_volumes
         if tag_specifications is not None:
             input_["tag_specifications"] = tag_specifications
+        if db_capacity_reservation_identifier is not None:
+            input_["db_capacity_reservation_identifier"] = (
+                db_capacity_reservation_identifier
+            )
         if master_user_authentication_type is not None:
             input_["master_user_authentication_type"] = master_user_authentication_type
 
@@ -2868,6 +3048,9 @@ class RDSClient:
         tag_specifications: Optional[
             "capo_rds.types.tag_specification_list.TagSpecificationList"
         ] = None,
+        db_capacity_reservation_identifier: Optional[
+            "capo_rds.types.db_capacity_reservation_identifier.DBCapacityReservationIdentifier"
+        ] = None,
     ) -> "capo_rds.types.create_db_instance_read_replica_result.CreateDBInstanceReadReplicaResult":
         """<p>Creates a new DB instance that acts as a read replica for an existing source DB instance or Multi-AZ DB cluster. You can create a read replica for a DB instance running Db2, MariaDB, MySQL, Oracle, PostgreSQL, or SQL Server. You can create a read replica for a Multi-AZ DB cluster running MySQL or PostgreSQL. For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html">Working with read replicas</a> and <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html#multi-az-db-clusters-migrating-to-instance-with-read-replica">Migrating from a Multi-AZ DB cluster to a DB instance using a read replica</a> in the <i>Amazon RDS User Guide</i>.</p> <p>Amazon Aurora doesn't support this operation. To create a DB instance for an Aurora DB cluster, use the <code>CreateDBInstance</code> operation.</p> <p>RDS creates read replicas with backups disabled. All other attributes (including DB security groups and DB parameter groups) are inherited from the source DB instance or cluster, except as specified.</p> <important> <p>Your source DB instance or cluster must have backup retention enabled.</p> </important>
 
@@ -2890,7 +3073,7 @@ class RDSClient:
             copy_tags_to_snapshot: <p>Specifies whether to copy all tags from the read replica to snapshots of the read replica. By default, tags aren't copied.</p>
             monitoring_interval: <p>The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the read replica. To disable collection of Enhanced Monitoring metrics, specify <code>0</code>. The default is <code>0</code>.</p> <p>If <code>MonitoringRoleArn</code> is specified, then you must set <code>MonitoringInterval</code> to a value other than <code>0</code>.</p> <p>This setting doesn't apply to RDS Custom DB instances.</p> <p>Valid Values: <code>0, 1, 5, 10, 15, 30, 60</code> </p> <p>Default: <code>0</code> </p>
             monitoring_role_arn: <p>The ARN for the IAM role that permits RDS to send enhanced monitoring metrics to Amazon CloudWatch Logs. For example, <code>arn:aws:iam:123456789012:role/emaccess</code>. For information on creating a monitoring role, go to <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole">To create an IAM role for Amazon RDS Enhanced Monitoring</a> in the <i>Amazon RDS User Guide</i>.</p> <p>If <code>MonitoringInterval</code> is set to a value other than 0, then you must supply a <code>MonitoringRoleArn</code> value.</p> <p>This setting doesn't apply to RDS Custom DB instances.</p>
-            kms_key_id: <p>The Amazon Web Services KMS key identifier for an encrypted read replica.</p> <p>The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.</p> <p>If you create an encrypted read replica in the same Amazon Web Services Region as the source DB instance or Multi-AZ DB cluster, don't specify a value for this parameter. A read replica in the same Amazon Web Services Region is always encrypted with the same KMS key as the source DB instance or cluster.</p> <p>If you create an encrypted read replica in a different Amazon Web Services Region, then you must specify a KMS key identifier for the destination Amazon Web Services Region. KMS keys are specific to the Amazon Web Services Region that they are created in, and you can't use KMS keys from one Amazon Web Services Region in another Amazon Web Services Region.</p> <p>You can't create an encrypted read replica from an unencrypted DB instance or Multi-AZ DB cluster.</p> <p>This setting doesn't apply to RDS Custom, which uses the same KMS key as the primary replica.</p>
+            kms_key_id: <p>The Amazon Web Services KMS key identifier for an encrypted read replica.</p> <p>The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.</p> <p>For a read replica in the same Amazon Web Services Region as the source DB instance or Multi-AZ DB cluster, specifying this parameter is optional. If you specify a KMS key identifier, the read replica is encrypted with that KMS key, which can be different from the KMS key of the source.</p> <p>If you don't specify a value for this parameter, the read replica is encrypted with the same KMS key as the source DB instance or Multi-AZ DB cluster.</p> <p>If you create an encrypted read replica in a different Amazon Web Services Region, then you must specify a KMS key identifier for the destination Amazon Web Services Region. KMS keys are specific to the Amazon Web Services Region that they are created in, and you can't use KMS keys from one Amazon Web Services Region in another Amazon Web Services Region.</p> <p>You can't create an encrypted read replica from an unencrypted DB instance or Multi-AZ DB cluster.</p> <p>This setting doesn't apply to RDS Custom, which uses the same KMS key as the primary replica.</p>
             pre_signed_url: <p>When you are creating a read replica from one Amazon Web Services GovCloud (US) Region to another or from one China Amazon Web Services Region to another, the URL that contains a Signature Version 4 signed request for the <code>CreateDBInstanceReadReplica</code> API operation in the source Amazon Web Services Region that contains the source DB instance.</p> <p>This setting applies only to Amazon Web Services GovCloud (US) Regions and China Amazon Web Services Regions. It's ignored in other Amazon Web Services Regions.</p> <p>This setting applies only when replicating from a source DB <i>instance</i>. Source DB clusters aren't supported in Amazon Web Services GovCloud (US) Regions and China Amazon Web Services Regions.</p> <p>You must specify this parameter when you create an encrypted read replica from another Amazon Web Services Region by using the Amazon RDS API. Don't specify <code>PreSignedUrl</code> when you are creating an encrypted read replica in the same Amazon Web Services Region.</p> <p>The presigned URL must be a valid request for the <code>CreateDBInstanceReadReplica</code> API operation that can run in the source Amazon Web Services Region that contains the encrypted source DB instance. The presigned URL request must contain the following parameter values:</p> <ul> <li> <p> <code>DestinationRegion</code> - The Amazon Web Services Region that the encrypted read replica is created in. This Amazon Web Services Region is the same one where the <code>CreateDBInstanceReadReplica</code> operation is called that contains this presigned URL.</p> <p>For example, if you create an encrypted DB instance in the us-west-1 Amazon Web Services Region, from a source DB instance in the us-east-2 Amazon Web Services Region, then you call the <code>CreateDBInstanceReadReplica</code> operation in the us-east-1 Amazon Web Services Region and provide a presigned URL that contains a call to the <code>CreateDBInstanceReadReplica</code> operation in the us-west-2 Amazon Web Services Region. For this example, the <code>DestinationRegion</code> in the presigned URL must be set to the us-east-1 Amazon Web Services Region.</p> </li> <li> <p> <code>KmsKeyId</code> - The KMS key identifier for the key to use to encrypt the read replica in the destination Amazon Web Services Region. This is the same identifier for both the <code>CreateDBInstanceReadReplica</code> operation that is called in the destination Amazon Web Services Region, and the operation contained in the presigned URL.</p> </li> <li> <p> <code>SourceDBInstanceIdentifier</code> - The DB instance identifier for the encrypted DB instance to be replicated. This identifier must be in the Amazon Resource Name (ARN) format for the source Amazon Web Services Region. For example, if you are creating an encrypted read replica from a DB instance in the us-west-2 Amazon Web Services Region, then your <code>SourceDBInstanceIdentifier</code> looks like the following example: <code>arn:aws:rds:us-west-2:123456789012:instance:mysql-instance1-20161115</code>.</p> </li> </ul> <p>To learn how to generate a Signature Version 4 signed request, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html">Authenticating Requests: Using Query Parameters (Amazon Web Services Signature Version 4)</a> and <a href="https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html">Signature Version 4 Signing Process</a>.</p> <note> <p>If you are using an Amazon Web Services SDK tool or the CLI, you can specify <code>SourceRegion</code> (or <code>--source-region</code> for the CLI) instead of specifying <code>PreSignedUrl</code> manually. Specifying <code>SourceRegion</code> autogenerates a presigned URL that is a valid request for the operation that can run in the source Amazon Web Services Region.</p> </note> <p>This setting doesn't apply to RDS Custom DB instances.</p>
             enable_iam_database_authentication: <p>Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts to database accounts. By default, mapping isn't enabled.</p> <p>For more information about IAM database authentication, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database Authentication for MySQL and PostgreSQL</a> in the <i>Amazon RDS User Guide</i>.</p> <p>This setting doesn't apply to RDS Custom DB instances.</p>
             database_insights_mode: <p>The mode of Database Insights to enable for the read replica.</p> <note> <p>This setting isn't supported.</p> </note>
@@ -2920,9 +3103,11 @@ class RDSClient:
             ca_certificate_identifier: <p>The CA certificate identifier to use for the read replica's server certificate.</p> <p>This setting doesn't apply to RDS Custom DB instances.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to encrypt a connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS to encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.</p>
             additional_storage_volumes: <p>A list of additional storage volumes to create for the DB instance. You can create up to three additional storage volumes using the names <code>rdsdbdata2</code>, <code>rdsdbdata3</code>, and <code>rdsdbdata4</code>. Additional storage volumes are supported for RDS for Oracle and RDS for SQL Server DB instances only.</p>
             tag_specifications: <p>Tags to assign to resources associated with the DB instance.</p> <p>Valid Values: </p> <ul> <li> <p> <code>auto-backup</code> - The DB instance's automated backup.</p> </li> </ul>
+            db_capacity_reservation_identifier: <p>The identifier or the name of the DB capacity reservation to associate with this read replica. You can specify the identifier, which has the prefix <code>dbcr-</code>, or the reservation name. When you specify this parameter, the read replica uses reserved capacity from the specified reservation. A read replica uses one unit of reserved capacity, in the same way as any other DB instance.</p> <p>If you specify <code>AvailabilityZone</code>, Amazon RDS places the DB instance in that Availability Zone, and the reservation must cover it.</p> <p>Constraints:</p> <ul> <li> <p>The reservation must reserve capacity for the DB instance class and the database engine of the DB instance.</p> </li> <li> <p>If the reservation reserves capacity for a specific license model, the license model of the source DB instance must match it. A read replica inherits its license model from the source DB instance.</p> </li> <li> <p>The reservation must be in the <code>active</code> state, and it must not be past its end date.</p> </li> <li> <p>If you specify <code>AvailabilityZone</code>, it must be one of the Availability Zones of the reservation.</p> </li> <li> <p>For a Multi-AZ DB instance, the reservation must cover two or more Availability Zones. A Multi-AZ DB instance uses one unit of reserved capacity in each of two Availability Zones. If the reservation covers more than two Availability Zones, Amazon RDS chooses the two that the DB instance uses.</p> </li> <li> <p>The reservation must have available capacity in each Availability Zone that the DB instance uses.</p> </li> <li> <p>The DB subnet group must be in a VPC with default tenancy.</p> </li> <li> <p>The DB subnet group must cover each Availability Zone that the DB instance uses.</p> </li> </ul>
 
         Raises:
             capo_rds.errors.certificate_not_found_fault.CertificateNotFoundFault: <p> <code>CertificateIdentifier</code> doesn't refer to an existing certificate.</p>
+            capo_rds.errors.db_capacity_reservation_not_found_fault.DBCapacityReservationNotFoundFault: <p> <code>DBCapacityReservationIdentifier</code> doesn't refer to an existing DB capacity reservation.</p>
             capo_rds.errors.db_cluster_not_found_fault.DBClusterNotFoundFault: <p> <code>DBClusterIdentifier</code> doesn't refer to an existing DB cluster.</p>
             capo_rds.errors.db_instance_already_exists_fault.DBInstanceAlreadyExistsFault: <p>The user already has a DB instance with the given identifier.</p>
             capo_rds.errors.db_instance_not_found_fault.DBInstanceNotFoundFault: <p> <code>DBInstanceIdentifier</code> doesn't refer to an existing DB instance.</p>
@@ -2934,6 +3119,7 @@ class RDSClient:
             capo_rds.errors.domain_not_found_fault.DomainNotFoundFault: <p> <code>Domain</code> doesn't refer to an existing Active Directory domain.</p>
             capo_rds.errors.instance_quota_exceeded_fault.InstanceQuotaExceededFault: <p>The request would result in the user exceeding the allowed number of DB instances.</p>
             capo_rds.errors.insufficient_db_instance_capacity_fault.InsufficientDBInstanceCapacityFault: <p>The specified DB instance class isn't available in the specified Availability Zone.</p>
+            capo_rds.errors.invalid_db_capacity_reservation_state_fault.InvalidDBCapacityReservationStateFault: <p>The DB capacity reservation isn't in a valid state.</p>
             capo_rds.errors.invalid_db_cluster_state_fault.InvalidDBClusterStateFault: <p>The requested operation can't be performed while the cluster is in this state.</p>
             capo_rds.errors.invalid_db_instance_state_fault.InvalidDBInstanceStateFault: <p>The DB instance isn't in a valid state.</p>
             capo_rds.errors.invalid_db_subnet_group_fault.InvalidDBSubnetGroupFault: <p>The DBSubnetGroup doesn't belong to the same VPC as that of an existing cross-region read replica of the same source instance.</p>
@@ -3103,6 +3289,10 @@ class RDSClient:
             input_["additional_storage_volumes"] = additional_storage_volumes
         if tag_specifications is not None:
             input_["tag_specifications"] = tag_specifications
+        if db_capacity_reservation_identifier is not None:
+            input_["db_capacity_reservation_identifier"] = (
+                db_capacity_reservation_identifier
+            )
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -5530,6 +5720,104 @@ class RDSClient:
                 marker=_token,
             )
             _page = _resolve_path(_response, ("certificates",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("marker",))
+            if not _token:
+                break
+
+    def describe_db_capacity_reservations(
+        self,
+        *,
+        config_overrides: Optional[RDSClientConfig] = None,
+        db_capacity_reservation_identifier: Optional[
+            "capo_rds.types.db_capacity_reservation_identifier.DBCapacityReservationIdentifier"
+        ] = None,
+        marker: Optional["capo_rds.types.string.String"] = None,
+        max_records: Optional["capo_rds.types.max_records.MaxRecords"] = None,
+        filters: Optional["capo_rds.types.filter_list.FilterList"] = None,
+    ) -> "capo_rds.types.describe_db_capacity_reservations_response.DescribeDBCapacityReservationsResponse":
+        """<p>Describes one or more DB capacity reservations. A DB capacity reservation reserves capacity for Amazon RDS DB instances in one or more Availability Zones.</p> <p>If you don't specify a <code>DBCapacityReservationIdentifier</code>, this operation returns information about all DB capacity reservations for your Amazon Web Services account.</p> <p>This operation supports pagination.</p>
+
+        Args:
+            db_capacity_reservation_identifier: <p>The identifier or the name of the DB capacity reservation to describe. You can specify the identifier, which has the prefix <code>dbcr-</code>, or the reservation name.</p>
+            marker: <p>An optional pagination token provided by a previous <code>DescribeDBCapacityReservations</code> request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code>.</p>
+            max_records: <p>The maximum number of records to include in the response. If more records exist than the specified <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you can retrieve the remaining results.</p> <p>Default: 100</p> <p>Constraints:</p> <ul> <li> <p>Must be a minimum of 20.</p> </li> <li> <p>Can't exceed 100.</p> </li> </ul>
+            filters: <p>A filter that specifies which DB capacity reservations to describe.</p> <p>Supported filters:</p> <ul> <li> <p> <code>db-capacity-reservation-name</code> - Accepts DB capacity reservation names. The response includes only the reservations that these names identify. Use this filter to describe several reservations by name in one request.</p> </li> <li> <p> <code>state</code> - Accepts reservation states. The response includes only the reservations in these states.</p> </li> <li> <p> <code>engine</code> - Accepts database engine names. The response includes only the reservations that reserve capacity for these engines.</p> </li> <li> <p> <code>db-instance-class</code> - Accepts DB instance classes. The response includes only the reservations that reserve capacity for these DB instance classes.</p> </li> <li> <p> <code>availability-zone</code> - Accepts Availability Zone names. The response includes only the reservations that cover these Availability Zones.</p> </li> </ul> <p>When you specify more than one value for a filter, the response includes the reservations that match any of those values. When you specify more than one filter, the response includes only the reservations that match every filter.</p> <p>Amazon RDS rejects the request when a filter name isn't in this list, or when a filter specifies no values.</p> <note> <p>The <code>state</code> filter doesn't accept <code>expired</code>. To find an expired reservation, compare <code>EndDate</code> against the current date and time.</p> </note>
+
+        Raises:
+            capo_rds.errors.db_capacity_reservation_not_found_fault.DBCapacityReservationNotFoundFault: <p> <code>DBCapacityReservationIdentifier</code> doesn't refer to an existing DB capacity reservation.</p>
+            capo_rds.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            To describe a DB capacity reservation
+            The following example retrieves the details of the specified DB capacity reservation. The response reports the reserved capacity and the available capacity for each Availability Zone of the reservation.
+
+            >>> client.describe_db_capacity_reservations(db_capacity_reservation_identifier='dbcr-7hqk2m9xv4t1bn6cz3ws8dj5fp0gyr2a')
+            To list DB capacity reservations one page at a time
+            The following example lists the active DB capacity reservations for the AWS account, 20 records at a time. The Marker value comes from the response of the previous DescribeDBCapacityReservations request. Omit Marker for the first request. A Marker is an opaque token. Pass it back without any change, and don't parse it or build one yourself. A Marker expires 24 hours after Amazon RDS issues it. The Marker values in this example are shortened for readability.
+
+            >>> client.describe_db_capacity_reservations(filters=[{'Name': 'state', 'Values': ['active']}], max_records=20, marker='eyJ2ZXJzaW9uIjoxLCJ0b2tlbkRldGFpbCI6IkFRSUNBSGhWdjlWNG1RM3JLY0xwWjh0Mlh5RjdiTjB3UmpTNXVF...')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_rds.types.describe_db_capacity_reservations_request.DescribeDBCapacityReservationsRequest]",
+        ) -> OperationResponse[
+            "capo_rds.types.describe_db_capacity_reservations_response.DescribeDBCapacityReservationsResponse"
+        ]:
+            import capo_rds._operations.amazon_rd_sv19.describe_db_capacity_reservations
+
+            output, http_response = (
+                capo_rds._operations.amazon_rd_sv19.describe_db_capacity_reservations.describe_db_capacity_reservations(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBCapacityReservations")
+        )
+        input_: capo_rds.types.describe_db_capacity_reservations_request.DescribeDBCapacityReservationsRequest = {}
+        if db_capacity_reservation_identifier is not None:
+            input_["db_capacity_reservation_identifier"] = (
+                db_capacity_reservation_identifier
+            )
+        if marker is not None:
+            input_["marker"] = marker
+        if max_records is not None:
+            input_["max_records"] = max_records
+        if filters is not None:
+            input_["filters"] = filters
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_describe_db_capacity_reservations(
+        self,
+        *,
+        config_overrides: Optional[RDSClientConfig] = None,
+        db_capacity_reservation_identifier: Optional[
+            "capo_rds.types.db_capacity_reservation_identifier.DBCapacityReservationIdentifier"
+        ] = None,
+        marker: Optional["capo_rds.types.string.String"] = None,
+        max_records: Optional["capo_rds.types.max_records.MaxRecords"] = None,
+        filters: Optional["capo_rds.types.filter_list.FilterList"] = None,
+    ) -> "Iterator[capo_rds.types.db_capacity_reservation.DBCapacityReservation]":
+        _token = marker
+        while True:
+            _response = self.describe_db_capacity_reservations(
+                config_overrides=config_overrides,
+                db_capacity_reservation_identifier=db_capacity_reservation_identifier,
+                marker=_token,
+                max_records=max_records,
+                filters=filters,
+            )
+            _page = _resolve_path(_response, ("db_capacity_reservations",))
             for _item in _page or []:
                 yield _item
             _token = _resolve_path(_response, ("marker",))
@@ -10030,6 +10318,7 @@ class RDSClient:
 
         Raises:
             capo_rds.errors.blue_green_deployment_not_found_fault.BlueGreenDeploymentNotFoundFault: <p> <code>BlueGreenDeploymentIdentifier</code> doesn't refer to an existing blue/green deployment.</p>
+            capo_rds.errors.db_capacity_reservation_not_found_fault.DBCapacityReservationNotFoundFault: <p> <code>DBCapacityReservationIdentifier</code> doesn't refer to an existing DB capacity reservation.</p>
             capo_rds.errors.db_cluster_not_found_fault.DBClusterNotFoundFault: <p> <code>DBClusterIdentifier</code> doesn't refer to an existing DB cluster.</p>
             capo_rds.errors.db_instance_not_found_fault.DBInstanceNotFoundFault: <p> <code>DBInstanceIdentifier</code> doesn't refer to an existing DB instance.</p>
             capo_rds.errors.db_proxy_endpoint_not_found_fault.DBProxyEndpointNotFoundFault: <p>The DB proxy endpoint doesn't exist.</p>
@@ -10306,6 +10595,78 @@ class RDSClient:
             input_["description"] = description
         if status is not None:
             input_["status"] = status
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def modify_db_capacity_reservation(
+        self,
+        *,
+        config_overrides: Optional[RDSClientConfig] = None,
+        db_capacity_reservation_identifier: Optional[
+            "capo_rds.types.db_capacity_reservation_identifier.DBCapacityReservationIdentifier"
+        ] = None,
+        capacity_per_availability_zone: Optional[
+            "capo_rds.types.integer_optional.IntegerOptional"
+        ] = None,
+        end_date_type: Optional["capo_rds.types.end_date_type.EndDateType"] = None,
+        end_date: Optional["capo_rds.types.t_stamp.TStamp"] = None,
+    ) -> "capo_rds.types.modify_db_capacity_reservation_response.ModifyDBCapacityReservationResponse":
+        """<p>Modifies a DB capacity reservation. You can change the reserved capacity in each Availability Zone of the reservation, and you can change the end date of the reservation. You can't change the Availability Zones of an existing reservation.</p> <p>The reservation must be in the <code>active</code> state. A future-dated reservation that hasn't started isn't modifiable, and neither is a reservation that Amazon RDS is already modifying.</p> <p>You must specify <code>CapacityPerAvailabilityZone</code>, <code>EndDateType</code>, or <code>EndDate</code>. A request that specifies none of the three changes nothing, and Amazon RDS rejects it.</p>
+
+        Args:
+            db_capacity_reservation_identifier: <p>The identifier or the name of the DB capacity reservation to modify. You can specify the identifier, which has the prefix <code>dbcr-</code>, or the reservation name.</p>
+            capacity_per_availability_zone: <p>The new number of DB instances to reserve in each Availability Zone of the reservation. Amazon RDS applies this number to every Availability Zone of the reservation.</p> <p>An increase reserves more capacity at the time of the request, so it can fail when the Amazon Web Services Region has insufficient capacity.</p> <p>This value multiplied by the number of Availability Zones counts against the DB instances quota for your Amazon Web Services account in the Amazon Web Services Region. Amazon RDS checks the quota only when you increase the value.</p> <p>Constraints:</p> <ul> <li> <p>Minimum 1.</p> </li> <li> <p>Can't be less than the highest number of DB instances that use the reservation in any single Availability Zone of the reservation. That number includes a DB instance that holds a unit of reserved capacity for a pending modification. To find that number for an Availability Zone, subtract <code>AvailableCapacity</code> from <code>ReservedCapacityPerAvailabilityZone</code>.</p> </li> <li> <p>During a capacity commitment, can't be less than <code>CommittedCapacityPerAvailabilityZone</code>.</p> </li> </ul>
+            end_date_type: <p>The end date type for the reservation.</p> <p>Valid Values:</p> <ul> <li> <p> <code>limited</code> - The reservation has a specific end date. You must also specify <code>EndDate</code>.</p> </li> <li> <p> <code>unlimited</code> - The reservation doesn't expire. Don't specify <code>EndDate</code>.</p> </li> </ul>
+            end_date: <p>The new end date for the reservation, in Universal Coordinated Time (UTC). Required when <code>EndDateType</code> is <code>limited</code>. Don't specify a value when <code>EndDateType</code> is <code>unlimited</code>.</p> <p>When you specify <code>EndDate</code>, you must also specify <code>EndDateType</code>.</p> <p>Constraints:</p> <ul> <li> <p>Must be a date and time in the future.</p> </li> <li> <p>During a capacity commitment, must be at or after <code>CommitmentEndDate</code>.</p> </li> </ul>
+
+        Raises:
+            capo_rds.errors.db_capacity_reservation_not_found_fault.DBCapacityReservationNotFoundFault: <p> <code>DBCapacityReservationIdentifier</code> doesn't refer to an existing DB capacity reservation.</p>
+            capo_rds.errors.instance_quota_exceeded_fault.InstanceQuotaExceededFault: <p>The request would result in the user exceeding the allowed number of DB instances.</p>
+            capo_rds.errors.insufficient_db_instance_capacity_fault.InsufficientDBInstanceCapacityFault: <p>The specified DB instance class isn't available in the specified Availability Zone.</p>
+            capo_rds.errors.invalid_db_capacity_reservation_state_fault.InvalidDBCapacityReservationStateFault: <p>The DB capacity reservation isn't in a valid state.</p>
+            capo_rds.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            To change the capacity and the end date of a DB capacity reservation
+            The following example raises the reserved capacity to three DB instances in each Availability Zone of the reservation, and it sets an end date. Set EndDateType to limited to give the reservation an end date. Set EndDateType to unlimited to remove the end date, and specify no EndDate. Amazon RDS applies the modification asynchronously, and it moves the reservation to the pending state. Call DescribeDBCapacityReservations to check when the reservation returns to the active state with the new capacity.
+
+            >>> client.modify_db_capacity_reservation(db_capacity_reservation_identifier='dbcr-7hqk2m9xv4t1bn6cz3ws8dj5fp0gyr2a', capacity_per_availability_zone=3, end_date_type='limited', end_date='2026-12-31T23:59:59Z')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_rds.types.modify_db_capacity_reservation_request.ModifyDBCapacityReservationRequest]",
+        ) -> OperationResponse[
+            "capo_rds.types.modify_db_capacity_reservation_response.ModifyDBCapacityReservationResponse"
+        ]:
+            import capo_rds._operations.amazon_rd_sv19.modify_db_capacity_reservation
+
+            output, http_response = (
+                capo_rds._operations.amazon_rd_sv19.modify_db_capacity_reservation.modify_db_capacity_reservation(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyDBCapacityReservation")
+        )
+        input_: capo_rds.types.modify_db_capacity_reservation_request.ModifyDBCapacityReservationRequest = {}
+        if db_capacity_reservation_identifier is not None:
+            input_["db_capacity_reservation_identifier"] = (
+                db_capacity_reservation_identifier
+            )
+        if capacity_per_availability_zone is not None:
+            input_["capacity_per_availability_zone"] = capacity_per_availability_zone
+        if end_date_type is not None:
+            input_["end_date_type"] = end_date_type
+        if end_date is not None:
+            input_["end_date"] = end_date
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -10980,6 +11341,9 @@ class RDSClient:
         additional_storage_volumes: Optional[
             "capo_rds.types.modify_additional_storage_volumes_list.ModifyAdditionalStorageVolumesList"
         ] = None,
+        db_capacity_reservation_identifier: Optional[
+            "capo_rds.types.db_capacity_reservation_identifier.DBCapacityReservationIdentifier"
+        ] = None,
         tag_specifications: Optional[
             "capo_rds.types.tag_specification_list.TagSpecificationList"
         ] = None,
@@ -11053,6 +11417,7 @@ class RDSClient:
             dedicated_log_volume: <p>Indicates whether the DB instance has a dedicated log volume (DLV) enabled.</p>
             engine: <p>The target Oracle DB engine when you convert a non-CDB to a CDB. This intermediate step is necessary to upgrade an Oracle Database 19c non-CDB to an Oracle Database 21c CDB.</p> <p>Note the following requirements:</p> <ul> <li> <p>Make sure that you specify <code>oracle-ee-cdb</code> or <code>oracle-se2-cdb</code>.</p> </li> <li> <p>Make sure that your DB engine runs Oracle Database 19c with an April 2021 or later RU.</p> </li> </ul> <p>Note the following limitations:</p> <ul> <li> <p>You can't convert a CDB to a non-CDB.</p> </li> <li> <p>You can't convert a replica database.</p> </li> <li> <p>You can't convert a non-CDB to a CDB and upgrade the engine version in the same command.</p> </li> <li> <p>You can't convert the existing custom parameter or option group when it has options or parameters that are permanent or persistent. In this situation, the DB instance reverts to the default option and parameter group. To avoid reverting to the default, specify a new parameter group with <code>--db-parameter-group-name</code> and a new option group with <code>--option-group-name</code>.</p> </li> </ul>
             additional_storage_volumes: <p>A list of additional storage volumes to modify or delete for the DB instance. You can create up to 3 additional storage volumes. Additional storage volumes are supported for RDS for Oracle and RDS for SQL Server DB instances only.</p>
+            db_capacity_reservation_identifier: <p>The identifier or the name of the DB capacity reservation for the DB instance to use. You can specify the identifier, which has the prefix <code>dbcr-</code>, or the reservation name. After the modification completes, the DB instance uses reserved capacity from this reservation.</p> <p>You can't change the DB capacity reservation of a DB instance on its own. A request that changes the reservation must also change the DB instance class, the Multi-AZ setting, the license model, or the engine. Therefore, this request always changes the configuration of the DB instance.</p> <p>If the DB instance already uses the reservation that you specify, this requirement doesn't apply. You can then change another setting, such as the Multi-AZ setting, and keep the reservation.</p> <p>For a DB instance that uses no reservation, change <code>DBInstanceClass</code> to the DB instance class that the reservation reserves. A reservation reserves capacity for one DB instance class, so that change moves the DB instance onto the reserved capacity. That change also resizes the DB instance, which interrupts it.</p> <p>If the DB instance already runs the DB instance class that the reservation reserves, change <code>MultiAZ</code> or <code>LicenseModel</code> instead. Only RDS for Oracle and RDS for Microsoft SQL Server accept a change of license model, so <code>MultiAZ</code> is the remaining choice for every other engine.</p> <important> <p>If you don't specify this parameter, Amazon RDS moves the DB instance to unreserved capacity, and it releases the reserved capacity that the DB instance holds. A request that changes the DB instance class, the Multi-AZ setting, the license model, or the engine moves the DB instance to different hardware, and Amazon RDS places the DB instance on unreserved capacity. Therefore, to keep the DB instance on reserved capacity, specify this parameter in every request that changes any of those settings.</p> <p>The DB instance keeps its current reservation until Amazon RDS applies the modification. Until then, the <code>DBCapacityReservationIdentifier</code> field of the DB instance still reports that reservation, and <code>PendingModifiedValues</code> reports no reservation. Amazon RDS releases the reserved capacity when it moves the DB instance.</p> </important> <p>Constraints:</p> <ul> <li> <p>If the request changes which DB capacity reservation the DB instance uses, it must also set a new value for <code>DBInstanceClass</code>, <code>MultiAZ</code>, <code>LicenseModel</code>, or <code>Engine</code>. The new value must differ from the current value. The only engine change that <code>ModifyDBInstance</code> supports is a conversion to the CDB architecture. Repeating the current value doesn't satisfy this requirement. This requirement applies both when the DB instance uses no reservation, and when it moves to a different reservation.</p> </li> <li> <p>The reservation must reserve capacity for the DB instance class that the DB instance uses after the modification, and for the database engine of the DB instance. Therefore, when the request changes <code>DBInstanceClass</code>, the reservation reserves capacity for a DB instance class that the DB instance doesn't use today.</p> </li> <li> <p>The reservation must be in the <code>active</code> state, and it must not be past its end date.</p> </li> <li> <p>The reservation must have available capacity in each Availability Zone that the DB instance uses after the modification.</p> </li> <li> <p>The reservation must cover the Availability Zone of the DB instance, except when the request changes the DB instance from Multi-AZ to Single-AZ.</p> </li> <li> <p>For a Multi-AZ DB instance, the reservation must cover two or more Availability Zones. A Multi-AZ DB instance uses one unit of reserved capacity in each of two Availability Zones.</p> </li> <li> <p>If the DB instance is already Multi-AZ, the reservation must cover both of its Availability Zones. If the request converts the DB instance to Multi-AZ, the reservation must cover the current Availability Zone of the DB instance, and Amazon RDS chooses the second Availability Zone from the reservation.</p> </li> <li> <p>If the reservation reserves capacity for a specific license model, the license model of the DB instance must match it. Amazon RDS checks the license model only when the request specifies <code>LicenseModel</code>.</p> </li> <li> <p>You can't specify this parameter together with a change to <code>DBSubnetGroupName</code>.</p> </li> <li> <p>You can't specify this parameter together with a change to both <code>DBInstanceClass</code> and <code>LicenseModel</code>. Submit those changes as two separate requests.</p> </li> <li> <p>Can't be specified together with a change to <code>DBInstanceClass</code> when the request also changes the DB instance from Multi-AZ to Single-AZ.</p> </li> <li> <p>When the request changes the DB instance from Multi-AZ to Single-AZ, the reservation must cover either the primary or the secondary Availability Zone of the DB instance. Amazon RDS keeps the DB instance in its primary Availability Zone, and it removes the standby replica. Therefore, the primary Availability Zone keeps its unit of reserved capacity, and the secondary Availability Zone releases its unit.</p> </li> <li> <p>Can't be specified together with <code>LicenseModel</code> while a modification of the DB instance class or the Multi-AZ setting is pending.</p> </li> <li> <p>Can't be specified together with <code>DBInstanceClass</code> or <code>MultiAZ</code> while a modification of the license model is pending.</p> </li> <li> <p>When a modification is already pending, the reservation must reserve capacity for the DB instance as it will be after both the pending modification and the requested modification complete.</p> </li> <li> <p>The DB subnet group must be in a VPC with default tenancy.</p> </li> <li> <p>The DB subnet group must cover each Availability Zone that the DB instance uses.</p> </li> <li> <p>Isn't supported for an RDS on Outposts DB instance.</p> </li> <li> <p>If the reservation expires within one week, you must also enable <code>ApplyImmediately</code>. Otherwise, choose a reservation with a later end date.</p> </li> <li> <p>Amazon RDS holds a unit of reserved capacity for the DB instance when it accepts the request, even when the modification waits for the maintenance window.</p> </li> </ul>
             tag_specifications: <p>Tags to assign to resources associated with the DB instance.</p> <p>Valid Values: </p> <ul> <li> <p> <code>auto-backup</code> - The DB instance's automated backup.</p> </li> </ul>
             master_user_authentication_type: <p>Specifies the authentication type for the master user. With IAM master user authentication, you can change the master DB user to use IAM database authentication.</p> <p>You can specify one of the following values:</p> <ul> <li> <p> <code>password</code> - Use standard database authentication with a password.</p> </li> <li> <p> <code>iam-db-auth</code> - Use IAM database authentication for the master user.</p> </li> </ul> <p>This option is only valid for RDS for PostgreSQL and Aurora PostgreSQL engines.</p>
             engine_lifecycle_support: <p>The lifecycle type for this DB instance.</p> <p>This setting applies only to RDS for MySQL and RDS for PostgreSQL. For Amazon Aurora DB instances, the engine lifecycle support is managed by the DB cluster.</p> <p>You can use this setting to enroll your DB instance into Amazon RDS Extended Support or to opt out. With RDS Extended Support, you can run the selected major engine version on your DB instance past the end of standard support for that engine version. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html\">Amazon RDS Extended Support with Amazon RDS</a> in the <i>Amazon RDS User Guide</i>.</p> <p>Valid Values: <code>open-source-rds-extended-support | open-source-rds-extended-support-disabled</code> </p> <p>This setting doesn't apply to RDS Custom DB instances.</p>
@@ -11061,6 +11426,7 @@ class RDSClient:
             capo_rds.errors.authorization_not_found_fault.AuthorizationNotFoundFault: <p>The specified CIDR IP range or Amazon EC2 security group might not be authorized for the specified DB security group.</p> <p>Or, RDS might not be authorized to perform necessary actions using IAM on your behalf.</p>
             capo_rds.errors.backup_policy_not_found_fault.BackupPolicyNotFoundFault: <p/>
             capo_rds.errors.certificate_not_found_fault.CertificateNotFoundFault: <p> <code>CertificateIdentifier</code> doesn't refer to an existing certificate.</p>
+            capo_rds.errors.db_capacity_reservation_not_found_fault.DBCapacityReservationNotFoundFault: <p> <code>DBCapacityReservationIdentifier</code> doesn't refer to an existing DB capacity reservation.</p>
             capo_rds.errors.db_instance_already_exists_fault.DBInstanceAlreadyExistsFault: <p>The user already has a DB instance with the given identifier.</p>
             capo_rds.errors.db_instance_not_found_fault.DBInstanceNotFoundFault: <p> <code>DBInstanceIdentifier</code> doesn't refer to an existing DB instance.</p>
             capo_rds.errors.db_parameter_group_not_found_fault.DBParameterGroupNotFoundFault: <p> <code>DBParameterGroupName</code> doesn't refer to an existing DB parameter group.</p>
@@ -11068,6 +11434,7 @@ class RDSClient:
             capo_rds.errors.db_upgrade_dependency_failure_fault.DBUpgradeDependencyFailureFault: <p>The DB upgrade failed because a resource the DB depends on can't be modified.</p>
             capo_rds.errors.domain_not_found_fault.DomainNotFoundFault: <p> <code>Domain</code> doesn't refer to an existing Active Directory domain.</p>
             capo_rds.errors.insufficient_db_instance_capacity_fault.InsufficientDBInstanceCapacityFault: <p>The specified DB instance class isn't available in the specified Availability Zone.</p>
+            capo_rds.errors.invalid_db_capacity_reservation_state_fault.InvalidDBCapacityReservationStateFault: <p>The DB capacity reservation isn't in a valid state.</p>
             capo_rds.errors.invalid_db_cluster_state_fault.InvalidDBClusterStateFault: <p>The requested operation can't be performed while the cluster is in this state.</p>
             capo_rds.errors.invalid_db_instance_state_fault.InvalidDBInstanceStateFault: <p>The DB instance isn't in a valid state.</p>
             capo_rds.errors.invalid_db_security_group_state_fault.InvalidDBSecurityGroupStateFault: <p>The state of the DB security group doesn't allow deletion.</p>
@@ -11258,6 +11625,10 @@ class RDSClient:
             input_["engine"] = engine
         if additional_storage_volumes is not None:
             input_["additional_storage_volumes"] = additional_storage_volumes
+        if db_capacity_reservation_identifier is not None:
+            input_["db_capacity_reservation_identifier"] = (
+                db_capacity_reservation_identifier
+            )
         if tag_specifications is not None:
             input_["tag_specifications"] = tag_specifications
         if master_user_authentication_type is not None:
@@ -12988,6 +13359,7 @@ class RDSClient:
 
         Raises:
             capo_rds.errors.blue_green_deployment_not_found_fault.BlueGreenDeploymentNotFoundFault: <p> <code>BlueGreenDeploymentIdentifier</code> doesn't refer to an existing blue/green deployment.</p>
+            capo_rds.errors.db_capacity_reservation_not_found_fault.DBCapacityReservationNotFoundFault: <p> <code>DBCapacityReservationIdentifier</code> doesn't refer to an existing DB capacity reservation.</p>
             capo_rds.errors.db_cluster_not_found_fault.DBClusterNotFoundFault: <p> <code>DBClusterIdentifier</code> doesn't refer to an existing DB cluster.</p>
             capo_rds.errors.db_instance_not_found_fault.DBInstanceNotFoundFault: <p> <code>DBInstanceIdentifier</code> doesn't refer to an existing DB instance.</p>
             capo_rds.errors.db_proxy_endpoint_not_found_fault.DBProxyEndpointNotFoundFault: <p>The DB proxy endpoint doesn't exist.</p>
@@ -14105,6 +14477,9 @@ class RDSClient:
             "capo_rds.types.integer_optional.IntegerOptional"
         ] = None,
         preferred_backup_window: Optional["capo_rds.types.string.String"] = None,
+        db_capacity_reservation_identifier: Optional[
+            "capo_rds.types.db_capacity_reservation_identifier.DBCapacityReservationIdentifier"
+        ] = None,
         dedicated_log_volume: Optional[
             "capo_rds.types.boolean_optional.BooleanOptional"
         ] = None,
@@ -14164,6 +14539,7 @@ class RDSClient:
             db_cluster_snapshot_identifier: <p>The identifier for the Multi-AZ DB cluster snapshot to restore from.</p> <p>For more information on Multi-AZ DB clusters, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB cluster deployments</a> in the <i>Amazon RDS User Guide</i>.</p> <p>Constraints:</p> <ul> <li> <p>Must match the identifier of an existing Multi-AZ DB cluster snapshot.</p> </li> <li> <p>Can't be specified when <code>DBSnapshotIdentifier</code> is specified.</p> </li> <li> <p>Must be specified when <code>DBSnapshotIdentifier</code> isn't specified.</p> </li> <li> <p>If you are restoring from a shared manual Multi-AZ DB cluster snapshot, the <code>DBClusterSnapshotIdentifier</code> must be the ARN of the shared snapshot.</p> </li> <li> <p>Can't be the identifier of an Aurora DB cluster snapshot.</p> </li> </ul>
             backup_retention_period: <p>The number of days to retain automated backups. Setting this parameter to a positive number enables backups. Setting this parameter to 0 disables automated backups.</p> <note> <p>Enabling and disabling backups can result in a brief I/O suspension that lasts from a few seconds to a few minutes, depending on the size and class of your DB instance.</p> </note> <p>This setting doesn't apply to Amazon Aurora DB instances. The retention period for automated backups is managed by the DB cluster. For more information, see <code>ModifyDBCluster</code>.</p> <p>Default: Uses existing setting</p> <p>Constraints:</p> <ul> <li> <p>Must be a value from 0 to 35.</p> </li> <li> <p>Can't be set to 0 if the DB instance is a source to read replicas.</p> </li> <li> <p>Can't be set to 0 for an RDS Custom for Oracle DB instance.</p> </li> </ul>
             preferred_backup_window: <p>The daily time range during which automated backups are created if automated backups are enabled, as determined by the <code>BackupRetentionPeriod</code> parameter. Changing this parameter doesn't result in an outage and the change is asynchronously applied as soon as possible. The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web Services Region. For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow">Backup window</a> in the <i>Amazon RDS User Guide</i>.</p> <p>This setting doesn't apply to Amazon Aurora DB instances. The daily time range for creating automated backups is managed by the DB cluster. For more information, see <code>ModifyDBCluster</code>.</p> <p>Constraints:</p> <ul> <li> <p>Must be in the format <code>hh24:mi-hh24:mi</code>.</p> </li> <li> <p>Must be in Universal Coordinated Time (UTC).</p> </li> <li> <p>Must not conflict with the preferred maintenance window.</p> </li> <li> <p>Must be at least 30 minutes.</p> </li> </ul>
+            db_capacity_reservation_identifier: <p>The identifier or the name of the DB capacity reservation to associate with this DB instance. You can specify the identifier, which has the prefix <code>dbcr-</code>, or the reservation name. When you specify this parameter, the DB instance uses reserved capacity from the specified reservation.</p> <p>If you specify <code>AvailabilityZone</code>, Amazon RDS places the DB instance in that Availability Zone, and the reservation must cover it.</p> <p>Constraints:</p> <ul> <li> <p>The reservation must reserve capacity for the DB instance class and the database engine of the DB instance.</p> </li> <li> <p>If the reservation reserves capacity for a specific license model, the license model of the DB instance must match it.</p> </li> <li> <p>The reservation must be in the <code>active</code> state, and it must not be past its end date.</p> </li> <li> <p>If you specify <code>AvailabilityZone</code>, it must be one of the Availability Zones of the reservation.</p> </li> <li> <p>For a Multi-AZ DB instance, the reservation must cover two or more Availability Zones. A Multi-AZ DB instance uses one unit of reserved capacity in each of two Availability Zones. If the reservation covers more than two Availability Zones, Amazon RDS chooses the two that the DB instance uses.</p> </li> <li> <p>The reservation must have available capacity in each Availability Zone that the DB instance uses.</p> </li> <li> <p>The DB subnet group must be in a VPC with default tenancy.</p> </li> <li> <p>The DB subnet group must cover each Availability Zone that the DB instance uses.</p> </li> </ul>
             dedicated_log_volume: <p>Specifies whether to enable a dedicated log volume (DLV) for the DB instance.</p>
             ca_certificate_identifier: <p>The CA certificate identifier to use for the DB instance's server certificate.</p> <p>This setting doesn't apply to RDS Custom DB instances.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to encrypt a connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS to encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.</p>
             engine_lifecycle_support: <p>The lifecycle type for this DB instance.</p> <note> <p>By default, this value is set to <code>open-source-rds-extended-support</code>, which enrolls your DB instance into Amazon RDS Extended Support. At the end of standard support, you can avoid charges for Extended Support by setting the value to <code>open-source-rds-extended-support-disabled</code>. In this case, RDS automatically upgrades your restored DB instance to a higher engine version, if the major engine version is past its end of standard support date.</p> </note> <p>You can use this setting to enroll your DB instance into Amazon RDS Extended Support. With RDS Extended Support, you can run the selected major engine version on your DB instance past the end of standard support for that engine version. For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html">Amazon RDS Extended Support with Amazon RDS</a> in the <i>Amazon RDS User Guide</i>.</p> <p>This setting applies only to RDS for MySQL and RDS for PostgreSQL. For Amazon Aurora DB instances, the engine lifecycle support is managed by the DB cluster.</p> <p>Valid Values: <code>open-source-rds-extended-support | open-source-rds-extended-support-disabled</code> </p> <p>Default: <code>open-source-rds-extended-support</code> </p>
@@ -14176,6 +14552,7 @@ class RDSClient:
             capo_rds.errors.authorization_not_found_fault.AuthorizationNotFoundFault: <p>The specified CIDR IP range or Amazon EC2 security group might not be authorized for the specified DB security group.</p> <p>Or, RDS might not be authorized to perform necessary actions using IAM on your behalf.</p>
             capo_rds.errors.backup_policy_not_found_fault.BackupPolicyNotFoundFault: <p/>
             capo_rds.errors.certificate_not_found_fault.CertificateNotFoundFault: <p> <code>CertificateIdentifier</code> doesn't refer to an existing certificate.</p>
+            capo_rds.errors.db_capacity_reservation_not_found_fault.DBCapacityReservationNotFoundFault: <p> <code>DBCapacityReservationIdentifier</code> doesn't refer to an existing DB capacity reservation.</p>
             capo_rds.errors.db_cluster_snapshot_not_found_fault.DBClusterSnapshotNotFoundFault: <p> <code>DBClusterSnapshotIdentifier</code> doesn't refer to an existing DB cluster snapshot.</p>
             capo_rds.errors.db_instance_already_exists_fault.DBInstanceAlreadyExistsFault: <p>The user already has a DB instance with the given identifier.</p>
             capo_rds.errors.db_parameter_group_not_found_fault.DBParameterGroupNotFoundFault: <p> <code>DBParameterGroupName</code> doesn't refer to an existing DB parameter group.</p>
@@ -14186,6 +14563,7 @@ class RDSClient:
             capo_rds.errors.domain_not_found_fault.DomainNotFoundFault: <p> <code>Domain</code> doesn't refer to an existing Active Directory domain.</p>
             capo_rds.errors.instance_quota_exceeded_fault.InstanceQuotaExceededFault: <p>The request would result in the user exceeding the allowed number of DB instances.</p>
             capo_rds.errors.insufficient_db_instance_capacity_fault.InsufficientDBInstanceCapacityFault: <p>The specified DB instance class isn't available in the specified Availability Zone.</p>
+            capo_rds.errors.invalid_db_capacity_reservation_state_fault.InvalidDBCapacityReservationStateFault: <p>The DB capacity reservation isn't in a valid state.</p>
             capo_rds.errors.invalid_db_snapshot_state_fault.InvalidDBSnapshotStateFault: <p>The state of the DB snapshot doesn't allow deletion.</p>
             capo_rds.errors.invalid_restore_fault.InvalidRestoreFault: <p>Cannot restore from VPC backup to non-VPC DB instance.</p>
             capo_rds.errors.invalid_subnet.InvalidSubnet: <p>The requested subnet is invalid, or multiple subnets were requested that are not all in a common VPC.</p>
@@ -14332,6 +14710,10 @@ class RDSClient:
             input_["backup_retention_period"] = backup_retention_period
         if preferred_backup_window is not None:
             input_["preferred_backup_window"] = preferred_backup_window
+        if db_capacity_reservation_identifier is not None:
+            input_["db_capacity_reservation_identifier"] = (
+                db_capacity_reservation_identifier
+            )
         if dedicated_log_volume is not None:
             input_["dedicated_log_volume"] = dedicated_log_volume
         if ca_certificate_identifier is not None:
@@ -14452,6 +14834,9 @@ class RDSClient:
             "capo_rds.types.boolean_optional.BooleanOptional"
         ] = None,
         master_user_secret_kms_key_id: Optional["capo_rds.types.string.String"] = None,
+        db_capacity_reservation_identifier: Optional[
+            "capo_rds.types.db_capacity_reservation_identifier.DBCapacityReservationIdentifier"
+        ] = None,
         dedicated_log_volume: Optional[
             "capo_rds.types.boolean_optional.BooleanOptional"
         ] = None,
@@ -14516,6 +14901,7 @@ class RDSClient:
             network_type: <p>The network type of the DB instance.</p> <p>Valid Values:</p> <ul> <li> <p> <code>IPV4</code> </p> </li> <li> <p> <code>DUAL</code> </p> </li> </ul> <p>The network type is determined by the <code>DBSubnetGroup</code> specified for the DB instance. A <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (<code>DUAL</code>).</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html\"> Working with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i> </p>
             manage_master_user_password: <p>Specifies whether to manage the master user password with Amazon Web Services Secrets Manager.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html\">Password management with Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide.</i> </p> <p>Constraints:</p> <ul> <li> <p>Can't manage the master user password with Amazon Web Services Secrets Manager if <code>MasterUserPassword</code> is specified.</p> </li> </ul>
             master_user_secret_kms_key_id: <p>The Amazon Web Services KMS key identifier to encrypt a secret that is automatically generated and managed in Amazon Web Services Secrets Manager.</p> <p>This setting is valid only if the master user password is managed by RDS in Amazon Web Services Secrets Manager for the DB instance.</p> <p>The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key. To use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.</p> <p>If you don't specify <code>MasterUserSecretKmsKeyId</code>, then the <code>aws/secretsmanager</code> KMS key is used to encrypt the secret. If the secret is in a different Amazon Web Services account, then you can't use the <code>aws/secretsmanager</code> KMS key to encrypt the secret, and you must use a customer managed KMS key.</p> <p>There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a different default KMS key for each Amazon Web Services Region.</p>
+            db_capacity_reservation_identifier: <p>The identifier or the name of the DB capacity reservation to associate with this DB instance. You can specify the identifier, which has the prefix <code>dbcr-</code>, or the reservation name. When you specify this parameter, the DB instance uses reserved capacity from the specified reservation.</p> <p>If you specify <code>AvailabilityZone</code>, Amazon RDS places the DB instance in that Availability Zone, and the reservation must cover it.</p> <p>Constraints:</p> <ul> <li> <p>The reservation must reserve capacity for the DB instance class and the database engine of the DB instance.</p> </li> <li> <p>If the reservation reserves capacity for a specific license model, the license model of the DB instance must match it.</p> </li> <li> <p>The reservation must be in the <code>active</code> state, and it must not be past its end date.</p> </li> <li> <p>If you specify <code>AvailabilityZone</code>, it must be one of the Availability Zones of the reservation.</p> </li> <li> <p>For a Multi-AZ DB instance, the reservation must cover two or more Availability Zones. A Multi-AZ DB instance uses one unit of reserved capacity in each of two Availability Zones. If the reservation covers more than two Availability Zones, Amazon RDS chooses the two that the DB instance uses.</p> </li> <li> <p>The reservation must have available capacity in each Availability Zone that the DB instance uses.</p> </li> <li> <p>The DB subnet group must be in a VPC with default tenancy.</p> </li> <li> <p>The DB subnet group must cover each Availability Zone that the DB instance uses.</p> </li> </ul>
             dedicated_log_volume: <p>Specifies whether to enable a dedicated log volume (DLV) for the DB instance.</p>
             ca_certificate_identifier: <p>The CA certificate identifier to use for the DB instance's server certificate.</p> <p>This setting doesn't apply to RDS Custom DB instances.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html\">Using SSL/TLS to encrypt a connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html\"> Using SSL/TLS to encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.</p>
             engine_lifecycle_support: <p>The lifecycle type for this DB instance.</p> <note> <p>By default, this value is set to <code>open-source-rds-extended-support</code>, which enrolls your DB instance into Amazon RDS Extended Support. At the end of standard support, you can avoid charges for Extended Support by setting the value to <code>open-source-rds-extended-support-disabled</code>. In this case, RDS automatically upgrades your restored DB instance to a higher engine version, if the major engine version is past its end of standard support date.</p> </note> <p>You can use this setting to enroll your DB instance into Amazon RDS Extended Support. With RDS Extended Support, you can run the selected major engine version on your DB instance past the end of standard support for that engine version. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html\">Amazon RDS Extended Support Amazon RDS</a> in the <i>Amazon RDS User Guide</i>.</p> <p>This setting applies only to RDS for MySQL and RDS for PostgreSQL. For Amazon Aurora DB instances, the engine lifecycle support is managed by the DB cluster.</p> <p>Valid Values: <code>open-source-rds-extended-support | open-source-rds-extended-support-disabled</code> </p> <p>Default: <code>open-source-rds-extended-support</code> </p>
@@ -14526,6 +14912,7 @@ class RDSClient:
             capo_rds.errors.authorization_not_found_fault.AuthorizationNotFoundFault: <p>The specified CIDR IP range or Amazon EC2 security group might not be authorized for the specified DB security group.</p> <p>Or, RDS might not be authorized to perform necessary actions using IAM on your behalf.</p>
             capo_rds.errors.backup_policy_not_found_fault.BackupPolicyNotFoundFault: <p/>
             capo_rds.errors.certificate_not_found_fault.CertificateNotFoundFault: <p> <code>CertificateIdentifier</code> doesn't refer to an existing certificate.</p>
+            capo_rds.errors.db_capacity_reservation_not_found_fault.DBCapacityReservationNotFoundFault: <p> <code>DBCapacityReservationIdentifier</code> doesn't refer to an existing DB capacity reservation.</p>
             capo_rds.errors.db_instance_already_exists_fault.DBInstanceAlreadyExistsFault: <p>The user already has a DB instance with the given identifier.</p>
             capo_rds.errors.db_parameter_group_not_found_fault.DBParameterGroupNotFoundFault: <p> <code>DBParameterGroupName</code> doesn't refer to an existing DB parameter group.</p>
             capo_rds.errors.db_security_group_not_found_fault.DBSecurityGroupNotFoundFault: <p> <code>DBSecurityGroupName</code> doesn't refer to an existing DB security group.</p>
@@ -14533,6 +14920,7 @@ class RDSClient:
             capo_rds.errors.db_subnet_group_not_found_fault.DBSubnetGroupNotFoundFault: <p> <code>DBSubnetGroupName</code> doesn't refer to an existing DB subnet group.</p>
             capo_rds.errors.instance_quota_exceeded_fault.InstanceQuotaExceededFault: <p>The request would result in the user exceeding the allowed number of DB instances.</p>
             capo_rds.errors.insufficient_db_instance_capacity_fault.InsufficientDBInstanceCapacityFault: <p>The specified DB instance class isn't available in the specified Availability Zone.</p>
+            capo_rds.errors.invalid_db_capacity_reservation_state_fault.InvalidDBCapacityReservationStateFault: <p>The DB capacity reservation isn't in a valid state.</p>
             capo_rds.errors.invalid_s3_bucket_fault.InvalidS3BucketFault: <p>The specified Amazon S3 bucket name can't be found or Amazon RDS isn't authorized to access the specified Amazon S3 bucket. Verify the <b>SourceS3BucketName</b> and <b>S3IngestionRoleArn</b> values and try again.</p>
             capo_rds.errors.invalid_subnet.InvalidSubnet: <p>The requested subnet is invalid, or multiple subnets were requested that are not all in a common VPC.</p>
             capo_rds.errors.invalid_vpc_network_state_fault.InvalidVPCNetworkStateFault: <p>The DB subnet group doesn't cover all Availability Zones after it's created because of users' change.</p>
@@ -14689,6 +15077,10 @@ class RDSClient:
             input_["manage_master_user_password"] = manage_master_user_password
         if master_user_secret_kms_key_id is not None:
             input_["master_user_secret_kms_key_id"] = master_user_secret_kms_key_id
+        if db_capacity_reservation_identifier is not None:
+            input_["db_capacity_reservation_identifier"] = (
+                db_capacity_reservation_identifier
+            )
         if dedicated_log_volume is not None:
             input_["dedicated_log_volume"] = dedicated_log_volume
         if ca_certificate_identifier is not None:
@@ -14789,6 +15181,9 @@ class RDSClient:
             "capo_rds.types.integer_optional.IntegerOptional"
         ] = None,
         preferred_backup_window: Optional["capo_rds.types.string.String"] = None,
+        db_capacity_reservation_identifier: Optional[
+            "capo_rds.types.db_capacity_reservation_identifier.DBCapacityReservationIdentifier"
+        ] = None,
         dedicated_log_volume: Optional[
             "capo_rds.types.boolean_optional.BooleanOptional"
         ] = None,
@@ -14852,6 +15247,7 @@ class RDSClient:
             allocated_storage: <p>The amount of storage (in gibibytes) to allocate initially for the DB instance. Follow the allocation rules specified in <code>CreateDBInstance</code>.</p> <p>This setting isn't valid for RDS for SQL Server.</p> <note> <p>Be sure to allocate enough storage for your new DB instance so that the restore operation can succeed. You can also allocate additional storage for future growth.</p> </note>
             backup_retention_period: <p>The number of days to retain automated backups. Setting this parameter to a positive number enables backups. Setting this parameter to 0 disables automated backups.</p> <note> <p>Enabling and disabling backups can result in a brief I/O suspension that lasts from a few seconds to a few minutes, depending on the size and class of your DB instance.</p> </note> <p>This setting doesn't apply to Amazon Aurora DB instances. The retention period for automated backups is managed by the DB cluster. For more information, see <code>ModifyDBCluster</code>.</p> <p>Default: Uses existing setting</p> <p>Constraints:</p> <ul> <li> <p>Must be a value from 0 to 35.</p> </li> <li> <p>Can't be set to 0 if the DB instance is a source to read replicas.</p> </li> <li> <p>Can't be set to 0 for an RDS Custom for Oracle DB instance.</p> </li> </ul>
             preferred_backup_window: <p>The daily time range during which automated backups are created if automated backups are enabled, as determined by the <code>BackupRetentionPeriod</code> parameter. Changing this parameter doesn't result in an outage and the change is asynchronously applied as soon as possible. The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web Services Region. For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow">Backup window</a> in the <i>Amazon RDS User Guide</i>.</p> <p>This setting doesn't apply to Amazon Aurora DB instances. The daily time range for creating automated backups is managed by the DB cluster. For more information, see <code>ModifyDBCluster</code>.</p> <p>Constraints:</p> <ul> <li> <p>Must be in the format <code>hh24:mi-hh24:mi</code>.</p> </li> <li> <p>Must be in Universal Coordinated Time (UTC).</p> </li> <li> <p>Must not conflict with the preferred maintenance window.</p> </li> <li> <p>Must be at least 30 minutes.</p> </li> </ul>
+            db_capacity_reservation_identifier: <p>The identifier or the name of the DB capacity reservation to associate with this DB instance. You can specify the identifier, which has the prefix <code>dbcr-</code>, or the reservation name. When you specify this parameter, the DB instance uses reserved capacity from the specified reservation.</p> <p>If you specify <code>AvailabilityZone</code>, Amazon RDS places the DB instance in that Availability Zone, and the reservation must cover it.</p> <p>Constraints:</p> <ul> <li> <p>The reservation must reserve capacity for the DB instance class and the database engine of the DB instance.</p> </li> <li> <p>If the reservation reserves capacity for a specific license model, the license model of the DB instance must match it.</p> </li> <li> <p>The reservation must be in the <code>active</code> state, and it must not be past its end date.</p> </li> <li> <p>If you specify <code>AvailabilityZone</code>, it must be one of the Availability Zones of the reservation.</p> </li> <li> <p>For a Multi-AZ DB instance, the reservation must cover two or more Availability Zones. A Multi-AZ DB instance uses one unit of reserved capacity in each of two Availability Zones. If the reservation covers more than two Availability Zones, Amazon RDS chooses the two that the DB instance uses.</p> </li> <li> <p>The reservation must have available capacity in each Availability Zone that the DB instance uses.</p> </li> <li> <p>The DB subnet group must be in a VPC with default tenancy.</p> </li> <li> <p>The DB subnet group must cover each Availability Zone that the DB instance uses.</p> </li> </ul>
             dedicated_log_volume: <p>Specifies whether to enable a dedicated log volume (DLV) for the DB instance.</p>
             ca_certificate_identifier: <p>The CA certificate identifier to use for the DB instance's server certificate.</p> <p>This setting doesn't apply to RDS Custom DB instances.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to encrypt a connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS to encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.</p>
             engine_lifecycle_support: <p>The lifecycle type for this DB instance.</p> <note> <p>By default, this value is set to <code>open-source-rds-extended-support</code>, which enrolls your DB instance into Amazon RDS Extended Support. At the end of standard support, you can avoid charges for Extended Support by setting the value to <code>open-source-rds-extended-support-disabled</code>. In this case, RDS automatically upgrades your restored DB instance to a higher engine version, if the major engine version is past its end of standard support date.</p> </note> <p>You can use this setting to enroll your DB instance into Amazon RDS Extended Support. With RDS Extended Support, you can run the selected major engine version on your DB instance past the end of standard support for that engine version. For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html">Amazon RDS Extended Support with Amazon RDS</a> in the <i>Amazon RDS User Guide</i>.</p> <p>This setting applies only to RDS for MySQL and RDS for PostgreSQL. For Amazon Aurora DB instances, the engine lifecycle support is managed by the DB cluster.</p> <p>Valid Values: <code>open-source-rds-extended-support | open-source-rds-extended-support-disabled</code> </p> <p>Default: <code>open-source-rds-extended-support</code> </p>
@@ -14864,6 +15260,7 @@ class RDSClient:
             capo_rds.errors.authorization_not_found_fault.AuthorizationNotFoundFault: <p>The specified CIDR IP range or Amazon EC2 security group might not be authorized for the specified DB security group.</p> <p>Or, RDS might not be authorized to perform necessary actions using IAM on your behalf.</p>
             capo_rds.errors.backup_policy_not_found_fault.BackupPolicyNotFoundFault: <p/>
             capo_rds.errors.certificate_not_found_fault.CertificateNotFoundFault: <p> <code>CertificateIdentifier</code> doesn't refer to an existing certificate.</p>
+            capo_rds.errors.db_capacity_reservation_not_found_fault.DBCapacityReservationNotFoundFault: <p> <code>DBCapacityReservationIdentifier</code> doesn't refer to an existing DB capacity reservation.</p>
             capo_rds.errors.db_instance_already_exists_fault.DBInstanceAlreadyExistsFault: <p>The user already has a DB instance with the given identifier.</p>
             capo_rds.errors.db_instance_automated_backup_not_found_fault.DBInstanceAutomatedBackupNotFoundFault: <p>No automated backup for this DB instance was found.</p>
             capo_rds.errors.db_instance_not_found_fault.DBInstanceNotFoundFault: <p> <code>DBInstanceIdentifier</code> doesn't refer to an existing DB instance.</p>
@@ -14874,6 +15271,7 @@ class RDSClient:
             capo_rds.errors.domain_not_found_fault.DomainNotFoundFault: <p> <code>Domain</code> doesn't refer to an existing Active Directory domain.</p>
             capo_rds.errors.instance_quota_exceeded_fault.InstanceQuotaExceededFault: <p>The request would result in the user exceeding the allowed number of DB instances.</p>
             capo_rds.errors.insufficient_db_instance_capacity_fault.InsufficientDBInstanceCapacityFault: <p>The specified DB instance class isn't available in the specified Availability Zone.</p>
+            capo_rds.errors.invalid_db_capacity_reservation_state_fault.InvalidDBCapacityReservationStateFault: <p>The DB capacity reservation isn't in a valid state.</p>
             capo_rds.errors.invalid_db_instance_state_fault.InvalidDBInstanceStateFault: <p>The DB instance isn't in a valid state.</p>
             capo_rds.errors.invalid_restore_fault.InvalidRestoreFault: <p>Cannot restore from VPC backup to non-VPC DB instance.</p>
             capo_rds.errors.invalid_subnet.InvalidSubnet: <p>The requested subnet is invalid, or multiple subnets were requested that are not all in a common VPC.</p>
@@ -15031,6 +15429,10 @@ class RDSClient:
             input_["backup_retention_period"] = backup_retention_period
         if preferred_backup_window is not None:
             input_["preferred_backup_window"] = preferred_backup_window
+        if db_capacity_reservation_identifier is not None:
+            input_["db_capacity_reservation_identifier"] = (
+                db_capacity_reservation_identifier
+            )
         if dedicated_log_volume is not None:
             input_["dedicated_log_volume"] = dedicated_log_volume
         if ca_certificate_identifier is not None:
@@ -15270,19 +15672,25 @@ class RDSClient:
         *,
         config_overrides: Optional[RDSClientConfig] = None,
         db_instance_identifier: Optional["capo_rds.types.string.String"] = None,
+        db_capacity_reservation_identifier: Optional[
+            "capo_rds.types.db_capacity_reservation_identifier.DBCapacityReservationIdentifier"
+        ] = None,
     ) -> "capo_rds.types.start_db_instance_result.StartDBInstanceResult":
         """<p>Starts an Amazon RDS DB instance that was stopped using the Amazon Web Services console, the stop-db-instance CLI command, or the <code>StopDBInstance</code> operation.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_StartInstance.html"> Starting an Amazon RDS DB instance That Was Previously Stopped</a> in the <i>Amazon RDS User Guide.</i> </p> <note> <p>This command doesn't apply to RDS Custom, Aurora MySQL, and Aurora PostgreSQL. For Aurora DB clusters, use <code>StartDBCluster</code> instead.</p> </note>
 
         Args:
             db_instance_identifier: <p>The user-supplied instance identifier.</p>
+            db_capacity_reservation_identifier: <p>The identifier or the name of the DB capacity reservation for the DB instance to use after it starts. You can specify the identifier, which has the prefix <code>dbcr-</code>, or the reservation name.</p> <p>Specify this parameter when the DB instance stopped using a reservation, or when you want the DB instance to use a different reservation.</p> <p>If you omit this parameter, and the DB instance kept a DB capacity reservation when it stopped, Amazon RDS starts the DB instance in that reservation.</p> <p>If that reservation is deleted, ended, or cancelled, the DB instance still starts. Amazon RDS starts the DB instance outside the reservation, on unreserved capacity, and it charges on-demand prices for the DB instance.</p> <p>If that reservation has no available capacity in the Availability Zone of the DB instance, the request fails. Amazon RDS doesn't start the DB instance, and it doesn't wait for capacity in that Availability Zone. Specify a reservation that has available capacity in that Availability Zone, or retry the request after the reservation has available capacity.</p> <p>Constraints:</p> <ul> <li> <p>The reservation must be in the <code>active</code> state.</p> </li> <li> <p>The reservation must reserve capacity for the DB instance class and the engine of the DB instance.</p> </li> <li> <p>The reservation must cover the Availability Zone of the DB instance, and it must have available capacity in that Availability Zone.</p> </li> </ul>
 
         Raises:
             capo_rds.errors.authorization_not_found_fault.AuthorizationNotFoundFault: <p>The specified CIDR IP range or Amazon EC2 security group might not be authorized for the specified DB security group.</p> <p>Or, RDS might not be authorized to perform necessary actions using IAM on your behalf.</p>
+            capo_rds.errors.db_capacity_reservation_not_found_fault.DBCapacityReservationNotFoundFault: <p> <code>DBCapacityReservationIdentifier</code> doesn't refer to an existing DB capacity reservation.</p>
             capo_rds.errors.db_cluster_not_found_fault.DBClusterNotFoundFault: <p> <code>DBClusterIdentifier</code> doesn't refer to an existing DB cluster.</p>
             capo_rds.errors.db_instance_not_found_fault.DBInstanceNotFoundFault: <p> <code>DBInstanceIdentifier</code> doesn't refer to an existing DB instance.</p>
             capo_rds.errors.db_subnet_group_does_not_cover_enough_a_zs.DBSubnetGroupDoesNotCoverEnoughAZs: <p>Subnets in the DB subnet group should cover at least two Availability Zones unless there is only one Availability Zone.</p>
             capo_rds.errors.db_subnet_group_not_found_fault.DBSubnetGroupNotFoundFault: <p> <code>DBSubnetGroupName</code> doesn't refer to an existing DB subnet group.</p>
             capo_rds.errors.insufficient_db_instance_capacity_fault.InsufficientDBInstanceCapacityFault: <p>The specified DB instance class isn't available in the specified Availability Zone.</p>
+            capo_rds.errors.invalid_db_capacity_reservation_state_fault.InvalidDBCapacityReservationStateFault: <p>The DB capacity reservation isn't in a valid state.</p>
             capo_rds.errors.invalid_db_cluster_state_fault.InvalidDBClusterStateFault: <p>The requested operation can't be performed while the cluster is in this state.</p>
             capo_rds.errors.invalid_db_instance_state_fault.InvalidDBInstanceStateFault: <p>The DB instance isn't in a valid state.</p>
             capo_rds.errors.invalid_subnet.InvalidSubnet: <p>The requested subnet is invalid, or multiple subnets were requested that are not all in a common VPC.</p>
@@ -15326,6 +15734,10 @@ class RDSClient:
         input_: capo_rds.types.start_db_instance_message.StartDBInstanceMessage = {}
         if db_instance_identifier is not None:
             input_["db_instance_identifier"] = db_instance_identifier
+        if db_capacity_reservation_identifier is not None:
+            input_["db_capacity_reservation_identifier"] = (
+                db_capacity_reservation_identifier
+            )
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -15634,16 +16046,21 @@ class RDSClient:
         config_overrides: Optional[RDSClientConfig] = None,
         db_instance_identifier: Optional["capo_rds.types.string.String"] = None,
         db_snapshot_identifier: Optional["capo_rds.types.string.String"] = None,
+        detach_from_db_capacity_reservation: Optional[
+            "capo_rds.types.boolean_optional.BooleanOptional"
+        ] = None,
     ) -> "capo_rds.types.stop_db_instance_result.StopDBInstanceResult":
         """<p>Stops an Amazon RDS DB instance temporarily. When you stop a DB instance, Amazon RDS retains the DB instance's metadata, including its endpoint, DB parameter group, and option group membership. Amazon RDS also retains the transaction logs so you can do a point-in-time restore if necessary. The instance restarts automatically after 7 days.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_StopInstance.html"> Stopping an Amazon RDS DB Instance Temporarily</a> in the <i>Amazon RDS User Guide.</i> </p> <note> <p>This command doesn't apply to RDS Custom, Aurora MySQL, and Aurora PostgreSQL. For Aurora clusters, use <code>StopDBCluster</code> instead.</p> </note>
 
         Args:
             db_instance_identifier: <p>The user-supplied instance identifier.</p>
             db_snapshot_identifier: <p>The user-supplied instance identifier of the DB Snapshot created immediately before the DB instance is stopped.</p>
+            detach_from_db_capacity_reservation: <p>Specifies whether the DB instance stops using its DB capacity reservation when the DB instance stops. When you specify <code>true</code>, the DB instance belongs to no reservation after it stops, and a later start launches it outside the reservation.</p> <p>By default, a stopped DB instance keeps its DB capacity reservation, and a later start returns the DB instance to the same reservation.</p> <p>Every stop releases the unit of reserved capacity that the DB instance holds, for either value of this parameter. Another DB instance can then use that capacity. This parameter controls the reservation that the DB instance belongs to, and it does not control the release of the capacity.</p> <p>If the DB instance uses no DB capacity reservation, this parameter has no effect.</p> <important> <p>Amazon RDS holds no capacity for a stopped DB instance. When the reservation has no available capacity in the Availability Zone of the DB instance, a later start waits for capacity in that Availability Zone. When the DB instance belongs to no reservation, a later start can fail because the Amazon Web Services Region has insufficient capacity for the DB instance class.</p> </important>
 
         Raises:
             capo_rds.errors.db_instance_not_found_fault.DBInstanceNotFoundFault: <p> <code>DBInstanceIdentifier</code> doesn't refer to an existing DB instance.</p>
             capo_rds.errors.db_snapshot_already_exists_fault.DBSnapshotAlreadyExistsFault: <p> <code>DBSnapshotIdentifier</code> is already used by an existing snapshot.</p>
+            capo_rds.errors.invalid_db_capacity_reservation_state_fault.InvalidDBCapacityReservationStateFault: <p>The DB capacity reservation isn't in a valid state.</p>
             capo_rds.errors.invalid_db_cluster_state_fault.InvalidDBClusterStateFault: <p>The requested operation can't be performed while the cluster is in this state.</p>
             capo_rds.errors.invalid_db_instance_state_fault.InvalidDBInstanceStateFault: <p>The DB instance isn't in a valid state.</p>
             capo_rds.errors.snapshot_quota_exceeded_fault.SnapshotQuotaExceededFault: <p>The request would result in the user exceeding the allowed number of DB snapshots.</p>
@@ -15686,6 +16103,10 @@ class RDSClient:
             input_["db_instance_identifier"] = db_instance_identifier
         if db_snapshot_identifier is not None:
             input_["db_snapshot_identifier"] = db_snapshot_identifier
+        if detach_from_db_capacity_reservation is not None:
+            input_["detach_from_db_capacity_reservation"] = (
+                detach_from_db_capacity_reservation
+            )
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

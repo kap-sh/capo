@@ -12,6 +12,13 @@ InstanceMetricName: TypeAlias = Literal[
     "BurstCapacityTime",
     "BurstCapacityPercentage",
     "MetadataNoToken",
+    "DiskReadOps",
+    "DiskWriteOps",
+    "DiskReadBytes",
+    "DiskWriteBytes",
+    "DiskTotalReadTime",
+    "DiskTotalWriteTime",
+    "DiskQueueLength",
 ]
 
 

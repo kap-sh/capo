@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_mediaconvert.types.__integer_min1_max2147483647
     import capo_mediaconvert.types.__list_of_cmaf_additional_manifest
     import capo_mediaconvert.types.__list_of_cmaf_image_based_trick_play_variant
+    import capo_mediaconvert.types.__list_of_dash_adaptation_set_grouping
     import capo_mediaconvert.types.__string
     import capo_mediaconvert.types.__string_min1_max256
     import capo_mediaconvert.types.__string_pattern_s3
@@ -50,6 +51,10 @@ class CmafGroupSettings(TypedDict, closed=True):
         "capo_mediaconvert.types.cmaf_codec_specification.CmafCodecSpecification"
     ]
     """Specification to use (RFC-6381 or the default RFC-4281) during m3u8 playlist generation."""
+    dash_adaptation_set_grouping: NotRequired[
+        "capo_mediaconvert.types.__list_of_dash_adaptation_set_grouping.__listOfDashAdaptationSetGrouping"
+    ]
+    """Specify additional criteria for partitioning video outputs into separate AdaptationSets. These criteria are applied on top of the grouping produced by DashManifestStyle."""
     dash_i_frame_trick_play_name_modifier: NotRequired[
         "capo_mediaconvert.types.__string_min1_max256.__stringMin1Max256"
     ]
@@ -175,6 +180,14 @@ def serialize_json(value: CmafGroupSettings) -> dict:
         out["codecSpecification"] = (
             capo_mediaconvert.types.cmaf_codec_specification.serialize_json(
                 value["codec_specification"]
+            )
+        )
+    if "dash_adaptation_set_grouping" in value:
+        import capo_mediaconvert.types.__list_of_dash_adaptation_set_grouping
+
+        out["dashAdaptationSetGrouping"] = (
+            capo_mediaconvert.types.__list_of_dash_adaptation_set_grouping.serialize_json(
+                value["dash_adaptation_set_grouping"]
             )
         )
     if "dash_i_frame_trick_play_name_modifier" in value:
@@ -378,6 +391,14 @@ def deserialize_json(data: dict) -> CmafGroupSettings:
         out["codec_specification"] = (
             capo_mediaconvert.types.cmaf_codec_specification.deserialize_json(
                 data["codecSpecification"]
+            )
+        )
+    if data.get("dashAdaptationSetGrouping") is not None:
+        import capo_mediaconvert.types.__list_of_dash_adaptation_set_grouping
+
+        out["dash_adaptation_set_grouping"] = (
+            capo_mediaconvert.types.__list_of_dash_adaptation_set_grouping.deserialize_json(
+                data["dashAdaptationSetGrouping"]
             )
         )
     if data.get("dashIFrameTrickPlayNameModifier") is not None:

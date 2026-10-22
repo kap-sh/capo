@@ -186,6 +186,7 @@ nav = [
     "errors/InvalidArnException.md",
     "errors/InvalidAutoRollbackConfigException.md",
     "errors/InvalidAutoScalingGroupException.md",
+    "errors/InvalidAutoScalingGroupProcessToSuspendException.md",
     "errors/InvalidBlueGreenDeploymentConfigurationException.md",
     "errors/InvalidBucketNameFilterException.md",
     "errors/InvalidComputePlatformException.md",

@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     import capo_ecs.types.capacity_provider_strategy
     import capo_ecs.types.deployment_configuration
     import capo_ecs.types.deployment_controller
+    import capo_ecs.types.gateway_connector_list
     import capo_ecs.types.load_balancers
     import capo_ecs.types.monitoring_configuration
     import capo_ecs.types.network_configuration
@@ -93,6 +94,10 @@ class UpdateServiceRequest(TypedDict, closed=True):
         "capo_ecs.types.vpc_lattice_configurations.VpcLatticeConfigurations"
     ]
     """<p>An object representing the VPC Lattice configuration for the service being updated.</p> <p>This parameter triggers a new service deployment.</p>"""
+    gateway_connectors: NotRequired[
+        "capo_ecs.types.gateway_connector_list.GatewayConnectorList"
+    ]
+    """<p>The updated set of gateway connectors that connect the service to a gateway ingress path. A service supports no more than one gateway connector.</p>"""
     monitoring: NotRequired[
         "capo_ecs.types.monitoring_configuration.MonitoringConfiguration"
     ]
@@ -219,6 +224,14 @@ def serialize_aws_json_1_1(value: UpdateServiceRequest) -> dict:
         out["vpcLatticeConfigurations"] = (
             capo_ecs.types.vpc_lattice_configurations.serialize_aws_json_1_1(
                 value["vpc_lattice_configurations"]
+            )
+        )
+    if "gateway_connectors" in value:
+        import capo_ecs.types.gateway_connector_list
+
+        out["gatewayConnectors"] = (
+            capo_ecs.types.gateway_connector_list.serialize_aws_json_1_1(
+                value["gateway_connectors"]
             )
         )
     if "monitoring" in value:
@@ -352,6 +365,14 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateServiceRequest:
         out["vpc_lattice_configurations"] = (
             capo_ecs.types.vpc_lattice_configurations.deserialize_aws_json_1_1(
                 data["vpcLatticeConfigurations"]
+            )
+        )
+    if data.get("gatewayConnectors") is not None:
+        import capo_ecs.types.gateway_connector_list
+
+        out["gateway_connectors"] = (
+            capo_ecs.types.gateway_connector_list.deserialize_aws_json_1_1(
+                data["gatewayConnectors"]
             )
         )
     if data.get("monitoring") is not None:

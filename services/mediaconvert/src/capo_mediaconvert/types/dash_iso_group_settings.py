@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_mediaconvert.types.__double_min0_max2147483647
     import capo_mediaconvert.types.__integer_min0_max2147483647
     import capo_mediaconvert.types.__integer_min1_max2147483647
+    import capo_mediaconvert.types.__list_of_dash_adaptation_set_grouping
     import capo_mediaconvert.types.__list_of_dash_additional_manifest
     import capo_mediaconvert.types.__list_of_dash_iso_image_based_trick_play_variant
     import capo_mediaconvert.types.__string
@@ -40,6 +41,10 @@ class DashIsoGroupSettings(TypedDict, closed=True):
     """Use this setting only when your audio codec is a Dolby one (AC3, EAC3, or Atmos) and your downstream workflow requires that your DASH manifest use the Dolby channel configuration tag, rather than the MPEG one. For example, you might need to use this to make dynamic ad insertion work. Specify which audio channel configuration scheme ID URI MediaConvert writes in your DASH manifest. Keep the default value, MPEG channel configuration, to have MediaConvert write this: urn:mpeg:mpegB:cicp:ChannelConfiguration. Choose Dolby channel configuration to have MediaConvert write this instead: tag:dolby.com,2014:dash:audio_channel_configuration:2011."""
     base_url: NotRequired["capo_mediaconvert.types.__string.__string"]
     """A partial URI prefix that will be put in the manifest (.mpd) file at the top level BaseURL element. Can be used if streams are delivered from a different URL than the manifest file."""
+    dash_adaptation_set_grouping: NotRequired[
+        "capo_mediaconvert.types.__list_of_dash_adaptation_set_grouping.__listOfDashAdaptationSetGrouping"
+    ]
+    """Specify additional criteria for partitioning video outputs into separate AdaptationSets. These criteria are applied on top of the grouping produced by DashManifestStyle."""
     dash_i_frame_trick_play_name_modifier: NotRequired[
         "capo_mediaconvert.types.__string_min1_max256.__stringMin1Max256"
     ]
@@ -143,6 +148,14 @@ def serialize_json(value: DashIsoGroupSettings) -> dict:
         )
     if "base_url" in value:
         out["baseUrl"] = value["base_url"]
+    if "dash_adaptation_set_grouping" in value:
+        import capo_mediaconvert.types.__list_of_dash_adaptation_set_grouping
+
+        out["dashAdaptationSetGrouping"] = (
+            capo_mediaconvert.types.__list_of_dash_adaptation_set_grouping.serialize_json(
+                value["dash_adaptation_set_grouping"]
+            )
+        )
     if "dash_i_frame_trick_play_name_modifier" in value:
         out["dashIFrameTrickPlayNameModifier"] = value[
             "dash_i_frame_trick_play_name_modifier"
@@ -298,6 +311,14 @@ def deserialize_json(data: dict) -> DashIsoGroupSettings:
         )
     if data.get("baseUrl") is not None:
         out["base_url"] = data["baseUrl"]
+    if data.get("dashAdaptationSetGrouping") is not None:
+        import capo_mediaconvert.types.__list_of_dash_adaptation_set_grouping
+
+        out["dash_adaptation_set_grouping"] = (
+            capo_mediaconvert.types.__list_of_dash_adaptation_set_grouping.deserialize_json(
+                data["dashAdaptationSetGrouping"]
+            )
+        )
     if data.get("dashIFrameTrickPlayNameModifier") is not None:
         out["dash_i_frame_trick_play_name_modifier"] = data[
             "dashIFrameTrickPlayNameModifier"

@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     import capo_marketplace_catalog.types.ami_product_sort
     import capo_marketplace_catalog.types.container_product_sort
     import capo_marketplace_catalog.types.data_product_sort
+    import capo_marketplace_catalog.types.express_private_offer_configuration_sort
     import capo_marketplace_catalog.types.machine_learning_product_sort
     import capo_marketplace_catalog.types.offer_set_sort
     import capo_marketplace_catalog.types.offer_sort
@@ -52,6 +53,10 @@ class _EntityTypeSort_OfferSetSort(TypedDict, closed=True):
     OfferSetSort: "capo_marketplace_catalog.types.offer_set_sort.OfferSetSort"
 
 
+class _EntityTypeSort_ExpressPrivateOfferConfigurationSort(TypedDict, closed=True):
+    ExpressPrivateOfferConfigurationSort: "capo_marketplace_catalog.types.express_private_offer_configuration_sort.ExpressPrivateOfferConfigurationSort"
+
+
 EntityTypeSort: TypeAlias = (
     _EntityTypeSort_DataProductSort
     | _EntityTypeSort_SaaSProductSort
@@ -61,6 +66,7 @@ EntityTypeSort: TypeAlias = (
     | _EntityTypeSort_ResaleAuthorizationSort
     | _EntityTypeSort_MachineLearningProductSort
     | _EntityTypeSort_OfferSetSort
+    | _EntityTypeSort_ExpressPrivateOfferConfigurationSort
     | UnknownUnionMember
 )
 
@@ -135,6 +141,14 @@ def serialize_json(value: EntityTypeSort) -> dict:
                 value["OfferSetSort"]
             )
         }
+    elif "ExpressPrivateOfferConfigurationSort" in value:
+        import capo_marketplace_catalog.types.express_private_offer_configuration_sort
+
+        return {
+            "ExpressPrivateOfferConfigurationSort": capo_marketplace_catalog.types.express_private_offer_configuration_sort.serialize_json(
+                value["ExpressPrivateOfferConfigurationSort"]
+            )
+        }
     else:
         raise SerializationError("EntityTypeSort: no variant present")
 
@@ -202,6 +216,14 @@ def deserialize_json(data: dict) -> EntityTypeSort:
         return {
             "OfferSetSort": capo_marketplace_catalog.types.offer_set_sort.deserialize_json(
                 data["OfferSetSort"]
+            )
+        }
+    elif data.get("ExpressPrivateOfferConfigurationSort") is not None:
+        import capo_marketplace_catalog.types.express_private_offer_configuration_sort
+
+        return {
+            "ExpressPrivateOfferConfigurationSort": capo_marketplace_catalog.types.express_private_offer_configuration_sort.deserialize_json(
+                data["ExpressPrivateOfferConfigurationSort"]
             )
         }
     else:

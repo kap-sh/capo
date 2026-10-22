@@ -34,3 +34,6 @@ from .service_quota_exceeded_exception import (
 )
 from .throttling_exception import ThrottlingException as ThrottlingException
 from .validation_exception import ValidationException as ValidationException
+from .volume_modification_rate_exceeded_exception import (
+    VolumeModificationRateExceededException as VolumeModificationRateExceededException,
+)

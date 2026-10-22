@@ -17,11 +17,11 @@ class TLSCertificateConfiguration(TypedDict, closed=True):
     public_certificate_secret_arn: NotRequired[
         "capo_emr_containers.types.secrets_manager_arn.SecretsManagerArn"
     ]
-    """<p>Secrets Manager ARN that contains the public TLS certificate contents, used for communication between the user job and the system job.</p>"""
+    """<p> Secrets Manager ARN that contains the public TLS certificate contents, used for communication between the user job and the system job.</p>"""
     private_certificate_secret_arn: NotRequired[
         "capo_emr_containers.types.secrets_manager_arn.SecretsManagerArn"
     ]
-    """<p>Secrets Manager ARN that contains the private TLS certificate contents, used for communication between the user job and the system job.</p>"""
+    """<p> Secrets Manager ARN that contains the private TLS certificate contents, used for communication between the user job and the system job.</p>"""
 
 
 # --- restJson1 ser/de ---

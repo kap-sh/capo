@@ -11,12 +11,19 @@ from typing_extensions import Never
 import capo_elasticache._auth._signers
 import capo_elasticache._auth._sigv4
 import capo_elasticache._protocol.eventstream
+import capo_elasticache.errors.invalid_cache_cluster_state_fault
+import capo_elasticache.errors.invalid_parameter_combination_exception
 import capo_elasticache.errors.invalid_parameter_value_exception
 import capo_elasticache.errors.invalid_replication_group_state_fault
+import capo_elasticache.errors.invalid_serverless_cache_state_fault
+import capo_elasticache.errors.migration_health_fault
 import capo_elasticache.errors.replication_group_already_under_migration_fault
 import capo_elasticache.errors.replication_group_not_found_fault
+import capo_elasticache.errors.serverless_cache_not_found_fault
+import capo_elasticache.errors.serverless_cache_not_under_migration_fault
 import capo_elasticache.types.customer_node_endpoint_list
 import capo_elasticache.types.replication_group
+import capo_elasticache.types.serverless_cache
 import capo_elasticache.types.start_migration_message
 import capo_elasticache.types.start_migration_response
 from capo_elasticache._protocol.errors import find_error_element, parse_error_metadata
@@ -35,6 +42,14 @@ def handle_error(response: zapros.Response) -> Never:
     code, message = parse_error_metadata(root)
     error_el = find_error_element(root)
     match code:
+        case "InvalidCacheClusterState":
+            raise capo_elasticache.errors.invalid_cache_cluster_state_fault.InvalidCacheClusterStateFault.from_query(
+                error_el, message, response=response
+            )
+        case "InvalidParameterCombination":
+            raise capo_elasticache.errors.invalid_parameter_combination_exception.InvalidParameterCombinationException.from_query(
+                error_el, message, response=response
+            )
         case "InvalidParameterValue":
             raise capo_elasticache.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_query(
                 error_el, message, response=response
@@ -43,12 +58,28 @@ def handle_error(response: zapros.Response) -> Never:
             raise capo_elasticache.errors.invalid_replication_group_state_fault.InvalidReplicationGroupStateFault.from_query(
                 error_el, message, response=response
             )
+        case "InvalidServerlessCacheStateFault":
+            raise capo_elasticache.errors.invalid_serverless_cache_state_fault.InvalidServerlessCacheStateFault.from_query(
+                error_el, message, response=response
+            )
+        case "MigrationHealthFault":
+            raise capo_elasticache.errors.migration_health_fault.MigrationHealthFault.from_query(
+                error_el, message, response=response
+            )
         case "ReplicationGroupAlreadyUnderMigrationFault":
             raise capo_elasticache.errors.replication_group_already_under_migration_fault.ReplicationGroupAlreadyUnderMigrationFault.from_query(
                 error_el, message, response=response
             )
         case "ReplicationGroupNotFoundFault":
             raise capo_elasticache.errors.replication_group_not_found_fault.ReplicationGroupNotFoundFault.from_query(
+                error_el, message, response=response
+            )
+        case "ServerlessCacheNotFoundFault":
+            raise capo_elasticache.errors.serverless_cache_not_found_fault.ServerlessCacheNotFoundFault.from_query(
+                error_el, message, response=response
+            )
+        case "ServerlessCacheNotUnderMigrationFault":
+            raise capo_elasticache.errors.serverless_cache_not_under_migration_fault.ServerlessCacheNotUnderMigrationFault.from_query(
                 error_el, message, response=response
             )
         case _:
