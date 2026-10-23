@@ -1,6 +1,6 @@
 [project]
 site_name = "capo-resource-groups-tagging-api"
-site_description = "Python SDK for AWS Resource Groups Tagging API."
+site_description = "Typed, async Python SDK for AWS Resource Groups Tagging API."
 # Without it the pages have no canonical link and `sitemap.xml` lists no pages.
 site_url = "https://capo-sdk.dev/services/resource-groups-tagging-api/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/resource-groups-tagging-api"

@@ -1,6 +1,6 @@
 [project]
 site_name = "capo-keyspaces"
-site_description = "Python SDK for AWS Keyspaces."
+site_description = "Typed, async Python SDK for AWS Keyspaces."
 # Without it the pages have no canonical link and `sitemap.xml` lists no pages.
 site_url = "https://capo-sdk.dev/services/keyspaces/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/keyspaces"

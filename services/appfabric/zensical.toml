@@ -1,6 +1,6 @@
 [project]
 site_name = "capo-appfabric"
-site_description = "Python SDK for AWS Appfabric."
+site_description = "Typed, async Python SDK for AWS Appfabric."
 # Without it the pages have no canonical link and `sitemap.xml` lists no pages.
 site_url = "https://capo-sdk.dev/services/appfabric/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/appfabric"

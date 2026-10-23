@@ -1,7 +1,7 @@
 [project]
 name = "capo-geo-routes"
 version = "0.9.0"
-description = "Python SDK for AWS Geo Routes."
+description = "Typed, async Python SDK for AWS Geo Routes."
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [

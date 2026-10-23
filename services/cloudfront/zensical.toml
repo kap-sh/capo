@@ -1,6 +1,6 @@
 [project]
 site_name = "capo-cloudfront"
-site_description = "Python SDK for AWS Cloudfront."
+site_description = "Typed, async Python SDK for AWS Cloudfront."
 # Without it the pages have no canonical link and `sitemap.xml` lists no pages.
 site_url = "https://capo-sdk.dev/services/cloudfront/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/cloudfront"

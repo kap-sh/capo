@@ -1,6 +1,6 @@
 [project]
 site_name = "capo-route53-recovery-control-config"
-site_description = "Python SDK for AWS Route53 Recovery Control Config."
+site_description = "Typed, async Python SDK for AWS Route53 Recovery Control Config."
 # Without it the pages have no canonical link and `sitemap.xml` lists no pages.
 site_url = "https://capo-sdk.dev/services/route53-recovery-control-config/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/route53-recovery-control-config"

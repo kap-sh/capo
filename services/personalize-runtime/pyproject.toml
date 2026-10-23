@@ -1,7 +1,7 @@
 [project]
 name = "capo-personalize-runtime"
 version = "0.9.0"
-description = "Python SDK for AWS Personalize Runtime."
+description = "Typed, async Python SDK for AWS Personalize Runtime."
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [

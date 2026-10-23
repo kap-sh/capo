@@ -1,6 +1,6 @@
 [project]
 site_name = "capo-arc-zonal-shift"
-site_description = "Python SDK for AWS Arc Zonal Shift."
+site_description = "Typed, async Python SDK for AWS Arc Zonal Shift."
 # Without it the pages have no canonical link and `sitemap.xml` lists no pages.
 site_url = "https://capo-sdk.dev/services/arc-zonal-shift/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/arc-zonal-shift"

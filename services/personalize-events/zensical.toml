@@ -1,6 +1,6 @@
 [project]
 site_name = "capo-personalize-events"
-site_description = "Python SDK for AWS Personalize Events."
+site_description = "Typed, async Python SDK for AWS Personalize Events."
 # Without it the pages have no canonical link and `sitemap.xml` lists no pages.
 site_url = "https://capo-sdk.dev/services/personalize-events/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/personalize-events"

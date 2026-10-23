@@ -1,7 +1,7 @@
 [project]
 name = "capo-application-signals"
 version = "0.12.0"
-description = "Python SDK for AWS Application Signals."
+description = "Typed, async Python SDK for AWS Application Signals."
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [

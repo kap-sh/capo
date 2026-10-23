@@ -1,7 +1,7 @@
 [project]
 name = "capo-elementalinference"
 version = "0.9.0"
-description = "Python SDK for AWS Elementalinference."
+description = "Typed, async Python SDK for AWS Elementalinference."
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [

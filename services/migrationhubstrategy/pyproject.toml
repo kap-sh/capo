@@ -1,7 +1,7 @@
 [project]
 name = "capo-migrationhubstrategy"
 version = "0.8.0"
-description = "Python SDK for AWS Migrationhubstrategy."
+description = "Typed, async Python SDK for AWS Migrationhubstrategy."
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [

@@ -1,7 +1,7 @@
 [project]
 name = "capo-emr-serverless"
 version = "0.9.0"
-description = "Python SDK for AWS EMR Serverless."
+description = "Typed, async Python SDK for AWS EMR Serverless."
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [

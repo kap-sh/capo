@@ -1,7 +1,7 @@
 [project]
 name = "capo-ecr-public"
 version = "0.9.0"
-description = "Python SDK for AWS ECR Public."
+description = "Typed, async Python SDK for AWS ECR Public."
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [

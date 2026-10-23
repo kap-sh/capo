@@ -1,7 +1,7 @@
 [project]
 name = "capo-evs"
 version = "0.9.0"
-description = "Python SDK for AWS EVS."
+description = "Typed, async Python SDK for AWS EVS."
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [

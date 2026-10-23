@@ -1,7 +1,7 @@
 [project]
 name = "capo-codedeploy"
 version = "0.11.0"
-description = "Python SDK for AWS Codedeploy."
+description = "Typed, async Python SDK for AWS Codedeploy."
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [

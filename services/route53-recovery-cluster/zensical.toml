@@ -1,6 +1,6 @@
 [project]
 site_name = "capo-route53-recovery-cluster"
-site_description = "Python SDK for AWS Route53 Recovery Cluster."
+site_description = "Typed, async Python SDK for AWS Route53 Recovery Cluster."
 # Without it the pages have no canonical link and `sitemap.xml` lists no pages.
 site_url = "https://capo-sdk.dev/services/route53-recovery-cluster/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/route53-recovery-cluster"

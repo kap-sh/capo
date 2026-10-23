@@ -1,7 +1,7 @@
 [project]
 name = "capo-billingconductor"
 version = "0.12.0"
-description = "Python SDK for AWS Billingconductor."
+description = "Typed, async Python SDK for AWS Billingconductor."
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [

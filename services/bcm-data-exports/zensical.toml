@@ -1,6 +1,6 @@
 [project]
 site_name = "capo-bcm-data-exports"
-site_description = "Python SDK for AWS BCM Data Exports."
+site_description = "Typed, async Python SDK for AWS BCM Data Exports."
 # Without it the pages have no canonical link and `sitemap.xml` lists no pages.
 site_url = "https://capo-sdk.dev/services/bcm-data-exports/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/bcm-data-exports"

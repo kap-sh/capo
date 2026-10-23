@@ -1,7 +1,7 @@
 [project]
 name = "capo-kinesis-video-signaling"
 version = "0.9.0"
-description = "Python SDK for AWS Kinesis Video Signaling."
+description = "Typed, async Python SDK for AWS Kinesis Video Signaling."
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [

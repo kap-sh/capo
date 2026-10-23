@@ -1,6 +1,6 @@
 [project]
 site_name = "capo-apigatewaymanagementapi"
-site_description = "Python SDK for AWS Apigatewaymanagementapi."
+site_description = "Typed, async Python SDK for AWS Apigatewaymanagementapi."
 # Without it the pages have no canonical link and `sitemap.xml` lists no pages.
 site_url = "https://capo-sdk.dev/services/apigatewaymanagementapi/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/apigatewaymanagementapi"

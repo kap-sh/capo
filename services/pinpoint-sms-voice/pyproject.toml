@@ -1,7 +1,7 @@
 [project]
 name = "capo-pinpoint-sms-voice"
 version = "0.8.0"
-description = "Python SDK for AWS Pinpoint Sms Voice."
+description = "Typed, async Python SDK for AWS Pinpoint Sms Voice."
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [

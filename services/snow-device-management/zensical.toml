@@ -1,6 +1,6 @@
 [project]
 site_name = "capo-snow-device-management"
-site_description = "Python SDK for AWS Snow Device Management."
+site_description = "Typed, async Python SDK for AWS Snow Device Management."
 # Without it the pages have no canonical link and `sitemap.xml` lists no pages.
 site_url = "https://capo-sdk.dev/services/snow-device-management/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/snow-device-management"

@@ -1,6 +1,6 @@
 [project]
 site_name = "capo-sagemaker-runtime"
-site_description = "Python SDK for AWS Sagemaker Runtime."
+site_description = "Typed, async Python SDK for AWS Sagemaker Runtime."
 # Without it the pages have no canonical link and `sitemap.xml` lists no pages.
 site_url = "https://capo-sdk.dev/services/sagemaker-runtime/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/sagemaker-runtime"

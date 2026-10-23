@@ -1,6 +1,6 @@
 [project]
 site_name = "capo-service-quotas"
-site_description = "Python SDK for AWS Service Quotas."
+site_description = "Typed, async Python SDK for AWS Service Quotas."
 # Without it the pages have no canonical link and `sitemap.xml` lists no pages.
 site_url = "https://capo-sdk.dev/services/service-quotas/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/service-quotas"

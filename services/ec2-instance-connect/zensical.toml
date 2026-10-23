@@ -1,6 +1,6 @@
 [project]
 site_name = "capo-ec2-instance-connect"
-site_description = "Python SDK for AWS EC2 Instance Connect."
+site_description = "Typed, async Python SDK for AWS EC2 Instance Connect."
 # Without it the pages have no canonical link and `sitemap.xml` lists no pages.
 site_url = "https://capo-sdk.dev/services/ec2-instance-connect/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/ec2-instance-connect"

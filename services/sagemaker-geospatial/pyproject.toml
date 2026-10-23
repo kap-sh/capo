@@ -1,7 +1,7 @@
 [project]
 name = "capo-sagemaker-geospatial"
 version = "0.9.0"
-description = "Python SDK for AWS Sagemaker Geospatial."
+description = "Typed, async Python SDK for AWS Sagemaker Geospatial."
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [

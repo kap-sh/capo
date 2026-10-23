@@ -1,6 +1,6 @@
 [project]
 site_name = "capo-efs"
-site_description = "Python SDK for AWS EFS."
+site_description = "Typed, async Python SDK for AWS EFS."
 # Without it the pages have no canonical link and `sitemap.xml` lists no pages.
 site_url = "https://capo-sdk.dev/services/efs/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/efs"

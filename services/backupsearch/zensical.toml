@@ -1,6 +1,6 @@
 [project]
 site_name = "capo-backupsearch"
-site_description = "Python SDK for AWS Backupsearch."
+site_description = "Typed, async Python SDK for AWS Backupsearch."
 # Without it the pages have no canonical link and `sitemap.xml` lists no pages.
 site_url = "https://capo-sdk.dev/services/backupsearch/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/backupsearch"

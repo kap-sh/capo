@@ -1,7 +1,7 @@
 [project]
 name = "capo-keyspaces"
 version = "0.9.0"
-description = "Python SDK for AWS Keyspaces."
+description = "Typed, async Python SDK for AWS Keyspaces."
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [

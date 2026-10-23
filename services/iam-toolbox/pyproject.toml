@@ -1,7 +1,7 @@
 [project]
 name = "capo-iam-toolbox"
 version = "0.7.0"
-description = "Python SDK for AWS IAM Toolbox."
+description = "Typed, async Python SDK for AWS IAM Toolbox."
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [

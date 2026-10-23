@@ -1,6 +1,6 @@
 [project]
 site_name = "capo-taxsettings"
-site_description = "Python SDK for AWS Taxsettings."
+site_description = "Typed, async Python SDK for AWS Taxsettings."
 # Without it the pages have no canonical link and `sitemap.xml` lists no pages.
 site_url = "https://capo-sdk.dev/services/taxsettings/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/taxsettings"

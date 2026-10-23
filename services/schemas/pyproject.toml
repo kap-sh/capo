@@ -1,7 +1,7 @@
 [project]
 name = "capo-schemas"
 version = "0.8.0"
-description = "Python SDK for AWS Schemas."
+description = "Typed, async Python SDK for AWS Schemas."
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [

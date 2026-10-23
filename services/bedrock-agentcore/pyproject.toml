@@ -1,7 +1,7 @@
 [project]
 name = "capo-bedrock-agentcore"
 version = "0.13.0"
-description = "Python SDK for AWS Bedrock Agentcore."
+description = "Typed, async Python SDK for AWS Bedrock Agentcore."
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [

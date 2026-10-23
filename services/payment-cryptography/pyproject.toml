@@ -1,7 +1,7 @@
 [project]
 name = "capo-payment-cryptography"
 version = "0.9.0"
-description = "Python SDK for AWS Payment Cryptography."
+description = "Typed, async Python SDK for AWS Payment Cryptography."
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [

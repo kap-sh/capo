@@ -1,7 +1,7 @@
 [project]
 name = "capo-devops-guru"
 version = "0.9.0"
-description = "Python SDK for AWS Devops Guru."
+description = "Typed, async Python SDK for AWS Devops Guru."
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [

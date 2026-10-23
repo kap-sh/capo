@@ -1,6 +1,6 @@
 [project]
 site_name = "capo-nova-act"
-site_description = "Python SDK for AWS Nova Act."
+site_description = "Typed, async Python SDK for AWS Nova Act."
 # Without it the pages have no canonical link and `sitemap.xml` lists no pages.
 site_url = "https://capo-sdk.dev/services/nova-act/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/nova-act"

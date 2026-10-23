@@ -1,6 +1,6 @@
 [project]
 site_name = "capo-license-manager-user-subscriptions"
-site_description = "Python SDK for AWS License Manager User Subscriptions."
+site_description = "Typed, async Python SDK for AWS License Manager User Subscriptions."
 # Without it the pages have no canonical link and `sitemap.xml` lists no pages.
 site_url = "https://capo-sdk.dev/services/license-manager-user-subscriptions/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/license-manager-user-subscriptions"

@@ -1,7 +1,7 @@
 [project]
 name = "capo-billing"
 version = "0.11.0"
-description = "Python SDK for AWS Billing."
+description = "Typed, async Python SDK for AWS Billing."
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [

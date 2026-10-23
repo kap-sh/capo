@@ -1,6 +1,6 @@
 [project]
 site_name = "capo-cloudwatch"
-site_description = "Python SDK for AWS Cloudwatch."
+site_description = "Typed, async Python SDK for AWS Cloudwatch."
 # Without it the pages have no canonical link and `sitemap.xml` lists no pages.
 site_url = "https://capo-sdk.dev/services/cloudwatch/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/cloudwatch"

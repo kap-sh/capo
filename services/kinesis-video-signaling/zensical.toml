@@ -1,6 +1,6 @@
 [project]
 site_name = "capo-kinesis-video-signaling"
-site_description = "Python SDK for AWS Kinesis Video Signaling."
+site_description = "Typed, async Python SDK for AWS Kinesis Video Signaling."
 # Without it the pages have no canonical link and `sitemap.xml` lists no pages.
 site_url = "https://capo-sdk.dev/services/kinesis-video-signaling/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/kinesis-video-signaling"

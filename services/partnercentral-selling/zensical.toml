@@ -1,6 +1,6 @@
 [project]
 site_name = "capo-partnercentral-selling"
-site_description = "Python SDK for AWS Partnercentral Selling."
+site_description = "Typed, async Python SDK for AWS Partnercentral Selling."
 # Without it the pages have no canonical link and `sitemap.xml` lists no pages.
 site_url = "https://capo-sdk.dev/services/partnercentral-selling/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/partnercentral-selling"

@@ -1,6 +1,6 @@
 [project]
 site_name = "capo-bedrock-agent-runtime"
-site_description = "Python SDK for AWS Bedrock Agent Runtime."
+site_description = "Typed, async Python SDK for AWS Bedrock Agent Runtime."
 # Without it the pages have no canonical link and `sitemap.xml` lists no pages.
 site_url = "https://capo-sdk.dev/services/bedrock-agent-runtime/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/bedrock-agent-runtime"

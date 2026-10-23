@@ -1,6 +1,6 @@
 [project]
 site_name = "capo-simspaceweaver"
-site_description = "Python SDK for AWS Simspaceweaver."
+site_description = "Typed, async Python SDK for AWS Simspaceweaver."
 # Without it the pages have no canonical link and `sitemap.xml` lists no pages.
 site_url = "https://capo-sdk.dev/services/simspaceweaver/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/simspaceweaver"

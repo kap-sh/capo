@@ -1,7 +1,7 @@
 [project]
 name = "capo-partnercentral-revenue-measurement"
 version = "0.7.0"
-description = "Python SDK for AWS Partnercentral Revenue Measurement."
+description = "Typed, async Python SDK for AWS Partnercentral Revenue Measurement."
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [

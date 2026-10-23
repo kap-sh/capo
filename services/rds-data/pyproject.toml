@@ -1,7 +1,7 @@
 [project]
 name = "capo-rds-data"
 version = "0.9.0"
-description = "Python SDK for AWS RDS Data."
+description = "Typed, async Python SDK for AWS RDS Data."
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [

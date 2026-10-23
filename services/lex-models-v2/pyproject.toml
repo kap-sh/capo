@@ -1,7 +1,7 @@
 [project]
 name = "capo-lex-models-v2"
 version = "0.9.0"
-description = "Python SDK for AWS Lex Models V2."
+description = "Typed, async Python SDK for AWS Lex Models V2."
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [

@@ -1,7 +1,7 @@
 [project]
 name = "capo-machine-learning"
 version = "0.9.0"
-description = "Python SDK for AWS Machine Learning."
+description = "Typed, async Python SDK for AWS Machine Learning."
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [
