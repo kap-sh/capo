@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Stage regenerated services, write a changeset and commit, all with one message.
+#
+# Usage: scripts/commit-services "<message>" [minor|patch|major|none]
+set -euo pipefail
+
+if [ $# -lt 1 ] || [ -z "$1" ]; then
+    echo "usage: scripts/commit-services \"<message>\" [minor|patch|major|none]" >&2
+    exit 1
+fi
+
+message="$1"
+bump="${2:-minor}"
+
+cd "$(dirname "$0")/.."
+
+git add services
+if git diff --staged --quiet -- services; then
+    echo "no changes in services/ to commit" >&2
+    exit 1
+fi
+
+python3 scripts/gen_changeset.py --bump "$bump" --summary "$message"
+git add .changeset
+git commit -m "$message"
