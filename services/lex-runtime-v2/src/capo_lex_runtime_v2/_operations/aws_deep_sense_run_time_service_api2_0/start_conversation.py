@@ -172,7 +172,20 @@ def build_request(
     for k, v in params:
         normalized_url.search_params.append(k, v)
     return zapros.Request(
-        normalized_url, "POST", headers=headers, body=body, context={"signer": signer}
+        normalized_url,
+        "POST",
+        headers=headers,
+        body=body,
+        context={
+            "signer": signer,
+            "handler_overrides": {
+                "network": {
+                    "http1": False,
+                    "http2": True,
+                    "http2_bidirectional_experimental": True,
+                }
+            },
+        },
     )
 
 
@@ -222,7 +235,20 @@ def async_build_request(
     for k, v in params:
         normalized_url.search_params.append(k, v)
     return zapros.Request(
-        normalized_url, "POST", headers=headers, body=body, context={"signer": signer}
+        normalized_url,
+        "POST",
+        headers=headers,
+        body=body,
+        context={
+            "signer": signer,
+            "handler_overrides": {
+                "network": {
+                    "http1": False,
+                    "http2": True,
+                    "http2_bidirectional_experimental": True,
+                }
+            },
+        },
     )
 
 

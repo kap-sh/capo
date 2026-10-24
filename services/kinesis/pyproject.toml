@@ -20,7 +20,7 @@ classifiers = [
 ]
 dependencies = [
     "jmespath>=1.0",
-    "zapros>=0.21.0",
+    "zapros[http2]>=0.23.0",
 ]
 
 [project.urls]
