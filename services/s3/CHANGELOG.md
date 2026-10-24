@@ -1,5 +1,11 @@
 # aws-sdk-s3
 
+## 0.28.0
+
+### Minor Changes
+
+- 36f7363: docs: better pypi description for the packages
+
 ## 0.27.0
 
 ### Minor Changes

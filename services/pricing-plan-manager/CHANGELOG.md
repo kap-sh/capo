@@ -1,5 +1,11 @@
 # aws-sdk-pricing-plan-manager
 
+## 0.8.0
+
+### Minor Changes
+
+- 36f7363: docs: better pypi description for the packages
+
 ## 0.7.0
 
 ### Minor Changes

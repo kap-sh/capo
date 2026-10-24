@@ -1,5 +1,11 @@
 # aws-sdk-secrets-manager
 
+## 0.16.0
+
+### Minor Changes
+
+- 36f7363: docs: better pypi description for the packages
+
 ## 0.15.0
 
 ### Minor Changes

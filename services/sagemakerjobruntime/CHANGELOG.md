@@ -1,5 +1,11 @@
 # aws-sdk-sagemakerjobruntime
 
+## 0.9.0
+
+### Minor Changes
+
+- 36f7363: docs: better pypi description for the packages
+
 ## 0.8.0
 
 ### Minor Changes

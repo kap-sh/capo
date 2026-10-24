@@ -1,5 +1,11 @@
 # aws-sdk-scheduler
 
+## 0.20.0
+
+### Minor Changes
+
+- 36f7363: docs: better pypi description for the packages
+
 ## 0.19.0
 
 ### Minor Changes

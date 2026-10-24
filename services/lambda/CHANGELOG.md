@@ -1,5 +1,11 @@
 # aws-sdk-lambda
 
+## 0.24.0
+
+### Minor Changes
+
+- 36f7363: docs: better pypi description for the packages
+
 ## 0.23.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # aws-sdk-elastic-load-balancing
 
+## 0.19.0
+
+### Minor Changes
+
+- 36f7363: docs: better pypi description for the packages
+
 ## 0.18.0
 
 ### Minor Changes

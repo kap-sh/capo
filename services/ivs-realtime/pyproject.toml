@@ -1,6 +1,6 @@
 [project]
 name = "capo-ivs-realtime"
-version = "0.9.0"
+version = "0.10.0"
 description = "Typed, async Python SDK for AWS IVS Realtime."
 readme = "README.md"
 requires-python = ">=3.10"
