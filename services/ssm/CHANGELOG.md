@@ -1,5 +1,11 @@
 # aws-sdk-ssm
 
+## 0.17.0
+
+### Minor Changes
+
+- 36f7363: docs: better pypi description for the packages
+
 ## 0.16.0
 
 ### Minor Changes

@@ -1,5 +1,12 @@
 # aws-sdk-cloudwatch
 
+## 0.22.0
+
+### Minor Changes
+
+- aafa97a: feat: sync smithy models for 48 services
+- 36f7363: docs: better pypi description for the packages
+
 ## 0.21.0
 
 ### Minor Changes

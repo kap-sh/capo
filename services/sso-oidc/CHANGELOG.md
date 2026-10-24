@@ -1,5 +1,11 @@
 # aws-sdk-sso-oidc
 
+## 0.18.0
+
+### Minor Changes
+
+- 36f7363: docs: better pypi description for the packages
+
 ## 0.17.0
 
 ### Minor Changes

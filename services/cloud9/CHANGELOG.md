@@ -1,5 +1,11 @@
 # aws-sdk-cloud9
 
+## 0.12.0
+
+### Minor Changes
+
+- 36f7363: docs: better pypi description for the packages
+
 ## 0.11.0
 
 ### Minor Changes

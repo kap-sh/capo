@@ -1,5 +1,11 @@
 # aws-sdk-amp
 
+## 0.13.0
+
+### Minor Changes
+
+- 36f7363: docs: better pypi description for the packages
+
 ## 0.12.0
 
 ### Minor Changes

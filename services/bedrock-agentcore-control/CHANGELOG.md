@@ -1,5 +1,11 @@
 # aws-sdk-bedrock-agentcore-control
 
+## 0.14.0
+
+### Minor Changes
+
+- 36f7363: docs: better pypi description for the packages
+
 ## 0.13.0
 
 ### Minor Changes

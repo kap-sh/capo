@@ -1,5 +1,12 @@
 # aws-sdk-ec2
 
+## 0.27.0
+
+### Minor Changes
+
+- aafa97a: feat: sync smithy models for 48 services
+- 36f7363: docs: better pypi description for the packages
+
 ## 0.26.0
 
 ### Minor Changes

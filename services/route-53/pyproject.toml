@@ -1,6 +1,6 @@
 [project]
 name = "capo-route-53"
-version = "0.18.0"
+version = "0.19.0"
 description = "Typed, async Python SDK for AWS Route 53."
 readme = "README.md"
 requires-python = ">=3.10"

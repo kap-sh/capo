@@ -1,6 +1,6 @@
 [project]
 name = "capo-efs"
-version = "0.9.0"
+version = "0.10.0"
 description = "Typed, async Python SDK for AWS EFS."
 readme = "README.md"
 requires-python = ">=3.10"

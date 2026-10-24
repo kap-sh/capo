@@ -1,5 +1,12 @@
 # aws-sdk-quicksight
 
+## 0.10.0
+
+### Minor Changes
+
+- aafa97a: feat: sync smithy models for 48 services
+- 36f7363: docs: better pypi description for the packages
+
 ## 0.9.0
 
 ### Minor Changes
