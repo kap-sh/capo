@@ -1,6 +1,6 @@
 # AWS SDK for Python - Releases
 
-## 2026-10-26
+## 2026-10-24
 
 - [aws-sdk-accessanalyzer v0.12.0](services/accessanalyzer/CHANGELOG.md)
 - [aws-sdk-account v0.13.0](services/account/CHANGELOG.md)
