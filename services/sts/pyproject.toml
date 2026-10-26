@@ -1,6 +1,6 @@
 [project]
 name = "capo-sts"
-version = "0.20.0"
+version = "0.21.0"
 description = "Typed, async Python SDK for AWS STS."
 readme = "README.md"
 requires-python = ">=3.10"

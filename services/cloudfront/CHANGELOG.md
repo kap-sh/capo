@@ -1,5 +1,11 @@
 # aws-sdk-cloudfront
 
+## 0.21.0
+
+### Minor Changes
+
+- 741133f: feat!: represent unknown union variants and events as "$unknown" dicts
+
 ## 0.20.0
 
 ### Minor Changes

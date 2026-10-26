@@ -1,5 +1,11 @@
 # aws-sdk-cloudwatch
 
+## 0.23.0
+
+### Minor Changes
+
+- 741133f: feat!: represent unknown union variants and events as "$unknown" dicts
+
 ## 0.22.0
 
 ### Minor Changes

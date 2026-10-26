@@ -1,5 +1,11 @@
 # aws-sdk-eventbridge
 
+## 0.18.0
+
+### Minor Changes
+
+- 741133f: feat!: represent unknown union variants and events as "$unknown" dicts
+
 ## 0.17.0
 
 ### Minor Changes

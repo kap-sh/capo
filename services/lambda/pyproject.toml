@@ -1,6 +1,6 @@
 [project]
 name = "capo-lambda"
-version = "0.24.0"
+version = "0.25.0"
 description = "Typed, async Python SDK for AWS Lambda."
 readme = "README.md"
 requires-python = ">=3.10"

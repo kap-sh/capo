@@ -1,6 +1,6 @@
 [project]
 name = "capo-iam"
-version = "0.23.0"
+version = "0.24.0"
 description = "Typed, async Python SDK for AWS IAM."
 readme = "README.md"
 requires-python = ">=3.10"

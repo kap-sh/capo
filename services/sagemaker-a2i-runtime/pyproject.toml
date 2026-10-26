@@ -1,6 +1,6 @@
 [project]
 name = "capo-sagemaker-a2i-runtime"
-version = "0.10.0"
+version = "0.11.0"
 description = "Typed, async Python SDK for AWS Sagemaker A2I Runtime."
 readme = "README.md"
 requires-python = ">=3.10"
