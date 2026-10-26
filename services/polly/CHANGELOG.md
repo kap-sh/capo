@@ -1,5 +1,14 @@
 # aws-sdk-polly
 
+## 0.10.0
+
+### Minor Changes
+
+- aafa97a: feat: sync smithy models for 48 services
+- 36f7363: docs: better pypi description for the packages
+- 9c5aca8: feat!: represent unknown union variants and events as "$unknown" dicts
+- c66e875: fix: send HTTP/2-only event-stream operations over HTTP/2, bidirectional streams in full duplex; the package now depends on zapros[http2]>=0.23.0
+
 ## 0.9.0
 
 ### Minor Changes

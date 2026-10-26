@@ -1,5 +1,12 @@
 # aws-sdk-account
 
+## 0.13.0
+
+### Minor Changes
+
+- 36f7363: docs: better pypi description for the packages
+- 9c5aca8: feat!: represent unknown union variants and events as "$unknown" dicts
+
 ## 0.12.0
 
 ### Minor Changes
