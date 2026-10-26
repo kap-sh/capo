@@ -90,9 +90,7 @@ def deserialize_json(data: dict) -> MemoryRecordCreateInput:
             data["content"]
         )
     else:
-        import capo_bedrock_agentcore.types._unknown
-
-        out["content"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
+        out["content"] = {"$unknown": {"name": ""}}
     if data.get("timestamp") is not None:
         import capo_bedrock_agentcore.types._prelude.timestamp
 

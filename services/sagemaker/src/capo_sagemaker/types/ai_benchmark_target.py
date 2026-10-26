@@ -20,9 +20,9 @@ AIBenchmarkTarget: TypeAlias = _AIBenchmarkTarget_Endpoint | UnknownUnionMember
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: AIBenchmarkTarget) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AIBenchmarkTarget: cannot serialize unknown variant {value.name!r}"
+            f"AIBenchmarkTarget: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "Endpoint" in value:
         import capo_sagemaker.types.ai_benchmark_endpoint
@@ -50,5 +50,5 @@ def deserialize_aws_json_1_1(data: dict) -> AIBenchmarkTarget:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("AIBenchmarkTarget: no recognized variant key")

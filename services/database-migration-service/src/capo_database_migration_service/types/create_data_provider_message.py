@@ -79,11 +79,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDataProviderMessage:
             )
         )
     else:
-        import capo_database_migration_service.types._unknown
-
-        out["settings"] = (
-            capo_database_migration_service.types._unknown.UnknownUnionMember("")
-        )
+        out["settings"] = {"$unknown": {"name": ""}}
     if data.get("Tags") is not None:
         import capo_database_migration_service.types.tag_list
 

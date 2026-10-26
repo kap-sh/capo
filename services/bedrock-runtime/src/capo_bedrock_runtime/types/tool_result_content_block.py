@@ -51,9 +51,9 @@ ToolResultContentBlock: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ToolResultContentBlock) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ToolResultContentBlock: cannot serialize unknown variant {value.name!r}"
+            f"ToolResultContentBlock: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "json" in value:
         return {"json": value["json"]}
@@ -137,15 +137,11 @@ def deserialize_json(data: dict) -> ToolResultContentBlock:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ToolResultContentBlock: no recognized variant key")
 
 
-def redact_sensitive(
-    value: ToolResultContentBlock,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: ToolResultContentBlock) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "image" in value:
         import capo_bedrock_runtime.types.image_block

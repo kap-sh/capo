@@ -23,9 +23,9 @@ ResourceDetails: TypeAlias = _ResourceDetails_ebsVolume | UnknownUnionMember
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: ResourceDetails) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ResourceDetails: cannot serialize unknown variant {value.name!r}"
+            f"ResourceDetails: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "ebsVolume" in value:
         import capo_compute_optimizer_automation.types.ebs_volume
@@ -53,5 +53,5 @@ def deserialize_aws_json_1_0(data: dict) -> ResourceDetails:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ResourceDetails: no recognized variant key")

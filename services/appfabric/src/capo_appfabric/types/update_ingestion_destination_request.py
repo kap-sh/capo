@@ -46,9 +46,5 @@ def deserialize_json(data: dict) -> UpdateIngestionDestinationRequest:
             )
         )
     else:
-        import capo_appfabric.types._unknown
-
-        out["destination_configuration"] = (
-            capo_appfabric.types._unknown.UnknownUnionMember("")
-        )
+        out["destination_configuration"] = {"$unknown": {"name": ""}}
     return out

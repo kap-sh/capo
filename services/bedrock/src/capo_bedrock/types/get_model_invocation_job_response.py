@@ -219,9 +219,7 @@ def deserialize_json(data: dict) -> GetModelInvocationJobResponse:
             )
         )
     else:
-        import capo_bedrock.types._unknown
-
-        out["input_data_config"] = capo_bedrock.types._unknown.UnknownUnionMember("")
+        out["input_data_config"] = {"$unknown": {"name": ""}}
     if data.get("outputDataConfig") is not None:
         import capo_bedrock.types.model_invocation_job_output_data_config
 
@@ -231,9 +229,7 @@ def deserialize_json(data: dict) -> GetModelInvocationJobResponse:
             )
         )
     else:
-        import capo_bedrock.types._unknown
-
-        out["output_data_config"] = capo_bedrock.types._unknown.UnknownUnionMember("")
+        out["output_data_config"] = {"$unknown": {"name": ""}}
     if data.get("vpcConfig") is not None:
         import capo_bedrock.types.vpc_config
 

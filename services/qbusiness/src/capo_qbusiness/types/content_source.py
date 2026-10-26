@@ -20,9 +20,9 @@ ContentSource: TypeAlias = _ContentSource_retriever | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ContentSource) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ContentSource: cannot serialize unknown variant {value.name!r}"
+            f"ContentSource: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "retriever" in value:
         import capo_qbusiness.types.retriever_content_source
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> ContentSource:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ContentSource: no recognized variant key")

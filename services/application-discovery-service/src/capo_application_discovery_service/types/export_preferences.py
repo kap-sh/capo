@@ -25,9 +25,9 @@ ExportPreferences: TypeAlias = (
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: ExportPreferences) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ExportPreferences: cannot serialize unknown variant {value.name!r}"
+            f"ExportPreferences: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "ec2RecommendationsPreferences" in value:
         import capo_application_discovery_service.types.ec2_recommendations_export_preferences
@@ -55,5 +55,5 @@ def deserialize_aws_json_1_1(data: dict) -> ExportPreferences:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ExportPreferences: no recognized variant key")

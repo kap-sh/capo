@@ -43,9 +43,9 @@ Grant: TypeAlias = (
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: Grant) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"Grant: cannot serialize unknown variant {value.name!r}"
+            f"Grant: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "AuthorizationCode" in value:
         import capo_sso_admin.types.authorization_code_grant
@@ -121,5 +121,5 @@ def deserialize_aws_json_1_1(data: dict) -> Grant:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("Grant: no recognized variant key")

@@ -65,9 +65,5 @@ def deserialize_json(data: dict) -> TelemetrySinkConfig:
             )
         )
     else:
-        import capo_groundstation.types._unknown
-
-        out["telemetry_sink_data"] = (
-            capo_groundstation.types._unknown.UnknownUnionMember("")
-        )
+        out["telemetry_sink_data"] = {"$unknown": {"name": ""}}
     return out

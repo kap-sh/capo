@@ -59,11 +59,7 @@ def deserialize_aws_json_1_0(data: dict) -> StartFHIRExportJobRequest:
             )
         )
     else:
-        import capo_healthlake.types._unknown
-
-        out["output_data_config"] = capo_healthlake.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["output_data_config"] = {"$unknown": {"name": ""}}
     if data.get("DatastoreId") is not None:
         out["datastore_id"] = data["DatastoreId"]
     else:

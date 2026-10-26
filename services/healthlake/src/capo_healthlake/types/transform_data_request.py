@@ -53,9 +53,7 @@ def deserialize_aws_json_1_0(data: dict) -> TransformDataRequest:
             )
         )
     else:
-        import capo_healthlake.types._unknown
-
-        out["input_data"] = capo_healthlake.types._unknown.UnknownUnionMember("")
+        out["input_data"] = {"$unknown": {"name": ""}}
     if data.get("DriftDetectionEnabled") is not None:
         out["drift_detection_enabled"] = data["DriftDetectionEnabled"]
     if data.get("ProvenanceEnabled") is not None:

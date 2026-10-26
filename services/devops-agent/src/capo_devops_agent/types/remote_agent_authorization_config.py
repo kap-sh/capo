@@ -37,9 +37,9 @@ RemoteAgentAuthorizationConfig: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RemoteAgentAuthorizationConfig) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"RemoteAgentAuthorizationConfig: cannot serialize unknown variant {value.name!r}"
+            f"RemoteAgentAuthorizationConfig: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "apiKey" in value:
         import capo_devops_agent.types.remote_agent_api_key_config
@@ -99,17 +99,13 @@ def deserialize_json(data: dict) -> RemoteAgentAuthorizationConfig:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "RemoteAgentAuthorizationConfig: no recognized variant key"
         )
 
 
-def redact_sensitive(
-    value: RemoteAgentAuthorizationConfig,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: RemoteAgentAuthorizationConfig) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "apiKey" in value:
         import capo_devops_agent.types.remote_agent_api_key_config

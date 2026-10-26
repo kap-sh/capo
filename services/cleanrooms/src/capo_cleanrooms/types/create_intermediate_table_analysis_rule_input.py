@@ -70,9 +70,5 @@ def deserialize_json(data: dict) -> CreateIntermediateTableAnalysisRuleInput:
             )
         )
     else:
-        import capo_cleanrooms.types._unknown
-
-        out["analysis_rule_policy"] = capo_cleanrooms.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["analysis_rule_policy"] = {"$unknown": {"name": ""}}
     return out

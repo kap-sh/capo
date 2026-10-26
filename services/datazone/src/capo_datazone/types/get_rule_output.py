@@ -127,9 +127,7 @@ def deserialize_json(data: dict) -> GetRuleOutput:
 
         out["target"] = capo_datazone.types.rule_target.deserialize_json(data["target"])
     else:
-        import capo_datazone.types._unknown
-
-        out["target"] = capo_datazone.types._unknown.UnknownUnionMember("")
+        out["target"] = {"$unknown": {"name": ""}}
     if data.get("action") is not None:
         import capo_datazone.types.rule_action
 
@@ -149,9 +147,7 @@ def deserialize_json(data: dict) -> GetRuleOutput:
 
         out["detail"] = capo_datazone.types.rule_detail.deserialize_json(data["detail"])
     else:
-        import capo_datazone.types._unknown
-
-        out["detail"] = capo_datazone.types._unknown.UnknownUnionMember("")
+        out["detail"] = {"$unknown": {"name": ""}}
     if data.get("targetType") is not None:
         import capo_datazone.types.rule_target_type
 

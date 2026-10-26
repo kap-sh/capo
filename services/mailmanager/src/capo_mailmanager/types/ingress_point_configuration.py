@@ -37,9 +37,9 @@ IngressPointConfiguration: TypeAlias = (
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: IngressPointConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"IngressPointConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"IngressPointConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "SmtpPassword" in value:
         return {"SmtpPassword": value["SmtpPassword"]}
@@ -75,17 +75,13 @@ def deserialize_aws_json_1_0(data: dict) -> IngressPointConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "IngressPointConfiguration: no recognized variant key"
         )
 
 
-def redact_sensitive(
-    value: IngressPointConfiguration,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: IngressPointConfiguration) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "SmtpPassword" in value:
         out["SmtpPassword"] = "*** Sensitive Data Redacted ***"

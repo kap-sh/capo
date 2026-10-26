@@ -41,7 +41,5 @@ def deserialize_json(data: dict) -> S3BucketAclGrantConfiguration:
             data["grantee"]
         )
     else:
-        import capo_accessanalyzer.types._unknown
-
-        out["grantee"] = capo_accessanalyzer.types._unknown.UnknownUnionMember("")
+        out["grantee"] = {"$unknown": {"name": ""}}
     return out

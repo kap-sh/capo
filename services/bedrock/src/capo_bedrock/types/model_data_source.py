@@ -20,9 +20,9 @@ ModelDataSource: TypeAlias = _ModelDataSource_s3DataSource | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ModelDataSource) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ModelDataSource: cannot serialize unknown variant {value.name!r}"
+            f"ModelDataSource: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "s3DataSource" in value:
         import capo_bedrock.types.s3_data_source
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> ModelDataSource:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ModelDataSource: no recognized variant key")

@@ -23,9 +23,9 @@ DataSourceConfig: TypeAlias = _DataSourceConfig_cloudWatchLogs | UnknownUnionMem
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DataSourceConfig) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"DataSourceConfig: cannot serialize unknown variant {value.name!r}"
+            f"DataSourceConfig: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "cloudWatchLogs" in value:
         import capo_bedrock_agentcore_control.types.cloud_watch_logs_input_config
@@ -53,5 +53,5 @@ def deserialize_json(data: dict) -> DataSourceConfig:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("DataSourceConfig: no recognized variant key")

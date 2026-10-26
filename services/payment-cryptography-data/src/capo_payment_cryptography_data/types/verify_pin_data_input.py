@@ -105,11 +105,7 @@ def deserialize_json(data: dict) -> VerifyPinDataInput:
             )
         )
     else:
-        import capo_payment_cryptography_data.types._unknown
-
-        out["verification_attributes"] = (
-            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
-        )
+        out["verification_attributes"] = {"$unknown": {"name": ""}}
     if data.get("EncryptedPinBlock") is not None:
         out["encrypted_pin_block"] = data["EncryptedPinBlock"]
     else:

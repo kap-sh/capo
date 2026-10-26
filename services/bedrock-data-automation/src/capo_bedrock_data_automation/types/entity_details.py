@@ -20,9 +20,9 @@ EntityDetails: TypeAlias = _EntityDetails_vocabulary | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: EntityDetails) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"EntityDetails: cannot serialize unknown variant {value.name!r}"
+            f"EntityDetails: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "vocabulary" in value:
         import capo_bedrock_data_automation.types.vocabulary_entity
@@ -50,13 +50,11 @@ def deserialize_json(data: dict) -> EntityDetails:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("EntityDetails: no recognized variant key")
 
 
-def redact_sensitive(value: EntityDetails) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: EntityDetails) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "vocabulary" in value:
         import capo_bedrock_data_automation.types.vocabulary_entity

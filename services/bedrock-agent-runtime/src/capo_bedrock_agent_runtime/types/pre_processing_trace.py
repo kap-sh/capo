@@ -31,9 +31,9 @@ PreProcessingTrace: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PreProcessingTrace) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"PreProcessingTrace: cannot serialize unknown variant {value.name!r}"
+            f"PreProcessingTrace: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "modelInvocationInput" in value:
         import capo_bedrock_agent_runtime.types.model_invocation_input
@@ -77,5 +77,5 @@ def deserialize_json(data: dict) -> PreProcessingTrace:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("PreProcessingTrace: no recognized variant key")

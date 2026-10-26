@@ -32,9 +32,9 @@ EvaluatorModelConfig: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: EvaluatorModelConfig) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"EvaluatorModelConfig: cannot serialize unknown variant {value.name!r}"
+            f"EvaluatorModelConfig: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "bedrockEvaluatorModelConfig" in value:
         import capo_bedrock_agentcore_control.types.bedrock_evaluator_model_config
@@ -78,5 +78,5 @@ def deserialize_json(data: dict) -> EvaluatorModelConfig:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("EvaluatorModelConfig: no recognized variant key")

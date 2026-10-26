@@ -60,9 +60,7 @@ def deserialize_json(data: dict) -> DataSet:
             data["datasetOrg"]
         )
     else:
-        import capo_m2.types._unknown
-
-        out["dataset_org"] = capo_m2.types._unknown.UnknownUnionMember("")
+        out["dataset_org"] = {"$unknown": {"name": ""}}
     if data.get("relativePath") is not None:
         out["relative_path"] = data["relativePath"]
     if data.get("recordLength") is not None:

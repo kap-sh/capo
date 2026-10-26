@@ -172,9 +172,7 @@ def deserialize_aws_json_1_0(data: dict) -> ImportJobProperties:
             )
         )
     else:
-        import capo_healthlake.types._unknown
-
-        out["input_data_config"] = capo_healthlake.types._unknown.UnknownUnionMember("")
+        out["input_data_config"] = {"$unknown": {"name": ""}}
     if data.get("JobOutputDataConfig") is not None:
         import capo_healthlake.types.output_data_config
 

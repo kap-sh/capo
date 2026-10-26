@@ -143,9 +143,9 @@ ExecutionBlockConfiguration: TypeAlias = (
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: ExecutionBlockConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ExecutionBlockConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"ExecutionBlockConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "customActionLambdaConfig" in value:
         import capo_arc_region_switch.types.custom_action_lambda_configuration
@@ -461,17 +461,13 @@ def deserialize_aws_json_1_0(data: dict) -> ExecutionBlockConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "ExecutionBlockConfiguration: no recognized variant key"
         )
 
 
-def redact_sensitive(
-    value: ExecutionBlockConfiguration,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: ExecutionBlockConfiguration) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "customActionLambdaConfig" in value:
         import capo_arc_region_switch.types.custom_action_lambda_configuration

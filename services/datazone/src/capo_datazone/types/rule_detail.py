@@ -29,9 +29,9 @@ RuleDetail: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RuleDetail) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"RuleDetail: cannot serialize unknown variant {value.name!r}"
+            f"RuleDetail: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "metadataFormEnforcementDetail" in value:
         import capo_datazone.types.metadata_form_enforcement_detail
@@ -75,5 +75,5 @@ def deserialize_json(data: dict) -> RuleDetail:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("RuleDetail: no recognized variant key")

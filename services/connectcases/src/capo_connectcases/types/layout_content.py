@@ -20,9 +20,9 @@ LayoutContent: TypeAlias = _LayoutContent_basic | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: LayoutContent) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"LayoutContent: cannot serialize unknown variant {value.name!r}"
+            f"LayoutContent: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "basic" in value:
         import capo_connectcases.types.basic_layout
@@ -48,5 +48,5 @@ def deserialize_json(data: dict) -> LayoutContent:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("LayoutContent: no recognized variant key")

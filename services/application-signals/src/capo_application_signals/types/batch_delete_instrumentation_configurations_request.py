@@ -37,9 +37,5 @@ def deserialize_json(data: dict) -> BatchDeleteInstrumentationConfigurationsRequ
             )
         )
     else:
-        import capo_application_signals.types._unknown
-
-        out["deletion_target"] = (
-            capo_application_signals.types._unknown.UnknownUnionMember("")
-        )
+        out["deletion_target"] = {"$unknown": {"name": ""}}
     return out

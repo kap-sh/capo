@@ -115,9 +115,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetAccountActivityResponse:
             data["reward"]
         )
     else:
-        import capo_freetier.types._unknown
-
-        out["reward"] = capo_freetier.types._unknown.UnknownUnionMember("")
+        out["reward"] = {"$unknown": {"name": ""}}
     if data.get("estimatedTimeToCompleteInMinutes") is not None:
         out["estimated_time_to_complete_in_minutes"] = data[
             "estimatedTimeToCompleteInMinutes"

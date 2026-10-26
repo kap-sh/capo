@@ -108,9 +108,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetArchiveResponse:
             )
         )
     else:
-        import capo_mailmanager.types._unknown
-
-        out["retention"] = capo_mailmanager.types._unknown.UnknownUnionMember("")
+        out["retention"] = {"$unknown": {"name": ""}}
     if data.get("CreatedTimestamp") is not None:
         import capo_mailmanager.types._prelude.timestamp
 

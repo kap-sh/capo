@@ -29,9 +29,9 @@ PaymentInput: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PaymentInput) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"PaymentInput: cannot serialize unknown variant {value.name!r}"
+            f"PaymentInput: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "cryptoX402" in value:
         import capo_bedrock_agentcore.types.crypto_x402_payment_input
@@ -75,13 +75,11 @@ def deserialize_json(data: dict) -> PaymentInput:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("PaymentInput: no recognized variant key")
 
 
-def redact_sensitive(value: PaymentInput) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: PaymentInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "cryptoX402" in value:
         import capo_bedrock_agentcore.types.crypto_x402_payment_input

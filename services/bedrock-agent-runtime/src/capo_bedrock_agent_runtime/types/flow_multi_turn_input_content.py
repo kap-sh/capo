@@ -19,9 +19,9 @@ FlowMultiTurnInputContent: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: FlowMultiTurnInputContent) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"FlowMultiTurnInputContent: cannot serialize unknown variant {value.name!r}"
+            f"FlowMultiTurnInputContent: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "document" in value:
         return {"document": value["document"]}
@@ -37,7 +37,7 @@ def deserialize_json(data: dict) -> FlowMultiTurnInputContent:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "FlowMultiTurnInputContent: no recognized variant key"
         )

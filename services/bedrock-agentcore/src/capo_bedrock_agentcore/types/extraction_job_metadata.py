@@ -75,9 +75,7 @@ def deserialize_json(data: dict) -> ExtractionJobMetadata:
             )
         )
     else:
-        import capo_bedrock_agentcore.types._unknown
-
-        out["messages"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
+        out["messages"] = {"$unknown": {"name": ""}}
     if data.get("status") is not None:
         import capo_bedrock_agentcore.types.extraction_job_status
 

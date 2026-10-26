@@ -81,7 +81,5 @@ def deserialize_json(data: dict) -> StartRunBatchRequest:
             )
         )
     else:
-        import capo_omics.types._unknown
-
-        out["batch_run_settings"] = capo_omics.types._unknown.UnknownUnionMember("")
+        out["batch_run_settings"] = {"$unknown": {"name": ""}}
     return out

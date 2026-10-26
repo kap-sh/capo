@@ -29,9 +29,9 @@ ChannelHandshakePayload: TypeAlias = (
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: ChannelHandshakePayload) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ChannelHandshakePayload: cannot serialize unknown variant {value.name!r}"
+            f"ChannelHandshakePayload: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "startServicePeriodPayload" in value:
         import capo_partnercentral_channel.types.start_service_period_payload
@@ -75,5 +75,5 @@ def deserialize_aws_json_1_0(data: dict) -> ChannelHandshakePayload:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ChannelHandshakePayload: no recognized variant key")

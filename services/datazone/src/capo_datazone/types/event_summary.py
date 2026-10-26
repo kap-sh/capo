@@ -22,9 +22,9 @@ EventSummary: TypeAlias = _EventSummary_openLineageRunEventSummary | UnknownUnio
 
 # --- restJson1 ser/de ---
 def serialize_json(value: EventSummary) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"EventSummary: cannot serialize unknown variant {value.name!r}"
+            f"EventSummary: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "openLineageRunEventSummary" in value:
         import capo_datazone.types.open_lineage_run_event_summary
@@ -52,5 +52,5 @@ def deserialize_json(data: dict) -> EventSummary:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("EventSummary: no recognized variant key")

@@ -54,9 +54,7 @@ def deserialize_json(data: dict) -> UpdateAssociationInput:
             )
         )
     else:
-        import capo_devops_agent.types._unknown
-
-        out["configuration"] = capo_devops_agent.types._unknown.UnknownUnionMember("")
+        out["configuration"] = {"$unknown": {"name": ""}}
     if data.get("capabilities") is not None:
         import capo_devops_agent.types.association_capabilities
 

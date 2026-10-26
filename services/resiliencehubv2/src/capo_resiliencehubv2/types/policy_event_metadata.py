@@ -43,9 +43,9 @@ PolicyEventMetadata: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PolicyEventMetadata) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"PolicyEventMetadata: cannot serialize unknown variant {value.name!r}"
+            f"PolicyEventMetadata: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "policyAttachedToService" in value:
         import capo_resiliencehubv2.types.policy_attached_to_service_metadata
@@ -121,5 +121,5 @@ def deserialize_json(data: dict) -> PolicyEventMetadata:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("PolicyEventMetadata: no recognized variant key")

@@ -78,9 +78,7 @@ def deserialize_json(data: dict) -> CreateRetrieverRequest:
             )
         )
     else:
-        import capo_qbusiness.types._unknown
-
-        out["configuration"] = capo_qbusiness.types._unknown.UnknownUnionMember("")
+        out["configuration"] = {"$unknown": {"name": ""}}
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     if data.get("clientToken") is not None:

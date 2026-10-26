@@ -185,9 +185,9 @@ ResourceDetails: TypeAlias = (
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: ResourceDetails) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ResourceDetails: cannot serialize unknown variant {value.name!r}"
+            f"ResourceDetails: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "lambdaFunction" in value:
         import capo_cost_optimization_hub.types.lambda_function
@@ -599,5 +599,5 @@ def deserialize_aws_json_1_0(data: dict) -> ResourceDetails:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ResourceDetails: no recognized variant key")

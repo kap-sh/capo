@@ -26,9 +26,9 @@ def serialize_xml(
     value: ObjectLambdaContentTransformation, parent: Element, tag: str
 ) -> None:
     el = SubElement(parent, tag)
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ObjectLambdaContentTransformation: cannot serialize unknown variant {value.name!r}"
+            f"ObjectLambdaContentTransformation: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "AwsLambda" in value:
         import capo_s3_control.types.aws_lambda_transformation
@@ -53,7 +53,7 @@ def deserialize_xml(el: Element) -> ObjectLambdaContentTransformation:
                 )
             }
         else:
-            return UnknownUnionMember(child.tag)
+            return {"$unknown": {"name": child.tag}}
     raise DeserializationError(
         "ObjectLambdaContentTransformation: no recognized variant element"
     )

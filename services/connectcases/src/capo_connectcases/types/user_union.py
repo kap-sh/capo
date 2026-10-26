@@ -25,9 +25,9 @@ UserUnion: TypeAlias = _UserUnion_userArn | _UserUnion_customEntity | UnknownUni
 
 # --- restJson1 ser/de ---
 def serialize_json(value: UserUnion) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"UserUnion: cannot serialize unknown variant {value.name!r}"
+            f"UserUnion: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "userArn" in value:
         return {"userArn": value["userArn"]}
@@ -47,13 +47,11 @@ def deserialize_json(data: dict) -> UserUnion:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("UserUnion: no recognized variant key")
 
 
-def redact_sensitive(value: UserUnion) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: UserUnion) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "customEntity" in value:
         out["customEntity"] = "*** Sensitive Data Redacted ***"

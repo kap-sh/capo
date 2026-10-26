@@ -43,7 +43,5 @@ def deserialize_json(data: dict) -> RatingScaleItem:
             data["value"]
         )
     else:
-        import capo_bedrock.types._unknown
-
-        out["value"] = capo_bedrock.types._unknown.UnknownUnionMember("")
+        out["value"] = {"$unknown": {"name": ""}}
     return out

@@ -76,9 +76,7 @@ def deserialize_json(data: dict) -> BrandingConfigurationCreateInput:
             data["logo"]
         )
     else:
-        import capo_workspaces_web.types._unknown
-
-        out["logo"] = capo_workspaces_web.types._unknown.UnknownUnionMember("")
+        out["logo"] = {"$unknown": {"name": ""}}
     if data.get("wallpaper") is not None:
         import capo_workspaces_web.types.wallpaper_image_input
 
@@ -94,9 +92,7 @@ def deserialize_json(data: dict) -> BrandingConfigurationCreateInput:
             data["favicon"]
         )
     else:
-        import capo_workspaces_web.types._unknown
-
-        out["favicon"] = capo_workspaces_web.types._unknown.UnknownUnionMember("")
+        out["favicon"] = {"$unknown": {"name": ""}}
     if data.get("localizedStrings") is not None:
         import capo_workspaces_web.types.localized_branding_string_map
 

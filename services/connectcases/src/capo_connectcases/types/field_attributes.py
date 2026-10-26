@@ -20,9 +20,9 @@ FieldAttributes: TypeAlias = _FieldAttributes_text | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: FieldAttributes) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"FieldAttributes: cannot serialize unknown variant {value.name!r}"
+            f"FieldAttributes: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "text" in value:
         import capo_connectcases.types.text_attributes
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> FieldAttributes:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("FieldAttributes: no recognized variant key")

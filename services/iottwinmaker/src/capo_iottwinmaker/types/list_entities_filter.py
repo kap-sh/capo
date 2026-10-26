@@ -35,9 +35,9 @@ ListEntitiesFilter: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ListEntitiesFilter) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ListEntitiesFilter: cannot serialize unknown variant {value.name!r}"
+            f"ListEntitiesFilter: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "parentEntityId" in value:
         return {"parentEntityId": value["parentEntityId"]}
@@ -61,5 +61,5 @@ def deserialize_json(data: dict) -> ListEntitiesFilter:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ListEntitiesFilter: no recognized variant key")

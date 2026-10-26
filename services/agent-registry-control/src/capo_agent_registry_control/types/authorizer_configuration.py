@@ -22,9 +22,9 @@ AuthorizerConfiguration: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AuthorizerConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AuthorizerConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"AuthorizerConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "customJWTAuthorizer" in value:
         import capo_agent_registry_control.types.custom_jwt_authorizer_configuration
@@ -52,5 +52,5 @@ def deserialize_json(data: dict) -> AuthorizerConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("AuthorizerConfiguration: no recognized variant key")

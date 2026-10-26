@@ -58,11 +58,7 @@ def deserialize_json(data: dict) -> StandardRouterInputConfiguration:
             )
         )
     else:
-        import capo_mediaconnect.types._unknown
-
-        out["protocol_configuration"] = (
-            capo_mediaconnect.types._unknown.UnknownUnionMember("")
-        )
+        out["protocol_configuration"] = {"$unknown": {"name": ""}}
     if data.get("protocol") is not None:
         import capo_mediaconnect.types.router_input_protocol
 

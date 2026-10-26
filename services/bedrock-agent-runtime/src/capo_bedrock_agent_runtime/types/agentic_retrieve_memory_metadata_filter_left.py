@@ -22,9 +22,9 @@ AgenticRetrieveMemoryMetadataFilterLeft: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AgenticRetrieveMemoryMetadataFilterLeft) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AgenticRetrieveMemoryMetadataFilterLeft: cannot serialize unknown variant {value.name!r}"
+            f"AgenticRetrieveMemoryMetadataFilterLeft: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "metadataKey" in value:
         return {"metadataKey": value["metadataKey"]}
@@ -42,7 +42,7 @@ def deserialize_json(data: dict) -> AgenticRetrieveMemoryMetadataFilterLeft:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "AgenticRetrieveMemoryMetadataFilterLeft: no recognized variant key"
         )

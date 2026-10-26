@@ -47,9 +47,7 @@ def deserialize_json(data: dict) -> HarnessContentBlockDeltaEvent:
             )
         )
     else:
-        import capo_bedrock_agentcore.types._unknown
-
-        out["delta"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
+        out["delta"] = {"$unknown": {"name": ""}}
     return out
 
 

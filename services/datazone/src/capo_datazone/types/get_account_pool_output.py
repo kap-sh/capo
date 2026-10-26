@@ -114,9 +114,7 @@ def deserialize_json(data: dict) -> GetAccountPoolOutput:
             data["accountSource"]
         )
     else:
-        import capo_datazone.types._unknown
-
-        out["account_source"] = capo_datazone.types._unknown.UnknownUnionMember("")
+        out["account_source"] = {"$unknown": {"name": ""}}
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:

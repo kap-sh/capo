@@ -22,9 +22,9 @@ CreateIntegrationDetail: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CreateIntegrationDetail) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"CreateIntegrationDetail: cannot serialize unknown variant {value.name!r}"
+            f"CreateIntegrationDetail: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "gitlabSelfManaged" in value:
         import capo_inspector2.types.create_git_lab_self_managed_integration_detail
@@ -52,15 +52,11 @@ def deserialize_json(data: dict) -> CreateIntegrationDetail:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("CreateIntegrationDetail: no recognized variant key")
 
 
-def redact_sensitive(
-    value: CreateIntegrationDetail,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: CreateIntegrationDetail) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "gitlabSelfManaged" in value:
         import capo_inspector2.types.create_git_lab_self_managed_integration_detail

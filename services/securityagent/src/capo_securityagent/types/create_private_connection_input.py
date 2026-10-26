@@ -50,9 +50,7 @@ def deserialize_json(data: dict) -> CreatePrivateConnectionInput:
             data["mode"]
         )
     else:
-        import capo_securityagent.types._unknown
-
-        out["mode"] = capo_securityagent.types._unknown.UnknownUnionMember("")
+        out["mode"] = {"$unknown": {"name": ""}}
     if data.get("tags") is not None:
         import capo_securityagent.types.tag_map
 

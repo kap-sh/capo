@@ -29,9 +29,9 @@ DisplayConfig: TypeAlias = (
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: DisplayConfig) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"DisplayConfig: cannot serialize unknown variant {value.name!r}"
+            f"DisplayConfig: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "graph" in value:
         import capo_bcm_dashboards.types.graph_display_config_map
@@ -75,5 +75,5 @@ def deserialize_aws_json_1_0(data: dict) -> DisplayConfig:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("DisplayConfig: no recognized variant key")

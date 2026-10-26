@@ -71,9 +71,7 @@ def deserialize_json(data: dict) -> CreateListenerRequest:
             data["defaultAction"]
         )
     else:
-        import capo_vpc_lattice.types._unknown
-
-        out["default_action"] = capo_vpc_lattice.types._unknown.UnknownUnionMember("")
+        out["default_action"] = {"$unknown": {"name": ""}}
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("tags") is not None:

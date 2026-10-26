@@ -56,9 +56,7 @@ def deserialize_json(data: dict) -> ListenerTls:
             )
         )
     else:
-        import capo_app_mesh.types._unknown
-
-        out["certificate"] = capo_app_mesh.types._unknown.UnknownUnionMember("")
+        out["certificate"] = {"$unknown": {"name": ""}}
     if data.get("validation") is not None:
         import capo_app_mesh.types.listener_tls_validation_context
 

@@ -41,9 +41,9 @@ RequestMetadataFilters: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RequestMetadataFilters) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"RequestMetadataFilters: cannot serialize unknown variant {value.name!r}"
+            f"RequestMetadataFilters: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "equals" in value:
         import capo_bedrock.types.request_metadata_map
@@ -119,15 +119,11 @@ def deserialize_json(data: dict) -> RequestMetadataFilters:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("RequestMetadataFilters: no recognized variant key")
 
 
-def redact_sensitive(
-    value: RequestMetadataFilters,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: RequestMetadataFilters) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "equals" in value:
         out["equals"] = "*** Sensitive Data Redacted ***"

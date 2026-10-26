@@ -45,7 +45,5 @@ def deserialize_json(data: dict) -> ReleaseManagementConfiguration:
             )
         )
     else:
-        import capo_devops_agent.types._unknown
-
-        out["network_access"] = capo_devops_agent.types._unknown.UnknownUnionMember("")
+        out["network_access"] = {"$unknown": {"name": ""}}
     return out

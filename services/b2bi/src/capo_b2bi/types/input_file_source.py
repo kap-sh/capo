@@ -17,9 +17,9 @@ InputFileSource: TypeAlias = _InputFileSource_fileContent | UnknownUnionMember
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: InputFileSource) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"InputFileSource: cannot serialize unknown variant {value.name!r}"
+            f"InputFileSource: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "fileContent" in value:
         return {"fileContent": value["fileContent"]}
@@ -35,5 +35,5 @@ def deserialize_aws_json_1_0(data: dict) -> InputFileSource:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("InputFileSource: no recognized variant key")

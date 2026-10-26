@@ -59,9 +59,9 @@ RealtimeContactAnalysisSegment: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RealtimeContactAnalysisSegment) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"RealtimeContactAnalysisSegment: cannot serialize unknown variant {value.name!r}"
+            f"RealtimeContactAnalysisSegment: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "Transcript" in value:
         import capo_connect.types.real_time_contact_analysis_segment_transcript
@@ -185,7 +185,7 @@ def deserialize_json(data: dict) -> RealtimeContactAnalysisSegment:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "RealtimeContactAnalysisSegment: no recognized variant key"
         )

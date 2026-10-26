@@ -58,9 +58,7 @@ def deserialize_json(data: dict) -> GetEntitlementResponse:
             )
         )
     else:
-        import capo_account_access.types._unknown
-
-        out["entitlement"] = capo_account_access.types._unknown.UnknownUnionMember("")
+        out["entitlement"] = {"$unknown": {"name": ""}}
     if data.get("createdAt") is not None:
         import capo_account_access.types.date_time
 

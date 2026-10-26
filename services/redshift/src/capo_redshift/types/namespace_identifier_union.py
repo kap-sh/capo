@@ -36,9 +36,9 @@ NamespaceIdentifierUnion: TypeAlias = (
 def serialize_query(
     value: NamespaceIdentifierUnion, pairs: list[tuple[str, str]], prefix: str
 ) -> None:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"NamespaceIdentifierUnion: cannot serialize unknown variant {value.name!r}"
+            f"NamespaceIdentifierUnion: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "ServerlessIdentifier" in value:
         import capo_redshift.types.serverless_identifier
@@ -75,7 +75,7 @@ def deserialize_query(el: Element) -> NamespaceIdentifierUnion:
                 )
             }
         else:
-            return UnknownUnionMember(child.tag)
+            return {"$unknown": {"name": child.tag}}
     raise DeserializationError(
         "NamespaceIdentifierUnion: no recognized variant element"
     )

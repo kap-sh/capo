@@ -100,11 +100,7 @@ def deserialize_json(data: dict) -> ProcessPaymentRequest:
             )
         )
     else:
-        import capo_bedrock_agentcore.types._unknown
-
-        out["payment_input"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["payment_input"] = {"$unknown": {"name": ""}}
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

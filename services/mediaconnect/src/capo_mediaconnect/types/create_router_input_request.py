@@ -126,9 +126,7 @@ def deserialize_json(data: dict) -> CreateRouterInputRequest:
             )
         )
     else:
-        import capo_mediaconnect.types._unknown
-
-        out["configuration"] = capo_mediaconnect.types._unknown.UnknownUnionMember("")
+        out["configuration"] = {"$unknown": {"name": ""}}
     if data.get("maximumBitrate") is not None:
         out["maximum_bitrate"] = data["maximumBitrate"]
     else:

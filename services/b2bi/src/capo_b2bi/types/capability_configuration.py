@@ -20,9 +20,9 @@ CapabilityConfiguration: TypeAlias = _CapabilityConfiguration_edi | UnknownUnion
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: CapabilityConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"CapabilityConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"CapabilityConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "edi" in value:
         import capo_b2bi.types.edi_configuration
@@ -50,5 +50,5 @@ def deserialize_aws_json_1_0(data: dict) -> CapabilityConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("CapabilityConfiguration: no recognized variant key")

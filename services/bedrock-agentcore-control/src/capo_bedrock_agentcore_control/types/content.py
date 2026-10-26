@@ -23,9 +23,9 @@ Content: TypeAlias = _Content_rawText | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Content) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"Content: cannot serialize unknown variant {value.name!r}"
+            f"Content: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "rawText" in value:
         return {"rawText": value["rawText"]}
@@ -41,5 +41,5 @@ def deserialize_json(data: dict) -> Content:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("Content: no recognized variant key")

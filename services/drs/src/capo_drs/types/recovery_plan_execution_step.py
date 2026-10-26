@@ -86,9 +86,7 @@ def deserialize_json(data: dict) -> RecoveryPlanExecutionStep:
             )
         )
     else:
-        import capo_drs.types._unknown
-
-        out["configuration"] = capo_drs.types._unknown.UnknownUnionMember("")
+        out["configuration"] = {"$unknown": {"name": ""}}
     if data.get("errorDetail") is not None:
         import capo_drs.types.error_detail
 

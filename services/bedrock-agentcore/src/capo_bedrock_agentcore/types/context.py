@@ -20,9 +20,9 @@ Context: TypeAlias = _Context_spanContext | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Context) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"Context: cannot serialize unknown variant {value.name!r}"
+            f"Context: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "spanContext" in value:
         import capo_bedrock_agentcore.types.span_context
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> Context:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("Context: no recognized variant key")

@@ -52,9 +52,9 @@ Field: TypeAlias = (
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: Field) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"Field: cannot serialize unknown variant {value.name!r}"
+            f"Field: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "isNull" in value:
         return {"isNull": value["isNull"]}
@@ -112,5 +112,5 @@ def deserialize_aws_json_1_1(data: dict) -> Field:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("Field: no recognized variant key")

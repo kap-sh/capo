@@ -79,11 +79,7 @@ def deserialize_json(data: dict) -> CreateOauth2CredentialProviderRequest:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["oauth2_provider_config_input"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["oauth2_provider_config_input"] = {"$unknown": {"name": ""}}
     if data.get("tags") is not None:
         import capo_bedrock_agentcore_control.types.tags_map
 

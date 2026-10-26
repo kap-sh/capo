@@ -27,9 +27,9 @@ VideoSegmentConfiguration: TypeAlias = (
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: VideoSegmentConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"VideoSegmentConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"VideoSegmentConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "timestampSegment" in value:
         import capo_bedrock_data_automation_runtime.types.timestamp_segment
@@ -57,7 +57,7 @@ def deserialize_aws_json_1_1(data: dict) -> VideoSegmentConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "VideoSegmentConfiguration: no recognized variant key"
         )

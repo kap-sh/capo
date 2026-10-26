@@ -100,11 +100,7 @@ def deserialize_json(data: dict) -> IngestionDestination:
             )
         )
     else:
-        import capo_appfabric.types._unknown
-
-        out["processing_configuration"] = (
-            capo_appfabric.types._unknown.UnknownUnionMember("")
-        )
+        out["processing_configuration"] = {"$unknown": {"name": ""}}
     if data.get("destinationConfiguration") is not None:
         import capo_appfabric.types.destination_configuration
 
@@ -114,11 +110,7 @@ def deserialize_json(data: dict) -> IngestionDestination:
             )
         )
     else:
-        import capo_appfabric.types._unknown
-
-        out["destination_configuration"] = (
-            capo_appfabric.types._unknown.UnknownUnionMember("")
-        )
+        out["destination_configuration"] = {"$unknown": {"name": ""}}
     if data.get("status") is not None:
         import capo_appfabric.types.ingestion_destination_status
 

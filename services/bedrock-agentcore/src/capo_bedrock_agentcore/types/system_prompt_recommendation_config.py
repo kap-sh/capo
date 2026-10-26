@@ -62,11 +62,7 @@ def deserialize_json(data: dict) -> SystemPromptRecommendationConfig:
             )
         )
     else:
-        import capo_bedrock_agentcore.types._unknown
-
-        out["system_prompt"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["system_prompt"] = {"$unknown": {"name": ""}}
     if data.get("agentTraces") is not None:
         import capo_bedrock_agentcore.types.agent_traces_config
 
@@ -76,11 +72,7 @@ def deserialize_json(data: dict) -> SystemPromptRecommendationConfig:
             )
         )
     else:
-        import capo_bedrock_agentcore.types._unknown
-
-        out["agent_traces"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["agent_traces"] = {"$unknown": {"name": ""}}
     if data.get("evaluationConfig") is not None:
         import capo_bedrock_agentcore.types.recommendation_evaluation_config
 

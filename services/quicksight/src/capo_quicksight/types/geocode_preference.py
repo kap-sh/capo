@@ -53,7 +53,5 @@ def deserialize_json(data: dict) -> GeocodePreference:
             )
         )
     else:
-        import capo_quicksight.types._unknown
-
-        out["preference"] = capo_quicksight.types._unknown.UnknownUnionMember("")
+        out["preference"] = {"$unknown": {"name": ""}}
     return out

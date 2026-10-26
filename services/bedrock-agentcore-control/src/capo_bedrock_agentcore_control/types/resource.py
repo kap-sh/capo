@@ -23,9 +23,9 @@ Resource: TypeAlias = _Resource_arn | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Resource) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"Resource: cannot serialize unknown variant {value.name!r}"
+            f"Resource: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "arn" in value:
         return {"arn": value["arn"]}
@@ -41,5 +41,5 @@ def deserialize_json(data: dict) -> Resource:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("Resource: no recognized variant key")

@@ -20,9 +20,9 @@ TargetDefinition: TypeAlias = _TargetDefinition_kinesis | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: TargetDefinition) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"TargetDefinition: cannot serialize unknown variant {value.name!r}"
+            f"TargetDefinition: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "kinesis" in value:
         import capo_dsql.types.kinesis_target_definition
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> TargetDefinition:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("TargetDefinition: no recognized variant key")

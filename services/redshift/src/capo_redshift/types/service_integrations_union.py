@@ -40,9 +40,9 @@ ServiceIntegrationsUnion: TypeAlias = (
 def serialize_query(
     value: ServiceIntegrationsUnion, pairs: list[tuple[str, str]], prefix: str
 ) -> None:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ServiceIntegrationsUnion: cannot serialize unknown variant {value.name!r}"
+            f"ServiceIntegrationsUnion: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "LakeFormation" in value:
         import capo_redshift.types.lake_formation_service_integrations
@@ -93,7 +93,7 @@ def deserialize_query(el: Element) -> ServiceIntegrationsUnion:
                 )
             }
         else:
-            return UnknownUnionMember(child.tag)
+            return {"$unknown": {"name": child.tag}}
     raise DeserializationError(
         "ServiceIntegrationsUnion: no recognized variant element"
     )

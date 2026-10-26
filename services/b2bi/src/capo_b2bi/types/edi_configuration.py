@@ -71,9 +71,7 @@ def deserialize_aws_json_1_0(data: dict) -> EdiConfiguration:
 
         out["type"] = capo_b2bi.types.edi_type.deserialize_aws_json_1_0(data["type"])
     else:
-        import capo_b2bi.types._unknown
-
-        out["type"] = capo_b2bi.types._unknown.UnknownUnionMember("")
+        out["type"] = {"$unknown": {"name": ""}}
     if data.get("inputLocation") is not None:
         import capo_b2bi.types.s3_location
 

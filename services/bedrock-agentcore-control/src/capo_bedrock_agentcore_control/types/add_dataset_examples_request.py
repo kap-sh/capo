@@ -49,11 +49,7 @@ def deserialize_json(data: dict) -> AddDatasetExamplesRequest:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["source"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["source"] = {"$unknown": {"name": ""}}
     return out
 
 

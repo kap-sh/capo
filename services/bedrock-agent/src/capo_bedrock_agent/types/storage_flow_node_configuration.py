@@ -37,9 +37,5 @@ def deserialize_json(data: dict) -> StorageFlowNodeConfiguration:
             )
         )
     else:
-        import capo_bedrock_agent.types._unknown
-
-        out["service_configuration"] = (
-            capo_bedrock_agent.types._unknown.UnknownUnionMember("")
-        )
+        out["service_configuration"] = {"$unknown": {"name": ""}}
     return out

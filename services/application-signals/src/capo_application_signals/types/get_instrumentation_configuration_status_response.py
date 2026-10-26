@@ -97,9 +97,7 @@ def deserialize_json(data: dict) -> GetInstrumentationConfigurationStatusRespons
             data["Location"]
         )
     else:
-        import capo_application_signals.types._unknown
-
-        out["location"] = capo_application_signals.types._unknown.UnknownUnionMember("")
+        out["location"] = {"$unknown": {"name": ""}}
     if data.get("Status") is not None:
         import capo_application_signals.types.instrumentation_configuration_status
 

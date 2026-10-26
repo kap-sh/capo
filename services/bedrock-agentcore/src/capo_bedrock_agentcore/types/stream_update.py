@@ -22,9 +22,9 @@ StreamUpdate: TypeAlias = _StreamUpdate_automationStreamUpdate | UnknownUnionMem
 
 # --- restJson1 ser/de ---
 def serialize_json(value: StreamUpdate) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"StreamUpdate: cannot serialize unknown variant {value.name!r}"
+            f"StreamUpdate: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "automationStreamUpdate" in value:
         import capo_bedrock_agentcore.types.automation_stream_update
@@ -52,5 +52,5 @@ def deserialize_json(data: dict) -> StreamUpdate:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("StreamUpdate: no recognized variant key")

@@ -106,9 +106,7 @@ def deserialize_json(data: dict) -> MarketplaceModelEndpoint:
             data["endpointConfig"]
         )
     else:
-        import capo_bedrock.types._unknown
-
-        out["endpoint_config"] = capo_bedrock.types._unknown.UnknownUnionMember("")
+        out["endpoint_config"] = {"$unknown": {"name": ""}}
     if data.get("endpointStatus") is not None:
         out["endpoint_status"] = data["endpointStatus"]
     else:

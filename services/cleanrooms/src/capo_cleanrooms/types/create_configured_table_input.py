@@ -84,9 +84,7 @@ def deserialize_json(data: dict) -> CreateConfiguredTableInput:
             data["tableReference"]
         )
     else:
-        import capo_cleanrooms.types._unknown
-
-        out["table_reference"] = capo_cleanrooms.types._unknown.UnknownUnionMember("")
+        out["table_reference"] = {"$unknown": {"name": ""}}
     if data.get("allowedColumns") is not None:
         import capo_cleanrooms.types.allowed_column_list
 

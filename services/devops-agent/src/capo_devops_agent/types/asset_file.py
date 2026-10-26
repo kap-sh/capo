@@ -64,9 +64,7 @@ def deserialize_json(data: dict) -> AssetFile:
             data["content"]
         )
     else:
-        import capo_devops_agent.types._unknown
-
-        out["content"] = capo_devops_agent.types._unknown.UnknownUnionMember("")
+        out["content"] = {"$unknown": {"name": ""}}
     if data.get("metadata") is not None:
         out["metadata"] = data["metadata"]
     if data.get("version") is not None:

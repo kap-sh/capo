@@ -34,9 +34,9 @@ PortSpecification: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PortSpecification) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"PortSpecification: cannot serialize unknown variant {value.name!r}"
+            f"PortSpecification: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "port" in value:
         return {"port": value["port"]}
@@ -72,5 +72,5 @@ def deserialize_json(data: dict) -> PortSpecification:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("PortSpecification: no recognized variant key")

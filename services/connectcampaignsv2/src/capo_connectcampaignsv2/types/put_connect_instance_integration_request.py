@@ -40,9 +40,5 @@ def deserialize_json(data: dict) -> PutConnectInstanceIntegrationRequest:
             )
         )
     else:
-        import capo_connectcampaignsv2.types._unknown
-
-        out["integration_config"] = (
-            capo_connectcampaignsv2.types._unknown.UnknownUnionMember("")
-        )
+        out["integration_config"] = {"$unknown": {"name": ""}}
     return out

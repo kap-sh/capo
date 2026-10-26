@@ -33,9 +33,5 @@ def deserialize_json(data: dict) -> PropertyFilter:
             data["Property"]
         )
     else:
-        import capo_sagemaker_geospatial.types._unknown
-
-        out["property"] = capo_sagemaker_geospatial.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["property"] = {"$unknown": {"name": ""}}
     return out

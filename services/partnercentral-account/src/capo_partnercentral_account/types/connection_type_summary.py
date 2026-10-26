@@ -64,9 +64,5 @@ def deserialize_aws_json_1_0(data: dict) -> ConnectionTypeSummary:
             )
         )
     else:
-        import capo_partnercentral_account.types._unknown
-
-        out["other_participant"] = (
-            capo_partnercentral_account.types._unknown.UnknownUnionMember("")
-        )
+        out["other_participant"] = {"$unknown": {"name": ""}}
     return out

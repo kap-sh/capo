@@ -37,9 +37,9 @@ ContentBlockStart: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ContentBlockStart) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ContentBlockStart: cannot serialize unknown variant {value.name!r}"
+            f"ContentBlockStart: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "toolUse" in value:
         import capo_bedrock_runtime.types.tool_use_block_start
@@ -99,5 +99,5 @@ def deserialize_json(data: dict) -> ContentBlockStart:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ContentBlockStart: no recognized variant key")

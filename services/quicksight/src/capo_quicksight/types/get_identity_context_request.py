@@ -58,9 +58,7 @@ def deserialize_json(data: dict) -> GetIdentityContextRequest:
             data["UserIdentifier"]
         )
     else:
-        import capo_quicksight.types._unknown
-
-        out["user_identifier"] = capo_quicksight.types._unknown.UnknownUnionMember("")
+        out["user_identifier"] = {"$unknown": {"name": ""}}
     if data.get("Namespace") is not None:
         out["namespace"] = data["Namespace"]
     if data.get("SessionExpiresAt") is not None:

@@ -37,9 +37,9 @@ QueryInputData: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: QueryInputData) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"QueryInputData: cannot serialize unknown variant {value.name!r}"
+            f"QueryInputData: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "queryTextInputData" in value:
         import capo_qconnect.types.query_text_input_data
@@ -99,13 +99,11 @@ def deserialize_json(data: dict) -> QueryInputData:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("QueryInputData: no recognized variant key")
 
 
-def redact_sensitive(value: QueryInputData) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: QueryInputData) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "queryTextInputData" in value:
         import capo_qconnect.types.query_text_input_data

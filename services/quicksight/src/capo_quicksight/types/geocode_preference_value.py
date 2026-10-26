@@ -29,9 +29,9 @@ GeocodePreferenceValue: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: GeocodePreferenceValue) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"GeocodePreferenceValue: cannot serialize unknown variant {value.name!r}"
+            f"GeocodePreferenceValue: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "GeocoderHierarchy" in value:
         import capo_quicksight.types.geocoder_hierarchy
@@ -75,5 +75,5 @@ def deserialize_json(data: dict) -> GeocodePreferenceValue:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("GeocodePreferenceValue: no recognized variant key")

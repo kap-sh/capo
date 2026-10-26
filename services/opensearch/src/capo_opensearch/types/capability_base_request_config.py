@@ -22,9 +22,9 @@ CapabilityBaseRequestConfig: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CapabilityBaseRequestConfig) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"CapabilityBaseRequestConfig: cannot serialize unknown variant {value.name!r}"
+            f"CapabilityBaseRequestConfig: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "aiConfig" in value:
         import capo_opensearch.types.ai_config
@@ -52,7 +52,7 @@ def deserialize_json(data: dict) -> CapabilityBaseRequestConfig:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "CapabilityBaseRequestConfig: no recognized variant key"
         )

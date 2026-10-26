@@ -32,9 +32,9 @@ EvaluationWindow: TypeAlias = (
 def serialize_query(
     value: EvaluationWindow, pairs: list[tuple[str, str]], prefix: str
 ) -> None:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"EvaluationWindow: cannot serialize unknown variant {value.name!r}"
+            f"EvaluationWindow: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "WallClockWindow" in value:
         import capo_cloudwatch.types.wall_clock_window
@@ -71,15 +71,15 @@ def deserialize_query(el: Element) -> EvaluationWindow:
                 )
             }
         else:
-            return UnknownUnionMember(child.tag)
+            return {"$unknown": {"name": child.tag}}
     raise DeserializationError("EvaluationWindow: no recognized variant element")
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: EvaluationWindow) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"EvaluationWindow: cannot serialize unknown variant {value.name!r}"
+            f"EvaluationWindow: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "WallClockWindow" in value:
         import capo_cloudwatch.types.wall_clock_window
@@ -123,5 +123,5 @@ def deserialize_aws_json_1_0(data: dict) -> EvaluationWindow:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("EvaluationWindow: no recognized variant key")

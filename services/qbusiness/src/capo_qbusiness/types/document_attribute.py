@@ -41,7 +41,5 @@ def deserialize_json(data: dict) -> DocumentAttribute:
             data["value"]
         )
     else:
-        import capo_qbusiness.types._unknown
-
-        out["value"] = capo_qbusiness.types._unknown.UnknownUnionMember("")
+        out["value"] = {"$unknown": {"name": ""}}
     return out

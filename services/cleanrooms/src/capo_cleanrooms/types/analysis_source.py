@@ -29,9 +29,9 @@ AnalysisSource: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AnalysisSource) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AnalysisSource: cannot serialize unknown variant {value.name!r}"
+            f"AnalysisSource: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "text" in value:
         return {"text": value["text"]}
@@ -63,13 +63,11 @@ def deserialize_json(data: dict) -> AnalysisSource:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("AnalysisSource: no recognized variant key")
 
 
-def redact_sensitive(value: AnalysisSource) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: AnalysisSource) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "text" in value:
         out["text"] = "*** Sensitive Data Redacted ***"

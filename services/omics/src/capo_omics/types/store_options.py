@@ -20,9 +20,9 @@ StoreOptions: TypeAlias = _StoreOptions_tsvStoreOptions | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: StoreOptions) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"StoreOptions: cannot serialize unknown variant {value.name!r}"
+            f"StoreOptions: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "tsvStoreOptions" in value:
         import capo_omics.types.tsv_store_options
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> StoreOptions:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("StoreOptions: no recognized variant key")

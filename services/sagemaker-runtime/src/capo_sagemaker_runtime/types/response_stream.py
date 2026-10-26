@@ -44,11 +44,9 @@ ResponseStream: TypeAlias = AnyIterator[_ResponseStream]
 
 
 def serialize_event_json(value: _ResponseStream) -> bytes:
-    if isinstance(value, UnknownEvent):
-        raise ValueError(
-            f"ResponseStream: cannot serialize unknown event {value.event_type!r}"
-        )
     match value:
+        case {"$unknown": {"name": name}}:
+            raise ValueError(f"ResponseStream: cannot serialize unknown event {name!r}")
         case {"PayloadPart": payload}:
             import capo_sagemaker_runtime.types.payload_part
 
@@ -121,6 +119,6 @@ def deserialize_event_json(
                 )
             }
         case str():
-            return UnknownEvent(event_type, message)
+            return {"$unknown": {"name": event_type, "message": message}}
         case _:
             raise ValueError(f"ResponseStream: unrecognized event-type {event_type!r}")

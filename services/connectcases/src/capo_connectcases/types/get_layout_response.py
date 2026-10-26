@@ -90,9 +90,7 @@ def deserialize_json(data: dict) -> GetLayoutResponse:
             data["content"]
         )
     else:
-        import capo_connectcases.types._unknown
-
-        out["content"] = capo_connectcases.types._unknown.UnknownUnionMember("")
+        out["content"] = {"$unknown": {"name": ""}}
     if data.get("tags") is not None:
         import capo_connectcases.types.tags
 

@@ -27,9 +27,9 @@ ScheduleSpec: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ScheduleSpec) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ScheduleSpec: cannot serialize unknown variant {value.name!r}"
+            f"ScheduleSpec: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "cron" in value:
         import capo_devops_agent.types.cron_schedule
@@ -69,5 +69,5 @@ def deserialize_json(data: dict) -> ScheduleSpec:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ScheduleSpec: no recognized variant key")

@@ -34,9 +34,9 @@ PrivateEndpoint: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PrivateEndpoint) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"PrivateEndpoint: cannot serialize unknown variant {value.name!r}"
+            f"PrivateEndpoint: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "selfManagedLatticeResource" in value:
         import capo_bedrock_agentcore_control.types.self_managed_lattice_resource
@@ -80,5 +80,5 @@ def deserialize_json(data: dict) -> PrivateEndpoint:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("PrivateEndpoint: no recognized variant key")

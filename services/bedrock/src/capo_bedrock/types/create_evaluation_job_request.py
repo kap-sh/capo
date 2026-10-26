@@ -128,9 +128,7 @@ def deserialize_json(data: dict) -> CreateEvaluationJobRequest:
             )
         )
     else:
-        import capo_bedrock.types._unknown
-
-        out["evaluation_config"] = capo_bedrock.types._unknown.UnknownUnionMember("")
+        out["evaluation_config"] = {"$unknown": {"name": ""}}
     if data.get("inferenceConfig") is not None:
         import capo_bedrock.types.evaluation_inference_config
 
@@ -140,9 +138,7 @@ def deserialize_json(data: dict) -> CreateEvaluationJobRequest:
             )
         )
     else:
-        import capo_bedrock.types._unknown
-
-        out["inference_config"] = capo_bedrock.types._unknown.UnknownUnionMember("")
+        out["inference_config"] = {"$unknown": {"name": ""}}
     if data.get("outputDataConfig") is not None:
         import capo_bedrock.types.evaluation_output_data_config
 

@@ -145,9 +145,7 @@ def deserialize_aws_json_1_1(data: dict) -> ImportCustomWorkspaceImageRequest:
             )
         )
     else:
-        import capo_workspaces.types._unknown
-
-        out["image_source"] = capo_workspaces.types._unknown.UnknownUnionMember("")
+        out["image_source"] = {"$unknown": {"name": ""}}
     if data.get("InfrastructureConfigurationArn") is not None:
         out["infrastructure_configuration_arn"] = data["InfrastructureConfigurationArn"]
     else:

@@ -43,9 +43,9 @@ MetricsFilter: TypeAlias = (
 # --- restXml ser/de ---
 def serialize_xml(value: MetricsFilter, parent: Element, tag: str) -> None:
     el = SubElement(parent, tag)
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"MetricsFilter: cannot serialize unknown variant {value.name!r}"
+            f"MetricsFilter: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "Prefix" in value:
         SubElement(el, "Prefix").text = str(value["Prefix"])
@@ -78,5 +78,5 @@ def deserialize_xml(el: Element) -> MetricsFilter:
 
             return {"And": capo_s3.types.metrics_and_operator.deserialize_xml(child)}
         else:
-            return UnknownUnionMember(child.tag)
+            return {"$unknown": {"name": child.tag}}
     raise DeserializationError("MetricsFilter: no recognized variant element")

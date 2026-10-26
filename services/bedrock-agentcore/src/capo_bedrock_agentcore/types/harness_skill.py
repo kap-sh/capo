@@ -41,9 +41,9 @@ HarnessSkill: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: HarnessSkill) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"HarnessSkill: cannot serialize unknown variant {value.name!r}"
+            f"HarnessSkill: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "path" in value:
         return {"path": value["path"]}
@@ -107,5 +107,5 @@ def deserialize_json(data: dict) -> HarnessSkill:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("HarnessSkill: no recognized variant key")

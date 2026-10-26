@@ -50,9 +50,7 @@ def deserialize_json(data: dict) -> CreateEnvironmentActionInput:
             data["parameters"]
         )
     else:
-        import capo_datazone.types._unknown
-
-        out["parameters"] = capo_datazone.types._unknown.UnknownUnionMember("")
+        out["parameters"] = {"$unknown": {"name": ""}}
     if data.get("description") is not None:
         out["description"] = data["description"]
     return out

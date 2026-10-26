@@ -23,9 +23,9 @@ AuthorizationData: TypeAlias = _AuthorizationData_oauth2 | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AuthorizationData) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AuthorizationData: cannot serialize unknown variant {value.name!r}"
+            f"AuthorizationData: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "oauth2" in value:
         import capo_bedrock_agentcore_control.types.o_auth2_authorization_data
@@ -53,5 +53,5 @@ def deserialize_json(data: dict) -> AuthorizationData:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("AuthorizationData: no recognized variant key")

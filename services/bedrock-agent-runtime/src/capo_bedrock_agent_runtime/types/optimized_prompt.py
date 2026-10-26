@@ -20,9 +20,9 @@ OptimizedPrompt: TypeAlias = _OptimizedPrompt_textPrompt | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: OptimizedPrompt) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"OptimizedPrompt: cannot serialize unknown variant {value.name!r}"
+            f"OptimizedPrompt: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "textPrompt" in value:
         import capo_bedrock_agent_runtime.types.text_prompt
@@ -50,13 +50,11 @@ def deserialize_json(data: dict) -> OptimizedPrompt:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("OptimizedPrompt: no recognized variant key")
 
 
-def redact_sensitive(value: OptimizedPrompt) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: OptimizedPrompt) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "textPrompt" in value:
         out["textPrompt"] = "*** Sensitive Data Redacted ***"

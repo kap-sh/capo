@@ -76,9 +76,9 @@ Oauth2ProviderConfigOutput: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Oauth2ProviderConfigOutput) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"Oauth2ProviderConfigOutput: cannot serialize unknown variant {value.name!r}"
+            f"Oauth2ProviderConfigOutput: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "customOauth2ProviderConfig" in value:
         import capo_bedrock_agentcore_control.types.custom_oauth2_provider_config_output
@@ -234,17 +234,13 @@ def deserialize_json(data: dict) -> Oauth2ProviderConfigOutput:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "Oauth2ProviderConfigOutput: no recognized variant key"
         )
 
 
-def redact_sensitive(
-    value: Oauth2ProviderConfigOutput,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: Oauth2ProviderConfigOutput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "customOauth2ProviderConfig" in value:
         import capo_bedrock_agentcore_control.types.custom_oauth2_provider_config_output

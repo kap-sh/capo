@@ -22,9 +22,9 @@ ProtectedJobOutputConfigurationInput: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ProtectedJobOutputConfigurationInput) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ProtectedJobOutputConfigurationInput: cannot serialize unknown variant {value.name!r}"
+            f"ProtectedJobOutputConfigurationInput: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "member" in value:
         import capo_cleanrooms.types.protected_job_member_output_configuration_input
@@ -54,7 +54,7 @@ def deserialize_json(data: dict) -> ProtectedJobOutputConfigurationInput:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "ProtectedJobOutputConfigurationInput: no recognized variant key"
         )

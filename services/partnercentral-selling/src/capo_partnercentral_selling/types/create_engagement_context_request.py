@@ -85,11 +85,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateEngagementContextRequest:
             )
         )
     else:
-        import capo_partnercentral_selling.types._unknown
-
-        out["payload"] = capo_partnercentral_selling.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["payload"] = {"$unknown": {"name": ""}}
     return out
 
 

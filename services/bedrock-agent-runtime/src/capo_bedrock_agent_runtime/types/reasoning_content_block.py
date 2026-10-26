@@ -30,9 +30,9 @@ ReasoningContentBlock: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ReasoningContentBlock) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ReasoningContentBlock: cannot serialize unknown variant {value.name!r}"
+            f"ReasoningContentBlock: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "reasoningText" in value:
         import capo_bedrock_agent_runtime.types.reasoning_text_block
@@ -76,5 +76,5 @@ def deserialize_json(data: dict) -> ReasoningContentBlock:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ReasoningContentBlock: no recognized variant key")

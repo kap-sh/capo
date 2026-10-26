@@ -47,11 +47,7 @@ def deserialize_json(data: dict) -> CreateEnrichmentJobRequest:
             )
         )
     else:
-        import capo_iotsitewise.types._unknown
-
-        out["job_configuration"] = capo_iotsitewise.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["job_configuration"] = {"$unknown": {"name": ""}}
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

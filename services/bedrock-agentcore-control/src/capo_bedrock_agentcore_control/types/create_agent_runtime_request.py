@@ -184,11 +184,7 @@ def deserialize_json(data: dict) -> CreateAgentRuntimeRequest:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["agent_runtime_artifact"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["agent_runtime_artifact"] = {"$unknown": {"name": ""}}
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:

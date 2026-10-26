@@ -42,9 +42,9 @@ HarnessHookTarget: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: HarnessHookTarget) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"HarnessHookTarget: cannot serialize unknown variant {value.name!r}"
+            f"HarnessHookTarget: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "lambda" in value:
         import capo_bedrock_agentcore_control.types.harness_hook_lambda_target
@@ -104,5 +104,5 @@ def deserialize_json(data: dict) -> HarnessHookTarget:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("HarnessHookTarget: no recognized variant key")

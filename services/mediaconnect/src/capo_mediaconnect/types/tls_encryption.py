@@ -58,9 +58,5 @@ def deserialize_json(data: dict) -> TlsEncryption:
             )
         )
     else:
-        import capo_mediaconnect.types._unknown
-
-        out["encryption_configuration"] = (
-            capo_mediaconnect.types._unknown.UnknownUnionMember("")
-        )
+        out["encryption_configuration"] = {"$unknown": {"name": ""}}
     return out

@@ -35,9 +35,9 @@ SchemaTypeProperties: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SchemaTypeProperties) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"SchemaTypeProperties: cannot serialize unknown variant {value.name!r}"
+            f"SchemaTypeProperties: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "idMappingTable" in value:
         import capo_cleanrooms.types.id_mapping_table_schema_type_properties
@@ -97,5 +97,5 @@ def deserialize_json(data: dict) -> SchemaTypeProperties:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("SchemaTypeProperties: no recognized variant key")

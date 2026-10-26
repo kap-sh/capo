@@ -51,9 +51,7 @@ def deserialize_json(data: dict) -> UpdatePipeSourceActiveMQBrokerParameters:
             )
         )
     else:
-        import capo_pipes.types._unknown
-
-        out["credentials"] = capo_pipes.types._unknown.UnknownUnionMember("")
+        out["credentials"] = {"$unknown": {"name": ""}}
     if data.get("BatchSize") is not None:
         out["batch_size"] = data["BatchSize"]
     if data.get("MaximumBatchingWindowInSeconds") is not None:

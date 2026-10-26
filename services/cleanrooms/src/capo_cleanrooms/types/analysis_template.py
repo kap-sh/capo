@@ -240,9 +240,7 @@ def deserialize_json(data: dict) -> AnalysisTemplate:
             data["source"]
         )
     else:
-        import capo_cleanrooms.types._unknown
-
-        out["source"] = capo_cleanrooms.types._unknown.UnknownUnionMember("")
+        out["source"] = {"$unknown": {"name": ""}}
     if data.get("sourceMetadata") is not None:
         import capo_cleanrooms.types.analysis_source_metadata
 

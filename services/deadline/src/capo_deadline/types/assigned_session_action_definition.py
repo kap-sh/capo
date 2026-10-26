@@ -41,9 +41,9 @@ AssignedSessionActionDefinition: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AssignedSessionActionDefinition) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AssignedSessionActionDefinition: cannot serialize unknown variant {value.name!r}"
+            f"AssignedSessionActionDefinition: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "envEnter" in value:
         import capo_deadline.types.assigned_environment_enter_session_action_definition
@@ -119,17 +119,13 @@ def deserialize_json(data: dict) -> AssignedSessionActionDefinition:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "AssignedSessionActionDefinition: no recognized variant key"
         )
 
 
-def redact_sensitive(
-    value: AssignedSessionActionDefinition,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: AssignedSessionActionDefinition) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "taskRun" in value:
         import capo_deadline.types.assigned_task_run_session_action_definition

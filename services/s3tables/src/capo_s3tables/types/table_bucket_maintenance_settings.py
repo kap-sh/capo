@@ -24,9 +24,9 @@ TableBucketMaintenanceSettings: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: TableBucketMaintenanceSettings) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"TableBucketMaintenanceSettings: cannot serialize unknown variant {value.name!r}"
+            f"TableBucketMaintenanceSettings: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "icebergUnreferencedFileRemoval" in value:
         import capo_s3tables.types.iceberg_unreferenced_file_removal_settings
@@ -54,7 +54,7 @@ def deserialize_json(data: dict) -> TableBucketMaintenanceSettings:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "TableBucketMaintenanceSettings: no recognized variant key"
         )

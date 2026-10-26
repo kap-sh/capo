@@ -20,9 +20,9 @@ CodegenJobRenderConfig: TypeAlias = _CodegenJobRenderConfig_react | UnknownUnion
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CodegenJobRenderConfig) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"CodegenJobRenderConfig: cannot serialize unknown variant {value.name!r}"
+            f"CodegenJobRenderConfig: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "react" in value:
         import capo_amplifyuibuilder.types.react_start_codegen_job_data
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> CodegenJobRenderConfig:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("CodegenJobRenderConfig: no recognized variant key")

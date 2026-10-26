@@ -56,11 +56,11 @@ ChatOutputStream: TypeAlias = AnyIterator[_ChatOutputStream]
 
 
 def serialize_event_json(value: _ChatOutputStream) -> bytes:
-    if isinstance(value, UnknownEvent):
-        raise ValueError(
-            f"ChatOutputStream: cannot serialize unknown event {value.event_type!r}"
-        )
     match value:
+        case {"$unknown": {"name": name}}:
+            raise ValueError(
+                f"ChatOutputStream: cannot serialize unknown event {name!r}"
+            )
         case {"textEvent": payload}:
             import capo_qbusiness.types.text_output_event
 
@@ -154,7 +154,7 @@ def deserialize_event_json(
                 )
             }
         case str():
-            return UnknownEvent(event_type, message)
+            return {"$unknown": {"name": event_type, "message": message}}
         case _:
             raise ValueError(
                 f"ChatOutputStream: unrecognized event-type {event_type!r}"

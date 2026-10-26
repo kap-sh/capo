@@ -20,9 +20,9 @@ Rule: TypeAlias = _Rule_telemetryRule | UnknownUnionMember
 
 # --- rpcv2Cbor ser/de ---
 def serialize_cbor(value: Rule) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"Rule: cannot serialize unknown variant {value.name!r}"
+            f"Rule: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "telemetryRule" in value:
         import capo_cloudwatchomni.types.telemetry_rule
@@ -50,5 +50,5 @@ def deserialize_cbor(data: dict) -> Rule:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("Rule: no recognized variant key")

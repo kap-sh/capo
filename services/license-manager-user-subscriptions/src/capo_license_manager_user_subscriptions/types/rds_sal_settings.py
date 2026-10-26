@@ -37,11 +37,5 @@ def deserialize_json(data: dict) -> RdsSalSettings:
             )
         )
     else:
-        import capo_license_manager_user_subscriptions.types._unknown
-
-        out["rds_sal_credentials_provider"] = (
-            capo_license_manager_user_subscriptions.types._unknown.UnknownUnionMember(
-                ""
-            )
-        )
+        out["rds_sal_credentials_provider"] = {"$unknown": {"name": ""}}
     return out

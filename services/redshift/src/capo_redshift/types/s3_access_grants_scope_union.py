@@ -25,9 +25,9 @@ S3AccessGrantsScopeUnion: TypeAlias = (
 def serialize_query(
     value: S3AccessGrantsScopeUnion, pairs: list[tuple[str, str]], prefix: str
 ) -> None:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"S3AccessGrantsScopeUnion: cannot serialize unknown variant {value.name!r}"
+            f"S3AccessGrantsScopeUnion: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "ReadWriteAccess" in value:
         import capo_redshift.types.read_write_access
@@ -50,7 +50,7 @@ def deserialize_query(el: Element) -> S3AccessGrantsScopeUnion:
                 )
             }
         else:
-            return UnknownUnionMember(child.tag)
+            return {"$unknown": {"name": child.tag}}
     raise DeserializationError(
         "S3AccessGrantsScopeUnion: no recognized variant element"
     )

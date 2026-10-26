@@ -63,11 +63,7 @@ def deserialize_json(data: dict) -> StartSearchResultExportJobInput:
             )
         )
     else:
-        import capo_backupsearch.types._unknown
-
-        out["export_specification"] = (
-            capo_backupsearch.types._unknown.UnknownUnionMember("")
-        )
+        out["export_specification"] = {"$unknown": {"name": ""}}
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("Tags") is not None:

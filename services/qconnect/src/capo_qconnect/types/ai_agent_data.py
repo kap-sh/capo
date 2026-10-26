@@ -117,9 +117,7 @@ def deserialize_json(data: dict) -> AIAgentData:
             )
         )
     else:
-        import capo_qconnect.types._unknown
-
-        out["configuration"] = capo_qconnect.types._unknown.UnknownUnionMember("")
+        out["configuration"] = {"$unknown": {"name": ""}}
     if data.get("modifiedTime") is not None:
         import capo_qconnect.types._prelude.timestamp
 

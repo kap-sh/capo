@@ -31,9 +31,9 @@ FrameworkFilters: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: FrameworkFilters) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"FrameworkFilters: cannot serialize unknown variant {value.name!r}"
+            f"FrameworkFilters: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "AMISecurityFilters" in value:
         import capo_marketplace_catalog.types.ami_security_filters
@@ -77,5 +77,5 @@ def deserialize_json(data: dict) -> FrameworkFilters:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("FrameworkFilters: no recognized variant key")

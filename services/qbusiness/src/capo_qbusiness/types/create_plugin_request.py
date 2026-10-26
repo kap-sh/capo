@@ -93,9 +93,7 @@ def deserialize_json(data: dict) -> CreatePluginRequest:
             )
         )
     else:
-        import capo_qbusiness.types._unknown
-
-        out["auth_configuration"] = capo_qbusiness.types._unknown.UnknownUnionMember("")
+        out["auth_configuration"] = {"$unknown": {"name": ""}}
     if data.get("serverUrl") is not None:
         out["server_url"] = data["serverUrl"]
     if data.get("customPluginConfiguration") is not None:

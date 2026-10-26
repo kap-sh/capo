@@ -37,9 +37,9 @@ ConfigDetails: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ConfigDetails) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ConfigDetails: cannot serialize unknown variant {value.name!r}"
+            f"ConfigDetails: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "endpointDetails" in value:
         import capo_groundstation.types.endpoint_details
@@ -99,5 +99,5 @@ def deserialize_json(data: dict) -> ConfigDetails:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ConfigDetails: no recognized variant key")

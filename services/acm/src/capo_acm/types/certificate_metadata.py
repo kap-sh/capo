@@ -24,9 +24,9 @@ CertificateMetadata: TypeAlias = (
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: CertificateMetadata) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"CertificateMetadata: cannot serialize unknown variant {value.name!r}"
+            f"CertificateMetadata: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "AcmCertificateMetadata" in value:
         import capo_acm.types.acm_certificate_metadata
@@ -54,5 +54,5 @@ def deserialize_aws_json_1_1(data: dict) -> CertificateMetadata:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("CertificateMetadata: no recognized variant key")

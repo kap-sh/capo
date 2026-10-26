@@ -101,11 +101,7 @@ def deserialize_json(data: dict) -> VerifyAuthRequestCryptogramInput:
             )
         )
     else:
-        import capo_payment_cryptography_data.types._unknown
-
-        out["session_key_derivation_attributes"] = (
-            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
-        )
+        out["session_key_derivation_attributes"] = {"$unknown": {"name": ""}}
     if data.get("AuthResponseAttributes") is not None:
         import capo_payment_cryptography_data.types.cryptogram_auth_response
 

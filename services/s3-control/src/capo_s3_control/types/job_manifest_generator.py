@@ -26,9 +26,9 @@ JobManifestGenerator: TypeAlias = (
 # --- restXml ser/de ---
 def serialize_xml(value: JobManifestGenerator, parent: Element, tag: str) -> None:
     el = SubElement(parent, tag)
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"JobManifestGenerator: cannot serialize unknown variant {value.name!r}"
+            f"JobManifestGenerator: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "S3JobManifestGenerator" in value:
         import capo_s3_control.types.s3_job_manifest_generator
@@ -51,5 +51,5 @@ def deserialize_xml(el: Element) -> JobManifestGenerator:
                 )
             }
         else:
-            return UnknownUnionMember(child.tag)
+            return {"$unknown": {"name": child.tag}}
     raise DeserializationError("JobManifestGenerator: no recognized variant element")

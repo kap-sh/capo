@@ -39,7 +39,5 @@ def deserialize_json(data: dict) -> UpdateListenerRequest:
             data["defaultAction"]
         )
     else:
-        import capo_vpc_lattice.types._unknown
-
-        out["default_action"] = capo_vpc_lattice.types._unknown.UnknownUnionMember("")
+        out["default_action"] = {"$unknown": {"name": ""}}
     return out

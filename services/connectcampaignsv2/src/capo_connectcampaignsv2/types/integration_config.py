@@ -39,9 +39,9 @@ IntegrationConfig: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: IntegrationConfig) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"IntegrationConfig: cannot serialize unknown variant {value.name!r}"
+            f"IntegrationConfig: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "customerProfiles" in value:
         import capo_connectcampaignsv2.types.customer_profiles_integration_config
@@ -101,5 +101,5 @@ def deserialize_json(data: dict) -> IntegrationConfig:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("IntegrationConfig: no recognized variant key")

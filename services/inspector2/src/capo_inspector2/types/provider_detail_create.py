@@ -22,9 +22,9 @@ ProviderDetailCreate: TypeAlias = _ProviderDetailCreate_azure | UnknownUnionMemb
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ProviderDetailCreate) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ProviderDetailCreate: cannot serialize unknown variant {value.name!r}"
+            f"ProviderDetailCreate: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "azure" in value:
         import capo_inspector2.types.azure_provider_detail_create
@@ -52,5 +52,5 @@ def deserialize_json(data: dict) -> ProviderDetailCreate:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ProviderDetailCreate: no recognized variant key")

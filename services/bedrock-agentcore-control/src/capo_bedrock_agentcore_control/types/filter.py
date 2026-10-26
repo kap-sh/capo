@@ -66,9 +66,5 @@ def deserialize_json(data: dict) -> Filter:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["value"] = capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["value"] = {"$unknown": {"name": ""}}
     return out

@@ -27,9 +27,9 @@ SigningScheme: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SigningScheme) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"SigningScheme: cannot serialize unknown variant {value.name!r}"
+            f"SigningScheme: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "DefaultScheme" in value:
         import capo_sesv2.types.default_signing_scheme
@@ -73,5 +73,5 @@ def deserialize_json(data: dict) -> SigningScheme:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("SigningScheme: no recognized variant key")

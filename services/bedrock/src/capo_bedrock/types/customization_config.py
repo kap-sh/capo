@@ -29,9 +29,9 @@ CustomizationConfig: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CustomizationConfig) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"CustomizationConfig: cannot serialize unknown variant {value.name!r}"
+            f"CustomizationConfig: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "distillationConfig" in value:
         import capo_bedrock.types.distillation_config
@@ -75,5 +75,5 @@ def deserialize_json(data: dict) -> CustomizationConfig:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("CustomizationConfig: no recognized variant key")

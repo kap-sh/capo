@@ -29,9 +29,9 @@ Provider: TypeAlias = (
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: Provider) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"Provider: cannot serialize unknown variant {value.name!r}"
+            f"Provider: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "cloudServiceProvider" in value:
         return {"cloudServiceProvider": value["cloudServiceProvider"]}
@@ -51,5 +51,5 @@ def deserialize_aws_json_1_0(data: dict) -> Provider:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("Provider: no recognized variant key")

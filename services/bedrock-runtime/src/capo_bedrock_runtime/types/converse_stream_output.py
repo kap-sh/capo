@@ -100,11 +100,11 @@ ConverseStreamOutput: TypeAlias = AnyIterator[_ConverseStreamOutput]
 
 
 def serialize_event_json(value: _ConverseStreamOutput) -> bytes:
-    if isinstance(value, UnknownEvent):
-        raise ValueError(
-            f"ConverseStreamOutput: cannot serialize unknown event {value.event_type!r}"
-        )
     match value:
+        case {"$unknown": {"name": name}}:
+            raise ValueError(
+                f"ConverseStreamOutput: cannot serialize unknown event {name!r}"
+            )
         case {"messageStart": payload}:
             import capo_bedrock_runtime.types.message_start_event
 
@@ -294,7 +294,7 @@ def deserialize_event_json(
                 )
             }
         case str():
-            return UnknownEvent(event_type, message)
+            return {"$unknown": {"name": event_type, "message": message}}
         case _:
             raise ValueError(
                 f"ConverseStreamOutput: unrecognized event-type {event_type!r}"

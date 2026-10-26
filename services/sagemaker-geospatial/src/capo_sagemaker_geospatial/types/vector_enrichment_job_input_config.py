@@ -45,9 +45,5 @@ def deserialize_json(data: dict) -> VectorEnrichmentJobInputConfig:
             )
         )
     else:
-        import capo_sagemaker_geospatial.types._unknown
-
-        out["data_source_config"] = (
-            capo_sagemaker_geospatial.types._unknown.UnknownUnionMember("")
-        )
+        out["data_source_config"] = {"$unknown": {"name": ""}}
     return out

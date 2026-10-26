@@ -44,9 +44,9 @@ HeaderMatchMethod: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: HeaderMatchMethod) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"HeaderMatchMethod: cannot serialize unknown variant {value.name!r}"
+            f"HeaderMatchMethod: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "exact" in value:
         return {"exact": value["exact"]}
@@ -84,5 +84,5 @@ def deserialize_json(data: dict) -> HeaderMatchMethod:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("HeaderMatchMethod: no recognized variant key")

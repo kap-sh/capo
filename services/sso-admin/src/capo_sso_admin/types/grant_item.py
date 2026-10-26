@@ -49,7 +49,5 @@ def deserialize_aws_json_1_1(data: dict) -> GrantItem:
             data["Grant"]
         )
     else:
-        import capo_sso_admin.types._unknown
-
-        out["grant"] = capo_sso_admin.types._unknown.UnknownUnionMember("")
+        out["grant"] = {"$unknown": {"name": ""}}
     return out

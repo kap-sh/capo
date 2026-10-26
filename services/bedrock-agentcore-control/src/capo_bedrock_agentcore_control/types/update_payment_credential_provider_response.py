@@ -98,11 +98,7 @@ def deserialize_json(data: dict) -> UpdatePaymentCredentialProviderResponse:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["provider_configuration_output"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["provider_configuration_output"] = {"$unknown": {"name": ""}}
     if data.get("createdTime") is not None:
         import capo_bedrock_agentcore_control.types._prelude.timestamp
 

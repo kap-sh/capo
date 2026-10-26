@@ -66,7 +66,5 @@ def deserialize_json(data: dict) -> PutFeedbackResponse:
             )
         )
     else:
-        import capo_qconnect.types._unknown
-
-        out["content_feedback"] = capo_qconnect.types._unknown.UnknownUnionMember("")
+        out["content_feedback"] = {"$unknown": {"name": ""}}
     return out

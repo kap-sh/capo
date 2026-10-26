@@ -44,9 +44,5 @@ def deserialize_aws_json_1_0(data: dict) -> StateTemplateAssociation:
             )
         )
     else:
-        import capo_iotfleetwise.types._unknown
-
-        out["state_template_update_strategy"] = (
-            capo_iotfleetwise.types._unknown.UnknownUnionMember("")
-        )
+        out["state_template_update_strategy"] = {"$unknown": {"name": ""}}
     return out

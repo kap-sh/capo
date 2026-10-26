@@ -41,7 +41,5 @@ def deserialize_json(data: dict) -> AssetPermission:
             data["permissions"]
         )
     else:
-        import capo_datazone.types._unknown
-
-        out["permissions"] = capo_datazone.types._unknown.UnknownUnionMember("")
+        out["permissions"] = {"$unknown": {"name": ""}}
     return out

@@ -55,11 +55,7 @@ def deserialize_json(data: dict) -> GenerateAs2805KekValidationInput:
             )
         )
     else:
-        import capo_payment_cryptography_data.types._unknown
-
-        out["kek_validation_type"] = (
-            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
-        )
+        out["kek_validation_type"] = {"$unknown": {"name": ""}}
     if data.get("RandomKeySendVariantMask") is not None:
         import capo_payment_cryptography_data.types.random_key_send_variant_mask
 

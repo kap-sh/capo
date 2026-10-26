@@ -88,11 +88,7 @@ def deserialize_json(data: dict) -> CreateDatasetRequest:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["source"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["source"] = {"$unknown": {"name": ""}}
     if data.get("schemaType") is not None:
         import capo_bedrock_agentcore_control.types.dataset_schema_type
 

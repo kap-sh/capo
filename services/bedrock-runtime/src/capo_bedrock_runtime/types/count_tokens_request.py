@@ -36,9 +36,7 @@ def deserialize_json(data: dict) -> CountTokensRequest:
             data["input"]
         )
     else:
-        import capo_bedrock_runtime.types._unknown
-
-        out["input"] = capo_bedrock_runtime.types._unknown.UnknownUnionMember("")
+        out["input"] = {"$unknown": {"name": ""}}
     return out
 
 

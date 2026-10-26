@@ -83,11 +83,7 @@ def deserialize_json(data: dict) -> CreateEnvironmentBlueprintInput:
             )
         )
     else:
-        import capo_datazone.types._unknown
-
-        out["provisioning_properties"] = (
-            capo_datazone.types._unknown.UnknownUnionMember("")
-        )
+        out["provisioning_properties"] = {"$unknown": {"name": ""}}
     if data.get("userParameters") is not None:
         import capo_datazone.types.custom_parameter_list
 

@@ -65,7 +65,5 @@ def deserialize_json(data: dict) -> CloudWatchLogsFilter:
             data["value"]
         )
     else:
-        import capo_bedrock_agentcore.types._unknown
-
-        out["value"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
+        out["value"] = {"$unknown": {"name": ""}}
     return out

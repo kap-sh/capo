@@ -42,11 +42,7 @@ def deserialize_json(data: dict) -> CreateApplicationRequest:
             )
         )
     else:
-        import capo_account_access.types._unknown
-
-        out["identity_source"] = capo_account_access.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["identity_source"] = {"$unknown": {"name": ""}}
     if data.get("tags") is not None:
         import capo_account_access.types.tags_map
 

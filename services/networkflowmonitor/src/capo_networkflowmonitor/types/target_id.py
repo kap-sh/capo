@@ -20,9 +20,9 @@ TargetId: TypeAlias = _TargetId_accountId | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: TargetId) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"TargetId: cannot serialize unknown variant {value.name!r}"
+            f"TargetId: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "accountId" in value:
         return {"accountId": value["accountId"]}
@@ -38,5 +38,5 @@ def deserialize_json(data: dict) -> TargetId:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("TargetId: no recognized variant key")

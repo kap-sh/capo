@@ -60,9 +60,7 @@ def deserialize_json(data: dict) -> CreateStreamInput:
             data["targetDefinition"]
         )
     else:
-        import capo_dsql.types._unknown
-
-        out["target_definition"] = capo_dsql.types._unknown.UnknownUnionMember("")
+        out["target_definition"] = {"$unknown": {"name": ""}}
     if data.get("ordering") is not None:
         import capo_dsql.types.stream_ordering
 

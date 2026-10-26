@@ -62,7 +62,5 @@ def deserialize_json(data: dict) -> SpaceResourceOperation:
             )
         )
     else:
-        import capo_quicksight.types._unknown
-
-        out["resource_details"] = capo_quicksight.types._unknown.UnknownUnionMember("")
+        out["resource_details"] = {"$unknown": {"name": ""}}
     return out

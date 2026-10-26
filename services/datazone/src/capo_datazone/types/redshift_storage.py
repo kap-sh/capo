@@ -33,9 +33,9 @@ RedshiftStorage: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RedshiftStorage) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"RedshiftStorage: cannot serialize unknown variant {value.name!r}"
+            f"RedshiftStorage: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "redshiftClusterSource" in value:
         import capo_datazone.types.redshift_cluster_storage
@@ -79,5 +79,5 @@ def deserialize_json(data: dict) -> RedshiftStorage:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("RedshiftStorage: no recognized variant key")

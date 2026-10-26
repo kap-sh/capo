@@ -73,9 +73,9 @@ TransformOperation: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: TransformOperation) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"TransformOperation: cannot serialize unknown variant {value.name!r}"
+            f"TransformOperation: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "ProjectOperation" in value:
         import capo_quicksight.types.project_operation
@@ -215,13 +215,11 @@ def deserialize_json(data: dict) -> TransformOperation:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("TransformOperation: no recognized variant key")
 
 
-def redact_sensitive(value: TransformOperation) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: TransformOperation) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "FilterOperation" in value:
         import capo_quicksight.types.filter_operation

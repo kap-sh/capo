@@ -41,7 +41,5 @@ def deserialize_json(data: dict) -> DataSetExportItem:
             data["externalLocation"]
         )
     else:
-        import capo_m2.types._unknown
-
-        out["external_location"] = capo_m2.types._unknown.UnknownUnionMember("")
+        out["external_location"] = {"$unknown": {"name": ""}}
     return out

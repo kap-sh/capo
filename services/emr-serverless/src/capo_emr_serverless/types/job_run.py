@@ -317,9 +317,7 @@ def deserialize_json(data: dict) -> JobRun:
             data["jobDriver"]
         )
     else:
-        import capo_emr_serverless.types._unknown
-
-        out["job_driver"] = capo_emr_serverless.types._unknown.UnknownUnionMember("")
+        out["job_driver"] = {"$unknown": {"name": ""}}
     if data.get("tags") is not None:
         import capo_emr_serverless.types.tag_map
 

@@ -22,9 +22,9 @@ PreviewPrivacyImpactParametersInput: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PreviewPrivacyImpactParametersInput) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"PreviewPrivacyImpactParametersInput: cannot serialize unknown variant {value.name!r}"
+            f"PreviewPrivacyImpactParametersInput: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "differentialPrivacy" in value:
         import capo_cleanrooms.types.differential_privacy_preview_parameters_input
@@ -54,7 +54,7 @@ def deserialize_json(data: dict) -> PreviewPrivacyImpactParametersInput:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "PreviewPrivacyImpactParametersInput: no recognized variant key"
         )

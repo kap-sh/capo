@@ -249,11 +249,7 @@ def deserialize_json(data: dict) -> IntermediateTable:
             )
         )
     else:
-        import capo_cleanrooms.types._unknown
-
-        out["population_analysis_configuration"] = (
-            capo_cleanrooms.types._unknown.UnknownUnionMember("")
-        )
+        out["population_analysis_configuration"] = {"$unknown": {"name": ""}}
     if data.get("retentionInDays") is not None:
         out["retention_in_days"] = data["retentionInDays"]
     if data.get("tableDependencies") is not None:

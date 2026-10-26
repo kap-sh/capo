@@ -20,9 +20,9 @@ MembershipConfig: TypeAlias = _MembershipConfig_user | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MembershipConfig) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"MembershipConfig: cannot serialize unknown variant {value.name!r}"
+            f"MembershipConfig: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "user" in value:
         import capo_securityagent.types.user_config
@@ -46,5 +46,5 @@ def deserialize_json(data: dict) -> MembershipConfig:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("MembershipConfig: no recognized variant key")

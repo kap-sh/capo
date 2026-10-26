@@ -37,11 +37,7 @@ def deserialize_json(data: dict) -> GetResourcePaymentTokenResponse:
             )
         )
     else:
-        import capo_bedrock_agentcore.types._unknown
-
-        out["payment_token_response"] = (
-            capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
-        )
+        out["payment_token_response"] = {"$unknown": {"name": ""}}
     return out
 
 

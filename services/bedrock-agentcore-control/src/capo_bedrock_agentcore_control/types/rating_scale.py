@@ -30,9 +30,9 @@ RatingScale: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RatingScale) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"RatingScale: cannot serialize unknown variant {value.name!r}"
+            f"RatingScale: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "numerical" in value:
         import capo_bedrock_agentcore_control.types.numerical_scale_definitions
@@ -76,5 +76,5 @@ def deserialize_json(data: dict) -> RatingScale:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("RatingScale: no recognized variant key")

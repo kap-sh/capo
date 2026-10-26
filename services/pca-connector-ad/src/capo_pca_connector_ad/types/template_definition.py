@@ -35,9 +35,9 @@ TemplateDefinition: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: TemplateDefinition) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"TemplateDefinition: cannot serialize unknown variant {value.name!r}"
+            f"TemplateDefinition: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "TemplateV2" in value:
         import capo_pca_connector_ad.types.template_v2
@@ -97,5 +97,5 @@ def deserialize_json(data: dict) -> TemplateDefinition:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("TemplateDefinition: no recognized variant key")

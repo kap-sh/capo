@@ -29,9 +29,9 @@ AnalyzerConfiguration: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AnalyzerConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AnalyzerConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"AnalyzerConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "unusedAccess" in value:
         import capo_accessanalyzer.types.unused_access_configuration
@@ -75,5 +75,5 @@ def deserialize_json(data: dict) -> AnalyzerConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("AnalyzerConfiguration: no recognized variant key")

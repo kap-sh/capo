@@ -123,9 +123,7 @@ def deserialize_json(data: dict) -> UpdateAssetFilterOutput:
             )
         )
     else:
-        import capo_datazone.types._unknown
-
-        out["configuration"] = capo_datazone.types._unknown.UnknownUnionMember("")
+        out["configuration"] = {"$unknown": {"name": ""}}
     if data.get("createdAt") is not None:
         import capo_datazone.types.created_at
 

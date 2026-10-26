@@ -29,9 +29,9 @@ MaintenanceConfiguration: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MaintenanceConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"MaintenanceConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"MaintenanceConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "PreferredDayTime" in value:
         import capo_mediaconnect.types.preferred_day_time_maintenance_configuration
@@ -75,7 +75,7 @@ def deserialize_json(data: dict) -> MaintenanceConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "MaintenanceConfiguration: no recognized variant key"
         )

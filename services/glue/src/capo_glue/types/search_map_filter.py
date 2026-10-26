@@ -49,7 +49,5 @@ def deserialize_aws_json_1_1(data: dict) -> SearchMapFilter:
             data["Value"]
         )
     else:
-        import capo_glue.types._unknown
-
-        out["value"] = capo_glue.types._unknown.UnknownUnionMember("")
+        out["value"] = {"$unknown": {"name": ""}}
     return out

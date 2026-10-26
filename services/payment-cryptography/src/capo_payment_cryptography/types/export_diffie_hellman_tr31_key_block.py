@@ -161,11 +161,7 @@ def deserialize_aws_json_1_0(data: dict) -> ExportDiffieHellmanTr31KeyBlock:
             )
         )
     else:
-        import capo_payment_cryptography.types._unknown
-
-        out["derivation_data"] = (
-            capo_payment_cryptography.types._unknown.UnknownUnionMember("")
-        )
+        out["derivation_data"] = {"$unknown": {"name": ""}}
     if data.get("KeyBlockHeaders") is not None:
         import capo_payment_cryptography.types.key_block_headers
 

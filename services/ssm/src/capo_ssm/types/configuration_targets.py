@@ -22,9 +22,9 @@ ConfigurationTargets: TypeAlias = (
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: ConfigurationTargets) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ConfigurationTargets: cannot serialize unknown variant {value.name!r}"
+            f"ConfigurationTargets: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "Subscriptions" in value:
         import capo_ssm.types.azure_subscription_list
@@ -52,5 +52,5 @@ def deserialize_aws_json_1_1(data: dict) -> ConfigurationTargets:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ConfigurationTargets: no recognized variant key")

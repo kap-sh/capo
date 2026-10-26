@@ -22,9 +22,9 @@ ObjectEncryption: TypeAlias = _ObjectEncryption_SSEKMS | UnknownUnionMember
 # --- restXml ser/de ---
 def serialize_xml(value: ObjectEncryption, parent: Element, tag: str) -> None:
     el = SubElement(parent, tag)
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ObjectEncryption: cannot serialize unknown variant {value.name!r}"
+            f"ObjectEncryption: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "SSEKMS" in value:
         import capo_s3.types.ssekms_encryption
@@ -41,13 +41,11 @@ def deserialize_xml(el: Element) -> ObjectEncryption:
 
             return {"SSEKMS": capo_s3.types.ssekms_encryption.deserialize_xml(child)}
         else:
-            return UnknownUnionMember(child.tag)
+            return {"$unknown": {"name": child.tag}}
     raise DeserializationError("ObjectEncryption: no recognized variant element")
 
 
-def redact_sensitive(value: ObjectEncryption) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: ObjectEncryption) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "SSEKMS" in value:
         import capo_s3.types.ssekms_encryption

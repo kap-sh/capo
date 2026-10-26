@@ -47,9 +47,9 @@ EvaluationAnswerData: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: EvaluationAnswerData) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"EvaluationAnswerData: cannot serialize unknown variant {value.name!r}"
+            f"EvaluationAnswerData: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "StringValue" in value:
         return {"StringValue": value["StringValue"]}
@@ -103,5 +103,5 @@ def deserialize_json(data: dict) -> EvaluationAnswerData:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("EvaluationAnswerData: no recognized variant key")

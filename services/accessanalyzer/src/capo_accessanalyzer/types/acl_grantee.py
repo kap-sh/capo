@@ -25,9 +25,9 @@ AclGrantee: TypeAlias = _AclGrantee_id | _AclGrantee_uri | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AclGrantee) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AclGrantee: cannot serialize unknown variant {value.name!r}"
+            f"AclGrantee: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "id" in value:
         return {"id": value["id"]}
@@ -47,5 +47,5 @@ def deserialize_json(data: dict) -> AclGrantee:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("AclGrantee: no recognized variant key")

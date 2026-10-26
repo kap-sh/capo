@@ -29,9 +29,9 @@ VerificationDetails: TypeAlias = (
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: VerificationDetails) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"VerificationDetails: cannot serialize unknown variant {value.name!r}"
+            f"VerificationDetails: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "BusinessVerificationDetails" in value:
         import capo_partnercentral_account.types.business_verification_details
@@ -75,13 +75,11 @@ def deserialize_aws_json_1_0(data: dict) -> VerificationDetails:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("VerificationDetails: no recognized variant key")
 
 
-def redact_sensitive(value: VerificationDetails) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: VerificationDetails) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "BusinessVerificationDetails" in value:
         import capo_partnercentral_account.types.business_verification_details

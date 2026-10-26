@@ -99,11 +99,7 @@ def deserialize_json(data: dict) -> NodeInputField:
             )
         )
     else:
-        import capo_bedrock_agent_runtime.types._unknown
-
-        out["content"] = capo_bedrock_agent_runtime.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["content"] = {"$unknown": {"name": ""}}
     if data.get("source") is not None:
         import capo_bedrock_agent_runtime.types.node_input_source
 

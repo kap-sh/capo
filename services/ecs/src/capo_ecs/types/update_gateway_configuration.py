@@ -24,9 +24,9 @@ UpdateGatewayConfiguration: TypeAlias = (
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: UpdateGatewayConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"UpdateGatewayConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"UpdateGatewayConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "hostSharedAlb" in value:
         import capo_ecs.types.update_gateway_alb_configuration
@@ -54,7 +54,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateGatewayConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "UpdateGatewayConfiguration: no recognized variant key"
         )

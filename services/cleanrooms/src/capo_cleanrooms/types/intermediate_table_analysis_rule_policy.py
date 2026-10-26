@@ -22,9 +22,9 @@ IntermediateTableAnalysisRulePolicy: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: IntermediateTableAnalysisRulePolicy) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"IntermediateTableAnalysisRulePolicy: cannot serialize unknown variant {value.name!r}"
+            f"IntermediateTableAnalysisRulePolicy: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "v1" in value:
         import capo_cleanrooms.types.intermediate_table_analysis_rule_policy_v1
@@ -54,7 +54,7 @@ def deserialize_json(data: dict) -> IntermediateTableAnalysisRulePolicy:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "IntermediateTableAnalysisRulePolicy: no recognized variant key"
         )

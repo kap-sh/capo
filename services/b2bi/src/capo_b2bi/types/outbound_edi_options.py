@@ -20,9 +20,9 @@ OutboundEdiOptions: TypeAlias = _OutboundEdiOptions_x12 | UnknownUnionMember
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: OutboundEdiOptions) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"OutboundEdiOptions: cannot serialize unknown variant {value.name!r}"
+            f"OutboundEdiOptions: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "x12" in value:
         import capo_b2bi.types.x12_envelope
@@ -46,5 +46,5 @@ def deserialize_aws_json_1_0(data: dict) -> OutboundEdiOptions:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("OutboundEdiOptions: no recognized variant key")

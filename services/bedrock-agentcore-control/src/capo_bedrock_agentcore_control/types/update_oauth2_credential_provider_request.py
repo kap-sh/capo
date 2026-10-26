@@ -70,11 +70,7 @@ def deserialize_json(data: dict) -> UpdateOauth2CredentialProviderRequest:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["oauth2_provider_config_input"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["oauth2_provider_config_input"] = {"$unknown": {"name": ""}}
     return out
 
 

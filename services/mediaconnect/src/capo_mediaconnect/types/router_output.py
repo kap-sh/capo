@@ -250,9 +250,7 @@ def deserialize_json(data: dict) -> RouterOutput:
             )
         )
     else:
-        import capo_mediaconnect.types._unknown
-
-        out["configuration"] = capo_mediaconnect.types._unknown.UnknownUnionMember("")
+        out["configuration"] = {"$unknown": {"name": ""}}
     if data.get("routedState") is not None:
         import capo_mediaconnect.types.router_output_routed_state
 
@@ -351,9 +349,7 @@ def deserialize_json(data: dict) -> RouterOutput:
             )
         )
     else:
-        import capo_mediaconnect.types._unknown
-
-        out["stream_details"] = capo_mediaconnect.types._unknown.UnknownUnionMember("")
+        out["stream_details"] = {"$unknown": {"name": ""}}
     if data.get("ipAddress") is not None:
         out["ip_address"] = data["ipAddress"]
     if data.get("routedInputArn") is not None:
@@ -381,11 +377,7 @@ def deserialize_json(data: dict) -> RouterOutput:
             )
         )
     else:
-        import capo_mediaconnect.types._unknown
-
-        out["maintenance_configuration"] = (
-            capo_mediaconnect.types._unknown.UnknownUnionMember("")
-        )
+        out["maintenance_configuration"] = {"$unknown": {"name": ""}}
     if data.get("maintenanceScheduleType") is not None:
         import capo_mediaconnect.types.maintenance_schedule_type
 

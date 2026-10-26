@@ -22,9 +22,9 @@ ActionParameters: TypeAlias = _ActionParameters_awsConsoleLink | UnknownUnionMem
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ActionParameters) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ActionParameters: cannot serialize unknown variant {value.name!r}"
+            f"ActionParameters: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "awsConsoleLink" in value:
         import capo_datazone.types.aws_console_link_parameters
@@ -52,5 +52,5 @@ def deserialize_json(data: dict) -> ActionParameters:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ActionParameters: no recognized variant key")

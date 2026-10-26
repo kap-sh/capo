@@ -66,9 +66,7 @@ def deserialize_json(data: dict) -> CreateComplianceInquiryRequest:
             data["inquiryContent"]
         )
     else:
-        import capo_artifact.types._unknown
-
-        out["inquiry_content"] = capo_artifact.types._unknown.UnknownUnionMember("")
+        out["inquiry_content"] = {"$unknown": {"name": ""}}
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("supportMode") is not None:

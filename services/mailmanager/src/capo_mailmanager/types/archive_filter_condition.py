@@ -33,9 +33,9 @@ ArchiveFilterCondition: TypeAlias = (
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: ArchiveFilterCondition) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ArchiveFilterCondition: cannot serialize unknown variant {value.name!r}"
+            f"ArchiveFilterCondition: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "StringExpression" in value:
         import capo_mailmanager.types.archive_string_expression
@@ -79,5 +79,5 @@ def deserialize_aws_json_1_0(data: dict) -> ArchiveFilterCondition:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ArchiveFilterCondition: no recognized variant key")

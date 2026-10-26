@@ -42,7 +42,5 @@ def deserialize_json(data: dict) -> StartCodeSecurityScanRequest:
             data["resource"]
         )
     else:
-        import capo_inspector2.types._unknown
-
-        out["resource"] = capo_inspector2.types._unknown.UnknownUnionMember("")
+        out["resource"] = {"$unknown": {"name": ""}}
     return out

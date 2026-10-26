@@ -35,9 +35,9 @@ CaseRuleDetails: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CaseRuleDetails) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"CaseRuleDetails: cannot serialize unknown variant {value.name!r}"
+            f"CaseRuleDetails: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "required" in value:
         import capo_connectcases.types.required_case_rule
@@ -97,5 +97,5 @@ def deserialize_json(data: dict) -> CaseRuleDetails:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("CaseRuleDetails: no recognized variant key")

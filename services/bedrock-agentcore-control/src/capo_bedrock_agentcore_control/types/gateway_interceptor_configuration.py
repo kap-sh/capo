@@ -60,11 +60,7 @@ def deserialize_json(data: dict) -> GatewayInterceptorConfiguration:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["interceptor"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["interceptor"] = {"$unknown": {"name": ""}}
     if data.get("interceptionPoints") is not None:
         import capo_bedrock_agentcore_control.types.gateway_interception_points
 

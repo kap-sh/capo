@@ -47,11 +47,7 @@ def deserialize_aws_json_1_0(data: dict) -> WidgetConfig:
             )
         )
     else:
-        import capo_bcm_dashboards.types._unknown
-
-        out["query_parameters"] = capo_bcm_dashboards.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["query_parameters"] = {"$unknown": {"name": ""}}
     if data.get("displayConfig") is not None:
         import capo_bcm_dashboards.types.display_config
 
@@ -61,9 +57,5 @@ def deserialize_aws_json_1_0(data: dict) -> WidgetConfig:
             )
         )
     else:
-        import capo_bcm_dashboards.types._unknown
-
-        out["display_config"] = capo_bcm_dashboards.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["display_config"] = {"$unknown": {"name": ""}}
     return out

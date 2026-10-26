@@ -29,9 +29,9 @@ EvaluationFormItemEnablementConditionOperand: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: EvaluationFormItemEnablementConditionOperand) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"EvaluationFormItemEnablementConditionOperand: cannot serialize unknown variant {value.name!r}"
+            f"EvaluationFormItemEnablementConditionOperand: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "Expression" in value:
         import capo_connect.types.evaluation_form_item_enablement_expression
@@ -77,7 +77,7 @@ def deserialize_json(data: dict) -> EvaluationFormItemEnablementConditionOperand
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "EvaluationFormItemEnablementConditionOperand: no recognized variant key"
         )

@@ -29,9 +29,9 @@ RecommendationResult: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RecommendationResult) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"RecommendationResult: cannot serialize unknown variant {value.name!r}"
+            f"RecommendationResult: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "systemPromptRecommendationResult" in value:
         import capo_bedrock_agentcore.types.system_prompt_recommendation_result
@@ -75,15 +75,11 @@ def deserialize_json(data: dict) -> RecommendationResult:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("RecommendationResult: no recognized variant key")
 
 
-def redact_sensitive(
-    value: RecommendationResult,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: RecommendationResult) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "systemPromptRecommendationResult" in value:
         import capo_bedrock_agentcore.types.system_prompt_recommendation_result

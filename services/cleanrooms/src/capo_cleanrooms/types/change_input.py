@@ -62,7 +62,5 @@ def deserialize_json(data: dict) -> ChangeInput:
             )
         )
     else:
-        import capo_cleanrooms.types._unknown
-
-        out["specification"] = capo_cleanrooms.types._unknown.UnknownUnionMember("")
+        out["specification"] = {"$unknown": {"name": ""}}
     return out

@@ -64,11 +64,7 @@ def deserialize_json(data: dict) -> GenerateMacInput:
             )
         )
     else:
-        import capo_payment_cryptography_data.types._unknown
-
-        out["generation_attributes"] = (
-            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
-        )
+        out["generation_attributes"] = {"$unknown": {"name": ""}}
     if data.get("MacLength") is not None:
         out["mac_length"] = data["MacLength"]
     return out

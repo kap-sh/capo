@@ -20,9 +20,9 @@ InputPrompt: TypeAlias = _InputPrompt_textPrompt | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: InputPrompt) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"InputPrompt: cannot serialize unknown variant {value.name!r}"
+            f"InputPrompt: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "textPrompt" in value:
         import capo_bedrock_agent_runtime.types.text_prompt
@@ -50,13 +50,11 @@ def deserialize_json(data: dict) -> InputPrompt:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("InputPrompt: no recognized variant key")
 
 
-def redact_sensitive(value: InputPrompt) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: InputPrompt) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "textPrompt" in value:
         out["textPrompt"] = "*** Sensitive Data Redacted ***"

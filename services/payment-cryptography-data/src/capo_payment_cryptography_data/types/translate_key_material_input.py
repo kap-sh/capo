@@ -58,11 +58,7 @@ def deserialize_json(data: dict) -> TranslateKeyMaterialInput:
             )
         )
     else:
-        import capo_payment_cryptography_data.types._unknown
-
-        out["incoming_key_material"] = (
-            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
-        )
+        out["incoming_key_material"] = {"$unknown": {"name": ""}}
     if data.get("OutgoingKeyMaterial") is not None:
         import capo_payment_cryptography_data.types.outgoing_key_material
 
@@ -72,11 +68,7 @@ def deserialize_json(data: dict) -> TranslateKeyMaterialInput:
             )
         )
     else:
-        import capo_payment_cryptography_data.types._unknown
-
-        out["outgoing_key_material"] = (
-            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
-        )
+        out["outgoing_key_material"] = {"$unknown": {"name": ""}}
     if data.get("KeyCheckValueAlgorithm") is not None:
         out["key_check_value_algorithm"] = data["KeyCheckValueAlgorithm"]
     return out

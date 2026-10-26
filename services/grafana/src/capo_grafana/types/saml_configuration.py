@@ -74,9 +74,7 @@ def deserialize_json(data: dict) -> SamlConfiguration:
             data["idpMetadata"]
         )
     else:
-        import capo_grafana.types._unknown
-
-        out["idp_metadata"] = capo_grafana.types._unknown.UnknownUnionMember("")
+        out["idp_metadata"] = {"$unknown": {"name": ""}}
     if data.get("assertionAttributes") is not None:
         import capo_grafana.types.assertion_attributes
 

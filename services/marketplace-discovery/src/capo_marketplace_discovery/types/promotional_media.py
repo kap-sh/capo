@@ -29,9 +29,9 @@ PromotionalMedia: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PromotionalMedia) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"PromotionalMedia: cannot serialize unknown variant {value.name!r}"
+            f"PromotionalMedia: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "embeddedImage" in value:
         import capo_marketplace_discovery.types.promotional_embedded_image
@@ -75,5 +75,5 @@ def deserialize_json(data: dict) -> PromotionalMedia:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("PromotionalMedia: no recognized variant key")

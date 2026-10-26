@@ -97,9 +97,7 @@ def deserialize_json(data: dict) -> GetCaseRuleResponse:
             data["rule"]
         )
     else:
-        import capo_connectcases.types._unknown
-
-        out["rule"] = capo_connectcases.types._unknown.UnknownUnionMember("")
+        out["rule"] = {"$unknown": {"name": ""}}
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("deleted") is not None:

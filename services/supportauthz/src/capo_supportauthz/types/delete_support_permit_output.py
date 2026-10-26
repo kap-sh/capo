@@ -108,11 +108,7 @@ def deserialize_json(data: dict) -> DeleteSupportPermitOutput:
             )
         )
     else:
-        import capo_supportauthz.types._unknown
-
-        out["signing_key_info"] = capo_supportauthz.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["signing_key_info"] = {"$unknown": {"name": ""}}
     if data.get("createdAt") is not None:
         import capo_supportauthz.types._prelude.timestamp
 

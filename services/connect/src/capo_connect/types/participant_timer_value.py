@@ -31,9 +31,9 @@ ParticipantTimerValue: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ParticipantTimerValue) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ParticipantTimerValue: cannot serialize unknown variant {value.name!r}"
+            f"ParticipantTimerValue: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "ParticipantTimerAction" in value:
         import capo_connect.types.participant_timer_action
@@ -73,5 +73,5 @@ def deserialize_json(data: dict) -> ParticipantTimerValue:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ParticipantTimerValue: no recognized variant key")

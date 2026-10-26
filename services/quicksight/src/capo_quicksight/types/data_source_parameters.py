@@ -271,9 +271,9 @@ DataSourceParameters: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DataSourceParameters) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"DataSourceParameters: cannot serialize unknown variant {value.name!r}"
+            f"DataSourceParameters: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "AmazonElasticsearchParameters" in value:
         import capo_quicksight.types.amazon_elasticsearch_parameters
@@ -877,5 +877,5 @@ def deserialize_json(data: dict) -> DataSourceParameters:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("DataSourceParameters: no recognized variant key")

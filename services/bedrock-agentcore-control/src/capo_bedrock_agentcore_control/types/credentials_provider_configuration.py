@@ -31,9 +31,9 @@ CredentialsProviderConfiguration: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CredentialsProviderConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"CredentialsProviderConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"CredentialsProviderConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "coinbaseCDP" in value:
         import capo_bedrock_agentcore_control.types.payment_credential_provider_configuration
@@ -77,7 +77,7 @@ def deserialize_json(data: dict) -> CredentialsProviderConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "CredentialsProviderConfiguration: no recognized variant key"
         )

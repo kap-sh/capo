@@ -49,11 +49,7 @@ def deserialize_json(data: dict) -> CreateInputSourceRequest:
             )
         )
     else:
-        import capo_resiliencehubv2.types._unknown
-
-        out["resource_configuration"] = (
-            capo_resiliencehubv2.types._unknown.UnknownUnionMember("")
-        )
+        out["resource_configuration"] = {"$unknown": {"name": ""}}
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

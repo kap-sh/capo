@@ -64,9 +64,7 @@ def deserialize_json(data: dict) -> CreateAssetFilterInput:
             )
         )
     else:
-        import capo_datazone.types._unknown
-
-        out["configuration"] = capo_datazone.types._unknown.UnknownUnionMember("")
+        out["configuration"] = {"$unknown": {"name": ""}}
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

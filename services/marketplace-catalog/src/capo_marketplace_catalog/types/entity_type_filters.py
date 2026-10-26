@@ -79,9 +79,9 @@ EntityTypeFilters: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: EntityTypeFilters) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"EntityTypeFilters: cannot serialize unknown variant {value.name!r}"
+            f"EntityTypeFilters: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "DataProductFilters" in value:
         import capo_marketplace_catalog.types.data_product_filters
@@ -237,5 +237,5 @@ def deserialize_json(data: dict) -> EntityTypeFilters:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("EntityTypeFilters: no recognized variant key")

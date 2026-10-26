@@ -27,9 +27,9 @@ AutomatedReasoningPolicyGenerateFidelityReportContent: TypeAlias = (
 def serialize_json(
     value: AutomatedReasoningPolicyGenerateFidelityReportContent,
 ) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AutomatedReasoningPolicyGenerateFidelityReportContent: cannot serialize unknown variant {value.name!r}"
+            f"AutomatedReasoningPolicyGenerateFidelityReportContent: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "documents" in value:
         import capo_bedrock.types.automated_reasoning_policy_generate_fidelity_report_document_list
@@ -61,7 +61,7 @@ def deserialize_json(
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "AutomatedReasoningPolicyGenerateFidelityReportContent: no recognized variant key"
         )
@@ -69,9 +69,7 @@ def deserialize_json(
 
 def redact_sensitive(
     value: AutomatedReasoningPolicyGenerateFidelityReportContent,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "documents" in value:
         import capo_bedrock.types.automated_reasoning_policy_generate_fidelity_report_document_list

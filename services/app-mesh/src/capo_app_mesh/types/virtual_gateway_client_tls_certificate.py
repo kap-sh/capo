@@ -29,9 +29,9 @@ VirtualGatewayClientTlsCertificate: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: VirtualGatewayClientTlsCertificate) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"VirtualGatewayClientTlsCertificate: cannot serialize unknown variant {value.name!r}"
+            f"VirtualGatewayClientTlsCertificate: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "file" in value:
         import capo_app_mesh.types.virtual_gateway_listener_tls_file_certificate
@@ -77,7 +77,7 @@ def deserialize_json(data: dict) -> VirtualGatewayClientTlsCertificate:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "VirtualGatewayClientTlsCertificate: no recognized variant key"
         )

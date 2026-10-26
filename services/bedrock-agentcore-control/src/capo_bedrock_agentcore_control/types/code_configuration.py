@@ -53,11 +53,7 @@ def deserialize_json(data: dict) -> CodeConfiguration:
             data["code"]
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["code"] = capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["code"] = {"$unknown": {"name": ""}}
     if data.get("runtime") is not None:
         import capo_bedrock_agentcore_control.types.agent_managed_runtime_type
 

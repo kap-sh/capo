@@ -47,11 +47,5 @@ def deserialize_json(data: dict) -> LicenseServerSettings:
             )
         )
     else:
-        import capo_license_manager_user_subscriptions.types._unknown
-
-        out["server_settings"] = (
-            capo_license_manager_user_subscriptions.types._unknown.UnknownUnionMember(
-                ""
-            )
-        )
+        out["server_settings"] = {"$unknown": {"name": ""}}
     return out

@@ -25,9 +25,9 @@ ServiceQuotaExceededExceptionReason: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ServiceQuotaExceededExceptionReason) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ServiceQuotaExceededExceptionReason: cannot serialize unknown variant {value.name!r}"
+            f"ServiceQuotaExceededExceptionReason: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "AttachedFileServiceQuotaExceededExceptionReason" in value:
         import capo_connect.types.attached_file_service_quota_exceeded_exception_reason
@@ -57,7 +57,7 @@ def deserialize_json(data: dict) -> ServiceQuotaExceededExceptionReason:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "ServiceQuotaExceededExceptionReason: no recognized variant key"
         )

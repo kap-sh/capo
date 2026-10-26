@@ -20,9 +20,9 @@ ResourceId: TypeAlias = _ResourceId_codeArtifactId | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ResourceId) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ResourceId: cannot serialize unknown variant {value.name!r}"
+            f"ResourceId: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "codeArtifactId" in value:
         return {"codeArtifactId": value["codeArtifactId"]}
@@ -38,5 +38,5 @@ def deserialize_json(data: dict) -> ResourceId:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ResourceId: no recognized variant key")

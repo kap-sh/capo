@@ -55,9 +55,9 @@ SourceConfiguration: TypeAlias = (
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: SourceConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"SourceConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"SourceConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "databaseClone" in value:
         import capo_odb.types.database_clone_configuration
@@ -165,5 +165,5 @@ def deserialize_aws_json_1_0(data: dict) -> SourceConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("SourceConfiguration: no recognized variant key")

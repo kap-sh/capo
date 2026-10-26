@@ -89,9 +89,7 @@ def deserialize_json(data: dict) -> CreateApplicationInstanceRequest:
             data["ManifestPayload"]
         )
     else:
-        import capo_panorama.types._unknown
-
-        out["manifest_payload"] = capo_panorama.types._unknown.UnknownUnionMember("")
+        out["manifest_payload"] = {"$unknown": {"name": ""}}
     if data.get("ManifestOverridesPayload") is not None:
         import capo_panorama.types.manifest_overrides_payload
 

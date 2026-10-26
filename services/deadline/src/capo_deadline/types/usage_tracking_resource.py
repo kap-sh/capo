@@ -20,9 +20,9 @@ UsageTrackingResource: TypeAlias = _UsageTrackingResource_queueId | UnknownUnion
 
 # --- restJson1 ser/de ---
 def serialize_json(value: UsageTrackingResource) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"UsageTrackingResource: cannot serialize unknown variant {value.name!r}"
+            f"UsageTrackingResource: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "queueId" in value:
         return {"queueId": value["queueId"]}
@@ -38,5 +38,5 @@ def deserialize_json(data: dict) -> UsageTrackingResource:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("UsageTrackingResource: no recognized variant key")

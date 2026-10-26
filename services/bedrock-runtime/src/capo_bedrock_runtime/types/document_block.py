@@ -71,9 +71,7 @@ def deserialize_json(data: dict) -> DocumentBlock:
             data["source"]
         )
     else:
-        import capo_bedrock_runtime.types._unknown
-
-        out["source"] = capo_bedrock_runtime.types._unknown.UnknownUnionMember("")
+        out["source"] = {"$unknown": {"name": ""}}
     if data.get("context") is not None:
         out["context"] = data["context"]
     if data.get("citations") is not None:

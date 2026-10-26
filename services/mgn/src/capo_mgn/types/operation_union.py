@@ -41,9 +41,9 @@ OperationUnion: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: OperationUnion) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"OperationUnion: cannot serialize unknown variant {value.name!r}"
+            f"OperationUnion: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "merge" in value:
         import capo_mgn.types.merge_operation
@@ -95,5 +95,5 @@ def deserialize_json(data: dict) -> OperationUnion:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("OperationUnion: no recognized variant key")

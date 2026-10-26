@@ -89,9 +89,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateDataTransformationProfileReque
             )
         )
     else:
-        import capo_healthlake.types._unknown
-
-        out["source"] = capo_healthlake.types._unknown.UnknownUnionMember("")
+        out["source"] = {"$unknown": {"name": ""}}
     if data.get("KmsKeyId") is not None:
         out["kms_key_id"] = data["KmsKeyId"]
     if data.get("ProfileDescription") is not None:

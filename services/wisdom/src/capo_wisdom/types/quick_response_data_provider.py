@@ -22,9 +22,9 @@ QuickResponseDataProvider: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: QuickResponseDataProvider) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"QuickResponseDataProvider: cannot serialize unknown variant {value.name!r}"
+            f"QuickResponseDataProvider: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "content" in value:
         return {"content": value["content"]}
@@ -40,17 +40,13 @@ def deserialize_json(data: dict) -> QuickResponseDataProvider:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "QuickResponseDataProvider: no recognized variant key"
         )
 
 
-def redact_sensitive(
-    value: QuickResponseDataProvider,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: QuickResponseDataProvider) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "content" in value:
         out["content"] = "*** Sensitive Data Redacted ***"

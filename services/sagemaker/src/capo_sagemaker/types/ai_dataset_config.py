@@ -20,9 +20,9 @@ AIDatasetConfig: TypeAlias = _AIDatasetConfig_InputDataConfig | UnknownUnionMemb
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: AIDatasetConfig) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AIDatasetConfig: cannot serialize unknown variant {value.name!r}"
+            f"AIDatasetConfig: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "InputDataConfig" in value:
         import capo_sagemaker.types.ai_workload_input_data_config_list
@@ -50,5 +50,5 @@ def deserialize_aws_json_1_1(data: dict) -> AIDatasetConfig:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("AIDatasetConfig: no recognized variant key")

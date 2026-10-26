@@ -55,9 +55,7 @@ def deserialize_json(data: dict) -> Mount:
             data["source"]
         )
     else:
-        import capo_iotsitewise.types._unknown
-
-        out["source"] = capo_iotsitewise.types._unknown.UnknownUnionMember("")
+        out["source"] = {"$unknown": {"name": ""}}
     if data.get("storageType") is not None:
         import capo_iotsitewise.types.mount_storage_type
 

@@ -88,9 +88,9 @@ ReferenceSummary: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ReferenceSummary) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ReferenceSummary: cannot serialize unknown variant {value.name!r}"
+            f"ReferenceSummary: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "Url" in value:
         import capo_connect.types.url_reference
@@ -260,5 +260,5 @@ def deserialize_json(data: dict) -> ReferenceSummary:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ReferenceSummary: no recognized variant key")

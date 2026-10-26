@@ -51,9 +51,9 @@ TypedAttributeValue: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: TypedAttributeValue) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"TypedAttributeValue: cannot serialize unknown variant {value.name!r}"
+            f"TypedAttributeValue: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "StringValue" in value:
         return {"StringValue": value["StringValue"]}
@@ -109,5 +109,5 @@ def deserialize_json(data: dict) -> TypedAttributeValue:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("TypedAttributeValue: no recognized variant key")

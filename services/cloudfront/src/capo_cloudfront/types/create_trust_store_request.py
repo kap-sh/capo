@@ -63,11 +63,7 @@ def deserialize_xml(el: Element) -> CreateTrustStoreRequest:
             )
         )
     else:
-        import capo_cloudfront.types._unknown
-
-        out["ca_certificates_bundle_source"] = (
-            capo_cloudfront.types._unknown.UnknownUnionMember("")
-        )
+        out["ca_certificates_bundle_source"] = {"$unknown": {"name": ""}}
     child_use_client_certificate_ocsp_endpoint = el.find(
         "UseClientCertificateOCSPEndpoint"
     )

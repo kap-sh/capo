@@ -107,9 +107,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetCapabilityResponse:
             )
         )
     else:
-        import capo_b2bi.types._unknown
-
-        out["configuration"] = capo_b2bi.types._unknown.UnknownUnionMember("")
+        out["configuration"] = {"$unknown": {"name": ""}}
     if data.get("instructionsDocuments") is not None:
         import capo_b2bi.types.instructions_documents
 

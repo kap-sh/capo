@@ -41,9 +41,9 @@ MemoryRecordMetadataValue: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MemoryRecordMetadataValue) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"MemoryRecordMetadataValue: cannot serialize unknown variant {value.name!r}"
+            f"MemoryRecordMetadataValue: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "stringValue" in value:
         return {"stringValue": value["stringValue"]}
@@ -105,7 +105,7 @@ def deserialize_json(data: dict) -> MemoryRecordMetadataValue:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "MemoryRecordMetadataValue: no recognized variant key"
         )

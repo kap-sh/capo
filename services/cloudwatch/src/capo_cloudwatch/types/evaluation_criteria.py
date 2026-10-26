@@ -23,9 +23,9 @@ EvaluationCriteria: TypeAlias = _EvaluationCriteria_PromQLCriteria | UnknownUnio
 def serialize_query(
     value: EvaluationCriteria, pairs: list[tuple[str, str]], prefix: str
 ) -> None:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"EvaluationCriteria: cannot serialize unknown variant {value.name!r}"
+            f"EvaluationCriteria: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "PromQLCriteria" in value:
         import capo_cloudwatch.types.alarm_prom_ql_criteria
@@ -48,15 +48,15 @@ def deserialize_query(el: Element) -> EvaluationCriteria:
                 )
             }
         else:
-            return UnknownUnionMember(child.tag)
+            return {"$unknown": {"name": child.tag}}
     raise DeserializationError("EvaluationCriteria: no recognized variant element")
 
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: EvaluationCriteria) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"EvaluationCriteria: cannot serialize unknown variant {value.name!r}"
+            f"EvaluationCriteria: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "PromQLCriteria" in value:
         import capo_cloudwatch.types.alarm_prom_ql_criteria
@@ -84,5 +84,5 @@ def deserialize_aws_json_1_0(data: dict) -> EvaluationCriteria:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("EvaluationCriteria: no recognized variant key")

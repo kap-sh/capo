@@ -20,9 +20,9 @@ OpenHours: TypeAlias = _OpenHours_dailyHours | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: OpenHours) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"OpenHours: cannot serialize unknown variant {value.name!r}"
+            f"OpenHours: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "dailyHours" in value:
         import capo_connectcampaignsv2.types.daily_hours
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> OpenHours:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("OpenHours: no recognized variant key")

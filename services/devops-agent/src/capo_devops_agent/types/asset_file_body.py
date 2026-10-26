@@ -27,9 +27,9 @@ AssetFileBody: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AssetFileBody) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AssetFileBody: cannot serialize unknown variant {value.name!r}"
+            f"AssetFileBody: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "bytes" in value:
         import capo_devops_agent.types.asset_file_bytes
@@ -61,5 +61,5 @@ def deserialize_json(data: dict) -> AssetFileBody:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("AssetFileBody: no recognized variant key")

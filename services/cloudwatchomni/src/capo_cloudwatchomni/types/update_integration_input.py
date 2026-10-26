@@ -65,9 +65,7 @@ def deserialize_cbor(data: dict) -> UpdateIntegrationInput:
             )
         )
     else:
-        import capo_cloudwatchomni.types._unknown
-
-        out["identifier"] = capo_cloudwatchomni.types._unknown.UnknownUnionMember("")
+        out["identifier"] = {"$unknown": {"name": ""}}
     if data.get("credential") is not None:
         import capo_cloudwatchomni.types.integration_credential
 

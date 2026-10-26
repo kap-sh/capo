@@ -67,7 +67,5 @@ def deserialize_json(data: dict) -> ClusterDetails:
             )
         )
     else:
-        import capo_inspector2.types._unknown
-
-        out["cluster_metadata"] = capo_inspector2.types._unknown.UnknownUnionMember("")
+        out["cluster_metadata"] = {"$unknown": {"name": ""}}
     return out

@@ -69,9 +69,9 @@ BrowserAction: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: BrowserAction) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"BrowserAction: cannot serialize unknown variant {value.name!r}"
+            f"BrowserAction: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "mouseClick" in value:
         import capo_bedrock_agentcore.types.mouse_click_arguments
@@ -211,5 +211,5 @@ def deserialize_json(data: dict) -> BrowserAction:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("BrowserAction: no recognized variant key")

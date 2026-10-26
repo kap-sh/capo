@@ -22,9 +22,9 @@ CloudConnectorConfiguration: TypeAlias = (
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: CloudConnectorConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"CloudConnectorConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"CloudConnectorConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "AzureConfiguration" in value:
         import capo_ssm.types.azure_configuration
@@ -52,7 +52,7 @@ def deserialize_aws_json_1_1(data: dict) -> CloudConnectorConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "CloudConnectorConfiguration: no recognized variant key"
         )

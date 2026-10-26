@@ -82,9 +82,7 @@ def deserialize_json(data: dict) -> IngestDataInput:
             data["source"]
         )
     else:
-        import capo_bedrock_agentcore.types._unknown
-
-        out["source"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
+        out["source"] = {"$unknown": {"name": ""}}
     if data.get("contentTimestamp") is not None:
         import capo_bedrock_agentcore.types._prelude.timestamp
 

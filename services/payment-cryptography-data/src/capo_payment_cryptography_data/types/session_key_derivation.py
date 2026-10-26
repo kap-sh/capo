@@ -60,9 +60,9 @@ SessionKeyDerivation: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SessionKeyDerivation) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"SessionKeyDerivation: cannot serialize unknown variant {value.name!r}"
+            f"SessionKeyDerivation: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "EmvCommon" in value:
         import capo_payment_cryptography_data.types.session_key_emv_common
@@ -170,15 +170,11 @@ def deserialize_json(data: dict) -> SessionKeyDerivation:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("SessionKeyDerivation: no recognized variant key")
 
 
-def redact_sensitive(
-    value: SessionKeyDerivation,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: SessionKeyDerivation) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "EmvCommon" in value:
         import capo_payment_cryptography_data.types.session_key_emv_common

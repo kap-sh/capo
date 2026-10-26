@@ -61,11 +61,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateIdentitySourceInput:
             )
         )
     else:
-        import capo_verifiedpermissions.types._unknown
-
-        out["configuration"] = (
-            capo_verifiedpermissions.types._unknown.UnknownUnionMember("")
-        )
+        out["configuration"] = {"$unknown": {"name": ""}}
     if data.get("principalEntityType") is not None:
         out["principal_entity_type"] = data["principalEntityType"]
     return out

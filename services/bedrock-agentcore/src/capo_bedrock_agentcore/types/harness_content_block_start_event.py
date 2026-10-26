@@ -47,9 +47,7 @@ def deserialize_json(data: dict) -> HarnessContentBlockStartEvent:
             )
         )
     else:
-        import capo_bedrock_agentcore.types._unknown
-
-        out["start"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
+        out["start"] = {"$unknown": {"name": ""}}
     return out
 
 

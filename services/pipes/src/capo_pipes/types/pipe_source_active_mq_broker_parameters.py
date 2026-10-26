@@ -55,9 +55,7 @@ def deserialize_json(data: dict) -> PipeSourceActiveMQBrokerParameters:
             )
         )
     else:
-        import capo_pipes.types._unknown
-
-        out["credentials"] = capo_pipes.types._unknown.UnknownUnionMember("")
+        out["credentials"] = {"$unknown": {"name": ""}}
     if data.get("QueueName") is not None:
         out["queue_name"] = data["QueueName"]
     else:

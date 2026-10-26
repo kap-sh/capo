@@ -70,9 +70,7 @@ def deserialize_json(data: dict) -> CreateAppAuthorizationRequest:
             data["credential"]
         )
     else:
-        import capo_appfabric.types._unknown
-
-        out["credential"] = capo_appfabric.types._unknown.UnknownUnionMember("")
+        out["credential"] = {"$unknown": {"name": ""}}
     if data.get("tenant") is not None:
         import capo_appfabric.types.tenant
 

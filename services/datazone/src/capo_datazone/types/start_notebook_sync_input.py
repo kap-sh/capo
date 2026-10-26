@@ -73,9 +73,7 @@ def deserialize_json(data: dict) -> StartNotebookSyncInput:
             data["sourceLocation"]
         )
     else:
-        import capo_datazone.types._unknown
-
-        out["source_location"] = capo_datazone.types._unknown.UnknownUnionMember("")
+        out["source_location"] = {"$unknown": {"name": ""}}
     if data.get("gitMetadata") is not None:
         import capo_datazone.types.git_metadata
 

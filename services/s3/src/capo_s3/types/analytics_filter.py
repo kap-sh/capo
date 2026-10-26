@@ -37,9 +37,9 @@ AnalyticsFilter: TypeAlias = (
 # --- restXml ser/de ---
 def serialize_xml(value: AnalyticsFilter, parent: Element, tag: str) -> None:
     el = SubElement(parent, tag)
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AnalyticsFilter: cannot serialize unknown variant {value.name!r}"
+            f"AnalyticsFilter: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "Prefix" in value:
         SubElement(el, "Prefix").text = str(value["Prefix"])
@@ -68,5 +68,5 @@ def deserialize_xml(el: Element) -> AnalyticsFilter:
 
             return {"And": capo_s3.types.analytics_and_operator.deserialize_xml(child)}
         else:
-            return UnknownUnionMember(child.tag)
+            return {"$unknown": {"name": child.tag}}
     raise DeserializationError("AnalyticsFilter: no recognized variant element")

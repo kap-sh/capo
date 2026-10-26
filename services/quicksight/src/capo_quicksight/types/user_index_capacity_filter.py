@@ -33,9 +33,9 @@ UserIndexCapacityFilter: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: UserIndexCapacityFilter) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"UserIndexCapacityFilter: cannot serialize unknown variant {value.name!r}"
+            f"UserIndexCapacityFilter: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "userNameOrEmail" in value:
         import capo_quicksight.types.user_name_or_email_filter
@@ -79,5 +79,5 @@ def deserialize_json(data: dict) -> UserIndexCapacityFilter:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("UserIndexCapacityFilter: no recognized variant key")

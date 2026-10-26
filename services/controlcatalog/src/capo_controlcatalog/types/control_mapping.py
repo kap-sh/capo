@@ -59,7 +59,5 @@ def deserialize_json(data: dict) -> ControlMapping:
             data["Mapping"]
         )
     else:
-        import capo_controlcatalog.types._unknown
-
-        out["mapping"] = capo_controlcatalog.types._unknown.UnknownUnionMember("")
+        out["mapping"] = {"$unknown": {"name": ""}}
     return out

@@ -20,9 +20,9 @@ Caller: TypeAlias = _Caller_agentAliasArn | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Caller) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"Caller: cannot serialize unknown variant {value.name!r}"
+            f"Caller: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "agentAliasArn" in value:
         return {"agentAliasArn": value["agentAliasArn"]}
@@ -38,5 +38,5 @@ def deserialize_json(data: dict) -> Caller:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("Caller: no recognized variant key")

@@ -141,11 +141,7 @@ def deserialize_json(data: dict) -> GetAsyncInvokeResponse:
             )
         )
     else:
-        import capo_bedrock_runtime.types._unknown
-
-        out["output_data_config"] = (
-            capo_bedrock_runtime.types._unknown.UnknownUnionMember("")
-        )
+        out["output_data_config"] = {"$unknown": {"name": ""}}
     return out
 
 

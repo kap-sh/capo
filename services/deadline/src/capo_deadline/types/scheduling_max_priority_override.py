@@ -22,9 +22,9 @@ SchedulingMaxPriorityOverride: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SchedulingMaxPriorityOverride) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"SchedulingMaxPriorityOverride: cannot serialize unknown variant {value.name!r}"
+            f"SchedulingMaxPriorityOverride: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "alwaysScheduleFirst" in value:
         import capo_deadline.types.scheduling_max_priority_override_always_schedule_first
@@ -52,7 +52,7 @@ def deserialize_json(data: dict) -> SchedulingMaxPriorityOverride:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "SchedulingMaxPriorityOverride: no recognized variant key"
         )

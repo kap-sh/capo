@@ -29,9 +29,9 @@ RelatedItemUpdateContent: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RelatedItemUpdateContent) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"RelatedItemUpdateContent: cannot serialize unknown variant {value.name!r}"
+            f"RelatedItemUpdateContent: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "comment" in value:
         import capo_connectcases.types.comment_update_content
@@ -75,7 +75,7 @@ def deserialize_json(data: dict) -> RelatedItemUpdateContent:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "RelatedItemUpdateContent: no recognized variant key"
         )

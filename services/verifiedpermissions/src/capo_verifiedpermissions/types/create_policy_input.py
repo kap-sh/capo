@@ -59,11 +59,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreatePolicyInput:
             )
         )
     else:
-        import capo_verifiedpermissions.types._unknown
-
-        out["definition"] = capo_verifiedpermissions.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["definition"] = {"$unknown": {"name": ""}}
     if data.get("name") is not None:
         out["name"] = data["name"]
     return out

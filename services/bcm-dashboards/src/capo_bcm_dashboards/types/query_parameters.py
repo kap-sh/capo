@@ -49,9 +49,9 @@ QueryParameters: TypeAlias = (
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: QueryParameters) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"QueryParameters: cannot serialize unknown variant {value.name!r}"
+            f"QueryParameters: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "costAndUsage" in value:
         import capo_bcm_dashboards.types.cost_and_usage_query
@@ -143,5 +143,5 @@ def deserialize_aws_json_1_0(data: dict) -> QueryParameters:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("QueryParameters: no recognized variant key")

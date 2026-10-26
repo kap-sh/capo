@@ -25,9 +25,9 @@ ExtractionConfiguration: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ExtractionConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ExtractionConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"ExtractionConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "customExtractionConfiguration" in value:
         import capo_bedrock_agentcore_control.types.custom_extraction_configuration
@@ -55,15 +55,11 @@ def deserialize_json(data: dict) -> ExtractionConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ExtractionConfiguration: no recognized variant key")
 
 
-def redact_sensitive(
-    value: ExtractionConfiguration,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: ExtractionConfiguration) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "customExtractionConfiguration" in value:
         import capo_bedrock_agentcore_control.types.custom_extraction_configuration

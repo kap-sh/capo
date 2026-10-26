@@ -80,11 +80,11 @@ CodeInterpreterStreamOutput: TypeAlias = AnyIterator[_CodeInterpreterStreamOutpu
 
 
 def serialize_event_json(value: _CodeInterpreterStreamOutput) -> bytes:
-    if isinstance(value, UnknownEvent):
-        raise ValueError(
-            f"CodeInterpreterStreamOutput: cannot serialize unknown event {value.event_type!r}"
-        )
     match value:
+        case {"$unknown": {"name": name}}:
+            raise ValueError(
+                f"CodeInterpreterStreamOutput: cannot serialize unknown event {name!r}"
+            )
         case {"result": payload}:
             import capo_bedrock_agentcore.types.code_interpreter_result
 
@@ -238,7 +238,7 @@ def deserialize_event_json(
                 )
             }
         case str():
-            return UnknownEvent(event_type, message)
+            return {"$unknown": {"name": event_type, "message": message}}
         case _:
             raise ValueError(
                 f"CodeInterpreterStreamOutput: unrecognized event-type {event_type!r}"

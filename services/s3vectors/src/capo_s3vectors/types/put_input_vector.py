@@ -41,9 +41,7 @@ def deserialize_json(data: dict) -> PutInputVector:
 
         out["data"] = capo_s3vectors.types.vector_data.deserialize_json(data["data"])
     else:
-        import capo_s3vectors.types._unknown
-
-        out["data"] = capo_s3vectors.types._unknown.UnknownUnionMember("")
+        out["data"] = {"$unknown": {"name": ""}}
     if data.get("metadata") is not None:
         out["metadata"] = data["metadata"]
     else:

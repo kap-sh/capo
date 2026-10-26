@@ -130,11 +130,7 @@ def deserialize_json(data: dict) -> StartBatchEvaluationRequest:
             )
         )
     else:
-        import capo_bedrock_agentcore.types._unknown
-
-        out["data_source_config"] = (
-            capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
-        )
+        out["data_source_config"] = {"$unknown": {"name": ""}}
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("evaluationMetadata") is not None:

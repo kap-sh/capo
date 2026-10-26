@@ -19,9 +19,9 @@ CitationGeneratedContent: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CitationGeneratedContent) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"CitationGeneratedContent: cannot serialize unknown variant {value.name!r}"
+            f"CitationGeneratedContent: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "text" in value:
         return {"text": value["text"]}
@@ -37,7 +37,7 @@ def deserialize_json(data: dict) -> CitationGeneratedContent:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "CitationGeneratedContent: no recognized variant key"
         )

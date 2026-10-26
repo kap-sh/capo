@@ -22,9 +22,9 @@ ContentFeedbackData: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ContentFeedbackData) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ContentFeedbackData: cannot serialize unknown variant {value.name!r}"
+            f"ContentFeedbackData: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "generativeContentFeedbackData" in value:
         import capo_qconnect.types.generative_content_feedback_data
@@ -52,5 +52,5 @@ def deserialize_json(data: dict) -> ContentFeedbackData:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ContentFeedbackData: no recognized variant key")

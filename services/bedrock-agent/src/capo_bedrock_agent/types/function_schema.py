@@ -20,9 +20,9 @@ FunctionSchema: TypeAlias = _FunctionSchema_functions | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: FunctionSchema) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"FunctionSchema: cannot serialize unknown variant {value.name!r}"
+            f"FunctionSchema: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "functions" in value:
         import capo_bedrock_agent.types.functions
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> FunctionSchema:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("FunctionSchema: no recognized variant key")

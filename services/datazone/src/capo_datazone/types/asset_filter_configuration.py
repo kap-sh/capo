@@ -33,9 +33,9 @@ AssetFilterConfiguration: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AssetFilterConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AssetFilterConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"AssetFilterConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "columnConfiguration" in value:
         import capo_datazone.types.column_filter_configuration
@@ -79,7 +79,7 @@ def deserialize_json(data: dict) -> AssetFilterConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "AssetFilterConfiguration: no recognized variant key"
         )

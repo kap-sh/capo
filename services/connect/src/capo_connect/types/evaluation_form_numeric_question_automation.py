@@ -29,9 +29,9 @@ EvaluationFormNumericQuestionAutomation: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: EvaluationFormNumericQuestionAutomation) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"EvaluationFormNumericQuestionAutomation: cannot serialize unknown variant {value.name!r}"
+            f"EvaluationFormNumericQuestionAutomation: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "PropertyValue" in value:
         import capo_connect.types.numeric_question_property_value_automation
@@ -77,7 +77,7 @@ def deserialize_json(data: dict) -> EvaluationFormNumericQuestionAutomation:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "EvaluationFormNumericQuestionAutomation: no recognized variant key"
         )

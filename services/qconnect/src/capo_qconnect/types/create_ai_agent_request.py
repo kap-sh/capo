@@ -77,9 +77,7 @@ def deserialize_json(data: dict) -> CreateAIAgentRequest:
             )
         )
     else:
-        import capo_qconnect.types._unknown
-
-        out["configuration"] = capo_qconnect.types._unknown.UnknownUnionMember("")
+        out["configuration"] = {"$unknown": {"name": ""}}
     if data.get("visibilityStatus") is not None:
         out["visibility_status"] = data["visibilityStatus"]
     else:

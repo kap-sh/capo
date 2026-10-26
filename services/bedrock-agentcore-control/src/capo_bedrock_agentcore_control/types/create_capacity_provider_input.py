@@ -102,11 +102,7 @@ def deserialize_json(data: dict) -> CreateCapacityProviderInput:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["compute_configuration"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["compute_configuration"] = {"$unknown": {"name": ""}}
     return out
 
 

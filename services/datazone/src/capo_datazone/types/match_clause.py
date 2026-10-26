@@ -27,9 +27,9 @@ MatchClause: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MatchClause) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"MatchClause: cannot serialize unknown variant {value.name!r}"
+            f"MatchClause: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "relationPattern" in value:
         import capo_datazone.types.relation_pattern
@@ -73,5 +73,5 @@ def deserialize_json(data: dict) -> MatchClause:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("MatchClause: no recognized variant key")

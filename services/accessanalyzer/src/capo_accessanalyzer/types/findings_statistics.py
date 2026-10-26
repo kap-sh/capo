@@ -35,9 +35,9 @@ FindingsStatistics: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: FindingsStatistics) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"FindingsStatistics: cannot serialize unknown variant {value.name!r}"
+            f"FindingsStatistics: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "externalAccessFindingsStatistics" in value:
         import capo_accessanalyzer.types.external_access_findings_statistics
@@ -97,5 +97,5 @@ def deserialize_json(data: dict) -> FindingsStatistics:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("FindingsStatistics: no recognized variant key")

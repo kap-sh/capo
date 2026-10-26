@@ -31,9 +31,9 @@ FrameworkSummary: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: FrameworkSummary) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"FrameworkSummary: cannot serialize unknown variant {value.name!r}"
+            f"FrameworkSummary: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "AMISecuritySummary" in value:
         import capo_marketplace_catalog.types.ami_security_summary
@@ -77,5 +77,5 @@ def deserialize_json(data: dict) -> FrameworkSummary:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("FrameworkSummary: no recognized variant key")

@@ -100,11 +100,11 @@ SubscribeToShardEventStream: TypeAlias = AnyIterator[_SubscribeToShardEventStrea
 
 
 def serialize_event_aws_json_1_1(value: _SubscribeToShardEventStream) -> bytes:
-    if isinstance(value, UnknownEvent):
-        raise ValueError(
-            f"SubscribeToShardEventStream: cannot serialize unknown event {value.event_type!r}"
-        )
     match value:
+        case {"$unknown": {"name": name}}:
+            raise ValueError(
+                f"SubscribeToShardEventStream: cannot serialize unknown event {name!r}"
+            )
         case {"SubscribeToShardEvent": payload}:
             import capo_kinesis.types.subscribe_to_shard_event
 
@@ -284,7 +284,7 @@ def deserialize_event_aws_json_1_1(
                 )
             }
         case str():
-            return UnknownEvent(event_type, message)
+            return {"$unknown": {"name": event_type, "message": message}}
         case _:
             raise ValueError(
                 f"SubscribeToShardEventStream: unrecognized event-type {event_type!r}"

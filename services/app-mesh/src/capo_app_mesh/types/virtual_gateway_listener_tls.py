@@ -66,7 +66,5 @@ def deserialize_json(data: dict) -> VirtualGatewayListenerTls:
             )
         )
     else:
-        import capo_app_mesh.types._unknown
-
-        out["certificate"] = capo_app_mesh.types._unknown.UnknownUnionMember("")
+        out["certificate"] = {"$unknown": {"name": ""}}
     return out

@@ -62,9 +62,5 @@ def deserialize_json(data: dict) -> RegistryRecordCredentialProviderConfiguratio
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["credential_provider"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["credential_provider"] = {"$unknown": {"name": ""}}
     return out

@@ -22,9 +22,9 @@ ApprovalStrategyResponse: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ApprovalStrategyResponse) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ApprovalStrategyResponse: cannot serialize unknown variant {value.name!r}"
+            f"ApprovalStrategyResponse: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "MofN" in value:
         import capo_mpa.types.mof_n_approval_strategy
@@ -50,7 +50,7 @@ def deserialize_json(data: dict) -> ApprovalStrategyResponse:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "ApprovalStrategyResponse: no recognized variant key"
         )

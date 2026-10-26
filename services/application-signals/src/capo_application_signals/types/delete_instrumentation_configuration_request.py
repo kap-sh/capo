@@ -105,9 +105,5 @@ def deserialize_json(data: dict) -> DeleteInstrumentationConfigurationRequest:
             )
         )
     else:
-        import capo_application_signals.types._unknown
-
-        out["location_identifier"] = (
-            capo_application_signals.types._unknown.UnknownUnionMember("")
-        )
+        out["location_identifier"] = {"$unknown": {"name": ""}}
     return out

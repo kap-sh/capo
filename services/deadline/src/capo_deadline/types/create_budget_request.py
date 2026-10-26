@@ -97,11 +97,7 @@ def deserialize_json(data: dict) -> CreateBudgetRequest:
             )
         )
     else:
-        import capo_deadline.types._unknown
-
-        out["usage_tracking_resource"] = (
-            capo_deadline.types._unknown.UnknownUnionMember("")
-        )
+        out["usage_tracking_resource"] = {"$unknown": {"name": ""}}
     if data.get("approximateDollarLimit") is not None:
         out["approximate_dollar_limit"] = float(data["approximateDollarLimit"])
     else:
@@ -121,9 +117,7 @@ def deserialize_json(data: dict) -> CreateBudgetRequest:
             data["schedule"]
         )
     else:
-        import capo_deadline.types._unknown
-
-        out["schedule"] = capo_deadline.types._unknown.UnknownUnionMember("")
+        out["schedule"] = {"$unknown": {"name": ""}}
     if data.get("tags") is not None:
         import capo_deadline.types.tags
 

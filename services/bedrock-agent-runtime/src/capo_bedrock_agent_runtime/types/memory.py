@@ -22,9 +22,9 @@ Memory: TypeAlias = _Memory_sessionSummary | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Memory) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"Memory: cannot serialize unknown variant {value.name!r}"
+            f"Memory: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "sessionSummary" in value:
         import capo_bedrock_agent_runtime.types.memory_session_summary
@@ -52,5 +52,5 @@ def deserialize_json(data: dict) -> Memory:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("Memory: no recognized variant key")

@@ -67,9 +67,7 @@ def deserialize_json(data: dict) -> RecoveryPlanStep:
             )
         )
     else:
-        import capo_drs.types._unknown
-
-        out["configuration"] = capo_drs.types._unknown.UnknownUnionMember("")
+        out["configuration"] = {"$unknown": {"name": ""}}
     if data.get("createdAt") is not None:
         out["created_at"] = data["createdAt"]
     else:

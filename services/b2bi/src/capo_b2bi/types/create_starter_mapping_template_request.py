@@ -74,7 +74,5 @@ def deserialize_aws_json_1_0(data: dict) -> CreateStarterMappingTemplateRequest:
             )
         )
     else:
-        import capo_b2bi.types._unknown
-
-        out["template_details"] = capo_b2bi.types._unknown.UnknownUnionMember("")
+        out["template_details"] = {"$unknown": {"name": ""}}
     return out

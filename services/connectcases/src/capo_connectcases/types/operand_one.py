@@ -20,9 +20,9 @@ OperandOne: TypeAlias = _OperandOne_fieldId | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: OperandOne) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"OperandOne: cannot serialize unknown variant {value.name!r}"
+            f"OperandOne: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "fieldId" in value:
         return {"fieldId": value["fieldId"]}
@@ -38,5 +38,5 @@ def deserialize_json(data: dict) -> OperandOne:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("OperandOne: no recognized variant key")

@@ -33,7 +33,5 @@ def deserialize_json(data: dict) -> AuditLogDestinationConfiguration:
             data["destination"]
         )
     else:
-        import capo_appfabric.types._unknown
-
-        out["destination"] = capo_appfabric.types._unknown.UnknownUnionMember("")
+        out["destination"] = {"$unknown": {"name": ""}}
     return out

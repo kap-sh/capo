@@ -41,7 +41,5 @@ def deserialize_json(data: dict) -> AzElEphemeris:
             data["data"]
         )
     else:
-        import capo_groundstation.types._unknown
-
-        out["data"] = capo_groundstation.types._unknown.UnknownUnionMember("")
+        out["data"] = {"$unknown": {"name": ""}}
     return out

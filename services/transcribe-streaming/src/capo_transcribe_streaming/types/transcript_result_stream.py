@@ -62,11 +62,11 @@ TranscriptResultStream: TypeAlias = AnyIterator[_TranscriptResultStream]
 
 
 def serialize_event_json(value: _TranscriptResultStream) -> bytes:
-    if isinstance(value, UnknownEvent):
-        raise ValueError(
-            f"TranscriptResultStream: cannot serialize unknown event {value.event_type!r}"
-        )
     match value:
+        case {"$unknown": {"name": name}}:
+            raise ValueError(
+                f"TranscriptResultStream: cannot serialize unknown event {name!r}"
+            )
         case {"TranscriptEvent": payload}:
             import capo_transcribe_streaming.types.transcript_event
 
@@ -184,7 +184,7 @@ def deserialize_event_json(
                 )
             }
         case str():
-            return UnknownEvent(event_type, message)
+            return {"$unknown": {"name": event_type, "message": message}}
         case _:
             raise ValueError(
                 f"TranscriptResultStream: unrecognized event-type {event_type!r}"

@@ -176,11 +176,7 @@ def deserialize_json(data: dict) -> GetEarthObservationJobOutput:
             )
         )
     else:
-        import capo_sagemaker_geospatial.types._unknown
-
-        out["job_config"] = capo_sagemaker_geospatial.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["job_config"] = {"$unknown": {"name": ""}}
     if data.get("OutputBands") is not None:
         import capo_sagemaker_geospatial.types.earth_observation_job_output_bands
 

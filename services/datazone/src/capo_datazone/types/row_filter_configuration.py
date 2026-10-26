@@ -36,9 +36,7 @@ def deserialize_json(data: dict) -> RowFilterConfiguration:
             data["rowFilter"]
         )
     else:
-        import capo_datazone.types._unknown
-
-        out["row_filter"] = capo_datazone.types._unknown.UnknownUnionMember("")
+        out["row_filter"] = {"$unknown": {"name": ""}}
     if data.get("sensitive") is not None:
         out["sensitive"] = data["sensitive"]
     else:

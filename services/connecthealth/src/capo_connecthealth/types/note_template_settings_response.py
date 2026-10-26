@@ -33,9 +33,9 @@ NoteTemplateSettingsResponse: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: NoteTemplateSettingsResponse) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"NoteTemplateSettingsResponse: cannot serialize unknown variant {value.name!r}"
+            f"NoteTemplateSettingsResponse: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "managedTemplate" in value:
         import capo_connecthealth.types.managed_template_response
@@ -79,7 +79,7 @@ def deserialize_json(data: dict) -> NoteTemplateSettingsResponse:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "NoteTemplateSettingsResponse: no recognized variant key"
         )

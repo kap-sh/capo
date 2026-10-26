@@ -123,9 +123,7 @@ def deserialize_json(data: dict) -> RealTimeContactAnalysisSegmentTranscript:
             )
         )
     else:
-        import capo_connect.types._unknown
-
-        out["time"] = capo_connect.types._unknown.UnknownUnionMember("")
+        out["time"] = {"$unknown": {"name": ""}}
     if data.get("Redaction") is not None:
         import capo_connect.types.real_time_contact_analysis_transcript_item_redaction
 

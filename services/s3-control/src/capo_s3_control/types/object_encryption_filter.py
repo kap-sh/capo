@@ -49,9 +49,9 @@ ObjectEncryptionFilter: TypeAlias = (
 # --- restXml ser/de ---
 def serialize_xml(value: ObjectEncryptionFilter, parent: Element, tag: str) -> None:
     el = SubElement(parent, tag)
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ObjectEncryptionFilter: cannot serialize unknown variant {value.name!r}"
+            f"ObjectEncryptionFilter: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "SSES3" in value:
         import capo_s3_control.types.sses3_filter
@@ -112,5 +112,5 @@ def deserialize_xml(el: Element) -> ObjectEncryptionFilter:
                 "NOTSSE": capo_s3_control.types.not_sse_filter.deserialize_xml(child)
             }
         else:
-            return UnknownUnionMember(child.tag)
+            return {"$unknown": {"name": child.tag}}
     raise DeserializationError("ObjectEncryptionFilter: no recognized variant element")

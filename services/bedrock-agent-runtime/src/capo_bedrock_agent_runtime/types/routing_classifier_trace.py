@@ -43,9 +43,9 @@ RoutingClassifierTrace: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RoutingClassifierTrace) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"RoutingClassifierTrace: cannot serialize unknown variant {value.name!r}"
+            f"RoutingClassifierTrace: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "invocationInput" in value:
         import capo_bedrock_agent_runtime.types.invocation_input
@@ -121,5 +121,5 @@ def deserialize_json(data: dict) -> RoutingClassifierTrace:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("RoutingClassifierTrace: no recognized variant key")

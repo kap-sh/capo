@@ -52,11 +52,11 @@ StartLiveTailResponseStream: TypeAlias = AnyIterator[_StartLiveTailResponseStrea
 
 
 def serialize_event_aws_json_1_1(value: _StartLiveTailResponseStream) -> bytes:
-    if isinstance(value, UnknownEvent):
-        raise ValueError(
-            f"StartLiveTailResponseStream: cannot serialize unknown event {value.event_type!r}"
-        )
     match value:
+        case {"$unknown": {"name": name}}:
+            raise ValueError(
+                f"StartLiveTailResponseStream: cannot serialize unknown event {name!r}"
+            )
         case {"sessionStart": payload}:
             import capo_cloudwatch_logs.types.live_tail_session_start
 
@@ -143,7 +143,7 @@ def deserialize_event_aws_json_1_1(
                 )
             }
         case str():
-            return UnknownEvent(event_type, message)
+            return {"$unknown": {"name": event_type, "message": message}}
         case _:
             raise ValueError(
                 f"StartLiveTailResponseStream: unrecognized event-type {event_type!r}"

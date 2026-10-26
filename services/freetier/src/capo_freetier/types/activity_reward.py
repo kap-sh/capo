@@ -20,9 +20,9 @@ ActivityReward: TypeAlias = _ActivityReward_credit | UnknownUnionMember
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: ActivityReward) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ActivityReward: cannot serialize unknown variant {value.name!r}"
+            f"ActivityReward: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "credit" in value:
         import capo_freetier.types.monetary_amount
@@ -50,5 +50,5 @@ def deserialize_aws_json_1_0(data: dict) -> ActivityReward:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ActivityReward: no recognized variant key")

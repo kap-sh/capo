@@ -22,9 +22,9 @@ TemplateVersionSourceInput: TypeAlias = (
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: TemplateVersionSourceInput) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"TemplateVersionSourceInput: cannot serialize unknown variant {value.name!r}"
+            f"TemplateVersionSourceInput: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "s3" in value:
         import capo_proton.types.s3_object_source
@@ -50,7 +50,7 @@ def deserialize_aws_json_1_0(data: dict) -> TemplateVersionSourceInput:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "TemplateVersionSourceInput: no recognized variant key"
         )

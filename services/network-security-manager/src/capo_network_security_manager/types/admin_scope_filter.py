@@ -40,9 +40,9 @@ AdminScopeFilter: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AdminScopeFilter) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AdminScopeFilter: cannot serialize unknown variant {value.name!r}"
+            f"AdminScopeFilter: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "includeAll" in value:
         return {"includeAll": {}}
@@ -90,13 +90,11 @@ def deserialize_json(data: dict) -> AdminScopeFilter:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("AdminScopeFilter: no recognized variant key")
 
 
-def redact_sensitive(value: AdminScopeFilter) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: AdminScopeFilter) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "includeOnly" in value:
         import capo_network_security_manager.types.admin_scope_selection

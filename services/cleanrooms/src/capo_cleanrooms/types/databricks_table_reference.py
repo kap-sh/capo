@@ -64,7 +64,5 @@ def deserialize_json(data: dict) -> DatabricksTableReference:
             )
         )
     else:
-        import capo_cleanrooms.types._unknown
-
-        out["connection_type"] = capo_cleanrooms.types._unknown.UnknownUnionMember("")
+        out["connection_type"] = {"$unknown": {"name": ""}}
     return out

@@ -176,11 +176,7 @@ def deserialize_json(data: dict) -> GetPolicyResponse:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["definition"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["definition"] = {"$unknown": {"name": ""}}
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("statusReasons") is not None:

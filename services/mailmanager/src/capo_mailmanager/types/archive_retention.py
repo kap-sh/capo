@@ -20,9 +20,9 @@ ArchiveRetention: TypeAlias = _ArchiveRetention_RetentionPeriod | UnknownUnionMe
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: ArchiveRetention) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ArchiveRetention: cannot serialize unknown variant {value.name!r}"
+            f"ArchiveRetention: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "RetentionPeriod" in value:
         import capo_mailmanager.types.retention_period
@@ -50,5 +50,5 @@ def deserialize_aws_json_1_0(data: dict) -> ArchiveRetention:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ArchiveRetention: no recognized variant key")

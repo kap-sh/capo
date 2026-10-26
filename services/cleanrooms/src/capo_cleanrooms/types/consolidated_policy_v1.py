@@ -35,9 +35,9 @@ ConsolidatedPolicyV1: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ConsolidatedPolicyV1) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ConsolidatedPolicyV1: cannot serialize unknown variant {value.name!r}"
+            f"ConsolidatedPolicyV1: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "list" in value:
         import capo_cleanrooms.types.consolidated_policy_list
@@ -97,5 +97,5 @@ def deserialize_json(data: dict) -> ConsolidatedPolicyV1:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ConsolidatedPolicyV1: no recognized variant key")

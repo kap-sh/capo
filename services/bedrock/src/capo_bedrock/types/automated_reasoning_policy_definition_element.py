@@ -41,9 +41,9 @@ AutomatedReasoningPolicyDefinitionElement: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AutomatedReasoningPolicyDefinitionElement) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AutomatedReasoningPolicyDefinitionElement: cannot serialize unknown variant {value.name!r}"
+            f"AutomatedReasoningPolicyDefinitionElement: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "policyDefinitionVariable" in value:
         import capo_bedrock.types.automated_reasoning_policy_definition_variable
@@ -105,7 +105,7 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyDefinitionElement:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "AutomatedReasoningPolicyDefinitionElement: no recognized variant key"
         )
@@ -113,9 +113,7 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyDefinitionElement:
 
 def redact_sensitive(
     value: AutomatedReasoningPolicyDefinitionElement,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "policyDefinitionVariable" in value:
         import capo_bedrock.types.automated_reasoning_policy_definition_variable

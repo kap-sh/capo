@@ -101,9 +101,5 @@ def deserialize_json(data: dict) -> StartRouterInputResponse:
             )
         )
     else:
-        import capo_mediaconnect.types._unknown
-
-        out["maintenance_schedule"] = (
-            capo_mediaconnect.types._unknown.UnknownUnionMember("")
-        )
+        out["maintenance_schedule"] = {"$unknown": {"name": ""}}
     return out

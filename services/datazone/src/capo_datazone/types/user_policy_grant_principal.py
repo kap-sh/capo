@@ -31,9 +31,9 @@ UserPolicyGrantPrincipal: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: UserPolicyGrantPrincipal) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"UserPolicyGrantPrincipal: cannot serialize unknown variant {value.name!r}"
+            f"UserPolicyGrantPrincipal: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "userIdentifier" in value:
         return {"userIdentifier": value["userIdentifier"]}
@@ -65,7 +65,7 @@ def deserialize_json(data: dict) -> UserPolicyGrantPrincipal:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "UserPolicyGrantPrincipal: no recognized variant key"
         )

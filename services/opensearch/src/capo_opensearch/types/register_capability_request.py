@@ -48,7 +48,5 @@ def deserialize_json(data: dict) -> RegisterCapabilityRequest:
             )
         )
     else:
-        import capo_opensearch.types._unknown
-
-        out["capability_config"] = capo_opensearch.types._unknown.UnknownUnionMember("")
+        out["capability_config"] = {"$unknown": {"name": ""}}
     return out

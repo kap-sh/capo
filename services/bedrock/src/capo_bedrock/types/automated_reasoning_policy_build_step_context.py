@@ -29,9 +29,9 @@ AutomatedReasoningPolicyBuildStepContext: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AutomatedReasoningPolicyBuildStepContext) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AutomatedReasoningPolicyBuildStepContext: cannot serialize unknown variant {value.name!r}"
+            f"AutomatedReasoningPolicyBuildStepContext: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "planning" in value:
         import capo_bedrock.types.automated_reasoning_policy_planning
@@ -77,17 +77,13 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyBuildStepContext:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "AutomatedReasoningPolicyBuildStepContext: no recognized variant key"
         )
 
 
-def redact_sensitive(
-    value: AutomatedReasoningPolicyBuildStepContext,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: AutomatedReasoningPolicyBuildStepContext) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "mutation" in value:
         import capo_bedrock.types.automated_reasoning_policy_mutation

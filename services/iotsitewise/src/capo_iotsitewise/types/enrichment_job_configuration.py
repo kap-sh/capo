@@ -22,9 +22,9 @@ EnrichmentJobConfiguration: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: EnrichmentJobConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"EnrichmentJobConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"EnrichmentJobConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "eventDetection" in value:
         import capo_iotsitewise.types.event_detection
@@ -52,7 +52,7 @@ def deserialize_json(data: dict) -> EnrichmentJobConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "EnrichmentJobConfiguration: no recognized variant key"
         )

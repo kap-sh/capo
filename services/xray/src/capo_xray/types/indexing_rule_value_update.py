@@ -24,9 +24,9 @@ IndexingRuleValueUpdate: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: IndexingRuleValueUpdate) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"IndexingRuleValueUpdate: cannot serialize unknown variant {value.name!r}"
+            f"IndexingRuleValueUpdate: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "Probabilistic" in value:
         import capo_xray.types.probabilistic_rule_value_update
@@ -54,5 +54,5 @@ def deserialize_json(data: dict) -> IndexingRuleValueUpdate:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("IndexingRuleValueUpdate: no recognized variant key")

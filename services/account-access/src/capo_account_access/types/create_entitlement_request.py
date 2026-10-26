@@ -41,7 +41,5 @@ def deserialize_json(data: dict) -> CreateEntitlementRequest:
             data["entitlement"]
         )
     else:
-        import capo_account_access.types._unknown
-
-        out["entitlement"] = capo_account_access.types._unknown.UnknownUnionMember("")
+        out["entitlement"] = {"$unknown": {"name": ""}}
     return out

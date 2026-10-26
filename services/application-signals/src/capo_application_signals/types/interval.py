@@ -29,9 +29,9 @@ Interval: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Interval) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"Interval: cannot serialize unknown variant {value.name!r}"
+            f"Interval: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "RollingInterval" in value:
         import capo_application_signals.types.rolling_interval
@@ -75,5 +75,5 @@ def deserialize_json(data: dict) -> Interval:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("Interval: no recognized variant key")

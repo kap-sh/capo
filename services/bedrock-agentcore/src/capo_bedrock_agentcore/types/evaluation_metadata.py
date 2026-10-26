@@ -22,9 +22,9 @@ EvaluationMetadata: TypeAlias = _EvaluationMetadata_sessionMetadata | UnknownUni
 
 # --- restJson1 ser/de ---
 def serialize_json(value: EvaluationMetadata) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"EvaluationMetadata: cannot serialize unknown variant {value.name!r}"
+            f"EvaluationMetadata: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "sessionMetadata" in value:
         import capo_bedrock_agentcore.types.session_metadata_list
@@ -52,5 +52,5 @@ def deserialize_json(data: dict) -> EvaluationMetadata:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("EvaluationMetadata: no recognized variant key")

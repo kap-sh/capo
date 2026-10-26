@@ -27,9 +27,9 @@ DiffieHellmanDerivationData: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DiffieHellmanDerivationData) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"DiffieHellmanDerivationData: cannot serialize unknown variant {value.name!r}"
+            f"DiffieHellmanDerivationData: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "SharedInformation" in value:
         return {"SharedInformation": value["SharedInformation"]}
@@ -45,7 +45,7 @@ def deserialize_json(data: dict) -> DiffieHellmanDerivationData:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "DiffieHellmanDerivationData: no recognized variant key"
         )

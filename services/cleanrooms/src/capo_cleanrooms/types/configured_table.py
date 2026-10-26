@@ -130,9 +130,7 @@ def deserialize_json(data: dict) -> ConfiguredTable:
             data["tableReference"]
         )
     else:
-        import capo_cleanrooms.types._unknown
-
-        out["table_reference"] = capo_cleanrooms.types._unknown.UnknownUnionMember("")
+        out["table_reference"] = {"$unknown": {"name": ""}}
     if data.get("tableType") is not None:
         import capo_cleanrooms.types.table_reference_type
 

@@ -95,9 +95,9 @@ RuleAction: TypeAlias = (
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: RuleAction) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"RuleAction: cannot serialize unknown variant {value.name!r}"
+            f"RuleAction: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "Drop" in value:
         import capo_mailmanager.types.drop_action
@@ -301,13 +301,11 @@ def deserialize_aws_json_1_0(data: dict) -> RuleAction:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("RuleAction: no recognized variant key")
 
 
-def redact_sensitive(value: RuleAction) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: RuleAction) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "ReplaceRecipient" in value:
         import capo_mailmanager.types.replace_recipient_action

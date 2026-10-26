@@ -64,11 +64,11 @@ MedicalTranscriptResultStream: TypeAlias = AnyIterator[_MedicalTranscriptResultS
 
 
 def serialize_event_json(value: _MedicalTranscriptResultStream) -> bytes:
-    if isinstance(value, UnknownEvent):
-        raise ValueError(
-            f"MedicalTranscriptResultStream: cannot serialize unknown event {value.event_type!r}"
-        )
     match value:
+        case {"$unknown": {"name": name}}:
+            raise ValueError(
+                f"MedicalTranscriptResultStream: cannot serialize unknown event {name!r}"
+            )
         case {"TranscriptEvent": payload}:
             import capo_transcribe_streaming.types.medical_transcript_event
 
@@ -186,7 +186,7 @@ def deserialize_event_json(
                 )
             }
         case str():
-            return UnknownEvent(event_type, message)
+            return {"$unknown": {"name": event_type, "message": message}}
         case _:
             raise ValueError(
                 f"MedicalTranscriptResultStream: unrecognized event-type {event_type!r}"

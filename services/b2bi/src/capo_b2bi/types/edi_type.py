@@ -20,9 +20,9 @@ EdiType: TypeAlias = _EdiType_x12Details | UnknownUnionMember
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: EdiType) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"EdiType: cannot serialize unknown variant {value.name!r}"
+            f"EdiType: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "x12Details" in value:
         import capo_b2bi.types.x12_details
@@ -50,5 +50,5 @@ def deserialize_aws_json_1_0(data: dict) -> EdiType:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("EdiType: no recognized variant key")

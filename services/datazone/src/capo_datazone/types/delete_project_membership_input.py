@@ -35,7 +35,5 @@ def deserialize_json(data: dict) -> DeleteProjectMembershipInput:
 
         out["member"] = capo_datazone.types.member.deserialize_json(data["member"])
     else:
-        import capo_datazone.types._unknown
-
-        out["member"] = capo_datazone.types._unknown.UnknownUnionMember("")
+        out["member"] = {"$unknown": {"name": ""}}
     return out

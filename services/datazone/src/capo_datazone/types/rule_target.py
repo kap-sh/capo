@@ -20,9 +20,9 @@ RuleTarget: TypeAlias = _RuleTarget_domainUnitTarget | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RuleTarget) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"RuleTarget: cannot serialize unknown variant {value.name!r}"
+            f"RuleTarget: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "domainUnitTarget" in value:
         import capo_datazone.types.domain_unit_target
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> RuleTarget:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("RuleTarget: no recognized variant key")

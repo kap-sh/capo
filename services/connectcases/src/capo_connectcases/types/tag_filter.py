@@ -20,9 +20,9 @@ TagFilter: TypeAlias = _TagFilter_equalTo | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: TagFilter) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"TagFilter: cannot serialize unknown variant {value.name!r}"
+            f"TagFilter: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "equalTo" in value:
         import capo_connectcases.types.tag_value
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> TagFilter:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("TagFilter: no recognized variant key")

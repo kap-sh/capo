@@ -104,11 +104,7 @@ def deserialize_json(data: dict) -> CreateAIPromptRequest:
             )
         )
     else:
-        import capo_qconnect.types._unknown
-
-        out["template_configuration"] = capo_qconnect.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["template_configuration"] = {"$unknown": {"name": ""}}
     if data.get("visibilityStatus") is not None:
         out["visibility_status"] = data["visibilityStatus"]
     else:

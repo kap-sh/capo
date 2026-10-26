@@ -25,9 +25,9 @@ LakeFormationScopeUnion: TypeAlias = (
 def serialize_query(
     value: LakeFormationScopeUnion, pairs: list[tuple[str, str]], prefix: str
 ) -> None:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"LakeFormationScopeUnion: cannot serialize unknown variant {value.name!r}"
+            f"LakeFormationScopeUnion: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "LakeFormationQuery" in value:
         import capo_redshift.types.lake_formation_query
@@ -50,5 +50,5 @@ def deserialize_query(el: Element) -> LakeFormationScopeUnion:
                 )
             }
         else:
-            return UnknownUnionMember(child.tag)
+            return {"$unknown": {"name": child.tag}}
     raise DeserializationError("LakeFormationScopeUnion: no recognized variant element")

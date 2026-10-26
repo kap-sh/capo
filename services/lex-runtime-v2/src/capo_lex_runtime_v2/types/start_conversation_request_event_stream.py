@@ -68,11 +68,11 @@ StartConversationRequestEventStream: TypeAlias = AnyIterator[
 
 
 def serialize_event_json(value: _StartConversationRequestEventStream) -> bytes:
-    if isinstance(value, UnknownEvent):
-        raise ValueError(
-            f"StartConversationRequestEventStream: cannot serialize unknown event {value.event_type!r}"
-        )
     match value:
+        case {"$unknown": {"name": name}}:
+            raise ValueError(
+                f"StartConversationRequestEventStream: cannot serialize unknown event {name!r}"
+            )
         case {"ConfigurationEvent": payload}:
             import capo_lex_runtime_v2.types.configuration_event
 
@@ -184,7 +184,7 @@ def deserialize_event_json(
                 )
             }
         case str():
-            return UnknownEvent(event_type, message)
+            return {"$unknown": {"name": event_type, "message": message}}
         case _:
             raise ValueError(
                 f"StartConversationRequestEventStream: unrecognized event-type {event_type!r}"

@@ -95,9 +95,7 @@ def deserialize_json(data: dict) -> CreateModelImportJobRequest:
             )
         )
     else:
-        import capo_bedrock.types._unknown
-
-        out["model_data_source"] = capo_bedrock.types._unknown.UnknownUnionMember("")
+        out["model_data_source"] = {"$unknown": {"name": ""}}
     if data.get("jobTags") is not None:
         import capo_bedrock.types.tag_list
 

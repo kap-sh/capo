@@ -27,9 +27,9 @@ AIAdapterSource: TypeAlias = (
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: AIAdapterSource) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AIAdapterSource: cannot serialize unknown variant {value.name!r}"
+            f"AIAdapterSource: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "ModelPackageArns" in value:
         import capo_sagemaker.types.ai_adapter_model_package_entry_list
@@ -73,5 +73,5 @@ def deserialize_aws_json_1_1(data: dict) -> AIAdapterSource:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("AIAdapterSource: no recognized variant key")

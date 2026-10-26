@@ -37,9 +37,9 @@ UpdateEngagementContextPayload: TypeAlias = (
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: UpdateEngagementContextPayload) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"UpdateEngagementContextPayload: cannot serialize unknown variant {value.name!r}"
+            f"UpdateEngagementContextPayload: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "Lead" in value:
         import capo_partnercentral_selling.types.update_lead_context
@@ -99,17 +99,13 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateEngagementContextPayload:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "UpdateEngagementContextPayload: no recognized variant key"
         )
 
 
-def redact_sensitive(
-    value: UpdateEngagementContextPayload,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: UpdateEngagementContextPayload) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "Lead" in value:
         import capo_partnercentral_selling.types.update_lead_context

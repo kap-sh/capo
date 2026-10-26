@@ -45,11 +45,7 @@ def deserialize_json(data: dict) -> UpdateBrowserStreamRequest:
             )
         )
     else:
-        import capo_bedrock_agentcore.types._unknown
-
-        out["stream_update"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["stream_update"] = {"$unknown": {"name": ""}}
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

@@ -149,9 +149,7 @@ def deserialize_json(data: dict) -> CreateInstrumentationConfigurationRequest:
             data["Location"]
         )
     else:
-        import capo_application_signals.types._unknown
-
-        out["location"] = capo_application_signals.types._unknown.UnknownUnionMember("")
+        out["location"] = {"$unknown": {"name": ""}}
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("ExpiresAt") is not None:
@@ -179,11 +177,7 @@ def deserialize_json(data: dict) -> CreateInstrumentationConfigurationRequest:
             )
         )
     else:
-        import capo_application_signals.types._unknown
-
-        out["capture_configuration"] = (
-            capo_application_signals.types._unknown.UnknownUnionMember("")
-        )
+        out["capture_configuration"] = {"$unknown": {"name": ""}}
     if data.get("Tags") is not None:
         import capo_application_signals.types.tag_list
 

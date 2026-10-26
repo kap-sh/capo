@@ -20,9 +20,9 @@ EventResourceData: TypeAlias = _EventResourceData_sourceNetworkData | UnknownUni
 
 # --- restJson1 ser/de ---
 def serialize_json(value: EventResourceData) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"EventResourceData: cannot serialize unknown variant {value.name!r}"
+            f"EventResourceData: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "sourceNetworkData" in value:
         import capo_drs.types.source_network_data
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> EventResourceData:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("EventResourceData: no recognized variant key")

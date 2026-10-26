@@ -152,11 +152,7 @@ def deserialize_json(data: dict) -> CreateOnlineEvaluationConfigRequest:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["data_source_config"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["data_source_config"] = {"$unknown": {"name": ""}}
     if data.get("evaluators") is not None:
         import capo_bedrock_agentcore_control.types.evaluator_list
 

@@ -27,9 +27,9 @@ AwsAccount: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AwsAccount) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AwsAccount: cannot serialize unknown variant {value.name!r}"
+            f"AwsAccount: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "awsAccountId" in value:
         return {"awsAccountId": value["awsAccountId"]}
@@ -49,5 +49,5 @@ def deserialize_json(data: dict) -> AwsAccount:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("AwsAccount: no recognized variant key")

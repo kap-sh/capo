@@ -26,9 +26,9 @@ DataSetExportConfig: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DataSetExportConfig) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"DataSetExportConfig: cannot serialize unknown variant {value.name!r}"
+            f"DataSetExportConfig: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "s3Location" in value:
         return {"s3Location": value["s3Location"]}
@@ -60,5 +60,5 @@ def deserialize_json(data: dict) -> DataSetExportConfig:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("DataSetExportConfig: no recognized variant key")

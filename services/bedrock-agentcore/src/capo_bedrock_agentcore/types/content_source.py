@@ -20,9 +20,9 @@ ContentSource: TypeAlias = _ContentSource_inline | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ContentSource) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ContentSource: cannot serialize unknown variant {value.name!r}"
+            f"ContentSource: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "inline" in value:
         import capo_bedrock_agentcore.types.inline_memory_content
@@ -50,13 +50,11 @@ def deserialize_json(data: dict) -> ContentSource:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ContentSource: no recognized variant key")
 
 
-def redact_sensitive(value: ContentSource) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: ContentSource) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "inline" in value:
         import capo_bedrock_agentcore.types.inline_memory_content

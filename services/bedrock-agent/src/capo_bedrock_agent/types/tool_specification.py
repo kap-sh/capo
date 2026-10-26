@@ -54,9 +54,7 @@ def deserialize_json(data: dict) -> ToolSpecification:
             )
         )
     else:
-        import capo_bedrock_agent.types._unknown
-
-        out["input_schema"] = capo_bedrock_agent.types._unknown.UnknownUnionMember("")
+        out["input_schema"] = {"$unknown": {"name": ""}}
     if data.get("strict") is not None:
         out["strict"] = data["strict"]
     return out

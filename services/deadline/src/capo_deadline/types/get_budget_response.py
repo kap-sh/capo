@@ -134,11 +134,7 @@ def deserialize_json(data: dict) -> GetBudgetResponse:
             )
         )
     else:
-        import capo_deadline.types._unknown
-
-        out["usage_tracking_resource"] = (
-            capo_deadline.types._unknown.UnknownUnionMember("")
-        )
+        out["usage_tracking_resource"] = {"$unknown": {"name": ""}}
     if data.get("status") is not None:
         import capo_deadline.types.budget_status
 
@@ -208,9 +204,7 @@ def deserialize_json(data: dict) -> GetBudgetResponse:
             data["schedule"]
         )
     else:
-        import capo_deadline.types._unknown
-
-        out["schedule"] = capo_deadline.types._unknown.UnknownUnionMember("")
+        out["schedule"] = {"$unknown": {"name": ""}}
     if data.get("queueStoppedAt") is not None:
         import capo_deadline.types.updated_at
 

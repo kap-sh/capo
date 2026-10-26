@@ -72,11 +72,7 @@ def deserialize_json(data: dict) -> CreateTaskInput:
             data["command"]
         )
     else:
-        import capo_snow_device_management.types._unknown
-
-        out["command"] = capo_snow_device_management.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["command"] = {"$unknown": {"name": ""}}
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("tags") is not None:

@@ -62,9 +62,7 @@ def deserialize_json(data: dict) -> CreateRouterNetworkInterfaceRequest:
             )
         )
     else:
-        import capo_mediaconnect.types._unknown
-
-        out["configuration"] = capo_mediaconnect.types._unknown.UnknownUnionMember("")
+        out["configuration"] = {"$unknown": {"name": ""}}
     if data.get("regionName") is not None:
         out["region_name"] = data["regionName"]
     if data.get("tags") is not None:

@@ -23,9 +23,9 @@ OrchestrationExecutor: TypeAlias = _OrchestrationExecutor_lambda | UnknownUnionM
 
 # --- restJson1 ser/de ---
 def serialize_json(value: OrchestrationExecutor) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"OrchestrationExecutor: cannot serialize unknown variant {value.name!r}"
+            f"OrchestrationExecutor: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "lambda" in value:
         return {"lambda": value["lambda"]}
@@ -41,5 +41,5 @@ def deserialize_json(data: dict) -> OrchestrationExecutor:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("OrchestrationExecutor: no recognized variant key")

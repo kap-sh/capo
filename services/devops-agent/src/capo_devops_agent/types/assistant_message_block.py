@@ -23,9 +23,9 @@ AssistantMessageBlock: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AssistantMessageBlock) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AssistantMessageBlock: cannot serialize unknown variant {value.name!r}"
+            f"AssistantMessageBlock: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "text" in value:
         return {"text": value["text"]}
@@ -45,5 +45,5 @@ def deserialize_json(data: dict) -> AssistantMessageBlock:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("AssistantMessageBlock: no recognized variant key")

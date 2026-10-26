@@ -35,9 +35,9 @@ DatabaseMigrationPreference: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DatabaseMigrationPreference) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"DatabaseMigrationPreference: cannot serialize unknown variant {value.name!r}"
+            f"DatabaseMigrationPreference: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "heterogeneous" in value:
         import capo_migrationhubstrategy.types.heterogeneous
@@ -97,7 +97,7 @@ def deserialize_json(data: dict) -> DatabaseMigrationPreference:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "DatabaseMigrationPreference: no recognized variant key"
         )

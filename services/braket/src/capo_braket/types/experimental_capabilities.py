@@ -22,9 +22,9 @@ ExperimentalCapabilities: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ExperimentalCapabilities) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ExperimentalCapabilities: cannot serialize unknown variant {value.name!r}"
+            f"ExperimentalCapabilities: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "enabled" in value:
         return {"enabled": value["enabled"]}
@@ -40,7 +40,7 @@ def deserialize_json(data: dict) -> ExperimentalCapabilities:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "ExperimentalCapabilities: no recognized variant key"
         )

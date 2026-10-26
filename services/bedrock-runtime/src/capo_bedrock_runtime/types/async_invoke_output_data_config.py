@@ -22,9 +22,9 @@ AsyncInvokeOutputDataConfig: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AsyncInvokeOutputDataConfig) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AsyncInvokeOutputDataConfig: cannot serialize unknown variant {value.name!r}"
+            f"AsyncInvokeOutputDataConfig: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "s3OutputDataConfig" in value:
         import capo_bedrock_runtime.types.async_invoke_s3_output_data_config
@@ -52,7 +52,7 @@ def deserialize_json(data: dict) -> AsyncInvokeOutputDataConfig:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "AsyncInvokeOutputDataConfig: no recognized variant key"
         )

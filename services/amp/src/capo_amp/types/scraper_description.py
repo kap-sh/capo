@@ -168,17 +168,13 @@ def deserialize_json(data: dict) -> ScraperDescription:
             )
         )
     else:
-        import capo_amp.types._unknown
-
-        out["scrape_configuration"] = capo_amp.types._unknown.UnknownUnionMember("")
+        out["scrape_configuration"] = {"$unknown": {"name": ""}}
     if data.get("source") is not None:
         import capo_amp.types.source
 
         out["source"] = capo_amp.types.source.deserialize_json(data["source"])
     else:
-        import capo_amp.types._unknown
-
-        out["source"] = capo_amp.types._unknown.UnknownUnionMember("")
+        out["source"] = {"$unknown": {"name": ""}}
     if data.get("destination") is not None:
         import capo_amp.types.destination
 
@@ -186,9 +182,7 @@ def deserialize_json(data: dict) -> ScraperDescription:
             data["destination"]
         )
     else:
-        import capo_amp.types._unknown
-
-        out["destination"] = capo_amp.types._unknown.UnknownUnionMember("")
+        out["destination"] = {"$unknown": {"name": ""}}
     if data.get("roleConfiguration") is not None:
         import capo_amp.types.role_configuration
 

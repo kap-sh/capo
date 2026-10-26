@@ -24,9 +24,9 @@ Schedule: TypeAlias = _Schedule_at | _Schedule_cron | UnknownUnionMember
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: Schedule) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"Schedule: cannot serialize unknown variant {value.name!r}"
+            f"Schedule: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "at" in value:
         import capo_redshift_serverless.types._prelude.timestamp
@@ -58,5 +58,5 @@ def deserialize_aws_json_1_1(data: dict) -> Schedule:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("Schedule: no recognized variant key")

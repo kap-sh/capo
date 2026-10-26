@@ -66,9 +66,7 @@ def deserialize_cbor(data: dict) -> CreateEventSourceRequest:
             )
         )
     else:
-        import capo_eventbridgev2.types._unknown
-
-        out["configuration"] = capo_eventbridgev2.types._unknown.UnknownUnionMember("")
+        out["configuration"] = {"$unknown": {"name": ""}}
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Tags") is not None:

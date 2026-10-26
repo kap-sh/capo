@@ -128,11 +128,7 @@ def deserialize_json(data: dict) -> TranslatePinDataInput:
             )
         )
     else:
-        import capo_payment_cryptography_data.types._unknown
-
-        out["incoming_translation_attributes"] = (
-            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
-        )
+        out["incoming_translation_attributes"] = {"$unknown": {"name": ""}}
     if data.get("OutgoingTranslationAttributes") is not None:
         import capo_payment_cryptography_data.types.translation_iso_formats
 
@@ -142,11 +138,7 @@ def deserialize_json(data: dict) -> TranslatePinDataInput:
             )
         )
     else:
-        import capo_payment_cryptography_data.types._unknown
-
-        out["outgoing_translation_attributes"] = (
-            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
-        )
+        out["outgoing_translation_attributes"] = {"$unknown": {"name": ""}}
     if data.get("EncryptedPinBlock") is not None:
         out["encrypted_pin_block"] = data["EncryptedPinBlock"]
     else:

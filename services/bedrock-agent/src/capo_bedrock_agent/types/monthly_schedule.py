@@ -33,7 +33,5 @@ def deserialize_json(data: dict) -> MonthlySchedule:
             data["dayOfMonth"]
         )
     else:
-        import capo_bedrock_agent.types._unknown
-
-        out["day_of_month"] = capo_bedrock_agent.types._unknown.UnknownUnionMember("")
+        out["day_of_month"] = {"$unknown": {"name": ""}}
     return out

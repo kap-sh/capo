@@ -38,9 +38,9 @@ FilterClause: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: FilterClause) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"FilterClause: cannot serialize unknown variant {value.name!r}"
+            f"FilterClause: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "filter" in value:
         import capo_datazone.types.filter
@@ -76,5 +76,5 @@ def deserialize_json(data: dict) -> FilterClause:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("FilterClause: no recognized variant key")

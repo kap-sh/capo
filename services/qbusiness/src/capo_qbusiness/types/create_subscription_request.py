@@ -47,9 +47,7 @@ def deserialize_json(data: dict) -> CreateSubscriptionRequest:
             data["principal"]
         )
     else:
-        import capo_qbusiness.types._unknown
-
-        out["principal"] = capo_qbusiness.types._unknown.UnknownUnionMember("")
+        out["principal"] = {"$unknown": {"name": ""}}
     if data.get("type") is not None:
         import capo_qbusiness.types.subscription_type
 

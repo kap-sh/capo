@@ -42,11 +42,7 @@ def deserialize_json(data: dict) -> MembershipProtectedQueryResultConfiguration:
             )
         )
     else:
-        import capo_cleanrooms.types._unknown
-
-        out["output_configuration"] = capo_cleanrooms.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["output_configuration"] = {"$unknown": {"name": ""}}
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     return out

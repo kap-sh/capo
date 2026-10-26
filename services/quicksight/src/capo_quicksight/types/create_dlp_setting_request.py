@@ -86,9 +86,7 @@ def deserialize_json(data: dict) -> CreateDlpSettingRequest:
             data["ProviderConfig"]
         )
     else:
-        import capo_quicksight.types._unknown
-
-        out["provider_config"] = capo_quicksight.types._unknown.UnknownUnionMember("")
+        out["provider_config"] = {"$unknown": {"name": ""}}
     if data.get("ProviderOutageAction") is not None:
         import capo_quicksight.types.dlp_action
 

@@ -27,9 +27,9 @@ ChatChannel: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ChatChannel) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ChatChannel: cannot serialize unknown variant {value.name!r}"
+            f"ChatChannel: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "empty" in value:
         import capo_ssm_incidents.types.empty_chat_channel
@@ -73,5 +73,5 @@ def deserialize_json(data: dict) -> ChatChannel:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ChatChannel: no recognized variant key")

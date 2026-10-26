@@ -71,11 +71,7 @@ def deserialize_json(data: dict) -> CreateScanRequest:
             data["resourceId"]
         )
     else:
-        import capo_codeguru_security.types._unknown
-
-        out["resource_id"] = capo_codeguru_security.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["resource_id"] = {"$unknown": {"name": ""}}
     if data.get("scanName") is not None:
         out["scan_name"] = data["scanName"]
     else:

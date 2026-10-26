@@ -57,11 +57,7 @@ def deserialize_json(data: dict) -> StartPolicyGenerationRequest:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["resource"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["resource"] = {"$unknown": {"name": ""}}
     if data.get("content") is not None:
         import capo_bedrock_agentcore_control.types.content
 
@@ -69,11 +65,7 @@ def deserialize_json(data: dict) -> StartPolicyGenerationRequest:
             data["content"]
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["content"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["content"] = {"$unknown": {"name": ""}}
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:

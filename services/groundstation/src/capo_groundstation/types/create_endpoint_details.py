@@ -33,9 +33,9 @@ CreateEndpointDetails: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CreateEndpointDetails) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"CreateEndpointDetails: cannot serialize unknown variant {value.name!r}"
+            f"CreateEndpointDetails: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "uplinkAwsGroundStationAgentEndpoint" in value:
         import capo_groundstation.types.uplink_aws_ground_station_agent_endpoint
@@ -79,5 +79,5 @@ def deserialize_json(data: dict) -> CreateEndpointDetails:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("CreateEndpointDetails: no recognized variant key")

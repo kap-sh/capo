@@ -49,11 +49,7 @@ def deserialize_aws_json_1_0(data: dict) -> Invitation:
             )
         )
     else:
-        import capo_partnercentral_selling.types._unknown
-
-        out["receiver"] = capo_partnercentral_selling.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["receiver"] = {"$unknown": {"name": ""}}
     if data.get("Payload") is not None:
         import capo_partnercentral_selling.types.payload
 
@@ -63,11 +59,7 @@ def deserialize_aws_json_1_0(data: dict) -> Invitation:
             )
         )
     else:
-        import capo_partnercentral_selling.types._unknown
-
-        out["payload"] = capo_partnercentral_selling.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["payload"] = {"$unknown": {"name": ""}}
     return out
 
 

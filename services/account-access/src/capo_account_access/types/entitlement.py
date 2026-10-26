@@ -22,9 +22,9 @@ Entitlement: TypeAlias = _Entitlement_principalRole | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Entitlement) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"Entitlement: cannot serialize unknown variant {value.name!r}"
+            f"Entitlement: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "principalRole" in value:
         import capo_account_access.types.principal_role_entitlement
@@ -52,5 +52,5 @@ def deserialize_json(data: dict) -> Entitlement:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("Entitlement: no recognized variant key")

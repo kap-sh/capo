@@ -32,9 +32,9 @@ ToolChoice: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ToolChoice) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ToolChoice: cannot serialize unknown variant {value.name!r}"
+            f"ToolChoice: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "auto" in value:
         import capo_bedrock_agent.types.auto_tool_choice
@@ -92,5 +92,5 @@ def deserialize_json(data: dict) -> ToolChoice:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ToolChoice: no recognized variant key")

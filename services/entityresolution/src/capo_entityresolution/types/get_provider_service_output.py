@@ -163,11 +163,7 @@ def deserialize_json(data: dict) -> GetProviderServiceOutput:
             )
         )
     else:
-        import capo_entityresolution.types._unknown
-
-        out["provider_endpoint_configuration"] = (
-            capo_entityresolution.types._unknown.UnknownUnionMember("")
-        )
+        out["provider_endpoint_configuration"] = {"$unknown": {"name": ""}}
     if data.get("anonymizedOutput") is not None:
         out["anonymized_output"] = data["anonymizedOutput"]
     else:

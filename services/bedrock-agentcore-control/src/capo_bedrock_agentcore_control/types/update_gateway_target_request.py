@@ -114,11 +114,7 @@ def deserialize_json(data: dict) -> UpdateGatewayTargetRequest:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["target_configuration"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["target_configuration"] = {"$unknown": {"name": ""}}
     if data.get("credentialProviderConfigurations") is not None:
         import capo_bedrock_agentcore_control.types.credential_provider_configurations
 

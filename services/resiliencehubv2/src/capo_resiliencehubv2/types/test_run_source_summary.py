@@ -29,9 +29,9 @@ TestRunSourceSummary: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: TestRunSourceSummary) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"TestRunSourceSummary: cannot serialize unknown variant {value.name!r}"
+            f"TestRunSourceSummary: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "successCriteriaAlarm" in value:
         import capo_resiliencehubv2.types.test_run_success_criteria_alarm_summary
@@ -75,5 +75,5 @@ def deserialize_json(data: dict) -> TestRunSourceSummary:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("TestRunSourceSummary: no recognized variant key")

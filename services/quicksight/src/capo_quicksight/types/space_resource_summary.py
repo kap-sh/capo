@@ -76,9 +76,7 @@ def deserialize_json(data: dict) -> SpaceResourceSummary:
             )
         )
     else:
-        import capo_quicksight.types._unknown
-
-        out["resource_details"] = capo_quicksight.types._unknown.UnknownUnionMember("")
+        out["resource_details"] = {"$unknown": {"name": ""}}
     if data.get("ResourceName") is not None:
         out["resource_name"] = data["ResourceName"]
     if data.get("UpdatedAt") is not None:

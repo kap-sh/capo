@@ -41,9 +41,9 @@ DialerConfig: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DialerConfig) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"DialerConfig: cannot serialize unknown variant {value.name!r}"
+            f"DialerConfig: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "progressiveDialerConfig" in value:
         import capo_connectcampaigns.types.progressive_dialer_config
@@ -103,5 +103,5 @@ def deserialize_json(data: dict) -> DialerConfig:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("DialerConfig: no recognized variant key")

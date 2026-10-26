@@ -33,7 +33,5 @@ def deserialize_json(data: dict) -> TrustedCaCertificate:
             data["source"]
         )
     else:
-        import capo_securityagent.types._unknown
-
-        out["source"] = capo_securityagent.types._unknown.UnknownUnionMember("")
+        out["source"] = {"$unknown": {"name": ""}}
     return out

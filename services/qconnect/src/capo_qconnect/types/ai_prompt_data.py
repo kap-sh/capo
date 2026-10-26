@@ -156,11 +156,7 @@ def deserialize_json(data: dict) -> AIPromptData:
             )
         )
     else:
-        import capo_qconnect.types._unknown
-
-        out["template_configuration"] = capo_qconnect.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["template_configuration"] = {"$unknown": {"name": ""}}
     if data.get("inferenceConfiguration") is not None:
         import capo_qconnect.types.ai_prompt_inference_configuration
 

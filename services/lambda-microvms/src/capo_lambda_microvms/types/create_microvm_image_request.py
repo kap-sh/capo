@@ -155,11 +155,7 @@ def deserialize_json(data: dict) -> CreateMicrovmImageRequest:
             )
         )
     else:
-        import capo_lambda_microvms.types._unknown
-
-        out["code_artifact"] = capo_lambda_microvms.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["code_artifact"] = {"$unknown": {"name": ""}}
     if data.get("logging") is not None:
         import capo_lambda_microvms.types.logging
 

@@ -22,9 +22,9 @@ PopulationAnalysisConfiguration: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PopulationAnalysisConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"PopulationAnalysisConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"PopulationAnalysisConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "sqlParameters" in value:
         import capo_cleanrooms.types.population_analysis_sql_parameters
@@ -52,17 +52,13 @@ def deserialize_json(data: dict) -> PopulationAnalysisConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "PopulationAnalysisConfiguration: no recognized variant key"
         )
 
 
-def redact_sensitive(
-    value: PopulationAnalysisConfiguration,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: PopulationAnalysisConfiguration) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "sqlParameters" in value:
         out["sqlParameters"] = "*** Sensitive Data Redacted ***"

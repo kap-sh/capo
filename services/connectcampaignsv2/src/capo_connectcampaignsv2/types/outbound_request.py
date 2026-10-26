@@ -64,11 +64,7 @@ def deserialize_json(data: dict) -> OutboundRequest:
             )
         )
     else:
-        import capo_connectcampaignsv2.types._unknown
-
-        out["channel_subtype_parameters"] = (
-            capo_connectcampaignsv2.types._unknown.UnknownUnionMember("")
-        )
+        out["channel_subtype_parameters"] = {"$unknown": {"name": ""}}
     return out
 
 

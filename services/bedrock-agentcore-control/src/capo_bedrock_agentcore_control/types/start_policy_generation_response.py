@@ -114,11 +114,7 @@ def deserialize_json(data: dict) -> StartPolicyGenerationResponse:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["resource"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["resource"] = {"$unknown": {"name": ""}}
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 

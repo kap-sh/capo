@@ -92,11 +92,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateScheduledActionRequest:
             )
         )
     else:
-        import capo_redshift_serverless.types._unknown
-
-        out["target_action"] = (
-            capo_redshift_serverless.types._unknown.UnknownUnionMember("")
-        )
+        out["target_action"] = {"$unknown": {"name": ""}}
     if data.get("schedule") is not None:
         import capo_redshift_serverless.types.schedule
 
@@ -106,9 +102,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateScheduledActionRequest:
             )
         )
     else:
-        import capo_redshift_serverless.types._unknown
-
-        out["schedule"] = capo_redshift_serverless.types._unknown.UnknownUnionMember("")
+        out["schedule"] = {"$unknown": {"name": ""}}
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:

@@ -45,9 +45,5 @@ def deserialize_json(data: dict) -> DerivedEvaluatorConfig:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["model_config"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["model_config"] = {"$unknown": {"name": ""}}
     return out

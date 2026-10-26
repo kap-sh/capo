@@ -43,9 +43,5 @@ def deserialize_json(data: dict) -> UpdateParticipantRoleConfigRequest:
             )
         )
     else:
-        import capo_connect.types._unknown
-
-        out["channel_configuration"] = capo_connect.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["channel_configuration"] = {"$unknown": {"name": ""}}
     return out

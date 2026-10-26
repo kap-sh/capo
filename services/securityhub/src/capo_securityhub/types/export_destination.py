@@ -20,9 +20,9 @@ ExportDestination: TypeAlias = _ExportDestination_S3 | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ExportDestination) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ExportDestination: cannot serialize unknown variant {value.name!r}"
+            f"ExportDestination: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "S3" in value:
         import capo_securityhub.types.s3_export_destination
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> ExportDestination:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ExportDestination: no recognized variant key")

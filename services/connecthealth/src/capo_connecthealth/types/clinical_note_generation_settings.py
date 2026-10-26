@@ -39,11 +39,7 @@ def deserialize_json(data: dict) -> ClinicalNoteGenerationSettings:
             )
         )
     else:
-        import capo_connecthealth.types._unknown
-
-        out["note_template_settings"] = (
-            capo_connecthealth.types._unknown.UnknownUnionMember("")
-        )
+        out["note_template_settings"] = {"$unknown": {"name": ""}}
     return out
 
 

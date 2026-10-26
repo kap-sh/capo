@@ -32,9 +32,9 @@ ReflectionConfiguration: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ReflectionConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ReflectionConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"ReflectionConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "customReflectionConfiguration" in value:
         import capo_bedrock_agentcore_control.types.custom_reflection_configuration
@@ -78,15 +78,11 @@ def deserialize_json(data: dict) -> ReflectionConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ReflectionConfiguration: no recognized variant key")
 
 
-def redact_sensitive(
-    value: ReflectionConfiguration,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: ReflectionConfiguration) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "customReflectionConfiguration" in value:
         import capo_bedrock_agentcore_control.types.custom_reflection_configuration

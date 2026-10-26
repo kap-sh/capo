@@ -27,9 +27,9 @@ UserIdentifier: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: UserIdentifier) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"UserIdentifier: cannot serialize unknown variant {value.name!r}"
+            f"UserIdentifier: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "userToken" in value:
         return {"userToken": value["userToken"]}
@@ -49,13 +49,11 @@ def deserialize_json(data: dict) -> UserIdentifier:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("UserIdentifier: no recognized variant key")
 
 
-def redact_sensitive(value: UserIdentifier) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: UserIdentifier) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "userToken" in value:
         out["userToken"] = "*** Sensitive Data Redacted ***"

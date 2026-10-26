@@ -44,9 +44,7 @@ def deserialize_json(data: dict) -> AddEntityOwnerInput:
             data["owner"]
         )
     else:
-        import capo_datazone.types._unknown
-
-        out["owner"] = capo_datazone.types._unknown.UnknownUnionMember("")
+        out["owner"] = {"$unknown": {"name": ""}}
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

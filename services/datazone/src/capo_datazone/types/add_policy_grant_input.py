@@ -74,9 +74,7 @@ def deserialize_json(data: dict) -> AddPolicyGrantInput:
             data["principal"]
         )
     else:
-        import capo_datazone.types._unknown
-
-        out["principal"] = capo_datazone.types._unknown.UnknownUnionMember("")
+        out["principal"] = {"$unknown": {"name": ""}}
     if data.get("detail") is not None:
         import capo_datazone.types.policy_grant_detail
 
@@ -84,9 +82,7 @@ def deserialize_json(data: dict) -> AddPolicyGrantInput:
             data["detail"]
         )
     else:
-        import capo_datazone.types._unknown
-
-        out["detail"] = capo_datazone.types._unknown.UnknownUnionMember("")
+        out["detail"] = {"$unknown": {"name": ""}}
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

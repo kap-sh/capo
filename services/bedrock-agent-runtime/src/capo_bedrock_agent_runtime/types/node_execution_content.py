@@ -17,9 +17,9 @@ NodeExecutionContent: TypeAlias = _NodeExecutionContent_document | UnknownUnionM
 
 # --- restJson1 ser/de ---
 def serialize_json(value: NodeExecutionContent) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"NodeExecutionContent: cannot serialize unknown variant {value.name!r}"
+            f"NodeExecutionContent: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "document" in value:
         return {"document": value["document"]}
@@ -35,5 +35,5 @@ def deserialize_json(data: dict) -> NodeExecutionContent:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("NodeExecutionContent: no recognized variant key")

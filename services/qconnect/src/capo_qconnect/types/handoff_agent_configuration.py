@@ -52,9 +52,7 @@ def deserialize_json(data: dict) -> HandoffAgentConfiguration:
             data["agentTarget"]
         )
     else:
-        import capo_qconnect.types._unknown
-
-        out["agent_target"] = capo_qconnect.types._unknown.UnknownUnionMember("")
+        out["agent_target"] = {"$unknown": {"name": ""}}
     if data.get("instruction") is not None:
         import capo_qconnect.types.multi_agent_instruction
 

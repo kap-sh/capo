@@ -47,11 +47,7 @@ def deserialize_json(data: dict) -> AuthorizingClaimMatchValueType:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["claim_match_value"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["claim_match_value"] = {"$unknown": {"name": ""}}
     if data.get("claimMatchOperator") is not None:
         import capo_bedrock_agentcore_control.types.claim_match_operator_type
 

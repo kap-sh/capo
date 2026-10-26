@@ -80,9 +80,7 @@ def deserialize_aws_json_1_0(data: dict) -> Environment:
             data["provider"]
         )
     else:
-        import capo_interconnect.types._unknown
-
-        out["provider"] = capo_interconnect.types._unknown.UnknownUnionMember("")
+        out["provider"] = {"$unknown": {"name": ""}}
     if data.get("location") is not None:
         out["location"] = data["location"]
     else:

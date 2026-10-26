@@ -65,9 +65,7 @@ def deserialize_json(data: dict) -> CreateRuleRequest:
 
         out["match"] = capo_vpc_lattice.types.rule_match.deserialize_json(data["match"])
     else:
-        import capo_vpc_lattice.types._unknown
-
-        out["match"] = capo_vpc_lattice.types._unknown.UnknownUnionMember("")
+        out["match"] = {"$unknown": {"name": ""}}
     if data.get("priority") is not None:
         out["priority"] = data["priority"]
     else:
@@ -79,9 +77,7 @@ def deserialize_json(data: dict) -> CreateRuleRequest:
             data["action"]
         )
     else:
-        import capo_vpc_lattice.types._unknown
-
-        out["action"] = capo_vpc_lattice.types._unknown.UnknownUnionMember("")
+        out["action"] = {"$unknown": {"name": ""}}
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("tags") is not None:

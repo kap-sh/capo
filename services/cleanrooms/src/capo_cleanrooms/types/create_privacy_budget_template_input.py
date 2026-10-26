@@ -92,9 +92,7 @@ def deserialize_json(data: dict) -> CreatePrivacyBudgetTemplateInput:
             )
         )
     else:
-        import capo_cleanrooms.types._unknown
-
-        out["parameters"] = capo_cleanrooms.types._unknown.UnknownUnionMember("")
+        out["parameters"] = {"$unknown": {"name": ""}}
     if data.get("tags") is not None:
         import capo_cleanrooms.types.tag_map
 

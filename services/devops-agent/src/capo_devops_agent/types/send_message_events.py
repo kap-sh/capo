@@ -80,11 +80,11 @@ SendMessageEvents: TypeAlias = AnyIterator[_SendMessageEvents]
 
 
 def serialize_event_json(value: _SendMessageEvents) -> bytes:
-    if isinstance(value, UnknownEvent):
-        raise ValueError(
-            f"SendMessageEvents: cannot serialize unknown event {value.event_type!r}"
-        )
     match value:
+        case {"$unknown": {"name": name}}:
+            raise ValueError(
+                f"SendMessageEvents: cannot serialize unknown event {name!r}"
+            )
         case {"responseCreated": payload}:
             import capo_devops_agent.types.send_message_response_created_event
 
@@ -238,7 +238,7 @@ def deserialize_event_json(
                 )
             }
         case str():
-            return UnknownEvent(event_type, message)
+            return {"$unknown": {"name": event_type, "message": message}}
         case _:
             raise ValueError(
                 f"SendMessageEvents: unrecognized event-type {event_type!r}"

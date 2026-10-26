@@ -65,9 +65,7 @@ def deserialize_json(data: dict) -> StartNotebookImportInput:
             data["sourceLocation"]
         )
     else:
-        import capo_datazone.types._unknown
-
-        out["source_location"] = capo_datazone.types._unknown.UnknownUnionMember("")
+        out["source_location"] = {"$unknown": {"name": ""}}
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:

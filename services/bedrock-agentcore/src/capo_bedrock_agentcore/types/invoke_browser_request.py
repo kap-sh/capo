@@ -38,7 +38,5 @@ def deserialize_json(data: dict) -> InvokeBrowserRequest:
             data["action"]
         )
     else:
-        import capo_bedrock_agentcore.types._unknown
-
-        out["action"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
+        out["action"] = {"$unknown": {"name": ""}}
     return out

@@ -69,9 +69,9 @@ ConfigurationOptions: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ConfigurationOptions) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ConfigurationOptions: cannot serialize unknown variant {value.name!r}"
+            f"ConfigurationOptions: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "Integer" in value:
         import capo_securityhub.types.integer_configuration_options
@@ -211,5 +211,5 @@ def deserialize_json(data: dict) -> ConfigurationOptions:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ConfigurationOptions: no recognized variant key")

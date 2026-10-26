@@ -59,11 +59,7 @@ def deserialize_json(data: dict) -> VerifyCardValidationDataInput:
             )
         )
     else:
-        import capo_payment_cryptography_data.types._unknown
-
-        out["verification_attributes"] = (
-            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
-        )
+        out["verification_attributes"] = {"$unknown": {"name": ""}}
     if data.get("ValidationData") is not None:
         out["validation_data"] = data["ValidationData"]
     else:

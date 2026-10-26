@@ -38,9 +38,9 @@ RowFilter: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RowFilter) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"RowFilter: cannot serialize unknown variant {value.name!r}"
+            f"RowFilter: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "expression" in value:
         import capo_datazone.types.row_filter_expression
@@ -86,5 +86,5 @@ def deserialize_json(data: dict) -> RowFilter:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("RowFilter: no recognized variant key")

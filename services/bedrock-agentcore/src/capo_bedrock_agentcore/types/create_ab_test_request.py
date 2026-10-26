@@ -123,11 +123,7 @@ def deserialize_json(data: dict) -> CreateABTestRequest:
             )
         )
     else:
-        import capo_bedrock_agentcore.types._unknown
-
-        out["evaluation_config"] = (
-            capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
-        )
+        out["evaluation_config"] = {"$unknown": {"name": ""}}
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:

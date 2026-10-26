@@ -43,11 +43,7 @@ def deserialize_json(data: dict) -> AgenticRetriever:
             )
         )
     else:
-        import capo_bedrock_agent_runtime.types._unknown
-
-        out["configuration"] = (
-            capo_bedrock_agent_runtime.types._unknown.UnknownUnionMember("")
-        )
+        out["configuration"] = {"$unknown": {"name": ""}}
     return out
 
 

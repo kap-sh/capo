@@ -89,9 +89,9 @@ RetrievalFilter: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RetrievalFilter) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"RetrievalFilter: cannot serialize unknown variant {value.name!r}"
+            f"RetrievalFilter: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "equals" in value:
         import capo_bedrock.types.filter_attribute
@@ -299,5 +299,5 @@ def deserialize_json(data: dict) -> RetrievalFilter:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("RetrievalFilter: no recognized variant key")

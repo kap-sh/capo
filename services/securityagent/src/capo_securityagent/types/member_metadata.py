@@ -20,9 +20,9 @@ MemberMetadata: TypeAlias = _MemberMetadata_user | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MemberMetadata) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"MemberMetadata: cannot serialize unknown variant {value.name!r}"
+            f"MemberMetadata: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "user" in value:
         import capo_securityagent.types.user_metadata
@@ -48,5 +48,5 @@ def deserialize_json(data: dict) -> MemberMetadata:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("MemberMetadata: no recognized variant key")

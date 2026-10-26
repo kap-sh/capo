@@ -47,9 +47,9 @@ PhysicalTable: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PhysicalTable) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"PhysicalTable: cannot serialize unknown variant {value.name!r}"
+            f"PhysicalTable: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "RelationalTable" in value:
         import capo_quicksight.types.relational_table
@@ -141,13 +141,11 @@ def deserialize_json(data: dict) -> PhysicalTable:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("PhysicalTable: no recognized variant key")
 
 
-def redact_sensitive(value: PhysicalTable) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: PhysicalTable) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "CustomSql" in value:
         import capo_quicksight.types.custom_sql

@@ -41,9 +41,9 @@ AgentTracesConfig: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AgentTracesConfig) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AgentTracesConfig: cannot serialize unknown variant {value.name!r}"
+            f"AgentTracesConfig: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "sessionSpans" in value:
         import capo_bedrock_agentcore.types.spans
@@ -119,13 +119,11 @@ def deserialize_json(data: dict) -> AgentTracesConfig:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("AgentTracesConfig: no recognized variant key")
 
 
-def redact_sensitive(value: AgentTracesConfig) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: AgentTracesConfig) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "sessionSpans" in value:
         out["sessionSpans"] = "*** Sensitive Data Redacted ***"

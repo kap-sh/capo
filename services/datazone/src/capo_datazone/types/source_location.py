@@ -27,9 +27,9 @@ SourceLocation: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SourceLocation) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"SourceLocation: cannot serialize unknown variant {value.name!r}"
+            f"SourceLocation: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "s3" in value:
         return {"s3": value["s3"]}
@@ -61,13 +61,11 @@ def deserialize_json(data: dict) -> SourceLocation:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("SourceLocation: no recognized variant key")
 
 
-def redact_sensitive(value: SourceLocation) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: SourceLocation) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "s3" in value:
         out["s3"] = "*** Sensitive Data Redacted ***"

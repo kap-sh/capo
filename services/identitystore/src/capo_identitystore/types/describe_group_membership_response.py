@@ -89,9 +89,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeGroupMembershipResponse:
             data["MemberId"]
         )
     else:
-        import capo_identitystore.types._unknown
-
-        out["member_id"] = capo_identitystore.types._unknown.UnknownUnionMember("")
+        out["member_id"] = {"$unknown": {"name": ""}}
     if data.get("CreatedAt") is not None:
         import capo_identitystore.types.date_type
 

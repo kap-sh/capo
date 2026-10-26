@@ -22,9 +22,9 @@ MembershipProtectedQueryOutputConfiguration: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MembershipProtectedQueryOutputConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"MembershipProtectedQueryOutputConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"MembershipProtectedQueryOutputConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "s3" in value:
         import capo_cleanrooms.types.protected_query_s3_output_configuration
@@ -54,7 +54,7 @@ def deserialize_json(data: dict) -> MembershipProtectedQueryOutputConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "MembershipProtectedQueryOutputConfiguration: no recognized variant key"
         )

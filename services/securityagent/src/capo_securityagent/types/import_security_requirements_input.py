@@ -39,9 +39,7 @@ def deserialize_json(data: dict) -> ImportSecurityRequirementsInput:
             data["input"]
         )
     else:
-        import capo_securityagent.types._unknown
-
-        out["input"] = capo_securityagent.types._unknown.UnknownUnionMember("")
+        out["input"] = {"$unknown": {"name": ""}}
     return out
 
 

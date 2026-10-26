@@ -29,11 +29,11 @@ InvokeModelWithBidirectionalStreamInput: TypeAlias = AnyIterator[
 
 
 def serialize_event_json(value: _InvokeModelWithBidirectionalStreamInput) -> bytes:
-    if isinstance(value, UnknownEvent):
-        raise ValueError(
-            f"InvokeModelWithBidirectionalStreamInput: cannot serialize unknown event {value.event_type!r}"
-        )
     match value:
+        case {"$unknown": {"name": name}}:
+            raise ValueError(
+                f"InvokeModelWithBidirectionalStreamInput: cannot serialize unknown event {name!r}"
+            )
         case {"chunk": payload}:
             import capo_bedrock_runtime.types.bidirectional_input_payload_part
 
@@ -75,7 +75,7 @@ def deserialize_event_json(
                 )
             }
         case str():
-            return UnknownEvent(event_type, message)
+            return {"$unknown": {"name": event_type, "message": message}}
         case _:
             raise ValueError(
                 f"InvokeModelWithBidirectionalStreamInput: unrecognized event-type {event_type!r}"

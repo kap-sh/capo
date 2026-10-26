@@ -49,11 +49,7 @@ def deserialize_json(data: dict) -> ToolDescriptionRecommendationConfig:
             )
         )
     else:
-        import capo_bedrock_agentcore.types._unknown
-
-        out["tool_description"] = (
-            capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
-        )
+        out["tool_description"] = {"$unknown": {"name": ""}}
     if data.get("agentTraces") is not None:
         import capo_bedrock_agentcore.types.agent_traces_config
 
@@ -63,11 +59,7 @@ def deserialize_json(data: dict) -> ToolDescriptionRecommendationConfig:
             )
         )
     else:
-        import capo_bedrock_agentcore.types._unknown
-
-        out["agent_traces"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["agent_traces"] = {"$unknown": {"name": ""}}
     return out
 
 

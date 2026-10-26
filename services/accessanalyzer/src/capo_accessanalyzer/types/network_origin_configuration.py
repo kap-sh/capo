@@ -31,9 +31,9 @@ NetworkOriginConfiguration: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: NetworkOriginConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"NetworkOriginConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"NetworkOriginConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "vpcConfiguration" in value:
         import capo_accessanalyzer.types.vpc_configuration
@@ -77,7 +77,7 @@ def deserialize_json(data: dict) -> NetworkOriginConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "NetworkOriginConfiguration: no recognized variant key"
         )

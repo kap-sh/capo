@@ -33,9 +33,9 @@ InlinePayload: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: InlinePayload) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"InlinePayload: cannot serialize unknown variant {value.name!r}"
+            f"InlinePayload: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "upsertEntitiesInfo" in value:
         import capo_bedrock_data_automation.types.upsert_entities_info
@@ -79,13 +79,11 @@ def deserialize_json(data: dict) -> InlinePayload:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("InlinePayload: no recognized variant key")
 
 
-def redact_sensitive(value: InlinePayload) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: InlinePayload) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "upsertEntitiesInfo" in value:
         import capo_bedrock_data_automation.types.upsert_entities_info

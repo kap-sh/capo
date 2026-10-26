@@ -39,9 +39,7 @@ def deserialize_json(data: dict) -> DataSummary:
             data["reference"]
         )
     else:
-        import capo_qconnect.types._unknown
-
-        out["reference"] = capo_qconnect.types._unknown.UnknownUnionMember("")
+        out["reference"] = {"$unknown": {"name": ""}}
     if data.get("details") is not None:
         import capo_qconnect.types.data_details
 
@@ -49,9 +47,7 @@ def deserialize_json(data: dict) -> DataSummary:
             data["details"]
         )
     else:
-        import capo_qconnect.types._unknown
-
-        out["details"] = capo_qconnect.types._unknown.UnknownUnionMember("")
+        out["details"] = {"$unknown": {"name": ""}}
     return out
 
 

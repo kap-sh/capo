@@ -20,9 +20,9 @@ CollectionConfig: TypeAlias = _CollectionConfig_VectorConfig | UnknownUnionMembe
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: CollectionConfig) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"CollectionConfig: cannot serialize unknown variant {value.name!r}"
+            f"CollectionConfig: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "VectorConfig" in value:
         import capo_sagemaker.types.vector_config
@@ -50,5 +50,5 @@ def deserialize_aws_json_1_1(data: dict) -> CollectionConfig:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("CollectionConfig: no recognized variant key")

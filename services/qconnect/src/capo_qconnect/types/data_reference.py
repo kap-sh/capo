@@ -37,9 +37,9 @@ DataReference: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DataReference) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"DataReference: cannot serialize unknown variant {value.name!r}"
+            f"DataReference: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "contentReference" in value:
         import capo_qconnect.types.content_reference
@@ -99,5 +99,5 @@ def deserialize_json(data: dict) -> DataReference:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("DataReference: no recognized variant key")

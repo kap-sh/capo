@@ -118,11 +118,7 @@ def deserialize_json(data: dict) -> StartRecommendationResponse:
             )
         )
     else:
-        import capo_bedrock_agentcore.types._unknown
-
-        out["recommendation_config"] = (
-            capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
-        )
+        out["recommendation_config"] = {"$unknown": {"name": ""}}
     if data.get("status") is not None:
         import capo_bedrock_agentcore.types.recommendation_status
 

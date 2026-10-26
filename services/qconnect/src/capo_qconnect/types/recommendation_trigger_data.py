@@ -22,9 +22,9 @@ RecommendationTriggerData: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RecommendationTriggerData) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"RecommendationTriggerData: cannot serialize unknown variant {value.name!r}"
+            f"RecommendationTriggerData: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "query" in value:
         import capo_qconnect.types.query_recommendation_trigger_data
@@ -52,17 +52,13 @@ def deserialize_json(data: dict) -> RecommendationTriggerData:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "RecommendationTriggerData: no recognized variant key"
         )
 
 
-def redact_sensitive(
-    value: RecommendationTriggerData,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: RecommendationTriggerData) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "query" in value:
         import capo_qconnect.types.query_recommendation_trigger_data

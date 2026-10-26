@@ -35,9 +35,9 @@ ActionGroupExecutor: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ActionGroupExecutor) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ActionGroupExecutor: cannot serialize unknown variant {value.name!r}"
+            f"ActionGroupExecutor: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "lambda" in value:
         return {"lambda": value["lambda"]}
@@ -69,5 +69,5 @@ def deserialize_json(data: dict) -> ActionGroupExecutor:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ActionGroupExecutor: no recognized variant key")

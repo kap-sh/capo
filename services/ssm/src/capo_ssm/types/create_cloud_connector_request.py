@@ -75,9 +75,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCloudConnectorRequest:
             )
         )
     else:
-        import capo_ssm.types._unknown
-
-        out["configuration"] = capo_ssm.types._unknown.UnknownUnionMember("")
+        out["configuration"] = {"$unknown": {"name": ""}}
     if data.get("ConfigConnectorArn") is not None:
         out["config_connector_arn"] = data["ConfigConnectorArn"]
     else:

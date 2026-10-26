@@ -23,9 +23,9 @@ OutgoingKeyMaterial: TypeAlias = _OutgoingKeyMaterial_Tr31KeyBlock | UnknownUnio
 
 # --- restJson1 ser/de ---
 def serialize_json(value: OutgoingKeyMaterial) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"OutgoingKeyMaterial: cannot serialize unknown variant {value.name!r}"
+            f"OutgoingKeyMaterial: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "Tr31KeyBlock" in value:
         import capo_payment_cryptography_data.types.outgoing_tr31_key_block
@@ -53,5 +53,5 @@ def deserialize_json(data: dict) -> OutgoingKeyMaterial:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("OutgoingKeyMaterial: no recognized variant key")

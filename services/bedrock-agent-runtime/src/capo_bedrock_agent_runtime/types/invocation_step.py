@@ -87,11 +87,7 @@ def deserialize_json(data: dict) -> InvocationStep:
             )
         )
     else:
-        import capo_bedrock_agent_runtime.types._unknown
-
-        out["payload"] = capo_bedrock_agent_runtime.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["payload"] = {"$unknown": {"name": ""}}
     return out
 
 

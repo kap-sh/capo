@@ -20,9 +20,9 @@ SnowflakeTableSchema: TypeAlias = _SnowflakeTableSchema_v1 | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SnowflakeTableSchema) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"SnowflakeTableSchema: cannot serialize unknown variant {value.name!r}"
+            f"SnowflakeTableSchema: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "v1" in value:
         import capo_cleanrooms.types.snowflake_table_schema_list
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> SnowflakeTableSchema:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("SnowflakeTableSchema: no recognized variant key")

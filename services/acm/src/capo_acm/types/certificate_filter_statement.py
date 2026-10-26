@@ -40,9 +40,9 @@ CertificateFilterStatement: TypeAlias = (
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: CertificateFilterStatement) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"CertificateFilterStatement: cannot serialize unknown variant {value.name!r}"
+            f"CertificateFilterStatement: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "And" in value:
         import capo_acm.types.certificate_filter_statement_list
@@ -118,7 +118,7 @@ def deserialize_aws_json_1_1(data: dict) -> CertificateFilterStatement:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "CertificateFilterStatement: no recognized variant key"
         )

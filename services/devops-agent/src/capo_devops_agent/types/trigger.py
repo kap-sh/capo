@@ -81,9 +81,7 @@ def deserialize_json(data: dict) -> Trigger:
             data["condition"]
         )
     else:
-        import capo_devops_agent.types._unknown
-
-        out["condition"] = capo_devops_agent.types._unknown.UnknownUnionMember("")
+        out["condition"] = {"$unknown": {"name": ""}}
     if data.get("action") is not None:
         out["action"] = data["action"]
     else:

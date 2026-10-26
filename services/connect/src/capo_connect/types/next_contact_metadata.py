@@ -24,9 +24,9 @@ NextContactMetadata: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: NextContactMetadata) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"NextContactMetadata: cannot serialize unknown variant {value.name!r}"
+            f"NextContactMetadata: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "QuickConnectContactData" in value:
         import capo_connect.types.quick_connect_contact_data
@@ -54,5 +54,5 @@ def deserialize_json(data: dict) -> NextContactMetadata:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("NextContactMetadata: no recognized variant key")

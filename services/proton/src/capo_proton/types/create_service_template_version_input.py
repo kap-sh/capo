@@ -98,9 +98,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateServiceTemplateVersionInput:
             )
         )
     else:
-        import capo_proton.types._unknown
-
-        out["source"] = capo_proton.types._unknown.UnknownUnionMember("")
+        out["source"] = {"$unknown": {"name": ""}}
     if data.get("compatibleEnvironmentTemplates") is not None:
         import capo_proton.types.compatible_environment_template_input_list
 

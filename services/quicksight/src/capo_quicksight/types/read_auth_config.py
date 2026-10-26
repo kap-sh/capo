@@ -63,11 +63,7 @@ def deserialize_json(data: dict) -> ReadAuthConfig:
             )
         )
     else:
-        import capo_quicksight.types._unknown
-
-        out["authentication_metadata"] = (
-            capo_quicksight.types._unknown.UnknownUnionMember("")
-        )
+        out["authentication_metadata"] = {"$unknown": {"name": ""}}
     return out
 
 

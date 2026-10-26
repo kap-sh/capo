@@ -20,9 +20,9 @@ OutputLocation: TypeAlias = _OutputLocation_s3 | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: OutputLocation) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"OutputLocation: cannot serialize unknown variant {value.name!r}"
+            f"OutputLocation: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "s3" in value:
         import capo_datazone.types.s3_destination
@@ -42,13 +42,11 @@ def deserialize_json(data: dict) -> OutputLocation:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("OutputLocation: no recognized variant key")
 
 
-def redact_sensitive(value: OutputLocation) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: OutputLocation) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "s3" in value:
         import capo_datazone.types.s3_destination

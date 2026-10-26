@@ -35,7 +35,5 @@ def deserialize_cbor(data: dict) -> DeleteIntegrationInput:
             )
         )
     else:
-        import capo_cloudwatchomni.types._unknown
-
-        out["identifier"] = capo_cloudwatchomni.types._unknown.UnknownUnionMember("")
+        out["identifier"] = {"$unknown": {"name": ""}}
     return out

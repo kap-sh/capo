@@ -140,7 +140,5 @@ def deserialize_json(data: dict) -> CollaborationPrivacyBudgetSummary:
             data["budget"]
         )
     else:
-        import capo_cleanrooms.types._unknown
-
-        out["budget"] = capo_cleanrooms.types._unknown.UnknownUnionMember("")
+        out["budget"] = {"$unknown": {"name": ""}}
     return out

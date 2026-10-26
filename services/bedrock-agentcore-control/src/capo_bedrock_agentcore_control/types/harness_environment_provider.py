@@ -25,9 +25,9 @@ HarnessEnvironmentProvider: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: HarnessEnvironmentProvider) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"HarnessEnvironmentProvider: cannot serialize unknown variant {value.name!r}"
+            f"HarnessEnvironmentProvider: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "agentCoreRuntimeEnvironment" in value:
         import capo_bedrock_agentcore_control.types.harness_agent_core_runtime_environment
@@ -55,7 +55,7 @@ def deserialize_json(data: dict) -> HarnessEnvironmentProvider:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "HarnessEnvironmentProvider: no recognized variant key"
         )

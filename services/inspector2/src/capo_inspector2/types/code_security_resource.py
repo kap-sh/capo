@@ -20,9 +20,9 @@ CodeSecurityResource: TypeAlias = _CodeSecurityResource_projectId | UnknownUnion
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CodeSecurityResource) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"CodeSecurityResource: cannot serialize unknown variant {value.name!r}"
+            f"CodeSecurityResource: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "projectId" in value:
         return {"projectId": value["projectId"]}
@@ -38,5 +38,5 @@ def deserialize_json(data: dict) -> CodeSecurityResource:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("CodeSecurityResource: no recognized variant key")

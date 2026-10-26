@@ -30,9 +30,9 @@ EncryptionSettings: TypeAlias = (
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: EncryptionSettings) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"EncryptionSettings: cannot serialize unknown variant {value.name!r}"
+            f"EncryptionSettings: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "kmsEncryptionSettings" in value:
         import capo_verifiedpermissions.types.kms_encryption_settings
@@ -64,5 +64,5 @@ def deserialize_aws_json_1_0(data: dict) -> EncryptionSettings:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("EncryptionSettings: no recognized variant key")

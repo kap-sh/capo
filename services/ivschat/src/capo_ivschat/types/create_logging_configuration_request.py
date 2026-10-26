@@ -55,11 +55,7 @@ def deserialize_json(data: dict) -> CreateLoggingConfigurationRequest:
             )
         )
     else:
-        import capo_ivschat.types._unknown
-
-        out["destination_configuration"] = (
-            capo_ivschat.types._unknown.UnknownUnionMember("")
-        )
+        out["destination_configuration"] = {"$unknown": {"name": ""}}
     if data.get("tags") is not None:
         import capo_ivschat.types.tags
 

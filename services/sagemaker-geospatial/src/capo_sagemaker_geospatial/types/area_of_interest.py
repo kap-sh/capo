@@ -20,9 +20,9 @@ AreaOfInterest: TypeAlias = _AreaOfInterest_AreaOfInterestGeometry | UnknownUnio
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AreaOfInterest) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AreaOfInterest: cannot serialize unknown variant {value.name!r}"
+            f"AreaOfInterest: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "AreaOfInterestGeometry" in value:
         import capo_sagemaker_geospatial.types.area_of_interest_geometry
@@ -50,13 +50,11 @@ def deserialize_json(data: dict) -> AreaOfInterest:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("AreaOfInterest: no recognized variant key")
 
 
-def redact_sensitive(value: AreaOfInterest) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: AreaOfInterest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "AreaOfInterestGeometry" in value:
         import capo_sagemaker_geospatial.types.area_of_interest_geometry

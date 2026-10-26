@@ -41,7 +41,5 @@ def deserialize_json(data: dict) -> UpdateIndexingRuleRequest:
             data["Rule"]
         )
     else:
-        import capo_xray.types._unknown
-
-        out["rule"] = capo_xray.types._unknown.UnknownUnionMember("")
+        out["rule"] = {"$unknown": {"name": ""}}
     return out

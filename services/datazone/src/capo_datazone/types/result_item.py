@@ -20,9 +20,9 @@ ResultItem: TypeAlias = _ResultItem_lineageNode | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ResultItem) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ResultItem: cannot serialize unknown variant {value.name!r}"
+            f"ResultItem: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "lineageNode" in value:
         import capo_datazone.types.lineage_node_item
@@ -50,13 +50,11 @@ def deserialize_json(data: dict) -> ResultItem:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ResultItem: no recognized variant key")
 
 
-def redact_sensitive(value: ResultItem) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: ResultItem) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "lineageNode" in value:
         import capo_datazone.types.lineage_node_item

@@ -80,11 +80,11 @@ OptimizedPromptStream: TypeAlias = AnyIterator[_OptimizedPromptStream]
 
 
 def serialize_event_json(value: _OptimizedPromptStream) -> bytes:
-    if isinstance(value, UnknownEvent):
-        raise ValueError(
-            f"OptimizedPromptStream: cannot serialize unknown event {value.event_type!r}"
-        )
     match value:
+        case {"$unknown": {"name": name}}:
+            raise ValueError(
+                f"OptimizedPromptStream: cannot serialize unknown event {name!r}"
+            )
         case {"optimizedPromptEvent": payload}:
             import capo_bedrock_agent_runtime.types.optimized_prompt_event
 
@@ -229,7 +229,7 @@ def deserialize_event_json(
                 )
             }
         case str():
-            return UnknownEvent(event_type, message)
+            return {"$unknown": {"name": event_type, "message": message}}
         case _:
             raise ValueError(
                 f"OptimizedPromptStream: unrecognized event-type {event_type!r}"

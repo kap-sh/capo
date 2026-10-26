@@ -29,9 +29,9 @@ ReportOutput: TypeAlias = (
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: ReportOutput) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ReportOutput: cannot serialize unknown variant {value.name!r}"
+            f"ReportOutput: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "s3ReportOutput" in value:
         import capo_arc_region_switch.types.s3_report_output
@@ -75,5 +75,5 @@ def deserialize_aws_json_1_0(data: dict) -> ReportOutput:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ReportOutput: no recognized variant key")

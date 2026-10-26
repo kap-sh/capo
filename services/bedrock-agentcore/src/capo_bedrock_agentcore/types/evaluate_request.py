@@ -66,11 +66,7 @@ def deserialize_json(data: dict) -> EvaluateRequest:
             )
         )
     else:
-        import capo_bedrock_agentcore.types._unknown
-
-        out["evaluation_input"] = (
-            capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
-        )
+        out["evaluation_input"] = {"$unknown": {"name": ""}}
     if data.get("evaluationTarget") is not None:
         import capo_bedrock_agentcore.types.evaluation_target
 

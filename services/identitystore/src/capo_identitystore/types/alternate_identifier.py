@@ -29,9 +29,9 @@ AlternateIdentifier: TypeAlias = (
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: AlternateIdentifier) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AlternateIdentifier: cannot serialize unknown variant {value.name!r}"
+            f"AlternateIdentifier: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "ExternalId" in value:
         import capo_identitystore.types.external_id
@@ -75,13 +75,11 @@ def deserialize_aws_json_1_1(data: dict) -> AlternateIdentifier:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("AlternateIdentifier: no recognized variant key")
 
 
-def redact_sensitive(value: AlternateIdentifier) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: AlternateIdentifier) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "ExternalId" in value:
         import capo_identitystore.types.external_id

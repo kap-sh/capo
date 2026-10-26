@@ -169,11 +169,7 @@ def deserialize_json(data: dict) -> GetCapacityProviderOutput:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["compute_configuration"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["compute_configuration"] = {"$unknown": {"name": ""}}
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 

@@ -32,9 +32,9 @@ McpToolSchemaConfiguration: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: McpToolSchemaConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"McpToolSchemaConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"McpToolSchemaConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "s3" in value:
         import capo_bedrock_agentcore_control.types.s3_configuration
@@ -66,17 +66,13 @@ def deserialize_json(data: dict) -> McpToolSchemaConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "McpToolSchemaConfiguration: no recognized variant key"
         )
 
 
-def redact_sensitive(
-    value: McpToolSchemaConfiguration,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: McpToolSchemaConfiguration) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "inlinePayload" in value:
         out["inlinePayload"] = "*** Sensitive Data Redacted ***"

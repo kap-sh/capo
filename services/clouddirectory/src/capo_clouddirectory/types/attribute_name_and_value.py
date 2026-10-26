@@ -41,7 +41,5 @@ def deserialize_json(data: dict) -> AttributeNameAndValue:
             data["Value"]
         )
     else:
-        import capo_clouddirectory.types._unknown
-
-        out["value"] = capo_clouddirectory.types._unknown.UnknownUnionMember("")
+        out["value"] = {"$unknown": {"name": ""}}
     return out

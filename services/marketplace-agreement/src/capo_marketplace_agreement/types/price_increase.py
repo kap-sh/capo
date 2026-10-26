@@ -27,9 +27,9 @@ PriceIncrease: TypeAlias = (
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: PriceIncrease) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"PriceIncrease: cannot serialize unknown variant {value.name!r}"
+            f"PriceIncrease: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "fixedPercentage" in value:
         import capo_marketplace_agreement.types.fixed_percentage
@@ -73,5 +73,5 @@ def deserialize_aws_json_1_0(data: dict) -> PriceIncrease:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("PriceIncrease: no recognized variant key")

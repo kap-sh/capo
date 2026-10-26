@@ -26,9 +26,9 @@ CreatedByInfo: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CreatedByInfo) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"CreatedByInfo: cannot serialize unknown variant {value.name!r}"
+            f"CreatedByInfo: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "ConnectUserArn" in value:
         return {"ConnectUserArn": value["ConnectUserArn"]}
@@ -48,5 +48,5 @@ def deserialize_json(data: dict) -> CreatedByInfo:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("CreatedByInfo: no recognized variant key")

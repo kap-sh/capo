@@ -33,9 +33,9 @@ IntegrationIdentifier: TypeAlias = (
 
 # --- rpcv2Cbor ser/de ---
 def serialize_cbor(value: IntegrationIdentifier) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"IntegrationIdentifier: cannot serialize unknown variant {value.name!r}"
+            f"IntegrationIdentifier: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "integrationId" in value:
         return {"integrationId": value["integrationId"]}
@@ -59,5 +59,5 @@ def deserialize_cbor(data: dict) -> IntegrationIdentifier:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("IntegrationIdentifier: no recognized variant key")

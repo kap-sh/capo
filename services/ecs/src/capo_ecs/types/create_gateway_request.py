@@ -83,9 +83,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateGatewayRequest:
             )
         )
     else:
-        import capo_ecs.types._unknown
-
-        out["configuration"] = capo_ecs.types._unknown.UnknownUnionMember("")
+        out["configuration"] = {"$unknown": {"name": ""}}
     if data.get("tags") is not None:
         import capo_ecs.types.tags
 

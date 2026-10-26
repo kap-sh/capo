@@ -20,9 +20,9 @@ IngressIpv6ToEvaluate: TypeAlias = _IngressIpv6ToEvaluate_Attribute | UnknownUni
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: IngressIpv6ToEvaluate) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"IngressIpv6ToEvaluate: cannot serialize unknown variant {value.name!r}"
+            f"IngressIpv6ToEvaluate: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "Attribute" in value:
         import capo_mailmanager.types.ingress_ipv6_attribute
@@ -50,5 +50,5 @@ def deserialize_aws_json_1_0(data: dict) -> IngressIpv6ToEvaluate:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("IngressIpv6ToEvaluate: no recognized variant key")

@@ -32,9 +32,9 @@ Recurrence: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Recurrence) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"Recurrence: cannot serialize unknown variant {value.name!r}"
+            f"Recurrence: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "daily" in value:
         import capo_devops_agent.types.daily_recurrence
@@ -94,5 +94,5 @@ def deserialize_json(data: dict) -> Recurrence:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("Recurrence: no recognized variant key")

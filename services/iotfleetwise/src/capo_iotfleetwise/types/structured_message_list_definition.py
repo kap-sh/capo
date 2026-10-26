@@ -61,9 +61,7 @@ def deserialize_aws_json_1_0(data: dict) -> StructuredMessageListDefinition:
             )
         )
     else:
-        import capo_iotfleetwise.types._unknown
-
-        out["member_type"] = capo_iotfleetwise.types._unknown.UnknownUnionMember("")
+        out["member_type"] = {"$unknown": {"name": ""}}
     if data.get("listType") is not None:
         import capo_iotfleetwise.types.structured_message_list_type
 

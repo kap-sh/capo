@@ -20,9 +20,9 @@ ToolDescriptionConfig: TypeAlias = _ToolDescriptionConfig_text | UnknownUnionMem
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ToolDescriptionConfig) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ToolDescriptionConfig: cannot serialize unknown variant {value.name!r}"
+            f"ToolDescriptionConfig: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "text" in value:
         return {"text": value["text"]}
@@ -38,15 +38,11 @@ def deserialize_json(data: dict) -> ToolDescriptionConfig:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ToolDescriptionConfig: no recognized variant key")
 
 
-def redact_sensitive(
-    value: ToolDescriptionConfig,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: ToolDescriptionConfig) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "text" in value:
         out["text"] = "*** Sensitive Data Redacted ***"

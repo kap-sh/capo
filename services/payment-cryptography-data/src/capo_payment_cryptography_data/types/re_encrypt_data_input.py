@@ -89,11 +89,7 @@ def deserialize_json(data: dict) -> ReEncryptDataInput:
             )
         )
     else:
-        import capo_payment_cryptography_data.types._unknown
-
-        out["incoming_encryption_attributes"] = (
-            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
-        )
+        out["incoming_encryption_attributes"] = {"$unknown": {"name": ""}}
     if data.get("OutgoingEncryptionAttributes") is not None:
         import capo_payment_cryptography_data.types.re_encryption_attributes
 
@@ -103,11 +99,7 @@ def deserialize_json(data: dict) -> ReEncryptDataInput:
             )
         )
     else:
-        import capo_payment_cryptography_data.types._unknown
-
-        out["outgoing_encryption_attributes"] = (
-            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
-        )
+        out["outgoing_encryption_attributes"] = {"$unknown": {"name": ""}}
     if data.get("IncomingWrappedKey") is not None:
         import capo_payment_cryptography_data.types.wrapped_key
 

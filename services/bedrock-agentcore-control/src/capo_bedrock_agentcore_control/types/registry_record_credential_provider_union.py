@@ -36,9 +36,9 @@ RegistryRecordCredentialProviderUnion: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RegistryRecordCredentialProviderUnion) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"RegistryRecordCredentialProviderUnion: cannot serialize unknown variant {value.name!r}"
+            f"RegistryRecordCredentialProviderUnion: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "oauthCredentialProvider" in value:
         import capo_bedrock_agentcore_control.types.registry_record_o_auth_credential_provider
@@ -84,7 +84,7 @@ def deserialize_json(data: dict) -> RegistryRecordCredentialProviderUnion:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "RegistryRecordCredentialProviderUnion: no recognized variant key"
         )

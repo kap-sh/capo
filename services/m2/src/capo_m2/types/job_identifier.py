@@ -23,9 +23,9 @@ JobIdentifier: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: JobIdentifier) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"JobIdentifier: cannot serialize unknown variant {value.name!r}"
+            f"JobIdentifier: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "fileName" in value:
         return {"fileName": value["fileName"]}
@@ -45,5 +45,5 @@ def deserialize_json(data: dict) -> JobIdentifier:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("JobIdentifier: no recognized variant key")

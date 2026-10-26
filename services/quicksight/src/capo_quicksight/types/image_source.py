@@ -26,9 +26,9 @@ ImageSource: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ImageSource) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ImageSource: cannot serialize unknown variant {value.name!r}"
+            f"ImageSource: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "PublicUrl" in value:
         return {"PublicUrl": value["PublicUrl"]}
@@ -48,5 +48,5 @@ def deserialize_json(data: dict) -> ImageSource:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ImageSource: no recognized variant key")

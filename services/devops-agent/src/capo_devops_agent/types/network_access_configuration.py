@@ -22,9 +22,9 @@ NetworkAccessConfiguration: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: NetworkAccessConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"NetworkAccessConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"NetworkAccessConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "privateAccess" in value:
         import capo_devops_agent.types.private_network_access
@@ -52,7 +52,7 @@ def deserialize_json(data: dict) -> NetworkAccessConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "NetworkAccessConfiguration: no recognized variant key"
         )

@@ -20,9 +20,9 @@ CodeArtifact: TypeAlias = _CodeArtifact_uri | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CodeArtifact) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"CodeArtifact: cannot serialize unknown variant {value.name!r}"
+            f"CodeArtifact: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "uri" in value:
         return {"uri": value["uri"]}
@@ -38,5 +38,5 @@ def deserialize_json(data: dict) -> CodeArtifact:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("CodeArtifact: no recognized variant key")

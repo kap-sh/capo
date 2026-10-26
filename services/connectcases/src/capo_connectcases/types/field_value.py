@@ -41,7 +41,5 @@ def deserialize_json(data: dict) -> FieldValue:
             data["value"]
         )
     else:
-        import capo_connectcases.types._unknown
-
-        out["value"] = capo_connectcases.types._unknown.UnknownUnionMember("")
+        out["value"] = {"$unknown": {"name": ""}}
     return out

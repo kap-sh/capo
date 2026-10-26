@@ -25,9 +25,9 @@ Action: TypeAlias = _Action_noBid | _Action_headerTag | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Action) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"Action: cannot serialize unknown variant {value.name!r}"
+            f"Action: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "noBid" in value:
         import capo_rtbfabric.types.no_bid_action
@@ -67,5 +67,5 @@ def deserialize_json(data: dict) -> Action:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("Action: no recognized variant key")

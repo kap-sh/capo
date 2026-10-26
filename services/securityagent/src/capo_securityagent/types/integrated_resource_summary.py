@@ -58,9 +58,7 @@ def deserialize_json(data: dict) -> IntegratedResourceSummary:
             )
         )
     else:
-        import capo_securityagent.types._unknown
-
-        out["resource"] = capo_securityagent.types._unknown.UnknownUnionMember("")
+        out["resource"] = {"$unknown": {"name": ""}}
     if data.get("capabilities") is not None:
         import capo_securityagent.types.provider_resource_capabilities
 

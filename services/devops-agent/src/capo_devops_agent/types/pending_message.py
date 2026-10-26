@@ -38,7 +38,5 @@ def deserialize_json(data: dict) -> PendingMessage:
             data["message"]
         )
     else:
-        import capo_devops_agent.types._unknown
-
-        out["message"] = capo_devops_agent.types._unknown.UnknownUnionMember("")
+        out["message"] = {"$unknown": {"name": ""}}
     return out

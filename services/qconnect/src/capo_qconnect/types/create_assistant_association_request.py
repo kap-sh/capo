@@ -60,9 +60,7 @@ def deserialize_json(data: dict) -> CreateAssistantAssociationRequest:
             )
         )
     else:
-        import capo_qconnect.types._unknown
-
-        out["association"] = capo_qconnect.types._unknown.UnknownUnionMember("")
+        out["association"] = {"$unknown": {"name": ""}}
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("tags") is not None:

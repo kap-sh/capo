@@ -29,9 +29,9 @@ PaymentTokenRequestInput: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PaymentTokenRequestInput) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"PaymentTokenRequestInput: cannot serialize unknown variant {value.name!r}"
+            f"PaymentTokenRequestInput: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "coinbaseCdpTokenRequest" in value:
         import capo_bedrock_agentcore.types.coinbase_cdp_token_request_input
@@ -75,17 +75,13 @@ def deserialize_json(data: dict) -> PaymentTokenRequestInput:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "PaymentTokenRequestInput: no recognized variant key"
         )
 
 
-def redact_sensitive(
-    value: PaymentTokenRequestInput,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: PaymentTokenRequestInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "stripePrivyTokenRequest" in value:
         import capo_bedrock_agentcore.types.stripe_privy_token_request_input

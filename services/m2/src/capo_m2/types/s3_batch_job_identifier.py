@@ -44,7 +44,5 @@ def deserialize_json(data: dict) -> S3BatchJobIdentifier:
             data["identifier"]
         )
     else:
-        import capo_m2.types._unknown
-
-        out["identifier"] = capo_m2.types._unknown.UnknownUnionMember("")
+        out["identifier"] = {"$unknown": {"name": ""}}
     return out

@@ -36,11 +36,11 @@ StartSpeechSynthesisStreamActionStream: TypeAlias = AnyIterator[
 
 
 def serialize_event_json(value: _StartSpeechSynthesisStreamActionStream) -> bytes:
-    if isinstance(value, UnknownEvent):
-        raise ValueError(
-            f"StartSpeechSynthesisStreamActionStream: cannot serialize unknown event {value.event_type!r}"
-        )
     match value:
+        case {"$unknown": {"name": name}}:
+            raise ValueError(
+                f"StartSpeechSynthesisStreamActionStream: cannot serialize unknown event {name!r}"
+            )
         case {"TextEvent": payload}:
             import capo_polly.types.text_event
 
@@ -90,7 +90,7 @@ def deserialize_event_json(
                 )
             }
         case str():
-            return UnknownEvent(event_type, message)
+            return {"$unknown": {"name": event_type, "message": message}}
         case _:
             raise ValueError(
                 f"StartSpeechSynthesisStreamActionStream: unrecognized event-type {event_type!r}"

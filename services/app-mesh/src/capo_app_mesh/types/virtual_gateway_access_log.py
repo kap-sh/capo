@@ -20,9 +20,9 @@ VirtualGatewayAccessLog: TypeAlias = _VirtualGatewayAccessLog_file | UnknownUnio
 
 # --- restJson1 ser/de ---
 def serialize_json(value: VirtualGatewayAccessLog) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"VirtualGatewayAccessLog: cannot serialize unknown variant {value.name!r}"
+            f"VirtualGatewayAccessLog: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "file" in value:
         import capo_app_mesh.types.virtual_gateway_file_access_log
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> VirtualGatewayAccessLog:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("VirtualGatewayAccessLog: no recognized variant key")

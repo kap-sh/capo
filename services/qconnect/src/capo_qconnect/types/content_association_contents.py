@@ -22,9 +22,9 @@ ContentAssociationContents: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ContentAssociationContents) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ContentAssociationContents: cannot serialize unknown variant {value.name!r}"
+            f"ContentAssociationContents: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "amazonConnectGuideAssociation" in value:
         import capo_qconnect.types.amazon_connect_guide_association_data
@@ -52,7 +52,7 @@ def deserialize_json(data: dict) -> ContentAssociationContents:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "ContentAssociationContents: no recognized variant key"
         )

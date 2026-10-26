@@ -115,9 +115,5 @@ def deserialize_json(data: dict) -> GroundStationReservationListItem:
             )
         )
     else:
-        import capo_groundstation.types._unknown
-
-        out["reservation_details"] = (
-            capo_groundstation.types._unknown.UnknownUnionMember("")
-        )
+        out["reservation_details"] = {"$unknown": {"name": ""}}
     return out

@@ -60,9 +60,5 @@ def deserialize_aws_json_1_1(data: dict) -> StartMetadataModelCreationMessage:
             )
         )
     else:
-        import capo_database_migration_service.types._unknown
-
-        out["properties"] = (
-            capo_database_migration_service.types._unknown.UnknownUnionMember("")
-        )
+        out["properties"] = {"$unknown": {"name": ""}}
     return out

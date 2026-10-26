@@ -20,9 +20,9 @@ Policy: TypeAlias = _Policy_SecurityHub | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Policy) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"Policy: cannot serialize unknown variant {value.name!r}"
+            f"Policy: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "SecurityHub" in value:
         import capo_securityhub.types.security_hub_policy
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> Policy:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("Policy: no recognized variant key")

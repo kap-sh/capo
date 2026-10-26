@@ -60,9 +60,7 @@ def deserialize_json(data: dict) -> AgenticRetrieveMemoryMetadataFilter:
             )
         )
     else:
-        import capo_bedrock_agent_runtime.types._unknown
-
-        out["left"] = capo_bedrock_agent_runtime.types._unknown.UnknownUnionMember("")
+        out["left"] = {"$unknown": {"name": ""}}
     if data.get("operator") is not None:
         import capo_bedrock_agent_runtime.types.agentic_retrieve_memory_metadata_filter_operator
 

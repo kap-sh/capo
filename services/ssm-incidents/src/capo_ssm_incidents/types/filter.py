@@ -40,7 +40,5 @@ def deserialize_json(data: dict) -> Filter:
             data["condition"]
         )
     else:
-        import capo_ssm_incidents.types._unknown
-
-        out["condition"] = capo_ssm_incidents.types._unknown.UnknownUnionMember("")
+        out["condition"] = {"$unknown": {"name": ""}}
     return out

@@ -76,11 +76,7 @@ def deserialize_json(data: dict) -> PromptFlowNodeInlineConfiguration:
             )
         )
     else:
-        import capo_bedrock_agent.types._unknown
-
-        out["template_configuration"] = (
-            capo_bedrock_agent.types._unknown.UnknownUnionMember("")
-        )
+        out["template_configuration"] = {"$unknown": {"name": ""}}
     if data.get("modelId") is not None:
         out["model_id"] = data["modelId"]
     else:

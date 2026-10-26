@@ -20,9 +20,9 @@ GroundTruthSource: TypeAlias = _GroundTruthSource_inline | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: GroundTruthSource) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"GroundTruthSource: cannot serialize unknown variant {value.name!r}"
+            f"GroundTruthSource: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "inline" in value:
         import capo_bedrock_agentcore.types.inline_ground_truth
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> GroundTruthSource:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("GroundTruthSource: no recognized variant key")

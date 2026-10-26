@@ -74,9 +74,5 @@ def deserialize_aws_json_1_1(data: dict) -> PutApplicationAuthenticationMethodRe
             )
         )
     else:
-        import capo_sso_admin.types._unknown
-
-        out["authentication_method"] = capo_sso_admin.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["authentication_method"] = {"$unknown": {"name": ""}}
     return out

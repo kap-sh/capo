@@ -86,11 +86,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateWebAppRequest:
             )
         )
     else:
-        import capo_transfer.types._unknown
-
-        out["identity_provider_details"] = (
-            capo_transfer.types._unknown.UnknownUnionMember("")
-        )
+        out["identity_provider_details"] = {"$unknown": {"name": ""}}
     if data.get("AccessEndpoint") is not None:
         out["access_endpoint"] = data["AccessEndpoint"]
     if data.get("WebAppUnits") is not None:

@@ -22,9 +22,9 @@ RemoteAccountIdentifier: TypeAlias = (
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: RemoteAccountIdentifier) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"RemoteAccountIdentifier: cannot serialize unknown variant {value.name!r}"
+            f"RemoteAccountIdentifier: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "identifier" in value:
         return {"identifier": value["identifier"]}
@@ -40,5 +40,5 @@ def deserialize_aws_json_1_0(data: dict) -> RemoteAccountIdentifier:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("RemoteAccountIdentifier: no recognized variant key")

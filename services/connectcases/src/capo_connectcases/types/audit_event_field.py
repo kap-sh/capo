@@ -65,7 +65,5 @@ def deserialize_json(data: dict) -> AuditEventField:
             )
         )
     else:
-        import capo_connectcases.types._unknown
-
-        out["new_value"] = capo_connectcases.types._unknown.UnknownUnionMember("")
+        out["new_value"] = {"$unknown": {"name": ""}}
     return out

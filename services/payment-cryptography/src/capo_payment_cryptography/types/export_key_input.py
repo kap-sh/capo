@@ -58,11 +58,7 @@ def deserialize_aws_json_1_0(data: dict) -> ExportKeyInput:
             )
         )
     else:
-        import capo_payment_cryptography.types._unknown
-
-        out["key_material"] = (
-            capo_payment_cryptography.types._unknown.UnknownUnionMember("")
-        )
+        out["key_material"] = {"$unknown": {"name": ""}}
     if data.get("ExportKeyIdentifier") is not None:
         out["export_key_identifier"] = data["ExportKeyIdentifier"]
     else:

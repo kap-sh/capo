@@ -22,9 +22,9 @@ ExporterConfiguration: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ExporterConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ExporterConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"ExporterConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "openSearchConfiguration" in value:
         import capo_amp.types.open_search_exporter_configuration
@@ -52,5 +52,5 @@ def deserialize_json(data: dict) -> ExporterConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ExporterConfiguration: no recognized variant key")

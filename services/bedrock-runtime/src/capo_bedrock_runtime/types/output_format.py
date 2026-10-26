@@ -59,9 +59,7 @@ def deserialize_json(data: dict) -> OutputFormat:
             )
         )
     else:
-        import capo_bedrock_runtime.types._unknown
-
-        out["structure"] = capo_bedrock_runtime.types._unknown.UnknownUnionMember("")
+        out["structure"] = {"$unknown": {"name": ""}}
     return out
 
 

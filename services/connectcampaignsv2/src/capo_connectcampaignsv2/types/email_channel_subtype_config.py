@@ -63,11 +63,7 @@ def deserialize_json(data: dict) -> EmailChannelSubtypeConfig:
             )
         )
     else:
-        import capo_connectcampaignsv2.types._unknown
-
-        out["outbound_mode"] = (
-            capo_connectcampaignsv2.types._unknown.UnknownUnionMember("")
-        )
+        out["outbound_mode"] = {"$unknown": {"name": ""}}
     if data.get("defaultOutboundConfig") is not None:
         import capo_connectcampaignsv2.types.email_outbound_config
 

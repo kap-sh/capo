@@ -39,11 +39,7 @@ def deserialize_json(data: dict) -> CompleteResourceTokenAuthRequest:
             )
         )
     else:
-        import capo_bedrock_agentcore.types._unknown
-
-        out["user_identifier"] = (
-            capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
-        )
+        out["user_identifier"] = {"$unknown": {"name": ""}}
     if data.get("sessionUri") is not None:
         out["session_uri"] = data["sessionUri"]
     else:

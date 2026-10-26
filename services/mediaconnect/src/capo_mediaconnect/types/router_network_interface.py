@@ -141,9 +141,7 @@ def deserialize_json(data: dict) -> RouterNetworkInterface:
             )
         )
     else:
-        import capo_mediaconnect.types._unknown
-
-        out["configuration"] = capo_mediaconnect.types._unknown.UnknownUnionMember("")
+        out["configuration"] = {"$unknown": {"name": ""}}
     if data.get("associatedOutputCount") is not None:
         out["associated_output_count"] = data["associatedOutputCount"]
     else:

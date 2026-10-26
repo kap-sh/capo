@@ -53,9 +53,7 @@ def deserialize_json(data: dict) -> UpdateScraperLoggingConfigurationRequest:
             )
         )
     else:
-        import capo_amp.types._unknown
-
-        out["logging_destination"] = capo_amp.types._unknown.UnknownUnionMember("")
+        out["logging_destination"] = {"$unknown": {"name": ""}}
     if data.get("scraperComponents") is not None:
         import capo_amp.types.scraper_components
 

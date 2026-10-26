@@ -17,9 +17,9 @@ ToolInputSchema: TypeAlias = _ToolInputSchema_json | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ToolInputSchema) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ToolInputSchema: cannot serialize unknown variant {value.name!r}"
+            f"ToolInputSchema: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "json" in value:
         return {"json": value["json"]}
@@ -35,5 +35,5 @@ def deserialize_json(data: dict) -> ToolInputSchema:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ToolInputSchema: no recognized variant key")

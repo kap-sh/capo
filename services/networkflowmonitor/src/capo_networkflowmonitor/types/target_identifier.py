@@ -41,9 +41,7 @@ def deserialize_json(data: dict) -> TargetIdentifier:
             data["targetId"]
         )
     else:
-        import capo_networkflowmonitor.types._unknown
-
-        out["target_id"] = capo_networkflowmonitor.types._unknown.UnknownUnionMember("")
+        out["target_id"] = {"$unknown": {"name": ""}}
     if data.get("targetType") is not None:
         import capo_networkflowmonitor.types.target_type
 

@@ -32,9 +32,9 @@ WrappedKeyMaterial: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: WrappedKeyMaterial) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"WrappedKeyMaterial: cannot serialize unknown variant {value.name!r}"
+            f"WrappedKeyMaterial: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "Tr31KeyBlock" in value:
         return {"Tr31KeyBlock": value["Tr31KeyBlock"]}
@@ -66,13 +66,11 @@ def deserialize_json(data: dict) -> WrappedKeyMaterial:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("WrappedKeyMaterial: no recognized variant key")
 
 
-def redact_sensitive(value: WrappedKeyMaterial) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: WrappedKeyMaterial) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "Tr31KeyBlock" in value:
         out["Tr31KeyBlock"] = "*** Sensitive Data Redacted ***"

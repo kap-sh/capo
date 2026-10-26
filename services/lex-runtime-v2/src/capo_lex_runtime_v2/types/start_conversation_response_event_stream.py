@@ -132,11 +132,11 @@ StartConversationResponseEventStream: TypeAlias = AnyIterator[
 
 
 def serialize_event_json(value: _StartConversationResponseEventStream) -> bytes:
-    if isinstance(value, UnknownEvent):
-        raise ValueError(
-            f"StartConversationResponseEventStream: cannot serialize unknown event {value.event_type!r}"
-        )
     match value:
+        case {"$unknown": {"name": name}}:
+            raise ValueError(
+                f"StartConversationResponseEventStream: cannot serialize unknown event {name!r}"
+            )
         case {"PlaybackInterruptionEvent": payload}:
             import capo_lex_runtime_v2.types.playback_interruption_event
 
@@ -373,7 +373,7 @@ def deserialize_event_json(
                 )
             }
         case str():
-            return UnknownEvent(event_type, message)
+            return {"$unknown": {"name": event_type, "message": message}}
         case _:
             raise ValueError(
                 f"StartConversationResponseEventStream: unrecognized event-type {event_type!r}"

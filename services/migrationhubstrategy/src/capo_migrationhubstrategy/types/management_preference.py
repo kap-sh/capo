@@ -39,9 +39,9 @@ ManagementPreference: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ManagementPreference) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ManagementPreference: cannot serialize unknown variant {value.name!r}"
+            f"ManagementPreference: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "awsManagedResources" in value:
         import capo_migrationhubstrategy.types.aws_managed_resources
@@ -101,5 +101,5 @@ def deserialize_json(data: dict) -> ManagementPreference:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ManagementPreference: no recognized variant key")

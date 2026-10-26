@@ -66,9 +66,7 @@ def deserialize_json(data: dict) -> CreateMarketplaceModelEndpointRequest:
             data["endpointConfig"]
         )
     else:
-        import capo_bedrock.types._unknown
-
-        out["endpoint_config"] = capo_bedrock.types._unknown.UnknownUnionMember("")
+        out["endpoint_config"] = {"$unknown": {"name": ""}}
     if data.get("acceptEula") is not None:
         out["accept_eula"] = data["acceptEula"]
     if data.get("endpointName") is not None:

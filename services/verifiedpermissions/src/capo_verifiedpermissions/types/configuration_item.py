@@ -29,9 +29,9 @@ ConfigurationItem: TypeAlias = (
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: ConfigurationItem) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ConfigurationItem: cannot serialize unknown variant {value.name!r}"
+            f"ConfigurationItem: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "cognitoUserPoolConfiguration" in value:
         import capo_verifiedpermissions.types.cognito_user_pool_configuration_item
@@ -75,13 +75,11 @@ def deserialize_aws_json_1_0(data: dict) -> ConfigurationItem:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ConfigurationItem: no recognized variant key")
 
 
-def redact_sensitive(value: ConfigurationItem) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: ConfigurationItem) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "cognitoUserPoolConfiguration" in value:
         import capo_verifiedpermissions.types.cognito_user_pool_configuration_item

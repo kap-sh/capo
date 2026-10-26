@@ -33,7 +33,5 @@ def deserialize_json(data: dict) -> ProtectedQueryResult:
             data["output"]
         )
     else:
-        import capo_cleanrooms.types._unknown
-
-        out["output"] = capo_cleanrooms.types._unknown.UnknownUnionMember("")
+        out["output"] = {"$unknown": {"name": ""}}
     return out

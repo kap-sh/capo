@@ -64,13 +64,7 @@ def deserialize_json(data: dict) -> AssociateUserRequest:
             )
         )
     else:
-        import capo_license_manager_user_subscriptions.types._unknown
-
-        out["identity_provider"] = (
-            capo_license_manager_user_subscriptions.types._unknown.UnknownUnionMember(
-                ""
-            )
-        )
+        out["identity_provider"] = {"$unknown": {"name": ""}}
     if data.get("Domain") is not None:
         out["domain"] = data["Domain"]
     if data.get("Tags") is not None:

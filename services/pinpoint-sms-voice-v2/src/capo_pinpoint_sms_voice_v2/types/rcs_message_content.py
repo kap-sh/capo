@@ -50,11 +50,7 @@ def deserialize_aws_json_1_0(data: dict) -> RcsMessageContent:
             )
         )
     else:
-        import capo_pinpoint_sms_voice_v2.types._unknown
-
-        out["content"] = capo_pinpoint_sms_voice_v2.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["content"] = {"$unknown": {"name": ""}}
     if data.get("Suggestions") is not None:
         import capo_pinpoint_sms_voice_v2.types.rcs_suggested_action_list
 

@@ -29,9 +29,9 @@ MetadataUpdates: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MetadataUpdates) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"MetadataUpdates: cannot serialize unknown variant {value.name!r}"
+            f"MetadataUpdates: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "DICOMUpdates" in value:
         import capo_medical_imaging.types.dicom_updates
@@ -63,13 +63,11 @@ def deserialize_json(data: dict) -> MetadataUpdates:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("MetadataUpdates: no recognized variant key")
 
 
-def redact_sensitive(value: MetadataUpdates) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: MetadataUpdates) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "DICOMUpdates" in value:
         import capo_medical_imaging.types.dicom_updates

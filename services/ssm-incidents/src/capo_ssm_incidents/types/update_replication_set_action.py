@@ -31,9 +31,9 @@ UpdateReplicationSetAction: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: UpdateReplicationSetAction) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"UpdateReplicationSetAction: cannot serialize unknown variant {value.name!r}"
+            f"UpdateReplicationSetAction: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "addRegionAction" in value:
         import capo_ssm_incidents.types.add_region_action
@@ -77,7 +77,7 @@ def deserialize_json(data: dict) -> UpdateReplicationSetAction:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "UpdateReplicationSetAction: no recognized variant key"
         )

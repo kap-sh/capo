@@ -79,11 +79,7 @@ def deserialize_json(data: dict) -> CreatePaymentCredentialProviderRequest:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["provider_configuration_input"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["provider_configuration_input"] = {"$unknown": {"name": ""}}
     if data.get("tags") is not None:
         import capo_bedrock_agentcore_control.types.tags_map
 

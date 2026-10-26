@@ -55,11 +55,7 @@ def deserialize_json(data: dict) -> LlmAsAJudgeEvaluatorConfig:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["rating_scale"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["rating_scale"] = {"$unknown": {"name": ""}}
     if data.get("modelConfig") is not None:
         import capo_bedrock_agentcore_control.types.evaluator_model_config
 
@@ -69,11 +65,7 @@ def deserialize_json(data: dict) -> LlmAsAJudgeEvaluatorConfig:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["model_config"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["model_config"] = {"$unknown": {"name": ""}}
     return out
 
 

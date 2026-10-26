@@ -41,9 +41,9 @@ DatasetDetailOrgAttributes: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DatasetDetailOrgAttributes) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"DatasetDetailOrgAttributes: cannot serialize unknown variant {value.name!r}"
+            f"DatasetDetailOrgAttributes: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "vsam" in value:
         import capo_m2.types.vsam_detail_attributes
@@ -93,7 +93,7 @@ def deserialize_json(data: dict) -> DatasetDetailOrgAttributes:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "DatasetDetailOrgAttributes: no recognized variant key"
         )

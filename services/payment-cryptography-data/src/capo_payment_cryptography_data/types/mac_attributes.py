@@ -54,9 +54,9 @@ MacAttributes: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MacAttributes) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"MacAttributes: cannot serialize unknown variant {value.name!r}"
+            f"MacAttributes: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "Algorithm" in value:
         import capo_payment_cryptography_data.types.mac_algorithm
@@ -148,13 +148,11 @@ def deserialize_json(data: dict) -> MacAttributes:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("MacAttributes: no recognized variant key")
 
 
-def redact_sensitive(value: MacAttributes) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: MacAttributes) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "EmvMac" in value:
         import capo_payment_cryptography_data.types.mac_algorithm_emv

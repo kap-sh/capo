@@ -22,9 +22,9 @@ RealTimeContactAnalysisTimeData: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RealTimeContactAnalysisTimeData) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"RealTimeContactAnalysisTimeData: cannot serialize unknown variant {value.name!r}"
+            f"RealTimeContactAnalysisTimeData: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "AbsoluteTime" in value:
         import capo_connect.types.real_time_contact_analysis_time_instant
@@ -52,7 +52,7 @@ def deserialize_json(data: dict) -> RealTimeContactAnalysisTimeData:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "RealTimeContactAnalysisTimeData: no recognized variant key"
         )

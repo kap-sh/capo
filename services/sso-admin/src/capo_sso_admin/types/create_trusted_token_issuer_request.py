@@ -93,11 +93,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateTrustedTokenIssuerRequest:
             )
         )
     else:
-        import capo_sso_admin.types._unknown
-
-        out["trusted_token_issuer_configuration"] = (
-            capo_sso_admin.types._unknown.UnknownUnionMember("")
-        )
+        out["trusted_token_issuer_configuration"] = {"$unknown": {"name": ""}}
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("Tags") is not None:

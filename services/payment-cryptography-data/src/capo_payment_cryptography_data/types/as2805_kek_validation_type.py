@@ -32,9 +32,9 @@ As2805KekValidationType: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: As2805KekValidationType) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"As2805KekValidationType: cannot serialize unknown variant {value.name!r}"
+            f"As2805KekValidationType: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "KekValidationRequest" in value:
         import capo_payment_cryptography_data.types.kek_validation_request
@@ -78,15 +78,11 @@ def deserialize_json(data: dict) -> As2805KekValidationType:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("As2805KekValidationType: no recognized variant key")
 
 
-def redact_sensitive(
-    value: As2805KekValidationType,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: As2805KekValidationType) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "KekValidationResponse" in value:
         import capo_payment_cryptography_data.types.kek_validation_response

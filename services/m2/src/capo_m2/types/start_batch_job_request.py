@@ -56,9 +56,7 @@ def deserialize_json(data: dict) -> StartBatchJobRequest:
             )
         )
     else:
-        import capo_m2.types._unknown
-
-        out["batch_job_identifier"] = capo_m2.types._unknown.UnknownUnionMember("")
+        out["batch_job_identifier"] = {"$unknown": {"name": ""}}
     if data.get("jobParams") is not None:
         import capo_m2.types.batch_job_parameters_map
 

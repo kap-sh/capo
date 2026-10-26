@@ -26,9 +26,9 @@ DocumentContent: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DocumentContent) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"DocumentContent: cannot serialize unknown variant {value.name!r}"
+            f"DocumentContent: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "blob" in value:
         import capo_qbusiness.types._prelude.blob
@@ -60,5 +60,5 @@ def deserialize_json(data: dict) -> DocumentContent:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("DocumentContent: no recognized variant key")

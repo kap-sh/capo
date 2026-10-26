@@ -55,11 +55,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutIntegrationRequest:
             )
         )
     else:
-        import capo_cloudwatch_logs.types._unknown
-
-        out["resource_config"] = capo_cloudwatch_logs.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["resource_config"] = {"$unknown": {"name": ""}}
     if data.get("integrationType") is not None:
         import capo_cloudwatch_logs.types.integration_type
 

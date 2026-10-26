@@ -45,9 +45,7 @@ def deserialize_json(data: dict) -> UpdateCodeSecurityIntegrationRequest:
             )
         )
     else:
-        import capo_inspector2.types._unknown
-
-        out["details"] = capo_inspector2.types._unknown.UnknownUnionMember("")
+        out["details"] = {"$unknown": {"name": ""}}
     return out
 
 

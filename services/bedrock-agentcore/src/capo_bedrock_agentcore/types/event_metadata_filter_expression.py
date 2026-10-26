@@ -50,9 +50,7 @@ def deserialize_json(data: dict) -> EventMetadataFilterExpression:
             data["left"]
         )
     else:
-        import capo_bedrock_agentcore.types._unknown
-
-        out["left"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
+        out["left"] = {"$unknown": {"name": ""}}
     if data.get("operator") is not None:
         import capo_bedrock_agentcore.types.operator_type
 

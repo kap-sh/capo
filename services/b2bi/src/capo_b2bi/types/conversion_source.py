@@ -55,7 +55,5 @@ def deserialize_aws_json_1_0(data: dict) -> ConversionSource:
             data["inputFile"]
         )
     else:
-        import capo_b2bi.types._unknown
-
-        out["input_file"] = capo_b2bi.types._unknown.UnknownUnionMember("")
+        out["input_file"] = {"$unknown": {"name": ""}}
     return out

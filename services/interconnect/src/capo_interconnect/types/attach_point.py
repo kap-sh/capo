@@ -27,9 +27,9 @@ AttachPoint: TypeAlias = (
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: AttachPoint) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AttachPoint: cannot serialize unknown variant {value.name!r}"
+            f"AttachPoint: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "directConnectGateway" in value:
         return {"directConnectGateway": value["directConnectGateway"]}
@@ -49,5 +49,5 @@ def deserialize_aws_json_1_0(data: dict) -> AttachPoint:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("AttachPoint: no recognized variant key")

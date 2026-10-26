@@ -25,9 +25,9 @@ AssociationConfigurationData: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AssociationConfigurationData) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AssociationConfigurationData: cannot serialize unknown variant {value.name!r}"
+            f"AssociationConfigurationData: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "knowledgeBaseAssociationConfigurationData" in value:
         import capo_qconnect.types.knowledge_base_association_configuration_data
@@ -55,7 +55,7 @@ def deserialize_json(data: dict) -> AssociationConfigurationData:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "AssociationConfigurationData: no recognized variant key"
         )

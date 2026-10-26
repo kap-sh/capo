@@ -56,7 +56,7 @@ def main():
 ## Keep a multi-turn conversation
 
 ```python
-from capo_bedrock_runtime import AsyncBedrockRuntimeClient, UnknownUnionMember
+from capo_bedrock_runtime import AsyncBedrockRuntimeClient
 from capo_bedrock_runtime.types.message import Message
 
 
@@ -66,11 +66,11 @@ async def main():
         messages: list[Message] = [{"role": "user", "content": [{"text": "My name is Ada."}]}]
         response = await bedrock.converse("global.anthropic.claude-opus-5-5", messages=messages)
 
-        # The output is a union: UnknownUnionMember stands for a kind of output
+        # The output is a union: $unknown stands for a kind of output
         # newer than this client
         output = response["output"]
-        if isinstance(output, UnknownUnionMember):
-            raise RuntimeError(output.name)
+        if "$unknown" in output:
+            raise RuntimeError(output["$unknown"]["name"])
         messages.append(output["message"])
 
         messages.append({"role": "user", "content": [{"text": "What is my name?"}]})
@@ -101,7 +101,7 @@ async def main():
 ## Let the model call your tools
 
 ```python
-from capo_bedrock_runtime import AsyncBedrockRuntimeClient, UnknownUnionMember
+from capo_bedrock_runtime import AsyncBedrockRuntimeClient
 from capo_bedrock_runtime.types.content_block import ContentBlock
 from capo_bedrock_runtime.types.message import Message
 from capo_bedrock_runtime.types.tool import Tool
@@ -133,8 +133,8 @@ async def main():
         # The model stops to ask for tool results until it can answer
         while response["stop_reason"] == "tool_use":
             output = response["output"]
-            if isinstance(output, UnknownUnionMember):
-                raise RuntimeError(output.name)
+            if "$unknown" in output:
+                raise RuntimeError(output["$unknown"]["name"])
             messages.append(output["message"])
             results: list[ContentBlock] = []
             for block in output["message"]["content"]:

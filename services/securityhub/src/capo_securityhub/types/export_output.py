@@ -20,9 +20,9 @@ ExportOutput: TypeAlias = _ExportOutput_Findings | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ExportOutput) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ExportOutput: cannot serialize unknown variant {value.name!r}"
+            f"ExportOutput: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "Findings" in value:
         import capo_securityhub.types.findings_output
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> ExportOutput:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ExportOutput: no recognized variant key")

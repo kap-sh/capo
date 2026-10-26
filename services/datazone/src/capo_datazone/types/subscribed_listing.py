@@ -72,9 +72,7 @@ def deserialize_json(data: dict) -> SubscribedListing:
             data["item"]
         )
     else:
-        import capo_datazone.types._unknown
-
-        out["item"] = capo_datazone.types._unknown.UnknownUnionMember("")
+        out["item"] = {"$unknown": {"name": ""}}
     if data.get("ownerProjectId") is not None:
         out["owner_project_id"] = data["ownerProjectId"]
     else:

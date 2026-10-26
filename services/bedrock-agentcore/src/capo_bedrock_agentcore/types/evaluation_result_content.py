@@ -118,9 +118,7 @@ def deserialize_json(data: dict) -> EvaluationResultContent:
             data["context"]
         )
     else:
-        import capo_bedrock_agentcore.types._unknown
-
-        out["context"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
+        out["context"] = {"$unknown": {"name": ""}}
     if data.get("value") is not None:
         out["value"] = float(data["value"])
     if data.get("label") is not None:

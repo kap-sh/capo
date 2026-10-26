@@ -27,9 +27,9 @@ RuleAction: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RuleAction) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"RuleAction: cannot serialize unknown variant {value.name!r}"
+            f"RuleAction: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "forward" in value:
         import capo_vpc_lattice.types.forward_action
@@ -73,5 +73,5 @@ def deserialize_json(data: dict) -> RuleAction:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("RuleAction: no recognized variant key")

@@ -73,9 +73,7 @@ def deserialize_json(data: dict) -> CreateIntegrationInput:
             data["input"]
         )
     else:
-        import capo_securityagent.types._unknown
-
-        out["input"] = capo_securityagent.types._unknown.UnknownUnionMember("")
+        out["input"] = {"$unknown": {"name": ""}}
     if data.get("integrationDisplayName") is not None:
         out["integration_display_name"] = data["integrationDisplayName"]
     else:

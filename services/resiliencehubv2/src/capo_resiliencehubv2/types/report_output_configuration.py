@@ -22,9 +22,9 @@ ReportOutputConfiguration: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ReportOutputConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ReportOutputConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"ReportOutputConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "s3" in value:
         import capo_resiliencehubv2.types.s3_report_output_configuration
@@ -52,7 +52,7 @@ def deserialize_json(data: dict) -> ReportOutputConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "ReportOutputConfiguration: no recognized variant key"
         )

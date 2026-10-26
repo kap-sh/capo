@@ -48,11 +48,11 @@ MedicalScribeInputStream: TypeAlias = AnyIterator[_MedicalScribeInputStream]
 
 
 def serialize_event_json(value: _MedicalScribeInputStream) -> bytes:
-    if isinstance(value, UnknownEvent):
-        raise ValueError(
-            f"MedicalScribeInputStream: cannot serialize unknown event {value.event_type!r}"
-        )
     match value:
+        case {"$unknown": {"name": name}}:
+            raise ValueError(
+                f"MedicalScribeInputStream: cannot serialize unknown event {name!r}"
+            )
         case {"audioEvent": payload}:
             import capo_connecthealth.types.medical_scribe_audio_event
 
@@ -136,7 +136,7 @@ def deserialize_event_json(
                 )
             }
         case str():
-            return UnknownEvent(event_type, message)
+            return {"$unknown": {"name": event_type, "message": message}}
         case _:
             raise ValueError(
                 f"MedicalScribeInputStream: unrecognized event-type {event_type!r}"

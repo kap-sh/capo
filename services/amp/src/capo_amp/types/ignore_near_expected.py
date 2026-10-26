@@ -23,9 +23,9 @@ IgnoreNearExpected: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: IgnoreNearExpected) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"IgnoreNearExpected: cannot serialize unknown variant {value.name!r}"
+            f"IgnoreNearExpected: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "amount" in value:
         return {
@@ -65,5 +65,5 @@ def deserialize_json(data: dict) -> IgnoreNearExpected:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("IgnoreNearExpected: no recognized variant key")

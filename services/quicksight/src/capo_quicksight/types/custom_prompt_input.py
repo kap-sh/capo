@@ -29,9 +29,9 @@ CustomPromptInput: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CustomPromptInput) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"CustomPromptInput: cannot serialize unknown variant {value.name!r}"
+            f"CustomPromptInput: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "ExistingPrompt" in value:
         import capo_quicksight.types.custom_prompt_profile
@@ -75,5 +75,5 @@ def deserialize_json(data: dict) -> CustomPromptInput:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("CustomPromptInput: no recognized variant key")

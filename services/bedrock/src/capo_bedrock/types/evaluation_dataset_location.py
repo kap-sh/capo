@@ -22,9 +22,9 @@ EvaluationDatasetLocation: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: EvaluationDatasetLocation) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"EvaluationDatasetLocation: cannot serialize unknown variant {value.name!r}"
+            f"EvaluationDatasetLocation: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "s3Uri" in value:
         return {"s3Uri": value["s3Uri"]}
@@ -40,7 +40,7 @@ def deserialize_json(data: dict) -> EvaluationDatasetLocation:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "EvaluationDatasetLocation: no recognized variant key"
         )

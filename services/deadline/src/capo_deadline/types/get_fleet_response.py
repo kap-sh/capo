@@ -189,9 +189,7 @@ def deserialize_json(data: dict) -> GetFleetResponse:
             data["configuration"]
         )
     else:
-        import capo_deadline.types._unknown
-
-        out["configuration"] = capo_deadline.types._unknown.UnknownUnionMember("")
+        out["configuration"] = {"$unknown": {"name": ""}}
     if data.get("createdAt") is not None:
         import capo_deadline.types.created_at
 

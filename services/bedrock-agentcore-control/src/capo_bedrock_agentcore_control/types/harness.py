@@ -285,11 +285,7 @@ def deserialize_json(data: dict) -> Harness:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["model"] = capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["model"] = {"$unknown": {"name": ""}}
     if data.get("systemPrompt") is not None:
         import capo_bedrock_agentcore_control.types.harness_system_prompt
 
@@ -349,11 +345,7 @@ def deserialize_json(data: dict) -> Harness:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["environment"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["environment"] = {"$unknown": {"name": ""}}
     if data.get("environmentArtifact") is not None:
         import capo_bedrock_agentcore_control.types.harness_environment_artifact
 

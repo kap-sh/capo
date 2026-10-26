@@ -24,9 +24,9 @@ IdentitySourceDetails: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: IdentitySourceDetails) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"IdentitySourceDetails: cannot serialize unknown variant {value.name!r}"
+            f"IdentitySourceDetails: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "identityCenter" in value:
         import capo_account_access.types.identity_center_details
@@ -54,5 +54,5 @@ def deserialize_json(data: dict) -> IdentitySourceDetails:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("IdentitySourceDetails: no recognized variant key")

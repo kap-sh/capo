@@ -114,11 +114,11 @@ AgenticRetrieveStreamResponseOutput: TypeAlias = AnyIterator[
 
 
 def serialize_event_json(value: _AgenticRetrieveStreamResponseOutput) -> bytes:
-    if isinstance(value, UnknownEvent):
-        raise ValueError(
-            f"AgenticRetrieveStreamResponseOutput: cannot serialize unknown event {value.event_type!r}"
-        )
     match value:
+        case {"$unknown": {"name": name}}:
+            raise ValueError(
+                f"AgenticRetrieveStreamResponseOutput: cannot serialize unknown event {name!r}"
+            )
         case {"result": payload}:
             import capo_bedrock_agent_runtime.types.agentic_retrieve_result_event
 
@@ -324,7 +324,7 @@ def deserialize_event_json(
                 )
             }
         case str():
-            return UnknownEvent(event_type, message)
+            return {"$unknown": {"name": event_type, "message": message}}
         case _:
             raise ValueError(
                 f"AgenticRetrieveStreamResponseOutput: unrecognized event-type {event_type!r}"

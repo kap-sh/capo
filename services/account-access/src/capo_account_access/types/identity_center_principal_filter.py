@@ -29,9 +29,9 @@ IdentityCenterPrincipalFilter: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: IdentityCenterPrincipalFilter) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"IdentityCenterPrincipalFilter: cannot serialize unknown variant {value.name!r}"
+            f"IdentityCenterPrincipalFilter: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "userId" in value:
         return {"userId": value["userId"]}
@@ -51,7 +51,7 @@ def deserialize_json(data: dict) -> IdentityCenterPrincipalFilter:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "IdentityCenterPrincipalFilter: no recognized variant key"
         )

@@ -42,7 +42,5 @@ def deserialize_json(data: dict) -> PreviewPrivacyImpactInput:
             )
         )
     else:
-        import capo_cleanrooms.types._unknown
-
-        out["parameters"] = capo_cleanrooms.types._unknown.UnknownUnionMember("")
+        out["parameters"] = {"$unknown": {"name": ""}}
     return out

@@ -22,9 +22,9 @@ RdsDbSnapshotAttributeValue: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RdsDbSnapshotAttributeValue) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"RdsDbSnapshotAttributeValue: cannot serialize unknown variant {value.name!r}"
+            f"RdsDbSnapshotAttributeValue: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "accountIds" in value:
         import capo_accessanalyzer.types.rds_db_snapshot_account_ids_list
@@ -52,7 +52,7 @@ def deserialize_json(data: dict) -> RdsDbSnapshotAttributeValue:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "RdsDbSnapshotAttributeValue: no recognized variant key"
         )

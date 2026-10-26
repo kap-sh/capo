@@ -20,9 +20,9 @@ EvaluationInput: TypeAlias = _EvaluationInput_sessionSpans | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: EvaluationInput) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"EvaluationInput: cannot serialize unknown variant {value.name!r}"
+            f"EvaluationInput: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "sessionSpans" in value:
         import capo_bedrock_agentcore.types.spans
@@ -50,13 +50,11 @@ def deserialize_json(data: dict) -> EvaluationInput:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("EvaluationInput: no recognized variant key")
 
 
-def redact_sensitive(value: EvaluationInput) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: EvaluationInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "sessionSpans" in value:
         out["sessionSpans"] = "*** Sensitive Data Redacted ***"

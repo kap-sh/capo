@@ -133,11 +133,7 @@ def deserialize_aws_json_1_0(data: dict) -> RestoreFHIRDatastoreRequest:
             )
         )
     else:
-        import capo_healthlake.types._unknown
-
-        out["restore_configuration"] = (
-            capo_healthlake.types._unknown.UnknownUnionMember("")
-        )
+        out["restore_configuration"] = {"$unknown": {"name": ""}}
     if data.get("DatastoreName") is not None:
         out["datastore_name"] = data["DatastoreName"]
     if data.get("SseConfiguration") is not None:

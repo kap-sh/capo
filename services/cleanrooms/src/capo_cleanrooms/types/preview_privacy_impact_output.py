@@ -33,7 +33,5 @@ def deserialize_json(data: dict) -> PreviewPrivacyImpactOutput:
             data["privacyImpact"]
         )
     else:
-        import capo_cleanrooms.types._unknown
-
-        out["privacy_impact"] = capo_cleanrooms.types._unknown.UnknownUnionMember("")
+        out["privacy_impact"] = {"$unknown": {"name": ""}}
     return out

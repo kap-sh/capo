@@ -29,9 +29,9 @@ SourceDetails: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SourceDetails) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"SourceDetails: cannot serialize unknown variant {value.name!r}"
+            f"SourceDetails: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "agentcoreRuntime" in value:
         import capo_agent_registry_control.types.agent_core_runtime_source_details
@@ -75,5 +75,5 @@ def deserialize_json(data: dict) -> SourceDetails:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("SourceDetails: no recognized variant key")

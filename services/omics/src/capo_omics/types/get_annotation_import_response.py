@@ -177,9 +177,7 @@ def deserialize_json(data: dict) -> GetAnnotationImportResponse:
             data["formatOptions"]
         )
     else:
-        import capo_omics.types._unknown
-
-        out["format_options"] = capo_omics.types._unknown.UnknownUnionMember("")
+        out["format_options"] = {"$unknown": {"name": ""}}
     if data.get("annotationFields") is not None:
         import capo_omics.types.annotation_field_map
 

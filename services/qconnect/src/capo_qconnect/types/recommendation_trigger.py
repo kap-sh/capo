@@ -69,9 +69,7 @@ def deserialize_json(data: dict) -> RecommendationTrigger:
             data["data"]
         )
     else:
-        import capo_qconnect.types._unknown
-
-        out["data"] = capo_qconnect.types._unknown.UnknownUnionMember("")
+        out["data"] = {"$unknown": {"name": ""}}
     if data.get("recommendationIds") is not None:
         import capo_qconnect.types.recommendation_id_list
 

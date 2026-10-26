@@ -154,9 +154,7 @@ def deserialize_json(data: dict) -> InstrumentationConfiguration:
             data["Location"]
         )
     else:
-        import capo_application_signals.types._unknown
-
-        out["location"] = capo_application_signals.types._unknown.UnknownUnionMember("")
+        out["location"] = {"$unknown": {"name": ""}}
     if data.get("LocationHash") is not None:
         out["location_hash"] = data["LocationHash"]
     else:
@@ -188,11 +186,7 @@ def deserialize_json(data: dict) -> InstrumentationConfiguration:
             )
         )
     else:
-        import capo_application_signals.types._unknown
-
-        out["capture_configuration"] = (
-            capo_application_signals.types._unknown.UnknownUnionMember("")
-        )
+        out["capture_configuration"] = {"$unknown": {"name": ""}}
     if data.get("CreatedAt") is not None:
         import capo_application_signals.types._prelude.timestamp
 

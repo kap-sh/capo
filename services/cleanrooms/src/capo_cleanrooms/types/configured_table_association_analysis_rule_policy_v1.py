@@ -37,9 +37,9 @@ ConfiguredTableAssociationAnalysisRulePolicyV1: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ConfiguredTableAssociationAnalysisRulePolicyV1) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ConfiguredTableAssociationAnalysisRulePolicyV1: cannot serialize unknown variant {value.name!r}"
+            f"ConfiguredTableAssociationAnalysisRulePolicyV1: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "list" in value:
         import capo_cleanrooms.types.configured_table_association_analysis_rule_list
@@ -101,7 +101,7 @@ def deserialize_json(data: dict) -> ConfiguredTableAssociationAnalysisRulePolicy
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "ConfiguredTableAssociationAnalysisRulePolicyV1: no recognized variant key"
         )

@@ -33,9 +33,9 @@ BatchJobDefinition: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: BatchJobDefinition) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"BatchJobDefinition: cannot serialize unknown variant {value.name!r}"
+            f"BatchJobDefinition: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "fileBatchJobDefinition" in value:
         import capo_m2.types.file_batch_job_definition
@@ -79,5 +79,5 @@ def deserialize_json(data: dict) -> BatchJobDefinition:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("BatchJobDefinition: no recognized variant key")

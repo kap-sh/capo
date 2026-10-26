@@ -92,9 +92,7 @@ def deserialize_json(data: dict) -> ConverseResponse:
             data["output"]
         )
     else:
-        import capo_bedrock_runtime.types._unknown
-
-        out["output"] = capo_bedrock_runtime.types._unknown.UnknownUnionMember("")
+        out["output"] = {"$unknown": {"name": ""}}
     if data.get("stopReason") is not None:
         import capo_bedrock_runtime.types.stop_reason
 

@@ -20,9 +20,9 @@ AuthenticationMethod: TypeAlias = _AuthenticationMethod_Iam | UnknownUnionMember
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: AuthenticationMethod) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AuthenticationMethod: cannot serialize unknown variant {value.name!r}"
+            f"AuthenticationMethod: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "Iam" in value:
         import capo_sso_admin.types.iam_authentication_method
@@ -50,5 +50,5 @@ def deserialize_aws_json_1_1(data: dict) -> AuthenticationMethod:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("AuthenticationMethod: no recognized variant key")

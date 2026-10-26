@@ -49,9 +49,7 @@ def deserialize_json(data: dict) -> ToolSpec:
             data["inputSchema"]
         )
     else:
-        import capo_nova_act.types._unknown
-
-        out["input_schema"] = capo_nova_act.types._unknown.UnknownUnionMember("")
+        out["input_schema"] = {"$unknown": {"name": ""}}
     return out
 
 

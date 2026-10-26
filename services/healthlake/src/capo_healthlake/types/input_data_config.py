@@ -20,9 +20,9 @@ InputDataConfig: TypeAlias = _InputDataConfig_S3Uri | UnknownUnionMember
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: InputDataConfig) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"InputDataConfig: cannot serialize unknown variant {value.name!r}"
+            f"InputDataConfig: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "S3Uri" in value:
         return {"S3Uri": value["S3Uri"]}
@@ -38,5 +38,5 @@ def deserialize_aws_json_1_0(data: dict) -> InputDataConfig:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("InputDataConfig: no recognized variant key")

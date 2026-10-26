@@ -95,11 +95,7 @@ def deserialize_json(data: dict) -> PrivateKeyAttributesV3:
             )
         )
     else:
-        import capo_pca_connector_ad.types._unknown
-
-        out["key_usage_property"] = (
-            capo_pca_connector_ad.types._unknown.UnknownUnionMember("")
-        )
+        out["key_usage_property"] = {"$unknown": {"name": ""}}
     if data.get("Algorithm") is not None:
         import capo_pca_connector_ad.types.private_key_algorithm
 

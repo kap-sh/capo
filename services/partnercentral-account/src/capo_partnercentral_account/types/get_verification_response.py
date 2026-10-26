@@ -119,11 +119,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetVerificationResponse:
             )
         )
     else:
-        import capo_partnercentral_account.types._unknown
-
-        out["verification_response_details"] = (
-            capo_partnercentral_account.types._unknown.UnknownUnionMember("")
-        )
+        out["verification_response_details"] = {"$unknown": {"name": ""}}
     if data.get("StartedAt") is not None:
         import capo_partnercentral_account.types.date_time
 

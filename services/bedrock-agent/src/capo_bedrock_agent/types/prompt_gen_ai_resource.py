@@ -20,9 +20,9 @@ PromptGenAiResource: TypeAlias = _PromptGenAiResource_agent | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PromptGenAiResource) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"PromptGenAiResource: cannot serialize unknown variant {value.name!r}"
+            f"PromptGenAiResource: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "agent" in value:
         import capo_bedrock_agent.types.prompt_agent_resource
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> PromptGenAiResource:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("PromptGenAiResource: no recognized variant key")

@@ -83,11 +83,7 @@ def deserialize_json(data: dict) -> CreateSupportPermitInput:
             )
         )
     else:
-        import capo_supportauthz.types._unknown
-
-        out["signing_key_info"] = capo_supportauthz.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["signing_key_info"] = {"$unknown": {"name": ""}}
     if data.get("supportCaseDisplayId") is not None:
         out["support_case_display_id"] = data["supportCaseDisplayId"]
     if data.get("clientToken") is not None:

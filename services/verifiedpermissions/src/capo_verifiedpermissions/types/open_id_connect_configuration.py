@@ -75,11 +75,7 @@ def deserialize_aws_json_1_0(data: dict) -> OpenIdConnectConfiguration:
             )
         )
     else:
-        import capo_verifiedpermissions.types._unknown
-
-        out["token_selection"] = (
-            capo_verifiedpermissions.types._unknown.UnknownUnionMember("")
-        )
+        out["token_selection"] = {"$unknown": {"name": ""}}
     return out
 
 

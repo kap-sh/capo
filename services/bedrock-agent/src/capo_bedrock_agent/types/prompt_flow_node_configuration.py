@@ -50,11 +50,7 @@ def deserialize_json(data: dict) -> PromptFlowNodeConfiguration:
             )
         )
     else:
-        import capo_bedrock_agent.types._unknown
-
-        out["source_configuration"] = (
-            capo_bedrock_agent.types._unknown.UnknownUnionMember("")
-        )
+        out["source_configuration"] = {"$unknown": {"name": ""}}
     if data.get("guardrailConfiguration") is not None:
         import capo_bedrock_agent.types.guardrail_configuration
 

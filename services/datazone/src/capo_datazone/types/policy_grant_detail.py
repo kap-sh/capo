@@ -99,9 +99,9 @@ PolicyGrantDetail: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PolicyGrantDetail) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"PolicyGrantDetail: cannot serialize unknown variant {value.name!r}"
+            f"PolicyGrantDetail: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "createDomainUnit" in value:
         import capo_datazone.types.create_domain_unit_policy_grant_detail
@@ -337,5 +337,5 @@ def deserialize_json(data: dict) -> PolicyGrantDetail:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("PolicyGrantDetail: no recognized variant key")

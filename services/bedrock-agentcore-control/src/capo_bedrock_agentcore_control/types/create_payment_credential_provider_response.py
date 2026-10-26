@@ -78,9 +78,5 @@ def deserialize_json(data: dict) -> CreatePaymentCredentialProviderResponse:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["provider_configuration_output"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["provider_configuration_output"] = {"$unknown": {"name": ""}}
     return out

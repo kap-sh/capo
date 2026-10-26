@@ -20,9 +20,9 @@ EvaluatorUserUnion: TypeAlias = _EvaluatorUserUnion_ConnectUserArn | UnknownUnio
 
 # --- restJson1 ser/de ---
 def serialize_json(value: EvaluatorUserUnion) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"EvaluatorUserUnion: cannot serialize unknown variant {value.name!r}"
+            f"EvaluatorUserUnion: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "ConnectUserArn" in value:
         return {"ConnectUserArn": value["ConnectUserArn"]}
@@ -38,5 +38,5 @@ def deserialize_json(data: dict) -> EvaluatorUserUnion:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("EvaluatorUserUnion: no recognized variant key")

@@ -17,9 +17,9 @@ DiffSource: TypeAlias = _DiffSource_s3Uri | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DiffSource) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"DiffSource: cannot serialize unknown variant {value.name!r}"
+            f"DiffSource: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "s3Uri" in value:
         return {"s3Uri": value["s3Uri"]}
@@ -35,5 +35,5 @@ def deserialize_json(data: dict) -> DiffSource:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("DiffSource: no recognized variant key")

@@ -20,9 +20,9 @@ ContactMetricValue: TypeAlias = _ContactMetricValue_Number | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ContactMetricValue) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ContactMetricValue: cannot serialize unknown variant {value.name!r}"
+            f"ContactMetricValue: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "Number" in value:
         return {
@@ -48,5 +48,5 @@ def deserialize_json(data: dict) -> ContactMetricValue:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ContactMetricValue: no recognized variant key")

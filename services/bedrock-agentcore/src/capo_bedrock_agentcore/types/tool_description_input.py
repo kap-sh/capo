@@ -49,11 +49,7 @@ def deserialize_json(data: dict) -> ToolDescriptionInput:
             )
         )
     else:
-        import capo_bedrock_agentcore.types._unknown
-
-        out["tool_description"] = (
-            capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
-        )
+        out["tool_description"] = {"$unknown": {"name": ""}}
     return out
 
 

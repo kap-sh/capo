@@ -25,9 +25,9 @@ ServerSettings: TypeAlias = _ServerSettings_RdsSalSettings | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ServerSettings) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ServerSettings: cannot serialize unknown variant {value.name!r}"
+            f"ServerSettings: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "RdsSalSettings" in value:
         import capo_license_manager_user_subscriptions.types.rds_sal_settings
@@ -55,5 +55,5 @@ def deserialize_json(data: dict) -> ServerSettings:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ServerSettings: no recognized variant key")

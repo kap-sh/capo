@@ -25,9 +25,9 @@ Command: TypeAlias = _Command_unlock | _Command_reboot | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Command) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"Command: cannot serialize unknown variant {value.name!r}"
+            f"Command: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "unlock" in value:
         import capo_snow_device_management.types.unlock
@@ -71,5 +71,5 @@ def deserialize_json(data: dict) -> Command:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("Command: no recognized variant key")

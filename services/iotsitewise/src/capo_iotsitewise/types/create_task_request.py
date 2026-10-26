@@ -65,11 +65,7 @@ def deserialize_json(data: dict) -> CreateTaskRequest:
             )
         )
     else:
-        import capo_iotsitewise.types._unknown
-
-        out["task_configuration"] = capo_iotsitewise.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["task_configuration"] = {"$unknown": {"name": ""}}
     if data.get("tags") is not None:
         import capo_iotsitewise.types.tag_map
 

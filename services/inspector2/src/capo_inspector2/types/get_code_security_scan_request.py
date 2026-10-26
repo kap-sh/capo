@@ -37,9 +37,7 @@ def deserialize_json(data: dict) -> GetCodeSecurityScanRequest:
             data["resource"]
         )
     else:
-        import capo_inspector2.types._unknown
-
-        out["resource"] = capo_inspector2.types._unknown.UnknownUnionMember("")
+        out["resource"] = {"$unknown": {"name": ""}}
     if data.get("scanId") is not None:
         out["scan_id"] = data["scanId"]
     else:

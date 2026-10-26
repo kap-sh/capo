@@ -42,7 +42,5 @@ def deserialize_json(data: dict) -> CreateSubscriberNotificationRequest:
             )
         )
     else:
-        import capo_securitylake.types._unknown
-
-        out["configuration"] = capo_securitylake.types._unknown.UnknownUnionMember("")
+        out["configuration"] = {"$unknown": {"name": ""}}
     return out

@@ -436,10 +436,10 @@ async with AsyncS3Client() as s3:
     await s3.put_object("bucket_name", "key", body=b"data", storage_class=cast(StorageClass, "NEW_STORAGE_CLASS"))
 ```
 
-A union variant your client doesn't know comes back as `UnknownUnionMember`, whose `name` is the variant's name on the wire, or `""` if the service sent no variant. Check for it before you look inside the union, because `"text" in block` raises `TypeError` on an `UnknownUnionMember`:
+A union variant your client doesn't know comes back as one more variant, keyed by `$unknown`: `{"$unknown": {"name": ...}}`, where `name` is the variant's name on the wire, or `""` if the service sent no variant. No Smithy member name contains `$`, so the key never clashes with a real one, and you check for it like any other variant:
 
 ```python
-from capo_bedrock_runtime import AsyncBedrockRuntimeClient, UnknownUnionMember
+from capo_bedrock_runtime import AsyncBedrockRuntimeClient
 
 async with AsyncBedrockRuntimeClient() as bedrock:
     response = await bedrock.converse(
@@ -448,22 +448,22 @@ async with AsyncBedrockRuntimeClient() as bedrock:
     )
 
 output = response["output"]
-if not isinstance(output, UnknownUnionMember):
+if "message" in output:
     for block in output["message"]["content"]:
-        if isinstance(block, UnknownUnionMember):
-            print(f"skipping a {block.name} block, newer than this client")
-        elif "text" in block:
+        if "text" in block:
             print(block["text"])
+        elif "$unknown" in block:
+            print(f"skipping a {block['$unknown']['name']} block, newer than this client")
 ```
 
-An `UnknownUnionMember` carries no data and can't be sent back: passing one as input raises `SerializationError`.
+The type checker narrows on `"$unknown" in block` as it does on `"text" in block`, so ending a chain of checks with `typing.assert_never(block)` tells you which variants a new client version added. An unknown variant carries no data and can't be sent back: passing one as input raises `SerializationError`.
 
-A response that leaves out a required member doesn't fail either. The client fills in the member's `@default` if it has one, and otherwise an empty value for its type: `0`, `False`, `""`, `b""`, `[]`, `{}`, `None` for documents, the Unix epoch for timestamps, and `""` (or `0`) for enums. A missing union comes back as `UnknownUnionMember` with an empty `name`. A missing required structure still raises `DeserializationError`.
+A response that leaves out a required member doesn't fail either. The client fills in the member's `@default` if it has one, and otherwise an empty value for its type: `0`, `False`, `""`, `b""`, `[]`, `{}`, `None` for documents, the Unix epoch for timestamps, and `""` (or `0`) for enums. A missing union comes back as `{"$unknown": {"name": ""}}`. A missing required structure still raises `DeserializationError`.
 
-In an event stream, an event your client doesn't know comes back as `UnknownEvent`, and the stream goes on. It keeps the event's `event_type` and the raw `message`, with its headers and undecoded payload:
+In an event stream, an event your client doesn't know comes back the same way, and the stream goes on. Next to the event's `name` (its `:event-type`), it keeps the raw `message`, with its headers and undecoded payload:
 
 ```python
-from capo_s3 import AsyncS3Client, UnknownEvent
+from capo_s3 import AsyncS3Client
 
 async with AsyncS3Client() as s3:
     async with s3.select_object_content(
@@ -475,10 +475,11 @@ async with AsyncS3Client() as s3:
         output_serialization={"csv": {}},
     ) as response:
         async for event in response["payload"]:
-            if isinstance(event, UnknownEvent):
-                print(f"skipping {event.event_type}: {event.message.payload!r}")
-            elif "Records" in event:
+            if "Records" in event:
                 print(event["Records"]["payload"])
+            elif "$unknown" in event:
+                unknown = event["$unknown"]
+                print(f"skipping {unknown['name']}: {unknown['message'].payload!r}")
 ```
 <!-- --8<-- [end:forward-compatibility] -->
 

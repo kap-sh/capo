@@ -72,11 +72,7 @@ def deserialize_json(data: dict) -> VerifyMacInput:
             )
         )
     else:
-        import capo_payment_cryptography_data.types._unknown
-
-        out["verification_attributes"] = (
-            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
-        )
+        out["verification_attributes"] = {"$unknown": {"name": ""}}
     if data.get("MacLength") is not None:
         out["mac_length"] = data["MacLength"]
     return out

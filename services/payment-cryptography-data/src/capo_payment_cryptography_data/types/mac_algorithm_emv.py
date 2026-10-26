@@ -105,11 +105,7 @@ def deserialize_json(data: dict) -> MacAlgorithmEmv:
             )
         )
     else:
-        import capo_payment_cryptography_data.types._unknown
-
-        out["session_key_derivation_value"] = (
-            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
-        )
+        out["session_key_derivation_value"] = {"$unknown": {"name": ""}}
     return out
 
 

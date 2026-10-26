@@ -20,9 +20,9 @@ EndpointConfig: TypeAlias = _EndpointConfig_sageMaker | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: EndpointConfig) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"EndpointConfig: cannot serialize unknown variant {value.name!r}"
+            f"EndpointConfig: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "sageMaker" in value:
         import capo_bedrock.types.sage_maker_endpoint
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> EndpointConfig:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("EndpointConfig: no recognized variant key")

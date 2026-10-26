@@ -43,9 +43,7 @@ def deserialize_json(data: dict) -> InputChannel:
             )
         )
     else:
-        import capo_cleanroomsml.types._unknown
-
-        out["data_source"] = capo_cleanroomsml.types._unknown.UnknownUnionMember("")
+        out["data_source"] = {"$unknown": {"name": ""}}
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:

@@ -35,9 +35,7 @@ def deserialize_json(data: dict) -> ItemIdentifier:
             data["value"]
         )
     else:
-        import capo_ssm_incidents.types._unknown
-
-        out["value"] = capo_ssm_incidents.types._unknown.UnknownUnionMember("")
+        out["value"] = {"$unknown": {"name": ""}}
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:

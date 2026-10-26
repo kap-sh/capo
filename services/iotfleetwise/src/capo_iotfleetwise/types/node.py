@@ -53,9 +53,9 @@ Node: TypeAlias = (
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: Node) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"Node: cannot serialize unknown variant {value.name!r}"
+            f"Node: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "branch" in value:
         import capo_iotfleetwise.types.branch
@@ -163,5 +163,5 @@ def deserialize_aws_json_1_0(data: dict) -> Node:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("Node: no recognized variant key")

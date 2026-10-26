@@ -93,9 +93,7 @@ def deserialize_json(data: dict) -> GetVariantStoreResponse:
             data["reference"]
         )
     else:
-        import capo_omics.types._unknown
-
-        out["reference"] = capo_omics.types._unknown.UnknownUnionMember("")
+        out["reference"] = {"$unknown": {"name": ""}}
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:

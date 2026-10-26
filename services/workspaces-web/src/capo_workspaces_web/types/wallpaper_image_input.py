@@ -27,9 +27,9 @@ WallpaperImageInput: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: WallpaperImageInput) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"WallpaperImageInput: cannot serialize unknown variant {value.name!r}"
+            f"WallpaperImageInput: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "blob" in value:
         import capo_workspaces_web.types.wallpaper_image
@@ -61,5 +61,5 @@ def deserialize_json(data: dict) -> WallpaperImageInput:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("WallpaperImageInput: no recognized variant key")

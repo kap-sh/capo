@@ -57,9 +57,7 @@ def deserialize_aws_json_1_0(data: dict) -> ActivitySummary:
             data["reward"]
         )
     else:
-        import capo_freetier.types._unknown
-
-        out["reward"] = capo_freetier.types._unknown.UnknownUnionMember("")
+        out["reward"] = {"$unknown": {"name": ""}}
     if data.get("status") is not None:
         import capo_freetier.types.activity_status
 

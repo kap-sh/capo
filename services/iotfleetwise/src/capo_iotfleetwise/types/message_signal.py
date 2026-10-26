@@ -45,9 +45,5 @@ def deserialize_aws_json_1_0(data: dict) -> MessageSignal:
             )
         )
     else:
-        import capo_iotfleetwise.types._unknown
-
-        out["structured_message"] = capo_iotfleetwise.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["structured_message"] = {"$unknown": {"name": ""}}
     return out

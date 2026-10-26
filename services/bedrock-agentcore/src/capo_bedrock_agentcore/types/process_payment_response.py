@@ -132,11 +132,7 @@ def deserialize_json(data: dict) -> ProcessPaymentResponse:
             )
         )
     else:
-        import capo_bedrock_agentcore.types._unknown
-
-        out["payment_output"] = (
-            capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
-        )
+        out["payment_output"] = {"$unknown": {"name": ""}}
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore.types.date_timestamp
 

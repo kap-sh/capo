@@ -65,11 +65,7 @@ def deserialize_json(data: dict) -> UplinkAwsGroundStationAgentEndpointDetails:
             )
         )
     else:
-        import capo_groundstation.types._unknown
-
-        out["dataflow_details"] = capo_groundstation.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["dataflow_details"] = {"$unknown": {"name": ""}}
     if data.get("agentStatus") is not None:
         import capo_groundstation.types.agent_status
 

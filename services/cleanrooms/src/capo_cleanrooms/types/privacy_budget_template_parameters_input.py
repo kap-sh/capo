@@ -29,9 +29,9 @@ PrivacyBudgetTemplateParametersInput: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PrivacyBudgetTemplateParametersInput) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"PrivacyBudgetTemplateParametersInput: cannot serialize unknown variant {value.name!r}"
+            f"PrivacyBudgetTemplateParametersInput: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "differentialPrivacy" in value:
         import capo_cleanrooms.types.differential_privacy_template_parameters_input
@@ -77,7 +77,7 @@ def deserialize_json(data: dict) -> PrivacyBudgetTemplateParametersInput:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "PrivacyBudgetTemplateParametersInput: no recognized variant key"
         )

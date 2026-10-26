@@ -24,9 +24,9 @@ ActionSet: TypeAlias = _ActionSet_allActions | _ActionSet_actions | UnknownUnion
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ActionSet) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ActionSet: cannot serialize unknown variant {value.name!r}"
+            f"ActionSet: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "allActions" in value:
         return {"allActions": {}}
@@ -54,5 +54,5 @@ def deserialize_json(data: dict) -> ActionSet:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ActionSet: no recognized variant key")

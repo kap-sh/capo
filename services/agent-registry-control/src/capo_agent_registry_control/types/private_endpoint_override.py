@@ -47,9 +47,5 @@ def deserialize_json(data: dict) -> PrivateEndpointOverride:
             )
         )
     else:
-        import capo_agent_registry_control.types._unknown
-
-        out["private_endpoint"] = (
-            capo_agent_registry_control.types._unknown.UnknownUnionMember("")
-        )
+        out["private_endpoint"] = {"$unknown": {"name": ""}}
     return out

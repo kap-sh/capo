@@ -144,9 +144,7 @@ def deserialize_json(data: dict) -> SessionActionSummary:
             )
         )
     else:
-        import capo_deadline.types._unknown
-
-        out["definition"] = capo_deadline.types._unknown.UnknownUnionMember("")
+        out["definition"] = {"$unknown": {"name": ""}}
     return out
 
 

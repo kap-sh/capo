@@ -82,9 +82,7 @@ def deserialize_json(data: dict) -> OpenRtbAttributeModuleParameters:
 
         out["action"] = capo_rtbfabric.types.action.deserialize_json(data["action"])
     else:
-        import capo_rtbfabric.types._unknown
-
-        out["action"] = capo_rtbfabric.types._unknown.UnknownUnionMember("")
+        out["action"] = {"$unknown": {"name": ""}}
     if data.get("holdbackPercentage") is not None:
         out["holdback_percentage"] = float(data["holdbackPercentage"])
     else:

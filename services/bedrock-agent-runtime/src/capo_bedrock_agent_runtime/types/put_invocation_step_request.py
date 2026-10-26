@@ -85,11 +85,7 @@ def deserialize_json(data: dict) -> PutInvocationStepRequest:
             )
         )
     else:
-        import capo_bedrock_agent_runtime.types._unknown
-
-        out["payload"] = capo_bedrock_agent_runtime.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["payload"] = {"$unknown": {"name": ""}}
     if data.get("invocationStepId") is not None:
         out["invocation_step_id"] = data["invocationStepId"]
     return out

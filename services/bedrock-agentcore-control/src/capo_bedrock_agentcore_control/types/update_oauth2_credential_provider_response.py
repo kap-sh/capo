@@ -165,11 +165,7 @@ def deserialize_json(data: dict) -> UpdateOauth2CredentialProviderResponse:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["oauth2_provider_config_output"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["oauth2_provider_config_output"] = {"$unknown": {"name": ""}}
     if data.get("createdTime") is not None:
         import capo_bedrock_agentcore_control.types._prelude.timestamp
 

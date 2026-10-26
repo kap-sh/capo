@@ -99,9 +99,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAcmeEndpointRequest:
             )
         )
     else:
-        import capo_acm.types._unknown
-
-        out["certificate_authority"] = capo_acm.types._unknown.UnknownUnionMember("")
+        out["certificate_authority"] = {"$unknown": {"name": ""}}
     if data.get("Tags") is not None:
         import capo_acm.types.tag_list
 

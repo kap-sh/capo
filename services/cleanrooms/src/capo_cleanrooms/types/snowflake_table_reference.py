@@ -77,7 +77,5 @@ def deserialize_json(data: dict) -> SnowflakeTableReference:
             )
         )
     else:
-        import capo_cleanrooms.types._unknown
-
-        out["table_schema"] = capo_cleanrooms.types._unknown.UnknownUnionMember("")
+        out["table_schema"] = {"$unknown": {"name": ""}}
     return out

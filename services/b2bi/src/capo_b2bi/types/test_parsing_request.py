@@ -78,9 +78,7 @@ def deserialize_aws_json_1_0(data: dict) -> TestParsingRequest:
             data["ediType"]
         )
     else:
-        import capo_b2bi.types._unknown
-
-        out["edi_type"] = capo_b2bi.types._unknown.UnknownUnionMember("")
+        out["edi_type"] = {"$unknown": {"name": ""}}
     if data.get("advancedOptions") is not None:
         import capo_b2bi.types.advanced_options
 

@@ -29,9 +29,9 @@ AttributeValueList: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AttributeValueList) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AttributeValueList: cannot serialize unknown variant {value.name!r}"
+            f"AttributeValueList: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "stringValues" in value:
         import capo_ssm_incidents.types.string_list
@@ -75,5 +75,5 @@ def deserialize_json(data: dict) -> AttributeValueList:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("AttributeValueList: no recognized variant key")

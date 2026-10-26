@@ -44,9 +44,7 @@ def deserialize_json(data: dict) -> BooleanOperands:
             data["operandOne"]
         )
     else:
-        import capo_connectcases.types._unknown
-
-        out["operand_one"] = capo_connectcases.types._unknown.UnknownUnionMember("")
+        out["operand_one"] = {"$unknown": {"name": ""}}
     if data.get("operandTwo") is not None:
         import capo_connectcases.types.operand_two
 
@@ -54,9 +52,7 @@ def deserialize_json(data: dict) -> BooleanOperands:
             data["operandTwo"]
         )
     else:
-        import capo_connectcases.types._unknown
-
-        out["operand_two"] = capo_connectcases.types._unknown.UnknownUnionMember("")
+        out["operand_two"] = {"$unknown": {"name": ""}}
     if data.get("result") is not None:
         out["result"] = data["result"]
     else:

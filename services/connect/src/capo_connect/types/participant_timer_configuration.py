@@ -80,7 +80,5 @@ def deserialize_json(data: dict) -> ParticipantTimerConfiguration:
             )
         )
     else:
-        import capo_connect.types._unknown
-
-        out["timer_value"] = capo_connect.types._unknown.UnknownUnionMember("")
+        out["timer_value"] = {"$unknown": {"name": ""}}
     return out

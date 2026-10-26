@@ -62,9 +62,7 @@ def deserialize_json(data: dict) -> ImageBlock:
             data["source"]
         )
     else:
-        import capo_bedrock_runtime.types._unknown
-
-        out["source"] = capo_bedrock_runtime.types._unknown.UnknownUnionMember("")
+        out["source"] = {"$unknown": {"name": ""}}
     if data.get("error") is not None:
         import capo_bedrock_runtime.types.error_block
 

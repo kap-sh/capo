@@ -61,9 +61,9 @@ Property: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Property) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"Property: cannot serialize unknown variant {value.name!r}"
+            f"Property: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "EoCloudCover" in value:
         import capo_sagemaker_geospatial.types.eo_cloud_cover_input
@@ -171,5 +171,5 @@ def deserialize_json(data: dict) -> Property:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("Property: no recognized variant key")

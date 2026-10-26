@@ -37,9 +37,7 @@ def deserialize_json(data: dict) -> PrincipalRoleEntitlement:
             data["principal"]
         )
     else:
-        import capo_account_access.types._unknown
-
-        out["principal"] = capo_account_access.types._unknown.UnknownUnionMember("")
+        out["principal"] = {"$unknown": {"name": ""}}
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:

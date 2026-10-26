@@ -20,9 +20,9 @@ RedshiftScopeUnion: TypeAlias = _RedshiftScopeUnion_RedshiftConnect | UnknownUni
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RedshiftScopeUnion) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"RedshiftScopeUnion: cannot serialize unknown variant {value.name!r}"
+            f"RedshiftScopeUnion: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "RedshiftConnect" in value:
         import capo_lakeformation.types.redshift_connect
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> RedshiftScopeUnion:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("RedshiftScopeUnion: no recognized variant key")

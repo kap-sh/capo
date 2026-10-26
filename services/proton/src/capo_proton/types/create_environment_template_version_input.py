@@ -75,9 +75,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateEnvironmentTemplateVersionInpu
             )
         )
     else:
-        import capo_proton.types._unknown
-
-        out["source"] = capo_proton.types._unknown.UnknownUnionMember("")
+        out["source"] = {"$unknown": {"name": ""}}
     if data.get("tags") is not None:
         import capo_proton.types.tag_list
 

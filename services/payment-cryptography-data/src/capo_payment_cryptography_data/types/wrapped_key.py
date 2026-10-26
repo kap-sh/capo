@@ -46,11 +46,7 @@ def deserialize_json(data: dict) -> WrappedKey:
             )
         )
     else:
-        import capo_payment_cryptography_data.types._unknown
-
-        out["wrapped_key_material"] = (
-            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
-        )
+        out["wrapped_key_material"] = {"$unknown": {"name": ""}}
     if data.get("KeyCheckValueAlgorithm") is not None:
         out["key_check_value_algorithm"] = data["KeyCheckValueAlgorithm"]
     return out

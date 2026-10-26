@@ -37,9 +37,9 @@ Parameters: TypeAlias = (
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: Parameters) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"Parameters: cannot serialize unknown variant {value.name!r}"
+            f"Parameters: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "InfluxDBv2" in value:
         import capo_timestream_influxdb.types.influx_d_bv2_parameters
@@ -99,5 +99,5 @@ def deserialize_aws_json_1_0(data: dict) -> Parameters:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("Parameters: no recognized variant key")

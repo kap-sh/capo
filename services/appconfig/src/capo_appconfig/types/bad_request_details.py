@@ -22,9 +22,9 @@ BadRequestDetails: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: BadRequestDetails) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"BadRequestDetails: cannot serialize unknown variant {value.name!r}"
+            f"BadRequestDetails: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "InvalidConfiguration" in value:
         import capo_appconfig.types.invalid_configuration_detail_list
@@ -52,5 +52,5 @@ def deserialize_json(data: dict) -> BadRequestDetails:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("BadRequestDetails: no recognized variant key")

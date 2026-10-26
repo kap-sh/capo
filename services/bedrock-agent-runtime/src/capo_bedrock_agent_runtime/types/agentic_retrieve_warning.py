@@ -29,9 +29,9 @@ AgenticRetrieveWarning: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AgenticRetrieveWarning) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AgenticRetrieveWarning: cannot serialize unknown variant {value.name!r}"
+            f"AgenticRetrieveWarning: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "message" in value:
         import capo_bedrock_agent_runtime.types.agentic_retrieve_warning_message
@@ -75,5 +75,5 @@ def deserialize_json(data: dict) -> AgenticRetrieveWarning:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("AgenticRetrieveWarning: no recognized variant key")

@@ -176,11 +176,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetPolicyOutput:
             )
         )
     else:
-        import capo_verifiedpermissions.types._unknown
-
-        out["definition"] = capo_verifiedpermissions.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["definition"] = {"$unknown": {"name": ""}}
     if data.get("createdDate") is not None:
         import capo_verifiedpermissions.types.timestamp_format
 

@@ -26,9 +26,9 @@ EntityReference: TypeAlias = (
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: EntityReference) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"EntityReference: cannot serialize unknown variant {value.name!r}"
+            f"EntityReference: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "unspecified" in value:
         return {"unspecified": value["unspecified"]}
@@ -60,13 +60,11 @@ def deserialize_aws_json_1_0(data: dict) -> EntityReference:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("EntityReference: no recognized variant key")
 
 
-def redact_sensitive(value: EntityReference) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: EntityReference) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "identifier" in value:
         import capo_verifiedpermissions.types.entity_identifier

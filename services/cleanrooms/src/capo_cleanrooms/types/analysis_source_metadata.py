@@ -22,9 +22,9 @@ AnalysisSourceMetadata: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AnalysisSourceMetadata) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AnalysisSourceMetadata: cannot serialize unknown variant {value.name!r}"
+            f"AnalysisSourceMetadata: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "artifacts" in value:
         import capo_cleanrooms.types.analysis_template_artifact_metadata
@@ -52,5 +52,5 @@ def deserialize_json(data: dict) -> AnalysisSourceMetadata:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("AnalysisSourceMetadata: no recognized variant key")

@@ -45,9 +45,5 @@ def deserialize_json(data: dict) -> HarnessBeforeToolCallHook:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["target"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["target"] = {"$unknown": {"name": ""}}
     return out

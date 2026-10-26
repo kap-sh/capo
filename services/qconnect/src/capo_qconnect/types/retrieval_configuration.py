@@ -59,9 +59,7 @@ def deserialize_json(data: dict) -> RetrievalConfiguration:
             data["knowledgeSource"]
         )
     else:
-        import capo_qconnect.types._unknown
-
-        out["knowledge_source"] = capo_qconnect.types._unknown.UnknownUnionMember("")
+        out["knowledge_source"] = {"$unknown": {"name": ""}}
     if data.get("filter") is not None:
         import capo_qconnect.types.retrieval_filter_configuration
 

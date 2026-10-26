@@ -29,9 +29,9 @@ ReservationDetails: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ReservationDetails) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ReservationDetails: cannot serialize unknown variant {value.name!r}"
+            f"ReservationDetails: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "maintenance" in value:
         import capo_groundstation.types.maintenance_reservation_details
@@ -75,5 +75,5 @@ def deserialize_json(data: dict) -> ReservationDetails:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ReservationDetails: no recognized variant key")

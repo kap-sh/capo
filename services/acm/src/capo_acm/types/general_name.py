@@ -55,9 +55,9 @@ GeneralName: TypeAlias = (
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: GeneralName) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"GeneralName: cannot serialize unknown variant {value.name!r}"
+            f"GeneralName: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "DirectoryName" in value:
         import capo_acm.types.distinguished_name
@@ -121,5 +121,5 @@ def deserialize_aws_json_1_1(data: dict) -> GeneralName:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("GeneralName: no recognized variant key")

@@ -63,11 +63,7 @@ def deserialize_aws_json_1_0(data: dict) -> Step:
             )
         )
     else:
-        import capo_arc_region_switch.types._unknown
-
-        out["execution_block_configuration"] = (
-            capo_arc_region_switch.types._unknown.UnknownUnionMember("")
-        )
+        out["execution_block_configuration"] = {"$unknown": {"name": ""}}
     if data.get("executionBlockType") is not None:
         import capo_arc_region_switch.types.execution_block_type
 

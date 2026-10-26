@@ -39,9 +39,9 @@ AutomatedReasoningPolicyTypeValueAnnotation: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AutomatedReasoningPolicyTypeValueAnnotation) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AutomatedReasoningPolicyTypeValueAnnotation: cannot serialize unknown variant {value.name!r}"
+            f"AutomatedReasoningPolicyTypeValueAnnotation: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "addTypeValue" in value:
         import capo_bedrock.types.automated_reasoning_policy_add_type_value
@@ -103,7 +103,7 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyTypeValueAnnotation:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "AutomatedReasoningPolicyTypeValueAnnotation: no recognized variant key"
         )
@@ -111,9 +111,7 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyTypeValueAnnotation:
 
 def redact_sensitive(
     value: AutomatedReasoningPolicyTypeValueAnnotation,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "addTypeValue" in value:
         import capo_bedrock.types.automated_reasoning_policy_add_type_value

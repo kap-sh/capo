@@ -20,9 +20,9 @@ SigningKeyInfo: TypeAlias = _SigningKeyInfo_kmsKey | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SigningKeyInfo) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"SigningKeyInfo: cannot serialize unknown variant {value.name!r}"
+            f"SigningKeyInfo: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "kmsKey" in value:
         return {"kmsKey": value["kmsKey"]}
@@ -38,5 +38,5 @@ def deserialize_json(data: dict) -> SigningKeyInfo:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("SigningKeyInfo: no recognized variant key")

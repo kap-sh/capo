@@ -68,11 +68,7 @@ def deserialize_json(data: dict) -> CreateTemplateRequest:
             )
         )
     else:
-        import capo_migrationhuborchestrator.types._unknown
-
-        out["template_source"] = (
-            capo_migrationhuborchestrator.types._unknown.UnknownUnionMember("")
-        )
+        out["template_source"] = {"$unknown": {"name": ""}}
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("tags") is not None:

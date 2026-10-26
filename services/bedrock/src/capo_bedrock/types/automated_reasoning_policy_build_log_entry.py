@@ -57,9 +57,7 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyBuildLogEntry:
             )
         )
     else:
-        import capo_bedrock.types._unknown
-
-        out["annotation"] = capo_bedrock.types._unknown.UnknownUnionMember("")
+        out["annotation"] = {"$unknown": {"name": ""}}
     if data.get("status") is not None:
         import capo_bedrock.types.automated_reasoning_policy_annotation_status
 

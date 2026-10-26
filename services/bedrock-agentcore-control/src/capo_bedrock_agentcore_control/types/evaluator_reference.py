@@ -23,9 +23,9 @@ EvaluatorReference: TypeAlias = _EvaluatorReference_evaluatorId | UnknownUnionMe
 
 # --- restJson1 ser/de ---
 def serialize_json(value: EvaluatorReference) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"EvaluatorReference: cannot serialize unknown variant {value.name!r}"
+            f"EvaluatorReference: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "evaluatorId" in value:
         return {"evaluatorId": value["evaluatorId"]}
@@ -41,5 +41,5 @@ def deserialize_json(data: dict) -> EvaluatorReference:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("EvaluatorReference: no recognized variant key")

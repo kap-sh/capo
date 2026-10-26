@@ -29,9 +29,9 @@ OpenIdConnectTokenSelectionDetail: TypeAlias = (
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: OpenIdConnectTokenSelectionDetail) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"OpenIdConnectTokenSelectionDetail: cannot serialize unknown variant {value.name!r}"
+            f"OpenIdConnectTokenSelectionDetail: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "accessTokenOnly" in value:
         import capo_verifiedpermissions.types.open_id_connect_access_token_configuration_detail
@@ -77,17 +77,13 @@ def deserialize_aws_json_1_0(data: dict) -> OpenIdConnectTokenSelectionDetail:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "OpenIdConnectTokenSelectionDetail: no recognized variant key"
         )
 
 
-def redact_sensitive(
-    value: OpenIdConnectTokenSelectionDetail,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: OpenIdConnectTokenSelectionDetail) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "accessTokenOnly" in value:
         import capo_verifiedpermissions.types.open_id_connect_access_token_configuration_detail

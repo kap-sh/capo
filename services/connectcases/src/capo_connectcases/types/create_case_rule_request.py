@@ -53,7 +53,5 @@ def deserialize_json(data: dict) -> CreateCaseRuleRequest:
             data["rule"]
         )
     else:
-        import capo_connectcases.types._unknown
-
-        out["rule"] = capo_connectcases.types._unknown.UnknownUnionMember("")
+        out["rule"] = {"$unknown": {"name": ""}}
     return out

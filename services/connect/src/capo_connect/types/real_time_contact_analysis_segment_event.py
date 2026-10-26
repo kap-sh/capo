@@ -82,7 +82,5 @@ def deserialize_json(data: dict) -> RealTimeContactAnalysisSegmentEvent:
             )
         )
     else:
-        import capo_connect.types._unknown
-
-        out["time"] = capo_connect.types._unknown.UnknownUnionMember("")
+        out["time"] = {"$unknown": {"name": ""}}
     return out

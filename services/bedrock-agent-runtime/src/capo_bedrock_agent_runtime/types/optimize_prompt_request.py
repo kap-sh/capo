@@ -36,9 +36,7 @@ def deserialize_json(data: dict) -> OptimizePromptRequest:
             data["input"]
         )
     else:
-        import capo_bedrock_agent_runtime.types._unknown
-
-        out["input"] = capo_bedrock_agent_runtime.types._unknown.UnknownUnionMember("")
+        out["input"] = {"$unknown": {"name": ""}}
     if data.get("targetModelId") is not None:
         out["target_model_id"] = data["targetModelId"]
     else:

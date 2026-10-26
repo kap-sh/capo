@@ -49,9 +49,9 @@ PluginAuthConfiguration: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PluginAuthConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"PluginAuthConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"PluginAuthConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "basicAuthConfiguration" in value:
         import capo_qbusiness.types.basic_auth_configuration
@@ -127,5 +127,5 @@ def deserialize_json(data: dict) -> PluginAuthConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("PluginAuthConfiguration: no recognized variant key")

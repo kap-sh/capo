@@ -17,9 +17,9 @@ ImageInputSource: TypeAlias = _ImageInputSource_bytes | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ImageInputSource) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ImageInputSource: cannot serialize unknown variant {value.name!r}"
+            f"ImageInputSource: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "bytes" in value:
         import capo_bedrock_agent_runtime.types._prelude.blob
@@ -47,5 +47,5 @@ def deserialize_json(data: dict) -> ImageInputSource:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ImageInputSource: no recognized variant key")

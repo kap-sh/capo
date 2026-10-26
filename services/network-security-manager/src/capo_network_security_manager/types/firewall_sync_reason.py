@@ -31,9 +31,9 @@ FirewallSyncReason: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: FirewallSyncReason) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"FirewallSyncReason: cannot serialize unknown variant {value.name!r}"
+            f"FirewallSyncReason: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "missingFirewall" in value:
         return {"missingFirewall": value["missingFirewall"]}
@@ -65,5 +65,5 @@ def deserialize_json(data: dict) -> FirewallSyncReason:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("FirewallSyncReason: no recognized variant key")

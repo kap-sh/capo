@@ -76,11 +76,7 @@ def deserialize_json(data: dict) -> StartCodegenJobData:
             )
         )
     else:
-        import capo_amplifyuibuilder.types._unknown
-
-        out["render_config"] = capo_amplifyuibuilder.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["render_config"] = {"$unknown": {"name": ""}}
     if data.get("genericDataSchema") is not None:
         import capo_amplifyuibuilder.types.codegen_job_generic_data_schema
 

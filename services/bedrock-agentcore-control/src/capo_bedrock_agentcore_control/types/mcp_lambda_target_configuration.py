@@ -45,11 +45,7 @@ def deserialize_json(data: dict) -> McpLambdaTargetConfiguration:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["tool_schema"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["tool_schema"] = {"$unknown": {"name": ""}}
     return out
 
 

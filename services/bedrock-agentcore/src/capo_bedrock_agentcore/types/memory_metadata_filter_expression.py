@@ -60,9 +60,7 @@ def deserialize_json(data: dict) -> MemoryMetadataFilterExpression:
             )
         )
     else:
-        import capo_bedrock_agentcore.types._unknown
-
-        out["left"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
+        out["left"] = {"$unknown": {"name": ""}}
     if data.get("operator") is not None:
         import capo_bedrock_agentcore.types.memory_record_operator_type
 

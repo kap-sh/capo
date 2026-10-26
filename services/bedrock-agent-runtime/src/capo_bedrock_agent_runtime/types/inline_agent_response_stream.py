@@ -110,11 +110,11 @@ InlineAgentResponseStream: TypeAlias = AnyIterator[_InlineAgentResponseStream]
 
 
 def serialize_event_json(value: _InlineAgentResponseStream) -> bytes:
-    if isinstance(value, UnknownEvent):
-        raise ValueError(
-            f"InlineAgentResponseStream: cannot serialize unknown event {value.event_type!r}"
-        )
     match value:
+        case {"$unknown": {"name": name}}:
+            raise ValueError(
+                f"InlineAgentResponseStream: cannot serialize unknown event {name!r}"
+            )
         case {"chunk": payload}:
             import capo_bedrock_agent_runtime.types.inline_agent_payload_part
 
@@ -334,7 +334,7 @@ def deserialize_event_json(
                 )
             }
         case str():
-            return UnknownEvent(event_type, message)
+            return {"$unknown": {"name": event_type, "message": message}}
         case _:
             raise ValueError(
                 f"InlineAgentResponseStream: unrecognized event-type {event_type!r}"

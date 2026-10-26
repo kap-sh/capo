@@ -43,9 +43,9 @@ TableReference: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: TableReference) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"TableReference: cannot serialize unknown variant {value.name!r}"
+            f"TableReference: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "glue" in value:
         import capo_cleanrooms.types.glue_table_reference
@@ -121,5 +121,5 @@ def deserialize_json(data: dict) -> TableReference:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("TableReference: no recognized variant key")

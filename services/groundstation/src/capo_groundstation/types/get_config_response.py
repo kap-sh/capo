@@ -83,9 +83,7 @@ def deserialize_json(data: dict) -> GetConfigResponse:
             data["configData"]
         )
     else:
-        import capo_groundstation.types._unknown
-
-        out["config_data"] = capo_groundstation.types._unknown.UnknownUnionMember("")
+        out["config_data"] = {"$unknown": {"name": ""}}
     if data.get("tags") is not None:
         import capo_groundstation.types.tags_map
 

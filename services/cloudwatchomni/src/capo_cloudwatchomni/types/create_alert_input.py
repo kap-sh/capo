@@ -86,9 +86,7 @@ def deserialize_cbor(data: dict) -> CreateAlertInput:
 
         out["rule"] = capo_cloudwatchomni.types.rule.deserialize_cbor(data["rule"])
     else:
-        import capo_cloudwatchomni.types._unknown
-
-        out["rule"] = capo_cloudwatchomni.types._unknown.UnknownUnionMember("")
+        out["rule"] = {"$unknown": {"name": ""}}
     if data.get("notificationsEnabled") is not None:
         out["notifications_enabled"] = data["notificationsEnabled"]
     if data.get("tags") is not None:

@@ -55,9 +55,9 @@ CitationLocation: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CitationLocation) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"CitationLocation: cannot serialize unknown variant {value.name!r}"
+            f"CitationLocation: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "web" in value:
         import capo_bedrock_runtime.types.web_location
@@ -145,5 +145,5 @@ def deserialize_json(data: dict) -> CitationLocation:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("CitationLocation: no recognized variant key")

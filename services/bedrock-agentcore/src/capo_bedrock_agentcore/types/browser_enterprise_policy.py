@@ -48,9 +48,7 @@ def deserialize_json(data: dict) -> BrowserEnterprisePolicy:
             )
         )
     else:
-        import capo_bedrock_agentcore.types._unknown
-
-        out["location"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
+        out["location"] = {"$unknown": {"name": ""}}
     if data.get("type") is not None:
         import capo_bedrock_agentcore.types.browser_enterprise_policy_type
 

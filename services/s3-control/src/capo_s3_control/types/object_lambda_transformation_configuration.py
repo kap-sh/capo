@@ -58,9 +58,5 @@ def deserialize_xml(el: Element) -> ObjectLambdaTransformationConfiguration:
             )
         )
     else:
-        import capo_s3_control.types._unknown
-
-        out["content_transformation"] = (
-            capo_s3_control.types._unknown.UnknownUnionMember("")
-        )
+        out["content_transformation"] = {"$unknown": {"name": ""}}
     return out

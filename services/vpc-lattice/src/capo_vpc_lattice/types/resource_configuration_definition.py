@@ -41,9 +41,9 @@ ResourceConfigurationDefinition: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ResourceConfigurationDefinition) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ResourceConfigurationDefinition: cannot serialize unknown variant {value.name!r}"
+            f"ResourceConfigurationDefinition: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "dnsResource" in value:
         import capo_vpc_lattice.types.dns_resource
@@ -119,7 +119,7 @@ def deserialize_json(data: dict) -> ResourceConfigurationDefinition:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "ResourceConfigurationDefinition: no recognized variant key"
         )

@@ -79,9 +79,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateRelayRequest:
             )
         )
     else:
-        import capo_mailmanager.types._unknown
-
-        out["authentication"] = capo_mailmanager.types._unknown.UnknownUnionMember("")
+        out["authentication"] = {"$unknown": {"name": ""}}
     if data.get("Tags") is not None:
         import capo_mailmanager.types.tag_list
 

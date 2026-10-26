@@ -20,9 +20,9 @@ PrivacyImpact: TypeAlias = _PrivacyImpact_differentialPrivacy | UnknownUnionMemb
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PrivacyImpact) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"PrivacyImpact: cannot serialize unknown variant {value.name!r}"
+            f"PrivacyImpact: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "differentialPrivacy" in value:
         import capo_cleanrooms.types.differential_privacy_privacy_impact
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> PrivacyImpact:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("PrivacyImpact: no recognized variant key")

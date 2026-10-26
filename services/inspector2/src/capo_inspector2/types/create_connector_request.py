@@ -89,9 +89,7 @@ def deserialize_json(data: dict) -> CreateConnectorRequest:
             )
         )
     else:
-        import capo_inspector2.types._unknown
-
-        out["provider_detail"] = capo_inspector2.types._unknown.UnknownUnionMember("")
+        out["provider_detail"] = {"$unknown": {"name": ""}}
     if data.get("tags") is not None:
         import capo_inspector2.types.connector_tag_map
 

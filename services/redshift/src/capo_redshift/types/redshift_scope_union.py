@@ -23,9 +23,9 @@ RedshiftScopeUnion: TypeAlias = _RedshiftScopeUnion_Connect | UnknownUnionMember
 def serialize_query(
     value: RedshiftScopeUnion, pairs: list[tuple[str, str]], prefix: str
 ) -> None:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"RedshiftScopeUnion: cannot serialize unknown variant {value.name!r}"
+            f"RedshiftScopeUnion: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "Connect" in value:
         import capo_redshift.types.connect
@@ -44,5 +44,5 @@ def deserialize_query(el: Element) -> RedshiftScopeUnion:
 
             return {"Connect": capo_redshift.types.connect.deserialize_query(child)}
         else:
-            return UnknownUnionMember(child.tag)
+            return {"$unknown": {"name": child.tag}}
     raise DeserializationError("RedshiftScopeUnion: no recognized variant element")

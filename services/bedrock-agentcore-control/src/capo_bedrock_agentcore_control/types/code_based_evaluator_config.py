@@ -25,9 +25,9 @@ CodeBasedEvaluatorConfig: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CodeBasedEvaluatorConfig) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"CodeBasedEvaluatorConfig: cannot serialize unknown variant {value.name!r}"
+            f"CodeBasedEvaluatorConfig: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "lambdaConfig" in value:
         import capo_bedrock_agentcore_control.types.lambda_evaluator_config
@@ -55,7 +55,7 @@ def deserialize_json(data: dict) -> CodeBasedEvaluatorConfig:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "CodeBasedEvaluatorConfig: no recognized variant key"
         )

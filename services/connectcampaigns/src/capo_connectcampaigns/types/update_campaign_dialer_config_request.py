@@ -36,9 +36,5 @@ def deserialize_json(data: dict) -> UpdateCampaignDialerConfigRequest:
             )
         )
     else:
-        import capo_connectcampaigns.types._unknown
-
-        out["dialer_config"] = capo_connectcampaigns.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["dialer_config"] = {"$unknown": {"name": ""}}
     return out

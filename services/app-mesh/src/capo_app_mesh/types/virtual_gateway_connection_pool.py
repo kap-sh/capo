@@ -35,9 +35,9 @@ VirtualGatewayConnectionPool: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: VirtualGatewayConnectionPool) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"VirtualGatewayConnectionPool: cannot serialize unknown variant {value.name!r}"
+            f"VirtualGatewayConnectionPool: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "http" in value:
         import capo_app_mesh.types.virtual_gateway_http_connection_pool
@@ -97,7 +97,7 @@ def deserialize_json(data: dict) -> VirtualGatewayConnectionPool:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "VirtualGatewayConnectionPool: no recognized variant key"
         )

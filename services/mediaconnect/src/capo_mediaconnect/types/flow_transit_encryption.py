@@ -58,9 +58,5 @@ def deserialize_json(data: dict) -> FlowTransitEncryption:
             )
         )
     else:
-        import capo_mediaconnect.types._unknown
-
-        out["encryption_key_configuration"] = (
-            capo_mediaconnect.types._unknown.UnknownUnionMember("")
-        )
+        out["encryption_key_configuration"] = {"$unknown": {"name": ""}}
     return out

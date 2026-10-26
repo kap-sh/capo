@@ -33,9 +33,9 @@ IotTwinMakerSourceConfigurationFilter: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: IotTwinMakerSourceConfigurationFilter) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"IotTwinMakerSourceConfigurationFilter: cannot serialize unknown variant {value.name!r}"
+            f"IotTwinMakerSourceConfigurationFilter: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "filterByComponentType" in value:
         import capo_iottwinmaker.types.filter_by_component_type
@@ -81,7 +81,7 @@ def deserialize_json(data: dict) -> IotTwinMakerSourceConfigurationFilter:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "IotTwinMakerSourceConfigurationFilter: no recognized variant key"
         )

@@ -207,9 +207,7 @@ def deserialize_json(data: dict) -> BatchGetSessionActionItem:
             )
         )
     else:
-        import capo_deadline.types._unknown
-
-        out["definition"] = capo_deadline.types._unknown.UnknownUnionMember("")
+        out["definition"] = {"$unknown": {"name": ""}}
     return out
 
 

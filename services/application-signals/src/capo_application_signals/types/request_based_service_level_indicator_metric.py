@@ -145,11 +145,7 @@ def deserialize_json(data: dict) -> RequestBasedServiceLevelIndicatorMetric:
             )
         )
     else:
-        import capo_application_signals.types._unknown
-
-        out["monitored_request_count_metric"] = (
-            capo_application_signals.types._unknown.UnknownUnionMember("")
-        )
+        out["monitored_request_count_metric"] = {"$unknown": {"name": ""}}
     if data.get("DependencyConfig") is not None:
         import capo_application_signals.types.dependency_config
 

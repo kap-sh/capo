@@ -25,9 +25,9 @@ ReadAuthorizationCodeGrantCredentialsDetails: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ReadAuthorizationCodeGrantCredentialsDetails) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ReadAuthorizationCodeGrantCredentialsDetails: cannot serialize unknown variant {value.name!r}"
+            f"ReadAuthorizationCodeGrantCredentialsDetails: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "ReadAuthorizationCodeGrantDetails" in value:
         import capo_quicksight.types.read_authorization_code_grant_details
@@ -57,7 +57,7 @@ def deserialize_json(data: dict) -> ReadAuthorizationCodeGrantCredentialsDetails
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "ReadAuthorizationCodeGrantCredentialsDetails: no recognized variant key"
         )

@@ -20,9 +20,9 @@ Proxy: TypeAlias = _Proxy_externalProxy | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Proxy) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"Proxy: cannot serialize unknown variant {value.name!r}"
+            f"Proxy: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "externalProxy" in value:
         import capo_bedrock_agentcore.types.external_proxy
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> Proxy:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("Proxy: no recognized variant key")

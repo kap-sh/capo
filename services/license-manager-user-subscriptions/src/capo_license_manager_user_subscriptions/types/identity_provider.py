@@ -25,9 +25,9 @@ IdentityProvider: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: IdentityProvider) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"IdentityProvider: cannot serialize unknown variant {value.name!r}"
+            f"IdentityProvider: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "ActiveDirectoryIdentityProvider" in value:
         import capo_license_manager_user_subscriptions.types.active_directory_identity_provider
@@ -55,5 +55,5 @@ def deserialize_json(data: dict) -> IdentityProvider:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("IdentityProvider: no recognized variant key")

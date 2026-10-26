@@ -51,9 +51,9 @@ BillScenarioCommitmentModificationAction: TypeAlias = (
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: BillScenarioCommitmentModificationAction) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"BillScenarioCommitmentModificationAction: cannot serialize unknown variant {value.name!r}"
+            f"BillScenarioCommitmentModificationAction: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "addReservedInstanceAction" in value:
         import capo_bcm_pricing_calculator.types.add_reserved_instance_action
@@ -131,7 +131,7 @@ def deserialize_aws_json_1_0(data: dict) -> BillScenarioCommitmentModificationAc
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "BillScenarioCommitmentModificationAction: no recognized variant key"
         )

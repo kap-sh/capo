@@ -24,9 +24,9 @@ WalletPasswordSourceConfiguration: TypeAlias = (
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: WalletPasswordSourceConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"WalletPasswordSourceConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"WalletPasswordSourceConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "customerManagedAwsSecret" in value:
         import capo_odb.types.customer_managed_aws_secret_configuration
@@ -56,7 +56,7 @@ def deserialize_aws_json_1_0(data: dict) -> WalletPasswordSourceConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "WalletPasswordSourceConfiguration: no recognized variant key"
         )

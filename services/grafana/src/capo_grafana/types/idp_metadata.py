@@ -24,9 +24,9 @@ IdpMetadata: TypeAlias = _IdpMetadata_url | _IdpMetadata_xml | UnknownUnionMembe
 
 # --- restJson1 ser/de ---
 def serialize_json(value: IdpMetadata) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"IdpMetadata: cannot serialize unknown variant {value.name!r}"
+            f"IdpMetadata: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "url" in value:
         return {"url": value["url"]}
@@ -46,5 +46,5 @@ def deserialize_json(data: dict) -> IdpMetadata:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("IdpMetadata: no recognized variant key")

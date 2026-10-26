@@ -53,9 +53,7 @@ def deserialize_json(data: dict) -> AddDataSourceRequest:
             )
         )
     else:
-        import capo_opensearch.types._unknown
-
-        out["data_source_type"] = capo_opensearch.types._unknown.UnknownUnionMember("")
+        out["data_source_type"] = {"$unknown": {"name": ""}}
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     return out

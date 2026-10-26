@@ -29,9 +29,9 @@ PrivateConnectionMode: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: PrivateConnectionMode) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"PrivateConnectionMode: cannot serialize unknown variant {value.name!r}"
+            f"PrivateConnectionMode: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "serviceManaged" in value:
         import capo_devops_agent.types.service_managed_input
@@ -75,5 +75,5 @@ def deserialize_json(data: dict) -> PrivateConnectionMode:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("PrivateConnectionMode: no recognized variant key")

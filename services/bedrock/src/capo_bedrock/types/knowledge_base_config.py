@@ -29,9 +29,9 @@ KnowledgeBaseConfig: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: KnowledgeBaseConfig) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"KnowledgeBaseConfig: cannot serialize unknown variant {value.name!r}"
+            f"KnowledgeBaseConfig: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "retrieveConfig" in value:
         import capo_bedrock.types.retrieve_config
@@ -75,13 +75,11 @@ def deserialize_json(data: dict) -> KnowledgeBaseConfig:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("KnowledgeBaseConfig: no recognized variant key")
 
 
-def redact_sensitive(value: KnowledgeBaseConfig) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: KnowledgeBaseConfig) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "retrieveConfig" in value:
         import capo_bedrock.types.retrieve_config

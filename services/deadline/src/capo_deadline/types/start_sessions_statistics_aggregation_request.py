@@ -83,9 +83,7 @@ def deserialize_json(data: dict) -> StartSessionsStatisticsAggregationRequest:
             )
         )
     else:
-        import capo_deadline.types._unknown
-
-        out["resource_ids"] = capo_deadline.types._unknown.UnknownUnionMember("")
+        out["resource_ids"] = {"$unknown": {"name": ""}}
     if data.get("startTime") is not None:
         import datetime
 

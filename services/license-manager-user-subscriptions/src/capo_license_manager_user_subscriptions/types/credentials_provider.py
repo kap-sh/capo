@@ -25,9 +25,9 @@ CredentialsProvider: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CredentialsProvider) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"CredentialsProvider: cannot serialize unknown variant {value.name!r}"
+            f"CredentialsProvider: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "SecretsManagerCredentialsProvider" in value:
         import capo_license_manager_user_subscriptions.types.secrets_manager_credentials_provider
@@ -55,5 +55,5 @@ def deserialize_json(data: dict) -> CredentialsProvider:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("CredentialsProvider: no recognized variant key")

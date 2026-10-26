@@ -60,11 +60,7 @@ def deserialize_json(data: dict) -> DatadogServiceDetails:
             )
         )
     else:
-        import capo_devops_agent.types._unknown
-
-        out["authorization_config"] = (
-            capo_devops_agent.types._unknown.UnknownUnionMember("")
-        )
+        out["authorization_config"] = {"$unknown": {"name": ""}}
     return out
 
 

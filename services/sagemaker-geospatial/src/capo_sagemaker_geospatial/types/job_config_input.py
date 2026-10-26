@@ -77,9 +77,9 @@ JobConfigInput: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: JobConfigInput) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"JobConfigInput: cannot serialize unknown variant {value.name!r}"
+            f"JobConfigInput: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "BandMathConfig" in value:
         import capo_sagemaker_geospatial.types.band_math_config_input
@@ -235,5 +235,5 @@ def deserialize_json(data: dict) -> JobConfigInput:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("JobConfigInput: no recognized variant key")

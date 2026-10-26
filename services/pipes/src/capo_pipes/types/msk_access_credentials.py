@@ -28,9 +28,9 @@ MSKAccessCredentials: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MSKAccessCredentials) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"MSKAccessCredentials: cannot serialize unknown variant {value.name!r}"
+            f"MSKAccessCredentials: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "SaslScram512Auth" in value:
         return {"SaslScram512Auth": value["SaslScram512Auth"]}
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> MSKAccessCredentials:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("MSKAccessCredentials: no recognized variant key")

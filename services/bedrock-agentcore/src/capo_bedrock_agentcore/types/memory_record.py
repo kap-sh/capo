@@ -97,9 +97,7 @@ def deserialize_json(data: dict) -> MemoryRecord:
             data["content"]
         )
     else:
-        import capo_bedrock_agentcore.types._unknown
-
-        out["content"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
+        out["content"] = {"$unknown": {"name": ""}}
     if data.get("memoryStrategyId") is not None:
         out["memory_strategy_id"] = data["memoryStrategyId"]
     else:

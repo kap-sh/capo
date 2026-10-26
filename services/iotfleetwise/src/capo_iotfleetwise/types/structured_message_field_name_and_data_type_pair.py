@@ -43,7 +43,5 @@ def deserialize_aws_json_1_0(data: dict) -> StructuredMessageFieldNameAndDataTyp
             )
         )
     else:
-        import capo_iotfleetwise.types._unknown
-
-        out["data_type"] = capo_iotfleetwise.types._unknown.UnknownUnionMember("")
+        out["data_type"] = {"$unknown": {"name": ""}}
     return out

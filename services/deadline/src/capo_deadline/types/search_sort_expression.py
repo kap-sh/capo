@@ -37,9 +37,9 @@ SearchSortExpression: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SearchSortExpression) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"SearchSortExpression: cannot serialize unknown variant {value.name!r}"
+            f"SearchSortExpression: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "userJobsFirst" in value:
         import capo_deadline.types.user_jobs_first
@@ -99,5 +99,5 @@ def deserialize_json(data: dict) -> SearchSortExpression:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("SearchSortExpression: no recognized variant key")

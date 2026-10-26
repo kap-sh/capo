@@ -63,9 +63,7 @@ def deserialize_json(data: dict) -> CreateTemplateRequest:
             )
         )
     else:
-        import capo_pca_connector_ad.types._unknown
-
-        out["definition"] = capo_pca_connector_ad.types._unknown.UnknownUnionMember("")
+        out["definition"] = {"$unknown": {"name": ""}}
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("Tags") is not None:

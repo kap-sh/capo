@@ -128,11 +128,7 @@ def deserialize_json(data: dict) -> DescribeEnrichmentJobResponse:
             )
         )
     else:
-        import capo_iotsitewise.types._unknown
-
-        out["job_configuration"] = capo_iotsitewise.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["job_configuration"] = {"$unknown": {"name": ""}}
     if data.get("createdAt") is not None:
         import capo_iotsitewise.types._prelude.timestamp
 

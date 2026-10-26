@@ -47,9 +47,5 @@ def deserialize_json(data: dict) -> FlowInputField:
             )
         )
     else:
-        import capo_bedrock_agent_runtime.types._unknown
-
-        out["content"] = capo_bedrock_agent_runtime.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["content"] = {"$unknown": {"name": ""}}
     return out

@@ -78,9 +78,7 @@ def deserialize_json(data: dict) -> CreateCisScanConfigurationRequest:
             data["schedule"]
         )
     else:
-        import capo_inspector2.types._unknown
-
-        out["schedule"] = capo_inspector2.types._unknown.UnknownUnionMember("")
+        out["schedule"] = {"$unknown": {"name": ""}}
     if data.get("targets") is not None:
         import capo_inspector2.types.create_cis_targets
 

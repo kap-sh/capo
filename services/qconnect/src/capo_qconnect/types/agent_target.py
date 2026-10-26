@@ -26,9 +26,9 @@ AgentTarget: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AgentTarget) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AgentTarget: cannot serialize unknown variant {value.name!r}"
+            f"AgentTarget: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "aiAgentId" in value:
         return {"aiAgentId": value["aiAgentId"]}
@@ -48,5 +48,5 @@ def deserialize_json(data: dict) -> AgentTarget:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("AgentTarget: no recognized variant key")

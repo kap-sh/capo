@@ -44,11 +44,7 @@ def deserialize_json(data: dict) -> TimeWindow:
             data["openHours"]
         )
     else:
-        import capo_connectcampaignsv2.types._unknown
-
-        out["open_hours"] = capo_connectcampaignsv2.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["open_hours"] = {"$unknown": {"name": ""}}
     if data.get("restrictedPeriods") is not None:
         import capo_connectcampaignsv2.types.restricted_periods
 

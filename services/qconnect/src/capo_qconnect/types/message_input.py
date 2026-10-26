@@ -29,9 +29,7 @@ def deserialize_json(data: dict) -> MessageInput:
 
         out["value"] = capo_qconnect.types.message_data.deserialize_json(data["value"])
     else:
-        import capo_qconnect.types._unknown
-
-        out["value"] = capo_qconnect.types._unknown.UnknownUnionMember("")
+        out["value"] = {"$unknown": {"name": ""}}
     return out
 
 

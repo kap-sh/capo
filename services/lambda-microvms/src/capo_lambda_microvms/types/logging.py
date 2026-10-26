@@ -25,9 +25,9 @@ Logging: TypeAlias = _Logging_disabled | _Logging_cloudWatch | UnknownUnionMembe
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Logging) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"Logging: cannot serialize unknown variant {value.name!r}"
+            f"Logging: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "disabled" in value:
         import capo_lambda_microvms.types.logging_disabled
@@ -71,5 +71,5 @@ def deserialize_json(data: dict) -> Logging:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("Logging: no recognized variant key")

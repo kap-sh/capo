@@ -77,9 +77,7 @@ def deserialize_json(data: dict) -> RegisterServiceInput:
             )
         )
     else:
-        import capo_devops_agent.types._unknown
-
-        out["service_details"] = capo_devops_agent.types._unknown.UnknownUnionMember("")
+        out["service_details"] = {"$unknown": {"name": ""}}
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
     if data.get("privateConnectionName") is not None:

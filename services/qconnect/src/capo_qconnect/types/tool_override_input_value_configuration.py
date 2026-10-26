@@ -22,9 +22,9 @@ ToolOverrideInputValueConfiguration: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ToolOverrideInputValueConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ToolOverrideInputValueConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"ToolOverrideInputValueConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "constant" in value:
         import capo_qconnect.types.tool_override_constant_input_value
@@ -54,17 +54,13 @@ def deserialize_json(data: dict) -> ToolOverrideInputValueConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "ToolOverrideInputValueConfiguration: no recognized variant key"
         )
 
 
-def redact_sensitive(
-    value: ToolOverrideInputValueConfiguration,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: ToolOverrideInputValueConfiguration) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "constant" in value:
         import capo_qconnect.types.tool_override_constant_input_value

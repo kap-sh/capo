@@ -54,11 +54,7 @@ def deserialize_json(data: dict) -> RotatePaymentConnectorCredentialsRequest:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["credentials_to_rotate"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["credentials_to_rotate"] = {"$unknown": {"name": ""}}
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

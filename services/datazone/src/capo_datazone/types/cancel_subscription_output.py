@@ -145,11 +145,7 @@ def deserialize_json(data: dict) -> CancelSubscriptionOutput:
             )
         )
     else:
-        import capo_datazone.types._unknown
-
-        out["subscribed_principal"] = capo_datazone.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["subscribed_principal"] = {"$unknown": {"name": ""}}
     if data.get("subscribedListing") is not None:
         import capo_datazone.types.subscribed_listing
 

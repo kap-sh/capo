@@ -42,9 +42,7 @@ def deserialize_json(data: dict) -> ContentBlockStartEvent:
             data["start"]
         )
     else:
-        import capo_bedrock_runtime.types._unknown
-
-        out["start"] = capo_bedrock_runtime.types._unknown.UnknownUnionMember("")
+        out["start"] = {"$unknown": {"name": ""}}
     if data.get("contentBlockIndex") is not None:
         out["content_block_index"] = data["contentBlockIndex"]
     else:

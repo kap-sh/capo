@@ -33,9 +33,9 @@ ApplicationPolicy: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ApplicationPolicy) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ApplicationPolicy: cannot serialize unknown variant {value.name!r}"
+            f"ApplicationPolicy: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "PolicyType" in value:
         import capo_pca_connector_ad.types.application_policy_type
@@ -67,5 +67,5 @@ def deserialize_json(data: dict) -> ApplicationPolicy:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ApplicationPolicy: no recognized variant key")

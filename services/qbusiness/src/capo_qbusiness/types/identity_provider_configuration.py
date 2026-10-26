@@ -31,9 +31,9 @@ IdentityProviderConfiguration: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: IdentityProviderConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"IdentityProviderConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"IdentityProviderConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "samlConfiguration" in value:
         import capo_qbusiness.types.saml_provider_configuration
@@ -77,7 +77,7 @@ def deserialize_json(data: dict) -> IdentityProviderConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "IdentityProviderConfiguration: no recognized variant key"
         )

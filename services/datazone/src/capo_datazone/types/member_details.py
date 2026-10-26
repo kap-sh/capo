@@ -27,9 +27,9 @@ MemberDetails: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MemberDetails) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"MemberDetails: cannot serialize unknown variant {value.name!r}"
+            f"MemberDetails: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "user" in value:
         import capo_datazone.types.user_details
@@ -61,5 +61,5 @@ def deserialize_json(data: dict) -> MemberDetails:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("MemberDetails: no recognized variant key")

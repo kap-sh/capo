@@ -35,9 +35,9 @@ TlsValidationContextTrust: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: TlsValidationContextTrust) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"TlsValidationContextTrust: cannot serialize unknown variant {value.name!r}"
+            f"TlsValidationContextTrust: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "acm" in value:
         import capo_app_mesh.types.tls_validation_context_acm_trust
@@ -97,7 +97,7 @@ def deserialize_json(data: dict) -> TlsValidationContextTrust:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "TlsValidationContextTrust: no recognized variant key"
         )

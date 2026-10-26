@@ -70,9 +70,5 @@ def deserialize_json(data: dict) -> CreateConfiguredTableAssociationAnalysisRule
             )
         )
     else:
-        import capo_cleanrooms.types._unknown
-
-        out["analysis_rule_policy"] = capo_cleanrooms.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["analysis_rule_policy"] = {"$unknown": {"name": ""}}
     return out

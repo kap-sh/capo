@@ -33,9 +33,9 @@ ClusterMetadata: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ClusterMetadata) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ClusterMetadata: cannot serialize unknown variant {value.name!r}"
+            f"ClusterMetadata: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "awsEcsMetadataDetails" in value:
         import capo_inspector2.types.aws_ecs_metadata_details
@@ -79,5 +79,5 @@ def deserialize_json(data: dict) -> ClusterMetadata:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ClusterMetadata: no recognized variant key")

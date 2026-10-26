@@ -29,9 +29,9 @@ OwnerPropertiesOutput: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: OwnerPropertiesOutput) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"OwnerPropertiesOutput: cannot serialize unknown variant {value.name!r}"
+            f"OwnerPropertiesOutput: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "user" in value:
         import capo_datazone.types.owner_user_properties_output
@@ -75,5 +75,5 @@ def deserialize_json(data: dict) -> OwnerPropertiesOutput:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("OwnerPropertiesOutput: no recognized variant key")

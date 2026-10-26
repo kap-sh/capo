@@ -105,9 +105,9 @@ AcceptedTerm: TypeAlias = (
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: AcceptedTerm) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AcceptedTerm: cannot serialize unknown variant {value.name!r}"
+            f"AcceptedTerm: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "legalTerm" in value:
         import capo_marketplace_agreement.types.legal_term
@@ -327,5 +327,5 @@ def deserialize_aws_json_1_0(data: dict) -> AcceptedTerm:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("AcceptedTerm: no recognized variant key")

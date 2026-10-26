@@ -39,9 +39,5 @@ def deserialize_json(data: dict) -> Certificate:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["location"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["location"] = {"$unknown": {"name": ""}}
     return out

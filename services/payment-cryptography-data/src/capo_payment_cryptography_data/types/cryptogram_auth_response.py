@@ -32,9 +32,9 @@ CryptogramAuthResponse: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CryptogramAuthResponse) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"CryptogramAuthResponse: cannot serialize unknown variant {value.name!r}"
+            f"CryptogramAuthResponse: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "ArpcMethod1" in value:
         import capo_payment_cryptography_data.types.cryptogram_verification_arpc_method1
@@ -78,15 +78,11 @@ def deserialize_json(data: dict) -> CryptogramAuthResponse:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("CryptogramAuthResponse: no recognized variant key")
 
 
-def redact_sensitive(
-    value: CryptogramAuthResponse,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: CryptogramAuthResponse) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "ArpcMethod2" in value:
         import capo_payment_cryptography_data.types.cryptogram_verification_arpc_method2

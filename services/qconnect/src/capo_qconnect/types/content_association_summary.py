@@ -100,9 +100,7 @@ def deserialize_json(data: dict) -> ContentAssociationSummary:
             )
         )
     else:
-        import capo_qconnect.types._unknown
-
-        out["association_data"] = capo_qconnect.types._unknown.UnknownUnionMember("")
+        out["association_data"] = {"$unknown": {"name": ""}}
     if data.get("tags") is not None:
         import capo_qconnect.types.tags
 

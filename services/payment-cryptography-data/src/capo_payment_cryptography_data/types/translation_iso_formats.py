@@ -48,9 +48,9 @@ TranslationIsoFormats: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: TranslationIsoFormats) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"TranslationIsoFormats: cannot serialize unknown variant {value.name!r}"
+            f"TranslationIsoFormats: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "IsoFormat0" in value:
         import capo_payment_cryptography_data.types.translation_pin_data_iso_format034
@@ -142,15 +142,11 @@ def deserialize_json(data: dict) -> TranslationIsoFormats:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("TranslationIsoFormats: no recognized variant key")
 
 
-def redact_sensitive(
-    value: TranslationIsoFormats,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: TranslationIsoFormats) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "IsoFormat0" in value:
         import capo_payment_cryptography_data.types.translation_pin_data_iso_format034

@@ -70,13 +70,7 @@ def deserialize_json(data: dict) -> IdentityProviderSummary:
             )
         )
     else:
-        import capo_license_manager_user_subscriptions.types._unknown
-
-        out["identity_provider"] = (
-            capo_license_manager_user_subscriptions.types._unknown.UnknownUnionMember(
-                ""
-            )
-        )
+        out["identity_provider"] = {"$unknown": {"name": ""}}
     if data.get("Settings") is not None:
         import capo_license_manager_user_subscriptions.types.settings
 

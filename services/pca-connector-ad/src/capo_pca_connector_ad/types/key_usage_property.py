@@ -33,9 +33,9 @@ KeyUsageProperty: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: KeyUsageProperty) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"KeyUsageProperty: cannot serialize unknown variant {value.name!r}"
+            f"KeyUsageProperty: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "PropertyType" in value:
         import capo_pca_connector_ad.types.key_usage_property_type
@@ -79,5 +79,5 @@ def deserialize_json(data: dict) -> KeyUsageProperty:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("KeyUsageProperty: no recognized variant key")

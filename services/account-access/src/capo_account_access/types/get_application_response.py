@@ -80,11 +80,7 @@ def deserialize_json(data: dict) -> GetApplicationResponse:
             )
         )
     else:
-        import capo_account_access.types._unknown
-
-        out["identity_source"] = capo_account_access.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["identity_source"] = {"$unknown": {"name": ""}}
     if data.get("status") is not None:
         import capo_account_access.types.status
 

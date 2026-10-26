@@ -57,7 +57,5 @@ def deserialize_json(data: dict) -> GuardrailImageBlock:
             )
         )
     else:
-        import capo_bedrock_runtime.types._unknown
-
-        out["source"] = capo_bedrock_runtime.types._unknown.UnknownUnionMember("")
+        out["source"] = {"$unknown": {"name": ""}}
     return out

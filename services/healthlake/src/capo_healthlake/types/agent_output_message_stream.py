@@ -52,11 +52,11 @@ AgentOutputMessageStream: TypeAlias = AnyIterator[_AgentOutputMessageStream]
 
 
 def serialize_event_aws_json_1_0(value: _AgentOutputMessageStream) -> bytes:
-    if isinstance(value, UnknownEvent):
-        raise ValueError(
-            f"AgentOutputMessageStream: cannot serialize unknown event {value.event_type!r}"
-        )
     match value:
+        case {"$unknown": {"name": name}}:
+            raise ValueError(
+                f"AgentOutputMessageStream: cannot serialize unknown event {name!r}"
+            )
         case {"TextMessageEvent": payload}:
             import capo_healthlake.types.text_message_event
 
@@ -158,7 +158,7 @@ def deserialize_event_aws_json_1_0(
                 )
             }
         case str():
-            return UnknownEvent(event_type, message)
+            return {"$unknown": {"name": event_type, "message": message}}
         case _:
             raise ValueError(
                 f"AgentOutputMessageStream: unrecognized event-type {event_type!r}"

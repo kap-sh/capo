@@ -31,9 +31,9 @@ AccountConstraint: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AccountConstraint) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AccountConstraint: cannot serialize unknown variant {value.name!r}"
+            f"AccountConstraint: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "managementAccount" in value:
         import capo_launch_wizard.types.management_account_constraint
@@ -77,5 +77,5 @@ def deserialize_json(data: dict) -> AccountConstraint:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("AccountConstraint: no recognized variant key")

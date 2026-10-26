@@ -67,13 +67,7 @@ def deserialize_json(data: dict) -> ListProductSubscriptionsRequest:
             )
         )
     else:
-        import capo_license_manager_user_subscriptions.types._unknown
-
-        out["identity_provider"] = (
-            capo_license_manager_user_subscriptions.types._unknown.UnknownUnionMember(
-                ""
-            )
-        )
+        out["identity_provider"] = {"$unknown": {"name": ""}}
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("Filters") is not None:

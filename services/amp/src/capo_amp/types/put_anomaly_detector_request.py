@@ -89,9 +89,7 @@ def deserialize_json(data: dict) -> PutAnomalyDetectorRequest:
             )
         )
     else:
-        import capo_amp.types._unknown
-
-        out["configuration"] = capo_amp.types._unknown.UnknownUnionMember("")
+        out["configuration"] = {"$unknown": {"name": ""}}
     if data.get("labels") is not None:
         import capo_amp.types.prometheus_metric_label_map
 

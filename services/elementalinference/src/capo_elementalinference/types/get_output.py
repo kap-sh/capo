@@ -62,11 +62,7 @@ def deserialize_json(data: dict) -> GetOutput:
             )
         )
     else:
-        import capo_elementalinference.types._unknown
-
-        out["output_config"] = (
-            capo_elementalinference.types._unknown.UnknownUnionMember("")
-        )
+        out["output_config"] = {"$unknown": {"name": ""}}
     if data.get("status") is not None:
         import capo_elementalinference.types.output_status
 

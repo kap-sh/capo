@@ -57,9 +57,7 @@ def deserialize_aws_json_1_0(data: dict) -> ArchiveStringExpression:
             )
         )
     else:
-        import capo_mailmanager.types._unknown
-
-        out["evaluate"] = capo_mailmanager.types._unknown.UnknownUnionMember("")
+        out["evaluate"] = {"$unknown": {"name": ""}}
     if data.get("Operator") is not None:
         import capo_mailmanager.types.archive_string_operator
 

@@ -70,9 +70,7 @@ def deserialize_json(data: dict) -> CreateNetworkConnectorRequest:
             )
         )
     else:
-        import capo_lambda_core.types._unknown
-
-        out["configuration"] = capo_lambda_core.types._unknown.UnknownUnionMember("")
+        out["configuration"] = {"$unknown": {"name": ""}}
     if data.get("OperatorRole") is not None:
         out["operator_role"] = data["OperatorRole"]
     if data.get("ClientToken") is not None:

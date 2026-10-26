@@ -62,11 +62,7 @@ def deserialize_aws_json_1_0(data: dict) -> SignalFetchInformation:
             )
         )
     else:
-        import capo_iotfleetwise.types._unknown
-
-        out["signal_fetch_config"] = (
-            capo_iotfleetwise.types._unknown.UnknownUnionMember("")
-        )
+        out["signal_fetch_config"] = {"$unknown": {"name": ""}}
     if data.get("conditionLanguageVersion") is not None:
         out["condition_language_version"] = data["conditionLanguageVersion"]
     if data.get("actions") is not None:

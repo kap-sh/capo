@@ -20,9 +20,9 @@ GrantedEntityInput: TypeAlias = _GrantedEntityInput_listing | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: GrantedEntityInput) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"GrantedEntityInput: cannot serialize unknown variant {value.name!r}"
+            f"GrantedEntityInput: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "listing" in value:
         import capo_datazone.types.listing_revision_input
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> GrantedEntityInput:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("GrantedEntityInput: no recognized variant key")

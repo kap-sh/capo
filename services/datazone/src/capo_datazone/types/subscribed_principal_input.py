@@ -43,9 +43,9 @@ SubscribedPrincipalInput: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SubscribedPrincipalInput) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"SubscribedPrincipalInput: cannot serialize unknown variant {value.name!r}"
+            f"SubscribedPrincipalInput: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "project" in value:
         import capo_datazone.types.subscribed_project_input
@@ -121,7 +121,7 @@ def deserialize_json(data: dict) -> SubscribedPrincipalInput:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "SubscribedPrincipalInput: no recognized variant key"
         )

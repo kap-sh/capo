@@ -22,9 +22,9 @@ ModelInvocationJobOutputDataConfig: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ModelInvocationJobOutputDataConfig) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ModelInvocationJobOutputDataConfig: cannot serialize unknown variant {value.name!r}"
+            f"ModelInvocationJobOutputDataConfig: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "s3OutputDataConfig" in value:
         import capo_bedrock.types.model_invocation_job_s3_output_data_config
@@ -54,7 +54,7 @@ def deserialize_json(data: dict) -> ModelInvocationJobOutputDataConfig:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "ModelInvocationJobOutputDataConfig: no recognized variant key"
         )

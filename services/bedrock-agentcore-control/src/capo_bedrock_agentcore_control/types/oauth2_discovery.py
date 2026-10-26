@@ -34,9 +34,9 @@ Oauth2Discovery: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Oauth2Discovery) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"Oauth2Discovery: cannot serialize unknown variant {value.name!r}"
+            f"Oauth2Discovery: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "discoveryUrl" in value:
         return {"discoveryUrl": value["discoveryUrl"]}
@@ -68,5 +68,5 @@ def deserialize_json(data: dict) -> Oauth2Discovery:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("Oauth2Discovery: no recognized variant key")

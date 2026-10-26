@@ -35,9 +35,9 @@ ListenerTlsCertificate: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ListenerTlsCertificate) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ListenerTlsCertificate: cannot serialize unknown variant {value.name!r}"
+            f"ListenerTlsCertificate: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "acm" in value:
         import capo_app_mesh.types.listener_tls_acm_certificate
@@ -97,5 +97,5 @@ def deserialize_json(data: dict) -> ListenerTlsCertificate:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ListenerTlsCertificate: no recognized variant key")

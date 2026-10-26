@@ -141,7 +141,5 @@ def deserialize_json(data: dict) -> DescribeDatasetExportJobResponse:
             data["input"]
         )
     else:
-        import capo_iotsitewise.types._unknown
-
-        out["input"] = capo_iotsitewise.types._unknown.UnknownUnionMember("")
+        out["input"] = {"$unknown": {"name": ""}}
     return out

@@ -56,9 +56,7 @@ def deserialize_json(data: dict) -> CreateAssetRequest:
             data["content"]
         )
     else:
-        import capo_devops_agent.types._unknown
-
-        out["content"] = capo_devops_agent.types._unknown.UnknownUnionMember("")
+        out["content"] = {"$unknown": {"name": ""}}
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

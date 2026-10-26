@@ -92,9 +92,7 @@ def deserialize_json(data: dict) -> QueryVectorsInput:
             data["queryVector"]
         )
     else:
-        import capo_s3vectors.types._unknown
-
-        out["query_vector"] = capo_s3vectors.types._unknown.UnknownUnionMember("")
+        out["query_vector"] = {"$unknown": {"name": ""}}
     if data.get("filter") is not None:
         out["filter"] = data["filter"]
     if data.get("queryMode") is not None:

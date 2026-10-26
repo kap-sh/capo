@@ -64,9 +64,5 @@ def deserialize_aws_json_1_0(
             )
         )
     else:
-        import capo_bcm_pricing_calculator.types._unknown
-
-        out["commitment_action"] = (
-            capo_bcm_pricing_calculator.types._unknown.UnknownUnionMember("")
-        )
+        out["commitment_action"] = {"$unknown": {"name": ""}}
     return out

@@ -22,9 +22,9 @@ NewRelicServiceAuthorizationConfig: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: NewRelicServiceAuthorizationConfig) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"NewRelicServiceAuthorizationConfig: cannot serialize unknown variant {value.name!r}"
+            f"NewRelicServiceAuthorizationConfig: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "apiKey" in value:
         import capo_devops_agent.types.new_relic_api_key_config
@@ -54,17 +54,13 @@ def deserialize_json(data: dict) -> NewRelicServiceAuthorizationConfig:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "NewRelicServiceAuthorizationConfig: no recognized variant key"
         )
 
 
-def redact_sensitive(
-    value: NewRelicServiceAuthorizationConfig,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: NewRelicServiceAuthorizationConfig) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "apiKey" in value:
         import capo_devops_agent.types.new_relic_api_key_config

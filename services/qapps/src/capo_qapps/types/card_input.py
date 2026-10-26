@@ -47,9 +47,9 @@ CardInput: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CardInput) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"CardInput: cannot serialize unknown variant {value.name!r}"
+            f"CardInput: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "textInput" in value:
         import capo_qapps.types.text_input_card_input
@@ -141,5 +141,5 @@ def deserialize_json(data: dict) -> CardInput:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("CardInput: no recognized variant key")

@@ -75,11 +75,7 @@ def deserialize_json(data: dict) -> CreateIntermediateTableInput:
             )
         )
     else:
-        import capo_cleanrooms.types._unknown
-
-        out["population_analysis_configuration"] = (
-            capo_cleanrooms.types._unknown.UnknownUnionMember("")
-        )
+        out["population_analysis_configuration"] = {"$unknown": {"name": ""}}
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
     if data.get("retentionInDays") is not None:

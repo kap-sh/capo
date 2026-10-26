@@ -22,9 +22,9 @@ ClientCredentialsDetails: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ClientCredentialsDetails) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ClientCredentialsDetails: cannot serialize unknown variant {value.name!r}"
+            f"ClientCredentialsDetails: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "ClientCredentialsGrantDetails" in value:
         import capo_quicksight.types.client_credentials_grant_details
@@ -52,17 +52,13 @@ def deserialize_json(data: dict) -> ClientCredentialsDetails:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "ClientCredentialsDetails: no recognized variant key"
         )
 
 
-def redact_sensitive(
-    value: ClientCredentialsDetails,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: ClientCredentialsDetails) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "ClientCredentialsGrantDetails" in value:
         import capo_quicksight.types.client_credentials_grant_details

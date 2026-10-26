@@ -70,9 +70,7 @@ def deserialize_json(data: dict) -> CreateSubscriptionGrantInput:
             )
         )
     else:
-        import capo_datazone.types._unknown
-
-        out["granted_entity"] = capo_datazone.types._unknown.UnknownUnionMember("")
+        out["granted_entity"] = {"$unknown": {"name": ""}}
     if data.get("assetTargetNames") is not None:
         import capo_datazone.types.asset_target_names
 

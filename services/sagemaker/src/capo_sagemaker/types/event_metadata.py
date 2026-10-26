@@ -53,9 +53,9 @@ EventMetadata: TypeAlias = (
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: EventMetadata) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"EventMetadata: cannot serialize unknown variant {value.name!r}"
+            f"EventMetadata: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "Cluster" in value:
         import capo_sagemaker.types.cluster_metadata
@@ -163,5 +163,5 @@ def deserialize_aws_json_1_1(data: dict) -> EventMetadata:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("EventMetadata: no recognized variant key")

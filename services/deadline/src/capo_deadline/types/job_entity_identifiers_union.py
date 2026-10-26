@@ -41,9 +41,9 @@ JobEntityIdentifiersUnion: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: JobEntityIdentifiersUnion) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"JobEntityIdentifiersUnion: cannot serialize unknown variant {value.name!r}"
+            f"JobEntityIdentifiersUnion: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "jobDetails" in value:
         import capo_deadline.types.job_details_identifiers
@@ -119,7 +119,7 @@ def deserialize_json(data: dict) -> JobEntityIdentifiersUnion:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "JobEntityIdentifiersUnion: no recognized variant key"
         )

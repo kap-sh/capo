@@ -20,9 +20,9 @@ AccessLog: TypeAlias = _AccessLog_file | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: AccessLog) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AccessLog: cannot serialize unknown variant {value.name!r}"
+            f"AccessLog: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "file" in value:
         import capo_app_mesh.types.file_access_log
@@ -46,5 +46,5 @@ def deserialize_json(data: dict) -> AccessLog:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("AccessLog: no recognized variant key")

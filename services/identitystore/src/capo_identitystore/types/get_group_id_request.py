@@ -47,11 +47,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetGroupIdRequest:
             )
         )
     else:
-        import capo_identitystore.types._unknown
-
-        out["alternate_identifier"] = (
-            capo_identitystore.types._unknown.UnknownUnionMember("")
-        )
+        out["alternate_identifier"] = {"$unknown": {"name": ""}}
     return out
 
 

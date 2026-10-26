@@ -20,8 +20,6 @@ from __future__ import annotations
 import json
 from typing import Any
 
-import capo_bedrock_runtime
-import capo_s3
 import pytest
 from capo_bedrock_runtime import AsyncBedrockRuntimeClient, BedrockRuntimeClient
 from capo_ec2 import AsyncEC2Client, EC2Client
@@ -117,10 +115,7 @@ def body_of(request: Request) -> bytes:
 
 
 class TestAsyncUnknownUnionVariant:  # unasync: generate
-    """A variant this client doesn't know comes back as ``UnknownUnionMember`` holding its wire name.
-
-    Every package has its own ``UnknownUnionMember`` class, so each test compares with the client's.
-    """
+    """A variant this client doesn't know comes back as ``{"$unknown": {"name": <wire name>}}``."""
 
     async def test_rest_json(self):
         reply = converse_reply(
@@ -133,13 +128,13 @@ class TestAsyncUnknownUnionVariant:  # unasync: generate
         )
         async with offline(AsyncBedrockRuntimeClient, "POST", reply) as client:
             out = await client.converse("model", messages=USER_MESSAGE)
-        unknown = capo_bedrock_runtime.UnknownUnionMember("hologram")
+        unknown = {"$unknown": {"name": "hologram"}}
         assert out["output"]["message"]["content"] == [{"text": "hi"}, unknown]
 
     async def test_rest_json_top_level(self):
         async with offline(AsyncBedrockRuntimeClient, "POST", converse_reply({"hologram": {}})) as client:
             out = await client.converse("model", messages=USER_MESSAGE)
-        assert out["output"] == capo_bedrock_runtime.UnknownUnionMember("hologram")
+        assert out["output"] == {"$unknown": {"name": "hologram"}}
 
     async def test_rest_xml(self):
         body = "<MetricsConfiguration><Id>m</Id><Filter><Hologram><X>1</X></Hologram></Filter></MetricsConfiguration>"
@@ -147,7 +142,7 @@ class TestAsyncUnknownUnionVariant:  # unasync: generate
             out = await client.get_bucket_metrics_configuration("bucket", "m")
         assert out["metrics_configuration"] == {
             "id": "m",
-            "filter": capo_s3.UnknownUnionMember("Hologram"),
+            "filter": {"$unknown": {"name": "Hologram"}},
         }
 
     async def test_rpc_v2_cbor(self):
@@ -155,7 +150,7 @@ class TestAsyncUnknownUnionVariant:  # unasync: generate
         reply = cbor_reply({"Name": "source", "Configuration": {"HologramConfiguration": {"X": 1}}})
         async with offline(eventbridgev2.AsyncEventBridgeV2Client, "POST", reply) as client:
             out = await client.describe_event_source("arn:aws:events:us-east-1:123456789012:event-source/source")
-        unknown = eventbridgev2.UnknownUnionMember("HologramConfiguration")
+        unknown = {"$unknown": {"name": "HologramConfiguration"}}
         assert out == {"name": "source", "configuration": unknown}
 
     async def test_inside_an_event(self):
@@ -163,15 +158,12 @@ class TestAsyncUnknownUnionVariant:  # unasync: generate
         async with offline(AsyncBedrockRuntimeClient, "POST", reply) as client:
             async with client.converse_stream("model", messages=USER_MESSAGE) as out:
                 events = [e async for e in out["stream"]]
-        unknown = capo_bedrock_runtime.UnknownUnionMember("hologram")
+        unknown = {"$unknown": {"name": "hologram"}}
         assert events == [{"contentBlockDelta": {"content_block_index": 0, "delta": unknown}}]
 
 
 class TestUnknownUnionVariant:  # unasync: generated
-    """A variant this client doesn't know comes back as ``UnknownUnionMember`` holding its wire name.
-
-    Every package has its own ``UnknownUnionMember`` class, so each test compares with the client's.
-    """
+    """A variant this client doesn't know comes back as ``{"$unknown": {"name": <wire name>}}``."""
 
     def test_rest_json(self):
         reply = converse_reply(
@@ -184,13 +176,13 @@ class TestUnknownUnionVariant:  # unasync: generated
         )
         with offline(BedrockRuntimeClient, "POST", reply) as client:
             out = client.converse("model", messages=USER_MESSAGE)
-        unknown = capo_bedrock_runtime.UnknownUnionMember("hologram")
+        unknown = {"$unknown": {"name": "hologram"}}
         assert out["output"]["message"]["content"] == [{"text": "hi"}, unknown]
 
     def test_rest_json_top_level(self):
         with offline(BedrockRuntimeClient, "POST", converse_reply({"hologram": {}})) as client:
             out = client.converse("model", messages=USER_MESSAGE)
-        assert out["output"] == capo_bedrock_runtime.UnknownUnionMember("hologram")
+        assert out["output"] == {"$unknown": {"name": "hologram"}}
 
     def test_rest_xml(self):
         body = "<MetricsConfiguration><Id>m</Id><Filter><Hologram><X>1</X></Hologram></Filter></MetricsConfiguration>"
@@ -198,7 +190,7 @@ class TestUnknownUnionVariant:  # unasync: generated
             out = client.get_bucket_metrics_configuration("bucket", "m")
         assert out["metrics_configuration"] == {
             "id": "m",
-            "filter": capo_s3.UnknownUnionMember("Hologram"),
+            "filter": {"$unknown": {"name": "Hologram"}},
         }
 
     def test_rpc_v2_cbor(self):
@@ -206,7 +198,7 @@ class TestUnknownUnionVariant:  # unasync: generated
         reply = cbor_reply({"Name": "source", "Configuration": {"HologramConfiguration": {"X": 1}}})
         with offline(eventbridgev2.EventBridgeV2Client, "POST", reply) as client:
             out = client.describe_event_source("arn:aws:events:us-east-1:123456789012:event-source/source")
-        unknown = eventbridgev2.UnknownUnionMember("HologramConfiguration")
+        unknown = {"$unknown": {"name": "HologramConfiguration"}}
         assert out == {"name": "source", "configuration": unknown}
 
     def test_inside_an_event(self):
@@ -214,7 +206,7 @@ class TestUnknownUnionVariant:  # unasync: generated
         with offline(BedrockRuntimeClient, "POST", reply) as client:
             with client.converse_stream("model", messages=USER_MESSAGE) as out:
                 events = [e for e in out["stream"]]
-        unknown = capo_bedrock_runtime.UnknownUnionMember("hologram")
+        unknown = {"$unknown": {"name": "hologram"}}
         assert events == [{"contentBlockDelta": {"content_block_index": 0, "delta": unknown}}]
 
 
@@ -303,7 +295,7 @@ class TestUnknownEnumValue:  # unasync: generated
 
 
 class TestAsyncUnknownEvent:  # unasync: generate
-    """An event this client doesn't know comes back as ``UnknownEvent``, and the stream goes on."""
+    """An event this client doesn't know comes back keyed by ``$unknown``, and the stream goes on."""
 
     async def test_rest_json(self):
         reply = event_stream(
@@ -315,9 +307,9 @@ class TestAsyncUnknownEvent:  # unasync: generate
             async with client.converse_stream("model", messages=USER_MESSAGE) as out:
                 events = [e async for e in out["stream"]]
         assert events[0] == {"messageStart": {"role": "assistant"}}
-        assert isinstance(events[1], capo_bedrock_runtime.UnknownEvent)
-        assert events[1].event_type == "hologramDelta"
-        assert events[1].message.payload == b'{"x": 1}'
+        unknown = events[1]["$unknown"]
+        assert unknown["name"] == "hologramDelta"
+        assert unknown["message"].payload == b'{"x": 1}'
         assert events[2] == {"messageStop": {"stop_reason": "end_turn"}}
 
     async def test_rest_xml(self):
@@ -330,14 +322,14 @@ class TestAsyncUnknownEvent:  # unasync: generate
             async with client.select_object_content("bucket", "key.csv", **SELECT_QUERY) as out:
                 events = [e async for e in out["payload"]]
         assert events[0] == {"Records": {"payload": b"1,ann\n"}}
-        assert isinstance(events[1], capo_s3.UnknownEvent)
-        assert events[1].event_type == "Hologram"
-        assert events[1].message.payload == b"<Hologram><X>1</X></Hologram>"
+        unknown = events[1]["$unknown"]
+        assert unknown["name"] == "Hologram"
+        assert unknown["message"].payload == b"<Hologram><X>1</X></Hologram>"
         assert events[2] == {"End": {}}
 
 
 class TestUnknownEvent:  # unasync: generated
-    """An event this client doesn't know comes back as ``UnknownEvent``, and the stream goes on."""
+    """An event this client doesn't know comes back keyed by ``$unknown``, and the stream goes on."""
 
     def test_rest_json(self):
         reply = event_stream(
@@ -349,9 +341,9 @@ class TestUnknownEvent:  # unasync: generated
             with client.converse_stream("model", messages=USER_MESSAGE) as out:
                 events = [e for e in out["stream"]]
         assert events[0] == {"messageStart": {"role": "assistant"}}
-        assert isinstance(events[1], capo_bedrock_runtime.UnknownEvent)
-        assert events[1].event_type == "hologramDelta"
-        assert events[1].message.payload == b'{"x": 1}'
+        unknown = events[1]["$unknown"]
+        assert unknown["name"] == "hologramDelta"
+        assert unknown["message"].payload == b'{"x": 1}'
         assert events[2] == {"messageStop": {"stop_reason": "end_turn"}}
 
     def test_rest_xml(self):
@@ -364,9 +356,9 @@ class TestUnknownEvent:  # unasync: generated
             with client.select_object_content("bucket", "key.csv", **SELECT_QUERY) as out:
                 events = [e for e in out["payload"]]
         assert events[0] == {"Records": {"payload": b"1,ann\n"}}
-        assert isinstance(events[1], capo_s3.UnknownEvent)
-        assert events[1].event_type == "Hologram"
-        assert events[1].message.payload == b"<Hologram><X>1</X></Hologram>"
+        unknown = events[1]["$unknown"]
+        assert unknown["name"] == "Hologram"
+        assert unknown["message"].payload == b"<Hologram><X>1</X></Hologram>"
         assert events[2] == {"End": {}}
 
 

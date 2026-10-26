@@ -90,7 +90,5 @@ def deserialize_json(data: dict) -> RedshiftRunConfigurationOutput:
             data["redshiftStorage"]
         )
     else:
-        import capo_datazone.types._unknown
-
-        out["redshift_storage"] = capo_datazone.types._unknown.UnknownUnionMember("")
+        out["redshift_storage"] = {"$unknown": {"name": ""}}
     return out

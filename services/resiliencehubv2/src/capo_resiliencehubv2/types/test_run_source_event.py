@@ -93,7 +93,5 @@ def deserialize_json(data: dict) -> TestRunSourceEvent:
             )
         )
     else:
-        import capo_resiliencehubv2.types._unknown
-
-        out["detail"] = capo_resiliencehubv2.types._unknown.UnknownUnionMember("")
+        out["detail"] = {"$unknown": {"name": ""}}
     return out

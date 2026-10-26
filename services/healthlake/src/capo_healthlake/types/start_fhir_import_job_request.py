@@ -108,9 +108,7 @@ def deserialize_aws_json_1_0(data: dict) -> StartFHIRImportJobRequest:
             )
         )
     else:
-        import capo_healthlake.types._unknown
-
-        out["input_data_config"] = capo_healthlake.types._unknown.UnknownUnionMember("")
+        out["input_data_config"] = {"$unknown": {"name": ""}}
     if data.get("JobOutputDataConfig") is not None:
         import capo_healthlake.types.output_data_config
 
@@ -120,11 +118,7 @@ def deserialize_aws_json_1_0(data: dict) -> StartFHIRImportJobRequest:
             )
         )
     else:
-        import capo_healthlake.types._unknown
-
-        out["job_output_data_config"] = (
-            capo_healthlake.types._unknown.UnknownUnionMember("")
-        )
+        out["job_output_data_config"] = {"$unknown": {"name": ""}}
     if data.get("DatastoreId") is not None:
         out["datastore_id"] = data["DatastoreId"]
     else:

@@ -48,9 +48,7 @@ def deserialize_json(data: dict) -> Permit:
             data["actions"]
         )
     else:
-        import capo_supportauthz.types._unknown
-
-        out["actions"] = capo_supportauthz.types._unknown.UnknownUnionMember("")
+        out["actions"] = {"$unknown": {"name": ""}}
     if data.get("resources") is not None:
         import capo_supportauthz.types.resource_set
 
@@ -58,9 +56,7 @@ def deserialize_json(data: dict) -> Permit:
             data["resources"]
         )
     else:
-        import capo_supportauthz.types._unknown
-
-        out["resources"] = capo_supportauthz.types._unknown.UnknownUnionMember("")
+        out["resources"] = {"$unknown": {"name": ""}}
     if data.get("conditions") is not None:
         import capo_supportauthz.types.conditions
 

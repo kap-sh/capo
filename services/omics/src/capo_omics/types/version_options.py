@@ -20,9 +20,9 @@ VersionOptions: TypeAlias = _VersionOptions_tsvVersionOptions | UnknownUnionMemb
 
 # --- restJson1 ser/de ---
 def serialize_json(value: VersionOptions) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"VersionOptions: cannot serialize unknown variant {value.name!r}"
+            f"VersionOptions: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "tsvVersionOptions" in value:
         import capo_omics.types.tsv_version_options
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> VersionOptions:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("VersionOptions: no recognized variant key")

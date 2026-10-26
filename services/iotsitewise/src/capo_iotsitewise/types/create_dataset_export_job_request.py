@@ -65,9 +65,7 @@ def deserialize_json(data: dict) -> CreateDatasetExportJobRequest:
             data["input"]
         )
     else:
-        import capo_iotsitewise.types._unknown
-
-        out["input"] = capo_iotsitewise.types._unknown.UnknownUnionMember("")
+        out["input"] = {"$unknown": {"name": ""}}
     if data.get("errorReportLocation") is not None:
         import capo_iotsitewise.types.export_error_report_location
 

@@ -88,11 +88,7 @@ def deserialize_json(data: dict) -> GeneratePinDataInput:
             )
         )
     else:
-        import capo_payment_cryptography_data.types._unknown
-
-        out["generation_attributes"] = (
-            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
-        )
+        out["generation_attributes"] = {"$unknown": {"name": ""}}
     if data.get("PinDataLength") is not None:
         out["pin_data_length"] = data["PinDataLength"]
     if data.get("PrimaryAccountNumber") is not None:

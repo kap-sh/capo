@@ -82,9 +82,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateConnectionRequest:
             )
         )
     else:
-        import capo_interconnect.types._unknown
-
-        out["attach_point"] = capo_interconnect.types._unknown.UnknownUnionMember("")
+        out["attach_point"] = {"$unknown": {"name": ""}}
     if data.get("environmentId") is not None:
         out["environment_id"] = data["environmentId"]
     else:

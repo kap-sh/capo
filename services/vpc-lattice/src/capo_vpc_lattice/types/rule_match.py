@@ -20,9 +20,9 @@ RuleMatch: TypeAlias = _RuleMatch_httpMatch | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RuleMatch) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"RuleMatch: cannot serialize unknown variant {value.name!r}"
+            f"RuleMatch: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "httpMatch" in value:
         import capo_vpc_lattice.types.http_match
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> RuleMatch:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("RuleMatch: no recognized variant key")

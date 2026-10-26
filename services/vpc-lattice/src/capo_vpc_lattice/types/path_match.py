@@ -36,9 +36,7 @@ def deserialize_json(data: dict) -> PathMatch:
             data["match"]
         )
     else:
-        import capo_vpc_lattice.types._unknown
-
-        out["match"] = capo_vpc_lattice.types._unknown.UnknownUnionMember("")
+        out["match"] = {"$unknown": {"name": ""}}
     if data.get("caseSensitive") is not None:
         out["case_sensitive"] = data["caseSensitive"]
     return out

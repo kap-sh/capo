@@ -33,9 +33,9 @@ MultiAgentConfiguration: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MultiAgentConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"MultiAgentConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"MultiAgentConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "delegateAgentConfiguration" in value:
         import capo_qconnect.types.delegate_agent_configuration
@@ -79,15 +79,11 @@ def deserialize_json(data: dict) -> MultiAgentConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("MultiAgentConfiguration: no recognized variant key")
 
 
-def redact_sensitive(
-    value: MultiAgentConfiguration,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: MultiAgentConfiguration) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "delegateAgentConfiguration" in value:
         import capo_qconnect.types.delegate_agent_configuration

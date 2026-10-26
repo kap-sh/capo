@@ -64,9 +64,7 @@ def deserialize_json(data: dict) -> SearchRelevantContentRequest:
             data["contentSource"]
         )
     else:
-        import capo_qbusiness.types._unknown
-
-        out["content_source"] = capo_qbusiness.types._unknown.UnknownUnionMember("")
+        out["content_source"] = {"$unknown": {"name": ""}}
     if data.get("attributeFilter") is not None:
         import capo_qbusiness.types.attribute_filter
 

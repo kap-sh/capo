@@ -73,9 +73,7 @@ def deserialize_json(data: dict) -> CreateApprovalTeamRequest:
             data["ApprovalStrategy"]
         )
     else:
-        import capo_mpa.types._unknown
-
-        out["approval_strategy"] = capo_mpa.types._unknown.UnknownUnionMember("")
+        out["approval_strategy"] = {"$unknown": {"name": ""}}
     if data.get("Approvers") is not None:
         import capo_mpa.types.approval_team_request_approvers
 

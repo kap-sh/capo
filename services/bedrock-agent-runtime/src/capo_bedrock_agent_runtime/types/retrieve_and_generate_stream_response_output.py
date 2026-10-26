@@ -122,11 +122,11 @@ RetrieveAndGenerateStreamResponseOutput: TypeAlias = AnyIterator[
 
 
 def serialize_event_json(value: _RetrieveAndGenerateStreamResponseOutput) -> bytes:
-    if isinstance(value, UnknownEvent):
-        raise ValueError(
-            f"RetrieveAndGenerateStreamResponseOutput: cannot serialize unknown event {value.event_type!r}"
-        )
     match value:
+        case {"$unknown": {"name": name}}:
+            raise ValueError(
+                f"RetrieveAndGenerateStreamResponseOutput: cannot serialize unknown event {name!r}"
+            )
         case {"output": payload}:
             import capo_bedrock_agent_runtime.types.retrieve_and_generate_output_event
 
@@ -334,7 +334,7 @@ def deserialize_event_json(
                 )
             }
         case str():
-            return UnknownEvent(event_type, message)
+            return {"$unknown": {"name": event_type, "message": message}}
         case _:
             raise ValueError(
                 f"RetrieveAndGenerateStreamResponseOutput: unrecognized event-type {event_type!r}"

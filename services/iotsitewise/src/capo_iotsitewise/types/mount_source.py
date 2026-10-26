@@ -20,9 +20,9 @@ MountSource: TypeAlias = _MountSource_s3AccessPoint | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MountSource) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"MountSource: cannot serialize unknown variant {value.name!r}"
+            f"MountSource: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "s3AccessPoint" in value:
         import capo_iotsitewise.types.s3_access_point_source
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> MountSource:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("MountSource: no recognized variant key")

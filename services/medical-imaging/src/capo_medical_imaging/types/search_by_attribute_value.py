@@ -77,9 +77,9 @@ SearchByAttributeValue: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SearchByAttributeValue) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"SearchByAttributeValue: cannot serialize unknown variant {value.name!r}"
+            f"SearchByAttributeValue: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "DICOMPatientId" in value:
         return {"DICOMPatientId": value["DICOMPatientId"]}
@@ -163,15 +163,11 @@ def deserialize_json(data: dict) -> SearchByAttributeValue:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("SearchByAttributeValue: no recognized variant key")
 
 
-def redact_sensitive(
-    value: SearchByAttributeValue,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: SearchByAttributeValue) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "DICOMPatientId" in value:
         out["DICOMPatientId"] = "*** Sensitive Data Redacted ***"

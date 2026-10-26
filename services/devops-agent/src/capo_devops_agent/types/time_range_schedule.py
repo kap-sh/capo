@@ -48,7 +48,5 @@ def deserialize_json(data: dict) -> TimeRangeSchedule:
             data["recurrence"]
         )
     else:
-        import capo_devops_agent.types._unknown
-
-        out["recurrence"] = capo_devops_agent.types._unknown.UnknownUnionMember("")
+        out["recurrence"] = {"$unknown": {"name": ""}}
     return out

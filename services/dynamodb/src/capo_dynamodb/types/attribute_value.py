@@ -77,9 +77,9 @@ AttributeValue: TypeAlias = (
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: AttributeValue) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"AttributeValue: cannot serialize unknown variant {value.name!r}"
+            f"AttributeValue: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "S" in value:
         return {"S": value["S"]}
@@ -203,5 +203,5 @@ def deserialize_aws_json_1_0(data: dict) -> AttributeValue:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("AttributeValue: no recognized variant key")

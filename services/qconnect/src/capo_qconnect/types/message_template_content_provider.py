@@ -43,9 +43,9 @@ MessageTemplateContentProvider: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: MessageTemplateContentProvider) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"MessageTemplateContentProvider: cannot serialize unknown variant {value.name!r}"
+            f"MessageTemplateContentProvider: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "email" in value:
         import capo_qconnect.types.email_message_template_content
@@ -121,17 +121,13 @@ def deserialize_json(data: dict) -> MessageTemplateContentProvider:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "MessageTemplateContentProvider: no recognized variant key"
         )
 
 
-def redact_sensitive(
-    value: MessageTemplateContentProvider,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: MessageTemplateContentProvider) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "email" in value:
         import capo_qconnect.types.email_message_template_content

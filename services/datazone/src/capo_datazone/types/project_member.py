@@ -48,9 +48,7 @@ def deserialize_json(data: dict) -> ProjectMember:
             data["memberDetails"]
         )
     else:
-        import capo_datazone.types._unknown
-
-        out["member_details"] = capo_datazone.types._unknown.UnknownUnionMember("")
+        out["member_details"] = {"$unknown": {"name": ""}}
     if data.get("designation") is not None:
         import capo_datazone.types.user_designation
 

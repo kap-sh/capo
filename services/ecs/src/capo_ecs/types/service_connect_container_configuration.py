@@ -22,9 +22,9 @@ ServiceConnectContainerConfiguration: TypeAlias = (
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: ServiceConnectContainerConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ServiceConnectContainerConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"ServiceConnectContainerConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "logLevel" in value:
         import capo_ecs.types.service_connect_container_log_level
@@ -54,7 +54,7 @@ def deserialize_aws_json_1_1(data: dict) -> ServiceConnectContainerConfiguration
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "ServiceConnectContainerConfiguration: no recognized variant key"
         )

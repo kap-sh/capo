@@ -48,9 +48,9 @@ FieldFilter: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: FieldFilter) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"FieldFilter: cannot serialize unknown variant {value.name!r}"
+            f"FieldFilter: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "equalTo" in value:
         import capo_connectcases.types.field_value
@@ -158,5 +158,5 @@ def deserialize_json(data: dict) -> FieldFilter:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("FieldFilter: no recognized variant key")

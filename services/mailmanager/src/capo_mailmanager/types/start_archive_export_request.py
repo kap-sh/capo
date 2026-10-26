@@ -123,11 +123,7 @@ def deserialize_aws_json_1_0(data: dict) -> StartArchiveExportRequest:
             )
         )
     else:
-        import capo_mailmanager.types._unknown
-
-        out["export_destination_configuration"] = (
-            capo_mailmanager.types._unknown.UnknownUnionMember("")
-        )
+        out["export_destination_configuration"] = {"$unknown": {"name": ""}}
     if data.get("IncludeMetadata") is not None:
         out["include_metadata"] = data["IncludeMetadata"]
     return out

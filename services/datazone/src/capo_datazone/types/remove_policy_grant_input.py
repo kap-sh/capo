@@ -73,9 +73,7 @@ def deserialize_json(data: dict) -> RemovePolicyGrantInput:
             data["principal"]
         )
     else:
-        import capo_datazone.types._unknown
-
-        out["principal"] = capo_datazone.types._unknown.UnknownUnionMember("")
+        out["principal"] = {"$unknown": {"name": ""}}
     if data.get("grantIdentifier") is not None:
         out["grant_identifier"] = data["grantIdentifier"]
     if data.get("clientToken") is not None:

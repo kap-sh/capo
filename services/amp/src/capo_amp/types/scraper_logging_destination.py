@@ -24,9 +24,9 @@ ScraperLoggingDestination: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ScraperLoggingDestination) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ScraperLoggingDestination: cannot serialize unknown variant {value.name!r}"
+            f"ScraperLoggingDestination: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "cloudWatchLogs" in value:
         import capo_amp.types.cloud_watch_log_destination
@@ -54,7 +54,7 @@ def deserialize_json(data: dict) -> ScraperLoggingDestination:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "ScraperLoggingDestination: no recognized variant key"
         )

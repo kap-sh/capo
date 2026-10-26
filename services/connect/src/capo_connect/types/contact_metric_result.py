@@ -51,7 +51,5 @@ def deserialize_json(data: dict) -> ContactMetricResult:
             data["Value"]
         )
     else:
-        import capo_connect.types._unknown
-
-        out["value"] = capo_connect.types._unknown.UnknownUnionMember("")
+        out["value"] = {"$unknown": {"name": ""}}
     return out

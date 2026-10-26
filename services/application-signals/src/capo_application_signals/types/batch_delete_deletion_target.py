@@ -29,9 +29,9 @@ BatchDeleteDeletionTarget: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: BatchDeleteDeletionTarget) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"BatchDeleteDeletionTarget: cannot serialize unknown variant {value.name!r}"
+            f"BatchDeleteDeletionTarget: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "Scope" in value:
         import capo_application_signals.types.batch_delete_scope
@@ -75,7 +75,7 @@ def deserialize_json(data: dict) -> BatchDeleteDeletionTarget:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "BatchDeleteDeletionTarget: no recognized variant key"
         )

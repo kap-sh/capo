@@ -30,9 +30,9 @@ ResourceCriteria: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ResourceCriteria) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ResourceCriteria: cannot serialize unknown variant {value.name!r}"
+            f"ResourceCriteria: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "tags" in value:
         import capo_network_security_manager.types.string_map
@@ -76,5 +76,5 @@ def deserialize_json(data: dict) -> ResourceCriteria:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("ResourceCriteria: no recognized variant key")

@@ -32,7 +32,5 @@ def deserialize_json(data: dict) -> UpdateCampaignSourceRequest:
             data["source"]
         )
     else:
-        import capo_connectcampaignsv2.types._unknown
-
-        out["source"] = capo_connectcampaignsv2.types._unknown.UnknownUnionMember("")
+        out["source"] = {"$unknown": {"name": ""}}
     return out

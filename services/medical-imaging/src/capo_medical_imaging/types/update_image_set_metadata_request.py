@@ -52,11 +52,7 @@ def deserialize_json(data: dict) -> UpdateImageSetMetadataRequest:
             )
         )
     else:
-        import capo_medical_imaging.types._unknown
-
-        out["update_image_set_metadata_updates"] = (
-            capo_medical_imaging.types._unknown.UnknownUnionMember("")
-        )
+        out["update_image_set_metadata_updates"] = {"$unknown": {"name": ""}}
     return out
 
 

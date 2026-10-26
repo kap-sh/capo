@@ -20,9 +20,9 @@ BudgetSchedule: TypeAlias = _BudgetSchedule_fixed | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: BudgetSchedule) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"BudgetSchedule: cannot serialize unknown variant {value.name!r}"
+            f"BudgetSchedule: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "fixed" in value:
         import capo_deadline.types.fixed_budget_schedule
@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> BudgetSchedule:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("BudgetSchedule: no recognized variant key")

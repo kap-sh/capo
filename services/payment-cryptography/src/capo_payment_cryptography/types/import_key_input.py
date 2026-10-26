@@ -76,11 +76,7 @@ def deserialize_aws_json_1_0(data: dict) -> ImportKeyInput:
             )
         )
     else:
-        import capo_payment_cryptography.types._unknown
-
-        out["key_material"] = (
-            capo_payment_cryptography.types._unknown.UnknownUnionMember("")
-        )
+        out["key_material"] = {"$unknown": {"name": ""}}
     if data.get("KeyCheckValueAlgorithm") is not None:
         out["key_check_value_algorithm"] = data["KeyCheckValueAlgorithm"]
     if data.get("Enabled") is not None:

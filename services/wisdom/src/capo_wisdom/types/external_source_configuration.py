@@ -41,7 +41,5 @@ def deserialize_json(data: dict) -> ExternalSourceConfiguration:
             data["configuration"]
         )
     else:
-        import capo_wisdom.types._unknown
-
-        out["configuration"] = capo_wisdom.types._unknown.UnknownUnionMember("")
+        out["configuration"] = {"$unknown": {"name": ""}}
     return out

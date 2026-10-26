@@ -58,9 +58,7 @@ def deserialize_json(data: dict) -> CreateFormTypeInput:
 
         out["model"] = capo_datazone.types.model.deserialize_json(data["model"])
     else:
-        import capo_datazone.types._unknown
-
-        out["model"] = capo_datazone.types._unknown.UnknownUnionMember("")
+        out["model"] = {"$unknown": {"name": ""}}
     if data.get("owningProjectIdentifier") is not None:
         out["owning_project_identifier"] = data["owningProjectIdentifier"]
     else:

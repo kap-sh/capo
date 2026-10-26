@@ -26,9 +26,9 @@ CaCertificatesBundleSource: TypeAlias = (
 # --- restXml ser/de ---
 def serialize_xml(value: CaCertificatesBundleSource, parent: Element, tag: str) -> None:
     el = SubElement(parent, tag)
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"CaCertificatesBundleSource: cannot serialize unknown variant {value.name!r}"
+            f"CaCertificatesBundleSource: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "CaCertificatesBundleS3Location" in value:
         import capo_cloudfront.types.ca_certificates_bundle_s3_location
@@ -53,7 +53,7 @@ def deserialize_xml(el: Element) -> CaCertificatesBundleSource:
                 )
             }
         else:
-            return UnknownUnionMember(child.tag)
+            return {"$unknown": {"name": child.tag}}
     raise DeserializationError(
         "CaCertificatesBundleSource: no recognized variant element"
     )

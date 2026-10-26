@@ -45,11 +45,7 @@ def deserialize_aws_json_1_0(data: dict) -> PutSchemaInput:
             )
         )
     else:
-        import capo_verifiedpermissions.types._unknown
-
-        out["definition"] = capo_verifiedpermissions.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["definition"] = {"$unknown": {"name": ""}}
     return out
 
 

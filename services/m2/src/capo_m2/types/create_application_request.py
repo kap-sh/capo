@@ -75,9 +75,7 @@ def deserialize_json(data: dict) -> CreateApplicationRequest:
             data["definition"]
         )
     else:
-        import capo_m2.types._unknown
-
-        out["definition"] = capo_m2.types._unknown.UnknownUnionMember("")
+        out["definition"] = {"$unknown": {"name": ""}}
     if data.get("tags") is not None:
         import capo_m2.types.tag_map
 

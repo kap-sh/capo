@@ -54,9 +54,5 @@ def deserialize_json(data: dict) -> UpdateRelatedItemsInput:
             )
         )
     else:
-        import capo_ssm_incidents.types._unknown
-
-        out["related_items_update"] = (
-            capo_ssm_incidents.types._unknown.UnknownUnionMember("")
-        )
+        out["related_items_update"] = {"$unknown": {"name": ""}}
     return out

@@ -22,9 +22,9 @@ GroupPolicyGrantPrincipal: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: GroupPolicyGrantPrincipal) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"GroupPolicyGrantPrincipal: cannot serialize unknown variant {value.name!r}"
+            f"GroupPolicyGrantPrincipal: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "groupIdentifier" in value:
         return {"groupIdentifier": value["groupIdentifier"]}
@@ -40,7 +40,7 @@ def deserialize_json(data: dict) -> GroupPolicyGrantPrincipal:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "GroupPolicyGrantPrincipal: no recognized variant key"
         )

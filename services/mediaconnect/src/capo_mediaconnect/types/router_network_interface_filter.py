@@ -34,9 +34,9 @@ RouterNetworkInterfaceFilter: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RouterNetworkInterfaceFilter) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"RouterNetworkInterfaceFilter: cannot serialize unknown variant {value.name!r}"
+            f"RouterNetworkInterfaceFilter: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "RegionNames" in value:
         import capo_mediaconnect.types.string_list
@@ -96,7 +96,7 @@ def deserialize_json(data: dict) -> RouterNetworkInterfaceFilter:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "RouterNetworkInterfaceFilter: no recognized variant key"
         )

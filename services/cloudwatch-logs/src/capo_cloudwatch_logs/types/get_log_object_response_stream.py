@@ -34,11 +34,11 @@ GetLogObjectResponseStream: TypeAlias = AnyIterator[_GetLogObjectResponseStream]
 
 
 def serialize_event_aws_json_1_1(value: _GetLogObjectResponseStream) -> bytes:
-    if isinstance(value, UnknownEvent):
-        raise ValueError(
-            f"GetLogObjectResponseStream: cannot serialize unknown event {value.event_type!r}"
-        )
     match value:
+        case {"$unknown": {"name": name}}:
+            raise ValueError(
+                f"GetLogObjectResponseStream: cannot serialize unknown event {name!r}"
+            )
         case {"fields": payload}:
             import capo_cloudwatch_logs.types.fields_data
 
@@ -96,7 +96,7 @@ def deserialize_event_aws_json_1_1(
                 )
             }
         case str():
-            return UnknownEvent(event_type, message)
+            return {"$unknown": {"name": event_type, "message": message}}
         case _:
             raise ValueError(
                 f"GetLogObjectResponseStream: unrecognized event-type {event_type!r}"

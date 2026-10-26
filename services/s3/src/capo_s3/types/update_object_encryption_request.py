@@ -59,9 +59,7 @@ def deserialize_xml(el: Element) -> UpdateObjectEncryptionRequest:
             child_object_encryption
         )
     else:
-        import capo_s3.types._unknown
-
-        out["object_encryption"] = capo_s3.types._unknown.UnknownUnionMember("")
+        out["object_encryption"] = {"$unknown": {"name": ""}}
     return out
 
 

@@ -31,9 +31,9 @@ TestSourceInput: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: TestSourceInput) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"TestSourceInput: cannot serialize unknown variant {value.name!r}"
+            f"TestSourceInput: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "successCriteriaAlarm" in value:
         import capo_resiliencehubv2.types.success_criteria_alarm_input
@@ -77,5 +77,5 @@ def deserialize_json(data: dict) -> TestSourceInput:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("TestSourceInput: no recognized variant key")

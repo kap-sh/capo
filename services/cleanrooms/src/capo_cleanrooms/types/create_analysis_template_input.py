@@ -129,9 +129,7 @@ def deserialize_json(data: dict) -> CreateAnalysisTemplateInput:
             data["source"]
         )
     else:
-        import capo_cleanrooms.types._unknown
-
-        out["source"] = capo_cleanrooms.types._unknown.UnknownUnionMember("")
+        out["source"] = {"$unknown": {"name": ""}}
     if data.get("tags") is not None:
         import capo_cleanrooms.types.tag_map
 

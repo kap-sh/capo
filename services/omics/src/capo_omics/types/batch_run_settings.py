@@ -29,9 +29,9 @@ BatchRunSettings: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: BatchRunSettings) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"BatchRunSettings: cannot serialize unknown variant {value.name!r}"
+            f"BatchRunSettings: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "inlineSettings" in value:
         import capo_omics.types.inline_settings
@@ -63,5 +63,5 @@ def deserialize_json(data: dict) -> BatchRunSettings:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("BatchRunSettings: no recognized variant key")

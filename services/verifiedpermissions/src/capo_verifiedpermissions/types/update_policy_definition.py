@@ -20,9 +20,9 @@ UpdatePolicyDefinition: TypeAlias = _UpdatePolicyDefinition_static | UnknownUnio
 
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: UpdatePolicyDefinition) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"UpdatePolicyDefinition: cannot serialize unknown variant {value.name!r}"
+            f"UpdatePolicyDefinition: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "static" in value:
         import capo_verifiedpermissions.types.update_static_policy_definition
@@ -50,15 +50,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdatePolicyDefinition:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("UpdatePolicyDefinition: no recognized variant key")
 
 
-def redact_sensitive(
-    value: UpdatePolicyDefinition,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: UpdatePolicyDefinition) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "static" in value:
         import capo_verifiedpermissions.types.update_static_policy_definition

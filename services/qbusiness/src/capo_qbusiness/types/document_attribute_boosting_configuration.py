@@ -47,9 +47,9 @@ DocumentAttributeBoostingConfiguration: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DocumentAttributeBoostingConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"DocumentAttributeBoostingConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"DocumentAttributeBoostingConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "numberConfiguration" in value:
         import capo_qbusiness.types.number_attribute_boosting_configuration
@@ -127,7 +127,7 @@ def deserialize_json(data: dict) -> DocumentAttributeBoostingConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "DocumentAttributeBoostingConfiguration: no recognized variant key"
         )

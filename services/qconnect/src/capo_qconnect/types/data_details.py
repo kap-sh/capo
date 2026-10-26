@@ -103,9 +103,9 @@ DataDetails: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: DataDetails) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"DataDetails: cannot serialize unknown variant {value.name!r}"
+            f"DataDetails: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "contentData" in value:
         import capo_qconnect.types.content_data_details
@@ -325,13 +325,11 @@ def deserialize_json(data: dict) -> DataDetails:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("DataDetails: no recognized variant key")
 
 
-def redact_sensitive(value: DataDetails) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: DataDetails) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "contentData" in value:
         import capo_qconnect.types.content_data_details

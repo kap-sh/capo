@@ -24,9 +24,9 @@ SourceConfiguration: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SourceConfiguration) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"SourceConfiguration: cannot serialize unknown variant {value.name!r}"
+            f"SourceConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "appIntegrations" in value:
         import capo_wisdom.types.app_integrations_configuration
@@ -54,5 +54,5 @@ def deserialize_json(data: dict) -> SourceConfiguration:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("SourceConfiguration: no recognized variant key")

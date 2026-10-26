@@ -36,9 +36,7 @@ def deserialize_json(data: dict) -> FlowTraceEvent:
             data["trace"]
         )
     else:
-        import capo_bedrock_agent_runtime.types._unknown
-
-        out["trace"] = capo_bedrock_agent_runtime.types._unknown.UnknownUnionMember("")
+        out["trace"] = {"$unknown": {"name": ""}}
     return out
 
 

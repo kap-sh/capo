@@ -22,9 +22,9 @@ RecommendedStep: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: RecommendedStep) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"RecommendedStep: cannot serialize unknown variant {value.name!r}"
+            f"RecommendedStep: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "unusedPermissionsRecommendedStep" in value:
         import capo_accessanalyzer.types.unused_permissions_recommended_step
@@ -52,5 +52,5 @@ def deserialize_json(data: dict) -> RecommendedStep:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("RecommendedStep: no recognized variant key")

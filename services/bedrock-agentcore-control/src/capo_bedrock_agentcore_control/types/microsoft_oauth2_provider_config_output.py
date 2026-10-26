@@ -46,11 +46,7 @@ def deserialize_json(data: dict) -> MicrosoftOauth2ProviderConfigOutput:
             )
         )
     else:
-        import capo_bedrock_agentcore_control.types._unknown
-
-        out["oauth_discovery"] = (
-            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
-        )
+        out["oauth_discovery"] = {"$unknown": {"name": ""}}
     if data.get("clientId") is not None:
         out["client_id"] = data["clientId"]
     return out

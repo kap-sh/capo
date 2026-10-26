@@ -108,11 +108,7 @@ def deserialize_json(data: dict) -> GenerateMacEmvPinChangeInput:
             )
         )
     else:
-        import capo_payment_cryptography_data.types._unknown
-
-        out["derivation_method_attributes"] = (
-            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
-        )
+        out["derivation_method_attributes"] = {"$unknown": {"name": ""}}
     return out
 
 

@@ -81,11 +81,7 @@ def deserialize_json(data: dict) -> Campaign:
             )
         )
     else:
-        import capo_connectcampaigns.types._unknown
-
-        out["dialer_config"] = capo_connectcampaigns.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["dialer_config"] = {"$unknown": {"name": ""}}
     if data.get("outboundCallConfig") is not None:
         import capo_connectcampaigns.types.outbound_call_config
 

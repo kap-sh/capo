@@ -25,9 +25,9 @@ TemplateSource: TypeAlias = _TemplateSource_workflowId | UnknownUnionMember
 
 # --- restJson1 ser/de ---
 def serialize_json(value: TemplateSource) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"TemplateSource: cannot serialize unknown variant {value.name!r}"
+            f"TemplateSource: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "workflowId" in value:
         return {"workflowId": value["workflowId"]}
@@ -43,5 +43,5 @@ def deserialize_json(data: dict) -> TemplateSource:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("TemplateSource: no recognized variant key")

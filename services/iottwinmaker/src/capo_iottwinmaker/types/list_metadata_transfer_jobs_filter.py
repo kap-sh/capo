@@ -31,9 +31,9 @@ ListMetadataTransferJobsFilter: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ListMetadataTransferJobsFilter) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ListMetadataTransferJobsFilter: cannot serialize unknown variant {value.name!r}"
+            f"ListMetadataTransferJobsFilter: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "workspaceId" in value:
         return {"workspaceId": value["workspaceId"]}
@@ -53,7 +53,7 @@ def deserialize_json(data: dict) -> ListMetadataTransferJobsFilter:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "ListMetadataTransferJobsFilter: no recognized variant key"
         )

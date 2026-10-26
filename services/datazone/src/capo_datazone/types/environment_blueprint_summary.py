@@ -100,11 +100,7 @@ def deserialize_json(data: dict) -> EnvironmentBlueprintSummary:
             )
         )
     else:
-        import capo_datazone.types._unknown
-
-        out["provisioning_properties"] = (
-            capo_datazone.types._unknown.UnknownUnionMember("")
-        )
+        out["provisioning_properties"] = {"$unknown": {"name": ""}}
     if data.get("createdAt") is not None:
         import datetime
 

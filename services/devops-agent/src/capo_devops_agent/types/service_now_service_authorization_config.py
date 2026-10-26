@@ -24,9 +24,9 @@ ServiceNowServiceAuthorizationConfig: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ServiceNowServiceAuthorizationConfig) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"ServiceNowServiceAuthorizationConfig: cannot serialize unknown variant {value.name!r}"
+            f"ServiceNowServiceAuthorizationConfig: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "oAuthClientCredentials" in value:
         import capo_devops_agent.types.service_now_o_auth_client_credentials_config
@@ -56,17 +56,13 @@ def deserialize_json(data: dict) -> ServiceNowServiceAuthorizationConfig:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "ServiceNowServiceAuthorizationConfig: no recognized variant key"
         )
 
 
-def redact_sensitive(
-    value: ServiceNowServiceAuthorizationConfig,
-) -> dict[str, Any] | UnknownUnionMember:
-    if isinstance(value, UnknownUnionMember):
-        return value
+def redact_sensitive(value: ServiceNowServiceAuthorizationConfig) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "oAuthClientCredentials" in value:
         import capo_devops_agent.types.service_now_o_auth_client_credentials_config

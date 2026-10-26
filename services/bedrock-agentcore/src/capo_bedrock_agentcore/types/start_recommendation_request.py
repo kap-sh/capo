@@ -95,11 +95,7 @@ def deserialize_json(data: dict) -> StartRecommendationRequest:
             )
         )
     else:
-        import capo_bedrock_agentcore.types._unknown
-
-        out["recommendation_config"] = (
-            capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
-        )
+        out["recommendation_config"] = {"$unknown": {"name": ""}}
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
     if data.get("clientToken") is not None:

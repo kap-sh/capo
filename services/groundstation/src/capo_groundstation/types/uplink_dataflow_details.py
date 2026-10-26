@@ -24,9 +24,9 @@ UplinkDataflowDetails: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: UplinkDataflowDetails) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"UplinkDataflowDetails: cannot serialize unknown variant {value.name!r}"
+            f"UplinkDataflowDetails: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "agentConnectionDetails" in value:
         import capo_groundstation.types.uplink_connection_details
@@ -54,5 +54,5 @@ def deserialize_json(data: dict) -> UplinkDataflowDetails:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("UplinkDataflowDetails: no recognized variant key")

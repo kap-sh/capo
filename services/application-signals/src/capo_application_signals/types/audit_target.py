@@ -42,7 +42,5 @@ def deserialize_json(data: dict) -> AuditTarget:
             )
         )
     else:
-        import capo_application_signals.types._unknown
-
-        out["data"] = capo_application_signals.types._unknown.UnknownUnionMember("")
+        out["data"] = {"$unknown": {"name": ""}}
     return out

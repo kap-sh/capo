@@ -61,9 +61,9 @@ FindingDetails: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: FindingDetails) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"FindingDetails: cannot serialize unknown variant {value.name!r}"
+            f"FindingDetails: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "internalAccessDetails" in value:
         import capo_accessanalyzer.types.internal_access_details
@@ -171,5 +171,5 @@ def deserialize_json(data: dict) -> FindingDetails:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError("FindingDetails: no recognized variant key")

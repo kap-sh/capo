@@ -74,9 +74,7 @@ def deserialize_json(data: dict) -> CreateInferenceProfileRequest:
             )
         )
     else:
-        import capo_bedrock.types._unknown
-
-        out["model_source"] = capo_bedrock.types._unknown.UnknownUnionMember("")
+        out["model_source"] = {"$unknown": {"name": ""}}
     if data.get("tags") is not None:
         import capo_bedrock.types.tag_list
 

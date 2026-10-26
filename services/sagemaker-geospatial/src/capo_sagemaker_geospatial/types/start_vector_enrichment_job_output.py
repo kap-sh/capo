@@ -140,11 +140,7 @@ def deserialize_json(data: dict) -> StartVectorEnrichmentJobOutput:
             )
         )
     else:
-        import capo_sagemaker_geospatial.types._unknown
-
-        out["job_config"] = capo_sagemaker_geospatial.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["job_config"] = {"$unknown": {"name": ""}}
     if data.get("ExecutionRoleArn") is not None:
         out["execution_role_arn"] = data["ExecutionRoleArn"]
     else:

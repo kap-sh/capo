@@ -77,11 +77,7 @@ def deserialize_json(data: dict) -> GeneratePinDataOutput:
             )
         )
     else:
-        import capo_payment_cryptography_data.types._unknown
-
-        out["pin_data"] = (
-            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
-        )
+        out["pin_data"] = {"$unknown": {"name": ""}}
     return out
 
 

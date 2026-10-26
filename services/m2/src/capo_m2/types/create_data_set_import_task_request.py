@@ -41,9 +41,7 @@ def deserialize_json(data: dict) -> CreateDataSetImportTaskRequest:
             data["importConfig"]
         )
     else:
-        import capo_m2.types._unknown
-
-        out["import_config"] = capo_m2.types._unknown.UnknownUnionMember("")
+        out["import_config"] = {"$unknown": {"name": ""}}
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

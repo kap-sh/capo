@@ -60,11 +60,7 @@ def deserialize_json(data: dict) -> InvocationLogsConfig:
             )
         )
     else:
-        import capo_bedrock.types._unknown
-
-        out["invocation_log_source"] = capo_bedrock.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["invocation_log_source"] = {"$unknown": {"name": ""}}
     if data.get("requestMetadataFilters") is not None:
         import capo_bedrock.types.request_metadata_filters
 

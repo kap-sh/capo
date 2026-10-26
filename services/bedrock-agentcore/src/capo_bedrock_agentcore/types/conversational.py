@@ -39,9 +39,7 @@ def deserialize_json(data: dict) -> Conversational:
             data["content"]
         )
     else:
-        import capo_bedrock_agentcore.types._unknown
-
-        out["content"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
+        out["content"] = {"$unknown": {"name": ""}}
     if data.get("role") is not None:
         import capo_bedrock_agentcore.types.role
 

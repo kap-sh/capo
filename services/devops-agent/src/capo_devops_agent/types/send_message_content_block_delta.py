@@ -29,9 +29,9 @@ SendMessageContentBlockDelta: TypeAlias = (
 
 # --- restJson1 ser/de ---
 def serialize_json(value: SendMessageContentBlockDelta) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"SendMessageContentBlockDelta: cannot serialize unknown variant {value.name!r}"
+            f"SendMessageContentBlockDelta: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "textDelta" in value:
         import capo_devops_agent.types.send_message_text_delta
@@ -75,7 +75,7 @@ def deserialize_json(data: dict) -> SendMessageContentBlockDelta:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "SendMessageContentBlockDelta: no recognized variant key"
         )

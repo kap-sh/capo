@@ -251,11 +251,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateCampaignRequest:
             )
         )
     else:
-        import capo_iotfleetwise.types._unknown
-
-        out["collection_scheme"] = capo_iotfleetwise.types._unknown.UnknownUnionMember(
-            ""
-        )
+        out["collection_scheme"] = {"$unknown": {"name": ""}}
     if data.get("dataExtraDimensions") is not None:
         import capo_iotfleetwise.types.data_extra_dimension_node_path_list
 

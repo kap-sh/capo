@@ -82,9 +82,7 @@ def deserialize_json(data: dict) -> CreateSessionLoggerRequest:
             data["eventFilter"]
         )
     else:
-        import capo_workspaces_web.types._unknown
-
-        out["event_filter"] = capo_workspaces_web.types._unknown.UnknownUnionMember("")
+        out["event_filter"] = {"$unknown": {"name": ""}}
     if data.get("logConfiguration") is not None:
         import capo_workspaces_web.types.log_configuration
 

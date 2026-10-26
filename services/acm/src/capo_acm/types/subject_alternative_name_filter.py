@@ -22,9 +22,9 @@ SubjectAlternativeNameFilter: TypeAlias = (
 
 # --- awsJson1_1 ser/de ---
 def serialize_aws_json_1_1(value: SubjectAlternativeNameFilter) -> dict:
-    if isinstance(value, UnknownUnionMember):
+    if "$unknown" in value:
         raise SerializationError(
-            f"SubjectAlternativeNameFilter: cannot serialize unknown variant {value.name!r}"
+            f"SubjectAlternativeNameFilter: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
     elif "DnsName" in value:
         import capo_acm.types.dns_name_filter
@@ -52,7 +52,7 @@ def deserialize_aws_json_1_1(data: dict) -> SubjectAlternativeNameFilter:
             (k for k, v in data.items() if v is not None and k != "__type"), None
         )
         if name is not None:
-            return UnknownUnionMember(name)
+            return {"$unknown": {"name": name}}
         raise DeserializationError(
             "SubjectAlternativeNameFilter: no recognized variant key"
         )
