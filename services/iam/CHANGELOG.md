@@ -1,5 +1,11 @@
 # aws-sdk-iam
 
+## 0.24.0
+
+### Minor Changes
+
+- 741133f: feat!: represent unknown union variants and events as "$unknown" dicts
+
 ## 0.23.0
 
 ### Minor Changes

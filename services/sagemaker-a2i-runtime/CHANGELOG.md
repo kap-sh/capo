@@ -1,5 +1,11 @@
 # aws-sdk-sagemaker-a2i-runtime
 
+## 0.11.0
+
+### Minor Changes
+
+- 741133f: feat!: represent unknown union variants and events as "$unknown" dicts
+
 ## 0.10.0
 
 ### Minor Changes

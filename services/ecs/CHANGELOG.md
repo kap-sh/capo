@@ -1,5 +1,11 @@
 # aws-sdk-ecs
 
+## 0.26.0
+
+### Minor Changes
+
+- 741133f: feat!: represent unknown union variants and events as "$unknown" dicts
+
 ## 0.25.0
 
 ### Minor Changes

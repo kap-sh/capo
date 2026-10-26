@@ -1,6 +1,6 @@
 [project]
 name = "capo-cloudfront"
-version = "0.20.0"
+version = "0.21.0"
 description = "Typed, async Python SDK for AWS Cloudfront."
 readme = "README.md"
 requires-python = ">=3.10"
