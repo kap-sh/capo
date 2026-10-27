@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class UpdateMonitorSettingsRequest(TypedDict, closed=True):
     monitor_id: "capo_deadline.types.monitor_id.MonitorId"
-    """<p>The unique identifier of the monitor to update settings for.</p>"""
+    """The unique identifier of the monitor to update settings for."""
     settings: "capo_deadline.types.settings_map.SettingsMap"
-    """<p>The monitor settings to update as key-value pairs. Keys present in the request are upserted; keys absent are left unchanged. Send an empty string value to delete a key.</p>"""
+    """The monitor settings to update as key-value pairs. Keys present in the request are upserted; keys absent are left unchanged. Send an empty string value to delete a key."""
 
 
 # --- restJson1 ser/de ---

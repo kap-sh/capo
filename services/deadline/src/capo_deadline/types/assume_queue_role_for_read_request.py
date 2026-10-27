@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class AssumeQueueRoleForReadRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the farm containing the queue.</p>"""
+    """The farm ID of the farm containing the queue."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID.</p>"""
+    """The queue ID."""
 
 
 # --- restJson1 ser/de ---

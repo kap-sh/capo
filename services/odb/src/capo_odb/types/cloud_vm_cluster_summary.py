@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     import capo_odb.types.data_collection_options
     import capo_odb.types.disk_redundancy
     import capo_odb.types.exadata_iorm_config
+    import capo_odb.types.file_system_configuration_details_list
     import capo_odb.types.iam_role_list
     import capo_odb.types.license_model
     import capo_odb.types.resource_arn
@@ -18,7 +19,9 @@ if TYPE_CHECKING:
     import capo_odb.types.resource_id_or_arn
     import capo_odb.types.resource_status
     import capo_odb.types.sensitive_string_list
+    import capo_odb.types.storage_management_type
     import capo_odb.types.string_list
+    import capo_odb.types.vm_storage_type
 
 
 class CloudVmClusterSummary(TypedDict, closed=True):
@@ -38,6 +41,26 @@ class CloudVmClusterSummary(TypedDict, closed=True):
         "capo_odb.types.resource_arn.ResourceArn"
     ]
     """<p>The Amazon Resource Name (ARN) of the Exadata infrastructure that this VM cluster belongs to.</p>"""
+    exascale_db_storage_vault_id: NotRequired["capo_odb.types.resource_id.ResourceId"]
+    """<p>The unique identifier of the Exascale storage vault that the VM cluster uses. This value is present only for VM clusters that use an Exascale storage vault.</p>"""
+    exascale_db_storage_vault_arn: NotRequired[
+        "capo_odb.types.resource_arn.ResourceArn"
+    ]
+    """<p>The Amazon Resource Name (ARN) of the Exascale storage vault that the VM cluster uses. This value is present only for VM clusters that use an Exascale storage vault.</p>"""
+    storage_management_type: NotRequired[
+        "capo_odb.types.storage_management_type.StorageManagementType"
+    ]
+    """<p>The type of storage management for the VM cluster. A value of <code>ASM</code> indicates Oracle Automatic Storage Management, and <code>EXASCALE</code> indicates Exascale storage.</p>"""
+    vm_file_system_storage_type: NotRequired[
+        "capo_odb.types.vm_storage_type.VmStorageType"
+    ]
+    """<p>The type of storage that the VM cluster uses for its VM file systems.</p>"""
+    vm_backup_storage_type: NotRequired["capo_odb.types.vm_storage_type.VmStorageType"]
+    """<p>The type of storage that the VM cluster uses for VM backups.</p>"""
+    file_system_configuration_details: NotRequired[
+        "capo_odb.types.file_system_configuration_details_list.FileSystemConfigurationDetailsList"
+    ]
+    """<p>The list of file system configurations for the VM cluster.</p>"""
     cluster_name: NotRequired["str"]
     """<p>The name of the Grid Infrastructure (GI) cluster.</p>"""
     cpu_core_count: NotRequired["int"]
@@ -136,6 +159,42 @@ def serialize_aws_json_1_0(value: CloudVmClusterSummary) -> dict:
         out["cloudExadataInfrastructureId"] = value["cloud_exadata_infrastructure_id"]
     if "cloud_exadata_infrastructure_arn" in value:
         out["cloudExadataInfrastructureArn"] = value["cloud_exadata_infrastructure_arn"]
+    if "exascale_db_storage_vault_id" in value:
+        out["exascaleDbStorageVaultId"] = value["exascale_db_storage_vault_id"]
+    if "exascale_db_storage_vault_arn" in value:
+        out["exascaleDbStorageVaultArn"] = value["exascale_db_storage_vault_arn"]
+    if "storage_management_type" in value:
+        import capo_odb.types.storage_management_type
+
+        out["storageManagementType"] = (
+            capo_odb.types.storage_management_type.serialize_aws_json_1_0(
+                value["storage_management_type"]
+            )
+        )
+    if "vm_file_system_storage_type" in value:
+        import capo_odb.types.vm_storage_type
+
+        out["vmFileSystemStorageType"] = (
+            capo_odb.types.vm_storage_type.serialize_aws_json_1_0(
+                value["vm_file_system_storage_type"]
+            )
+        )
+    if "vm_backup_storage_type" in value:
+        import capo_odb.types.vm_storage_type
+
+        out["vmBackupStorageType"] = (
+            capo_odb.types.vm_storage_type.serialize_aws_json_1_0(
+                value["vm_backup_storage_type"]
+            )
+        )
+    if "file_system_configuration_details" in value:
+        import capo_odb.types.file_system_configuration_details_list
+
+        out["fileSystemConfigurationDetails"] = (
+            capo_odb.types.file_system_configuration_details_list.serialize_aws_json_1_0(
+                value["file_system_configuration_details"]
+            )
+        )
     if "cluster_name" in value:
         out["clusterName"] = value["cluster_name"]
     if "cpu_core_count" in value:
@@ -299,6 +358,42 @@ def deserialize_aws_json_1_0(data: dict) -> CloudVmClusterSummary:
         out["cloud_exadata_infrastructure_id"] = data["cloudExadataInfrastructureId"]
     if data.get("cloudExadataInfrastructureArn") is not None:
         out["cloud_exadata_infrastructure_arn"] = data["cloudExadataInfrastructureArn"]
+    if data.get("exascaleDbStorageVaultId") is not None:
+        out["exascale_db_storage_vault_id"] = data["exascaleDbStorageVaultId"]
+    if data.get("exascaleDbStorageVaultArn") is not None:
+        out["exascale_db_storage_vault_arn"] = data["exascaleDbStorageVaultArn"]
+    if data.get("storageManagementType") is not None:
+        import capo_odb.types.storage_management_type
+
+        out["storage_management_type"] = (
+            capo_odb.types.storage_management_type.deserialize_aws_json_1_0(
+                data["storageManagementType"]
+            )
+        )
+    if data.get("vmFileSystemStorageType") is not None:
+        import capo_odb.types.vm_storage_type
+
+        out["vm_file_system_storage_type"] = (
+            capo_odb.types.vm_storage_type.deserialize_aws_json_1_0(
+                data["vmFileSystemStorageType"]
+            )
+        )
+    if data.get("vmBackupStorageType") is not None:
+        import capo_odb.types.vm_storage_type
+
+        out["vm_backup_storage_type"] = (
+            capo_odb.types.vm_storage_type.deserialize_aws_json_1_0(
+                data["vmBackupStorageType"]
+            )
+        )
+    if data.get("fileSystemConfigurationDetails") is not None:
+        import capo_odb.types.file_system_configuration_details_list
+
+        out["file_system_configuration_details"] = (
+            capo_odb.types.file_system_configuration_details_list.deserialize_aws_json_1_0(
+                data["fileSystemConfigurationDetails"]
+            )
+        )
     if data.get("clusterName") is not None:
         out["cluster_name"] = data["clusterName"]
     if data.get("cpuCoreCount") is not None:

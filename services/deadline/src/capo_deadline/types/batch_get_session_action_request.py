@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class BatchGetSessionActionRequest(TypedDict, closed=True):
     identifiers: "capo_deadline.types.batch_get_session_action_identifiers.BatchGetSessionActionIdentifiers"
-    """<p>The list of session action identifiers to retrieve. You can specify up to 100 identifiers per request.</p>"""
+    """The list of session action identifiers to retrieve. You can specify up to 100 identifiers per request."""
 
 
 # --- restJson1 ser/de ---

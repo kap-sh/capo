@@ -375,7 +375,7 @@ class DurableExecution:
 
         Args:
             durable_execution_arn: <p>The Amazon Resource Name (ARN) of the durable execution.</p>
-            error: <p>Optional error details explaining why the execution is being stopped.</p>
+            error: <p>Optional error details explaining why the execution is being stopped. The combined size of all error fields is limited to 1 MB.</p>
 
         Raises:
             capo_lambda.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid.</p>
@@ -766,7 +766,7 @@ class AsyncDurableExecution:
 
         Args:
             durable_execution_arn: <p>The Amazon Resource Name (ARN) of the durable execution.</p>
-            error: <p>Optional error details explaining why the execution is being stopped.</p>
+            error: <p>Optional error details explaining why the execution is being stopped. The combined size of all error fields is limited to 1 MB.</p>
 
         Raises:
             capo_lambda.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid.</p>

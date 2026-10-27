@@ -8,11 +8,16 @@ from capo_mediaconnect.errors import DeserializationError, SerializationError
 from capo_mediaconnect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
+    import capo_mediaconnect.types.destination_endpoint_router_input_configuration
     import capo_mediaconnect.types.failover_router_input_configuration
     import capo_mediaconnect.types.media_connect_flow_router_input_configuration
     import capo_mediaconnect.types.media_live_channel_router_input_configuration
     import capo_mediaconnect.types.merge_router_input_configuration
     import capo_mediaconnect.types.standard_router_input_configuration
+
+
+class _RouterInputConfiguration_DestinationEndpoint(TypedDict, closed=True):
+    DestinationEndpoint: "capo_mediaconnect.types.destination_endpoint_router_input_configuration.DestinationEndpointRouterInputConfiguration"
 
 
 class _RouterInputConfiguration_Standard(TypedDict, closed=True):
@@ -36,7 +41,8 @@ class _RouterInputConfiguration_Merge(TypedDict, closed=True):
 
 
 RouterInputConfiguration: TypeAlias = (
-    _RouterInputConfiguration_Standard
+    _RouterInputConfiguration_DestinationEndpoint
+    | _RouterInputConfiguration_Standard
     | _RouterInputConfiguration_MediaLiveChannel
     | _RouterInputConfiguration_Failover
     | _RouterInputConfiguration_MediaConnectFlow
@@ -51,6 +57,14 @@ def serialize_json(value: RouterInputConfiguration) -> dict:
         raise SerializationError(
             f"RouterInputConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
         )
+    elif "DestinationEndpoint" in value:
+        import capo_mediaconnect.types.destination_endpoint_router_input_configuration
+
+        return {
+            "destinationEndpoint": capo_mediaconnect.types.destination_endpoint_router_input_configuration.serialize_json(
+                value["DestinationEndpoint"]
+            )
+        }
     elif "Standard" in value:
         import capo_mediaconnect.types.standard_router_input_configuration
 
@@ -96,7 +110,15 @@ def serialize_json(value: RouterInputConfiguration) -> dict:
 
 
 def deserialize_json(data: dict) -> RouterInputConfiguration:
-    if data.get("standard") is not None:
+    if data.get("destinationEndpoint") is not None:
+        import capo_mediaconnect.types.destination_endpoint_router_input_configuration
+
+        return {
+            "DestinationEndpoint": capo_mediaconnect.types.destination_endpoint_router_input_configuration.deserialize_json(
+                data["destinationEndpoint"]
+            )
+        }
+    elif data.get("standard") is not None:
         import capo_mediaconnect.types.standard_router_input_configuration
 
         return {

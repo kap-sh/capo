@@ -13,15 +13,15 @@ if TYPE_CHECKING:
 
 class GetStorageProfileForQueueResponse(TypedDict, closed=True):
     storage_profile_id: "capo_deadline.types.storage_profile_id.StorageProfileId"
-    """<p>The storage profile ID.</p>"""
+    """The storage profile ID."""
     display_name: "capo_deadline.types.resource_name.ResourceName"
     """<p>The display name of the storage profile connected to a queue.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     os_family: "capo_deadline.types.storage_profile_operating_system_family.StorageProfileOperatingSystemFamily"
-    """<p>The operating system of the storage profile in the queue.</p>"""
+    """The operating system of the storage profile in the queue."""
     file_system_locations: NotRequired[
         "capo_deadline.types.file_system_locations_list.FileSystemLocationsList"
     ]
-    """<p>The location of the files for the storage profile within the queue.</p>"""
+    """The location of the files for the storage profile within the queue."""
 
 
 # --- restJson1 ser/de ---

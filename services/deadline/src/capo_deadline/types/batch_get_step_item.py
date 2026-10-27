@@ -30,57 +30,57 @@ if TYPE_CHECKING:
 
 class BatchGetStepItem(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the step.</p>"""
+    """The farm ID of the step."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID of the step.</p>"""
+    """The queue ID of the step."""
     job_id: "capo_deadline.types.job_id.JobId"
-    """<p>The job ID of the step.</p>"""
+    """The job ID of the step."""
     step_id: "capo_deadline.types.step_id.StepId"
-    """<p>The step ID.</p>"""
+    """The step ID."""
     name: "capo_deadline.types.step_name.StepName"
-    """<p>The name of the step.</p>"""
+    """The name of the step."""
     lifecycle_status: "capo_deadline.types.step_lifecycle_status.StepLifecycleStatus"
-    """<p>The life cycle status of the step.</p>"""
+    """The life cycle status of the step."""
     lifecycle_status_message: NotRequired["capo_deadline.types.string.String"]
-    """<p>A message that communicates the status of the life cycle.</p>"""
+    """A message that communicates the status of the life cycle."""
     task_run_status: "capo_deadline.types.task_run_status.TaskRunStatus"
-    """<p>The task run status for the step.</p>"""
+    """The task run status for the step."""
     task_run_status_counts: (
         "capo_deadline.types.task_run_status_counts.TaskRunStatusCounts"
     )
-    """<p>The number of tasks for each run status for the step.</p>"""
+    """The number of tasks for each run status for the step."""
     task_failure_retry_count: NotRequired[
         "capo_deadline.types.task_failure_retry_count.TaskFailureRetryCount"
     ]
-    """<p>The number of times that tasks failed and were retried.</p>"""
+    """The number of times that tasks failed and were retried."""
     target_task_run_status: NotRequired[
         "capo_deadline.types.step_target_task_run_status.StepTargetTaskRunStatus"
     ]
-    """<p>The task status to start with on the step.</p>"""
+    """The task status to start with on the step."""
     created_at: "capo_deadline.types.created_at.CreatedAt"
-    """<p>The date and time the resource was created.</p>"""
+    """The date and time the resource was created."""
     created_by: "capo_deadline.types.created_by.CreatedBy"
-    """<p>The user or system that created this resource.</p>"""
+    """The user or system that created this resource."""
     updated_at: NotRequired["capo_deadline.types.updated_at.UpdatedAt"]
-    """<p>The date and time the resource was updated.</p>"""
+    """The date and time the resource was updated."""
     updated_by: NotRequired["capo_deadline.types.updated_by.UpdatedBy"]
-    """<p>The user or system that updated this resource.</p>"""
+    """The user or system that updated this resource."""
     started_at: NotRequired["capo_deadline.types.started_at.StartedAt"]
-    """<p>The date and time the resource started running.</p>"""
+    """The date and time the resource started running."""
     ended_at: NotRequired["capo_deadline.types.ended_at.EndedAt"]
-    """<p>The date and time the resource ended running.</p>"""
+    """The date and time the resource ended running."""
     dependency_counts: NotRequired[
         "capo_deadline.types.dependency_counts.DependencyCounts"
     ]
-    """<p>The number of dependencies for the step.</p>"""
+    """The number of dependencies for the step."""
     required_capabilities: NotRequired[
         "capo_deadline.types.step_required_capabilities.StepRequiredCapabilities"
     ]
-    """<p>The required capabilities for the step.</p>"""
+    """The required capabilities for the step."""
     parameter_space: NotRequired["capo_deadline.types.parameter_space.ParameterSpace"]
-    """<p>The parameter space for the step.</p>"""
+    """The parameter space for the step."""
     description: NotRequired["capo_deadline.types.step_description.StepDescription"]
-    """<p>The description of the step.</p>"""
+    """The description of the step."""
 
 
 # --- restJson1 ser/de ---

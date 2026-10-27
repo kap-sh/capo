@@ -13,13 +13,13 @@ if TYPE_CHECKING:
 
 class GetSessionsStatisticsAggregationResponse(TypedDict, closed=True):
     statistics: NotRequired["capo_deadline.types.statistics_list.StatisticsList"]
-    """<p>The statistics for the specified fleets or queues.</p>"""
+    """The statistics for the specified fleets or queues."""
     status: "capo_deadline.types.sessions_statistics_aggregation_status.SessionsStatisticsAggregationStatus"
-    """<p>The status of the aggregated results. An aggregation may fail or time out if the results are too large. If this happens, you can call the <code>StartSessionsStatisticsAggregation</code> operation after you reduce the aggregation time frame, reduce the number of queues or fleets in the aggregation, or increase the period length.</p> <p>If you call the <code>StartSessionsStatisticsAggregation </code> operation when the status is <code>IN_PROGRESS</code>, you will receive a <code>ThrottlingException</code>.</p>"""
+    """The status of the aggregated results. An aggregation may fail or time out if the results are too large. If this happens, you can call the <code>StartSessionsStatisticsAggregation</code> operation after you reduce the aggregation time frame, reduce the number of queues or fleets in the aggregation, or increase the period length. If you call the <code>StartSessionsStatisticsAggregation </code> operation when the status is <code>IN_PROGRESS</code>, you will receive a <code>ThrottlingException</code>."""
     status_message: NotRequired["capo_deadline.types.string.String"]
-    """<p>A message that describes the status.</p>"""
+    """A message that describes the status."""
     next_token: NotRequired["capo_deadline.types.next_token.NextToken"]
-    """<p>If Deadline Cloud returns <code>nextToken</code>, then there are more results available. The value of <code>nextToken</code> is a unique pagination token for each page. To retrieve the next page, call the operation again using the returned token. Keep all other arguments unchanged. If no results remain, then <code>nextToken</code> is set to <code>null</code>. Each pagination token expires after 24 hours. If you provide a token that isn't valid, then you receive an HTTP 400 <code>ValidationException</code> error.</p>"""
+    """If Deadline Cloud returns <code>nextToken</code>, then there are more results available. The value of <code>nextToken</code> is a unique pagination token for each page. To retrieve the next page, call the operation again using the returned token. Keep all other arguments unchanged. If no results remain, then <code>nextToken</code> is set to <code>null</code>. Each pagination token expires after 24 hours. If you provide a token that isn't valid, then you receive an HTTP 400 <code>ValidationException</code> error."""
 
 
 # --- restJson1 ser/de ---

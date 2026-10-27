@@ -12,6 +12,9 @@ DataKeyPairSpec: TypeAlias = Literal[
     "ECC_SECG_P256K1",
     "SM2",
     "ECC_NIST_EDWARDS25519",
+    "ML_KEM_512",
+    "ML_KEM_768",
+    "ML_KEM_1024",
 ]
 
 

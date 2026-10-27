@@ -10,6 +10,7 @@ from capo_mediaconnect.types._unknown import UnknownUnionMember
 if TYPE_CHECKING:
     import capo_mediaconnect.types.media_connect_flow_router_output_stream_details
     import capo_mediaconnect.types.media_live_input_router_output_stream_details
+    import capo_mediaconnect.types.source_endpoint_router_output_stream_details
     import capo_mediaconnect.types.standard_router_output_stream_details
 
 
@@ -25,10 +26,15 @@ class _RouterOutputStreamDetails_MediaLiveInput(TypedDict, closed=True):
     MediaLiveInput: "capo_mediaconnect.types.media_live_input_router_output_stream_details.MediaLiveInputRouterOutputStreamDetails"
 
 
+class _RouterOutputStreamDetails_SourceEndpoint(TypedDict, closed=True):
+    SourceEndpoint: "capo_mediaconnect.types.source_endpoint_router_output_stream_details.SourceEndpointRouterOutputStreamDetails"
+
+
 RouterOutputStreamDetails: TypeAlias = (
     _RouterOutputStreamDetails_Standard
     | _RouterOutputStreamDetails_MediaConnectFlow
     | _RouterOutputStreamDetails_MediaLiveInput
+    | _RouterOutputStreamDetails_SourceEndpoint
     | UnknownUnionMember
 )
 
@@ -63,6 +69,14 @@ def serialize_json(value: RouterOutputStreamDetails) -> dict:
                 value["MediaLiveInput"]
             )
         }
+    elif "SourceEndpoint" in value:
+        import capo_mediaconnect.types.source_endpoint_router_output_stream_details
+
+        return {
+            "sourceEndpoint": capo_mediaconnect.types.source_endpoint_router_output_stream_details.serialize_json(
+                value["SourceEndpoint"]
+            )
+        }
     else:
         raise SerializationError("RouterOutputStreamDetails: no variant present")
 
@@ -90,6 +104,14 @@ def deserialize_json(data: dict) -> RouterOutputStreamDetails:
         return {
             "MediaLiveInput": capo_mediaconnect.types.media_live_input_router_output_stream_details.deserialize_json(
                 data["mediaLiveInput"]
+            )
+        }
+    elif data.get("sourceEndpoint") is not None:
+        import capo_mediaconnect.types.source_endpoint_router_output_stream_details
+
+        return {
+            "SourceEndpoint": capo_mediaconnect.types.source_endpoint_router_output_stream_details.deserialize_json(
+                data["sourceEndpoint"]
             )
         }
     else:

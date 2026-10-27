@@ -16,21 +16,21 @@ if TYPE_CHECKING:
 
 class CreateMonitorRequest(TypedDict, closed=True):
     client_token: NotRequired["capo_deadline.types.client_token.ClientToken"]
-    """<p>The unique token which the server uses to recognize retries of the same request.</p>"""
+    """The unique token which the server uses to recognize retries of the same request."""
     display_name: "capo_deadline.types.resource_name.ResourceName"
     """<p>The name that you give the monitor that is displayed in the Deadline Cloud console.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     identity_center_instance_arn: (
         "capo_deadline.types.identity_center_instance_arn.IdentityCenterInstanceArn"
     )
-    """<p>The Amazon Resource Name of the IAM Identity Center instance that authenticates monitor users.</p>"""
+    """The Amazon Resource Name of the IAM Identity Center instance that authenticates monitor users."""
     identity_center_region: NotRequired["capo_deadline.types.region.Region"]
-    """<p>The Region where IAM Identity Center is enabled. Required when IAM Identity Center is in a different Region than the monitor.</p>"""
+    """The Region where IAM Identity Center is enabled. Required when IAM Identity Center is in a different Region than the monitor."""
     subdomain: "capo_deadline.types.subdomain.Subdomain"
-    """<p>The subdomain to use when creating the monitor URL. The full URL of the monitor is subdomain.Region.deadlinecloud.amazonaws.com.</p>"""
+    """The subdomain to use when creating the monitor URL. The full URL of the monitor is subdomain.Region.deadlinecloud.amazonaws.com."""
     role_arn: "capo_deadline.types.iam_role_arn.IamRoleArn"
-    """<p>The Amazon Resource Name of the IAM role that the monitor uses to connect to Deadline Cloud. Every user that signs in to the monitor using IAM Identity Center uses this role to access Deadline Cloud resources.</p>"""
+    """The Amazon Resource Name of the IAM role that the monitor uses to connect to Deadline Cloud. Every user that signs in to the monitor using IAM Identity Center uses this role to access Deadline Cloud resources."""
     tags: NotRequired["capo_deadline.types.tags.Tags"]
-    """<p>The tags to add to your monitor. Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings.</p>"""
+    """The tags to add to your monitor. Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings."""
 
 
 # --- restJson1 ser/de ---

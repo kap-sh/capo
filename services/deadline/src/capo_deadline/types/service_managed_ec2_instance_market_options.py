@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class ServiceManagedEc2InstanceMarketOptions(TypedDict, closed=True):
     type: "capo_deadline.types.ec2_market_type.Ec2MarketType"
-    """<p>The Amazon EC2 instance type.</p>"""
+    """The Amazon EC2 instance type."""
 
 
 # --- restJson1 ser/de ---

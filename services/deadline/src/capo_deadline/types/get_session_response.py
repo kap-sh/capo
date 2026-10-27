@@ -22,35 +22,35 @@ if TYPE_CHECKING:
 
 class GetSessionResponse(TypedDict, closed=True):
     session_id: "capo_deadline.types.session_id.SessionId"
-    """<p>The session ID.</p>"""
+    """The session ID."""
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID for the session.</p>"""
+    """The fleet ID for the session."""
     worker_id: "capo_deadline.types.worker_id.WorkerId"
-    """<p>The worker ID for the session.</p>"""
+    """The worker ID for the session."""
     started_at: "capo_deadline.types.started_at.StartedAt"
-    """<p>The date and time the resource started running.</p>"""
+    """The date and time the resource started running."""
     lifecycle_status: (
         "capo_deadline.types.session_lifecycle_status.SessionLifecycleStatus"
     )
-    """<p>The life cycle status of the session.</p>"""
+    """The life cycle status of the session."""
     ended_at: NotRequired["capo_deadline.types.ended_at.EndedAt"]
-    """<p>The date and time the resource ended running.</p>"""
+    """The date and time the resource ended running."""
     target_lifecycle_status: NotRequired[
         "capo_deadline.types.session_lifecycle_target_status.SessionLifecycleTargetStatus"
     ]
-    """<p>The life cycle status with which the session started.</p>"""
+    """The life cycle status with which the session started."""
     updated_at: NotRequired["capo_deadline.types.updated_at.UpdatedAt"]
-    """<p>The date and time the resource was updated.</p>"""
+    """The date and time the resource was updated."""
     updated_by: NotRequired["capo_deadline.types.updated_by.UpdatedBy"]
-    """<p>The user or system that updated this resource.</p>"""
+    """The user or system that updated this resource."""
     log: "capo_deadline.types.log_configuration.LogConfiguration"
-    """<p>The session log.</p>"""
+    """The session log."""
     host_properties: NotRequired[
         "capo_deadline.types.host_properties_response.HostPropertiesResponse"
     ]
-    """<p>Provides the Amazon EC2 properties of the host.</p>"""
+    """Provides the Amazon EC2 properties of the host."""
     worker_log: NotRequired["capo_deadline.types.log_configuration.LogConfiguration"]
-    """<p>The worker log for the session.</p>"""
+    """The worker log for the session."""
 
 
 # --- restJson1 ser/de ---

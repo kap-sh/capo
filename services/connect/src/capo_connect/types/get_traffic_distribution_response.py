@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_connect.types.agent_config
     import capo_connect.types.sign_in_config
     import capo_connect.types.telephony_config
+    import capo_connect.types.timestamp
 
 
 class GetTrafficDistributionResponse(TypedDict, closed=True):
@@ -27,6 +28,8 @@ class GetTrafficDistributionResponse(TypedDict, closed=True):
     """<p>The distribution that determines which Amazon Web Services Regions should be used to sign in agents in to both the instance and its replica(s).</p>"""
     agent_config: NotRequired["capo_connect.types.agent_config.AgentConfig"]
     """<p>The distribution of agents between the instance and its replica(s).</p>"""
+    last_failover_time: NotRequired["capo_connect.types.timestamp.Timestamp"]
+    """<p>The timestamp of the most recent failover for the traffic distribution group. This value is updated each time <code>UpdateTrafficDistribution</code> is called to change the traffic distribution.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -54,6 +57,12 @@ def serialize_json(value: GetTrafficDistributionResponse) -> dict:
         out["AgentConfig"] = capo_connect.types.agent_config.serialize_json(
             value["agent_config"]
         )
+    if "last_failover_time" in value:
+        import capo_connect.types.timestamp
+
+        out["LastFailoverTime"] = capo_connect.types.timestamp.serialize_json(
+            value["last_failover_time"]
+        )
     return out
 
 
@@ -80,5 +89,11 @@ def deserialize_json(data: dict) -> GetTrafficDistributionResponse:
 
         out["agent_config"] = capo_connect.types.agent_config.deserialize_json(
             data["AgentConfig"]
+        )
+    if data.get("LastFailoverTime") is not None:
+        import capo_connect.types.timestamp
+
+        out["last_failover_time"] = capo_connect.types.timestamp.deserialize_json(
+            data["LastFailoverTime"]
         )
     return out

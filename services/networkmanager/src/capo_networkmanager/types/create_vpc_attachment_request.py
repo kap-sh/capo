@@ -8,6 +8,8 @@ if TYPE_CHECKING:
     import capo_networkmanager.types.client_token
     import capo_networkmanager.types.constrained_string
     import capo_networkmanager.types.core_network_id
+    import capo_networkmanager.types.nat_gateway_support_value
+    import capo_networkmanager.types.nat_rule_request_list
     import capo_networkmanager.types.subnet_arn_list
     import capo_networkmanager.types.tag_list
     import capo_networkmanager.types.vpc_arn
@@ -27,6 +29,14 @@ class CreateVpcAttachmentRequest(TypedDict, closed=True):
         "capo_networkmanager.types.constrained_string.ConstrainedString"
     ]
     """<p>The routing policy label to apply to the VPC attachment for traffic routing decisions.</p>"""
+    nat_gateway_support: NotRequired[
+        "capo_networkmanager.types.nat_gateway_support_value.NatGatewaySupportValue"
+    ]
+    """<p>Specifies whether to enable NAT gateway support on the VPC attachment. To enable NAT gateway support, you must also specify at least one NAT rule. If you don't specify a value, NAT gateway support is disabled. Only the core network owner can configure NAT on an attachment.</p>"""
+    nat_gateway_rules: NotRequired[
+        "capo_networkmanager.types.nat_rule_request_list.NatRuleRequestList"
+    ]
+    """<p>The NAT rules for the VPC attachment, up to 50 rules.</p>"""
     tags: NotRequired["capo_networkmanager.types.tag_list.TagList"]
     """<p>The key-value tags associated with the request.</p>"""
     client_token: NotRequired["capo_networkmanager.types.client_token.ClientToken"]
@@ -51,6 +61,22 @@ def serialize_json(value: CreateVpcAttachmentRequest) -> dict:
         )
     if "routing_policy_label" in value:
         out["RoutingPolicyLabel"] = value["routing_policy_label"]
+    if "nat_gateway_support" in value:
+        import capo_networkmanager.types.nat_gateway_support_value
+
+        out["NatGatewaySupport"] = (
+            capo_networkmanager.types.nat_gateway_support_value.serialize_json(
+                value["nat_gateway_support"]
+            )
+        )
+    if "nat_gateway_rules" in value:
+        import capo_networkmanager.types.nat_rule_request_list
+
+        out["NatGatewayRules"] = (
+            capo_networkmanager.types.nat_rule_request_list.serialize_json(
+                value["nat_gateway_rules"]
+            )
+        )
     if "tags" in value:
         import capo_networkmanager.types.tag_list
 
@@ -86,6 +112,22 @@ def deserialize_json(data: dict) -> CreateVpcAttachmentRequest:
         )
     if data.get("RoutingPolicyLabel") is not None:
         out["routing_policy_label"] = data["RoutingPolicyLabel"]
+    if data.get("NatGatewaySupport") is not None:
+        import capo_networkmanager.types.nat_gateway_support_value
+
+        out["nat_gateway_support"] = (
+            capo_networkmanager.types.nat_gateway_support_value.deserialize_json(
+                data["NatGatewaySupport"]
+            )
+        )
+    if data.get("NatGatewayRules") is not None:
+        import capo_networkmanager.types.nat_rule_request_list
+
+        out["nat_gateway_rules"] = (
+            capo_networkmanager.types.nat_rule_request_list.deserialize_json(
+                data["NatGatewayRules"]
+            )
+        )
     if data.get("Tags") is not None:
         import capo_networkmanager.types.tag_list
 

@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class ListLimitsRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The unique identifier of the farm that contains the limits.</p>"""
+    """The unique identifier of the farm that contains the limits."""
     next_token: NotRequired["capo_deadline.types.next_token.NextToken"]
-    """<p>The token for the next set of results, or <code>null</code> to start from the beginning.</p>"""
+    """The token for the next set of results, or <code>null</code> to start from the beginning."""
     max_results: NotRequired["capo_deadline.types.max_results.MaxResults"]
-    """<p>The maximum number of limits to return in each page of results.</p>"""
+    """The maximum number of limits to return in each page of results."""
 
 
 # --- restJson1 ser/de ---

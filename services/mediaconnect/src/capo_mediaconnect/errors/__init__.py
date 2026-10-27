@@ -33,6 +33,9 @@ from .create_flow420_exception import CreateFlow420Exception as CreateFlow420Exc
 from .create_gateway420_exception import (
     CreateGateway420Exception as CreateGateway420Exception,
 )
+from .destination_endpoint_service_quota_exceeded_exception import (
+    DestinationEndpointServiceQuotaExceededException as DestinationEndpointServiceQuotaExceededException,
+)
 from .forbidden_exception import ForbiddenException as ForbiddenException
 from .grant_flow_entitlements420_exception import (
     GrantFlowEntitlements420Exception as GrantFlowEntitlements420Exception,
@@ -52,6 +55,9 @@ from .router_output_service_quota_exceeded_exception import (
 )
 from .service_unavailable_exception import (
     ServiceUnavailableException as ServiceUnavailableException,
+)
+from .source_endpoint_service_quota_exceeded_exception import (
+    SourceEndpointServiceQuotaExceededException as SourceEndpointServiceQuotaExceededException,
 )
 from .too_many_requests_exception import (
     TooManyRequestsException as TooManyRequestsException,

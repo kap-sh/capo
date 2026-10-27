@@ -20,6 +20,9 @@ from capo_mediaconnect._auth._providers import (
 from capo_mediaconnect._auth._zapros_handler import AuthMiddleware
 from capo_mediaconnect._pagination import resolve_path as _resolve_path
 from capo_mediaconnect._resources.media_connect.bridge_resource import BridgeResource
+from capo_mediaconnect._resources.media_connect.destination_endpoint_resource import (
+    DestinationEndpointResource,
+)
 from capo_mediaconnect._resources.media_connect.entitlement_resource import (
     EntitlementResource,
 )
@@ -54,6 +57,9 @@ from capo_mediaconnect._resources.media_connect.router_network_interface_resourc
 )
 from capo_mediaconnect._resources.media_connect.router_output_resource import (
     RouterOutputResource,
+)
+from capo_mediaconnect._resources.media_connect.source_endpoint_resource import (
+    SourceEndpointResource,
 )
 from capo_mediaconnect._services._aws_config import aws_config
 from capo_mediaconnect._services._pipeline import (
@@ -96,15 +102,21 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.add_flow_vpc_interfaces_response
     import capo_mediaconnect.types.add_ingress_gateway_bridge_request
     import capo_mediaconnect.types.add_maintenance
+    import capo_mediaconnect.types.batch_get_destination_endpoint_request
+    import capo_mediaconnect.types.batch_get_destination_endpoint_response
     import capo_mediaconnect.types.batch_get_router_input_request
     import capo_mediaconnect.types.batch_get_router_input_response
     import capo_mediaconnect.types.batch_get_router_network_interface_request
     import capo_mediaconnect.types.batch_get_router_network_interface_response
     import capo_mediaconnect.types.batch_get_router_output_request
     import capo_mediaconnect.types.batch_get_router_output_response
+    import capo_mediaconnect.types.batch_get_source_endpoint_request
+    import capo_mediaconnect.types.batch_get_source_endpoint_response
     import capo_mediaconnect.types.bridge_arn
     import capo_mediaconnect.types.bridge_placement
     import capo_mediaconnect.types.client_token
+    import capo_mediaconnect.types.connect_endpoints_request
+    import capo_mediaconnect.types.connect_endpoints_response
     import capo_mediaconnect.types.create_bridge_request
     import capo_mediaconnect.types.create_bridge_response
     import capo_mediaconnect.types.create_flow_request
@@ -129,8 +141,12 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.delete_router_network_interface_response
     import capo_mediaconnect.types.delete_router_output_request
     import capo_mediaconnect.types.delete_router_output_response
+    import capo_mediaconnect.types.deregister_destination_endpoint_request
+    import capo_mediaconnect.types.deregister_destination_endpoint_response
     import capo_mediaconnect.types.deregister_gateway_instance_request
     import capo_mediaconnect.types.deregister_gateway_instance_response
+    import capo_mediaconnect.types.deregister_source_endpoint_request
+    import capo_mediaconnect.types.deregister_source_endpoint_response
     import capo_mediaconnect.types.describe_bridge_request
     import capo_mediaconnect.types.describe_bridge_response
     import capo_mediaconnect.types.describe_flow_request
@@ -148,6 +164,12 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.describe_reservation_request
     import capo_mediaconnect.types.describe_reservation_response
     import capo_mediaconnect.types.desired_state
+    import capo_mediaconnect.types.destination_endpoint_arn
+    import capo_mediaconnect.types.destination_endpoint_arn_list
+    import capo_mediaconnect.types.destination_endpoint_configuration
+    import capo_mediaconnect.types.destination_endpoint_filter_list
+    import capo_mediaconnect.types.disconnect_endpoints_request
+    import capo_mediaconnect.types.disconnect_endpoints_response
     import capo_mediaconnect.types.encoding_config
     import capo_mediaconnect.types.entitlement_status
     import capo_mediaconnect.types.fabric_configuration
@@ -157,6 +179,8 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.flow_transit_encryption
     import capo_mediaconnect.types.gateway_arn
     import capo_mediaconnect.types.gateway_instance_arn
+    import capo_mediaconnect.types.get_destination_endpoint_request
+    import capo_mediaconnect.types.get_destination_endpoint_response
     import capo_mediaconnect.types.get_router_input_request
     import capo_mediaconnect.types.get_router_input_response
     import capo_mediaconnect.types.get_router_input_source_metadata_request
@@ -167,10 +191,14 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.get_router_network_interface_response
     import capo_mediaconnect.types.get_router_output_request
     import capo_mediaconnect.types.get_router_output_response
+    import capo_mediaconnect.types.get_source_endpoint_request
+    import capo_mediaconnect.types.get_source_endpoint_response
     import capo_mediaconnect.types.grant_flow_entitlements_request
     import capo_mediaconnect.types.grant_flow_entitlements_response
     import capo_mediaconnect.types.list_bridges_request
     import capo_mediaconnect.types.list_bridges_response
+    import capo_mediaconnect.types.list_destination_endpoints_request
+    import capo_mediaconnect.types.list_destination_endpoints_response
     import capo_mediaconnect.types.list_entitlements_request
     import capo_mediaconnect.types.list_entitlements_response
     import capo_mediaconnect.types.list_flows_request
@@ -189,11 +217,14 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.list_router_network_interfaces_response
     import capo_mediaconnect.types.list_router_outputs_request
     import capo_mediaconnect.types.list_router_outputs_response
+    import capo_mediaconnect.types.list_source_endpoints_request
+    import capo_mediaconnect.types.list_source_endpoints_response
     import capo_mediaconnect.types.list_tags_for_global_resource_request
     import capo_mediaconnect.types.list_tags_for_global_resource_response
     import capo_mediaconnect.types.list_tags_for_resource_request
     import capo_mediaconnect.types.list_tags_for_resource_response
     import capo_mediaconnect.types.listed_bridge
+    import capo_mediaconnect.types.listed_destination_endpoint
     import capo_mediaconnect.types.listed_entitlement
     import capo_mediaconnect.types.listed_flow
     import capo_mediaconnect.types.listed_gateway
@@ -201,6 +232,7 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.listed_router_input
     import capo_mediaconnect.types.listed_router_network_interface
     import capo_mediaconnect.types.listed_router_output
+    import capo_mediaconnect.types.listed_source_endpoint
     import capo_mediaconnect.types.maintenance_configuration
     import capo_mediaconnect.types.max_results
     import capo_mediaconnect.types.media_stream_attributes_request
@@ -216,6 +248,10 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.protocol
     import capo_mediaconnect.types.purchase_offering_request
     import capo_mediaconnect.types.purchase_offering_response
+    import capo_mediaconnect.types.register_destination_endpoint_request
+    import capo_mediaconnect.types.register_destination_endpoint_response
+    import capo_mediaconnect.types.register_source_endpoint_request
+    import capo_mediaconnect.types.register_source_endpoint_response
     import capo_mediaconnect.types.remove_bridge_output_request
     import capo_mediaconnect.types.remove_bridge_output_response
     import capo_mediaconnect.types.remove_bridge_source_request
@@ -254,6 +290,10 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.router_output_tier
     import capo_mediaconnect.types.routing_scope
     import capo_mediaconnect.types.set_source_request
+    import capo_mediaconnect.types.source_endpoint_arn
+    import capo_mediaconnect.types.source_endpoint_arn_list
+    import capo_mediaconnect.types.source_endpoint_configuration
+    import capo_mediaconnect.types.source_endpoint_filter_list
     import capo_mediaconnect.types.start_flow_request
     import capo_mediaconnect.types.start_flow_response
     import capo_mediaconnect.types.start_router_input_request
@@ -284,6 +324,8 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.update_bridge_source_response
     import capo_mediaconnect.types.update_bridge_state_request
     import capo_mediaconnect.types.update_bridge_state_response
+    import capo_mediaconnect.types.update_destination_endpoint_request
+    import capo_mediaconnect.types.update_destination_endpoint_response
     import capo_mediaconnect.types.update_egress_gateway_bridge_request
     import capo_mediaconnect.types.update_encryption
     import capo_mediaconnect.types.update_failover_config
@@ -308,6 +350,8 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.update_router_network_interface_response
     import capo_mediaconnect.types.update_router_output_request
     import capo_mediaconnect.types.update_router_output_response
+    import capo_mediaconnect.types.update_source_endpoint_request
+    import capo_mediaconnect.types.update_source_endpoint_response
     import capo_mediaconnect.types.vpc_interface_attachment
 
 
@@ -387,6 +431,7 @@ class MediaConnectClient:
 
         # resources
         self.bridge_resource = BridgeResource(self)
+        self.destination_endpoint_resource = DestinationEndpointResource(self)
         self.entitlement_resource = EntitlementResource(self)
         self.flow_media_stream_resource = FlowMediaStreamResource(self)
         self.flow_output_resource = FlowOutputResource(self)
@@ -400,6 +445,7 @@ class MediaConnectClient:
         self.router_input_resource = RouterInputResource(self)
         self.router_network_interface_resource = RouterNetworkInterfaceResource(self)
         self.router_output_resource = RouterOutputResource(self)
+        self.source_endpoint_resource = SourceEndpointResource(self)
 
     def operation_options(
         self,
@@ -1536,6 +1582,480 @@ class MediaConnectClient:
         }
         if desired_state is not None:
             input_["desired_state"] = desired_state
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def register_destination_endpoint(
+        self,
+        configuration: "capo_mediaconnect.types.destination_endpoint_configuration.DestinationEndpointConfiguration",
+        *,
+        config_overrides: Optional[MediaConnectClientConfig] = None,
+        description: Optional[str] = None,
+        region_name: Optional[str] = None,
+        tags: Optional["capo_mediaconnect.types.__map_of_string.__mapOfString"] = None,
+        client_token: Optional[
+            "capo_mediaconnect.types.client_token.ClientToken"
+        ] = None,
+    ) -> "capo_mediaconnect.types.register_destination_endpoint_response.RegisterDestinationEndpointResponse":
+        """<p>Registers a new destination endpoint in MediaConnect.</p>
+
+        Args:
+            description: <p>A description to help you identify the destination endpoint.</p>
+            configuration: <p>The configuration settings for the destination endpoint.</p>
+            region_name: <p>The name of the Amazon Web Services Region in which to register the destination endpoint. Defaults to the current region if not specified.</p>
+            tags: <p>The tags to apply to the destination endpoint. Each tag is a key-value pair.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If this token matches a previous request, the service ignores the request, but does not return an error.</p>
+
+        Raises:
+            capo_mediaconnect.errors.bad_request_exception.BadRequestException: <p>This exception is thrown if the request contains a semantic error. The precise meaning depends on the API, and is documented in the error message. </p>
+            capo_mediaconnect.errors.conflict_exception.ConflictException: <p>The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request. </p>
+            capo_mediaconnect.errors.destination_endpoint_service_quota_exceeded_exception.DestinationEndpointServiceQuotaExceededException: <p>The request would cause you to exceed a service quota for destination endpoints. Delete unused destination endpoints or request a quota increase, then try your request again.</p>
+            capo_mediaconnect.errors.forbidden_exception.ForbiddenException: <p>You do not have sufficient access to perform this action. </p>
+            capo_mediaconnect.errors.internal_server_error_exception.InternalServerErrorException: <p>The server encountered an internal error and is unable to complete the request. </p>
+            capo_mediaconnect.errors.service_unavailable_exception.ServiceUnavailableException: <p>The service is currently unavailable or busy. </p>
+            capo_mediaconnect.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was denied due to request throttling. </p>
+            capo_mediaconnect.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_mediaconnect.types.register_destination_endpoint_request.RegisterDestinationEndpointRequest]",
+        ) -> OperationResponse[
+            "capo_mediaconnect.types.register_destination_endpoint_response.RegisterDestinationEndpointResponse"
+        ]:
+            import capo_mediaconnect._operations.media_connect.register_destination_endpoint
+
+            output, http_response = (
+                capo_mediaconnect._operations.media_connect.register_destination_endpoint.register_destination_endpoint(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterDestinationEndpoint")
+        )
+        input_: capo_mediaconnect.types.register_destination_endpoint_request.RegisterDestinationEndpointRequest = {
+            "configuration": configuration
+        }
+        if description is not None:
+            input_["description"] = description
+        if region_name is not None:
+            input_["region_name"] = region_name
+        if tags is not None:
+            input_["tags"] = tags
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def get_destination_endpoint(
+        self,
+        arn: "capo_mediaconnect.types.destination_endpoint_arn.DestinationEndpointArn",
+        *,
+        config_overrides: Optional[MediaConnectClientConfig] = None,
+    ) -> "capo_mediaconnect.types.get_destination_endpoint_response.GetDestinationEndpointResponse":
+        """<p>Retrieves information about a destination endpoint.</p>
+
+        Args:
+            arn: <p>The Amazon Resource Name (ARN) of the destination endpoint to retrieve.</p>
+
+        Raises:
+            capo_mediaconnect.errors.bad_request_exception.BadRequestException: <p>This exception is thrown if the request contains a semantic error. The precise meaning depends on the API, and is documented in the error message. </p>
+            capo_mediaconnect.errors.conflict_exception.ConflictException: <p>The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request. </p>
+            capo_mediaconnect.errors.forbidden_exception.ForbiddenException: <p>You do not have sufficient access to perform this action. </p>
+            capo_mediaconnect.errors.internal_server_error_exception.InternalServerErrorException: <p>The server encountered an internal error and is unable to complete the request. </p>
+            capo_mediaconnect.errors.not_found_exception.NotFoundException: <p>One or more of the resources in the request does not exist in the system. </p>
+            capo_mediaconnect.errors.service_unavailable_exception.ServiceUnavailableException: <p>The service is currently unavailable or busy. </p>
+            capo_mediaconnect.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was denied due to request throttling. </p>
+            capo_mediaconnect.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_mediaconnect.types.get_destination_endpoint_request.GetDestinationEndpointRequest]",
+        ) -> OperationResponse[
+            "capo_mediaconnect.types.get_destination_endpoint_response.GetDestinationEndpointResponse"
+        ]:
+            import capo_mediaconnect._operations.media_connect.get_destination_endpoint
+
+            output, http_response = (
+                capo_mediaconnect._operations.media_connect.get_destination_endpoint.get_destination_endpoint(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDestinationEndpoint")
+        )
+        input_: capo_mediaconnect.types.get_destination_endpoint_request.GetDestinationEndpointRequest = {
+            "arn": arn
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def update_destination_endpoint(
+        self,
+        arn: "capo_mediaconnect.types.destination_endpoint_arn.DestinationEndpointArn",
+        *,
+        config_overrides: Optional[MediaConnectClientConfig] = None,
+        description: Optional[str] = None,
+        configuration: Optional[
+            "capo_mediaconnect.types.destination_endpoint_configuration.DestinationEndpointConfiguration"
+        ] = None,
+    ) -> "capo_mediaconnect.types.update_destination_endpoint_response.UpdateDestinationEndpointResponse":
+        """<p>Updates the configuration of a destination endpoint.</p>
+
+        Args:
+            arn: <p>The Amazon Resource Name (ARN) of the destination endpoint to update.</p>
+            description: <p>A description to help you identify the destination endpoint.</p>
+            configuration: <p>The updated configuration settings for the destination endpoint.</p>
+
+        Raises:
+            capo_mediaconnect.errors.bad_request_exception.BadRequestException: <p>This exception is thrown if the request contains a semantic error. The precise meaning depends on the API, and is documented in the error message. </p>
+            capo_mediaconnect.errors.conflict_exception.ConflictException: <p>The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request. </p>
+            capo_mediaconnect.errors.forbidden_exception.ForbiddenException: <p>You do not have sufficient access to perform this action. </p>
+            capo_mediaconnect.errors.internal_server_error_exception.InternalServerErrorException: <p>The server encountered an internal error and is unable to complete the request. </p>
+            capo_mediaconnect.errors.not_found_exception.NotFoundException: <p>One or more of the resources in the request does not exist in the system. </p>
+            capo_mediaconnect.errors.service_unavailable_exception.ServiceUnavailableException: <p>The service is currently unavailable or busy. </p>
+            capo_mediaconnect.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was denied due to request throttling. </p>
+            capo_mediaconnect.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_mediaconnect.types.update_destination_endpoint_request.UpdateDestinationEndpointRequest]",
+        ) -> OperationResponse[
+            "capo_mediaconnect.types.update_destination_endpoint_response.UpdateDestinationEndpointResponse"
+        ]:
+            import capo_mediaconnect._operations.media_connect.update_destination_endpoint
+
+            output, http_response = (
+                capo_mediaconnect._operations.media_connect.update_destination_endpoint.update_destination_endpoint(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDestinationEndpoint")
+        )
+        input_: capo_mediaconnect.types.update_destination_endpoint_request.UpdateDestinationEndpointRequest = {
+            "arn": arn
+        }
+        if description is not None:
+            input_["description"] = description
+        if configuration is not None:
+            input_["configuration"] = configuration
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def deregister_destination_endpoint(
+        self,
+        arn: "capo_mediaconnect.types.destination_endpoint_arn.DestinationEndpointArn",
+        *,
+        config_overrides: Optional[MediaConnectClientConfig] = None,
+    ) -> "capo_mediaconnect.types.deregister_destination_endpoint_response.DeregisterDestinationEndpointResponse":
+        """<p>Deregisters a destination endpoint from MediaConnect.</p>
+
+        Args:
+            arn: <p>The Amazon Resource Name (ARN) of the destination endpoint to deregister.</p>
+
+        Raises:
+            capo_mediaconnect.errors.bad_request_exception.BadRequestException: <p>This exception is thrown if the request contains a semantic error. The precise meaning depends on the API, and is documented in the error message. </p>
+            capo_mediaconnect.errors.conflict_exception.ConflictException: <p>The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request. </p>
+            capo_mediaconnect.errors.forbidden_exception.ForbiddenException: <p>You do not have sufficient access to perform this action. </p>
+            capo_mediaconnect.errors.internal_server_error_exception.InternalServerErrorException: <p>The server encountered an internal error and is unable to complete the request. </p>
+            capo_mediaconnect.errors.not_found_exception.NotFoundException: <p>One or more of the resources in the request does not exist in the system. </p>
+            capo_mediaconnect.errors.service_unavailable_exception.ServiceUnavailableException: <p>The service is currently unavailable or busy. </p>
+            capo_mediaconnect.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was denied due to request throttling. </p>
+            capo_mediaconnect.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_mediaconnect.types.deregister_destination_endpoint_request.DeregisterDestinationEndpointRequest]",
+        ) -> OperationResponse[
+            "capo_mediaconnect.types.deregister_destination_endpoint_response.DeregisterDestinationEndpointResponse"
+        ]:
+            import capo_mediaconnect._operations.media_connect.deregister_destination_endpoint
+
+            output, http_response = (
+                capo_mediaconnect._operations.media_connect.deregister_destination_endpoint.deregister_destination_endpoint(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterDestinationEndpoint")
+        )
+        input_: capo_mediaconnect.types.deregister_destination_endpoint_request.DeregisterDestinationEndpointRequest = {
+            "arn": arn
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def list_destination_endpoints(
+        self,
+        *,
+        config_overrides: Optional[MediaConnectClientConfig] = None,
+        max_results: Optional[int] = None,
+        next_token: Optional[str] = None,
+        filters: Optional[
+            "capo_mediaconnect.types.destination_endpoint_filter_list.DestinationEndpointFilterList"
+        ] = None,
+    ) -> "capo_mediaconnect.types.list_destination_endpoints_response.ListDestinationEndpointsResponse":
+        """<p>Retrieves a list of the destination endpoints in your account. The results are paginated. Use the NextToken value that's returned to retrieve additional results.</p>
+
+        Args:
+            max_results: <p>The maximum number of results to return in a single request. The valid range is 1 to 100. If you don't specify a value, the service returns up to 100 results.</p>
+            next_token: <p>The token that identifies the next page of results to return. Use the token that a previous request returned.</p>
+            filters: <p>The filters to apply to the list of destination endpoints.</p>
+
+        Raises:
+            capo_mediaconnect.errors.bad_request_exception.BadRequestException: <p>This exception is thrown if the request contains a semantic error. The precise meaning depends on the API, and is documented in the error message. </p>
+            capo_mediaconnect.errors.conflict_exception.ConflictException: <p>The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request. </p>
+            capo_mediaconnect.errors.internal_server_error_exception.InternalServerErrorException: <p>The server encountered an internal error and is unable to complete the request. </p>
+            capo_mediaconnect.errors.service_unavailable_exception.ServiceUnavailableException: <p>The service is currently unavailable or busy. </p>
+            capo_mediaconnect.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was denied due to request throttling. </p>
+            capo_mediaconnect.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_mediaconnect.types.list_destination_endpoints_request.ListDestinationEndpointsRequest]",
+        ) -> OperationResponse[
+            "capo_mediaconnect.types.list_destination_endpoints_response.ListDestinationEndpointsResponse"
+        ]:
+            import capo_mediaconnect._operations.media_connect.list_destination_endpoints
+
+            output, http_response = (
+                capo_mediaconnect._operations.media_connect.list_destination_endpoints.list_destination_endpoints(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDestinationEndpoints")
+        )
+        input_: capo_mediaconnect.types.list_destination_endpoints_request.ListDestinationEndpointsRequest = {}
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if filters is not None:
+            input_["filters"] = filters
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_destination_endpoints(
+        self,
+        *,
+        config_overrides: Optional[MediaConnectClientConfig] = None,
+        max_results: Optional[int] = None,
+        next_token: Optional[str] = None,
+        filters: Optional[
+            "capo_mediaconnect.types.destination_endpoint_filter_list.DestinationEndpointFilterList"
+        ] = None,
+    ) -> "Iterator[capo_mediaconnect.types.listed_destination_endpoint.ListedDestinationEndpoint]":
+        _token = next_token
+        while True:
+            _response = self.list_destination_endpoints(
+                config_overrides=config_overrides,
+                max_results=max_results,
+                next_token=_token,
+                filters=filters,
+            )
+            _page = _resolve_path(_response, ("destination_endpoints",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    def connect_endpoints(
+        self,
+        destination_endpoint_arn: "capo_mediaconnect.types.destination_endpoint_arn.DestinationEndpointArn",
+        source_endpoint_arn: "capo_mediaconnect.types.source_endpoint_arn.SourceEndpointArn",
+        *,
+        config_overrides: Optional[MediaConnectClientConfig] = None,
+    ) -> "capo_mediaconnect.types.connect_endpoints_response.ConnectEndpointsResponse":
+        """<p>Connects a source endpoint to a destination endpoint.</p>
+
+        Args:
+            destination_endpoint_arn: <p>The Amazon Resource Name (ARN) of the destination endpoint to connect.</p>
+            source_endpoint_arn: <p>The Amazon Resource Name (ARN) of the source endpoint to connect.</p>
+
+        Raises:
+            capo_mediaconnect.errors.bad_request_exception.BadRequestException: <p>This exception is thrown if the request contains a semantic error. The precise meaning depends on the API, and is documented in the error message. </p>
+            capo_mediaconnect.errors.conflict_exception.ConflictException: <p>The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request. </p>
+            capo_mediaconnect.errors.forbidden_exception.ForbiddenException: <p>You do not have sufficient access to perform this action. </p>
+            capo_mediaconnect.errors.internal_server_error_exception.InternalServerErrorException: <p>The server encountered an internal error and is unable to complete the request. </p>
+            capo_mediaconnect.errors.not_found_exception.NotFoundException: <p>One or more of the resources in the request does not exist in the system. </p>
+            capo_mediaconnect.errors.service_unavailable_exception.ServiceUnavailableException: <p>The service is currently unavailable or busy. </p>
+            capo_mediaconnect.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was denied due to request throttling. </p>
+            capo_mediaconnect.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_mediaconnect.types.connect_endpoints_request.ConnectEndpointsRequest]",
+        ) -> OperationResponse[
+            "capo_mediaconnect.types.connect_endpoints_response.ConnectEndpointsResponse"
+        ]:
+            import capo_mediaconnect._operations.media_connect.connect_endpoints
+
+            output, http_response = (
+                capo_mediaconnect._operations.media_connect.connect_endpoints.connect_endpoints(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ConnectEndpoints")
+        )
+        input_: capo_mediaconnect.types.connect_endpoints_request.ConnectEndpointsRequest = {
+            "destination_endpoint_arn": destination_endpoint_arn,
+            "source_endpoint_arn": source_endpoint_arn,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def disconnect_endpoints(
+        self,
+        destination_endpoint_arn: "capo_mediaconnect.types.destination_endpoint_arn.DestinationEndpointArn",
+        source_endpoint_arn: "capo_mediaconnect.types.source_endpoint_arn.SourceEndpointArn",
+        *,
+        config_overrides: Optional[MediaConnectClientConfig] = None,
+    ) -> "capo_mediaconnect.types.disconnect_endpoints_response.DisconnectEndpointsResponse":
+        """<p>Disconnects a source endpoint from a destination endpoint.</p>
+
+        Args:
+            destination_endpoint_arn: <p>The Amazon Resource Name (ARN) of the destination endpoint to disconnect.</p>
+            source_endpoint_arn: <p>The Amazon Resource Name (ARN) of the source endpoint to disconnect.</p>
+
+        Raises:
+            capo_mediaconnect.errors.bad_request_exception.BadRequestException: <p>This exception is thrown if the request contains a semantic error. The precise meaning depends on the API, and is documented in the error message. </p>
+            capo_mediaconnect.errors.conflict_exception.ConflictException: <p>The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request. </p>
+            capo_mediaconnect.errors.forbidden_exception.ForbiddenException: <p>You do not have sufficient access to perform this action. </p>
+            capo_mediaconnect.errors.internal_server_error_exception.InternalServerErrorException: <p>The server encountered an internal error and is unable to complete the request. </p>
+            capo_mediaconnect.errors.not_found_exception.NotFoundException: <p>One or more of the resources in the request does not exist in the system. </p>
+            capo_mediaconnect.errors.service_unavailable_exception.ServiceUnavailableException: <p>The service is currently unavailable or busy. </p>
+            capo_mediaconnect.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was denied due to request throttling. </p>
+            capo_mediaconnect.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_mediaconnect.types.disconnect_endpoints_request.DisconnectEndpointsRequest]",
+        ) -> OperationResponse[
+            "capo_mediaconnect.types.disconnect_endpoints_response.DisconnectEndpointsResponse"
+        ]:
+            import capo_mediaconnect._operations.media_connect.disconnect_endpoints
+
+            output, http_response = (
+                capo_mediaconnect._operations.media_connect.disconnect_endpoints.disconnect_endpoints(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisconnectEndpoints")
+        )
+        input_: capo_mediaconnect.types.disconnect_endpoints_request.DisconnectEndpointsRequest = {
+            "destination_endpoint_arn": destination_endpoint_arn,
+            "source_endpoint_arn": source_endpoint_arn,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def batch_get_destination_endpoint(
+        self,
+        arns: "capo_mediaconnect.types.destination_endpoint_arn_list.DestinationEndpointArnList",
+        *,
+        config_overrides: Optional[MediaConnectClientConfig] = None,
+    ) -> "capo_mediaconnect.types.batch_get_destination_endpoint_response.BatchGetDestinationEndpointResponse":
+        """<p>Retrieves information about multiple destination endpoints in a single request.</p>
+
+        Args:
+            arns: <p>The Amazon Resource Names (ARNs) of one or more destination endpoints to retrieve. You can specify from 1 to 20 ARNs.</p>
+
+        Raises:
+            capo_mediaconnect.errors.bad_request_exception.BadRequestException: <p>This exception is thrown if the request contains a semantic error. The precise meaning depends on the API, and is documented in the error message. </p>
+            capo_mediaconnect.errors.conflict_exception.ConflictException: <p>The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request. </p>
+            capo_mediaconnect.errors.internal_server_error_exception.InternalServerErrorException: <p>The server encountered an internal error and is unable to complete the request. </p>
+            capo_mediaconnect.errors.service_unavailable_exception.ServiceUnavailableException: <p>The service is currently unavailable or busy. </p>
+            capo_mediaconnect.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was denied due to request throttling. </p>
+            capo_mediaconnect.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_mediaconnect.types.batch_get_destination_endpoint_request.BatchGetDestinationEndpointRequest]",
+        ) -> OperationResponse[
+            "capo_mediaconnect.types.batch_get_destination_endpoint_response.BatchGetDestinationEndpointResponse"
+        ]:
+            import capo_mediaconnect._operations.media_connect.batch_get_destination_endpoint
+
+            output, http_response = (
+                capo_mediaconnect._operations.media_connect.batch_get_destination_endpoint.batch_get_destination_endpoint(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetDestinationEndpoint")
+        )
+        input_: capo_mediaconnect.types.batch_get_destination_endpoint_request.BatchGetDestinationEndpointRequest = {
+            "arns": arns
+        }
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -5602,6 +6122,375 @@ class MediaConnectClient:
             config_overrides, OperationLogging("BatchGetRouterOutput")
         )
         input_: capo_mediaconnect.types.batch_get_router_output_request.BatchGetRouterOutputRequest = {
+            "arns": arns
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def register_source_endpoint(
+        self,
+        configuration: "capo_mediaconnect.types.source_endpoint_configuration.SourceEndpointConfiguration",
+        *,
+        config_overrides: Optional[MediaConnectClientConfig] = None,
+        region_name: Optional[str] = None,
+        description: Optional[str] = None,
+        tags: Optional["capo_mediaconnect.types.__map_of_string.__mapOfString"] = None,
+        client_token: Optional[
+            "capo_mediaconnect.types.client_token.ClientToken"
+        ] = None,
+    ) -> "capo_mediaconnect.types.register_source_endpoint_response.RegisterSourceEndpointResponse":
+        """<p>Registers a new source endpoint in MediaConnect.</p>
+
+        Args:
+            region_name: <p>The name of the Amazon Web Services Region in which to register the source endpoint. Defaults to the current region if not specified.</p>
+            description: <p>A description to help you identify the source endpoint.</p>
+            configuration: <p>The configuration settings for the source endpoint.</p>
+            tags: <p>The tags to apply to the source endpoint. Each tag is a key-value pair.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If this token matches a previous request, the service ignores the request, but does not return an error.</p>
+
+        Raises:
+            capo_mediaconnect.errors.bad_request_exception.BadRequestException: <p>This exception is thrown if the request contains a semantic error. The precise meaning depends on the API, and is documented in the error message. </p>
+            capo_mediaconnect.errors.conflict_exception.ConflictException: <p>The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request. </p>
+            capo_mediaconnect.errors.forbidden_exception.ForbiddenException: <p>You do not have sufficient access to perform this action. </p>
+            capo_mediaconnect.errors.internal_server_error_exception.InternalServerErrorException: <p>The server encountered an internal error and is unable to complete the request. </p>
+            capo_mediaconnect.errors.service_unavailable_exception.ServiceUnavailableException: <p>The service is currently unavailable or busy. </p>
+            capo_mediaconnect.errors.source_endpoint_service_quota_exceeded_exception.SourceEndpointServiceQuotaExceededException: <p>The request would cause you to exceed a service quota for source endpoints. Delete unused source endpoints or request a quota increase, then try your request again.</p>
+            capo_mediaconnect.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was denied due to request throttling. </p>
+            capo_mediaconnect.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_mediaconnect.types.register_source_endpoint_request.RegisterSourceEndpointRequest]",
+        ) -> OperationResponse[
+            "capo_mediaconnect.types.register_source_endpoint_response.RegisterSourceEndpointResponse"
+        ]:
+            import capo_mediaconnect._operations.media_connect.register_source_endpoint
+
+            output, http_response = (
+                capo_mediaconnect._operations.media_connect.register_source_endpoint.register_source_endpoint(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterSourceEndpoint")
+        )
+        input_: capo_mediaconnect.types.register_source_endpoint_request.RegisterSourceEndpointRequest = {
+            "configuration": configuration
+        }
+        if region_name is not None:
+            input_["region_name"] = region_name
+        if description is not None:
+            input_["description"] = description
+        if tags is not None:
+            input_["tags"] = tags
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def get_source_endpoint(
+        self,
+        arn: "capo_mediaconnect.types.source_endpoint_arn.SourceEndpointArn",
+        *,
+        config_overrides: Optional[MediaConnectClientConfig] = None,
+    ) -> (
+        "capo_mediaconnect.types.get_source_endpoint_response.GetSourceEndpointResponse"
+    ):
+        """<p>Retrieves information about a source endpoint.</p>
+
+        Args:
+            arn: <p>The Amazon Resource Name (ARN) of the source endpoint to retrieve.</p>
+
+        Raises:
+            capo_mediaconnect.errors.bad_request_exception.BadRequestException: <p>This exception is thrown if the request contains a semantic error. The precise meaning depends on the API, and is documented in the error message. </p>
+            capo_mediaconnect.errors.forbidden_exception.ForbiddenException: <p>You do not have sufficient access to perform this action. </p>
+            capo_mediaconnect.errors.internal_server_error_exception.InternalServerErrorException: <p>The server encountered an internal error and is unable to complete the request. </p>
+            capo_mediaconnect.errors.not_found_exception.NotFoundException: <p>One or more of the resources in the request does not exist in the system. </p>
+            capo_mediaconnect.errors.service_unavailable_exception.ServiceUnavailableException: <p>The service is currently unavailable or busy. </p>
+            capo_mediaconnect.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was denied due to request throttling. </p>
+            capo_mediaconnect.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_mediaconnect.types.get_source_endpoint_request.GetSourceEndpointRequest]",
+        ) -> OperationResponse[
+            "capo_mediaconnect.types.get_source_endpoint_response.GetSourceEndpointResponse"
+        ]:
+            import capo_mediaconnect._operations.media_connect.get_source_endpoint
+
+            output, http_response = (
+                capo_mediaconnect._operations.media_connect.get_source_endpoint.get_source_endpoint(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSourceEndpoint")
+        )
+        input_: capo_mediaconnect.types.get_source_endpoint_request.GetSourceEndpointRequest = {
+            "arn": arn
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def update_source_endpoint(
+        self,
+        arn: "capo_mediaconnect.types.source_endpoint_arn.SourceEndpointArn",
+        *,
+        config_overrides: Optional[MediaConnectClientConfig] = None,
+        description: Optional[str] = None,
+        configuration: Optional[
+            "capo_mediaconnect.types.source_endpoint_configuration.SourceEndpointConfiguration"
+        ] = None,
+    ) -> "capo_mediaconnect.types.update_source_endpoint_response.UpdateSourceEndpointResponse":
+        """<p>Updates the configuration of a source endpoint.</p>
+
+        Args:
+            arn: <p>The Amazon Resource Name (ARN) of the source endpoint to update.</p>
+            description: <p>A description to help you identify the source endpoint.</p>
+            configuration: <p>The updated configuration settings for the source endpoint.</p>
+
+        Raises:
+            capo_mediaconnect.errors.bad_request_exception.BadRequestException: <p>This exception is thrown if the request contains a semantic error. The precise meaning depends on the API, and is documented in the error message. </p>
+            capo_mediaconnect.errors.conflict_exception.ConflictException: <p>The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request. </p>
+            capo_mediaconnect.errors.forbidden_exception.ForbiddenException: <p>You do not have sufficient access to perform this action. </p>
+            capo_mediaconnect.errors.internal_server_error_exception.InternalServerErrorException: <p>The server encountered an internal error and is unable to complete the request. </p>
+            capo_mediaconnect.errors.not_found_exception.NotFoundException: <p>One or more of the resources in the request does not exist in the system. </p>
+            capo_mediaconnect.errors.service_unavailable_exception.ServiceUnavailableException: <p>The service is currently unavailable or busy. </p>
+            capo_mediaconnect.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was denied due to request throttling. </p>
+            capo_mediaconnect.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_mediaconnect.types.update_source_endpoint_request.UpdateSourceEndpointRequest]",
+        ) -> OperationResponse[
+            "capo_mediaconnect.types.update_source_endpoint_response.UpdateSourceEndpointResponse"
+        ]:
+            import capo_mediaconnect._operations.media_connect.update_source_endpoint
+
+            output, http_response = (
+                capo_mediaconnect._operations.media_connect.update_source_endpoint.update_source_endpoint(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSourceEndpoint")
+        )
+        input_: capo_mediaconnect.types.update_source_endpoint_request.UpdateSourceEndpointRequest = {
+            "arn": arn
+        }
+        if description is not None:
+            input_["description"] = description
+        if configuration is not None:
+            input_["configuration"] = configuration
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def deregister_source_endpoint(
+        self,
+        arn: "capo_mediaconnect.types.source_endpoint_arn.SourceEndpointArn",
+        *,
+        config_overrides: Optional[MediaConnectClientConfig] = None,
+    ) -> "capo_mediaconnect.types.deregister_source_endpoint_response.DeregisterSourceEndpointResponse":
+        """<p>Deregisters a source endpoint from MediaConnect.</p>
+
+        Args:
+            arn: <p>The Amazon Resource Name (ARN) of the source endpoint to deregister.</p>
+
+        Raises:
+            capo_mediaconnect.errors.bad_request_exception.BadRequestException: <p>This exception is thrown if the request contains a semantic error. The precise meaning depends on the API, and is documented in the error message. </p>
+            capo_mediaconnect.errors.conflict_exception.ConflictException: <p>The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request. </p>
+            capo_mediaconnect.errors.forbidden_exception.ForbiddenException: <p>You do not have sufficient access to perform this action. </p>
+            capo_mediaconnect.errors.internal_server_error_exception.InternalServerErrorException: <p>The server encountered an internal error and is unable to complete the request. </p>
+            capo_mediaconnect.errors.not_found_exception.NotFoundException: <p>One or more of the resources in the request does not exist in the system. </p>
+            capo_mediaconnect.errors.service_unavailable_exception.ServiceUnavailableException: <p>The service is currently unavailable or busy. </p>
+            capo_mediaconnect.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was denied due to request throttling. </p>
+            capo_mediaconnect.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_mediaconnect.types.deregister_source_endpoint_request.DeregisterSourceEndpointRequest]",
+        ) -> OperationResponse[
+            "capo_mediaconnect.types.deregister_source_endpoint_response.DeregisterSourceEndpointResponse"
+        ]:
+            import capo_mediaconnect._operations.media_connect.deregister_source_endpoint
+
+            output, http_response = (
+                capo_mediaconnect._operations.media_connect.deregister_source_endpoint.deregister_source_endpoint(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterSourceEndpoint")
+        )
+        input_: capo_mediaconnect.types.deregister_source_endpoint_request.DeregisterSourceEndpointRequest = {
+            "arn": arn
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def list_source_endpoints(
+        self,
+        *,
+        config_overrides: Optional[MediaConnectClientConfig] = None,
+        max_results: Optional[int] = None,
+        next_token: Optional[str] = None,
+        filters: Optional[
+            "capo_mediaconnect.types.source_endpoint_filter_list.SourceEndpointFilterList"
+        ] = None,
+    ) -> "capo_mediaconnect.types.list_source_endpoints_response.ListSourceEndpointsResponse":
+        """<p>Retrieves a list of the source endpoints in your account. The results are paginated. Use the NextToken value that's returned to retrieve additional results.</p>
+
+        Args:
+            max_results: <p>The maximum number of results to return in a single request. The valid range is 1 to 100. If you don't specify a value, the service returns up to 100 results.</p>
+            next_token: <p>The token that identifies the next page of results to return. Use the token that a previous request returned.</p>
+            filters: <p>The filters to apply to the list of source endpoints.</p>
+
+        Raises:
+            capo_mediaconnect.errors.bad_request_exception.BadRequestException: <p>This exception is thrown if the request contains a semantic error. The precise meaning depends on the API, and is documented in the error message. </p>
+            capo_mediaconnect.errors.conflict_exception.ConflictException: <p>The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request. </p>
+            capo_mediaconnect.errors.internal_server_error_exception.InternalServerErrorException: <p>The server encountered an internal error and is unable to complete the request. </p>
+            capo_mediaconnect.errors.service_unavailable_exception.ServiceUnavailableException: <p>The service is currently unavailable or busy. </p>
+            capo_mediaconnect.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was denied due to request throttling. </p>
+            capo_mediaconnect.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_mediaconnect.types.list_source_endpoints_request.ListSourceEndpointsRequest]",
+        ) -> OperationResponse[
+            "capo_mediaconnect.types.list_source_endpoints_response.ListSourceEndpointsResponse"
+        ]:
+            import capo_mediaconnect._operations.media_connect.list_source_endpoints
+
+            output, http_response = (
+                capo_mediaconnect._operations.media_connect.list_source_endpoints.list_source_endpoints(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSourceEndpoints")
+        )
+        input_: capo_mediaconnect.types.list_source_endpoints_request.ListSourceEndpointsRequest = {}
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if filters is not None:
+            input_["filters"] = filters
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_source_endpoints(
+        self,
+        *,
+        config_overrides: Optional[MediaConnectClientConfig] = None,
+        max_results: Optional[int] = None,
+        next_token: Optional[str] = None,
+        filters: Optional[
+            "capo_mediaconnect.types.source_endpoint_filter_list.SourceEndpointFilterList"
+        ] = None,
+    ) -> (
+        "Iterator[capo_mediaconnect.types.listed_source_endpoint.ListedSourceEndpoint]"
+    ):
+        _token = next_token
+        while True:
+            _response = self.list_source_endpoints(
+                config_overrides=config_overrides,
+                max_results=max_results,
+                next_token=_token,
+                filters=filters,
+            )
+            _page = _resolve_path(_response, ("source_endpoints",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    def batch_get_source_endpoint(
+        self,
+        arns: "capo_mediaconnect.types.source_endpoint_arn_list.SourceEndpointArnList",
+        *,
+        config_overrides: Optional[MediaConnectClientConfig] = None,
+    ) -> "capo_mediaconnect.types.batch_get_source_endpoint_response.BatchGetSourceEndpointResponse":
+        """<p>Retrieves information about multiple source endpoints in a single request.</p>
+
+        Args:
+            arns: <p>The Amazon Resource Names (ARNs) of one or more source endpoints to retrieve. You can specify from 1 to 20 ARNs.</p>
+
+        Raises:
+            capo_mediaconnect.errors.bad_request_exception.BadRequestException: <p>This exception is thrown if the request contains a semantic error. The precise meaning depends on the API, and is documented in the error message. </p>
+            capo_mediaconnect.errors.conflict_exception.ConflictException: <p>The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request. </p>
+            capo_mediaconnect.errors.internal_server_error_exception.InternalServerErrorException: <p>The server encountered an internal error and is unable to complete the request. </p>
+            capo_mediaconnect.errors.service_unavailable_exception.ServiceUnavailableException: <p>The service is currently unavailable or busy. </p>
+            capo_mediaconnect.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was denied due to request throttling. </p>
+            capo_mediaconnect.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_mediaconnect.types.batch_get_source_endpoint_request.BatchGetSourceEndpointRequest]",
+        ) -> OperationResponse[
+            "capo_mediaconnect.types.batch_get_source_endpoint_response.BatchGetSourceEndpointResponse"
+        ]:
+            import capo_mediaconnect._operations.media_connect.batch_get_source_endpoint
+
+            output, http_response = (
+                capo_mediaconnect._operations.media_connect.batch_get_source_endpoint.batch_get_source_endpoint(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetSourceEndpoint")
+        )
+        input_: capo_mediaconnect.types.batch_get_source_endpoint_request.BatchGetSourceEndpointRequest = {
             "arns": arns
         }
 

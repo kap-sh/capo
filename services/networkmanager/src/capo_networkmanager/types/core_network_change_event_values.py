@@ -40,7 +40,7 @@ class CoreNetworkChangeEventValues(TypedDict, closed=True):
     routing_policy_association_details: NotRequired[
         "capo_networkmanager.types.routing_policy_association_details_list.RoutingPolicyAssociationDetailsList"
     ]
-    """<p>The names of the routing policies and other association details in the core network change values.</p>"""
+    """<p>The names of the routing policies and other association details in a core network change event.</p>"""
 
 
 # --- restJson1 ser/de ---

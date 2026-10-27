@@ -9,6 +9,8 @@ ConnectPeerErrorCode: TypeAlias = Literal[
     "IP_OUTSIDE_SUBNET_CIDR_RANGE",
     "INVALID_INSIDE_CIDR_BLOCK",
     "NO_ASSOCIATED_CIDR_BLOCK",
+    "CREATION_FAILED",
+    "DELETION_FAILED",
 ]
 
 

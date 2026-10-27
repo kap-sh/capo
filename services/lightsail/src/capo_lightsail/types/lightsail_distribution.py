@@ -20,6 +20,7 @@ if TYPE_CHECKING:
     import capo_lightsail.types.string
     import capo_lightsail.types.string_list
     import capo_lightsail.types.tag_list
+    import capo_lightsail.types.waf_config
 
 
 class LightsailDistribution(TypedDict, closed=True):
@@ -79,6 +80,8 @@ class LightsailDistribution(TypedDict, closed=True):
         "capo_lightsail.types.distribution_custom_error_response_list.DistributionCustomErrorResponseList"
     ]
     """<p>An array of objects that describe the custom error responses configured for the distribution.</p>"""
+    waf: NotRequired["capo_lightsail.types.waf_config.WafConfig"]
+    """<p>An object that describes the Web Application Firewall (WAF) configuration of the distribution.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -187,6 +190,12 @@ def serialize_aws_json_1_1(value: LightsailDistribution) -> dict:
             capo_lightsail.types.distribution_custom_error_response_list.serialize_aws_json_1_1(
                 value["custom_error_responses"]
             )
+        )
+    if "waf" in value:
+        import capo_lightsail.types.waf_config
+
+        out["waf"] = capo_lightsail.types.waf_config.serialize_aws_json_1_1(
+            value["waf"]
         )
     return out
 
@@ -300,5 +309,11 @@ def deserialize_aws_json_1_1(data: dict) -> LightsailDistribution:
             capo_lightsail.types.distribution_custom_error_response_list.deserialize_aws_json_1_1(
                 data["customErrorResponses"]
             )
+        )
+    if data.get("waf") is not None:
+        import capo_lightsail.types.waf_config
+
+        out["waf"] = capo_lightsail.types.waf_config.deserialize_aws_json_1_1(
+            data["waf"]
         )
     return out

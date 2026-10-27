@@ -31,63 +31,63 @@ if TYPE_CHECKING:
 
 class GetJobResponse(TypedDict, closed=True):
     job_id: "capo_deadline.types.job_id.JobId"
-    """<p>The job ID.</p>"""
+    """The job ID."""
     name: "capo_deadline.types.job_name.JobName"
-    """<p>The name of the job.</p>"""
+    """The name of the job."""
     lifecycle_status: "capo_deadline.types.job_lifecycle_status.JobLifecycleStatus"
     """<p>The life cycle status for the job. </p>"""
     lifecycle_status_message: "capo_deadline.types.string.String"
-    """<p>A message that communicates the status of the life cycle for the job.</p>"""
+    """A message that communicates the status of the life cycle for the job."""
     priority: "capo_deadline.types.job_priority.JobPriority"
-    """<p>The job priority.</p>"""
+    """The job priority."""
     created_at: "capo_deadline.types.created_at.CreatedAt"
-    """<p>The date and time the resource was created.</p>"""
+    """The date and time the resource was created."""
     created_by: "capo_deadline.types.created_by.CreatedBy"
-    """<p>The user or system that created this resource.</p>"""
+    """The user or system that created this resource."""
     updated_at: NotRequired["capo_deadline.types.updated_at.UpdatedAt"]
-    """<p>The date and time the resource was updated.</p>"""
+    """The date and time the resource was updated."""
     updated_by: NotRequired["capo_deadline.types.updated_by.UpdatedBy"]
-    """<p>The user or system that updated this resource.</p>"""
+    """The user or system that updated this resource."""
     started_at: NotRequired["capo_deadline.types.started_at.StartedAt"]
-    """<p>The date and time the resource started running.</p>"""
+    """The date and time the resource started running."""
     ended_at: NotRequired["capo_deadline.types.ended_at.EndedAt"]
-    """<p>The date and time the resource ended running.</p>"""
+    """The date and time the resource ended running."""
     task_run_status: NotRequired["capo_deadline.types.task_run_status.TaskRunStatus"]
-    """<p>The task run status for the job.</p>"""
+    """The task run status for the job."""
     target_task_run_status: NotRequired[
         "capo_deadline.types.job_target_task_run_status.JobTargetTaskRunStatus"
     ]
-    """<p>The task status with which the job started.</p>"""
+    """The task status with which the job started."""
     task_run_status_counts: NotRequired[
         "capo_deadline.types.task_run_status_counts.TaskRunStatusCounts"
     ]
-    """<p>The number of tasks running on the job.</p>"""
+    """The number of tasks running on the job."""
     task_failure_retry_count: NotRequired[
         "capo_deadline.types.task_failure_retry_count.TaskFailureRetryCount"
     ]
-    """<p>The total number of times tasks from the job failed and were retried.</p>"""
+    """The total number of times tasks from the job failed and were retried."""
     storage_profile_id: NotRequired[
         "capo_deadline.types.storage_profile_id.StorageProfileId"
     ]
-    """<p>The storage profile ID associated with the job.</p>"""
+    """The storage profile ID associated with the job."""
     max_failed_tasks_count: NotRequired[
         "capo_deadline.types.max_failed_tasks_count.MaxFailedTasksCount"
     ]
-    """<p>The number of task failures before the job stops running and is marked as <code>FAILED</code>.</p>"""
+    """The number of task failures before the job stops running and is marked as <code>FAILED</code>."""
     max_retries_per_task: NotRequired[
         "capo_deadline.types.max_retries_per_task.MaxRetriesPerTask"
     ]
-    """<p>The maximum number of retries per failed tasks.</p>"""
+    """The maximum number of retries per failed tasks."""
     parameters: NotRequired["capo_deadline.types.job_parameters.JobParameters"]
-    """<p>The parameters for the job.</p>"""
+    """The parameters for the job."""
     attachments: NotRequired["capo_deadline.types.attachments.Attachments"]
-    """<p>The attachments for the job.</p>"""
+    """The attachments for the job."""
     description: NotRequired["capo_deadline.types.job_description.JobDescription"]
     """<p>The description of the job.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     max_worker_count: NotRequired["capo_deadline.types.max_worker_count.MaxWorkerCount"]
-    """<p>The maximum number of worker hosts that can concurrently process a job. When the <code>maxWorkerCount</code> is reached, no more workers will be assigned to process the job, even if the fleets assigned to the job's queue has available workers.</p> <p>If you don't set the <code>maxWorkerCount</code> when you create a job, this value is not returned in the response.</p>"""
+    """The maximum number of worker hosts that can concurrently process a job. When the <code>maxWorkerCount</code> is reached, no more workers will be assigned to process the job, even if the fleets assigned to the job's queue has available workers. If you don't set the <code>maxWorkerCount</code> when you create a job, this value is not returned in the response."""
     source_job_id: NotRequired["capo_deadline.types.job_id.JobId"]
-    """<p>The job ID for the source job.</p>"""
+    """The job ID for the source job."""
 
 
 # --- restJson1 ser/de ---

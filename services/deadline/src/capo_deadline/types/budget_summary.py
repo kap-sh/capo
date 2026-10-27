@@ -22,11 +22,11 @@ if TYPE_CHECKING:
 
 class BudgetSummary(TypedDict, closed=True):
     budget_id: "capo_deadline.types.budget_id.BudgetId"
-    """<p>The budget ID.</p>"""
+    """The budget ID."""
     usage_tracking_resource: (
         "capo_deadline.types.usage_tracking_resource.UsageTrackingResource"
     )
-    """<p>The resource used to track expenditure in the budget.</p>"""
+    """The resource used to track expenditure in the budget."""
     status: "capo_deadline.types.budget_status.BudgetStatus"
     """<p>The status of the budget.</p> <ul> <li> <p> <code>ACTIVE</code>–The budget is being evaluated.</p> </li> <li> <p> <code>INACTIVE</code>–The budget is inactive. This can include Expired, Canceled, or deleted Deleted statuses.</p> </li> </ul>"""
     display_name: "capo_deadline.types.resource_name.ResourceName"
@@ -34,17 +34,17 @@ class BudgetSummary(TypedDict, closed=True):
     approximate_dollar_limit: (
         "capo_deadline.types.consumed_usage_limit.ConsumedUsageLimit"
     )
-    """<p>The approximate dollar limit of the budget.</p>"""
+    """The approximate dollar limit of the budget."""
     usages: "capo_deadline.types.consumed_usages.ConsumedUsages"
-    """<p>The consumed usage for the budget.</p>"""
+    """The consumed usage for the budget."""
     created_by: "capo_deadline.types.created_by.CreatedBy"
-    """<p>The user or system that created this resource.</p>"""
+    """The user or system that created this resource."""
     created_at: "capo_deadline.types.created_at.CreatedAt"
-    """<p>The date and time the resource was created.</p>"""
+    """The date and time the resource was created."""
     updated_by: NotRequired["capo_deadline.types.updated_by.UpdatedBy"]
-    """<p>The user or system that updated this resource.</p>"""
+    """The user or system that updated this resource."""
     updated_at: NotRequired["capo_deadline.types.updated_at.UpdatedAt"]
-    """<p>The date and time the resource was updated.</p>"""
+    """The date and time the resource was updated."""
     description: NotRequired["capo_deadline.types.description.Description"]
     """<p>The description of the budget summary.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
 

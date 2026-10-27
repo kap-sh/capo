@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class CreateQueueFleetAssociationRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The ID of the farm that the queue and fleet belong to.</p>"""
+    """The ID of the farm that the queue and fleet belong to."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID.</p>"""
+    """The queue ID."""
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID.</p>"""
+    """The fleet ID."""
 
 
 # --- restJson1 ser/de ---

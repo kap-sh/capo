@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class GetFleetRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the farm in the fleet.</p>"""
+    """The farm ID of the farm in the fleet."""
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID of the fleet to get.</p>"""
+    """The fleet ID of the fleet to get."""
 
 
 # --- restJson1 ser/de ---

@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class BatchGetTaskResponse(TypedDict, closed=True):
     tasks: "capo_deadline.types.batch_get_task_items.BatchGetTaskItems"
-    """<p>A list of tasks that were successfully retrieved.</p>"""
+    """A list of tasks that were successfully retrieved."""
     errors: "capo_deadline.types.batch_get_task_errors.BatchGetTaskErrors"
-    """<p>A list of errors for tasks that could not be retrieved.</p>"""
+    """A list of errors for tasks that could not be retrieved."""
 
 
 # --- restJson1 ser/de ---

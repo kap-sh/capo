@@ -139,7 +139,7 @@ class CollectionGroup:
         Args:
             id: <p>The unique identifier of the collection group to update.</p>
             description: <p>A new description for the collection group.</p>
-            capacity_limits: <p>Updated capacity limits for the collection group, in OpenSearch Compute Units (OCUs).</p>
+            capacity_limits: <p>The updated capacity limits for the collection group, in OpenSearch Compute Units (OCUs). Updates to capacity limits are not incremental. Any field not specified resets to its default value.</p>
             client_token: <p>Unique, case-sensitive identifier to ensure idempotency of the request.</p>
 
         Raises:
@@ -393,7 +393,7 @@ class AsyncCollectionGroup:
         Args:
             id: <p>The unique identifier of the collection group to update.</p>
             description: <p>A new description for the collection group.</p>
-            capacity_limits: <p>Updated capacity limits for the collection group, in OpenSearch Compute Units (OCUs).</p>
+            capacity_limits: <p>The updated capacity limits for the collection group, in OpenSearch Compute Units (OCUs). Updates to capacity limits are not incremental. Any field not specified resets to its default value.</p>
             client_token: <p>Unique, case-sensitive identifier to ensure idempotency of the request.</p>
 
         Raises:

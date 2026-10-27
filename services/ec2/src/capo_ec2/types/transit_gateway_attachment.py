@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     import capo_ec2.types.string
     import capo_ec2.types.tag_list
     import capo_ec2.types.transit_gateway_attachment_association
+    import capo_ec2.types.transit_gateway_attachment_nat_gateway_support_state
     import capo_ec2.types.transit_gateway_attachment_resource_type
     import capo_ec2.types.transit_gateway_attachment_state
 
@@ -42,6 +43,10 @@ class TransitGatewayAttachment(TypedDict, closed=True):
     """<p>The creation time.</p>"""
     tags: NotRequired["capo_ec2.types.tag_list.TagList"]
     """<p>The tags for the attachment.</p>"""
+    nat_gateway_support: NotRequired[
+        "capo_ec2.types.transit_gateway_attachment_nat_gateway_support_state.TransitGatewayAttachmentNatGatewaySupportState"
+    ]
+    """<p>The state of NAT gateway support for the attachment. Only the owner of the transit gateway receives this parameter.</p>"""
 
 
 # --- ec2Query ser/de ---
@@ -100,6 +105,12 @@ def serialize_ec2_query(
 
         capo_ec2.types.tag_list.serialize_ec2_query(
             value["tags"], pairs, f"{key_prefix}TagSet"
+        )
+    if "nat_gateway_support" in value:
+        import capo_ec2.types.transit_gateway_attachment_nat_gateway_support_state
+
+        capo_ec2.types.transit_gateway_attachment_nat_gateway_support_state.serialize_ec2_query(
+            value["nat_gateway_support"], pairs, f"{key_prefix}NatGatewaySupport"
         )
 
 
@@ -161,4 +172,13 @@ def deserialize_ec2_query(el: Element) -> TransitGatewayAttachment:
         import capo_ec2.types.tag_list
 
         out["tags"] = capo_ec2.types.tag_list.deserialize_ec2_query(child_tags)
+    child_nat_gateway_support = el.find("natGatewaySupport")
+    if child_nat_gateway_support is not None:
+        import capo_ec2.types.transit_gateway_attachment_nat_gateway_support_state
+
+        out["nat_gateway_support"] = (
+            capo_ec2.types.transit_gateway_attachment_nat_gateway_support_state.deserialize_ec2_query(
+                child_nat_gateway_support
+            )
+        )
     return out

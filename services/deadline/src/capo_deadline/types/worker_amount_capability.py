@@ -10,9 +10,9 @@ if TYPE_CHECKING:
 
 class WorkerAmountCapability(TypedDict, closed=True):
     name: "capo_deadline.types.amount_capability_name.AmountCapabilityName"
-    """<p>The name of the worker amount capability.</p>"""
+    """The name of the worker amount capability."""
     value: "float"
-    """<p>The value of the worker amount capability.</p>"""
+    """The value of the worker amount capability."""
 
 
 # --- restJson1 ser/de ---

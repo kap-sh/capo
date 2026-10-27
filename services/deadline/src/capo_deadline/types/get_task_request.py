@@ -14,15 +14,15 @@ if TYPE_CHECKING:
 
 class GetTaskRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the farm connected to the task.</p>"""
+    """The farm ID of the farm connected to the task."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID for the queue connected to the task.</p>"""
+    """The queue ID for the queue connected to the task."""
     job_id: "capo_deadline.types.job_id.JobId"
-    """<p>The job ID of the job connected to the task.</p>"""
+    """The job ID of the job connected to the task."""
     step_id: "capo_deadline.types.step_id.StepId"
-    """<p>The step ID for the step connected to the task.</p>"""
+    """The step ID for the step connected to the task."""
     task_id: "capo_deadline.types.task_id.TaskId"
-    """<p>The task ID.</p>"""
+    """The task ID."""
 
 
 # --- restJson1 ser/de ---

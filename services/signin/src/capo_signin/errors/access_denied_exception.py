@@ -13,9 +13,9 @@ if TYPE_CHECKING:
 
 class AccessDeniedException_(TypedDict, closed=True):
     error: "capo_signin.types.o_auth2_error_code.OAuth2ErrorCode"
-    """OAuth 2.0 error code indicating the specific type of access denial Can be TOKEN_EXPIRED, AUTHCODE_EXPIRED, USER_CREDENTIALS_CHANGED, or INSUFFICIENT_PERMISSIONS"""
+    """One of TOKEN_EXPIRED, AUTHCODE_EXPIRED, USER_CREDENTIALS_CHANGED, or INSUFFICIENT_PERMISSIONS."""
     message: "str"
-    """Detailed message explaining the access denial Provides specific information about why access was denied"""
+    """The reason access was denied."""
 
 
 # --- restJson1 ser/de ---

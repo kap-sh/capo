@@ -17,23 +17,23 @@ if TYPE_CHECKING:
 
 class AssociateMemberToJobRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the job to associate with the member.</p>"""
+    """The farm ID of the job to associate with the member."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID to associate to the member.</p>"""
+    """The queue ID to associate to the member."""
     job_id: "capo_deadline.types.job_id.JobId"
-    """<p>The job ID to associate with the member.</p>"""
+    """The job ID to associate with the member."""
     principal_type: "capo_deadline.types.deadline_principal_type.DeadlinePrincipalType"
-    """<p>The member's principal type to associate with the job.</p>"""
+    """The member's principal type to associate with the job."""
     identity_store_id: "capo_deadline.types.identity_store_id.IdentityStoreId"
-    """<p>The member's identity store ID to associate with the job.</p>"""
+    """The member's identity store ID to associate with the job."""
     membership_level: "capo_deadline.types.membership_level.MembershipLevel"
-    """<p>The principal's membership level for the associated job.</p>"""
+    """The principal's membership level for the associated job."""
     principal_id: (
         "capo_deadline.types.identity_center_principal_id.IdentityCenterPrincipalId"
     )
-    """<p>The member's principal ID to associate with the job.</p>"""
+    """The member's principal ID to associate with the job."""
     identity_center_region: NotRequired["capo_deadline.types.region.Region"]
-    """<p>The Region of the IAM Identity Center instance. If not provided, the service defaults to the Region of the farm.</p>"""
+    """The Region of the IAM Identity Center instance. If not provided, the service defaults to the Region of the farm."""
 
 
 # --- restJson1 ser/de ---

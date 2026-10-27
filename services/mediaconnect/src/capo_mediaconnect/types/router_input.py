@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import datetime
 
     import capo_mediaconnect.types.__map_of_string
+    import capo_mediaconnect.types.destination_endpoint_arn_list
     import capo_mediaconnect.types.maintenance_configuration
     import capo_mediaconnect.types.maintenance_schedule
     import capo_mediaconnect.types.maintenance_schedule_type
@@ -91,6 +92,10 @@ class RouterInput(TypedDict, closed=True):
         "capo_mediaconnect.types.router_content_quality_analysis_configuration.RouterContentQualityAnalysisConfiguration"
     ]
     """<p>The content quality analysis configuration for the router input.</p>"""
+    associated_destination_endpoint_arns: NotRequired[
+        "capo_mediaconnect.types.destination_endpoint_arn_list.DestinationEndpointArnList"
+    ]
+    """<p>The Amazon Resource Names (ARNs) of one or more destination endpoints that are associated with this router input.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -208,6 +213,14 @@ def serialize_json(value: RouterInput) -> dict:
         out["contentQualityAnalysisConfiguration"] = (
             capo_mediaconnect.types.router_content_quality_analysis_configuration.serialize_json(
                 value["content_quality_analysis_configuration"]
+            )
+        )
+    if "associated_destination_endpoint_arns" in value:
+        import capo_mediaconnect.types.destination_endpoint_arn_list
+
+        out["associatedDestinationEndpointArns"] = (
+            capo_mediaconnect.types.destination_endpoint_arn_list.serialize_json(
+                value["associated_destination_endpoint_arns"]
             )
         )
     return out
@@ -417,6 +430,14 @@ def deserialize_json(data: dict) -> RouterInput:
         out["content_quality_analysis_configuration"] = (
             capo_mediaconnect.types.router_content_quality_analysis_configuration.deserialize_json(
                 data["contentQualityAnalysisConfiguration"]
+            )
+        )
+    if data.get("associatedDestinationEndpointArns") is not None:
+        import capo_mediaconnect.types.destination_endpoint_arn_list
+
+        out["associated_destination_endpoint_arns"] = (
+            capo_mediaconnect.types.destination_endpoint_arn_list.deserialize_json(
+                data["associatedDestinationEndpointArns"]
             )
         )
     return out

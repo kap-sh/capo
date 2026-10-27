@@ -13,13 +13,13 @@ if TYPE_CHECKING:
 
 class LogConfiguration(TypedDict, closed=True):
     log_driver: "capo_deadline.types.log_driver.LogDriver"
-    """<p>The log drivers for worker related logs.</p>"""
+    """The log drivers for worker related logs."""
     options: NotRequired["capo_deadline.types.log_options.LogOptions"]
-    """<p>The options for a log driver.</p>"""
+    """The options for a log driver."""
     parameters: NotRequired["capo_deadline.types.log_parameters.LogParameters"]
-    """<p>The parameters for the log configuration.</p>"""
+    """The parameters for the log configuration."""
     error: NotRequired["capo_deadline.types.log_error.LogError"]
-    """<p>The log configuration error details.</p>"""
+    """The log configuration error details."""
 
 
 # --- restJson1 ser/de ---

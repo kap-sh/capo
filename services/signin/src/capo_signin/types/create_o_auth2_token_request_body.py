@@ -15,17 +15,17 @@ if TYPE_CHECKING:
 
 class CreateOAuth2TokenRequestBody(TypedDict, closed=True):
     client_id: "capo_signin.types.client_id.ClientId"
-    """The client identifier (ARN) used during Sign-In onboarding Required for both authorization code and refresh token flows"""
+    """The OAuth 2.0 client identifier. Expected values: "arn:aws:signin:::devtools/same-device" or "arn:aws:signin:::devtools/cross-device"."""
     grant_type: "capo_signin.types.grant_type.GrantType"
-    """OAuth 2.0 grant type - determines which flow is used Must be \"authorization_code\" or \"refresh_token\""""
+    """The OAuth 2.0 grant type. Supported values: - "authorization_code" - Exchange an authorization code for tokens. - "refresh_token" - Use a refresh token to obtain a new access token."""
     code: NotRequired["capo_signin.types.authorization_code.AuthorizationCode"]
-    """The authorization code received from /v1/authorize Required only when grant_type=authorization_code"""
+    """The authorization code received from the "/v1/authorize" endpoint. Required when "grant_type=authorization_code"."""
     redirect_uri: NotRequired["capo_signin.types.redirect_uri.RedirectUri"]
-    """The redirect URI that must match the original authorization request Required only when grant_type=authorization_code"""
+    """The redirect URI that was used in the original authorization request. Must match exactly. Required when "grant_type=authorization_code"."""
     code_verifier: NotRequired["capo_signin.types.code_verifier.CodeVerifier"]
-    """PKCE code verifier to prove possession of the original code challenge Required only when grant_type=authorization_code"""
+    """The PKCE code verifier that proves possession of the original code challenge. Required when "grant_type=authorization_code"."""
     refresh_token: NotRequired["capo_signin.types.refresh_token.RefreshToken"]
-    """The refresh token returned from auth_code redemption Required only when grant_type=refresh_token"""
+    """The refresh token issued by a previous token response. Required when "grant_type=refresh_token"."""
 
 
 # --- restJson1 ser/de ---

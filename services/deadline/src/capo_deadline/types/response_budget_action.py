@@ -12,9 +12,9 @@ if TYPE_CHECKING:
 
 class ResponseBudgetAction(TypedDict, closed=True):
     type: "capo_deadline.types.budget_action_type.BudgetActionType"
-    """<p>The action taken on the budget once scheduling stops.</p>"""
+    """The action taken on the budget once scheduling stops."""
     threshold_percentage: "capo_deadline.types.threshold_percentage.ThresholdPercentage"
-    """<p>The percentage threshold for the budget.</p>"""
+    """The percentage threshold for the budget."""
     description: NotRequired["capo_deadline.types.description.Description"]
     """<p>The budget action description.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
 

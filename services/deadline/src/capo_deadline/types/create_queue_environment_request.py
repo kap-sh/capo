@@ -15,19 +15,19 @@ if TYPE_CHECKING:
 
 class CreateQueueEnvironmentRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the farm to connect to the environment.</p>"""
+    """The farm ID of the farm to connect to the environment."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID to connect the queue and environment.</p>"""
+    """The queue ID to connect the queue and environment."""
     client_token: NotRequired["capo_deadline.types.client_token.ClientToken"]
-    """<p>The unique token which the server uses to recognize retries of the same request.</p>"""
+    """The unique token which the server uses to recognize retries of the same request."""
     priority: "capo_deadline.types.priority.Priority"
-    """<p>Sets the priority of the environments in the queue from 0 to 10,000, where 0 is the highest priority (activated first and deactivated last). If two environments share the same priority value, the environment created first takes higher priority.</p>"""
+    """Sets the priority of the environments in the queue from 0 to 10,000, where 0 is the highest priority (activated first and deactivated last). If two environments share the same priority value, the environment created first takes higher priority."""
     template_type: (
         "capo_deadline.types.environment_template_type.EnvironmentTemplateType"
     )
-    """<p>The template's file type, <code>JSON</code> or <code>YAML</code>.</p>"""
+    """The template's file type, <code>JSON</code> or <code>YAML</code>."""
     template: "capo_deadline.types.environment_template.EnvironmentTemplate"
-    """<p>The environment template to use in the queue.</p>"""
+    """The environment template to use in the queue."""
 
 
 # --- restJson1 ser/de ---

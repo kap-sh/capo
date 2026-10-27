@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class ListTagsForResourceResponse(TypedDict, closed=True):
     tags: NotRequired["capo_deadline.types.tags.Tags"]
-    """<p>Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings.</p>"""
+    """Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings."""
 
 
 # --- restJson1 ser/de ---

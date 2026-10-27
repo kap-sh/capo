@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class StorageProfileSummary(TypedDict, closed=True):
     storage_profile_id: "capo_deadline.types.storage_profile_id.StorageProfileId"
-    """<p>The storage profile ID.</p>"""
+    """The storage profile ID."""
     display_name: "capo_deadline.types.resource_name.ResourceName"
     """<p>The display name of the storage profile summary to update.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     os_family: "capo_deadline.types.storage_profile_operating_system_family.StorageProfileOperatingSystemFamily"
-    """<p>The operating system (OS) family.</p>"""
+    """The operating system (OS) family."""
 
 
 # --- restJson1 ser/de ---

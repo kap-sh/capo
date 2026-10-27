@@ -20,27 +20,27 @@ if TYPE_CHECKING:
 
 class GetLimitResponse(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The unique identifier of the farm that contains the limit.</p>"""
+    """The unique identifier of the farm that contains the limit."""
     limit_id: "capo_deadline.types.limit_id.LimitId"
-    """<p>The unique identifier of the limit.</p>"""
+    """The unique identifier of the limit."""
     current_count: "capo_deadline.types.min_zero_max_integer.MinZeroMaxInteger"
-    """<p>The number of resources from the limit that are being used by jobs. The result is delayed and may not be the count at the time that you called the operation.</p>"""
+    """The number of resources from the limit that are being used by jobs. The result is delayed and may not be the count at the time that you called the operation."""
     created_at: "capo_deadline.types.created_at.CreatedAt"
-    """<p>The Unix timestamp of the date and time that the limit was created.</p>"""
+    """The Unix timestamp of the date and time that the limit was created."""
     created_by: "capo_deadline.types.created_by.CreatedBy"
-    """<p>The user identifier of the person that created the limit.</p>"""
+    """The user identifier of the person that created the limit."""
     updated_at: NotRequired["capo_deadline.types.updated_at.UpdatedAt"]
-    """<p>The Unix timestamp of the date and time that the limit was last updated.</p>"""
+    """The Unix timestamp of the date and time that the limit was last updated."""
     updated_by: NotRequired["capo_deadline.types.updated_by.UpdatedBy"]
-    """<p>The user identifier of the person that last updated the limit.</p>"""
+    """The user identifier of the person that last updated the limit."""
     display_name: "capo_deadline.types.resource_name.ResourceName"
     """<p>The display name of the limit.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     amount_requirement_name: (
         "capo_deadline.types.amount_requirement_name.AmountRequirementName"
     )
-    """<p>The value that you specify as the <code>name</code> in the <code>amounts</code> field of the <code>hostRequirements</code> in a step of a job template to declare the limit requirement.</p>"""
+    """The value that you specify as the <code>name</code> in the <code>amounts</code> field of the <code>hostRequirements</code> in a step of a job template to declare the limit requirement."""
     max_count: "capo_deadline.types.max_count.MaxCount"
-    """<p>The maximum number of resources constrained by this limit. When all of the resources are in use, steps that require the limit won't be scheduled until the resource is available.</p> <p>The <code>maxValue</code> must not be 0. If the value is -1, there is no restriction on the number of resources that can be acquired for this limit.</p>"""
+    """The maximum number of resources constrained by this limit. When all of the resources are in use, steps that require the limit won't be scheduled until the resource is available. The <code>maxValue</code> must not be 0. If the value is -1, there is no restriction on the number of resources that can be acquired for this limit."""
     description: NotRequired["capo_deadline.types.description.Description"]
     """<p>The description of the limit that helps identify what the limit is used for.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
 

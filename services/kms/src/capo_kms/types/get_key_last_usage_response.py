@@ -14,7 +14,7 @@ class GetKeyLastUsageResponse(TypedDict, closed=True):
     key_id: NotRequired["capo_kms.types.key_id_type.KeyIdType"]
     """<p>The globally unique identifier for the KMS key.</p>"""
     key_last_usage: NotRequired["capo_kms.types.key_last_usage_data.KeyLastUsageData"]
-    """<p>Contains usage information about the last time the KMS key was used for a successful cryptographic operation. If the key has not been used since tracking began, this response element is empty.</p>"""
+    """<p>Contains usage information about the last time the KMS key was used for a successful cryptographic operation. If the key has not been used since tracking began, this response element is an empty object.</p>"""
     tracking_start_date: NotRequired["capo_kms.types.date_type.DateType"]
     """<p>The date from which KMS began recording cryptographic activity for this key, or the date the KMS key was created, whichever is later.</p>"""
     key_creation_date: NotRequired["capo_kms.types.date_type.DateType"]

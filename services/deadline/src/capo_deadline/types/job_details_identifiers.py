@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class JobDetailsIdentifiers(TypedDict, closed=True):
     job_id: "capo_deadline.types.job_id.JobId"
-    """<p>The job ID.</p>"""
+    """The job ID."""
 
 
 # --- restJson1 ser/de ---

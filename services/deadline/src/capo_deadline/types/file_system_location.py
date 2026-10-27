@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class FileSystemLocation(TypedDict, closed=True):
     name: "capo_deadline.types.file_system_location_name.FileSystemLocationName"
-    """<p>The location name.</p>"""
+    """The location name."""
     path: "capo_deadline.types.path_string.PathString"
-    """<p>The file path.</p>"""
+    """The file path."""
     type: "capo_deadline.types.file_system_location_type.FileSystemLocationType"
-    """<p>The type of file.</p>"""
+    """The type of file."""
 
 
 # --- restJson1 ser/de ---

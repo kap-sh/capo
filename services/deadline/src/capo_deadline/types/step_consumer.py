@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class StepConsumer(TypedDict, closed=True):
     step_id: "capo_deadline.types.step_id.StepId"
-    """<p>The step ID.</p>"""
+    """The step ID."""
     status: "capo_deadline.types.dependency_consumer_resolution_status.DependencyConsumerResolutionStatus"
-    """<p>The step consumer status.</p>"""
+    """The step consumer status."""
 
 
 # --- restJson1 ser/de ---

@@ -13,9 +13,9 @@ if TYPE_CHECKING:
 
 class ValidationException_(TypedDict, closed=True):
     error: "capo_signin.types.o_auth2_error_code.OAuth2ErrorCode"
-    """OAuth 2.0 error code indicating validation failure Will be INVALID_REQUEST for validation errors"""
+    """The specific code depends on which validation failed."""
     message: "str"
-    """Detailed message explaining the validation failure Provides specific information about which validation failed"""
+    """The validation constraint that failed."""
 
 
 # --- restJson1 ser/de ---

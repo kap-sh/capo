@@ -12,13 +12,13 @@ if TYPE_CHECKING:
 
 class MeteredProductSummary(TypedDict, closed=True):
     product_id: "capo_deadline.types.metered_product_id.MeteredProductId"
-    """<p>The product ID.</p>"""
+    """The product ID."""
     family: "capo_deadline.types.bounded_string.BoundedString"
-    """<p>The family to which the metered product belongs.</p>"""
+    """The family to which the metered product belongs."""
     vendor: "capo_deadline.types.bounded_string.BoundedString"
-    """<p>The vendor.</p>"""
+    """The vendor."""
     port: "capo_deadline.types.port_number.PortNumber"
-    """<p>The port on which the metered product should run.</p>"""
+    """The port on which the metered product should run."""
 
 
 # --- restJson1 ser/de ---

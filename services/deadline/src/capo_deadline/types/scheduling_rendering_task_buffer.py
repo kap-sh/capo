@@ -2,5 +2,5 @@
 
 from typing import TypeAlias
 
-"""<p>The rendering task buffer used in balanced scheduling.</p>"""
+"""The rendering task buffer used in balanced scheduling."""
 SchedulingRenderingTaskBuffer: TypeAlias = int

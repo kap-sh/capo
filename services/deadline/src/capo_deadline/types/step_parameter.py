@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class StepParameter(TypedDict, closed=True):
     name: "capo_deadline.types.step_parameter_name.StepParameterName"
-    """<p>The name of the parameter.</p>"""
+    """The name of the parameter."""
     type: "capo_deadline.types.step_parameter_type.StepParameterType"
-    """<p>The data type of the parameter.</p>"""
+    """The data type of the parameter."""
     chunks: NotRequired["capo_deadline.types.step_parameter_chunks.StepParameterChunks"]
-    """<p>The configuration for task chunking.</p>"""
+    """The configuration for task chunking."""
 
 
 # --- restJson1 ser/de ---

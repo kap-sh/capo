@@ -99,7 +99,7 @@ class ExadbVmClusterResource:
             data_collection_options: <p>The set of preferences for the various diagnostic collection options for the Exascale VM cluster.</p>
             license_model: <p>The Oracle license model to apply to the Exascale VM cluster.</p>
             scan_listener_port_tcp: <p>The port number for TCP connections to the Single Client Access Name (SCAN) listener.</p>
-            scan_listener_port_tcp_ssl: <p>The port number for TCP connections with SSL to the Single Client Access Name (SCAN) listener.</p>
+            scan_listener_port_tcp_ssl: <p>Reserved for future use.</p>
             shape_attribute: <p>The shape attribute for the Exascale VM cluster.</p>
             system_version: <p>The version of the operating system of the image for the Exascale VM cluster.</p>
             tags: <p>The list of resource tags to apply to the Exascale VM cluster.</p>
@@ -595,7 +595,7 @@ class AsyncExadbVmClusterResource:
             data_collection_options: <p>The set of preferences for the various diagnostic collection options for the Exascale VM cluster.</p>
             license_model: <p>The Oracle license model to apply to the Exascale VM cluster.</p>
             scan_listener_port_tcp: <p>The port number for TCP connections to the Single Client Access Name (SCAN) listener.</p>
-            scan_listener_port_tcp_ssl: <p>The port number for TCP connections with SSL to the Single Client Access Name (SCAN) listener.</p>
+            scan_listener_port_tcp_ssl: <p>Reserved for future use.</p>
             shape_attribute: <p>The shape attribute for the Exascale VM cluster.</p>
             system_version: <p>The version of the operating system of the image for the Exascale VM cluster.</p>
             tags: <p>The list of resource tags to apply to the Exascale VM cluster.</p>

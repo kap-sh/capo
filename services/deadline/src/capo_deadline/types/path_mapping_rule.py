@@ -11,11 +11,11 @@ if TYPE_CHECKING:
 
 class PathMappingRule(TypedDict, closed=True):
     source_path_format: "capo_deadline.types.path_format.PathFormat"
-    """<p>The source path format.</p>"""
+    """The source path format."""
     source_path: "capo_deadline.types.string.String"
-    """<p>The source path.</p>"""
+    """The source path."""
     destination_path: "capo_deadline.types.string.String"
-    """<p>The destination path.</p>"""
+    """The destination path."""
 
 
 # --- restJson1 ser/de ---

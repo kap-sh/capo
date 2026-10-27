@@ -16,19 +16,19 @@ if TYPE_CHECKING:
 
 class VolumeSummary(TypedDict, closed=True):
     volume_id: "capo_deadline.types.volume_id.VolumeId"
-    """<p>The volume ID.</p>"""
+    """The volume ID."""
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the farm that contains the fleet.</p>"""
+    """The farm ID of the farm that contains the fleet."""
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID of the fleet that contains the volume.</p>"""
+    """The fleet ID of the fleet that contains the volume."""
     state: "capo_deadline.types.volume_state.VolumeState"
-    """<p>The state of the volume.</p>"""
+    """The state of the volume."""
     size_gi_b: "capo_deadline.types.persistent_volume_size_gi_b.PersistentVolumeSizeGiB"
-    """<p>The volume size in GiB.</p>"""
+    """The volume size in GiB."""
     availability_zone_id: "capo_deadline.types.string.String"
-    """<p>The Availability Zone ID of the volume.</p>"""
+    """The Availability Zone ID of the volume."""
     attached_worker_id: NotRequired["capo_deadline.types.worker_id.WorkerId"]
-    """<p>The worker ID of the worker the volume is attached to.</p>"""
+    """The worker ID of the worker the volume is attached to."""
 
 
 # --- restJson1 ser/de ---

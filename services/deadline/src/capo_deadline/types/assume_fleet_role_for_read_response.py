@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class AssumeFleetRoleForReadResponse(TypedDict, closed=True):
     credentials: "capo_deadline.types.aws_credentials.AwsCredentials"
-    """<p>The credentials for the fleet role.</p>"""
+    """The credentials for the fleet role."""
 
 
 # --- restJson1 ser/de ---

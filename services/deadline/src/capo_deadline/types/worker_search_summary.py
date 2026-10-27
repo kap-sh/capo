@@ -17,23 +17,23 @@ if TYPE_CHECKING:
 
 class WorkerSearchSummary(TypedDict, closed=True):
     fleet_id: NotRequired["capo_deadline.types.fleet_id.FleetId"]
-    """<p>The fleet ID.</p>"""
+    """The fleet ID."""
     worker_id: NotRequired["capo_deadline.types.worker_id.WorkerId"]
-    """<p>The worker ID.</p>"""
+    """The worker ID."""
     status: NotRequired["capo_deadline.types.worker_status.WorkerStatus"]
-    """<p>The status of the worker search.</p>"""
+    """The status of the worker search."""
     host_properties: NotRequired[
         "capo_deadline.types.host_properties_response.HostPropertiesResponse"
     ]
-    """<p>Provides the Amazon EC2 instance properties of the worker host.</p>"""
+    """Provides the Amazon EC2 instance properties of the worker host."""
     created_by: NotRequired["capo_deadline.types.created_by.CreatedBy"]
-    """<p>The user or system that created this resource.</p>"""
+    """The user or system that created this resource."""
     created_at: NotRequired["capo_deadline.types.created_at.CreatedAt"]
-    """<p>The date and time the resource was created.</p>"""
+    """The date and time the resource was created."""
     updated_by: NotRequired["capo_deadline.types.updated_by.UpdatedBy"]
-    """<p>The user or system that updated this resource.</p>"""
+    """The user or system that updated this resource."""
     updated_at: NotRequired["capo_deadline.types.updated_at.UpdatedAt"]
-    """<p>The date and time the resource was updated.</p>"""
+    """The date and time the resource was updated."""
 
 
 # --- restJson1 ser/de ---

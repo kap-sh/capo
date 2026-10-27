@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class GetMonitorSettingsResponse(TypedDict, closed=True):
     settings: "capo_deadline.types.settings_map.SettingsMap"
-    """<p>The monitor settings as key-value pairs.</p>"""
+    """The monitor settings as key-value pairs."""
 
 
 # --- restJson1 ser/de ---

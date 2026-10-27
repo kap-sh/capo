@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class FieldSortExpression(TypedDict, closed=True):
     sort_order: "capo_deadline.types.sort_order.SortOrder"
-    """<p>The sort order for the field.</p>"""
+    """The sort order for the field."""
     name: "capo_deadline.types.string.String"
-    """<p>The name of the field.</p>"""
+    """The name of the field."""
 
 
 # --- restJson1 ser/de ---

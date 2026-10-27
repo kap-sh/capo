@@ -17,23 +17,23 @@ if TYPE_CHECKING:
 
 class GetStorageProfileResponse(TypedDict, closed=True):
     storage_profile_id: "capo_deadline.types.storage_profile_id.StorageProfileId"
-    """<p>The storage profile ID.</p>"""
+    """The storage profile ID."""
     display_name: "capo_deadline.types.resource_name.ResourceName"
     """<p>The display name of the storage profile.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     os_family: "capo_deadline.types.storage_profile_operating_system_family.StorageProfileOperatingSystemFamily"
-    """<p>The operating system (OS) for the storage profile.</p>"""
+    """The operating system (OS) for the storage profile."""
     created_at: "capo_deadline.types.created_at.CreatedAt"
-    """<p>The date and time the resource was created.</p>"""
+    """The date and time the resource was created."""
     created_by: "capo_deadline.types.created_by.CreatedBy"
-    """<p>The user or system that created this resource.</p>"""
+    """The user or system that created this resource."""
     updated_at: NotRequired["capo_deadline.types.updated_at.UpdatedAt"]
-    """<p>The date and time the resource was updated.</p>"""
+    """The date and time the resource was updated."""
     updated_by: NotRequired["capo_deadline.types.updated_by.UpdatedBy"]
-    """<p>The user or system that updated this resource.</p>"""
+    """The user or system that updated this resource."""
     file_system_locations: NotRequired[
         "capo_deadline.types.file_system_locations_list.FileSystemLocationsList"
     ]
-    """<p>The location of the files for the storage profile.</p>"""
+    """The location of the files for the storage profile."""
 
 
 # --- restJson1 ser/de ---

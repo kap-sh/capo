@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class DeleteFleetRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the farm to remove from the fleet.</p>"""
+    """The farm ID of the farm to remove from the fleet."""
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID of the fleet to delete.</p>"""
+    """The fleet ID of the fleet to delete."""
     client_token: NotRequired["capo_deadline.types.client_token.ClientToken"]
-    """<p>The unique token which the server uses to recognize retries of the same request.</p>"""
+    """The unique token which the server uses to recognize retries of the same request."""
 
 
 # --- restJson1 ser/de ---

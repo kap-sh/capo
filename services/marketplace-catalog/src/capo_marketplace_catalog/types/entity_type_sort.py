@@ -17,6 +17,7 @@ if TYPE_CHECKING:
     import capo_marketplace_catalog.types.offer_sort
     import capo_marketplace_catalog.types.resale_authorization_sort
     import capo_marketplace_catalog.types.saa_s_product_sort
+    import capo_marketplace_catalog.types.subsidiary_authorization_sort
 
 
 class _EntityTypeSort_DataProductSort(TypedDict, closed=True):
@@ -57,6 +58,10 @@ class _EntityTypeSort_ExpressPrivateOfferConfigurationSort(TypedDict, closed=Tru
     ExpressPrivateOfferConfigurationSort: "capo_marketplace_catalog.types.express_private_offer_configuration_sort.ExpressPrivateOfferConfigurationSort"
 
 
+class _EntityTypeSort_SubsidiaryAuthorizationSort(TypedDict, closed=True):
+    SubsidiaryAuthorizationSort: "capo_marketplace_catalog.types.subsidiary_authorization_sort.SubsidiaryAuthorizationSort"
+
+
 EntityTypeSort: TypeAlias = (
     _EntityTypeSort_DataProductSort
     | _EntityTypeSort_SaaSProductSort
@@ -67,6 +72,7 @@ EntityTypeSort: TypeAlias = (
     | _EntityTypeSort_MachineLearningProductSort
     | _EntityTypeSort_OfferSetSort
     | _EntityTypeSort_ExpressPrivateOfferConfigurationSort
+    | _EntityTypeSort_SubsidiaryAuthorizationSort
     | UnknownUnionMember
 )
 
@@ -149,6 +155,14 @@ def serialize_json(value: EntityTypeSort) -> dict:
                 value["ExpressPrivateOfferConfigurationSort"]
             )
         }
+    elif "SubsidiaryAuthorizationSort" in value:
+        import capo_marketplace_catalog.types.subsidiary_authorization_sort
+
+        return {
+            "SubsidiaryAuthorizationSort": capo_marketplace_catalog.types.subsidiary_authorization_sort.serialize_json(
+                value["SubsidiaryAuthorizationSort"]
+            )
+        }
     else:
         raise SerializationError("EntityTypeSort: no variant present")
 
@@ -224,6 +238,14 @@ def deserialize_json(data: dict) -> EntityTypeSort:
         return {
             "ExpressPrivateOfferConfigurationSort": capo_marketplace_catalog.types.express_private_offer_configuration_sort.deserialize_json(
                 data["ExpressPrivateOfferConfigurationSort"]
+            )
+        }
+    elif data.get("SubsidiaryAuthorizationSort") is not None:
+        import capo_marketplace_catalog.types.subsidiary_authorization_sort
+
+        return {
+            "SubsidiaryAuthorizationSort": capo_marketplace_catalog.types.subsidiary_authorization_sort.deserialize_json(
+                data["SubsidiaryAuthorizationSort"]
             )
         }
     else:

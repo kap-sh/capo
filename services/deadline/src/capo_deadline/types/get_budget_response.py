@@ -24,11 +24,11 @@ if TYPE_CHECKING:
 
 class GetBudgetResponse(TypedDict, closed=True):
     budget_id: "capo_deadline.types.budget_id.BudgetId"
-    """<p>The budget ID.</p>"""
+    """The budget ID."""
     usage_tracking_resource: (
         "capo_deadline.types.usage_tracking_resource.UsageTrackingResource"
     )
-    """<p>The resource that the budget is tracking usage for.</p>"""
+    """The resource that the budget is tracking usage for."""
     status: "capo_deadline.types.budget_status.BudgetStatus"
     """<p>The status of the budget.</p> <ul> <li> <p> <code>ACTIVE</code>–Get a budget being evaluated.</p> </li> <li> <p> <code>INACTIVE</code>–Get an inactive budget. This can include expired, canceled, or deleted statuses.</p> </li> </ul>"""
     display_name: "capo_deadline.types.resource_name.ResourceName"
@@ -36,25 +36,25 @@ class GetBudgetResponse(TypedDict, closed=True):
     approximate_dollar_limit: (
         "capo_deadline.types.consumed_usage_limit.ConsumedUsageLimit"
     )
-    """<p>The consumed usage limit for the budget.</p>"""
+    """The consumed usage limit for the budget."""
     usages: "capo_deadline.types.consumed_usages.ConsumedUsages"
-    """<p>The usages of the budget.</p>"""
+    """The usages of the budget."""
     created_by: "capo_deadline.types.created_by.CreatedBy"
-    """<p>The user or system that created this resource.</p>"""
+    """The user or system that created this resource."""
     created_at: "capo_deadline.types.created_at.CreatedAt"
-    """<p>The date and time the resource was created.</p>"""
+    """The date and time the resource was created."""
     updated_by: NotRequired["capo_deadline.types.updated_by.UpdatedBy"]
-    """<p>The user or system that updated this resource.</p>"""
+    """The user or system that updated this resource."""
     updated_at: NotRequired["capo_deadline.types.updated_at.UpdatedAt"]
-    """<p>The date and time the resource was updated.</p>"""
+    """The date and time the resource was updated."""
     description: NotRequired["capo_deadline.types.description.Description"]
     """<p>The description of the budget.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     actions: "capo_deadline.types.response_budget_action_list.ResponseBudgetActionList"
-    """<p>The budget actions for the budget.</p>"""
+    """The budget actions for the budget."""
     schedule: "capo_deadline.types.budget_schedule.BudgetSchedule"
-    """<p>The budget schedule.</p>"""
+    """The budget schedule."""
     queue_stopped_at: NotRequired["capo_deadline.types.updated_at.UpdatedAt"]
-    """<p>The date and time the queue stopped.</p>"""
+    """The date and time the queue stopped."""
 
 
 # --- restJson1 ser/de ---

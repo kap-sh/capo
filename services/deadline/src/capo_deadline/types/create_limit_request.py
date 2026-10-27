@@ -15,15 +15,15 @@ if TYPE_CHECKING:
 
 class CreateLimitRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the farm that contains the limit.</p>"""
+    """The farm ID of the farm that contains the limit."""
     client_token: NotRequired["capo_deadline.types.client_token.ClientToken"]
-    """<p>The unique token which the server uses to recognize retries of the same request.</p>"""
+    """The unique token which the server uses to recognize retries of the same request."""
     display_name: "capo_deadline.types.resource_name.ResourceName"
     """<p>The display name of the limit.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     amount_requirement_name: (
         "capo_deadline.types.amount_requirement_name.AmountRequirementName"
     )
-    """<p>The value that you specify as the <code>name</code> in the <code>amounts</code> field of the <code>hostRequirements</code> in a step of a job template to declare the limit requirement.</p>"""
+    """The value that you specify as the <code>name</code> in the <code>amounts</code> field of the <code>hostRequirements</code> in a step of a job template to declare the limit requirement."""
     max_count: "capo_deadline.types.max_count.MaxCount"
     """<p>The maximum number of resources constrained by this limit. When all of the resources are in use, steps that require the limit won't be scheduled until the resource is available.</p> <p>The <code>maxCount</code> must not be 0. If the value is -1, there is no restriction on the number of resources that can be acquired for this limit.</p>"""
     description: NotRequired["capo_deadline.types.description.Description"]

@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class DeleteBudgetRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the farm to remove from the budget.</p>"""
+    """The farm ID of the farm to remove from the budget."""
     budget_id: "capo_deadline.types.budget_id.BudgetId"
-    """<p>The budget ID of the budget to delete.</p>"""
+    """The budget ID of the budget to delete."""
 
 
 # --- restJson1 ser/de ---

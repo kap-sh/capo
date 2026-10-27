@@ -19,6 +19,7 @@ if TYPE_CHECKING:
     import capo_odb.types.delete_exascale_db_storage_vault_input
     import capo_odb.types.delete_exascale_db_storage_vault_output
     import capo_odb.types.exascale_db_storage_vault_summary
+    import capo_odb.types.exascale_db_storage_vault_type
     import capo_odb.types.general_input_string
     import capo_odb.types.get_exascale_db_storage_vault_input
     import capo_odb.types.get_exascale_db_storage_vault_output
@@ -45,6 +46,9 @@ class ExascaleDbStorageVaultResource:
         config_overrides: Optional[odbClientConfig] = None,
         additional_flash_cache_in_percent: Optional[int] = None,
         autoscale_limit_in_g_bs: Optional[int] = None,
+        cloud_exadata_infrastructure_id: Optional[
+            "capo_odb.types.resource_id_or_arn.ResourceIdOrArn"
+        ] = None,
         availability_zone_id: Optional[str] = None,
         availability_zone: Optional[str] = None,
         description: Optional[str] = None,
@@ -55,13 +59,14 @@ class ExascaleDbStorageVaultResource:
             "capo_odb.types.general_input_string.GeneralInputString"
         ] = None,
     ) -> "capo_odb.types.create_exascale_db_storage_vault_output.CreateExascaleDbStorageVaultOutput":
-        """<p>Creates an Exascale storage vault.</p>
+        """<p>Creates an Exascale storage vault.</p> <p>To create the Exascale storage vault on dedicated Exadata infrastructure, specify <code>cloudExadataInfrastructureId</code>.</p>
 
         Args:
             display_name: <p>A user-friendly name for the Exascale storage vault.</p>
             high_capacity_database_storage_total_size_in_g_bs: <p>The total size of the high-capacity database storage, in gigabytes (GB), for the Exascale storage vault.</p>
             additional_flash_cache_in_percent: <p>The additional flash cache percentage for the Exascale storage vault.</p>
             autoscale_limit_in_g_bs: <p>The autoscale limit in gigabytes (GB) for the Exascale storage vault.</p>
+            cloud_exadata_infrastructure_id: <p>The unique identifier or Amazon Resource Name (ARN) of the Exadata infrastructure on which to create the Exascale storage vault. Specify this value to create the Exascale storage vault on dedicated Exadata infrastructure that has Exascale storage configured. If you specify <code>availabilityZone</code> or <code>availabilityZoneId</code>, the value must match the Availability Zone of the Exadata infrastructure. If you specify neither, the service uses the Availability Zone of the Exadata infrastructure.</p>
             availability_zone_id: <p>The Availability Zone ID for the Exascale storage vault.</p>
             availability_zone: <p>The Availability Zone for the Exascale storage vault.</p>
             description: <p>A description of the Exascale storage vault.</p>
@@ -74,6 +79,7 @@ class ExascaleDbStorageVaultResource:
             capo_odb.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action. Make sure you have the required permissions and try again.</p>
             capo_odb.errors.conflict_exception.ConflictException: <p>Occurs when a conflict with the current status of your resource. Fix any inconsistencies with your resource and try again.</p>
             capo_odb.errors.internal_server_exception.InternalServerException: <p>Occurs when there is an internal failure in the Oracle Database@Amazon Web Services service. Wait and try again.</p>
+            capo_odb.errors.resource_not_found_exception.ResourceNotFoundException: <p>The operation tried to access a resource that doesn't exist. Make sure you provided the correct resource and try again.</p>
             capo_odb.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>You have exceeded the service quota.</p>
             capo_odb.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
             capo_odb.errors.validation_exception.ValidationException: <p>The request has failed validation because it is missing required fields or has invalid inputs.</p>
@@ -107,6 +113,8 @@ class ExascaleDbStorageVaultResource:
             )
         if autoscale_limit_in_g_bs is not None:
             input_["autoscale_limit_in_g_bs"] = autoscale_limit_in_g_bs
+        if cloud_exadata_infrastructure_id is not None:
+            input_["cloud_exadata_infrastructure_id"] = cloud_exadata_infrastructure_id
         if availability_zone_id is not None:
             input_["availability_zone_id"] = availability_zone_id
         if availability_zone is not None:
@@ -316,16 +324,25 @@ class ExascaleDbStorageVaultResource:
         config_overrides: Optional[odbClientConfig] = None,
         max_results: Optional[int] = None,
         next_token: Optional[str] = None,
+        cloud_exadata_infrastructure_id: Optional[
+            "capo_odb.types.resource_id_or_arn.ResourceIdOrArn"
+        ] = None,
+        vault_type: Optional[
+            "capo_odb.types.exascale_db_storage_vault_type.ExascaleDbStorageVaultType"
+        ] = None,
     ) -> "capo_odb.types.list_exascale_db_storage_vaults_output.ListExascaleDbStorageVaultsOutput":
         """<p>Returns information about the Exascale storage vaults owned by your Amazon Web Services account.</p>
 
         Args:
             max_results: <p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output.</p>
             next_token: <p>The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.</p>
+            cloud_exadata_infrastructure_id: <p>The unique identifier or Amazon Resource Name (ARN) of an Exadata infrastructure. If you specify this value, the operation returns only the Exascale storage vaults on that infrastructure that you own or that are shared with you. The infrastructure can be one that's shared with you through Amazon Web Services Resource Access Manager (Amazon Web Services RAM). You can't combine this filter with a <code>vaultType</code> of <code>EXASCALE_INFRASTRUCTURE</code>.</p>
+            vault_type: <p>The type of Exascale storage vaults to return. Specify <code>DEDICATED_INFRASTRUCTURE</code> to return Exascale storage vaults on dedicated Exadata infrastructure, or <code>EXASCALE_INFRASTRUCTURE</code> to return Exascale storage vaults for Exascale VM clusters. If you don't specify a value, the operation returns both types. You can't combine <code>EXASCALE_INFRASTRUCTURE</code> with the <code>cloudExadataInfrastructureId</code> filter.</p>
 
         Raises:
             capo_odb.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action. Make sure you have the required permissions and try again.</p>
             capo_odb.errors.internal_server_exception.InternalServerException: <p>Occurs when there is an internal failure in the Oracle Database@Amazon Web Services service. Wait and try again.</p>
+            capo_odb.errors.resource_not_found_exception.ResourceNotFoundException: <p>The operation tried to access a resource that doesn't exist. Make sure you provided the correct resource and try again.</p>
             capo_odb.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
             capo_odb.errors.validation_exception.ValidationException: <p>The request has failed validation because it is missing required fields or has invalid inputs.</p>
             capo_odb.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -353,6 +370,10 @@ class ExascaleDbStorageVaultResource:
             input_["max_results"] = max_results
         if next_token is not None:
             input_["next_token"] = next_token
+        if cloud_exadata_infrastructure_id is not None:
+            input_["cloud_exadata_infrastructure_id"] = cloud_exadata_infrastructure_id
+        if vault_type is not None:
+            input_["vault_type"] = vault_type
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -375,6 +396,9 @@ class AsyncExascaleDbStorageVaultResource:
         config_overrides: Optional[AsyncodbClientConfig] = None,
         additional_flash_cache_in_percent: Optional[int] = None,
         autoscale_limit_in_g_bs: Optional[int] = None,
+        cloud_exadata_infrastructure_id: Optional[
+            "capo_odb.types.resource_id_or_arn.ResourceIdOrArn"
+        ] = None,
         availability_zone_id: Optional[str] = None,
         availability_zone: Optional[str] = None,
         description: Optional[str] = None,
@@ -385,13 +409,14 @@ class AsyncExascaleDbStorageVaultResource:
             "capo_odb.types.general_input_string.GeneralInputString"
         ] = None,
     ) -> "capo_odb.types.create_exascale_db_storage_vault_output.CreateExascaleDbStorageVaultOutput":
-        """<p>Creates an Exascale storage vault.</p>
+        """<p>Creates an Exascale storage vault.</p> <p>To create the Exascale storage vault on dedicated Exadata infrastructure, specify <code>cloudExadataInfrastructureId</code>.</p>
 
         Args:
             display_name: <p>A user-friendly name for the Exascale storage vault.</p>
             high_capacity_database_storage_total_size_in_g_bs: <p>The total size of the high-capacity database storage, in gigabytes (GB), for the Exascale storage vault.</p>
             additional_flash_cache_in_percent: <p>The additional flash cache percentage for the Exascale storage vault.</p>
             autoscale_limit_in_g_bs: <p>The autoscale limit in gigabytes (GB) for the Exascale storage vault.</p>
+            cloud_exadata_infrastructure_id: <p>The unique identifier or Amazon Resource Name (ARN) of the Exadata infrastructure on which to create the Exascale storage vault. Specify this value to create the Exascale storage vault on dedicated Exadata infrastructure that has Exascale storage configured. If you specify <code>availabilityZone</code> or <code>availabilityZoneId</code>, the value must match the Availability Zone of the Exadata infrastructure. If you specify neither, the service uses the Availability Zone of the Exadata infrastructure.</p>
             availability_zone_id: <p>The Availability Zone ID for the Exascale storage vault.</p>
             availability_zone: <p>The Availability Zone for the Exascale storage vault.</p>
             description: <p>A description of the Exascale storage vault.</p>
@@ -404,6 +429,7 @@ class AsyncExascaleDbStorageVaultResource:
             capo_odb.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action. Make sure you have the required permissions and try again.</p>
             capo_odb.errors.conflict_exception.ConflictException: <p>Occurs when a conflict with the current status of your resource. Fix any inconsistencies with your resource and try again.</p>
             capo_odb.errors.internal_server_exception.InternalServerException: <p>Occurs when there is an internal failure in the Oracle Database@Amazon Web Services service. Wait and try again.</p>
+            capo_odb.errors.resource_not_found_exception.ResourceNotFoundException: <p>The operation tried to access a resource that doesn't exist. Make sure you provided the correct resource and try again.</p>
             capo_odb.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>You have exceeded the service quota.</p>
             capo_odb.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
             capo_odb.errors.validation_exception.ValidationException: <p>The request has failed validation because it is missing required fields or has invalid inputs.</p>
@@ -438,6 +464,8 @@ class AsyncExascaleDbStorageVaultResource:
             )
         if autoscale_limit_in_g_bs is not None:
             input_["autoscale_limit_in_g_bs"] = autoscale_limit_in_g_bs
+        if cloud_exadata_infrastructure_id is not None:
+            input_["cloud_exadata_infrastructure_id"] = cloud_exadata_infrastructure_id
         if availability_zone_id is not None:
             input_["availability_zone_id"] = availability_zone_id
         if availability_zone is not None:
@@ -650,16 +678,25 @@ class AsyncExascaleDbStorageVaultResource:
         config_overrides: Optional[AsyncodbClientConfig] = None,
         max_results: Optional[int] = None,
         next_token: Optional[str] = None,
+        cloud_exadata_infrastructure_id: Optional[
+            "capo_odb.types.resource_id_or_arn.ResourceIdOrArn"
+        ] = None,
+        vault_type: Optional[
+            "capo_odb.types.exascale_db_storage_vault_type.ExascaleDbStorageVaultType"
+        ] = None,
     ) -> "capo_odb.types.list_exascale_db_storage_vaults_output.ListExascaleDbStorageVaultsOutput":
         """<p>Returns information about the Exascale storage vaults owned by your Amazon Web Services account.</p>
 
         Args:
             max_results: <p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output.</p>
             next_token: <p>The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.</p>
+            cloud_exadata_infrastructure_id: <p>The unique identifier or Amazon Resource Name (ARN) of an Exadata infrastructure. If you specify this value, the operation returns only the Exascale storage vaults on that infrastructure that you own or that are shared with you. The infrastructure can be one that's shared with you through Amazon Web Services Resource Access Manager (Amazon Web Services RAM). You can't combine this filter with a <code>vaultType</code> of <code>EXASCALE_INFRASTRUCTURE</code>.</p>
+            vault_type: <p>The type of Exascale storage vaults to return. Specify <code>DEDICATED_INFRASTRUCTURE</code> to return Exascale storage vaults on dedicated Exadata infrastructure, or <code>EXASCALE_INFRASTRUCTURE</code> to return Exascale storage vaults for Exascale VM clusters. If you don't specify a value, the operation returns both types. You can't combine <code>EXASCALE_INFRASTRUCTURE</code> with the <code>cloudExadataInfrastructureId</code> filter.</p>
 
         Raises:
             capo_odb.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action. Make sure you have the required permissions and try again.</p>
             capo_odb.errors.internal_server_exception.InternalServerException: <p>Occurs when there is an internal failure in the Oracle Database@Amazon Web Services service. Wait and try again.</p>
+            capo_odb.errors.resource_not_found_exception.ResourceNotFoundException: <p>The operation tried to access a resource that doesn't exist. Make sure you provided the correct resource and try again.</p>
             capo_odb.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
             capo_odb.errors.validation_exception.ValidationException: <p>The request has failed validation because it is missing required fields or has invalid inputs.</p>
             capo_odb.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -688,6 +725,10 @@ class AsyncExascaleDbStorageVaultResource:
             input_["max_results"] = max_results
         if next_token is not None:
             input_["next_token"] = next_token
+        if cloud_exadata_infrastructure_id is not None:
+            input_["cloud_exadata_infrastructure_id"] = cloud_exadata_infrastructure_id
+        if vault_type is not None:
+            input_["vault_type"] = vault_type
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

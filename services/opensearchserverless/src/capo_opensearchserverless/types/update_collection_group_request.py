@@ -18,7 +18,7 @@ class UpdateCollectionGroupRequest(TypedDict, closed=True):
     capacity_limits: NotRequired[
         "capo_opensearchserverless.types.collection_group_capacity_limits.CollectionGroupCapacityLimits"
     ]
-    """<p>Updated capacity limits for the collection group, in OpenSearch Compute Units (OCUs).</p>"""
+    """<p>The updated capacity limits for the collection group, in OpenSearch Compute Units (OCUs). Updates to capacity limits are not incremental. Any field not specified resets to its default value.</p>"""
     client_token: NotRequired[
         "capo_opensearchserverless.types.client_token.ClientToken"
     ]

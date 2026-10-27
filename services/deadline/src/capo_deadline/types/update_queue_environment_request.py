@@ -16,23 +16,23 @@ if TYPE_CHECKING:
 
 class UpdateQueueEnvironmentRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the queue environment to update.</p>"""
+    """The farm ID of the queue environment to update."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID of the queue environment to update.</p>"""
+    """The queue ID of the queue environment to update."""
     queue_environment_id: "capo_deadline.types.queue_environment_id.QueueEnvironmentId"
-    """<p>The queue environment ID to update.</p>"""
+    """The queue environment ID to update."""
     client_token: NotRequired["capo_deadline.types.client_token.ClientToken"]
-    """<p>The unique token which the server uses to recognize retries of the same request.</p>"""
+    """The unique token which the server uses to recognize retries of the same request."""
     priority: NotRequired["capo_deadline.types.priority.Priority"]
-    """<p>The priority to update.</p>"""
+    """The priority to update."""
     template_type: NotRequired[
         "capo_deadline.types.environment_template_type.EnvironmentTemplateType"
     ]
-    """<p>The template type to update.</p>"""
+    """The template type to update."""
     template: NotRequired[
         "capo_deadline.types.environment_template.EnvironmentTemplate"
     ]
-    """<p>The template to update.</p>"""
+    """The template to update."""
 
 
 # --- restJson1 ser/de ---

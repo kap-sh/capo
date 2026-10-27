@@ -15,25 +15,25 @@ if TYPE_CHECKING:
 
 class UpdateStorageProfileRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID to update.</p>"""
+    """The farm ID to update."""
     storage_profile_id: "capo_deadline.types.storage_profile_id.StorageProfileId"
-    """<p>The storage profile ID to update.</p>"""
+    """The storage profile ID to update."""
     client_token: NotRequired["capo_deadline.types.client_token.ClientToken"]
-    """<p>The unique token which the server uses to recognize retries of the same request.</p>"""
+    """The unique token which the server uses to recognize retries of the same request."""
     display_name: NotRequired["capo_deadline.types.resource_name.ResourceName"]
     """<p>The display name of the storage profile to update.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     os_family: NotRequired[
         "capo_deadline.types.storage_profile_operating_system_family.StorageProfileOperatingSystemFamily"
     ]
-    """<p>The OS system to update.</p>"""
+    """The OS system to update."""
     file_system_locations_to_add: NotRequired[
         "capo_deadline.types.file_system_locations_list.FileSystemLocationsList"
     ]
-    """<p>The file system location names to add.</p>"""
+    """The file system location names to add."""
     file_system_locations_to_remove: NotRequired[
         "capo_deadline.types.file_system_locations_list.FileSystemLocationsList"
     ]
-    """<p>The file system location names to remove.</p>"""
+    """The file system location names to remove."""
 
 
 # --- restJson1 ser/de ---

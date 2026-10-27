@@ -856,7 +856,7 @@ class MarketplaceCatalogClient:
 
         Args:
             catalog: <p>The catalog related to the request. Fixed value: <code>AWSMarketplace</code> </p>
-            entity_type: <p>The type of entities to retrieve. Valid values are: <code>AmiProduct</code>, <code>ContainerProduct</code>, <code>DataProduct</code>, <code>SaaSProduct</code>, <code>ProcurementPolicy</code>, <code>Experience</code>, <code>Audience</code>, <code>BrandingSettings</code>, <code>Offer</code>, <code>OfferSet</code>, <code>Seller</code>, <code>ResaleAuthorization</code>, <code>Solution</code>.</p>
+            entity_type: <p>The type of entities to retrieve. Valid values are: <code>AmiProduct</code>, <code>ContainerProduct</code>, <code>DataProduct</code>, <code>SaaSProduct</code>, <code>ProcurementPolicy</code>, <code>Experience</code>, <code>Audience</code>, <code>BrandingSettings</code>, <code>Offer</code>, <code>OfferSet</code>, <code>Seller</code>, <code>ResaleAuthorization</code>, <code>Solution</code>, <code>SubsidiaryAuthorization</code>.</p>
             filter_list: <p>An array of filter objects. Each filter object contains two attributes, <code>filterName</code> and <code>filterValues</code>.</p>
             sort: <p>An object that contains two attributes, <code>SortBy</code> and <code>SortOrder</code>.</p>
             next_token: <p>The value of the next token, if it exists. Null if there are no more results.</p>

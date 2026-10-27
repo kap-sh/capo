@@ -21,9 +21,13 @@ if TYPE_CHECKING:
     import capo_elementalinference.types.create_feed_request
     import capo_elementalinference.types.create_feed_response
     import capo_elementalinference.types.create_output_list
+    import capo_elementalinference.types.create_schedule_action_request
+    import capo_elementalinference.types.create_schedule_action_response
     import capo_elementalinference.types.delete_feed_policy_request
     import capo_elementalinference.types.delete_feed_request
     import capo_elementalinference.types.delete_feed_response
+    import capo_elementalinference.types.delete_schedule_action_request
+    import capo_elementalinference.types.delete_schedule_action_response
     import capo_elementalinference.types.disassociate_feed_request
     import capo_elementalinference.types.disassociate_feed_response
     import capo_elementalinference.types.feed_id
@@ -35,10 +39,15 @@ if TYPE_CHECKING:
     import capo_elementalinference.types.iam_role_arn
     import capo_elementalinference.types.list_feeds_request
     import capo_elementalinference.types.list_feeds_response
+    import capo_elementalinference.types.list_schedule_actions_request
+    import capo_elementalinference.types.list_schedule_actions_response
     import capo_elementalinference.types.policy_document
     import capo_elementalinference.types.put_feed_policy_request
     import capo_elementalinference.types.put_feed_policy_response
     import capo_elementalinference.types.resource_name
+    import capo_elementalinference.types.schedule_action
+    import capo_elementalinference.types.schedule_action_operations
+    import capo_elementalinference.types.schedule_action_start_configuration
     import capo_elementalinference.types.tag_map
     import capo_elementalinference.types.update_feed_request
     import capo_elementalinference.types.update_feed_response
@@ -395,6 +404,66 @@ class FeedResource:
         response.response.close()
         return response.output
 
+    def create_schedule_action(
+        self,
+        id: "capo_elementalinference.types.feed_id.FeedId",
+        action_name: "capo_elementalinference.types.resource_name.ResourceName",
+        start_configuration: "capo_elementalinference.types.schedule_action_start_configuration.ScheduleActionStartConfiguration",
+        operations: "capo_elementalinference.types.schedule_action_operations.ScheduleActionOperations",
+        *,
+        config_overrides: Optional[ElementalInferenceClientConfig] = None,
+    ) -> "capo_elementalinference.types.create_schedule_action_response.CreateScheduleActionResponse":
+        """<p>Creates a schedule action on a feed. A schedule action applies configuration changes to the feed at a time that you specify, in the same way as an UpdateFeed request. </p> <p>Elemental Inference validates the targets of the action when you create it.</p>
+
+        Args:
+            id: <p>Specifies the ID of the feed that you want to add the schedule action to.</p>
+            action_name: <p>A name for the schedule action. The name must be unique within the feed. You can reuse the name of an action that you deleted. </p>
+            start_configuration: <p>Specifies when the action runs.</p>
+            operations: <p>Specifies the list of configuration changes that you want to make to the feed. Elemental Inference applies all the operations in an action together, in the order that you specify them. If any operation fails, Elemental Inference doesn't apply any of them. </p>
+
+        Raises:
+            capo_elementalinference.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_elementalinference.errors.conflict_exception.ConflictException: <p>The request could not be completed due to a conflict.</p>
+            capo_elementalinference.errors.internal_server_error_exception.InternalServerErrorException: <p>An internal server error occurred. This is a temporary condition and the request can be retried. If the problem persists, contact AWS Support. </p>
+            capo_elementalinference.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the action doesn't exist.</p>
+            capo_elementalinference.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request was rejected because it would exceed one or more service quotas for your account. Review your service quotas and either delete unused resources or request a quota increase. </p>
+            capo_elementalinference.errors.too_many_request_exception.TooManyRequestException: <p>The request was denied due to request throttling. Too many requests have been made within a given time period. Reduce the frequency of requests and use exponential backoff when retrying. </p>
+            capo_elementalinference.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service. Check the error message for details about which parameter or field is invalid and correct the request before retrying. </p>
+            capo_elementalinference.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_elementalinference.types.create_schedule_action_request.CreateScheduleActionRequest]",
+        ) -> OperationResponse[
+            "capo_elementalinference.types.create_schedule_action_response.CreateScheduleActionResponse"
+        ]:
+            import capo_elementalinference._operations.elemental_inference.create_schedule_action
+
+            output, http_response = (
+                capo_elementalinference._operations.elemental_inference.create_schedule_action.create_schedule_action(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateScheduleAction")
+        )
+        input_: capo_elementalinference.types.create_schedule_action_request.CreateScheduleActionRequest = {
+            "id": id,
+            "action_name": action_name,
+            "start_configuration": start_configuration,
+            "operations": operations,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def delete_feed_policy(
         self,
         id: "capo_elementalinference.types.feed_id.FeedId",
@@ -432,6 +501,59 @@ class FeedResource:
         )
         input_: capo_elementalinference.types.delete_feed_policy_request.DeleteFeedPolicyRequest = {
             "id": id
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def delete_schedule_action(
+        self,
+        id: "capo_elementalinference.types.feed_id.FeedId",
+        action_name: "capo_elementalinference.types.resource_name.ResourceName",
+        *,
+        config_overrides: Optional[ElementalInferenceClientConfig] = None,
+    ) -> "capo_elementalinference.types.delete_schedule_action_response.DeleteScheduleActionResponse":
+        """<p>Deletes a schedule action from a feed. A deleted action never runs.</p> <p>You can delete only an action whose status is PENDING. Deleting an action doesn't reverse changes that the action already made to the feed. When you delete or archive a feed, Elemental Inference deletes all the schedule actions on that feed. </p>
+
+        Args:
+            id: <p>The ID of the feed that holds the schedule action.</p>
+            action_name: <p>The name of the schedule action that you want to delete.</p>
+
+        Raises:
+            capo_elementalinference.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_elementalinference.errors.conflict_exception.ConflictException: <p>The request could not be completed due to a conflict.</p>
+            capo_elementalinference.errors.internal_server_error_exception.InternalServerErrorException: <p>An internal server error occurred. This is a temporary condition and the request can be retried. If the problem persists, contact AWS Support. </p>
+            capo_elementalinference.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the action doesn't exist.</p>
+            capo_elementalinference.errors.too_many_request_exception.TooManyRequestException: <p>The request was denied due to request throttling. Too many requests have been made within a given time period. Reduce the frequency of requests and use exponential backoff when retrying. </p>
+            capo_elementalinference.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service. Check the error message for details about which parameter or field is invalid and correct the request before retrying. </p>
+            capo_elementalinference.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_elementalinference.types.delete_schedule_action_request.DeleteScheduleActionRequest]",
+        ) -> OperationResponse[
+            "capo_elementalinference.types.delete_schedule_action_response.DeleteScheduleActionResponse"
+        ]:
+            import capo_elementalinference._operations.elemental_inference.delete_schedule_action
+
+            output, http_response = (
+                capo_elementalinference._operations.elemental_inference.delete_schedule_action.delete_schedule_action(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteScheduleAction")
+        )
+        input_: capo_elementalinference.types.delete_schedule_action_request.DeleteScheduleActionRequest = {
+            "id": id,
+            "action_name": action_name,
         }
 
         response = execute_pipeline(
@@ -539,6 +661,63 @@ class FeedResource:
         input_: capo_elementalinference.types.get_feed_policy_request.GetFeedPolicyRequest = {
             "id": id
         }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def list_schedule_actions(
+        self,
+        id: "capo_elementalinference.types.feed_id.FeedId",
+        *,
+        config_overrides: Optional[ElementalInferenceClientConfig] = None,
+        max_results: Optional[int] = None,
+        next_token: Optional[str] = None,
+    ) -> "capo_elementalinference.types.list_schedule_actions_response.ListScheduleActionsResponse":
+        """<p>Displays a list of the schedule actions on a feed, including the status of each action and, for a failed action, information about why it failed. </p> <p>Elemental Inference keeps an action whose status is COMPLETED or FAILED for about 48 hours after its scheduled time, and then deletes it automatically. </p>
+
+        Args:
+            id: <p>The ID of the feed that you want to query.</p>
+            max_results: <p>The maximum number of results to return for each API request. If you don't specify MaxResults, Elemental Inference returns a maximum of 10 results for each page. </p>
+            next_token: <p>The token that identifies the batch of results that you want to see. To see the next batch, submit the request a second time and specify the NextToken value that Elemental Inference returned. </p>
+
+        Raises:
+            capo_elementalinference.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_elementalinference.errors.internal_server_error_exception.InternalServerErrorException: <p>An internal server error occurred. This is a temporary condition and the request can be retried. If the problem persists, contact AWS Support. </p>
+            capo_elementalinference.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the action doesn't exist.</p>
+            capo_elementalinference.errors.too_many_request_exception.TooManyRequestException: <p>The request was denied due to request throttling. Too many requests have been made within a given time period. Reduce the frequency of requests and use exponential backoff when retrying. </p>
+            capo_elementalinference.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service. Check the error message for details about which parameter or field is invalid and correct the request before retrying. </p>
+            capo_elementalinference.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_elementalinference.types.list_schedule_actions_request.ListScheduleActionsRequest]",
+        ) -> OperationResponse[
+            "capo_elementalinference.types.list_schedule_actions_response.ListScheduleActionsResponse"
+        ]:
+            import capo_elementalinference._operations.elemental_inference.list_schedule_actions
+
+            output, http_response = (
+                capo_elementalinference._operations.elemental_inference.list_schedule_actions.list_schedule_actions(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListScheduleActions")
+        )
+        input_: capo_elementalinference.types.list_schedule_actions_request.ListScheduleActionsRequest = {
+            "id": id
+        }
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -950,6 +1129,67 @@ class AsyncFeedResource:
         await response.response.aclose()
         return response.output
 
+    async def create_schedule_action(
+        self,
+        id: "capo_elementalinference.types.feed_id.FeedId",
+        action_name: "capo_elementalinference.types.resource_name.ResourceName",
+        start_configuration: "capo_elementalinference.types.schedule_action_start_configuration.ScheduleActionStartConfiguration",
+        operations: "capo_elementalinference.types.schedule_action_operations.ScheduleActionOperations",
+        *,
+        config_overrides: Optional[AsyncElementalInferenceClientConfig] = None,
+    ) -> "capo_elementalinference.types.create_schedule_action_response.CreateScheduleActionResponse":
+        """<p>Creates a schedule action on a feed. A schedule action applies configuration changes to the feed at a time that you specify, in the same way as an UpdateFeed request. </p> <p>Elemental Inference validates the targets of the action when you create it.</p>
+
+        Args:
+            id: <p>Specifies the ID of the feed that you want to add the schedule action to.</p>
+            action_name: <p>A name for the schedule action. The name must be unique within the feed. You can reuse the name of an action that you deleted. </p>
+            start_configuration: <p>Specifies when the action runs.</p>
+            operations: <p>Specifies the list of configuration changes that you want to make to the feed. Elemental Inference applies all the operations in an action together, in the order that you specify them. If any operation fails, Elemental Inference doesn't apply any of them. </p>
+
+        Raises:
+            capo_elementalinference.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_elementalinference.errors.conflict_exception.ConflictException: <p>The request could not be completed due to a conflict.</p>
+            capo_elementalinference.errors.internal_server_error_exception.InternalServerErrorException: <p>An internal server error occurred. This is a temporary condition and the request can be retried. If the problem persists, contact AWS Support. </p>
+            capo_elementalinference.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the action doesn't exist.</p>
+            capo_elementalinference.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request was rejected because it would exceed one or more service quotas for your account. Review your service quotas and either delete unused resources or request a quota increase. </p>
+            capo_elementalinference.errors.too_many_request_exception.TooManyRequestException: <p>The request was denied due to request throttling. Too many requests have been made within a given time period. Reduce the frequency of requests and use exponential backoff when retrying. </p>
+            capo_elementalinference.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service. Check the error message for details about which parameter or field is invalid and correct the request before retrying. </p>
+            capo_elementalinference.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_elementalinference.types.create_schedule_action_request.CreateScheduleActionRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_elementalinference.types.create_schedule_action_response.CreateScheduleActionResponse"
+        ]:
+            import capo_elementalinference._operations.elemental_inference.create_schedule_action
+
+            (
+                output,
+                http_response,
+            ) = await capo_elementalinference._operations.elemental_inference.create_schedule_action.async_create_schedule_action(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateScheduleAction")
+        )
+        input_: capo_elementalinference.types.create_schedule_action_request.CreateScheduleActionRequest = {
+            "id": id,
+            "action_name": action_name,
+            "start_configuration": start_configuration,
+            "operations": operations,
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def delete_feed_policy(
         self,
         id: "capo_elementalinference.types.feed_id.FeedId",
@@ -988,6 +1228,60 @@ class AsyncFeedResource:
         )
         input_: capo_elementalinference.types.delete_feed_policy_request.DeleteFeedPolicyRequest = {
             "id": id
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def delete_schedule_action(
+        self,
+        id: "capo_elementalinference.types.feed_id.FeedId",
+        action_name: "capo_elementalinference.types.resource_name.ResourceName",
+        *,
+        config_overrides: Optional[AsyncElementalInferenceClientConfig] = None,
+    ) -> "capo_elementalinference.types.delete_schedule_action_response.DeleteScheduleActionResponse":
+        """<p>Deletes a schedule action from a feed. A deleted action never runs.</p> <p>You can delete only an action whose status is PENDING. Deleting an action doesn't reverse changes that the action already made to the feed. When you delete or archive a feed, Elemental Inference deletes all the schedule actions on that feed. </p>
+
+        Args:
+            id: <p>The ID of the feed that holds the schedule action.</p>
+            action_name: <p>The name of the schedule action that you want to delete.</p>
+
+        Raises:
+            capo_elementalinference.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_elementalinference.errors.conflict_exception.ConflictException: <p>The request could not be completed due to a conflict.</p>
+            capo_elementalinference.errors.internal_server_error_exception.InternalServerErrorException: <p>An internal server error occurred. This is a temporary condition and the request can be retried. If the problem persists, contact AWS Support. </p>
+            capo_elementalinference.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the action doesn't exist.</p>
+            capo_elementalinference.errors.too_many_request_exception.TooManyRequestException: <p>The request was denied due to request throttling. Too many requests have been made within a given time period. Reduce the frequency of requests and use exponential backoff when retrying. </p>
+            capo_elementalinference.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service. Check the error message for details about which parameter or field is invalid and correct the request before retrying. </p>
+            capo_elementalinference.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_elementalinference.types.delete_schedule_action_request.DeleteScheduleActionRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_elementalinference.types.delete_schedule_action_response.DeleteScheduleActionResponse"
+        ]:
+            import capo_elementalinference._operations.elemental_inference.delete_schedule_action
+
+            (
+                output,
+                http_response,
+            ) = await capo_elementalinference._operations.elemental_inference.delete_schedule_action.async_delete_schedule_action(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteScheduleAction")
+        )
+        input_: capo_elementalinference.types.delete_schedule_action_request.DeleteScheduleActionRequest = {
+            "id": id,
+            "action_name": action_name,
         }
 
         response = await aexecute_pipeline(
@@ -1097,6 +1391,64 @@ class AsyncFeedResource:
         input_: capo_elementalinference.types.get_feed_policy_request.GetFeedPolicyRequest = {
             "id": id
         }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def list_schedule_actions(
+        self,
+        id: "capo_elementalinference.types.feed_id.FeedId",
+        *,
+        config_overrides: Optional[AsyncElementalInferenceClientConfig] = None,
+        max_results: Optional[int] = None,
+        next_token: Optional[str] = None,
+    ) -> "capo_elementalinference.types.list_schedule_actions_response.ListScheduleActionsResponse":
+        """<p>Displays a list of the schedule actions on a feed, including the status of each action and, for a failed action, information about why it failed. </p> <p>Elemental Inference keeps an action whose status is COMPLETED or FAILED for about 48 hours after its scheduled time, and then deletes it automatically. </p>
+
+        Args:
+            id: <p>The ID of the feed that you want to query.</p>
+            max_results: <p>The maximum number of results to return for each API request. If you don't specify MaxResults, Elemental Inference returns a maximum of 10 results for each page. </p>
+            next_token: <p>The token that identifies the batch of results that you want to see. To see the next batch, submit the request a second time and specify the NextToken value that Elemental Inference returned. </p>
+
+        Raises:
+            capo_elementalinference.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_elementalinference.errors.internal_server_error_exception.InternalServerErrorException: <p>An internal server error occurred. This is a temporary condition and the request can be retried. If the problem persists, contact AWS Support. </p>
+            capo_elementalinference.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the action doesn't exist.</p>
+            capo_elementalinference.errors.too_many_request_exception.TooManyRequestException: <p>The request was denied due to request throttling. Too many requests have been made within a given time period. Reduce the frequency of requests and use exponential backoff when retrying. </p>
+            capo_elementalinference.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service. Check the error message for details about which parameter or field is invalid and correct the request before retrying. </p>
+            capo_elementalinference.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_elementalinference.types.list_schedule_actions_request.ListScheduleActionsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_elementalinference.types.list_schedule_actions_response.ListScheduleActionsResponse"
+        ]:
+            import capo_elementalinference._operations.elemental_inference.list_schedule_actions
+
+            (
+                output,
+                http_response,
+            ) = await capo_elementalinference._operations.elemental_inference.list_schedule_actions.async_list_schedule_actions(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListScheduleActions")
+        )
+        input_: capo_elementalinference.types.list_schedule_actions_request.ListScheduleActionsRequest = {
+            "id": id
+        }
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

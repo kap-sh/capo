@@ -21,35 +21,35 @@ if TYPE_CHECKING:
 
 class GetVolumeResponse(TypedDict, closed=True):
     volume_id: "capo_deadline.types.volume_id.VolumeId"
-    """<p>The volume ID.</p>"""
+    """The volume ID."""
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the farm that contains the fleet.</p>"""
+    """The farm ID of the farm that contains the fleet."""
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID of the fleet that contains the volume.</p>"""
+    """The fleet ID of the fleet that contains the volume."""
     state: "capo_deadline.types.volume_state.VolumeState"
-    """<p>The state of the volume.</p>"""
+    """The state of the volume."""
     size_gi_b: "capo_deadline.types.persistent_volume_size_gi_b.PersistentVolumeSizeGiB"
-    """<p>The volume size in GiB.</p>"""
+    """The volume size in GiB."""
     availability_zone_id: "capo_deadline.types.string.String"
-    """<p>The Availability Zone ID of the volume.</p>"""
+    """The Availability Zone ID of the volume."""
     attached_worker_id: NotRequired["capo_deadline.types.worker_id.WorkerId"]
-    """<p>The worker ID of the worker the volume is attached to.</p>"""
+    """The worker ID of the worker the volume is attached to."""
     volume_type: "capo_deadline.types.ebs_volume_type.EbsVolumeType"
-    """<p>The EBS volume type.</p>"""
+    """The EBS volume type."""
     iops: NotRequired["capo_deadline.types.persistent_volume_iops.PersistentVolumeIops"]
-    """<p>The IOPS of the volume.</p>"""
+    """The IOPS of the volume."""
     throughput_mi_b: NotRequired[
         "capo_deadline.types.persistent_volume_throughput_mi_b.PersistentVolumeThroughputMiB"
     ]
-    """<p>The throughput of the volume in MiB.</p>"""
+    """The throughput of the volume in MiB."""
     created_at: "capo_deadline.types.created_at.CreatedAt"
-    """<p>The date and time the resource was created.</p>"""
+    """The date and time the resource was created."""
     last_assigned_at: NotRequired["capo_deadline.types.timestamp.Timestamp"]
-    """<p>The date and time the volume was last assigned to a worker.</p>"""
+    """The date and time the volume was last assigned to a worker."""
     last_released_at: NotRequired["capo_deadline.types.timestamp.Timestamp"]
-    """<p>The date and time the volume was last released from a worker.</p>"""
+    """The date and time the volume was last released from a worker."""
     expires_at: NotRequired["capo_deadline.types.timestamp.Timestamp"]
-    """<p>The date and time the volume expires and will be deleted.</p>"""
+    """The date and time the volume expires and will be deleted."""
 
 
 # --- restJson1 ser/de ---

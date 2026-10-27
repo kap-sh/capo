@@ -58,7 +58,7 @@ class CoreNetworkChangeValues(TypedDict, closed=True):
     routing_policy_direction: NotRequired[
         "capo_networkmanager.types.routing_policy_direction.RoutingPolicyDirection"
     ]
-    """<p>The routing policy direction (inbound/outbound) in a core network change event.</p>"""
+    """<p>The routing policy direction (inbound/outbound) in the core network change values.</p>"""
     routing_policy: NotRequired[
         "capo_networkmanager.types.core_network_policy_document.CoreNetworkPolicyDocument"
     ]

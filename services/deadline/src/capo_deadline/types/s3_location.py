@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class S3Location(TypedDict, closed=True):
     bucket_name: "capo_deadline.types.s3_bucket_name.S3BucketName"
-    """<p>The name of the Amazon S3 bucket.</p>"""
+    """The name of the Amazon S3 bucket."""
     key: "capo_deadline.types.s3_key.S3Key"
-    """<p>The Amazon S3 object key that uniquely identifies the Amazon S3 bucket.</p>"""
+    """The Amazon S3 object key that uniquely identifies the Amazon S3 bucket."""
 
 
 # --- restJson1 ser/de ---

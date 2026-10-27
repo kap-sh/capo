@@ -13,9 +13,9 @@ if TYPE_CHECKING:
 
 class InternalServerException_(TypedDict, closed=True):
     error: "capo_signin.types.o_auth2_error_code.OAuth2ErrorCode"
-    """OAuth 2.0 error code indicating server error Will be SERVER_ERROR for internal server errors"""
+    """Will be server_error."""
     message: "str"
-    """Detailed message explaining the server error May include error details for debugging purposes"""
+    """The server error detail."""
 
 
 # --- restJson1 ser/de ---

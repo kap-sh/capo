@@ -16,21 +16,21 @@ if TYPE_CHECKING:
 
 class CustomerManagedFleetConfiguration(TypedDict, closed=True):
     mode: "capo_deadline.types.auto_scaling_mode.AutoScalingMode"
-    """<p>The Auto Scaling mode for the customer managed fleet.</p>"""
+    """The Auto Scaling mode for the customer managed fleet."""
     auto_scaling_configuration: NotRequired[
         "capo_deadline.types.customer_managed_auto_scaling_configuration.CustomerManagedAutoScalingConfiguration"
     ]
-    """<p>The auto scaling configuration settings for the customer managed fleet.</p>"""
+    """The auto scaling configuration settings for the customer managed fleet."""
     worker_capabilities: "capo_deadline.types.customer_managed_worker_capabilities.CustomerManagedWorkerCapabilities"
-    """<p>The worker capabilities for the customer managed fleet.</p>"""
+    """The worker capabilities for the customer managed fleet."""
     storage_profile_id: NotRequired[
         "capo_deadline.types.storage_profile_id.StorageProfileId"
     ]
-    """<p>The storage profile ID for the customer managed fleet.</p>"""
+    """The storage profile ID for the customer managed fleet."""
     tag_propagation_mode: NotRequired[
         "capo_deadline.types.tag_propagation_mode.TagPropagationMode"
     ]
-    """<p>The tag propagation mode for the customer managed fleet.</p>"""
+    """The tag propagation mode for the customer managed fleet."""
 
 
 # --- restJson1 ser/de ---

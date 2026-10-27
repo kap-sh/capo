@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class AssumeQueueRoleForWorkerResponse(TypedDict, closed=True):
     credentials: NotRequired["capo_deadline.types.aws_credentials.AwsCredentials"]
-    """<p>The Amazon Web Services credentials for the role that the worker is assuming.</p>"""
+    """The Amazon Web Services credentials for the role that the worker is assuming."""
 
 
 # --- restJson1 ser/de ---

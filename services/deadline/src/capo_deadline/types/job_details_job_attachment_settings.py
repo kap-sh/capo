@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class JobDetailsJobAttachmentSettings(TypedDict, closed=True):
     s3_bucket_name: "capo_deadline.types.s3_bucket_name.S3BucketName"
-    """<p>The Amazon S3 bucket name.</p>"""
+    """The Amazon S3 bucket name."""
     root_prefix: "capo_deadline.types.s3_prefix.S3Prefix"
-    """<p>The root prefix.</p>"""
+    """The root prefix."""
 
 
 # --- restJson1 ser/de ---

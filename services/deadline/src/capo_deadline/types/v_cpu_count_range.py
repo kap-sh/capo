@@ -10,11 +10,11 @@ if TYPE_CHECKING:
 
 class VCpuCountRange(TypedDict, closed=True):
     min: "capo_deadline.types.min_one_max_ten_thousand.MinOneMaxTenThousand"
-    """<p>The minimum amount of vCPU.</p>"""
+    """The minimum amount of vCPU."""
     max: NotRequired[
         "capo_deadline.types.min_one_max_ten_thousand.MinOneMaxTenThousand"
     ]
-    """<p>The maximum amount of vCPU.</p>"""
+    """The maximum amount of vCPU."""
 
 
 # --- restJson1 ser/de ---

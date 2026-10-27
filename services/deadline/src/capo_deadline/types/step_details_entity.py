@@ -16,23 +16,23 @@ if TYPE_CHECKING:
 
 class StepDetailsEntity(TypedDict, closed=True):
     job_id: "capo_deadline.types.job_id.JobId"
-    """<p>The job ID.</p>"""
+    """The job ID."""
     step_id: "capo_deadline.types.step_id.StepId"
-    """<p>The step ID.</p>"""
+    """The step ID."""
     schema_version: "capo_deadline.types.string.String"
-    """<p>The schema version for a step template.</p>"""
+    """The schema version for a step template."""
     template: "capo_deadline.types.document.Document"
-    """<p>The template for a step.</p>"""
+    """The template for a step."""
     dependencies: "capo_deadline.types.dependencies_list.DependenciesList"
-    """<p>The dependencies for a step.</p>"""
+    """The dependencies for a step."""
     extensions: NotRequired[
         "capo_deadline.types.openjd_extension_name_list.OpenjdExtensionNameList"
     ]
-    """<p>The Open Job Description extensions that the step uses. This value is used by the worker agent.</p>"""
+    """The Open Job Description extensions that the step uses. This value is used by the worker agent."""
     resolved_symbol_table: NotRequired[
         "capo_deadline.types.serialized_symbol_table.SerializedSymbolTable"
     ]
-    """<p>The resolved symbol table for the step's expressions, serialized as JSON. This value is used by the worker agent.</p>"""
+    """The resolved symbol table for the step's expressions, serialized as JSON. This value is used by the worker agent."""
 
 
 # --- restJson1 ser/de ---

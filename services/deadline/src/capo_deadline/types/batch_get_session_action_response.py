@@ -13,9 +13,9 @@ class BatchGetSessionActionResponse(TypedDict, closed=True):
     session_actions: (
         "capo_deadline.types.batch_get_session_action_items.BatchGetSessionActionItems"
     )
-    """<p>A list of session actions that were successfully retrieved.</p>"""
+    """A list of session actions that were successfully retrieved."""
     errors: "capo_deadline.types.batch_get_session_action_errors.BatchGetSessionActionErrors"
-    """<p>A list of errors for session actions that could not be retrieved.</p>"""
+    """A list of errors for session actions that could not be retrieved."""
 
 
 # --- restJson1 ser/de ---

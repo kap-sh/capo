@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class EnvironmentEnterSessionActionDefinitionSummary(TypedDict, closed=True):
     environment_id: "capo_deadline.types.environment_id.EnvironmentId"
-    """<p>The environment ID.</p>"""
+    """The environment ID."""
 
 
 # --- restJson1 ser/de ---

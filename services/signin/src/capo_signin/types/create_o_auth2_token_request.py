@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class CreateOAuth2TokenRequest(TypedDict, closed=True):
     token_input: "capo_signin.types.create_o_auth2_token_request_body.CreateOAuth2TokenRequestBody"
-    """Flattened token operation inputs The specific operation is determined by grant_type in the request body"""
+    """Flattened token operation inputs. The "grant_type" in the request body determines the specific operation."""
 
 
 # --- restJson1 ser/de ---

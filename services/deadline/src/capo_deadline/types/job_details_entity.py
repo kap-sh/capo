@@ -17,29 +17,29 @@ if TYPE_CHECKING:
 
 class JobDetailsEntity(TypedDict, closed=True):
     job_id: "capo_deadline.types.job_id.JobId"
-    """<p>The job ID.</p>"""
+    """The job ID."""
     job_attachment_settings: NotRequired[
         "capo_deadline.types.job_details_job_attachment_settings.JobDetailsJobAttachmentSettings"
     ]
-    """<p>The job attachment settings.</p>"""
+    """The job attachment settings."""
     job_run_as_user: NotRequired["capo_deadline.types.job_run_as_user.JobRunAsUser"]
-    """<p>The user name and group that the job uses when run.</p>"""
+    """The user name and group that the job uses when run."""
     log_group_name: "capo_deadline.types.string.String"
-    """<p>The log group name.</p>"""
+    """The log group name."""
     queue_role_arn: NotRequired["capo_deadline.types.iam_role_arn.IamRoleArn"]
-    """<p>The queue role ARN.</p>"""
+    """The queue role ARN."""
     parameters: NotRequired["capo_deadline.types.job_parameters.JobParameters"]
-    """<p>The parameters.</p>"""
+    """The parameters."""
     schema_version: "capo_deadline.types.string.String"
-    """<p>The schema version.</p>"""
+    """The schema version."""
     extensions: NotRequired[
         "capo_deadline.types.openjd_extension_name_list.OpenjdExtensionNameList"
     ]
-    """<p>The Open Job Description extensions that the job template uses. This value is used by the worker agent.</p>"""
+    """The Open Job Description extensions that the job template uses. This value is used by the worker agent."""
     path_mapping_rules: NotRequired[
         "capo_deadline.types.path_mapping_rules.PathMappingRules"
     ]
-    """<p>The path mapping rules.</p>"""
+    """The path mapping rules."""
 
 
 # --- restJson1 ser/de ---

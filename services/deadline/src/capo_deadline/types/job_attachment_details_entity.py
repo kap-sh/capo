@@ -13,9 +13,9 @@ if TYPE_CHECKING:
 
 class JobAttachmentDetailsEntity(TypedDict, closed=True):
     job_id: "capo_deadline.types.job_id.JobId"
-    """<p>The job ID.</p>"""
+    """The job ID."""
     attachments: "capo_deadline.types.attachments.Attachments"
-    """<p>The job attachments.</p>"""
+    """The job attachments."""
 
 
 # --- restJson1 ser/de ---

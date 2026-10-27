@@ -16,19 +16,19 @@ if TYPE_CHECKING:
 
 class WorkerSessionSummary(TypedDict, closed=True):
     session_id: "capo_deadline.types.session_id.SessionId"
-    """<p>The session ID for the session action.</p>"""
+    """The session ID for the session action."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID for the queue associated to the worker.</p>"""
+    """The queue ID for the queue associated to the worker."""
     job_id: "capo_deadline.types.job_id.JobId"
-    """<p>The job ID for the job associated with the worker's session.</p>"""
+    """The job ID for the job associated with the worker's session."""
     started_at: "capo_deadline.types.started_at.StartedAt"
-    """<p>The date and time the resource started running.</p>"""
+    """The date and time the resource started running."""
     lifecycle_status: (
         "capo_deadline.types.session_lifecycle_status.SessionLifecycleStatus"
     )
-    """<p>The life cycle status for the worker's session.</p>"""
+    """The life cycle status for the worker's session."""
     ended_at: NotRequired["capo_deadline.types.ended_at.EndedAt"]
-    """<p>The date and time the resource ended running.</p>"""
+    """The date and time the resource ended running."""
     target_lifecycle_status: NotRequired[
         "capo_deadline.types.session_lifecycle_target_status.SessionLifecycleTargetStatus"
     ]

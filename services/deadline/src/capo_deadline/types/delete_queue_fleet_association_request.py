@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class DeleteQueueFleetAssociationRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the farm that holds the queue-fleet association.</p>"""
+    """The farm ID of the farm that holds the queue-fleet association."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID of the queue-fleet association.</p>"""
+    """The queue ID of the queue-fleet association."""
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID of the queue-fleet association.</p>"""
+    """The fleet ID of the queue-fleet association."""
 
 
 # --- restJson1 ser/de ---

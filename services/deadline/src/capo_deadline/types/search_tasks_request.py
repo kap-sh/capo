@@ -15,23 +15,23 @@ if TYPE_CHECKING:
 
 class SearchTasksRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the task.</p>"""
+    """The farm ID of the task."""
     filter_expressions: NotRequired[
         "capo_deadline.types.search_grouped_filter_expressions.SearchGroupedFilterExpressions"
     ]
-    """<p>The search terms for a resource.</p>"""
+    """The search terms for a resource."""
     sort_expressions: NotRequired[
         "capo_deadline.types.search_sort_expressions.SearchSortExpressions"
     ]
-    """<p>The search terms for a resource.</p>"""
+    """The search terms for a resource."""
     item_offset: "capo_deadline.types.integer.Integer"
-    """<p>The offset for the search results.</p>"""
+    """The offset for the search results."""
     page_size: NotRequired["capo_deadline.types.integer.Integer"]
-    """<p>Specifies the number of results to return.</p>"""
+    """Specifies the number of results to return."""
     queue_ids: "capo_deadline.types.queue_ids.QueueIds"
-    """<p>The queue IDs to include in the search.</p>"""
+    """The queue IDs to include in the search."""
     job_id: NotRequired["capo_deadline.types.job_id.JobId"]
-    """<p>The job ID for the task search.</p>"""
+    """The job ID for the task search."""
 
 
 # --- restJson1 ser/de ---

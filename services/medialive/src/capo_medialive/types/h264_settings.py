@@ -20,6 +20,7 @@ if TYPE_CHECKING:
     import capo_medialive.types.afd_signaling
     import capo_medialive.types.fixed_afd
     import capo_medialive.types.h264_adaptive_quantization
+    import capo_medialive.types.h264_allow_explicit_weighted_prediction
     import capo_medialive.types.h264_color_metadata
     import capo_medialive.types.h264_color_space_settings
     import capo_medialive.types.h264_entropy_encoding
@@ -182,6 +183,10 @@ class H264Settings(TypedDict, closed=True):
     """Sets the minimum QP. If you aren't familiar with quantization adjustment, leave the field empty. MediaLive will apply an appropriate value."""
     min_bitrate: NotRequired["capo_medialive.types.__integer_min0.__integerMin0"]
     """Used for QVBR rate control mode only. Optional. Enter a minimum bitrate if you want to keep the output bitrate about a threshold, in order to prevent the downstream system from de-allocating network bandwidth for this output."""
+    allow_explicit_weighted_prediction: NotRequired[
+        "capo_medialive.types.h264_allow_explicit_weighted_prediction.H264AllowExplicitWeightedPrediction"
+    ]
+    """Specifies whether the encoder may apply explicit weighted prediction (EWP), an H.264 coding tool that can improve compression. EWP applies a scaling factor and offset to reference frames, which helps when brightness changes between frames, such as during a fade. When this setting is enabled, the encoder decides whether to apply EWP based on the output's other codec settings, such as profile and quality level. We recommend that you keep the default, enabled. When disabled, the encoder never applies EWP."""
 
 
 # --- restJson1 ser/de ---
@@ -405,6 +410,14 @@ def serialize_json(value: H264Settings) -> dict:
         out["minQp"] = value["min_qp"]
     if "min_bitrate" in value:
         out["minBitrate"] = value["min_bitrate"]
+    if "allow_explicit_weighted_prediction" in value:
+        import capo_medialive.types.h264_allow_explicit_weighted_prediction
+
+        out["allowExplicitWeightedPrediction"] = (
+            capo_medialive.types.h264_allow_explicit_weighted_prediction.serialize_json(
+                value["allow_explicit_weighted_prediction"]
+            )
+        )
     return out
 
 
@@ -630,4 +643,12 @@ def deserialize_json(data: dict) -> H264Settings:
         out["min_qp"] = data["minQp"]
     if data.get("minBitrate") is not None:
         out["min_bitrate"] = data["minBitrate"]
+    if data.get("allowExplicitWeightedPrediction") is not None:
+        import capo_medialive.types.h264_allow_explicit_weighted_prediction
+
+        out["allow_explicit_weighted_prediction"] = (
+            capo_medialive.types.h264_allow_explicit_weighted_prediction.deserialize_json(
+                data["allowExplicitWeightedPrediction"]
+            )
+        )
     return out

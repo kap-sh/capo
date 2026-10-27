@@ -16,21 +16,21 @@ if TYPE_CHECKING:
 
 class GetQueueLimitAssociationResponse(TypedDict, closed=True):
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The unique identifier of the queue associated with the limit.</p>"""
+    """The unique identifier of the queue associated with the limit."""
     limit_id: "capo_deadline.types.limit_id.LimitId"
-    """<p>The unique identifier of the limit associated with the queue.</p>"""
+    """The unique identifier of the limit associated with the queue."""
     status: (
         "capo_deadline.types.queue_limit_association_status.QueueLimitAssociationStatus"
     )
-    """<p>The current status of the limit.</p>"""
+    """The current status of the limit."""
     created_at: "capo_deadline.types.created_at.CreatedAt"
-    """<p>The Unix timestamp of the date and time that the association was created.</p>"""
+    """The Unix timestamp of the date and time that the association was created."""
     created_by: "capo_deadline.types.created_by.CreatedBy"
-    """<p>The user identifier of the person that created the association.</p>"""
+    """The user identifier of the person that created the association."""
     updated_at: NotRequired["capo_deadline.types.updated_at.UpdatedAt"]
-    """<p>The Unix timestamp of the date and time that the association was last updated.</p>"""
+    """The Unix timestamp of the date and time that the association was last updated."""
     updated_by: NotRequired["capo_deadline.types.updated_by.UpdatedBy"]
-    """<p>The user identifier of the person that last updated the association.</p>"""
+    """The user identifier of the person that last updated the association."""
 
 
 # --- restJson1 ser/de ---

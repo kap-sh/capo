@@ -22,6 +22,7 @@ import capo_connect.errors.resource_not_found_exception
 import capo_connect.errors.throttling_exception
 import capo_connect.types.contact_references
 import capo_connect.types.endpoint
+import capo_connect.types.nullable_additional_recipients
 import capo_connect.types.queue_info_input
 import capo_connect.types.segment_attributes
 import capo_connect.types.update_contact_request

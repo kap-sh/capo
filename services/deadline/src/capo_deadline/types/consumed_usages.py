@@ -5,7 +5,7 @@ from typing_extensions import TypedDict
 
 class ConsumedUsages(TypedDict, closed=True):
     approximate_dollar_usage: "float"
-    """<p>The amount of the budget consumed.</p>"""
+    """The amount of the budget consumed."""
 
 
 # --- restJson1 ser/de ---

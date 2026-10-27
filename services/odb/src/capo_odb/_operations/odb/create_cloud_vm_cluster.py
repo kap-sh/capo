@@ -21,10 +21,12 @@ import capo_odb.errors.validation_exception
 import capo_odb.types.create_cloud_vm_cluster_input
 import capo_odb.types.create_cloud_vm_cluster_output
 import capo_odb.types.data_collection_options
+import capo_odb.types.file_system_configuration_details_list
 import capo_odb.types.license_model
 import capo_odb.types.request_tag_map
 import capo_odb.types.resource_status
 import capo_odb.types.string_list
+import capo_odb.types.vm_storage_type
 from capo_odb._protocol.errors import parse_error_metadata_json
 from capo_odb._rule_engine._endpoint_rule_set import EndpointParams, resolve
 from capo_odb._services._pipeline import (

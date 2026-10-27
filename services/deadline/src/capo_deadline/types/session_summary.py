@@ -18,27 +18,27 @@ if TYPE_CHECKING:
 
 class SessionSummary(TypedDict, closed=True):
     session_id: "capo_deadline.types.session_id.SessionId"
-    """<p>The session ID.</p>"""
+    """The session ID."""
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID.</p>"""
+    """The fleet ID."""
     worker_id: "capo_deadline.types.worker_id.WorkerId"
-    """<p>The worker ID.</p>"""
+    """The worker ID."""
     started_at: "capo_deadline.types.started_at.StartedAt"
-    """<p>The date and time the resource started running.</p>"""
+    """The date and time the resource started running."""
     lifecycle_status: (
         "capo_deadline.types.session_lifecycle_status.SessionLifecycleStatus"
     )
-    """<p>The life cycle status for the session.</p>"""
+    """The life cycle status for the session."""
     ended_at: NotRequired["capo_deadline.types.ended_at.EndedAt"]
-    """<p>The date and time the resource ended running.</p>"""
+    """The date and time the resource ended running."""
     target_lifecycle_status: NotRequired[
         "capo_deadline.types.session_lifecycle_target_status.SessionLifecycleTargetStatus"
     ]
-    """<p>The target life cycle status for the session.</p>"""
+    """The target life cycle status for the session."""
     updated_at: NotRequired["capo_deadline.types.updated_at.UpdatedAt"]
-    """<p>The date and time the resource was updated.</p>"""
+    """The date and time the resource was updated."""
     updated_by: NotRequired["capo_deadline.types.updated_by.UpdatedBy"]
-    """<p>The user or system that updated this resource.</p>"""
+    """The user or system that updated this resource."""
 
 
 # --- restJson1 ser/de ---

@@ -2,5 +2,5 @@
 
 from typing import TypeAlias
 
-"""<p>The weight applied to job submission time in the weighted balanced scheduling formula.</p>"""
+"""The weight applied to job submission time in the weighted balanced scheduling formula."""
 SchedulingSubmissionTimeWeight: TypeAlias = float

@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class AssumeFleetRoleForWorkerRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID for the fleet's farm.</p>"""
+    """The farm ID for the fleet's farm."""
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID that contains the worker.</p>"""
+    """The fleet ID that contains the worker."""
     worker_id: "capo_deadline.types.worker_id.WorkerId"
-    """<p>The ID of the worker assuming the fleet role.</p>"""
+    """The ID of the worker assuming the fleet role."""
 
 
 # --- restJson1 ser/de ---

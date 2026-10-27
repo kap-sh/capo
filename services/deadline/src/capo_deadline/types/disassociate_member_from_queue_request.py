@@ -12,13 +12,13 @@ if TYPE_CHECKING:
 
 class DisassociateMemberFromQueueRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID for the queue to disassociate from a member.</p>"""
+    """The farm ID for the queue to disassociate from a member."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID of the queue in which you're disassociating from a member.</p>"""
+    """The queue ID of the queue in which you're disassociating from a member."""
     principal_id: (
         "capo_deadline.types.identity_center_principal_id.IdentityCenterPrincipalId"
     )
-    """<p>A member's principal ID to disassociate from a queue.</p>"""
+    """A member's principal ID to disassociate from a queue."""
 
 
 # --- restJson1 ser/de ---

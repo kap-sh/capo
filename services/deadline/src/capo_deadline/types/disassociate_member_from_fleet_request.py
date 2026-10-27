@@ -12,13 +12,13 @@ if TYPE_CHECKING:
 
 class DisassociateMemberFromFleetRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the fleet to disassociate a member from.</p>"""
+    """The farm ID of the fleet to disassociate a member from."""
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID of the fleet to from which to disassociate a member.</p>"""
+    """The fleet ID of the fleet to from which to disassociate a member."""
     principal_id: (
         "capo_deadline.types.identity_center_principal_id.IdentityCenterPrincipalId"
     )
-    """<p>A member's principal ID to disassociate from a fleet.</p>"""
+    """A member's principal ID to disassociate from a fleet."""
 
 
 # --- restJson1 ser/de ---

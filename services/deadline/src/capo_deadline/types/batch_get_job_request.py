@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class BatchGetJobRequest(TypedDict, closed=True):
     identifiers: "capo_deadline.types.batch_get_job_identifiers.BatchGetJobIdentifiers"
-    """<p>The list of job identifiers to retrieve. You can specify up to 100 identifiers per request.</p>"""
+    """The list of job identifiers to retrieve. You can specify up to 100 identifiers per request."""
 
 
 # --- restJson1 ser/de ---

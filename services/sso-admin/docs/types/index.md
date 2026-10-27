@@ -247,6 +247,7 @@
 - [RegionMetadata](region_metadata.md)
 - [RegionMetadataList](region_metadata_list.md)
 - [RegionName](region_name.md)
+- [RegionScope](region_scope.md)
 - [RegionStatus](region_status.md)
 - [RelayState](relay_state.md)
 - [RemoveRegionRequest](remove_region_request.md)

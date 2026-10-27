@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class SearchGroupedFilterExpressions(TypedDict, closed=True):
     filters: "capo_deadline.types.search_filter_expressions.SearchFilterExpressions"
-    """<p>The filters to use for the search.</p>"""
+    """The filters to use for the search."""
     operator: "capo_deadline.types.logical_operator.LogicalOperator"
-    """<p>The operators to include in the search.</p>"""
+    """The operators to include in the search."""
 
 
 # --- restJson1 ser/de ---

@@ -83,6 +83,8 @@ if TYPE_CHECKING:
     import capo_ecr.types.describe_pull_through_cache_rules_response
     import capo_ecr.types.describe_registry_request
     import capo_ecr.types.describe_registry_response
+    import capo_ecr.types.describe_replication_backfill_results_request
+    import capo_ecr.types.describe_replication_backfill_results_response
     import capo_ecr.types.describe_repositories_request
     import capo_ecr.types.describe_repositories_response
     import capo_ecr.types.describe_repository_creation_templates_request
@@ -137,6 +139,8 @@ if TYPE_CHECKING:
     import capo_ecr.types.list_images_response
     import capo_ecr.types.list_pull_time_update_exclusions_request
     import capo_ecr.types.list_pull_time_update_exclusions_response
+    import capo_ecr.types.list_replication_backfills_request
+    import capo_ecr.types.list_replication_backfills_response
     import capo_ecr.types.list_tags_for_resource_request
     import capo_ecr.types.list_tags_for_resource_response
     import capo_ecr.types.max_results
@@ -174,7 +178,12 @@ if TYPE_CHECKING:
     import capo_ecr.types.registry_id
     import capo_ecr.types.registry_policy_text
     import capo_ecr.types.registry_scanning_rule_list
+    import capo_ecr.types.replication_backfill_id
+    import capo_ecr.types.replication_backfill_result
+    import capo_ecr.types.replication_backfill_result_status
+    import capo_ecr.types.replication_backfill_summary
     import capo_ecr.types.replication_configuration
+    import capo_ecr.types.replication_destination
     import capo_ecr.types.repository
     import capo_ecr.types.repository_creation_template
     import capo_ecr.types.repository_name
@@ -190,6 +199,10 @@ if TYPE_CHECKING:
     import capo_ecr.types.start_image_scan_response
     import capo_ecr.types.start_lifecycle_policy_preview_request
     import capo_ecr.types.start_lifecycle_policy_preview_response
+    import capo_ecr.types.start_replication_backfill_request
+    import capo_ecr.types.start_replication_backfill_response
+    import capo_ecr.types.stop_replication_backfill_request
+    import capo_ecr.types.stop_replication_backfill_response
     import capo_ecr.types.subject_identifier
     import capo_ecr.types.tag_key_list
     import capo_ecr.types.tag_list
@@ -1753,6 +1766,102 @@ class AsyncECRClient:
         await response.response.aclose()
         return response.output
 
+    async def describe_replication_backfill_results(
+        self,
+        replication_backfill_id: "capo_ecr.types.replication_backfill_id.ReplicationBackfillId",
+        *,
+        config_overrides: Optional[AsyncECRClientConfig] = None,
+        registry_id: Optional["capo_ecr.types.registry_id.RegistryId"] = None,
+        result_status_filter: Optional[
+            "capo_ecr.types.replication_backfill_result_status.ReplicationBackfillResultStatus"
+        ] = None,
+        max_results: Optional["capo_ecr.types.max_results.MaxResults"] = None,
+        next_token: Optional["capo_ecr.types.next_token.NextToken"] = None,
+    ) -> "capo_ecr.types.describe_replication_backfill_results_response.DescribeReplicationBackfillResultsResponse":
+        """<p>Returns the status, progress, and per-image results for a replication backfill. The backfill to describe is identified by the <code>replicationBackfillId</code> returned by the <a>StartReplicationBackfill</a> operation.</p> <note> <p>The per-image results are available only after the replication backfill reaches a terminal status.</p> </note>
+
+        Args:
+            registry_id: <p>The Amazon Web Services account ID associated with the registry that contains the replication backfill to describe. If you do not specify a registry, the default registry is assumed.</p>
+            replication_backfill_id: <p>The ID of the replication backfill to describe.</p>
+            result_status_filter: <p>The status used to filter the returned results. Each result has a status of <code>COMPLETE</code> or <code>FAILED</code>. If you omit this parameter, results with both statuses are returned.</p>
+            max_results: <p>The maximum number of replication backfill results returned by <code>DescribeReplicationBackfillResults</code> in paginated output. When this parameter is used, <code>DescribeReplicationBackfillResults</code> only returns <code>maxResults</code> results in a single page along with a <code>nextToken</code> response element. The remaining results of the initial request can be seen by sending another <code>DescribeReplicationBackfillResults</code> request with the returned <code>nextToken</code> value. This value can be between 1 and 1000. If this parameter is not used, then <code>DescribeReplicationBackfillResults</code> returns up to 100 results and a <code>nextToken</code> value, if applicable.</p>
+            next_token: <p>The <code>nextToken</code> value returned from a previous paginated <code>DescribeReplicationBackfillResults</code> request where <code>maxResults</code> was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the <code>nextToken</code> value. This value is <code>null</code> when there are no more results to return.</p> <note> <p>This token should be treated as an opaque identifier that is only used to retrieve the next items in a list and not for other programmatic purposes.</p> </note>
+
+        Raises:
+            capo_ecr.errors.invalid_parameter_exception.InvalidParameterException: <p>The specified parameter is invalid. Review the available parameters for the API request.</p>
+            capo_ecr.errors.replication_backfill_not_found_exception.ReplicationBackfillNotFoundException: <p>The specified replication backfill could not be found. Check the specified replication backfill ID and ensure that you are operating on the correct registry.</p>
+            capo_ecr.errors.server_exception.ServerException: <p>These errors are usually caused by a server-side issue.</p>
+            capo_ecr.errors.validation_exception.ValidationException: <p>There was an exception validating this request.</p>
+            capo_ecr.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ecr.types.describe_replication_backfill_results_request.DescribeReplicationBackfillResultsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ecr.types.describe_replication_backfill_results_response.DescribeReplicationBackfillResultsResponse"
+        ]:
+            import capo_ecr._operations.amazon_ec2_container_registry_v20150921.describe_replication_backfill_results
+
+            (
+                output,
+                http_response,
+            ) = await capo_ecr._operations.amazon_ec2_container_registry_v20150921.describe_replication_backfill_results.async_describe_replication_backfill_results(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReplicationBackfillResults")
+        )
+        input_: capo_ecr.types.describe_replication_backfill_results_request.DescribeReplicationBackfillResultsRequest = {
+            "replication_backfill_id": replication_backfill_id
+        }
+        if registry_id is not None:
+            input_["registry_id"] = registry_id
+        if result_status_filter is not None:
+            input_["result_status_filter"] = result_status_filter
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_describe_replication_backfill_results(
+        self,
+        replication_backfill_id: "capo_ecr.types.replication_backfill_id.ReplicationBackfillId",
+        *,
+        config_overrides: Optional[AsyncECRClientConfig] = None,
+        registry_id: Optional["capo_ecr.types.registry_id.RegistryId"] = None,
+        result_status_filter: Optional[
+            "capo_ecr.types.replication_backfill_result_status.ReplicationBackfillResultStatus"
+        ] = None,
+        max_results: Optional["capo_ecr.types.max_results.MaxResults"] = None,
+        next_token: Optional["capo_ecr.types.next_token.NextToken"] = None,
+    ) -> "AsyncIterator[capo_ecr.types.replication_backfill_result.ReplicationBackfillResult]":
+        _token = next_token
+        while True:
+            _response = await self.describe_replication_backfill_results(
+                replication_backfill_id,
+                config_overrides=config_overrides,
+                registry_id=registry_id,
+                result_status_filter=result_status_filter,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("results",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
     async def describe_repositories(
         self,
         *,
@@ -2730,6 +2839,89 @@ class AsyncECRClient:
         await response.response.aclose()
         return response.output
 
+    async def list_replication_backfills(
+        self,
+        *,
+        config_overrides: Optional[AsyncECRClientConfig] = None,
+        registry_id: Optional["capo_ecr.types.registry_id.RegistryId"] = None,
+        max_results: Optional[
+            "capo_ecr.types.fifty_max_results.FiftyMaxResults"
+        ] = None,
+        next_token: Optional["capo_ecr.types.next_token.NextToken"] = None,
+    ) -> "capo_ecr.types.list_replication_backfills_response.ListReplicationBackfillsResponse":
+        """<p>Lists the replication backfills for a registry, including their status and progress.</p> <note> <p>Replication backfills that have reached a terminal status are retained for 90 days after they end, after which they are no longer returned.</p> </note>
+
+        Args:
+            registry_id: <p>The Amazon Web Services account ID associated with the registry for which to list replication backfills. If you do not specify a registry, the default registry is assumed.</p>
+            max_results: <p>The maximum number of replication backfill results returned by <code>ListReplicationBackfills</code> in paginated output. When this parameter is used, <code>ListReplicationBackfills</code> only returns <code>maxResults</code> results in a single page along with a <code>nextToken</code> response element. The remaining results of the initial request can be seen by sending another <code>ListReplicationBackfills</code> request with the returned <code>nextToken</code> value. This value can be between 1 and 50. If this parameter is not used, then <code>ListReplicationBackfills</code> returns up to 25 results and a <code>nextToken</code> value, if applicable.</p>
+            next_token: <p>The <code>nextToken</code> value returned from a previous paginated <code>ListReplicationBackfills</code> request where <code>maxResults</code> was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the <code>nextToken</code> value. This value is <code>null</code> when there are no more results to return.</p> <note> <p>This token should be treated as an opaque identifier that is only used to retrieve the next items in a list and not for other programmatic purposes.</p> </note>
+
+        Raises:
+            capo_ecr.errors.invalid_parameter_exception.InvalidParameterException: <p>The specified parameter is invalid. Review the available parameters for the API request.</p>
+            capo_ecr.errors.server_exception.ServerException: <p>These errors are usually caused by a server-side issue.</p>
+            capo_ecr.errors.validation_exception.ValidationException: <p>There was an exception validating this request.</p>
+            capo_ecr.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ecr.types.list_replication_backfills_request.ListReplicationBackfillsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ecr.types.list_replication_backfills_response.ListReplicationBackfillsResponse"
+        ]:
+            import capo_ecr._operations.amazon_ec2_container_registry_v20150921.list_replication_backfills
+
+            (
+                output,
+                http_response,
+            ) = await capo_ecr._operations.amazon_ec2_container_registry_v20150921.list_replication_backfills.async_list_replication_backfills(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReplicationBackfills")
+        )
+        input_: capo_ecr.types.list_replication_backfills_request.ListReplicationBackfillsRequest = {}
+        if registry_id is not None:
+            input_["registry_id"] = registry_id
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_replication_backfills(
+        self,
+        *,
+        config_overrides: Optional[AsyncECRClientConfig] = None,
+        registry_id: Optional["capo_ecr.types.registry_id.RegistryId"] = None,
+        max_results: Optional[
+            "capo_ecr.types.fifty_max_results.FiftyMaxResults"
+        ] = None,
+        next_token: Optional["capo_ecr.types.next_token.NextToken"] = None,
+    ) -> "AsyncIterator[capo_ecr.types.replication_backfill_summary.ReplicationBackfillSummary]":
+        _token = next_token
+        while True:
+            _response = await self.list_replication_backfills(
+                config_overrides=config_overrides,
+                registry_id=registry_id,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("backfills",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
     async def list_tags_for_resource(
         self,
         resource_arn: "capo_ecr.types.arn.Arn",
@@ -3502,6 +3694,114 @@ class AsyncECRClient:
             input_["registry_id"] = registry_id
         if lifecycle_policy_text is not None:
             input_["lifecycle_policy_text"] = lifecycle_policy_text
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def start_replication_backfill(
+        self,
+        destination: "capo_ecr.types.replication_destination.ReplicationDestination",
+        *,
+        config_overrides: Optional[AsyncECRClientConfig] = None,
+        registry_id: Optional["capo_ecr.types.registry_id.RegistryId"] = None,
+    ) -> "capo_ecr.types.start_replication_backfill_response.StartReplicationBackfillResponse":
+        """<p>Starts a replication backfill for a registry. A replication backfill replicates a registry's existing images that match its replication configuration to the specified destination. Use the <a>DescribeReplicationBackfillResults</a> operation to monitor the progress of a replication backfill, and to retrieve its per-image results after it reaches a terminal status.</p> <note> <p>The destination must already be configured in the registry's replication configuration.</p> </note> <note> <p>Only one replication backfill can be in progress for a given destination Region at a time. Starting a replication backfill for a destination Region that already has one in progress fails with a <code>ReplicationBackfillInProgressException</code>. In addition, a registry can have at most 10 replication backfills in progress at once. Starting a replication backfill that would exceed this limit fails with a <code>LimitExceededException</code>.</p> </note>
+
+        Args:
+            registry_id: <p>The Amazon Web Services account ID associated with the registry from which to start the replication backfill. If you do not specify a registry, the default registry is assumed.</p>
+            destination: <p>The destination Region and registry to which the images are replicated.</p>
+
+        Raises:
+            capo_ecr.errors.invalid_parameter_exception.InvalidParameterException: <p>The specified parameter is invalid. Review the available parameters for the API request.</p>
+            capo_ecr.errors.limit_exceeded_exception.LimitExceededException: <p>The operation did not succeed because it would have exceeded a service limit for your account. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR service quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
+            capo_ecr.errors.replication_backfill_in_progress_exception.ReplicationBackfillInProgressException: <p>A replication backfill is already in progress for the specified destination Region. This occurs because only one replication backfill can be in progress for a given destination Region at a time. Wait for the in progress backfill to reach a terminal status, or stop it with the <a>StopReplicationBackfill</a> operation, before starting another one.</p>
+            capo_ecr.errors.server_exception.ServerException: <p>These errors are usually caused by a server-side issue.</p>
+            capo_ecr.errors.validation_exception.ValidationException: <p>There was an exception validating this request.</p>
+            capo_ecr.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ecr.types.start_replication_backfill_request.StartReplicationBackfillRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ecr.types.start_replication_backfill_response.StartReplicationBackfillResponse"
+        ]:
+            import capo_ecr._operations.amazon_ec2_container_registry_v20150921.start_replication_backfill
+
+            (
+                output,
+                http_response,
+            ) = await capo_ecr._operations.amazon_ec2_container_registry_v20150921.start_replication_backfill.async_start_replication_backfill(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartReplicationBackfill")
+        )
+        input_: capo_ecr.types.start_replication_backfill_request.StartReplicationBackfillRequest = {
+            "destination": destination
+        }
+        if registry_id is not None:
+            input_["registry_id"] = registry_id
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def stop_replication_backfill(
+        self,
+        replication_backfill_id: "capo_ecr.types.replication_backfill_id.ReplicationBackfillId",
+        *,
+        config_overrides: Optional[AsyncECRClientConfig] = None,
+        registry_id: Optional["capo_ecr.types.registry_id.RegistryId"] = None,
+    ) -> "capo_ecr.types.stop_replication_backfill_response.StopReplicationBackfillResponse":
+        """<p>Stops an in progress replication backfill for a registry. The backfill to stop is identified by the <code>replicationBackfillId</code> returned by the <a>StartReplicationBackfill</a> operation.</p> <note> <p>Images that have already been replicated are not affected, and replications that are already in progress continue to completion.</p> </note>
+
+        Args:
+            registry_id: <p>The Amazon Web Services account ID associated with the registry that contains the replication backfill to stop. If you do not specify a registry, the default registry is assumed.</p>
+            replication_backfill_id: <p>The ID of the replication backfill to stop.</p>
+
+        Raises:
+            capo_ecr.errors.invalid_parameter_exception.InvalidParameterException: <p>The specified parameter is invalid. Review the available parameters for the API request.</p>
+            capo_ecr.errors.replication_backfill_invalid_status_exception.ReplicationBackfillInvalidStatusException: <p>The requested operation can't be performed on the replication backfill because it is not in a valid status for that operation. For example, you can't stop a replication backfill that has already reached a terminal status. Use the <a>DescribeReplicationBackfillResults</a> operation to check the current status before retrying.</p>
+            capo_ecr.errors.replication_backfill_not_found_exception.ReplicationBackfillNotFoundException: <p>The specified replication backfill could not be found. Check the specified replication backfill ID and ensure that you are operating on the correct registry.</p>
+            capo_ecr.errors.server_exception.ServerException: <p>These errors are usually caused by a server-side issue.</p>
+            capo_ecr.errors.validation_exception.ValidationException: <p>There was an exception validating this request.</p>
+            capo_ecr.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ecr.types.stop_replication_backfill_request.StopReplicationBackfillRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ecr.types.stop_replication_backfill_response.StopReplicationBackfillResponse"
+        ]:
+            import capo_ecr._operations.amazon_ec2_container_registry_v20150921.stop_replication_backfill
+
+            (
+                output,
+                http_response,
+            ) = await capo_ecr._operations.amazon_ec2_container_registry_v20150921.stop_replication_backfill.async_stop_replication_backfill(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopReplicationBackfill")
+        )
+        input_: capo_ecr.types.stop_replication_backfill_request.StopReplicationBackfillRequest = {
+            "replication_backfill_id": replication_backfill_id
+        }
+        if registry_id is not None:
+            input_["registry_id"] = registry_id
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

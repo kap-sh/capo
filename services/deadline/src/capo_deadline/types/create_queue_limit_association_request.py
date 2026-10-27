@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class CreateQueueLimitAssociationRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The unique identifier of the farm that contains the queue and limit to associate.</p>"""
+    """The unique identifier of the farm that contains the queue and limit to associate."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The unique identifier of the queue to associate with the limit.</p>"""
+    """The unique identifier of the queue to associate with the limit."""
     limit_id: "capo_deadline.types.limit_id.LimitId"
-    """<p>The unique identifier of the limit to associate with the queue.</p>"""
+    """The unique identifier of the limit to associate with the queue."""
 
 
 # --- restJson1 ser/de ---

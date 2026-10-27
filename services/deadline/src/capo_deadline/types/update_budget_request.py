@@ -19,11 +19,11 @@ if TYPE_CHECKING:
 
 class UpdateBudgetRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the budget to update.</p>"""
+    """The farm ID of the budget to update."""
     budget_id: "capo_deadline.types.budget_id.BudgetId"
-    """<p>The budget ID to update.</p>"""
+    """The budget ID to update."""
     client_token: NotRequired["capo_deadline.types.client_token.ClientToken"]
-    """<p>The unique token which the server uses to recognize retries of the same request.</p>"""
+    """The unique token which the server uses to recognize retries of the same request."""
     display_name: NotRequired["capo_deadline.types.resource_name.ResourceName"]
     """<p>The display name of the budget to update.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     description: NotRequired["capo_deadline.types.description.Description"]
@@ -33,17 +33,17 @@ class UpdateBudgetRequest(TypedDict, closed=True):
     approximate_dollar_limit: NotRequired[
         "capo_deadline.types.consumed_usage_limit.ConsumedUsageLimit"
     ]
-    """<p>The dollar limit to update on the budget. Based on consumed usage.</p>"""
+    """The dollar limit to update on the budget. Based on consumed usage."""
     actions_to_add: NotRequired[
         "capo_deadline.types.budget_actions_to_add.BudgetActionsToAdd"
     ]
-    """<p>The budget actions to add. Budget actions specify what happens when the budget runs out.</p>"""
+    """The budget actions to add. Budget actions specify what happens when the budget runs out."""
     actions_to_remove: NotRequired[
         "capo_deadline.types.budget_actions_to_remove.BudgetActionsToRemove"
     ]
-    """<p>The budget actions to remove from the budget.</p>"""
+    """The budget actions to remove from the budget."""
     schedule: NotRequired["capo_deadline.types.budget_schedule.BudgetSchedule"]
-    """<p>The schedule to update.</p>"""
+    """The schedule to update."""
 
 
 # --- restJson1 ser/de ---

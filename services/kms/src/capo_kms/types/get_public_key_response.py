@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_kms.types.customer_master_key_spec
+    import capo_kms.types.encapsulation_algorithm_spec_list
     import capo_kms.types.encryption_algorithm_spec_list
     import capo_kms.types.key_agreement_algorithm_spec_list
     import capo_kms.types.key_id_type
@@ -40,6 +41,10 @@ class GetPublicKeyResponse(TypedDict, closed=True):
         "capo_kms.types.key_agreement_algorithm_spec_list.KeyAgreementAlgorithmSpecList"
     ]
     """<p>The key agreement algorithm used to derive a shared secret. This field is present only when the KMS key has a <code>KeyUsage</code> value of <code>KEY_AGREEMENT</code>.</p>"""
+    encapsulation_algorithms: NotRequired[
+        "capo_kms.types.encapsulation_algorithm_spec_list.EncapsulationAlgorithmSpecList"
+    ]
+    """<p>The key encapsulation algorithm used to establish a shared secret. This field is present only when the KMS key has a <code>KeyUsage</code> value of <code>ENCAPSULATE_DECAPSULATE</code>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -97,6 +102,14 @@ def serialize_aws_json_1_1(value: GetPublicKeyResponse) -> dict:
                 value["key_agreement_algorithms"]
             )
         )
+    if "encapsulation_algorithms" in value:
+        import capo_kms.types.encapsulation_algorithm_spec_list
+
+        out["EncapsulationAlgorithms"] = (
+            capo_kms.types.encapsulation_algorithm_spec_list.serialize_aws_json_1_1(
+                value["encapsulation_algorithms"]
+            )
+        )
     return out
 
 
@@ -152,6 +165,14 @@ def deserialize_aws_json_1_1(data: dict) -> GetPublicKeyResponse:
         out["key_agreement_algorithms"] = (
             capo_kms.types.key_agreement_algorithm_spec_list.deserialize_aws_json_1_1(
                 data["KeyAgreementAlgorithms"]
+            )
+        )
+    if data.get("EncapsulationAlgorithms") is not None:
+        import capo_kms.types.encapsulation_algorithm_spec_list
+
+        out["encapsulation_algorithms"] = (
+            capo_kms.types.encapsulation_algorithm_spec_list.deserialize_aws_json_1_1(
+                data["EncapsulationAlgorithms"]
             )
         )
     return out

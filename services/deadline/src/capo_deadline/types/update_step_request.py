@@ -15,19 +15,19 @@ if TYPE_CHECKING:
 
 class UpdateStepRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID to update.</p>"""
+    """The farm ID to update."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID to update.</p>"""
+    """The queue ID to update."""
     job_id: "capo_deadline.types.job_id.JobId"
-    """<p>The job ID to update.</p>"""
+    """The job ID to update."""
     step_id: "capo_deadline.types.step_id.StepId"
-    """<p>The step ID to update.</p>"""
+    """The step ID to update."""
     client_token: NotRequired["capo_deadline.types.client_token.ClientToken"]
-    """<p>The unique token which the server uses to recognize retries of the same request.</p>"""
+    """The unique token which the server uses to recognize retries of the same request."""
     target_task_run_status: (
         "capo_deadline.types.step_target_task_run_status.StepTargetTaskRunStatus"
     )
-    """<p>The task status to update the step's tasks to.</p>"""
+    """The task status to update the step's tasks to."""
 
 
 # --- restJson1 ser/de ---

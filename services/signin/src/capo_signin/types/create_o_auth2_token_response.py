@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class CreateOAuth2TokenResponse(TypedDict, closed=True):
     token_output: "capo_signin.types.create_o_auth2_token_response_body.CreateOAuth2TokenResponseBody"
-    """Flattened token operation outputs The specific response fields depend on the grant_type used in the request"""
+    """Flattened token operation outputs. The specific response fields depend on the grant_type used in the request."""
 
 
 # --- restJson1 ser/de ---

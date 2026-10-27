@@ -11,6 +11,7 @@ from capo_bedrock_agentcore_control.errors import (
 from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
+    import capo_bedrock_agentcore_control.types.match_models
     import capo_bedrock_agentcore_control.types.match_paths
     import capo_bedrock_agentcore_control.types.match_principals
 
@@ -25,8 +26,15 @@ class _Condition_matchPaths(TypedDict, closed=True):
     matchPaths: "capo_bedrock_agentcore_control.types.match_paths.MatchPaths"
 
 
+class _Condition_matchModels(TypedDict, closed=True):
+    matchModels: "capo_bedrock_agentcore_control.types.match_models.MatchModels"
+
+
 Condition: TypeAlias = (
-    _Condition_matchPrincipals | _Condition_matchPaths | UnknownUnionMember
+    _Condition_matchPrincipals
+    | _Condition_matchPaths
+    | _Condition_matchModels
+    | UnknownUnionMember
 )
 
 
@@ -52,6 +60,14 @@ def serialize_json(value: Condition) -> dict:
                 value["matchPaths"]
             )
         }
+    elif "matchModels" in value:
+        import capo_bedrock_agentcore_control.types.match_models
+
+        return {
+            "matchModels": capo_bedrock_agentcore_control.types.match_models.serialize_json(
+                value["matchModels"]
+            )
+        }
     else:
         raise SerializationError("Condition: no variant present")
 
@@ -71,6 +87,14 @@ def deserialize_json(data: dict) -> Condition:
         return {
             "matchPaths": capo_bedrock_agentcore_control.types.match_paths.deserialize_json(
                 data["matchPaths"]
+            )
+        }
+    elif data.get("matchModels") is not None:
+        import capo_bedrock_agentcore_control.types.match_models
+
+        return {
+            "matchModels": capo_bedrock_agentcore_control.types.match_models.deserialize_json(
+                data["matchModels"]
             )
         }
     else:

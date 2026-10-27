@@ -2,5 +2,5 @@
 
 from typing import TypeAlias
 
-"""Token type for access tokens. Always "Bearer" per OAuth 2.1."""
+"""Token type for access tokens. Currently supports "Bearer" as defined in RFC 6749."""
 BearerTokenType: TypeAlias = str

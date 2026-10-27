@@ -17,25 +17,25 @@ if TYPE_CHECKING:
 
 class SessionActionSummary(TypedDict, closed=True):
     session_action_id: "capo_deadline.types.session_action_id.SessionActionId"
-    """<p>The session action ID.</p>"""
+    """The session action ID."""
     status: "capo_deadline.types.session_action_status.SessionActionStatus"
-    """<p>The status of the session action.</p>"""
+    """The status of the session action."""
     started_at: NotRequired["capo_deadline.types.started_at.StartedAt"]
-    """<p>The date and time the resource started running.</p>"""
+    """The date and time the resource started running."""
     ended_at: NotRequired["capo_deadline.types.ended_at.EndedAt"]
-    """<p>The date and time the resource ended running.</p>"""
+    """The date and time the resource ended running."""
     worker_updated_at: NotRequired["capo_deadline.types.timestamp.Timestamp"]
-    """<p>The Linux timestamp of the last date and time that the session action was updated.</p>"""
+    """The Linux timestamp of the last date and time that the session action was updated."""
     progress_percent: NotRequired[
         "capo_deadline.types.session_action_progress_percent.SessionActionProgressPercent"
     ]
-    """<p>The completion percentage for the session action.</p>"""
+    """The completion percentage for the session action."""
     manifests: NotRequired[
         "capo_deadline.types.task_run_manifest_properties_list_response.TaskRunManifestPropertiesListResponse"
     ]
-    """<p>The list of manifest properties that describe file attachments for the task run.</p>"""
+    """The list of manifest properties that describe file attachments for the task run."""
     definition: "capo_deadline.types.session_action_definition_summary.SessionActionDefinitionSummary"
-    """<p>The session action definition.</p>"""
+    """The session action definition."""
 
 
 # --- restJson1 ser/de ---

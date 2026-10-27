@@ -5,6 +5,7 @@ from typing import Literal, TypeAlias, cast
 DeepHealthCheckType: TypeAlias = Literal[
     "InstanceStress",
     "InstanceConnectivity",
+    "MultiNodeTrainingValidation",
 ]
 
 

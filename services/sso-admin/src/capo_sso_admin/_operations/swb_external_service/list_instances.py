@@ -18,6 +18,7 @@ import capo_sso_admin.errors.validation_exception
 import capo_sso_admin.types.instance_list
 import capo_sso_admin.types.list_instances_request
 import capo_sso_admin.types.list_instances_response
+import capo_sso_admin.types.region_scope
 from capo_sso_admin._protocol.errors import parse_error_metadata_json
 from capo_sso_admin._rule_engine._endpoint_rule_set import EndpointParams, resolve
 from capo_sso_admin._services._pipeline import (

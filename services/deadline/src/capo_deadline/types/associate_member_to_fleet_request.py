@@ -16,21 +16,21 @@ if TYPE_CHECKING:
 
 class AssociateMemberToFleetRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the fleet to associate with the member.</p>"""
+    """The farm ID of the fleet to associate with the member."""
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The ID of the fleet to associate with a member.</p>"""
+    """The ID of the fleet to associate with a member."""
     principal_type: "capo_deadline.types.deadline_principal_type.DeadlinePrincipalType"
-    """<p>The member's principal type to associate with the fleet.</p>"""
+    """The member's principal type to associate with the fleet."""
     identity_store_id: "capo_deadline.types.identity_store_id.IdentityStoreId"
-    """<p>The member's identity store ID to associate with the fleet.</p>"""
+    """The member's identity store ID to associate with the fleet."""
     membership_level: "capo_deadline.types.membership_level.MembershipLevel"
-    """<p>The principal's membership level for the associated fleet.</p>"""
+    """The principal's membership level for the associated fleet."""
     principal_id: (
         "capo_deadline.types.identity_center_principal_id.IdentityCenterPrincipalId"
     )
-    """<p>The member's principal ID to associate with a fleet.</p>"""
+    """The member's principal ID to associate with a fleet."""
     identity_center_region: NotRequired["capo_deadline.types.region.Region"]
-    """<p>The Region of the IAM Identity Center instance. If not provided, the service defaults to the Region of the farm.</p>"""
+    """The Region of the IAM Identity Center instance. If not provided, the service defaults to the Region of the farm."""
 
 
 # --- restJson1 ser/de ---

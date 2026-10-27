@@ -10,11 +10,11 @@ if TYPE_CHECKING:
 
 class FleetAmountCapability(TypedDict, closed=True):
     name: "capo_deadline.types.amount_capability_name.AmountCapabilityName"
-    """<p>The name of the fleet capability.</p>"""
+    """The name of the fleet capability."""
     min: "float"
-    """<p>The minimum amount of fleet worker capability.</p>"""
+    """The minimum amount of fleet worker capability."""
     max: NotRequired["float"]
-    """<p>The maximum amount of the fleet worker capability.</p>"""
+    """The maximum amount of the fleet worker capability."""
 
 
 # --- restJson1 ser/de ---

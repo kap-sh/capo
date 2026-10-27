@@ -29,59 +29,59 @@ if TYPE_CHECKING:
 
 class JobSearchSummary(TypedDict, closed=True):
     job_id: NotRequired["capo_deadline.types.job_id.JobId"]
-    """<p>The job ID.</p>"""
+    """The job ID."""
     queue_id: NotRequired["capo_deadline.types.queue_id.QueueId"]
-    """<p>The queue ID.</p>"""
+    """The queue ID."""
     name: NotRequired["capo_deadline.types.job_name.JobName"]
-    """<p>The job name.</p>"""
+    """The job name."""
     lifecycle_status: NotRequired[
         "capo_deadline.types.job_lifecycle_status.JobLifecycleStatus"
     ]
-    """<p>The life cycle status.</p>"""
+    """The life cycle status."""
     lifecycle_status_message: NotRequired["capo_deadline.types.string.String"]
-    """<p>The life cycle status message.</p>"""
+    """The life cycle status message."""
     task_run_status: NotRequired["capo_deadline.types.task_run_status.TaskRunStatus"]
     """<p>The task run status for the job.</p> <ul> <li> <p> <code>PENDING</code>–pending and waiting for resources.</p> </li> <li> <p> <code>READY</code>–ready to be processed.</p> </li> <li> <p> <code>ASSIGNED</code>–assigned and will run next on a worker.</p> </li> <li> <p> <code>SCHEDULED</code>–scheduled to be run on a worker.</p> </li> <li> <p> <code>INTERRUPTING</code>–being interrupted.</p> </li> <li> <p> <code>RUNNING</code>–running on a worker.</p> </li> <li> <p> <code>SUSPENDED</code>–the task is suspended.</p> </li> <li> <p> <code>CANCELED</code>–the task has been canceled.</p> </li> <li> <p> <code>FAILED</code>–the task has failed.</p> </li> <li> <p> <code>SUCCEEDED</code>–the task has succeeded.</p> </li> </ul>"""
     target_task_run_status: NotRequired[
         "capo_deadline.types.job_target_task_run_status.JobTargetTaskRunStatus"
     ]
-    """<p>The task status to update the job's tasks to.</p>"""
+    """The task status to update the job's tasks to."""
     task_run_status_counts: NotRequired[
         "capo_deadline.types.task_run_status_counts.TaskRunStatusCounts"
     ]
-    """<p>The number of tasks running on the job.</p>"""
+    """The number of tasks running on the job."""
     task_failure_retry_count: NotRequired[
         "capo_deadline.types.task_failure_retry_count.TaskFailureRetryCount"
     ]
-    """<p>The total number of times tasks from the job failed and were retried.</p>"""
+    """The total number of times tasks from the job failed and were retried."""
     priority: NotRequired["capo_deadline.types.job_priority.JobPriority"]
-    """<p>The job priority.</p>"""
+    """The job priority."""
     max_failed_tasks_count: NotRequired[
         "capo_deadline.types.max_failed_tasks_count.MaxFailedTasksCount"
     ]
-    """<p>The number of task failures before the job stops running and is marked as <code>FAILED</code>.</p>"""
+    """The number of task failures before the job stops running and is marked as <code>FAILED</code>."""
     max_retries_per_task: NotRequired[
         "capo_deadline.types.max_retries_per_task.MaxRetriesPerTask"
     ]
-    """<p>The maximum number of retries for a job.</p>"""
+    """The maximum number of retries for a job."""
     created_by: NotRequired["capo_deadline.types.created_by.CreatedBy"]
-    """<p>The user or system that created this resource.</p>"""
+    """The user or system that created this resource."""
     created_at: NotRequired["capo_deadline.types.created_at.CreatedAt"]
-    """<p>The date and time the resource was created.</p>"""
+    """The date and time the resource was created."""
     ended_at: NotRequired["capo_deadline.types.ended_at.EndedAt"]
-    """<p>The date and time the resource ended running.</p>"""
+    """The date and time the resource ended running."""
     started_at: NotRequired["capo_deadline.types.started_at.StartedAt"]
-    """<p>The date and time the resource started running.</p>"""
+    """The date and time the resource started running."""
     updated_at: NotRequired["capo_deadline.types.updated_at.UpdatedAt"]
-    """<p>The date and time the resource was updated.</p>"""
+    """The date and time the resource was updated."""
     updated_by: NotRequired["capo_deadline.types.updated_by.UpdatedBy"]
-    """<p>The user or system that updated this resource.</p>"""
+    """The user or system that updated this resource."""
     job_parameters: NotRequired["capo_deadline.types.job_parameters.JobParameters"]
-    """<p>The job parameters.</p>"""
+    """The job parameters."""
     max_worker_count: NotRequired["capo_deadline.types.max_worker_count.MaxWorkerCount"]
-    """<p>The maximum number of worker hosts that can concurrently process a job. When the <code>maxWorkerCount</code> is reached, no more workers will be assigned to process the job, even if the fleets assigned to the job's queue has available workers.</p> <p>You can't set the <code>maxWorkerCount</code> to 0. If you set it to -1, there is no maximum number of workers.</p> <p>If you don't specify the <code>maxWorkerCount</code>, the default is -1.</p>"""
+    """The maximum number of worker hosts that can concurrently process a job. When the <code>maxWorkerCount</code> is reached, no more workers will be assigned to process the job, even if the fleets assigned to the job's queue has available workers. You can't set the <code>maxWorkerCount</code> to 0. If you set it to -1, there is no maximum number of workers. If you don't specify the <code>maxWorkerCount</code>, the default is -1."""
     source_job_id: NotRequired["capo_deadline.types.job_id.JobId"]
-    """<p>The job ID for the source job.</p>"""
+    """The job ID for the source job."""
 
 
 # --- restJson1 ser/de ---

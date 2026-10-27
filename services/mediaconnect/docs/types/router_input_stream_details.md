@@ -7,6 +7,12 @@ title: RouterInputStreamDetails
       show_source: true
       merge_init_into_class: false
 
+::: capo_mediaconnect.types.router_input_stream_details._RouterInputStreamDetails_DestinationEndpoint
+    options:
+      show_source: true
+      merge_init_into_class: false
+      heading_level: 2
+
 ::: capo_mediaconnect.types.router_input_stream_details._RouterInputStreamDetails_Standard
     options:
       show_source: true

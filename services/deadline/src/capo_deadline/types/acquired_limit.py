@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class AcquiredLimit(TypedDict, closed=True):
     limit_id: "capo_deadline.types.limit_id.LimitId"
-    """<p>The unique identifier of the limit.</p>"""
+    """The unique identifier of the limit."""
     count: "capo_deadline.types.min_one_max_integer.MinOneMaxInteger"
-    """<p>The number of limit resources used.</p>"""
+    """The number of limit resources used."""
 
 
 # --- restJson1 ser/de ---

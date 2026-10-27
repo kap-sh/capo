@@ -97,7 +97,7 @@ class ExadbVmCluster(TypedDict, closed=True):
     scan_listener_port_tcp: NotRequired["int"]
     """<p>The port number for TCP connections to the Single Client Access Name (SCAN) listener for the Exascale VM cluster.</p>"""
     scan_listener_port_tcp_ssl: NotRequired["int"]
-    """<p>The port number for TCP connections with SSL to the Single Client Access Name (SCAN) listener for the Exascale VM cluster.</p>"""
+    """<p>Reserved for future use.</p>"""
     shape: NotRequired["str"]
     """<p>The hardware model name of the Exadata infrastructure that's running the Exascale VM cluster.</p>"""
     shape_attribute: NotRequired["capo_odb.types.shape_attribute.ShapeAttribute"]

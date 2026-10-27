@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class UpdateFarmRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID to update.</p>"""
+    """The farm ID to update."""
     display_name: NotRequired["capo_deadline.types.resource_name.ResourceName"]
     """<p>The display name of the farm to update.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     description: NotRequired["capo_deadline.types.description.Description"]
@@ -21,7 +21,7 @@ class UpdateFarmRequest(TypedDict, closed=True):
     cost_scale_factor: NotRequired[
         "capo_deadline.types.cost_scale_factor.CostScaleFactor"
     ]
-    """<p>A multiplier applied to the farm's calculated costs for usage data and budget tracking. A value less than 1 represents a discount, a value greater than 1 represents a premium, and a value of 1 represents no adjustment.</p>"""
+    """A multiplier applied to the farm's calculated costs for usage data and budget tracking. A value less than 1 represents a discount, a value greater than 1 represents a premium, and a value of 1 represents no adjustment."""
 
 
 # --- restJson1 ser/de ---

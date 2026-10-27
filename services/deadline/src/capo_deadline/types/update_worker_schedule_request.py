@@ -13,15 +13,15 @@ if TYPE_CHECKING:
 
 class UpdateWorkerScheduleRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID to update.</p>"""
+    """The farm ID to update."""
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID to update.</p>"""
+    """The fleet ID to update."""
     worker_id: "capo_deadline.types.worker_id.WorkerId"
-    """<p>The worker ID to update.</p>"""
+    """The worker ID to update."""
     updated_session_actions: NotRequired[
         "capo_deadline.types.updated_session_actions.UpdatedSessionActions"
     ]
-    """<p>The session actions associated with the worker schedule to update.</p>"""
+    """The session actions associated with the worker schedule to update."""
 
 
 # --- restJson1 ser/de ---

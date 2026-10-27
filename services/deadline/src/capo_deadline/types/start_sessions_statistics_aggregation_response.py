@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class StartSessionsStatisticsAggregationResponse(TypedDict, closed=True):
     aggregation_id: "capo_deadline.types.aggregation_id.AggregationId"
-    """<p>A unique identifier for the aggregated statistics. Use this identifier with the <code>GetAggregatedStatisticsForSessions</code> operation to return the statistics.</p>"""
+    """A unique identifier for the aggregated statistics. Use this identifier with the <code>GetAggregatedStatisticsForSessions</code> operation to return the statistics."""
 
 
 # --- restJson1 ser/de ---

@@ -16,21 +16,21 @@ if TYPE_CHECKING:
 
 class JobMember(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID.</p>"""
+    """The farm ID."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID.</p>"""
+    """The queue ID."""
     job_id: "capo_deadline.types.job_id.JobId"
-    """<p>The job ID.</p>"""
+    """The job ID."""
     principal_id: (
         "capo_deadline.types.identity_center_principal_id.IdentityCenterPrincipalId"
     )
-    """<p>The principal ID of the job member.</p>"""
+    """The principal ID of the job member."""
     principal_type: "capo_deadline.types.deadline_principal_type.DeadlinePrincipalType"
-    """<p>The principal type of the job member.</p>"""
+    """The principal type of the job member."""
     identity_store_id: "capo_deadline.types.identity_store_id.IdentityStoreId"
-    """<p>The identity store ID.</p>"""
+    """The identity store ID."""
     membership_level: "capo_deadline.types.membership_level.MembershipLevel"
-    """<p>The job member's membership level.</p>"""
+    """The job member's membership level."""
 
 
 # --- restJson1 ser/de ---

@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.context
+    import capo_bedrock_agentcore.types.evaluation_dimension_name
     import capo_bedrock_agentcore.types.evaluation_error_code
     import capo_bedrock_agentcore.types.evaluation_error_message
     import capo_bedrock_agentcore.types.evaluation_explanation
@@ -23,6 +24,10 @@ class EvaluationResultContent(TypedDict, closed=True):
     """<p> The unique identifier of the evaluator that produced this result. This matches the <code>evaluatorId</code> provided in the evaluation request and can be used to identify which evaluator generated specific results. </p>"""
     evaluator_name: "capo_bedrock_agentcore.types.evaluator_name.EvaluatorName"
     """<p> The human-readable name of the evaluator used for this evaluation. For built-in evaluators, this is the descriptive name (e.g., "Helpfulness", "Correctness"); for custom evaluators, this is the user-defined name. </p>"""
+    evaluation_dimension_name: NotRequired[
+        "capo_bedrock_agentcore.types.evaluation_dimension_name.EvaluationDimensionName"
+    ]
+    """<p> The name of the dimension that this result scores. This field is set only on results produced by an evaluator that uses a multi-dimensional rating scale, where each dimension is scored independently. For evaluators with a single rating scale, this field is absent. </p>"""
     explanation: NotRequired[
         "capo_bedrock_agentcore.types.evaluation_explanation.EvaluationExplanation"
     ]
@@ -55,6 +60,8 @@ def serialize_json(value: EvaluationResultContent) -> dict:
     out["evaluatorArn"] = value["evaluator_arn"]
     out["evaluatorId"] = value["evaluator_id"]
     out["evaluatorName"] = value["evaluator_name"]
+    if "evaluation_dimension_name" in value:
+        out["evaluationDimensionName"] = value["evaluation_dimension_name"]
     if "explanation" in value:
         out["explanation"] = value["explanation"]
     import capo_bedrock_agentcore.types.context
@@ -109,6 +116,8 @@ def deserialize_json(data: dict) -> EvaluationResultContent:
         out["evaluator_name"] = data["evaluatorName"]
     else:
         out["evaluator_name"] = ""
+    if data.get("evaluationDimensionName") is not None:
+        out["evaluation_dimension_name"] = data["evaluationDimensionName"]
     if data.get("explanation") is not None:
         out["explanation"] = data["explanation"]
     if data.get("context") is not None:

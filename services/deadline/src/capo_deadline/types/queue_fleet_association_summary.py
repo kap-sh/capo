@@ -16,21 +16,21 @@ if TYPE_CHECKING:
 
 class QueueFleetAssociationSummary(TypedDict, closed=True):
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID.</p>"""
+    """The queue ID."""
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID.</p>"""
+    """The fleet ID."""
     status: (
         "capo_deadline.types.queue_fleet_association_status.QueueFleetAssociationStatus"
     )
     """<p>The status of task scheduling in the queue-fleet association.</p> <ul> <li> <p> <code>ACTIVE</code>–Association is active.</p> </li> <li> <p> <code>STOP_SCHEDULING_AND_COMPLETE_TASKS</code>–Association has stopped scheduling new tasks and is completing current tasks.</p> </li> <li> <p> <code>STOP_SCHEDULING_AND_CANCEL_TASKS</code>–Association has stopped scheduling new tasks and is canceling current tasks.</p> </li> <li> <p> <code>STOPPED</code>–Association has been stopped.</p> </li> </ul>"""
     created_at: "capo_deadline.types.created_at.CreatedAt"
-    """<p>The date and time the resource was created.</p>"""
+    """The date and time the resource was created."""
     created_by: "capo_deadline.types.created_by.CreatedBy"
-    """<p>The user or system that created this resource.</p>"""
+    """The user or system that created this resource."""
     updated_at: NotRequired["capo_deadline.types.updated_at.UpdatedAt"]
-    """<p>The date and time the resource was updated.</p>"""
+    """The date and time the resource was updated."""
     updated_by: NotRequired["capo_deadline.types.updated_by.UpdatedBy"]
-    """<p>The user or system that updated this resource.</p>"""
+    """The user or system that updated this resource."""
 
 
 # --- restJson1 ser/de ---

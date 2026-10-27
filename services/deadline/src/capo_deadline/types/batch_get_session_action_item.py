@@ -24,43 +24,43 @@ if TYPE_CHECKING:
 
 class BatchGetSessionActionItem(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the session action.</p>"""
+    """The farm ID of the session action."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID of the session action.</p>"""
+    """The queue ID of the session action."""
     job_id: "capo_deadline.types.job_id.JobId"
-    """<p>The job ID of the session action.</p>"""
+    """The job ID of the session action."""
     session_action_id: "capo_deadline.types.session_action_id.SessionActionId"
-    """<p>The session action ID.</p>"""
+    """The session action ID."""
     status: "capo_deadline.types.session_action_status.SessionActionStatus"
-    """<p>The status of the session action.</p>"""
+    """The status of the session action."""
     started_at: NotRequired["capo_deadline.types.started_at.StartedAt"]
-    """<p>The date and time the resource started running.</p>"""
+    """The date and time the resource started running."""
     ended_at: NotRequired["capo_deadline.types.ended_at.EndedAt"]
-    """<p>The date and time the resource ended running.</p>"""
+    """The date and time the resource ended running."""
     worker_updated_at: NotRequired["capo_deadline.types.timestamp.Timestamp"]
-    """<p>The date and time the resource was updated by a worker.</p>"""
+    """The date and time the resource was updated by a worker."""
     progress_percent: NotRequired[
         "capo_deadline.types.session_action_progress_percent.SessionActionProgressPercent"
     ]
-    """<p>The completion percentage for the session action.</p>"""
+    """The completion percentage for the session action."""
     manifests: NotRequired[
         "capo_deadline.types.task_run_manifest_properties_list_response.TaskRunManifestPropertiesListResponse"
     ]
-    """<p>The manifests for the session action.</p>"""
+    """The manifests for the session action."""
     session_id: "capo_deadline.types.session_id.SessionId"
-    """<p>The session ID for the session action.</p>"""
+    """The session ID for the session action."""
     process_exit_code: NotRequired[
         "capo_deadline.types.process_exit_code.ProcessExitCode"
     ]
-    """<p>The exit code to apply to the session action.</p>"""
+    """The exit code to apply to the session action."""
     progress_message: NotRequired[
         "capo_deadline.types.session_action_progress_message.SessionActionProgressMessage"
     ]
-    """<p>The message that communicates the progress of the session action.</p>"""
+    """The message that communicates the progress of the session action."""
     acquired_limits: NotRequired["capo_deadline.types.acquired_limits.AcquiredLimits"]
-    """<p>The limits that were acquired for the session action.</p>"""
+    """The limits that were acquired for the session action."""
     definition: "capo_deadline.types.session_action_definition.SessionActionDefinition"
-    """<p>The session action definition.</p>"""
+    """The session action definition."""
 
 
 # --- restJson1 ser/de ---

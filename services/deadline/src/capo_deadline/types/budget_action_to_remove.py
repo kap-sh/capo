@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class BudgetActionToRemove(TypedDict, closed=True):
     type: "capo_deadline.types.budget_action_type.BudgetActionType"
-    """<p>The type of budget action to remove.</p>"""
+    """The type of budget action to remove."""
     threshold_percentage: "capo_deadline.types.threshold_percentage.ThresholdPercentage"
-    """<p>The percentage threshold for the budget action to remove.</p>"""
+    """The percentage threshold for the budget action to remove."""
 
 
 # --- restJson1 ser/de ---

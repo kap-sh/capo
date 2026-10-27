@@ -47,6 +47,7 @@ if TYPE_CHECKING:
     import capo_ivs.types.channel_ad_configuration_arn
     import capo_ivs.types.channel_arn
     import capo_ivs.types.channel_arn_list
+    import capo_ivs.types.channel_failover_slate_configuration_arn
     import capo_ivs.types.channel_latency_mode
     import capo_ivs.types.channel_name
     import capo_ivs.types.channel_playback_restriction_policy_arn
@@ -57,6 +58,8 @@ if TYPE_CHECKING:
     import capo_ivs.types.create_ad_configuration_response
     import capo_ivs.types.create_channel_request
     import capo_ivs.types.create_channel_response
+    import capo_ivs.types.create_failover_slate_configuration_request
+    import capo_ivs.types.create_failover_slate_configuration_response
     import capo_ivs.types.create_playback_restriction_policy_request
     import capo_ivs.types.create_playback_restriction_policy_response
     import capo_ivs.types.create_recording_configuration_request
@@ -65,16 +68,25 @@ if TYPE_CHECKING:
     import capo_ivs.types.create_stream_key_response
     import capo_ivs.types.delete_ad_configuration_request
     import capo_ivs.types.delete_channel_request
+    import capo_ivs.types.delete_failover_slate_configuration_request
     import capo_ivs.types.delete_playback_key_pair_request
     import capo_ivs.types.delete_playback_key_pair_response
     import capo_ivs.types.delete_playback_restriction_policy_request
     import capo_ivs.types.delete_recording_configuration_request
     import capo_ivs.types.delete_stream_key_request
     import capo_ivs.types.destination_configuration
+    import capo_ivs.types.failover_slate_activation_threshold_seconds
+    import capo_ivs.types.failover_slate_configuration_arn
+    import capo_ivs.types.failover_slate_configuration_name
+    import capo_ivs.types.failover_slate_configuration_summary
+    import capo_ivs.types.failover_slate_max_display_seconds
+    import capo_ivs.types.failover_slate_min_display_seconds
     import capo_ivs.types.get_ad_configuration_request
     import capo_ivs.types.get_ad_configuration_response
     import capo_ivs.types.get_channel_request
     import capo_ivs.types.get_channel_response
+    import capo_ivs.types.get_failover_slate_configuration_request
+    import capo_ivs.types.get_failover_slate_configuration_response
     import capo_ivs.types.get_playback_key_pair_request
     import capo_ivs.types.get_playback_key_pair_response
     import capo_ivs.types.get_playback_restriction_policy_request
@@ -95,6 +107,8 @@ if TYPE_CHECKING:
     import capo_ivs.types.list_ad_configurations_response
     import capo_ivs.types.list_channels_request
     import capo_ivs.types.list_channels_response
+    import capo_ivs.types.list_failover_slate_configurations_request
+    import capo_ivs.types.list_failover_slate_configurations_response
     import capo_ivs.types.list_playback_key_pairs_request
     import capo_ivs.types.list_playback_key_pairs_response
     import capo_ivs.types.list_playback_restriction_policies_request
@@ -111,6 +125,7 @@ if TYPE_CHECKING:
     import capo_ivs.types.list_tags_for_resource_response
     import capo_ivs.types.max_ad_configuration_results
     import capo_ivs.types.max_channel_results
+    import capo_ivs.types.max_failover_slate_configuration_results
     import capo_ivs.types.max_playback_key_pair_results
     import capo_ivs.types.max_playback_restriction_policy_results
     import capo_ivs.types.max_recording_configuration_results
@@ -155,6 +170,8 @@ if TYPE_CHECKING:
     import capo_ivs.types.update_ad_configuration_response
     import capo_ivs.types.update_channel_request
     import capo_ivs.types.update_channel_response
+    import capo_ivs.types.update_failover_slate_configuration_request
+    import capo_ivs.types.update_failover_slate_configuration_response
     import capo_ivs.types.update_playback_restriction_policy_request
     import capo_ivs.types.update_playback_restriction_policy_response
     import capo_ivs.types.viewer_id
@@ -529,6 +546,9 @@ class AsyncivsClient:
         ad_configuration_arn: Optional[
             "capo_ivs.types.channel_ad_configuration_arn.ChannelAdConfigurationArn"
         ] = None,
+        failover_slate_configuration_arn: Optional[
+            "capo_ivs.types.channel_failover_slate_configuration_arn.ChannelFailoverSlateConfigurationArn"
+        ] = None,
     ) -> "capo_ivs.types.create_channel_response.CreateChannelResponse":
         """<p>Creates a new channel and an associated stream key to start streaming.</p>
 
@@ -545,6 +565,7 @@ class AsyncivsClient:
             multitrack_input_configuration: <p>Object specifying multitrack input configuration. Default: no multitrack input configuration is specified.</p>
             container_format: <p>Indicates which content-packaging format is used (MPEG-TS or fMP4). If <code>multitrackInputConfiguration</code> is specified and <code>enabled</code> is <code>true</code>, then <code>containerFormat</code> is required and must be set to <code>FRAGMENTED_MP4</code>. Otherwise, <code>containerFormat</code> may be set to <code>TS</code> or <code>FRAGMENTED_MP4</code>. Default: <code>TS</code>.</p>
             ad_configuration_arn: <p>ARN of the ad configuration associated with the channel.</p>
+            failover_slate_configuration_arn: <p>Failover-slate-configuration ARN. A valid ARN value here both specifies the ARN and enables failover slate. Default: "" (empty string, no failover slate configuration is applied).</p>
 
         Raises:
             capo_ivs.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
@@ -606,6 +627,85 @@ class AsyncivsClient:
             input_["container_format"] = container_format
         if ad_configuration_arn is not None:
             input_["ad_configuration_arn"] = ad_configuration_arn
+        if failover_slate_configuration_arn is not None:
+            input_["failover_slate_configuration_arn"] = (
+                failover_slate_configuration_arn
+            )
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def create_failover_slate_configuration(
+        self,
+        *,
+        config_overrides: Optional[AsyncivsClientConfig] = None,
+        name: Optional[
+            "capo_ivs.types.failover_slate_configuration_name.FailoverSlateConfigurationName"
+        ] = None,
+        activation_threshold_seconds: Optional[
+            "capo_ivs.types.failover_slate_activation_threshold_seconds.FailoverSlateActivationThresholdSeconds"
+        ] = None,
+        min_slate_display_seconds: Optional[
+            "capo_ivs.types.failover_slate_min_display_seconds.FailoverSlateMinDisplaySeconds"
+        ] = None,
+        max_slate_display_seconds: Optional[
+            "capo_ivs.types.failover_slate_max_display_seconds.FailoverSlateMaxDisplaySeconds"
+        ] = None,
+        tags: Optional["capo_ivs.types.tags.Tags"] = None,
+    ) -> "capo_ivs.types.create_failover_slate_configuration_response.CreateFailoverSlateConfigurationResponse":
+        """<p>Creates a new failover slate configuration.</p>
+
+        Args:
+            name: <p>Failover-slate-configuration name. The value does not need to be unique.</p>
+            activation_threshold_seconds: <p>Number of seconds of ingest interruption before the failover slate activates. Minimum: <code>3</code>. Maximum: <code>5</code>. Default: <code>3</code>.</p>
+            min_slate_display_seconds: <p>Minimum number of seconds that the failover slate displays after activation. Minimum: <code>3</code>. Maximum: <code>10</code>. Default: <code>3</code>.</p>
+            max_slate_display_seconds: <p>Maximum number of seconds that the failover slate displays. Minimum: <code>60</code>. Maximum: <code>180</code>. Default: <code>60</code>.</p>
+            tags: <p>Array of 1-50 maps, each of the form <code>string:string (key:value)</code>. See <a href="https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html">Best practices and strategies</a> in <i>Tagging Amazon Web Services Resources and Tag Editor</i> for details, including restrictions that apply to tags and "Tag naming limits and requirements"; Amazon IVS has no service-specific constraints beyond what is documented there.</p>
+
+        Raises:
+            capo_ivs.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_ivs.errors.conflict_exception.ConflictException: <p>Updating or deleting a resource can cause an inconsistent state.</p>
+            capo_ivs.errors.internal_server_exception.InternalServerException: <p>Unexpected error during processing of request.</p>
+            capo_ivs.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>Request would cause a service quota to be exceeded.</p>
+            capo_ivs.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_ivs.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service.</p>
+            capo_ivs.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ivs.types.create_failover_slate_configuration_request.CreateFailoverSlateConfigurationRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ivs.types.create_failover_slate_configuration_response.CreateFailoverSlateConfigurationResponse"
+        ]:
+            import capo_ivs._operations.amazon_interactive_video_service.create_failover_slate_configuration
+
+            (
+                output,
+                http_response,
+            ) = await capo_ivs._operations.amazon_interactive_video_service.create_failover_slate_configuration.async_create_failover_slate_configuration(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFailoverSlateConfiguration")
+        )
+        input_: capo_ivs.types.create_failover_slate_configuration_request.CreateFailoverSlateConfigurationRequest = {}
+        if name is not None:
+            input_["name"] = name
+        if activation_threshold_seconds is not None:
+            input_["activation_threshold_seconds"] = activation_threshold_seconds
+        if min_slate_display_seconds is not None:
+            input_["min_slate_display_seconds"] = min_slate_display_seconds
+        if max_slate_display_seconds is not None:
+            input_["max_slate_display_seconds"] = max_slate_display_seconds
+        if tags is not None:
+            input_["tags"] = tags
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -930,6 +1030,54 @@ class AsyncivsClient:
         await response.response.aclose()
         return response.output
 
+    async def delete_failover_slate_configuration(
+        self,
+        arn: "capo_ivs.types.failover_slate_configuration_arn.FailoverSlateConfigurationArn",
+        *,
+        config_overrides: Optional[AsyncivsClientConfig] = None,
+    ) -> None:
+        """<p>Deletes the specified failover slate configuration.</p>
+
+        Args:
+            arn: <p>ARN of the failover slate configuration to be deleted.</p>
+
+        Raises:
+            capo_ivs.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_ivs.errors.conflict_exception.ConflictException: <p>Updating or deleting a resource can cause an inconsistent state.</p>
+            capo_ivs.errors.internal_server_exception.InternalServerException: <p>Unexpected error during processing of request.</p>
+            capo_ivs.errors.resource_not_found_exception.ResourceNotFoundException: <p>Request references a resource which does not exist.</p>
+            capo_ivs.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service.</p>
+            capo_ivs.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ivs.types.delete_failover_slate_configuration_request.DeleteFailoverSlateConfigurationRequest]",
+        ) -> AsyncOperationResponse[None]:
+            import capo_ivs._operations.amazon_interactive_video_service.delete_failover_slate_configuration
+
+            (
+                output,
+                http_response,
+            ) = await capo_ivs._operations.amazon_interactive_video_service.delete_failover_slate_configuration.async_delete_failover_slate_configuration(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFailoverSlateConfiguration")
+        )
+        input_: capo_ivs.types.delete_failover_slate_configuration_request.DeleteFailoverSlateConfigurationRequest = {
+            "arn": arn
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def delete_playback_key_pair(
         self,
         arn: "capo_ivs.types.playback_key_pair_arn.PlaybackKeyPairArn",
@@ -1218,6 +1366,55 @@ class AsyncivsClient:
             OperationLogging("GetChannel", redact_output=_redact_output),
         )
         input_: capo_ivs.types.get_channel_request.GetChannelRequest = {"arn": arn}
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def get_failover_slate_configuration(
+        self,
+        arn: "capo_ivs.types.failover_slate_configuration_arn.FailoverSlateConfigurationArn",
+        *,
+        config_overrides: Optional[AsyncivsClientConfig] = None,
+    ) -> "capo_ivs.types.get_failover_slate_configuration_response.GetFailoverSlateConfigurationResponse":
+        """<p>Gets the failover slate configuration for the specified ARN.</p>
+
+        Args:
+            arn: <p>ARN of the failover slate configuration to be retrieved.</p>
+
+        Raises:
+            capo_ivs.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_ivs.errors.internal_server_exception.InternalServerException: <p>Unexpected error during processing of request.</p>
+            capo_ivs.errors.resource_not_found_exception.ResourceNotFoundException: <p>Request references a resource which does not exist.</p>
+            capo_ivs.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service.</p>
+            capo_ivs.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ivs.types.get_failover_slate_configuration_request.GetFailoverSlateConfigurationRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ivs.types.get_failover_slate_configuration_response.GetFailoverSlateConfigurationResponse"
+        ]:
+            import capo_ivs._operations.amazon_interactive_video_service.get_failover_slate_configuration
+
+            (
+                output,
+                http_response,
+            ) = await capo_ivs._operations.amazon_interactive_video_service.get_failover_slate_configuration.async_get_failover_slate_configuration(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFailoverSlateConfiguration")
+        )
+        input_: capo_ivs.types.get_failover_slate_configuration_request.GetFailoverSlateConfigurationRequest = {
+            "arn": arn
+        }
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -1746,6 +1943,9 @@ class AsyncivsClient:
         filter_by_ad_configuration_arn: Optional[
             "capo_ivs.types.channel_ad_configuration_arn.ChannelAdConfigurationArn"
         ] = None,
+        filter_by_failover_slate_configuration_arn: Optional[
+            "capo_ivs.types.channel_failover_slate_configuration_arn.ChannelFailoverSlateConfigurationArn"
+        ] = None,
         next_token: Optional["capo_ivs.types.pagination_token.PaginationToken"] = None,
         max_results: Optional[
             "capo_ivs.types.max_channel_results.MaxChannelResults"
@@ -1758,6 +1958,7 @@ class AsyncivsClient:
             filter_by_recording_configuration_arn: <p>Filters the channel list to match the specified recording-configuration ARN.</p>
             filter_by_playback_restriction_policy_arn: <p>Filters the channel list to match the specified policy.</p>
             filter_by_ad_configuration_arn: <p>Filters the channel list to match the specified ad configuration ARN.</p>
+            filter_by_failover_slate_configuration_arn: <p>Filters the channel list to match the specified failover-slate-configuration ARN.</p>
             next_token: <p>The first channel to retrieve. This is used for pagination; see the <code>nextToken</code> response field.</p>
             max_results: <p>Maximum number of channels to return. Default: 100.</p>
 
@@ -1799,6 +2000,10 @@ class AsyncivsClient:
             )
         if filter_by_ad_configuration_arn is not None:
             input_["filter_by_ad_configuration_arn"] = filter_by_ad_configuration_arn
+        if filter_by_failover_slate_configuration_arn is not None:
+            input_["filter_by_failover_slate_configuration_arn"] = (
+                filter_by_failover_slate_configuration_arn
+            )
         if next_token is not None:
             input_["next_token"] = next_token
         if max_results is not None:
@@ -1826,6 +2031,9 @@ class AsyncivsClient:
         filter_by_ad_configuration_arn: Optional[
             "capo_ivs.types.channel_ad_configuration_arn.ChannelAdConfigurationArn"
         ] = None,
+        filter_by_failover_slate_configuration_arn: Optional[
+            "capo_ivs.types.channel_failover_slate_configuration_arn.ChannelFailoverSlateConfigurationArn"
+        ] = None,
         next_token: Optional["capo_ivs.types.pagination_token.PaginationToken"] = None,
         max_results: Optional[
             "capo_ivs.types.max_channel_results.MaxChannelResults"
@@ -1839,10 +2047,88 @@ class AsyncivsClient:
                 filter_by_recording_configuration_arn=filter_by_recording_configuration_arn,
                 filter_by_playback_restriction_policy_arn=filter_by_playback_restriction_policy_arn,
                 filter_by_ad_configuration_arn=filter_by_ad_configuration_arn,
+                filter_by_failover_slate_configuration_arn=filter_by_failover_slate_configuration_arn,
                 next_token=_token,
                 max_results=max_results,
             )
             yield _response
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    async def list_failover_slate_configurations(
+        self,
+        *,
+        config_overrides: Optional[AsyncivsClientConfig] = None,
+        next_token: Optional["capo_ivs.types.pagination_token.PaginationToken"] = None,
+        max_results: Optional[
+            "capo_ivs.types.max_failover_slate_configuration_results.MaxFailoverSlateConfigurationResults"
+        ] = None,
+    ) -> "capo_ivs.types.list_failover_slate_configurations_response.ListFailoverSlateConfigurationsResponse":
+        """<p>Gets summary information about all failover slate configurations in your account, in the Amazon Web Services region where the API request is processed.</p>
+
+        Args:
+            next_token: <p>The first failover slate configuration to retrieve. This is used for pagination; see the <code>nextToken</code> response field.</p>
+            max_results: <p>Maximum number of failover slate configurations to return. Default: your service quota or 100, whichever is smaller.</p>
+
+        Raises:
+            capo_ivs.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_ivs.errors.internal_server_exception.InternalServerException: <p>Unexpected error during processing of request.</p>
+            capo_ivs.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service.</p>
+            capo_ivs.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ivs.types.list_failover_slate_configurations_request.ListFailoverSlateConfigurationsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ivs.types.list_failover_slate_configurations_response.ListFailoverSlateConfigurationsResponse"
+        ]:
+            import capo_ivs._operations.amazon_interactive_video_service.list_failover_slate_configurations
+
+            (
+                output,
+                http_response,
+            ) = await capo_ivs._operations.amazon_interactive_video_service.list_failover_slate_configurations.async_list_failover_slate_configurations(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFailoverSlateConfigurations")
+        )
+        input_: capo_ivs.types.list_failover_slate_configurations_request.ListFailoverSlateConfigurationsRequest = {}
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if max_results is not None:
+            input_["max_results"] = max_results
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_failover_slate_configurations(
+        self,
+        *,
+        config_overrides: Optional[AsyncivsClientConfig] = None,
+        next_token: Optional["capo_ivs.types.pagination_token.PaginationToken"] = None,
+        max_results: Optional[
+            "capo_ivs.types.max_failover_slate_configuration_results.MaxFailoverSlateConfigurationResults"
+        ] = None,
+    ) -> "AsyncIterator[capo_ivs.types.failover_slate_configuration_summary.FailoverSlateConfigurationSummary]":
+        _token = next_token
+        while True:
+            _response = await self.list_failover_slate_configurations(
+                config_overrides=config_overrides,
+                next_token=_token,
+                max_results=max_results,
+            )
+            _page = _resolve_path(_response, ("failover_slate_configurations",))
+            for _item in _page or []:
+                yield _item
             _token = _resolve_path(_response, ("next_token",))
             if not _token:
                 break
@@ -2740,6 +3026,9 @@ class AsyncivsClient:
         ad_configuration_arn: Optional[
             "capo_ivs.types.channel_ad_configuration_arn.ChannelAdConfigurationArn"
         ] = None,
+        failover_slate_configuration_arn: Optional[
+            "capo_ivs.types.channel_failover_slate_configuration_arn.ChannelFailoverSlateConfigurationArn"
+        ] = None,
     ) -> "capo_ivs.types.update_channel_response.UpdateChannelResponse":
         """<p>Updates a channel's configuration. Live channels cannot be updated. You must stop the ongoing stream, update the channel, and restart the stream for the changes to take effect.</p>
 
@@ -2756,12 +3045,14 @@ class AsyncivsClient:
             multitrack_input_configuration: <p>Object specifying multitrack input configuration. Default: no multitrack input configuration is specified.</p>
             container_format: <p>Indicates which content-packaging format is used (MPEG-TS or fMP4). If <code>multitrackInputConfiguration</code> is specified and <code>enabled</code> is <code>true</code>, then <code>containerFormat</code> is required and must be set to <code>FRAGMENTED_MP4</code>. Otherwise, <code>containerFormat</code> may be set to <code>TS</code> or <code>FRAGMENTED_MP4</code>. Default: <code>TS</code>.</p>
             ad_configuration_arn: <p>ARN of the ad configuration associated with the channel.</p>
+            failover_slate_configuration_arn: <p>Failover-slate-configuration ARN. A valid ARN value here both specifies the ARN and enables failover slate. If this is set to an empty string, failover slate configuration is disabled.</p>
 
         Raises:
             capo_ivs.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
             capo_ivs.errors.conflict_exception.ConflictException: <p>Updating or deleting a resource can cause an inconsistent state.</p>
             capo_ivs.errors.pending_verification.PendingVerification: <p>Your account is pending verification.</p>
             capo_ivs.errors.resource_not_found_exception.ResourceNotFoundException: <p>Request references a resource which does not exist.</p>
+            capo_ivs.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
             capo_ivs.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service.</p>
             capo_ivs.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -2817,6 +3108,86 @@ class AsyncivsClient:
             input_["container_format"] = container_format
         if ad_configuration_arn is not None:
             input_["ad_configuration_arn"] = ad_configuration_arn
+        if failover_slate_configuration_arn is not None:
+            input_["failover_slate_configuration_arn"] = (
+                failover_slate_configuration_arn
+            )
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def update_failover_slate_configuration(
+        self,
+        arn: "capo_ivs.types.failover_slate_configuration_arn.FailoverSlateConfigurationArn",
+        *,
+        config_overrides: Optional[AsyncivsClientConfig] = None,
+        name: Optional[
+            "capo_ivs.types.failover_slate_configuration_name.FailoverSlateConfigurationName"
+        ] = None,
+        activation_threshold_seconds: Optional[
+            "capo_ivs.types.failover_slate_activation_threshold_seconds.FailoverSlateActivationThresholdSeconds"
+        ] = None,
+        min_slate_display_seconds: Optional[
+            "capo_ivs.types.failover_slate_min_display_seconds.FailoverSlateMinDisplaySeconds"
+        ] = None,
+        max_slate_display_seconds: Optional[
+            "capo_ivs.types.failover_slate_max_display_seconds.FailoverSlateMaxDisplaySeconds"
+        ] = None,
+    ) -> "capo_ivs.types.update_failover_slate_configuration_response.UpdateFailoverSlateConfigurationResponse":
+        """<p>Updates a specified failover slate configuration.</p>
+
+        Args:
+            arn: <p>ARN of the failover slate configuration to be updated.</p>
+            name: <p>Failover-slate-configuration name. The value does not need to be unique.</p>
+            activation_threshold_seconds: <p>Number of seconds of ingest interruption before the failover slate activates. Minimum: <code>3</code>. Maximum: <code>5</code>. Default: <code>3</code>.</p>
+            min_slate_display_seconds: <p>Minimum number of seconds that the failover slate displays after activation. Minimum: <code>3</code>. Maximum: <code>10</code>. Default: <code>3</code>.</p>
+            max_slate_display_seconds: <p>Maximum number of seconds that the failover slate displays. Minimum: <code>60</code>. Maximum: <code>180</code>. Default: <code>60</code>.</p>
+
+        Raises:
+            capo_ivs.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_ivs.errors.conflict_exception.ConflictException: <p>Updating or deleting a resource can cause an inconsistent state.</p>
+            capo_ivs.errors.internal_server_exception.InternalServerException: <p>Unexpected error during processing of request.</p>
+            capo_ivs.errors.resource_not_found_exception.ResourceNotFoundException: <p>Request references a resource which does not exist.</p>
+            capo_ivs.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>Request would cause a service quota to be exceeded.</p>
+            capo_ivs.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_ivs.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service.</p>
+            capo_ivs.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ivs.types.update_failover_slate_configuration_request.UpdateFailoverSlateConfigurationRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ivs.types.update_failover_slate_configuration_response.UpdateFailoverSlateConfigurationResponse"
+        ]:
+            import capo_ivs._operations.amazon_interactive_video_service.update_failover_slate_configuration
+
+            (
+                output,
+                http_response,
+            ) = await capo_ivs._operations.amazon_interactive_video_service.update_failover_slate_configuration.async_update_failover_slate_configuration(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFailoverSlateConfiguration")
+        )
+        input_: capo_ivs.types.update_failover_slate_configuration_request.UpdateFailoverSlateConfigurationRequest = {
+            "arn": arn
+        }
+        if name is not None:
+            input_["name"] = name
+        if activation_threshold_seconds is not None:
+            input_["activation_threshold_seconds"] = activation_threshold_seconds
+        if min_slate_display_seconds is not None:
+            input_["min_slate_display_seconds"] = min_slate_display_seconds
+        if max_slate_display_seconds is not None:
+            input_["max_slate_display_seconds"] = max_slate_display_seconds
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

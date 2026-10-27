@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class ParameterFilterExpression(TypedDict, closed=True):
     name: "capo_deadline.types.string.String"
-    """<p>The name of the parameter to filter on.</p>"""
+    """The name of the parameter to filter on."""
     operator: "capo_deadline.types.comparison_operator.ComparisonOperator"
-    """<p>The type of comparison to use to filter results.</p>"""
+    """The type of comparison to use to filter results."""
     value: "capo_deadline.types.parameter_value.ParameterValue"
-    """<p>The parameter's value.</p>"""
+    """The parameter's value."""
 
 
 # --- restJson1 ser/de ---

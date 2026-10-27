@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class FleetSoftwareAddOn(TypedDict, closed=True):
     name: "capo_deadline.types.fleet_software_add_on_name.FleetSoftwareAddOnName"
-    """<p>The name of the software add-on. The supported value is <code>docker</code>.</p>"""
+    """The name of the software add-on. The supported value is <code>docker</code>."""
 
 
 # --- restJson1 ser/de ---

@@ -13,13 +13,13 @@ if TYPE_CHECKING:
 
 class ListBudgetsRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID associated with the budgets.</p>"""
+    """The farm ID associated with the budgets."""
     next_token: NotRequired["capo_deadline.types.next_token.NextToken"]
-    """<p>The token for the next set of results, or <code>null</code> to start from the beginning.</p>"""
+    """The token for the next set of results, or <code>null</code> to start from the beginning."""
     max_results: NotRequired["capo_deadline.types.max_results.MaxResults"]
-    """<p>The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.</p>"""
+    """The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages."""
     status: NotRequired["capo_deadline.types.budget_status.BudgetStatus"]
-    """<p>The status to list for the budgets.</p>"""
+    """The status to list for the budgets."""
 
 
 # --- restJson1 ser/de ---

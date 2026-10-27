@@ -62,22 +62,22 @@ class LicenseEndpointResource:
         client_token: Optional["capo_deadline.types.client_token.ClientToken"] = None,
         tags: Optional["capo_deadline.types.tags.Tags"] = None,
     ) -> "capo_deadline.types.create_license_endpoint_response.CreateLicenseEndpointResponse":
-        """<p>Creates a license endpoint to integrate your various licensed software used for rendering on Deadline Cloud.</p>
+        """Creates a license endpoint to integrate your various licensed software used for rendering on Deadline Cloud.
 
         Args:
-            client_token: <p>The unique token which the server uses to recognize retries of the same request.</p>
-            vpc_id: <p>The VPC (virtual private cloud) ID to use with the license endpoint.</p>
-            subnet_ids: <p>The subnet IDs.</p>
-            security_group_ids: <p>The security group IDs.</p>
-            tags: <p>Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings.</p>
+            client_token: The unique token which the server uses to recognize retries of the same request.
+            vpc_id: The VPC (virtual private cloud) ID to use with the license endpoint.
+            subnet_ids: The subnet IDs.
+            security_group_ids: The security group IDs.
+            tags: Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.conflict_exception.ConflictException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>You exceeded your service quota. Service quotas, also referred to as limits, are the maximum number of service resources or operations for your Amazon Web Services account.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.conflict_exception.ConflictException: Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: You exceeded your service quota. Service quotas, also referred to as limits, are the maximum number of service resources or operations for your Amazon Web Services account.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -123,17 +123,17 @@ class LicenseEndpointResource:
         *,
         config_overrides: Optional[deadlineClientConfig] = None,
     ) -> "capo_deadline.types.get_license_endpoint_response.GetLicenseEndpointResponse":
-        """<p>Gets a licence endpoint.</p>
+        """Gets a licence endpoint.
 
         Args:
-            license_endpoint_id: <p>The license endpoint ID.</p>
+            license_endpoint_id: The license endpoint ID.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -172,18 +172,18 @@ class LicenseEndpointResource:
         *,
         config_overrides: Optional[deadlineClientConfig] = None,
     ) -> "capo_deadline.types.delete_license_endpoint_response.DeleteLicenseEndpointResponse":
-        """<p>Deletes a license endpoint.</p>
+        """Deletes a license endpoint.
 
         Args:
-            license_endpoint_id: <p>The license endpoint ID of the license endpoint to delete.</p>
+            license_endpoint_id: The license endpoint ID of the license endpoint to delete.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.conflict_exception.ConflictException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.conflict_exception.ConflictException: Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -223,18 +223,18 @@ class LicenseEndpointResource:
         next_token: Optional["capo_deadline.types.next_token.NextToken"] = None,
         max_results: Optional["capo_deadline.types.max_results.MaxResults"] = None,
     ) -> "capo_deadline.types.list_license_endpoints_response.ListLicenseEndpointsResponse":
-        """<p>Lists license endpoints.</p>
+        """Lists license endpoints.
 
         Args:
-            next_token: <p>The token for the next set of results, or <code>null</code> to start from the beginning.</p>
-            max_results: <p>The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.</p>
+            next_token: The token for the next set of results, or <code>null</code> to start from the beginning.
+            max_results: The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -276,18 +276,18 @@ class LicenseEndpointResource:
         *,
         config_overrides: Optional[deadlineClientConfig] = None,
     ) -> "capo_deadline.types.delete_metered_product_response.DeleteMeteredProductResponse":
-        """<p>Deletes a metered product.</p>
+        """Deletes a metered product.
 
         Args:
-            license_endpoint_id: <p>The ID of the license endpoint from which to remove the metered product.</p>
-            product_id: <p>The product ID to remove from the license endpoint.</p>
+            license_endpoint_id: The ID of the license endpoint from which to remove the metered product.
+            product_id: The product ID to remove from the license endpoint.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -331,19 +331,19 @@ class LicenseEndpointResource:
     ) -> (
         "capo_deadline.types.list_metered_products_response.ListMeteredProductsResponse"
     ):
-        """<p>Lists metered products.</p>
+        """Lists metered products.
 
         Args:
-            license_endpoint_id: <p>The license endpoint ID to include on the list of metered products.</p>
-            next_token: <p>The token for the next set of results, or <code>null</code> to start from the beginning.</p>
-            max_results: <p>The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.</p>
+            license_endpoint_id: The license endpoint ID to include on the list of metered products.
+            next_token: The token for the next set of results, or <code>null</code> to start from the beginning.
+            max_results: The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -387,18 +387,18 @@ class LicenseEndpointResource:
         *,
         config_overrides: Optional[deadlineClientConfig] = None,
     ) -> "capo_deadline.types.put_metered_product_response.PutMeteredProductResponse":
-        """<p>Adds a metered product.</p>
+        """Adds a metered product.
 
         Args:
-            license_endpoint_id: <p>The license endpoint ID to add to the metered product.</p>
-            product_id: <p>The product ID to add to the metered product.</p>
+            license_endpoint_id: The license endpoint ID to add to the metered product.
+            product_id: The product ID to add to the metered product.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -447,22 +447,22 @@ class AsyncLicenseEndpointResource:
         client_token: Optional["capo_deadline.types.client_token.ClientToken"] = None,
         tags: Optional["capo_deadline.types.tags.Tags"] = None,
     ) -> "capo_deadline.types.create_license_endpoint_response.CreateLicenseEndpointResponse":
-        """<p>Creates a license endpoint to integrate your various licensed software used for rendering on Deadline Cloud.</p>
+        """Creates a license endpoint to integrate your various licensed software used for rendering on Deadline Cloud.
 
         Args:
-            client_token: <p>The unique token which the server uses to recognize retries of the same request.</p>
-            vpc_id: <p>The VPC (virtual private cloud) ID to use with the license endpoint.</p>
-            subnet_ids: <p>The subnet IDs.</p>
-            security_group_ids: <p>The security group IDs.</p>
-            tags: <p>Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings.</p>
+            client_token: The unique token which the server uses to recognize retries of the same request.
+            vpc_id: The VPC (virtual private cloud) ID to use with the license endpoint.
+            subnet_ids: The subnet IDs.
+            security_group_ids: The security group IDs.
+            tags: Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.conflict_exception.ConflictException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>You exceeded your service quota. Service quotas, also referred to as limits, are the maximum number of service resources or operations for your Amazon Web Services account.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.conflict_exception.ConflictException: Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: You exceeded your service quota. Service quotas, also referred to as limits, are the maximum number of service resources or operations for your Amazon Web Services account.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -509,17 +509,17 @@ class AsyncLicenseEndpointResource:
         *,
         config_overrides: Optional[AsyncdeadlineClientConfig] = None,
     ) -> "capo_deadline.types.get_license_endpoint_response.GetLicenseEndpointResponse":
-        """<p>Gets a licence endpoint.</p>
+        """Gets a licence endpoint.
 
         Args:
-            license_endpoint_id: <p>The license endpoint ID.</p>
+            license_endpoint_id: The license endpoint ID.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -559,18 +559,18 @@ class AsyncLicenseEndpointResource:
         *,
         config_overrides: Optional[AsyncdeadlineClientConfig] = None,
     ) -> "capo_deadline.types.delete_license_endpoint_response.DeleteLicenseEndpointResponse":
-        """<p>Deletes a license endpoint.</p>
+        """Deletes a license endpoint.
 
         Args:
-            license_endpoint_id: <p>The license endpoint ID of the license endpoint to delete.</p>
+            license_endpoint_id: The license endpoint ID of the license endpoint to delete.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.conflict_exception.ConflictException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.conflict_exception.ConflictException: Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -611,18 +611,18 @@ class AsyncLicenseEndpointResource:
         next_token: Optional["capo_deadline.types.next_token.NextToken"] = None,
         max_results: Optional["capo_deadline.types.max_results.MaxResults"] = None,
     ) -> "capo_deadline.types.list_license_endpoints_response.ListLicenseEndpointsResponse":
-        """<p>Lists license endpoints.</p>
+        """Lists license endpoints.
 
         Args:
-            next_token: <p>The token for the next set of results, or <code>null</code> to start from the beginning.</p>
-            max_results: <p>The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.</p>
+            next_token: The token for the next set of results, or <code>null</code> to start from the beginning.
+            max_results: The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -665,18 +665,18 @@ class AsyncLicenseEndpointResource:
         *,
         config_overrides: Optional[AsyncdeadlineClientConfig] = None,
     ) -> "capo_deadline.types.delete_metered_product_response.DeleteMeteredProductResponse":
-        """<p>Deletes a metered product.</p>
+        """Deletes a metered product.
 
         Args:
-            license_endpoint_id: <p>The ID of the license endpoint from which to remove the metered product.</p>
-            product_id: <p>The product ID to remove from the license endpoint.</p>
+            license_endpoint_id: The ID of the license endpoint from which to remove the metered product.
+            product_id: The product ID to remove from the license endpoint.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -721,19 +721,19 @@ class AsyncLicenseEndpointResource:
     ) -> (
         "capo_deadline.types.list_metered_products_response.ListMeteredProductsResponse"
     ):
-        """<p>Lists metered products.</p>
+        """Lists metered products.
 
         Args:
-            license_endpoint_id: <p>The license endpoint ID to include on the list of metered products.</p>
-            next_token: <p>The token for the next set of results, or <code>null</code> to start from the beginning.</p>
-            max_results: <p>The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.</p>
+            license_endpoint_id: The license endpoint ID to include on the list of metered products.
+            next_token: The token for the next set of results, or <code>null</code> to start from the beginning.
+            max_results: The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -778,18 +778,18 @@ class AsyncLicenseEndpointResource:
         *,
         config_overrides: Optional[AsyncdeadlineClientConfig] = None,
     ) -> "capo_deadline.types.put_metered_product_response.PutMeteredProductResponse":
-        """<p>Adds a metered product.</p>
+        """Adds a metered product.
 
         Args:
-            license_endpoint_id: <p>The license endpoint ID to add to the metered product.</p>
-            product_id: <p>The product ID to add to the metered product.</p>
+            license_endpoint_id: The license endpoint ID to add to the metered product.
+            product_id: The product ID to add to the metered product.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 

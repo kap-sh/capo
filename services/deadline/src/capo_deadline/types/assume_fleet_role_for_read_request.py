@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class AssumeFleetRoleForReadRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID for the fleet's farm.</p>"""
+    """The farm ID for the fleet's farm."""
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID.</p>"""
+    """The fleet ID."""
 
 
 # --- restJson1 ser/de ---

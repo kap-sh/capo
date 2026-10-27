@@ -226,6 +226,7 @@ if TYPE_CHECKING:
     import capo_sso_admin.types.put_permissions_boundary_to_permission_set_response
     import capo_sso_admin.types.region_metadata
     import capo_sso_admin.types.region_name
+    import capo_sso_admin.types.region_scope
     import capo_sso_admin.types.relay_state
     import capo_sso_admin.types.remove_region_request
     import capo_sso_admin.types.remove_region_response
@@ -3266,12 +3267,14 @@ class SSOAdminClient:
         config_overrides: Optional[SSOAdminClientConfig] = None,
         max_results: Optional["capo_sso_admin.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_sso_admin.types.token.Token"] = None,
+        region_scope: Optional["capo_sso_admin.types.region_scope.RegionScope"] = None,
     ) -> "capo_sso_admin.types.list_instances_response.ListInstancesResponse":
         """<p>Lists the details of the organization and account instances of IAM Identity Center that were created in or visible to the account calling this API. </p>
 
         Args:
             max_results: <p>The maximum number of results to display for the instance.</p>
             next_token: <p>The pagination token for the list API. Initially the value is null. Use the output of previous API calls to make subsequent calls.</p>
+            region_scope: <p>Specifies which Amazon Web Services Regions to list IAM Identity Center instances from. Valid values:</p> <ul> <li> <p> <code>CURRENT_REGION</code> - Lists only the instances in the Region that you call this API from.</p> </li> <li> <p> <code>ALL_REGIONS</code> - Lists the instances that the caller owns or that are shared with the caller across all Regions.</p> </li> </ul> <p>If you don't specify a value, the default is <code>CURRENT_REGION</code>.</p>
 
         Raises:
             capo_sso_admin.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -3303,6 +3306,8 @@ class SSOAdminClient:
             input_["max_results"] = max_results
         if next_token is not None:
             input_["next_token"] = next_token
+        if region_scope is not None:
+            input_["region_scope"] = region_scope
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -3318,6 +3323,7 @@ class SSOAdminClient:
         config_overrides: Optional[SSOAdminClientConfig] = None,
         max_results: Optional["capo_sso_admin.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_sso_admin.types.token.Token"] = None,
+        region_scope: Optional["capo_sso_admin.types.region_scope.RegionScope"] = None,
     ) -> "Iterator[capo_sso_admin.types.instance_metadata.InstanceMetadata]":
         _token = next_token
         while True:
@@ -3325,6 +3331,7 @@ class SSOAdminClient:
                 config_overrides=config_overrides,
                 max_results=max_results,
                 next_token=_token,
+                region_scope=region_scope,
             )
             _page = _resolve_path(_response, ("instances",))
             for _item in _page or []:
@@ -4458,13 +4465,13 @@ class SSOAdminClient:
         ] = None,
         permission_sets_enabled: Optional[bool] = None,
     ) -> "capo_sso_admin.types.update_instance_response.UpdateInstanceResponse":
-        """<p>Update the details for the instance of IAM Identity Center that is owned by the Amazon Web Services account.</p> <p>In a single <code>UpdateInstance</code> request, you can perform only one of the following operations:</p> <ul> <li> <p>Update the encryption configuration of the instance by specifying <code>EncryptionConfiguration</code>.</p> </li> <li> <p>Enable permission sets for the instance by specifying <code>PermissionSetsEnabled</code>.</p> </li> </ul> <p>A request that specifies both <code>EncryptionConfiguration</code> and <code>PermissionSetsEnabled</code> returns a <code>ValidationException</code>. To perform both operations, call <code>UpdateInstance</code> separately for each. The two calls can be made in parallel.</p>
+        """<p>Update the details for the instance of IAM Identity Center that is owned by the Amazon Web Services account.</p> <p>In a single <code>UpdateInstance</code> request, you can perform only one of the following operations:</p> <ul> <li> <p>Update the encryption configuration of the instance by specifying <code>EncryptionConfiguration</code>.</p> </li> <li> <p>Enable permission sets for the instance by specifying <code>PermissionSetsEnabled</code>.</p> </li> </ul> <p>If you specify both <code>EncryptionConfiguration</code> and <code>PermissionSetsEnabled</code> in a request, the request returns a <code>ValidationException</code>. To perform both operations, call <code>UpdateInstance</code> separately for each. You can make the two calls in parallel.</p>
 
         Args:
             name: <p>Updates the instance name.</p>
             instance_arn: <p>The ARN of the instance of IAM Identity Center under which the operation will run. For more information about ARNs, see <a href="/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.</p>
             encryption_configuration: <p>Specifies the encryption configuration for your IAM Identity Center instance. You can use this to configure customer managed KMS keys or Amazon Web Services owned KMS keys for encrypting your instance data.</p>
-            permission_sets_enabled: <p>Enables permission sets for this Identity Center instance. The only accepted value is <code>true </code>. After permission sets are enabled, they cannot be disabled.</p> <note> <p>You can't set <code>EncryptionConfiguration</code> and <code>PermissionSetsEnabled</code> in the same request. To configure both, make two separate <code>UpdateInstance</code> calls. These calls can be made in parallel.</p> </note>
+            permission_sets_enabled: <p>Enables permission sets for this Identity Center instance. The only accepted value is <code>true </code>. After permission sets are enabled, they cannot be disabled.</p> <note> <p>You can't set <code>EncryptionConfiguration</code> and <code>PermissionSetsEnabled</code> in the same request. To configure both, make two separate <code>UpdateInstance</code> calls. You can make these calls in parallel.</p> </note>
 
         Raises:
             capo_sso_admin.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>

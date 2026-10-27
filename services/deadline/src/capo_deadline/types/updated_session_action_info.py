@@ -17,29 +17,29 @@ class UpdatedSessionActionInfo(TypedDict, closed=True):
     completed_status: NotRequired[
         "capo_deadline.types.completed_status.CompletedStatus"
     ]
-    """<p>The status of the session upon completion.</p>"""
+    """The status of the session upon completion."""
     process_exit_code: NotRequired[
         "capo_deadline.types.process_exit_code.ProcessExitCode"
     ]
-    """<p>The process exit code. The default Deadline Cloud worker agent converts unsigned 32-bit exit codes to signed 32-bit exit codes.</p>"""
+    """The process exit code. The default Deadline Cloud worker agent converts unsigned 32-bit exit codes to signed 32-bit exit codes."""
     progress_message: NotRequired[
         "capo_deadline.types.session_action_progress_message.SessionActionProgressMessage"
     ]
-    """<p>A message to indicate the progress of the updated session action.</p>"""
+    """A message to indicate the progress of the updated session action."""
     started_at: NotRequired["capo_deadline.types.timestamp.Timestamp"]
-    """<p>The date and time the resource started running.</p>"""
+    """The date and time the resource started running."""
     ended_at: NotRequired["capo_deadline.types.timestamp.Timestamp"]
-    """<p>The date and time the resource ended running.</p>"""
+    """The date and time the resource ended running."""
     updated_at: NotRequired["capo_deadline.types.timestamp.Timestamp"]
-    """<p>The updated time.</p>"""
+    """The updated time."""
     progress_percent: NotRequired[
         "capo_deadline.types.session_action_progress_percent.SessionActionProgressPercent"
     ]
-    """<p>The percentage completed.</p>"""
+    """The percentage completed."""
     manifests: NotRequired[
         "capo_deadline.types.task_run_manifest_properties_list_request.TaskRunManifestPropertiesListRequest"
     ]
-    """<p>A list of output manifest properties reported by the worker agent, with each entry corresponding to a manifest property in the job.</p>"""
+    """A list of output manifest properties reported by the worker agent, with each entry corresponding to a manifest property in the job."""
 
 
 # --- restJson1 ser/de ---

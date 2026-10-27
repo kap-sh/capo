@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class PutMeteredProductRequest(TypedDict, closed=True):
     license_endpoint_id: "capo_deadline.types.license_endpoint_id.LicenseEndpointId"
-    """<p>The license endpoint ID to add to the metered product.</p>"""
+    """The license endpoint ID to add to the metered product."""
     product_id: "capo_deadline.types.metered_product_id.MeteredProductId"
-    """<p>The product ID to add to the metered product.</p>"""
+    """The product ID to add to the metered product."""
 
 
 # --- restJson1 ser/de ---

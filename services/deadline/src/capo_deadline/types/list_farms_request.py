@@ -12,13 +12,13 @@ if TYPE_CHECKING:
 
 class ListFarmsRequest(TypedDict, closed=True):
     next_token: NotRequired["capo_deadline.types.next_token.NextToken"]
-    """<p>The token for the next set of results, or <code>null</code> to start from the beginning.</p>"""
+    """The token for the next set of results, or <code>null</code> to start from the beginning."""
     max_results: NotRequired["capo_deadline.types.max_results.MaxResults"]
-    """<p>The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.</p>"""
+    """The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages."""
     principal_id: NotRequired[
         "capo_deadline.types.identity_center_principal_id.IdentityCenterPrincipalId"
     ]
-    """<p>The principal ID of the member to list on the farm.</p>"""
+    """The principal ID of the member to list on the farm."""
 
 
 # --- restJson1 ser/de ---

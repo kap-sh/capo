@@ -11,11 +11,11 @@ if TYPE_CHECKING:
 
 class ParameterSpace(TypedDict, closed=True):
     parameters: "capo_deadline.types.step_parameter_list.StepParameterList"
-    """<p>The parameters to search for.</p>"""
+    """The parameters to search for."""
     combination: NotRequired[
         "capo_deadline.types.combination_expression.CombinationExpression"
     ]
-    """<p>The combination expression to use in the search.</p>"""
+    """The combination expression to use in the search."""
 
 
 # --- restJson1 ser/de ---

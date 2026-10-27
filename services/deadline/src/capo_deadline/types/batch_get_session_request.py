@@ -12,7 +12,7 @@ class BatchGetSessionRequest(TypedDict, closed=True):
     identifiers: (
         "capo_deadline.types.batch_get_session_identifiers.BatchGetSessionIdentifiers"
     )
-    """<p>The list of session identifiers to retrieve. You can specify up to 100 identifiers per request.</p>"""
+    """The list of session identifiers to retrieve. You can specify up to 100 identifiers per request."""
 
 
 # --- restJson1 ser/de ---

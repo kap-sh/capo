@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class JobRunAsUser(TypedDict, closed=True):
     posix: NotRequired["capo_deadline.types.posix_user.PosixUser"]
-    """<p>The user and group that the jobs in the queue run as.</p>"""
+    """The user and group that the jobs in the queue run as."""
     windows: NotRequired["capo_deadline.types.windows_user.WindowsUser"]
-    """<p>Identifies a Microsoft Windows user.</p>"""
+    """Identifies a Microsoft Windows user."""
     run_as: "capo_deadline.types.run_as.RunAs"
-    """<p>Specifies whether the job should run using the queue's system user or if the job should run using the worker agent system user.</p>"""
+    """Specifies whether the job should run using the queue's system user or if the job should run using the worker agent system user."""
 
 
 # --- restJson1 ser/de ---

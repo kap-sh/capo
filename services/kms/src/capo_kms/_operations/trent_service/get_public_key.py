@@ -22,6 +22,7 @@ import capo_kms.errors.kms_invalid_state_exception
 import capo_kms.errors.not_found_exception
 import capo_kms.errors.unsupported_operation_exception
 import capo_kms.types.customer_master_key_spec
+import capo_kms.types.encapsulation_algorithm_spec_list
 import capo_kms.types.encryption_algorithm_spec_list
 import capo_kms.types.get_public_key_request
 import capo_kms.types.get_public_key_response

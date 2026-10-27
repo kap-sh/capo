@@ -14,17 +14,17 @@ if TYPE_CHECKING:
 
 class PersistentVolumeConfiguration(TypedDict, closed=True):
     size_gi_b: "capo_deadline.types.persistent_volume_size_gi_b.PersistentVolumeSizeGiB"
-    """<p>The persistent volume size in GiB. The default is 250.</p>"""
+    """The persistent volume size in GiB. The default is 250."""
     iops: "capo_deadline.types.persistent_volume_iops.PersistentVolumeIops"
-    """<p>The IOPS per persistent volume. The default is 3000.</p>"""
+    """The IOPS per persistent volume. The default is 3000."""
     throughput_mi_b: "capo_deadline.types.persistent_volume_throughput_mi_b.PersistentVolumeThroughputMiB"
-    """<p>The throughput per persistent volume in MiB. The default is 125.</p>"""
+    """The throughput per persistent volume in MiB. The default is 125."""
     mount_path: "capo_deadline.types.mount_path.MountPath"
-    """<p>The file system path where the persistent volume is mounted on the worker instance.</p>"""
+    """The file system path where the persistent volume is mounted on the worker instance."""
     last_used_ttl_hours: (
         "capo_deadline.types.persistent_volume_ttl_hours.PersistentVolumeTtlHours"
     )
-    """<p>The number of hours a persistent volume can remain unused before it is deleted. The default is 168 (7 days).</p>"""
+    """The number of hours a persistent volume can remain unused before it is deleted. The default is 12."""
 
 
 # --- restJson1 ser/de ---

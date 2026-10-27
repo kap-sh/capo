@@ -13,11 +13,11 @@ if TYPE_CHECKING:
 
 class UpdateQueueLimitAssociationRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The unique identifier of the farm that contains the associated queues and limits.</p>"""
+    """The unique identifier of the farm that contains the associated queues and limits."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The unique identifier of the queue associated to the limit.</p>"""
+    """The unique identifier of the queue associated to the limit."""
     limit_id: "capo_deadline.types.limit_id.LimitId"
-    """<p>The unique identifier of the limit associated to the queue.</p>"""
+    """The unique identifier of the limit associated to the queue."""
     status: "capo_deadline.types.update_queue_limit_association_status.UpdateQueueLimitAssociationStatus"
     """<p>Sets the status of the limit. You can mark the limit active, or you can stop usage of the limit and either complete existing tasks or cancel any existing tasks immediately. </p>"""
 

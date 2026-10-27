@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class WorkerAttributeCapability(TypedDict, closed=True):
     name: "capo_deadline.types.attribute_capability_name.AttributeCapabilityName"
-    """<p>The name of the worker attribute capability.</p>"""
+    """The name of the worker attribute capability."""
     values: "capo_deadline.types.attribute_capability_values_list.AttributeCapabilityValuesList"
-    """<p>The values of the worker amount capability.</p>"""
+    """The values of the worker amount capability."""
 
 
 # --- restJson1 ser/de ---

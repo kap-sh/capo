@@ -2,5 +2,5 @@
 
 from typing import TypeAlias
 
-"""Token lifetime in seconds. Value is the minimum of session validity and 1 hour (3600 seconds)."""
+"""Token lifetime in seconds. The lesser of session validity and 3600 (1 hour)."""
 TokenExpiresIn: TypeAlias = int

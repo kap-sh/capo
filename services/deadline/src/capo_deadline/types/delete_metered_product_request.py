@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class DeleteMeteredProductRequest(TypedDict, closed=True):
     license_endpoint_id: "capo_deadline.types.license_endpoint_id.LicenseEndpointId"
-    """<p>The ID of the license endpoint from which to remove the metered product.</p>"""
+    """The ID of the license endpoint from which to remove the metered product."""
     product_id: "capo_deadline.types.metered_product_id.MeteredProductId"
-    """<p>The product ID to remove from the license endpoint.</p>"""
+    """The product ID to remove from the license endpoint."""
 
 
 # --- restJson1 ser/de ---

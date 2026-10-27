@@ -5,6 +5,7 @@ from typing import Literal, TypeAlias, cast
 RouteType: TypeAlias = Literal[
     "PROPAGATED",
     "STATIC",
+    "SYSTEM",
 ]
 
 

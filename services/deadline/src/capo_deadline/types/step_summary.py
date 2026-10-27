@@ -24,43 +24,43 @@ if TYPE_CHECKING:
 
 class StepSummary(TypedDict, closed=True):
     step_id: "capo_deadline.types.step_id.StepId"
-    """<p>The step ID.</p>"""
+    """The step ID."""
     name: "capo_deadline.types.step_name.StepName"
-    """<p>The name of the step.</p>"""
+    """The name of the step."""
     lifecycle_status: "capo_deadline.types.step_lifecycle_status.StepLifecycleStatus"
-    """<p>The life cycle status.</p>"""
+    """The life cycle status."""
     lifecycle_status_message: NotRequired["capo_deadline.types.string.String"]
-    """<p>A message that describes the lifecycle of the step.</p>"""
+    """A message that describes the lifecycle of the step."""
     task_run_status: "capo_deadline.types.task_run_status.TaskRunStatus"
     """<p>The task run status for the job.</p> <ul> <li> <p> <code>PENDING</code>–pending and waiting for resources.</p> </li> <li> <p> <code>READY</code>–ready to process.</p> </li> <li> <p> <code>ASSIGNED</code>–assigned and will run next on a worker.</p> </li> <li> <p> <code>SCHEDULED</code>–scheduled to run on a worker.</p> </li> <li> <p> <code>INTERRUPTING</code>–being interrupted.</p> </li> <li> <p> <code>RUNNING</code>–running on a worker.</p> </li> <li> <p> <code>SUSPENDED</code>–the task is suspended.</p> </li> <li> <p> <code>CANCELED</code>–the task has been canceled.</p> </li> <li> <p> <code>FAILED</code>–the task has failed.</p> </li> <li> <p> <code>SUCCEEDED</code>–the task has succeeded.</p> </li> </ul>"""
     task_run_status_counts: (
         "capo_deadline.types.task_run_status_counts.TaskRunStatusCounts"
     )
-    """<p>The number of tasks running on the job.</p>"""
+    """The number of tasks running on the job."""
     task_failure_retry_count: NotRequired[
         "capo_deadline.types.task_failure_retry_count.TaskFailureRetryCount"
     ]
-    """<p>The total number of times tasks from the step failed and were retried.</p>"""
+    """The total number of times tasks from the step failed and were retried."""
     target_task_run_status: NotRequired[
         "capo_deadline.types.step_target_task_run_status.StepTargetTaskRunStatus"
     ]
-    """<p>The task status to update the job's tasks to.</p>"""
+    """The task status to update the job's tasks to."""
     created_at: "capo_deadline.types.created_at.CreatedAt"
-    """<p>The date and time the resource was created.</p>"""
+    """The date and time the resource was created."""
     created_by: "capo_deadline.types.created_by.CreatedBy"
-    """<p>The user or system that created this resource.</p>"""
+    """The user or system that created this resource."""
     updated_at: NotRequired["capo_deadline.types.updated_at.UpdatedAt"]
-    """<p>The date and time the resource was updated.</p>"""
+    """The date and time the resource was updated."""
     updated_by: NotRequired["capo_deadline.types.updated_by.UpdatedBy"]
-    """<p>The user or system that updated this resource.</p>"""
+    """The user or system that updated this resource."""
     started_at: NotRequired["capo_deadline.types.started_at.StartedAt"]
-    """<p>The date and time the resource started running.</p>"""
+    """The date and time the resource started running."""
     ended_at: NotRequired["capo_deadline.types.ended_at.EndedAt"]
-    """<p>The date and time the resource ended running.</p>"""
+    """The date and time the resource ended running."""
     dependency_counts: NotRequired[
         "capo_deadline.types.dependency_counts.DependencyCounts"
     ]
-    """<p>The number of dependencies for the step.</p>"""
+    """The number of dependencies for the step."""
 
 
 # --- restJson1 ser/de ---

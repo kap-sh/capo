@@ -9,6 +9,8 @@ DistributionMetricName: TypeAlias = Literal[
     "TotalErrorRate",
     "Http4xxErrorRate",
     "Http5xxErrorRate",
+    "WafAllowedRequests",
+    "WafBlockedRequests",
 ]
 
 

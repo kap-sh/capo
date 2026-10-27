@@ -15,17 +15,17 @@ if TYPE_CHECKING:
 
 class BatchGetSessionError(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the session that could not be retrieved.</p>"""
+    """The farm ID of the session that could not be retrieved."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID of the session that could not be retrieved.</p>"""
+    """The queue ID of the session that could not be retrieved."""
     job_id: "capo_deadline.types.job_id.JobId"
-    """<p>The job ID of the session that could not be retrieved.</p>"""
+    """The job ID of the session that could not be retrieved."""
     session_id: "capo_deadline.types.session_id.SessionId"
-    """<p>The session ID of the session that could not be retrieved.</p>"""
+    """The session ID of the session that could not be retrieved."""
     code: "capo_deadline.types.batch_get_session_error_code.BatchGetSessionErrorCode"
-    """<p>The error code.</p>"""
+    """The error code."""
     message: "capo_deadline.types.string.String"
-    """<p>The error message.</p>"""
+    """The error message."""
 
 
 # --- restJson1 ser/de ---

@@ -10,9 +10,9 @@ if TYPE_CHECKING:
 
 class MemoryMiBRange(TypedDict, closed=True):
     min: "capo_deadline.types.memory_amount_mi_b.MemoryAmountMiB"
-    """<p>The minimum amount of memory (in MiB).</p>"""
+    """The minimum amount of memory (in MiB)."""
     max: NotRequired["capo_deadline.types.memory_amount_mi_b.MemoryAmountMiB"]
-    """<p>The maximum amount of memory (in MiB).</p>"""
+    """The maximum amount of memory (in MiB)."""
 
 
 # --- restJson1 ser/de ---

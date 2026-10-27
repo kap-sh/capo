@@ -23,6 +23,7 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.router_output_tier
     import capo_mediaconnect.types.router_output_type
     import capo_mediaconnect.types.routing_scope
+    import capo_mediaconnect.types.source_endpoint_arn_list
 
 
 class RouterOutput(TypedDict, closed=True):
@@ -88,6 +89,10 @@ class RouterOutput(TypedDict, closed=True):
         "capo_mediaconnect.types.fabric_configuration.FabricConfiguration"
     ]
     """<p>The fabric configuration settings for the router output.</p>"""
+    associated_source_endpoint_arns: NotRequired[
+        "capo_mediaconnect.types.source_endpoint_arn_list.SourceEndpointArnList"
+    ]
+    """<p>The Amazon Resource Names (ARNs) of one or more source endpoints that are associated with this router output.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -196,6 +201,14 @@ def serialize_json(value: RouterOutput) -> dict:
         out["fabricConfiguration"] = (
             capo_mediaconnect.types.fabric_configuration.serialize_json(
                 value["fabric_configuration"]
+            )
+        )
+    if "associated_source_endpoint_arns" in value:
+        import capo_mediaconnect.types.source_endpoint_arn_list
+
+        out["associatedSourceEndpointArns"] = (
+            capo_mediaconnect.types.source_endpoint_arn_list.serialize_json(
+                value["associated_source_endpoint_arns"]
             )
         )
     return out
@@ -400,6 +413,14 @@ def deserialize_json(data: dict) -> RouterOutput:
         out["fabric_configuration"] = (
             capo_mediaconnect.types.fabric_configuration.deserialize_json(
                 data["fabricConfiguration"]
+            )
+        )
+    if data.get("associatedSourceEndpointArns") is not None:
+        import capo_mediaconnect.types.source_endpoint_arn_list
+
+        out["associated_source_endpoint_arns"] = (
+            capo_mediaconnect.types.source_endpoint_arn_list.deserialize_json(
+                data["associatedSourceEndpointArns"]
             )
         )
     return out

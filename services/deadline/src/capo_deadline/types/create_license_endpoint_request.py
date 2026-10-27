@@ -14,15 +14,15 @@ if TYPE_CHECKING:
 
 class CreateLicenseEndpointRequest(TypedDict, closed=True):
     client_token: NotRequired["capo_deadline.types.client_token.ClientToken"]
-    """<p>The unique token which the server uses to recognize retries of the same request.</p>"""
+    """The unique token which the server uses to recognize retries of the same request."""
     vpc_id: "capo_deadline.types.vpc_id.VpcId"
-    """<p>The VPC (virtual private cloud) ID to use with the license endpoint.</p>"""
+    """The VPC (virtual private cloud) ID to use with the license endpoint."""
     subnet_ids: "capo_deadline.types.subnet_id_list.SubnetIdList"
-    """<p>The subnet IDs.</p>"""
+    """The subnet IDs."""
     security_group_ids: "capo_deadline.types.security_group_id_list.SecurityGroupIdList"
-    """<p>The security group IDs.</p>"""
+    """The security group IDs."""
     tags: NotRequired["capo_deadline.types.tags.Tags"]
-    """<p>Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings.</p>"""
+    """Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings."""
 
 
 # --- restJson1 ser/de ---

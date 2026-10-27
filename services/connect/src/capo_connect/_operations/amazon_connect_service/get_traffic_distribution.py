@@ -22,6 +22,7 @@ import capo_connect.types.get_traffic_distribution_request
 import capo_connect.types.get_traffic_distribution_response
 import capo_connect.types.sign_in_config
 import capo_connect.types.telephony_config
+import capo_connect.types.timestamp
 from capo_connect._protocol.errors import parse_error_metadata_json
 from capo_connect._rule_engine._endpoint_rule_set import EndpointParams, resolve
 from capo_connect._services._pipeline import (

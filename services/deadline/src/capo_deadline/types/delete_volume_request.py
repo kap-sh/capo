@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class DeleteVolumeRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the farm that contains the fleet.</p>"""
+    """The farm ID of the farm that contains the fleet."""
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID of the fleet that contains the volume.</p>"""
+    """The fleet ID of the fleet that contains the volume."""
     volume_id: "capo_deadline.types.volume_id.VolumeId"
-    """<p>The volume ID of the volume to delete.</p>"""
+    """The volume ID of the volume to delete."""
 
 
 # --- restJson1 ser/de ---

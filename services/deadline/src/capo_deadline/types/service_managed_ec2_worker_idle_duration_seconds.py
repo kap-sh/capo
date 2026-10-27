@@ -2,5 +2,5 @@
 
 from typing import TypeAlias
 
-"""<p>The duration in seconds that a service managed EC2 worker can be idle before it is scaled down.</p>"""
+"""The duration in seconds that a service managed EC2 worker can be idle before it is scaled down."""
 ServiceManagedEc2WorkerIdleDurationSeconds: TypeAlias = int

@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class BatchGetWorkerIdentifier(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the worker.</p>"""
+    """The farm ID of the worker."""
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID of the worker.</p>"""
+    """The fleet ID of the worker."""
     worker_id: "capo_deadline.types.worker_id.WorkerId"
-    """<p>The worker ID.</p>"""
+    """The worker ID."""
 
 
 # --- restJson1 ser/de ---

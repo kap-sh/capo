@@ -11,6 +11,8 @@ if TYPE_CHECKING:
 class EvaluatorSummary(TypedDict, closed=True):
     evaluator_id: NotRequired["str"]
     """<p>The unique identifier of the evaluator.</p>"""
+    evaluation_dimension_name: NotRequired["str"]
+    """<p>The name of the dimension that this summary covers. This field is set only for evaluators that use a multi-dimensional rating scale, where each dimension is summarized separately. For single-scale evaluators, this field is not set.</p>"""
     statistics: NotRequired[
         "capo_bedrock_agentcore.types.evaluator_statistics.EvaluatorStatistics"
     ]
@@ -26,6 +28,8 @@ def serialize_json(value: EvaluatorSummary) -> dict:
     out: dict = {}
     if "evaluator_id" in value:
         out["evaluatorId"] = value["evaluator_id"]
+    if "evaluation_dimension_name" in value:
+        out["evaluationDimensionName"] = value["evaluation_dimension_name"]
     if "statistics" in value:
         import capo_bedrock_agentcore.types.evaluator_statistics
 
@@ -45,6 +49,8 @@ def deserialize_json(data: dict) -> EvaluatorSummary:
     out: EvaluatorSummary = {}  # type: ignore[typeddict-item]
     if data.get("evaluatorId") is not None:
         out["evaluator_id"] = data["evaluatorId"]
+    if data.get("evaluationDimensionName") is not None:
+        out["evaluation_dimension_name"] = data["evaluationDimensionName"]
     if data.get("statistics") is not None:
         import capo_bedrock_agentcore.types.evaluator_statistics
 

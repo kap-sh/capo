@@ -14,17 +14,17 @@ if TYPE_CHECKING:
 
 class FarmMember(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the farm member.</p>"""
+    """The farm ID of the farm member."""
     principal_id: (
         "capo_deadline.types.identity_center_principal_id.IdentityCenterPrincipalId"
     )
-    """<p>The principal ID of the farm member.</p>"""
+    """The principal ID of the farm member."""
     principal_type: "capo_deadline.types.deadline_principal_type.DeadlinePrincipalType"
-    """<p>The principal type of the farm member.</p>"""
+    """The principal type of the farm member."""
     identity_store_id: "capo_deadline.types.identity_store_id.IdentityStoreId"
-    """<p>The identity store ID of the farm member.</p>"""
+    """The identity store ID of the farm member."""
     membership_level: "capo_deadline.types.membership_level.MembershipLevel"
-    """<p>The farm member's membership level.</p>"""
+    """The farm member's membership level."""
 
 
 # --- restJson1 ser/de ---

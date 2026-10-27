@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class DeleteFarmRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the farm to delete.</p>"""
+    """The farm ID of the farm to delete."""
 
 
 # --- restJson1 ser/de ---

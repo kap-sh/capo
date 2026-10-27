@@ -20,35 +20,35 @@ if TYPE_CHECKING:
 
 class CustomerManagedWorkerCapabilities(TypedDict, closed=True):
     v_cpu_count: "capo_deadline.types.v_cpu_count_range.VCpuCountRange"
-    """<p>The vCPU count for the customer manged worker capabilities.</p>"""
+    """The vCPU count for the customer manged worker capabilities."""
     memory_mi_b: "capo_deadline.types.memory_mi_b_range.MemoryMiBRange"
-    """<p>The memory (MiB).</p>"""
+    """The memory (MiB)."""
     accelerator_types: NotRequired[
         "capo_deadline.types.accelerator_types.AcceleratorTypes"
     ]
-    """<p>The accelerator types for the customer managed worker capabilities.</p>"""
+    """The accelerator types for the customer managed worker capabilities."""
     accelerator_count: NotRequired[
         "capo_deadline.types.accelerator_count_range.AcceleratorCountRange"
     ]
-    """<p>The range of the accelerator.</p>"""
+    """The range of the accelerator."""
     accelerator_total_memory_mi_b: NotRequired[
         "capo_deadline.types.accelerator_total_memory_mi_b_range.AcceleratorTotalMemoryMiBRange"
     ]
-    """<p>The total memory (MiB) for the customer managed worker capabilities.</p>"""
+    """The total memory (MiB) for the customer managed worker capabilities."""
     os_family: "capo_deadline.types.customer_managed_fleet_operating_system_family.CustomerManagedFleetOperatingSystemFamily"
-    """<p>The operating system (OS) family.</p>"""
+    """The operating system (OS) family."""
     cpu_architecture_type: (
         "capo_deadline.types.cpu_architecture_type.CpuArchitectureType"
     )
-    """<p>The CPU architecture type for the customer managed worker capabilities.</p>"""
+    """The CPU architecture type for the customer managed worker capabilities."""
     custom_amounts: NotRequired[
         "capo_deadline.types.custom_fleet_amount_capabilities.CustomFleetAmountCapabilities"
     ]
-    """<p>Custom requirement ranges for customer managed worker capabilities.</p>"""
+    """Custom requirement ranges for customer managed worker capabilities."""
     custom_attributes: NotRequired[
         "capo_deadline.types.custom_fleet_attribute_capabilities.CustomFleetAttributeCapabilities"
     ]
-    """<p>Custom attributes for the customer manged worker capabilities.</p>"""
+    """Custom attributes for the customer manged worker capabilities."""
 
 
 # --- restJson1 ser/de ---

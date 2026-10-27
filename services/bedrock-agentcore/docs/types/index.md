@@ -165,6 +165,7 @@
 - [EvaluateResponse](evaluate_response.md)
 - [EvaluationContent](evaluation_content.md)
 - [EvaluationContentList](evaluation_content_list.md)
+- [EvaluationDimensionName](evaluation_dimension_name.md)
 - [EvaluationErrorCode](evaluation_error_code.md)
 - [EvaluationErrorMessage](evaluation_error_message.md)
 - [EvaluationExpectedTrajectory](evaluation_expected_trajectory.md)

@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class CreateQueueResponse(TypedDict, closed=True):
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID.</p>"""
+    """The queue ID."""
 
 
 # --- restJson1 ser/de ---

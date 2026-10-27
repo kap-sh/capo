@@ -26,49 +26,49 @@ if TYPE_CHECKING:
 
 class CreateJobRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the farm to connect to the job.</p>"""
+    """The farm ID of the farm to connect to the job."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The ID of the queue that the job is submitted to.</p>"""
+    """The ID of the queue that the job is submitted to."""
     client_token: NotRequired["capo_deadline.types.client_token.ClientToken"]
-    """<p>The unique token which the server uses to recognize retries of the same request.</p>"""
+    """The unique token which the server uses to recognize retries of the same request."""
     template: NotRequired["capo_deadline.types.job_template.JobTemplate"]
-    """<p>The job template to use for this job.</p>"""
+    """The job template to use for this job."""
     template_type: NotRequired["capo_deadline.types.job_template_type.JobTemplateType"]
-    """<p>The file type for the job template.</p>"""
+    """The file type for the job template."""
     priority: "capo_deadline.types.job_priority.JobPriority"
-    """<p>The priority of the job. The highest priority (first scheduled) is 100. When two jobs have the same priority, the oldest job is scheduled first.</p>"""
+    """The priority of the job. The highest priority (first scheduled) is 100. When two jobs have the same priority, the oldest job is scheduled first."""
     parameters: NotRequired["capo_deadline.types.job_parameters.JobParameters"]
-    """<p>The parameters for the job.</p>"""
+    """The parameters for the job."""
     attachments: NotRequired["capo_deadline.types.attachments.Attachments"]
-    """<p>The attachments for the job. Attach files required for the job to run to a render job.</p>"""
+    """The attachments for the job. Attach files required for the job to run to a render job."""
     storage_profile_id: NotRequired[
         "capo_deadline.types.storage_profile_id.StorageProfileId"
     ]
-    """<p>The storage profile ID for the storage profile to connect to the job.</p>"""
+    """The storage profile ID for the storage profile to connect to the job."""
     target_task_run_status: NotRequired[
         "capo_deadline.types.create_job_target_task_run_status.CreateJobTargetTaskRunStatus"
     ]
-    """<p>The initial job status when it is created. Jobs that are created with a <code>SUSPENDED</code> status will not run until manually requeued.</p>"""
+    """The initial job status when it is created. Jobs that are created with a <code>SUSPENDED</code> status will not run until manually requeued."""
     max_failed_tasks_count: NotRequired[
         "capo_deadline.types.max_failed_tasks_count.MaxFailedTasksCount"
     ]
-    """<p>The number of task failures before the job stops running and is marked as <code>FAILED</code>.</p>"""
+    """The number of task failures before the job stops running and is marked as <code>FAILED</code>."""
     max_retries_per_task: NotRequired[
         "capo_deadline.types.max_retries_per_task.MaxRetriesPerTask"
     ]
-    """<p>The maximum number of retries for each task.</p>"""
+    """The maximum number of retries for each task."""
     max_worker_count: NotRequired["capo_deadline.types.max_worker_count.MaxWorkerCount"]
-    """<p>The maximum number of worker hosts that can concurrently process a job. When the <code>maxWorkerCount</code> is reached, no more workers will be assigned to process the job, even if the fleets assigned to the job's queue has available workers.</p> <p>You can't set the <code>maxWorkerCount</code> to 0. If you set it to -1, there is no maximum number of workers.</p> <p>If you don't specify the <code>maxWorkerCount</code>, Deadline Cloud won't throttle the number of workers used to process the job.</p>"""
+    """The maximum number of worker hosts that can concurrently process a job. When the <code>maxWorkerCount</code> is reached, no more workers will be assigned to process the job, even if the fleets assigned to the job's queue has available workers. You can't set the <code>maxWorkerCount</code> to 0. If you set it to -1, there is no maximum number of workers. If you don't specify the <code>maxWorkerCount</code>, Deadline Cloud won't throttle the number of workers used to process the job."""
     source_job_id: NotRequired["capo_deadline.types.job_id.JobId"]
-    """<p>The job ID for the source job.</p>"""
+    """The job ID for the source job."""
     name_override: NotRequired["capo_deadline.types.job_name.JobName"]
-    """<p>A custom name to override the job name derived from the job template.</p>"""
+    """A custom name to override the job name derived from the job template."""
     description_override: NotRequired[
         "capo_deadline.types.job_description_override.JobDescriptionOverride"
     ]
-    """<p>A custom description to override the job description derived from the job template.</p>"""
+    """A custom description to override the job description derived from the job template."""
     tags: NotRequired["capo_deadline.types.tags.Tags"]
-    """<p>The tags to add to your job. Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings.</p>"""
+    """The tags to add to your job. Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings."""
 
 
 # --- restJson1 ser/de ---

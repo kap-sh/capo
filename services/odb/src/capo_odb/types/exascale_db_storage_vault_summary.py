@@ -8,8 +8,10 @@ if TYPE_CHECKING:
     import datetime
 
     import capo_odb.types.exascale_db_storage_details
+    import capo_odb.types.exascale_db_storage_vault_type
     import capo_odb.types.resource_arn
     import capo_odb.types.resource_arn_list
+    import capo_odb.types.resource_id
     import capo_odb.types.resource_id_list
     import capo_odb.types.resource_id_or_arn
     import capo_odb.types.resource_status
@@ -31,6 +33,14 @@ class ExascaleDbStorageVaultSummary(TypedDict, closed=True):
     """<p>The Availability Zone for the Exascale storage vault.</p>"""
     availability_zone_id: NotRequired["str"]
     """<p>The Availability Zone ID for the Exascale storage vault.</p>"""
+    cloud_exadata_infrastructure_arn: NotRequired[
+        "capo_odb.types.resource_arn.ResourceArn"
+    ]
+    """<p>The Amazon Resource Name (ARN) of the Exadata infrastructure that hosts the Exascale storage vault. This value is present only for vaults on dedicated Exadata infrastructure.</p>"""
+    cloud_exadata_infrastructure_id: NotRequired[
+        "capo_odb.types.resource_id.ResourceId"
+    ]
+    """<p>The unique identifier of the Exadata infrastructure that hosts the Exascale storage vault. This value is present only for vaults on dedicated Exadata infrastructure.</p>"""
     created_at: NotRequired["datetime.datetime"]
     """<p>The date and time when the Exascale storage vault was created.</p>"""
     description: NotRequired["str"]
@@ -67,6 +77,10 @@ class ExascaleDbStorageVaultSummary(TypedDict, closed=True):
     """<p>Additional information about the status of the Exascale storage vault.</p>"""
     time_zone: NotRequired["str"]
     """<p>The time zone of the Exascale storage vault.</p>"""
+    vault_type: NotRequired[
+        "capo_odb.types.exascale_db_storage_vault_type.ExascaleDbStorageVaultType"
+    ]
+    """<p>The type of infrastructure that hosts the Exascale storage vault.</p>"""
 
 
 # --- awsJson1_0 ser/de ---
@@ -91,6 +105,10 @@ def serialize_aws_json_1_0(value: ExascaleDbStorageVaultSummary) -> dict:
         out["availabilityZone"] = value["availability_zone"]
     if "availability_zone_id" in value:
         out["availabilityZoneId"] = value["availability_zone_id"]
+    if "cloud_exadata_infrastructure_arn" in value:
+        out["cloudExadataInfrastructureArn"] = value["cloud_exadata_infrastructure_arn"]
+    if "cloud_exadata_infrastructure_id" in value:
+        out["cloudExadataInfrastructureId"] = value["cloud_exadata_infrastructure_id"]
     if "created_at" in value:
         import capo_odb._protocol.serialize
 
@@ -153,6 +171,14 @@ def serialize_aws_json_1_0(value: ExascaleDbStorageVaultSummary) -> dict:
         out["statusReason"] = value["status_reason"]
     if "time_zone" in value:
         out["timeZone"] = value["time_zone"]
+    if "vault_type" in value:
+        import capo_odb.types.exascale_db_storage_vault_type
+
+        out["vaultType"] = (
+            capo_odb.types.exascale_db_storage_vault_type.serialize_aws_json_1_0(
+                value["vault_type"]
+            )
+        )
     return out
 
 
@@ -178,6 +204,10 @@ def deserialize_aws_json_1_0(data: dict) -> ExascaleDbStorageVaultSummary:
         out["availability_zone"] = data["availabilityZone"]
     if data.get("availabilityZoneId") is not None:
         out["availability_zone_id"] = data["availabilityZoneId"]
+    if data.get("cloudExadataInfrastructureArn") is not None:
+        out["cloud_exadata_infrastructure_arn"] = data["cloudExadataInfrastructureArn"]
+    if data.get("cloudExadataInfrastructureId") is not None:
+        out["cloud_exadata_infrastructure_id"] = data["cloudExadataInfrastructureId"]
     if data.get("createdAt") is not None:
         import datetime
 
@@ -236,4 +266,12 @@ def deserialize_aws_json_1_0(data: dict) -> ExascaleDbStorageVaultSummary:
         out["status_reason"] = data["statusReason"]
     if data.get("timeZone") is not None:
         out["time_zone"] = data["timeZone"]
+    if data.get("vaultType") is not None:
+        import capo_odb.types.exascale_db_storage_vault_type
+
+        out["vault_type"] = (
+            capo_odb.types.exascale_db_storage_vault_type.deserialize_aws_json_1_0(
+                data["vaultType"]
+            )
+        )
     return out

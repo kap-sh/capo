@@ -22,37 +22,37 @@ if TYPE_CHECKING:
 
 class TaskSearchSummary(TypedDict, closed=True):
     task_id: NotRequired["capo_deadline.types.task_id.TaskId"]
-    """<p>The task ID.</p>"""
+    """The task ID."""
     step_id: NotRequired["capo_deadline.types.step_id.StepId"]
-    """<p>The step ID.</p>"""
+    """The step ID."""
     job_id: NotRequired["capo_deadline.types.job_id.JobId"]
-    """<p>The job ID.</p>"""
+    """The job ID."""
     queue_id: NotRequired["capo_deadline.types.queue_id.QueueId"]
-    """<p>The queue ID.</p>"""
+    """The queue ID."""
     run_status: NotRequired["capo_deadline.types.task_run_status.TaskRunStatus"]
-    """<p>The run status of the task.</p>"""
+    """The run status of the task."""
     target_run_status: NotRequired[
         "capo_deadline.types.task_target_run_status.TaskTargetRunStatus"
     ]
-    """<p>The run status that the task is being updated to.</p>"""
+    """The run status that the task is being updated to."""
     parameters: NotRequired["capo_deadline.types.task_parameters.TaskParameters"]
-    """<p>The parameters to search for.</p>"""
+    """The parameters to search for."""
     failure_retry_count: NotRequired[
         "capo_deadline.types.task_retry_count.TaskRetryCount"
     ]
-    """<p>The number of times that the task failed and was retried.</p>"""
+    """The number of times that the task failed and was retried."""
     started_at: NotRequired["capo_deadline.types.started_at.StartedAt"]
-    """<p>The date and time the resource started running.</p>"""
+    """The date and time the resource started running."""
     ended_at: NotRequired["capo_deadline.types.ended_at.EndedAt"]
-    """<p>The date and time the resource ended running.</p>"""
+    """The date and time the resource ended running."""
     updated_at: NotRequired["capo_deadline.types.updated_at.UpdatedAt"]
-    """<p>The date and time the resource was updated.</p>"""
+    """The date and time the resource was updated."""
     updated_by: NotRequired["capo_deadline.types.updated_by.UpdatedBy"]
-    """<p>The user or system that updated this resource.</p>"""
+    """The user or system that updated this resource."""
     latest_session_action_id: NotRequired[
         "capo_deadline.types.session_action_id.SessionActionId"
     ]
-    """<p>The latest session action ID for the task.</p>"""
+    """The latest session action ID for the task."""
 
 
 # --- restJson1 ser/de ---

@@ -29,6 +29,7 @@ import capo_lightsail.types.lightsail_distribution
 import capo_lightsail.types.operation
 import capo_lightsail.types.tag_list
 import capo_lightsail.types.viewer_minimum_tls_protocol_version_enum
+import capo_lightsail.types.waf_rule_list
 from capo_lightsail._protocol.errors import parse_error_metadata_json
 from capo_lightsail._rule_engine._endpoint_rule_set import EndpointParams, resolve
 from capo_lightsail._services._pipeline import (

@@ -27,7 +27,7 @@ class NetworkRoute(TypedDict, closed=True):
     state: NotRequired["capo_networkmanager.types.route_state.RouteState"]
     """<p>The route state. The possible values are <code>active</code> and <code>blackhole</code>.</p>"""
     type: NotRequired["capo_networkmanager.types.route_type.RouteType"]
-    """<p>The route type. The possible values are <code>propagated</code> and <code>static</code>.</p>"""
+    """<p>The route type. The possible values are <code>PROPAGATED</code>, <code>STATIC</code>, and <code>SYSTEM</code>. A <code>SYSTEM</code> route is installed by the core network for the NAT CIDR block of an attachment's NAT rule.</p>"""
 
 
 # --- restJson1 ser/de ---

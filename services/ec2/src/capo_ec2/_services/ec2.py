@@ -1538,6 +1538,8 @@ if TYPE_CHECKING:
     import capo_ec2.types.get_subnet_cidr_reservations_max_results
     import capo_ec2.types.get_subnet_cidr_reservations_request
     import capo_ec2.types.get_subnet_cidr_reservations_result
+    import capo_ec2.types.get_transit_gateway_attachment_nat_configuration_request
+    import capo_ec2.types.get_transit_gateway_attachment_nat_configuration_result
     import capo_ec2.types.get_transit_gateway_attachment_propagations_request
     import capo_ec2.types.get_transit_gateway_attachment_propagations_result
     import capo_ec2.types.get_transit_gateway_metering_policy_entries_request
@@ -1927,6 +1929,8 @@ if TYPE_CHECKING:
     import capo_ec2.types.modify_traffic_mirror_filter_rule_result
     import capo_ec2.types.modify_traffic_mirror_session_request
     import capo_ec2.types.modify_traffic_mirror_session_result
+    import capo_ec2.types.modify_transit_gateway_attachment_nat_configuration_request
+    import capo_ec2.types.modify_transit_gateway_attachment_nat_configuration_result
     import capo_ec2.types.modify_transit_gateway_metering_policy_request
     import capo_ec2.types.modify_transit_gateway_metering_policy_result
     import capo_ec2.types.modify_transit_gateway_options
@@ -2397,6 +2401,8 @@ if TYPE_CHECKING:
     import capo_ec2.types.transit_gateway_attachment
     import capo_ec2.types.transit_gateway_attachment_id
     import capo_ec2.types.transit_gateway_attachment_id_string_list
+    import capo_ec2.types.transit_gateway_attachment_nat_gateway_support_value
+    import capo_ec2.types.transit_gateway_attachment_nat_system_route_support_value
     import capo_ec2.types.transit_gateway_attachment_propagation
     import capo_ec2.types.transit_gateway_attachment_resource_type
     import capo_ec2.types.transit_gateway_configuration_input_structure
@@ -2416,6 +2422,7 @@ if TYPE_CHECKING:
     import capo_ec2.types.transit_gateway_multicast_domain_id
     import capo_ec2.types.transit_gateway_multicast_domain_id_string_list
     import capo_ec2.types.transit_gateway_multicast_group
+    import capo_ec2.types.transit_gateway_nat_rule_request_list
     import capo_ec2.types.transit_gateway_network_interface_id_list
     import capo_ec2.types.transit_gateway_peering_attachment
     import capo_ec2.types.transit_gateway_policy_table
@@ -19652,7 +19659,7 @@ class EC2Client:
         ] = None,
         dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
     ) -> "capo_ec2.types.delete_transit_gateway_route_table_result.DeleteTransitGatewayRouteTableResult":
-        """<p>Deletes the specified transit gateway route table. If there are any route tables associated with the transit gateway route table, you must first run <a>DisassociateRouteTable</a> before you can delete the transit gateway route table. This removes any route tables associated with the transit gateway route table.</p>
+        """<p>Deletes the specified transit gateway route table. Before you can delete a transit gateway route table, you must disassociate all attachments from it by using <a>DisassociateTransitGatewayRouteTable</a> and wait for the disassociations to complete. You can't delete a transit gateway route table that is the default association route table or default propagation route table for the transit gateway. To change the default route tables, use <a>ModifyTransitGateway</a>.</p>
 
         Args:
             transit_gateway_route_table_id: <p>The ID of the transit gateway route table.</p>
@@ -46857,6 +46864,57 @@ class EC2Client:
         response.response.close()
         return response.output
 
+    def get_transit_gateway_attachment_nat_configuration(
+        self,
+        *,
+        config_overrides: Optional[EC2ClientConfig] = None,
+        transit_gateway_attachment_id: Optional[
+            "capo_ec2.types.transit_gateway_attachment_id.TransitGatewayAttachmentId"
+        ] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "capo_ec2.types.get_transit_gateway_attachment_nat_configuration_result.GetTransitGatewayAttachmentNatConfigurationResult":
+        """<p>Describes the NAT configuration for the specified transit gateway attachment. Only the owner of the transit gateway can describe the NAT configuration.</p>
+
+        Args:
+            transit_gateway_attachment_id: <p>The ID of the transit gateway attachment.</p>
+            dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+
+        Raises:
+            capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_ec2.types.get_transit_gateway_attachment_nat_configuration_request.GetTransitGatewayAttachmentNatConfigurationRequest]",
+        ) -> OperationResponse[
+            "capo_ec2.types.get_transit_gateway_attachment_nat_configuration_result.GetTransitGatewayAttachmentNatConfigurationResult"
+        ]:
+            import capo_ec2._operations.amazon_ec2.get_transit_gateway_attachment_nat_configuration
+
+            output, http_response = (
+                capo_ec2._operations.amazon_ec2.get_transit_gateway_attachment_nat_configuration.get_transit_gateway_attachment_nat_configuration(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetTransitGatewayAttachmentNatConfiguration"),
+        )
+        input_: capo_ec2.types.get_transit_gateway_attachment_nat_configuration_request.GetTransitGatewayAttachmentNatConfigurationRequest = {}
+        if transit_gateway_attachment_id is not None:
+            input_["transit_gateway_attachment_id"] = transit_gateway_attachment_id
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def get_transit_gateway_attachment_propagations(
         self,
         *,
@@ -52983,6 +53041,79 @@ class EC2Client:
             input_["description"] = description
         if options is not None:
             input_["options"] = options
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def modify_transit_gateway_attachment_nat_configuration(
+        self,
+        *,
+        config_overrides: Optional[EC2ClientConfig] = None,
+        transit_gateway_attachment_id: Optional[
+            "capo_ec2.types.transit_gateway_attachment_id.TransitGatewayAttachmentId"
+        ] = None,
+        nat_gateway_support: Optional[
+            "capo_ec2.types.transit_gateway_attachment_nat_gateway_support_value.TransitGatewayAttachmentNatGatewaySupportValue"
+        ] = None,
+        nat_system_route_support: Optional[
+            "capo_ec2.types.transit_gateway_attachment_nat_system_route_support_value.TransitGatewayAttachmentNatSystemRouteSupportValue"
+        ] = None,
+        nat_gateway_rules: Optional[
+            "capo_ec2.types.transit_gateway_nat_rule_request_list.TransitGatewayNatRuleRequestList"
+        ] = None,
+        reset_nat_gateway_rules: Optional["capo_ec2.types.boolean.Boolean"] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "capo_ec2.types.modify_transit_gateway_attachment_nat_configuration_result.ModifyTransitGatewayAttachmentNatConfigurationResult":
+        """<p>Modifies the NAT configuration for the specified transit gateway attachment. Use this operation to do the following:</p> <ul> <li> <p>Enable or disable NAT gateway support for the attachment.</p> </li> <li> <p>Specify whether the transit gateway installs routes for the NAT CIDRs.</p> </li> <li> <p>Replace the NAT gateway rules for the attachment.</p> </li> </ul> <p>Only the owner of the transit gateway can modify the NAT configuration.</p> <p>With NAT gateway support enabled, the transit gateway translates addresses in each rule's <code>MatchSourceCidr</code> range to the corresponding addresses in its <code>NatCidr</code> range.</p> <p>The transit gateway applies changes asynchronously. To check the result, use <code>GetTransitGatewayAttachmentNatConfiguration</code>.</p>
+
+        Args:
+            transit_gateway_attachment_id: <p>The ID of the transit gateway attachment.</p>
+            nat_gateway_support: <p>Specifies whether to enable or disable NAT gateway support for the attachment. To enable NAT gateway support, the attachment must have at least one NAT gateway rule. You can't modify the NAT configuration while NAT gateway support is <code>enabling</code> or <code>disabling</code>. If you omit this parameter, the current value doesn't change.</p>
+            nat_system_route_support: <p>Specifies whether the transit gateway installs routes for the NAT CIDRs in the route tables to which the attachment propagates. For VPC attachments, the transit gateway always installs these routes. You can enable or disable this option only for Amazon Web Services Direct Connect gateway attachments and Site-to-Site VPN attachments that use dynamic routing. For these attachments, the default is <code>enable</code>. If you omit this parameter, the current value doesn't change.</p>
+            nat_gateway_rules: <p>The NAT gateway rules for the attachment. The rules that you specify replace all existing NAT gateway rules for the attachment. You can specify up to 50 rules for an attachment. If you omit this parameter, the existing rules don't change. To remove all rules, use <code>ResetNatGatewayRules</code>.</p>
+            reset_nat_gateway_rules: <p>Specifies whether to remove all NAT gateway rules from the attachment. If you omit this parameter, the transit gateway doesn't remove any rules. You can't specify this parameter together with <code>NatGatewayRules</code>. Because you can't enable NAT gateway support without rules, also set <code>NatGatewaySupport</code> to <code>disable</code> in the same request if NAT gateway support is currently enabled.</p>
+            dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+
+        Raises:
+            capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_ec2.types.modify_transit_gateway_attachment_nat_configuration_request.ModifyTransitGatewayAttachmentNatConfigurationRequest]",
+        ) -> OperationResponse[
+            "capo_ec2.types.modify_transit_gateway_attachment_nat_configuration_result.ModifyTransitGatewayAttachmentNatConfigurationResult"
+        ]:
+            import capo_ec2._operations.amazon_ec2.modify_transit_gateway_attachment_nat_configuration
+
+            output, http_response = (
+                capo_ec2._operations.amazon_ec2.modify_transit_gateway_attachment_nat_configuration.modify_transit_gateway_attachment_nat_configuration(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ModifyTransitGatewayAttachmentNatConfiguration"),
+        )
+        input_: capo_ec2.types.modify_transit_gateway_attachment_nat_configuration_request.ModifyTransitGatewayAttachmentNatConfigurationRequest = {}
+        if transit_gateway_attachment_id is not None:
+            input_["transit_gateway_attachment_id"] = transit_gateway_attachment_id
+        if nat_gateway_support is not None:
+            input_["nat_gateway_support"] = nat_gateway_support
+        if nat_system_route_support is not None:
+            input_["nat_system_route_support"] = nat_system_route_support
+        if nat_gateway_rules is not None:
+            input_["nat_gateway_rules"] = nat_gateway_rules
+        if reset_nat_gateway_rules is not None:
+            input_["reset_nat_gateway_rules"] = reset_nat_gateway_rules
         if dry_run is not None:
             input_["dry_run"] = dry_run
 

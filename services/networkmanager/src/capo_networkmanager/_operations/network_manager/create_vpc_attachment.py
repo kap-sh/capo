@@ -19,6 +19,8 @@ import capo_networkmanager.errors.throttling_exception
 import capo_networkmanager.errors.validation_exception
 import capo_networkmanager.types.create_vpc_attachment_request
 import capo_networkmanager.types.create_vpc_attachment_response
+import capo_networkmanager.types.nat_gateway_support_value
+import capo_networkmanager.types.nat_rule_request_list
 import capo_networkmanager.types.subnet_arn_list
 import capo_networkmanager.types.tag_list
 import capo_networkmanager.types.vpc_attachment

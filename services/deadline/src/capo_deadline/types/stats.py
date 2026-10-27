@@ -10,13 +10,13 @@ if TYPE_CHECKING:
 
 class Stats(TypedDict, closed=True):
     min: NotRequired["capo_deadline.types.double.Double"]
-    """<p>The minimum of the usage statistics.</p>"""
+    """The minimum of the usage statistics."""
     max: NotRequired["capo_deadline.types.double.Double"]
-    """<p>The maximum among the usage statistics.</p>"""
+    """The maximum among the usage statistics."""
     avg: NotRequired["capo_deadline.types.double.Double"]
-    """<p>The average of the usage statistics.</p>"""
+    """The average of the usage statistics."""
     sum: NotRequired["capo_deadline.types.double.Double"]
-    """<p>The sum of the usage statistics.</p>"""
+    """The sum of the usage statistics."""
 
 
 # --- restJson1 ser/de ---

@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class DeleteQueueRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The ID of the farm from which to remove the queue.</p>"""
+    """The ID of the farm from which to remove the queue."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID of the queue to delete.</p>"""
+    """The queue ID of the queue to delete."""
 
 
 # --- restJson1 ser/de ---

@@ -21,31 +21,31 @@ if TYPE_CHECKING:
 
 class GetMonitorResponse(TypedDict, closed=True):
     monitor_id: "capo_deadline.types.monitor_id.MonitorId"
-    """<p>The unique identifier for the monitor.</p>"""
+    """The unique identifier for the monitor."""
     display_name: "capo_deadline.types.resource_name.ResourceName"
     """<p>The name used to identify the monitor on the Deadline Cloud console.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     subdomain: "capo_deadline.types.subdomain.Subdomain"
-    """<p>The subdomain used for the monitor URL. The full URL of the monitor is subdomain.Region.deadlinecloud.amazonaws.com.</p>"""
+    """The subdomain used for the monitor URL. The full URL of the monitor is subdomain.Region.deadlinecloud.amazonaws.com."""
     url: "capo_deadline.types.url.Url"
-    """<p>The complete URL of the monitor. The full URL of the monitor is subdomain.Region.deadlinecloud.amazonaws.com.</p>"""
+    """The complete URL of the monitor. The full URL of the monitor is subdomain.Region.deadlinecloud.amazonaws.com."""
     role_arn: "capo_deadline.types.iam_role_arn.IamRoleArn"
-    """<p>The Amazon Resource Name of the IAM role for the monitor. Users of the monitor use this role to access Deadline Cloud resources.</p>"""
+    """The Amazon Resource Name of the IAM role for the monitor. Users of the monitor use this role to access Deadline Cloud resources."""
     identity_center_instance_arn: (
         "capo_deadline.types.identity_center_instance_arn.IdentityCenterInstanceArn"
     )
-    """<p>The Amazon Resource Name of the IAM Identity Center instance responsible for authenticating monitor users.</p>"""
+    """The Amazon Resource Name of the IAM Identity Center instance responsible for authenticating monitor users."""
     identity_center_region: NotRequired["capo_deadline.types.region.Region"]
-    """<p>The Region where IAM Identity Center is enabled.</p>"""
+    """The Region where IAM Identity Center is enabled."""
     identity_center_application_arn: "capo_deadline.types.identity_center_application_arn.IdentityCenterApplicationArn"
-    """<p>The Amazon Resource Name that the IAM Identity Center assigned to the monitor when it was created.</p>"""
+    """The Amazon Resource Name that the IAM Identity Center assigned to the monitor when it was created."""
     created_at: "capo_deadline.types.created_at.CreatedAt"
-    """<p>The UNIX timestamp of the date and time that the monitor was created.</p>"""
+    """The UNIX timestamp of the date and time that the monitor was created."""
     created_by: "capo_deadline.types.created_by.CreatedBy"
-    """<p>The user name of the person that created the monitor.</p>"""
+    """The user name of the person that created the monitor."""
     updated_at: NotRequired["capo_deadline.types.updated_at.UpdatedAt"]
-    """<p>The UNIX timestamp of the last date and time that the monitor was updated.</p>"""
+    """The UNIX timestamp of the last date and time that the monitor was updated."""
     updated_by: NotRequired["capo_deadline.types.updated_by.UpdatedBy"]
-    """<p>The user name of the person that last updated the monitor.</p>"""
+    """The user name of the person that last updated the monitor."""
 
 
 # --- restJson1 ser/de ---

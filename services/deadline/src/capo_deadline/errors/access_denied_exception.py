@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 class AccessDeniedException_(TypedDict, closed=True):
     message: "capo_deadline.types.string.String"
     context: NotRequired["capo_deadline.types.exception_context.ExceptionContext"]
-    """<p>Information about the resources in use when the exception was thrown.</p>"""
+    """Information about the resources in use when the exception was thrown."""
 
 
 # --- restJson1 ser/de ---

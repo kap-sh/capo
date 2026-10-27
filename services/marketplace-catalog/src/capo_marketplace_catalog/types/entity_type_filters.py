@@ -17,6 +17,7 @@ if TYPE_CHECKING:
     import capo_marketplace_catalog.types.offer_set_filters
     import capo_marketplace_catalog.types.resale_authorization_filters
     import capo_marketplace_catalog.types.saa_s_product_filters
+    import capo_marketplace_catalog.types.subsidiary_authorization_filters
 
 
 class _EntityTypeFilters_DataProductFilters(TypedDict, closed=True):
@@ -63,6 +64,10 @@ class _EntityTypeFilters_ExpressPrivateOfferConfigurationFilters(
     ExpressPrivateOfferConfigurationFilters: "capo_marketplace_catalog.types.express_private_offer_configuration_filters.ExpressPrivateOfferConfigurationFilters"
 
 
+class _EntityTypeFilters_SubsidiaryAuthorizationFilters(TypedDict, closed=True):
+    SubsidiaryAuthorizationFilters: "capo_marketplace_catalog.types.subsidiary_authorization_filters.SubsidiaryAuthorizationFilters"
+
+
 EntityTypeFilters: TypeAlias = (
     _EntityTypeFilters_DataProductFilters
     | _EntityTypeFilters_SaaSProductFilters
@@ -73,6 +78,7 @@ EntityTypeFilters: TypeAlias = (
     | _EntityTypeFilters_MachineLearningProductFilters
     | _EntityTypeFilters_OfferSetFilters
     | _EntityTypeFilters_ExpressPrivateOfferConfigurationFilters
+    | _EntityTypeFilters_SubsidiaryAuthorizationFilters
     | UnknownUnionMember
 )
 
@@ -155,6 +161,14 @@ def serialize_json(value: EntityTypeFilters) -> dict:
                 value["ExpressPrivateOfferConfigurationFilters"]
             )
         }
+    elif "SubsidiaryAuthorizationFilters" in value:
+        import capo_marketplace_catalog.types.subsidiary_authorization_filters
+
+        return {
+            "SubsidiaryAuthorizationFilters": capo_marketplace_catalog.types.subsidiary_authorization_filters.serialize_json(
+                value["SubsidiaryAuthorizationFilters"]
+            )
+        }
     else:
         raise SerializationError("EntityTypeFilters: no variant present")
 
@@ -230,6 +244,14 @@ def deserialize_json(data: dict) -> EntityTypeFilters:
         return {
             "ExpressPrivateOfferConfigurationFilters": capo_marketplace_catalog.types.express_private_offer_configuration_filters.deserialize_json(
                 data["ExpressPrivateOfferConfigurationFilters"]
+            )
+        }
+    elif data.get("SubsidiaryAuthorizationFilters") is not None:
+        import capo_marketplace_catalog.types.subsidiary_authorization_filters
+
+        return {
+            "SubsidiaryAuthorizationFilters": capo_marketplace_catalog.types.subsidiary_authorization_filters.deserialize_json(
+                data["SubsidiaryAuthorizationFilters"]
             )
         }
     else:

@@ -41,6 +41,8 @@ if TYPE_CHECKING:
     import capo_signin.types.create_o_auth2_token_response
     import capo_signin.types.create_o_auth2_token_with_iam_request
     import capo_signin.types.create_o_auth2_token_with_iam_response
+    import capo_signin.types.create_o_auth2_token_with_token_exchange_request
+    import capo_signin.types.create_o_auth2_token_with_token_exchange_response
     import capo_signin.types.delete_console_authorization_configuration_input
     import capo_signin.types.delete_console_authorization_configuration_output
     import capo_signin.types.delete_resource_permission_statement_input
@@ -62,14 +64,19 @@ if TYPE_CHECKING:
     import capo_signin.types.put_resource_permission_statement_input
     import capo_signin.types.put_resource_permission_statement_output
     import capo_signin.types.requested_region
+    import capo_signin.types.resource
     import capo_signin.types.revocation_token
     import capo_signin.types.revoke_o_auth2_token_with_iam_request
     import capo_signin.types.revoke_o_auth2_token_with_iam_response
+    import capo_signin.types.scope
     import capo_signin.types.source_ip
     import capo_signin.types.source_vpc
     import capo_signin.types.source_vpce
     import capo_signin.types.statement_id
+    import capo_signin.types.subject_token
+    import capo_signin.types.subject_token_type
     import capo_signin.types.target_id
+    import capo_signin.types.token_exchange_grant_type
     import capo_signin.types.token_type_hint
     import capo_signin.types.vpc_source_ip
 
@@ -188,16 +195,16 @@ class AsyncSigninClient:
         *,
         config_overrides: Optional[AsyncSigninClientConfig] = None,
     ) -> "capo_signin.types.create_o_auth2_token_response.CreateOAuth2TokenResponse":
-        """CreateOAuth2Token API Path: /v1/token Request Method: POST Content-Type: application/json or application/x-www-form-urlencoded This API implements OAuth 2.0 flows for AWS Sign-In CLI clients, supporting both: 1. Authorization code redemption (grant_type=authorization_code) - NOT idempotent 2. Token refresh (grant_type=refresh_token) - Idempotent within token validity window The operation behavior is determined by the grant_type parameter in the request body: **Authorization Code Flow (NOT Idempotent):** - JSON or form-encoded body with client_id, grant_type=authorization_code, code, redirect_uri, code_verifier - Returns access_token, token_type, expires_in, refresh_token, and id_token - Each authorization code can only be used ONCE for security (prevents replay attacks) **Token Refresh Flow (Idempotent):** - JSON or form-encoded body with client_id, grant_type=refresh_token, refresh_token - Returns access_token, token_type, expires_in, and refresh_token (no id_token) - Multiple calls with same refresh_token return consistent results within validity window Authentication and authorization: - Confidential clients: sigv4 signing required with signin:ExchangeToken permissions - CLI clients (public): authn/authz skipped based on client_id & grant_type Note: This operation cannot be marked as @idempotent because it handles both idempotent (token refresh) and non-idempotent (auth code redemption) flows in a single endpoint.
+        """Exchanges an authorization code or refresh token for an OAuth 2.0 access token and refresh token.
 
         Args:
-            token_input: Flattened token operation inputs The specific operation is determined by grant_type in the request body
+            token_input: Flattened token operation inputs. The "grant_type" in the request body determines the specific operation.
 
         Raises:
-            capo_signin.errors.access_denied_exception.AccessDeniedException: Error thrown for access denied scenarios with flexible HTTP status mapping Runtime HTTP Status Code Mapping: - HTTP 401 (Unauthorized): TOKEN_EXPIRED, AUTHCODE_EXPIRED - HTTP 403 (Forbidden): USER_CREDENTIALS_CHANGED, INSUFFICIENT_PERMISSIONS The specific HTTP status code is determined at runtime based on the error enum value. Consumers should use the error field to determine the specific access denial reason.
-            capo_signin.errors.internal_server_exception.InternalServerException: Error thrown when an internal server error occurs HTTP Status Code: 500 Internal Server Error Used for unexpected server-side errors that prevent request processing.
-            capo_signin.errors.too_many_requests_error.TooManyRequestsError: Error thrown when rate limit is exceeded HTTP Status Code: 429 Too Many Requests Possible OAuth2ErrorCode values: - INVALID_REQUEST: Rate limiting, too many requests, abuse prevention Possible causes: - Too many token requests from the same client - Rate limiting based on client_id or IP address - Abuse prevention mechanisms triggered - Service protection against excessive token generation
-            capo_signin.errors.validation_exception.ValidationException: Error thrown when request validation fails HTTP Status Code: 400 Bad Request Used for request validation errors such as malformed parameters, missing required fields, or invalid parameter values.
+            capo_signin.errors.access_denied_exception.AccessDeniedException: You do not have sufficient access to perform this action.
+            capo_signin.errors.internal_server_exception.InternalServerException: The request failed because of an internal server error.
+            capo_signin.errors.too_many_requests_error.TooManyRequestsError: The request failed because you exceeded the request rate limit for this operation.
+            capo_signin.errors.validation_exception.ValidationException: The request failed because it contains a malformed, missing, or invalid parameter.
             capo_signin.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -257,21 +264,21 @@ class AsyncSigninClient:
     async def create_o_auth2_token_with_iam(
         self,
         grant_type: "capo_signin.types.client_credentials_grant_type.ClientCredentialsGrantType",
-        resource: str,
+        resource: "capo_signin.types.resource.Resource",
         *,
         config_overrides: Optional[AsyncSigninClientConfig] = None,
     ) -> "capo_signin.types.create_o_auth2_token_with_iam_response.CreateOAuth2TokenWithIAMResponse":
-        """Grants permission to exchange client credentials for an OAuth 2.0 access token scoped to a resource that can be used to access AWS services from applications
+        """Exchanges client credentials for an OAuth 2.0 access token scoped to a resource, which you can use to access AWS services from applications.
 
         Args:
-            grant_type: OAuth 2.0 grant type. Must be "client_credentials".
+            grant_type: The OAuth 2.0 grant type. Must be "client_credentials".
             resource: The OAuth resource for which the access token is requested. Example: "aws-mcp.amazonaws.com".
 
         Raises:
-            capo_signin.errors.access_denied_exception.AccessDeniedException: Error thrown for access denied scenarios with flexible HTTP status mapping Runtime HTTP Status Code Mapping: - HTTP 401 (Unauthorized): TOKEN_EXPIRED, AUTHCODE_EXPIRED - HTTP 403 (Forbidden): USER_CREDENTIALS_CHANGED, INSUFFICIENT_PERMISSIONS The specific HTTP status code is determined at runtime based on the error enum value. Consumers should use the error field to determine the specific access denial reason.
-            capo_signin.errors.internal_server_exception.InternalServerException: Error thrown when an internal server error occurs HTTP Status Code: 500 Internal Server Error Used for unexpected server-side errors that prevent request processing.
-            capo_signin.errors.too_many_requests_error.TooManyRequestsError: Error thrown when rate limit is exceeded HTTP Status Code: 429 Too Many Requests Possible OAuth2ErrorCode values: - INVALID_REQUEST: Rate limiting, too many requests, abuse prevention Possible causes: - Too many token requests from the same client - Rate limiting based on client_id or IP address - Abuse prevention mechanisms triggered - Service protection against excessive token generation
-            capo_signin.errors.validation_exception.ValidationException: Error thrown when request validation fails HTTP Status Code: 400 Bad Request Used for request validation errors such as malformed parameters, missing required fields, or invalid parameter values.
+            capo_signin.errors.access_denied_exception.AccessDeniedException: You do not have sufficient access to perform this action.
+            capo_signin.errors.internal_server_exception.InternalServerException: The request failed because of an internal server error.
+            capo_signin.errors.too_many_requests_error.TooManyRequestsError: The request failed because you exceeded the request rate limit for this operation.
+            capo_signin.errors.validation_exception.ValidationException: The request failed because it contains a malformed, missing, or invalid parameter.
             capo_signin.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -316,6 +323,98 @@ class AsyncSigninClient:
         await response.response.aclose()
         return response.output
 
+    async def create_o_auth2_token_with_token_exchange(
+        self,
+        grant_type: "capo_signin.types.token_exchange_grant_type.TokenExchangeGrantType",
+        *,
+        config_overrides: Optional[AsyncSigninClientConfig] = None,
+        subject_token: Optional["capo_signin.types.subject_token.SubjectToken"] = None,
+        subject_token_type: Optional[
+            "capo_signin.types.subject_token_type.SubjectTokenType"
+        ] = None,
+        resource: Optional["capo_signin.types.resource.Resource"] = None,
+        scope: Optional["capo_signin.types.scope.Scope"] = None,
+    ) -> "capo_signin.types.create_o_auth2_token_with_token_exchange_response.CreateOAuth2TokenWithTokenExchangeResponse":
+        """Exchanges a supported token for an OAuth 2.0 access token scoped to a resource, which you can use to access AWS services from applications.
+
+        Args:
+            grant_type: The OAuth 2.0 grant type. Currently only supports "urn:ietf:params:oauth:grant-type:token-exchange".
+            subject_token: The subject token that represents the identity of the party on whose behalf the request is made. Required when "grant_type=urn:ietf:params:oauth:grant-type:token-exchange".
+            subject_token_type: The token type of the subject token. Currently only supports "urn:ietf:params:oauth:token-type:jwt". Required when "grant_type=urn:ietf:params:oauth:grant-type:token-exchange".
+            resource: The OAuth resource for which the access token is requested. Required when "grant_type=urn:ietf:params:oauth:grant-type:token-exchange". Example: "glue.amazonaws.com".
+            scope: IAM managed policy Amazon Resource Names (ARNs) to apply as session policies that further scope down the permissions of the issued access token, provided as a space-delimited list. Example: "arn:aws:iam::444455556666:policy/MyPolicy".
+
+        Raises:
+            capo_signin.errors.internal_server_exception.InternalServerException: The request failed because of an internal server error.
+            capo_signin.errors.invalid_grant_exception.InvalidGrantException: The request failed because the provided grant is invalid or expired.
+            capo_signin.errors.invalid_scope_exception.InvalidScopeException: The request failed because the requested scope is invalid or exceeds the scope that can be granted.
+            capo_signin.errors.service_unavailable_exception.ServiceUnavailableException: The request failed because a dependency is temporarily unavailable. You can retry the request.
+            capo_signin.errors.too_many_requests_error.TooManyRequestsError: The request failed because you exceeded the request rate limit for this operation.
+            capo_signin.errors.validation_exception.ValidationException: The request failed because it contains a malformed, missing, or invalid parameter.
+            capo_signin.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_signin.types.create_o_auth2_token_with_token_exchange_request.CreateOAuth2TokenWithTokenExchangeRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_signin.types.create_o_auth2_token_with_token_exchange_response.CreateOAuth2TokenWithTokenExchangeResponse"
+        ]:
+            import capo_signin._operations.signin.create_o_auth2_token_with_token_exchange
+
+            (
+                output,
+                http_response,
+            ) = await capo_signin._operations.signin.create_o_auth2_token_with_token_exchange.async_create_o_auth2_token_with_token_exchange(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_signin.types.create_o_auth2_token_with_token_exchange_request.CreateOAuth2TokenWithTokenExchangeRequest",
+        ) -> dict[str, Any]:
+            import capo_signin.types.create_o_auth2_token_with_token_exchange_request
+
+            return capo_signin.types.create_o_auth2_token_with_token_exchange_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_signin.types.create_o_auth2_token_with_token_exchange_response.CreateOAuth2TokenWithTokenExchangeResponse",
+        ) -> dict[str, Any]:
+            import capo_signin.types.create_o_auth2_token_with_token_exchange_response
+
+            return capo_signin.types.create_o_auth2_token_with_token_exchange_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateOAuth2TokenWithTokenExchange",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
+        input_: capo_signin.types.create_o_auth2_token_with_token_exchange_request.CreateOAuth2TokenWithTokenExchangeRequest = {
+            "grant_type": grant_type
+        }
+        if subject_token is not None:
+            input_["subject_token"] = subject_token
+        if subject_token_type is not None:
+            input_["subject_token_type"] = subject_token_type
+        if resource is not None:
+            input_["resource"] = resource
+        if scope is not None:
+            input_["scope"] = scope
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def delete_console_authorization_configuration(
         self,
         *,
@@ -328,11 +427,11 @@ class AsyncSigninClient:
             target_id: Target account identifier
 
         Raises:
-            capo_signin.errors.access_denied_exception.AccessDeniedException: Error thrown for access denied scenarios with flexible HTTP status mapping Runtime HTTP Status Code Mapping: - HTTP 401 (Unauthorized): TOKEN_EXPIRED, AUTHCODE_EXPIRED - HTTP 403 (Forbidden): USER_CREDENTIALS_CHANGED, INSUFFICIENT_PERMISSIONS The specific HTTP status code is determined at runtime based on the error enum value. Consumers should use the error field to determine the specific access denial reason.
-            capo_signin.errors.internal_server_exception.InternalServerException: Error thrown when an internal server error occurs HTTP Status Code: 500 Internal Server Error Used for unexpected server-side errors that prevent request processing.
+            capo_signin.errors.access_denied_exception.AccessDeniedException: You do not have sufficient access to perform this action.
+            capo_signin.errors.internal_server_exception.InternalServerException: The request failed because of an internal server error.
             capo_signin.errors.resource_not_found_exception.ResourceNotFoundException: Error thrown when requested resource is not found HTTP Status Code: 404 Not Found Used when the specified resource does not exist
-            capo_signin.errors.too_many_requests_error.TooManyRequestsError: Error thrown when rate limit is exceeded HTTP Status Code: 429 Too Many Requests Possible OAuth2ErrorCode values: - INVALID_REQUEST: Rate limiting, too many requests, abuse prevention Possible causes: - Too many token requests from the same client - Rate limiting based on client_id or IP address - Abuse prevention mechanisms triggered - Service protection against excessive token generation
-            capo_signin.errors.validation_exception.ValidationException: Error thrown when request validation fails HTTP Status Code: 400 Bad Request Used for request validation errors such as malformed parameters, missing required fields, or invalid parameter values.
+            capo_signin.errors.too_many_requests_error.TooManyRequestsError: The request failed because you exceeded the request rate limit for this operation.
+            capo_signin.errors.validation_exception.ValidationException: The request failed because it contains a malformed, missing, or invalid parameter.
             capo_signin.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -381,11 +480,11 @@ class AsyncSigninClient:
             client_token: Idempotency token for the request
 
         Raises:
-            capo_signin.errors.access_denied_exception.AccessDeniedException: Error thrown for access denied scenarios with flexible HTTP status mapping Runtime HTTP Status Code Mapping: - HTTP 401 (Unauthorized): TOKEN_EXPIRED, AUTHCODE_EXPIRED - HTTP 403 (Forbidden): USER_CREDENTIALS_CHANGED, INSUFFICIENT_PERMISSIONS The specific HTTP status code is determined at runtime based on the error enum value. Consumers should use the error field to determine the specific access denial reason.
-            capo_signin.errors.internal_server_exception.InternalServerException: Error thrown when an internal server error occurs HTTP Status Code: 500 Internal Server Error Used for unexpected server-side errors that prevent request processing.
+            capo_signin.errors.access_denied_exception.AccessDeniedException: You do not have sufficient access to perform this action.
+            capo_signin.errors.internal_server_exception.InternalServerException: The request failed because of an internal server error.
             capo_signin.errors.resource_not_found_exception.ResourceNotFoundException: Error thrown when requested resource is not found HTTP Status Code: 404 Not Found Used when the specified resource does not exist
-            capo_signin.errors.too_many_requests_error.TooManyRequestsError: Error thrown when rate limit is exceeded HTTP Status Code: 429 Too Many Requests Possible OAuth2ErrorCode values: - INVALID_REQUEST: Rate limiting, too many requests, abuse prevention Possible causes: - Too many token requests from the same client - Rate limiting based on client_id or IP address - Abuse prevention mechanisms triggered - Service protection against excessive token generation
-            capo_signin.errors.validation_exception.ValidationException: Error thrown when request validation fails HTTP Status Code: 400 Bad Request Used for request validation errors such as malformed parameters, missing required fields, or invalid parameter values.
+            capo_signin.errors.too_many_requests_error.TooManyRequestsError: The request failed because you exceeded the request rate limit for this operation.
+            capo_signin.errors.validation_exception.ValidationException: The request failed because it contains a malformed, missing, or invalid parameter.
             capo_signin.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -434,11 +533,11 @@ class AsyncSigninClient:
             target_id: Target account identifier
 
         Raises:
-            capo_signin.errors.access_denied_exception.AccessDeniedException: Error thrown for access denied scenarios with flexible HTTP status mapping Runtime HTTP Status Code Mapping: - HTTP 401 (Unauthorized): TOKEN_EXPIRED, AUTHCODE_EXPIRED - HTTP 403 (Forbidden): USER_CREDENTIALS_CHANGED, INSUFFICIENT_PERMISSIONS The specific HTTP status code is determined at runtime based on the error enum value. Consumers should use the error field to determine the specific access denial reason.
-            capo_signin.errors.internal_server_exception.InternalServerException: Error thrown when an internal server error occurs HTTP Status Code: 500 Internal Server Error Used for unexpected server-side errors that prevent request processing.
+            capo_signin.errors.access_denied_exception.AccessDeniedException: You do not have sufficient access to perform this action.
+            capo_signin.errors.internal_server_exception.InternalServerException: The request failed because of an internal server error.
             capo_signin.errors.resource_not_found_exception.ResourceNotFoundException: Error thrown when requested resource is not found HTTP Status Code: 404 Not Found Used when the specified resource does not exist
-            capo_signin.errors.too_many_requests_error.TooManyRequestsError: Error thrown when rate limit is exceeded HTTP Status Code: 429 Too Many Requests Possible OAuth2ErrorCode values: - INVALID_REQUEST: Rate limiting, too many requests, abuse prevention Possible causes: - Too many token requests from the same client - Rate limiting based on client_id or IP address - Abuse prevention mechanisms triggered - Service protection against excessive token generation
-            capo_signin.errors.validation_exception.ValidationException: Error thrown when request validation fails HTTP Status Code: 400 Bad Request Used for request validation errors such as malformed parameters, missing required fields, or invalid parameter values.
+            capo_signin.errors.too_many_requests_error.TooManyRequestsError: The request failed because you exceeded the request rate limit for this operation.
+            capo_signin.errors.validation_exception.ValidationException: The request failed because it contains a malformed, missing, or invalid parameter.
             capo_signin.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -478,10 +577,10 @@ class AsyncSigninClient:
         """Retrieve the account's consolidated SignIn resource-based policy
 
         Raises:
-            capo_signin.errors.access_denied_exception.AccessDeniedException: Error thrown for access denied scenarios with flexible HTTP status mapping Runtime HTTP Status Code Mapping: - HTTP 401 (Unauthorized): TOKEN_EXPIRED, AUTHCODE_EXPIRED - HTTP 403 (Forbidden): USER_CREDENTIALS_CHANGED, INSUFFICIENT_PERMISSIONS The specific HTTP status code is determined at runtime based on the error enum value. Consumers should use the error field to determine the specific access denial reason.
-            capo_signin.errors.internal_server_exception.InternalServerException: Error thrown when an internal server error occurs HTTP Status Code: 500 Internal Server Error Used for unexpected server-side errors that prevent request processing.
+            capo_signin.errors.access_denied_exception.AccessDeniedException: You do not have sufficient access to perform this action.
+            capo_signin.errors.internal_server_exception.InternalServerException: The request failed because of an internal server error.
             capo_signin.errors.resource_not_found_exception.ResourceNotFoundException: Error thrown when requested resource is not found HTTP Status Code: 404 Not Found Used when the specified resource does not exist
-            capo_signin.errors.too_many_requests_error.TooManyRequestsError: Error thrown when rate limit is exceeded HTTP Status Code: 429 Too Many Requests Possible OAuth2ErrorCode values: - INVALID_REQUEST: Rate limiting, too many requests, abuse prevention Possible causes: - Too many token requests from the same client - Rate limiting based on client_id or IP address - Abuse prevention mechanisms triggered - Service protection against excessive token generation
+            capo_signin.errors.too_many_requests_error.TooManyRequestsError: The request failed because you exceeded the request rate limit for this operation.
             capo_signin.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -522,17 +621,17 @@ class AsyncSigninClient:
             "capo_signin.types.token_type_hint.TokenTypeHint"
         ] = None,
     ) -> "capo_signin.types.introspect_o_auth2_token_with_iam_response.IntrospectOAuth2TokenWithIAMResponse":
-        """Grants permission to inspect the metadata and state of an OAuth 2.0 access token or refresh token Implements RFC 7662 OAuth 2.0 Token Introspection over a SigV4-authenticated endpoint. Inspects the metadata of an access_token or refresh_token issued by AWS Sign-In and returns the claims associated with it. Inactive token semantics (RFC 7662 §2.2): when the supplied token is unknown, expired, revoked, malformed, or owned by a different account, the response body is exactly { "active": false } with all other claims omitted.
+        """Inspects the metadata and active state of an OAuth 2.0 access token or refresh token. Implements RFC 7662 OAuth 2.0 Token Introspection over a SigV4-authenticated endpoint. Returns the claims associated with a token issued by AWS Sign-In.
 
         Args:
-            token: The string value of the token to introspect. May be either an access_token or a refresh_token issued by AWS Sign-In.
-            token_type_hint: Optional hint about the type of the token submitted for introspection. The server uses this hint to optimize lookup, but still falls back to the other token type on miss. Allowed values: access_token, refresh_token.
+            token: The access token or refresh token issued by AWS Sign-In.
+            token_type_hint: An optional hint about the type of the token submitted for introspection, as defined in RFC 7662 §2.1. The server checks both token types regardless of the hint. Allowed values: "access_token", "refresh_token".
 
         Raises:
-            capo_signin.errors.access_denied_exception.AccessDeniedException: Error thrown for access denied scenarios with flexible HTTP status mapping Runtime HTTP Status Code Mapping: - HTTP 401 (Unauthorized): TOKEN_EXPIRED, AUTHCODE_EXPIRED - HTTP 403 (Forbidden): USER_CREDENTIALS_CHANGED, INSUFFICIENT_PERMISSIONS The specific HTTP status code is determined at runtime based on the error enum value. Consumers should use the error field to determine the specific access denial reason.
-            capo_signin.errors.internal_server_exception.InternalServerException: Error thrown when an internal server error occurs HTTP Status Code: 500 Internal Server Error Used for unexpected server-side errors that prevent request processing.
-            capo_signin.errors.too_many_requests_error.TooManyRequestsError: Error thrown when rate limit is exceeded HTTP Status Code: 429 Too Many Requests Possible OAuth2ErrorCode values: - INVALID_REQUEST: Rate limiting, too many requests, abuse prevention Possible causes: - Too many token requests from the same client - Rate limiting based on client_id or IP address - Abuse prevention mechanisms triggered - Service protection against excessive token generation
-            capo_signin.errors.validation_exception.ValidationException: Error thrown when request validation fails HTTP Status Code: 400 Bad Request Used for request validation errors such as malformed parameters, missing required fields, or invalid parameter values.
+            capo_signin.errors.access_denied_exception.AccessDeniedException: You do not have sufficient access to perform this action.
+            capo_signin.errors.internal_server_exception.InternalServerException: The request failed because of an internal server error.
+            capo_signin.errors.too_many_requests_error.TooManyRequestsError: The request failed because you exceeded the request rate limit for this operation.
+            capo_signin.errors.validation_exception.ValidationException: The request failed because it contains a malformed, missing, or invalid parameter.
             capo_signin.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -596,11 +695,11 @@ class AsyncSigninClient:
             next_token: Token for pagination
 
         Raises:
-            capo_signin.errors.access_denied_exception.AccessDeniedException: Error thrown for access denied scenarios with flexible HTTP status mapping Runtime HTTP Status Code Mapping: - HTTP 401 (Unauthorized): TOKEN_EXPIRED, AUTHCODE_EXPIRED - HTTP 403 (Forbidden): USER_CREDENTIALS_CHANGED, INSUFFICIENT_PERMISSIONS The specific HTTP status code is determined at runtime based on the error enum value. Consumers should use the error field to determine the specific access denial reason.
-            capo_signin.errors.internal_server_exception.InternalServerException: Error thrown when an internal server error occurs HTTP Status Code: 500 Internal Server Error Used for unexpected server-side errors that prevent request processing.
+            capo_signin.errors.access_denied_exception.AccessDeniedException: You do not have sufficient access to perform this action.
+            capo_signin.errors.internal_server_exception.InternalServerException: The request failed because of an internal server error.
             capo_signin.errors.resource_not_found_exception.ResourceNotFoundException: Error thrown when requested resource is not found HTTP Status Code: 404 Not Found Used when the specified resource does not exist
-            capo_signin.errors.too_many_requests_error.TooManyRequestsError: Error thrown when rate limit is exceeded HTTP Status Code: 429 Too Many Requests Possible OAuth2ErrorCode values: - INVALID_REQUEST: Rate limiting, too many requests, abuse prevention Possible causes: - Too many token requests from the same client - Rate limiting based on client_id or IP address - Abuse prevention mechanisms triggered - Service protection against excessive token generation
-            capo_signin.errors.validation_exception.ValidationException: Error thrown when request validation fails HTTP Status Code: 400 Bad Request Used for request validation errors such as malformed parameters, missing required fields, or invalid parameter values.
+            capo_signin.errors.too_many_requests_error.TooManyRequestsError: The request failed because you exceeded the request rate limit for this operation.
+            capo_signin.errors.validation_exception.ValidationException: The request failed because it contains a malformed, missing, or invalid parameter.
             capo_signin.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -671,12 +770,12 @@ class AsyncSigninClient:
             target_id: Target account identifier
 
         Raises:
-            capo_signin.errors.access_denied_exception.AccessDeniedException: Error thrown for access denied scenarios with flexible HTTP status mapping Runtime HTTP Status Code Mapping: - HTTP 401 (Unauthorized): TOKEN_EXPIRED, AUTHCODE_EXPIRED - HTTP 403 (Forbidden): USER_CREDENTIALS_CHANGED, INSUFFICIENT_PERMISSIONS The specific HTTP status code is determined at runtime based on the error enum value. Consumers should use the error field to determine the specific access denial reason.
+            capo_signin.errors.access_denied_exception.AccessDeniedException: You do not have sufficient access to perform this action.
             capo_signin.errors.conflict_exception.ConflictException: Error thrown when request conflicts with current state HTTP Status Code: 409 Conflict Used when the request conflicts with the current state of the resource
-            capo_signin.errors.internal_server_exception.InternalServerException: Error thrown when an internal server error occurs HTTP Status Code: 500 Internal Server Error Used for unexpected server-side errors that prevent request processing.
+            capo_signin.errors.internal_server_exception.InternalServerException: The request failed because of an internal server error.
             capo_signin.errors.resource_not_found_exception.ResourceNotFoundException: Error thrown when requested resource is not found HTTP Status Code: 404 Not Found Used when the specified resource does not exist
-            capo_signin.errors.too_many_requests_error.TooManyRequestsError: Error thrown when rate limit is exceeded HTTP Status Code: 429 Too Many Requests Possible OAuth2ErrorCode values: - INVALID_REQUEST: Rate limiting, too many requests, abuse prevention Possible causes: - Too many token requests from the same client - Rate limiting based on client_id or IP address - Abuse prevention mechanisms triggered - Service protection against excessive token generation
-            capo_signin.errors.validation_exception.ValidationException: Error thrown when request validation fails HTTP Status Code: 400 Bad Request Used for request validation errors such as malformed parameters, missing required fields, or invalid parameter values.
+            capo_signin.errors.too_many_requests_error.TooManyRequestsError: The request failed because you exceeded the request rate limit for this operation.
+            capo_signin.errors.validation_exception.ValidationException: The request failed because it contains a malformed, missing, or invalid parameter.
             capo_signin.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -742,12 +841,12 @@ class AsyncSigninClient:
             client_token: Idempotency token for the request
 
         Raises:
-            capo_signin.errors.access_denied_exception.AccessDeniedException: Error thrown for access denied scenarios with flexible HTTP status mapping Runtime HTTP Status Code Mapping: - HTTP 401 (Unauthorized): TOKEN_EXPIRED, AUTHCODE_EXPIRED - HTTP 403 (Forbidden): USER_CREDENTIALS_CHANGED, INSUFFICIENT_PERMISSIONS The specific HTTP status code is determined at runtime based on the error enum value. Consumers should use the error field to determine the specific access denial reason.
+            capo_signin.errors.access_denied_exception.AccessDeniedException: You do not have sufficient access to perform this action.
             capo_signin.errors.conflict_exception.ConflictException: Error thrown when request conflicts with current state HTTP Status Code: 409 Conflict Used when the request conflicts with the current state of the resource
-            capo_signin.errors.internal_server_exception.InternalServerException: Error thrown when an internal server error occurs HTTP Status Code: 500 Internal Server Error Used for unexpected server-side errors that prevent request processing.
+            capo_signin.errors.internal_server_exception.InternalServerException: The request failed because of an internal server error.
             capo_signin.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: Error thrown when service quota is exceeded HTTP Status Code: 402 Payment Required (used as quota exceeded indicator) Used when the request would cause a service quota to be exceeded
-            capo_signin.errors.too_many_requests_error.TooManyRequestsError: Error thrown when rate limit is exceeded HTTP Status Code: 429 Too Many Requests Possible OAuth2ErrorCode values: - INVALID_REQUEST: Rate limiting, too many requests, abuse prevention Possible causes: - Too many token requests from the same client - Rate limiting based on client_id or IP address - Abuse prevention mechanisms triggered - Service protection against excessive token generation
-            capo_signin.errors.validation_exception.ValidationException: Error thrown when request validation fails HTTP Status Code: 400 Bad Request Used for request validation errors such as malformed parameters, missing required fields, or invalid parameter values.
+            capo_signin.errors.too_many_requests_error.TooManyRequestsError: The request failed because you exceeded the request rate limit for this operation.
+            capo_signin.errors.validation_exception.ValidationException: The request failed because it contains a malformed, missing, or invalid parameter.
             capo_signin.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -802,16 +901,16 @@ class AsyncSigninClient:
         *,
         config_overrides: Optional[AsyncSigninClientConfig] = None,
     ) -> "capo_signin.types.revoke_o_auth2_token_with_iam_response.RevokeOAuth2TokenWithIAMResponse":
-        """Grants permission to revoke an OAuth 2.0 refresh token and its associated refresh tokens Revokes a refresh_token issued by AWS Sign-In, invalidating the entire token chain so that the refresh_token can no longer be used to mint new access_tokens. Idempotency: revoking an already-revoked, expired, or otherwise invalid token still returns 200 OK with an empty body. Only the refresh_token type is accepted.
+        """Revokes an OAuth 2.0 refresh token and its associated token chain.
 
         Args:
-            token: The refresh_token to revoke. Must be a refresh_token issued by AWS Sign-In (prefix "ASOR"); access_tokens are not accepted for revocation.
+            token: The refresh token to revoke. Must be a refresh token issued by AWS Sign-In. Access tokens are not accepted for revocation.
 
         Raises:
-            capo_signin.errors.access_denied_exception.AccessDeniedException: Error thrown for access denied scenarios with flexible HTTP status mapping Runtime HTTP Status Code Mapping: - HTTP 401 (Unauthorized): TOKEN_EXPIRED, AUTHCODE_EXPIRED - HTTP 403 (Forbidden): USER_CREDENTIALS_CHANGED, INSUFFICIENT_PERMISSIONS The specific HTTP status code is determined at runtime based on the error enum value. Consumers should use the error field to determine the specific access denial reason.
-            capo_signin.errors.internal_server_exception.InternalServerException: Error thrown when an internal server error occurs HTTP Status Code: 500 Internal Server Error Used for unexpected server-side errors that prevent request processing.
-            capo_signin.errors.too_many_requests_error.TooManyRequestsError: Error thrown when rate limit is exceeded HTTP Status Code: 429 Too Many Requests Possible OAuth2ErrorCode values: - INVALID_REQUEST: Rate limiting, too many requests, abuse prevention Possible causes: - Too many token requests from the same client - Rate limiting based on client_id or IP address - Abuse prevention mechanisms triggered - Service protection against excessive token generation
-            capo_signin.errors.validation_exception.ValidationException: Error thrown when request validation fails HTTP Status Code: 400 Bad Request Used for request validation errors such as malformed parameters, missing required fields, or invalid parameter values.
+            capo_signin.errors.access_denied_exception.AccessDeniedException: You do not have sufficient access to perform this action.
+            capo_signin.errors.internal_server_exception.InternalServerException: The request failed because of an internal server error.
+            capo_signin.errors.too_many_requests_error.TooManyRequestsError: The request failed because you exceeded the request rate limit for this operation.
+            capo_signin.errors.validation_exception.ValidationException: The request failed because it contains a malformed, missing, or invalid parameter.
             capo_signin.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 

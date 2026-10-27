@@ -10,9 +10,9 @@ if TYPE_CHECKING:
 
 class AcceleratorTotalMemoryMiBRange(TypedDict, closed=True):
     min: "capo_deadline.types.min_zero_max_integer.MinZeroMaxInteger"
-    """<p>The minimum amount of memory to use for the accelerator, measured in MiB.</p>"""
+    """The minimum amount of memory to use for the accelerator, measured in MiB."""
     max: NotRequired["capo_deadline.types.min_zero_max_integer.MinZeroMaxInteger"]
-    """<p>The maximum amount of memory to use for the accelerator, measured in MiB.</p>"""
+    """The maximum amount of memory to use for the accelerator, measured in MiB."""
 
 
 # --- restJson1 ser/de ---

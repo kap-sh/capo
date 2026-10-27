@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class SyncInputJobAttachmentsSessionActionDefinitionSummary(TypedDict, closed=True):
     step_id: NotRequired["capo_deadline.types.step_id.StepId"]
-    """<p>The step ID for the sync input job attachments session action summary.</p>"""
+    """The step ID for the sync input job attachments session action summary."""
 
 
 # --- restJson1 ser/de ---

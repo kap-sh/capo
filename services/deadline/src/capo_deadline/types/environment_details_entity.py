@@ -15,21 +15,21 @@ if TYPE_CHECKING:
 
 class EnvironmentDetailsEntity(TypedDict, closed=True):
     job_id: "capo_deadline.types.job_id.JobId"
-    """<p>The job ID.</p>"""
+    """The job ID."""
     environment_id: "capo_deadline.types.environment_id.EnvironmentId"
-    """<p>The environment ID.</p>"""
+    """The environment ID."""
     schema_version: "capo_deadline.types.string.String"
-    """<p>The schema version in the environment.</p>"""
+    """The schema version in the environment."""
     template: "capo_deadline.types.document.Document"
-    """<p>The template used for the environment.</p>"""
+    """The template used for the environment."""
     extensions: NotRequired[
         "capo_deadline.types.openjd_extension_name_list.OpenjdExtensionNameList"
     ]
-    """<p>The Open Job Description extensions that the environment uses. This value is used by the worker agent.</p>"""
+    """The Open Job Description extensions that the environment uses. This value is used by the worker agent."""
     resolved_symbol_table: NotRequired[
         "capo_deadline.types.serialized_symbol_table.SerializedSymbolTable"
     ]
-    """<p>The resolved symbol table for the environment's expressions, serialized as JSON. This value is used by the worker agent.</p>"""
+    """The resolved symbol table for the environment's expressions, serialized as JSON. This value is used by the worker agent."""
 
 
 # --- restJson1 ser/de ---

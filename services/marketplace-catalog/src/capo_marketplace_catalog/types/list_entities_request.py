@@ -20,7 +20,7 @@ class ListEntitiesRequest(TypedDict, closed=True):
     catalog: "capo_marketplace_catalog.types.catalog.Catalog"
     """<p>The catalog related to the request. Fixed value: <code>AWSMarketplace</code> </p>"""
     entity_type: "capo_marketplace_catalog.types.entity_type.EntityType"
-    """<p>The type of entities to retrieve. Valid values are: <code>AmiProduct</code>, <code>ContainerProduct</code>, <code>DataProduct</code>, <code>SaaSProduct</code>, <code>ProcurementPolicy</code>, <code>Experience</code>, <code>Audience</code>, <code>BrandingSettings</code>, <code>Offer</code>, <code>OfferSet</code>, <code>Seller</code>, <code>ResaleAuthorization</code>, <code>Solution</code>.</p>"""
+    """<p>The type of entities to retrieve. Valid values are: <code>AmiProduct</code>, <code>ContainerProduct</code>, <code>DataProduct</code>, <code>SaaSProduct</code>, <code>ProcurementPolicy</code>, <code>Experience</code>, <code>Audience</code>, <code>BrandingSettings</code>, <code>Offer</code>, <code>OfferSet</code>, <code>Seller</code>, <code>ResaleAuthorization</code>, <code>Solution</code>, <code>SubsidiaryAuthorization</code>.</p>"""
     filter_list: NotRequired["capo_marketplace_catalog.types.filter_list.FilterList"]
     """<p>An array of filter objects. Each filter object contains two attributes, <code>filterName</code> and <code>filterValues</code>.</p>"""
     sort: NotRequired["capo_marketplace_catalog.types.sort.Sort"]

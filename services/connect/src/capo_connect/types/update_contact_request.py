@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     import capo_connect.types.endpoint
     import capo_connect.types.instance_id
     import capo_connect.types.name
+    import capo_connect.types.nullable_additional_recipients
     import capo_connect.types.queue_info_input
     import capo_connect.types.segment_attributes
     import capo_connect.types.user_info
@@ -36,9 +37,13 @@ class UpdateContactRequest(TypedDict, closed=True):
     user_info: NotRequired["capo_connect.types.user_info.UserInfo"]
     """<p>Information about the agent associated with a contact. This parameter can only be updated for external audio contacts. It is used when you integrate third-party systems with Contact Lens for analytics. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-integration.html">Connect Customer Contact Lens integration</a> in the <i> Connect Customer Administrator Guide</i>.</p>"""
     customer_endpoint: NotRequired["capo_connect.types.endpoint.Endpoint"]
-    """<p>The endpoint of the customer for which the contact was initiated. For external audio contacts, this is usually the end customer's phone number. This value can only be updated for external audio contacts. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-integration.html">Connect Customer Contact Lens integration</a> in the <i>Connect Customer Administrator Guide</i>.</p>"""
+    """<p>The endpoint of the customer for which the contact was initiated. For external audio contacts, this is usually the end customer's phone number. This value can only be updated for external audio contacts. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-integration.html">Connect Customer Contact Lens integration</a> in the <i>Connect Customer Administrator Guide</i>. For email contacts with an <code>OUTBOUND</code> or <code>AGENT_REPLY</code> initiation method, this value can be updated while the outbound email is still a draft, before you send it.</p>"""
     system_endpoint: NotRequired["capo_connect.types.endpoint.Endpoint"]
-    """<p>External system endpoint for the contact was initiated. For external audio contacts, this is the phone number of the external system such as the contact center. This value can only be updated for external audio contacts. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-integration.html">Connect Customer Contact Lens integration</a> in the <i>Connect Customer Administrator Guide</i>.</p>"""
+    """<p>External system endpoint for the contact was initiated. For external audio contacts, this is the phone number of the external system such as the contact center. This value can only be updated for external audio contacts. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-integration.html">Connect Customer Contact Lens integration</a> in the <i>Connect Customer Administrator Guide</i>. For email contacts with an <code>OUTBOUND</code> or <code>AGENT_REPLY</code> initiation method, this value can be updated while the outbound email is still a draft, before you send it.</p>"""
+    additional_recipients: NotRequired[
+        "capo_connect.types.nullable_additional_recipients.NullableAdditionalRecipients"
+    ]
+    """<p>The additional recipients of an outbound email. Use this field to update the CC email address recipients of a contact. An empty list clears the existing CC recipients.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -83,6 +88,14 @@ def serialize_json(value: UpdateContactRequest) -> dict:
 
         out["SystemEndpoint"] = capo_connect.types.endpoint.serialize_json(
             value["system_endpoint"]
+        )
+    if "additional_recipients" in value:
+        import capo_connect.types.nullable_additional_recipients
+
+        out["AdditionalRecipients"] = (
+            capo_connect.types.nullable_additional_recipients.serialize_json(
+                value["additional_recipients"]
+            )
         )
     return out
 
@@ -131,6 +144,14 @@ def deserialize_json(data: dict) -> UpdateContactRequest:
         out["system_endpoint"] = capo_connect.types.endpoint.deserialize_json(
             data["SystemEndpoint"]
         )
+    if data.get("AdditionalRecipients") is not None:
+        import capo_connect.types.nullable_additional_recipients
+
+        out["additional_recipients"] = (
+            capo_connect.types.nullable_additional_recipients.deserialize_json(
+                data["AdditionalRecipients"]
+            )
+        )
     return out
 
 
@@ -140,4 +161,12 @@ def redact_sensitive(value: UpdateContactRequest) -> dict[str, Any]:
         out["name"] = "*** Sensitive Data Redacted ***"
     if "description" in value:
         out["description"] = "*** Sensitive Data Redacted ***"
+    if "additional_recipients" in value:
+        import capo_connect.types.nullable_additional_recipients
+
+        out["additional_recipients"] = (
+            capo_connect.types.nullable_additional_recipients.redact_sensitive(
+                value["additional_recipients"]
+            )
+        )
     return out

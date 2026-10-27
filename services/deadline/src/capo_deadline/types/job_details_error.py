@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class JobDetailsError(TypedDict, closed=True):
     job_id: "capo_deadline.types.job_id.JobId"
-    """<p>The job ID.</p>"""
+    """The job ID."""
     code: "capo_deadline.types.job_entity_error_code.JobEntityErrorCode"
-    """<p>The error code.</p>"""
+    """The error code."""
     message: "capo_deadline.types.string.String"
-    """<p>The error message detailing the error's cause.</p>"""
+    """The error message detailing the error's cause."""
 
 
 # --- restJson1 ser/de ---

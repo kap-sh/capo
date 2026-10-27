@@ -7,6 +7,7 @@ KeyUsageType: TypeAlias = Literal[
     "ENCRYPT_DECRYPT",
     "GENERATE_VERIFY_MAC",
     "KEY_AGREEMENT",
+    "ENCAPSULATE_DECAPSULATE",
 ]
 
 

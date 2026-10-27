@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import capo_odb.types.cluster_name
     import capo_odb.types.data_collection_options
+    import capo_odb.types.file_system_configuration_details_list
     import capo_odb.types.general_input_string
     import capo_odb.types.hostname
     import capo_odb.types.license_model
@@ -14,11 +15,26 @@ if TYPE_CHECKING:
     import capo_odb.types.resource_display_name
     import capo_odb.types.resource_id_or_arn
     import capo_odb.types.string_list
+    import capo_odb.types.vm_storage_type
 
 
 class CreateCloudVmClusterInput(TypedDict, closed=True):
     cloud_exadata_infrastructure_id: "capo_odb.types.resource_id_or_arn.ResourceIdOrArn"
     """<p>The unique identifier of the Exadata infrastructure for this VM cluster.</p>"""
+    exascale_db_storage_vault_id: NotRequired[
+        "capo_odb.types.resource_id_or_arn.ResourceIdOrArn"
+    ]
+    """<p>The unique identifier or Amazon Resource Name (ARN) of the Exascale storage vault to use for the VM cluster. Specify this value to create a VM cluster that uses Exascale storage on dedicated Exadata infrastructure.</p>"""
+    vm_file_system_storage_type: NotRequired[
+        "capo_odb.types.vm_storage_type.VmStorageType"
+    ]
+    """<p>The type of storage to use for the VM file systems. Specify <code>EXASCALE</code> to store the VM file systems in Exascale storage on the storage servers, or <code>LOCAL</code> to store them on the database servers.</p>"""
+    vm_backup_storage_type: NotRequired["capo_odb.types.vm_storage_type.VmStorageType"]
+    """<p>The type of storage to use for VM backups. Specify <code>EXASCALE</code> to store VM backups in Exascale storage on the storage servers, or <code>LOCAL</code> to store them on the database servers.</p>"""
+    file_system_configuration_details: NotRequired[
+        "capo_odb.types.file_system_configuration_details_list.FileSystemConfigurationDetailsList"
+    ]
+    """<p>The list of file system configurations for the VM cluster. Each entry specifies the mount point of a file system and its size, in gigabytes (GB).</p>"""
     cpu_core_count: "int"
     """<p>The number of CPU cores to enable on the VM cluster.</p>"""
     display_name: "capo_odb.types.resource_display_name.ResourceDisplayName"
@@ -67,6 +83,32 @@ class CreateCloudVmClusterInput(TypedDict, closed=True):
 def serialize_aws_json_1_0(value: CreateCloudVmClusterInput) -> dict:
     out: dict = {}
     out["cloudExadataInfrastructureId"] = value["cloud_exadata_infrastructure_id"]
+    if "exascale_db_storage_vault_id" in value:
+        out["exascaleDbStorageVaultId"] = value["exascale_db_storage_vault_id"]
+    if "vm_file_system_storage_type" in value:
+        import capo_odb.types.vm_storage_type
+
+        out["vmFileSystemStorageType"] = (
+            capo_odb.types.vm_storage_type.serialize_aws_json_1_0(
+                value["vm_file_system_storage_type"]
+            )
+        )
+    if "vm_backup_storage_type" in value:
+        import capo_odb.types.vm_storage_type
+
+        out["vmBackupStorageType"] = (
+            capo_odb.types.vm_storage_type.serialize_aws_json_1_0(
+                value["vm_backup_storage_type"]
+            )
+        )
+    if "file_system_configuration_details" in value:
+        import capo_odb.types.file_system_configuration_details_list
+
+        out["fileSystemConfigurationDetails"] = (
+            capo_odb.types.file_system_configuration_details_list.serialize_aws_json_1_0(
+                value["file_system_configuration_details"]
+            )
+        )
     out["cpuCoreCount"] = value["cpu_core_count"]
     out["displayName"] = value["display_name"]
     out["giVersion"] = value["gi_version"]
@@ -140,6 +182,32 @@ def deserialize_aws_json_1_0(data: dict) -> CreateCloudVmClusterInput:
         out["cloud_exadata_infrastructure_id"] = data["cloudExadataInfrastructureId"]
     else:
         out["cloud_exadata_infrastructure_id"] = ""
+    if data.get("exascaleDbStorageVaultId") is not None:
+        out["exascale_db_storage_vault_id"] = data["exascaleDbStorageVaultId"]
+    if data.get("vmFileSystemStorageType") is not None:
+        import capo_odb.types.vm_storage_type
+
+        out["vm_file_system_storage_type"] = (
+            capo_odb.types.vm_storage_type.deserialize_aws_json_1_0(
+                data["vmFileSystemStorageType"]
+            )
+        )
+    if data.get("vmBackupStorageType") is not None:
+        import capo_odb.types.vm_storage_type
+
+        out["vm_backup_storage_type"] = (
+            capo_odb.types.vm_storage_type.deserialize_aws_json_1_0(
+                data["vmBackupStorageType"]
+            )
+        )
+    if data.get("fileSystemConfigurationDetails") is not None:
+        import capo_odb.types.file_system_configuration_details_list
+
+        out["file_system_configuration_details"] = (
+            capo_odb.types.file_system_configuration_details_list.deserialize_aws_json_1_0(
+                data["fileSystemConfigurationDetails"]
+            )
+        )
     if data.get("cpuCoreCount") is not None:
         out["cpu_core_count"] = data["cpuCoreCount"]
     else:

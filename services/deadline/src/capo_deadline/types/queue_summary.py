@@ -19,29 +19,29 @@ if TYPE_CHECKING:
 
 class QueueSummary(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID.</p>"""
+    """The farm ID."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID.</p>"""
+    """The queue ID."""
     display_name: "capo_deadline.types.resource_name.ResourceName"
     """<p>The display name of the queue summary to update.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     status: "capo_deadline.types.queue_status.QueueStatus"
-    """<p>That status of the queue.</p>"""
+    """That status of the queue."""
     default_budget_action: (
         "capo_deadline.types.default_queue_budget_action.DefaultQueueBudgetAction"
     )
-    """<p>The default action taken on a queue summary if a budget wasn't configured.</p>"""
+    """The default action taken on a queue summary if a budget wasn't configured."""
     blocked_reason: NotRequired[
         "capo_deadline.types.queue_blocked_reason.QueueBlockedReason"
     ]
-    """<p>The reason the queue is blocked, if applicable.</p>"""
+    """The reason the queue is blocked, if applicable."""
     created_at: "capo_deadline.types.created_at.CreatedAt"
-    """<p>The date and time the resource was created.</p>"""
+    """The date and time the resource was created."""
     created_by: "capo_deadline.types.created_by.CreatedBy"
-    """<p>The user or system that created this resource.</p>"""
+    """The user or system that created this resource."""
     updated_at: NotRequired["capo_deadline.types.updated_at.UpdatedAt"]
-    """<p>The date and time the resource was updated.</p>"""
+    """The date and time the resource was updated."""
     updated_by: NotRequired["capo_deadline.types.updated_by.UpdatedBy"]
-    """<p>The user or system that updated this resource.</p>"""
+    """The user or system that updated this resource."""
 
 
 # --- restJson1 ser/de ---

@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class GetBudgetRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the farm connected to the budget.</p>"""
+    """The farm ID of the farm connected to the budget."""
     budget_id: "capo_deadline.types.budget_id.BudgetId"
-    """<p>The budget ID.</p>"""
+    """The budget ID."""
 
 
 # --- restJson1 ser/de ---

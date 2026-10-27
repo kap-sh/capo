@@ -100,23 +100,23 @@ class FarmResource:
         ] = None,
         tags: Optional["capo_deadline.types.tags.Tags"] = None,
     ) -> "capo_deadline.types.create_farm_response.CreateFarmResponse":
-        """<p>Creates a farm to allow space for queues and fleets. Farms are the space where the components of your renders gather and are pieced together in the cloud. Farms contain budgets and allow you to enforce permissions. Deadline Cloud farms are a useful container for large projects.</p>
+        """Creates a farm to allow space for queues and fleets. Farms are the space where the components of your renders gather and are pieced together in the cloud. Farms contain budgets and allow you to enforce permissions. Deadline Cloud farms are a useful container for large projects.
 
         Args:
-            client_token: <p>The unique token which the server uses to recognize retries of the same request.</p>
+            client_token: The unique token which the server uses to recognize retries of the same request.
             display_name: <p>The display name of the farm.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>
             description: <p>The description of the farm.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>
-            kms_key_arn: <p>The ARN of the KMS key to use on the farm.</p>
-            cost_scale_factor: <p>A multiplier applied to the farm's calculated costs for usage data and budget tracking. A value less than 1 represents a discount, a value greater than 1 represents a premium, and a value of 1 represents no adjustment. The default value is 1.</p>
-            tags: <p>The tags to add to your farm. Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings.</p>
+            kms_key_arn: The ARN of the KMS key to use on the farm.
+            cost_scale_factor: A multiplier applied to the farm's calculated costs for usage data and budget tracking. A value less than 1 represents a discount, a value greater than 1 represents a premium, and a value of 1 represents no adjustment. The default value is 1.
+            tags: The tags to add to your farm. Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>You exceeded your service quota. Service quotas, also referred to as limits, are the maximum number of service resources or operations for your Amazon Web Services account.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: You exceeded your service quota. Service quotas, also referred to as limits, are the maximum number of service resources or operations for your Amazon Web Services account.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -173,17 +173,17 @@ class FarmResource:
         *,
         config_overrides: Optional[deadlineClientConfig] = None,
     ) -> "capo_deadline.types.get_farm_response.GetFarmResponse":
-        """<p>Get a farm.</p>
+        """Get a farm.
 
         Args:
-            farm_id: <p>The farm ID of the farm.</p>
+            farm_id: The farm ID of the farm.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -232,20 +232,20 @@ class FarmResource:
             "capo_deadline.types.cost_scale_factor.CostScaleFactor"
         ] = None,
     ) -> "capo_deadline.types.update_farm_response.UpdateFarmResponse":
-        """<p>Updates a farm.</p>
+        """Updates a farm.
 
         Args:
-            farm_id: <p>The farm ID to update.</p>
+            farm_id: The farm ID to update.
             display_name: <p>The display name of the farm to update.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>
             description: <p>The description of the farm to update.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>
-            cost_scale_factor: <p>A multiplier applied to the farm's calculated costs for usage data and budget tracking. A value less than 1 represents a discount, a value greater than 1 represents a premium, and a value of 1 represents no adjustment.</p>
+            cost_scale_factor: A multiplier applied to the farm's calculated costs for usage data and budget tracking. A value less than 1 represents a discount, a value greater than 1 represents a premium, and a value of 1 represents no adjustment.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -297,17 +297,17 @@ class FarmResource:
         *,
         config_overrides: Optional[deadlineClientConfig] = None,
     ) -> "capo_deadline.types.delete_farm_response.DeleteFarmResponse":
-        """<p>Deletes a farm.</p>
+        """Deletes a farm.
 
         Args:
-            farm_id: <p>The farm ID of the farm to delete.</p>
+            farm_id: The farm ID of the farm to delete.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -350,18 +350,18 @@ class FarmResource:
             "capo_deadline.types.identity_center_principal_id.IdentityCenterPrincipalId"
         ] = None,
     ) -> "capo_deadline.types.list_farms_response.ListFarmsResponse":
-        """<p>Lists farms.</p>
+        """Lists farms.
 
         Args:
-            next_token: <p>The token for the next set of results, or <code>null</code> to start from the beginning.</p>
-            max_results: <p>The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.</p>
-            principal_id: <p>The principal ID of the member to list on the farm.</p>
+            next_token: The token for the next set of results, or <code>null</code> to start from the beginning.
+            max_results: The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.
+            principal_id: The principal ID of the member to list on the farm.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -409,23 +409,23 @@ class FarmResource:
         config_overrides: Optional[deadlineClientConfig] = None,
         identity_center_region: Optional["capo_deadline.types.region.Region"] = None,
     ) -> "capo_deadline.types.associate_member_to_farm_response.AssociateMemberToFarmResponse":
-        """<p>Assigns a farm membership level to a member.</p>
+        """Assigns a farm membership level to a member.
 
         Args:
-            farm_id: <p>The ID of the farm to associate with the member.</p>
-            principal_type: <p>The principal type of the member to associate with the farm.</p>
-            identity_store_id: <p>The identity store ID of the member to associate with the farm.</p>
-            membership_level: <p>The principal's membership level for the associated farm.</p>
-            principal_id: <p>The member's principal ID to associate with the farm.</p>
-            identity_center_region: <p>The Region of the IAM Identity Center instance. If not provided, the service defaults to the Region of the farm.</p>
+            farm_id: The ID of the farm to associate with the member.
+            principal_type: The principal type of the member to associate with the farm.
+            identity_store_id: The identity store ID of the member to associate with the farm.
+            membership_level: The principal's membership level for the associated farm.
+            principal_id: The member's principal ID to associate with the farm.
+            identity_center_region: The Region of the IAM Identity Center instance. If not provided, the service defaults to the Region of the farm.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>You exceeded your service quota. Service quotas, also referred to as limits, are the maximum number of service resources or operations for your Amazon Web Services account.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: You exceeded your service quota. Service quotas, also referred to as limits, are the maximum number of service resources or operations for your Amazon Web Services account.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -478,20 +478,20 @@ class FarmResource:
         """<p>Creates a limit that manages the distribution of shared resources, such as floating licenses. A limit can throttle work assignments, help manage workloads, and track current usage. Before you use a limit, you must associate the limit with one or more queues. </p> <p>You must add the <code>amountRequirementName</code> to a step in a job template to declare the limit requirement.</p>
 
         Args:
-            farm_id: <p>The farm ID of the farm that contains the limit.</p>
-            client_token: <p>The unique token which the server uses to recognize retries of the same request.</p>
+            farm_id: The farm ID of the farm that contains the limit.
+            client_token: The unique token which the server uses to recognize retries of the same request.
             display_name: <p>The display name of the limit.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>
-            amount_requirement_name: <p>The value that you specify as the <code>name</code> in the <code>amounts</code> field of the <code>hostRequirements</code> in a step of a job template to declare the limit requirement.</p>
+            amount_requirement_name: The value that you specify as the <code>name</code> in the <code>amounts</code> field of the <code>hostRequirements</code> in a step of a job template to declare the limit requirement.
             max_count: <p>The maximum number of resources constrained by this limit. When all of the resources are in use, steps that require the limit won't be scheduled until the resource is available.</p> <p>The <code>maxCount</code> must not be 0. If the value is -1, there is no restriction on the number of resources that can be acquired for this limit.</p>
             description: <p>A description of the limit. A description helps you identify the purpose of the limit.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>You exceeded your service quota. Service quotas, also referred to as limits, are the maximum number of service resources or operations for your Amazon Web Services account.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: You exceeded your service quota. Service quotas, also referred to as limits, are the maximum number of service resources or operations for your Amazon Web Services account.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -552,22 +552,22 @@ class FarmResource:
             "capo_deadline.types.file_system_locations_list.FileSystemLocationsList"
         ] = None,
     ) -> "capo_deadline.types.create_storage_profile_response.CreateStorageProfileResponse":
-        """<p>Creates a storage profile that specifies the operating system, file type, and file location of resources used on a farm.</p>
+        """Creates a storage profile that specifies the operating system, file type, and file location of resources used on a farm.
 
         Args:
-            farm_id: <p>The farm ID of the farm to connect to the storage profile.</p>
-            client_token: <p>The unique token which the server uses to recognize retries of the same request.</p>
+            farm_id: The farm ID of the farm to connect to the storage profile.
+            client_token: The unique token which the server uses to recognize retries of the same request.
             display_name: <p>The display name of the storage profile.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>
-            os_family: <p>The type of operating system (OS) for the storage profile.</p>
-            file_system_locations: <p>File system paths to include in the storage profile.</p>
+            os_family: The type of operating system (OS) for the storage profile.
+            file_system_locations: File system paths to include in the storage profile.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>You exceeded your service quota. Service quotas, also referred to as limits, are the maximum number of service resources or operations for your Amazon Web Services account.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: You exceeded your service quota. Service quotas, also referred to as limits, are the maximum number of service resources or operations for your Amazon Web Services account.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -627,14 +627,14 @@ class FarmResource:
         """<p>Removes a limit from the specified farm. Before you delete a limit you must use the <code>DeleteQueueLimitAssociation</code> operation to remove the association with any queues. </p>
 
         Args:
-            farm_id: <p>The unique identifier of the farm that contains the limit to delete.</p>
-            limit_id: <p>The unique identifier of the limit to delete.</p>
+            farm_id: The unique identifier of the farm that contains the limit to delete.
+            limit_id: The unique identifier of the limit to delete.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -675,17 +675,17 @@ class FarmResource:
         *,
         config_overrides: Optional[deadlineClientConfig] = None,
     ) -> "capo_deadline.types.delete_storage_profile_response.DeleteStorageProfileResponse":
-        """<p>Deletes a storage profile.</p>
+        """Deletes a storage profile.
 
         Args:
-            farm_id: <p>The farm ID of the farm from which to remove the storage profile.</p>
-            storage_profile_id: <p>The storage profile ID of the storage profile to delete.</p>
+            farm_id: The farm ID of the farm from which to remove the storage profile.
+            storage_profile_id: The storage profile ID of the storage profile to delete.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -726,18 +726,18 @@ class FarmResource:
         *,
         config_overrides: Optional[deadlineClientConfig] = None,
     ) -> "capo_deadline.types.disassociate_member_from_farm_response.DisassociateMemberFromFarmResponse":
-        """<p>Disassociates a member from a farm.</p>
+        """Disassociates a member from a farm.
 
         Args:
-            farm_id: <p>The farm ID of the farm to disassociate from the member.</p>
-            principal_id: <p>A member's principal ID to disassociate from a farm.</p>
+            farm_id: The farm ID of the farm to disassociate from the member.
+            principal_id: A member's principal ID to disassociate from a farm.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -778,18 +778,18 @@ class FarmResource:
         *,
         config_overrides: Optional[deadlineClientConfig] = None,
     ) -> "capo_deadline.types.get_limit_response.GetLimitResponse":
-        """<p>Gets information about a specific limit.</p>
+        """Gets information about a specific limit.
 
         Args:
-            farm_id: <p>The unique identifier of the farm that contains the limit.</p>
-            limit_id: <p>The unique identifier of the limit to return.</p>
+            farm_id: The unique identifier of the farm that contains the limit.
+            limit_id: The unique identifier of the limit to return.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -837,18 +837,18 @@ class FarmResource:
         *,
         config_overrides: Optional[deadlineClientConfig] = None,
     ) -> "capo_deadline.types.get_storage_profile_response.GetStorageProfileResponse":
-        """<p>Gets a storage profile.</p>
+        """Gets a storage profile.
 
         Args:
-            farm_id: <p>The farm ID for the storage profile.</p>
-            storage_profile_id: <p>The storage profile ID.</p>
+            farm_id: The farm ID for the storage profile.
+            storage_profile_id: The storage profile ID.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -900,19 +900,19 @@ class FarmResource:
         next_token: Optional["capo_deadline.types.next_token.NextToken"] = None,
         max_results: Optional["capo_deadline.types.max_results.MaxResults"] = None,
     ) -> "capo_deadline.types.list_farm_members_response.ListFarmMembersResponse":
-        """<p>Lists the members of a farm.</p>
+        """Lists the members of a farm.
 
         Args:
-            farm_id: <p>The farm ID.</p>
-            next_token: <p>The token for the next set of results, or <code>null</code> to start from the beginning.</p>
-            max_results: <p>The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.</p>
+            farm_id: The farm ID.
+            next_token: The token for the next set of results, or <code>null</code> to start from the beginning.
+            max_results: The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -957,19 +957,19 @@ class FarmResource:
         next_token: Optional["capo_deadline.types.next_token.NextToken"] = None,
         max_results: Optional["capo_deadline.types.max_results.MaxResults"] = None,
     ) -> "capo_deadline.types.list_limits_response.ListLimitsResponse":
-        """<p>Gets a list of limits defined in the specified farm.</p>
+        """Gets a list of limits defined in the specified farm.
 
         Args:
-            farm_id: <p>The unique identifier of the farm that contains the limits.</p>
-            next_token: <p>The token for the next set of results, or <code>null</code> to start from the beginning.</p>
-            max_results: <p>The maximum number of limits to return in each page of results.</p>
+            farm_id: The unique identifier of the farm that contains the limits.
+            next_token: The token for the next set of results, or <code>null</code> to start from the beginning.
+            max_results: The maximum number of limits to return in each page of results.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1016,19 +1016,19 @@ class FarmResource:
     ) -> (
         "capo_deadline.types.list_storage_profiles_response.ListStorageProfilesResponse"
     ):
-        """<p>Lists storage profiles.</p>
+        """Lists storage profiles.
 
         Args:
-            farm_id: <p>The farm ID of the storage profile.</p>
-            next_token: <p>The token for the next set of results, or <code>null</code> to start from the beginning.</p>
-            max_results: <p>The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.</p>
+            farm_id: The farm ID of the storage profile.
+            next_token: The token for the next set of results, or <code>null</code> to start from the beginning.
+            max_results: The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1078,18 +1078,18 @@ class FarmResource:
         """<p>Updates the properties of the specified limit. </p>
 
         Args:
-            farm_id: <p>The unique identifier of the farm that contains the limit.</p>
-            limit_id: <p>The unique identifier of the limit to update.</p>
+            farm_id: The unique identifier of the farm that contains the limit.
+            limit_id: The unique identifier of the limit to update.
             display_name: <p>The new display name of the limit.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>
             description: <p>The new description of the limit.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>
-            max_count: <p>The maximum number of resources constrained by this limit. When all of the resources are in use, steps that require the limit won't be scheduled until the resource is available.</p> <p>If more than the new maximum number is currently in use, running jobs finish but no new jobs are started until the number of resources in use is below the new maximum number.</p> <p>The <code>maxCount</code> must not be 0. If the value is -1, there is no restriction on the number of resources that can be acquired for this limit.</p>
+            max_count: The maximum number of resources constrained by this limit. When all of the resources are in use, steps that require the limit won't be scheduled until the resource is available. If more than the new maximum number is currently in use, running jobs finish but no new jobs are started until the number of resources in use is below the new maximum number. The <code>maxCount</code> must not be 0. If the value is -1, there is no restriction on the number of resources that can be acquired for this limit.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1155,23 +1155,23 @@ class FarmResource:
             "capo_deadline.types.file_system_locations_list.FileSystemLocationsList"
         ] = None,
     ) -> "capo_deadline.types.update_storage_profile_response.UpdateStorageProfileResponse":
-        """<p>Updates a storage profile.</p>
+        """Updates a storage profile.
 
         Args:
-            farm_id: <p>The farm ID to update.</p>
-            storage_profile_id: <p>The storage profile ID to update.</p>
-            client_token: <p>The unique token which the server uses to recognize retries of the same request.</p>
+            farm_id: The farm ID to update.
+            storage_profile_id: The storage profile ID to update.
+            client_token: The unique token which the server uses to recognize retries of the same request.
             display_name: <p>The display name of the storage profile to update.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>
-            os_family: <p>The OS system to update.</p>
-            file_system_locations_to_add: <p>The file system location names to add.</p>
-            file_system_locations_to_remove: <p>The file system location names to remove.</p>
+            os_family: The OS system to update.
+            file_system_locations_to_add: The file system location names to add.
+            file_system_locations_to_remove: The file system location names to remove.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1244,23 +1244,23 @@ class AsyncFarmResource:
         ] = None,
         tags: Optional["capo_deadline.types.tags.Tags"] = None,
     ) -> "capo_deadline.types.create_farm_response.CreateFarmResponse":
-        """<p>Creates a farm to allow space for queues and fleets. Farms are the space where the components of your renders gather and are pieced together in the cloud. Farms contain budgets and allow you to enforce permissions. Deadline Cloud farms are a useful container for large projects.</p>
+        """Creates a farm to allow space for queues and fleets. Farms are the space where the components of your renders gather and are pieced together in the cloud. Farms contain budgets and allow you to enforce permissions. Deadline Cloud farms are a useful container for large projects.
 
         Args:
-            client_token: <p>The unique token which the server uses to recognize retries of the same request.</p>
+            client_token: The unique token which the server uses to recognize retries of the same request.
             display_name: <p>The display name of the farm.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>
             description: <p>The description of the farm.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>
-            kms_key_arn: <p>The ARN of the KMS key to use on the farm.</p>
-            cost_scale_factor: <p>A multiplier applied to the farm's calculated costs for usage data and budget tracking. A value less than 1 represents a discount, a value greater than 1 represents a premium, and a value of 1 represents no adjustment. The default value is 1.</p>
-            tags: <p>The tags to add to your farm. Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings.</p>
+            kms_key_arn: The ARN of the KMS key to use on the farm.
+            cost_scale_factor: A multiplier applied to the farm's calculated costs for usage data and budget tracking. A value less than 1 represents a discount, a value greater than 1 represents a premium, and a value of 1 represents no adjustment. The default value is 1.
+            tags: The tags to add to your farm. Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>You exceeded your service quota. Service quotas, also referred to as limits, are the maximum number of service resources or operations for your Amazon Web Services account.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: You exceeded your service quota. Service quotas, also referred to as limits, are the maximum number of service resources or operations for your Amazon Web Services account.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1318,17 +1318,17 @@ class AsyncFarmResource:
         *,
         config_overrides: Optional[AsyncdeadlineClientConfig] = None,
     ) -> "capo_deadline.types.get_farm_response.GetFarmResponse":
-        """<p>Get a farm.</p>
+        """Get a farm.
 
         Args:
-            farm_id: <p>The farm ID of the farm.</p>
+            farm_id: The farm ID of the farm.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1380,20 +1380,20 @@ class AsyncFarmResource:
             "capo_deadline.types.cost_scale_factor.CostScaleFactor"
         ] = None,
     ) -> "capo_deadline.types.update_farm_response.UpdateFarmResponse":
-        """<p>Updates a farm.</p>
+        """Updates a farm.
 
         Args:
-            farm_id: <p>The farm ID to update.</p>
+            farm_id: The farm ID to update.
             display_name: <p>The display name of the farm to update.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>
             description: <p>The description of the farm to update.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>
-            cost_scale_factor: <p>A multiplier applied to the farm's calculated costs for usage data and budget tracking. A value less than 1 represents a discount, a value greater than 1 represents a premium, and a value of 1 represents no adjustment.</p>
+            cost_scale_factor: A multiplier applied to the farm's calculated costs for usage data and budget tracking. A value less than 1 represents a discount, a value greater than 1 represents a premium, and a value of 1 represents no adjustment.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1446,17 +1446,17 @@ class AsyncFarmResource:
         *,
         config_overrides: Optional[AsyncdeadlineClientConfig] = None,
     ) -> "capo_deadline.types.delete_farm_response.DeleteFarmResponse":
-        """<p>Deletes a farm.</p>
+        """Deletes a farm.
 
         Args:
-            farm_id: <p>The farm ID of the farm to delete.</p>
+            farm_id: The farm ID of the farm to delete.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1500,18 +1500,18 @@ class AsyncFarmResource:
             "capo_deadline.types.identity_center_principal_id.IdentityCenterPrincipalId"
         ] = None,
     ) -> "capo_deadline.types.list_farms_response.ListFarmsResponse":
-        """<p>Lists farms.</p>
+        """Lists farms.
 
         Args:
-            next_token: <p>The token for the next set of results, or <code>null</code> to start from the beginning.</p>
-            max_results: <p>The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.</p>
-            principal_id: <p>The principal ID of the member to list on the farm.</p>
+            next_token: The token for the next set of results, or <code>null</code> to start from the beginning.
+            max_results: The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.
+            principal_id: The principal ID of the member to list on the farm.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1560,23 +1560,23 @@ class AsyncFarmResource:
         config_overrides: Optional[AsyncdeadlineClientConfig] = None,
         identity_center_region: Optional["capo_deadline.types.region.Region"] = None,
     ) -> "capo_deadline.types.associate_member_to_farm_response.AssociateMemberToFarmResponse":
-        """<p>Assigns a farm membership level to a member.</p>
+        """Assigns a farm membership level to a member.
 
         Args:
-            farm_id: <p>The ID of the farm to associate with the member.</p>
-            principal_type: <p>The principal type of the member to associate with the farm.</p>
-            identity_store_id: <p>The identity store ID of the member to associate with the farm.</p>
-            membership_level: <p>The principal's membership level for the associated farm.</p>
-            principal_id: <p>The member's principal ID to associate with the farm.</p>
-            identity_center_region: <p>The Region of the IAM Identity Center instance. If not provided, the service defaults to the Region of the farm.</p>
+            farm_id: The ID of the farm to associate with the member.
+            principal_type: The principal type of the member to associate with the farm.
+            identity_store_id: The identity store ID of the member to associate with the farm.
+            membership_level: The principal's membership level for the associated farm.
+            principal_id: The member's principal ID to associate with the farm.
+            identity_center_region: The Region of the IAM Identity Center instance. If not provided, the service defaults to the Region of the farm.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>You exceeded your service quota. Service quotas, also referred to as limits, are the maximum number of service resources or operations for your Amazon Web Services account.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: You exceeded your service quota. Service quotas, also referred to as limits, are the maximum number of service resources or operations for your Amazon Web Services account.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1630,20 +1630,20 @@ class AsyncFarmResource:
         """<p>Creates a limit that manages the distribution of shared resources, such as floating licenses. A limit can throttle work assignments, help manage workloads, and track current usage. Before you use a limit, you must associate the limit with one or more queues. </p> <p>You must add the <code>amountRequirementName</code> to a step in a job template to declare the limit requirement.</p>
 
         Args:
-            farm_id: <p>The farm ID of the farm that contains the limit.</p>
-            client_token: <p>The unique token which the server uses to recognize retries of the same request.</p>
+            farm_id: The farm ID of the farm that contains the limit.
+            client_token: The unique token which the server uses to recognize retries of the same request.
             display_name: <p>The display name of the limit.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>
-            amount_requirement_name: <p>The value that you specify as the <code>name</code> in the <code>amounts</code> field of the <code>hostRequirements</code> in a step of a job template to declare the limit requirement.</p>
+            amount_requirement_name: The value that you specify as the <code>name</code> in the <code>amounts</code> field of the <code>hostRequirements</code> in a step of a job template to declare the limit requirement.
             max_count: <p>The maximum number of resources constrained by this limit. When all of the resources are in use, steps that require the limit won't be scheduled until the resource is available.</p> <p>The <code>maxCount</code> must not be 0. If the value is -1, there is no restriction on the number of resources that can be acquired for this limit.</p>
             description: <p>A description of the limit. A description helps you identify the purpose of the limit.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>You exceeded your service quota. Service quotas, also referred to as limits, are the maximum number of service resources or operations for your Amazon Web Services account.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: You exceeded your service quota. Service quotas, also referred to as limits, are the maximum number of service resources or operations for your Amazon Web Services account.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1705,22 +1705,22 @@ class AsyncFarmResource:
             "capo_deadline.types.file_system_locations_list.FileSystemLocationsList"
         ] = None,
     ) -> "capo_deadline.types.create_storage_profile_response.CreateStorageProfileResponse":
-        """<p>Creates a storage profile that specifies the operating system, file type, and file location of resources used on a farm.</p>
+        """Creates a storage profile that specifies the operating system, file type, and file location of resources used on a farm.
 
         Args:
-            farm_id: <p>The farm ID of the farm to connect to the storage profile.</p>
-            client_token: <p>The unique token which the server uses to recognize retries of the same request.</p>
+            farm_id: The farm ID of the farm to connect to the storage profile.
+            client_token: The unique token which the server uses to recognize retries of the same request.
             display_name: <p>The display name of the storage profile.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>
-            os_family: <p>The type of operating system (OS) for the storage profile.</p>
-            file_system_locations: <p>File system paths to include in the storage profile.</p>
+            os_family: The type of operating system (OS) for the storage profile.
+            file_system_locations: File system paths to include in the storage profile.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>You exceeded your service quota. Service quotas, also referred to as limits, are the maximum number of service resources or operations for your Amazon Web Services account.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: You exceeded your service quota. Service quotas, also referred to as limits, are the maximum number of service resources or operations for your Amazon Web Services account.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1781,14 +1781,14 @@ class AsyncFarmResource:
         """<p>Removes a limit from the specified farm. Before you delete a limit you must use the <code>DeleteQueueLimitAssociation</code> operation to remove the association with any queues. </p>
 
         Args:
-            farm_id: <p>The unique identifier of the farm that contains the limit to delete.</p>
-            limit_id: <p>The unique identifier of the limit to delete.</p>
+            farm_id: The unique identifier of the farm that contains the limit to delete.
+            limit_id: The unique identifier of the limit to delete.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1830,17 +1830,17 @@ class AsyncFarmResource:
         *,
         config_overrides: Optional[AsyncdeadlineClientConfig] = None,
     ) -> "capo_deadline.types.delete_storage_profile_response.DeleteStorageProfileResponse":
-        """<p>Deletes a storage profile.</p>
+        """Deletes a storage profile.
 
         Args:
-            farm_id: <p>The farm ID of the farm from which to remove the storage profile.</p>
-            storage_profile_id: <p>The storage profile ID of the storage profile to delete.</p>
+            farm_id: The farm ID of the farm from which to remove the storage profile.
+            storage_profile_id: The storage profile ID of the storage profile to delete.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1882,18 +1882,18 @@ class AsyncFarmResource:
         *,
         config_overrides: Optional[AsyncdeadlineClientConfig] = None,
     ) -> "capo_deadline.types.disassociate_member_from_farm_response.DisassociateMemberFromFarmResponse":
-        """<p>Disassociates a member from a farm.</p>
+        """Disassociates a member from a farm.
 
         Args:
-            farm_id: <p>The farm ID of the farm to disassociate from the member.</p>
-            principal_id: <p>A member's principal ID to disassociate from a farm.</p>
+            farm_id: The farm ID of the farm to disassociate from the member.
+            principal_id: A member's principal ID to disassociate from a farm.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1935,18 +1935,18 @@ class AsyncFarmResource:
         *,
         config_overrides: Optional[AsyncdeadlineClientConfig] = None,
     ) -> "capo_deadline.types.get_limit_response.GetLimitResponse":
-        """<p>Gets information about a specific limit.</p>
+        """Gets information about a specific limit.
 
         Args:
-            farm_id: <p>The unique identifier of the farm that contains the limit.</p>
-            limit_id: <p>The unique identifier of the limit to return.</p>
+            farm_id: The unique identifier of the farm that contains the limit.
+            limit_id: The unique identifier of the limit to return.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1995,18 +1995,18 @@ class AsyncFarmResource:
         *,
         config_overrides: Optional[AsyncdeadlineClientConfig] = None,
     ) -> "capo_deadline.types.get_storage_profile_response.GetStorageProfileResponse":
-        """<p>Gets a storage profile.</p>
+        """Gets a storage profile.
 
         Args:
-            farm_id: <p>The farm ID for the storage profile.</p>
-            storage_profile_id: <p>The storage profile ID.</p>
+            farm_id: The farm ID for the storage profile.
+            storage_profile_id: The storage profile ID.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2059,19 +2059,19 @@ class AsyncFarmResource:
         next_token: Optional["capo_deadline.types.next_token.NextToken"] = None,
         max_results: Optional["capo_deadline.types.max_results.MaxResults"] = None,
     ) -> "capo_deadline.types.list_farm_members_response.ListFarmMembersResponse":
-        """<p>Lists the members of a farm.</p>
+        """Lists the members of a farm.
 
         Args:
-            farm_id: <p>The farm ID.</p>
-            next_token: <p>The token for the next set of results, or <code>null</code> to start from the beginning.</p>
-            max_results: <p>The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.</p>
+            farm_id: The farm ID.
+            next_token: The token for the next set of results, or <code>null</code> to start from the beginning.
+            max_results: The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2117,19 +2117,19 @@ class AsyncFarmResource:
         next_token: Optional["capo_deadline.types.next_token.NextToken"] = None,
         max_results: Optional["capo_deadline.types.max_results.MaxResults"] = None,
     ) -> "capo_deadline.types.list_limits_response.ListLimitsResponse":
-        """<p>Gets a list of limits defined in the specified farm.</p>
+        """Gets a list of limits defined in the specified farm.
 
         Args:
-            farm_id: <p>The unique identifier of the farm that contains the limits.</p>
-            next_token: <p>The token for the next set of results, or <code>null</code> to start from the beginning.</p>
-            max_results: <p>The maximum number of limits to return in each page of results.</p>
+            farm_id: The unique identifier of the farm that contains the limits.
+            next_token: The token for the next set of results, or <code>null</code> to start from the beginning.
+            max_results: The maximum number of limits to return in each page of results.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2177,19 +2177,19 @@ class AsyncFarmResource:
     ) -> (
         "capo_deadline.types.list_storage_profiles_response.ListStorageProfilesResponse"
     ):
-        """<p>Lists storage profiles.</p>
+        """Lists storage profiles.
 
         Args:
-            farm_id: <p>The farm ID of the storage profile.</p>
-            next_token: <p>The token for the next set of results, or <code>null</code> to start from the beginning.</p>
-            max_results: <p>The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.</p>
+            farm_id: The farm ID of the storage profile.
+            next_token: The token for the next set of results, or <code>null</code> to start from the beginning.
+            max_results: The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2240,18 +2240,18 @@ class AsyncFarmResource:
         """<p>Updates the properties of the specified limit. </p>
 
         Args:
-            farm_id: <p>The unique identifier of the farm that contains the limit.</p>
-            limit_id: <p>The unique identifier of the limit to update.</p>
+            farm_id: The unique identifier of the farm that contains the limit.
+            limit_id: The unique identifier of the limit to update.
             display_name: <p>The new display name of the limit.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>
             description: <p>The new description of the limit.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>
-            max_count: <p>The maximum number of resources constrained by this limit. When all of the resources are in use, steps that require the limit won't be scheduled until the resource is available.</p> <p>If more than the new maximum number is currently in use, running jobs finish but no new jobs are started until the number of resources in use is below the new maximum number.</p> <p>The <code>maxCount</code> must not be 0. If the value is -1, there is no restriction on the number of resources that can be acquired for this limit.</p>
+            max_count: The maximum number of resources constrained by this limit. When all of the resources are in use, steps that require the limit won't be scheduled until the resource is available. If more than the new maximum number is currently in use, running jobs finish but no new jobs are started until the number of resources in use is below the new maximum number. The <code>maxCount</code> must not be 0. If the value is -1, there is no restriction on the number of resources that can be acquired for this limit.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2318,23 +2318,23 @@ class AsyncFarmResource:
             "capo_deadline.types.file_system_locations_list.FileSystemLocationsList"
         ] = None,
     ) -> "capo_deadline.types.update_storage_profile_response.UpdateStorageProfileResponse":
-        """<p>Updates a storage profile.</p>
+        """Updates a storage profile.
 
         Args:
-            farm_id: <p>The farm ID to update.</p>
-            storage_profile_id: <p>The storage profile ID to update.</p>
-            client_token: <p>The unique token which the server uses to recognize retries of the same request.</p>
+            farm_id: The farm ID to update.
+            storage_profile_id: The storage profile ID to update.
+            client_token: The unique token which the server uses to recognize retries of the same request.
             display_name: <p>The display name of the storage profile to update.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>
-            os_family: <p>The OS system to update.</p>
-            file_system_locations_to_add: <p>The file system location names to add.</p>
-            file_system_locations_to_remove: <p>The file system location names to remove.</p>
+            os_family: The OS system to update.
+            file_system_locations_to_add: The file system location names to add.
+            file_system_locations_to_remove: The file system location names to remove.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 

@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 
 class Repository(TypedDict, closed=True):
     repository_arn: NotRequired["capo_ecr.types.arn.Arn"]
-    """<p>The Amazon Resource Name (ARN) that identifies the repository. The ARN contains the <code>arn:aws:ecr</code> namespace, followed by the region of the repository, Amazon Web Services account ID of the repository owner, repository namespace, and repository name. For example, <code>arn:aws:ecr:region:012345678910:repository-namespace/repository-name</code>.</p>"""
+    """<p>The Amazon Resource Name (ARN) that identifies the repository. The ARN contains the <code>arn:aws:ecr</code> namespace, followed by the region of the repository, Amazon Web Services account ID of the repository owner, and repository name. For example, <code>arn:aws:ecr:region:012345678910:repository/repository-name</code>.</p>"""
     registry_id: NotRequired["capo_ecr.types.registry_id.RegistryId"]
     """<p>The Amazon Web Services account ID associated with the registry that contains the repository.</p>"""
     repository_name: NotRequired["capo_ecr.types.repository_name.RepositoryName"]

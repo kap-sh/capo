@@ -50,7 +50,7 @@ class Peering(TypedDict, closed=True):
     last_modification_errors: NotRequired[
         "capo_networkmanager.types.peering_error_list.PeeringErrorList"
     ]
-    """<p>Describes the error associated with the Connect peer request.</p>"""
+    """<p>Describes the error associated with the peering request.</p>"""
 
 
 # --- restJson1 ser/de ---

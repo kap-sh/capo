@@ -10,9 +10,9 @@ if TYPE_CHECKING:
 
 class PosixUser(TypedDict, closed=True):
     user: "capo_deadline.types.string.String"
-    """<p>The name of the POSIX user.</p>"""
+    """The name of the POSIX user."""
     group: "capo_deadline.types.string.String"
-    """<p>The name of the POSIX user's group.</p>"""
+    """The name of the POSIX user's group."""
 
 
 # --- restJson1 ser/de ---

@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class GetQueueEnvironmentRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID for the queue environment.</p>"""
+    """The farm ID for the queue environment."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID for the queue environment.</p>"""
+    """The queue ID for the queue environment."""
     queue_environment_id: "capo_deadline.types.queue_environment_id.QueueEnvironmentId"
-    """<p>The queue environment ID.</p>"""
+    """The queue environment ID."""
 
 
 # --- restJson1 ser/de ---

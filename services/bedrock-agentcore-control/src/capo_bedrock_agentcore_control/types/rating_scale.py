@@ -12,6 +12,7 @@ from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.categorical_scale_definitions
+    import capo_bedrock_agentcore_control.types.evaluation_dimensions
     import capo_bedrock_agentcore_control.types.numerical_scale_definitions
 
 
@@ -23,8 +24,15 @@ class _RatingScale_categorical(TypedDict, closed=True):
     categorical: "capo_bedrock_agentcore_control.types.categorical_scale_definitions.CategoricalScaleDefinitions"
 
 
+class _RatingScale_multiDimensional(TypedDict, closed=True):
+    multiDimensional: "capo_bedrock_agentcore_control.types.evaluation_dimensions.EvaluationDimensions"
+
+
 RatingScale: TypeAlias = (
-    _RatingScale_numerical | _RatingScale_categorical | UnknownUnionMember
+    _RatingScale_numerical
+    | _RatingScale_categorical
+    | _RatingScale_multiDimensional
+    | UnknownUnionMember
 )
 
 
@@ -50,6 +58,14 @@ def serialize_json(value: RatingScale) -> dict:
                 value["categorical"]
             )
         }
+    elif "multiDimensional" in value:
+        import capo_bedrock_agentcore_control.types.evaluation_dimensions
+
+        return {
+            "multiDimensional": capo_bedrock_agentcore_control.types.evaluation_dimensions.serialize_json(
+                value["multiDimensional"]
+            )
+        }
     else:
         raise SerializationError("RatingScale: no variant present")
 
@@ -69,6 +85,14 @@ def deserialize_json(data: dict) -> RatingScale:
         return {
             "categorical": capo_bedrock_agentcore_control.types.categorical_scale_definitions.deserialize_json(
                 data["categorical"]
+            )
+        }
+    elif data.get("multiDimensional") is not None:
+        import capo_bedrock_agentcore_control.types.evaluation_dimensions
+
+        return {
+            "multiDimensional": capo_bedrock_agentcore_control.types.evaluation_dimensions.deserialize_json(
+                data["multiDimensional"]
             )
         }
     else:

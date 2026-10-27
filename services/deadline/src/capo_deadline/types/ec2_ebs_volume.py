@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class Ec2EbsVolume(TypedDict, closed=True):
     size_gi_b: "capo_deadline.types.integer.Integer"
-    """<p>The EBS volume size in GiB.</p>"""
+    """The EBS volume size in GiB."""
     iops: "capo_deadline.types.ebs_iops.EbsIops"
-    """<p>The IOPS per volume.</p>"""
+    """The IOPS per volume."""
     throughput_mi_b: "capo_deadline.types.ebs_throughput_mi_b.EbsThroughputMiB"
-    """<p>The throughput per volume in MiB.</p>"""
+    """The throughput per volume in MiB."""
 
 
 # --- restJson1 ser/de ---

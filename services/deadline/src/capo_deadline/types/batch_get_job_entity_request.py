@@ -13,13 +13,13 @@ if TYPE_CHECKING:
 
 class BatchGetJobEntityRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the worker that's fetching job details. The worker must have an assignment on a job to fetch job details.</p>"""
+    """The farm ID of the worker that's fetching job details. The worker must have an assignment on a job to fetch job details."""
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID of the worker that's fetching job details. The worker must have an assignment on a job to fetch job details.</p>"""
+    """The fleet ID of the worker that's fetching job details. The worker must have an assignment on a job to fetch job details."""
     worker_id: "capo_deadline.types.worker_id.WorkerId"
-    """<p>The worker ID of the worker containing the job details to get.</p>"""
+    """The worker ID of the worker containing the job details to get."""
     identifiers: "capo_deadline.types.job_entity_identifiers.JobEntityIdentifiers"
-    """<p>The job identifiers to include within the job entity batch details.</p>"""
+    """The job identifiers to include within the job entity batch details."""
 
 
 # --- restJson1 ser/de ---

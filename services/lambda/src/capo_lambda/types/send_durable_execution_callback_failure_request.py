@@ -13,7 +13,7 @@ class SendDurableExecutionCallbackFailureRequest(TypedDict, closed=True):
     callback_id: "capo_lambda.types.callback_id.CallbackId"
     """<p>The unique identifier for the callback operation.</p>"""
     error: NotRequired["capo_lambda.types.error_object.ErrorObject"]
-    """<p>Error details describing why the callback operation failed.</p>"""
+    """<p>Error details describing why the callback operation failed. The combined size of all error fields is limited to 1 MB.</p>"""
 
 
 # --- restJson1 ser/de ---

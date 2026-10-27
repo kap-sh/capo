@@ -8,6 +8,7 @@ RouterInputType: TypeAlias = Literal[
     "MERGE",
     "MEDIACONNECT_FLOW",
     "MEDIALIVE_CHANNEL",
+    "DESTINATION_ENDPOINT",
 ]
 
 

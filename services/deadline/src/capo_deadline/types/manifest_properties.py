@@ -15,19 +15,19 @@ class ManifestProperties(TypedDict, closed=True):
     file_system_location_name: NotRequired[
         "capo_deadline.types.file_system_location_name.FileSystemLocationName"
     ]
-    """<p>The file system location name.</p>"""
+    """The file system location name."""
     root_path: "capo_deadline.types.string.String"
-    """<p>The file's root path.</p>"""
+    """The file's root path."""
     root_path_format: "capo_deadline.types.path_format.PathFormat"
-    """<p>The format of the root path.</p>"""
+    """The format of the root path."""
     output_relative_directories: NotRequired[
         "capo_deadline.types.output_relative_directories_list.OutputRelativeDirectoriesList"
     ]
-    """<p>The file path relative to the directory.</p>"""
+    """The file path relative to the directory."""
     input_manifest_path: NotRequired["capo_deadline.types.string.String"]
-    """<p>The file path.</p>"""
+    """The file path."""
     input_manifest_hash: NotRequired["capo_deadline.types.string.String"]
-    """<p>The hash value of the file.</p>"""
+    """The hash value of the file."""
 
 
 # --- restJson1 ser/de ---

@@ -22,37 +22,37 @@ if TYPE_CHECKING:
 
 class FleetSummary(TypedDict, closed=True):
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID.</p>"""
+    """The fleet ID."""
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID.</p>"""
+    """The farm ID."""
     display_name: "capo_deadline.types.resource_name.ResourceName"
     """<p>The display name of the fleet summary to update.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     status: "capo_deadline.types.fleet_status.FleetStatus"
-    """<p>The status of the fleet.</p>"""
+    """The status of the fleet."""
     status_message: NotRequired["capo_deadline.types.string.String"]
-    """<p>A message that communicates a suspended status of the fleet.</p>"""
+    """A message that communicates a suspended status of the fleet."""
     auto_scaling_status: NotRequired[
         "capo_deadline.types.auto_scaling_status.AutoScalingStatus"
     ]
-    """<p>The Auto Scaling status of a fleet.</p>"""
+    """The Auto Scaling status of a fleet."""
     target_worker_count: NotRequired["capo_deadline.types.integer.Integer"]
-    """<p>The target number of workers in a fleet.</p>"""
+    """The target number of workers in a fleet."""
     worker_count: "capo_deadline.types.integer.Integer"
-    """<p>The number of workers in the fleet summary.</p>"""
+    """The number of workers in the fleet summary."""
     min_worker_count: "capo_deadline.types.min_zero_max_integer.MinZeroMaxInteger"
-    """<p>The minimum number of workers in the fleet.</p>"""
+    """The minimum number of workers in the fleet."""
     max_worker_count: "capo_deadline.types.min_zero_max_integer.MinZeroMaxInteger"
-    """<p>The maximum number of workers specified in the fleet.</p>"""
+    """The maximum number of workers specified in the fleet."""
     configuration: "capo_deadline.types.fleet_configuration.FleetConfiguration"
-    """<p>The configuration details for the fleet.</p>"""
+    """The configuration details for the fleet."""
     created_at: "capo_deadline.types.created_at.CreatedAt"
-    """<p>The date and time the resource was created.</p>"""
+    """The date and time the resource was created."""
     created_by: "capo_deadline.types.created_by.CreatedBy"
-    """<p>The user or system that created this resource.</p>"""
+    """The user or system that created this resource."""
     updated_at: NotRequired["capo_deadline.types.updated_at.UpdatedAt"]
-    """<p>The date and time the resource was updated.</p>"""
+    """The date and time the resource was updated."""
     updated_by: NotRequired["capo_deadline.types.updated_by.UpdatedBy"]
-    """<p>The user or system that updated this resource.</p>"""
+    """The user or system that updated this resource."""
 
 
 # --- restJson1 ser/de ---

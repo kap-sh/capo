@@ -16,17 +16,17 @@ if TYPE_CHECKING:
 
 class AssignedSession(TypedDict, closed=True):
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID of the assigned session.</p>"""
+    """The queue ID of the assigned session."""
     job_id: "capo_deadline.types.job_id.JobId"
-    """<p>The job ID for the assigned session.</p>"""
+    """The job ID for the assigned session."""
     session_actions: (
         "capo_deadline.types.assigned_session_actions.AssignedSessionActions"
     )
-    """<p>The session actions to apply to the assigned session.</p>"""
+    """The session actions to apply to the assigned session."""
     log_configuration: "capo_deadline.types.log_configuration.LogConfiguration"
-    """<p>The log configuration for the worker's assigned session.</p>"""
+    """The log configuration for the worker's assigned session."""
     metadata: NotRequired["capo_deadline.types.session_metadata.SessionMetadata"]
-    """<p>Key-value hints that the service provides to guide how the session runs. This value is used by the worker agent.</p>"""
+    """Key-value hints that the service provides to guide how the session runs. This value is used by the worker agent."""
 
 
 # --- restJson1 ser/de ---

@@ -22,31 +22,31 @@ if TYPE_CHECKING:
 
 class Statistics(TypedDict, closed=True):
     queue_id: NotRequired["capo_deadline.types.queue_id.QueueId"]
-    """<p>The queue ID.</p>"""
+    """The queue ID."""
     fleet_id: NotRequired["capo_deadline.types.fleet_id.FleetId"]
-    """<p>The fleet ID.</p>"""
+    """The fleet ID."""
     job_id: NotRequired["capo_deadline.types.job_id.JobId"]
-    """<p>The job ID.</p>"""
+    """The job ID."""
     job_name: NotRequired["capo_deadline.types.job_name.JobName"]
-    """<p>The job name.</p>"""
+    """The job name."""
     user_id: NotRequired["capo_deadline.types.user_id.UserId"]
-    """<p>The user ID.</p>"""
+    """The user ID."""
     usage_type: NotRequired["capo_deadline.types.usage_type.UsageType"]
-    """<p>The type of usage for the statistics.</p>"""
+    """The type of usage for the statistics."""
     license_product: NotRequired["capo_deadline.types.license_product.LicenseProduct"]
-    """<p>The licensed product.</p>"""
+    """The licensed product."""
     instance_type: NotRequired["capo_deadline.types.instance_type.InstanceType"]
-    """<p>The type of instance.</p>"""
+    """The type of instance."""
     count: "capo_deadline.types.integer.Integer"
-    """<p>The number of instances in a list of statistics.</p>"""
+    """The number of instances in a list of statistics."""
     cost_in_usd: "capo_deadline.types.stats.Stats"
-    """<p>How the statistics should appear in USD. Options include: minimum, maximum, average or sum.</p>"""
+    """How the statistics should appear in USD. Options include: minimum, maximum, average or sum."""
     runtime_in_seconds: "capo_deadline.types.stats.Stats"
-    """<p>The total aggregated runtime.</p>"""
+    """The total aggregated runtime."""
     aggregation_start_time: NotRequired["capo_deadline.types.timestamp.Timestamp"]
-    """<p>The start time for the aggregation.</p>"""
+    """The start time for the aggregation."""
     aggregation_end_time: NotRequired["capo_deadline.types.timestamp.Timestamp"]
-    """<p>The end time for the aggregation.</p>"""
+    """The end time for the aggregation."""
 
 
 # --- restJson1 ser/de ---

@@ -6,6 +6,7 @@ RouterOutputType: TypeAlias = Literal[
     "STANDARD",
     "MEDIACONNECT_FLOW",
     "MEDIALIVE_INPUT",
+    "SOURCE_ENDPOINT",
 ]
 
 

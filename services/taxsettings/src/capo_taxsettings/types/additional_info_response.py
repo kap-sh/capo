@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     import capo_taxsettings.types.estonia_additional_info
     import capo_taxsettings.types.france_additional_info
     import capo_taxsettings.types.georgia_additional_info
+    import capo_taxsettings.types.germany_additional_info
     import capo_taxsettings.types.greece_additional_info
     import capo_taxsettings.types.india_additional_info
     import capo_taxsettings.types.indonesia_additional_info
@@ -20,6 +21,7 @@ if TYPE_CHECKING:
     import capo_taxsettings.types.italy_additional_info
     import capo_taxsettings.types.kenya_additional_info
     import capo_taxsettings.types.malaysia_additional_info
+    import capo_taxsettings.types.mexico_additional_info
     import capo_taxsettings.types.monaco_additional_info
     import capo_taxsettings.types.philippines_additional_info
     import capo_taxsettings.types.poland_additional_info
@@ -138,6 +140,14 @@ class AdditionalInfoResponse(TypedDict, closed=True):
         "capo_taxsettings.types.monaco_additional_info.MonacoAdditionalInfo"
     ]
     """<p>Additional tax information associated with your TRN in Monaco.</p>"""
+    germany_additional_info: NotRequired[
+        "capo_taxsettings.types.germany_additional_info.GermanyAdditionalInfo"
+    ]
+    """<p>Additional tax information associated with your Tax Registration Number (TRN) in Germany.</p>"""
+    mexico_additional_info: NotRequired[
+        "capo_taxsettings.types.mexico_additional_info.MexicoAdditionalInfo"
+    ]
+    """<p>Additional tax information associated with your Tax Registration Number (TRN) in Mexico.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -351,6 +361,22 @@ def serialize_json(value: AdditionalInfoResponse) -> dict:
                 value["monaco_additional_info"]
             )
         )
+    if "germany_additional_info" in value:
+        import capo_taxsettings.types.germany_additional_info
+
+        out["germanyAdditionalInfo"] = (
+            capo_taxsettings.types.germany_additional_info.serialize_json(
+                value["germany_additional_info"]
+            )
+        )
+    if "mexico_additional_info" in value:
+        import capo_taxsettings.types.mexico_additional_info
+
+        out["mexicoAdditionalInfo"] = (
+            capo_taxsettings.types.mexico_additional_info.serialize_json(
+                value["mexico_additional_info"]
+            )
+        )
     return out
 
 
@@ -562,6 +588,22 @@ def deserialize_json(data: dict) -> AdditionalInfoResponse:
         out["monaco_additional_info"] = (
             capo_taxsettings.types.monaco_additional_info.deserialize_json(
                 data["monacoAdditionalInfo"]
+            )
+        )
+    if data.get("germanyAdditionalInfo") is not None:
+        import capo_taxsettings.types.germany_additional_info
+
+        out["germany_additional_info"] = (
+            capo_taxsettings.types.germany_additional_info.deserialize_json(
+                data["germanyAdditionalInfo"]
+            )
+        )
+    if data.get("mexicoAdditionalInfo") is not None:
+        import capo_taxsettings.types.mexico_additional_info
+
+        out["mexico_additional_info"] = (
+            capo_taxsettings.types.mexico_additional_info.deserialize_json(
+                data["mexicoAdditionalInfo"]
             )
         )
     return out

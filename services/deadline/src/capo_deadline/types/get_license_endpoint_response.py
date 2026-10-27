@@ -16,21 +16,21 @@ if TYPE_CHECKING:
 
 class GetLicenseEndpointResponse(TypedDict, closed=True):
     license_endpoint_id: "capo_deadline.types.license_endpoint_id.LicenseEndpointId"
-    """<p>The license endpoint ID.</p>"""
+    """The license endpoint ID."""
     status: "capo_deadline.types.license_endpoint_status.LicenseEndpointStatus"
-    """<p>The status of the license endpoint.</p>"""
+    """The status of the license endpoint."""
     status_message: "capo_deadline.types.status_message.StatusMessage"
-    """<p>The status message of the license endpoint.</p>"""
+    """The status message of the license endpoint."""
     vpc_id: NotRequired["capo_deadline.types.vpc_id.VpcId"]
-    """<p>The VPC (virtual private cloud) ID associated with the license endpoint.</p>"""
+    """The VPC (virtual private cloud) ID associated with the license endpoint."""
     dns_name: NotRequired["capo_deadline.types.dns_name.DnsName"]
-    """<p>The DNS name.</p>"""
+    """The DNS name."""
     subnet_ids: NotRequired["capo_deadline.types.subnet_id_list.SubnetIdList"]
-    """<p>The subnet IDs.</p>"""
+    """The subnet IDs."""
     security_group_ids: NotRequired[
         "capo_deadline.types.security_group_id_list.SecurityGroupIdList"
     ]
-    """<p>The security group IDs for the license endpoint.</p>"""
+    """The security group IDs for the license endpoint."""
 
 
 # --- restJson1 ser/de ---

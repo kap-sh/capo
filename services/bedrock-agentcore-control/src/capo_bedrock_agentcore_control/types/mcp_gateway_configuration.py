@@ -34,7 +34,7 @@ class MCPGatewayConfiguration(TypedDict, closed=True):
     ]
     """<p>The streaming configuration for the MCP gateway. This configuration controls whether response streaming is enabled for the gateway.</p>"""
     disable_mcp_list_tools_pagination: NotRequired["bool"]
-    """<p>Specifies whether pagination is disabled for the Model Context Protocol (MCP) <code>tools/list</code> operation. When set to <code>true</code>, the gateway returns the complete list of tools in a single response without a pagination cursor. When set to <code>false</code> or omitted, the gateway returns tools in paginated responses.</p>"""
+    """<p>Specifies whether the gateway disables pagination for the Model Context Protocol (MCP) <code>tools/list</code> operation. When set to <code>true</code>, the gateway returns the complete list of tools in a single response without a pagination cursor. When set to <code>false</code> or omitted, the gateway returns tools in paginated responses. For information about changing this value on an existing gateway, see <a href="https://docs.aws.amazon.com/bedrock-agentcore-control/latest/APIReference/API_UpdateGateway.html">UpdateGateway</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

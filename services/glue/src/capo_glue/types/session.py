@@ -54,7 +54,7 @@ class Session(TypedDict, closed=True):
     number_of_workers: NotRequired["capo_glue.types.nullable_integer.NullableInteger"]
     """<p>The number of workers of a defined <code>WorkerType</code> to use for the session.</p>"""
     worker_type: NotRequired["capo_glue.types.worker_type.WorkerType"]
-    """<p>The type of predefined worker that is allocated when a session runs. Accepts a value of <code>G.1X</code>, <code>G.2X</code>, <code>G.4X</code>, or <code>G.8X</code> for Spark sessions. Accepts the value <code>Z.2X</code> for Ray sessions.</p>"""
+    """<p>The type of predefined worker that is allocated when a session runs. Accepts a value of <code>G.1X</code>, <code>G.2X</code>, <code>G.4X</code>, <code>G.8X</code>, <code>G.12X</code>, <code>G.16X</code>, <code>R.1X</code>, <code>R.2X</code>, <code>R.4X</code>, or <code>R.8X</code> for Spark sessions. Accepts the value <code>Z.2X</code> for Ray sessions.</p> <p>The <code>G.12X</code>, <code>G.16X</code>, and <code>R.1X</code> through <code>R.8X</code> worker types are available only for Glue version 4.0 or later Spark ETL jobs in select Amazon Web Services Regions. For the supported Regions, see <a href="https://docs.aws.amazon.com/glue/latest/dg/add-job.html">Configuring job properties for Spark jobs</a> in the developer guide.</p>"""
     completed_on: NotRequired["capo_glue.types.timestamp_value.TimestampValue"]
     """<p>The date and time that this session is completed.</p>"""
     execution_time: NotRequired["capo_glue.types.nullable_double.NullableDouble"]

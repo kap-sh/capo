@@ -10,9 +10,9 @@ if TYPE_CHECKING:
 
 class WindowsUser(TypedDict, closed=True):
     user: "capo_deadline.types.string.String"
-    """<p>The user.</p>"""
+    """The user."""
     password_arn: "capo_deadline.types.string.String"
-    """<p>The password ARN for the Windows user.</p>"""
+    """The password ARN for the Windows user."""
 
 
 # --- restJson1 ser/de ---

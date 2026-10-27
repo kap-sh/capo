@@ -2,7 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
-"""<p>The state of a persistent volume.</p>"""
+"""The state of a persistent volume."""
 VolumeState: TypeAlias = Literal[
     "PENDING_CREATION",
     "PENDING_ATTACHMENT",

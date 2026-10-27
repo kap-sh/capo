@@ -7,6 +7,7 @@ from capo_ec2._protocol.xml import Element
 TransitGatewayRouteType: TypeAlias = Literal[
     "static",
     "propagated",
+    "system",
 ]
 
 

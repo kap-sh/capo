@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class DeleteMonitorRequest(TypedDict, closed=True):
     monitor_id: "capo_deadline.types.monitor_id.MonitorId"
-    """<p>The unique identifier of the monitor to delete. This ID is returned by the <code>CreateMonitor</code> operation, and is included in the response to the <code>GetMonitor</code> operation.</p>"""
+    """The unique identifier of the monitor to delete. This ID is returned by the <code>CreateMonitor</code> operation, and is included in the response to the <code>GetMonitor</code> operation."""
 
 
 # --- restJson1 ser/de ---

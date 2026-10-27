@@ -19,27 +19,27 @@ if TYPE_CHECKING:
 
 class GetWorkerResponse(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID.</p>"""
+    """The farm ID."""
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID.</p>"""
+    """The fleet ID."""
     worker_id: "capo_deadline.types.worker_id.WorkerId"
-    """<p>The worker ID.</p>"""
+    """The worker ID."""
     host_properties: NotRequired[
         "capo_deadline.types.host_properties_response.HostPropertiesResponse"
     ]
-    """<p>The host properties for the worker.</p>"""
+    """The host properties for the worker."""
     status: "capo_deadline.types.worker_status.WorkerStatus"
-    """<p>The status of the worker.</p>"""
+    """The status of the worker."""
     log: NotRequired["capo_deadline.types.log_configuration.LogConfiguration"]
-    """<p>The logs for the associated worker.</p>"""
+    """The logs for the associated worker."""
     created_at: "capo_deadline.types.created_at.CreatedAt"
-    """<p>The date and time the resource was created.</p>"""
+    """The date and time the resource was created."""
     created_by: "capo_deadline.types.created_by.CreatedBy"
-    """<p>The user or system that created this resource.</p>"""
+    """The user or system that created this resource."""
     updated_at: NotRequired["capo_deadline.types.updated_at.UpdatedAt"]
-    """<p>The date and time the resource was updated.</p>"""
+    """The date and time the resource was updated."""
     updated_by: NotRequired["capo_deadline.types.updated_by.UpdatedBy"]
-    """<p>The user or system that updated this resource.</p>"""
+    """The user or system that updated this resource."""
 
 
 # --- restJson1 ser/de ---

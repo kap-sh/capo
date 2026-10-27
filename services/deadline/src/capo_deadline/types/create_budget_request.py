@@ -18,27 +18,27 @@ if TYPE_CHECKING:
 
 class CreateBudgetRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID to include in this budget.</p>"""
+    """The farm ID to include in this budget."""
     display_name: "capo_deadline.types.resource_name.ResourceName"
     """<p>The display name of the budget.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     description: NotRequired["capo_deadline.types.description.Description"]
     """<p>The description of the budget.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     client_token: NotRequired["capo_deadline.types.client_token.ClientToken"]
-    """<p>The unique token which the server uses to recognize retries of the same request.</p>"""
+    """The unique token which the server uses to recognize retries of the same request."""
     usage_tracking_resource: (
         "capo_deadline.types.usage_tracking_resource.UsageTrackingResource"
     )
-    """<p>The queue ID provided to this budget to track usage.</p>"""
+    """The queue ID provided to this budget to track usage."""
     approximate_dollar_limit: (
         "capo_deadline.types.consumed_usage_limit.ConsumedUsageLimit"
     )
-    """<p>The dollar limit based on consumed usage.</p>"""
+    """The dollar limit based on consumed usage."""
     actions: "capo_deadline.types.budget_actions_to_add.BudgetActionsToAdd"
-    """<p>The budget actions to specify what happens when the budget runs out.</p>"""
+    """The budget actions to specify what happens when the budget runs out."""
     schedule: "capo_deadline.types.budget_schedule.BudgetSchedule"
-    """<p>The schedule to associate with this budget.</p>"""
+    """The schedule to associate with this budget."""
     tags: NotRequired["capo_deadline.types.tags.Tags"]
-    """<p>Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings.</p>"""
+    """Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings."""
 
 
 # --- restJson1 ser/de ---

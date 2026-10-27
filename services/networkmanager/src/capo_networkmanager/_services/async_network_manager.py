@@ -46,6 +46,7 @@ if TYPE_CHECKING:
     import capo_networkmanager.types.associate_transit_gateway_connect_peer_response
     import capo_networkmanager.types.attachment
     import capo_networkmanager.types.attachment_id
+    import capo_networkmanager.types.attachment_nat_configuration
     import capo_networkmanager.types.attachment_routing_policy_association_summary
     import capo_networkmanager.types.attachment_state
     import capo_networkmanager.types.attachment_type
@@ -54,6 +55,7 @@ if TYPE_CHECKING:
     import capo_networkmanager.types.bandwidth
     import capo_networkmanager.types.bgp_options
     import capo_networkmanager.types.boolean
+    import capo_networkmanager.types.boxed_boolean
     import capo_networkmanager.types.client_token
     import capo_networkmanager.types.connect_attachment_options
     import capo_networkmanager.types.connect_peer_association
@@ -212,6 +214,8 @@ if TYPE_CHECKING:
     import capo_networkmanager.types.link_association
     import capo_networkmanager.types.link_id
     import capo_networkmanager.types.link_id_list
+    import capo_networkmanager.types.list_attachment_nat_configurations_request
+    import capo_networkmanager.types.list_attachment_nat_configurations_response
     import capo_networkmanager.types.list_attachment_routing_policy_associations_request
     import capo_networkmanager.types.list_attachment_routing_policy_associations_response
     import capo_networkmanager.types.list_attachments_request
@@ -234,9 +238,12 @@ if TYPE_CHECKING:
     import capo_networkmanager.types.list_tags_for_resource_response
     import capo_networkmanager.types.location
     import capo_networkmanager.types.max_results
+    import capo_networkmanager.types.nat_gateway_support_value
+    import capo_networkmanager.types.nat_rule_request_list
     import capo_networkmanager.types.network_resource
     import capo_networkmanager.types.network_resource_count
     import capo_networkmanager.types.network_resource_metadata_map
+    import capo_networkmanager.types.network_route
     import capo_networkmanager.types.network_telemetry
     import capo_networkmanager.types.next_token
     import capo_networkmanager.types.peering
@@ -289,6 +296,8 @@ if TYPE_CHECKING:
     import capo_networkmanager.types.transit_gateway_route_table_arn
     import capo_networkmanager.types.untag_resource_request
     import capo_networkmanager.types.untag_resource_response
+    import capo_networkmanager.types.update_attachment_nat_configuration_request
+    import capo_networkmanager.types.update_attachment_nat_configuration_response
     import capo_networkmanager.types.update_connection_request
     import capo_networkmanager.types.update_connection_response
     import capo_networkmanager.types.update_core_network_request
@@ -728,6 +737,12 @@ class AsyncNetworkManagerClient:
         routing_policy_label: Optional[
             "capo_networkmanager.types.constrained_string.ConstrainedString"
         ] = None,
+        nat_gateway_support: Optional[
+            "capo_networkmanager.types.nat_gateway_support_value.NatGatewaySupportValue"
+        ] = None,
+        nat_gateway_rules: Optional[
+            "capo_networkmanager.types.nat_rule_request_list.NatRuleRequestList"
+        ] = None,
         tags: Optional["capo_networkmanager.types.tag_list.TagList"] = None,
         client_token: Optional[
             "capo_networkmanager.types.client_token.ClientToken"
@@ -740,6 +755,8 @@ class AsyncNetworkManagerClient:
             edge_location: <p>The Region where the edge is located.</p>
             transport_attachment_id: <p>The ID of the attachment between the two connections.</p>
             routing_policy_label: <p>The routing policy label to apply to the Connect attachment for traffic routing decisions.</p>
+            nat_gateway_support: <p>Specifies whether to enable NAT gateway support on the Connect attachment. NAT is supported only on Connect attachments that use the GRE tunnel protocol. Tunnel-less Connect attachments aren't supported. To enable NAT gateway support, you must also specify at least one NAT rule. If you don't specify a value, NAT gateway support is disabled. Only the core network owner can configure NAT on an attachment.</p>
+            nat_gateway_rules: <p>The NAT rules for the Connect attachment, up to 50 rules.</p>
             options: <p>Options for creating an attachment.</p>
             tags: <p>The list of key-value tags associated with the request.</p>
             client_token: <p>The client token associated with the request.</p>
@@ -780,6 +797,10 @@ class AsyncNetworkManagerClient:
         }
         if routing_policy_label is not None:
             input_["routing_policy_label"] = routing_policy_label
+        if nat_gateway_support is not None:
+            input_["nat_gateway_support"] = nat_gateway_support
+        if nat_gateway_rules is not None:
+            input_["nat_gateway_rules"] = nat_gateway_rules
         if tags is not None:
             input_["tags"] = tags
         if client_token is None:
@@ -1229,6 +1250,15 @@ class AsyncNetworkManagerClient:
         routing_policy_label: Optional[
             "capo_networkmanager.types.constrained_string.ConstrainedString"
         ] = None,
+        nat_gateway_support: Optional[
+            "capo_networkmanager.types.nat_gateway_support_value.NatGatewaySupportValue"
+        ] = None,
+        nat_system_route_support: Optional[
+            "capo_networkmanager.types.boxed_boolean.BoxedBoolean"
+        ] = None,
+        nat_gateway_rules: Optional[
+            "capo_networkmanager.types.nat_rule_request_list.NatRuleRequestList"
+        ] = None,
         tags: Optional["capo_networkmanager.types.tag_list.TagList"] = None,
         client_token: Optional[
             "capo_networkmanager.types.client_token.ClientToken"
@@ -1241,6 +1271,9 @@ class AsyncNetworkManagerClient:
             direct_connect_gateway_arn: <p>The ARN of the Direct Connect gateway attachment.</p>
             routing_policy_label: <p>The routing policy label to apply to the Direct Connect Gateway attachment for traffic routing decisions.</p>
             edge_locations: <p>One or more core network edge locations that the Direct Connect gateway attachment is associated with. </p>
+            nat_gateway_support: <p>Specifies whether to enable NAT gateway support on the Direct Connect gateway attachment. To enable NAT gateway support, you must also specify at least one NAT rule. If you don't specify a value, NAT gateway support is disabled. Only the core network owner can configure NAT on an attachment.</p>
+            nat_system_route_support: <p>Specifies whether the core network installs system routes for the NAT CIDR blocks of the attachment's NAT rules. System routes have a route type of <code>SYSTEM</code>. NAT is applied to traffic whether or not this option is enabled. The default is <code>true</code>.</p>
+            nat_gateway_rules: <p>The NAT rules for the Direct Connect gateway attachment, up to 50 rules.</p>
             tags: <p>The key value tags to apply to the Direct Connect gateway attachment during creation.</p>
             client_token: <p>client token</p>
 
@@ -1279,6 +1312,12 @@ class AsyncNetworkManagerClient:
         }
         if routing_policy_label is not None:
             input_["routing_policy_label"] = routing_policy_label
+        if nat_gateway_support is not None:
+            input_["nat_gateway_support"] = nat_gateway_support
+        if nat_system_route_support is not None:
+            input_["nat_system_route_support"] = nat_system_route_support
+        if nat_gateway_rules is not None:
+            input_["nat_gateway_rules"] = nat_gateway_rules
         if tags is not None:
             input_["tags"] = tags
         if client_token is None:
@@ -1526,6 +1565,15 @@ class AsyncNetworkManagerClient:
         routing_policy_label: Optional[
             "capo_networkmanager.types.constrained_string.ConstrainedString"
         ] = None,
+        nat_gateway_support: Optional[
+            "capo_networkmanager.types.nat_gateway_support_value.NatGatewaySupportValue"
+        ] = None,
+        nat_system_route_support: Optional[
+            "capo_networkmanager.types.boxed_boolean.BoxedBoolean"
+        ] = None,
+        nat_gateway_rules: Optional[
+            "capo_networkmanager.types.nat_rule_request_list.NatRuleRequestList"
+        ] = None,
         tags: Optional["capo_networkmanager.types.tag_list.TagList"] = None,
         client_token: Optional[
             "capo_networkmanager.types.client_token.ClientToken"
@@ -1537,6 +1585,9 @@ class AsyncNetworkManagerClient:
             core_network_id: <p>The ID of a core network where you're creating a site-to-site VPN attachment.</p>
             vpn_connection_arn: <p>The ARN identifying the VPN attachment.</p>
             routing_policy_label: <p>The routing policy label to apply to the Site-to-Site VPN attachment for traffic routing decisions.</p>
+            nat_gateway_support: <p>Specifies whether to enable NAT gateway support on the Site-to-Site VPN attachment. To enable NAT gateway support, you must also specify at least one NAT rule. If you don't specify a value, NAT gateway support is disabled. Only the core network owner can configure NAT on an attachment.</p>
+            nat_system_route_support: <p>Specifies whether the core network installs system routes for the NAT CIDR blocks of the attachment's NAT rules. System routes have a route type of <code>SYSTEM</code>. NAT is applied to traffic whether or not this option is enabled. The default is <code>true</code> for VPN connections that use BGP and <code>false</code> for VPN connections that use static routing. If the VPN connection uses static routing, you must specify <code>false</code> or omit this parameter.</p>
+            nat_gateway_rules: <p>The NAT rules for the Site-to-Site VPN attachment, up to 50 rules.</p>
             tags: <p>The tags associated with the request.</p>
             client_token: <p>The client token associated with the request.</p>
 
@@ -1574,6 +1625,12 @@ class AsyncNetworkManagerClient:
         }
         if routing_policy_label is not None:
             input_["routing_policy_label"] = routing_policy_label
+        if nat_gateway_support is not None:
+            input_["nat_gateway_support"] = nat_gateway_support
+        if nat_system_route_support is not None:
+            input_["nat_system_route_support"] = nat_system_route_support
+        if nat_gateway_rules is not None:
+            input_["nat_gateway_rules"] = nat_gateway_rules
         if tags is not None:
             input_["tags"] = tags
         if client_token is None:
@@ -1736,6 +1793,12 @@ class AsyncNetworkManagerClient:
         routing_policy_label: Optional[
             "capo_networkmanager.types.constrained_string.ConstrainedString"
         ] = None,
+        nat_gateway_support: Optional[
+            "capo_networkmanager.types.nat_gateway_support_value.NatGatewaySupportValue"
+        ] = None,
+        nat_gateway_rules: Optional[
+            "capo_networkmanager.types.nat_rule_request_list.NatRuleRequestList"
+        ] = None,
         tags: Optional["capo_networkmanager.types.tag_list.TagList"] = None,
         client_token: Optional[
             "capo_networkmanager.types.client_token.ClientToken"
@@ -1749,6 +1812,8 @@ class AsyncNetworkManagerClient:
             subnet_arns: <p>The subnet ARN of the VPC attachment.</p>
             options: <p>Options for the VPC attachment.</p>
             routing_policy_label: <p>The routing policy label to apply to the VPC attachment for traffic routing decisions.</p>
+            nat_gateway_support: <p>Specifies whether to enable NAT gateway support on the VPC attachment. To enable NAT gateway support, you must also specify at least one NAT rule. If you don't specify a value, NAT gateway support is disabled. Only the core network owner can configure NAT on an attachment.</p>
+            nat_gateway_rules: <p>The NAT rules for the VPC attachment, up to 50 rules.</p>
             tags: <p>The key-value tags associated with the request.</p>
             client_token: <p>The client token associated with the request.</p>
 
@@ -1789,6 +1854,10 @@ class AsyncNetworkManagerClient:
             input_["options"] = options
         if routing_policy_label is not None:
             input_["routing_policy_label"] = routing_policy_label
+        if nat_gateway_support is not None:
+            input_["nat_gateway_support"] = nat_gateway_support
+        if nat_gateway_rules is not None:
+            input_["nat_gateway_rules"] = nat_gateway_rules
         if tags is not None:
             input_["tags"] = tags
         if client_token is None:
@@ -4349,6 +4418,10 @@ class AsyncNetworkManagerClient:
         destination_filters: Optional[
             "capo_networkmanager.types.filter_map.FilterMap"
         ] = None,
+        max_results: Optional[
+            "capo_networkmanager.types.max_results.MaxResults"
+        ] = None,
+        next_token: Optional["capo_networkmanager.types.next_token.NextToken"] = None,
     ) -> (
         "capo_networkmanager.types.get_network_routes_response.GetNetworkRoutesResponse"
     ):
@@ -4365,6 +4438,8 @@ class AsyncNetworkManagerClient:
             states: <p>The route states.</p>
             types: <p>The route types.</p>
             destination_filters: <p>Filter by route table destination. Possible Values: TRANSIT_GATEWAY_ATTACHMENT_ID, RESOURCE_ID, or RESOURCE_TYPE.</p>
+            max_results: <p>The maximum number of results to return.</p>
+            next_token: <p>The token for the next page of results.</p>
 
         Raises:
             capo_networkmanager.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -4413,6 +4488,10 @@ class AsyncNetworkManagerClient:
             input_["types"] = types
         if destination_filters is not None:
             input_["destination_filters"] = destination_filters
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -4421,6 +4500,65 @@ class AsyncNetworkManagerClient:
         )
         await response.response.aclose()
         return response.output
+
+    async def iter_get_network_routes(
+        self,
+        global_network_id: "capo_networkmanager.types.global_network_id.GlobalNetworkId",
+        route_table_identifier: "capo_networkmanager.types.route_table_identifier.RouteTableIdentifier",
+        *,
+        config_overrides: Optional[AsyncNetworkManagerClientConfig] = None,
+        exact_cidr_matches: Optional[
+            "capo_networkmanager.types.constrained_string_list.ConstrainedStringList"
+        ] = None,
+        longest_prefix_matches: Optional[
+            "capo_networkmanager.types.constrained_string_list.ConstrainedStringList"
+        ] = None,
+        subnet_of_matches: Optional[
+            "capo_networkmanager.types.constrained_string_list.ConstrainedStringList"
+        ] = None,
+        supernet_of_matches: Optional[
+            "capo_networkmanager.types.constrained_string_list.ConstrainedStringList"
+        ] = None,
+        prefix_list_ids: Optional[
+            "capo_networkmanager.types.constrained_string_list.ConstrainedStringList"
+        ] = None,
+        states: Optional[
+            "capo_networkmanager.types.route_state_list.RouteStateList"
+        ] = None,
+        types: Optional[
+            "capo_networkmanager.types.route_type_list.RouteTypeList"
+        ] = None,
+        destination_filters: Optional[
+            "capo_networkmanager.types.filter_map.FilterMap"
+        ] = None,
+        max_results: Optional[
+            "capo_networkmanager.types.max_results.MaxResults"
+        ] = None,
+        next_token: Optional["capo_networkmanager.types.next_token.NextToken"] = None,
+    ) -> "AsyncIterator[capo_networkmanager.types.network_route.NetworkRoute]":
+        _token = next_token
+        while True:
+            _response = await self.get_network_routes(
+                global_network_id,
+                route_table_identifier,
+                config_overrides=config_overrides,
+                exact_cidr_matches=exact_cidr_matches,
+                longest_prefix_matches=longest_prefix_matches,
+                subnet_of_matches=subnet_of_matches,
+                supernet_of_matches=supernet_of_matches,
+                prefix_list_ids=prefix_list_ids,
+                states=states,
+                types=types,
+                destination_filters=destination_filters,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("network_routes",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
 
     async def get_network_telemetry(
         self,
@@ -5167,6 +5305,111 @@ class AsyncNetworkManagerClient:
         await response.response.aclose()
         return response.output
 
+    async def list_attachment_nat_configurations(
+        self,
+        *,
+        config_overrides: Optional[AsyncNetworkManagerClientConfig] = None,
+        core_network_id: Optional[
+            "capo_networkmanager.types.core_network_id.CoreNetworkId"
+        ] = None,
+        attachment_id: Optional[
+            "capo_networkmanager.types.attachment_id.AttachmentId"
+        ] = None,
+        filters: Optional["capo_networkmanager.types.filter_map.FilterMap"] = None,
+        max_results: Optional[
+            "capo_networkmanager.types.max_results.MaxResults"
+        ] = None,
+        next_token: Optional["capo_networkmanager.types.next_token.NextToken"] = None,
+    ) -> "capo_networkmanager.types.list_attachment_nat_configurations_response.ListAttachmentNatConfigurationsResponse":
+        """<p>Returns the NAT configurations of core network attachments. You must specify either a core network ID or an attachment ID. Only the core network owner can list NAT configurations.</p>
+
+        Args:
+            core_network_id: <p>The ID of a core network. Returns the NAT configurations of attachments in the core network that support NAT.</p>
+            attachment_id: <p>The ID of an attachment. Returns the NAT configuration of the specified attachment. If you specify both an attachment ID and a core network ID, the attachment ID is used.</p>
+            filters: <p>The filters to apply to the results. Values for the same filter are joined with OR, and different filters are joined with AND. You can specify up to 10 filter values in total. The following filters are supported:</p> <ul> <li> <p> <code>nat-gateway-support</code>: The state of NAT gateway support on the attachment, for example <code>ENABLED</code>.</p> </li> <li> <p> <code>nat-system-route-support</code>: Whether system routes are installed for the attachment, <code>true</code> or <code>false</code>.</p> </li> <li> <p> <code>rule-number</code>: The rule number of a NAT rule.</p> </li> <li> <p> <code>match-source-cidr</code>: The source CIDR block of a NAT rule. The value must exactly match the CIDR block of the rule.</p> </li> <li> <p> <code>nat-cidr</code>: The NAT CIDR block of a NAT rule. The value must exactly match the CIDR block of the rule.</p> </li> <li> <p> <code>nat-rule-state</code>: The state of a NAT rule, for example <code>ACTIVATED</code>.</p> </li> </ul>
+            max_results: <p>The maximum number of results to return.</p>
+            next_token: <p>The token for the next page of results.</p>
+
+        Raises:
+            capo_networkmanager.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_networkmanager.errors.internal_server_exception.InternalServerException: <p>The request has failed due to an internal error.</p>
+            capo_networkmanager.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource could not be found.</p>
+            capo_networkmanager.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_networkmanager.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints.</p>
+            capo_networkmanager.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_networkmanager.types.list_attachment_nat_configurations_request.ListAttachmentNatConfigurationsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_networkmanager.types.list_attachment_nat_configurations_response.ListAttachmentNatConfigurationsResponse"
+        ]:
+            import capo_networkmanager._operations.network_manager.list_attachment_nat_configurations
+
+            (
+                output,
+                http_response,
+            ) = await capo_networkmanager._operations.network_manager.list_attachment_nat_configurations.async_list_attachment_nat_configurations(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAttachmentNatConfigurations")
+        )
+        input_: capo_networkmanager.types.list_attachment_nat_configurations_request.ListAttachmentNatConfigurationsRequest = {}
+        if core_network_id is not None:
+            input_["core_network_id"] = core_network_id
+        if attachment_id is not None:
+            input_["attachment_id"] = attachment_id
+        if filters is not None:
+            input_["filters"] = filters
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_attachment_nat_configurations(
+        self,
+        *,
+        config_overrides: Optional[AsyncNetworkManagerClientConfig] = None,
+        core_network_id: Optional[
+            "capo_networkmanager.types.core_network_id.CoreNetworkId"
+        ] = None,
+        attachment_id: Optional[
+            "capo_networkmanager.types.attachment_id.AttachmentId"
+        ] = None,
+        filters: Optional["capo_networkmanager.types.filter_map.FilterMap"] = None,
+        max_results: Optional[
+            "capo_networkmanager.types.max_results.MaxResults"
+        ] = None,
+        next_token: Optional["capo_networkmanager.types.next_token.NextToken"] = None,
+    ) -> "AsyncIterator[capo_networkmanager.types.attachment_nat_configuration.AttachmentNatConfiguration]":
+        _token = next_token
+        while True:
+            _response = await self.list_attachment_nat_configurations(
+                config_overrides=config_overrides,
+                core_network_id=core_network_id,
+                attachment_id=attachment_id,
+                filters=filters,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("attachment_nat_configurations",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
     async def list_attachment_routing_policy_associations(
         self,
         core_network_id: "capo_networkmanager.types.core_network_id.CoreNetworkId",
@@ -5673,6 +5916,18 @@ class AsyncNetworkManagerClient:
         next_hop_filters: Optional[
             "capo_networkmanager.types.filter_map.FilterMap"
         ] = None,
+        exact_prefix_matches: Optional[
+            "capo_networkmanager.types.constrained_string_list.ConstrainedStringList"
+        ] = None,
+        longest_prefix_matches: Optional[
+            "capo_networkmanager.types.constrained_string_list.ConstrainedStringList"
+        ] = None,
+        subnet_of_matches: Optional[
+            "capo_networkmanager.types.constrained_string_list.ConstrainedStringList"
+        ] = None,
+        supernet_of_matches: Optional[
+            "capo_networkmanager.types.constrained_string_list.ConstrainedStringList"
+        ] = None,
         local_preference_matches: Optional[
             "capo_networkmanager.types.constrained_string_list.ConstrainedStringList"
         ] = None,
@@ -5696,7 +5951,11 @@ class AsyncNetworkManagerClient:
             core_network_id: <p>The ID of the core network to retrieve routing information for.</p>
             segment_name: <p>The name of the segment to filter routing information by.</p>
             edge_location: <p>The edge location to filter routing information by.</p>
-            next_hop_filters: <p>Filters to apply based on next hop information.</p>
+            next_hop_filters: <p>Filters to apply based on next hop information. Each filter value must exactly match the corresponding next hop value. Values for the same filter are joined with OR, and different filters are joined with AND. The following filters are supported:</p> <ul> <li> <p> <code>core-network-attachment-id</code>: The ID of the core network attachment for the next hop, for example <code>attachment-0123456789abcdef0</code>.</p> </li> <li> <p> <code>segment-name</code>: The name of the segment for the next hop.</p> </li> <li> <p> <code>edge-location</code>: The edge location for the next hop, for example <code>us-east-1</code>.</p> </li> <li> <p> <code>resource-id</code>: The ID of the resource for the next hop.</p> </li> <li> <p> <code>resource-type</code>: The type of resource for the next hop. The possible values are <code>vpc</code>, <code>vpn</code>, <code>connect-peer</code>, <code>direct-connect-gateway</code>, <code>transit-gateway-route-table</code>, <code>attachment</code>, and <code>blackhole</code>.</p> </li> <li> <p> <code>ip-address</code>: The IP address of the next hop. For a Site-to-Site VPN next hop, this is the outside IP address of the AWS side of the VPN tunnel. For a Connect peer next hop, this is the core network BGP address of the Connect peer. The value must be a single IPv4 or IPv6 address.</p> </li> </ul> <p>You can specify up to 10 filter values in total across <code>NextHopFilters</code> and the other match parameters in the request. Each filter value can be up to 256 characters.</p>
+            exact_prefix_matches: <p>Exact prefix values to match when filtering routing information.</p>
+            longest_prefix_matches: <p>Filters routing information based on the longest prefix that matches each provided IP address.</p>
+            subnet_of_matches: <p>Prefix values to filter routing information whose prefix is a subnet of the prefixes provided.</p>
+            supernet_of_matches: <p>Prefix values to filter routing information whose prefix is a supernet of the prefixes provided.</p>
             local_preference_matches: <p>Local preference values to match when filtering routing information.</p>
             exact_as_path_matches: <p>Exact AS path values to match when filtering routing information.</p>
             med_matches: <p>Multi-Exit Discriminator (MED) values to match when filtering routing information.</p>
@@ -5738,6 +5997,14 @@ class AsyncNetworkManagerClient:
         }
         if next_hop_filters is not None:
             input_["next_hop_filters"] = next_hop_filters
+        if exact_prefix_matches is not None:
+            input_["exact_prefix_matches"] = exact_prefix_matches
+        if longest_prefix_matches is not None:
+            input_["longest_prefix_matches"] = longest_prefix_matches
+        if subnet_of_matches is not None:
+            input_["subnet_of_matches"] = subnet_of_matches
+        if supernet_of_matches is not None:
+            input_["supernet_of_matches"] = supernet_of_matches
         if local_preference_matches is not None:
             input_["local_preference_matches"] = local_preference_matches
         if exact_as_path_matches is not None:
@@ -5769,6 +6036,18 @@ class AsyncNetworkManagerClient:
         next_hop_filters: Optional[
             "capo_networkmanager.types.filter_map.FilterMap"
         ] = None,
+        exact_prefix_matches: Optional[
+            "capo_networkmanager.types.constrained_string_list.ConstrainedStringList"
+        ] = None,
+        longest_prefix_matches: Optional[
+            "capo_networkmanager.types.constrained_string_list.ConstrainedStringList"
+        ] = None,
+        subnet_of_matches: Optional[
+            "capo_networkmanager.types.constrained_string_list.ConstrainedStringList"
+        ] = None,
+        supernet_of_matches: Optional[
+            "capo_networkmanager.types.constrained_string_list.ConstrainedStringList"
+        ] = None,
         local_preference_matches: Optional[
             "capo_networkmanager.types.constrained_string_list.ConstrainedStringList"
         ] = None,
@@ -5794,6 +6073,10 @@ class AsyncNetworkManagerClient:
                 edge_location,
                 config_overrides=config_overrides,
                 next_hop_filters=next_hop_filters,
+                exact_prefix_matches=exact_prefix_matches,
+                longest_prefix_matches=longest_prefix_matches,
+                subnet_of_matches=subnet_of_matches,
+                supernet_of_matches=supernet_of_matches,
                 local_preference_matches=local_preference_matches,
                 exact_as_path_matches=exact_as_path_matches,
                 med_matches=med_matches,
@@ -6728,6 +7011,83 @@ class AsyncNetworkManagerClient:
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
         }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def update_attachment_nat_configuration(
+        self,
+        attachment_id: "capo_networkmanager.types.attachment_id.AttachmentId",
+        *,
+        config_overrides: Optional[AsyncNetworkManagerClientConfig] = None,
+        nat_gateway_support: Optional[
+            "capo_networkmanager.types.nat_gateway_support_value.NatGatewaySupportValue"
+        ] = None,
+        nat_system_route_support: Optional[
+            "capo_networkmanager.types.boxed_boolean.BoxedBoolean"
+        ] = None,
+        nat_gateway_rules: Optional[
+            "capo_networkmanager.types.nat_rule_request_list.NatRuleRequestList"
+        ] = None,
+        client_token: Optional[
+            "capo_networkmanager.types.client_token.ClientToken"
+        ] = None,
+    ) -> "capo_networkmanager.types.update_attachment_nat_configuration_response.UpdateAttachmentNatConfigurationResponse":
+        """<p>Updates the NAT configuration of a core network attachment. You can enable or disable NAT gateway support, specify whether the core network installs system routes for the NAT CIDR blocks, and replace the NAT rules of the attachment. Specify at least one of <code>NatGatewaySupport</code>, <code>NatSystemRouteSupport</code>, or <code>NatGatewayRules</code>.</p> <p>Only the core network owner can update the NAT configuration of an attachment. The attachment must be in the <code>AVAILABLE</code>, <code>PENDING_ATTACHMENT_ACCEPTANCE</code>, or <code>PENDING_TAG_ACCEPTANCE</code> state. Changes are applied asynchronously, and the attachment is in the <code>UPDATING</code> state while they are applied. If the attachment is pending acceptance, the NAT configuration is stored and is applied after the attachment is accepted.</p>
+
+        Args:
+            attachment_id: <p>The ID of the attachment to update the NAT configuration for.</p>
+            nat_gateway_support: <p>Specifies whether to enable or disable NAT gateway support on the attachment. When you disable NAT gateway support, the attachment keeps its NAT rules but doesn't apply them. To enable NAT gateway support, the attachment must have at least one NAT rule, either specified in this request or already configured on the attachment. If you omit this parameter, NAT gateway support is unchanged.</p>
+            nat_system_route_support: <p>Specifies whether the core network installs system routes for the NAT CIDR blocks of the attachment's NAT rules. System routes have a route type of <code>SYSTEM</code>. NAT is applied to traffic whether or not this option is enabled. If you omit this parameter, the current value is unchanged.</p>
+            nat_gateway_rules: <p>The complete set of NAT rules for the attachment, up to 50 rules. The rules that you specify replace the existing rules of the attachment, matched by rule number. Existing rules that aren't included in the request are deleted. To delete all NAT rules, specify an empty list. You can delete all NAT rules only when NAT gateway support is disabled, or when you disable it in the same request. If you omit this parameter, the existing rules are unchanged.</p>
+            client_token: <p>The client token associated with the request.</p>
+
+        Raises:
+            capo_networkmanager.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_networkmanager.errors.conflict_exception.ConflictException: <p>There was a conflict processing the request. Updating or deleting the resource can cause an inconsistent state.</p>
+            capo_networkmanager.errors.internal_server_exception.InternalServerException: <p>The request has failed due to an internal error.</p>
+            capo_networkmanager.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource could not be found.</p>
+            capo_networkmanager.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>A service limit was exceeded.</p>
+            capo_networkmanager.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_networkmanager.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints.</p>
+            capo_networkmanager.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_networkmanager.types.update_attachment_nat_configuration_request.UpdateAttachmentNatConfigurationRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_networkmanager.types.update_attachment_nat_configuration_response.UpdateAttachmentNatConfigurationResponse"
+        ]:
+            import capo_networkmanager._operations.network_manager.update_attachment_nat_configuration
+
+            (
+                output,
+                http_response,
+            ) = await capo_networkmanager._operations.network_manager.update_attachment_nat_configuration.async_update_attachment_nat_configuration(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAttachmentNatConfiguration")
+        )
+        input_: capo_networkmanager.types.update_attachment_nat_configuration_request.UpdateAttachmentNatConfigurationRequest = {
+            "attachment_id": attachment_id
+        }
+        if nat_gateway_support is not None:
+            input_["nat_gateway_support"] = nat_gateway_support
+        if nat_system_route_support is not None:
+            input_["nat_system_route_support"] = nat_system_route_support
+        if nat_gateway_rules is not None:
+            input_["nat_gateway_rules"] = nat_gateway_rules
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

@@ -10,6 +10,8 @@ if TYPE_CHECKING:
     import capo_networkmanager.types.constrained_string_list
     import capo_networkmanager.types.filter_map
     import capo_networkmanager.types.global_network_id
+    import capo_networkmanager.types.max_results
+    import capo_networkmanager.types.next_token
     import capo_networkmanager.types.route_state_list
     import capo_networkmanager.types.route_table_identifier
     import capo_networkmanager.types.route_type_list
@@ -48,6 +50,10 @@ class GetNetworkRoutesRequest(TypedDict, closed=True):
     """<p>The route types.</p>"""
     destination_filters: NotRequired["capo_networkmanager.types.filter_map.FilterMap"]
     """<p>Filter by route table destination. Possible Values: TRANSIT_GATEWAY_ATTACHMENT_ID, RESOURCE_ID, or RESOURCE_TYPE.</p>"""
+    max_results: NotRequired["capo_networkmanager.types.max_results.MaxResults"]
+    """<p>The maximum number of results to return.</p>"""
+    next_token: NotRequired["capo_networkmanager.types.next_token.NextToken"]
+    """<p>The token for the next page of results.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -118,6 +124,10 @@ def serialize_json(value: GetNetworkRoutesRequest) -> dict:
         out["DestinationFilters"] = capo_networkmanager.types.filter_map.serialize_json(
             value["destination_filters"]
         )
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
     return out
 
 
@@ -195,4 +205,8 @@ def deserialize_json(data: dict) -> GetNetworkRoutesRequest:
                 data["DestinationFilters"]
             )
         )
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
     return out

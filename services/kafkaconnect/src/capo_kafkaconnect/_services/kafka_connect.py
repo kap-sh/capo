@@ -83,8 +83,12 @@ if TYPE_CHECKING:
     import capo_kafkaconnect.types.log_delivery
     import capo_kafkaconnect.types.max_results
     import capo_kafkaconnect.types.network_type
+    import capo_kafkaconnect.types.pause_connector_request
+    import capo_kafkaconnect.types.pause_connector_response
     import capo_kafkaconnect.types.restart_connector_request
     import capo_kafkaconnect.types.restart_connector_response
+    import capo_kafkaconnect.types.resume_connector_request
+    import capo_kafkaconnect.types.resume_connector_response
     import capo_kafkaconnect.types.tag_key_list
     import capo_kafkaconnect.types.tag_resource_request
     import capo_kafkaconnect.types.tag_resource_response
@@ -1244,6 +1248,58 @@ class KafkaConnectClient:
             if not _token:
                 break
 
+    def pause_connector(
+        self,
+        connector_arn: "capo_kafkaconnect.types.__string.__string",
+        *,
+        config_overrides: Optional[KafkaConnectClientConfig] = None,
+    ) -> "capo_kafkaconnect.types.pause_connector_response.PauseConnectorResponse":
+        """<p>Pauses the specified connector. The operation runs asynchronously. To track the pause, pass the connector operation ARN from the response to <code>DescribeConnectorOperation</code>.</p>
+
+        Args:
+            connector_arn: <p>The Amazon Resource Name (ARN) of the connector that you want to pause.</p>
+
+        Raises:
+            capo_kafkaconnect.errors.bad_request_exception.BadRequestException: <p>HTTP Status Code 400: Bad request due to incorrect input. Correct your request and then retry it.</p>
+            capo_kafkaconnect.errors.conflict_exception.ConflictException: <p>HTTP Status Code 409: Conflict. A resource with this name already exists. Retry your request with another name.</p>
+            capo_kafkaconnect.errors.forbidden_exception.ForbiddenException: <p>HTTP Status Code 403: Access forbidden. Correct your credentials and then retry your request.</p>
+            capo_kafkaconnect.errors.internal_server_error_exception.InternalServerErrorException: <p>HTTP Status Code 500: Unexpected internal server error. Retrying your request might resolve the issue.</p>
+            capo_kafkaconnect.errors.not_found_exception.NotFoundException: <p>HTTP Status Code 404: Resource not found due to incorrect input. Correct your request and then retry it.</p>
+            capo_kafkaconnect.errors.service_unavailable_exception.ServiceUnavailableException: <p>HTTP Status Code 503: Service Unavailable. Retrying your request in some time might resolve the issue.</p>
+            capo_kafkaconnect.errors.too_many_requests_exception.TooManyRequestsException: <p>HTTP Status Code 429: Limit exceeded. Resource limit reached.</p>
+            capo_kafkaconnect.errors.unauthorized_exception.UnauthorizedException: <p>HTTP Status Code 401: Unauthorized request. The provided credentials couldn't be validated.</p>
+            capo_kafkaconnect.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_kafkaconnect.types.pause_connector_request.PauseConnectorRequest]",
+        ) -> OperationResponse[
+            "capo_kafkaconnect.types.pause_connector_response.PauseConnectorResponse"
+        ]:
+            import capo_kafkaconnect._operations.kafka_connect.pause_connector
+
+            output, http_response = (
+                capo_kafkaconnect._operations.kafka_connect.pause_connector.pause_connector(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PauseConnector")
+        )
+        input_: capo_kafkaconnect.types.pause_connector_request.PauseConnectorRequest = {
+            "connector_arn": connector_arn
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def restart_connector(
         self,
         connector_arn: "capo_kafkaconnect.types.__string.__string",
@@ -1292,6 +1348,58 @@ class KafkaConnectClient:
         }
         if only_failed_tasks is not None:
             input_["only_failed_tasks"] = only_failed_tasks
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def resume_connector(
+        self,
+        connector_arn: "capo_kafkaconnect.types.__string.__string",
+        *,
+        config_overrides: Optional[KafkaConnectClientConfig] = None,
+    ) -> "capo_kafkaconnect.types.resume_connector_response.ResumeConnectorResponse":
+        """<p>Resumes the specified paused connector. The operation runs asynchronously. To track the resume, pass the connector operation ARN from the response to <code>DescribeConnectorOperation</code>.</p>
+
+        Args:
+            connector_arn: <p>The Amazon Resource Name (ARN) of the connector that you want to resume.</p>
+
+        Raises:
+            capo_kafkaconnect.errors.bad_request_exception.BadRequestException: <p>HTTP Status Code 400: Bad request due to incorrect input. Correct your request and then retry it.</p>
+            capo_kafkaconnect.errors.conflict_exception.ConflictException: <p>HTTP Status Code 409: Conflict. A resource with this name already exists. Retry your request with another name.</p>
+            capo_kafkaconnect.errors.forbidden_exception.ForbiddenException: <p>HTTP Status Code 403: Access forbidden. Correct your credentials and then retry your request.</p>
+            capo_kafkaconnect.errors.internal_server_error_exception.InternalServerErrorException: <p>HTTP Status Code 500: Unexpected internal server error. Retrying your request might resolve the issue.</p>
+            capo_kafkaconnect.errors.not_found_exception.NotFoundException: <p>HTTP Status Code 404: Resource not found due to incorrect input. Correct your request and then retry it.</p>
+            capo_kafkaconnect.errors.service_unavailable_exception.ServiceUnavailableException: <p>HTTP Status Code 503: Service Unavailable. Retrying your request in some time might resolve the issue.</p>
+            capo_kafkaconnect.errors.too_many_requests_exception.TooManyRequestsException: <p>HTTP Status Code 429: Limit exceeded. Resource limit reached.</p>
+            capo_kafkaconnect.errors.unauthorized_exception.UnauthorizedException: <p>HTTP Status Code 401: Unauthorized request. The provided credentials couldn't be validated.</p>
+            capo_kafkaconnect.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_kafkaconnect.types.resume_connector_request.ResumeConnectorRequest]",
+        ) -> OperationResponse[
+            "capo_kafkaconnect.types.resume_connector_response.ResumeConnectorResponse"
+        ]:
+            import capo_kafkaconnect._operations.kafka_connect.resume_connector
+
+            output, http_response = (
+                capo_kafkaconnect._operations.kafka_connect.resume_connector.resume_connector(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResumeConnector")
+        )
+        input_: capo_kafkaconnect.types.resume_connector_request.ResumeConnectorRequest = {
+            "connector_arn": connector_arn
+        }
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -1422,12 +1530,16 @@ class KafkaConnectClient:
         connector_configuration: Optional[
             "capo_kafkaconnect.types.connector_configuration_update.ConnectorConfigurationUpdate"
         ] = None,
+        skip_health_validation: Optional[
+            "capo_kafkaconnect.types.__boolean.__boolean"
+        ] = None,
     ) -> "capo_kafkaconnect.types.update_connector_response.UpdateConnectorResponse":
         """<p>Updates the specified connector. For request body, specify only one parameter: either <code>capacity</code> or <code>connectorConfiguration</code>.</p>
 
         Args:
             capacity: <p>The target capacity.</p>
             connector_configuration: <p>A map of keys to values that represent the configuration for the connector.</p>
+            skip_health_validation: <p>Specifies whether the update bypasses connector-level and task-level health checks. If <code>true</code>, the update skips the health checks. The update stays in effect even if the connector or its tasks are unhealthy, and Amazon MSK Connect doesn't roll it back. If <code>false</code> or not specified, the health checks run. If they fail, MSK Connect automatically rolls the connector back to its previous configuration, and the update doesn't take effect. To update a connector that is in the <code>PAUSED</code> state, you must set this parameter to <code>true</code>.</p>
             connector_arn: <p>The Amazon Resource Name (ARN) of the connector that you want to update.</p>
             current_version: <p>The current version of the connector that you want to update.</p>
 
@@ -1477,6 +1589,8 @@ class KafkaConnectClient:
             input_["capacity"] = capacity
         if connector_configuration is not None:
             input_["connector_configuration"] = connector_configuration
+        if skip_health_validation is not None:
+            input_["skip_health_validation"] = skip_health_validation
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

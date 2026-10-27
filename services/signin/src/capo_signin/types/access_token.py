@@ -5,11 +5,11 @@ from typing_extensions import TypedDict
 
 class AccessToken(TypedDict, closed=True):
     access_key_id: "str"
-    """AWS access key ID for temporary credentials"""
+    """The AWS access key ID for the temporary credentials."""
     secret_access_key: "str"
-    """AWS secret access key for temporary credentials"""
+    """The AWS secret access key used to sign requests."""
     session_token: "str"
-    """AWS session token for temporary credentials"""
+    """The session token that validates the temporary security credentials."""
 
 
 # --- restJson1 ser/de ---

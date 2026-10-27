@@ -21,9 +21,9 @@ if TYPE_CHECKING:
 
 class CreateQueueRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the farm to connect to the queue.</p>"""
+    """The farm ID of the farm to connect to the queue."""
     client_token: NotRequired["capo_deadline.types.client_token.ClientToken"]
-    """<p>The unique token which the server uses to recognize retries of the same request.</p>"""
+    """The unique token which the server uses to recognize retries of the same request."""
     display_name: "capo_deadline.types.resource_name.ResourceName"
     """<p>The display name of the queue.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     description: NotRequired["capo_deadline.types.description.Description"]
@@ -31,29 +31,29 @@ class CreateQueueRequest(TypedDict, closed=True):
     default_budget_action: NotRequired[
         "capo_deadline.types.default_queue_budget_action.DefaultQueueBudgetAction"
     ]
-    """<p>The default action to take on a queue if a budget isn't configured.</p>"""
+    """The default action to take on a queue if a budget isn't configured."""
     job_attachment_settings: NotRequired[
         "capo_deadline.types.job_attachment_settings.JobAttachmentSettings"
     ]
-    """<p>The job attachment settings for the queue. These are the Amazon S3 bucket name and the Amazon S3 prefix.</p>"""
+    """The job attachment settings for the queue. These are the Amazon S3 bucket name and the Amazon S3 prefix."""
     role_arn: NotRequired["capo_deadline.types.iam_role_arn.IamRoleArn"]
-    """<p>The IAM role ARN that workers will use while running jobs for this queue.</p>"""
+    """The IAM role ARN that workers will use while running jobs for this queue."""
     job_run_as_user: NotRequired["capo_deadline.types.job_run_as_user.JobRunAsUser"]
-    """<p>The jobs in the queue run as the specified POSIX user.</p>"""
+    """The jobs in the queue run as the specified POSIX user."""
     required_file_system_location_names: NotRequired[
         "capo_deadline.types.required_file_system_location_names.RequiredFileSystemLocationNames"
     ]
-    """<p>The file system location name to include in the queue.</p>"""
+    """The file system location name to include in the queue."""
     allowed_storage_profile_ids: NotRequired[
         "capo_deadline.types.allowed_storage_profile_ids.AllowedStorageProfileIds"
     ]
-    """<p>The storage profile IDs to include in the queue.</p>"""
+    """The storage profile IDs to include in the queue."""
     tags: NotRequired["capo_deadline.types.tags.Tags"]
-    """<p>Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings.</p>"""
+    """Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings."""
     scheduling_configuration: NotRequired[
         "capo_deadline.types.scheduling_configuration.SchedulingConfiguration"
     ]
-    """<p>The scheduling configuration for the queue. This configuration determines how workers are assigned to jobs in the queue.</p> <p>If not specified, the queue defaults to the <code>priorityFifo</code> scheduling configuration.</p>"""
+    """The scheduling configuration for the queue. This configuration determines how workers are assigned to jobs in the queue. If not specified, the queue defaults to the <code>priorityFifo</code> scheduling configuration."""
 
 
 # --- restJson1 ser/de ---

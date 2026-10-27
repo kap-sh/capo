@@ -14,15 +14,15 @@ if TYPE_CHECKING:
 
 class BatchGetTaskIdentifier(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the task.</p>"""
+    """The farm ID of the task."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID of the task.</p>"""
+    """The queue ID of the task."""
     job_id: "capo_deadline.types.job_id.JobId"
-    """<p>The job ID of the task.</p>"""
+    """The job ID of the task."""
     step_id: "capo_deadline.types.step_id.StepId"
-    """<p>The step ID of the task.</p>"""
+    """The step ID of the task."""
     task_id: "capo_deadline.types.task_id.TaskId"
-    """<p>The task ID.</p>"""
+    """The task ID."""
 
 
 # --- restJson1 ser/de ---

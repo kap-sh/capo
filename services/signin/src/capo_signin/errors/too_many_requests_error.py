@@ -13,9 +13,9 @@ if TYPE_CHECKING:
 
 class TooManyRequestsError_(TypedDict, closed=True):
     error: "capo_signin.types.o_auth2_error_code.OAuth2ErrorCode"
-    """OAuth 2.0 error code indicating the specific type of error Will be INVALID_REQUEST for rate limiting scenarios"""
+    """Will be rate_exceeded."""
     message: "str"
-    """Detailed message about the rate limiting May include retry-after information or rate limit details"""
+    """Details about the rate limit."""
 
 
 # --- restJson1 ser/de ---

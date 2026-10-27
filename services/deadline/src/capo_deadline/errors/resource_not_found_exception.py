@@ -15,11 +15,11 @@ if TYPE_CHECKING:
 class ResourceNotFoundException_(TypedDict, closed=True):
     message: "capo_deadline.types.string.String"
     resource_id: "capo_deadline.types.string.String"
-    """<p>The identifier of the resource that couldn't be found.</p>"""
+    """The identifier of the resource that couldn't be found."""
     resource_type: "capo_deadline.types.string.String"
-    """<p>The type of the resource that couldn't be found.</p>"""
+    """The type of the resource that couldn't be found."""
     context: NotRequired["capo_deadline.types.exception_context.ExceptionContext"]
-    """<p>Information about the resources in use when the exception was thrown.</p>"""
+    """Information about the resources in use when the exception was thrown."""
 
 
 # --- restJson1 ser/de ---

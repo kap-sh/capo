@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class DeleteLicenseEndpointRequest(TypedDict, closed=True):
     license_endpoint_id: "capo_deadline.types.license_endpoint_id.LicenseEndpointId"
-    """<p>The license endpoint ID of the license endpoint to delete.</p>"""
+    """The license endpoint ID of the license endpoint to delete."""
 
 
 # --- restJson1 ser/de ---

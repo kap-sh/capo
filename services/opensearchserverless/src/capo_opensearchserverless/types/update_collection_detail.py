@@ -30,6 +30,8 @@ class UpdateCollectionDetail(TypedDict, closed=True):
         "capo_opensearchserverless.types.vector_options.VectorOptions"
     ]
     """<p>Configuration options for vector search capabilities in the collection.</p>"""
+    kms_key_arn: NotRequired["str"]
+    """<p>The Amazon Resource Name (ARN) of the Amazon Web Services Key Management Service (Amazon Web Services KMS) key used to encrypt the collection.</p>"""
     arn: NotRequired["str"]
     """<p>The Amazon Resource Name (ARN) of the collection.</p>"""
     created_date: NotRequired["int"]
@@ -63,6 +65,8 @@ def serialize_aws_json_1_0(value: UpdateCollectionDetail) -> dict:
                 value["vector_options"]
             )
         )
+    if "kms_key_arn" in value:
+        out["kmsKeyArn"] = value["kms_key_arn"]
     if "arn" in value:
         out["arn"] = value["arn"]
     if "created_date" in value:
@@ -94,6 +98,8 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateCollectionDetail:
                 data["vectorOptions"]
             )
         )
+    if data.get("kmsKeyArn") is not None:
+        out["kms_key_arn"] = data["kmsKeyArn"]
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     if data.get("createdDate") is not None:

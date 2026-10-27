@@ -16,17 +16,17 @@ if TYPE_CHECKING:
 class ServiceQuotaExceededException_(TypedDict, closed=True):
     message: "capo_deadline.types.string.String"
     reason: "capo_deadline.types.service_quota_exceeded_exception_reason.ServiceQuotaExceededExceptionReason"
-    """<p>A string that describes the reason the quota was exceeded.</p>"""
+    """A string that describes the reason the quota was exceeded."""
     resource_type: "capo_deadline.types.string.String"
-    """<p>The type of the affected resource</p>"""
+    """The type of the affected resource"""
     service_code: "capo_deadline.types.string.String"
-    """<p>Identifies the service that exceeded the quota.</p>"""
+    """Identifies the service that exceeded the quota."""
     quota_code: "capo_deadline.types.string.String"
-    """<p>Identifies the quota that has been exceeded.</p>"""
+    """Identifies the quota that has been exceeded."""
     resource_id: NotRequired["capo_deadline.types.string.String"]
-    """<p>The identifier of the affected resource.</p>"""
+    """The identifier of the affected resource."""
     context: NotRequired["capo_deadline.types.exception_context.ExceptionContext"]
-    """<p>Information about the resources in use when the exception was thrown.</p>"""
+    """Information about the resources in use when the exception was thrown."""
 
 
 # --- restJson1 ser/de ---

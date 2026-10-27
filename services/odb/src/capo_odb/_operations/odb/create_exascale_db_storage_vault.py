@@ -14,6 +14,7 @@ import capo_odb._protocol.eventstream
 import capo_odb.errors.access_denied_exception
 import capo_odb.errors.conflict_exception
 import capo_odb.errors.internal_server_exception
+import capo_odb.errors.resource_not_found_exception
 import capo_odb.errors.service_quota_exceeded_exception
 import capo_odb.errors.throttling_exception
 import capo_odb.errors.validation_exception
@@ -45,6 +46,10 @@ def handle_error(response: zapros.Response) -> Never:
             )
         case "InternalServerException":
             raise capo_odb.errors.internal_server_exception.InternalServerException.from_aws_json_1_0(
+                data, message, response=response
+            )
+        case "ResourceNotFoundException":
+            raise capo_odb.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_0(
                 data, message, response=response
             )
         case "ServiceQuotaExceededException":

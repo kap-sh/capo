@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_opensearchserverless.types.client_token
     import capo_opensearchserverless.types.collection_id
     import capo_opensearchserverless.types.deletion_protection
+    import capo_opensearchserverless.types.encryption_config
     import capo_opensearchserverless.types.vector_options
 
 
@@ -24,6 +25,9 @@ class UpdateCollectionRequest(TypedDict, closed=True):
         "capo_opensearchserverless.types.deletion_protection.DeletionProtection"
     ]
     """<p>Indicates whether to enable or disable deletion protection for the collection. When set to <code>ENABLED</code>, the collection cannot be deleted.</p>"""
+    encryption_config: NotRequired[
+        "capo_opensearchserverless.types.encryption_config.EncryptionConfig"
+    ]
     client_token: NotRequired[
         "capo_opensearchserverless.types.client_token.ClientToken"
     ]
@@ -46,6 +50,14 @@ def serialize_aws_json_1_0(value: UpdateCollectionRequest) -> dict:
         )
     if "deletion_protection" in value:
         out["deletionProtection"] = value["deletion_protection"]
+    if "encryption_config" in value:
+        import capo_opensearchserverless.types.encryption_config
+
+        out["encryptionConfig"] = (
+            capo_opensearchserverless.types.encryption_config.serialize_aws_json_1_0(
+                value["encryption_config"]
+            )
+        )
     if "client_token" in value:
         out["clientToken"] = value["client_token"]
     return out
@@ -69,6 +81,14 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateCollectionRequest:
         )
     if data.get("deletionProtection") is not None:
         out["deletion_protection"] = data["deletionProtection"]
+    if data.get("encryptionConfig") is not None:
+        import capo_opensearchserverless.types.encryption_config
+
+        out["encryption_config"] = (
+            capo_opensearchserverless.types.encryption_config.deserialize_aws_json_1_0(
+                data["encryptionConfig"]
+            )
+        )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class UntagResourceRequest(TypedDict, closed=True):
     resource_arn: "capo_deadline.types.string.String"
-    """<p>The ARN of the resource to remove the tag from.</p>"""
+    """The ARN of the resource to remove the tag from."""
     tag_keys: "capo_deadline.types.string_list.StringList"
-    """<p>They keys of the tag.</p>"""
+    """They keys of the tag."""
 
 
 # --- restJson1 ser/de ---

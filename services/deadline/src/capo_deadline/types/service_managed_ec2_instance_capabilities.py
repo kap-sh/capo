@@ -21,41 +21,41 @@ if TYPE_CHECKING:
 
 class ServiceManagedEc2InstanceCapabilities(TypedDict, closed=True):
     v_cpu_count: "capo_deadline.types.v_cpu_count_range.VCpuCountRange"
-    """<p>The amount of vCPU to require for instances in this fleet.</p>"""
+    """The amount of vCPU to require for instances in this fleet."""
     memory_mi_b: "capo_deadline.types.memory_mi_b_range.MemoryMiBRange"
-    """<p>The memory, as MiB, for the Amazon EC2 instance type.</p>"""
+    """The memory, as MiB, for the Amazon EC2 instance type."""
     os_family: "capo_deadline.types.service_managed_fleet_operating_system_family.ServiceManagedFleetOperatingSystemFamily"
-    """<p>The operating system (OS) family.</p>"""
+    """The operating system (OS) family."""
     cpu_architecture_type: (
         "capo_deadline.types.cpu_architecture_type.CpuArchitectureType"
     )
-    """<p>The CPU architecture type.</p>"""
+    """The CPU architecture type."""
     root_ebs_volume: NotRequired["capo_deadline.types.ec2_ebs_volume.Ec2EbsVolume"]
-    """<p>The root EBS volume.</p>"""
+    """The root EBS volume."""
     accelerator_capabilities: NotRequired[
         "capo_deadline.types.accelerator_capabilities.AcceleratorCapabilities"
     ]
-    """<p>Describes the GPU accelerator capabilities required for worker host instances in this fleet.</p>"""
+    """Describes the GPU accelerator capabilities required for worker host instances in this fleet."""
     allowed_instance_types: NotRequired[
         "capo_deadline.types.instance_types.InstanceTypes"
     ]
-    """<p>The allowable Amazon EC2 instance types.</p>"""
+    """<p>The allowable Amazon EC2 instance types.</p> <note> <p>If you specify <code>allowedInstanceTypes</code>, you can't specify <code>excludedInstanceTypes</code>.</p> </note>"""
     excluded_instance_types: NotRequired[
         "capo_deadline.types.instance_types.InstanceTypes"
     ]
-    """<p>The instance types to exclude from the fleet.</p>"""
+    """<p>The instance types to exclude from the fleet.</p> <note> <p>If you specify <code>excludedInstanceTypes</code>, you can't specify <code>allowedInstanceTypes</code>.</p> </note>"""
     custom_amounts: NotRequired[
         "capo_deadline.types.custom_fleet_amount_capabilities.CustomFleetAmountCapabilities"
     ]
-    """<p>The custom capability amounts to require for instances in this fleet.</p>"""
+    """The custom capability amounts to require for instances in this fleet."""
     custom_attributes: NotRequired[
         "capo_deadline.types.custom_fleet_attribute_capabilities.CustomFleetAttributeCapabilities"
     ]
-    """<p>The custom capability attributes to require for instances in this fleet.</p>"""
+    """The custom capability attributes to require for instances in this fleet."""
     software_add_ons: NotRequired[
         "capo_deadline.types.fleet_software_add_ons.FleetSoftwareAddOns"
     ]
-    """<p>The software add-ons that the service installs on worker hosts when they launch.</p>"""
+    """The software add-ons that the service installs on worker hosts when they launch."""
 
 
 # --- restJson1 ser/de ---

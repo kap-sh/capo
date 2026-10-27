@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class GetLimitRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The unique identifier of the farm that contains the limit.</p>"""
+    """The unique identifier of the farm that contains the limit."""
     limit_id: "capo_deadline.types.limit_id.LimitId"
-    """<p>The unique identifier of the limit to return.</p>"""
+    """The unique identifier of the limit to return."""
 
 
 # --- restJson1 ser/de ---

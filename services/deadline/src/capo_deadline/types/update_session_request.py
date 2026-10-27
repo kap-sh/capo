@@ -15,17 +15,17 @@ if TYPE_CHECKING:
 
 class UpdateSessionRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID to update in the session.</p>"""
+    """The farm ID to update in the session."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID to update in the session.</p>"""
+    """The queue ID to update in the session."""
     job_id: "capo_deadline.types.job_id.JobId"
-    """<p>The job ID to update in the session.</p>"""
+    """The job ID to update in the session."""
     session_id: "capo_deadline.types.session_id.SessionId"
-    """<p>The session ID to update.</p>"""
+    """The session ID to update."""
     client_token: NotRequired["capo_deadline.types.client_token.ClientToken"]
-    """<p>The unique token which the server uses to recognize retries of the same request.</p>"""
+    """The unique token which the server uses to recognize retries of the same request."""
     target_lifecycle_status: "capo_deadline.types.session_lifecycle_target_status.SessionLifecycleTargetStatus"
-    """<p>The life cycle status to update in the session.</p>"""
+    """The life cycle status to update in the session."""
 
 
 # --- restJson1 ser/de ---

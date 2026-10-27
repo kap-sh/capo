@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class CreateQueueEnvironmentResponse(TypedDict, closed=True):
     queue_environment_id: "capo_deadline.types.queue_environment_id.QueueEnvironmentId"
-    """<p>The queue environment ID.</p>"""
+    """The queue environment ID."""
 
 
 # --- restJson1 ser/de ---

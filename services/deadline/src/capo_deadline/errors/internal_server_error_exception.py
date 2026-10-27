@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 class InternalServerErrorException_(TypedDict, closed=True):
     message: "capo_deadline.types.string.String"
     retry_after_seconds: NotRequired["capo_deadline.types.integer.Integer"]
-    """<p>The number of seconds a client should wait before retrying the request.</p>"""
+    """The number of seconds a client should wait before retrying the request."""
 
 
 # --- restJson1 ser/de ---

@@ -13,9 +13,11 @@ import capo_odb._auth._sigv4
 import capo_odb._protocol.eventstream
 import capo_odb.errors.access_denied_exception
 import capo_odb.errors.internal_server_exception
+import capo_odb.errors.resource_not_found_exception
 import capo_odb.errors.throttling_exception
 import capo_odb.errors.validation_exception
 import capo_odb.types.exascale_db_storage_vault_list
+import capo_odb.types.exascale_db_storage_vault_type
 import capo_odb.types.list_exascale_db_storage_vaults_input
 import capo_odb.types.list_exascale_db_storage_vaults_output
 from capo_odb._protocol.errors import parse_error_metadata_json
@@ -38,6 +40,10 @@ def handle_error(response: zapros.Response) -> Never:
             )
         case "InternalServerException":
             raise capo_odb.errors.internal_server_exception.InternalServerException.from_aws_json_1_0(
+                data, message, response=response
+            )
+        case "ResourceNotFoundException":
+            raise capo_odb.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_0(
                 data, message, response=response
             )
         case "ThrottlingException":

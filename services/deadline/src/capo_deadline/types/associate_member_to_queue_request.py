@@ -16,21 +16,21 @@ if TYPE_CHECKING:
 
 class AssociateMemberToQueueRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the queue to associate with the member.</p>"""
+    """The farm ID of the queue to associate with the member."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The ID of the queue to associate to the member.</p>"""
+    """The ID of the queue to associate to the member."""
     principal_type: "capo_deadline.types.deadline_principal_type.DeadlinePrincipalType"
-    """<p>The member's principal type to associate with the queue.</p>"""
+    """The member's principal type to associate with the queue."""
     identity_store_id: "capo_deadline.types.identity_store_id.IdentityStoreId"
-    """<p>The member's identity store ID to associate with the queue.</p>"""
+    """The member's identity store ID to associate with the queue."""
     membership_level: "capo_deadline.types.membership_level.MembershipLevel"
-    """<p>The principal's membership level for the associated queue.</p>"""
+    """The principal's membership level for the associated queue."""
     principal_id: (
         "capo_deadline.types.identity_center_principal_id.IdentityCenterPrincipalId"
     )
-    """<p>The member's principal ID to associate with the queue.</p>"""
+    """The member's principal ID to associate with the queue."""
     identity_center_region: NotRequired["capo_deadline.types.region.Region"]
-    """<p>The Region of the IAM Identity Center instance. If not provided, the service defaults to the Region of the farm.</p>"""
+    """The Region of the IAM Identity Center instance. If not provided, the service defaults to the Region of the farm."""
 
 
 # --- restJson1 ser/de ---

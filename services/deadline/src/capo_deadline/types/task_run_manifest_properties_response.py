@@ -10,9 +10,9 @@ if TYPE_CHECKING:
 
 class TaskRunManifestPropertiesResponse(TypedDict, closed=True):
     output_manifest_path: NotRequired["capo_deadline.types.string.String"]
-    """<p>The manifest file path.</p>"""
+    """The manifest file path."""
     output_manifest_hash: NotRequired["capo_deadline.types.string.String"]
-    """<p>The hash value of the file.</p>"""
+    """The hash value of the file."""
 
 
 # --- restJson1 ser/de ---

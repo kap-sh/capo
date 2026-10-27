@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import capo_ivs.types.channel_ad_configuration_arn
     import capo_ivs.types.channel_arn
+    import capo_ivs.types.channel_failover_slate_configuration_arn
     import capo_ivs.types.channel_latency_mode
     import capo_ivs.types.channel_name
     import capo_ivs.types.channel_playback_restriction_policy_arn
@@ -64,6 +65,10 @@ class Channel(TypedDict, closed=True):
         "capo_ivs.types.channel_ad_configuration_arn.ChannelAdConfigurationArn"
     ]
     """<p>ARN of the ad configuration associated with the channel.</p>"""
+    failover_slate_configuration_arn: NotRequired[
+        "capo_ivs.types.channel_failover_slate_configuration_arn.ChannelFailoverSlateConfigurationArn"
+    ]
+    """<p>Failover-slate-configuration ARN. A valid ARN value here both specifies the ARN and enables failover slate. Default: "" (empty string, no failover slate configuration is applied).</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -113,6 +118,8 @@ def serialize_json(value: Channel) -> dict:
         out["containerFormat"] = value["container_format"]
     if "ad_configuration_arn" in value:
         out["adConfigurationArn"] = value["ad_configuration_arn"]
+    if "failover_slate_configuration_arn" in value:
+        out["failoverSlateConfigurationArn"] = value["failover_slate_configuration_arn"]
     return out
 
 
@@ -168,6 +175,8 @@ def deserialize_json(data: dict) -> Channel:
         out["container_format"] = data["containerFormat"]
     if data.get("adConfigurationArn") is not None:
         out["ad_configuration_arn"] = data["adConfigurationArn"]
+    if data.get("failoverSlateConfigurationArn") is not None:
+        out["failover_slate_configuration_arn"] = data["failoverSlateConfigurationArn"]
     return out
 
 

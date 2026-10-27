@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class AssignedEnvironmentExitSessionActionDefinition(TypedDict, closed=True):
     environment_id: "capo_deadline.types.environment_id.EnvironmentId"
-    """<p>The environment ID of the assigned environment when exiting a session.</p>"""
+    """The environment ID of the assigned environment when exiting a session."""
 
 
 # --- restJson1 ser/de ---

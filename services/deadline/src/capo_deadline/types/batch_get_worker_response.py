@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class BatchGetWorkerResponse(TypedDict, closed=True):
     workers: "capo_deadline.types.batch_get_worker_items.BatchGetWorkerItems"
-    """<p>A list of workers that were successfully retrieved.</p>"""
+    """A list of workers that were successfully retrieved."""
     errors: "capo_deadline.types.batch_get_worker_errors.BatchGetWorkerErrors"
-    """<p>A list of errors for workers that could not be retrieved.</p>"""
+    """A list of errors for workers that could not be retrieved."""
 
 
 # --- restJson1 ser/de ---

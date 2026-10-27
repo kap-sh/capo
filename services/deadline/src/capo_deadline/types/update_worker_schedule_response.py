@@ -13,17 +13,17 @@ if TYPE_CHECKING:
 
 class UpdateWorkerScheduleResponse(TypedDict, closed=True):
     assigned_sessions: "capo_deadline.types.assigned_sessions.AssignedSessions"
-    """<p>The assigned sessions to update.</p>"""
+    """The assigned sessions to update."""
     cancel_session_actions: (
         "capo_deadline.types.cancel_session_actions.CancelSessionActions"
     )
-    """<p>The session actions associated with the worker schedule to cancel.</p>"""
+    """The session actions associated with the worker schedule to cancel."""
     desired_worker_status: NotRequired[
         "capo_deadline.types.desired_worker_status.DesiredWorkerStatus"
     ]
-    """<p>The status to update the worker to.</p>"""
+    """The status to update the worker to."""
     update_interval_seconds: "capo_deadline.types.update_worker_schedule_interval.UpdateWorkerScheduleInterval"
-    """<p>Updates the time interval (in seconds) for the schedule.</p>"""
+    """Updates the time interval (in seconds) for the schedule."""
 
 
 # --- restJson1 ser/de ---

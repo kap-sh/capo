@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class AssumeQueueRoleForUserRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the queue that the user assumes the role for.</p>"""
+    """The farm ID of the queue that the user assumes the role for."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID of the queue that the user assumes the role for.</p>"""
+    """The queue ID of the queue that the user assumes the role for."""
 
 
 # --- restJson1 ser/de ---

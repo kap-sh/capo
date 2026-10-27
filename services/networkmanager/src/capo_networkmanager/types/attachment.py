@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_networkmanager.types.attachment_state
     import capo_networkmanager.types.attachment_type
     import capo_networkmanager.types.aws_account_id
+    import capo_networkmanager.types.boxed_boolean
     import capo_networkmanager.types.constrained_string
     import capo_networkmanager.types.core_network_arn
     import capo_networkmanager.types.core_network_id
@@ -17,6 +18,7 @@ if TYPE_CHECKING:
     import capo_networkmanager.types.external_region_code
     import capo_networkmanager.types.external_region_code_list
     import capo_networkmanager.types.integer
+    import capo_networkmanager.types.nat_gateway_support_state
     import capo_networkmanager.types.network_function_group_name
     import capo_networkmanager.types.proposed_network_function_group_change
     import capo_networkmanager.types.proposed_segment_change
@@ -67,6 +69,14 @@ class Attachment(TypedDict, closed=True):
         "capo_networkmanager.types.network_function_group_name.NetworkFunctionGroupName"
     ]
     """<p>The name of the network function group.</p>"""
+    nat_gateway_support: NotRequired[
+        "capo_networkmanager.types.nat_gateway_support_state.NatGatewaySupportState"
+    ]
+    """<p>The state of NAT gateway support on the attachment. This is returned only to the core network owner for attachment types that support NAT.</p>"""
+    nat_system_route_support: NotRequired[
+        "capo_networkmanager.types.boxed_boolean.BoxedBoolean"
+    ]
+    """<p>Indicates whether the core network installs system routes for the NAT CIDR blocks of the attachment's NAT rules. This is returned only to the core network owner for attachment types that support NAT.</p>"""
     tags: NotRequired["capo_networkmanager.types.tag_list.TagList"]
     """<p>The tags associated with the attachment.</p>"""
     proposed_segment_change: NotRequired[
@@ -130,6 +140,16 @@ def serialize_json(value: Attachment) -> dict:
         out["SegmentName"] = value["segment_name"]
     if "network_function_group_name" in value:
         out["NetworkFunctionGroupName"] = value["network_function_group_name"]
+    if "nat_gateway_support" in value:
+        import capo_networkmanager.types.nat_gateway_support_state
+
+        out["NatGatewaySupport"] = (
+            capo_networkmanager.types.nat_gateway_support_state.serialize_json(
+                value["nat_gateway_support"]
+            )
+        )
+    if "nat_system_route_support" in value:
+        out["NatSystemRouteSupport"] = value["nat_system_route_support"]
     if "tags" in value:
         import capo_networkmanager.types.tag_list
 
@@ -215,6 +235,16 @@ def deserialize_json(data: dict) -> Attachment:
         out["segment_name"] = data["SegmentName"]
     if data.get("NetworkFunctionGroupName") is not None:
         out["network_function_group_name"] = data["NetworkFunctionGroupName"]
+    if data.get("NatGatewaySupport") is not None:
+        import capo_networkmanager.types.nat_gateway_support_state
+
+        out["nat_gateway_support"] = (
+            capo_networkmanager.types.nat_gateway_support_state.deserialize_json(
+                data["NatGatewaySupport"]
+            )
+        )
+    if data.get("NatSystemRouteSupport") is not None:
+        out["nat_system_route_support"] = data["NatSystemRouteSupport"]
     if data.get("Tags") is not None:
         import capo_networkmanager.types.tag_list
 

@@ -26,49 +26,49 @@ if TYPE_CHECKING:
 
 class GetFleetResponse(TypedDict, closed=True):
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID.</p>"""
+    """The fleet ID."""
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the farm in the fleet.</p>"""
+    """The farm ID of the farm in the fleet."""
     display_name: "capo_deadline.types.resource_name.ResourceName"
     """<p>The display name of the fleet.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     status: "capo_deadline.types.fleet_status.FleetStatus"
-    """<p>The status of the fleet.</p>"""
+    """The status of the fleet."""
     status_message: NotRequired["capo_deadline.types.string.String"]
-    """<p>A message that communicates a suspended status of the fleet.</p>"""
+    """A message that communicates a suspended status of the fleet."""
     auto_scaling_status: NotRequired[
         "capo_deadline.types.auto_scaling_status.AutoScalingStatus"
     ]
-    """<p>The Auto Scaling status of the fleet. Either <code>GROWING</code>, <code>STEADY</code>, or <code>SHRINKING</code>.</p>"""
+    """The Auto Scaling status of the fleet. Either <code>GROWING</code>, <code>STEADY</code>, or <code>SHRINKING</code>."""
     target_worker_count: NotRequired["capo_deadline.types.integer.Integer"]
-    """<p>The number of target workers in the fleet.</p>"""
+    """The number of target workers in the fleet."""
     worker_count: "capo_deadline.types.integer.Integer"
-    """<p>The number of workers in the fleet.</p>"""
+    """The number of workers in the fleet."""
     min_worker_count: "capo_deadline.types.min_zero_max_integer.MinZeroMaxInteger"
-    """<p>The minimum number of workers specified in the fleet.</p>"""
+    """The minimum number of workers specified in the fleet."""
     max_worker_count: "capo_deadline.types.min_zero_max_integer.MinZeroMaxInteger"
-    """<p>The maximum number of workers specified in the fleet.</p>"""
+    """The maximum number of workers specified in the fleet."""
     configuration: "capo_deadline.types.fleet_configuration.FleetConfiguration"
-    """<p>The configuration setting for the fleet.</p>"""
+    """The configuration setting for the fleet."""
     created_at: "capo_deadline.types.created_at.CreatedAt"
-    """<p>The date and time the resource was created.</p>"""
+    """The date and time the resource was created."""
     created_by: "capo_deadline.types.created_by.CreatedBy"
-    """<p>The user or system that created this resource.</p>"""
+    """The user or system that created this resource."""
     updated_at: NotRequired["capo_deadline.types.updated_at.UpdatedAt"]
-    """<p>The date and time the resource was updated.</p>"""
+    """The date and time the resource was updated."""
     updated_by: NotRequired["capo_deadline.types.updated_by.UpdatedBy"]
-    """<p>The user or system that updated this resource.</p>"""
+    """The user or system that updated this resource."""
     description: NotRequired["capo_deadline.types.description.Description"]
     """<p>The description of the fleet.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     host_configuration: NotRequired[
         "capo_deadline.types.host_configuration.HostConfiguration"
     ]
-    """<p>The script that runs as a worker is starting up that you can use to provide additional configuration for workers in your fleet.</p>"""
+    """The script that runs as a worker is starting up that you can use to provide additional configuration for workers in your fleet."""
     capabilities: NotRequired[
         "capo_deadline.types.fleet_capabilities.FleetCapabilities"
     ]
-    """<p>Outlines what the fleet is capable of for minimums, maximums, and naming, in addition to attribute names and values.</p>"""
+    """Outlines what the fleet is capable of for minimums, maximums, and naming, in addition to attribute names and values."""
     role_arn: "capo_deadline.types.iam_role_arn.IamRoleArn"
-    """<p>The IAM role ARN.</p>"""
+    """The IAM role ARN."""
 
 
 # --- restJson1 ser/de ---

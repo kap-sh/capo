@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class CreateWorkerResponse(TypedDict, closed=True):
     worker_id: "capo_deadline.types.worker_id.WorkerId"
-    """<p>The worker ID.</p>"""
+    """The worker ID."""
 
 
 # --- restJson1 ser/de ---

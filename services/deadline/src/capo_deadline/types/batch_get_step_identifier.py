@@ -13,13 +13,13 @@ if TYPE_CHECKING:
 
 class BatchGetStepIdentifier(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the step.</p>"""
+    """The farm ID of the step."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID of the step.</p>"""
+    """The queue ID of the step."""
     job_id: "capo_deadline.types.job_id.JobId"
-    """<p>The job ID of the step.</p>"""
+    """The job ID of the step."""
     step_id: "capo_deadline.types.step_id.StepId"
-    """<p>The step ID.</p>"""
+    """The step ID."""
 
 
 # --- restJson1 ser/de ---

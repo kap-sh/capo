@@ -13,13 +13,13 @@ if TYPE_CHECKING:
 
 class BatchGetSessionActionIdentifier(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the session action.</p>"""
+    """The farm ID of the session action."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID of the session action.</p>"""
+    """The queue ID of the session action."""
     job_id: "capo_deadline.types.job_id.JobId"
-    """<p>The job ID of the session action.</p>"""
+    """The job ID of the session action."""
     session_action_id: "capo_deadline.types.session_action_id.SessionActionId"
-    """<p>The session action ID.</p>"""
+    """The session action ID."""
 
 
 # --- restJson1 ser/de ---

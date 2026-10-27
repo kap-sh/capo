@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class DateTimeFilterExpression(TypedDict, closed=True):
     name: "capo_deadline.types.string.String"
-    """<p>The name of the date-time field to filter on.</p>"""
+    """The name of the date-time field to filter on."""
     operator: "capo_deadline.types.comparison_operator.ComparisonOperator"
-    """<p>The type of comparison to use to filter the results.</p>"""
+    """The type of comparison to use to filter the results."""
     date_time: "capo_deadline.types.timestamp.Timestamp"
-    """<p>The date and time.</p>"""
+    """The date and time."""
 
 
 # --- restJson1 ser/de ---

@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class FixedBudgetSchedule(TypedDict, closed=True):
     start_time: "capo_deadline.types.starts_at.StartsAt"
-    """<p>When the budget starts.</p>"""
+    """When the budget starts."""
     end_time: "capo_deadline.types.ends_at.EndsAt"
-    """<p>When the budget ends.</p>"""
+    """When the budget ends."""
 
 
 # --- restJson1 ser/de ---

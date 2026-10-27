@@ -17,25 +17,25 @@ if TYPE_CHECKING:
 
 class ServiceManagedEc2FleetConfiguration(TypedDict, closed=True):
     instance_capabilities: "capo_deadline.types.service_managed_ec2_instance_capabilities.ServiceManagedEc2InstanceCapabilities"
-    """<p>The instance capabilities for the service managed EC2 fleet.</p>"""
+    """The instance capabilities for the service managed EC2 fleet."""
     instance_market_options: "capo_deadline.types.service_managed_ec2_instance_market_options.ServiceManagedEc2InstanceMarketOptions"
-    """<p>The instance market options for the service managed EC2 fleet.</p>"""
+    """The instance market options for the service managed EC2 fleet."""
     vpc_configuration: NotRequired[
         "capo_deadline.types.vpc_configuration.VpcConfiguration"
     ]
-    """<p>The VPC configuration for the service managed EC2 fleet.</p>"""
+    """The VPC configuration for the service managed EC2 fleet."""
     storage_profile_id: NotRequired[
         "capo_deadline.types.storage_profile_id.StorageProfileId"
     ]
-    """<p>The storage profile ID for the service managed EC2 fleet.</p>"""
+    """The storage profile ID for the service managed EC2 fleet."""
     persistent_volume_configuration: NotRequired[
         "capo_deadline.types.persistent_volume_configuration.PersistentVolumeConfiguration"
     ]
-    """<p>The persistent volume configuration for the service managed EC2 fleet.</p>"""
+    """The persistent volume configuration for the service managed EC2 fleet."""
     auto_scaling_configuration: NotRequired[
         "capo_deadline.types.service_managed_ec2_auto_scaling_configuration.ServiceManagedEc2AutoScalingConfiguration"
     ]
-    """<p>The auto scaling configuration settings for the service managed EC2 fleet.</p>"""
+    """The auto scaling configuration settings for the service managed EC2 fleet."""
 
 
 # --- restJson1 ser/de ---

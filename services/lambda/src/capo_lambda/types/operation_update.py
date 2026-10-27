@@ -33,9 +33,9 @@ class OperationUpdate(TypedDict, closed=True):
     action: "capo_lambda.types.operation_action.OperationAction"
     """<p>The action to take on the operation.</p>"""
     payload: NotRequired["capo_lambda.types.operation_payload.OperationPayload"]
-    """<p>The payload for successful operations. The maximum payload size is 6 MB for synchronous <code>EXECUTION</code> operations (RequestResponse invocationType), 1 MB for asynchronous <code>EXECUTION</code> (Event invocationType) and <code>CHAINED_INVOKE</code> operations, and 256 KB for <code>CONTEXT</code>, <code>STEP</code>, <code>WAIT</code>, and <code>CALLBACK</code> operations.</p>"""
+    """<p>The payload for successful operations. The maximum payload size is 6 MB for synchronous <code>EXECUTION</code> operations (RequestResponse invocationType), and 1 MB for asynchronous <code>EXECUTION</code> (Event invocationType), <code>CHAINED_INVOKE</code>, <code>CONTEXT</code>, <code>STEP</code>, <code>WAIT</code>, and <code>CALLBACK</code> operations.</p>"""
     error: NotRequired["capo_lambda.types.error_object.ErrorObject"]
-    """<p>The error information for failed operations.</p>"""
+    """<p>The error information for failed operations. The combined size of all error fields is limited to 1 MB.</p>"""
     context_options: NotRequired["capo_lambda.types.context_options.ContextOptions"]
     """<p>Options for context operations.</p>"""
     step_options: NotRequired["capo_lambda.types.step_options.StepOptions"]

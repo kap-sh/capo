@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class IntrospectOAuth2TokenWithIAMRequest(TypedDict, closed=True):
     token: "capo_signin.types.introspection_token.IntrospectionToken"
-    """The string value of the token to introspect. May be either an access_token or a refresh_token issued by AWS Sign-In."""
+    """The access token or refresh token issued by AWS Sign-In."""
     token_type_hint: NotRequired["capo_signin.types.token_type_hint.TokenTypeHint"]
-    """Optional hint about the type of the token submitted for introspection. The server uses this hint to optimize lookup, but still falls back to the other token type on miss. Allowed values: access_token, refresh_token."""
+    """An optional hint about the type of the token submitted for introspection, as defined in RFC 7662 §2.1. The server checks both token types regardless of the hint. Allowed values: "access_token", "refresh_token"."""
 
 
 # --- restJson1 ser/de ---

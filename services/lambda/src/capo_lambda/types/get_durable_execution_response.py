@@ -29,11 +29,11 @@ class GetDurableExecutionResponse(TypedDict, closed=True):
     function_arn: "capo_lambda.types.name_spaced_function_arn.NameSpacedFunctionArn"
     """<p>The Amazon Resource Name (ARN) of the Lambda function that was invoked to start this durable execution.</p>"""
     input_payload: NotRequired["capo_lambda.types.input_payload.InputPayload"]
-    """<p>The JSON input payload that was provided when the durable execution was started. For asynchronous invocations, this is limited to 256 KB. For synchronous invocations, this can be up to 6 MB.</p>"""
+    """<p>The JSON input payload that you provided when you started the durable execution. Asynchronous invocations support up to 1 MB, and synchronous invocations support up to 6 MB.</p>"""
     result: NotRequired["capo_lambda.types.output_payload.OutputPayload"]
-    """<p>The JSON result returned by the durable execution if it completed successfully. This field is only present when the execution status is <code>SUCCEEDED</code>. The result is limited to 256 KB.</p>"""
+    """<p>The JSON result returned by the durable execution if it completed successfully. This field is only present when the execution status is <code>SUCCEEDED</code>. Asynchronous invocations support up to 1 MB, and synchronous invocations support up to 6 MB.</p>"""
     error: NotRequired["capo_lambda.types.error_object.ErrorObject"]
-    """<p>Error information if the durable execution failed. This field is only present when the execution status is <code>FAILED</code>, <code>TIMED_OUT</code>, or <code>STOPPED</code>. The combined size of all error fields is limited to 256 KB.</p>"""
+    """<p>Error information if the durable execution failed. This field is only present when the execution status is <code>FAILED</code>, <code>TIMED_OUT</code>, or <code>STOPPED</code>. The combined size of all error fields is limited to 1 MB.</p>"""
     start_timestamp: "capo_lambda.types.execution_timestamp.ExecutionTimestamp"
     """<p>The date and time when the durable execution started, in Unix timestamp format.</p>"""
     status: "capo_lambda.types.execution_status.ExecutionStatus"

@@ -2,5 +2,5 @@
 
 from typing import TypeAlias
 
-"""Introspection response token_type value. Indicates which kind of token was inspected."""
+"""The token_type value in the introspection response."""
 IntrospectedTokenType: TypeAlias = str

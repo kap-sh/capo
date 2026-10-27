@@ -16,23 +16,23 @@ if TYPE_CHECKING:
 
 class StartSessionsStatisticsAggregationRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The identifier of the farm that contains queues or fleets to return statistics for.</p>"""
+    """The identifier of the farm that contains queues or fleets to return statistics for."""
     resource_ids: (
         "capo_deadline.types.sessions_statistics_resources.SessionsStatisticsResources"
     )
-    """<p>A list of fleet IDs or queue IDs to gather statistics for.</p>"""
+    """A list of fleet IDs or queue IDs to gather statistics for."""
     start_time: "capo_deadline.types.timestamp.Timestamp"
-    """<p>The Linux timestamp of the date and time that the statistics start.</p>"""
+    """The Linux timestamp of the date and time that the statistics start."""
     end_time: "capo_deadline.types.timestamp.Timestamp"
-    """<p>The Linux timestamp of the date and time that the statistics end.</p>"""
+    """The Linux timestamp of the date and time that the statistics end."""
     timezone: NotRequired["capo_deadline.types.timezone.Timezone"]
     """<p>The time zone to use for the statistics. Use UTC notation such as "UTC+8."</p>"""
     period: NotRequired["capo_deadline.types.period.Period"]
-    """<p>The period to aggregate the statistics.</p>"""
+    """The period to aggregate the statistics."""
     group_by: "capo_deadline.types.usage_group_by.UsageGroupBy"
-    """<p>The field to use to group the statistics.</p>"""
+    """The field to use to group the statistics."""
     statistics: "capo_deadline.types.usage_statistics.UsageStatistics"
-    """<p>One to four statistics to return.</p>"""
+    """One to four statistics to return."""
 
 
 # --- restJson1 ser/de ---

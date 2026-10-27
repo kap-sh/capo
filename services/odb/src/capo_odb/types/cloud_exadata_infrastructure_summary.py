@@ -9,6 +9,7 @@ if TYPE_CHECKING:
 
     import capo_odb.types.compute_model
     import capo_odb.types.customer_contacts
+    import capo_odb.types.exascale_configuration
     import capo_odb.types.maintenance_window
     import capo_odb.types.resource_id_or_arn
     import capo_odb.types.resource_status
@@ -86,7 +87,7 @@ class CloudExadataInfrastructureSummary(TypedDict, closed=True):
     created_at: NotRequired["datetime.datetime"]
     """<p>The date and time when the Exadata infrastructure was created.</p>"""
     total_storage_size_in_g_bs: NotRequired["int"]
-    """<p>The total amount of storage, in gigabytes (GB), on the the Exadata infrastructure.</p>"""
+    """<p>The total amount of storage, in gigabytes (GB), on the Exadata infrastructure.</p>"""
     percent_progress: NotRequired["float"]
     """<p>The amount of progress made on the current operation on the Exadata infrastructure, expressed as a percentage.</p>"""
     database_server_type: NotRequired["str"]
@@ -95,6 +96,10 @@ class CloudExadataInfrastructureSummary(TypedDict, closed=True):
     """<p>The storage server model type of the Exadata infrastructure. For the list of valid model names, use the <code>ListDbSystemShapes</code> operation.</p>"""
     compute_model: NotRequired["capo_odb.types.compute_model.ComputeModel"]
     """<p>The OCI model compute model used when you create or clone an instance: ECPU or OCPU. An ECPU is an abstracted measure of compute resources. ECPUs are based on the number of cores elastically allocated from a pool of compute and storage servers. An OCPU is a legacy physical measure of compute resources. OCPUs are based on the physical core of a processor with hyper-threading enabled. </p>"""
+    exascale_configuration: NotRequired[
+        "capo_odb.types.exascale_configuration.ExascaleConfiguration"
+    ]
+    """<p>The Exascale storage configuration of the Exadata infrastructure. This value is present only when Exascale storage is configured on the infrastructure.</p>"""
 
 
 # --- awsJson1_0 ser/de ---
@@ -223,6 +228,14 @@ def serialize_aws_json_1_0(value: CloudExadataInfrastructureSummary) -> dict:
         out["computeModel"] = capo_odb.types.compute_model.serialize_aws_json_1_0(
             value["compute_model"]
         )
+    if "exascale_configuration" in value:
+        import capo_odb.types.exascale_configuration
+
+        out["exascaleConfiguration"] = (
+            capo_odb.types.exascale_configuration.serialize_aws_json_1_0(
+                value["exascale_configuration"]
+            )
+        )
     return out
 
 
@@ -329,6 +342,14 @@ def deserialize_aws_json_1_0(data: dict) -> CloudExadataInfrastructureSummary:
 
         out["compute_model"] = capo_odb.types.compute_model.deserialize_aws_json_1_0(
             data["computeModel"]
+        )
+    if data.get("exascaleConfiguration") is not None:
+        import capo_odb.types.exascale_configuration
+
+        out["exascale_configuration"] = (
+            capo_odb.types.exascale_configuration.deserialize_aws_json_1_0(
+                data["exascaleConfiguration"]
+            )
         )
     return out
 

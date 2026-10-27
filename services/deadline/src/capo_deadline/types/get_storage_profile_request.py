@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class GetStorageProfileRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID for the storage profile.</p>"""
+    """The farm ID for the storage profile."""
     storage_profile_id: "capo_deadline.types.storage_profile_id.StorageProfileId"
-    """<p>The storage profile ID.</p>"""
+    """The storage profile ID."""
 
 
 # --- restJson1 ser/de ---

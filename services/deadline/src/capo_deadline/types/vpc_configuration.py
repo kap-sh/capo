@@ -12,7 +12,7 @@ class VpcConfiguration(TypedDict, closed=True):
     resource_configuration_arns: NotRequired[
         "capo_deadline.types.vpc_resource_configuration_arns.VpcResourceConfigurationArns"
     ]
-    """<p>The ARNs of the VPC Lattice resource configurations attached to the fleet.</p>"""
+    """The ARNs of the VPC Lattice resource configurations attached to the fleet."""
 
 
 # --- restJson1 ser/de ---

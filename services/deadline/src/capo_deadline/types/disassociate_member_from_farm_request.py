@@ -11,11 +11,11 @@ if TYPE_CHECKING:
 
 class DisassociateMemberFromFarmRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the farm to disassociate from the member.</p>"""
+    """The farm ID of the farm to disassociate from the member."""
     principal_id: (
         "capo_deadline.types.identity_center_principal_id.IdentityCenterPrincipalId"
     )
-    """<p>A member's principal ID to disassociate from a farm.</p>"""
+    """A member's principal ID to disassociate from a farm."""
 
 
 # --- restJson1 ser/de ---

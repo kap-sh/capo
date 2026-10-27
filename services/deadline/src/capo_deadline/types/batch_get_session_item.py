@@ -25,41 +25,41 @@ if TYPE_CHECKING:
 
 class BatchGetSessionItem(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the session.</p>"""
+    """The farm ID of the session."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID of the session.</p>"""
+    """The queue ID of the session."""
     job_id: "capo_deadline.types.job_id.JobId"
-    """<p>The job ID of the session.</p>"""
+    """The job ID of the session."""
     session_id: "capo_deadline.types.session_id.SessionId"
-    """<p>The session ID.</p>"""
+    """The session ID."""
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID of the session.</p>"""
+    """The fleet ID of the session."""
     worker_id: "capo_deadline.types.worker_id.WorkerId"
-    """<p>The worker ID of the session.</p>"""
+    """The worker ID of the session."""
     started_at: "capo_deadline.types.started_at.StartedAt"
-    """<p>The date and time the resource started running.</p>"""
+    """The date and time the resource started running."""
     lifecycle_status: (
         "capo_deadline.types.session_lifecycle_status.SessionLifecycleStatus"
     )
-    """<p>The life cycle status of the session.</p>"""
+    """The life cycle status of the session."""
     ended_at: NotRequired["capo_deadline.types.ended_at.EndedAt"]
-    """<p>The date and time the resource ended running.</p>"""
+    """The date and time the resource ended running."""
     target_lifecycle_status: NotRequired[
         "capo_deadline.types.session_lifecycle_target_status.SessionLifecycleTargetStatus"
     ]
-    """<p>The target life cycle status for the session.</p>"""
+    """The target life cycle status for the session."""
     updated_at: NotRequired["capo_deadline.types.updated_at.UpdatedAt"]
-    """<p>The date and time the resource was updated.</p>"""
+    """The date and time the resource was updated."""
     updated_by: NotRequired["capo_deadline.types.updated_by.UpdatedBy"]
-    """<p>The user or system that updated this resource.</p>"""
+    """The user or system that updated this resource."""
     log: "capo_deadline.types.log_configuration.LogConfiguration"
-    """<p>The session log.</p>"""
+    """The session log."""
     host_properties: NotRequired[
         "capo_deadline.types.host_properties_response.HostPropertiesResponse"
     ]
-    """<p>The host properties for the session.</p>"""
+    """The host properties for the session."""
     worker_log: NotRequired["capo_deadline.types.log_configuration.LogConfiguration"]
-    """<p>The worker log for the session.</p>"""
+    """The worker log for the session."""
 
 
 # --- restJson1 ser/de ---

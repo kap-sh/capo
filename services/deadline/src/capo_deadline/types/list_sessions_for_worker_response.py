@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class ListSessionsForWorkerResponse(TypedDict, closed=True):
     sessions: "capo_deadline.types.list_sessions_for_worker_summaries.ListSessionsForWorkerSummaries"
-    """<p>The sessions in the response.</p>"""
+    """The sessions in the response."""
     next_token: NotRequired["capo_deadline.types.next_token.NextToken"]
-    """<p>The token for the next set of results, or <code>null</code> to start from the beginning.</p>"""
+    """The token for the next set of results, or <code>null</code> to start from the beginning."""
 
 
 # --- restJson1 ser/de ---

@@ -2,5 +2,5 @@
 
 from typing import TypeAlias
 
-"""Authorization code received from AWS Sign-In /v1/authorize endpoint The authorization code received from AWS Sign-In from /v1/authorize. Used in auth code redemption flow only."""
+"""Authorization code received from AWS Sign-In. Used only in the authorization code redemption flow."""
 AuthorizationCode: TypeAlias = str

@@ -15,21 +15,21 @@ if TYPE_CHECKING:
 
 class UpdateWorkerRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID to update.</p>"""
+    """The farm ID to update."""
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID to update.</p>"""
+    """The fleet ID to update."""
     worker_id: "capo_deadline.types.worker_id.WorkerId"
-    """<p>The worker ID to update.</p>"""
+    """The worker ID to update."""
     status: NotRequired["capo_deadline.types.updated_worker_status.UpdatedWorkerStatus"]
-    """<p>The worker status to update.</p>"""
+    """The worker status to update."""
     capabilities: NotRequired[
         "capo_deadline.types.worker_capabilities.WorkerCapabilities"
     ]
-    """<p>The worker capabilities to update.</p>"""
+    """The worker capabilities to update."""
     host_properties: NotRequired[
         "capo_deadline.types.host_properties_request.HostPropertiesRequest"
     ]
-    """<p>The host properties to update.</p>"""
+    """The host properties to update."""
 
 
 # --- restJson1 ser/de ---

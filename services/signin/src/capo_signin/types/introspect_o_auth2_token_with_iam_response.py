@@ -7,15 +7,16 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import capo_signin.types.account_id
     import capo_signin.types.introspected_token_type
+    import capo_signin.types.resource
 
 
 class IntrospectOAuth2TokenWithIAMResponse(TypedDict, closed=True):
     active: "bool"
-    """Indicates whether the token is currently active. `true` only when the token is valid, has not expired, has not been revoked, and belongs to the caller's account."""
+    """Indicates whether the token is currently active. Returns "true" only when the token is valid, has not expired, has not been revoked, and belongs to the caller's account."""
     client_id: NotRequired["str"]
     """Client identifier for the OAuth 2.0 client that requested the token."""
     user_id: NotRequired["str"]
-    """User identifier matching sts:GetCallerIdentity's `UserId` field for the token's subject principal (e.g. "AIDAEXAMPLE" for an IAM user, or "AROAEXAMPLE:session-name" for an assumed role)."""
+    """User identifier matching the "UserId" field from "sts:GetCallerIdentity" for the token's subject principal."""
     token_type: NotRequired[
         "capo_signin.types.introspected_token_type.IntrospectedTokenType"
     ]
@@ -27,9 +28,9 @@ class IntrospectOAuth2TokenWithIAMResponse(TypedDict, closed=True):
     nbf: NotRequired["int"]
     """Token "not before" time as a NumericDate (Unix epoch seconds)."""
     sub: NotRequired["str"]
-    """Subject of the token: the IAM principal ARN. For assumed-role sessions, this is the session ARN (matches sts:GetCallerIdentity's `Arn` field), e.g. arn:aws:sts::123456789012:assumed-role/MyRole/session-name."""
+    """The IAM principal Amazon Resource Name (ARN). For assumed-role sessions, this is the session ARN."""
     aud: NotRequired["str"]
-    """Audience of the token: the OAuth resource the token is scoped to (for example, "aws-mcp.amazonaws.com"). Omitted for refresh tokens."""
+    """The OAuth resource the token is scoped to. Omitted for refresh tokens. Example: "aws-mcp.amazonaws.com"."""
     iss: NotRequired["str"]
     """Issuer of the token. Always "signin.amazonaws.com" for AWS Sign-In."""
     jti: NotRequired["str"]
@@ -38,8 +39,8 @@ class IntrospectOAuth2TokenWithIAMResponse(TypedDict, closed=True):
     """12-digit AWS account ID of the token's subject principal."""
     signin_session: NotRequired["str"]
     """AWS Sign-In session ARN bound to the token, of the form arn:aws:signin:{region}:{account}:session/{uuid}."""
-    resource: NotRequired["str"]
-    """The OAuth resource the token is scoped to during Human OAuth flow. Only present for refresh token introspection."""
+    resource: NotRequired["capo_signin.types.resource.Resource"]
+    """The OAuth resource the token is scoped to. Only present for refresh token introspection."""
 
 
 # --- restJson1 ser/de ---

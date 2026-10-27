@@ -10,9 +10,9 @@ if TYPE_CHECKING:
 
 class ValidationExceptionField(TypedDict, closed=True):
     name: "capo_deadline.types.string.String"
-    """<p>The name of the validation exception.</p>"""
+    """The name of the validation exception."""
     message: "capo_deadline.types.string.String"
-    """<p>The error message for the validation exception.</p>"""
+    """The error message for the validation exception."""
 
 
 # --- restJson1 ser/de ---

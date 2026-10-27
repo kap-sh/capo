@@ -20,6 +20,8 @@ GrantOperation: TypeAlias = Literal[
     "GenerateMac",
     "VerifyMac",
     "DeriveSharedSecret",
+    "Encapsulate",
+    "Decapsulate",
 ]
 
 

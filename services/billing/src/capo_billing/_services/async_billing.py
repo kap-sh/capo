@@ -36,8 +36,15 @@ from capo_billing._services._pipeline import (
 if TYPE_CHECKING:
     import capo_billing.types.account_id
     import capo_billing.types.active_time_range
+    import capo_billing.types.additional_recipients
+    import capo_billing.types.approver_details
+    import capo_billing.types.arn_string
+    import capo_billing.types.associate_contract_request
+    import capo_billing.types.associate_contract_response
     import capo_billing.types.associate_source_views_request
     import capo_billing.types.associate_source_views_response
+    import capo_billing.types.attestation_client_token
+    import capo_billing.types.attestation_details
     import capo_billing.types.billing_feature
     import capo_billing.types.billing_feature_filters
     import capo_billing.types.billing_features
@@ -55,12 +62,21 @@ if TYPE_CHECKING:
     import capo_billing.types.business_support_account_charge
     import capo_billing.types.business_support_billing_month
     import capo_billing.types.business_support_subscription_contract
+    import capo_billing.types.cancel_contractual_investment_attestation_request
+    import capo_billing.types.cancel_contractual_investment_attestation_response
+    import capo_billing.types.cancellation_reason
     import capo_billing.types.client_token
+    import capo_billing.types.contract_document_id
+    import capo_billing.types.contract_summary
     import capo_billing.types.create_billing_view_request
     import capo_billing.types.create_billing_view_response
+    import capo_billing.types.create_contractual_investment_attestation_request
+    import capo_billing.types.create_contractual_investment_attestation_response
     import capo_billing.types.credit_allocation_history_entry
     import capo_billing.types.delete_billing_view_request
     import capo_billing.types.delete_billing_view_response
+    import capo_billing.types.disassociate_contract_request
+    import capo_billing.types.disassociate_contract_response
     import capo_billing.types.disassociate_source_views_request
     import capo_billing.types.disassociate_source_views_response
     import capo_billing.types.enterprise_support_billing_month
@@ -69,6 +85,8 @@ if TYPE_CHECKING:
     import capo_billing.types.get_billing_preferences_response
     import capo_billing.types.get_billing_view_request
     import capo_billing.types.get_billing_view_response
+    import capo_billing.types.get_contract_information_request
+    import capo_billing.types.get_contract_information_response
     import capo_billing.types.get_credit_allocation_history_request
     import capo_billing.types.get_credit_allocation_history_response
     import capo_billing.types.get_credits_request
@@ -79,6 +97,10 @@ if TYPE_CHECKING:
     import capo_billing.types.get_enterprise_support_contract_details_response
     import capo_billing.types.get_resource_policy_request
     import capo_billing.types.get_resource_policy_response
+    import capo_billing.types.identifier_string
+    import capo_billing.types.investment
+    import capo_billing.types.investment_attestation
+    import capo_billing.types.investment_summary
     import capo_billing.types.linked_account_charge
     import capo_billing.types.list_billing_view_segments_request
     import capo_billing.types.list_billing_view_segments_response
@@ -88,6 +110,14 @@ if TYPE_CHECKING:
     import capo_billing.types.list_business_support_account_charges_response
     import capo_billing.types.list_business_support_subscription_history_request
     import capo_billing.types.list_business_support_subscription_history_response
+    import capo_billing.types.list_contracts_request
+    import capo_billing.types.list_contracts_response
+    import capo_billing.types.list_contractual_investment_attestations_request
+    import capo_billing.types.list_contractual_investment_attestations_response
+    import capo_billing.types.list_contractual_investment_summaries_request
+    import capo_billing.types.list_contractual_investment_summaries_response
+    import capo_billing.types.list_contractual_investments_request
+    import capo_billing.types.list_contractual_investments_response
     import capo_billing.types.list_enterprise_support_linked_account_charges_request
     import capo_billing.types.list_enterprise_support_linked_account_charges_response
     import capo_billing.types.list_source_views_for_billing_view_request
@@ -220,6 +250,75 @@ class AsyncBillingClient:
         )
         return interceptors_, options_
 
+    async def associate_contract(
+        self,
+        contract_arn: "capo_billing.types.arn_string.ArnString",
+        contract_document_id: "capo_billing.types.contract_document_id.ContractDocumentId",
+        *,
+        config_overrides: Optional[AsyncBillingClientConfig] = None,
+    ) -> "capo_billing.types.associate_contract_response.AssociateContractResponse":
+        """<p>Private Pricing contracts let eligible payer accounts manage private pricing agreements with Amazon Web Services. This operation associates a private pricing contract with the caller's Amazon Web Services account. The caller must be a payer (management) account listed on the contract. This operation is idempotent, so retrying a request that already succeeded is safe.</p>
+
+        Args:
+            contract_arn: <p>The Amazon Resource Name (ARN) of the contract to associate with your account.</p>
+            contract_document_id: <p>The contract ID from the contract document. It can be found in the top right corner of your contract's pages. This value confirms that you have access to the contract you are associating.</p>
+
+        Raises:
+            capo_billing.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action.</p>
+            capo_billing.errors.conflict_exception.ConflictException: <p> The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request. </p>
+            capo_billing.errors.internal_server_exception.InternalServerException: <p>The request processing failed because of an unknown error, exception, or failure. </p>
+            capo_billing.errors.resource_not_found_exception.ResourceNotFoundException: <p> The specified ARN in the request doesn't exist. </p>
+            capo_billing.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. </p>
+            capo_billing.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service. </p>
+            capo_billing.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Invoke AssociateContract
+
+            >>> await client.associate_contract(contract_arn='arn:aws:billing::123456789012:contract/1a2b3c4d-5e6f-7a8b-9c0d-111122223333', contract_document_id='CC OTH XXXXXXXX XXXX TR')
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_billing.types.associate_contract_request.AssociateContractRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_billing.types.associate_contract_response.AssociateContractResponse"
+        ]:
+            import capo_billing._operations.aws_billing.associate_contract
+
+            (
+                output,
+                http_response,
+            ) = await capo_billing._operations.aws_billing.associate_contract.async_associate_contract(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_billing.types.associate_contract_request.AssociateContractRequest",
+        ) -> dict[str, Any]:
+            import capo_billing.types.associate_contract_request
+
+            return capo_billing.types.associate_contract_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AssociateContract", redact_input=_redact_input),
+        )
+        input_: capo_billing.types.associate_contract_request.AssociateContractRequest = {
+            "contract_arn": contract_arn,
+            "contract_document_id": contract_document_id,
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def associate_source_views(
         self,
         arn: "capo_billing.types.billing_view_arn.BillingViewArn",
@@ -271,6 +370,68 @@ class AsyncBillingClient:
         input_: capo_billing.types.associate_source_views_request.AssociateSourceViewsRequest = {
             "arn": arn,
             "source_views": source_views,
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def cancel_contractual_investment_attestation(
+        self,
+        attestation_id: "capo_billing.types.identifier_string.IdentifierString",
+        contract_arn: "capo_billing.types.arn_string.ArnString",
+        reason: "capo_billing.types.cancellation_reason.CancellationReason",
+        *,
+        config_overrides: Optional[AsyncBillingClientConfig] = None,
+    ) -> "capo_billing.types.cancel_contractual_investment_attestation_response.CancelContractualInvestmentAttestationResponse":
+        """<p>Cancels a contractual investment attestation. This operation is idempotent, so retrying is safe. You can cancel an attestation only while it is still pending (its <code>isCancellable</code> value is <code>true</code>).</p>
+
+        Args:
+            attestation_id: <p>The identifier of the investment attestation to cancel.</p>
+            contract_arn: <p>The Amazon Resource Name (ARN) of the contract that contains the attested investment.</p>
+            reason: <p>The reason for the cancellation. This value can be 1 to 80 characters.</p>
+
+        Raises:
+            capo_billing.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action.</p>
+            capo_billing.errors.conflict_exception.ConflictException: <p> The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request. </p>
+            capo_billing.errors.internal_server_exception.InternalServerException: <p>The request processing failed because of an unknown error, exception, or failure. </p>
+            capo_billing.errors.resource_not_found_exception.ResourceNotFoundException: <p> The specified ARN in the request doesn't exist. </p>
+            capo_billing.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. </p>
+            capo_billing.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service. </p>
+            capo_billing.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Invoke CancelContractualInvestmentAttestation
+
+            >>> await client.cancel_contractual_investment_attestation(attestation_id='a1b2c3d4-5678-90ab-cdef-111122223333', contract_arn='arn:aws:billing::123456789012:contract/1a2b3c4d-5e6f-7a8b-9c0d-111122223333', reason='Example cancellation reason')
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_billing.types.cancel_contractual_investment_attestation_request.CancelContractualInvestmentAttestationRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_billing.types.cancel_contractual_investment_attestation_response.CancelContractualInvestmentAttestationResponse"
+        ]:
+            import capo_billing._operations.aws_billing.cancel_contractual_investment_attestation
+
+            (
+                output,
+                http_response,
+            ) = await capo_billing._operations.aws_billing.cancel_contractual_investment_attestation.async_cancel_contractual_investment_attestation(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelContractualInvestmentAttestation")
+        )
+        input_: capo_billing.types.cancel_contractual_investment_attestation_request.CancelContractualInvestmentAttestationRequest = {
+            "attestation_id": attestation_id,
+            "contract_arn": contract_arn,
+            "reason": reason,
         }
 
         response = await aexecute_pipeline(
@@ -375,6 +536,112 @@ class AsyncBillingClient:
         await response.response.aclose()
         return response.output
 
+    async def create_contractual_investment_attestation(
+        self,
+        contract_arn: "capo_billing.types.arn_string.ArnString",
+        investment_summary_id: "capo_billing.types.identifier_string.IdentifierString",
+        investment_id: "capo_billing.types.identifier_string.IdentifierString",
+        contract_document_id: "capo_billing.types.contract_document_id.ContractDocumentId",
+        approver_details: "capo_billing.types.approver_details.ApproverDetails",
+        attestation_details: "capo_billing.types.attestation_details.AttestationDetails",
+        *,
+        config_overrides: Optional[AsyncBillingClientConfig] = None,
+        investment_disbursed_at: Optional[datetime.datetime] = None,
+        additional_recipients: Optional[
+            "capo_billing.types.additional_recipients.AdditionalRecipients"
+        ] = None,
+        client_token: Optional[
+            "capo_billing.types.attestation_client_token.AttestationClientToken"
+        ] = None,
+    ) -> "capo_billing.types.create_contractual_investment_attestation_response.CreateContractualInvestmentAttestationResponse":
+        """<p>Creates an attestation that claims an investment award for a completed milestone or outcome within a private pricing contract. Supply a <code>clientToken</code> to make the request idempotent so a safe retry does not create a duplicate attestation. This operation starts an asynchronous review and returns an <code>attestationId</code> while the attestation is pending.</p>
+
+        Args:
+            contract_arn: <p>The Amazon Resource Name (ARN) of the contract that contains the investment being attested.</p>
+            investment_summary_id: <p>The identifier of the investment summary being attested. This is the parent to the investmentId.</p>
+            investment_id: <p>The identifier of the investment (outcome) being attested.</p>
+            contract_document_id: <p>The contract ID from the contract document, located in the top-right corner of the private pricing contract pages. This value confirms that you have access to the contract.</p>
+            approver_details: <p>The details of the executive who authorized the attestation, under the terms of the private pricing contract. The executive receives a click-to-accept email to confirm the attestation.</p>
+            investment_disbursed_at: <p>The date on which the investment is disbursed to the investment accounts. The disbursement date is subject to review timelines.</p>
+            attestation_details: <p>The details of the attestation, including the value being claimed and how the resulting investment is distributed across investment accounts.</p>
+            additional_recipients: <p>The email addresses to copy as viewers on the executive approval request.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If you retry a request that completed successfully using the same client token and parameters, the retry completes without performing any further actions.</p>
+
+        Raises:
+            capo_billing.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action.</p>
+            capo_billing.errors.conflict_exception.ConflictException: <p> The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request. </p>
+            capo_billing.errors.internal_server_exception.InternalServerException: <p>The request processing failed because of an unknown error, exception, or failure. </p>
+            capo_billing.errors.resource_not_found_exception.ResourceNotFoundException: <p> The specified ARN in the request doesn't exist. </p>
+            capo_billing.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. </p>
+            capo_billing.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service. </p>
+            capo_billing.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Invoke CreateContractualInvestmentAttestation with a direct amount
+
+            >>> await client.create_contractual_investment_attestation(contract_arn='arn:aws:billing::123456789012:contract/1a2b3c4d-5e6f-7a8b-9c0d-111122223333', investment_summary_id='Example-Investment-Summary-Id', investment_id='Investment-Id', contract_document_id='CC OTH XXXXXXXX XXXX TR', approver_details={'name': 'First-Name Last-Name', 'title': 'Title', 'email': 'first-name.last-name@example.com'}, attestation_details={'attestationValue': {'attestationAmount': {'currencyCode': 'USD', 'currencyAmount': '1.00'}}, 'investmentDistributions': [{'accountId': '123456789012', 'investmentAmount': {'currencyCode': 'USD', 'currencyAmount': '1.00'}}]}, investment_disbursed_at=1199923200, additional_recipients=[{'email': 'recipient@example.com'}], client_token='c0ffee00-1234-4abc-9def-0123456789ab')
+            Invoke CreateContractualInvestmentAttestation with a flat rate multiplier
+
+            >>> await client.create_contractual_investment_attestation(contract_arn='arn:aws:billing::123456789012:contract/1a2b3c4d-5e6f-7a8b-9c0d-111122223333', investment_summary_id='Example-Investment-Summary-Id', investment_id='Investment-Id', contract_document_id='CC OTH XXXXXXXX XXXX TR', approver_details={'name': 'First-Name Last-Name', 'title': 'Title', 'email': 'first-name.last-name@example.com'}, attestation_details={'attestationValue': {'attestationQuantities': [{'attestationVolume': '3', 'attestationUnit': 'Example attestation unit'}]}, 'investmentDistributions': [{'accountId': '123456789012', 'investmentAmount': {'currencyCode': 'USD', 'currencyAmount': '1500.00'}}]}, investment_disbursed_at=1199923200, client_token='c0ffee00-1234-4abc-9def-0123456789ac')
+            Invoke CreateContractualInvestmentAttestation with a percentage multiplier
+
+            >>> await client.create_contractual_investment_attestation(contract_arn='arn:aws:billing::123456789012:contract/1a2b3c4d-5e6f-7a8b-9c0d-111122223333', investment_summary_id='Example-Investment-Summary-Id', investment_id='Investment-Id', contract_document_id='CC OTH XXXXXXXX XXXX TR', approver_details={'name': 'First-Name Last-Name', 'title': 'Title', 'email': 'first-name.last-name@example.com'}, attestation_details={'attestationValue': {'attestationQuantities': [{'attestationVolume': '1000', 'attestationUnit': 'Example attestation unit'}]}, 'investmentDistributions': [{'accountId': '123456789012', 'investmentAmount': {'currencyCode': 'USD', 'currencyAmount': '150.00'}}]}, investment_disbursed_at=1199923200, client_token='c0ffee00-1234-4abc-9def-0123456789ad')
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_billing.types.create_contractual_investment_attestation_request.CreateContractualInvestmentAttestationRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_billing.types.create_contractual_investment_attestation_response.CreateContractualInvestmentAttestationResponse"
+        ]:
+            import capo_billing._operations.aws_billing.create_contractual_investment_attestation
+
+            (
+                output,
+                http_response,
+            ) = await capo_billing._operations.aws_billing.create_contractual_investment_attestation.async_create_contractual_investment_attestation(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_billing.types.create_contractual_investment_attestation_request.CreateContractualInvestmentAttestationRequest",
+        ) -> dict[str, Any]:
+            import capo_billing.types.create_contractual_investment_attestation_request
+
+            return capo_billing.types.create_contractual_investment_attestation_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateContractualInvestmentAttestation", redact_input=_redact_input
+            ),
+        )
+        input_: capo_billing.types.create_contractual_investment_attestation_request.CreateContractualInvestmentAttestationRequest = {
+            "contract_arn": contract_arn,
+            "investment_summary_id": investment_summary_id,
+            "investment_id": investment_id,
+            "contract_document_id": contract_document_id,
+            "approver_details": approver_details,
+            "attestation_details": attestation_details,
+        }
+        if investment_disbursed_at is not None:
+            input_["investment_disbursed_at"] = investment_disbursed_at
+        if additional_recipients is not None:
+            input_["additional_recipients"] = additional_recipients
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def delete_billing_view(
         self,
         arn: "capo_billing.types.billing_view_arn.BillingViewArn",
@@ -425,6 +692,63 @@ class AsyncBillingClient:
         }
         if force is not None:
             input_["force"] = force
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def disassociate_contract(
+        self,
+        contract_arn: "capo_billing.types.arn_string.ArnString",
+        *,
+        config_overrides: Optional[AsyncBillingClientConfig] = None,
+    ) -> (
+        "capo_billing.types.disassociate_contract_response.DisassociateContractResponse"
+    ):
+        """<p>Removes the association between a private pricing contract and your Amazon Web Services account. The account must have been associated with the contract previously. This operation is idempotent, so retrying is safe.</p>
+
+        Args:
+            contract_arn: <p>The Amazon Resource Name (ARN) of the contract to disassociate from your account.</p>
+
+        Raises:
+            capo_billing.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action.</p>
+            capo_billing.errors.internal_server_exception.InternalServerException: <p>The request processing failed because of an unknown error, exception, or failure. </p>
+            capo_billing.errors.resource_not_found_exception.ResourceNotFoundException: <p> The specified ARN in the request doesn't exist. </p>
+            capo_billing.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. </p>
+            capo_billing.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service. </p>
+            capo_billing.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Invoke DisassociateContract
+
+            >>> await client.disassociate_contract(contract_arn='arn:aws:billing::123456789012:contract/1a2b3c4d-5e6f-7a8b-9c0d-111122223333')
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_billing.types.disassociate_contract_request.DisassociateContractRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_billing.types.disassociate_contract_response.DisassociateContractResponse"
+        ]:
+            import capo_billing._operations.aws_billing.disassociate_contract
+
+            (
+                output,
+                http_response,
+            ) = await capo_billing._operations.aws_billing.disassociate_contract.async_disassociate_contract(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateContract")
+        )
+        input_: capo_billing.types.disassociate_contract_request.DisassociateContractRequest = {
+            "contract_arn": contract_arn
+        }
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -610,6 +934,73 @@ class AsyncBillingClient:
         )
         input_: capo_billing.types.get_billing_view_request.GetBillingViewRequest = {
             "arn": arn
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def get_contract_information(
+        self,
+        contract_arn: "capo_billing.types.arn_string.ArnString",
+        *,
+        config_overrides: Optional[AsyncBillingClientConfig] = None,
+    ) -> "capo_billing.types.get_contract_information_response.GetContractInformationResponse":
+        """<p>Returns information about a specific private pricing contract, including its term (duration), eligible payer accounts, investment accounts, and legal entities. This operation is read-only.</p>
+
+        Args:
+            contract_arn: <p>The Amazon Resource Name (ARN) of the contract to retrieve information about.</p>
+
+        Raises:
+            capo_billing.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action.</p>
+            capo_billing.errors.internal_server_exception.InternalServerException: <p>The request processing failed because of an unknown error, exception, or failure. </p>
+            capo_billing.errors.resource_not_found_exception.ResourceNotFoundException: <p> The specified ARN in the request doesn't exist. </p>
+            capo_billing.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. </p>
+            capo_billing.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service. </p>
+            capo_billing.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Invoke GetContractInformation
+
+            >>> await client.get_contract_information(contract_arn='arn:aws:billing::123456789012:contract/1a2b3c4d-5e6f-7a8b-9c0d-111122223333')
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_billing.types.get_contract_information_request.GetContractInformationRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_billing.types.get_contract_information_response.GetContractInformationResponse"
+        ]:
+            import capo_billing._operations.aws_billing.get_contract_information
+
+            (
+                output,
+                http_response,
+            ) = await capo_billing._operations.aws_billing.get_contract_information.async_get_contract_information(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        def _redact_output(
+            output: "capo_billing.types.get_contract_information_response.GetContractInformationResponse",
+        ) -> dict[str, Any]:
+            import capo_billing.types.get_contract_information_response
+
+            return (
+                capo_billing.types.get_contract_information_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetContractInformation", redact_output=_redact_output),
+        )
+        input_: capo_billing.types.get_contract_information_request.GetContractInformationRequest = {
+            "contract_arn": contract_arn
         }
 
         response = await aexecute_pipeline(
@@ -1363,6 +1754,360 @@ class AsyncBillingClient:
                 next_token=_token,
             )
             _page = _resolve_path(_response, ("subscription_contracts",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    async def list_contracts(
+        self,
+        *,
+        config_overrides: Optional[AsyncBillingClientConfig] = None,
+        next_token: Optional["capo_billing.types.page_token.PageToken"] = None,
+        max_results: Optional[int] = None,
+    ) -> "capo_billing.types.list_contracts_response.ListContractsResponse":
+        """<p>Lists the private pricing contracts that your Amazon Web Services account is an eligible payer account of. This operation is read-only and paginated.</p>
+
+        Args:
+            next_token: <p>The pagination token that indicates the next set of results to retrieve.</p>
+            max_results: <p>The maximum number of contracts to return in a single call. Minimum value of 1, maximum value of 100.</p>
+
+        Raises:
+            capo_billing.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action.</p>
+            capo_billing.errors.internal_server_exception.InternalServerException: <p>The request processing failed because of an unknown error, exception, or failure. </p>
+            capo_billing.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. </p>
+            capo_billing.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service. </p>
+            capo_billing.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Invoke ListContracts
+
+            >>> await client.list_contracts(max_results=100)
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_billing.types.list_contracts_request.ListContractsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_billing.types.list_contracts_response.ListContractsResponse"
+        ]:
+            import capo_billing._operations.aws_billing.list_contracts
+
+            (
+                output,
+                http_response,
+            ) = await capo_billing._operations.aws_billing.list_contracts.async_list_contracts(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContracts")
+        )
+        input_: capo_billing.types.list_contracts_request.ListContractsRequest = {}
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if max_results is not None:
+            input_["max_results"] = max_results
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_contracts(
+        self,
+        *,
+        config_overrides: Optional[AsyncBillingClientConfig] = None,
+        next_token: Optional["capo_billing.types.page_token.PageToken"] = None,
+        max_results: Optional[int] = None,
+    ) -> "AsyncIterator[capo_billing.types.contract_summary.ContractSummary]":
+        _token = next_token
+        while True:
+            _response = await self.list_contracts(
+                config_overrides=config_overrides,
+                next_token=_token,
+                max_results=max_results,
+            )
+            _page = _resolve_path(_response, ("items",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    async def list_contractual_investment_attestations(
+        self,
+        contract_arn: "capo_billing.types.arn_string.ArnString",
+        *,
+        config_overrides: Optional[AsyncBillingClientConfig] = None,
+        investment_summary_id: Optional[
+            "capo_billing.types.identifier_string.IdentifierString"
+        ] = None,
+        next_token: Optional["capo_billing.types.page_token.PageToken"] = None,
+        max_results: Optional[int] = None,
+    ) -> "capo_billing.types.list_contractual_investment_attestations_response.ListContractualInvestmentAttestationsResponse":
+        """<p>Lists the investment attestations submitted under a specific private pricing contract. Use this operation to track attestation status, including the terminal statuses <code>DISBURSED</code>, <code>REJECTED</code>, and <code>CANCELLED</code>. This operation is read-only and paginated.</p>
+
+        Args:
+            contract_arn: <p>The Amazon Resource Name (ARN) of the contract whose attestations you want to list.</p>
+            investment_summary_id: <p>The identifier of a specific investment summary to filter the attestations by. If omitted, attestations for all investment summaries in the contract are returned.</p>
+            next_token: <p>The pagination token that indicates the next set of results to retrieve.</p>
+            max_results: <p>The maximum number of attestations to return in a single call. Minimum value of 1, maximum value of 100.</p>
+
+        Raises:
+            capo_billing.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action.</p>
+            capo_billing.errors.internal_server_exception.InternalServerException: <p>The request processing failed because of an unknown error, exception, or failure. </p>
+            capo_billing.errors.resource_not_found_exception.ResourceNotFoundException: <p> The specified ARN in the request doesn't exist. </p>
+            capo_billing.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. </p>
+            capo_billing.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service. </p>
+            capo_billing.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Invoke ListContractualInvestmentAttestations
+
+            >>> await client.list_contractual_investment_attestations(contract_arn='arn:aws:billing::123456789012:contract/1a2b3c4d-5e6f-7a8b-9c0d-111122223333', max_results=25)
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_billing.types.list_contractual_investment_attestations_request.ListContractualInvestmentAttestationsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_billing.types.list_contractual_investment_attestations_response.ListContractualInvestmentAttestationsResponse"
+        ]:
+            import capo_billing._operations.aws_billing.list_contractual_investment_attestations
+
+            (
+                output,
+                http_response,
+            ) = await capo_billing._operations.aws_billing.list_contractual_investment_attestations.async_list_contractual_investment_attestations(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContractualInvestmentAttestations")
+        )
+        input_: capo_billing.types.list_contractual_investment_attestations_request.ListContractualInvestmentAttestationsRequest = {
+            "contract_arn": contract_arn
+        }
+        if investment_summary_id is not None:
+            input_["investment_summary_id"] = investment_summary_id
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if max_results is not None:
+            input_["max_results"] = max_results
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_contractual_investment_attestations(
+        self,
+        contract_arn: "capo_billing.types.arn_string.ArnString",
+        *,
+        config_overrides: Optional[AsyncBillingClientConfig] = None,
+        investment_summary_id: Optional[
+            "capo_billing.types.identifier_string.IdentifierString"
+        ] = None,
+        next_token: Optional["capo_billing.types.page_token.PageToken"] = None,
+        max_results: Optional[int] = None,
+    ) -> (
+        "AsyncIterator[capo_billing.types.investment_attestation.InvestmentAttestation]"
+    ):
+        _token = next_token
+        while True:
+            _response = await self.list_contractual_investment_attestations(
+                contract_arn,
+                config_overrides=config_overrides,
+                investment_summary_id=investment_summary_id,
+                next_token=_token,
+                max_results=max_results,
+            )
+            _page = _resolve_path(_response, ("items",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    async def list_contractual_investments(
+        self,
+        contract_arn: "capo_billing.types.arn_string.ArnString",
+        investment_summary_id: "capo_billing.types.identifier_string.IdentifierString",
+        *,
+        config_overrides: Optional[AsyncBillingClientConfig] = None,
+        next_token: Optional["capo_billing.types.page_token.PageToken"] = None,
+        max_results: Optional[int] = None,
+    ) -> "capo_billing.types.list_contractual_investments_response.ListContractualInvestmentsResponse":
+        """<p>Lists the investments within a specific investment summary. This operation is read-only and paginated.</p>
+
+        Args:
+            contract_arn: <p>The Amazon Resource Name (ARN) of the contract that contains the investment summary.</p>
+            investment_summary_id: <p>The identifier of the investment summary whose investments you want to list.</p>
+            next_token: <p>The pagination token that indicates the next set of results to retrieve.</p>
+            max_results: <p>The maximum number of investments to return in a single call. Minimum value of 1, maximum value of 100.</p>
+
+        Raises:
+            capo_billing.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action.</p>
+            capo_billing.errors.internal_server_exception.InternalServerException: <p>The request processing failed because of an unknown error, exception, or failure. </p>
+            capo_billing.errors.resource_not_found_exception.ResourceNotFoundException: <p> The specified ARN in the request doesn't exist. </p>
+            capo_billing.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. </p>
+            capo_billing.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service. </p>
+            capo_billing.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Invoke ListContractualInvestments
+
+            >>> await client.list_contractual_investments(contract_arn='arn:aws:billing::123456789012:contract/1a2b3c4d-5e6f-7a8b-9c0d-111122223333', investment_summary_id='Example-Investment-Summary-Id', max_results=100)
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_billing.types.list_contractual_investments_request.ListContractualInvestmentsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_billing.types.list_contractual_investments_response.ListContractualInvestmentsResponse"
+        ]:
+            import capo_billing._operations.aws_billing.list_contractual_investments
+
+            (
+                output,
+                http_response,
+            ) = await capo_billing._operations.aws_billing.list_contractual_investments.async_list_contractual_investments(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContractualInvestments")
+        )
+        input_: capo_billing.types.list_contractual_investments_request.ListContractualInvestmentsRequest = {
+            "contract_arn": contract_arn,
+            "investment_summary_id": investment_summary_id,
+        }
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if max_results is not None:
+            input_["max_results"] = max_results
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_contractual_investments(
+        self,
+        contract_arn: "capo_billing.types.arn_string.ArnString",
+        investment_summary_id: "capo_billing.types.identifier_string.IdentifierString",
+        *,
+        config_overrides: Optional[AsyncBillingClientConfig] = None,
+        next_token: Optional["capo_billing.types.page_token.PageToken"] = None,
+        max_results: Optional[int] = None,
+    ) -> "AsyncIterator[capo_billing.types.investment.Investment]":
+        _token = next_token
+        while True:
+            _response = await self.list_contractual_investments(
+                contract_arn,
+                investment_summary_id,
+                config_overrides=config_overrides,
+                next_token=_token,
+                max_results=max_results,
+            )
+            _page = _resolve_path(_response, ("items",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    async def list_contractual_investment_summaries(
+        self,
+        contract_arn: "capo_billing.types.arn_string.ArnString",
+        *,
+        config_overrides: Optional[AsyncBillingClientConfig] = None,
+        next_token: Optional["capo_billing.types.page_token.PageToken"] = None,
+        max_results: Optional[int] = None,
+    ) -> "capo_billing.types.list_contractual_investment_summaries_response.ListContractualInvestmentSummariesResponse":
+        """<p>Lists the investment summaries within a specific private pricing contract. This operation is read-only and paginated.</p>
+
+        Args:
+            contract_arn: <p>The Amazon Resource Name (ARN) of the contract whose investment summaries you want to list.</p>
+            next_token: <p>The pagination token that indicates the next set of results to retrieve.</p>
+            max_results: <p>The maximum number of investment summaries to return in a single call. Minimum value of 1, maximum value of 100.</p>
+
+        Raises:
+            capo_billing.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action.</p>
+            capo_billing.errors.internal_server_exception.InternalServerException: <p>The request processing failed because of an unknown error, exception, or failure. </p>
+            capo_billing.errors.resource_not_found_exception.ResourceNotFoundException: <p> The specified ARN in the request doesn't exist. </p>
+            capo_billing.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. </p>
+            capo_billing.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service. </p>
+            capo_billing.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Invoke ListContractualInvestmentSummaries
+
+            >>> await client.list_contractual_investment_summaries(contract_arn='arn:aws:billing::123456789012:contract/1a2b3c4d-5e6f-7a8b-9c0d-111122223333', max_results=100)
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_billing.types.list_contractual_investment_summaries_request.ListContractualInvestmentSummariesRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_billing.types.list_contractual_investment_summaries_response.ListContractualInvestmentSummariesResponse"
+        ]:
+            import capo_billing._operations.aws_billing.list_contractual_investment_summaries
+
+            (
+                output,
+                http_response,
+            ) = await capo_billing._operations.aws_billing.list_contractual_investment_summaries.async_list_contractual_investment_summaries(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContractualInvestmentSummaries")
+        )
+        input_: capo_billing.types.list_contractual_investment_summaries_request.ListContractualInvestmentSummariesRequest = {
+            "contract_arn": contract_arn
+        }
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if max_results is not None:
+            input_["max_results"] = max_results
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_contractual_investment_summaries(
+        self,
+        contract_arn: "capo_billing.types.arn_string.ArnString",
+        *,
+        config_overrides: Optional[AsyncBillingClientConfig] = None,
+        next_token: Optional["capo_billing.types.page_token.PageToken"] = None,
+        max_results: Optional[int] = None,
+    ) -> "AsyncIterator[capo_billing.types.investment_summary.InvestmentSummary]":
+        _token = next_token
+        while True:
+            _response = await self.list_contractual_investment_summaries(
+                contract_arn,
+                config_overrides=config_overrides,
+                next_token=_token,
+                max_results=max_results,
+            )
+            _page = _resolve_path(_response, ("items",))
             for _item in _page or []:
                 yield _item
             _token = _resolve_path(_response, ("next_token",))

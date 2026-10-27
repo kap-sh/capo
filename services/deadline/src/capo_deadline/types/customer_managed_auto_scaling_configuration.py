@@ -13,15 +13,15 @@ class CustomerManagedAutoScalingConfiguration(TypedDict, closed=True):
     standby_worker_count: NotRequired[
         "capo_deadline.types.min_zero_max_integer.MinZeroMaxInteger"
     ]
-    """<p>The number of idle workers maintained and ready to process incoming tasks. The default is 0.</p>"""
+    """The number of idle workers maintained and ready to process incoming tasks. The default is 0."""
     worker_idle_duration_seconds: (
         "capo_deadline.types.min_zero_max_integer.MinZeroMaxInteger"
     )
-    """<p>The number of seconds that a worker can remain idle before it is shut down. The default is 300 seconds (5 minutes).</p>"""
+    """The number of seconds that a worker can remain idle before it is shut down. The default is 300 seconds (5 minutes)."""
     scale_out_workers_per_minute: NotRequired[
         "capo_deadline.types.min_one_max_integer.MinOneMaxInteger"
     ]
-    """<p>The number of workers that can be added per minute to the fleet. The default is 10 workers per minute.</p>"""
+    """The number of workers that can be added per minute to the fleet. The default is 10 workers per minute."""
 
 
 # --- restJson1 ser/de ---

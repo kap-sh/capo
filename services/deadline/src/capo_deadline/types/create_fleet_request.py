@@ -18,29 +18,29 @@ if TYPE_CHECKING:
 
 class CreateFleetRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the farm to connect to the fleet.</p>"""
+    """The farm ID of the farm to connect to the fleet."""
     client_token: NotRequired["capo_deadline.types.client_token.ClientToken"]
-    """<p>The unique token which the server uses to recognize retries of the same request.</p>"""
+    """The unique token which the server uses to recognize retries of the same request."""
     display_name: "capo_deadline.types.resource_name.ResourceName"
     """<p>The display name of the fleet.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     description: NotRequired["capo_deadline.types.description.Description"]
     """<p>The description of the fleet.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     role_arn: "capo_deadline.types.iam_role_arn.IamRoleArn"
-    """<p>The IAM role ARN for the role that the fleet's workers will use.</p>"""
+    """The IAM role ARN for the role that the fleet's workers will use."""
     min_worker_count: NotRequired[
         "capo_deadline.types.min_zero_max_integer.MinZeroMaxInteger"
     ]
-    """<p>The minimum number of workers for the fleet.</p>"""
+    """The minimum number of workers for the fleet."""
     max_worker_count: "capo_deadline.types.min_zero_max_integer.MinZeroMaxInteger"
-    """<p>The maximum number of workers for the fleet.</p> <p>Deadline Cloud limits the number of workers to less than or equal to the fleet's maximum worker count. The service maintains eventual consistency for the worker count. If you make multiple rapid calls to <code>CreateWorker</code> before the field updates, you might exceed your fleet's maximum worker count. For example, if your <code>maxWorkerCount</code> is 10 and you currently have 9 workers, making two quick <code>CreateWorker</code> calls might successfully create 2 workers instead of 1, resulting in 11 total workers.</p>"""
+    """The maximum number of workers for the fleet. Deadline Cloud limits the number of workers to less than or equal to the fleet's maximum worker count. The service maintains eventual consistency for the worker count. If you make multiple rapid calls to <code>CreateWorker</code> before the field updates, you might exceed your fleet's maximum worker count. For example, if your <code>maxWorkerCount</code> is 10 and you currently have 9 workers, making two quick <code>CreateWorker</code> calls might successfully create 2 workers instead of 1, resulting in 11 total workers."""
     configuration: "capo_deadline.types.fleet_configuration.FleetConfiguration"
-    """<p>The configuration settings for the fleet. Customer managed fleets are self-managed. Service managed Amazon EC2 fleets are managed by Deadline Cloud.</p>"""
+    """The configuration settings for the fleet. Customer managed fleets are self-managed. Service managed Amazon EC2 fleets are managed by Deadline Cloud."""
     tags: NotRequired["capo_deadline.types.tags.Tags"]
-    """<p>Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings.</p>"""
+    """Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings."""
     host_configuration: NotRequired[
         "capo_deadline.types.host_configuration.HostConfiguration"
     ]
-    """<p>Provides a script that runs as a worker is starting up that you can use to provide additional configuration for workers in your fleet.</p>"""
+    """Provides a script that runs as a worker is starting up that you can use to provide additional configuration for workers in your fleet."""
 
 
 # --- restJson1 ser/de ---

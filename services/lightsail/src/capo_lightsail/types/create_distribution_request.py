@@ -18,6 +18,7 @@ if TYPE_CHECKING:
     import capo_lightsail.types.string
     import capo_lightsail.types.tag_list
     import capo_lightsail.types.viewer_minimum_tls_protocol_version_enum
+    import capo_lightsail.types.waf_rule_list
 
 
 class CreateDistributionRequest(TypedDict, closed=True):
@@ -55,6 +56,10 @@ class CreateDistributionRequest(TypedDict, closed=True):
         "capo_lightsail.types.distribution_custom_error_response_list.DistributionCustomErrorResponseList"
     ]
     """<p>An array of objects that describe the custom error responses for the distribution. With a custom error response, you can specify the page to return when the origin responds with a given HTTP error code. You can also specify the HTTP status code to send to the viewer.</p>"""
+    enable_waf: NotRequired["capo_lightsail.types.boolean.boolean"]
+    """<p>Specifies whether to enable Web Application Firewall (WAF) for the distribution. WAF inspects viewer requests and blocks requests that match the WAF rule groups that you enable.</p> <p>When you enable WAF without specifying the <code>wafRules</code> parameter, the distribution has no WAF rule groups enabled and doesn't block any requests.</p> <note> <p>WAF is available only for distributions that use the <code>medium_1_0</code> or <code>large_1_0</code> bundle.</p> </note>"""
+    waf_rules: NotRequired["capo_lightsail.types.waf_rule_list.WafRuleList"]
+    """<p>An array of objects that describe the WAF rule groups to enable for the distribution.</p> <p>The WAF rule groups that you can specify depend on the bundle of the distribution:</p> <ul> <li> <p> <code>medium_1_0</code> – Supports the <code>AWSManagedRulesCommonRuleSet</code>, <code>AWSManagedRulesKnownBadInputsRuleSet</code>, and <code>AWSManagedRulesAnonymousIpList</code> rule groups.</p> </li> <li> <p> <code>large_1_0</code> – Supports the rule groups for <code>medium_1_0</code>, plus <code>AWSManagedRulesAdminProtectionRuleSet</code>, <code>AWSManagedRulesSQLiRuleSet</code>, <code>AWSManagedRulesLinuxRuleSet</code>, <code>AWSManagedRulesUnixRuleSet</code>, <code>AWSManagedRulesWindowsRuleSet</code>, <code>AWSManagedRulesPHPRuleSet</code>, <code>AWSManagedRulesWordPressRuleSet</code>, <code>AWSManagedRulesAmazonIpReputationList</code>, <code>AWSManagedRulesATPRuleSet</code>, <code>AWSManagedRulesACFPRuleSet</code>, and <code>AWSManagedRulesBotControlRuleSet</code> rule groups.</p> </li> </ul>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -125,6 +130,14 @@ def serialize_aws_json_1_1(value: CreateDistributionRequest) -> dict:
             capo_lightsail.types.distribution_custom_error_response_list.serialize_aws_json_1_1(
                 value["custom_error_responses"]
             )
+        )
+    if "enable_waf" in value:
+        out["enableWaf"] = value["enable_waf"]
+    if "waf_rules" in value:
+        import capo_lightsail.types.waf_rule_list
+
+        out["wafRules"] = capo_lightsail.types.waf_rule_list.serialize_aws_json_1_1(
+            value["waf_rules"]
         )
     return out
 
@@ -210,5 +223,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDistributionRequest:
             capo_lightsail.types.distribution_custom_error_response_list.deserialize_aws_json_1_1(
                 data["customErrorResponses"]
             )
+        )
+    if data.get("enableWaf") is not None:
+        out["enable_waf"] = data["enableWaf"]
+    if data.get("wafRules") is not None:
+        import capo_lightsail.types.waf_rule_list
+
+        out["waf_rules"] = capo_lightsail.types.waf_rule_list.deserialize_aws_json_1_1(
+            data["wafRules"]
         )
     return out

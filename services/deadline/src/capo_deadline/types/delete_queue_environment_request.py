@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class DeleteQueueEnvironmentRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the farm from which to remove the queue environment.</p>"""
+    """The farm ID of the farm from which to remove the queue environment."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID of the queue environment to delete.</p>"""
+    """The queue ID of the queue environment to delete."""
     queue_environment_id: "capo_deadline.types.queue_environment_id.QueueEnvironmentId"
-    """<p>The queue environment ID of the queue environment to delete.</p>"""
+    """The queue environment ID of the queue environment to delete."""
 
 
 # --- restJson1 ser/de ---

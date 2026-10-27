@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class GetQueueRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the farm in the queue.</p>"""
+    """The farm ID of the farm in the queue."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID for the queue to retrieve.</p>"""
+    """The queue ID for the queue to retrieve."""
 
 
 # --- restJson1 ser/de ---

@@ -21,6 +21,7 @@ if TYPE_CHECKING:
     import capo_odb.types.data_collection_options
     import capo_odb.types.delete_cloud_vm_cluster_input
     import capo_odb.types.delete_cloud_vm_cluster_output
+    import capo_odb.types.file_system_configuration_details_list
     import capo_odb.types.general_input_string
     import capo_odb.types.get_cloud_vm_cluster_input
     import capo_odb.types.get_cloud_vm_cluster_output
@@ -33,6 +34,7 @@ if TYPE_CHECKING:
     import capo_odb.types.resource_id
     import capo_odb.types.resource_id_or_arn
     import capo_odb.types.string_list
+    import capo_odb.types.vm_storage_type
     from capo_odb._services.async_odb import AsyncodbClient, AsyncodbClientConfig
     from capo_odb._services.odb import odbClient, odbClientConfig
 
@@ -52,6 +54,18 @@ class CloudVmClusterResource:
         odb_network_id: "capo_odb.types.resource_id_or_arn.ResourceIdOrArn",
         *,
         config_overrides: Optional[odbClientConfig] = None,
+        exascale_db_storage_vault_id: Optional[
+            "capo_odb.types.resource_id_or_arn.ResourceIdOrArn"
+        ] = None,
+        vm_file_system_storage_type: Optional[
+            "capo_odb.types.vm_storage_type.VmStorageType"
+        ] = None,
+        vm_backup_storage_type: Optional[
+            "capo_odb.types.vm_storage_type.VmStorageType"
+        ] = None,
+        file_system_configuration_details: Optional[
+            "capo_odb.types.file_system_configuration_details_list.FileSystemConfigurationDetailsList"
+        ] = None,
         cluster_name: Optional["capo_odb.types.cluster_name.ClusterName"] = None,
         data_collection_options: Optional[
             "capo_odb.types.data_collection_options.DataCollectionOptions"
@@ -75,6 +89,10 @@ class CloudVmClusterResource:
 
         Args:
             cloud_exadata_infrastructure_id: <p>The unique identifier of the Exadata infrastructure for this VM cluster.</p>
+            exascale_db_storage_vault_id: <p>The unique identifier or Amazon Resource Name (ARN) of the Exascale storage vault to use for the VM cluster. Specify this value to create a VM cluster that uses Exascale storage on dedicated Exadata infrastructure.</p>
+            vm_file_system_storage_type: <p>The type of storage to use for the VM file systems. Specify <code>EXASCALE</code> to store the VM file systems in Exascale storage on the storage servers, or <code>LOCAL</code> to store them on the database servers.</p>
+            vm_backup_storage_type: <p>The type of storage to use for VM backups. Specify <code>EXASCALE</code> to store VM backups in Exascale storage on the storage servers, or <code>LOCAL</code> to store them on the database servers.</p>
+            file_system_configuration_details: <p>The list of file system configurations for the VM cluster. Each entry specifies the mount point of a file system and its size, in gigabytes (GB).</p>
             cpu_core_count: <p>The number of CPU cores to enable on the VM cluster.</p>
             display_name: <p>A user-friendly name for the VM cluster.</p>
             gi_version: <p>A valid software version of Oracle Grid Infrastructure (GI). To get the list of valid values, use the <code>ListGiVersions</code> operation and specify the shape of the Exadata infrastructure.</p> <p>Example: <code>19.0.0.0</code> </p>
@@ -133,6 +151,16 @@ class CloudVmClusterResource:
             "ssh_public_keys": ssh_public_keys,
             "odb_network_id": odb_network_id,
         }
+        if exascale_db_storage_vault_id is not None:
+            input_["exascale_db_storage_vault_id"] = exascale_db_storage_vault_id
+        if vm_file_system_storage_type is not None:
+            input_["vm_file_system_storage_type"] = vm_file_system_storage_type
+        if vm_backup_storage_type is not None:
+            input_["vm_backup_storage_type"] = vm_backup_storage_type
+        if file_system_configuration_details is not None:
+            input_["file_system_configuration_details"] = (
+                file_system_configuration_details
+            )
         if cluster_name is not None:
             input_["cluster_name"] = cluster_name
         if data_collection_options is not None:
@@ -360,6 +388,18 @@ class AsyncCloudVmClusterResource:
         odb_network_id: "capo_odb.types.resource_id_or_arn.ResourceIdOrArn",
         *,
         config_overrides: Optional[AsyncodbClientConfig] = None,
+        exascale_db_storage_vault_id: Optional[
+            "capo_odb.types.resource_id_or_arn.ResourceIdOrArn"
+        ] = None,
+        vm_file_system_storage_type: Optional[
+            "capo_odb.types.vm_storage_type.VmStorageType"
+        ] = None,
+        vm_backup_storage_type: Optional[
+            "capo_odb.types.vm_storage_type.VmStorageType"
+        ] = None,
+        file_system_configuration_details: Optional[
+            "capo_odb.types.file_system_configuration_details_list.FileSystemConfigurationDetailsList"
+        ] = None,
         cluster_name: Optional["capo_odb.types.cluster_name.ClusterName"] = None,
         data_collection_options: Optional[
             "capo_odb.types.data_collection_options.DataCollectionOptions"
@@ -383,6 +423,10 @@ class AsyncCloudVmClusterResource:
 
         Args:
             cloud_exadata_infrastructure_id: <p>The unique identifier of the Exadata infrastructure for this VM cluster.</p>
+            exascale_db_storage_vault_id: <p>The unique identifier or Amazon Resource Name (ARN) of the Exascale storage vault to use for the VM cluster. Specify this value to create a VM cluster that uses Exascale storage on dedicated Exadata infrastructure.</p>
+            vm_file_system_storage_type: <p>The type of storage to use for the VM file systems. Specify <code>EXASCALE</code> to store the VM file systems in Exascale storage on the storage servers, or <code>LOCAL</code> to store them on the database servers.</p>
+            vm_backup_storage_type: <p>The type of storage to use for VM backups. Specify <code>EXASCALE</code> to store VM backups in Exascale storage on the storage servers, or <code>LOCAL</code> to store them on the database servers.</p>
+            file_system_configuration_details: <p>The list of file system configurations for the VM cluster. Each entry specifies the mount point of a file system and its size, in gigabytes (GB).</p>
             cpu_core_count: <p>The number of CPU cores to enable on the VM cluster.</p>
             display_name: <p>A user-friendly name for the VM cluster.</p>
             gi_version: <p>A valid software version of Oracle Grid Infrastructure (GI). To get the list of valid values, use the <code>ListGiVersions</code> operation and specify the shape of the Exadata infrastructure.</p> <p>Example: <code>19.0.0.0</code> </p>
@@ -442,6 +486,16 @@ class AsyncCloudVmClusterResource:
             "ssh_public_keys": ssh_public_keys,
             "odb_network_id": odb_network_id,
         }
+        if exascale_db_storage_vault_id is not None:
+            input_["exascale_db_storage_vault_id"] = exascale_db_storage_vault_id
+        if vm_file_system_storage_type is not None:
+            input_["vm_file_system_storage_type"] = vm_file_system_storage_type
+        if vm_backup_storage_type is not None:
+            input_["vm_backup_storage_type"] = vm_backup_storage_type
+        if file_system_configuration_details is not None:
+            input_["file_system_configuration_details"] = (
+                file_system_configuration_details
+            )
         if cluster_name is not None:
             input_["cluster_name"] = cluster_name
         if data_collection_options is not None:

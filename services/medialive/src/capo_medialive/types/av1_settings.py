@@ -16,6 +16,7 @@ if TYPE_CHECKING:
     import capo_medialive.types.afd_signaling
     import capo_medialive.types.av1_bit_depth
     import capo_medialive.types.av1_color_space_settings
+    import capo_medialive.types.av1_filter_settings
     import capo_medialive.types.av1_gop_size_units
     import capo_medialive.types.av1_level
     import capo_medialive.types.av1_look_ahead_rate_control
@@ -107,6 +108,10 @@ class Av1Settings(TypedDict, closed=True):
     """Controls how MediaLive inserts timecodes into the video output encode. DISABLED: Do not insert timecodes. METADATA_OBU: Include timecodes. MediaLive inserts timecode metadata based on the timecode from the source specified in the Timecode Config property. The timecode metadata is a metadata OBU (Open Bitstream Unit) of type METADATA_TYPE_TIMECODE, in accordance with https://aomediacodec.github.io/av1-spec/#metadata-timecode-syntax."""
     bit_depth: NotRequired["capo_medialive.types.av1_bit_depth.Av1BitDepth"]
     """Specifies the bit depth for the output encode. Choose a value. Or leave the field empty to use the default, which is 8 bit."""
+    filter_settings: NotRequired[
+        "capo_medialive.types.av1_filter_settings.Av1FilterSettings"
+    ]
+    """Optional filters that you can apply to an encode."""
 
 
 # --- restJson1 ser/de ---
@@ -230,6 +235,12 @@ def serialize_json(value: Av1Settings) -> dict:
         out["bitDepth"] = capo_medialive.types.av1_bit_depth.serialize_json(
             value["bit_depth"]
         )
+    if "filter_settings" in value:
+        import capo_medialive.types.av1_filter_settings
+
+        out["filterSettings"] = capo_medialive.types.av1_filter_settings.serialize_json(
+            value["filter_settings"]
+        )
     return out
 
 
@@ -346,5 +357,13 @@ def deserialize_json(data: dict) -> Av1Settings:
 
         out["bit_depth"] = capo_medialive.types.av1_bit_depth.deserialize_json(
             data["bitDepth"]
+        )
+    if data.get("filterSettings") is not None:
+        import capo_medialive.types.av1_filter_settings
+
+        out["filter_settings"] = (
+            capo_medialive.types.av1_filter_settings.deserialize_json(
+                data["filterSettings"]
+            )
         )
     return out

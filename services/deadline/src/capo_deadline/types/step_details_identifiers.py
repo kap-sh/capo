@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class StepDetailsIdentifiers(TypedDict, closed=True):
     job_id: "capo_deadline.types.job_id.JobId"
-    """<p>The job ID.</p>"""
+    """The job ID."""
     step_id: "capo_deadline.types.step_id.StepId"
-    """<p>The step ID.</p>"""
+    """The step ID."""
 
 
 # --- restJson1 ser/de ---

@@ -14,17 +14,17 @@ if TYPE_CHECKING:
 
 class CreateWorkerRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the farm to connect to the worker.</p>"""
+    """The farm ID of the farm to connect to the worker."""
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID to connect to the worker.</p>"""
+    """The fleet ID to connect to the worker."""
     host_properties: NotRequired[
         "capo_deadline.types.host_properties_request.HostPropertiesRequest"
     ]
-    """<p>The IP address and host name of the worker.</p>"""
+    """The IP address and host name of the worker."""
     client_token: NotRequired["capo_deadline.types.client_token.ClientToken"]
-    """<p>The unique token which the server uses to recognize retries of the same request.</p>"""
+    """The unique token which the server uses to recognize retries of the same request."""
     tags: NotRequired["capo_deadline.types.tags.Tags"]
-    """<p>Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings.</p>"""
+    """Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings."""
 
 
 # --- restJson1 ser/de ---

@@ -15,19 +15,19 @@ if TYPE_CHECKING:
 
 class CreateFarmRequest(TypedDict, closed=True):
     client_token: NotRequired["capo_deadline.types.client_token.ClientToken"]
-    """<p>The unique token which the server uses to recognize retries of the same request.</p>"""
+    """The unique token which the server uses to recognize retries of the same request."""
     display_name: "capo_deadline.types.resource_name.ResourceName"
     """<p>The display name of the farm.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     description: NotRequired["capo_deadline.types.description.Description"]
     """<p>The description of the farm.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     kms_key_arn: NotRequired["capo_deadline.types.kms_key_arn.KmsKeyArn"]
-    """<p>The ARN of the KMS key to use on the farm.</p>"""
+    """The ARN of the KMS key to use on the farm."""
     cost_scale_factor: NotRequired[
         "capo_deadline.types.cost_scale_factor.CostScaleFactor"
     ]
-    """<p>A multiplier applied to the farm's calculated costs for usage data and budget tracking. A value less than 1 represents a discount, a value greater than 1 represents a premium, and a value of 1 represents no adjustment. The default value is 1.</p>"""
+    """A multiplier applied to the farm's calculated costs for usage data and budget tracking. A value less than 1 represents a discount, a value greater than 1 represents a premium, and a value of 1 represents no adjustment. The default value is 1."""
     tags: NotRequired["capo_deadline.types.tags.Tags"]
-    """<p>The tags to add to your farm. Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings.</p>"""
+    """The tags to add to your farm. Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings."""
 
 
 # --- restJson1 ser/de ---

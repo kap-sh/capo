@@ -18,6 +18,7 @@ import capo_networkmanager.errors.resource_not_found_exception
 import capo_networkmanager.errors.throttling_exception
 import capo_networkmanager.errors.validation_exception
 import capo_networkmanager.types.constrained_string_list
+import capo_networkmanager.types.core_network_network_function_group_identifier
 import capo_networkmanager.types.core_network_segment_edge_identifier
 import capo_networkmanager.types.date_time
 import capo_networkmanager.types.filter_map

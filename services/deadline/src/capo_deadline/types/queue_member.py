@@ -15,19 +15,19 @@ if TYPE_CHECKING:
 
 class QueueMember(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID.</p>"""
+    """The farm ID."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID.</p>"""
+    """The queue ID."""
     principal_id: (
         "capo_deadline.types.identity_center_principal_id.IdentityCenterPrincipalId"
     )
-    """<p>The principal ID of the queue member.</p>"""
+    """The principal ID of the queue member."""
     principal_type: "capo_deadline.types.deadline_principal_type.DeadlinePrincipalType"
-    """<p>The principal type of the queue member.</p>"""
+    """The principal type of the queue member."""
     identity_store_id: "capo_deadline.types.identity_store_id.IdentityStoreId"
-    """<p>The identity store ID.</p>"""
+    """The identity store ID."""
     membership_level: "capo_deadline.types.membership_level.MembershipLevel"
-    """<p>The queue member's membership level.</p>"""
+    """The queue member's membership level."""
 
 
 # --- restJson1 ser/de ---

@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class DeleteLimitRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The unique identifier of the farm that contains the limit to delete.</p>"""
+    """The unique identifier of the farm that contains the limit to delete."""
     limit_id: "capo_deadline.types.limit_id.LimitId"
-    """<p>The unique identifier of the limit to delete.</p>"""
+    """The unique identifier of the limit to delete."""
 
 
 # --- restJson1 ser/de ---

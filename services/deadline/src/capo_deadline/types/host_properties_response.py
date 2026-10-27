@@ -13,13 +13,13 @@ if TYPE_CHECKING:
 
 class HostPropertiesResponse(TypedDict, closed=True):
     ip_addresses: NotRequired["capo_deadline.types.ip_addresses.IpAddresses"]
-    """<p>The IP address of the host.</p>"""
+    """The IP address of the host."""
     host_name: NotRequired["capo_deadline.types.host_name.HostName"]
-    """<p>The host name.</p>"""
+    """The host name."""
     ec2_instance_arn: NotRequired["capo_deadline.types.string.String"]
-    """<p>The ARN of the host EC2 instance.</p>"""
+    """The ARN of the host EC2 instance."""
     ec2_instance_type: NotRequired["capo_deadline.types.instance_type.InstanceType"]
-    """<p>The instance type of the host EC2 instance.</p>"""
+    """The instance type of the host EC2 instance."""
 
 
 # --- restJson1 ser/de ---

@@ -2,7 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
-"""<p>The EBS volume type.</p>"""
+"""The EBS volume type."""
 EbsVolumeType: TypeAlias = Literal["gp3",]
 
 

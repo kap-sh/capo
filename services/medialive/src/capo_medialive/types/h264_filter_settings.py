@@ -5,7 +5,10 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_medialive.types.auto_filter_settings
     import capo_medialive.types.bandwidth_reduction_filter_settings
+    import capo_medialive.types.none_filter_settings
+    import capo_medialive.types.perceptual_filter_settings
     import capo_medialive.types.temporal_filter_settings
 
 
@@ -15,6 +18,15 @@ class H264FilterSettings(TypedDict, closed=True):
     ]
     bandwidth_reduction_filter_settings: NotRequired[
         "capo_medialive.types.bandwidth_reduction_filter_settings.BandwidthReductionFilterSettings"
+    ]
+    auto_filter_settings: NotRequired[
+        "capo_medialive.types.auto_filter_settings.AutoFilterSettings"
+    ]
+    none_filter_settings: NotRequired[
+        "capo_medialive.types.none_filter_settings.NoneFilterSettings"
+    ]
+    perceptual_filter_settings: NotRequired[
+        "capo_medialive.types.perceptual_filter_settings.PerceptualFilterSettings"
     ]
 
 
@@ -37,6 +49,30 @@ def serialize_json(value: H264FilterSettings) -> dict:
                 value["bandwidth_reduction_filter_settings"]
             )
         )
+    if "auto_filter_settings" in value:
+        import capo_medialive.types.auto_filter_settings
+
+        out["autoFilterSettings"] = (
+            capo_medialive.types.auto_filter_settings.serialize_json(
+                value["auto_filter_settings"]
+            )
+        )
+    if "none_filter_settings" in value:
+        import capo_medialive.types.none_filter_settings
+
+        out["noneFilterSettings"] = (
+            capo_medialive.types.none_filter_settings.serialize_json(
+                value["none_filter_settings"]
+            )
+        )
+    if "perceptual_filter_settings" in value:
+        import capo_medialive.types.perceptual_filter_settings
+
+        out["perceptualFilterSettings"] = (
+            capo_medialive.types.perceptual_filter_settings.serialize_json(
+                value["perceptual_filter_settings"]
+            )
+        )
     return out
 
 
@@ -56,6 +92,30 @@ def deserialize_json(data: dict) -> H264FilterSettings:
         out["bandwidth_reduction_filter_settings"] = (
             capo_medialive.types.bandwidth_reduction_filter_settings.deserialize_json(
                 data["bandwidthReductionFilterSettings"]
+            )
+        )
+    if data.get("autoFilterSettings") is not None:
+        import capo_medialive.types.auto_filter_settings
+
+        out["auto_filter_settings"] = (
+            capo_medialive.types.auto_filter_settings.deserialize_json(
+                data["autoFilterSettings"]
+            )
+        )
+    if data.get("noneFilterSettings") is not None:
+        import capo_medialive.types.none_filter_settings
+
+        out["none_filter_settings"] = (
+            capo_medialive.types.none_filter_settings.deserialize_json(
+                data["noneFilterSettings"]
+            )
+        )
+    if data.get("perceptualFilterSettings") is not None:
+        import capo_medialive.types.perceptual_filter_settings
+
+        out["perceptual_filter_settings"] = (
+            capo_medialive.types.perceptual_filter_settings.deserialize_json(
+                data["perceptualFilterSettings"]
             )
         )
     return out

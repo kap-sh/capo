@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_ivs.types.boolean
     import capo_ivs.types.channel_ad_configuration_arn
     import capo_ivs.types.channel_arn
+    import capo_ivs.types.channel_failover_slate_configuration_arn
     import capo_ivs.types.channel_latency_mode
     import capo_ivs.types.channel_name
     import capo_ivs.types.channel_playback_restriction_policy_arn
@@ -51,6 +52,10 @@ class UpdateChannelRequest(TypedDict, closed=True):
         "capo_ivs.types.channel_ad_configuration_arn.ChannelAdConfigurationArn"
     ]
     """<p>ARN of the ad configuration associated with the channel.</p>"""
+    failover_slate_configuration_arn: NotRequired[
+        "capo_ivs.types.channel_failover_slate_configuration_arn.ChannelFailoverSlateConfigurationArn"
+    ]
+    """<p>Failover-slate-configuration ARN. A valid ARN value here both specifies the ARN and enables failover slate. If this is set to an empty string, failover slate configuration is disabled.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -87,6 +92,8 @@ def serialize_json(value: UpdateChannelRequest) -> dict:
         out["containerFormat"] = value["container_format"]
     if "ad_configuration_arn" in value:
         out["adConfigurationArn"] = value["ad_configuration_arn"]
+    if "failover_slate_configuration_arn" in value:
+        out["failoverSlateConfigurationArn"] = value["failover_slate_configuration_arn"]
     return out
 
 
@@ -132,4 +139,6 @@ def deserialize_json(data: dict) -> UpdateChannelRequest:
         out["container_format"] = data["containerFormat"]
     if data.get("adConfigurationArn") is not None:
         out["ad_configuration_arn"] = data["adConfigurationArn"]
+    if data.get("failoverSlateConfigurationArn") is not None:
+        out["failover_slate_configuration_arn"] = data["failoverSlateConfigurationArn"]
     return out

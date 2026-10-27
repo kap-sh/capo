@@ -14,6 +14,7 @@ if TYPE_CHECKING:
     import capo_kms.types.customer_master_key_spec
     import capo_kms.types.date_type
     import capo_kms.types.description_type
+    import capo_kms.types.encapsulation_algorithm_spec_list
     import capo_kms.types.encryption_algorithm_spec_list
     import capo_kms.types.expiration_model_type
     import capo_kms.types.key_agreement_algorithm_spec_list
@@ -86,6 +87,10 @@ class KeyMetadata(TypedDict, closed=True):
         "capo_kms.types.key_agreement_algorithm_spec_list.KeyAgreementAlgorithmSpecList"
     ]
     """<p>The key agreement algorithm used to derive a shared secret.</p>"""
+    encapsulation_algorithms: NotRequired[
+        "capo_kms.types.encapsulation_algorithm_spec_list.EncapsulationAlgorithmSpecList"
+    ]
+    """<p>The key encapsulation algorithm that the KMS key supports. This field appears only for KMS keys with a <code>KeyUsage</code> value of <code>ENCAPSULATE_DECAPSULATE</code>.</p>"""
     multi_region: NotRequired[
         "capo_kms.types.nullable_boolean_type.NullableBooleanType"
     ]
@@ -213,6 +218,14 @@ def serialize_aws_json_1_1(value: KeyMetadata) -> dict:
         out["KeyAgreementAlgorithms"] = (
             capo_kms.types.key_agreement_algorithm_spec_list.serialize_aws_json_1_1(
                 value["key_agreement_algorithms"]
+            )
+        )
+    if "encapsulation_algorithms" in value:
+        import capo_kms.types.encapsulation_algorithm_spec_list
+
+        out["EncapsulationAlgorithms"] = (
+            capo_kms.types.encapsulation_algorithm_spec_list.serialize_aws_json_1_1(
+                value["encapsulation_algorithms"]
             )
         )
     if "multi_region" in value:
@@ -354,6 +367,14 @@ def deserialize_aws_json_1_1(data: dict) -> KeyMetadata:
         out["key_agreement_algorithms"] = (
             capo_kms.types.key_agreement_algorithm_spec_list.deserialize_aws_json_1_1(
                 data["KeyAgreementAlgorithms"]
+            )
+        )
+    if data.get("EncapsulationAlgorithms") is not None:
+        import capo_kms.types.encapsulation_algorithm_spec_list
+
+        out["encapsulation_algorithms"] = (
+            capo_kms.types.encapsulation_algorithm_spec_list.deserialize_aws_json_1_1(
+                data["EncapsulationAlgorithms"]
             )
         )
     if data.get("MultiRegion") is not None:

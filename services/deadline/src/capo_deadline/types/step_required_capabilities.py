@@ -13,9 +13,9 @@ class StepRequiredCapabilities(TypedDict, closed=True):
     attributes: (
         "capo_deadline.types.step_attribute_capabilities.StepAttributeCapabilities"
     )
-    """<p>The capability attributes that the step requires.</p>"""
+    """The capability attributes that the step requires."""
     amounts: "capo_deadline.types.step_amount_capabilities.StepAmountCapabilities"
-    """<p>The capability amounts that the step requires.</p>"""
+    """The capability amounts that the step requires."""
 
 
 # --- restJson1 ser/de ---

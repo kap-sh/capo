@@ -18,9 +18,9 @@ from capo_billing import AsyncBillingClient
 
 async def main():
     async with AsyncBillingClient() as billing:
-        # Example: call the associate_source_views operation
-        response = await billing.associate_source_views()
-        print(response["arn"])
+        # Example: call the associate_contract operation
+        response = await billing.associate_contract()
+        print(response)
 ```
 
 ## Pagination
@@ -50,7 +50,7 @@ from capo_billing.error import AccessDeniedException
 async def main():
     async with AsyncBillingClient() as billing:
         try:
-            await billing.associate_source_views()
+            await billing.associate_contract()
         except AccessDeniedException as e:
             print(f"Error: {e}")
             print(e.data)  # additional error data
@@ -69,11 +69,11 @@ from capo_billing import AsyncBillingClient
 async def main():
     async with AsyncBillingClient() as billing:
         # Default: 3 attempts for every operation
-        response = await billing.associate_source_views()
+        response = await billing.associate_contract()
 
         # Override per operation
-        response = await billing.associate_source_views(config_overrides={"retry_max_attempts": 5})
+        response = await billing.associate_contract(config_overrides={"retry_max_attempts": 5})
 
         # Disable retries for this call
-        response = await billing.associate_source_views(config_overrides={"retry_max_attempts": 1})
+        response = await billing.associate_contract(config_overrides={"retry_max_attempts": 1})
 ```

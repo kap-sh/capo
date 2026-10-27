@@ -40,6 +40,8 @@ if TYPE_CHECKING:
     import capo_odb.types.string_list
     import capo_odb.types.update_cloud_exadata_infrastructure_input
     import capo_odb.types.update_cloud_exadata_infrastructure_output
+    import capo_odb.types.update_exascale_cloud_exadata_infrastructure_input
+    import capo_odb.types.update_exascale_cloud_exadata_infrastructure_output
     from capo_odb._services.async_odb import AsyncodbClient, AsyncodbClientConfig
     from capo_odb._services.odb import odbClient, odbClientConfig
 
@@ -548,6 +550,64 @@ class CloudExadataInfrastructureResource:
             input_["max_results"] = max_results
         if next_token is not None:
             input_["next_token"] = next_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def update_exascale_cloud_exadata_infrastructure(
+        self,
+        cloud_exadata_infrastructure_id: "capo_odb.types.resource_id_or_arn.ResourceIdOrArn",
+        total_storage_size_in_g_bs: int,
+        *,
+        config_overrides: Optional[odbClientConfig] = None,
+        total_vm_storage_size_in_g_bs: Optional[int] = None,
+    ) -> "capo_odb.types.update_exascale_cloud_exadata_infrastructure_output.UpdateExascaleCloudExadataInfrastructureOutput":
+        """<p>Configures or updates the Exascale storage on an Exadata infrastructure. After you configure Exascale storage, you can create Exascale storage vaults on the infrastructure and VM clusters that use Exascale storage.</p>
+
+        Args:
+            cloud_exadata_infrastructure_id: <p>The unique identifier or Amazon Resource Name (ARN) of the Exadata infrastructure to update.</p>
+            total_storage_size_in_g_bs: <p>The total amount of Exascale storage, in gigabytes (GB), to configure on the Exadata infrastructure.</p>
+            total_vm_storage_size_in_g_bs: <p>The total amount of Exascale storage, in gigabytes (GB), to allocate for VM storage on the Exadata infrastructure. VM clusters that store their VM file systems or VM backups in Exascale storage use this capacity.</p>
+
+        Raises:
+            capo_odb.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action. Make sure you have the required permissions and try again.</p>
+            capo_odb.errors.conflict_exception.ConflictException: <p>Occurs when a conflict with the current status of your resource. Fix any inconsistencies with your resource and try again.</p>
+            capo_odb.errors.internal_server_exception.InternalServerException: <p>Occurs when there is an internal failure in the Oracle Database@Amazon Web Services service. Wait and try again.</p>
+            capo_odb.errors.resource_not_found_exception.ResourceNotFoundException: <p>The operation tried to access a resource that doesn't exist. Make sure you provided the correct resource and try again.</p>
+            capo_odb.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_odb.errors.validation_exception.ValidationException: <p>The request has failed validation because it is missing required fields or has invalid inputs.</p>
+            capo_odb.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_odb.types.update_exascale_cloud_exadata_infrastructure_input.UpdateExascaleCloudExadataInfrastructureInput]",
+        ) -> OperationResponse[
+            "capo_odb.types.update_exascale_cloud_exadata_infrastructure_output.UpdateExascaleCloudExadataInfrastructureOutput"
+        ]:
+            import capo_odb._operations.odb.update_exascale_cloud_exadata_infrastructure
+
+            output, http_response = (
+                capo_odb._operations.odb.update_exascale_cloud_exadata_infrastructure.update_exascale_cloud_exadata_infrastructure(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateExascaleCloudExadataInfrastructure"),
+        )
+        input_: capo_odb.types.update_exascale_cloud_exadata_infrastructure_input.UpdateExascaleCloudExadataInfrastructureInput = {
+            "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id,
+            "total_storage_size_in_g_bs": total_storage_size_in_g_bs,
+        }
+        if total_vm_storage_size_in_g_bs is not None:
+            input_["total_vm_storage_size_in_g_bs"] = total_vm_storage_size_in_g_bs
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -1072,6 +1132,65 @@ class AsyncCloudExadataInfrastructureResource:
             input_["max_results"] = max_results
         if next_token is not None:
             input_["next_token"] = next_token
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def update_exascale_cloud_exadata_infrastructure(
+        self,
+        cloud_exadata_infrastructure_id: "capo_odb.types.resource_id_or_arn.ResourceIdOrArn",
+        total_storage_size_in_g_bs: int,
+        *,
+        config_overrides: Optional[AsyncodbClientConfig] = None,
+        total_vm_storage_size_in_g_bs: Optional[int] = None,
+    ) -> "capo_odb.types.update_exascale_cloud_exadata_infrastructure_output.UpdateExascaleCloudExadataInfrastructureOutput":
+        """<p>Configures or updates the Exascale storage on an Exadata infrastructure. After you configure Exascale storage, you can create Exascale storage vaults on the infrastructure and VM clusters that use Exascale storage.</p>
+
+        Args:
+            cloud_exadata_infrastructure_id: <p>The unique identifier or Amazon Resource Name (ARN) of the Exadata infrastructure to update.</p>
+            total_storage_size_in_g_bs: <p>The total amount of Exascale storage, in gigabytes (GB), to configure on the Exadata infrastructure.</p>
+            total_vm_storage_size_in_g_bs: <p>The total amount of Exascale storage, in gigabytes (GB), to allocate for VM storage on the Exadata infrastructure. VM clusters that store their VM file systems or VM backups in Exascale storage use this capacity.</p>
+
+        Raises:
+            capo_odb.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action. Make sure you have the required permissions and try again.</p>
+            capo_odb.errors.conflict_exception.ConflictException: <p>Occurs when a conflict with the current status of your resource. Fix any inconsistencies with your resource and try again.</p>
+            capo_odb.errors.internal_server_exception.InternalServerException: <p>Occurs when there is an internal failure in the Oracle Database@Amazon Web Services service. Wait and try again.</p>
+            capo_odb.errors.resource_not_found_exception.ResourceNotFoundException: <p>The operation tried to access a resource that doesn't exist. Make sure you provided the correct resource and try again.</p>
+            capo_odb.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_odb.errors.validation_exception.ValidationException: <p>The request has failed validation because it is missing required fields or has invalid inputs.</p>
+            capo_odb.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_odb.types.update_exascale_cloud_exadata_infrastructure_input.UpdateExascaleCloudExadataInfrastructureInput]",
+        ) -> AsyncOperationResponse[
+            "capo_odb.types.update_exascale_cloud_exadata_infrastructure_output.UpdateExascaleCloudExadataInfrastructureOutput"
+        ]:
+            import capo_odb._operations.odb.update_exascale_cloud_exadata_infrastructure
+
+            (
+                output,
+                http_response,
+            ) = await capo_odb._operations.odb.update_exascale_cloud_exadata_infrastructure.async_update_exascale_cloud_exadata_infrastructure(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateExascaleCloudExadataInfrastructure"),
+        )
+        input_: capo_odb.types.update_exascale_cloud_exadata_infrastructure_input.UpdateExascaleCloudExadataInfrastructureInput = {
+            "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id,
+            "total_storage_size_in_g_bs": total_storage_size_in_g_bs,
+        }
+        if total_vm_storage_size_in_g_bs is not None:
+            input_["total_vm_storage_size_in_g_bs"] = total_vm_storage_size_in_g_bs
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

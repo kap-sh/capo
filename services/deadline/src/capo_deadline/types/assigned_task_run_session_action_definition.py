@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class AssignedTaskRunSessionActionDefinition(TypedDict, closed=True):
     task_id: NotRequired["capo_deadline.types.task_id.TaskId"]
-    """<p>The task ID.</p>"""
+    """The task ID."""
     step_id: "capo_deadline.types.step_id.StepId"
-    """<p>The step ID.</p>"""
+    """The step ID."""
     parameters: "capo_deadline.types.task_parameters.TaskParameters"
-    """<p>The parameters to include.</p>"""
+    """The parameters to include."""
 
 
 # --- restJson1 ser/de ---

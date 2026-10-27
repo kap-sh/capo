@@ -18,3 +18,9 @@ title: RatingScale
       show_source: true
       merge_init_into_class: false
       heading_level: 2
+
+::: capo_bedrock_agentcore_control.types.rating_scale._RatingScale_multiDimensional
+    options:
+      show_source: true
+      merge_init_into_class: false
+      heading_level: 2

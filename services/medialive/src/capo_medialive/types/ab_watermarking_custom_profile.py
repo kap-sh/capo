@@ -5,15 +5,13 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_medialive.types.__double
     import capo_medialive.types.__double_min32_max46
-    import capo_medialive.types.__double_min250_max5000
     import capo_medialive.types.__double_min_negative1_max5
 
 
 class AbWatermarkingCustomProfile(TypedDict, closed=True):
-    embedding_frequency: NotRequired[
-        "capo_medialive.types.__double_min250_max5000.__doubleMin250Max5000"
-    ]
+    embedding_frequency: NotRequired["capo_medialive.types.__double.__double"]
     """The frequency with which watermarks will be embedded, in milliseconds."""
     scene_cut: NotRequired[
         "capo_medialive.types.__double_min_negative1_max5.__doubleMinNegative1Max5"

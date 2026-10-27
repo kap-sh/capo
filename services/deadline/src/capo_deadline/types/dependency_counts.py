@@ -10,13 +10,13 @@ if TYPE_CHECKING:
 
 class DependencyCounts(TypedDict, closed=True):
     dependencies_resolved: "capo_deadline.types.integer.Integer"
-    """<p>The number of resolved dependencies.</p>"""
+    """The number of resolved dependencies."""
     dependencies_unresolved: "capo_deadline.types.integer.Integer"
-    """<p>The number of unresolved dependencies.</p>"""
+    """The number of unresolved dependencies."""
     consumers_resolved: "capo_deadline.types.integer.Integer"
-    """<p>The number of consumers resolved.</p>"""
+    """The number of consumers resolved."""
     consumers_unresolved: "capo_deadline.types.integer.Integer"
-    """<p>The number of unresolved consumers.</p>"""
+    """The number of unresolved consumers."""
 
 
 # --- restJson1 ser/de ---

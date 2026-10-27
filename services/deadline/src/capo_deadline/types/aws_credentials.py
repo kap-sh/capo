@@ -13,13 +13,13 @@ if TYPE_CHECKING:
 
 class AwsCredentials(TypedDict, closed=True):
     access_key_id: "capo_deadline.types.access_key_id.AccessKeyId"
-    """<p>The IAM access key ID.</p>"""
+    """The IAM access key ID."""
     secret_access_key: "capo_deadline.types.secret_access_key.SecretAccessKey"
-    """<p>The IAM secret access key.</p>"""
+    """The IAM secret access key."""
     session_token: "capo_deadline.types.session_token.SessionToken"
-    """<p>The IAM session token</p>"""
+    """The IAM session token"""
     expiration: "capo_deadline.types.timestamp.Timestamp"
-    """<p>The expiration date and time of the IAM credentials.</p>"""
+    """The expiration date and time of the IAM credentials."""
 
 
 # --- restJson1 ser/de ---

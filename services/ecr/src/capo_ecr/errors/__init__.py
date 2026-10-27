@@ -90,6 +90,15 @@ from .referenced_images_not_found_exception import (
 from .registry_policy_not_found_exception import (
     RegistryPolicyNotFoundException as RegistryPolicyNotFoundException,
 )
+from .replication_backfill_in_progress_exception import (
+    ReplicationBackfillInProgressException as ReplicationBackfillInProgressException,
+)
+from .replication_backfill_invalid_status_exception import (
+    ReplicationBackfillInvalidStatusException as ReplicationBackfillInvalidStatusException,
+)
+from .replication_backfill_not_found_exception import (
+    ReplicationBackfillNotFoundException as ReplicationBackfillNotFoundException,
+)
 from .repository_already_exists_exception import (
     RepositoryAlreadyExistsException as RepositoryAlreadyExistsException,
 )

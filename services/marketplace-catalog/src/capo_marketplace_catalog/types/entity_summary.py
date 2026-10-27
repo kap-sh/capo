@@ -19,6 +19,7 @@ if TYPE_CHECKING:
     import capo_marketplace_catalog.types.resale_authorization_summary
     import capo_marketplace_catalog.types.resource_id
     import capo_marketplace_catalog.types.saa_s_product_summary
+    import capo_marketplace_catalog.types.subsidiary_authorization_summary
     import capo_marketplace_catalog.types.visibility_value
 
 
@@ -76,6 +77,10 @@ class EntitySummary(TypedDict, closed=True):
         "capo_marketplace_catalog.types.express_private_offer_configuration_summary.ExpressPrivateOfferConfigurationSummary"
     ]
     """<p>An object that contains summary information about the express private offer configuration.</p>"""
+    subsidiary_authorization_summary: NotRequired[
+        "capo_marketplace_catalog.types.subsidiary_authorization_summary.SubsidiaryAuthorizationSummary"
+    ]
+    """<p>An object that contains summary information about the subsidiary authorization, such as its status and authorized resource, when the entity type is <code>SubsidiaryAuthorization</code>.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -165,6 +170,14 @@ def serialize_json(value: EntitySummary) -> dict:
                 value["express_private_offer_configuration_summary"]
             )
         )
+    if "subsidiary_authorization_summary" in value:
+        import capo_marketplace_catalog.types.subsidiary_authorization_summary
+
+        out["SubsidiaryAuthorizationSummary"] = (
+            capo_marketplace_catalog.types.subsidiary_authorization_summary.serialize_json(
+                value["subsidiary_authorization_summary"]
+            )
+        )
     return out
 
 
@@ -252,6 +265,14 @@ def deserialize_json(data: dict) -> EntitySummary:
         out["express_private_offer_configuration_summary"] = (
             capo_marketplace_catalog.types.express_private_offer_configuration_summary.deserialize_json(
                 data["ExpressPrivateOfferConfigurationSummary"]
+            )
+        )
+    if data.get("SubsidiaryAuthorizationSummary") is not None:
+        import capo_marketplace_catalog.types.subsidiary_authorization_summary
+
+        out["subsidiary_authorization_summary"] = (
+            capo_marketplace_catalog.types.subsidiary_authorization_summary.deserialize_json(
+                data["SubsidiaryAuthorizationSummary"]
             )
         )
     return out

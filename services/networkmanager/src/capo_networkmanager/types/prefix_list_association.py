@@ -14,7 +14,7 @@ class PrefixListAssociation(TypedDict, closed=True):
     core_network_id: NotRequired[
         "capo_networkmanager.types.core_network_id.CoreNetworkId"
     ]
-    """<p>The core network id in the association.</p>"""
+    """<p>The ID of the core network in the association.</p>"""
     prefix_list_arn: NotRequired[
         "capo_networkmanager.types.prefix_list_arn.PrefixListArn"
     ]

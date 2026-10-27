@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class ParameterSortExpression(TypedDict, closed=True):
     sort_order: "capo_deadline.types.sort_order.SortOrder"
-    """<p>The sort order for the parameter.</p>"""
+    """The sort order for the parameter."""
     name: "capo_deadline.types.string.String"
-    """<p>The parameter name to sort by.</p>"""
+    """The parameter name to sort by."""
 
 
 # --- restJson1 ser/de ---

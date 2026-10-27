@@ -37,6 +37,7 @@ if TYPE_CHECKING:
     import capo_ivs_realtime.types.boolean
     import capo_ivs_realtime.types.composition_arn
     import capo_ivs_realtime.types.composition_client_token
+    import capo_ivs_realtime.types.connection_token_id
     import capo_ivs_realtime.types.create_encoder_configuration_request
     import capo_ivs_realtime.types.create_encoder_configuration_response
     import capo_ivs_realtime.types.create_ingest_configuration_request
@@ -141,6 +142,8 @@ if TYPE_CHECKING:
     import capo_ivs_realtime.types.reconnect_window_seconds
     import capo_ivs_realtime.types.redundant_ingest
     import capo_ivs_realtime.types.resource_arn
+    import capo_ivs_realtime.types.revoke_connection_token_request
+    import capo_ivs_realtime.types.revoke_connection_token_response
     import capo_ivs_realtime.types.s3_storage_configuration
     import capo_ivs_realtime.types.stage_arn
     import capo_ivs_realtime.types.stage_name
@@ -2370,6 +2373,53 @@ class IVSRealTimeClient:
         )
         input_: capo_ivs_realtime.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def revoke_connection_token(
+        self,
+        token_id: "capo_ivs_realtime.types.connection_token_id.ConnectionTokenId",
+        *,
+        config_overrides: Optional[IVSRealTimeClientConfig] = None,
+    ) -> "capo_ivs_realtime.types.revoke_connection_token_response.RevokeConnectionTokenResponse":
+        """<p>Revokes the specified connection token so that it can no longer connect to a stage. This operation disconnects any participant currently connected with the revoked token.</p>
+
+        Args:
+            token_id: <p>The ID of the connection token to revoke.</p>
+
+        Raises:
+            capo_ivs_realtime.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_ivs_realtime.errors.internal_server_exception.InternalServerException: <p>Unexpected error during processing of request.</p>
+            capo_ivs_realtime.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service.</p>
+            capo_ivs_realtime.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_ivs_realtime.types.revoke_connection_token_request.RevokeConnectionTokenRequest]",
+        ) -> OperationResponse[
+            "capo_ivs_realtime.types.revoke_connection_token_response.RevokeConnectionTokenResponse"
+        ]:
+            import capo_ivs_realtime._operations.amazon_interactive_video_service_real_time.revoke_connection_token
+
+            output, http_response = (
+                capo_ivs_realtime._operations.amazon_interactive_video_service_real_time.revoke_connection_token.revoke_connection_token(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RevokeConnectionToken")
+        )
+        input_: capo_ivs_realtime.types.revoke_connection_token_request.RevokeConnectionTokenRequest = {
+            "token_id": token_id
         }
 
         response = execute_pipeline(

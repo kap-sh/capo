@@ -26,47 +26,47 @@ if TYPE_CHECKING:
 
 class StepSearchSummary(TypedDict, closed=True):
     step_id: NotRequired["capo_deadline.types.step_id.StepId"]
-    """<p>The step ID.</p>"""
+    """The step ID."""
     job_id: NotRequired["capo_deadline.types.job_id.JobId"]
-    """<p>The job ID.</p>"""
+    """The job ID."""
     queue_id: NotRequired["capo_deadline.types.queue_id.QueueId"]
-    """<p>The queue ID.</p>"""
+    """The queue ID."""
     name: NotRequired["capo_deadline.types.step_name.StepName"]
-    """<p>The step name.</p>"""
+    """The step name."""
     lifecycle_status: NotRequired[
         "capo_deadline.types.step_lifecycle_status.StepLifecycleStatus"
     ]
-    """<p>The life cycle status.</p>"""
+    """The life cycle status."""
     lifecycle_status_message: NotRequired["capo_deadline.types.string.String"]
-    """<p>The life cycle status message.</p>"""
+    """The life cycle status message."""
     task_run_status: NotRequired["capo_deadline.types.task_run_status.TaskRunStatus"]
     """<p>The task run status for the job.</p> <ul> <li> <p> <code>PENDING</code>–pending and waiting for resources.</p> </li> <li> <p> <code>READY</code>–ready to be processed.</p> </li> <li> <p> <code>ASSIGNED</code>–assigned and will run next on a worker.</p> </li> <li> <p> <code>SCHEDULED</code>–scheduled to be run on a worker.</p> </li> <li> <p> <code>INTERRUPTING</code>–being interrupted.</p> </li> <li> <p> <code>RUNNING</code>–running on a worker.</p> </li> <li> <p> <code>SUSPENDED</code>–the task is suspended.</p> </li> <li> <p> <code>CANCELED</code>–the task has been canceled.</p> </li> <li> <p> <code>FAILED</code>–the task has failed.</p> </li> <li> <p> <code>SUCCEEDED</code>–the task has succeeded.</p> </li> </ul>"""
     target_task_run_status: NotRequired[
         "capo_deadline.types.step_target_task_run_status.StepTargetTaskRunStatus"
     ]
-    """<p>The task status to update the job's tasks to.</p>"""
+    """The task status to update the job's tasks to."""
     task_run_status_counts: NotRequired[
         "capo_deadline.types.task_run_status_counts.TaskRunStatusCounts"
     ]
-    """<p>The number of tasks running on the job.</p>"""
+    """The number of tasks running on the job."""
     task_failure_retry_count: NotRequired[
         "capo_deadline.types.task_failure_retry_count.TaskFailureRetryCount"
     ]
-    """<p>The total number of times tasks from the step failed and were retried.</p>"""
+    """The total number of times tasks from the step failed and were retried."""
     created_at: NotRequired["capo_deadline.types.created_at.CreatedAt"]
-    """<p>The date and time the resource was created.</p>"""
+    """The date and time the resource was created."""
     created_by: NotRequired["capo_deadline.types.created_by.CreatedBy"]
-    """<p>The user or system that created this resource.</p>"""
+    """The user or system that created this resource."""
     started_at: NotRequired["capo_deadline.types.started_at.StartedAt"]
-    """<p>The date and time the resource started running.</p>"""
+    """The date and time the resource started running."""
     ended_at: NotRequired["capo_deadline.types.ended_at.EndedAt"]
-    """<p>The date and time the resource ended running.</p>"""
+    """The date and time the resource ended running."""
     updated_at: NotRequired["capo_deadline.types.updated_at.UpdatedAt"]
-    """<p>The date and time the resource was updated.</p>"""
+    """The date and time the resource was updated."""
     updated_by: NotRequired["capo_deadline.types.updated_by.UpdatedBy"]
-    """<p>The user or system that updated this resource.</p>"""
+    """The user or system that updated this resource."""
     parameter_space: NotRequired["capo_deadline.types.parameter_space.ParameterSpace"]
-    """<p>The parameters and combination expressions for the search.</p>"""
+    """The parameters and combination expressions for the search."""
 
 
 # --- restJson1 ser/de ---

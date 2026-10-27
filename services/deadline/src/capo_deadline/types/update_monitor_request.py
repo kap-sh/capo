@@ -13,13 +13,13 @@ if TYPE_CHECKING:
 
 class UpdateMonitorRequest(TypedDict, closed=True):
     monitor_id: "capo_deadline.types.monitor_id.MonitorId"
-    """<p>The unique identifier of the monitor to update.</p>"""
+    """The unique identifier of the monitor to update."""
     subdomain: NotRequired["capo_deadline.types.subdomain.Subdomain"]
-    """<p>The new value of the subdomain to use when forming the monitor URL.</p>"""
+    """The new value of the subdomain to use when forming the monitor URL."""
     display_name: NotRequired["capo_deadline.types.resource_name.ResourceName"]
     """<p>The new value to use for the monitor's display name.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     role_arn: NotRequired["capo_deadline.types.iam_role_arn.IamRoleArn"]
-    """<p>The Amazon Resource Name of the new IAM role to use with the monitor.</p>"""
+    """The Amazon Resource Name of the new IAM role to use with the monitor."""
 
 
 # --- restJson1 ser/de ---

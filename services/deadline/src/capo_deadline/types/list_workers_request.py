@@ -13,13 +13,13 @@ if TYPE_CHECKING:
 
 class ListWorkersRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID connected to the workers.</p>"""
+    """The farm ID connected to the workers."""
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID of the workers.</p>"""
+    """The fleet ID of the workers."""
     next_token: NotRequired["capo_deadline.types.next_token.NextToken"]
-    """<p>The token for the next set of results, or <code>null</code> to start from the beginning.</p>"""
+    """The token for the next set of results, or <code>null</code> to start from the beginning."""
     max_results: NotRequired["capo_deadline.types.max_results.MaxResults"]
-    """<p>The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.</p>"""
+    """The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages."""
 
 
 # --- restJson1 ser/de ---

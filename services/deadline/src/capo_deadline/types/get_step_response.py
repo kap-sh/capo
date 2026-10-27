@@ -27,49 +27,49 @@ if TYPE_CHECKING:
 
 class GetStepResponse(TypedDict, closed=True):
     step_id: "capo_deadline.types.step_id.StepId"
-    """<p>The step ID.</p>"""
+    """The step ID."""
     name: "capo_deadline.types.step_name.StepName"
-    """<p>The name of the step.</p>"""
+    """The name of the step."""
     lifecycle_status: "capo_deadline.types.step_lifecycle_status.StepLifecycleStatus"
-    """<p>The life cycle status of the step.</p>"""
+    """The life cycle status of the step."""
     lifecycle_status_message: NotRequired["capo_deadline.types.string.String"]
-    """<p>A message that describes the lifecycle status of the step.</p>"""
+    """A message that describes the lifecycle status of the step."""
     task_run_status: "capo_deadline.types.task_run_status.TaskRunStatus"
-    """<p>The task run status for the job.</p>"""
+    """The task run status for the job."""
     task_run_status_counts: (
         "capo_deadline.types.task_run_status_counts.TaskRunStatusCounts"
     )
-    """<p>The number of tasks running on the job.</p>"""
+    """The number of tasks running on the job."""
     task_failure_retry_count: NotRequired[
         "capo_deadline.types.task_failure_retry_count.TaskFailureRetryCount"
     ]
-    """<p>The total number of times tasks from the step failed and were retried.</p>"""
+    """The total number of times tasks from the step failed and were retried."""
     target_task_run_status: NotRequired[
         "capo_deadline.types.step_target_task_run_status.StepTargetTaskRunStatus"
     ]
-    """<p>The task status with which the job started.</p>"""
+    """The task status with which the job started."""
     created_at: "capo_deadline.types.created_at.CreatedAt"
-    """<p>The date and time the resource was created.</p>"""
+    """The date and time the resource was created."""
     created_by: "capo_deadline.types.created_by.CreatedBy"
-    """<p>The user or system that created this resource.</p>"""
+    """The user or system that created this resource."""
     updated_at: NotRequired["capo_deadline.types.updated_at.UpdatedAt"]
-    """<p>The date and time the resource was updated.</p>"""
+    """The date and time the resource was updated."""
     updated_by: NotRequired["capo_deadline.types.updated_by.UpdatedBy"]
-    """<p>The user or system that updated this resource.</p>"""
+    """The user or system that updated this resource."""
     started_at: NotRequired["capo_deadline.types.started_at.StartedAt"]
-    """<p>The date and time the resource started running.</p>"""
+    """The date and time the resource started running."""
     ended_at: NotRequired["capo_deadline.types.ended_at.EndedAt"]
-    """<p>The date and time the resource ended running.</p>"""
+    """The date and time the resource ended running."""
     dependency_counts: NotRequired[
         "capo_deadline.types.dependency_counts.DependencyCounts"
     ]
-    """<p>The number of dependencies in the step.</p>"""
+    """The number of dependencies in the step."""
     required_capabilities: NotRequired[
         "capo_deadline.types.step_required_capabilities.StepRequiredCapabilities"
     ]
-    """<p>The required capabilities of the step.</p>"""
+    """The required capabilities of the step."""
     parameter_space: NotRequired["capo_deadline.types.parameter_space.ParameterSpace"]
-    """<p>A list of step parameters and the combination expression for the step.</p>"""
+    """A list of step parameters and the combination expression for the step."""
     description: NotRequired["capo_deadline.types.step_description.StepDescription"]
     """<p>The description of the step.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
 

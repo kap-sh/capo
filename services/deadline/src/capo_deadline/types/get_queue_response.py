@@ -26,9 +26,9 @@ if TYPE_CHECKING:
 
 class GetQueueResponse(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID for the queue.</p>"""
+    """The farm ID for the queue."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID.</p>"""
+    """The queue ID."""
     display_name: "capo_deadline.types.resource_name.ResourceName"
     """<p>The display name of the queue.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     status: "capo_deadline.types.queue_status.QueueStatus"
@@ -36,41 +36,41 @@ class GetQueueResponse(TypedDict, closed=True):
     default_budget_action: (
         "capo_deadline.types.default_queue_budget_action.DefaultQueueBudgetAction"
     )
-    """<p>The default action taken on a queue if a budget wasn't configured.</p>"""
+    """The default action taken on a queue if a budget wasn't configured."""
     blocked_reason: NotRequired[
         "capo_deadline.types.queue_blocked_reason.QueueBlockedReason"
     ]
-    """<p>The reason the queue was blocked.</p>"""
+    """The reason the queue was blocked."""
     created_at: "capo_deadline.types.created_at.CreatedAt"
-    """<p>The date and time the resource was created.</p>"""
+    """The date and time the resource was created."""
     created_by: "capo_deadline.types.created_by.CreatedBy"
-    """<p>The user or system that created this resource.</p>"""
+    """The user or system that created this resource."""
     updated_at: NotRequired["capo_deadline.types.updated_at.UpdatedAt"]
-    """<p>The date and time the resource was updated.</p>"""
+    """The date and time the resource was updated."""
     updated_by: NotRequired["capo_deadline.types.updated_by.UpdatedBy"]
-    """<p>The user or system that updated this resource.</p>"""
+    """The user or system that updated this resource."""
     description: NotRequired["capo_deadline.types.description.Description"]
     """<p>The description of the queue.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     job_attachment_settings: NotRequired[
         "capo_deadline.types.job_attachment_settings.JobAttachmentSettings"
     ]
-    """<p>The job attachment settings for the queue.</p>"""
+    """The job attachment settings for the queue."""
     role_arn: NotRequired["capo_deadline.types.iam_role_arn.IamRoleArn"]
-    """<p>The IAM role ARN.</p>"""
+    """The IAM role ARN."""
     required_file_system_location_names: NotRequired[
         "capo_deadline.types.required_file_system_location_names.RequiredFileSystemLocationNames"
     ]
-    """<p>A list of the required file system location names in the queue.</p>"""
+    """A list of the required file system location names in the queue."""
     allowed_storage_profile_ids: NotRequired[
         "capo_deadline.types.allowed_storage_profile_ids.AllowedStorageProfileIds"
     ]
-    """<p>The storage profile IDs for the queue.</p>"""
+    """The storage profile IDs for the queue."""
     job_run_as_user: NotRequired["capo_deadline.types.job_run_as_user.JobRunAsUser"]
-    """<p>The jobs in the queue ran as this specified POSIX user.</p>"""
+    """The jobs in the queue ran as this specified POSIX user."""
     scheduling_configuration: NotRequired[
         "capo_deadline.types.scheduling_configuration.SchedulingConfiguration"
     ]
-    """<p>The scheduling configuration for the queue. This configuration determines how workers are assigned to jobs in the queue.</p>"""
+    """The scheduling configuration for the queue. This configuration determines how workers are assigned to jobs in the queue."""
 
 
 # --- restJson1 ser/de ---

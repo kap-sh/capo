@@ -13,7 +13,7 @@ class StopDurableExecutionRequest(TypedDict, closed=True):
     durable_execution_arn: "capo_lambda.types.durable_execution_arn.DurableExecutionArn"
     """<p>The Amazon Resource Name (ARN) of the durable execution.</p>"""
     error: NotRequired["capo_lambda.types.error_object.ErrorObject"]
-    """<p>Optional error details explaining why the execution is being stopped.</p>"""
+    """<p>Optional error details explaining why the execution is being stopped. The combined size of all error fields is limited to 1 MB.</p>"""
 
 
 # --- restJson1 ser/de ---

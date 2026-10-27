@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class BatchGetSessionResponse(TypedDict, closed=True):
     sessions: "capo_deadline.types.batch_get_session_items.BatchGetSessionItems"
-    """<p>A list of sessions that were successfully retrieved.</p>"""
+    """A list of sessions that were successfully retrieved."""
     errors: "capo_deadline.types.batch_get_session_errors.BatchGetSessionErrors"
-    """<p>A list of errors for sessions that could not be retrieved.</p>"""
+    """A list of errors for sessions that could not be retrieved."""
 
 
 # --- restJson1 ser/de ---

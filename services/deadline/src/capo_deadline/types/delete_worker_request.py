@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class DeleteWorkerRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the worker to delete.</p>"""
+    """The farm ID of the worker to delete."""
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID of the worker to delete.</p>"""
+    """The fleet ID of the worker to delete."""
     worker_id: "capo_deadline.types.worker_id.WorkerId"
-    """<p>The worker ID of the worker to delete.</p>"""
+    """The worker ID of the worker to delete."""
 
 
 # --- restJson1 ser/de ---

@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class BatchGetJobEntityResponse(TypedDict, closed=True):
     entities: "capo_deadline.types.batch_get_job_entity_list.BatchGetJobEntityList"
-    """<p>A list of the job entities, or details, in the batch.</p>"""
+    """A list of the job entities, or details, in the batch."""
     errors: "capo_deadline.types.batch_get_job_entity_errors.BatchGetJobEntityErrors"
-    """<p>A list of errors from the job error logs for the batch.</p>"""
+    """A list of errors from the job error logs for the batch."""
 
 
 # --- restJson1 ser/de ---

@@ -15,15 +15,15 @@ class LicenseEndpointSummary(TypedDict, closed=True):
     license_endpoint_id: NotRequired[
         "capo_deadline.types.license_endpoint_id.LicenseEndpointId"
     ]
-    """<p>The license endpoint ID.</p>"""
+    """The license endpoint ID."""
     status: NotRequired[
         "capo_deadline.types.license_endpoint_status.LicenseEndpointStatus"
     ]
-    """<p>The status of the license endpoint.</p>"""
+    """The status of the license endpoint."""
     status_message: NotRequired["capo_deadline.types.status_message.StatusMessage"]
-    """<p>The status message of the license endpoint.</p>"""
+    """The status message of the license endpoint."""
     vpc_id: NotRequired["capo_deadline.types.vpc_id.VpcId"]
-    """<p>The VPC (virtual private cloud) ID associated with the license endpoint.</p>"""
+    """The VPC (virtual private cloud) ID associated with the license endpoint."""
 
 
 # --- restJson1 ser/de ---

@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class GetJobRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the farm in the job.</p>"""
+    """The farm ID of the farm in the job."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID associated with the job.</p>"""
+    """The queue ID associated with the job."""
     job_id: "capo_deadline.types.job_id.JobId"
-    """<p>The job ID.</p>"""
+    """The job ID."""
 
 
 # --- restJson1 ser/de ---

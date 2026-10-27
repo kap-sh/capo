@@ -21,11 +21,11 @@ if TYPE_CHECKING:
 
 class UpdateQueueRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID to update in the queue.</p>"""
+    """The farm ID to update in the queue."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID to update.</p>"""
+    """The queue ID to update."""
     client_token: NotRequired["capo_deadline.types.client_token.ClientToken"]
-    """<p>The idempotency token to update in the queue.</p>"""
+    """The idempotency token to update in the queue."""
     display_name: NotRequired["capo_deadline.types.resource_name.ResourceName"]
     """<p>The display name of the queue to update.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     description: NotRequired["capo_deadline.types.description.Description"]
@@ -33,35 +33,35 @@ class UpdateQueueRequest(TypedDict, closed=True):
     default_budget_action: NotRequired[
         "capo_deadline.types.default_queue_budget_action.DefaultQueueBudgetAction"
     ]
-    """<p>The default action to take for a queue update if a budget isn't configured.</p>"""
+    """The default action to take for a queue update if a budget isn't configured."""
     job_attachment_settings: NotRequired[
         "capo_deadline.types.job_attachment_settings.JobAttachmentSettings"
     ]
-    """<p>The job attachment settings to update for the queue.</p>"""
+    """The job attachment settings to update for the queue."""
     role_arn: NotRequired["capo_deadline.types.iam_role_arn.IamRoleArn"]
-    """<p>The IAM role ARN that's used to run jobs from this queue.</p>"""
+    """The IAM role ARN that's used to run jobs from this queue."""
     job_run_as_user: NotRequired["capo_deadline.types.job_run_as_user.JobRunAsUser"]
-    """<p>Update the jobs in the queue to run as a specified POSIX user.</p>"""
+    """Update the jobs in the queue to run as a specified POSIX user."""
     required_file_system_location_names_to_add: NotRequired[
         "capo_deadline.types.required_file_system_location_names.RequiredFileSystemLocationNames"
     ]
-    """<p>The required file system location names to add to the queue.</p>"""
+    """The required file system location names to add to the queue."""
     required_file_system_location_names_to_remove: NotRequired[
         "capo_deadline.types.required_file_system_location_names.RequiredFileSystemLocationNames"
     ]
-    """<p>The required file system location names to remove from the queue.</p>"""
+    """The required file system location names to remove from the queue."""
     allowed_storage_profile_ids_to_add: NotRequired[
         "capo_deadline.types.allowed_storage_profile_ids.AllowedStorageProfileIds"
     ]
-    """<p>The storage profile IDs to add.</p>"""
+    """The storage profile IDs to add."""
     allowed_storage_profile_ids_to_remove: NotRequired[
         "capo_deadline.types.allowed_storage_profile_ids.AllowedStorageProfileIds"
     ]
-    """<p>The storage profile ID to remove.</p>"""
+    """The storage profile ID to remove."""
     scheduling_configuration: NotRequired[
         "capo_deadline.types.scheduling_configuration.SchedulingConfiguration"
     ]
-    """<p>The scheduling configuration for the queue. This configuration determines how workers are assigned to jobs in the queue.</p> <p>When updating the scheduling configuration, the entire configuration is replaced.</p> <p>In-progress tasks run to completion before the new scheduling configuration takes effect.</p>"""
+    """The scheduling configuration for the queue. This configuration determines how workers are assigned to jobs in the queue. When updating the scheduling configuration, the entire configuration is replaced. In-progress tasks run to completion before the new scheduling configuration takes effect."""
 
 
 # --- restJson1 ser/de ---

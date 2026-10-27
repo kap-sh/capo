@@ -18,25 +18,25 @@ if TYPE_CHECKING:
 
 class GetQueueEnvironmentResponse(TypedDict, closed=True):
     queue_environment_id: "capo_deadline.types.queue_environment_id.QueueEnvironmentId"
-    """<p>The queue environment ID.</p>"""
+    """The queue environment ID."""
     name: "capo_deadline.types.environment_name.EnvironmentName"
-    """<p>The name of the queue environment.</p>"""
+    """The name of the queue environment."""
     priority: "capo_deadline.types.priority.Priority"
-    """<p>The priority of the queue environment.</p>"""
+    """The priority of the queue environment."""
     template_type: (
         "capo_deadline.types.environment_template_type.EnvironmentTemplateType"
     )
-    """<p>The type of template for the queue environment.</p>"""
+    """The type of template for the queue environment."""
     template: "capo_deadline.types.environment_template.EnvironmentTemplate"
-    """<p>The template for the queue environment.</p>"""
+    """The template for the queue environment."""
     created_at: "capo_deadline.types.created_at.CreatedAt"
-    """<p>The date and time the resource was created.</p>"""
+    """The date and time the resource was created."""
     created_by: "capo_deadline.types.created_by.CreatedBy"
-    """<p>The user or system that created this resource.&gt;</p>"""
+    """The user or system that created this resource.&gt;"""
     updated_at: NotRequired["capo_deadline.types.updated_at.UpdatedAt"]
-    """<p>The date and time the resource was updated.</p>"""
+    """The date and time the resource was updated."""
     updated_by: NotRequired["capo_deadline.types.updated_by.UpdatedBy"]
-    """<p>The user or system that updated this resource.</p>"""
+    """The user or system that updated this resource."""
 
 
 # --- restJson1 ser/de ---

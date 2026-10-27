@@ -15,13 +15,13 @@ if TYPE_CHECKING:
 
 class CopyJobTemplateRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID to copy.</p>"""
+    """The farm ID to copy."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID to copy.</p>"""
+    """The queue ID to copy."""
     job_id: "capo_deadline.types.job_id.JobId"
-    """<p>The job ID to copy.</p>"""
+    """The job ID to copy."""
     target_s3_location: "capo_deadline.types.s3_location.S3Location"
-    """<p>The Amazon S3 bucket name and key where you would like to add a copy of the job template.</p>"""
+    """The Amazon S3 bucket name and key where you would like to add a copy of the job template."""
 
 
 # --- restJson1 ser/de ---

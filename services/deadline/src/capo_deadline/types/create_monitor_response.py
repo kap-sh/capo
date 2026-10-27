@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class CreateMonitorResponse(TypedDict, closed=True):
     monitor_id: "capo_deadline.types.monitor_id.MonitorId"
-    """<p>The unique identifier of the monitor.</p>"""
+    """The unique identifier of the monitor."""
     identity_center_application_arn: "capo_deadline.types.identity_center_application_arn.IdentityCenterApplicationArn"
-    """<p>The Amazon Resource Name that IAM Identity Center assigns to the monitor.</p>"""
+    """The Amazon Resource Name that IAM Identity Center assigns to the monitor."""
 
 
 # --- restJson1 ser/de ---

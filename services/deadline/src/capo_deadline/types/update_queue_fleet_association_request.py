@@ -13,13 +13,13 @@ if TYPE_CHECKING:
 
 class UpdateQueueFleetAssociationRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID to update.</p>"""
+    """The farm ID to update."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID to update.</p>"""
+    """The queue ID to update."""
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID to update.</p>"""
+    """The fleet ID to update."""
     status: "capo_deadline.types.update_queue_fleet_association_status.UpdateQueueFleetAssociationStatus"
-    """<p>The status to update.</p>"""
+    """The status to update."""
 
 
 # --- restJson1 ser/de ---

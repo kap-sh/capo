@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class GetStorageProfileForQueueRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID for the queue in storage profile.</p>"""
+    """The farm ID for the queue in storage profile."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID the queue in the storage profile.</p>"""
+    """The queue ID the queue in the storage profile."""
     storage_profile_id: "capo_deadline.types.storage_profile_id.StorageProfileId"
-    """<p>The storage profile ID for the storage profile in the queue.</p>"""
+    """The storage profile ID for the storage profile in the queue."""
 
 
 # --- restJson1 ser/de ---

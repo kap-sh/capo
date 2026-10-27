@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class DeleteQueueLimitAssociationRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The unique identifier of the farm that contains the queue and limit to disassociate.</p>"""
+    """The unique identifier of the farm that contains the queue and limit to disassociate."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The unique identifier of the queue to disassociate.</p>"""
+    """The unique identifier of the queue to disassociate."""
     limit_id: "capo_deadline.types.limit_id.LimitId"
-    """<p>The unique identifier of the limit to disassociate.</p>"""
+    """The unique identifier of the limit to disassociate."""
 
 
 # --- restJson1 ser/de ---

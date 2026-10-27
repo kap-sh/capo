@@ -10,9 +10,9 @@ if TYPE_CHECKING:
 
 class AcceleratorCountRange(TypedDict, closed=True):
     min: "capo_deadline.types.min_zero_max_integer.MinZeroMaxInteger"
-    """<p>The minimum number of GPU accelerators in the worker host.</p>"""
+    """The minimum number of GPU accelerators in the worker host."""
     max: NotRequired["capo_deadline.types.min_zero_max_integer.MinZeroMaxInteger"]
-    """<p>The maximum number of GPU accelerators in the worker host.</p>"""
+    """The maximum number of GPU accelerators in the worker host."""
 
 
 # --- restJson1 ser/de ---

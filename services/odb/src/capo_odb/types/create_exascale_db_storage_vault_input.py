@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_odb.types.general_input_string
     import capo_odb.types.request_tag_map
     import capo_odb.types.resource_display_name
+    import capo_odb.types.resource_id_or_arn
 
 
 class CreateExascaleDbStorageVaultInput(TypedDict, closed=True):
@@ -19,6 +20,10 @@ class CreateExascaleDbStorageVaultInput(TypedDict, closed=True):
     """<p>The additional flash cache percentage for the Exascale storage vault.</p>"""
     autoscale_limit_in_g_bs: NotRequired["int"]
     """<p>The autoscale limit in gigabytes (GB) for the Exascale storage vault.</p>"""
+    cloud_exadata_infrastructure_id: NotRequired[
+        "capo_odb.types.resource_id_or_arn.ResourceIdOrArn"
+    ]
+    """<p>The unique identifier or Amazon Resource Name (ARN) of the Exadata infrastructure on which to create the Exascale storage vault. Specify this value to create the Exascale storage vault on dedicated Exadata infrastructure that has Exascale storage configured. If you specify <code>availabilityZone</code> or <code>availabilityZoneId</code>, the value must match the Availability Zone of the Exadata infrastructure. If you specify neither, the service uses the Availability Zone of the Exadata infrastructure.</p>"""
     availability_zone_id: NotRequired["str"]
     """<p>The Availability Zone ID for the Exascale storage vault.</p>"""
     availability_zone: NotRequired["str"]
@@ -48,6 +53,8 @@ def serialize_aws_json_1_0(value: CreateExascaleDbStorageVaultInput) -> dict:
         ]
     if "autoscale_limit_in_g_bs" in value:
         out["autoscaleLimitInGBs"] = value["autoscale_limit_in_g_bs"]
+    if "cloud_exadata_infrastructure_id" in value:
+        out["cloudExadataInfrastructureId"] = value["cloud_exadata_infrastructure_id"]
     if "availability_zone_id" in value:
         out["availabilityZoneId"] = value["availability_zone_id"]
     if "availability_zone" in value:
@@ -85,6 +92,8 @@ def deserialize_aws_json_1_0(data: dict) -> CreateExascaleDbStorageVaultInput:
         out["additional_flash_cache_in_percent"] = data["additionalFlashCacheInPercent"]
     if data.get("autoscaleLimitInGBs") is not None:
         out["autoscale_limit_in_g_bs"] = data["autoscaleLimitInGBs"]
+    if data.get("cloudExadataInfrastructureId") is not None:
+        out["cloud_exadata_infrastructure_id"] = data["cloudExadataInfrastructureId"]
     if data.get("availabilityZoneId") is not None:
         out["availability_zone_id"] = data["availabilityZoneId"]
     if data.get("availabilityZone") is not None:

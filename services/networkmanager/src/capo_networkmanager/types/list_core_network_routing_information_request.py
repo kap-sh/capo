@@ -22,7 +22,23 @@ class ListCoreNetworkRoutingInformationRequest(TypedDict, closed=True):
     edge_location: "capo_networkmanager.types.external_region_code.ExternalRegionCode"
     """<p>The edge location to filter routing information by.</p>"""
     next_hop_filters: NotRequired["capo_networkmanager.types.filter_map.FilterMap"]
-    """<p>Filters to apply based on next hop information.</p>"""
+    """<p>Filters to apply based on next hop information. Each filter value must exactly match the corresponding next hop value. Values for the same filter are joined with OR, and different filters are joined with AND. The following filters are supported:</p> <ul> <li> <p> <code>core-network-attachment-id</code>: The ID of the core network attachment for the next hop, for example <code>attachment-0123456789abcdef0</code>.</p> </li> <li> <p> <code>segment-name</code>: The name of the segment for the next hop.</p> </li> <li> <p> <code>edge-location</code>: The edge location for the next hop, for example <code>us-east-1</code>.</p> </li> <li> <p> <code>resource-id</code>: The ID of the resource for the next hop.</p> </li> <li> <p> <code>resource-type</code>: The type of resource for the next hop. The possible values are <code>vpc</code>, <code>vpn</code>, <code>connect-peer</code>, <code>direct-connect-gateway</code>, <code>transit-gateway-route-table</code>, <code>attachment</code>, and <code>blackhole</code>.</p> </li> <li> <p> <code>ip-address</code>: The IP address of the next hop. For a Site-to-Site VPN next hop, this is the outside IP address of the AWS side of the VPN tunnel. For a Connect peer next hop, this is the core network BGP address of the Connect peer. The value must be a single IPv4 or IPv6 address.</p> </li> </ul> <p>You can specify up to 10 filter values in total across <code>NextHopFilters</code> and the other match parameters in the request. Each filter value can be up to 256 characters.</p>"""
+    exact_prefix_matches: NotRequired[
+        "capo_networkmanager.types.constrained_string_list.ConstrainedStringList"
+    ]
+    """<p>Exact prefix values to match when filtering routing information.</p>"""
+    longest_prefix_matches: NotRequired[
+        "capo_networkmanager.types.constrained_string_list.ConstrainedStringList"
+    ]
+    """<p>Filters routing information based on the longest prefix that matches each provided IP address.</p>"""
+    subnet_of_matches: NotRequired[
+        "capo_networkmanager.types.constrained_string_list.ConstrainedStringList"
+    ]
+    """<p>Prefix values to filter routing information whose prefix is a subnet of the prefixes provided.</p>"""
+    supernet_of_matches: NotRequired[
+        "capo_networkmanager.types.constrained_string_list.ConstrainedStringList"
+    ]
+    """<p>Prefix values to filter routing information whose prefix is a supernet of the prefixes provided.</p>"""
     local_preference_matches: NotRequired[
         "capo_networkmanager.types.constrained_string_list.ConstrainedStringList"
     ]
@@ -55,6 +71,38 @@ def serialize_json(value: ListCoreNetworkRoutingInformationRequest) -> dict:
 
         out["NextHopFilters"] = capo_networkmanager.types.filter_map.serialize_json(
             value["next_hop_filters"]
+        )
+    if "exact_prefix_matches" in value:
+        import capo_networkmanager.types.constrained_string_list
+
+        out["ExactPrefixMatches"] = (
+            capo_networkmanager.types.constrained_string_list.serialize_json(
+                value["exact_prefix_matches"]
+            )
+        )
+    if "longest_prefix_matches" in value:
+        import capo_networkmanager.types.constrained_string_list
+
+        out["LongestPrefixMatches"] = (
+            capo_networkmanager.types.constrained_string_list.serialize_json(
+                value["longest_prefix_matches"]
+            )
+        )
+    if "subnet_of_matches" in value:
+        import capo_networkmanager.types.constrained_string_list
+
+        out["SubnetOfMatches"] = (
+            capo_networkmanager.types.constrained_string_list.serialize_json(
+                value["subnet_of_matches"]
+            )
+        )
+    if "supernet_of_matches" in value:
+        import capo_networkmanager.types.constrained_string_list
+
+        out["SupernetOfMatches"] = (
+            capo_networkmanager.types.constrained_string_list.serialize_json(
+                value["supernet_of_matches"]
+            )
         )
     if "local_preference_matches" in value:
         import capo_networkmanager.types.constrained_string_list
@@ -106,6 +154,38 @@ def deserialize_json(data: dict) -> ListCoreNetworkRoutingInformationRequest:
 
         out["next_hop_filters"] = capo_networkmanager.types.filter_map.deserialize_json(
             data["NextHopFilters"]
+        )
+    if data.get("ExactPrefixMatches") is not None:
+        import capo_networkmanager.types.constrained_string_list
+
+        out["exact_prefix_matches"] = (
+            capo_networkmanager.types.constrained_string_list.deserialize_json(
+                data["ExactPrefixMatches"]
+            )
+        )
+    if data.get("LongestPrefixMatches") is not None:
+        import capo_networkmanager.types.constrained_string_list
+
+        out["longest_prefix_matches"] = (
+            capo_networkmanager.types.constrained_string_list.deserialize_json(
+                data["LongestPrefixMatches"]
+            )
+        )
+    if data.get("SubnetOfMatches") is not None:
+        import capo_networkmanager.types.constrained_string_list
+
+        out["subnet_of_matches"] = (
+            capo_networkmanager.types.constrained_string_list.deserialize_json(
+                data["SubnetOfMatches"]
+            )
+        )
+    if data.get("SupernetOfMatches") is not None:
+        import capo_networkmanager.types.constrained_string_list
+
+        out["supernet_of_matches"] = (
+            capo_networkmanager.types.constrained_string_list.deserialize_json(
+                data["SupernetOfMatches"]
+            )
         )
     if data.get("LocalPreferenceMatches") is not None:
         import capo_networkmanager.types.constrained_string_list

@@ -68,20 +68,20 @@ class MonitorResource:
         """<p>Creates an Amazon Web Services Deadline Cloud monitor that you can use to view your farms, queues, and fleets. After you submit a job, you can track the progress of the tasks and steps that make up the job, and then download the job's results. </p>
 
         Args:
-            client_token: <p>The unique token which the server uses to recognize retries of the same request.</p>
+            client_token: The unique token which the server uses to recognize retries of the same request.
             display_name: <p>The name that you give the monitor that is displayed in the Deadline Cloud console.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>
-            identity_center_instance_arn: <p>The Amazon Resource Name of the IAM Identity Center instance that authenticates monitor users.</p>
-            identity_center_region: <p>The Region where IAM Identity Center is enabled. Required when IAM Identity Center is in a different Region than the monitor.</p>
-            subdomain: <p>The subdomain to use when creating the monitor URL. The full URL of the monitor is subdomain.Region.deadlinecloud.amazonaws.com.</p>
-            role_arn: <p>The Amazon Resource Name of the IAM role that the monitor uses to connect to Deadline Cloud. Every user that signs in to the monitor using IAM Identity Center uses this role to access Deadline Cloud resources.</p>
-            tags: <p>The tags to add to your monitor. Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings.</p>
+            identity_center_instance_arn: The Amazon Resource Name of the IAM Identity Center instance that authenticates monitor users.
+            identity_center_region: The Region where IAM Identity Center is enabled. Required when IAM Identity Center is in a different Region than the monitor.
+            subdomain: The subdomain to use when creating the monitor URL. The full URL of the monitor is subdomain.Region.deadlinecloud.amazonaws.com.
+            role_arn: The Amazon Resource Name of the IAM role that the monitor uses to connect to Deadline Cloud. Every user that signs in to the monitor using IAM Identity Center uses this role to access Deadline Cloud resources.
+            tags: The tags to add to your monitor. Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>You exceeded your service quota. Service quotas, also referred to as limits, are the maximum number of service resources or operations for your Amazon Web Services account.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: You exceeded your service quota. Service quotas, also referred to as limits, are the maximum number of service resources or operations for your Amazon Web Services account.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -130,17 +130,17 @@ class MonitorResource:
         *,
         config_overrides: Optional[deadlineClientConfig] = None,
     ) -> "capo_deadline.types.get_monitor_response.GetMonitorResponse":
-        """<p>Gets information about the specified monitor.</p>
+        """Gets information about the specified monitor.
 
         Args:
-            monitor_id: <p>The unique identifier for the monitor. This ID is returned by the <code>CreateMonitor</code> operation.</p>
+            monitor_id: The unique identifier for the monitor. This ID is returned by the <code>CreateMonitor</code> operation.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -182,20 +182,20 @@ class MonitorResource:
         display_name: Optional["capo_deadline.types.resource_name.ResourceName"] = None,
         role_arn: Optional["capo_deadline.types.iam_role_arn.IamRoleArn"] = None,
     ) -> "capo_deadline.types.update_monitor_response.UpdateMonitorResponse":
-        """<p>Modifies the settings for a Deadline Cloud monitor. You can modify one or all of the settings when you call <code>UpdateMonitor</code>.</p>
+        """Modifies the settings for a Deadline Cloud monitor. You can modify one or all of the settings when you call <code>UpdateMonitor</code>.
 
         Args:
-            monitor_id: <p>The unique identifier of the monitor to update.</p>
-            subdomain: <p>The new value of the subdomain to use when forming the monitor URL.</p>
+            monitor_id: The unique identifier of the monitor to update.
+            subdomain: The new value of the subdomain to use when forming the monitor URL.
             display_name: <p>The new value to use for the monitor's display name.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>
-            role_arn: <p>The Amazon Resource Name of the new IAM role to use with the monitor.</p>
+            role_arn: The Amazon Resource Name of the new IAM role to use with the monitor.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -240,17 +240,17 @@ class MonitorResource:
         *,
         config_overrides: Optional[deadlineClientConfig] = None,
     ) -> "capo_deadline.types.delete_monitor_response.DeleteMonitorResponse":
-        """<p>Removes a Deadline Cloud monitor. After you delete a monitor, you can create a new one and attach farms to the monitor.</p>
+        """Removes a Deadline Cloud monitor. After you delete a monitor, you can create a new one and attach farms to the monitor.
 
         Args:
-            monitor_id: <p>The unique identifier of the monitor to delete. This ID is returned by the <code>CreateMonitor</code> operation, and is included in the response to the <code>GetMonitor</code> operation.</p>
+            monitor_id: The unique identifier of the monitor to delete. This ID is returned by the <code>CreateMonitor</code> operation, and is included in the response to the <code>GetMonitor</code> operation.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -290,17 +290,17 @@ class MonitorResource:
         next_token: Optional["capo_deadline.types.next_token.NextToken"] = None,
         max_results: Optional["capo_deadline.types.max_results.MaxResults"] = None,
     ) -> "capo_deadline.types.list_monitors_response.ListMonitorsResponse":
-        """<p>Gets a list of your monitors in Deadline Cloud.</p>
+        """Gets a list of your monitors in Deadline Cloud.
 
         Args:
-            next_token: <p>The token for the next set of results, or <code>null</code> to start from the beginning.</p>
-            max_results: <p>The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.</p>
+            next_token: The token for the next set of results, or <code>null</code> to start from the beginning.
+            max_results: The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -341,17 +341,17 @@ class MonitorResource:
         *,
         config_overrides: Optional[deadlineClientConfig] = None,
     ) -> "capo_deadline.types.get_monitor_settings_response.GetMonitorSettingsResponse":
-        """<p>Gets the settings for a Deadline Cloud monitor.</p>
+        """Gets the settings for a Deadline Cloud monitor.
 
         Args:
-            monitor_id: <p>The unique identifier of the monitor. This ID is returned by the <code>CreateMonitor</code> operation, and is included in the response to the <code>ListMonitors</code> operation.</p>
+            monitor_id: The unique identifier of the monitor. This ID is returned by the <code>CreateMonitor</code> operation, and is included in the response to the <code>ListMonitors</code> operation.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
 
         Examples:
@@ -396,18 +396,18 @@ class MonitorResource:
         *,
         config_overrides: Optional[deadlineClientConfig] = None,
     ) -> "capo_deadline.types.update_monitor_settings_response.UpdateMonitorSettingsResponse":
-        """<p>Updates the settings for a Deadline Cloud monitor. Keys present in the request are upserted; keys absent are left unchanged. Send an empty string value to delete a key.</p>
+        """Updates the settings for a Deadline Cloud monitor. Keys present in the request are upserted; keys absent are left unchanged. Send an empty string value to delete a key.
 
         Args:
-            monitor_id: <p>The unique identifier of the monitor to update settings for.</p>
-            settings: <p>The monitor settings to update as key-value pairs. Keys present in the request are upserted; keys absent are left unchanged. Send an empty string value to delete a key.</p>
+            monitor_id: The unique identifier of the monitor to update settings for.
+            settings: The monitor settings to update as key-value pairs. Keys present in the request are upserted; keys absent are left unchanged. Send an empty string value to delete a key.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
 
         Examples:
@@ -466,20 +466,20 @@ class AsyncMonitorResource:
         """<p>Creates an Amazon Web Services Deadline Cloud monitor that you can use to view your farms, queues, and fleets. After you submit a job, you can track the progress of the tasks and steps that make up the job, and then download the job's results. </p>
 
         Args:
-            client_token: <p>The unique token which the server uses to recognize retries of the same request.</p>
+            client_token: The unique token which the server uses to recognize retries of the same request.
             display_name: <p>The name that you give the monitor that is displayed in the Deadline Cloud console.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>
-            identity_center_instance_arn: <p>The Amazon Resource Name of the IAM Identity Center instance that authenticates monitor users.</p>
-            identity_center_region: <p>The Region where IAM Identity Center is enabled. Required when IAM Identity Center is in a different Region than the monitor.</p>
-            subdomain: <p>The subdomain to use when creating the monitor URL. The full URL of the monitor is subdomain.Region.deadlinecloud.amazonaws.com.</p>
-            role_arn: <p>The Amazon Resource Name of the IAM role that the monitor uses to connect to Deadline Cloud. Every user that signs in to the monitor using IAM Identity Center uses this role to access Deadline Cloud resources.</p>
-            tags: <p>The tags to add to your monitor. Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings.</p>
+            identity_center_instance_arn: The Amazon Resource Name of the IAM Identity Center instance that authenticates monitor users.
+            identity_center_region: The Region where IAM Identity Center is enabled. Required when IAM Identity Center is in a different Region than the monitor.
+            subdomain: The subdomain to use when creating the monitor URL. The full URL of the monitor is subdomain.Region.deadlinecloud.amazonaws.com.
+            role_arn: The Amazon Resource Name of the IAM role that the monitor uses to connect to Deadline Cloud. Every user that signs in to the monitor using IAM Identity Center uses this role to access Deadline Cloud resources.
+            tags: The tags to add to your monitor. Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>You exceeded your service quota. Service quotas, also referred to as limits, are the maximum number of service resources or operations for your Amazon Web Services account.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: You exceeded your service quota. Service quotas, also referred to as limits, are the maximum number of service resources or operations for your Amazon Web Services account.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -529,17 +529,17 @@ class AsyncMonitorResource:
         *,
         config_overrides: Optional[AsyncdeadlineClientConfig] = None,
     ) -> "capo_deadline.types.get_monitor_response.GetMonitorResponse":
-        """<p>Gets information about the specified monitor.</p>
+        """Gets information about the specified monitor.
 
         Args:
-            monitor_id: <p>The unique identifier for the monitor. This ID is returned by the <code>CreateMonitor</code> operation.</p>
+            monitor_id: The unique identifier for the monitor. This ID is returned by the <code>CreateMonitor</code> operation.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -582,20 +582,20 @@ class AsyncMonitorResource:
         display_name: Optional["capo_deadline.types.resource_name.ResourceName"] = None,
         role_arn: Optional["capo_deadline.types.iam_role_arn.IamRoleArn"] = None,
     ) -> "capo_deadline.types.update_monitor_response.UpdateMonitorResponse":
-        """<p>Modifies the settings for a Deadline Cloud monitor. You can modify one or all of the settings when you call <code>UpdateMonitor</code>.</p>
+        """Modifies the settings for a Deadline Cloud monitor. You can modify one or all of the settings when you call <code>UpdateMonitor</code>.
 
         Args:
-            monitor_id: <p>The unique identifier of the monitor to update.</p>
-            subdomain: <p>The new value of the subdomain to use when forming the monitor URL.</p>
+            monitor_id: The unique identifier of the monitor to update.
+            subdomain: The new value of the subdomain to use when forming the monitor URL.
             display_name: <p>The new value to use for the monitor's display name.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>
-            role_arn: <p>The Amazon Resource Name of the new IAM role to use with the monitor.</p>
+            role_arn: The Amazon Resource Name of the new IAM role to use with the monitor.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -641,17 +641,17 @@ class AsyncMonitorResource:
         *,
         config_overrides: Optional[AsyncdeadlineClientConfig] = None,
     ) -> "capo_deadline.types.delete_monitor_response.DeleteMonitorResponse":
-        """<p>Removes a Deadline Cloud monitor. After you delete a monitor, you can create a new one and attach farms to the monitor.</p>
+        """Removes a Deadline Cloud monitor. After you delete a monitor, you can create a new one and attach farms to the monitor.
 
         Args:
-            monitor_id: <p>The unique identifier of the monitor to delete. This ID is returned by the <code>CreateMonitor</code> operation, and is included in the response to the <code>GetMonitor</code> operation.</p>
+            monitor_id: The unique identifier of the monitor to delete. This ID is returned by the <code>CreateMonitor</code> operation, and is included in the response to the <code>GetMonitor</code> operation.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -692,17 +692,17 @@ class AsyncMonitorResource:
         next_token: Optional["capo_deadline.types.next_token.NextToken"] = None,
         max_results: Optional["capo_deadline.types.max_results.MaxResults"] = None,
     ) -> "capo_deadline.types.list_monitors_response.ListMonitorsResponse":
-        """<p>Gets a list of your monitors in Deadline Cloud.</p>
+        """Gets a list of your monitors in Deadline Cloud.
 
         Args:
-            next_token: <p>The token for the next set of results, or <code>null</code> to start from the beginning.</p>
-            max_results: <p>The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.</p>
+            next_token: The token for the next set of results, or <code>null</code> to start from the beginning.
+            max_results: The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -744,17 +744,17 @@ class AsyncMonitorResource:
         *,
         config_overrides: Optional[AsyncdeadlineClientConfig] = None,
     ) -> "capo_deadline.types.get_monitor_settings_response.GetMonitorSettingsResponse":
-        """<p>Gets the settings for a Deadline Cloud monitor.</p>
+        """Gets the settings for a Deadline Cloud monitor.
 
         Args:
-            monitor_id: <p>The unique identifier of the monitor. This ID is returned by the <code>CreateMonitor</code> operation, and is included in the response to the <code>ListMonitors</code> operation.</p>
+            monitor_id: The unique identifier of the monitor. This ID is returned by the <code>CreateMonitor</code> operation, and is included in the response to the <code>ListMonitors</code> operation.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
 
         Examples:
@@ -800,18 +800,18 @@ class AsyncMonitorResource:
         *,
         config_overrides: Optional[AsyncdeadlineClientConfig] = None,
     ) -> "capo_deadline.types.update_monitor_settings_response.UpdateMonitorSettingsResponse":
-        """<p>Updates the settings for a Deadline Cloud monitor. Keys present in the request are upserted; keys absent are left unchanged. Send an empty string value to delete a key.</p>
+        """Updates the settings for a Deadline Cloud monitor. Keys present in the request are upserted; keys absent are left unchanged. Send an empty string value to delete a key.
 
         Args:
-            monitor_id: <p>The unique identifier of the monitor to update settings for.</p>
-            settings: <p>The monitor settings to update as key-value pairs. Keys present in the request are upserted; keys absent are left unchanged. Send an empty string value to delete a key.</p>
+            monitor_id: The unique identifier of the monitor to update settings for.
+            settings: The monitor settings to update as key-value pairs. Keys present in the request are upserted; keys absent are left unchanged. Send an empty string value to delete a key.
 
         Raises:
-            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
-            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
-            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
-            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: Deadline Cloud can't process your request right now. Try again later.
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: The requested resource can't be found.
+            capo_deadline.errors.throttling_exception.ThrottlingException: Your request exceeded a request rate quota.
+            capo_deadline.errors.validation_exception.ValidationException: The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.
             capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
 
         Examples:

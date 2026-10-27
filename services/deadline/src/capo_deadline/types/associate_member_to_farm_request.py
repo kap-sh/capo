@@ -15,19 +15,19 @@ if TYPE_CHECKING:
 
 class AssociateMemberToFarmRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The ID of the farm to associate with the member.</p>"""
+    """The ID of the farm to associate with the member."""
     principal_type: "capo_deadline.types.deadline_principal_type.DeadlinePrincipalType"
-    """<p>The principal type of the member to associate with the farm.</p>"""
+    """The principal type of the member to associate with the farm."""
     identity_store_id: "capo_deadline.types.identity_store_id.IdentityStoreId"
-    """<p>The identity store ID of the member to associate with the farm.</p>"""
+    """The identity store ID of the member to associate with the farm."""
     membership_level: "capo_deadline.types.membership_level.MembershipLevel"
-    """<p>The principal's membership level for the associated farm.</p>"""
+    """The principal's membership level for the associated farm."""
     principal_id: (
         "capo_deadline.types.identity_center_principal_id.IdentityCenterPrincipalId"
     )
-    """<p>The member's principal ID to associate with the farm.</p>"""
+    """The member's principal ID to associate with the farm."""
     identity_center_region: NotRequired["capo_deadline.types.region.Region"]
-    """<p>The Region of the IAM Identity Center instance. If not provided, the service defaults to the Region of the farm.</p>"""
+    """The Region of the IAM Identity Center instance. If not provided, the service defaults to the Region of the farm."""
 
 
 # --- restJson1 ser/de ---

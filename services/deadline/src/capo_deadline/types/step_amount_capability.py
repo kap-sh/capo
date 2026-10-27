@@ -11,13 +11,13 @@ if TYPE_CHECKING:
 
 class StepAmountCapability(TypedDict, closed=True):
     name: "capo_deadline.types.amount_capability_name.AmountCapabilityName"
-    """<p>The name of the step.</p>"""
+    """The name of the step."""
     min: NotRequired["capo_deadline.types.double.Double"]
-    """<p>The minimum amount.</p>"""
+    """The minimum amount."""
     max: NotRequired["capo_deadline.types.double.Double"]
-    """<p>The maximum amount.</p>"""
+    """The maximum amount."""
     value: NotRequired["capo_deadline.types.double.Double"]
-    """<p>The amount value.</p>"""
+    """The amount value."""
 
 
 # --- restJson1 ser/de ---

@@ -159,6 +159,9 @@ class Collection:
         deletion_protection: Optional[
             "capo_opensearchserverless.types.deletion_protection.DeletionProtection"
         ] = None,
+        encryption_config: Optional[
+            "capo_opensearchserverless.types.encryption_config.EncryptionConfig"
+        ] = None,
         client_token: Optional[
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
@@ -205,6 +208,8 @@ class Collection:
             input_["vector_options"] = vector_options
         if deletion_protection is not None:
             input_["deletion_protection"] = deletion_protection
+        if encryption_config is not None:
+            input_["encryption_config"] = encryption_config
         if client_token is None:
             client_token = str(uuid.uuid4())
         input_["client_token"] = client_token
@@ -446,6 +451,9 @@ class AsyncCollection:
         deletion_protection: Optional[
             "capo_opensearchserverless.types.deletion_protection.DeletionProtection"
         ] = None,
+        encryption_config: Optional[
+            "capo_opensearchserverless.types.encryption_config.EncryptionConfig"
+        ] = None,
         client_token: Optional[
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
@@ -493,6 +501,8 @@ class AsyncCollection:
             input_["vector_options"] = vector_options
         if deletion_protection is not None:
             input_["deletion_protection"] = deletion_protection
+        if encryption_config is not None:
+            input_["encryption_config"] = encryption_config
         if client_token is None:
             client_token = str(uuid.uuid4())
         input_["client_token"] = client_token

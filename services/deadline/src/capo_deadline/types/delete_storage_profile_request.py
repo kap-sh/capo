@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class DeleteStorageProfileRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the farm from which to remove the storage profile.</p>"""
+    """The farm ID of the farm from which to remove the storage profile."""
     storage_profile_id: "capo_deadline.types.storage_profile_id.StorageProfileId"
-    """<p>The storage profile ID of the storage profile to delete.</p>"""
+    """The storage profile ID of the storage profile to delete."""
 
 
 # --- restJson1 ser/de ---

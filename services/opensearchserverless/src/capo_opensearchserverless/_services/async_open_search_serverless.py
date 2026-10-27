@@ -29,6 +29,12 @@ from capo_opensearchserverless._resources.open_search_serverless.collection_grou
     AsyncCollectionGroup,
 )
 from capo_opensearchserverless._resources.open_search_serverless.index import AsyncIndex
+from capo_opensearchserverless._resources.open_search_serverless.ingestion_job import (
+    AsyncIngestionJob,
+)
+from capo_opensearchserverless._resources.open_search_serverless.ingestion_stream import (
+    AsyncIngestionStream,
+)
 from capo_opensearchserverless._resources.open_search_serverless.lifecycle_policy import (
     AsyncLifecyclePolicy,
 )
@@ -67,6 +73,8 @@ if TYPE_CHECKING:
     import capo_opensearchserverless.types.batch_get_lifecycle_policy_response
     import capo_opensearchserverless.types.batch_get_vpc_endpoint_request
     import capo_opensearchserverless.types.batch_get_vpc_endpoint_response
+    import capo_opensearchserverless.types.cancel_ingestion_job_request
+    import capo_opensearchserverless.types.cancel_ingestion_job_response
     import capo_opensearchserverless.types.capacity_limits
     import capo_opensearchserverless.types.client_token
     import capo_opensearchserverless.types.collection_filters
@@ -91,6 +99,10 @@ if TYPE_CHECKING:
     import capo_opensearchserverless.types.create_iam_identity_center_config_options
     import capo_opensearchserverless.types.create_index_request
     import capo_opensearchserverless.types.create_index_response
+    import capo_opensearchserverless.types.create_ingestion_job_request
+    import capo_opensearchserverless.types.create_ingestion_job_response
+    import capo_opensearchserverless.types.create_ingestion_stream_request
+    import capo_opensearchserverless.types.create_ingestion_stream_response
     import capo_opensearchserverless.types.create_lifecycle_policy_request
     import capo_opensearchserverless.types.create_lifecycle_policy_response
     import capo_opensearchserverless.types.create_security_config_request
@@ -107,6 +119,8 @@ if TYPE_CHECKING:
     import capo_opensearchserverless.types.delete_collection_response
     import capo_opensearchserverless.types.delete_index_request
     import capo_opensearchserverless.types.delete_index_response
+    import capo_opensearchserverless.types.delete_ingestion_stream_request
+    import capo_opensearchserverless.types.delete_ingestion_stream_response
     import capo_opensearchserverless.types.delete_lifecycle_policy_request
     import capo_opensearchserverless.types.delete_lifecycle_policy_response
     import capo_opensearchserverless.types.delete_security_config_request
@@ -123,6 +137,10 @@ if TYPE_CHECKING:
     import capo_opensearchserverless.types.get_account_settings_response
     import capo_opensearchserverless.types.get_index_request
     import capo_opensearchserverless.types.get_index_response
+    import capo_opensearchserverless.types.get_ingestion_job_request
+    import capo_opensearchserverless.types.get_ingestion_job_response
+    import capo_opensearchserverless.types.get_ingestion_stream_request
+    import capo_opensearchserverless.types.get_ingestion_stream_response
     import capo_opensearchserverless.types.get_policies_stats_request
     import capo_opensearchserverless.types.get_policies_stats_response
     import capo_opensearchserverless.types.get_security_config_request
@@ -132,6 +150,15 @@ if TYPE_CHECKING:
     import capo_opensearchserverless.types.iam_federation_config_options
     import capo_opensearchserverless.types.index_name
     import capo_opensearchserverless.types.index_schema
+    import capo_opensearchserverless.types.ingestion_index_name
+    import capo_opensearchserverless.types.ingestion_job_id
+    import capo_opensearchserverless.types.ingestion_job_name
+    import capo_opensearchserverless.types.ingestion_job_source
+    import capo_opensearchserverless.types.ingestion_job_summary
+    import capo_opensearchserverless.types.ingestion_stream_id
+    import capo_opensearchserverless.types.ingestion_stream_name
+    import capo_opensearchserverless.types.ingestion_stream_source
+    import capo_opensearchserverless.types.ingestion_stream_summary
     import capo_opensearchserverless.types.lifecycle_policy_identifiers
     import capo_opensearchserverless.types.lifecycle_policy_resource_identifiers
     import capo_opensearchserverless.types.lifecycle_policy_type
@@ -142,6 +169,10 @@ if TYPE_CHECKING:
     import capo_opensearchserverless.types.list_collection_groups_response
     import capo_opensearchserverless.types.list_collections_request
     import capo_opensearchserverless.types.list_collections_response
+    import capo_opensearchserverless.types.list_ingestion_jobs_request
+    import capo_opensearchserverless.types.list_ingestion_jobs_response
+    import capo_opensearchserverless.types.list_ingestion_streams_request
+    import capo_opensearchserverless.types.list_ingestion_streams_response
     import capo_opensearchserverless.types.list_lifecycle_policies_request
     import capo_opensearchserverless.types.list_lifecycle_policies_response
     import capo_opensearchserverless.types.list_security_configs_request
@@ -157,6 +188,7 @@ if TYPE_CHECKING:
     import capo_opensearchserverless.types.policy_name
     import capo_opensearchserverless.types.policy_version
     import capo_opensearchserverless.types.resource_filter
+    import capo_opensearchserverless.types.role_arn
     import capo_opensearchserverless.types.saml_config_options
     import capo_opensearchserverless.types.security_config_id
     import capo_opensearchserverless.types.security_config_type
@@ -277,6 +309,8 @@ class AsyncOpenSearchServerlessClient:
         self.collection = AsyncCollection(self)
         self.collection_group = AsyncCollectionGroup(self)
         self.index = AsyncIndex(self)
+        self.ingestion_job = AsyncIngestionJob(self)
+        self.ingestion_stream = AsyncIngestionStream(self)
         self.lifecycle_policy = AsyncLifecyclePolicy(self)
         self.security_config = AsyncSecurityConfig(self)
         self.security_policy = AsyncSecurityPolicy(self)
@@ -1516,6 +1550,9 @@ class AsyncOpenSearchServerlessClient:
         deletion_protection: Optional[
             "capo_opensearchserverless.types.deletion_protection.DeletionProtection"
         ] = None,
+        encryption_config: Optional[
+            "capo_opensearchserverless.types.encryption_config.EncryptionConfig"
+        ] = None,
         client_token: Optional[
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
@@ -1563,6 +1600,8 @@ class AsyncOpenSearchServerlessClient:
             input_["vector_options"] = vector_options
         if deletion_protection is not None:
             input_["deletion_protection"] = deletion_protection
+        if encryption_config is not None:
+            input_["encryption_config"] = encryption_config
         if client_token is None:
             client_token = str(uuid.uuid4())
         input_["client_token"] = client_token
@@ -1808,7 +1847,7 @@ class AsyncOpenSearchServerlessClient:
         Args:
             id: <p>The unique identifier of the collection group to update.</p>
             description: <p>A new description for the collection group.</p>
-            capacity_limits: <p>Updated capacity limits for the collection group, in OpenSearch Compute Units (OCUs).</p>
+            capacity_limits: <p>The updated capacity limits for the collection group, in OpenSearch Compute Units (OCUs). Updates to capacity limits are not incremental. Any field not specified resets to its default value.</p>
             client_token: <p>Unique, case-sensitive identifier to ensure idempotency of the request.</p>
 
         Raises:
@@ -2198,6 +2237,539 @@ class AsyncOpenSearchServerlessClient:
         )
         await response.response.aclose()
         return response.output
+
+    async def create_ingestion_job(
+        self,
+        collection_id: "capo_opensearchserverless.types.collection_id.CollectionId",
+        ingestion_job_name: "capo_opensearchserverless.types.ingestion_job_name.IngestionJobName",
+        index_name: "capo_opensearchserverless.types.ingestion_index_name.IngestionIndexName",
+        source: "capo_opensearchserverless.types.ingestion_job_source.IngestionJobSource",
+        *,
+        config_overrides: Optional[AsyncOpenSearchServerlessClientConfig] = None,
+        failure_index_name: Optional[
+            "capo_opensearchserverless.types.ingestion_index_name.IngestionIndexName"
+        ] = None,
+        tags: Optional["capo_opensearchserverless.types.tags.Tags"] = None,
+        client_token: Optional[
+            "capo_opensearchserverless.types.client_token.ClientToken"
+        ] = None,
+    ) -> "capo_opensearchserverless.types.create_ingestion_job_response.CreateIngestionJobResponse":
+        """<p>Creates an ingestion job that performs a one-time bulk ingestion of data from an Amazon S3 bucket into an index in an OpenSearch Serverless collection. An ingestion job scans the source bucket, indexes the documents it finds, and then completes. To continuously ingest new data as it arrives, use <code>CreateIngestionStream</code> instead.</p>
+
+        Args:
+            collection_id: <p>The unique identifier of the collection to ingest data into.</p>
+            ingestion_job_name: <p>The name of the ingestion job. The name must be unique within the collection.</p>
+            index_name: <p>The name of the index to ingest documents into.</p>
+            failure_index_name: <p>The name of the index where documents that fail to be ingested are recorded.</p>
+            source: <p>The Amazon S3 source to ingest data from.</p>
+            tags: <p>An arbitrary set of tags (key–value pairs) to associate with the ingestion job.</p>
+            client_token: <p>Unique, case-sensitive identifier to ensure idempotency of the request.</p>
+
+        Raises:
+            capo_opensearchserverless.errors.conflict_exception.ConflictException: <p>When creating a resource, thrown when a resource with the same name already exists or is being created. When deleting a resource, thrown when the resource is not in the ACTIVE, FAILED, or UPDATE_FAILED state.</p>
+            capo_opensearchserverless.errors.internal_server_exception.InternalServerException: <p>Thrown when an error internal to the service occurs while processing a request.</p>
+            capo_opensearchserverless.errors.resource_not_found_exception.ResourceNotFoundException: <p>Thrown when accessing or deleting a resource that does not exist.</p>
+            capo_opensearchserverless.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>Thrown when you attempt to create more resources than the service allows based on service quotas.</p>
+            capo_opensearchserverless.errors.validation_exception.ValidationException: <p>Thrown when the HTTP request contains invalid input or is missing required input.</p>
+            capo_opensearchserverless.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_opensearchserverless.types.create_ingestion_job_request.CreateIngestionJobRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_opensearchserverless.types.create_ingestion_job_response.CreateIngestionJobResponse"
+        ]:
+            import capo_opensearchserverless._operations.open_search_serverless.create_ingestion_job
+
+            (
+                output,
+                http_response,
+            ) = await capo_opensearchserverless._operations.open_search_serverless.create_ingestion_job.async_create_ingestion_job(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIngestionJob")
+        )
+        input_: capo_opensearchserverless.types.create_ingestion_job_request.CreateIngestionJobRequest = {
+            "collection_id": collection_id,
+            "ingestion_job_name": ingestion_job_name,
+            "index_name": index_name,
+            "source": source,
+        }
+        if failure_index_name is not None:
+            input_["failure_index_name"] = failure_index_name
+        if tags is not None:
+            input_["tags"] = tags
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def get_ingestion_job(
+        self,
+        collection_id: "capo_opensearchserverless.types.collection_id.CollectionId",
+        ingestion_job_id: "capo_opensearchserverless.types.ingestion_job_id.IngestionJobId",
+        *,
+        config_overrides: Optional[AsyncOpenSearchServerlessClientConfig] = None,
+    ) -> "capo_opensearchserverless.types.get_ingestion_job_response.GetIngestionJobResponse":
+        """<p>Returns information about an ingestion job, including its configuration, status, and processing state.</p>
+
+        Args:
+            collection_id: <p>The unique identifier of the collection that the ingestion job belongs to.</p>
+            ingestion_job_id: <p>The unique identifier of the ingestion job to retrieve.</p>
+
+        Raises:
+            capo_opensearchserverless.errors.internal_server_exception.InternalServerException: <p>Thrown when an error internal to the service occurs while processing a request.</p>
+            capo_opensearchserverless.errors.resource_not_found_exception.ResourceNotFoundException: <p>Thrown when accessing or deleting a resource that does not exist.</p>
+            capo_opensearchserverless.errors.validation_exception.ValidationException: <p>Thrown when the HTTP request contains invalid input or is missing required input.</p>
+            capo_opensearchserverless.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_opensearchserverless.types.get_ingestion_job_request.GetIngestionJobRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_opensearchserverless.types.get_ingestion_job_response.GetIngestionJobResponse"
+        ]:
+            import capo_opensearchserverless._operations.open_search_serverless.get_ingestion_job
+
+            (
+                output,
+                http_response,
+            ) = await capo_opensearchserverless._operations.open_search_serverless.get_ingestion_job.async_get_ingestion_job(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIngestionJob")
+        )
+        input_: capo_opensearchserverless.types.get_ingestion_job_request.GetIngestionJobRequest = {
+            "collection_id": collection_id,
+            "ingestion_job_id": ingestion_job_id,
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def list_ingestion_jobs(
+        self,
+        collection_id: "capo_opensearchserverless.types.collection_id.CollectionId",
+        *,
+        config_overrides: Optional[AsyncOpenSearchServerlessClientConfig] = None,
+        next_token: Optional[str] = None,
+        max_results: Optional[int] = None,
+    ) -> "capo_opensearchserverless.types.list_ingestion_jobs_response.ListIngestionJobsResponse":
+        """<p>Returns a list of ingestion jobs in a collection.</p>
+
+        Args:
+            collection_id: <p>The unique identifier of the collection to list ingestion jobs for.</p>
+            next_token: <p>If your initial <code>ListIngestionJobs</code> operation returns a <code>nextToken</code>, you can include the returned <code>nextToken</code> in subsequent <code>ListIngestionJobs</code> operations, which returns results in the next page.</p>
+            max_results: <p>The maximum number of results to return. Valid values are 1–100. If you don't specify a value, the default is 100. You can use <code>nextToken</code> to get the next page of results.</p> <p>A response can contain fewer results than <code>maxResults</code>, or no results, and still include a <code>nextToken</code>. To retrieve all results, continue to make the call with the returned <code>nextToken</code> until no <code>nextToken</code> is returned.</p>
+
+        Raises:
+            capo_opensearchserverless.errors.internal_server_exception.InternalServerException: <p>Thrown when an error internal to the service occurs while processing a request.</p>
+            capo_opensearchserverless.errors.resource_not_found_exception.ResourceNotFoundException: <p>Thrown when accessing or deleting a resource that does not exist.</p>
+            capo_opensearchserverless.errors.validation_exception.ValidationException: <p>Thrown when the HTTP request contains invalid input or is missing required input.</p>
+            capo_opensearchserverless.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_opensearchserverless.types.list_ingestion_jobs_request.ListIngestionJobsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_opensearchserverless.types.list_ingestion_jobs_response.ListIngestionJobsResponse"
+        ]:
+            import capo_opensearchserverless._operations.open_search_serverless.list_ingestion_jobs
+
+            (
+                output,
+                http_response,
+            ) = await capo_opensearchserverless._operations.open_search_serverless.list_ingestion_jobs.async_list_ingestion_jobs(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIngestionJobs")
+        )
+        input_: capo_opensearchserverless.types.list_ingestion_jobs_request.ListIngestionJobsRequest = {
+            "collection_id": collection_id
+        }
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if max_results is not None:
+            input_["max_results"] = max_results
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_ingestion_jobs(
+        self,
+        collection_id: "capo_opensearchserverless.types.collection_id.CollectionId",
+        *,
+        config_overrides: Optional[AsyncOpenSearchServerlessClientConfig] = None,
+        next_token: Optional[str] = None,
+        max_results: Optional[int] = None,
+    ) -> "AsyncIterator[capo_opensearchserverless.types.ingestion_job_summary.IngestionJobSummary]":
+        _token = next_token
+        while True:
+            _response = await self.list_ingestion_jobs(
+                collection_id,
+                config_overrides=config_overrides,
+                next_token=_token,
+                max_results=max_results,
+            )
+            _page = _resolve_path(_response, ("ingestion_job_summaries",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    async def cancel_ingestion_job(
+        self,
+        collection_id: "capo_opensearchserverless.types.collection_id.CollectionId",
+        ingestion_job_id: "capo_opensearchserverless.types.ingestion_job_id.IngestionJobId",
+        *,
+        config_overrides: Optional[AsyncOpenSearchServerlessClientConfig] = None,
+        client_token: Optional[
+            "capo_opensearchserverless.types.client_token.ClientToken"
+        ] = None,
+    ) -> "capo_opensearchserverless.types.cancel_ingestion_job_response.CancelIngestionJobResponse":
+        """<p>Cancels an in-progress ingestion job. Documents that were already indexed before the cancellation remain in the index.</p>
+
+        Args:
+            collection_id: <p>The unique identifier of the collection that the ingestion job belongs to.</p>
+            ingestion_job_id: <p>The unique identifier of the ingestion job to cancel.</p>
+            client_token: <p>Unique, case-sensitive identifier to ensure idempotency of the request.</p>
+
+        Raises:
+            capo_opensearchserverless.errors.conflict_exception.ConflictException: <p>When creating a resource, thrown when a resource with the same name already exists or is being created. When deleting a resource, thrown when the resource is not in the ACTIVE, FAILED, or UPDATE_FAILED state.</p>
+            capo_opensearchserverless.errors.internal_server_exception.InternalServerException: <p>Thrown when an error internal to the service occurs while processing a request.</p>
+            capo_opensearchserverless.errors.resource_not_found_exception.ResourceNotFoundException: <p>Thrown when accessing or deleting a resource that does not exist.</p>
+            capo_opensearchserverless.errors.validation_exception.ValidationException: <p>Thrown when the HTTP request contains invalid input or is missing required input.</p>
+            capo_opensearchserverless.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_opensearchserverless.types.cancel_ingestion_job_request.CancelIngestionJobRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_opensearchserverless.types.cancel_ingestion_job_response.CancelIngestionJobResponse"
+        ]:
+            import capo_opensearchserverless._operations.open_search_serverless.cancel_ingestion_job
+
+            (
+                output,
+                http_response,
+            ) = await capo_opensearchserverless._operations.open_search_serverless.cancel_ingestion_job.async_cancel_ingestion_job(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelIngestionJob")
+        )
+        input_: capo_opensearchserverless.types.cancel_ingestion_job_request.CancelIngestionJobRequest = {
+            "collection_id": collection_id,
+            "ingestion_job_id": ingestion_job_id,
+        }
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def create_ingestion_stream(
+        self,
+        collection_id: "capo_opensearchserverless.types.collection_id.CollectionId",
+        ingestion_stream_name: "capo_opensearchserverless.types.ingestion_stream_name.IngestionStreamName",
+        index_name: "capo_opensearchserverless.types.ingestion_index_name.IngestionIndexName",
+        source: "capo_opensearchserverless.types.ingestion_stream_source.IngestionStreamSource",
+        role_arn: "capo_opensearchserverless.types.role_arn.RoleArn",
+        *,
+        config_overrides: Optional[AsyncOpenSearchServerlessClientConfig] = None,
+        failure_index_name: Optional[
+            "capo_opensearchserverless.types.ingestion_index_name.IngestionIndexName"
+        ] = None,
+        tags: Optional["capo_opensearchserverless.types.tags.Tags"] = None,
+        client_token: Optional[
+            "capo_opensearchserverless.types.client_token.ClientToken"
+        ] = None,
+    ) -> "capo_opensearchserverless.types.create_ingestion_stream_response.CreateIngestionStreamResponse":
+        """<p>Creates an ingestion stream that continuously ingests data from an Amazon S3 bucket into an index in an OpenSearch Serverless collection. An ingestion stream processes Amazon S3 event notifications delivered to an Amazon SQS queue and ingests new objects as they arrive. The stream continues to ingest data until you delete it. To perform a one-time bulk ingestion instead, use <code>CreateIngestionJob</code>.</p>
+
+        Args:
+            collection_id: <p>The unique identifier of the collection to ingest data into.</p>
+            ingestion_stream_name: <p>The name of the ingestion stream. The name must be unique within the collection.</p>
+            index_name: <p>The name of the index to ingest documents into.</p>
+            failure_index_name: <p>The name of the index where documents that fail to be ingested are recorded.</p>
+            source: <p>The Amazon S3 source to ingest data from, including the Amazon SQS queue that receives S3 event notifications.</p>
+            role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that OpenSearch Serverless assumes to read data from the source. The role must be in the same account as the collection.</p>
+            tags: <p>An arbitrary set of tags (key–value pairs) to associate with the ingestion stream.</p>
+            client_token: <p>Unique, case-sensitive identifier to ensure idempotency of the request.</p>
+
+        Raises:
+            capo_opensearchserverless.errors.conflict_exception.ConflictException: <p>When creating a resource, thrown when a resource with the same name already exists or is being created. When deleting a resource, thrown when the resource is not in the ACTIVE, FAILED, or UPDATE_FAILED state.</p>
+            capo_opensearchserverless.errors.internal_server_exception.InternalServerException: <p>Thrown when an error internal to the service occurs while processing a request.</p>
+            capo_opensearchserverless.errors.resource_not_found_exception.ResourceNotFoundException: <p>Thrown when accessing or deleting a resource that does not exist.</p>
+            capo_opensearchserverless.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>Thrown when you attempt to create more resources than the service allows based on service quotas.</p>
+            capo_opensearchserverless.errors.validation_exception.ValidationException: <p>Thrown when the HTTP request contains invalid input or is missing required input.</p>
+            capo_opensearchserverless.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_opensearchserverless.types.create_ingestion_stream_request.CreateIngestionStreamRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_opensearchserverless.types.create_ingestion_stream_response.CreateIngestionStreamResponse"
+        ]:
+            import capo_opensearchserverless._operations.open_search_serverless.create_ingestion_stream
+
+            (
+                output,
+                http_response,
+            ) = await capo_opensearchserverless._operations.open_search_serverless.create_ingestion_stream.async_create_ingestion_stream(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIngestionStream")
+        )
+        input_: capo_opensearchserverless.types.create_ingestion_stream_request.CreateIngestionStreamRequest = {
+            "collection_id": collection_id,
+            "ingestion_stream_name": ingestion_stream_name,
+            "index_name": index_name,
+            "source": source,
+            "role_arn": role_arn,
+        }
+        if failure_index_name is not None:
+            input_["failure_index_name"] = failure_index_name
+        if tags is not None:
+            input_["tags"] = tags
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def get_ingestion_stream(
+        self,
+        collection_id: "capo_opensearchserverless.types.collection_id.CollectionId",
+        ingestion_stream_id: "capo_opensearchserverless.types.ingestion_stream_id.IngestionStreamId",
+        *,
+        config_overrides: Optional[AsyncOpenSearchServerlessClientConfig] = None,
+    ) -> "capo_opensearchserverless.types.get_ingestion_stream_response.GetIngestionStreamResponse":
+        """<p>Returns information about an ingestion stream, including its configuration, status, and processing state.</p>
+
+        Args:
+            collection_id: <p>The unique identifier of the collection that the ingestion stream belongs to.</p>
+            ingestion_stream_id: <p>The unique identifier of the ingestion stream to retrieve.</p>
+
+        Raises:
+            capo_opensearchserverless.errors.internal_server_exception.InternalServerException: <p>Thrown when an error internal to the service occurs while processing a request.</p>
+            capo_opensearchserverless.errors.resource_not_found_exception.ResourceNotFoundException: <p>Thrown when accessing or deleting a resource that does not exist.</p>
+            capo_opensearchserverless.errors.validation_exception.ValidationException: <p>Thrown when the HTTP request contains invalid input or is missing required input.</p>
+            capo_opensearchserverless.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_opensearchserverless.types.get_ingestion_stream_request.GetIngestionStreamRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_opensearchserverless.types.get_ingestion_stream_response.GetIngestionStreamResponse"
+        ]:
+            import capo_opensearchserverless._operations.open_search_serverless.get_ingestion_stream
+
+            (
+                output,
+                http_response,
+            ) = await capo_opensearchserverless._operations.open_search_serverless.get_ingestion_stream.async_get_ingestion_stream(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIngestionStream")
+        )
+        input_: capo_opensearchserverless.types.get_ingestion_stream_request.GetIngestionStreamRequest = {
+            "collection_id": collection_id,
+            "ingestion_stream_id": ingestion_stream_id,
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def delete_ingestion_stream(
+        self,
+        collection_id: "capo_opensearchserverless.types.collection_id.CollectionId",
+        ingestion_stream_id: "capo_opensearchserverless.types.ingestion_stream_id.IngestionStreamId",
+        *,
+        config_overrides: Optional[AsyncOpenSearchServerlessClientConfig] = None,
+        client_token: Optional[
+            "capo_opensearchserverless.types.client_token.ClientToken"
+        ] = None,
+    ) -> "capo_opensearchserverless.types.delete_ingestion_stream_response.DeleteIngestionStreamResponse":
+        """<p>Deletes an ingestion stream. Documents that were already indexed by the stream remain in the index.</p>
+
+        Args:
+            collection_id: <p>The unique identifier of the collection that the ingestion stream belongs to.</p>
+            ingestion_stream_id: <p>The unique identifier of the ingestion stream to delete.</p>
+            client_token: <p>Unique, case-sensitive identifier to ensure idempotency of the request.</p>
+
+        Raises:
+            capo_opensearchserverless.errors.conflict_exception.ConflictException: <p>When creating a resource, thrown when a resource with the same name already exists or is being created. When deleting a resource, thrown when the resource is not in the ACTIVE, FAILED, or UPDATE_FAILED state.</p>
+            capo_opensearchserverless.errors.internal_server_exception.InternalServerException: <p>Thrown when an error internal to the service occurs while processing a request.</p>
+            capo_opensearchserverless.errors.resource_not_found_exception.ResourceNotFoundException: <p>Thrown when accessing or deleting a resource that does not exist.</p>
+            capo_opensearchserverless.errors.validation_exception.ValidationException: <p>Thrown when the HTTP request contains invalid input or is missing required input.</p>
+            capo_opensearchserverless.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_opensearchserverless.types.delete_ingestion_stream_request.DeleteIngestionStreamRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_opensearchserverless.types.delete_ingestion_stream_response.DeleteIngestionStreamResponse"
+        ]:
+            import capo_opensearchserverless._operations.open_search_serverless.delete_ingestion_stream
+
+            (
+                output,
+                http_response,
+            ) = await capo_opensearchserverless._operations.open_search_serverless.delete_ingestion_stream.async_delete_ingestion_stream(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIngestionStream")
+        )
+        input_: capo_opensearchserverless.types.delete_ingestion_stream_request.DeleteIngestionStreamRequest = {
+            "collection_id": collection_id,
+            "ingestion_stream_id": ingestion_stream_id,
+        }
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def list_ingestion_streams(
+        self,
+        collection_id: "capo_opensearchserverless.types.collection_id.CollectionId",
+        *,
+        config_overrides: Optional[AsyncOpenSearchServerlessClientConfig] = None,
+        next_token: Optional[str] = None,
+        max_results: Optional[int] = None,
+    ) -> "capo_opensearchserverless.types.list_ingestion_streams_response.ListIngestionStreamsResponse":
+        """<p>Returns a list of ingestion streams in a collection.</p>
+
+        Args:
+            collection_id: <p>The unique identifier of the collection to list ingestion streams for.</p>
+            next_token: <p>If your initial <code>ListIngestionStreams</code> operation returns a <code>nextToken</code>, you can include the returned <code>nextToken</code> in subsequent <code>ListIngestionStreams</code> operations, which returns results in the next page.</p>
+            max_results: <p>The maximum number of results to return. Valid values are 1–100. If you don't specify a value, the default is 100. You can use <code>nextToken</code> to get the next page of results.</p> <p>A response can contain fewer results than <code>maxResults</code>, or no results, and still include a <code>nextToken</code>. To retrieve all results, continue to make the call with the returned <code>nextToken</code> until no <code>nextToken</code> is returned.</p>
+
+        Raises:
+            capo_opensearchserverless.errors.internal_server_exception.InternalServerException: <p>Thrown when an error internal to the service occurs while processing a request.</p>
+            capo_opensearchserverless.errors.resource_not_found_exception.ResourceNotFoundException: <p>Thrown when accessing or deleting a resource that does not exist.</p>
+            capo_opensearchserverless.errors.validation_exception.ValidationException: <p>Thrown when the HTTP request contains invalid input or is missing required input.</p>
+            capo_opensearchserverless.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_opensearchserverless.types.list_ingestion_streams_request.ListIngestionStreamsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_opensearchserverless.types.list_ingestion_streams_response.ListIngestionStreamsResponse"
+        ]:
+            import capo_opensearchserverless._operations.open_search_serverless.list_ingestion_streams
+
+            (
+                output,
+                http_response,
+            ) = await capo_opensearchserverless._operations.open_search_serverless.list_ingestion_streams.async_list_ingestion_streams(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIngestionStreams")
+        )
+        input_: capo_opensearchserverless.types.list_ingestion_streams_request.ListIngestionStreamsRequest = {
+            "collection_id": collection_id
+        }
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if max_results is not None:
+            input_["max_results"] = max_results
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_ingestion_streams(
+        self,
+        collection_id: "capo_opensearchserverless.types.collection_id.CollectionId",
+        *,
+        config_overrides: Optional[AsyncOpenSearchServerlessClientConfig] = None,
+        next_token: Optional[str] = None,
+        max_results: Optional[int] = None,
+    ) -> "AsyncIterator[capo_opensearchserverless.types.ingestion_stream_summary.IngestionStreamSummary]":
+        _token = next_token
+        while True:
+            _response = await self.list_ingestion_streams(
+                collection_id,
+                config_overrides=config_overrides,
+                next_token=_token,
+                max_results=max_results,
+            )
+            _page = _resolve_path(_response, ("ingestion_stream_summaries",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
 
     async def update_lifecycle_policy(
         self,

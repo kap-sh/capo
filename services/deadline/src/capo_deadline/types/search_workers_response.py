@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class SearchWorkersResponse(TypedDict, closed=True):
     workers: "capo_deadline.types.worker_search_summaries.WorkerSearchSummaries"
-    """<p>The workers for the search.</p>"""
+    """The workers for the search."""
     next_item_offset: NotRequired["capo_deadline.types.next_item_offset.NextItemOffset"]
-    """<p>The next item offset for the search results.</p>"""
+    """The next item offset for the search results."""
     total_results: "capo_deadline.types.total_results.TotalResults"
-    """<p>The total number of results in the search.</p>"""
+    """The total number of results in the search."""
 
 
 # --- restJson1 ser/de ---

@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class UserJobsFirst(TypedDict, closed=True):
     user_identity_id: "capo_deadline.types.string.String"
-    """<p>The user's ID.</p>"""
+    """The user's ID."""
 
 
 # --- restJson1 ser/de ---

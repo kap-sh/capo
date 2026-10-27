@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class CreateStorageProfileResponse(TypedDict, closed=True):
     storage_profile_id: "capo_deadline.types.storage_profile_id.StorageProfileId"
-    """<p>The storage profile ID.</p>"""
+    """The storage profile ID."""
 
 
 # --- restJson1 ser/de ---

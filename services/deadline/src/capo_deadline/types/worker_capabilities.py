@@ -13,9 +13,9 @@ class WorkerCapabilities(TypedDict, closed=True):
     amounts: (
         "capo_deadline.types.worker_amount_capability_list.WorkerAmountCapabilityList"
     )
-    """<p>The worker capabilities amounts on a list of worker capabilities.</p>"""
+    """The worker capabilities amounts on a list of worker capabilities."""
     attributes: "capo_deadline.types.worker_attribute_capability_list.WorkerAttributeCapabilityList"
-    """<p>The worker attribute capabilities in the list of attribute capabilities.</p>"""
+    """The worker attribute capabilities in the list of attribute capabilities."""
 
 
 # --- restJson1 ser/de ---

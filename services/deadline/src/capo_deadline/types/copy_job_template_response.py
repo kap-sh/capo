@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class CopyJobTemplateResponse(TypedDict, closed=True):
     template_type: "capo_deadline.types.job_template_type.JobTemplateType"
-    """<p>The format of the job template, either <code>JSON</code> or <code>YAML</code>.</p>"""
+    """The format of the job template, either <code>JSON</code> or <code>YAML</code>."""
 
 
 # --- restJson1 ser/de ---

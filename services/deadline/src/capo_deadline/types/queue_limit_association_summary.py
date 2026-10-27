@@ -16,21 +16,21 @@ if TYPE_CHECKING:
 
 class QueueLimitAssociationSummary(TypedDict, closed=True):
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The unique identifier of the queue in the association.</p>"""
+    """The unique identifier of the queue in the association."""
     limit_id: "capo_deadline.types.limit_id.LimitId"
-    """<p>The unique identifier of the limit in the association.</p>"""
+    """The unique identifier of the limit in the association."""
     status: (
         "capo_deadline.types.queue_limit_association_status.QueueLimitAssociationStatus"
     )
     """<p>The status of task scheduling in the queue-limit association.</p> <ul> <li> <p> <code>ACTIVE</code> - Association is active.</p> </li> <li> <p> <code>STOP_LIMIT_USAGE_AND_COMPLETE_TASKS</code> - Association has stopped scheduling new tasks and is completing current tasks.</p> </li> <li> <p> <code>STOP_LIMIT_USAGE_AND_CANCEL_TASKS</code> - Association has stopped scheduling new tasks and is canceling current tasks.</p> </li> <li> <p> <code>STOPPED</code> - Association has been stopped.</p> </li> </ul>"""
     created_at: "capo_deadline.types.created_at.CreatedAt"
-    """<p>The Unix timestamp of the date and time that the association was created.</p>"""
+    """The Unix timestamp of the date and time that the association was created."""
     created_by: "capo_deadline.types.created_by.CreatedBy"
-    """<p>The user identifier of the person that created the association.</p>"""
+    """The user identifier of the person that created the association."""
     updated_at: NotRequired["capo_deadline.types.updated_at.UpdatedAt"]
-    """<p>The Unix timestamp of the date and time that the association was last updated.</p>"""
+    """The Unix timestamp of the date and time that the association was last updated."""
     updated_by: NotRequired["capo_deadline.types.updated_by.UpdatedBy"]
-    """<p>The user identifier of the person that updated the association.</p>"""
+    """The user identifier of the person that updated the association."""
 
 
 # --- restJson1 ser/de ---

@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class ListTagsForResourceRequest(TypedDict, closed=True):
     resource_arn: "capo_deadline.types.string.String"
-    """<p>The resource ARN to list tags for.</p>"""
+    """The resource ARN to list tags for."""
 
 
 # --- restJson1 ser/de ---

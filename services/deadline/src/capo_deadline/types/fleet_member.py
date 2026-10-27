@@ -15,19 +15,19 @@ if TYPE_CHECKING:
 
 class FleetMember(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID.</p>"""
+    """The farm ID."""
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID.</p>"""
+    """The fleet ID."""
     principal_id: (
         "capo_deadline.types.identity_center_principal_id.IdentityCenterPrincipalId"
     )
-    """<p>The principal ID of the fleet member.</p>"""
+    """The principal ID of the fleet member."""
     principal_type: "capo_deadline.types.deadline_principal_type.DeadlinePrincipalType"
-    """<p>The principal type of the fleet member.</p>"""
+    """The principal type of the fleet member."""
     identity_store_id: "capo_deadline.types.identity_store_id.IdentityStoreId"
-    """<p>The identity store ID.</p>"""
+    """The identity store ID."""
     membership_level: "capo_deadline.types.membership_level.MembershipLevel"
-    """<p>The fleet member's membership level.</p>"""
+    """The fleet member's membership level."""
 
 
 # --- restJson1 ser/de ---

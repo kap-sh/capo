@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class TagResourceRequest(TypedDict, closed=True):
     resource_arn: "capo_deadline.types.string.String"
-    """<p>The ARN of the resource to apply tags to.</p>"""
+    """The ARN of the resource to apply tags to."""
     tags: NotRequired["capo_deadline.types.tags.Tags"]
-    """<p>Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings.</p>"""
+    """Each tag consists of a tag key and a tag value. Tag keys and values are both required, but tag values can be empty strings."""
 
 
 # --- restJson1 ser/de ---

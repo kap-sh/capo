@@ -51,7 +51,7 @@ class CreateExadbVmClusterInput(TypedDict, closed=True):
     scan_listener_port_tcp: NotRequired["int"]
     """<p>The port number for TCP connections to the Single Client Access Name (SCAN) listener.</p>"""
     scan_listener_port_tcp_ssl: NotRequired["int"]
-    """<p>The port number for TCP connections with SSL to the Single Client Access Name (SCAN) listener.</p>"""
+    """<p>Reserved for future use.</p>"""
     shape_attribute: NotRequired["capo_odb.types.shape_attribute.ShapeAttribute"]
     """<p>The shape attribute for the Exascale VM cluster.</p>"""
     system_version: NotRequired["str"]

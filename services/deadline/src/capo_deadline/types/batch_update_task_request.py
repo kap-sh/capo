@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class BatchUpdateTaskRequest(TypedDict, closed=True):
     client_token: NotRequired["capo_deadline.types.client_token.ClientToken"]
-    """<p>The unique token which the server uses to recognize retries of the same request.</p>"""
+    """The unique token which the server uses to recognize retries of the same request."""
     tasks: "capo_deadline.types.batch_update_task_items.BatchUpdateTaskItems"
-    """<p>The list of tasks to update. You can specify up to 100 tasks per request.</p>"""
+    """The list of tasks to update. You can specify up to 100 tasks per request."""
 
 
 # --- restJson1 ser/de ---

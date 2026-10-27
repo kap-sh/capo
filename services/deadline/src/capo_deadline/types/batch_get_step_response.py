@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class BatchGetStepResponse(TypedDict, closed=True):
     steps: "capo_deadline.types.batch_get_step_items.BatchGetStepItems"
-    """<p>A list of steps that were successfully retrieved.</p>"""
+    """A list of steps that were successfully retrieved."""
     errors: "capo_deadline.types.batch_get_step_errors.BatchGetStepErrors"
-    """<p>A list of errors for steps that could not be retrieved.</p>"""
+    """A list of errors for steps that could not be retrieved."""
 
 
 # --- restJson1 ser/de ---

@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class FleetAttributeCapability(TypedDict, closed=True):
     name: "capo_deadline.types.attribute_capability_name.AttributeCapabilityName"
-    """<p>The name of the fleet attribute capability for the worker.</p>"""
+    """The name of the fleet attribute capability for the worker."""
     values: "capo_deadline.types.attribute_capability_values_list.AttributeCapabilityValuesList"
-    """<p>The number of fleet attribute capabilities.</p>"""
+    """The number of fleet attribute capabilities."""
 
 
 # --- restJson1 ser/de ---

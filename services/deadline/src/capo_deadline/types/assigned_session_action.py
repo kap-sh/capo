@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class AssignedSessionAction(TypedDict, closed=True):
     session_action_id: "capo_deadline.types.session_action_id.SessionActionId"
-    """<p>The session action ID for the assigned session.</p>"""
+    """The session action ID for the assigned session."""
     definition: "capo_deadline.types.assigned_session_action_definition.AssignedSessionActionDefinition"
-    """<p>The definition of the assigned session action.</p>"""
+    """The definition of the assigned session action."""
 
 
 # --- restJson1 ser/de ---

@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class CreateBudgetResponse(TypedDict, closed=True):
     budget_id: "capo_deadline.types.budget_id.BudgetId"
-    """<p>The budget ID.</p>"""
+    """The budget ID."""
 
 
 # --- restJson1 ser/de ---

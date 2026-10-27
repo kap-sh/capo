@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class PriorityBalancedSchedulingConfiguration(TypedDict, closed=True):
     rendering_task_buffer: "capo_deadline.types.scheduling_rendering_task_buffer.SchedulingRenderingTaskBuffer"
-    """<p>The rendering task buffer controls worker stickiness. A worker only switches from its current job to another job at the same priority if the other job has fewer rendering tasks by more than this buffer value. Higher values make workers stickier to their current jobs. The default value is <code>1</code>.</p>"""
+    """The rendering task buffer controls worker stickiness. A worker only switches from its current job to another job at the same priority if the other job has fewer rendering tasks by more than this buffer value. Higher values make workers stickier to their current jobs. The default value is <code>1</code>."""
 
 
 # --- restJson1 ser/de ---

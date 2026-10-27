@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class IpAddresses(TypedDict, closed=True):
     ip_v4_addresses: NotRequired["capo_deadline.types.ip_v4_addresses.IpV4Addresses"]
-    """<p>The IpV4 address of the network.</p>"""
+    """The IpV4 address of the network."""
     ip_v6_addresses: NotRequired["capo_deadline.types.ip_v6_addresses.IpV6Addresses"]
-    """<p>The IpV6 address for the network and node component.</p>"""
+    """The IpV6 address for the network and node component."""
 
 
 # --- restJson1 ser/de ---

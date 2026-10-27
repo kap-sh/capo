@@ -16,21 +16,21 @@ if TYPE_CHECKING:
 
 class GetQueueFleetAssociationResponse(TypedDict, closed=True):
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID for the queue-fleet association.</p>"""
+    """The queue ID for the queue-fleet association."""
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID for the queue-fleet association.</p>"""
+    """The fleet ID for the queue-fleet association."""
     status: (
         "capo_deadline.types.queue_fleet_association_status.QueueFleetAssociationStatus"
     )
-    """<p>The status of the queue-fleet association.</p>"""
+    """The status of the queue-fleet association."""
     created_at: "capo_deadline.types.created_at.CreatedAt"
-    """<p>The date and time the resource was created.</p>"""
+    """The date and time the resource was created."""
     created_by: "capo_deadline.types.created_by.CreatedBy"
-    """<p>The user or system that created this resource.</p>"""
+    """The user or system that created this resource."""
     updated_at: NotRequired["capo_deadline.types.updated_at.UpdatedAt"]
-    """<p>The date and time the resource was updated.</p>"""
+    """The date and time the resource was updated."""
     updated_by: NotRequired["capo_deadline.types.updated_by.UpdatedBy"]
-    """<p>The user or system that updated this resource.</p>"""
+    """The user or system that updated this resource."""
 
 
 # --- restJson1 ser/de ---

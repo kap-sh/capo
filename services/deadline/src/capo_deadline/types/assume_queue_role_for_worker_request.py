@@ -13,13 +13,13 @@ if TYPE_CHECKING:
 
 class AssumeQueueRoleForWorkerRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the worker assuming the queue role.</p>"""
+    """The farm ID of the worker assuming the queue role."""
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID of the worker assuming the queue role.</p>"""
+    """The fleet ID of the worker assuming the queue role."""
     worker_id: "capo_deadline.types.worker_id.WorkerId"
-    """<p>The worker ID of the worker assuming the queue role.</p>"""
+    """The worker ID of the worker assuming the queue role."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID of the worker assuming the queue role.</p>"""
+    """The queue ID of the worker assuming the queue role."""
 
 
 # --- restJson1 ser/de ---

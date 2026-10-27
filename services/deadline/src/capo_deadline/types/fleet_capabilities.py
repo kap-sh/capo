@@ -13,11 +13,11 @@ class FleetCapabilities(TypedDict, closed=True):
     amounts: NotRequired[
         "capo_deadline.types.fleet_amount_capabilities.FleetAmountCapabilities"
     ]
-    """<p>Amount capabilities of the fleet.</p>"""
+    """Amount capabilities of the fleet."""
     attributes: NotRequired[
         "capo_deadline.types.fleet_attribute_capabilities.FleetAttributeCapabilities"
     ]
-    """<p>Attribute capabilities of the fleet.</p>"""
+    """Attribute capabilities of the fleet."""
 
 
 # --- restJson1 ser/de ---

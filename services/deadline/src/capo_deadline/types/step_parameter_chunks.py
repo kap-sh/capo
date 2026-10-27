@@ -12,13 +12,13 @@ if TYPE_CHECKING:
 
 class StepParameterChunks(TypedDict, closed=True):
     default_task_count: "capo_deadline.types.default_task_count.DefaultTaskCount"
-    """<p>The number of tasks to combine into a single chunk by default.</p>"""
+    """The number of tasks to combine into a single chunk by default."""
     target_runtime_seconds: NotRequired[
         "capo_deadline.types.target_runtime_seconds.TargetRuntimeSeconds"
     ]
-    """<p>The number of seconds to aim for when forming chunks.</p>"""
+    """The number of seconds to aim for when forming chunks."""
     range_constraint: "capo_deadline.types.range_constraint.RangeConstraint"
-    """<p>Specifies whether the chunked ranges must be contiguous or can have gaps between them.</p>"""
+    """Specifies whether the chunked ranges must be contiguous or can have gaps between them."""
 
 
 # --- restJson1 ser/de ---

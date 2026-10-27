@@ -11,15 +11,15 @@ if TYPE_CHECKING:
 
 class StepAttributeCapability(TypedDict, closed=True):
     name: "capo_deadline.types.attribute_capability_name.AttributeCapabilityName"
-    """<p>The name of the step attribute.</p>"""
+    """The name of the step attribute."""
     any_of: NotRequired[
         "capo_deadline.types.list_attribute_capability_value.ListAttributeCapabilityValue"
     ]
-    """<p>Requires any of the step attributes in a given list.</p>"""
+    """Requires any of the step attributes in a given list."""
     all_of: NotRequired[
         "capo_deadline.types.list_attribute_capability_value.ListAttributeCapabilityValue"
     ]
-    """<p>Requires all of the step attribute values.</p>"""
+    """Requires all of the step attribute values."""
 
 
 # --- restJson1 ser/de ---

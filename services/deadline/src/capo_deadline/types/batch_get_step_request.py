@@ -12,7 +12,7 @@ class BatchGetStepRequest(TypedDict, closed=True):
     identifiers: (
         "capo_deadline.types.batch_get_step_identifiers.BatchGetStepIdentifiers"
     )
-    """<p>The list of step identifiers to retrieve. You can specify up to 100 identifiers per request.</p>"""
+    """The list of step identifiers to retrieve. You can specify up to 100 identifiers per request."""
 
 
 # --- restJson1 ser/de ---

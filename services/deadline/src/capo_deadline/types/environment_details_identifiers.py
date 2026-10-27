@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class EnvironmentDetailsIdentifiers(TypedDict, closed=True):
     job_id: "capo_deadline.types.job_id.JobId"
-    """<p>The job ID.</p>"""
+    """The job ID."""
     environment_id: "capo_deadline.types.environment_id.EnvironmentId"
-    """<p>The environment ID.</p>"""
+    """The environment ID."""
 
 
 # --- restJson1 ser/de ---

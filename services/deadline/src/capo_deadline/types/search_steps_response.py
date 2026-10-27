@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class SearchStepsResponse(TypedDict, closed=True):
     steps: "capo_deadline.types.step_search_summaries.StepSearchSummaries"
-    """<p>The steps in the search.</p>"""
+    """The steps in the search."""
     next_item_offset: NotRequired["capo_deadline.types.next_item_offset.NextItemOffset"]
-    """<p>The next item offset for the search results.</p>"""
+    """The next item offset for the search results."""
     total_results: "capo_deadline.types.total_results.TotalResults"
-    """<p>The total number of results in the search.</p>"""
+    """The total number of results in the search."""
 
 
 # --- restJson1 ser/de ---

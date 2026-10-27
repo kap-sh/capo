@@ -2,5 +2,5 @@
 
 from typing import TypeAlias
 
-"""Optional RFC 7662 §2.1 token_type_hint value. One of: - \"access_token\" - \"refresh_token\""""
+"""Optional token_type_hint value, as defined in RFC 7662 §2.1. One of "access_token" or "refresh_token"."""
 TokenTypeHint: TypeAlias = str

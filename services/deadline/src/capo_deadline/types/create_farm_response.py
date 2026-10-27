@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class CreateFarmResponse(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID.</p>"""
+    """The farm ID."""
 
 
 # --- restJson1 ser/de ---

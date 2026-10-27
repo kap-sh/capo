@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class AssumeQueueRoleForReadResponse(TypedDict, closed=True):
     credentials: "capo_deadline.types.aws_credentials.AwsCredentials"
-    """<p>The credentials for the queue role.</p>"""
+    """The credentials for the queue role."""
 
 
 # --- restJson1 ser/de ---

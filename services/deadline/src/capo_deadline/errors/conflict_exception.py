@@ -16,13 +16,13 @@ if TYPE_CHECKING:
 class ConflictException_(TypedDict, closed=True):
     message: "capo_deadline.types.string.String"
     reason: "capo_deadline.types.conflict_exception_reason.ConflictExceptionReason"
-    """<p>A description of the error.</p>"""
+    """A description of the error."""
     resource_id: "capo_deadline.types.string.String"
-    """<p>The identifier of the resource in use.</p>"""
+    """The identifier of the resource in use."""
     resource_type: "capo_deadline.types.string.String"
-    """<p>The type of the resource in use.</p>"""
+    """The type of the resource in use."""
     context: NotRequired["capo_deadline.types.exception_context.ExceptionContext"]
-    """<p>Information about the resources in use when the exception was thrown.</p>"""
+    """Information about the resources in use when the exception was thrown."""
 
 
 # --- restJson1 ser/de ---

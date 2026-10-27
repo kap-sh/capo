@@ -14,21 +14,21 @@ if TYPE_CHECKING:
 
 class SearchWorkersRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID in the workers search.</p>"""
+    """The farm ID in the workers search."""
     filter_expressions: NotRequired[
         "capo_deadline.types.search_grouped_filter_expressions.SearchGroupedFilterExpressions"
     ]
-    """<p>The search terms for a resource.</p>"""
+    """The search terms for a resource."""
     sort_expressions: NotRequired[
         "capo_deadline.types.search_sort_expressions.SearchSortExpressions"
     ]
-    """<p>The search terms for a resource.</p>"""
+    """The search terms for a resource."""
     item_offset: "capo_deadline.types.integer.Integer"
-    """<p>The offset for the search results.</p>"""
+    """The offset for the search results."""
     page_size: NotRequired["capo_deadline.types.integer.Integer"]
-    """<p>Specifies the number of results to return.</p>"""
+    """Specifies the number of results to return."""
     fleet_ids: "capo_deadline.types.fleet_ids.FleetIds"
-    """<p>The fleet ID of the workers to search for.</p>"""
+    """The fleet ID of the workers to search for."""
 
 
 # --- restJson1 ser/de ---

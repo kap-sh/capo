@@ -16,15 +16,15 @@ if TYPE_CHECKING:
 
 class CreateOAuth2TokenResponseBody(TypedDict, closed=True):
     access_token: "capo_signin.types.access_token.AccessToken"
-    """Scoped-down AWS credentials (15 minute duration) Present for both authorization code redemption and token refresh"""
+    """The access token issued by the authorization server. The token contains temporary AWS security credentials that you use to sign requests with SigV4."""
     token_type: "capo_signin.types.token_type.TokenType"
-    """Token type indicating this is AWS SigV4 credentials Value is "aws_sigv4" for both flows"""
+    """The type of token issued. Value is "aws_sigv4"."""
     expires_in: "capo_signin.types.expires_in.ExpiresIn"
-    """Time to expiry in seconds (maximum 900) Present for both authorization code redemption and token refresh"""
+    """The number of seconds until the access token expires. Maximum value is 900 seconds (15 minutes)."""
     refresh_token: "capo_signin.types.refresh_token.RefreshToken"
-    """Encrypted refresh token with cnf.jkt (SHA-256 thumbprint of presented jwk) Always present in responses (required for both flows)"""
+    """A refresh token that can be used to obtain new access tokens without re-authenticating."""
     id_token: NotRequired["capo_signin.types.id_token.IdToken"]
-    """ID token containing user identity information Present only in authorization code redemption response (grant_type=authorization_code) Not included in token refresh responses"""
+    """A JSON Web Token (JWT) containing user identity claims. Present only when "grant_type=authorization_code". Not included in refresh token responses."""
 
 
 # --- restJson1 ser/de ---

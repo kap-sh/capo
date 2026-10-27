@@ -11,11 +11,11 @@ if TYPE_CHECKING:
 
 class Attachments(TypedDict, closed=True):
     manifests: "capo_deadline.types.manifest_properties_list.ManifestPropertiesList"
-    """<p>The manifest properties for the attachments.</p>"""
+    """The manifest properties for the attachments."""
     file_system: (
         "capo_deadline.types.job_attachments_file_system.JobAttachmentsFileSystem"
     )
-    """<p>The file system location for the attachments.</p>"""
+    """The file system location for the attachments."""
 
 
 # --- restJson1 ser/de ---

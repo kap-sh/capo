@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class QueueEnvironmentSummary(TypedDict, closed=True):
     queue_environment_id: "capo_deadline.types.queue_environment_id.QueueEnvironmentId"
-    """<p>The queue environment ID.</p>"""
+    """The queue environment ID."""
     name: "capo_deadline.types.environment_name.EnvironmentName"
-    """<p>The name of the queue environment.</p>"""
+    """The name of the queue environment."""
     priority: "capo_deadline.types.priority.Priority"
-    """<p>The queue environment's priority.</p>"""
+    """The queue environment's priority."""
 
 
 # --- restJson1 ser/de ---

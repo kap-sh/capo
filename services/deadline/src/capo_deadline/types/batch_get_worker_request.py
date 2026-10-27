@@ -12,7 +12,7 @@ class BatchGetWorkerRequest(TypedDict, closed=True):
     identifiers: (
         "capo_deadline.types.batch_get_worker_identifiers.BatchGetWorkerIdentifiers"
     )
-    """<p>The list of worker identifiers to retrieve. You can specify up to 100 identifiers per request.</p>"""
+    """The list of worker identifiers to retrieve. You can specify up to 100 identifiers per request."""
 
 
 # --- restJson1 ser/de ---

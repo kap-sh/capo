@@ -11,11 +11,11 @@ if TYPE_CHECKING:
 
 class UpdateWorkerResponse(TypedDict, closed=True):
     log: NotRequired["capo_deadline.types.log_configuration.LogConfiguration"]
-    """<p>The worker log to update.</p>"""
+    """The worker log to update."""
     host_configuration: NotRequired[
         "capo_deadline.types.host_configuration.HostConfiguration"
     ]
-    """<p>The script that runs as a worker is starting up that you can use to provide additional configuration for workers in your fleet.</p>"""
+    """The script that runs as a worker is starting up that you can use to provide additional configuration for workers in your fleet."""
 
 
 # --- restJson1 ser/de ---

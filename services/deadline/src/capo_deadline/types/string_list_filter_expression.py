@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class StringListFilterExpression(TypedDict, closed=True):
     name: "capo_deadline.types.string.String"
-    """<p>The field name to search.</p>"""
+    """The field name to search."""
     operator: "capo_deadline.types.comparison_operator.ComparisonOperator"
-    """<p>The type of comparison to use for this search.</p>"""
+    """The type of comparison to use for this search."""
     values: "capo_deadline.types.string_filter_list.StringFilterList"
-    """<p>The list of string values to search for.</p>"""
+    """The list of string values to search for."""
 
 
 # --- restJson1 ser/de ---

@@ -1,0 +1,8 @@
+---
+title: AdditionalRecipients
+---
+
+::: capo_billing.types.additional_recipients.AdditionalRecipients
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -13,13 +13,13 @@ if TYPE_CHECKING:
 
 class GetSessionRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID for the session.</p>"""
+    """The farm ID for the session."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID for the session.</p>"""
+    """The queue ID for the session."""
     job_id: "capo_deadline.types.job_id.JobId"
-    """<p>The job ID for the session.</p>"""
+    """The job ID for the session."""
     session_id: "capo_deadline.types.session_id.SessionId"
-    """<p>The session ID.</p>"""
+    """The session ID."""
 
 
 # --- restJson1 ser/de ---

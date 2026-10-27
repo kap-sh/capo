@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_ivs.types.channel
+    import capo_ivs.types.failover_slate_configuration
     import capo_ivs.types.ingest_configuration
     import capo_ivs.types.ingest_configurations
     import capo_ivs.types.recording_configuration
@@ -37,6 +38,10 @@ class StreamSession(TypedDict, closed=True):
     """<p>The properties of recording the live stream.</p>"""
     truncated_events: NotRequired["capo_ivs.types.stream_events.StreamEvents"]
     """<p>List of Amazon IVS events that the stream encountered. The list is sorted by most recent events and contains up to 500 events. For Amazon IVS events, see <a href="https://docs.aws.amazon.com/ivs/latest/userguide/eventbridge.html">Using Amazon EventBridge with Amazon IVS</a>.</p>"""
+    failover_slate_configuration: NotRequired[
+        "capo_ivs.types.failover_slate_configuration.FailoverSlateConfiguration"
+    ]
+    """<p>The properties of the failover slate configuration at the time of going live.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -83,6 +88,14 @@ def serialize_json(value: StreamSession) -> dict:
 
         out["truncatedEvents"] = capo_ivs.types.stream_events.serialize_json(
             value["truncated_events"]
+        )
+    if "failover_slate_configuration" in value:
+        import capo_ivs.types.failover_slate_configuration
+
+        out["failoverSlateConfiguration"] = (
+            capo_ivs.types.failover_slate_configuration.serialize_json(
+                value["failover_slate_configuration"]
+            )
         )
     return out
 
@@ -132,6 +145,14 @@ def deserialize_json(data: dict) -> StreamSession:
 
         out["truncated_events"] = capo_ivs.types.stream_events.deserialize_json(
             data["truncatedEvents"]
+        )
+    if data.get("failoverSlateConfiguration") is not None:
+        import capo_ivs.types.failover_slate_configuration
+
+        out["failover_slate_configuration"] = (
+            capo_ivs.types.failover_slate_configuration.deserialize_json(
+                data["failoverSlateConfiguration"]
+            )
         )
     return out
 

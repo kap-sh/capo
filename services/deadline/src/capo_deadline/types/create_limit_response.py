@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class CreateLimitResponse(TypedDict, closed=True):
     limit_id: "capo_deadline.types.limit_id.LimitId"
-    """<p>A unique identifier for the limit. Use this identifier in other operations, such as <code>CreateQueueLimitAssociation</code> and <code>DeleteLimit</code>.</p>"""
+    """A unique identifier for the limit. Use this identifier in other operations, such as <code>CreateQueueLimitAssociation</code> and <code>DeleteLimit</code>."""
 
 
 # --- restJson1 ser/de ---

@@ -16,19 +16,19 @@ if TYPE_CHECKING:
 
 class BatchUpdateTaskError(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the task that could not be updated.</p>"""
+    """The farm ID of the task that could not be updated."""
     queue_id: "capo_deadline.types.queue_id.QueueId"
-    """<p>The queue ID of the task that could not be updated.</p>"""
+    """The queue ID of the task that could not be updated."""
     job_id: "capo_deadline.types.job_id.JobId"
-    """<p>The job ID of the task that could not be updated.</p>"""
+    """The job ID of the task that could not be updated."""
     step_id: "capo_deadline.types.step_id.StepId"
-    """<p>The step ID of the task that could not be updated.</p>"""
+    """The step ID of the task that could not be updated."""
     task_id: "capo_deadline.types.task_id.TaskId"
-    """<p>The task ID of the task that could not be updated.</p>"""
+    """The task ID of the task that could not be updated."""
     code: "capo_deadline.types.batch_update_task_error_code.BatchUpdateTaskErrorCode"
-    """<p>The error code.</p>"""
+    """The error code."""
     message: "capo_deadline.types.string.String"
-    """<p>The error message.</p>"""
+    """The error message."""
 
 
 # --- restJson1 ser/de ---

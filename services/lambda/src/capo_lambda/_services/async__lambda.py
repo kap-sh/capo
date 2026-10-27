@@ -1086,7 +1086,7 @@ class AsyncLambdaClient:
 
         Args:
             callback_id: <p>The unique identifier for the callback operation.</p>
-            error: <p>Error details describing why the callback operation failed.</p>
+            error: <p>Error details describing why the callback operation failed. The combined size of all error fields is limited to 1 MB.</p>
 
         Raises:
             capo_lambda.errors.callback_timeout_exception.CallbackTimeoutException: <p>The callback ID token has either expired or the callback associated with the token has already been closed.</p>
@@ -1208,7 +1208,7 @@ class AsyncLambdaClient:
 
         Args:
             callback_id: <p>The unique identifier for the callback operation.</p>
-            result: <p>The result data from the successful callback operation. Maximum size is 256 KB.</p>
+            result: <p>The result data from the successful callback operation. Maximum size is 1 MB.</p>
 
         Raises:
             capo_lambda.errors.callback_timeout_exception.CallbackTimeoutException: <p>The callback ID token has either expired or the callback associated with the token has already been closed.</p>
@@ -2606,7 +2606,7 @@ class AsyncLambdaClient:
 
         Args:
             durable_execution_arn: <p>The Amazon Resource Name (ARN) of the durable execution.</p>
-            error: <p>Optional error details explaining why the execution is being stopped.</p>
+            error: <p>Optional error details explaining why the execution is being stopped. The combined size of all error fields is limited to 1 MB.</p>
 
         Raises:
             capo_lambda.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid.</p>

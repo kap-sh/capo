@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class BatchUpdateJobResponse(TypedDict, closed=True):
     errors: "capo_deadline.types.batch_update_job_errors.BatchUpdateJobErrors"
-    """<p>A list of errors for jobs that could not be updated.</p>"""
+    """A list of errors for jobs that could not be updated."""
 
 
 # --- restJson1 ser/de ---

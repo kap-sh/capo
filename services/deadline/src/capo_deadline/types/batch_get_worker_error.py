@@ -14,15 +14,15 @@ if TYPE_CHECKING:
 
 class BatchGetWorkerError(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the worker that could not be retrieved.</p>"""
+    """The farm ID of the worker that could not be retrieved."""
     fleet_id: "capo_deadline.types.fleet_id.FleetId"
-    """<p>The fleet ID of the worker that could not be retrieved.</p>"""
+    """The fleet ID of the worker that could not be retrieved."""
     worker_id: "capo_deadline.types.worker_id.WorkerId"
-    """<p>The worker ID of the worker that could not be retrieved.</p>"""
+    """The worker ID of the worker that could not be retrieved."""
     code: "capo_deadline.types.batch_get_worker_error_code.BatchGetWorkerErrorCode"
-    """<p>The error code.</p>"""
+    """The error code."""
     message: "capo_deadline.types.string.String"
-    """<p>The error message.</p>"""
+    """The error message."""
 
 
 # --- restJson1 ser/de ---

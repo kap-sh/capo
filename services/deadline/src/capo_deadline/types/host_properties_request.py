@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class HostPropertiesRequest(TypedDict, closed=True):
     ip_addresses: NotRequired["capo_deadline.types.ip_addresses.IpAddresses"]
-    """<p>The IP address of the host.</p>"""
+    """The IP address of the host."""
     host_name: NotRequired["capo_deadline.types.host_name.HostName"]
-    """<p>The host name.</p>"""
+    """The host name."""
 
 
 # --- restJson1 ser/de ---

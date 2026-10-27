@@ -18,23 +18,23 @@ class WeightedBalancedSchedulingConfiguration(TypedDict, closed=True):
     priority_weight: (
         "capo_deadline.types.scheduling_priority_weight.SchedulingPriorityWeight"
     )
-    """<p>The weight applied to job priority in the scheduling formula. Higher values give more influence to job priority. A value of <code>0</code> means priority is ignored. The default value is <code>100.0</code>.</p>"""
+    """The weight applied to job priority in the scheduling formula. Higher values give more influence to job priority. A value of <code>0</code> means priority is ignored. The default value is <code>100.0</code>."""
     error_weight: "capo_deadline.types.scheduling_error_weight.SchedulingErrorWeight"
-    """<p>The weight applied to the number of errors on a job. A negative value means jobs without errors are scheduled first. A value of <code>0</code> means errors are ignored. The default value is <code>-10.0</code>.</p>"""
+    """The weight applied to the number of errors on a job. A negative value means jobs without errors are scheduled first. A value of <code>0</code> means errors are ignored. The default value is <code>-10.0</code>."""
     submission_time_weight: "capo_deadline.types.scheduling_submission_time_weight.SchedulingSubmissionTimeWeight"
-    """<p>The weight applied to job submission time. A positive value means earlier jobs are scheduled first. A value of <code>0</code> means submission time is ignored. The default value is <code>3.0</code>.</p>"""
+    """The weight applied to job submission time. A positive value means earlier jobs are scheduled first. A value of <code>0</code> means submission time is ignored. The default value is <code>3.0</code>."""
     rendering_task_weight: "capo_deadline.types.scheduling_rendering_task_weight.SchedulingRenderingTaskWeight"
-    """<p>The weight applied to the number of tasks currently rendering on a job. A negative value means jobs that are not already rendering are scheduled next. A value of <code>0</code> means the rendering state is ignored. The default value is <code>-100.0</code>.</p>"""
+    """The weight applied to the number of tasks currently rendering on a job. A negative value means jobs that are not already rendering are scheduled next. A value of <code>0</code> means the rendering state is ignored. The default value is <code>-100.0</code>."""
     rendering_task_buffer: "capo_deadline.types.scheduling_rendering_task_buffer.SchedulingRenderingTaskBuffer"
-    """<p>The rendering task buffer is subtracted from the number of rendering tasks before applying the rendering task weight. This creates a stickiness effect where workers prefer to stay with their current job. Higher values make workers stickier. The default value is <code>1</code>. The buffer is only applied in the weight calculation for a job if the worker is currently assigned to that job.</p>"""
+    """The rendering task buffer is subtracted from the number of rendering tasks before applying the rendering task weight. This creates a stickiness effect where workers prefer to stay with their current job. Higher values make workers stickier. The default value is <code>1</code>. The buffer is only applied in the weight calculation for a job if the worker is currently assigned to that job."""
     max_priority_override: NotRequired[
         "capo_deadline.types.scheduling_max_priority_override.SchedulingMaxPriorityOverride"
     ]
-    """<p>Overrides the weighted scheduling formula for jobs at the maximum priority (100). When set, jobs with priority 100 are always scheduled first regardless of their calculated weight. When absent, maximum priority jobs use the standard weighted formula.</p>"""
+    """Overrides the weighted scheduling formula for jobs at the maximum priority (100). When set, jobs with priority 100 are always scheduled first regardless of their calculated weight. When absent, maximum priority jobs use the standard weighted formula."""
     min_priority_override: NotRequired[
         "capo_deadline.types.scheduling_min_priority_override.SchedulingMinPriorityOverride"
     ]
-    """<p>Overrides the weighted scheduling formula for jobs at the minimum priority (0). When set, jobs with priority 0 are always scheduled last regardless of their calculated weight. When absent, minimum priority jobs use the standard weighted formula.</p>"""
+    """Overrides the weighted scheduling formula for jobs at the minimum priority (0). When set, jobs with priority 0 are always scheduled last regardless of their calculated weight. When absent, minimum priority jobs use the standard weighted formula."""
 
 
 # --- restJson1 ser/de ---

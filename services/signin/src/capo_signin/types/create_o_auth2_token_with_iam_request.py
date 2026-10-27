@@ -6,14 +6,15 @@ from typing_extensions import TypedDict
 
 if TYPE_CHECKING:
     import capo_signin.types.client_credentials_grant_type
+    import capo_signin.types.resource
 
 
 class CreateOAuth2TokenWithIAMRequest(TypedDict, closed=True):
     grant_type: (
         "capo_signin.types.client_credentials_grant_type.ClientCredentialsGrantType"
     )
-    """OAuth 2.0 grant type. Must be "client_credentials"."""
-    resource: "str"
+    """The OAuth 2.0 grant type. Must be "client_credentials"."""
+    resource: "capo_signin.types.resource.Resource"
     """The OAuth resource for which the access token is requested. Example: "aws-mcp.amazonaws.com"."""
 
 

@@ -411,7 +411,7 @@ class GatewayResource:
             "capo_bedrock_agentcore_control.types.waf_configuration.WafConfiguration"
         ] = None,
     ) -> "capo_bedrock_agentcore_control.types.update_gateway_response.UpdateGatewayResponse":
-        """<p>Updates an existing gateway.</p>
+        """<p>Updates an existing gateway.</p> <p>Replaces the entire gateway configuration. Any optional field that you omit, including fields in <code>protocolConfiguration</code>, is reset. For information about retrieving the current configuration, see <a href="https://docs.aws.amazon.com/bedrock-agentcore-control/latest/APIReference/API_GetGateway.html">GetGateway</a>.</p>
 
         Args:
             gateway_identifier: <p>The identifier of the gateway to update.</p>
@@ -875,7 +875,7 @@ class AsyncGatewayResource:
             "capo_bedrock_agentcore_control.types.waf_configuration.WafConfiguration"
         ] = None,
     ) -> "capo_bedrock_agentcore_control.types.update_gateway_response.UpdateGatewayResponse":
-        """<p>Updates an existing gateway.</p>
+        """<p>Updates an existing gateway.</p> <p>Replaces the entire gateway configuration. Any optional field that you omit, including fields in <code>protocolConfiguration</code>, is reset. For information about retrieving the current configuration, see <a href="https://docs.aws.amazon.com/bedrock-agentcore-control/latest/APIReference/API_GetGateway.html">GetGateway</a>.</p>
 
         Args:
             gateway_identifier: <p>The identifier of the gateway to update.</p>

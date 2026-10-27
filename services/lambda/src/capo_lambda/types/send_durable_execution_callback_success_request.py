@@ -15,7 +15,7 @@ class SendDurableExecutionCallbackSuccessRequest(TypedDict, closed=True):
     result: NotRequired[
         "capo_lambda.types.binary_operation_payload.BinaryOperationPayload"
     ]
-    """<p>The result data from the successful callback operation. Maximum size is 256 KB.</p>"""
+    """<p>The result data from the successful callback operation. Maximum size is 1 MB.</p>"""
 
 
 # --- restJson1 ser/de ---

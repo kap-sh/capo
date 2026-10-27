@@ -14,17 +14,17 @@ if TYPE_CHECKING:
 
 class CreateStorageProfileRequest(TypedDict, closed=True):
     farm_id: "capo_deadline.types.farm_id.FarmId"
-    """<p>The farm ID of the farm to connect to the storage profile.</p>"""
+    """The farm ID of the farm to connect to the storage profile."""
     client_token: NotRequired["capo_deadline.types.client_token.ClientToken"]
-    """<p>The unique token which the server uses to recognize retries of the same request.</p>"""
+    """The unique token which the server uses to recognize retries of the same request."""
     display_name: "capo_deadline.types.resource_name.ResourceName"
     """<p>The display name of the storage profile.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     os_family: "capo_deadline.types.storage_profile_operating_system_family.StorageProfileOperatingSystemFamily"
-    """<p>The type of operating system (OS) for the storage profile.</p>"""
+    """The type of operating system (OS) for the storage profile."""
     file_system_locations: NotRequired[
         "capo_deadline.types.file_system_locations_list.FileSystemLocationsList"
     ]
-    """<p>File system paths to include in the storage profile.</p>"""
+    """File system paths to include in the storage profile."""
 
 
 # --- restJson1 ser/de ---

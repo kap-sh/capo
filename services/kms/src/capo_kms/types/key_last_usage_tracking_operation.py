@@ -15,6 +15,8 @@ KeyLastUsageTrackingOperation: TypeAlias = Literal[
     "Sign",
     "Verify",
     "VerifyMac",
+    "Encapsulate",
+    "Decapsulate",
 ]
 
 
