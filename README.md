@@ -87,6 +87,21 @@ print(response["location"])
 
 The output types are also TypeDicts, we do this to make the input/output types interchangeable. You can pass the output member to another operation that accepts the same type as input.
 
+You can still import the types when you want them, for example to annotate your own code. Each one lives in its own module under `capo_<service>.types`. A union is an alias of single-key TypedDicts, one per variant, named `<Union><Variant>Member`. A TypedDict is also a constructor that returns a plain dict, so you can build a variant by calling it:
+
+```python
+from capo_bedrock_runtime.types.content_block import (
+    ContentBlock,
+    ContentBlockImageMember,
+    ContentBlockTextMember,
+)
+
+content: list[ContentBlock] = [
+    ContentBlockTextMember(text="What's in this picture?"),
+    ContentBlockImageMember(image={"format": "png", "source": {"bytes": image}}),
+]
+```
+
 ## Error Handling
 
 The SDK raises exceptions for errors returned by the API. Catch them to handle failures gracefully.
