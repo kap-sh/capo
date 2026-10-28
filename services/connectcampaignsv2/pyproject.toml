@@ -1,6 +1,6 @@
 [project]
 name = "capo-connectcampaignsv2"
-version = "0.12.0"
+version = "0.13.0"
 description = "Typed, async Python SDK for AWS Connectcampaignsv2."
 readme = "README.md"
 requires-python = ">=3.10"

@@ -1,5 +1,11 @@
 # aws-sdk-kms
 
+## 0.18.0
+
+### Minor Changes
+
+- 1e25639: feat: sync smithy models for 27 services
+
 ## 0.17.0
 
 ### Minor Changes

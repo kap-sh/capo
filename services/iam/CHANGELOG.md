@@ -1,5 +1,11 @@
 # aws-sdk-iam
 
+## 0.25.0
+
+### Minor Changes
+
+- f2b74de: feat: public union variant types (`<Union><Variant>Member`)
+
 ## 0.24.0
 
 ### Minor Changes

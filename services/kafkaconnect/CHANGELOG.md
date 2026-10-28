@@ -1,5 +1,11 @@
 # aws-sdk-kafkaconnect
 
+## 0.11.0
+
+### Minor Changes
+
+- 1e25639: feat: sync smithy models for 27 services
+
 ## 0.10.0
 
 ### Minor Changes

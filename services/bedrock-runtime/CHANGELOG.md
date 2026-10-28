@@ -1,5 +1,11 @@
 # aws-sdk-bedrock-runtime
 
+## 0.20.0
+
+### Minor Changes
+
+- f2b74de: feat: public union variant types (`<Union><Variant>Member`)
+
 ## 0.19.0
 
 ### Minor Changes

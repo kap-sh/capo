@@ -1,5 +1,12 @@
 # aws-sdk-lambda
 
+## 0.26.0
+
+### Minor Changes
+
+- 1e25639: feat: sync smithy models for 27 services
+- f2b74de: feat: public union variant types (`<Union><Variant>Member`)
+
 ## 0.25.0
 
 ### Minor Changes

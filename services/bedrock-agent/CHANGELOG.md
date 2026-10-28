@@ -1,5 +1,11 @@
 # aws-sdk-bedrock-agent
 
+## 0.16.0
+
+### Minor Changes
+
+- f2b74de: feat: public union variant types (`<Union><Variant>Member`)
+
 ## 0.15.0
 
 ### Minor Changes

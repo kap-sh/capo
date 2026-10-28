@@ -1,5 +1,11 @@
 # aws-sdk-s3tables
 
+## 0.12.0
+
+### Minor Changes
+
+- f2b74de: feat: public union variant types (`<Union><Variant>Member`)
+
 ## 0.11.0
 
 ### Minor Changes
