@@ -11,32 +11,32 @@ if TYPE_CHECKING:
     import capo_connectcases.types.empty_field_value
 
 
-class _FieldValueUnion_stringValue(TypedDict, closed=True):
+class FieldValueUnionStringValueMember(TypedDict, closed=True):
     stringValue: "str"
 
 
-class _FieldValueUnion_doubleValue(TypedDict, closed=True):
+class FieldValueUnionDoubleValueMember(TypedDict, closed=True):
     doubleValue: "float"
 
 
-class _FieldValueUnion_booleanValue(TypedDict, closed=True):
+class FieldValueUnionBooleanValueMember(TypedDict, closed=True):
     booleanValue: "bool"
 
 
-class _FieldValueUnion_emptyValue(TypedDict, closed=True):
+class FieldValueUnionEmptyValueMember(TypedDict, closed=True):
     emptyValue: "capo_connectcases.types.empty_field_value.EmptyFieldValue"
 
 
-class _FieldValueUnion_userArnValue(TypedDict, closed=True):
+class FieldValueUnionUserArnValueMember(TypedDict, closed=True):
     userArnValue: "str"
 
 
 FieldValueUnion: TypeAlias = (
-    _FieldValueUnion_stringValue
-    | _FieldValueUnion_doubleValue
-    | _FieldValueUnion_booleanValue
-    | _FieldValueUnion_emptyValue
-    | _FieldValueUnion_userArnValue
+    FieldValueUnionStringValueMember
+    | FieldValueUnionDoubleValueMember
+    | FieldValueUnionBooleanValueMember
+    | FieldValueUnionEmptyValueMember
+    | FieldValueUnionUserArnValueMember
     | UnknownUnionMember
 )
 

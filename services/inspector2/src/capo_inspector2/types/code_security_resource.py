@@ -11,11 +11,13 @@ if TYPE_CHECKING:
     import capo_inspector2.types.project_id
 
 
-class _CodeSecurityResource_projectId(TypedDict, closed=True):
+class CodeSecurityResourceProjectIdMember(TypedDict, closed=True):
     projectId: "capo_inspector2.types.project_id.ProjectId"
 
 
-CodeSecurityResource: TypeAlias = _CodeSecurityResource_projectId | UnknownUnionMember
+CodeSecurityResource: TypeAlias = (
+    CodeSecurityResourceProjectIdMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

@@ -7,7 +7,7 @@ title: ActionParameters
       show_source: true
       merge_init_into_class: false
 
-::: capo_datazone.types.action_parameters._ActionParameters_awsConsoleLink
+::: capo_datazone.types.action_parameters.ActionParametersAwsConsoleLinkMember
     options:
       show_source: true
       merge_init_into_class: false

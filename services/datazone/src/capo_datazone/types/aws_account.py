@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_datazone.types.parameter_store_path
 
 
-class _AwsAccount_awsAccountId(TypedDict, closed=True):
+class AwsAccountAwsAccountIdMember(TypedDict, closed=True):
     awsAccountId: "capo_datazone.types.aws_account_id.AwsAccountId"
 
 
-class _AwsAccount_awsAccountIdPath(TypedDict, closed=True):
+class AwsAccountAwsAccountIdPathMember(TypedDict, closed=True):
     awsAccountIdPath: "capo_datazone.types.parameter_store_path.ParameterStorePath"
 
 
 AwsAccount: TypeAlias = (
-    _AwsAccount_awsAccountId | _AwsAccount_awsAccountIdPath | UnknownUnionMember
+    AwsAccountAwsAccountIdMember | AwsAccountAwsAccountIdPathMember | UnknownUnionMember
 )
 
 

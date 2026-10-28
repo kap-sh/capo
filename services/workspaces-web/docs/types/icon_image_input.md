@@ -7,13 +7,13 @@ title: IconImageInput
       show_source: true
       merge_init_into_class: false
 
-::: capo_workspaces_web.types.icon_image_input._IconImageInput_blob
+::: capo_workspaces_web.types.icon_image_input.IconImageInputBlobMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_workspaces_web.types.icon_image_input._IconImageInput_s3Uri
+::: capo_workspaces_web.types.icon_image_input.IconImageInputS3UriMember
     options:
       show_source: true
       merge_init_into_class: false

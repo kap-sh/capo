@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_ssm.types.azure_subscription_list
 
 
-class _ConfigurationTargets_Subscriptions(TypedDict, closed=True):
+class ConfigurationTargetsSubscriptionsMember(TypedDict, closed=True):
     Subscriptions: "capo_ssm.types.azure_subscription_list.AzureSubscriptionList"
 
 
 ConfigurationTargets: TypeAlias = (
-    _ConfigurationTargets_Subscriptions | UnknownUnionMember
+    ConfigurationTargetsSubscriptionsMember | UnknownUnionMember
 )
 
 

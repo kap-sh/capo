@@ -7,7 +7,7 @@ title: CapabilityExtendedResponseConfig
       show_source: true
       merge_init_into_class: false
 
-::: capo_opensearch.types.capability_extended_response_config._CapabilityExtendedResponseConfig_aiConfig
+::: capo_opensearch.types.capability_extended_response_config.CapabilityExtendedResponseConfigAiConfigMember
     options:
       show_source: true
       merge_init_into_class: false

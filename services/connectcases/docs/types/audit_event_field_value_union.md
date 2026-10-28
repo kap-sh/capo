@@ -7,31 +7,31 @@ title: AuditEventFieldValueUnion
       show_source: true
       merge_init_into_class: false
 
-::: capo_connectcases.types.audit_event_field_value_union._AuditEventFieldValueUnion_stringValue
+::: capo_connectcases.types.audit_event_field_value_union.AuditEventFieldValueUnionStringValueMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connectcases.types.audit_event_field_value_union._AuditEventFieldValueUnion_doubleValue
+::: capo_connectcases.types.audit_event_field_value_union.AuditEventFieldValueUnionDoubleValueMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connectcases.types.audit_event_field_value_union._AuditEventFieldValueUnion_booleanValue
+::: capo_connectcases.types.audit_event_field_value_union.AuditEventFieldValueUnionBooleanValueMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connectcases.types.audit_event_field_value_union._AuditEventFieldValueUnion_emptyValue
+::: capo_connectcases.types.audit_event_field_value_union.AuditEventFieldValueUnionEmptyValueMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connectcases.types.audit_event_field_value_union._AuditEventFieldValueUnion_userArnValue
+::: capo_connectcases.types.audit_event_field_value_union.AuditEventFieldValueUnionUserArnValueMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -12,32 +12,32 @@ if TYPE_CHECKING:
     import capo_app_mesh.types.match_range
 
 
-class _GrpcRouteMetadataMatchMethod_exact(TypedDict, closed=True):
+class GrpcRouteMetadataMatchMethodExactMember(TypedDict, closed=True):
     exact: "capo_app_mesh.types.header_match.HeaderMatch"
 
 
-class _GrpcRouteMetadataMatchMethod_regex(TypedDict, closed=True):
+class GrpcRouteMetadataMatchMethodRegexMember(TypedDict, closed=True):
     regex: "capo_app_mesh.types.header_match.HeaderMatch"
 
 
-class _GrpcRouteMetadataMatchMethod_range(TypedDict, closed=True):
+class GrpcRouteMetadataMatchMethodRangeMember(TypedDict, closed=True):
     range: "capo_app_mesh.types.match_range.MatchRange"
 
 
-class _GrpcRouteMetadataMatchMethod_prefix(TypedDict, closed=True):
+class GrpcRouteMetadataMatchMethodPrefixMember(TypedDict, closed=True):
     prefix: "capo_app_mesh.types.header_match.HeaderMatch"
 
 
-class _GrpcRouteMetadataMatchMethod_suffix(TypedDict, closed=True):
+class GrpcRouteMetadataMatchMethodSuffixMember(TypedDict, closed=True):
     suffix: "capo_app_mesh.types.header_match.HeaderMatch"
 
 
 GrpcRouteMetadataMatchMethod: TypeAlias = (
-    _GrpcRouteMetadataMatchMethod_exact
-    | _GrpcRouteMetadataMatchMethod_regex
-    | _GrpcRouteMetadataMatchMethod_range
-    | _GrpcRouteMetadataMatchMethod_prefix
-    | _GrpcRouteMetadataMatchMethod_suffix
+    GrpcRouteMetadataMatchMethodExactMember
+    | GrpcRouteMetadataMatchMethodRegexMember
+    | GrpcRouteMetadataMatchMethodRangeMember
+    | GrpcRouteMetadataMatchMethodPrefixMember
+    | GrpcRouteMetadataMatchMethodSuffixMember
     | UnknownUnionMember
 )
 

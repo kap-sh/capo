@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.member_change_specification
 
 
-class _ChangeSpecification_member(TypedDict, closed=True):
+class ChangeSpecificationMemberMember(TypedDict, closed=True):
     member: (
         "capo_cleanrooms.types.member_change_specification.MemberChangeSpecification"
     )
 
 
-class _ChangeSpecification_collaboration(TypedDict, closed=True):
+class ChangeSpecificationCollaborationMember(TypedDict, closed=True):
     collaboration: "capo_cleanrooms.types.collaboration_change_specification.CollaborationChangeSpecification"
 
 
 ChangeSpecification: TypeAlias = (
-    _ChangeSpecification_member
-    | _ChangeSpecification_collaboration
+    ChangeSpecificationMemberMember
+    | ChangeSpecificationCollaborationMember
     | UnknownUnionMember
 )
 

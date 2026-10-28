@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_mwaa_serverless.types.s3_location
 
 
-class _Code_S3Location(TypedDict, closed=True):
+class CodeS3LocationMember(TypedDict, closed=True):
     S3Location: "capo_mwaa_serverless.types.s3_location.S3Location"
 
 
-Code: TypeAlias = _Code_S3Location | UnknownUnionMember
+Code: TypeAlias = CodeS3LocationMember | UnknownUnionMember
 
 
 # --- awsJson1_0 ser/de ---

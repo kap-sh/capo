@@ -7,13 +7,13 @@ title: EventFilter
       show_source: true
       merge_init_into_class: false
 
-::: capo_workspaces_web.types.event_filter._EventFilter_all
+::: capo_workspaces_web.types.event_filter.EventFilterAllMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_workspaces_web.types.event_filter._EventFilter_include
+::: capo_workspaces_web.types.event_filter.EventFilterIncludeMember
     options:
       show_source: true
       merge_init_into_class: false

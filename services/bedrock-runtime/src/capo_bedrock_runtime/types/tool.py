@@ -13,20 +13,23 @@ if TYPE_CHECKING:
     import capo_bedrock_runtime.types.tool_specification
 
 
-class _Tool_toolSpec(TypedDict, closed=True):
+class ToolToolSpecMember(TypedDict, closed=True):
     toolSpec: "capo_bedrock_runtime.types.tool_specification.ToolSpecification"
 
 
-class _Tool_systemTool(TypedDict, closed=True):
+class ToolSystemToolMember(TypedDict, closed=True):
     systemTool: "capo_bedrock_runtime.types.system_tool.SystemTool"
 
 
-class _Tool_cachePoint(TypedDict, closed=True):
+class ToolCachePointMember(TypedDict, closed=True):
     cachePoint: "capo_bedrock_runtime.types.cache_point_block.CachePointBlock"
 
 
 Tool: TypeAlias = (
-    _Tool_toolSpec | _Tool_systemTool | _Tool_cachePoint | UnknownUnionMember
+    ToolToolSpecMember
+    | ToolSystemToolMember
+    | ToolCachePointMember
+    | UnknownUnionMember
 )
 
 

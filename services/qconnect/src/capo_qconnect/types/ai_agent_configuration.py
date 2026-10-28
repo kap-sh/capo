@@ -19,58 +19,66 @@ if TYPE_CHECKING:
     import capo_qconnect.types.self_service_ai_agent_configuration
 
 
-class _AIAgentConfiguration_manualSearchAIAgentConfiguration(TypedDict, closed=True):
+class AIAgentConfigurationManualSearchAIAgentConfigurationMember(
+    TypedDict, closed=True
+):
     manualSearchAIAgentConfiguration: "capo_qconnect.types.manual_search_ai_agent_configuration.ManualSearchAIAgentConfiguration"
 
 
-class _AIAgentConfiguration_answerRecommendationAIAgentConfiguration(
+class AIAgentConfigurationAnswerRecommendationAIAgentConfigurationMember(
     TypedDict, closed=True
 ):
     answerRecommendationAIAgentConfiguration: "capo_qconnect.types.answer_recommendation_ai_agent_configuration.AnswerRecommendationAIAgentConfiguration"
 
 
-class _AIAgentConfiguration_selfServiceAIAgentConfiguration(TypedDict, closed=True):
+class AIAgentConfigurationSelfServiceAIAgentConfigurationMember(TypedDict, closed=True):
     selfServiceAIAgentConfiguration: "capo_qconnect.types.self_service_ai_agent_configuration.SelfServiceAIAgentConfiguration"
 
 
-class _AIAgentConfiguration_emailResponseAIAgentConfiguration(TypedDict, closed=True):
+class AIAgentConfigurationEmailResponseAIAgentConfigurationMember(
+    TypedDict, closed=True
+):
     emailResponseAIAgentConfiguration: "capo_qconnect.types.email_response_ai_agent_configuration.EmailResponseAIAgentConfiguration"
 
 
-class _AIAgentConfiguration_emailOverviewAIAgentConfiguration(TypedDict, closed=True):
+class AIAgentConfigurationEmailOverviewAIAgentConfigurationMember(
+    TypedDict, closed=True
+):
     emailOverviewAIAgentConfiguration: "capo_qconnect.types.email_overview_ai_agent_configuration.EmailOverviewAIAgentConfiguration"
 
 
-class _AIAgentConfiguration_emailGenerativeAnswerAIAgentConfiguration(
+class AIAgentConfigurationEmailGenerativeAnswerAIAgentConfigurationMember(
     TypedDict, closed=True
 ):
     emailGenerativeAnswerAIAgentConfiguration: "capo_qconnect.types.email_generative_answer_ai_agent_configuration.EmailGenerativeAnswerAIAgentConfiguration"
 
 
-class _AIAgentConfiguration_orchestrationAIAgentConfiguration(TypedDict, closed=True):
+class AIAgentConfigurationOrchestrationAIAgentConfigurationMember(
+    TypedDict, closed=True
+):
     orchestrationAIAgentConfiguration: "capo_qconnect.types.orchestration_ai_agent_configuration.OrchestrationAIAgentConfiguration"
 
 
-class _AIAgentConfiguration_noteTakingAIAgentConfiguration(TypedDict, closed=True):
+class AIAgentConfigurationNoteTakingAIAgentConfigurationMember(TypedDict, closed=True):
     noteTakingAIAgentConfiguration: "capo_qconnect.types.note_taking_ai_agent_configuration.NoteTakingAIAgentConfiguration"
 
 
-class _AIAgentConfiguration_caseSummarizationAIAgentConfiguration(
+class AIAgentConfigurationCaseSummarizationAIAgentConfigurationMember(
     TypedDict, closed=True
 ):
     caseSummarizationAIAgentConfiguration: "capo_qconnect.types.case_summarization_ai_agent_configuration.CaseSummarizationAIAgentConfiguration"
 
 
 AIAgentConfiguration: TypeAlias = (
-    _AIAgentConfiguration_manualSearchAIAgentConfiguration
-    | _AIAgentConfiguration_answerRecommendationAIAgentConfiguration
-    | _AIAgentConfiguration_selfServiceAIAgentConfiguration
-    | _AIAgentConfiguration_emailResponseAIAgentConfiguration
-    | _AIAgentConfiguration_emailOverviewAIAgentConfiguration
-    | _AIAgentConfiguration_emailGenerativeAnswerAIAgentConfiguration
-    | _AIAgentConfiguration_orchestrationAIAgentConfiguration
-    | _AIAgentConfiguration_noteTakingAIAgentConfiguration
-    | _AIAgentConfiguration_caseSummarizationAIAgentConfiguration
+    AIAgentConfigurationManualSearchAIAgentConfigurationMember
+    | AIAgentConfigurationAnswerRecommendationAIAgentConfigurationMember
+    | AIAgentConfigurationSelfServiceAIAgentConfigurationMember
+    | AIAgentConfigurationEmailResponseAIAgentConfigurationMember
+    | AIAgentConfigurationEmailOverviewAIAgentConfigurationMember
+    | AIAgentConfigurationEmailGenerativeAnswerAIAgentConfigurationMember
+    | AIAgentConfigurationOrchestrationAIAgentConfigurationMember
+    | AIAgentConfigurationNoteTakingAIAgentConfigurationMember
+    | AIAgentConfigurationCaseSummarizationAIAgentConfigurationMember
     | UnknownUnionMember
 )
 

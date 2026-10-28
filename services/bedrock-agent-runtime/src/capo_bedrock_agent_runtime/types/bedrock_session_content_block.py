@@ -11,17 +11,17 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.image_block
 
 
-class _BedrockSessionContentBlock_text(TypedDict, closed=True):
+class BedrockSessionContentBlockTextMember(TypedDict, closed=True):
     text: "str"
 
 
-class _BedrockSessionContentBlock_image(TypedDict, closed=True):
+class BedrockSessionContentBlockImageMember(TypedDict, closed=True):
     image: "capo_bedrock_agent_runtime.types.image_block.ImageBlock"
 
 
 BedrockSessionContentBlock: TypeAlias = (
-    _BedrockSessionContentBlock_text
-    | _BedrockSessionContentBlock_image
+    BedrockSessionContentBlockTextMember
+    | BedrockSessionContentBlockImageMember
     | UnknownUnionMember
 )
 

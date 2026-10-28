@@ -13,26 +13,26 @@ if TYPE_CHECKING:
     import capo_cloudwatchomni.types.o_auth_code_credential
 
 
-class _IntegrationCredential_oauthCodeCredential(TypedDict, closed=True):
+class IntegrationCredentialOauthCodeCredentialMember(TypedDict, closed=True):
     oauthCodeCredential: (
         "capo_cloudwatchomni.types.o_auth_code_credential.OAuthCodeCredential"
     )
 
 
-class _IntegrationCredential_oauthClientCredential(TypedDict, closed=True):
+class IntegrationCredentialOauthClientCredentialMember(TypedDict, closed=True):
     oauthClientCredential: (
         "capo_cloudwatchomni.types.o_auth_client_credential.OAuthClientCredential"
     )
 
 
-class _IntegrationCredential_apiKeyCredential(TypedDict, closed=True):
+class IntegrationCredentialApiKeyCredentialMember(TypedDict, closed=True):
     apiKeyCredential: "capo_cloudwatchomni.types.api_key_credential.ApiKeyCredential"
 
 
 IntegrationCredential: TypeAlias = (
-    _IntegrationCredential_oauthCodeCredential
-    | _IntegrationCredential_oauthClientCredential
-    | _IntegrationCredential_apiKeyCredential
+    IntegrationCredentialOauthCodeCredentialMember
+    | IntegrationCredentialOauthClientCredentialMember
+    | IntegrationCredentialApiKeyCredentialMember
     | UnknownUnionMember
 )
 

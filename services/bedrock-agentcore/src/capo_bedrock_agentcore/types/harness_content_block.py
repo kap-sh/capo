@@ -14,29 +14,29 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.sensitive_text
 
 
-class _HarnessContentBlock_text(TypedDict, closed=True):
+class HarnessContentBlockTextMember(TypedDict, closed=True):
     text: "capo_bedrock_agentcore.types.sensitive_text.SensitiveText"
 
 
-class _HarnessContentBlock_toolUse(TypedDict, closed=True):
+class HarnessContentBlockToolUseMember(TypedDict, closed=True):
     toolUse: "capo_bedrock_agentcore.types.harness_tool_use_block.HarnessToolUseBlock"
 
 
-class _HarnessContentBlock_toolResult(TypedDict, closed=True):
+class HarnessContentBlockToolResultMember(TypedDict, closed=True):
     toolResult: (
         "capo_bedrock_agentcore.types.harness_tool_result_block.HarnessToolResultBlock"
     )
 
 
-class _HarnessContentBlock_reasoningContent(TypedDict, closed=True):
+class HarnessContentBlockReasoningContentMember(TypedDict, closed=True):
     reasoningContent: "capo_bedrock_agentcore.types.harness_reasoning_content_block.HarnessReasoningContentBlock"
 
 
 HarnessContentBlock: TypeAlias = (
-    _HarnessContentBlock_text
-    | _HarnessContentBlock_toolUse
-    | _HarnessContentBlock_toolResult
-    | _HarnessContentBlock_reasoningContent
+    HarnessContentBlockTextMember
+    | HarnessContentBlockToolUseMember
+    | HarnessContentBlockToolResultMember
+    | HarnessContentBlockReasoningContentMember
     | UnknownUnionMember
 )
 

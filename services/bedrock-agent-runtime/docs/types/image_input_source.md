@@ -7,7 +7,7 @@ title: ImageInputSource
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agent_runtime.types.image_input_source._ImageInputSource_bytes
+::: capo_bedrock_agent_runtime.types.image_input_source.ImageInputSourceBytesMember
     options:
       show_source: true
       merge_init_into_class: false

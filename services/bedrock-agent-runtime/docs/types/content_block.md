@@ -7,7 +7,7 @@ title: ContentBlock
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agent_runtime.types.content_block._ContentBlock_text
+::: capo_bedrock_agent_runtime.types.content_block.ContentBlockTextMember
     options:
       show_source: true
       merge_init_into_class: false

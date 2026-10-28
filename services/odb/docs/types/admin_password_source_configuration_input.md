@@ -7,7 +7,7 @@ title: AdminPasswordSourceConfigurationInput
       show_source: true
       merge_init_into_class: false
 
-::: capo_odb.types.admin_password_source_configuration_input._AdminPasswordSourceConfigurationInput_customerManagedAwsSecret
+::: capo_odb.types.admin_password_source_configuration_input.AdminPasswordSourceConfigurationInputCustomerManagedAwsSecretMember
     options:
       show_source: true
       merge_init_into_class: false

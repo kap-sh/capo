@@ -11,21 +11,25 @@ if TYPE_CHECKING:
     import capo_application_signals.types.metric_data_queries
 
 
-class _MonitoredRequestCountMetricDataQueries_GoodCountMetric(TypedDict, closed=True):
+class MonitoredRequestCountMetricDataQueriesGoodCountMetricMember(
+    TypedDict, closed=True
+):
     GoodCountMetric: (
         "capo_application_signals.types.metric_data_queries.MetricDataQueries"
     )
 
 
-class _MonitoredRequestCountMetricDataQueries_BadCountMetric(TypedDict, closed=True):
+class MonitoredRequestCountMetricDataQueriesBadCountMetricMember(
+    TypedDict, closed=True
+):
     BadCountMetric: (
         "capo_application_signals.types.metric_data_queries.MetricDataQueries"
     )
 
 
 MonitoredRequestCountMetricDataQueries: TypeAlias = (
-    _MonitoredRequestCountMetricDataQueries_GoodCountMetric
-    | _MonitoredRequestCountMetricDataQueries_BadCountMetric
+    MonitoredRequestCountMetricDataQueriesGoodCountMetricMember
+    | MonitoredRequestCountMetricDataQueriesBadCountMetricMember
     | UnknownUnionMember
 )
 

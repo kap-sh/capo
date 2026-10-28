@@ -12,11 +12,11 @@ if TYPE_CHECKING:
     import capo_redshift.types.connect
 
 
-class _RedshiftScopeUnion_Connect(TypedDict, closed=True):
+class RedshiftScopeUnionConnectMember(TypedDict, closed=True):
     Connect: "capo_redshift.types.connect.Connect"
 
 
-RedshiftScopeUnion: TypeAlias = _RedshiftScopeUnion_Connect | UnknownUnionMember
+RedshiftScopeUnion: TypeAlias = RedshiftScopeUnionConnectMember | UnknownUnionMember
 
 
 # --- awsQuery ser/de ---

@@ -14,12 +14,14 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.harness_agent_core_runtime_environment
 
 
-class _HarnessEnvironmentProvider_agentCoreRuntimeEnvironment(TypedDict, closed=True):
+class HarnessEnvironmentProviderAgentCoreRuntimeEnvironmentMember(
+    TypedDict, closed=True
+):
     agentCoreRuntimeEnvironment: "capo_bedrock_agentcore_control.types.harness_agent_core_runtime_environment.HarnessAgentCoreRuntimeEnvironment"
 
 
 HarnessEnvironmentProvider: TypeAlias = (
-    _HarnessEnvironmentProvider_agentCoreRuntimeEnvironment | UnknownUnionMember
+    HarnessEnvironmentProviderAgentCoreRuntimeEnvironmentMember | UnknownUnionMember
 )
 
 

@@ -7,7 +7,7 @@ title: CitationGeneratedContent
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_runtime.types.citation_generated_content._CitationGeneratedContent_text
+::: capo_bedrock_runtime.types.citation_generated_content.CitationGeneratedContentTextMember
     options:
       show_source: true
       merge_init_into_class: false

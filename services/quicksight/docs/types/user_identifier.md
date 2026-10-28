@@ -7,19 +7,19 @@ title: UserIdentifier
       show_source: true
       merge_init_into_class: false
 
-::: capo_quicksight.types.user_identifier._UserIdentifier_UserName
+::: capo_quicksight.types.user_identifier.UserIdentifierUserNameMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.user_identifier._UserIdentifier_Email
+::: capo_quicksight.types.user_identifier.UserIdentifierEmailMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.user_identifier._UserIdentifier_UserArn
+::: capo_quicksight.types.user_identifier.UserIdentifierUserArnMember
     options:
       show_source: true
       merge_init_into_class: false

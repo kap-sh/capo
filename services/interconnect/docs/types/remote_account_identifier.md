@@ -7,7 +7,7 @@ title: RemoteAccountIdentifier
       show_source: true
       merge_init_into_class: false
 
-::: capo_interconnect.types.remote_account_identifier._RemoteAccountIdentifier_identifier
+::: capo_interconnect.types.remote_account_identifier.RemoteAccountIdentifierIdentifierMember
     options:
       show_source: true
       merge_init_into_class: false

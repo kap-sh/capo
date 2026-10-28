@@ -7,7 +7,7 @@ title: SourceConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_wisdom.types.source_configuration._SourceConfiguration_appIntegrations
+::: capo_wisdom.types.source_configuration.SourceConfigurationAppIntegrationsMember
     options:
       show_source: true
       merge_init_into_class: false

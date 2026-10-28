@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_odb.types.aws_encryption_key_configuration_input
 
 
-class _EncryptionKeyConfigurationInput_awsEncryptionKey(TypedDict, closed=True):
+class EncryptionKeyConfigurationInputAwsEncryptionKeyMember(TypedDict, closed=True):
     awsEncryptionKey: "capo_odb.types.aws_encryption_key_configuration_input.AwsEncryptionKeyConfigurationInput"
 
 
 EncryptionKeyConfigurationInput: TypeAlias = (
-    _EncryptionKeyConfigurationInput_awsEncryptionKey | UnknownUnionMember
+    EncryptionKeyConfigurationInputAwsEncryptionKeyMember | UnknownUnionMember
 )
 
 

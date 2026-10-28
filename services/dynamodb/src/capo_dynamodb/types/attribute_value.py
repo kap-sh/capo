@@ -20,57 +20,57 @@ if TYPE_CHECKING:
     import capo_dynamodb.types.string_set_attribute_value
 
 
-class _AttributeValue_S(TypedDict, closed=True):
+class AttributeValueSMember(TypedDict, closed=True):
     S: "capo_dynamodb.types.string_attribute_value.StringAttributeValue"
 
 
-class _AttributeValue_N(TypedDict, closed=True):
+class AttributeValueNMember(TypedDict, closed=True):
     N: "capo_dynamodb.types.number_attribute_value.NumberAttributeValue"
 
 
-class _AttributeValue_B(TypedDict, closed=True):
+class AttributeValueBMember(TypedDict, closed=True):
     B: "capo_dynamodb.types.binary_attribute_value.BinaryAttributeValue"
 
 
-class _AttributeValue_SS(TypedDict, closed=True):
+class AttributeValueSSMember(TypedDict, closed=True):
     SS: "capo_dynamodb.types.string_set_attribute_value.StringSetAttributeValue"
 
 
-class _AttributeValue_NS(TypedDict, closed=True):
+class AttributeValueNSMember(TypedDict, closed=True):
     NS: "capo_dynamodb.types.number_set_attribute_value.NumberSetAttributeValue"
 
 
-class _AttributeValue_BS(TypedDict, closed=True):
+class AttributeValueBSMember(TypedDict, closed=True):
     BS: "capo_dynamodb.types.binary_set_attribute_value.BinarySetAttributeValue"
 
 
-class _AttributeValue_M(TypedDict, closed=True):
+class AttributeValueMMember(TypedDict, closed=True):
     M: "capo_dynamodb.types.map_attribute_value.MapAttributeValue"
 
 
-class _AttributeValue_L(TypedDict, closed=True):
+class AttributeValueLMember(TypedDict, closed=True):
     L: "capo_dynamodb.types.list_attribute_value.ListAttributeValue"
 
 
-class _AttributeValue_NULL(TypedDict, closed=True):
+class AttributeValueNULLMember(TypedDict, closed=True):
     NULL: "capo_dynamodb.types.null_attribute_value.NullAttributeValue"
 
 
-class _AttributeValue_BOOL(TypedDict, closed=True):
+class AttributeValueBOOLMember(TypedDict, closed=True):
     BOOL: "capo_dynamodb.types.boolean_attribute_value.BooleanAttributeValue"
 
 
 AttributeValue: TypeAlias = (
-    _AttributeValue_S
-    | _AttributeValue_N
-    | _AttributeValue_B
-    | _AttributeValue_SS
-    | _AttributeValue_NS
-    | _AttributeValue_BS
-    | _AttributeValue_M
-    | _AttributeValue_L
-    | _AttributeValue_NULL
-    | _AttributeValue_BOOL
+    AttributeValueSMember
+    | AttributeValueNMember
+    | AttributeValueBMember
+    | AttributeValueSSMember
+    | AttributeValueNSMember
+    | AttributeValueBSMember
+    | AttributeValueMMember
+    | AttributeValueLMember
+    | AttributeValueNULLMember
+    | AttributeValueBOOLMember
     | UnknownUnionMember
 )
 

@@ -12,27 +12,27 @@ if TYPE_CHECKING:
     import capo_connectcases.types.compound_condition
 
 
-class _BooleanCondition_equalTo(TypedDict, closed=True):
+class BooleanConditionEqualToMember(TypedDict, closed=True):
     equalTo: "capo_connectcases.types.boolean_operands.BooleanOperands"
 
 
-class _BooleanCondition_notEqualTo(TypedDict, closed=True):
+class BooleanConditionNotEqualToMember(TypedDict, closed=True):
     notEqualTo: "capo_connectcases.types.boolean_operands.BooleanOperands"
 
 
-class _BooleanCondition_andAll(TypedDict, closed=True):
+class BooleanConditionAndAllMember(TypedDict, closed=True):
     andAll: "capo_connectcases.types.compound_condition.CompoundCondition"
 
 
-class _BooleanCondition_orAll(TypedDict, closed=True):
+class BooleanConditionOrAllMember(TypedDict, closed=True):
     orAll: "capo_connectcases.types.compound_condition.CompoundCondition"
 
 
 BooleanCondition: TypeAlias = (
-    _BooleanCondition_equalTo
-    | _BooleanCondition_notEqualTo
-    | _BooleanCondition_andAll
-    | _BooleanCondition_orAll
+    BooleanConditionEqualToMember
+    | BooleanConditionNotEqualToMember
+    | BooleanConditionAndAllMember
+    | BooleanConditionOrAllMember
     | UnknownUnionMember
 )
 

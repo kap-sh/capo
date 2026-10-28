@@ -7,7 +7,7 @@ title: ImportConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_medical_imaging.types.import_configuration._ImportConfiguration_dicomJsonMetadataImportConfiguration
+::: capo_medical_imaging.types.import_configuration.ImportConfigurationDicomJsonMetadataImportConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false

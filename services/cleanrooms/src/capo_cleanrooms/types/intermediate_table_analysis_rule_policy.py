@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.intermediate_table_analysis_rule_policy_v1
 
 
-class _IntermediateTableAnalysisRulePolicy_v1(TypedDict, closed=True):
+class IntermediateTableAnalysisRulePolicyV1Member(TypedDict, closed=True):
     v1: "capo_cleanrooms.types.intermediate_table_analysis_rule_policy_v1.IntermediateTableAnalysisRulePolicyV1"
 
 
 IntermediateTableAnalysisRulePolicy: TypeAlias = (
-    _IntermediateTableAnalysisRulePolicy_v1 | UnknownUnionMember
+    IntermediateTableAnalysisRulePolicyV1Member | UnknownUnionMember
 )
 
 

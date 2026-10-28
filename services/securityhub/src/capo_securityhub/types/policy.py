@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_securityhub.types.security_hub_policy
 
 
-class _Policy_SecurityHub(TypedDict, closed=True):
+class PolicySecurityHubMember(TypedDict, closed=True):
     SecurityHub: "capo_securityhub.types.security_hub_policy.SecurityHubPolicy"
 
 
-Policy: TypeAlias = _Policy_SecurityHub | UnknownUnionMember
+Policy: TypeAlias = PolicySecurityHubMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

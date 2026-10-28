@@ -14,12 +14,12 @@ if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.incoming_diffie_hellman_tr31_key_block
 
 
-class _IncomingKeyMaterial_DiffieHellmanTr31KeyBlock(TypedDict, closed=True):
+class IncomingKeyMaterialDiffieHellmanTr31KeyBlockMember(TypedDict, closed=True):
     DiffieHellmanTr31KeyBlock: "capo_payment_cryptography_data.types.incoming_diffie_hellman_tr31_key_block.IncomingDiffieHellmanTr31KeyBlock"
 
 
 IncomingKeyMaterial: TypeAlias = (
-    _IncomingKeyMaterial_DiffieHellmanTr31KeyBlock | UnknownUnionMember
+    IncomingKeyMaterialDiffieHellmanTr31KeyBlockMember | UnknownUnionMember
 )
 
 

@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_inspector2.types.create_git_lab_self_managed_integration_detail
 
 
-class _CreateIntegrationDetail_gitlabSelfManaged(TypedDict, closed=True):
+class CreateIntegrationDetailGitlabSelfManagedMember(TypedDict, closed=True):
     gitlabSelfManaged: "capo_inspector2.types.create_git_lab_self_managed_integration_detail.CreateGitLabSelfManagedIntegrationDetail"
 
 
 CreateIntegrationDetail: TypeAlias = (
-    _CreateIntegrationDetail_gitlabSelfManaged | UnknownUnionMember
+    CreateIntegrationDetailGitlabSelfManagedMember | UnknownUnionMember
 )
 
 

@@ -16,41 +16,41 @@ if TYPE_CHECKING:
     import capo_securityagent.types.jira_project_metadata
 
 
-class _IntegratedResourceMetadata_githubRepository(TypedDict, closed=True):
+class IntegratedResourceMetadataGithubRepositoryMember(TypedDict, closed=True):
     githubRepository: (
         "capo_securityagent.types.git_hub_repository_metadata.GitHubRepositoryMetadata"
     )
 
 
-class _IntegratedResourceMetadata_gitlabRepository(TypedDict, closed=True):
+class IntegratedResourceMetadataGitlabRepositoryMember(TypedDict, closed=True):
     gitlabRepository: (
         "capo_securityagent.types.git_lab_repository_metadata.GitLabRepositoryMetadata"
     )
 
 
-class _IntegratedResourceMetadata_bitbucketRepository(TypedDict, closed=True):
+class IntegratedResourceMetadataBitbucketRepositoryMember(TypedDict, closed=True):
     bitbucketRepository: "capo_securityagent.types.bitbucket_repository_metadata.BitbucketRepositoryMetadata"
 
 
-class _IntegratedResourceMetadata_confluenceDocument(TypedDict, closed=True):
+class IntegratedResourceMetadataConfluenceDocumentMember(TypedDict, closed=True):
     confluenceDocument: "capo_securityagent.types.confluence_document_metadata.ConfluenceDocumentMetadata"
 
 
-class _IntegratedResourceMetadata_azureDevOpsRepository(TypedDict, closed=True):
+class IntegratedResourceMetadataAzureDevOpsRepositoryMember(TypedDict, closed=True):
     azureDevOpsRepository: "capo_securityagent.types.azure_dev_ops_repository_metadata.AzureDevOpsRepositoryMetadata"
 
 
-class _IntegratedResourceMetadata_jiraProject(TypedDict, closed=True):
+class IntegratedResourceMetadataJiraProjectMember(TypedDict, closed=True):
     jiraProject: "capo_securityagent.types.jira_project_metadata.JiraProjectMetadata"
 
 
 IntegratedResourceMetadata: TypeAlias = (
-    _IntegratedResourceMetadata_githubRepository
-    | _IntegratedResourceMetadata_gitlabRepository
-    | _IntegratedResourceMetadata_bitbucketRepository
-    | _IntegratedResourceMetadata_confluenceDocument
-    | _IntegratedResourceMetadata_azureDevOpsRepository
-    | _IntegratedResourceMetadata_jiraProject
+    IntegratedResourceMetadataGithubRepositoryMember
+    | IntegratedResourceMetadataGitlabRepositoryMember
+    | IntegratedResourceMetadataBitbucketRepositoryMember
+    | IntegratedResourceMetadataConfluenceDocumentMember
+    | IntegratedResourceMetadataAzureDevOpsRepositoryMember
+    | IntegratedResourceMetadataJiraProjectMember
     | UnknownUnionMember
 )
 

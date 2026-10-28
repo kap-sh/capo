@@ -7,7 +7,7 @@ title: Location
       show_source: true
       merge_init_into_class: false
 
-::: capo_application_signals.types.location._Location_CodeLocation
+::: capo_application_signals.types.location.LocationCodeLocationMember
     options:
       show_source: true
       merge_init_into_class: false

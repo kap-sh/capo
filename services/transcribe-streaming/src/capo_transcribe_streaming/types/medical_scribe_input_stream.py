@@ -18,22 +18,22 @@ if TYPE_CHECKING:
     import capo_transcribe_streaming.types.medical_scribe_session_control_event
 
 
-class _MedicalScribeInputStream_AudioEvent(TypedDict, closed=True):
+class MedicalScribeInputStreamAudioEventMember(TypedDict, closed=True):
     AudioEvent: "capo_transcribe_streaming.types.medical_scribe_audio_event.MedicalScribeAudioEvent"
 
 
-class _MedicalScribeInputStream_SessionControlEvent(TypedDict, closed=True):
+class MedicalScribeInputStreamSessionControlEventMember(TypedDict, closed=True):
     SessionControlEvent: "capo_transcribe_streaming.types.medical_scribe_session_control_event.MedicalScribeSessionControlEvent"
 
 
-class _MedicalScribeInputStream_ConfigurationEvent(TypedDict, closed=True):
+class MedicalScribeInputStreamConfigurationEventMember(TypedDict, closed=True):
     ConfigurationEvent: "capo_transcribe_streaming.types.medical_scribe_configuration_event.MedicalScribeConfigurationEvent"
 
 
 _MedicalScribeInputStream: TypeAlias = (
-    _MedicalScribeInputStream_AudioEvent
-    | _MedicalScribeInputStream_SessionControlEvent
-    | _MedicalScribeInputStream_ConfigurationEvent
+    MedicalScribeInputStreamAudioEventMember
+    | MedicalScribeInputStreamSessionControlEventMember
+    | MedicalScribeInputStreamConfigurationEventMember
     | UnknownEvent
 )
 MedicalScribeInputStream: TypeAlias = AnyIterator[_MedicalScribeInputStream]

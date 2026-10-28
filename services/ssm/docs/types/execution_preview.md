@@ -7,7 +7,7 @@ title: ExecutionPreview
       show_source: true
       merge_init_into_class: false
 
-::: capo_ssm.types.execution_preview._ExecutionPreview_Automation
+::: capo_ssm.types.execution_preview.ExecutionPreviewAutomationMember
     options:
       show_source: true
       merge_init_into_class: false

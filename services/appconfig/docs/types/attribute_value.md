@@ -7,31 +7,31 @@ title: AttributeValue
       show_source: true
       merge_init_into_class: false
 
-::: capo_appconfig.types.attribute_value._AttributeValue_StringValue
+::: capo_appconfig.types.attribute_value.AttributeValueStringValueMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_appconfig.types.attribute_value._AttributeValue_NumberValue
+::: capo_appconfig.types.attribute_value.AttributeValueNumberValueMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_appconfig.types.attribute_value._AttributeValue_BooleanValue
+::: capo_appconfig.types.attribute_value.AttributeValueBooleanValueMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_appconfig.types.attribute_value._AttributeValue_StringArray
+::: capo_appconfig.types.attribute_value.AttributeValueStringArrayMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_appconfig.types.attribute_value._AttributeValue_NumberArray
+::: capo_appconfig.types.attribute_value.AttributeValueNumberArrayMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -7,7 +7,7 @@ title: RuntimeSessionDataValue
       show_source: true
       merge_init_into_class: false
 
-::: capo_qconnect.types.runtime_session_data_value._RuntimeSessionDataValue_stringValue
+::: capo_qconnect.types.runtime_session_data_value.RuntimeSessionDataValueStringValueMember
     options:
       show_source: true
       merge_init_into_class: false

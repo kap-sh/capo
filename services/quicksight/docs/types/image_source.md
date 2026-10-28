@@ -7,13 +7,13 @@ title: ImageSource
       show_source: true
       merge_init_into_class: false
 
-::: capo_quicksight.types.image_source._ImageSource_PublicUrl
+::: capo_quicksight.types.image_source.ImageSourcePublicUrlMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.image_source._ImageSource_S3Uri
+::: capo_quicksight.types.image_source.ImageSourceS3UriMember
     options:
       show_source: true
       merge_init_into_class: false

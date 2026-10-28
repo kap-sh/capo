@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_amp.types.open_search_exporter_configuration
 
 
-class _ExporterConfiguration_openSearchConfiguration(TypedDict, closed=True):
+class ExporterConfigurationOpenSearchConfigurationMember(TypedDict, closed=True):
     openSearchConfiguration: "capo_amp.types.open_search_exporter_configuration.OpenSearchExporterConfiguration"
 
 
 ExporterConfiguration: TypeAlias = (
-    _ExporterConfiguration_openSearchConfiguration | UnknownUnionMember
+    ExporterConfigurationOpenSearchConfigurationMember | UnknownUnionMember
 )
 
 

@@ -12,21 +12,21 @@ if TYPE_CHECKING:
     import capo_inspector2.types.aws_eks_metadata_details
 
 
-class _ClusterMetadata_awsEcsMetadataDetails(TypedDict, closed=True):
+class ClusterMetadataAwsEcsMetadataDetailsMember(TypedDict, closed=True):
     awsEcsMetadataDetails: (
         "capo_inspector2.types.aws_ecs_metadata_details.AwsEcsMetadataDetails"
     )
 
 
-class _ClusterMetadata_awsEksMetadataDetails(TypedDict, closed=True):
+class ClusterMetadataAwsEksMetadataDetailsMember(TypedDict, closed=True):
     awsEksMetadataDetails: (
         "capo_inspector2.types.aws_eks_metadata_details.AwsEksMetadataDetails"
     )
 
 
 ClusterMetadata: TypeAlias = (
-    _ClusterMetadata_awsEcsMetadataDetails
-    | _ClusterMetadata_awsEksMetadataDetails
+    ClusterMetadataAwsEcsMetadataDetailsMember
+    | ClusterMetadataAwsEksMetadataDetailsMember
     | UnknownUnionMember
 )
 

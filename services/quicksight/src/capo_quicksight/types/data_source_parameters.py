@@ -47,224 +47,224 @@ if TYPE_CHECKING:
     import capo_quicksight.types.web_crawler_parameters
 
 
-class _DataSourceParameters_AmazonElasticsearchParameters(TypedDict, closed=True):
+class DataSourceParametersAmazonElasticsearchParametersMember(TypedDict, closed=True):
     AmazonElasticsearchParameters: "capo_quicksight.types.amazon_elasticsearch_parameters.AmazonElasticsearchParameters"
 
 
-class _DataSourceParameters_AthenaParameters(TypedDict, closed=True):
+class DataSourceParametersAthenaParametersMember(TypedDict, closed=True):
     AthenaParameters: "capo_quicksight.types.athena_parameters.AthenaParameters"
 
 
-class _DataSourceParameters_AuroraParameters(TypedDict, closed=True):
+class DataSourceParametersAuroraParametersMember(TypedDict, closed=True):
     AuroraParameters: "capo_quicksight.types.aurora_parameters.AuroraParameters"
 
 
-class _DataSourceParameters_AuroraPostgreSqlParameters(TypedDict, closed=True):
+class DataSourceParametersAuroraPostgreSqlParametersMember(TypedDict, closed=True):
     AuroraPostgreSqlParameters: (
         "capo_quicksight.types.aurora_postgre_sql_parameters.AuroraPostgreSqlParameters"
     )
 
 
-class _DataSourceParameters_AwsIotAnalyticsParameters(TypedDict, closed=True):
+class DataSourceParametersAwsIotAnalyticsParametersMember(TypedDict, closed=True):
     AwsIotAnalyticsParameters: (
         "capo_quicksight.types.aws_iot_analytics_parameters.AwsIotAnalyticsParameters"
     )
 
 
-class _DataSourceParameters_JiraParameters(TypedDict, closed=True):
+class DataSourceParametersJiraParametersMember(TypedDict, closed=True):
     JiraParameters: "capo_quicksight.types.jira_parameters.JiraParameters"
 
 
-class _DataSourceParameters_MariaDbParameters(TypedDict, closed=True):
+class DataSourceParametersMariaDbParametersMember(TypedDict, closed=True):
     MariaDbParameters: "capo_quicksight.types.maria_db_parameters.MariaDbParameters"
 
 
-class _DataSourceParameters_MySqlParameters(TypedDict, closed=True):
+class DataSourceParametersMySqlParametersMember(TypedDict, closed=True):
     MySqlParameters: "capo_quicksight.types.my_sql_parameters.MySqlParameters"
 
 
-class _DataSourceParameters_OracleParameters(TypedDict, closed=True):
+class DataSourceParametersOracleParametersMember(TypedDict, closed=True):
     OracleParameters: "capo_quicksight.types.oracle_parameters.OracleParameters"
 
 
-class _DataSourceParameters_PostgreSqlParameters(TypedDict, closed=True):
+class DataSourceParametersPostgreSqlParametersMember(TypedDict, closed=True):
     PostgreSqlParameters: (
         "capo_quicksight.types.postgre_sql_parameters.PostgreSqlParameters"
     )
 
 
-class _DataSourceParameters_PrestoParameters(TypedDict, closed=True):
+class DataSourceParametersPrestoParametersMember(TypedDict, closed=True):
     PrestoParameters: "capo_quicksight.types.presto_parameters.PrestoParameters"
 
 
-class _DataSourceParameters_RdsParameters(TypedDict, closed=True):
+class DataSourceParametersRdsParametersMember(TypedDict, closed=True):
     RdsParameters: "capo_quicksight.types.rds_parameters.RdsParameters"
 
 
-class _DataSourceParameters_RedshiftParameters(TypedDict, closed=True):
+class DataSourceParametersRedshiftParametersMember(TypedDict, closed=True):
     RedshiftParameters: "capo_quicksight.types.redshift_parameters.RedshiftParameters"
 
 
-class _DataSourceParameters_S3Parameters(TypedDict, closed=True):
+class DataSourceParametersS3ParametersMember(TypedDict, closed=True):
     S3Parameters: "capo_quicksight.types.s3_parameters.S3Parameters"
 
 
-class _DataSourceParameters_S3TablesParameters(TypedDict, closed=True):
+class DataSourceParametersS3TablesParametersMember(TypedDict, closed=True):
     S3TablesParameters: "capo_quicksight.types.s3_tables_parameters.S3TablesParameters"
 
 
-class _DataSourceParameters_S3KnowledgeBaseParameters(TypedDict, closed=True):
+class DataSourceParametersS3KnowledgeBaseParametersMember(TypedDict, closed=True):
     S3KnowledgeBaseParameters: (
         "capo_quicksight.types.s3_knowledge_base_parameters.S3KnowledgeBaseParameters"
     )
 
 
-class _DataSourceParameters_ServiceNowParameters(TypedDict, closed=True):
+class DataSourceParametersServiceNowParametersMember(TypedDict, closed=True):
     ServiceNowParameters: (
         "capo_quicksight.types.service_now_parameters.ServiceNowParameters"
     )
 
 
-class _DataSourceParameters_SnowflakeParameters(TypedDict, closed=True):
+class DataSourceParametersSnowflakeParametersMember(TypedDict, closed=True):
     SnowflakeParameters: (
         "capo_quicksight.types.snowflake_parameters.SnowflakeParameters"
     )
 
 
-class _DataSourceParameters_SparkParameters(TypedDict, closed=True):
+class DataSourceParametersSparkParametersMember(TypedDict, closed=True):
     SparkParameters: "capo_quicksight.types.spark_parameters.SparkParameters"
 
 
-class _DataSourceParameters_SqlServerParameters(TypedDict, closed=True):
+class DataSourceParametersSqlServerParametersMember(TypedDict, closed=True):
     SqlServerParameters: (
         "capo_quicksight.types.sql_server_parameters.SqlServerParameters"
     )
 
 
-class _DataSourceParameters_TeradataParameters(TypedDict, closed=True):
+class DataSourceParametersTeradataParametersMember(TypedDict, closed=True):
     TeradataParameters: "capo_quicksight.types.teradata_parameters.TeradataParameters"
 
 
-class _DataSourceParameters_TwitterParameters(TypedDict, closed=True):
+class DataSourceParametersTwitterParametersMember(TypedDict, closed=True):
     TwitterParameters: "capo_quicksight.types.twitter_parameters.TwitterParameters"
 
 
-class _DataSourceParameters_AmazonOpenSearchParameters(TypedDict, closed=True):
+class DataSourceParametersAmazonOpenSearchParametersMember(TypedDict, closed=True):
     AmazonOpenSearchParameters: (
         "capo_quicksight.types.amazon_open_search_parameters.AmazonOpenSearchParameters"
     )
 
 
-class _DataSourceParameters_ExasolParameters(TypedDict, closed=True):
+class DataSourceParametersExasolParametersMember(TypedDict, closed=True):
     ExasolParameters: "capo_quicksight.types.exasol_parameters.ExasolParameters"
 
 
-class _DataSourceParameters_DatabricksParameters(TypedDict, closed=True):
+class DataSourceParametersDatabricksParametersMember(TypedDict, closed=True):
     DatabricksParameters: (
         "capo_quicksight.types.databricks_parameters.DatabricksParameters"
     )
 
 
-class _DataSourceParameters_StarburstParameters(TypedDict, closed=True):
+class DataSourceParametersStarburstParametersMember(TypedDict, closed=True):
     StarburstParameters: (
         "capo_quicksight.types.starburst_parameters.StarburstParameters"
     )
 
 
-class _DataSourceParameters_TrinoParameters(TypedDict, closed=True):
+class DataSourceParametersTrinoParametersMember(TypedDict, closed=True):
     TrinoParameters: "capo_quicksight.types.trino_parameters.TrinoParameters"
 
 
-class _DataSourceParameters_BigQueryParameters(TypedDict, closed=True):
+class DataSourceParametersBigQueryParametersMember(TypedDict, closed=True):
     BigQueryParameters: "capo_quicksight.types.big_query_parameters.BigQueryParameters"
 
 
-class _DataSourceParameters_ImpalaParameters(TypedDict, closed=True):
+class DataSourceParametersImpalaParametersMember(TypedDict, closed=True):
     ImpalaParameters: "capo_quicksight.types.impala_parameters.ImpalaParameters"
 
 
-class _DataSourceParameters_CustomConnectionParameters(TypedDict, closed=True):
+class DataSourceParametersCustomConnectionParametersMember(TypedDict, closed=True):
     CustomConnectionParameters: (
         "capo_quicksight.types.custom_connection_parameters.CustomConnectionParameters"
     )
 
 
-class _DataSourceParameters_WebCrawlerParameters(TypedDict, closed=True):
+class DataSourceParametersWebCrawlerParametersMember(TypedDict, closed=True):
     WebCrawlerParameters: (
         "capo_quicksight.types.web_crawler_parameters.WebCrawlerParameters"
     )
 
 
-class _DataSourceParameters_ConfluenceParameters(TypedDict, closed=True):
+class DataSourceParametersConfluenceParametersMember(TypedDict, closed=True):
     ConfluenceParameters: (
         "capo_quicksight.types.confluence_parameters.ConfluenceParameters"
     )
 
 
-class _DataSourceParameters_QBusinessParameters(TypedDict, closed=True):
+class DataSourceParametersQBusinessParametersMember(TypedDict, closed=True):
     QBusinessParameters: (
         "capo_quicksight.types.q_business_parameters.QBusinessParameters"
     )
 
 
-class _DataSourceParameters_SharePointParameters(TypedDict, closed=True):
+class DataSourceParametersSharePointParametersMember(TypedDict, closed=True):
     SharePointParameters: (
         "capo_quicksight.types.share_point_parameters.SharePointParameters"
     )
 
 
-class _DataSourceParameters_GoogleDriveParameters(TypedDict, closed=True):
+class DataSourceParametersGoogleDriveParametersMember(TypedDict, closed=True):
     GoogleDriveParameters: (
         "capo_quicksight.types.google_drive_parameters.GoogleDriveParameters"
     )
 
 
-class _DataSourceParameters_OneDriveParameters(TypedDict, closed=True):
+class DataSourceParametersOneDriveParametersMember(TypedDict, closed=True):
     OneDriveParameters: "capo_quicksight.types.one_drive_parameters.OneDriveParameters"
 
 
-class _DataSourceParameters_FMKBParameters(TypedDict, closed=True):
+class DataSourceParametersFMKBParametersMember(TypedDict, closed=True):
     FMKBParameters: "capo_quicksight.types.fmkb_parameters.FMKBParameters"
 
 
 DataSourceParameters: TypeAlias = (
-    _DataSourceParameters_AmazonElasticsearchParameters
-    | _DataSourceParameters_AthenaParameters
-    | _DataSourceParameters_AuroraParameters
-    | _DataSourceParameters_AuroraPostgreSqlParameters
-    | _DataSourceParameters_AwsIotAnalyticsParameters
-    | _DataSourceParameters_JiraParameters
-    | _DataSourceParameters_MariaDbParameters
-    | _DataSourceParameters_MySqlParameters
-    | _DataSourceParameters_OracleParameters
-    | _DataSourceParameters_PostgreSqlParameters
-    | _DataSourceParameters_PrestoParameters
-    | _DataSourceParameters_RdsParameters
-    | _DataSourceParameters_RedshiftParameters
-    | _DataSourceParameters_S3Parameters
-    | _DataSourceParameters_S3TablesParameters
-    | _DataSourceParameters_S3KnowledgeBaseParameters
-    | _DataSourceParameters_ServiceNowParameters
-    | _DataSourceParameters_SnowflakeParameters
-    | _DataSourceParameters_SparkParameters
-    | _DataSourceParameters_SqlServerParameters
-    | _DataSourceParameters_TeradataParameters
-    | _DataSourceParameters_TwitterParameters
-    | _DataSourceParameters_AmazonOpenSearchParameters
-    | _DataSourceParameters_ExasolParameters
-    | _DataSourceParameters_DatabricksParameters
-    | _DataSourceParameters_StarburstParameters
-    | _DataSourceParameters_TrinoParameters
-    | _DataSourceParameters_BigQueryParameters
-    | _DataSourceParameters_ImpalaParameters
-    | _DataSourceParameters_CustomConnectionParameters
-    | _DataSourceParameters_WebCrawlerParameters
-    | _DataSourceParameters_ConfluenceParameters
-    | _DataSourceParameters_QBusinessParameters
-    | _DataSourceParameters_SharePointParameters
-    | _DataSourceParameters_GoogleDriveParameters
-    | _DataSourceParameters_OneDriveParameters
-    | _DataSourceParameters_FMKBParameters
+    DataSourceParametersAmazonElasticsearchParametersMember
+    | DataSourceParametersAthenaParametersMember
+    | DataSourceParametersAuroraParametersMember
+    | DataSourceParametersAuroraPostgreSqlParametersMember
+    | DataSourceParametersAwsIotAnalyticsParametersMember
+    | DataSourceParametersJiraParametersMember
+    | DataSourceParametersMariaDbParametersMember
+    | DataSourceParametersMySqlParametersMember
+    | DataSourceParametersOracleParametersMember
+    | DataSourceParametersPostgreSqlParametersMember
+    | DataSourceParametersPrestoParametersMember
+    | DataSourceParametersRdsParametersMember
+    | DataSourceParametersRedshiftParametersMember
+    | DataSourceParametersS3ParametersMember
+    | DataSourceParametersS3TablesParametersMember
+    | DataSourceParametersS3KnowledgeBaseParametersMember
+    | DataSourceParametersServiceNowParametersMember
+    | DataSourceParametersSnowflakeParametersMember
+    | DataSourceParametersSparkParametersMember
+    | DataSourceParametersSqlServerParametersMember
+    | DataSourceParametersTeradataParametersMember
+    | DataSourceParametersTwitterParametersMember
+    | DataSourceParametersAmazonOpenSearchParametersMember
+    | DataSourceParametersExasolParametersMember
+    | DataSourceParametersDatabricksParametersMember
+    | DataSourceParametersStarburstParametersMember
+    | DataSourceParametersTrinoParametersMember
+    | DataSourceParametersBigQueryParametersMember
+    | DataSourceParametersImpalaParametersMember
+    | DataSourceParametersCustomConnectionParametersMember
+    | DataSourceParametersWebCrawlerParametersMember
+    | DataSourceParametersConfluenceParametersMember
+    | DataSourceParametersQBusinessParametersMember
+    | DataSourceParametersSharePointParametersMember
+    | DataSourceParametersGoogleDriveParametersMember
+    | DataSourceParametersOneDriveParametersMember
+    | DataSourceParametersFMKBParametersMember
     | UnknownUnionMember
 )
 

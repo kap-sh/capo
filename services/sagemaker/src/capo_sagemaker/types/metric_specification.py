@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.predefined_metric_specification
 
 
-class _MetricSpecification_Predefined(TypedDict, closed=True):
+class MetricSpecificationPredefinedMember(TypedDict, closed=True):
     Predefined: "capo_sagemaker.types.predefined_metric_specification.PredefinedMetricSpecification"
 
 
-class _MetricSpecification_Customized(TypedDict, closed=True):
+class MetricSpecificationCustomizedMember(TypedDict, closed=True):
     Customized: "capo_sagemaker.types.customized_metric_specification.CustomizedMetricSpecification"
 
 
 MetricSpecification: TypeAlias = (
-    _MetricSpecification_Predefined
-    | _MetricSpecification_Customized
+    MetricSpecificationPredefinedMember
+    | MetricSpecificationCustomizedMember
     | UnknownUnionMember
 )
 

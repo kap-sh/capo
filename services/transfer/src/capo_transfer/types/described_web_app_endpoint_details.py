@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_transfer.types.described_web_app_vpc_config
 
 
-class _DescribedWebAppEndpointDetails_Vpc(TypedDict, closed=True):
+class DescribedWebAppEndpointDetailsVpcMember(TypedDict, closed=True):
     Vpc: "capo_transfer.types.described_web_app_vpc_config.DescribedWebAppVpcConfig"
 
 
 DescribedWebAppEndpointDetails: TypeAlias = (
-    _DescribedWebAppEndpointDetails_Vpc | UnknownUnionMember
+    DescribedWebAppEndpointDetailsVpcMember | UnknownUnionMember
 )
 
 

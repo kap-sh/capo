@@ -11,11 +11,13 @@ if TYPE_CHECKING:
     import capo_amplifyuibuilder.types.react_start_codegen_job_data
 
 
-class _CodegenJobRenderConfig_react(TypedDict, closed=True):
+class CodegenJobRenderConfigReactMember(TypedDict, closed=True):
     react: "capo_amplifyuibuilder.types.react_start_codegen_job_data.ReactStartCodegenJobData"
 
 
-CodegenJobRenderConfig: TypeAlias = _CodegenJobRenderConfig_react | UnknownUnionMember
+CodegenJobRenderConfig: TypeAlias = (
+    CodegenJobRenderConfigReactMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

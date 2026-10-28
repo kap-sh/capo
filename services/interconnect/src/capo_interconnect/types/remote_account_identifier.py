@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_interconnect.types.remote_owner_account
 
 
-class _RemoteAccountIdentifier_identifier(TypedDict, closed=True):
+class RemoteAccountIdentifierIdentifierMember(TypedDict, closed=True):
     identifier: "capo_interconnect.types.remote_owner_account.RemoteOwnerAccount"
 
 
 RemoteAccountIdentifier: TypeAlias = (
-    _RemoteAccountIdentifier_identifier | UnknownUnionMember
+    RemoteAccountIdentifierIdentifierMember | UnknownUnionMember
 )
 
 

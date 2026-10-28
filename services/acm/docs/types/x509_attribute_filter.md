@@ -7,49 +7,49 @@ title: X509AttributeFilter
       show_source: true
       merge_init_into_class: false
 
-::: capo_acm.types.x509_attribute_filter._X509AttributeFilter_Subject
+::: capo_acm.types.x509_attribute_filter.X509AttributeFilterSubjectMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_acm.types.x509_attribute_filter._X509AttributeFilter_SubjectAlternativeName
+::: capo_acm.types.x509_attribute_filter.X509AttributeFilterSubjectAlternativeNameMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_acm.types.x509_attribute_filter._X509AttributeFilter_ExtendedKeyUsage
+::: capo_acm.types.x509_attribute_filter.X509AttributeFilterExtendedKeyUsageMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_acm.types.x509_attribute_filter._X509AttributeFilter_KeyUsage
+::: capo_acm.types.x509_attribute_filter.X509AttributeFilterKeyUsageMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_acm.types.x509_attribute_filter._X509AttributeFilter_KeyAlgorithm
+::: capo_acm.types.x509_attribute_filter.X509AttributeFilterKeyAlgorithmMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_acm.types.x509_attribute_filter._X509AttributeFilter_SerialNumber
+::: capo_acm.types.x509_attribute_filter.X509AttributeFilterSerialNumberMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_acm.types.x509_attribute_filter._X509AttributeFilter_NotAfter
+::: capo_acm.types.x509_attribute_filter.X509AttributeFilterNotAfterMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_acm.types.x509_attribute_filter._X509AttributeFilter_NotBefore
+::: capo_acm.types.x509_attribute_filter.X509AttributeFilterNotBeforeMember
     options:
       show_source: true
       merge_init_into_class: false

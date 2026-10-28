@@ -15,16 +15,18 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.s3_source
 
 
-class _DataSourceType_inlineExamples(TypedDict, closed=True):
+class DataSourceTypeInlineExamplesMember(TypedDict, closed=True):
     inlineExamples: "capo_bedrock_agentcore_control.types.inline_examples_source.InlineExamplesSource"
 
 
-class _DataSourceType_s3Source(TypedDict, closed=True):
+class DataSourceTypeS3SourceMember(TypedDict, closed=True):
     s3Source: "capo_bedrock_agentcore_control.types.s3_source.S3Source"
 
 
 DataSourceType: TypeAlias = (
-    _DataSourceType_inlineExamples | _DataSourceType_s3Source | UnknownUnionMember
+    DataSourceTypeInlineExamplesMember
+    | DataSourceTypeS3SourceMember
+    | UnknownUnionMember
 )
 
 

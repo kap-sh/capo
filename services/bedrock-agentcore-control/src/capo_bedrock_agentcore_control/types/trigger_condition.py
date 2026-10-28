@@ -16,28 +16,28 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.token_based_trigger
 
 
-class _TriggerCondition_messageBasedTrigger(TypedDict, closed=True):
+class TriggerConditionMessageBasedTriggerMember(TypedDict, closed=True):
     messageBasedTrigger: (
         "capo_bedrock_agentcore_control.types.message_based_trigger.MessageBasedTrigger"
     )
 
 
-class _TriggerCondition_tokenBasedTrigger(TypedDict, closed=True):
+class TriggerConditionTokenBasedTriggerMember(TypedDict, closed=True):
     tokenBasedTrigger: (
         "capo_bedrock_agentcore_control.types.token_based_trigger.TokenBasedTrigger"
     )
 
 
-class _TriggerCondition_timeBasedTrigger(TypedDict, closed=True):
+class TriggerConditionTimeBasedTriggerMember(TypedDict, closed=True):
     timeBasedTrigger: (
         "capo_bedrock_agentcore_control.types.time_based_trigger.TimeBasedTrigger"
     )
 
 
 TriggerCondition: TypeAlias = (
-    _TriggerCondition_messageBasedTrigger
-    | _TriggerCondition_tokenBasedTrigger
-    | _TriggerCondition_timeBasedTrigger
+    TriggerConditionMessageBasedTriggerMember
+    | TriggerConditionTokenBasedTriggerMember
+    | TriggerConditionTimeBasedTriggerMember
     | UnknownUnionMember
 )
 

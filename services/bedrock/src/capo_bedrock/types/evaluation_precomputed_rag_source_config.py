@@ -12,21 +12,21 @@ if TYPE_CHECKING:
     import capo_bedrock.types.evaluation_precomputed_retrieve_source_config
 
 
-class _EvaluationPrecomputedRagSourceConfig_retrieveSourceConfig(
+class EvaluationPrecomputedRagSourceConfigRetrieveSourceConfigMember(
     TypedDict, closed=True
 ):
     retrieveSourceConfig: "capo_bedrock.types.evaluation_precomputed_retrieve_source_config.EvaluationPrecomputedRetrieveSourceConfig"
 
 
-class _EvaluationPrecomputedRagSourceConfig_retrieveAndGenerateSourceConfig(
+class EvaluationPrecomputedRagSourceConfigRetrieveAndGenerateSourceConfigMember(
     TypedDict, closed=True
 ):
     retrieveAndGenerateSourceConfig: "capo_bedrock.types.evaluation_precomputed_retrieve_and_generate_source_config.EvaluationPrecomputedRetrieveAndGenerateSourceConfig"
 
 
 EvaluationPrecomputedRagSourceConfig: TypeAlias = (
-    _EvaluationPrecomputedRagSourceConfig_retrieveSourceConfig
-    | _EvaluationPrecomputedRagSourceConfig_retrieveAndGenerateSourceConfig
+    EvaluationPrecomputedRagSourceConfigRetrieveSourceConfigMember
+    | EvaluationPrecomputedRagSourceConfigRetrieveAndGenerateSourceConfigMember
     | UnknownUnionMember
 )
 

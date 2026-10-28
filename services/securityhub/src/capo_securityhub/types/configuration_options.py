@@ -18,51 +18,51 @@ if TYPE_CHECKING:
     import capo_securityhub.types.string_list_configuration_options
 
 
-class _ConfigurationOptions_Integer(TypedDict, closed=True):
+class ConfigurationOptionsIntegerMember(TypedDict, closed=True):
     Integer: "capo_securityhub.types.integer_configuration_options.IntegerConfigurationOptions"
 
 
-class _ConfigurationOptions_IntegerList(TypedDict, closed=True):
+class ConfigurationOptionsIntegerListMember(TypedDict, closed=True):
     IntegerList: "capo_securityhub.types.integer_list_configuration_options.IntegerListConfigurationOptions"
 
 
-class _ConfigurationOptions_Double(TypedDict, closed=True):
+class ConfigurationOptionsDoubleMember(TypedDict, closed=True):
     Double: (
         "capo_securityhub.types.double_configuration_options.DoubleConfigurationOptions"
     )
 
 
-class _ConfigurationOptions_String(TypedDict, closed=True):
+class ConfigurationOptionsStringMember(TypedDict, closed=True):
     String: (
         "capo_securityhub.types.string_configuration_options.StringConfigurationOptions"
     )
 
 
-class _ConfigurationOptions_StringList(TypedDict, closed=True):
+class ConfigurationOptionsStringListMember(TypedDict, closed=True):
     StringList: "capo_securityhub.types.string_list_configuration_options.StringListConfigurationOptions"
 
 
-class _ConfigurationOptions_Boolean(TypedDict, closed=True):
+class ConfigurationOptionsBooleanMember(TypedDict, closed=True):
     Boolean: "capo_securityhub.types.boolean_configuration_options.BooleanConfigurationOptions"
 
 
-class _ConfigurationOptions_Enum(TypedDict, closed=True):
+class ConfigurationOptionsEnumMember(TypedDict, closed=True):
     Enum: "capo_securityhub.types.enum_configuration_options.EnumConfigurationOptions"
 
 
-class _ConfigurationOptions_EnumList(TypedDict, closed=True):
+class ConfigurationOptionsEnumListMember(TypedDict, closed=True):
     EnumList: "capo_securityhub.types.enum_list_configuration_options.EnumListConfigurationOptions"
 
 
 ConfigurationOptions: TypeAlias = (
-    _ConfigurationOptions_Integer
-    | _ConfigurationOptions_IntegerList
-    | _ConfigurationOptions_Double
-    | _ConfigurationOptions_String
-    | _ConfigurationOptions_StringList
-    | _ConfigurationOptions_Boolean
-    | _ConfigurationOptions_Enum
-    | _ConfigurationOptions_EnumList
+    ConfigurationOptionsIntegerMember
+    | ConfigurationOptionsIntegerListMember
+    | ConfigurationOptionsDoubleMember
+    | ConfigurationOptionsStringMember
+    | ConfigurationOptionsStringListMember
+    | ConfigurationOptionsBooleanMember
+    | ConfigurationOptionsEnumMember
+    | ConfigurationOptionsEnumListMember
     | UnknownUnionMember
 )
 

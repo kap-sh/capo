@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_supportauthz.types.kms_key_arn
 
 
-class _SigningKeyInfo_kmsKey(TypedDict, closed=True):
+class SigningKeyInfoKmsKeyMember(TypedDict, closed=True):
     kmsKey: "capo_supportauthz.types.kms_key_arn.KmsKeyArn"
 
 
-SigningKeyInfo: TypeAlias = _SigningKeyInfo_kmsKey | UnknownUnionMember
+SigningKeyInfo: TypeAlias = SigningKeyInfoKmsKeyMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

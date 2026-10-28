@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_bedrock.types.bedrock_evaluator_models
 
 
-class _EvaluatorModelConfig_bedrockEvaluatorModels(TypedDict, closed=True):
+class EvaluatorModelConfigBedrockEvaluatorModelsMember(TypedDict, closed=True):
     bedrockEvaluatorModels: (
         "capo_bedrock.types.bedrock_evaluator_models.BedrockEvaluatorModels"
     )
 
 
 EvaluatorModelConfig: TypeAlias = (
-    _EvaluatorModelConfig_bedrockEvaluatorModels | UnknownUnionMember
+    EvaluatorModelConfigBedrockEvaluatorModelsMember | UnknownUnionMember
 )
 
 

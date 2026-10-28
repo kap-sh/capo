@@ -11,17 +11,17 @@ if TYPE_CHECKING:
     import capo_application_signals.types.code_location
 
 
-class _LocationIdentifier_CodeLocation(TypedDict, closed=True):
+class LocationIdentifierCodeLocationMember(TypedDict, closed=True):
     CodeLocation: "capo_application_signals.types.code_location.CodeLocation"
 
 
-class _LocationIdentifier_LocationHash(TypedDict, closed=True):
+class LocationIdentifierLocationHashMember(TypedDict, closed=True):
     LocationHash: "str"
 
 
 LocationIdentifier: TypeAlias = (
-    _LocationIdentifier_CodeLocation
-    | _LocationIdentifier_LocationHash
+    LocationIdentifierCodeLocationMember
+    | LocationIdentifierLocationHashMember
     | UnknownUnionMember
 )
 

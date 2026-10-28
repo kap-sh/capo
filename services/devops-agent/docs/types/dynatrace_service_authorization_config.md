@@ -7,7 +7,7 @@ title: DynatraceServiceAuthorizationConfig
       show_source: true
       merge_init_into_class: false
 
-::: capo_devops_agent.types.dynatrace_service_authorization_config._DynatraceServiceAuthorizationConfig_oAuthClientCredentials
+::: capo_devops_agent.types.dynatrace_service_authorization_config.DynatraceServiceAuthorizationConfigOAuthClientCredentialsMember
     options:
       show_source: true
       merge_init_into_class: false

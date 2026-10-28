@@ -7,13 +7,13 @@ title: PrivateConnectionMode
       show_source: true
       merge_init_into_class: false
 
-::: capo_securityagent.types.private_connection_mode._PrivateConnectionMode_serviceManaged
+::: capo_securityagent.types.private_connection_mode.PrivateConnectionModeServiceManagedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_securityagent.types.private_connection_mode._PrivateConnectionMode_selfManaged
+::: capo_securityagent.types.private_connection_mode.PrivateConnectionModeSelfManagedMember
     options:
       show_source: true
       merge_init_into_class: false

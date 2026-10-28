@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_migrationhubstrategy.types.src_code_or_db_analysis_status
 
 
-class _AnalysisStatusUnion_runtimeAnalysisStatus(TypedDict, closed=True):
+class AnalysisStatusUnionRuntimeAnalysisStatusMember(TypedDict, closed=True):
     runtimeAnalysisStatus: (
         "capo_migrationhubstrategy.types.runtime_analysis_status.RuntimeAnalysisStatus"
     )
 
 
-class _AnalysisStatusUnion_srcCodeOrDbAnalysisStatus(TypedDict, closed=True):
+class AnalysisStatusUnionSrcCodeOrDbAnalysisStatusMember(TypedDict, closed=True):
     srcCodeOrDbAnalysisStatus: "capo_migrationhubstrategy.types.src_code_or_db_analysis_status.SrcCodeOrDbAnalysisStatus"
 
 
 AnalysisStatusUnion: TypeAlias = (
-    _AnalysisStatusUnion_runtimeAnalysisStatus
-    | _AnalysisStatusUnion_srcCodeOrDbAnalysisStatus
+    AnalysisStatusUnionRuntimeAnalysisStatusMember
+    | AnalysisStatusUnionSrcCodeOrDbAnalysisStatusMember
     | UnknownUnionMember
 )
 

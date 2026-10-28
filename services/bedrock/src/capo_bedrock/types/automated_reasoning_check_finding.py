@@ -17,42 +17,42 @@ if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_check_valid_finding
 
 
-class _AutomatedReasoningCheckFinding_valid(TypedDict, closed=True):
+class AutomatedReasoningCheckFindingValidMember(TypedDict, closed=True):
     valid: "capo_bedrock.types.automated_reasoning_check_valid_finding.AutomatedReasoningCheckValidFinding"
 
 
-class _AutomatedReasoningCheckFinding_invalid(TypedDict, closed=True):
+class AutomatedReasoningCheckFindingInvalidMember(TypedDict, closed=True):
     invalid: "capo_bedrock.types.automated_reasoning_check_invalid_finding.AutomatedReasoningCheckInvalidFinding"
 
 
-class _AutomatedReasoningCheckFinding_satisfiable(TypedDict, closed=True):
+class AutomatedReasoningCheckFindingSatisfiableMember(TypedDict, closed=True):
     satisfiable: "capo_bedrock.types.automated_reasoning_check_satisfiable_finding.AutomatedReasoningCheckSatisfiableFinding"
 
 
-class _AutomatedReasoningCheckFinding_impossible(TypedDict, closed=True):
+class AutomatedReasoningCheckFindingImpossibleMember(TypedDict, closed=True):
     impossible: "capo_bedrock.types.automated_reasoning_check_impossible_finding.AutomatedReasoningCheckImpossibleFinding"
 
 
-class _AutomatedReasoningCheckFinding_translationAmbiguous(TypedDict, closed=True):
+class AutomatedReasoningCheckFindingTranslationAmbiguousMember(TypedDict, closed=True):
     translationAmbiguous: "capo_bedrock.types.automated_reasoning_check_translation_ambiguous_finding.AutomatedReasoningCheckTranslationAmbiguousFinding"
 
 
-class _AutomatedReasoningCheckFinding_tooComplex(TypedDict, closed=True):
+class AutomatedReasoningCheckFindingTooComplexMember(TypedDict, closed=True):
     tooComplex: "capo_bedrock.types.automated_reasoning_check_too_complex_finding.AutomatedReasoningCheckTooComplexFinding"
 
 
-class _AutomatedReasoningCheckFinding_noTranslations(TypedDict, closed=True):
+class AutomatedReasoningCheckFindingNoTranslationsMember(TypedDict, closed=True):
     noTranslations: "capo_bedrock.types.automated_reasoning_check_no_translations_finding.AutomatedReasoningCheckNoTranslationsFinding"
 
 
 AutomatedReasoningCheckFinding: TypeAlias = (
-    _AutomatedReasoningCheckFinding_valid
-    | _AutomatedReasoningCheckFinding_invalid
-    | _AutomatedReasoningCheckFinding_satisfiable
-    | _AutomatedReasoningCheckFinding_impossible
-    | _AutomatedReasoningCheckFinding_translationAmbiguous
-    | _AutomatedReasoningCheckFinding_tooComplex
-    | _AutomatedReasoningCheckFinding_noTranslations
+    AutomatedReasoningCheckFindingValidMember
+    | AutomatedReasoningCheckFindingInvalidMember
+    | AutomatedReasoningCheckFindingSatisfiableMember
+    | AutomatedReasoningCheckFindingImpossibleMember
+    | AutomatedReasoningCheckFindingTranslationAmbiguousMember
+    | AutomatedReasoningCheckFindingTooComplexMember
+    | AutomatedReasoningCheckFindingNoTranslationsMember
     | UnknownUnionMember
 )
 

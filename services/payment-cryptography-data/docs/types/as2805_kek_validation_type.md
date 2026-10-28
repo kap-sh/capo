@@ -7,13 +7,13 @@ title: As2805KekValidationType
       show_source: true
       merge_init_into_class: false
 
-::: capo_payment_cryptography_data.types.as2805_kek_validation_type._As2805KekValidationType_KekValidationRequest
+::: capo_payment_cryptography_data.types.as2805_kek_validation_type.As2805KekValidationTypeKekValidationRequestMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_payment_cryptography_data.types.as2805_kek_validation_type._As2805KekValidationType_KekValidationResponse
+::: capo_payment_cryptography_data.types.as2805_kek_validation_type.As2805KekValidationTypeKekValidationResponseMember
     options:
       show_source: true
       merge_init_into_class: false

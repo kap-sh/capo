@@ -7,7 +7,7 @@ title: AssociationConfigurationData
       show_source: true
       merge_init_into_class: false
 
-::: capo_qconnect.types.association_configuration_data._AssociationConfigurationData_knowledgeBaseAssociationConfigurationData
+::: capo_qconnect.types.association_configuration_data.AssociationConfigurationDataKnowledgeBaseAssociationConfigurationDataMember
     options:
       show_source: true
       merge_init_into_class: false

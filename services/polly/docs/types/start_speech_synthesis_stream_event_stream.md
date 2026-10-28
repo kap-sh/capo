@@ -13,37 +13,37 @@ title: StartSpeechSynthesisStreamEventStream
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_polly.types.start_speech_synthesis_stream_event_stream._StartSpeechSynthesisStreamEventStream_AudioEvent
+::: capo_polly.types.start_speech_synthesis_stream_event_stream.StartSpeechSynthesisStreamEventStreamAudioEventMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_polly.types.start_speech_synthesis_stream_event_stream._StartSpeechSynthesisStreamEventStream_StreamClosedEvent
+::: capo_polly.types.start_speech_synthesis_stream_event_stream.StartSpeechSynthesisStreamEventStreamStreamClosedEventMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_polly.types.start_speech_synthesis_stream_event_stream._StartSpeechSynthesisStreamEventStream_ValidationException
+::: capo_polly.types.start_speech_synthesis_stream_event_stream.StartSpeechSynthesisStreamEventStreamValidationExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_polly.types.start_speech_synthesis_stream_event_stream._StartSpeechSynthesisStreamEventStream_ServiceQuotaExceededException
+::: capo_polly.types.start_speech_synthesis_stream_event_stream.StartSpeechSynthesisStreamEventStreamServiceQuotaExceededExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_polly.types.start_speech_synthesis_stream_event_stream._StartSpeechSynthesisStreamEventStream_ServiceFailureException
+::: capo_polly.types.start_speech_synthesis_stream_event_stream.StartSpeechSynthesisStreamEventStreamServiceFailureExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_polly.types.start_speech_synthesis_stream_event_stream._StartSpeechSynthesisStreamEventStream_ThrottlingException
+::: capo_polly.types.start_speech_synthesis_stream_event_stream.StartSpeechSynthesisStreamEventStreamThrottlingExceptionMember
     options:
       show_source: true
       merge_init_into_class: false

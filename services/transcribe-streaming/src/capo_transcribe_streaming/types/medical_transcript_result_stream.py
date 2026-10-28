@@ -21,43 +21,45 @@ if TYPE_CHECKING:
     import capo_transcribe_streaming.types.medical_transcript_event
 
 
-class _MedicalTranscriptResultStream_TranscriptEvent(TypedDict, closed=True):
+class MedicalTranscriptResultStreamTranscriptEventMember(TypedDict, closed=True):
     TranscriptEvent: "capo_transcribe_streaming.types.medical_transcript_event.MedicalTranscriptEvent"
 
 
-class _MedicalTranscriptResultStream_BadRequestException(TypedDict, closed=True):
+class MedicalTranscriptResultStreamBadRequestExceptionMember(TypedDict, closed=True):
     BadRequestException: (
         "capo_transcribe_streaming.errors.bad_request_exception.BadRequestException_"
     )
 
 
-class _MedicalTranscriptResultStream_LimitExceededException(TypedDict, closed=True):
+class MedicalTranscriptResultStreamLimitExceededExceptionMember(TypedDict, closed=True):
     LimitExceededException: "capo_transcribe_streaming.errors.limit_exceeded_exception.LimitExceededException_"
 
 
-class _MedicalTranscriptResultStream_InternalFailureException(TypedDict, closed=True):
+class MedicalTranscriptResultStreamInternalFailureExceptionMember(
+    TypedDict, closed=True
+):
     InternalFailureException: "capo_transcribe_streaming.errors.internal_failure_exception.InternalFailureException_"
 
 
-class _MedicalTranscriptResultStream_ConflictException(TypedDict, closed=True):
+class MedicalTranscriptResultStreamConflictExceptionMember(TypedDict, closed=True):
     ConflictException: (
         "capo_transcribe_streaming.errors.conflict_exception.ConflictException_"
     )
 
 
-class _MedicalTranscriptResultStream_ServiceUnavailableException(
+class MedicalTranscriptResultStreamServiceUnavailableExceptionMember(
     TypedDict, closed=True
 ):
     ServiceUnavailableException: "capo_transcribe_streaming.errors.service_unavailable_exception.ServiceUnavailableException_"
 
 
 _MedicalTranscriptResultStream: TypeAlias = (
-    _MedicalTranscriptResultStream_TranscriptEvent
-    | _MedicalTranscriptResultStream_BadRequestException
-    | _MedicalTranscriptResultStream_LimitExceededException
-    | _MedicalTranscriptResultStream_InternalFailureException
-    | _MedicalTranscriptResultStream_ConflictException
-    | _MedicalTranscriptResultStream_ServiceUnavailableException
+    MedicalTranscriptResultStreamTranscriptEventMember
+    | MedicalTranscriptResultStreamBadRequestExceptionMember
+    | MedicalTranscriptResultStreamLimitExceededExceptionMember
+    | MedicalTranscriptResultStreamInternalFailureExceptionMember
+    | MedicalTranscriptResultStreamConflictExceptionMember
+    | MedicalTranscriptResultStreamServiceUnavailableExceptionMember
     | UnknownEvent
 )
 MedicalTranscriptResultStream: TypeAlias = AnyIterator[_MedicalTranscriptResultStream]

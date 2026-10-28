@@ -7,7 +7,7 @@ title: Section
       show_source: true
       merge_init_into_class: false
 
-::: capo_connectcases.types.section._Section_fieldGroup
+::: capo_connectcases.types.section.SectionFieldGroupMember
     options:
       show_source: true
       merge_init_into_class: false

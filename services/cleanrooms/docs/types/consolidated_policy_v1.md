@@ -7,19 +7,19 @@ title: ConsolidatedPolicyV1
       show_source: true
       merge_init_into_class: false
 
-::: capo_cleanrooms.types.consolidated_policy_v1._ConsolidatedPolicyV1_list
+::: capo_cleanrooms.types.consolidated_policy_v1.ConsolidatedPolicyV1ListMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cleanrooms.types.consolidated_policy_v1._ConsolidatedPolicyV1_aggregation
+::: capo_cleanrooms.types.consolidated_policy_v1.ConsolidatedPolicyV1AggregationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cleanrooms.types.consolidated_policy_v1._ConsolidatedPolicyV1_custom
+::: capo_cleanrooms.types.consolidated_policy_v1.ConsolidatedPolicyV1CustomMember
     options:
       show_source: true
       merge_init_into_class: false

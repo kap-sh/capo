@@ -7,13 +7,13 @@ title: McpToolSchemaConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.mcp_tool_schema_configuration._McpToolSchemaConfiguration_s3
+::: capo_bedrock_agentcore_control.types.mcp_tool_schema_configuration.McpToolSchemaConfigurationS3Member
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore_control.types.mcp_tool_schema_configuration._McpToolSchemaConfiguration_inlinePayload
+::: capo_bedrock_agentcore_control.types.mcp_tool_schema_configuration.McpToolSchemaConfigurationInlinePayloadMember
     options:
       show_source: true
       merge_init_into_class: false

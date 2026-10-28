@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_app_mesh.types.virtual_gateway_tls_validation_context_sds_trust
 
 
-class _VirtualGatewayListenerTlsValidationContextTrust_file(TypedDict, closed=True):
+class VirtualGatewayListenerTlsValidationContextTrustFileMember(TypedDict, closed=True):
     file: "capo_app_mesh.types.virtual_gateway_tls_validation_context_file_trust.VirtualGatewayTlsValidationContextFileTrust"
 
 
-class _VirtualGatewayListenerTlsValidationContextTrust_sds(TypedDict, closed=True):
+class VirtualGatewayListenerTlsValidationContextTrustSdsMember(TypedDict, closed=True):
     sds: "capo_app_mesh.types.virtual_gateway_tls_validation_context_sds_trust.VirtualGatewayTlsValidationContextSdsTrust"
 
 
 VirtualGatewayListenerTlsValidationContextTrust: TypeAlias = (
-    _VirtualGatewayListenerTlsValidationContextTrust_file
-    | _VirtualGatewayListenerTlsValidationContextTrust_sds
+    VirtualGatewayListenerTlsValidationContextTrustFileMember
+    | VirtualGatewayListenerTlsValidationContextTrustSdsMember
     | UnknownUnionMember
 )
 

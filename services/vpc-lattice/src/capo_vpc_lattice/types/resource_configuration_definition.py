@@ -14,27 +14,27 @@ if TYPE_CHECKING:
     import capo_vpc_lattice.types.ip_resource
 
 
-class _ResourceConfigurationDefinition_dnsResource(TypedDict, closed=True):
+class ResourceConfigurationDefinitionDnsResourceMember(TypedDict, closed=True):
     dnsResource: "capo_vpc_lattice.types.dns_resource.DnsResource"
 
 
-class _ResourceConfigurationDefinition_ipResource(TypedDict, closed=True):
+class ResourceConfigurationDefinitionIpResourceMember(TypedDict, closed=True):
     ipResource: "capo_vpc_lattice.types.ip_resource.IpResource"
 
 
-class _ResourceConfigurationDefinition_arnResource(TypedDict, closed=True):
+class ResourceConfigurationDefinitionArnResourceMember(TypedDict, closed=True):
     arnResource: "capo_vpc_lattice.types.arn_resource.ArnResource"
 
 
-class _ResourceConfigurationDefinition_cidrResource(TypedDict, closed=True):
+class ResourceConfigurationDefinitionCidrResourceMember(TypedDict, closed=True):
     cidrResource: "capo_vpc_lattice.types.cidr_resource.CidrResource"
 
 
 ResourceConfigurationDefinition: TypeAlias = (
-    _ResourceConfigurationDefinition_dnsResource
-    | _ResourceConfigurationDefinition_ipResource
-    | _ResourceConfigurationDefinition_arnResource
-    | _ResourceConfigurationDefinition_cidrResource
+    ResourceConfigurationDefinitionDnsResourceMember
+    | ResourceConfigurationDefinitionIpResourceMember
+    | ResourceConfigurationDefinitionArnResourceMember
+    | ResourceConfigurationDefinitionCidrResourceMember
     | UnknownUnionMember
 )
 

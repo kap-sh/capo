@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_connectcases.types.field_group
 
 
-class _Section_fieldGroup(TypedDict, closed=True):
+class SectionFieldGroupMember(TypedDict, closed=True):
     fieldGroup: "capo_connectcases.types.field_group.FieldGroup"
 
 
-Section: TypeAlias = _Section_fieldGroup | UnknownUnionMember
+Section: TypeAlias = SectionFieldGroupMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

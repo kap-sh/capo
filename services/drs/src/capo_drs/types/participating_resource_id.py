@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_drs.types.source_network_id
 
 
-class _ParticipatingResourceID_sourceNetworkID(TypedDict, closed=True):
+class ParticipatingResourceIDSourceNetworkIDMember(TypedDict, closed=True):
     sourceNetworkID: "capo_drs.types.source_network_id.SourceNetworkID"
 
 
 ParticipatingResourceID: TypeAlias = (
-    _ParticipatingResourceID_sourceNetworkID | UnknownUnionMember
+    ParticipatingResourceIDSourceNetworkIDMember | UnknownUnionMember
 )
 
 

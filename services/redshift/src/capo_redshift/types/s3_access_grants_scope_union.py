@@ -12,12 +12,12 @@ if TYPE_CHECKING:
     import capo_redshift.types.read_write_access
 
 
-class _S3AccessGrantsScopeUnion_ReadWriteAccess(TypedDict, closed=True):
+class S3AccessGrantsScopeUnionReadWriteAccessMember(TypedDict, closed=True):
     ReadWriteAccess: "capo_redshift.types.read_write_access.ReadWriteAccess"
 
 
 S3AccessGrantsScopeUnion: TypeAlias = (
-    _S3AccessGrantsScopeUnion_ReadWriteAccess | UnknownUnionMember
+    S3AccessGrantsScopeUnionReadWriteAccessMember | UnknownUnionMember
 )
 
 

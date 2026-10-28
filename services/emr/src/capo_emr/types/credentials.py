@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_emr.types.username_password
 
 
-class _Credentials_UsernamePassword(TypedDict, closed=True):
+class CredentialsUsernamePasswordMember(TypedDict, closed=True):
     UsernamePassword: "capo_emr.types.username_password.UsernamePassword"
 
 
-Credentials: TypeAlias = _Credentials_UsernamePassword | UnknownUnionMember
+Credentials: TypeAlias = CredentialsUsernamePasswordMember | UnknownUnionMember
 
 
 # --- awsJson1_1 ser/de ---

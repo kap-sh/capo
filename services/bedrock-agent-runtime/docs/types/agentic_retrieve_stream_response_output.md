@@ -13,73 +13,73 @@ title: AgenticRetrieveStreamResponseOutput
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.agentic_retrieve_stream_response_output._AgenticRetrieveStreamResponseOutput_result
+::: capo_bedrock_agent_runtime.types.agentic_retrieve_stream_response_output.AgenticRetrieveStreamResponseOutputResultMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.agentic_retrieve_stream_response_output._AgenticRetrieveStreamResponseOutput_traceEvent
+::: capo_bedrock_agent_runtime.types.agentic_retrieve_stream_response_output.AgenticRetrieveStreamResponseOutputTraceEventMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.agentic_retrieve_stream_response_output._AgenticRetrieveStreamResponseOutput_responseEvent
+::: capo_bedrock_agent_runtime.types.agentic_retrieve_stream_response_output.AgenticRetrieveStreamResponseOutputResponseEventMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.agentic_retrieve_stream_response_output._AgenticRetrieveStreamResponseOutput_internalServerException
+::: capo_bedrock_agent_runtime.types.agentic_retrieve_stream_response_output.AgenticRetrieveStreamResponseOutputInternalServerExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.agentic_retrieve_stream_response_output._AgenticRetrieveStreamResponseOutput_validationException
+::: capo_bedrock_agent_runtime.types.agentic_retrieve_stream_response_output.AgenticRetrieveStreamResponseOutputValidationExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.agentic_retrieve_stream_response_output._AgenticRetrieveStreamResponseOutput_resourceNotFoundException
+::: capo_bedrock_agent_runtime.types.agentic_retrieve_stream_response_output.AgenticRetrieveStreamResponseOutputResourceNotFoundExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.agentic_retrieve_stream_response_output._AgenticRetrieveStreamResponseOutput_serviceQuotaExceededException
+::: capo_bedrock_agent_runtime.types.agentic_retrieve_stream_response_output.AgenticRetrieveStreamResponseOutputServiceQuotaExceededExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.agentic_retrieve_stream_response_output._AgenticRetrieveStreamResponseOutput_throttlingException
+::: capo_bedrock_agent_runtime.types.agentic_retrieve_stream_response_output.AgenticRetrieveStreamResponseOutputThrottlingExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.agentic_retrieve_stream_response_output._AgenticRetrieveStreamResponseOutput_accessDeniedException
+::: capo_bedrock_agent_runtime.types.agentic_retrieve_stream_response_output.AgenticRetrieveStreamResponseOutputAccessDeniedExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.agentic_retrieve_stream_response_output._AgenticRetrieveStreamResponseOutput_conflictException
+::: capo_bedrock_agent_runtime.types.agentic_retrieve_stream_response_output.AgenticRetrieveStreamResponseOutputConflictExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.agentic_retrieve_stream_response_output._AgenticRetrieveStreamResponseOutput_dependencyFailedException
+::: capo_bedrock_agent_runtime.types.agentic_retrieve_stream_response_output.AgenticRetrieveStreamResponseOutputDependencyFailedExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.agentic_retrieve_stream_response_output._AgenticRetrieveStreamResponseOutput_badGatewayException
+::: capo_bedrock_agent_runtime.types.agentic_retrieve_stream_response_output.AgenticRetrieveStreamResponseOutputBadGatewayExceptionMember
     options:
       show_source: true
       merge_init_into_class: false

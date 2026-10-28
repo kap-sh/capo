@@ -31,120 +31,120 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.source_aws_configuration
 
 
-class _ServiceConfiguration_sourceAws(TypedDict, closed=True):
+class ServiceConfigurationSourceAwsMember(TypedDict, closed=True):
     sourceAws: "capo_devops_agent.types.source_aws_configuration.SourceAwsConfiguration"
 
 
-class _ServiceConfiguration_aws(TypedDict, closed=True):
+class ServiceConfigurationAwsMember(TypedDict, closed=True):
     aws: "capo_devops_agent.types.aws_configuration.AWSConfiguration"
 
 
-class _ServiceConfiguration_github(TypedDict, closed=True):
+class ServiceConfigurationGithubMember(TypedDict, closed=True):
     github: "capo_devops_agent.types.git_hub_configuration.GitHubConfiguration"
 
 
-class _ServiceConfiguration_slack(TypedDict, closed=True):
+class ServiceConfigurationSlackMember(TypedDict, closed=True):
     slack: "capo_devops_agent.types.slack_configuration.SlackConfiguration"
 
 
-class _ServiceConfiguration_dynatrace(TypedDict, closed=True):
+class ServiceConfigurationDynatraceMember(TypedDict, closed=True):
     dynatrace: "capo_devops_agent.types.dynatrace_configuration.DynatraceConfiguration"
 
 
-class _ServiceConfiguration_servicenow(TypedDict, closed=True):
+class ServiceConfigurationServicenowMember(TypedDict, closed=True):
     servicenow: (
         "capo_devops_agent.types.service_now_configuration.ServiceNowConfiguration"
     )
 
 
-class _ServiceConfiguration_mcpservernewrelic(TypedDict, closed=True):
+class ServiceConfigurationMcpservernewrelicMember(TypedDict, closed=True):
     mcpservernewrelic: "capo_devops_agent.types.mcp_server_new_relic_configuration.MCPServerNewRelicConfiguration"
 
 
-class _ServiceConfiguration_mcpserverdatadog(TypedDict, closed=True):
+class ServiceConfigurationMcpserverdatadogMember(TypedDict, closed=True):
     mcpserverdatadog: "capo_devops_agent.types.mcp_server_datadog_configuration.MCPServerDatadogConfiguration"
 
 
-class _ServiceConfiguration_mcpserver(TypedDict, closed=True):
+class ServiceConfigurationMcpserverMember(TypedDict, closed=True):
     mcpserver: "capo_devops_agent.types.mcp_server_configuration.MCPServerConfiguration"
 
 
-class _ServiceConfiguration_gitlab(TypedDict, closed=True):
+class ServiceConfigurationGitlabMember(TypedDict, closed=True):
     gitlab: "capo_devops_agent.types.git_lab_configuration.GitLabConfiguration"
 
 
-class _ServiceConfiguration_mcpserversplunk(TypedDict, closed=True):
+class ServiceConfigurationMcpserversplunkMember(TypedDict, closed=True):
     mcpserversplunk: "capo_devops_agent.types.mcp_server_splunk_configuration.MCPServerSplunkConfiguration"
 
 
-class _ServiceConfiguration_eventChannel(TypedDict, closed=True):
+class ServiceConfigurationEventChannelMember(TypedDict, closed=True):
     eventChannel: (
         "capo_devops_agent.types.event_channel_configuration.EventChannelConfiguration"
     )
 
 
-class _ServiceConfiguration_azure(TypedDict, closed=True):
+class ServiceConfigurationAzureMember(TypedDict, closed=True):
     azure: "capo_devops_agent.types.azure_configuration.AzureConfiguration"
 
 
-class _ServiceConfiguration_azuredevops(TypedDict, closed=True):
+class ServiceConfigurationAzuredevopsMember(TypedDict, closed=True):
     azuredevops: (
         "capo_devops_agent.types.azure_dev_ops_configuration.AzureDevOpsConfiguration"
     )
 
 
-class _ServiceConfiguration_mcpservergrafana(TypedDict, closed=True):
+class ServiceConfigurationMcpservergrafanaMember(TypedDict, closed=True):
     mcpservergrafana: "capo_devops_agent.types.mcp_server_grafana_configuration.MCPServerGrafanaConfiguration"
 
 
-class _ServiceConfiguration_pagerduty(TypedDict, closed=True):
+class ServiceConfigurationPagerdutyMember(TypedDict, closed=True):
     pagerduty: "capo_devops_agent.types.pager_duty_configuration.PagerDutyConfiguration"
 
 
-class _ServiceConfiguration_mcpserversigv4(TypedDict, closed=True):
+class ServiceConfigurationMcpserversigv4Member(TypedDict, closed=True):
     mcpserversigv4: "capo_devops_agent.types.mcp_server_sig_v4_configuration.MCPServerSigV4Configuration"
 
 
-class _ServiceConfiguration_remoteagent(TypedDict, closed=True):
+class ServiceConfigurationRemoteagentMember(TypedDict, closed=True):
     remoteagent: (
         "capo_devops_agent.types.remote_agent_configuration.RemoteAgentConfiguration"
     )
 
 
-class _ServiceConfiguration_remoteagentsigv4(TypedDict, closed=True):
+class ServiceConfigurationRemoteagentsigv4Member(TypedDict, closed=True):
     remoteagentsigv4: "capo_devops_agent.types.remote_agent_sig_v4_configuration.RemoteAgentSigV4Configuration"
 
 
-class _ServiceConfiguration_msteams(TypedDict, closed=True):
+class ServiceConfigurationMsteamsMember(TypedDict, closed=True):
     msteams: "capo_devops_agent.types.ms_teams_configuration.MSTeamsConfiguration"
 
 
-class _ServiceConfiguration_releaseManagement(TypedDict, closed=True):
+class ServiceConfigurationReleaseManagementMember(TypedDict, closed=True):
     releaseManagement: "capo_devops_agent.types.release_management_configuration.ReleaseManagementConfiguration"
 
 
 ServiceConfiguration: TypeAlias = (
-    _ServiceConfiguration_sourceAws
-    | _ServiceConfiguration_aws
-    | _ServiceConfiguration_github
-    | _ServiceConfiguration_slack
-    | _ServiceConfiguration_dynatrace
-    | _ServiceConfiguration_servicenow
-    | _ServiceConfiguration_mcpservernewrelic
-    | _ServiceConfiguration_mcpserverdatadog
-    | _ServiceConfiguration_mcpserver
-    | _ServiceConfiguration_gitlab
-    | _ServiceConfiguration_mcpserversplunk
-    | _ServiceConfiguration_eventChannel
-    | _ServiceConfiguration_azure
-    | _ServiceConfiguration_azuredevops
-    | _ServiceConfiguration_mcpservergrafana
-    | _ServiceConfiguration_pagerduty
-    | _ServiceConfiguration_mcpserversigv4
-    | _ServiceConfiguration_remoteagent
-    | _ServiceConfiguration_remoteagentsigv4
-    | _ServiceConfiguration_msteams
-    | _ServiceConfiguration_releaseManagement
+    ServiceConfigurationSourceAwsMember
+    | ServiceConfigurationAwsMember
+    | ServiceConfigurationGithubMember
+    | ServiceConfigurationSlackMember
+    | ServiceConfigurationDynatraceMember
+    | ServiceConfigurationServicenowMember
+    | ServiceConfigurationMcpservernewrelicMember
+    | ServiceConfigurationMcpserverdatadogMember
+    | ServiceConfigurationMcpserverMember
+    | ServiceConfigurationGitlabMember
+    | ServiceConfigurationMcpserversplunkMember
+    | ServiceConfigurationEventChannelMember
+    | ServiceConfigurationAzureMember
+    | ServiceConfigurationAzuredevopsMember
+    | ServiceConfigurationMcpservergrafanaMember
+    | ServiceConfigurationPagerdutyMember
+    | ServiceConfigurationMcpserversigv4Member
+    | ServiceConfigurationRemoteagentMember
+    | ServiceConfigurationRemoteagentsigv4Member
+    | ServiceConfigurationMsteamsMember
+    | ServiceConfigurationReleaseManagementMember
     | UnknownUnionMember
 )
 

@@ -13,27 +13,27 @@ if TYPE_CHECKING:
     import capo_app_mesh.types.tcp_timeout
 
 
-class _ListenerTimeout_tcp(TypedDict, closed=True):
+class ListenerTimeoutTcpMember(TypedDict, closed=True):
     tcp: "capo_app_mesh.types.tcp_timeout.TcpTimeout"
 
 
-class _ListenerTimeout_http(TypedDict, closed=True):
+class ListenerTimeoutHttpMember(TypedDict, closed=True):
     http: "capo_app_mesh.types.http_timeout.HttpTimeout"
 
 
-class _ListenerTimeout_http2(TypedDict, closed=True):
+class ListenerTimeoutHttp2Member(TypedDict, closed=True):
     http2: "capo_app_mesh.types.http_timeout.HttpTimeout"
 
 
-class _ListenerTimeout_grpc(TypedDict, closed=True):
+class ListenerTimeoutGrpcMember(TypedDict, closed=True):
     grpc: "capo_app_mesh.types.grpc_timeout.GrpcTimeout"
 
 
 ListenerTimeout: TypeAlias = (
-    _ListenerTimeout_tcp
-    | _ListenerTimeout_http
-    | _ListenerTimeout_http2
-    | _ListenerTimeout_grpc
+    ListenerTimeoutTcpMember
+    | ListenerTimeoutHttpMember
+    | ListenerTimeoutHttp2Member
+    | ListenerTimeoutGrpcMember
     | UnknownUnionMember
 )
 

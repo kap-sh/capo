@@ -12,16 +12,18 @@ if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.event_trigger
 
 
-class _Source_customerProfilesSegmentArn(TypedDict, closed=True):
+class SourceCustomerProfilesSegmentArnMember(TypedDict, closed=True):
     customerProfilesSegmentArn: "capo_connectcampaignsv2.types.arn.Arn"
 
 
-class _Source_eventTrigger(TypedDict, closed=True):
+class SourceEventTriggerMember(TypedDict, closed=True):
     eventTrigger: "capo_connectcampaignsv2.types.event_trigger.EventTrigger"
 
 
 Source: TypeAlias = (
-    _Source_customerProfilesSegmentArn | _Source_eventTrigger | UnknownUnionMember
+    SourceCustomerProfilesSegmentArnMember
+    | SourceEventTriggerMember
+    | UnknownUnionMember
 )
 
 

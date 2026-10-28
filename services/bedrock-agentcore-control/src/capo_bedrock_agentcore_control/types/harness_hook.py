@@ -17,27 +17,27 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.harness_before_tool_call_hook
 
 
-class _HarnessHook_beforeInvocation(TypedDict, closed=True):
+class HarnessHookBeforeInvocationMember(TypedDict, closed=True):
     beforeInvocation: "capo_bedrock_agentcore_control.types.harness_before_invocation_hook.HarnessBeforeInvocationHook"
 
 
-class _HarnessHook_afterInvocation(TypedDict, closed=True):
+class HarnessHookAfterInvocationMember(TypedDict, closed=True):
     afterInvocation: "capo_bedrock_agentcore_control.types.harness_after_invocation_hook.HarnessAfterInvocationHook"
 
 
-class _HarnessHook_beforeToolCall(TypedDict, closed=True):
+class HarnessHookBeforeToolCallMember(TypedDict, closed=True):
     beforeToolCall: "capo_bedrock_agentcore_control.types.harness_before_tool_call_hook.HarnessBeforeToolCallHook"
 
 
-class _HarnessHook_afterToolCall(TypedDict, closed=True):
+class HarnessHookAfterToolCallMember(TypedDict, closed=True):
     afterToolCall: "capo_bedrock_agentcore_control.types.harness_after_tool_call_hook.HarnessAfterToolCallHook"
 
 
 HarnessHook: TypeAlias = (
-    _HarnessHook_beforeInvocation
-    | _HarnessHook_afterInvocation
-    | _HarnessHook_beforeToolCall
-    | _HarnessHook_afterToolCall
+    HarnessHookBeforeInvocationMember
+    | HarnessHookAfterInvocationMember
+    | HarnessHookBeforeToolCallMember
+    | HarnessHookAfterToolCallMember
     | UnknownUnionMember
 )
 

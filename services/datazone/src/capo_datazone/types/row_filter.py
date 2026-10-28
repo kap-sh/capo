@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_datazone.types.row_filter_list
 
 
-class _RowFilter_expression(TypedDict, closed=True):
+class RowFilterExpressionMember(TypedDict, closed=True):
     expression: "capo_datazone.types.row_filter_expression.RowFilterExpression"
 
 
-_RowFilter_and = TypedDict(
-    "_RowFilter_and",
+RowFilterAndMember = TypedDict(
+    "RowFilterAndMember",
     {
         "and": "capo_datazone.types.row_filter_list.RowFilterList",
     },
     closed=True,
 )
-_RowFilter_or = TypedDict(
-    "_RowFilter_or",
+RowFilterOrMember = TypedDict(
+    "RowFilterOrMember",
     {
         "or": "capo_datazone.types.row_filter_list.RowFilterList",
     },
@@ -32,7 +32,10 @@ _RowFilter_or = TypedDict(
 )
 
 RowFilter: TypeAlias = (
-    _RowFilter_expression | _RowFilter_and | _RowFilter_or | UnknownUnionMember
+    RowFilterExpressionMember
+    | RowFilterAndMember
+    | RowFilterOrMember
+    | UnknownUnionMember
 )
 
 

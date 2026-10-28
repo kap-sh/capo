@@ -13,28 +13,28 @@ if TYPE_CHECKING:
     import capo_connectcampaigns.types.progressive_dialer_config
 
 
-class _DialerConfig_progressiveDialerConfig(TypedDict, closed=True):
+class DialerConfigProgressiveDialerConfigMember(TypedDict, closed=True):
     progressiveDialerConfig: (
         "capo_connectcampaigns.types.progressive_dialer_config.ProgressiveDialerConfig"
     )
 
 
-class _DialerConfig_predictiveDialerConfig(TypedDict, closed=True):
+class DialerConfigPredictiveDialerConfigMember(TypedDict, closed=True):
     predictiveDialerConfig: (
         "capo_connectcampaigns.types.predictive_dialer_config.PredictiveDialerConfig"
     )
 
 
-class _DialerConfig_agentlessDialerConfig(TypedDict, closed=True):
+class DialerConfigAgentlessDialerConfigMember(TypedDict, closed=True):
     agentlessDialerConfig: (
         "capo_connectcampaigns.types.agentless_dialer_config.AgentlessDialerConfig"
     )
 
 
 DialerConfig: TypeAlias = (
-    _DialerConfig_progressiveDialerConfig
-    | _DialerConfig_predictiveDialerConfig
-    | _DialerConfig_agentlessDialerConfig
+    DialerConfigProgressiveDialerConfigMember
+    | DialerConfigPredictiveDialerConfigMember
+    | DialerConfigAgentlessDialerConfigMember
     | UnknownUnionMember
 )
 

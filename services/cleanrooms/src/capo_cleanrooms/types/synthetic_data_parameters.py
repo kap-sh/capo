@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.ml_synthetic_data_parameters
 
 
-class _SyntheticDataParameters_mlSyntheticDataParameters(TypedDict, closed=True):
+class SyntheticDataParametersMlSyntheticDataParametersMember(TypedDict, closed=True):
     mlSyntheticDataParameters: (
         "capo_cleanrooms.types.ml_synthetic_data_parameters.MLSyntheticDataParameters"
     )
 
 
 SyntheticDataParameters: TypeAlias = (
-    _SyntheticDataParameters_mlSyntheticDataParameters | UnknownUnionMember
+    SyntheticDataParametersMlSyntheticDataParametersMember | UnknownUnionMember
 )
 
 

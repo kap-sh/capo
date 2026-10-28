@@ -11,12 +11,14 @@ if TYPE_CHECKING:
     import capo_qconnect.types.amazon_connect_guide_association_data
 
 
-class _ContentAssociationContents_amazonConnectGuideAssociation(TypedDict, closed=True):
+class ContentAssociationContentsAmazonConnectGuideAssociationMember(
+    TypedDict, closed=True
+):
     amazonConnectGuideAssociation: "capo_qconnect.types.amazon_connect_guide_association_data.AmazonConnectGuideAssociationData"
 
 
 ContentAssociationContents: TypeAlias = (
-    _ContentAssociationContents_amazonConnectGuideAssociation | UnknownUnionMember
+    ContentAssociationContentsAmazonConnectGuideAssociationMember | UnknownUnionMember
 )
 
 

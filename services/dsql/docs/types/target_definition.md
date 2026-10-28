@@ -7,7 +7,7 @@ title: TargetDefinition
       show_source: true
       merge_init_into_class: false
 
-::: capo_dsql.types.target_definition._TargetDefinition_kinesis
+::: capo_dsql.types.target_definition.TargetDefinitionKinesisMember
     options:
       show_source: true
       merge_init_into_class: false

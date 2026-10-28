@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.mcp_server_authorization_discovery_config
 
 
-class _DatadogAuthorizationConfig_authorizationDiscovery(TypedDict, closed=True):
+class DatadogAuthorizationConfigAuthorizationDiscoveryMember(TypedDict, closed=True):
     authorizationDiscovery: "capo_devops_agent.types.mcp_server_authorization_discovery_config.MCPServerAuthorizationDiscoveryConfig"
 
 
 DatadogAuthorizationConfig: TypeAlias = (
-    _DatadogAuthorizationConfig_authorizationDiscovery | UnknownUnionMember
+    DatadogAuthorizationConfigAuthorizationDiscoveryMember | UnknownUnionMember
 )
 
 

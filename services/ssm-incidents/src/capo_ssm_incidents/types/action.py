@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_ssm_incidents.types.ssm_automation
 
 
-class _Action_ssmAutomation(TypedDict, closed=True):
+class ActionSsmAutomationMember(TypedDict, closed=True):
     ssmAutomation: "capo_ssm_incidents.types.ssm_automation.SsmAutomation"
 
 
-Action: TypeAlias = _Action_ssmAutomation | UnknownUnionMember
+Action: TypeAlias = ActionSsmAutomationMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

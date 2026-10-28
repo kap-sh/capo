@@ -11,22 +11,22 @@ if TYPE_CHECKING:
     import capo_cloudwatchomni.types.integration_arn
 
 
-class _IntegrationIdentifier_integrationId(TypedDict, closed=True):
+class IntegrationIdentifierIntegrationIdMember(TypedDict, closed=True):
     integrationId: "str"
 
 
-class _IntegrationIdentifier_integrationArn(TypedDict, closed=True):
+class IntegrationIdentifierIntegrationArnMember(TypedDict, closed=True):
     integrationArn: "capo_cloudwatchomni.types.integration_arn.IntegrationArn"
 
 
-class _IntegrationIdentifier_integrationName(TypedDict, closed=True):
+class IntegrationIdentifierIntegrationNameMember(TypedDict, closed=True):
     integrationName: "str"
 
 
 IntegrationIdentifier: TypeAlias = (
-    _IntegrationIdentifier_integrationId
-    | _IntegrationIdentifier_integrationArn
-    | _IntegrationIdentifier_integrationName
+    IntegrationIdentifierIntegrationIdMember
+    | IntegrationIdentifierIntegrationArnMember
+    | IntegrationIdentifierIntegrationNameMember
     | UnknownUnionMember
 )
 

@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_acm.types.dns_prevalidation_options
 
 
-class _PrevalidationOptions_DnsPrevalidation(TypedDict, closed=True):
+class PrevalidationOptionsDnsPrevalidationMember(TypedDict, closed=True):
     DnsPrevalidation: "capo_acm.types.dns_prevalidation_options.DnsPrevalidationOptions"
 
 
 PrevalidationOptions: TypeAlias = (
-    _PrevalidationOptions_DnsPrevalidation | UnknownUnionMember
+    PrevalidationOptionsDnsPrevalidationMember | UnknownUnionMember
 )
 
 

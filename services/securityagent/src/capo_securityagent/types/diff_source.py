@@ -8,11 +8,11 @@ from capo_securityagent.errors import DeserializationError, SerializationError
 from capo_securityagent.types._unknown import UnknownUnionMember
 
 
-class _DiffSource_s3Uri(TypedDict, closed=True):
+class DiffSourceS3UriMember(TypedDict, closed=True):
     s3Uri: "str"
 
 
-DiffSource: TypeAlias = _DiffSource_s3Uri | UnknownUnionMember
+DiffSource: TypeAlias = DiffSourceS3UriMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

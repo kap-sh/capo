@@ -13,28 +13,28 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.cluster_fsx_open_zfs_config
 
 
-class _ClusterInstanceStorageConfig_EbsVolumeConfig(TypedDict, closed=True):
+class ClusterInstanceStorageConfigEbsVolumeConfigMember(TypedDict, closed=True):
     EbsVolumeConfig: (
         "capo_sagemaker.types.cluster_ebs_volume_config.ClusterEbsVolumeConfig"
     )
 
 
-class _ClusterInstanceStorageConfig_FsxLustreConfig(TypedDict, closed=True):
+class ClusterInstanceStorageConfigFsxLustreConfigMember(TypedDict, closed=True):
     FsxLustreConfig: (
         "capo_sagemaker.types.cluster_fsx_lustre_config.ClusterFsxLustreConfig"
     )
 
 
-class _ClusterInstanceStorageConfig_FsxOpenZfsConfig(TypedDict, closed=True):
+class ClusterInstanceStorageConfigFsxOpenZfsConfigMember(TypedDict, closed=True):
     FsxOpenZfsConfig: (
         "capo_sagemaker.types.cluster_fsx_open_zfs_config.ClusterFsxOpenZfsConfig"
     )
 
 
 ClusterInstanceStorageConfig: TypeAlias = (
-    _ClusterInstanceStorageConfig_EbsVolumeConfig
-    | _ClusterInstanceStorageConfig_FsxLustreConfig
-    | _ClusterInstanceStorageConfig_FsxOpenZfsConfig
+    ClusterInstanceStorageConfigEbsVolumeConfigMember
+    | ClusterInstanceStorageConfigFsxLustreConfigMember
+    | ClusterInstanceStorageConfigFsxOpenZfsConfigMember
     | UnknownUnionMember
 )
 

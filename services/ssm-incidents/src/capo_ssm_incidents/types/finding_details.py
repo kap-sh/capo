@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_ssm_incidents.types.code_deploy_deployment
 
 
-class _FindingDetails_codeDeployDeployment(TypedDict, closed=True):
+class FindingDetailsCodeDeployDeploymentMember(TypedDict, closed=True):
     codeDeployDeployment: (
         "capo_ssm_incidents.types.code_deploy_deployment.CodeDeployDeployment"
     )
 
 
-class _FindingDetails_cloudFormationStackUpdate(TypedDict, closed=True):
+class FindingDetailsCloudFormationStackUpdateMember(TypedDict, closed=True):
     cloudFormationStackUpdate: "capo_ssm_incidents.types.cloud_formation_stack_update.CloudFormationStackUpdate"
 
 
 FindingDetails: TypeAlias = (
-    _FindingDetails_codeDeployDeployment
-    | _FindingDetails_cloudFormationStackUpdate
+    FindingDetailsCodeDeployDeploymentMember
+    | FindingDetailsCloudFormationStackUpdateMember
     | UnknownUnionMember
 )
 

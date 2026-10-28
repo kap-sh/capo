@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_bedrock.types.rft_config
 
 
-class _CustomizationConfig_distillationConfig(TypedDict, closed=True):
+class CustomizationConfigDistillationConfigMember(TypedDict, closed=True):
     distillationConfig: "capo_bedrock.types.distillation_config.DistillationConfig"
 
 
-class _CustomizationConfig_rftConfig(TypedDict, closed=True):
+class CustomizationConfigRftConfigMember(TypedDict, closed=True):
     rftConfig: "capo_bedrock.types.rft_config.RFTConfig"
 
 
 CustomizationConfig: TypeAlias = (
-    _CustomizationConfig_distillationConfig
-    | _CustomizationConfig_rftConfig
+    CustomizationConfigDistillationConfigMember
+    | CustomizationConfigRftConfigMember
     | UnknownUnionMember
 )
 

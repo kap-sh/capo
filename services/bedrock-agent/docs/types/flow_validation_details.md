@@ -7,199 +7,199 @@ title: FlowValidationDetails
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_cyclicConnection
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsCyclicConnectionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_duplicateConnections
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsDuplicateConnectionsMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_duplicateConditionExpression
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsDuplicateConditionExpressionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_unreachableNode
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsUnreachableNodeMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_unknownConnectionSource
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsUnknownConnectionSourceMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_unknownConnectionSourceOutput
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsUnknownConnectionSourceOutputMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_unknownConnectionTarget
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsUnknownConnectionTargetMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_unknownConnectionTargetInput
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsUnknownConnectionTargetInputMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_unknownConnectionCondition
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsUnknownConnectionConditionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_malformedConditionExpression
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsMalformedConditionExpressionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_malformedNodeInputExpression
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsMalformedNodeInputExpressionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_mismatchedNodeInputType
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsMismatchedNodeInputTypeMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_mismatchedNodeOutputType
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsMismatchedNodeOutputTypeMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_incompatibleConnectionDataType
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsIncompatibleConnectionDataTypeMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_missingConnectionConfiguration
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsMissingConnectionConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_missingDefaultCondition
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsMissingDefaultConditionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_missingEndingNodes
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsMissingEndingNodesMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_missingNodeConfiguration
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsMissingNodeConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_missingNodeInput
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsMissingNodeInputMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_missingNodeOutput
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsMissingNodeOutputMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_missingStartingNodes
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsMissingStartingNodesMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_multipleNodeInputConnections
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsMultipleNodeInputConnectionsMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_unfulfilledNodeInput
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsUnfulfilledNodeInputMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_unsatisfiedConnectionConditions
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsUnsatisfiedConnectionConditionsMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_unspecified
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsUnspecifiedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_unknownNodeInput
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsUnknownNodeInputMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_unknownNodeOutput
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsUnknownNodeOutputMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_missingLoopInputNode
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsMissingLoopInputNodeMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_missingLoopControllerNode
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsMissingLoopControllerNodeMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_multipleLoopInputNodes
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsMultipleLoopInputNodesMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_multipleLoopControllerNodes
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsMultipleLoopControllerNodesMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_loopIncompatibleNodeType
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsLoopIncompatibleNodeTypeMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.flow_validation_details._FlowValidationDetails_invalidLoopBoundary
+::: capo_bedrock_agent.types.flow_validation_details.FlowValidationDetailsInvalidLoopBoundaryMember
     options:
       show_source: true
       merge_init_into_class: false

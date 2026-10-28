@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_b2bi.types.x12_details
 
 
-class _EdiType_x12Details(TypedDict, closed=True):
+class EdiTypeX12DetailsMember(TypedDict, closed=True):
     x12Details: "capo_b2bi.types.x12_details.X12Details"
 
 
-EdiType: TypeAlias = _EdiType_x12Details | UnknownUnionMember
+EdiType: TypeAlias = EdiTypeX12DetailsMember | UnknownUnionMember
 
 
 # --- awsJson1_0 ser/de ---

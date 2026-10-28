@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.spans
 
 
-class _EvaluationInput_sessionSpans(TypedDict, closed=True):
+class EvaluationInputSessionSpansMember(TypedDict, closed=True):
     sessionSpans: "capo_bedrock_agentcore.types.spans.Spans"
 
 
-EvaluationInput: TypeAlias = _EvaluationInput_sessionSpans | UnknownUnionMember
+EvaluationInput: TypeAlias = EvaluationInputSessionSpansMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

@@ -7,7 +7,7 @@ title: DiffSource
       show_source: true
       merge_init_into_class: false
 
-::: capo_securityagent.types.diff_source._DiffSource_s3Uri
+::: capo_securityagent.types.diff_source.DiffSourceS3UriMember
     options:
       show_source: true
       merge_init_into_class: false

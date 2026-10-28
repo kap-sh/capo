@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_inspector2.types.update_git_lab_self_managed_integration_detail
 
 
-class _UpdateIntegrationDetails_gitlabSelfManaged(TypedDict, closed=True):
+class UpdateIntegrationDetailsGitlabSelfManagedMember(TypedDict, closed=True):
     gitlabSelfManaged: "capo_inspector2.types.update_git_lab_self_managed_integration_detail.UpdateGitLabSelfManagedIntegrationDetail"
 
 
-class _UpdateIntegrationDetails_github(TypedDict, closed=True):
+class UpdateIntegrationDetailsGithubMember(TypedDict, closed=True):
     github: "capo_inspector2.types.update_git_hub_integration_detail.UpdateGitHubIntegrationDetail"
 
 
 UpdateIntegrationDetails: TypeAlias = (
-    _UpdateIntegrationDetails_gitlabSelfManaged
-    | _UpdateIntegrationDetails_github
+    UpdateIntegrationDetailsGitlabSelfManagedMember
+    | UpdateIntegrationDetailsGithubMember
     | UnknownUnionMember
 )
 

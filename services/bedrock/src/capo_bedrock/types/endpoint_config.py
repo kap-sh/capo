@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_bedrock.types.sage_maker_endpoint
 
 
-class _EndpointConfig_sageMaker(TypedDict, closed=True):
+class EndpointConfigSageMakerMember(TypedDict, closed=True):
     sageMaker: "capo_bedrock.types.sage_maker_endpoint.SageMakerEndpoint"
 
 
-EndpointConfig: TypeAlias = _EndpointConfig_sageMaker | UnknownUnionMember
+EndpointConfig: TypeAlias = EndpointConfigSageMakerMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

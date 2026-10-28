@@ -14,14 +14,14 @@ if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.shared_information
 
 
-class _DiffieHellmanDerivationData_SharedInformation(TypedDict, closed=True):
+class DiffieHellmanDerivationDataSharedInformationMember(TypedDict, closed=True):
     SharedInformation: (
         "capo_payment_cryptography_data.types.shared_information.SharedInformation"
     )
 
 
 DiffieHellmanDerivationData: TypeAlias = (
-    _DiffieHellmanDerivationData_SharedInformation | UnknownUnionMember
+    DiffieHellmanDerivationDataSharedInformationMember | UnknownUnionMember
 )
 
 

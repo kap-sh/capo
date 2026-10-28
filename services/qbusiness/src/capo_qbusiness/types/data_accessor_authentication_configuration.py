@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_qbusiness.types.data_accessor_idc_trusted_token_issuer_configuration
 
 
-class _DataAccessorAuthenticationConfiguration_idcTrustedTokenIssuerConfiguration(
+class DataAccessorAuthenticationConfigurationIdcTrustedTokenIssuerConfigurationMember(
     TypedDict, closed=True
 ):
     idcTrustedTokenIssuerConfiguration: "capo_qbusiness.types.data_accessor_idc_trusted_token_issuer_configuration.DataAccessorIdcTrustedTokenIssuerConfiguration"
 
 
 DataAccessorAuthenticationConfiguration: TypeAlias = (
-    _DataAccessorAuthenticationConfiguration_idcTrustedTokenIssuerConfiguration
+    DataAccessorAuthenticationConfigurationIdcTrustedTokenIssuerConfigurationMember
     | UnknownUnionMember
 )
 

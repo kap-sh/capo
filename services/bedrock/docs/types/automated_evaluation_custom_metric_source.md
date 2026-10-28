@@ -7,7 +7,7 @@ title: AutomatedEvaluationCustomMetricSource
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock.types.automated_evaluation_custom_metric_source._AutomatedEvaluationCustomMetricSource_customMetricDefinition
+::: capo_bedrock.types.automated_evaluation_custom_metric_source.AutomatedEvaluationCustomMetricSourceCustomMetricDefinitionMember
     options:
       show_source: true
       merge_init_into_class: false

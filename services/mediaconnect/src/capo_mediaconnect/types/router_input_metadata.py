@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.transport_media_info
 
 
-class _RouterInputMetadata_TransportStreamMediaInfo(TypedDict, closed=True):
+class RouterInputMetadataTransportStreamMediaInfoMember(TypedDict, closed=True):
     TransportStreamMediaInfo: (
         "capo_mediaconnect.types.transport_media_info.TransportMediaInfo"
     )
 
 
 RouterInputMetadata: TypeAlias = (
-    _RouterInputMetadata_TransportStreamMediaInfo | UnknownUnionMember
+    RouterInputMetadataTransportStreamMediaInfoMember | UnknownUnionMember
 )
 
 

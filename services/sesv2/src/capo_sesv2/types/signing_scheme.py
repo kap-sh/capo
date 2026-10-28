@@ -12,16 +12,18 @@ if TYPE_CHECKING:
     import capo_sesv2.types.smime_signing_scheme
 
 
-class _SigningScheme_DefaultScheme(TypedDict, closed=True):
+class SigningSchemeDefaultSchemeMember(TypedDict, closed=True):
     DefaultScheme: "capo_sesv2.types.default_signing_scheme.DefaultSigningScheme"
 
 
-class _SigningScheme_SmimeScheme(TypedDict, closed=True):
+class SigningSchemeSmimeSchemeMember(TypedDict, closed=True):
     SmimeScheme: "capo_sesv2.types.smime_signing_scheme.SmimeSigningScheme"
 
 
 SigningScheme: TypeAlias = (
-    _SigningScheme_DefaultScheme | _SigningScheme_SmimeScheme | UnknownUnionMember
+    SigningSchemeDefaultSchemeMember
+    | SigningSchemeSmimeSchemeMember
+    | UnknownUnionMember
 )
 
 

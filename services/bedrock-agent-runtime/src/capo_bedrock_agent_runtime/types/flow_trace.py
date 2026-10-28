@@ -15,32 +15,32 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.flow_trace_node_output_event
 
 
-class _FlowTrace_nodeInputTrace(TypedDict, closed=True):
+class FlowTraceNodeInputTraceMember(TypedDict, closed=True):
     nodeInputTrace: "capo_bedrock_agent_runtime.types.flow_trace_node_input_event.FlowTraceNodeInputEvent"
 
 
-class _FlowTrace_nodeOutputTrace(TypedDict, closed=True):
+class FlowTraceNodeOutputTraceMember(TypedDict, closed=True):
     nodeOutputTrace: "capo_bedrock_agent_runtime.types.flow_trace_node_output_event.FlowTraceNodeOutputEvent"
 
 
-class _FlowTrace_conditionNodeResultTrace(TypedDict, closed=True):
+class FlowTraceConditionNodeResultTraceMember(TypedDict, closed=True):
     conditionNodeResultTrace: "capo_bedrock_agent_runtime.types.flow_trace_condition_node_result_event.FlowTraceConditionNodeResultEvent"
 
 
-class _FlowTrace_nodeActionTrace(TypedDict, closed=True):
+class FlowTraceNodeActionTraceMember(TypedDict, closed=True):
     nodeActionTrace: "capo_bedrock_agent_runtime.types.flow_trace_node_action_event.FlowTraceNodeActionEvent"
 
 
-class _FlowTrace_nodeDependencyTrace(TypedDict, closed=True):
+class FlowTraceNodeDependencyTraceMember(TypedDict, closed=True):
     nodeDependencyTrace: "capo_bedrock_agent_runtime.types.flow_trace_dependency_event.FlowTraceDependencyEvent"
 
 
 FlowTrace: TypeAlias = (
-    _FlowTrace_nodeInputTrace
-    | _FlowTrace_nodeOutputTrace
-    | _FlowTrace_conditionNodeResultTrace
-    | _FlowTrace_nodeActionTrace
-    | _FlowTrace_nodeDependencyTrace
+    FlowTraceNodeInputTraceMember
+    | FlowTraceNodeOutputTraceMember
+    | FlowTraceConditionNodeResultTraceMember
+    | FlowTraceNodeActionTraceMember
+    | FlowTraceNodeDependencyTraceMember
     | UnknownUnionMember
 )
 

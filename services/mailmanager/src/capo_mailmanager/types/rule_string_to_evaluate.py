@@ -14,31 +14,31 @@ if TYPE_CHECKING:
     import capo_mailmanager.types.rule_string_email_attribute
 
 
-class _RuleStringToEvaluate_Attribute(TypedDict, closed=True):
+class RuleStringToEvaluateAttributeMember(TypedDict, closed=True):
     Attribute: (
         "capo_mailmanager.types.rule_string_email_attribute.RuleStringEmailAttribute"
     )
 
 
-class _RuleStringToEvaluate_MimeHeaderAttribute(TypedDict, closed=True):
+class RuleStringToEvaluateMimeHeaderAttributeMember(TypedDict, closed=True):
     MimeHeaderAttribute: (
         "capo_mailmanager.types.mime_header_attribute.MimeHeaderAttribute"
     )
 
 
-class _RuleStringToEvaluate_Analysis(TypedDict, closed=True):
+class RuleStringToEvaluateAnalysisMember(TypedDict, closed=True):
     Analysis: "capo_mailmanager.types.analysis.Analysis"
 
 
-class _RuleStringToEvaluate_ClientCertificateAttribute(TypedDict, closed=True):
+class RuleStringToEvaluateClientCertificateAttributeMember(TypedDict, closed=True):
     ClientCertificateAttribute: "capo_mailmanager.types.rule_client_certificate_attribute.RuleClientCertificateAttribute"
 
 
 RuleStringToEvaluate: TypeAlias = (
-    _RuleStringToEvaluate_Attribute
-    | _RuleStringToEvaluate_MimeHeaderAttribute
-    | _RuleStringToEvaluate_Analysis
-    | _RuleStringToEvaluate_ClientCertificateAttribute
+    RuleStringToEvaluateAttributeMember
+    | RuleStringToEvaluateMimeHeaderAttributeMember
+    | RuleStringToEvaluateAnalysisMember
+    | RuleStringToEvaluateClientCertificateAttributeMember
     | UnknownUnionMember
 )
 

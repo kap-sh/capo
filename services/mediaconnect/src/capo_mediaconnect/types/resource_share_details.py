@@ -12,18 +12,20 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.owned_resource_share_details
 
 
-class _ResourceShareDetails_Owned(TypedDict, closed=True):
+class ResourceShareDetailsOwnedMember(TypedDict, closed=True):
     Owned: (
         "capo_mediaconnect.types.owned_resource_share_details.OwnedResourceShareDetails"
     )
 
 
-class _ResourceShareDetails_Consumed(TypedDict, closed=True):
+class ResourceShareDetailsConsumedMember(TypedDict, closed=True):
     Consumed: "capo_mediaconnect.types.consumed_resource_share_details.ConsumedResourceShareDetails"
 
 
 ResourceShareDetails: TypeAlias = (
-    _ResourceShareDetails_Owned | _ResourceShareDetails_Consumed | UnknownUnionMember
+    ResourceShareDetailsOwnedMember
+    | ResourceShareDetailsConsumedMember
+    | UnknownUnionMember
 )
 
 

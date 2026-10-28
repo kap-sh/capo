@@ -8,11 +8,11 @@ from capo_bedrock_agent_runtime.errors import DeserializationError, Serializatio
 from capo_bedrock_agent_runtime.types._unknown import UnknownUnionMember
 
 
-class _FlowInputContent_document(TypedDict, closed=True):
+class FlowInputContentDocumentMember(TypedDict, closed=True):
     document: "object"
 
 
-FlowInputContent: TypeAlias = _FlowInputContent_document | UnknownUnionMember
+FlowInputContent: TypeAlias = FlowInputContentDocumentMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

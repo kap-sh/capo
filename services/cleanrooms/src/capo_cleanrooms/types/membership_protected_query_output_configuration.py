@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.protected_query_s3_output_configuration
 
 
-class _MembershipProtectedQueryOutputConfiguration_s3(TypedDict, closed=True):
+class MembershipProtectedQueryOutputConfigurationS3Member(TypedDict, closed=True):
     s3: "capo_cleanrooms.types.protected_query_s3_output_configuration.ProtectedQueryS3OutputConfiguration"
 
 
 MembershipProtectedQueryOutputConfiguration: TypeAlias = (
-    _MembershipProtectedQueryOutputConfiguration_s3 | UnknownUnionMember
+    MembershipProtectedQueryOutputConfigurationS3Member | UnknownUnionMember
 )
 
 

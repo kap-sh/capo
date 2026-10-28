@@ -7,7 +7,7 @@ title: CredentialsProvider
       show_source: true
       merge_init_into_class: false
 
-::: capo_license_manager_user_subscriptions.types.credentials_provider._CredentialsProvider_SecretsManagerCredentialsProvider
+::: capo_license_manager_user_subscriptions.types.credentials_provider.CredentialsProviderSecretsManagerCredentialsProviderMember
     options:
       show_source: true
       merge_init_into_class: false

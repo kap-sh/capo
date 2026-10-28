@@ -7,7 +7,7 @@ title: ParticipatingResourceID
       show_source: true
       merge_init_into_class: false
 
-::: capo_drs.types.participating_resource_id._ParticipatingResourceID_sourceNetworkID
+::: capo_drs.types.participating_resource_id.ParticipatingResourceIDSourceNetworkIDMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -7,13 +7,13 @@ title: TestRunSourceSummary
       show_source: true
       merge_init_into_class: false
 
-::: capo_resiliencehubv2.types.test_run_source_summary._TestRunSourceSummary_successCriteriaAlarm
+::: capo_resiliencehubv2.types.test_run_source_summary.TestRunSourceSummarySuccessCriteriaAlarmMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_resiliencehubv2.types.test_run_source_summary._TestRunSourceSummary_observabilityAlarm
+::: capo_resiliencehubv2.types.test_run_source_summary.TestRunSourceSummaryObservabilityAlarmMember
     options:
       show_source: true
       merge_init_into_class: false

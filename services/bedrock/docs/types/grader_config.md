@@ -7,7 +7,7 @@ title: GraderConfig
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock.types.grader_config._GraderConfig_lambdaGrader
+::: capo_bedrock.types.grader_config.GraderConfigLambdaGraderMember
     options:
       show_source: true
       merge_init_into_class: false

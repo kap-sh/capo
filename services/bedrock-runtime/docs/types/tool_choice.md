@@ -7,19 +7,19 @@ title: ToolChoice
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_runtime.types.tool_choice._ToolChoice_auto
+::: capo_bedrock_runtime.types.tool_choice.ToolChoiceAutoMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.tool_choice._ToolChoice_any
+::: capo_bedrock_runtime.types.tool_choice.ToolChoiceAnyMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.tool_choice._ToolChoice_tool
+::: capo_bedrock_runtime.types.tool_choice.ToolChoiceToolMember
     options:
       show_source: true
       merge_init_into_class: false

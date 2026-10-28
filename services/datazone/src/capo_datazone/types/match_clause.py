@@ -12,16 +12,18 @@ if TYPE_CHECKING:
     import capo_datazone.types.relation_pattern
 
 
-class _MatchClause_relationPattern(TypedDict, closed=True):
+class MatchClauseRelationPatternMember(TypedDict, closed=True):
     relationPattern: "capo_datazone.types.relation_pattern.RelationPattern"
 
 
-class _MatchClause_entityPattern(TypedDict, closed=True):
+class MatchClauseEntityPatternMember(TypedDict, closed=True):
     entityPattern: "capo_datazone.types.entity_pattern.EntityPattern"
 
 
 MatchClause: TypeAlias = (
-    _MatchClause_relationPattern | _MatchClause_entityPattern | UnknownUnionMember
+    MatchClauseRelationPatternMember
+    | MatchClauseEntityPatternMember
+    | UnknownUnionMember
 )
 
 

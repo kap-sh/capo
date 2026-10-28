@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.trace_ids
 
 
-class _EvaluationTarget_spanIds(TypedDict, closed=True):
+class EvaluationTargetSpanIdsMember(TypedDict, closed=True):
     spanIds: "capo_bedrock_agentcore.types.span_ids.SpanIds"
 
 
-class _EvaluationTarget_traceIds(TypedDict, closed=True):
+class EvaluationTargetTraceIdsMember(TypedDict, closed=True):
     traceIds: "capo_bedrock_agentcore.types.trace_ids.TraceIds"
 
 
 EvaluationTarget: TypeAlias = (
-    _EvaluationTarget_spanIds | _EvaluationTarget_traceIds | UnknownUnionMember
+    EvaluationTargetSpanIdsMember | EvaluationTargetTraceIdsMember | UnknownUnionMember
 )
 
 

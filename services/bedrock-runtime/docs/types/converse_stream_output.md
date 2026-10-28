@@ -13,67 +13,67 @@ title: ConverseStreamOutput
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.converse_stream_output._ConverseStreamOutput_messageStart
+::: capo_bedrock_runtime.types.converse_stream_output.ConverseStreamOutputMessageStartMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.converse_stream_output._ConverseStreamOutput_contentBlockStart
+::: capo_bedrock_runtime.types.converse_stream_output.ConverseStreamOutputContentBlockStartMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.converse_stream_output._ConverseStreamOutput_contentBlockDelta
+::: capo_bedrock_runtime.types.converse_stream_output.ConverseStreamOutputContentBlockDeltaMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.converse_stream_output._ConverseStreamOutput_contentBlockStop
+::: capo_bedrock_runtime.types.converse_stream_output.ConverseStreamOutputContentBlockStopMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.converse_stream_output._ConverseStreamOutput_messageStop
+::: capo_bedrock_runtime.types.converse_stream_output.ConverseStreamOutputMessageStopMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.converse_stream_output._ConverseStreamOutput_metadata
+::: capo_bedrock_runtime.types.converse_stream_output.ConverseStreamOutputMetadataMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.converse_stream_output._ConverseStreamOutput_internalServerException
+::: capo_bedrock_runtime.types.converse_stream_output.ConverseStreamOutputInternalServerExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.converse_stream_output._ConverseStreamOutput_modelStreamErrorException
+::: capo_bedrock_runtime.types.converse_stream_output.ConverseStreamOutputModelStreamErrorExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.converse_stream_output._ConverseStreamOutput_validationException
+::: capo_bedrock_runtime.types.converse_stream_output.ConverseStreamOutputValidationExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.converse_stream_output._ConverseStreamOutput_throttlingException
+::: capo_bedrock_runtime.types.converse_stream_output.ConverseStreamOutputThrottlingExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.converse_stream_output._ConverseStreamOutput_serviceUnavailableException
+::: capo_bedrock_runtime.types.converse_stream_output.ConverseStreamOutputServiceUnavailableExceptionMember
     options:
       show_source: true
       merge_init_into_class: false

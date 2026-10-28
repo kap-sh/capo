@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_quicksight.types.geocoder_hierarchy
 
 
-class _GeocodePreferenceValue_GeocoderHierarchy(TypedDict, closed=True):
+class GeocodePreferenceValueGeocoderHierarchyMember(TypedDict, closed=True):
     GeocoderHierarchy: "capo_quicksight.types.geocoder_hierarchy.GeocoderHierarchy"
 
 
-class _GeocodePreferenceValue_Coordinate(TypedDict, closed=True):
+class GeocodePreferenceValueCoordinateMember(TypedDict, closed=True):
     Coordinate: "capo_quicksight.types.coordinate.Coordinate"
 
 
 GeocodePreferenceValue: TypeAlias = (
-    _GeocodePreferenceValue_GeocoderHierarchy
-    | _GeocodePreferenceValue_Coordinate
+    GeocodePreferenceValueGeocoderHierarchyMember
+    | GeocodePreferenceValueCoordinateMember
     | UnknownUnionMember
 )
 

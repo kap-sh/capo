@@ -7,7 +7,7 @@ title: QuickResponseDataProvider
       show_source: true
       merge_init_into_class: false
 
-::: capo_qconnect.types.quick_response_data_provider._QuickResponseDataProvider_content
+::: capo_qconnect.types.quick_response_data_provider.QuickResponseDataProviderContentMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_app_mesh.types.virtual_router_service_provider
 
 
-class _VirtualServiceProvider_virtualNode(TypedDict, closed=True):
+class VirtualServiceProviderVirtualNodeMember(TypedDict, closed=True):
     virtualNode: (
         "capo_app_mesh.types.virtual_node_service_provider.VirtualNodeServiceProvider"
     )
 
 
-class _VirtualServiceProvider_virtualRouter(TypedDict, closed=True):
+class VirtualServiceProviderVirtualRouterMember(TypedDict, closed=True):
     virtualRouter: "capo_app_mesh.types.virtual_router_service_provider.VirtualRouterServiceProvider"
 
 
 VirtualServiceProvider: TypeAlias = (
-    _VirtualServiceProvider_virtualNode
-    | _VirtualServiceProvider_virtualRouter
+    VirtualServiceProviderVirtualNodeMember
+    | VirtualServiceProviderVirtualRouterMember
     | UnknownUnionMember
 )
 

@@ -12,21 +12,21 @@ if TYPE_CHECKING:
     import capo_qbusiness.types.native_index_configuration
 
 
-class _RetrieverConfiguration_nativeIndexConfiguration(TypedDict, closed=True):
+class RetrieverConfigurationNativeIndexConfigurationMember(TypedDict, closed=True):
     nativeIndexConfiguration: (
         "capo_qbusiness.types.native_index_configuration.NativeIndexConfiguration"
     )
 
 
-class _RetrieverConfiguration_kendraIndexConfiguration(TypedDict, closed=True):
+class RetrieverConfigurationKendraIndexConfigurationMember(TypedDict, closed=True):
     kendraIndexConfiguration: (
         "capo_qbusiness.types.kendra_index_configuration.KendraIndexConfiguration"
     )
 
 
 RetrieverConfiguration: TypeAlias = (
-    _RetrieverConfiguration_nativeIndexConfiguration
-    | _RetrieverConfiguration_kendraIndexConfiguration
+    RetrieverConfigurationNativeIndexConfigurationMember
+    | RetrieverConfigurationKendraIndexConfigurationMember
     | UnknownUnionMember
 )
 

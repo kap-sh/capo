@@ -7,7 +7,7 @@ title: Content
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore.types.content._Content_text
+::: capo_bedrock_agentcore.types.content.ContentTextMember
     options:
       show_source: true
       merge_init_into_class: false

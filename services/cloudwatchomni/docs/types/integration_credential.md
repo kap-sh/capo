@@ -7,19 +7,19 @@ title: IntegrationCredential
       show_source: true
       merge_init_into_class: false
 
-::: capo_cloudwatchomni.types.integration_credential._IntegrationCredential_oauthCodeCredential
+::: capo_cloudwatchomni.types.integration_credential.IntegrationCredentialOauthCodeCredentialMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cloudwatchomni.types.integration_credential._IntegrationCredential_oauthClientCredential
+::: capo_cloudwatchomni.types.integration_credential.IntegrationCredentialOauthClientCredentialMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cloudwatchomni.types.integration_credential._IntegrationCredential_apiKeyCredential
+::: capo_cloudwatchomni.types.integration_credential.IntegrationCredentialApiKeyCredentialMember
     options:
       show_source: true
       merge_init_into_class: false

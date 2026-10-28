@@ -7,7 +7,7 @@ title: DocumentContentBlock
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_runtime.types.document_content_block._DocumentContentBlock_text
+::: capo_bedrock_runtime.types.document_content_block.DocumentContentBlockTextMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.protected_query_s3_output
 
 
-class _ProtectedQueryOutput_s3(TypedDict, closed=True):
+class ProtectedQueryOutputS3Member(TypedDict, closed=True):
     s3: "capo_cleanrooms.types.protected_query_s3_output.ProtectedQueryS3Output"
 
 
-class _ProtectedQueryOutput_memberList(TypedDict, closed=True):
+class ProtectedQueryOutputMemberListMember(TypedDict, closed=True):
     memberList: "capo_cleanrooms.types.protected_query_member_output_list.ProtectedQueryMemberOutputList"
 
 
-class _ProtectedQueryOutput_distribute(TypedDict, closed=True):
+class ProtectedQueryOutputDistributeMember(TypedDict, closed=True):
     distribute: "capo_cleanrooms.types.protected_query_distribute_output.ProtectedQueryDistributeOutput"
 
 
 ProtectedQueryOutput: TypeAlias = (
-    _ProtectedQueryOutput_s3
-    | _ProtectedQueryOutput_memberList
-    | _ProtectedQueryOutput_distribute
+    ProtectedQueryOutputS3Member
+    | ProtectedQueryOutputMemberListMember
+    | ProtectedQueryOutputDistributeMember
     | UnknownUnionMember
 )
 

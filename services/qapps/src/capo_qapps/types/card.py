@@ -15,32 +15,32 @@ if TYPE_CHECKING:
     import capo_qapps.types.text_input_card
 
 
-class _Card_textInput(TypedDict, closed=True):
+class CardTextInputMember(TypedDict, closed=True):
     textInput: "capo_qapps.types.text_input_card.TextInputCard"
 
 
-class _Card_qQuery(TypedDict, closed=True):
+class CardQQueryMember(TypedDict, closed=True):
     qQuery: "capo_qapps.types.q_query_card.QQueryCard"
 
 
-class _Card_qPlugin(TypedDict, closed=True):
+class CardQPluginMember(TypedDict, closed=True):
     qPlugin: "capo_qapps.types.q_plugin_card.QPluginCard"
 
 
-class _Card_fileUpload(TypedDict, closed=True):
+class CardFileUploadMember(TypedDict, closed=True):
     fileUpload: "capo_qapps.types.file_upload_card.FileUploadCard"
 
 
-class _Card_formInput(TypedDict, closed=True):
+class CardFormInputMember(TypedDict, closed=True):
     formInput: "capo_qapps.types.form_input_card.FormInputCard"
 
 
 Card: TypeAlias = (
-    _Card_textInput
-    | _Card_qQuery
-    | _Card_qPlugin
-    | _Card_fileUpload
-    | _Card_formInput
+    CardTextInputMember
+    | CardQQueryMember
+    | CardQPluginMember
+    | CardFileUploadMember
+    | CardFormInputMember
     | UnknownUnionMember
 )
 

@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_bedrock_agent.types.weekly_schedule
 
 
-class _SyncSchedule_daily(TypedDict, closed=True):
+class SyncScheduleDailyMember(TypedDict, closed=True):
     daily: "capo_bedrock_agent.types.daily_schedule.DailySchedule"
 
 
-class _SyncSchedule_weekly(TypedDict, closed=True):
+class SyncScheduleWeeklyMember(TypedDict, closed=True):
     weekly: "capo_bedrock_agent.types.weekly_schedule.WeeklySchedule"
 
 
-class _SyncSchedule_monthly(TypedDict, closed=True):
+class SyncScheduleMonthlyMember(TypedDict, closed=True):
     monthly: "capo_bedrock_agent.types.monthly_schedule.MonthlySchedule"
 
 
 SyncSchedule: TypeAlias = (
-    _SyncSchedule_daily
-    | _SyncSchedule_weekly
-    | _SyncSchedule_monthly
+    SyncScheduleDailyMember
+    | SyncScheduleWeeklyMember
+    | SyncScheduleMonthlyMember
     | UnknownUnionMember
 )
 

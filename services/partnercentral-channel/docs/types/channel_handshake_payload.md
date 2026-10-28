@@ -7,13 +7,13 @@ title: ChannelHandshakePayload
       show_source: true
       merge_init_into_class: false
 
-::: capo_partnercentral_channel.types.channel_handshake_payload._ChannelHandshakePayload_startServicePeriodPayload
+::: capo_partnercentral_channel.types.channel_handshake_payload.ChannelHandshakePayloadStartServicePeriodPayloadMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_partnercentral_channel.types.channel_handshake_payload._ChannelHandshakePayload_revokeServicePeriodPayload
+::: capo_partnercentral_channel.types.channel_handshake_payload.ChannelHandshakePayloadRevokeServicePeriodPayloadMember
     options:
       show_source: true
       merge_init_into_class: false

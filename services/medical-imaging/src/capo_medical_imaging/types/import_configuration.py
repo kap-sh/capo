@@ -11,12 +11,14 @@ if TYPE_CHECKING:
     import capo_medical_imaging.types.dicom_json_metadata_import_configuration
 
 
-class _ImportConfiguration_dicomJsonMetadataImportConfiguration(TypedDict, closed=True):
+class ImportConfigurationDicomJsonMetadataImportConfigurationMember(
+    TypedDict, closed=True
+):
     dicomJsonMetadataImportConfiguration: "capo_medical_imaging.types.dicom_json_metadata_import_configuration.DicomJsonMetadataImportConfiguration"
 
 
 ImportConfiguration: TypeAlias = (
-    _ImportConfiguration_dicomJsonMetadataImportConfiguration | UnknownUnionMember
+    ImportConfigurationDicomJsonMetadataImportConfigurationMember | UnknownUnionMember
 )
 
 

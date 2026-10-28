@@ -7,7 +7,7 @@ title: SyntheticDataParameters
       show_source: true
       merge_init_into_class: false
 
-::: capo_cleanrooms.types.synthetic_data_parameters._SyntheticDataParameters_mlSyntheticDataParameters
+::: capo_cleanrooms.types.synthetic_data_parameters.SyntheticDataParametersMlSyntheticDataParametersMember
     options:
       show_source: true
       merge_init_into_class: false

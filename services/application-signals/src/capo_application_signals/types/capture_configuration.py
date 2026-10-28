@@ -11,11 +11,13 @@ if TYPE_CHECKING:
     import capo_application_signals.types.code_capture_configuration
 
 
-class _CaptureConfiguration_CodeCapture(TypedDict, closed=True):
+class CaptureConfigurationCodeCaptureMember(TypedDict, closed=True):
     CodeCapture: "capo_application_signals.types.code_capture_configuration.CodeCaptureConfiguration"
 
 
-CaptureConfiguration: TypeAlias = _CaptureConfiguration_CodeCapture | UnknownUnionMember
+CaptureConfiguration: TypeAlias = (
+    CaptureConfigurationCodeCaptureMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

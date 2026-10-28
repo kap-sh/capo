@@ -15,17 +15,19 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.tool_definitions
 
 
-class _ToolSchema_s3(TypedDict, closed=True):
+class ToolSchemaS3Member(TypedDict, closed=True):
     s3: "capo_bedrock_agentcore_control.types.s3_configuration.S3Configuration"
 
 
-class _ToolSchema_inlinePayload(TypedDict, closed=True):
+class ToolSchemaInlinePayloadMember(TypedDict, closed=True):
     inlinePayload: (
         "capo_bedrock_agentcore_control.types.tool_definitions.ToolDefinitions"
     )
 
 
-ToolSchema: TypeAlias = _ToolSchema_s3 | _ToolSchema_inlinePayload | UnknownUnionMember
+ToolSchema: TypeAlias = (
+    ToolSchemaS3Member | ToolSchemaInlinePayloadMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

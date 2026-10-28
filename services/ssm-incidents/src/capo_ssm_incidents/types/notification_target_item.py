@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_ssm_incidents.types.arn
 
 
-class _NotificationTargetItem_snsTopicArn(TypedDict, closed=True):
+class NotificationTargetItemSnsTopicArnMember(TypedDict, closed=True):
     snsTopicArn: "capo_ssm_incidents.types.arn.Arn"
 
 
 NotificationTargetItem: TypeAlias = (
-    _NotificationTargetItem_snsTopicArn | UnknownUnionMember
+    NotificationTargetItemSnsTopicArnMember | UnknownUnionMember
 )
 
 

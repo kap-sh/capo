@@ -12,17 +12,19 @@ if TYPE_CHECKING:
     import capo_eventbridgev2.types.partner_events_source_configuration
 
 
-class _EventSourceConfiguration_AwsServiceEventsConfiguration(TypedDict, closed=True):
+class EventSourceConfigurationAwsServiceEventsConfigurationMember(
+    TypedDict, closed=True
+):
     AwsServiceEventsConfiguration: "capo_eventbridgev2.types.aws_service_events_source_configuration.AwsServiceEventsSourceConfiguration"
 
 
-class _EventSourceConfiguration_PartnerEventsConfiguration(TypedDict, closed=True):
+class EventSourceConfigurationPartnerEventsConfigurationMember(TypedDict, closed=True):
     PartnerEventsConfiguration: "capo_eventbridgev2.types.partner_events_source_configuration.PartnerEventsSourceConfiguration"
 
 
 EventSourceConfiguration: TypeAlias = (
-    _EventSourceConfiguration_AwsServiceEventsConfiguration
-    | _EventSourceConfiguration_PartnerEventsConfiguration
+    EventSourceConfigurationAwsServiceEventsConfigurationMember
+    | EventSourceConfigurationPartnerEventsConfigurationMember
     | UnknownUnionMember
 )
 

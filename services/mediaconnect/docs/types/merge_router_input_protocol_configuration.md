@@ -7,13 +7,13 @@ title: MergeRouterInputProtocolConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_mediaconnect.types.merge_router_input_protocol_configuration._MergeRouterInputProtocolConfiguration_Rtp
+::: capo_mediaconnect.types.merge_router_input_protocol_configuration.MergeRouterInputProtocolConfigurationRtpMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mediaconnect.types.merge_router_input_protocol_configuration._MergeRouterInputProtocolConfiguration_Rist
+::: capo_mediaconnect.types.merge_router_input_protocol_configuration.MergeRouterInputProtocolConfigurationRistMember
     options:
       show_source: true
       merge_init_into_class: false

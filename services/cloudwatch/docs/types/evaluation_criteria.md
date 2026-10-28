@@ -7,7 +7,7 @@ title: EvaluationCriteria
       show_source: true
       merge_init_into_class: false
 
-::: capo_cloudwatch.types.evaluation_criteria._EvaluationCriteria_PromQLCriteria
+::: capo_cloudwatch.types.evaluation_criteria.EvaluationCriteriaPromQLCriteriaMember
     options:
       show_source: true
       merge_init_into_class: false

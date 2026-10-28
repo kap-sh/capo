@@ -7,7 +7,7 @@ title: CspmProviderConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_securityhub.types.cspm_provider_configuration._CspmProviderConfiguration_Azure
+::: capo_securityhub.types.cspm_provider_configuration.CspmProviderConfigurationAzureMember
     options:
       show_source: true
       merge_init_into_class: false

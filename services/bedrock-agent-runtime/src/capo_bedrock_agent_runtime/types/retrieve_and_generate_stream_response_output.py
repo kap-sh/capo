@@ -27,25 +27,25 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.retrieve_and_generate_output_event
 
 
-class _RetrieveAndGenerateStreamResponseOutput_output(TypedDict, closed=True):
+class RetrieveAndGenerateStreamResponseOutputOutputMember(TypedDict, closed=True):
     output: "capo_bedrock_agent_runtime.types.retrieve_and_generate_output_event.RetrieveAndGenerateOutputEvent"
 
 
-class _RetrieveAndGenerateStreamResponseOutput_citation(TypedDict, closed=True):
+class RetrieveAndGenerateStreamResponseOutputCitationMember(TypedDict, closed=True):
     citation: "capo_bedrock_agent_runtime.types.citation_event.CitationEvent"
 
 
-class _RetrieveAndGenerateStreamResponseOutput_guardrail(TypedDict, closed=True):
+class RetrieveAndGenerateStreamResponseOutputGuardrailMember(TypedDict, closed=True):
     guardrail: "capo_bedrock_agent_runtime.types.guardrail_event.GuardrailEvent"
 
 
-class _RetrieveAndGenerateStreamResponseOutput_internalServerException(
+class RetrieveAndGenerateStreamResponseOutputInternalServerExceptionMember(
     TypedDict, closed=True
 ):
     internalServerException: "capo_bedrock_agent_runtime.errors.internal_server_exception.InternalServerException_"
 
 
-class _RetrieveAndGenerateStreamResponseOutput_validationException(
+class RetrieveAndGenerateStreamResponseOutputValidationExceptionMember(
     TypedDict, closed=True
 ):
     validationException: (
@@ -53,19 +53,19 @@ class _RetrieveAndGenerateStreamResponseOutput_validationException(
     )
 
 
-class _RetrieveAndGenerateStreamResponseOutput_resourceNotFoundException(
+class RetrieveAndGenerateStreamResponseOutputResourceNotFoundExceptionMember(
     TypedDict, closed=True
 ):
     resourceNotFoundException: "capo_bedrock_agent_runtime.errors.resource_not_found_exception.ResourceNotFoundException_"
 
 
-class _RetrieveAndGenerateStreamResponseOutput_serviceQuotaExceededException(
+class RetrieveAndGenerateStreamResponseOutputServiceQuotaExceededExceptionMember(
     TypedDict, closed=True
 ):
     serviceQuotaExceededException: "capo_bedrock_agent_runtime.errors.service_quota_exceeded_exception.ServiceQuotaExceededException_"
 
 
-class _RetrieveAndGenerateStreamResponseOutput_throttlingException(
+class RetrieveAndGenerateStreamResponseOutputThrottlingExceptionMember(
     TypedDict, closed=True
 ):
     throttlingException: (
@@ -73,13 +73,13 @@ class _RetrieveAndGenerateStreamResponseOutput_throttlingException(
     )
 
 
-class _RetrieveAndGenerateStreamResponseOutput_accessDeniedException(
+class RetrieveAndGenerateStreamResponseOutputAccessDeniedExceptionMember(
     TypedDict, closed=True
 ):
     accessDeniedException: "capo_bedrock_agent_runtime.errors.access_denied_exception.AccessDeniedException_"
 
 
-class _RetrieveAndGenerateStreamResponseOutput_conflictException(
+class RetrieveAndGenerateStreamResponseOutputConflictExceptionMember(
     TypedDict, closed=True
 ):
     conflictException: (
@@ -87,13 +87,13 @@ class _RetrieveAndGenerateStreamResponseOutput_conflictException(
     )
 
 
-class _RetrieveAndGenerateStreamResponseOutput_dependencyFailedException(
+class RetrieveAndGenerateStreamResponseOutputDependencyFailedExceptionMember(
     TypedDict, closed=True
 ):
     dependencyFailedException: "capo_bedrock_agent_runtime.errors.dependency_failed_exception.DependencyFailedException_"
 
 
-class _RetrieveAndGenerateStreamResponseOutput_badGatewayException(
+class RetrieveAndGenerateStreamResponseOutputBadGatewayExceptionMember(
     TypedDict, closed=True
 ):
     badGatewayException: (
@@ -102,18 +102,18 @@ class _RetrieveAndGenerateStreamResponseOutput_badGatewayException(
 
 
 _RetrieveAndGenerateStreamResponseOutput: TypeAlias = (
-    _RetrieveAndGenerateStreamResponseOutput_output
-    | _RetrieveAndGenerateStreamResponseOutput_citation
-    | _RetrieveAndGenerateStreamResponseOutput_guardrail
-    | _RetrieveAndGenerateStreamResponseOutput_internalServerException
-    | _RetrieveAndGenerateStreamResponseOutput_validationException
-    | _RetrieveAndGenerateStreamResponseOutput_resourceNotFoundException
-    | _RetrieveAndGenerateStreamResponseOutput_serviceQuotaExceededException
-    | _RetrieveAndGenerateStreamResponseOutput_throttlingException
-    | _RetrieveAndGenerateStreamResponseOutput_accessDeniedException
-    | _RetrieveAndGenerateStreamResponseOutput_conflictException
-    | _RetrieveAndGenerateStreamResponseOutput_dependencyFailedException
-    | _RetrieveAndGenerateStreamResponseOutput_badGatewayException
+    RetrieveAndGenerateStreamResponseOutputOutputMember
+    | RetrieveAndGenerateStreamResponseOutputCitationMember
+    | RetrieveAndGenerateStreamResponseOutputGuardrailMember
+    | RetrieveAndGenerateStreamResponseOutputInternalServerExceptionMember
+    | RetrieveAndGenerateStreamResponseOutputValidationExceptionMember
+    | RetrieveAndGenerateStreamResponseOutputResourceNotFoundExceptionMember
+    | RetrieveAndGenerateStreamResponseOutputServiceQuotaExceededExceptionMember
+    | RetrieveAndGenerateStreamResponseOutputThrottlingExceptionMember
+    | RetrieveAndGenerateStreamResponseOutputAccessDeniedExceptionMember
+    | RetrieveAndGenerateStreamResponseOutputConflictExceptionMember
+    | RetrieveAndGenerateStreamResponseOutputDependencyFailedExceptionMember
+    | RetrieveAndGenerateStreamResponseOutputBadGatewayExceptionMember
     | UnknownEvent
 )
 RetrieveAndGenerateStreamResponseOutput: TypeAlias = AnyIterator[

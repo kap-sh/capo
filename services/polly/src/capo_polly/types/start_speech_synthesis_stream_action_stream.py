@@ -17,17 +17,19 @@ if TYPE_CHECKING:
     import capo_polly.types.text_event
 
 
-class _StartSpeechSynthesisStreamActionStream_TextEvent(TypedDict, closed=True):
+class StartSpeechSynthesisStreamActionStreamTextEventMember(TypedDict, closed=True):
     TextEvent: "capo_polly.types.text_event.TextEvent"
 
 
-class _StartSpeechSynthesisStreamActionStream_CloseStreamEvent(TypedDict, closed=True):
+class StartSpeechSynthesisStreamActionStreamCloseStreamEventMember(
+    TypedDict, closed=True
+):
     CloseStreamEvent: "capo_polly.types.close_stream_event.CloseStreamEvent"
 
 
 _StartSpeechSynthesisStreamActionStream: TypeAlias = (
-    _StartSpeechSynthesisStreamActionStream_TextEvent
-    | _StartSpeechSynthesisStreamActionStream_CloseStreamEvent
+    StartSpeechSynthesisStreamActionStreamTextEventMember
+    | StartSpeechSynthesisStreamActionStreamCloseStreamEventMember
     | UnknownEvent
 )
 StartSpeechSynthesisStreamActionStream: TypeAlias = AnyIterator[

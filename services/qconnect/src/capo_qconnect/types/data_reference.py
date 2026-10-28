@@ -13,24 +13,24 @@ if TYPE_CHECKING:
     import capo_qconnect.types.suggested_message_reference
 
 
-class _DataReference_contentReference(TypedDict, closed=True):
+class DataReferenceContentReferenceMember(TypedDict, closed=True):
     contentReference: "capo_qconnect.types.content_reference.ContentReference"
 
 
-class _DataReference_generativeReference(TypedDict, closed=True):
+class DataReferenceGenerativeReferenceMember(TypedDict, closed=True):
     generativeReference: "capo_qconnect.types.generative_reference.GenerativeReference"
 
 
-class _DataReference_suggestedMessageReference(TypedDict, closed=True):
+class DataReferenceSuggestedMessageReferenceMember(TypedDict, closed=True):
     suggestedMessageReference: (
         "capo_qconnect.types.suggested_message_reference.SuggestedMessageReference"
     )
 
 
 DataReference: TypeAlias = (
-    _DataReference_contentReference
-    | _DataReference_generativeReference
-    | _DataReference_suggestedMessageReference
+    DataReferenceContentReferenceMember
+    | DataReferenceGenerativeReferenceMember
+    | DataReferenceSuggestedMessageReferenceMember
     | UnknownUnionMember
 )
 

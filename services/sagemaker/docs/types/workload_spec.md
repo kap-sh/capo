@@ -7,7 +7,7 @@ title: WorkloadSpec
       show_source: true
       merge_init_into_class: false
 
-::: capo_sagemaker.types.workload_spec._WorkloadSpec_Inline
+::: capo_sagemaker.types.workload_spec.WorkloadSpecInlineMember
     options:
       show_source: true
       merge_init_into_class: false

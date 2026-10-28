@@ -14,32 +14,32 @@ if TYPE_CHECKING:
     import capo_resiliencehubv2.types.s3_url
 
 
-class _ResourceConfiguration_resourceTags(TypedDict, closed=True):
+class ResourceConfigurationResourceTagsMember(TypedDict, closed=True):
     resourceTags: "capo_resiliencehubv2.types.resource_tag_list.ResourceTagList"
 
 
-class _ResourceConfiguration_cfnStackArn(TypedDict, closed=True):
+class ResourceConfigurationCfnStackArnMember(TypedDict, closed=True):
     cfnStackArn: "capo_resiliencehubv2.types.arn.Arn"
 
 
-class _ResourceConfiguration_tfStateFileUrl(TypedDict, closed=True):
+class ResourceConfigurationTfStateFileUrlMember(TypedDict, closed=True):
     tfStateFileUrl: "capo_resiliencehubv2.types.s3_url.S3Url"
 
 
-class _ResourceConfiguration_eks(TypedDict, closed=True):
+class ResourceConfigurationEksMember(TypedDict, closed=True):
     eks: "capo_resiliencehubv2.types.eks_source.EksSource"
 
 
-class _ResourceConfiguration_designFileS3Url(TypedDict, closed=True):
+class ResourceConfigurationDesignFileS3UrlMember(TypedDict, closed=True):
     designFileS3Url: "capo_resiliencehubv2.types.s3_url.S3Url"
 
 
 ResourceConfiguration: TypeAlias = (
-    _ResourceConfiguration_resourceTags
-    | _ResourceConfiguration_cfnStackArn
-    | _ResourceConfiguration_tfStateFileUrl
-    | _ResourceConfiguration_eks
-    | _ResourceConfiguration_designFileS3Url
+    ResourceConfigurationResourceTagsMember
+    | ResourceConfigurationCfnStackArnMember
+    | ResourceConfigurationTfStateFileUrlMember
+    | ResourceConfigurationEksMember
+    | ResourceConfigurationDesignFileS3UrlMember
     | UnknownUnionMember
 )
 

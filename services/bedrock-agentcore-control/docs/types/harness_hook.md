@@ -7,25 +7,25 @@ title: HarnessHook
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.harness_hook._HarnessHook_beforeInvocation
+::: capo_bedrock_agentcore_control.types.harness_hook.HarnessHookBeforeInvocationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore_control.types.harness_hook._HarnessHook_afterInvocation
+::: capo_bedrock_agentcore_control.types.harness_hook.HarnessHookAfterInvocationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore_control.types.harness_hook._HarnessHook_beforeToolCall
+::: capo_bedrock_agentcore_control.types.harness_hook.HarnessHookBeforeToolCallMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore_control.types.harness_hook._HarnessHook_afterToolCall
+::: capo_bedrock_agentcore_control.types.harness_hook.HarnessHookAfterToolCallMember
     options:
       show_source: true
       merge_init_into_class: false

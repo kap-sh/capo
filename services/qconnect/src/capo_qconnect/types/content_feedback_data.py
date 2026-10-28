@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_qconnect.types.generative_content_feedback_data
 
 
-class _ContentFeedbackData_generativeContentFeedbackData(TypedDict, closed=True):
+class ContentFeedbackDataGenerativeContentFeedbackDataMember(TypedDict, closed=True):
     generativeContentFeedbackData: "capo_qconnect.types.generative_content_feedback_data.GenerativeContentFeedbackData"
 
 
 ContentFeedbackData: TypeAlias = (
-    _ContentFeedbackData_generativeContentFeedbackData | UnknownUnionMember
+    ContentFeedbackDataGenerativeContentFeedbackDataMember | UnknownUnionMember
 )
 
 

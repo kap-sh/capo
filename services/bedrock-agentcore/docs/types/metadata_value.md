@@ -7,7 +7,7 @@ title: MetadataValue
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore.types.metadata_value._MetadataValue_stringValue
+::: capo_bedrock_agentcore.types.metadata_value.MetadataValueStringValueMember
     options:
       show_source: true
       merge_init_into_class: false

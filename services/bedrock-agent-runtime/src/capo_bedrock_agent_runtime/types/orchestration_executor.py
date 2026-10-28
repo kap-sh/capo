@@ -10,15 +10,17 @@ from capo_bedrock_agent_runtime.types._unknown import UnknownUnionMember
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.lambda_arn
 
-_OrchestrationExecutor_lambda = TypedDict(
-    "_OrchestrationExecutor_lambda",
+OrchestrationExecutorLambdaMember = TypedDict(
+    "OrchestrationExecutorLambdaMember",
     {
         "lambda": "capo_bedrock_agent_runtime.types.lambda_arn.LambdaArn",
     },
     closed=True,
 )
 
-OrchestrationExecutor: TypeAlias = _OrchestrationExecutor_lambda | UnknownUnionMember
+OrchestrationExecutor: TypeAlias = (
+    OrchestrationExecutorLambdaMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

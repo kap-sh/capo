@@ -7,7 +7,7 @@ title: MQBrokerAccessCredentials
       show_source: true
       merge_init_into_class: false
 
-::: capo_pipes.types.mq_broker_access_credentials._MQBrokerAccessCredentials_BasicAuth
+::: capo_pipes.types.mq_broker_access_credentials.MQBrokerAccessCredentialsBasicAuthMember
     options:
       show_source: true
       merge_init_into_class: false

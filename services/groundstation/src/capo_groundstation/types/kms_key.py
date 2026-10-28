@@ -13,20 +13,23 @@ if TYPE_CHECKING:
     import capo_groundstation.types.key_arn
 
 
-class _KmsKey_kmsKeyArn(TypedDict, closed=True):
+class KmsKeyKmsKeyArnMember(TypedDict, closed=True):
     kmsKeyArn: "capo_groundstation.types.key_arn.KeyArn"
 
 
-class _KmsKey_kmsAliasArn(TypedDict, closed=True):
+class KmsKeyKmsAliasArnMember(TypedDict, closed=True):
     kmsAliasArn: "capo_groundstation.types.key_alias_arn.KeyAliasArn"
 
 
-class _KmsKey_kmsAliasName(TypedDict, closed=True):
+class KmsKeyKmsAliasNameMember(TypedDict, closed=True):
     kmsAliasName: "capo_groundstation.types.key_alias_name.KeyAliasName"
 
 
 KmsKey: TypeAlias = (
-    _KmsKey_kmsKeyArn | _KmsKey_kmsAliasArn | _KmsKey_kmsAliasName | UnknownUnionMember
+    KmsKeyKmsKeyArnMember
+    | KmsKeyKmsAliasArnMember
+    | KmsKeyKmsAliasNameMember
+    | UnknownUnionMember
 )
 
 

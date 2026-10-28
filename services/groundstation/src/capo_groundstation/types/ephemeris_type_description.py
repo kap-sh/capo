@@ -11,22 +11,22 @@ if TYPE_CHECKING:
     import capo_groundstation.types.ephemeris_description
 
 
-class _EphemerisTypeDescription_tle(TypedDict, closed=True):
+class EphemerisTypeDescriptionTleMember(TypedDict, closed=True):
     tle: "capo_groundstation.types.ephemeris_description.EphemerisDescription"
 
 
-class _EphemerisTypeDescription_oem(TypedDict, closed=True):
+class EphemerisTypeDescriptionOemMember(TypedDict, closed=True):
     oem: "capo_groundstation.types.ephemeris_description.EphemerisDescription"
 
 
-class _EphemerisTypeDescription_azEl(TypedDict, closed=True):
+class EphemerisTypeDescriptionAzElMember(TypedDict, closed=True):
     azEl: "capo_groundstation.types.ephemeris_description.EphemerisDescription"
 
 
 EphemerisTypeDescription: TypeAlias = (
-    _EphemerisTypeDescription_tle
-    | _EphemerisTypeDescription_oem
-    | _EphemerisTypeDescription_azEl
+    EphemerisTypeDescriptionTleMember
+    | EphemerisTypeDescriptionOemMember
+    | EphemerisTypeDescriptionAzElMember
     | UnknownUnionMember
 )
 

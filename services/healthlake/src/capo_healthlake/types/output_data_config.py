@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_healthlake.types.s3_configuration
 
 
-class _OutputDataConfig_S3Configuration(TypedDict, closed=True):
+class OutputDataConfigS3ConfigurationMember(TypedDict, closed=True):
     S3Configuration: "capo_healthlake.types.s3_configuration.S3Configuration"
 
 
-OutputDataConfig: TypeAlias = _OutputDataConfig_S3Configuration | UnknownUnionMember
+OutputDataConfig: TypeAlias = OutputDataConfigS3ConfigurationMember | UnknownUnionMember
 
 
 # --- awsJson1_0 ser/de ---

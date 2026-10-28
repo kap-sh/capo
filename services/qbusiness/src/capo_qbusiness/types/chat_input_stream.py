@@ -21,41 +21,41 @@ if TYPE_CHECKING:
     import capo_qbusiness.types.text_input_event
 
 
-class _ChatInputStream_configurationEvent(TypedDict, closed=True):
+class ChatInputStreamConfigurationEventMember(TypedDict, closed=True):
     configurationEvent: "capo_qbusiness.types.configuration_event.ConfigurationEvent"
 
 
-class _ChatInputStream_textEvent(TypedDict, closed=True):
+class ChatInputStreamTextEventMember(TypedDict, closed=True):
     textEvent: "capo_qbusiness.types.text_input_event.TextInputEvent"
 
 
-class _ChatInputStream_attachmentEvent(TypedDict, closed=True):
+class ChatInputStreamAttachmentEventMember(TypedDict, closed=True):
     attachmentEvent: "capo_qbusiness.types.attachment_input_event.AttachmentInputEvent"
 
 
-class _ChatInputStream_actionExecutionEvent(TypedDict, closed=True):
+class ChatInputStreamActionExecutionEventMember(TypedDict, closed=True):
     actionExecutionEvent: (
         "capo_qbusiness.types.action_execution_event.ActionExecutionEvent"
     )
 
 
-class _ChatInputStream_endOfInputEvent(TypedDict, closed=True):
+class ChatInputStreamEndOfInputEventMember(TypedDict, closed=True):
     endOfInputEvent: "capo_qbusiness.types.end_of_input_event.EndOfInputEvent"
 
 
-class _ChatInputStream_authChallengeResponseEvent(TypedDict, closed=True):
+class ChatInputStreamAuthChallengeResponseEventMember(TypedDict, closed=True):
     authChallengeResponseEvent: (
         "capo_qbusiness.types.auth_challenge_response_event.AuthChallengeResponseEvent"
     )
 
 
 _ChatInputStream: TypeAlias = (
-    _ChatInputStream_configurationEvent
-    | _ChatInputStream_textEvent
-    | _ChatInputStream_attachmentEvent
-    | _ChatInputStream_actionExecutionEvent
-    | _ChatInputStream_endOfInputEvent
-    | _ChatInputStream_authChallengeResponseEvent
+    ChatInputStreamConfigurationEventMember
+    | ChatInputStreamTextEventMember
+    | ChatInputStreamAttachmentEventMember
+    | ChatInputStreamActionExecutionEventMember
+    | ChatInputStreamEndOfInputEventMember
+    | ChatInputStreamAuthChallengeResponseEventMember
     | UnknownEvent
 )
 ChatInputStream: TypeAlias = AnyIterator[_ChatInputStream]

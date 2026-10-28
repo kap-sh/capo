@@ -12,16 +12,18 @@ if TYPE_CHECKING:
     import capo_ssm_incidents.types.generated_id
 
 
-class _EventReference_resource(TypedDict, closed=True):
+class EventReferenceResourceMember(TypedDict, closed=True):
     resource: "capo_ssm_incidents.types.arn.Arn"
 
 
-class _EventReference_relatedItemId(TypedDict, closed=True):
+class EventReferenceRelatedItemIdMember(TypedDict, closed=True):
     relatedItemId: "capo_ssm_incidents.types.generated_id.GeneratedId"
 
 
 EventReference: TypeAlias = (
-    _EventReference_resource | _EventReference_relatedItemId | UnknownUnionMember
+    EventReferenceResourceMember
+    | EventReferenceRelatedItemIdMember
+    | UnknownUnionMember
 )
 
 

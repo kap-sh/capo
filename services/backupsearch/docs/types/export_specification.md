@@ -7,7 +7,7 @@ title: ExportSpecification
       show_source: true
       merge_init_into_class: false
 
-::: capo_backupsearch.types.export_specification._ExportSpecification_s3ExportSpecification
+::: capo_backupsearch.types.export_specification.ExportSpecificationS3ExportSpecificationMember
     options:
       show_source: true
       merge_init_into_class: false

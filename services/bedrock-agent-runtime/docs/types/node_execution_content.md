@@ -7,7 +7,7 @@ title: NodeExecutionContent
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agent_runtime.types.node_execution_content._NodeExecutionContent_document
+::: capo_bedrock_agent_runtime.types.node_execution_content.NodeExecutionContentDocumentMember
     options:
       show_source: true
       merge_init_into_class: false

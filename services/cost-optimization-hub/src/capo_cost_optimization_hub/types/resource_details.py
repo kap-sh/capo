@@ -35,150 +35,150 @@ if TYPE_CHECKING:
     import capo_cost_optimization_hub.types.work_spaces
 
 
-class _ResourceDetails_lambdaFunction(TypedDict, closed=True):
+class ResourceDetailsLambdaFunctionMember(TypedDict, closed=True):
     lambdaFunction: "capo_cost_optimization_hub.types.lambda_function.LambdaFunction"
 
 
-class _ResourceDetails_ecsService(TypedDict, closed=True):
+class ResourceDetailsEcsServiceMember(TypedDict, closed=True):
     ecsService: "capo_cost_optimization_hub.types.ecs_service.EcsService"
 
 
-class _ResourceDetails_ec2Instance(TypedDict, closed=True):
+class ResourceDetailsEc2InstanceMember(TypedDict, closed=True):
     ec2Instance: "capo_cost_optimization_hub.types.ec2_instance.Ec2Instance"
 
 
-class _ResourceDetails_ebsVolume(TypedDict, closed=True):
+class ResourceDetailsEbsVolumeMember(TypedDict, closed=True):
     ebsVolume: "capo_cost_optimization_hub.types.ebs_volume.EbsVolume"
 
 
-class _ResourceDetails_ec2AutoScalingGroup(TypedDict, closed=True):
+class ResourceDetailsEc2AutoScalingGroupMember(TypedDict, closed=True):
     ec2AutoScalingGroup: (
         "capo_cost_optimization_hub.types.ec2_auto_scaling_group.Ec2AutoScalingGroup"
     )
 
 
-class _ResourceDetails_ec2ReservedInstances(TypedDict, closed=True):
+class ResourceDetailsEc2ReservedInstancesMember(TypedDict, closed=True):
     ec2ReservedInstances: (
         "capo_cost_optimization_hub.types.ec2_reserved_instances.Ec2ReservedInstances"
     )
 
 
-class _ResourceDetails_rdsReservedInstances(TypedDict, closed=True):
+class ResourceDetailsRdsReservedInstancesMember(TypedDict, closed=True):
     rdsReservedInstances: (
         "capo_cost_optimization_hub.types.rds_reserved_instances.RdsReservedInstances"
     )
 
 
-class _ResourceDetails_elastiCacheReservedInstances(TypedDict, closed=True):
+class ResourceDetailsElastiCacheReservedInstancesMember(TypedDict, closed=True):
     elastiCacheReservedInstances: "capo_cost_optimization_hub.types.elasti_cache_reserved_instances.ElastiCacheReservedInstances"
 
 
-class _ResourceDetails_openSearchReservedInstances(TypedDict, closed=True):
+class ResourceDetailsOpenSearchReservedInstancesMember(TypedDict, closed=True):
     openSearchReservedInstances: "capo_cost_optimization_hub.types.open_search_reserved_instances.OpenSearchReservedInstances"
 
 
-class _ResourceDetails_redshiftReservedInstances(TypedDict, closed=True):
+class ResourceDetailsRedshiftReservedInstancesMember(TypedDict, closed=True):
     redshiftReservedInstances: "capo_cost_optimization_hub.types.redshift_reserved_instances.RedshiftReservedInstances"
 
 
-class _ResourceDetails_ec2InstanceSavingsPlans(TypedDict, closed=True):
+class ResourceDetailsEc2InstanceSavingsPlansMember(TypedDict, closed=True):
     ec2InstanceSavingsPlans: "capo_cost_optimization_hub.types.ec2_instance_savings_plans.Ec2InstanceSavingsPlans"
 
 
-class _ResourceDetails_computeSavingsPlans(TypedDict, closed=True):
+class ResourceDetailsComputeSavingsPlansMember(TypedDict, closed=True):
     computeSavingsPlans: (
         "capo_cost_optimization_hub.types.compute_savings_plans.ComputeSavingsPlans"
     )
 
 
-class _ResourceDetails_sageMakerSavingsPlans(TypedDict, closed=True):
+class ResourceDetailsSageMakerSavingsPlansMember(TypedDict, closed=True):
     sageMakerSavingsPlans: "capo_cost_optimization_hub.types.sage_maker_savings_plans.SageMakerSavingsPlans"
 
 
-class _ResourceDetails_rdsDbInstance(TypedDict, closed=True):
+class ResourceDetailsRdsDbInstanceMember(TypedDict, closed=True):
     rdsDbInstance: "capo_cost_optimization_hub.types.rds_db_instance.RdsDbInstance"
 
 
-class _ResourceDetails_rdsDbInstanceStorage(TypedDict, closed=True):
+class ResourceDetailsRdsDbInstanceStorageMember(TypedDict, closed=True):
     rdsDbInstanceStorage: (
         "capo_cost_optimization_hub.types.rds_db_instance_storage.RdsDbInstanceStorage"
     )
 
 
-class _ResourceDetails_auroraDbClusterStorage(TypedDict, closed=True):
+class ResourceDetailsAuroraDbClusterStorageMember(TypedDict, closed=True):
     auroraDbClusterStorage: "capo_cost_optimization_hub.types.aurora_db_cluster_storage.AuroraDbClusterStorage"
 
 
-class _ResourceDetails_dynamoDbReservedCapacity(TypedDict, closed=True):
+class ResourceDetailsDynamoDbReservedCapacityMember(TypedDict, closed=True):
     dynamoDbReservedCapacity: "capo_cost_optimization_hub.types.dynamo_db_reserved_capacity.DynamoDbReservedCapacity"
 
 
-class _ResourceDetails_memoryDbReservedInstances(TypedDict, closed=True):
+class ResourceDetailsMemoryDbReservedInstancesMember(TypedDict, closed=True):
     memoryDbReservedInstances: "capo_cost_optimization_hub.types.memory_db_reserved_instances.MemoryDbReservedInstances"
 
 
-class _ResourceDetails_natGateway(TypedDict, closed=True):
+class ResourceDetailsNatGatewayMember(TypedDict, closed=True):
     natGateway: "capo_cost_optimization_hub.types.nat_gateway.NatGateway"
 
 
-class _ResourceDetails_dynamoDbTable(TypedDict, closed=True):
+class ResourceDetailsDynamoDbTableMember(TypedDict, closed=True):
     dynamoDbTable: "capo_cost_optimization_hub.types.dynamo_db_table.DynamoDbTable"
 
 
-class _ResourceDetails_elastiCacheCluster(TypedDict, closed=True):
+class ResourceDetailsElastiCacheClusterMember(TypedDict, closed=True):
     elastiCacheCluster: (
         "capo_cost_optimization_hub.types.elasti_cache_cluster.ElastiCacheCluster"
     )
 
 
-class _ResourceDetails_memoryDbCluster(TypedDict, closed=True):
+class ResourceDetailsMemoryDbClusterMember(TypedDict, closed=True):
     memoryDbCluster: (
         "capo_cost_optimization_hub.types.memory_db_cluster.MemoryDbCluster"
     )
 
 
-class _ResourceDetails_documentDbCluster(TypedDict, closed=True):
+class ResourceDetailsDocumentDbClusterMember(TypedDict, closed=True):
     documentDbCluster: (
         "capo_cost_optimization_hub.types.document_db_cluster.DocumentDbCluster"
     )
 
 
-class _ResourceDetails_workSpaces(TypedDict, closed=True):
+class ResourceDetailsWorkSpacesMember(TypedDict, closed=True):
     workSpaces: "capo_cost_optimization_hub.types.work_spaces.WorkSpaces"
 
 
-class _ResourceDetails_sageMakerEndpoint(TypedDict, closed=True):
+class ResourceDetailsSageMakerEndpointMember(TypedDict, closed=True):
     sageMakerEndpoint: (
         "capo_cost_optimization_hub.types.sage_maker_endpoint.SageMakerEndpoint"
     )
 
 
 ResourceDetails: TypeAlias = (
-    _ResourceDetails_lambdaFunction
-    | _ResourceDetails_ecsService
-    | _ResourceDetails_ec2Instance
-    | _ResourceDetails_ebsVolume
-    | _ResourceDetails_ec2AutoScalingGroup
-    | _ResourceDetails_ec2ReservedInstances
-    | _ResourceDetails_rdsReservedInstances
-    | _ResourceDetails_elastiCacheReservedInstances
-    | _ResourceDetails_openSearchReservedInstances
-    | _ResourceDetails_redshiftReservedInstances
-    | _ResourceDetails_ec2InstanceSavingsPlans
-    | _ResourceDetails_computeSavingsPlans
-    | _ResourceDetails_sageMakerSavingsPlans
-    | _ResourceDetails_rdsDbInstance
-    | _ResourceDetails_rdsDbInstanceStorage
-    | _ResourceDetails_auroraDbClusterStorage
-    | _ResourceDetails_dynamoDbReservedCapacity
-    | _ResourceDetails_memoryDbReservedInstances
-    | _ResourceDetails_natGateway
-    | _ResourceDetails_dynamoDbTable
-    | _ResourceDetails_elastiCacheCluster
-    | _ResourceDetails_memoryDbCluster
-    | _ResourceDetails_documentDbCluster
-    | _ResourceDetails_workSpaces
-    | _ResourceDetails_sageMakerEndpoint
+    ResourceDetailsLambdaFunctionMember
+    | ResourceDetailsEcsServiceMember
+    | ResourceDetailsEc2InstanceMember
+    | ResourceDetailsEbsVolumeMember
+    | ResourceDetailsEc2AutoScalingGroupMember
+    | ResourceDetailsEc2ReservedInstancesMember
+    | ResourceDetailsRdsReservedInstancesMember
+    | ResourceDetailsElastiCacheReservedInstancesMember
+    | ResourceDetailsOpenSearchReservedInstancesMember
+    | ResourceDetailsRedshiftReservedInstancesMember
+    | ResourceDetailsEc2InstanceSavingsPlansMember
+    | ResourceDetailsComputeSavingsPlansMember
+    | ResourceDetailsSageMakerSavingsPlansMember
+    | ResourceDetailsRdsDbInstanceMember
+    | ResourceDetailsRdsDbInstanceStorageMember
+    | ResourceDetailsAuroraDbClusterStorageMember
+    | ResourceDetailsDynamoDbReservedCapacityMember
+    | ResourceDetailsMemoryDbReservedInstancesMember
+    | ResourceDetailsNatGatewayMember
+    | ResourceDetailsDynamoDbTableMember
+    | ResourceDetailsElastiCacheClusterMember
+    | ResourceDetailsMemoryDbClusterMember
+    | ResourceDetailsDocumentDbClusterMember
+    | ResourceDetailsWorkSpacesMember
+    | ResourceDetailsSageMakerEndpointMember
     | UnknownUnionMember
 )
 

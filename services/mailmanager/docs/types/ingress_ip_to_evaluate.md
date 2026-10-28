@@ -7,7 +7,7 @@ title: IngressIpToEvaluate
       show_source: true
       merge_init_into_class: false
 
-::: capo_mailmanager.types.ingress_ip_to_evaluate._IngressIpToEvaluate_Attribute
+::: capo_mailmanager.types.ingress_ip_to_evaluate.IngressIpToEvaluateAttributeMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -14,14 +14,14 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.custom_consolidation_configuration_input
 
 
-class _ModifyConsolidationConfiguration_customConsolidationConfiguration(
+class ModifyConsolidationConfigurationCustomConsolidationConfigurationMember(
     TypedDict, closed=True
 ):
     customConsolidationConfiguration: "capo_bedrock_agentcore_control.types.custom_consolidation_configuration_input.CustomConsolidationConfigurationInput"
 
 
 ModifyConsolidationConfiguration: TypeAlias = (
-    _ModifyConsolidationConfiguration_customConsolidationConfiguration
+    ModifyConsolidationConfigurationCustomConsolidationConfigurationMember
     | UnknownUnionMember
 )
 

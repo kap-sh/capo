@@ -7,55 +7,55 @@ title: AutomatedReasoningPolicyMutation
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock.types.automated_reasoning_policy_mutation._AutomatedReasoningPolicyMutation_addType
+::: capo_bedrock.types.automated_reasoning_policy_mutation.AutomatedReasoningPolicyMutationAddTypeMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_policy_mutation._AutomatedReasoningPolicyMutation_updateType
+::: capo_bedrock.types.automated_reasoning_policy_mutation.AutomatedReasoningPolicyMutationUpdateTypeMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_policy_mutation._AutomatedReasoningPolicyMutation_deleteType
+::: capo_bedrock.types.automated_reasoning_policy_mutation.AutomatedReasoningPolicyMutationDeleteTypeMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_policy_mutation._AutomatedReasoningPolicyMutation_addVariable
+::: capo_bedrock.types.automated_reasoning_policy_mutation.AutomatedReasoningPolicyMutationAddVariableMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_policy_mutation._AutomatedReasoningPolicyMutation_updateVariable
+::: capo_bedrock.types.automated_reasoning_policy_mutation.AutomatedReasoningPolicyMutationUpdateVariableMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_policy_mutation._AutomatedReasoningPolicyMutation_deleteVariable
+::: capo_bedrock.types.automated_reasoning_policy_mutation.AutomatedReasoningPolicyMutationDeleteVariableMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_policy_mutation._AutomatedReasoningPolicyMutation_addRule
+::: capo_bedrock.types.automated_reasoning_policy_mutation.AutomatedReasoningPolicyMutationAddRuleMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_policy_mutation._AutomatedReasoningPolicyMutation_updateRule
+::: capo_bedrock.types.automated_reasoning_policy_mutation.AutomatedReasoningPolicyMutationUpdateRuleMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_policy_mutation._AutomatedReasoningPolicyMutation_deleteRule
+::: capo_bedrock.types.automated_reasoning_policy_mutation.AutomatedReasoningPolicyMutationDeleteRuleMember
     options:
       show_source: true
       merge_init_into_class: false

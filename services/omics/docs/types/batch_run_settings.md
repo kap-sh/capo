@@ -7,13 +7,13 @@ title: BatchRunSettings
       show_source: true
       merge_init_into_class: false
 
-::: capo_omics.types.batch_run_settings._BatchRunSettings_inlineSettings
+::: capo_omics.types.batch_run_settings.BatchRunSettingsInlineSettingsMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_omics.types.batch_run_settings._BatchRunSettings_s3UriSettings
+::: capo_omics.types.batch_run_settings.BatchRunSettingsS3UriSettingsMember
     options:
       show_source: true
       merge_init_into_class: false

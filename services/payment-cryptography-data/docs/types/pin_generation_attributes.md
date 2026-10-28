@@ -7,37 +7,37 @@ title: PinGenerationAttributes
       show_source: true
       merge_init_into_class: false
 
-::: capo_payment_cryptography_data.types.pin_generation_attributes._PinGenerationAttributes_VisaPin
+::: capo_payment_cryptography_data.types.pin_generation_attributes.PinGenerationAttributesVisaPinMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_payment_cryptography_data.types.pin_generation_attributes._PinGenerationAttributes_VisaPinVerificationValue
+::: capo_payment_cryptography_data.types.pin_generation_attributes.PinGenerationAttributesVisaPinVerificationValueMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_payment_cryptography_data.types.pin_generation_attributes._PinGenerationAttributes_Ibm3624PinOffset
+::: capo_payment_cryptography_data.types.pin_generation_attributes.PinGenerationAttributesIbm3624PinOffsetMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_payment_cryptography_data.types.pin_generation_attributes._PinGenerationAttributes_Ibm3624NaturalPin
+::: capo_payment_cryptography_data.types.pin_generation_attributes.PinGenerationAttributesIbm3624NaturalPinMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_payment_cryptography_data.types.pin_generation_attributes._PinGenerationAttributes_Ibm3624RandomPin
+::: capo_payment_cryptography_data.types.pin_generation_attributes.PinGenerationAttributesIbm3624RandomPinMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_payment_cryptography_data.types.pin_generation_attributes._PinGenerationAttributes_Ibm3624PinFromOffset
+::: capo_payment_cryptography_data.types.pin_generation_attributes.PinGenerationAttributesIbm3624PinFromOffsetMember
     options:
       show_source: true
       merge_init_into_class: false

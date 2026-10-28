@@ -15,32 +15,32 @@ if TYPE_CHECKING:
     import capo_appconfig.types.string_list
 
 
-class _AttributeValue_StringValue(TypedDict, closed=True):
+class AttributeValueStringValueMember(TypedDict, closed=True):
     StringValue: "capo_appconfig.types.attribute_string.AttributeString"
 
 
-class _AttributeValue_NumberValue(TypedDict, closed=True):
+class AttributeValueNumberValueMember(TypedDict, closed=True):
     NumberValue: "capo_appconfig.types.double.Double"
 
 
-class _AttributeValue_BooleanValue(TypedDict, closed=True):
+class AttributeValueBooleanValueMember(TypedDict, closed=True):
     BooleanValue: "capo_appconfig.types.boolean.Boolean"
 
 
-class _AttributeValue_StringArray(TypedDict, closed=True):
+class AttributeValueStringArrayMember(TypedDict, closed=True):
     StringArray: "capo_appconfig.types.string_list.StringList"
 
 
-class _AttributeValue_NumberArray(TypedDict, closed=True):
+class AttributeValueNumberArrayMember(TypedDict, closed=True):
     NumberArray: "capo_appconfig.types.number_list.NumberList"
 
 
 AttributeValue: TypeAlias = (
-    _AttributeValue_StringValue
-    | _AttributeValue_NumberValue
-    | _AttributeValue_BooleanValue
-    | _AttributeValue_StringArray
-    | _AttributeValue_NumberArray
+    AttributeValueStringValueMember
+    | AttributeValueNumberValueMember
+    | AttributeValueBooleanValueMember
+    | AttributeValueStringArrayMember
+    | AttributeValueNumberArrayMember
     | UnknownUnionMember
 )
 

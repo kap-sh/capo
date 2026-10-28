@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_connectcases.types.basic_layout
 
 
-class _LayoutContent_basic(TypedDict, closed=True):
+class LayoutContentBasicMember(TypedDict, closed=True):
     basic: "capo_connectcases.types.basic_layout.BasicLayout"
 
 
-LayoutContent: TypeAlias = _LayoutContent_basic | UnknownUnionMember
+LayoutContent: TypeAlias = LayoutContentBasicMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

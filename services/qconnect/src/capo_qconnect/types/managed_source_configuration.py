@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_qconnect.types.web_crawler_configuration
 
 
-class _ManagedSourceConfiguration_webCrawlerConfiguration(TypedDict, closed=True):
+class ManagedSourceConfigurationWebCrawlerConfigurationMember(TypedDict, closed=True):
     webCrawlerConfiguration: (
         "capo_qconnect.types.web_crawler_configuration.WebCrawlerConfiguration"
     )
 
 
 ManagedSourceConfiguration: TypeAlias = (
-    _ManagedSourceConfiguration_webCrawlerConfiguration | UnknownUnionMember
+    ManagedSourceConfigurationWebCrawlerConfigurationMember | UnknownUnionMember
 )
 
 

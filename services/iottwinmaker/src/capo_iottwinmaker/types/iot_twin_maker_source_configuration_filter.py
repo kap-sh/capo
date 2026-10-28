@@ -12,7 +12,7 @@ if TYPE_CHECKING:
     import capo_iottwinmaker.types.filter_by_entity
 
 
-class _IotTwinMakerSourceConfigurationFilter_filterByComponentType(
+class IotTwinMakerSourceConfigurationFilterFilterByComponentTypeMember(
     TypedDict, closed=True
 ):
     filterByComponentType: (
@@ -20,13 +20,13 @@ class _IotTwinMakerSourceConfigurationFilter_filterByComponentType(
     )
 
 
-class _IotTwinMakerSourceConfigurationFilter_filterByEntity(TypedDict, closed=True):
+class IotTwinMakerSourceConfigurationFilterFilterByEntityMember(TypedDict, closed=True):
     filterByEntity: "capo_iottwinmaker.types.filter_by_entity.FilterByEntity"
 
 
 IotTwinMakerSourceConfigurationFilter: TypeAlias = (
-    _IotTwinMakerSourceConfigurationFilter_filterByComponentType
-    | _IotTwinMakerSourceConfigurationFilter_filterByEntity
+    IotTwinMakerSourceConfigurationFilterFilterByComponentTypeMember
+    | IotTwinMakerSourceConfigurationFilterFilterByEntityMember
     | UnknownUnionMember
 )
 

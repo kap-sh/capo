@@ -16,22 +16,22 @@ if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.symmetric_encryption_attributes
 
 
-class _ReEncryptionAttributes_Symmetric(TypedDict, closed=True):
+class ReEncryptionAttributesSymmetricMember(TypedDict, closed=True):
     Symmetric: "capo_payment_cryptography_data.types.symmetric_encryption_attributes.SymmetricEncryptionAttributes"
 
 
-class _ReEncryptionAttributes_Asymmetric(TypedDict, closed=True):
+class ReEncryptionAttributesAsymmetricMember(TypedDict, closed=True):
     Asymmetric: "capo_payment_cryptography_data.types.asymmetric_encryption_attributes.AsymmetricEncryptionAttributes"
 
 
-class _ReEncryptionAttributes_Dukpt(TypedDict, closed=True):
+class ReEncryptionAttributesDukptMember(TypedDict, closed=True):
     Dukpt: "capo_payment_cryptography_data.types.dukpt_encryption_attributes.DukptEncryptionAttributes"
 
 
 ReEncryptionAttributes: TypeAlias = (
-    _ReEncryptionAttributes_Symmetric
-    | _ReEncryptionAttributes_Asymmetric
-    | _ReEncryptionAttributes_Dukpt
+    ReEncryptionAttributesSymmetricMember
+    | ReEncryptionAttributesAsymmetricMember
+    | ReEncryptionAttributesDukptMember
     | UnknownUnionMember
 )
 

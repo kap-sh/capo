@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_lambda_microvms.types.non_blank_string
 
 
-class _CodeArtifact_uri(TypedDict, closed=True):
+class CodeArtifactUriMember(TypedDict, closed=True):
     uri: "capo_lambda_microvms.types.non_blank_string.NonBlankString"
 
 
-CodeArtifact: TypeAlias = _CodeArtifact_uri | UnknownUnionMember
+CodeArtifact: TypeAlias = CodeArtifactUriMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

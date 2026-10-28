@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_ecs.types.service_connect_container_log_level
 
 
-class _ServiceConnectContainerConfiguration_logLevel(TypedDict, closed=True):
+class ServiceConnectContainerConfigurationLogLevelMember(TypedDict, closed=True):
     logLevel: "capo_ecs.types.service_connect_container_log_level.ServiceConnectContainerLogLevel"
 
 
 ServiceConnectContainerConfiguration: TypeAlias = (
-    _ServiceConnectContainerConfiguration_logLevel | UnknownUnionMember
+    ServiceConnectContainerConfigurationLogLevelMember | UnknownUnionMember
 )
 
 

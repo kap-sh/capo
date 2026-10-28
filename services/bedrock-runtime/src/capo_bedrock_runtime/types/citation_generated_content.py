@@ -8,12 +8,12 @@ from capo_bedrock_runtime.errors import DeserializationError, SerializationError
 from capo_bedrock_runtime.types._unknown import UnknownUnionMember
 
 
-class _CitationGeneratedContent_text(TypedDict, closed=True):
+class CitationGeneratedContentTextMember(TypedDict, closed=True):
     text: "str"
 
 
 CitationGeneratedContent: TypeAlias = (
-    _CitationGeneratedContent_text | UnknownUnionMember
+    CitationGeneratedContentTextMember | UnknownUnionMember
 )
 
 

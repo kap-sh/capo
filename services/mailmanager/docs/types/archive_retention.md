@@ -7,7 +7,7 @@ title: ArchiveRetention
       show_source: true
       merge_init_into_class: false
 
-::: capo_mailmanager.types.archive_retention._ArchiveRetention_RetentionPeriod
+::: capo_mailmanager.types.archive_retention.ArchiveRetentionRetentionPeriodMember
     options:
       show_source: true
       merge_init_into_class: false

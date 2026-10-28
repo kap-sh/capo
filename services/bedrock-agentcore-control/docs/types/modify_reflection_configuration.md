@@ -7,13 +7,13 @@ title: ModifyReflectionConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.modify_reflection_configuration._ModifyReflectionConfiguration_episodicReflectionConfiguration
+::: capo_bedrock_agentcore_control.types.modify_reflection_configuration.ModifyReflectionConfigurationEpisodicReflectionConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore_control.types.modify_reflection_configuration._ModifyReflectionConfiguration_customReflectionConfiguration
+::: capo_bedrock_agentcore_control.types.modify_reflection_configuration.ModifyReflectionConfigurationCustomReflectionConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false

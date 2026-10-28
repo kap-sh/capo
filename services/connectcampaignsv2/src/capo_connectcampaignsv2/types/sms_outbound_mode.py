@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.agentless_config
 
 
-class _SmsOutboundMode_agentless(TypedDict, closed=True):
+class SmsOutboundModeAgentlessMember(TypedDict, closed=True):
     agentless: "capo_connectcampaignsv2.types.agentless_config.AgentlessConfig"
 
 
-SmsOutboundMode: TypeAlias = _SmsOutboundMode_agentless | UnknownUnionMember
+SmsOutboundMode: TypeAlias = SmsOutboundModeAgentlessMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

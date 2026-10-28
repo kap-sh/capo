@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_cleanroomsml.types.spark_properties
 
 
-class _WorkerComputeConfigurationProperties_spark(TypedDict, closed=True):
+class WorkerComputeConfigurationPropertiesSparkMember(TypedDict, closed=True):
     spark: "capo_cleanroomsml.types.spark_properties.SparkProperties"
 
 
 WorkerComputeConfigurationProperties: TypeAlias = (
-    _WorkerComputeConfigurationProperties_spark | UnknownUnionMember
+    WorkerComputeConfigurationPropertiesSparkMember | UnknownUnionMember
 )
 
 

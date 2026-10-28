@@ -17,27 +17,27 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.harness_skill_s3_source
 
 
-class _HarnessSkill_path(TypedDict, closed=True):
+class HarnessSkillPathMember(TypedDict, closed=True):
     path: "capo_bedrock_agentcore_control.types.harness_skill_path.HarnessSkillPath"
 
 
-class _HarnessSkill_s3(TypedDict, closed=True):
+class HarnessSkillS3Member(TypedDict, closed=True):
     s3: "capo_bedrock_agentcore_control.types.harness_skill_s3_source.HarnessSkillS3Source"
 
 
-class _HarnessSkill_git(TypedDict, closed=True):
+class HarnessSkillGitMember(TypedDict, closed=True):
     git: "capo_bedrock_agentcore_control.types.harness_skill_git_source.HarnessSkillGitSource"
 
 
-class _HarnessSkill_awsSkills(TypedDict, closed=True):
+class HarnessSkillAwsSkillsMember(TypedDict, closed=True):
     awsSkills: "capo_bedrock_agentcore_control.types.harness_skill_aws_skills_source.HarnessSkillAwsSkillsSource"
 
 
 HarnessSkill: TypeAlias = (
-    _HarnessSkill_path
-    | _HarnessSkill_s3
-    | _HarnessSkill_git
-    | _HarnessSkill_awsSkills
+    HarnessSkillPathMember
+    | HarnessSkillS3Member
+    | HarnessSkillGitMember
+    | HarnessSkillAwsSkillsMember
     | UnknownUnionMember
 )
 

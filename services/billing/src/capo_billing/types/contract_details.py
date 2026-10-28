@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_billing.types.private_pricing_addendum
 
 
-class _ContractDetails_privatePricingAddendum(TypedDict, closed=True):
+class ContractDetailsPrivatePricingAddendumMember(TypedDict, closed=True):
     privatePricingAddendum: (
         "capo_billing.types.private_pricing_addendum.PrivatePricingAddendum"
     )
 
 
 ContractDetails: TypeAlias = (
-    _ContractDetails_privatePricingAddendum | UnknownUnionMember
+    ContractDetailsPrivatePricingAddendumMember | UnknownUnionMember
 )
 
 

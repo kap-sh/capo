@@ -7,7 +7,7 @@ title: SchemaDefinition
       show_source: true
       merge_init_into_class: false
 
-::: capo_verifiedpermissions.types.schema_definition._SchemaDefinition_cedarJson
+::: capo_verifiedpermissions.types.schema_definition.SchemaDefinitionCedarJsonMember
     options:
       show_source: true
       merge_init_into_class: false

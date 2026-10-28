@@ -11,13 +11,13 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.cloud_watch_output_config
 
 
-class _OutputConfig_cloudWatchConfig(TypedDict, closed=True):
+class OutputConfigCloudWatchConfigMember(TypedDict, closed=True):
     cloudWatchConfig: (
         "capo_bedrock_agentcore.types.cloud_watch_output_config.CloudWatchOutputConfig"
     )
 
 
-OutputConfig: TypeAlias = _OutputConfig_cloudWatchConfig | UnknownUnionMember
+OutputConfig: TypeAlias = OutputConfigCloudWatchConfigMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

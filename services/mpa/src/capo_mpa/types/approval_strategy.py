@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_mpa.types.mof_n_approval_strategy
 
 
-class _ApprovalStrategy_MofN(TypedDict, closed=True):
+class ApprovalStrategyMofNMember(TypedDict, closed=True):
     MofN: "capo_mpa.types.mof_n_approval_strategy.MofNApprovalStrategy"
 
 
-ApprovalStrategy: TypeAlias = _ApprovalStrategy_MofN | UnknownUnionMember
+ApprovalStrategy: TypeAlias = ApprovalStrategyMofNMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

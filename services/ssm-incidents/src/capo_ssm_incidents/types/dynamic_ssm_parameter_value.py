@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_ssm_incidents.types.variable_type
 
 
-class _DynamicSsmParameterValue_variable(TypedDict, closed=True):
+class DynamicSsmParameterValueVariableMember(TypedDict, closed=True):
     variable: "capo_ssm_incidents.types.variable_type.VariableType"
 
 
 DynamicSsmParameterValue: TypeAlias = (
-    _DynamicSsmParameterValue_variable | UnknownUnionMember
+    DynamicSsmParameterValueVariableMember | UnknownUnionMember
 )
 
 

@@ -14,12 +14,12 @@ if TYPE_CHECKING:
     import capo_connectcases.types.tag_filter
 
 
-class _CaseFilter_field(TypedDict, closed=True):
+class CaseFilterFieldMember(TypedDict, closed=True):
     field: "capo_connectcases.types.field_filter.FieldFilter"
 
 
-_CaseFilter_not = TypedDict(
-    "_CaseFilter_not",
+CaseFilterNotMember = TypedDict(
+    "CaseFilterNotMember",
     {
         "not": "capo_connectcases.types.case_filter.CaseFilter",
     },
@@ -27,24 +27,24 @@ _CaseFilter_not = TypedDict(
 )
 
 
-class _CaseFilter_tag(TypedDict, closed=True):
+class CaseFilterTagMember(TypedDict, closed=True):
     tag: "capo_connectcases.types.tag_filter.TagFilter"
 
 
-class _CaseFilter_andAll(TypedDict, closed=True):
+class CaseFilterAndAllMember(TypedDict, closed=True):
     andAll: "capo_connectcases.types.case_filter_list.CaseFilterList"
 
 
-class _CaseFilter_orAll(TypedDict, closed=True):
+class CaseFilterOrAllMember(TypedDict, closed=True):
     orAll: "capo_connectcases.types.case_filter_list.CaseFilterList"
 
 
 CaseFilter: TypeAlias = (
-    _CaseFilter_field
-    | _CaseFilter_not
-    | _CaseFilter_tag
-    | _CaseFilter_andAll
-    | _CaseFilter_orAll
+    CaseFilterFieldMember
+    | CaseFilterNotMember
+    | CaseFilterTagMember
+    | CaseFilterAndAllMember
+    | CaseFilterOrAllMember
     | UnknownUnionMember
 )
 

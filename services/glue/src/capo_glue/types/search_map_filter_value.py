@@ -11,11 +11,13 @@ if TYPE_CHECKING:
     import capo_glue.types.search_filter_string_value
 
 
-class _SearchMapFilterValue_StringValue(TypedDict, closed=True):
+class SearchMapFilterValueStringValueMember(TypedDict, closed=True):
     StringValue: "capo_glue.types.search_filter_string_value.SearchFilterStringValue"
 
 
-SearchMapFilterValue: TypeAlias = _SearchMapFilterValue_StringValue | UnknownUnionMember
+SearchMapFilterValue: TypeAlias = (
+    SearchMapFilterValueStringValueMember | UnknownUnionMember
+)
 
 
 # --- awsJson1_1 ser/de ---

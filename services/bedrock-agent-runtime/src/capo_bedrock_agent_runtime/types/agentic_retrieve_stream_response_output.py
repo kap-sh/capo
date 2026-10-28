@@ -27,85 +27,93 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.agentic_retrieve_trace_event
 
 
-class _AgenticRetrieveStreamResponseOutput_result(TypedDict, closed=True):
+class AgenticRetrieveStreamResponseOutputResultMember(TypedDict, closed=True):
     result: "capo_bedrock_agent_runtime.types.agentic_retrieve_result_event.AgenticRetrieveResultEvent"
 
 
-class _AgenticRetrieveStreamResponseOutput_traceEvent(TypedDict, closed=True):
+class AgenticRetrieveStreamResponseOutputTraceEventMember(TypedDict, closed=True):
     traceEvent: "capo_bedrock_agent_runtime.types.agentic_retrieve_trace_event.AgenticRetrieveTraceEvent"
 
 
-class _AgenticRetrieveStreamResponseOutput_responseEvent(TypedDict, closed=True):
+class AgenticRetrieveStreamResponseOutputResponseEventMember(TypedDict, closed=True):
     responseEvent: "capo_bedrock_agent_runtime.types.agentic_retrieve_response_event.AgenticRetrieveResponseEvent"
 
 
-class _AgenticRetrieveStreamResponseOutput_internalServerException(
+class AgenticRetrieveStreamResponseOutputInternalServerExceptionMember(
     TypedDict, closed=True
 ):
     internalServerException: "capo_bedrock_agent_runtime.errors.internal_server_exception.InternalServerException_"
 
 
-class _AgenticRetrieveStreamResponseOutput_validationException(TypedDict, closed=True):
+class AgenticRetrieveStreamResponseOutputValidationExceptionMember(
+    TypedDict, closed=True
+):
     validationException: (
         "capo_bedrock_agent_runtime.errors.validation_exception.ValidationException_"
     )
 
 
-class _AgenticRetrieveStreamResponseOutput_resourceNotFoundException(
+class AgenticRetrieveStreamResponseOutputResourceNotFoundExceptionMember(
     TypedDict, closed=True
 ):
     resourceNotFoundException: "capo_bedrock_agent_runtime.errors.resource_not_found_exception.ResourceNotFoundException_"
 
 
-class _AgenticRetrieveStreamResponseOutput_serviceQuotaExceededException(
+class AgenticRetrieveStreamResponseOutputServiceQuotaExceededExceptionMember(
     TypedDict, closed=True
 ):
     serviceQuotaExceededException: "capo_bedrock_agent_runtime.errors.service_quota_exceeded_exception.ServiceQuotaExceededException_"
 
 
-class _AgenticRetrieveStreamResponseOutput_throttlingException(TypedDict, closed=True):
+class AgenticRetrieveStreamResponseOutputThrottlingExceptionMember(
+    TypedDict, closed=True
+):
     throttlingException: (
         "capo_bedrock_agent_runtime.errors.throttling_exception.ThrottlingException_"
     )
 
 
-class _AgenticRetrieveStreamResponseOutput_accessDeniedException(
+class AgenticRetrieveStreamResponseOutputAccessDeniedExceptionMember(
     TypedDict, closed=True
 ):
     accessDeniedException: "capo_bedrock_agent_runtime.errors.access_denied_exception.AccessDeniedException_"
 
 
-class _AgenticRetrieveStreamResponseOutput_conflictException(TypedDict, closed=True):
+class AgenticRetrieveStreamResponseOutputConflictExceptionMember(
+    TypedDict, closed=True
+):
     conflictException: (
         "capo_bedrock_agent_runtime.errors.conflict_exception.ConflictException_"
     )
 
 
-class _AgenticRetrieveStreamResponseOutput_dependencyFailedException(
+class AgenticRetrieveStreamResponseOutputDependencyFailedExceptionMember(
     TypedDict, closed=True
 ):
     dependencyFailedException: "capo_bedrock_agent_runtime.errors.dependency_failed_exception.DependencyFailedException_"
 
 
-class _AgenticRetrieveStreamResponseOutput_badGatewayException(TypedDict, closed=True):
+class AgenticRetrieveStreamResponseOutputBadGatewayExceptionMember(
+    TypedDict, closed=True
+):
     badGatewayException: (
         "capo_bedrock_agent_runtime.errors.bad_gateway_exception.BadGatewayException_"
     )
 
 
 _AgenticRetrieveStreamResponseOutput: TypeAlias = (
-    _AgenticRetrieveStreamResponseOutput_result
-    | _AgenticRetrieveStreamResponseOutput_traceEvent
-    | _AgenticRetrieveStreamResponseOutput_responseEvent
-    | _AgenticRetrieveStreamResponseOutput_internalServerException
-    | _AgenticRetrieveStreamResponseOutput_validationException
-    | _AgenticRetrieveStreamResponseOutput_resourceNotFoundException
-    | _AgenticRetrieveStreamResponseOutput_serviceQuotaExceededException
-    | _AgenticRetrieveStreamResponseOutput_throttlingException
-    | _AgenticRetrieveStreamResponseOutput_accessDeniedException
-    | _AgenticRetrieveStreamResponseOutput_conflictException
-    | _AgenticRetrieveStreamResponseOutput_dependencyFailedException
-    | _AgenticRetrieveStreamResponseOutput_badGatewayException
+    AgenticRetrieveStreamResponseOutputResultMember
+    | AgenticRetrieveStreamResponseOutputTraceEventMember
+    | AgenticRetrieveStreamResponseOutputResponseEventMember
+    | AgenticRetrieveStreamResponseOutputInternalServerExceptionMember
+    | AgenticRetrieveStreamResponseOutputValidationExceptionMember
+    | AgenticRetrieveStreamResponseOutputResourceNotFoundExceptionMember
+    | AgenticRetrieveStreamResponseOutputServiceQuotaExceededExceptionMember
+    | AgenticRetrieveStreamResponseOutputThrottlingExceptionMember
+    | AgenticRetrieveStreamResponseOutputAccessDeniedExceptionMember
+    | AgenticRetrieveStreamResponseOutputConflictExceptionMember
+    | AgenticRetrieveStreamResponseOutputDependencyFailedExceptionMember
+    | AgenticRetrieveStreamResponseOutputBadGatewayExceptionMember
     | UnknownEvent
 )
 AgenticRetrieveStreamResponseOutput: TypeAlias = AnyIterator[

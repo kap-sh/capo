@@ -12,13 +12,13 @@ if TYPE_CHECKING:
     import capo_drs.types.wait_step_configuration
 
 
-class _RecoveryPlanExecutionStepConfiguration_executionServerStepConfiguration(
+class RecoveryPlanExecutionStepConfigurationExecutionServerStepConfigurationMember(
     TypedDict, closed=True
 ):
     executionServerStepConfiguration: "capo_drs.types.execution_server_step_configuration.ExecutionServerStepConfiguration"
 
 
-class _RecoveryPlanExecutionStepConfiguration_waitStepConfiguration(
+class RecoveryPlanExecutionStepConfigurationWaitStepConfigurationMember(
     TypedDict, closed=True
 ):
     waitStepConfiguration: (
@@ -27,8 +27,8 @@ class _RecoveryPlanExecutionStepConfiguration_waitStepConfiguration(
 
 
 RecoveryPlanExecutionStepConfiguration: TypeAlias = (
-    _RecoveryPlanExecutionStepConfiguration_executionServerStepConfiguration
-    | _RecoveryPlanExecutionStepConfiguration_waitStepConfiguration
+    RecoveryPlanExecutionStepConfigurationExecutionServerStepConfigurationMember
+    | RecoveryPlanExecutionStepConfigurationWaitStepConfigurationMember
     | UnknownUnionMember
 )
 

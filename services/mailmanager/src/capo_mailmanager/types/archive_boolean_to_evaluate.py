@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_mailmanager.types.archive_boolean_email_attribute
 
 
-class _ArchiveBooleanToEvaluate_Attribute(TypedDict, closed=True):
+class ArchiveBooleanToEvaluateAttributeMember(TypedDict, closed=True):
     Attribute: "capo_mailmanager.types.archive_boolean_email_attribute.ArchiveBooleanEmailAttribute"
 
 
 ArchiveBooleanToEvaluate: TypeAlias = (
-    _ArchiveBooleanToEvaluate_Attribute | UnknownUnionMember
+    ArchiveBooleanToEvaluateAttributeMember | UnknownUnionMember
 )
 
 

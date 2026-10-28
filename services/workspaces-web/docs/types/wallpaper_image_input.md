@@ -7,13 +7,13 @@ title: WallpaperImageInput
       show_source: true
       merge_init_into_class: false
 
-::: capo_workspaces_web.types.wallpaper_image_input._WallpaperImageInput_blob
+::: capo_workspaces_web.types.wallpaper_image_input.WallpaperImageInputBlobMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_workspaces_web.types.wallpaper_image_input._WallpaperImageInput_s3Uri
+::: capo_workspaces_web.types.wallpaper_image_input.WallpaperImageInputS3UriMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -7,7 +7,7 @@ title: MountSource
       show_source: true
       merge_init_into_class: false
 
-::: capo_iotsitewise.types.mount_source._MountSource_s3AccessPoint
+::: capo_iotsitewise.types.mount_source.MountSourceS3AccessPointMember
     options:
       show_source: true
       merge_init_into_class: false

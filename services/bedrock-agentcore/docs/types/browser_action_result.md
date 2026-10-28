@@ -7,49 +7,49 @@ title: BrowserActionResult
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore.types.browser_action_result._BrowserActionResult_mouseClick
+::: capo_bedrock_agentcore.types.browser_action_result.BrowserActionResultMouseClickMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.browser_action_result._BrowserActionResult_mouseMove
+::: capo_bedrock_agentcore.types.browser_action_result.BrowserActionResultMouseMoveMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.browser_action_result._BrowserActionResult_mouseDrag
+::: capo_bedrock_agentcore.types.browser_action_result.BrowserActionResultMouseDragMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.browser_action_result._BrowserActionResult_mouseScroll
+::: capo_bedrock_agentcore.types.browser_action_result.BrowserActionResultMouseScrollMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.browser_action_result._BrowserActionResult_keyType
+::: capo_bedrock_agentcore.types.browser_action_result.BrowserActionResultKeyTypeMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.browser_action_result._BrowserActionResult_keyPress
+::: capo_bedrock_agentcore.types.browser_action_result.BrowserActionResultKeyPressMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.browser_action_result._BrowserActionResult_keyShortcut
+::: capo_bedrock_agentcore.types.browser_action_result.BrowserActionResultKeyShortcutMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.browser_action_result._BrowserActionResult_screenshot
+::: capo_bedrock_agentcore.types.browser_action_result.BrowserActionResultScreenshotMember
     options:
       show_source: true
       merge_init_into_class: false

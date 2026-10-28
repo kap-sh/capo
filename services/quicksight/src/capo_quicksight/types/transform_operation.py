@@ -18,55 +18,55 @@ if TYPE_CHECKING:
     import capo_quicksight.types.untag_column_operation
 
 
-class _TransformOperation_ProjectOperation(TypedDict, closed=True):
+class TransformOperationProjectOperationMember(TypedDict, closed=True):
     ProjectOperation: "capo_quicksight.types.project_operation.ProjectOperation"
 
 
-class _TransformOperation_FilterOperation(TypedDict, closed=True):
+class TransformOperationFilterOperationMember(TypedDict, closed=True):
     FilterOperation: "capo_quicksight.types.filter_operation.FilterOperation"
 
 
-class _TransformOperation_CreateColumnsOperation(TypedDict, closed=True):
+class TransformOperationCreateColumnsOperationMember(TypedDict, closed=True):
     CreateColumnsOperation: (
         "capo_quicksight.types.create_columns_operation.CreateColumnsOperation"
     )
 
 
-class _TransformOperation_RenameColumnOperation(TypedDict, closed=True):
+class TransformOperationRenameColumnOperationMember(TypedDict, closed=True):
     RenameColumnOperation: (
         "capo_quicksight.types.rename_column_operation.RenameColumnOperation"
     )
 
 
-class _TransformOperation_CastColumnTypeOperation(TypedDict, closed=True):
+class TransformOperationCastColumnTypeOperationMember(TypedDict, closed=True):
     CastColumnTypeOperation: (
         "capo_quicksight.types.cast_column_type_operation.CastColumnTypeOperation"
     )
 
 
-class _TransformOperation_TagColumnOperation(TypedDict, closed=True):
+class TransformOperationTagColumnOperationMember(TypedDict, closed=True):
     TagColumnOperation: "capo_quicksight.types.tag_column_operation.TagColumnOperation"
 
 
-class _TransformOperation_UntagColumnOperation(TypedDict, closed=True):
+class TransformOperationUntagColumnOperationMember(TypedDict, closed=True):
     UntagColumnOperation: (
         "capo_quicksight.types.untag_column_operation.UntagColumnOperation"
     )
 
 
-class _TransformOperation_OverrideDatasetParameterOperation(TypedDict, closed=True):
+class TransformOperationOverrideDatasetParameterOperationMember(TypedDict, closed=True):
     OverrideDatasetParameterOperation: "capo_quicksight.types.override_dataset_parameter_operation.OverrideDatasetParameterOperation"
 
 
 TransformOperation: TypeAlias = (
-    _TransformOperation_ProjectOperation
-    | _TransformOperation_FilterOperation
-    | _TransformOperation_CreateColumnsOperation
-    | _TransformOperation_RenameColumnOperation
-    | _TransformOperation_CastColumnTypeOperation
-    | _TransformOperation_TagColumnOperation
-    | _TransformOperation_UntagColumnOperation
-    | _TransformOperation_OverrideDatasetParameterOperation
+    TransformOperationProjectOperationMember
+    | TransformOperationFilterOperationMember
+    | TransformOperationCreateColumnsOperationMember
+    | TransformOperationRenameColumnOperationMember
+    | TransformOperationCastColumnTypeOperationMember
+    | TransformOperationTagColumnOperationMember
+    | TransformOperationUntagColumnOperationMember
+    | TransformOperationOverrideDatasetParameterOperationMember
     | UnknownUnionMember
 )
 

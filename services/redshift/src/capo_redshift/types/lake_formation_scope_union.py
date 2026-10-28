@@ -12,12 +12,12 @@ if TYPE_CHECKING:
     import capo_redshift.types.lake_formation_query
 
 
-class _LakeFormationScopeUnion_LakeFormationQuery(TypedDict, closed=True):
+class LakeFormationScopeUnionLakeFormationQueryMember(TypedDict, closed=True):
     LakeFormationQuery: "capo_redshift.types.lake_formation_query.LakeFormationQuery"
 
 
 LakeFormationScopeUnion: TypeAlias = (
-    _LakeFormationScopeUnion_LakeFormationQuery | UnknownUnionMember
+    LakeFormationScopeUnionLakeFormationQueryMember | UnknownUnionMember
 )
 
 

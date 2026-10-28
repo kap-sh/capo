@@ -13,21 +13,21 @@ if TYPE_CHECKING:
     import capo_redshift.types.serverless_identifier
 
 
-class _NamespaceIdentifierUnion_ServerlessIdentifier(TypedDict, closed=True):
+class NamespaceIdentifierUnionServerlessIdentifierMember(TypedDict, closed=True):
     ServerlessIdentifier: (
         "capo_redshift.types.serverless_identifier.ServerlessIdentifier"
     )
 
 
-class _NamespaceIdentifierUnion_ProvisionedIdentifier(TypedDict, closed=True):
+class NamespaceIdentifierUnionProvisionedIdentifierMember(TypedDict, closed=True):
     ProvisionedIdentifier: (
         "capo_redshift.types.provisioned_identifier.ProvisionedIdentifier"
     )
 
 
 NamespaceIdentifierUnion: TypeAlias = (
-    _NamespaceIdentifierUnion_ServerlessIdentifier
-    | _NamespaceIdentifierUnion_ProvisionedIdentifier
+    NamespaceIdentifierUnionServerlessIdentifierMember
+    | NamespaceIdentifierUnionProvisionedIdentifierMember
     | UnknownUnionMember
 )
 

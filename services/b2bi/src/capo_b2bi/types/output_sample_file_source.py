@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_b2bi.types.s3_location
 
 
-class _OutputSampleFileSource_fileLocation(TypedDict, closed=True):
+class OutputSampleFileSourceFileLocationMember(TypedDict, closed=True):
     fileLocation: "capo_b2bi.types.s3_location.S3Location"
 
 
 OutputSampleFileSource: TypeAlias = (
-    _OutputSampleFileSource_fileLocation | UnknownUnionMember
+    OutputSampleFileSourceFileLocationMember | UnknownUnionMember
 )
 
 

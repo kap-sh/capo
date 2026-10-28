@@ -12,16 +12,18 @@ if TYPE_CHECKING:
     import capo_verifiedpermissions.types.entity_list
 
 
-class _EntitiesDefinition_entityList(TypedDict, closed=True):
+class EntitiesDefinitionEntityListMember(TypedDict, closed=True):
     entityList: "capo_verifiedpermissions.types.entity_list.EntityList"
 
 
-class _EntitiesDefinition_cedarJson(TypedDict, closed=True):
+class EntitiesDefinitionCedarJsonMember(TypedDict, closed=True):
     cedarJson: "capo_verifiedpermissions.types.cedar_json.CedarJson"
 
 
 EntitiesDefinition: TypeAlias = (
-    _EntitiesDefinition_entityList | _EntitiesDefinition_cedarJson | UnknownUnionMember
+    EntitiesDefinitionEntityListMember
+    | EntitiesDefinitionCedarJsonMember
+    | UnknownUnionMember
 )
 
 

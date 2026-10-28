@@ -17,18 +17,18 @@ if TYPE_CHECKING:
     import capo_transcribe_streaming.types.configuration_event
 
 
-class _AudioStream_AudioEvent(TypedDict, closed=True):
+class AudioStreamAudioEventMember(TypedDict, closed=True):
     AudioEvent: "capo_transcribe_streaming.types.audio_event.AudioEvent"
 
 
-class _AudioStream_ConfigurationEvent(TypedDict, closed=True):
+class AudioStreamConfigurationEventMember(TypedDict, closed=True):
     ConfigurationEvent: (
         "capo_transcribe_streaming.types.configuration_event.ConfigurationEvent"
     )
 
 
 _AudioStream: TypeAlias = (
-    _AudioStream_AudioEvent | _AudioStream_ConfigurationEvent | UnknownEvent
+    AudioStreamAudioEventMember | AudioStreamConfigurationEventMember | UnknownEvent
 )
 AudioStream: TypeAlias = AnyIterator[_AudioStream]
 

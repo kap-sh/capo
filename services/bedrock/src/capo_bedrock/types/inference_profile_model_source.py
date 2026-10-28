@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_bedrock.types.inference_profile_model_source_arn
 
 
-class _InferenceProfileModelSource_copyFrom(TypedDict, closed=True):
+class InferenceProfileModelSourceCopyFromMember(TypedDict, closed=True):
     copyFrom: "capo_bedrock.types.inference_profile_model_source_arn.InferenceProfileModelSourceArn"
 
 
 InferenceProfileModelSource: TypeAlias = (
-    _InferenceProfileModelSource_copyFrom | UnknownUnionMember
+    InferenceProfileModelSourceCopyFromMember | UnknownUnionMember
 )
 
 

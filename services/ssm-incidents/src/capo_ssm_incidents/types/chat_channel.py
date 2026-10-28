@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_ssm_incidents.types.empty_chat_channel
 
 
-class _ChatChannel_empty(TypedDict, closed=True):
+class ChatChannelEmptyMember(TypedDict, closed=True):
     empty: "capo_ssm_incidents.types.empty_chat_channel.EmptyChatChannel"
 
 
-class _ChatChannel_chatbotSns(TypedDict, closed=True):
+class ChatChannelChatbotSnsMember(TypedDict, closed=True):
     chatbotSns: "capo_ssm_incidents.types.chatbot_sns_configuration_set.ChatbotSnsConfigurationSet"
 
 
 ChatChannel: TypeAlias = (
-    _ChatChannel_empty | _ChatChannel_chatbotSns | UnknownUnionMember
+    ChatChannelEmptyMember | ChatChannelChatbotSnsMember | UnknownUnionMember
 )
 
 

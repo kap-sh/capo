@@ -7,7 +7,7 @@ title: DataAutomationLibraryEntitySummary
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_data_automation.types.data_automation_library_entity_summary._DataAutomationLibraryEntitySummary_vocabulary
+::: capo_bedrock_data_automation.types.data_automation_library_entity_summary.DataAutomationLibraryEntitySummaryVocabularyMember
     options:
       show_source: true
       merge_init_into_class: false

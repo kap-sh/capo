@@ -12,17 +12,19 @@ if TYPE_CHECKING:
     import capo_connect.types.numeric_question_property_value_automation
 
 
-class _EvaluationFormNumericQuestionAutomation_PropertyValue(TypedDict, closed=True):
+class EvaluationFormNumericQuestionAutomationPropertyValueMember(
+    TypedDict, closed=True
+):
     PropertyValue: "capo_connect.types.numeric_question_property_value_automation.NumericQuestionPropertyValueAutomation"
 
 
-class _EvaluationFormNumericQuestionAutomation_AnswerSource(TypedDict, closed=True):
+class EvaluationFormNumericQuestionAutomationAnswerSourceMember(TypedDict, closed=True):
     AnswerSource: "capo_connect.types.evaluation_form_question_automation_answer_source.EvaluationFormQuestionAutomationAnswerSource"
 
 
 EvaluationFormNumericQuestionAutomation: TypeAlias = (
-    _EvaluationFormNumericQuestionAutomation_PropertyValue
-    | _EvaluationFormNumericQuestionAutomation_AnswerSource
+    EvaluationFormNumericQuestionAutomationPropertyValueMember
+    | EvaluationFormNumericQuestionAutomationAnswerSourceMember
     | UnknownUnionMember
 )
 

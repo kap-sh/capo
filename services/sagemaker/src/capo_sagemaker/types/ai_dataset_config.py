@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.ai_workload_input_data_config_list
 
 
-class _AIDatasetConfig_InputDataConfig(TypedDict, closed=True):
+class AIDatasetConfigInputDataConfigMember(TypedDict, closed=True):
     InputDataConfig: "capo_sagemaker.types.ai_workload_input_data_config_list.AIWorkloadInputDataConfigList"
 
 
-AIDatasetConfig: TypeAlias = _AIDatasetConfig_InputDataConfig | UnknownUnionMember
+AIDatasetConfig: TypeAlias = AIDatasetConfigInputDataConfigMember | UnknownUnionMember
 
 
 # --- awsJson1_1 ser/de ---

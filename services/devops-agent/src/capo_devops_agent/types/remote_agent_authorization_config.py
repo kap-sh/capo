@@ -13,24 +13,26 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.remote_agent_o_auth_client_credentials_config
 
 
-class _RemoteAgentAuthorizationConfig_apiKey(TypedDict, closed=True):
+class RemoteAgentAuthorizationConfigApiKeyMember(TypedDict, closed=True):
     apiKey: (
         "capo_devops_agent.types.remote_agent_api_key_config.RemoteAgentAPIKeyConfig"
     )
 
 
-class _RemoteAgentAuthorizationConfig_oAuthClientCredentials(TypedDict, closed=True):
+class RemoteAgentAuthorizationConfigOAuthClientCredentialsMember(
+    TypedDict, closed=True
+):
     oAuthClientCredentials: "capo_devops_agent.types.remote_agent_o_auth_client_credentials_config.RemoteAgentOAuthClientCredentialsConfig"
 
 
-class _RemoteAgentAuthorizationConfig_bearerToken(TypedDict, closed=True):
+class RemoteAgentAuthorizationConfigBearerTokenMember(TypedDict, closed=True):
     bearerToken: "capo_devops_agent.types.remote_agent_bearer_token_config.RemoteAgentBearerTokenConfig"
 
 
 RemoteAgentAuthorizationConfig: TypeAlias = (
-    _RemoteAgentAuthorizationConfig_apiKey
-    | _RemoteAgentAuthorizationConfig_oAuthClientCredentials
-    | _RemoteAgentAuthorizationConfig_bearerToken
+    RemoteAgentAuthorizationConfigApiKeyMember
+    | RemoteAgentAuthorizationConfigOAuthClientCredentialsMember
+    | RemoteAgentAuthorizationConfigBearerTokenMember
     | UnknownUnionMember
 )
 

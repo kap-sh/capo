@@ -14,13 +14,13 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.kms_key_source_type
 
 
-class _PrivateKeySource_kmsKeySource(TypedDict, closed=True):
+class PrivateKeySourceKmsKeySourceMember(TypedDict, closed=True):
     kmsKeySource: (
         "capo_bedrock_agentcore_control.types.kms_key_source_type.KmsKeySourceType"
     )
 
 
-PrivateKeySource: TypeAlias = _PrivateKeySource_kmsKeySource | UnknownUnionMember
+PrivateKeySource: TypeAlias = PrivateKeySourceKmsKeySourceMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

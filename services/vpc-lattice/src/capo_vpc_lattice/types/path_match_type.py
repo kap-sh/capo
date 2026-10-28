@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_vpc_lattice.types.path_match_prefix
 
 
-class _PathMatchType_exact(TypedDict, closed=True):
+class PathMatchTypeExactMember(TypedDict, closed=True):
     exact: "capo_vpc_lattice.types.path_match_exact.PathMatchExact"
 
 
-class _PathMatchType_prefix(TypedDict, closed=True):
+class PathMatchTypePrefixMember(TypedDict, closed=True):
     prefix: "capo_vpc_lattice.types.path_match_prefix.PathMatchPrefix"
 
 
 PathMatchType: TypeAlias = (
-    _PathMatchType_exact | _PathMatchType_prefix | UnknownUnionMember
+    PathMatchTypeExactMember | PathMatchTypePrefixMember | UnknownUnionMember
 )
 
 

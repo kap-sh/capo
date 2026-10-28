@@ -26,105 +26,107 @@ if TYPE_CHECKING:
     import capo_datazone.types.workflows_serverless_properties_input
 
 
-class _ConnectionPropertiesInput_athenaProperties(TypedDict, closed=True):
+class ConnectionPropertiesInputAthenaPropertiesMember(TypedDict, closed=True):
     athenaProperties: (
         "capo_datazone.types.athena_properties_input.AthenaPropertiesInput"
     )
 
 
-class _ConnectionPropertiesInput_glueProperties(TypedDict, closed=True):
+class ConnectionPropertiesInputGluePropertiesMember(TypedDict, closed=True):
     glueProperties: "capo_datazone.types.glue_properties_input.GluePropertiesInput"
 
 
-class _ConnectionPropertiesInput_hyperPodProperties(TypedDict, closed=True):
+class ConnectionPropertiesInputHyperPodPropertiesMember(TypedDict, closed=True):
     hyperPodProperties: (
         "capo_datazone.types.hyper_pod_properties_input.HyperPodPropertiesInput"
     )
 
 
-class _ConnectionPropertiesInput_iamProperties(TypedDict, closed=True):
+class ConnectionPropertiesInputIamPropertiesMember(TypedDict, closed=True):
     iamProperties: "capo_datazone.types.iam_properties_input.IamPropertiesInput"
 
 
-class _ConnectionPropertiesInput_redshiftProperties(TypedDict, closed=True):
+class ConnectionPropertiesInputRedshiftPropertiesMember(TypedDict, closed=True):
     redshiftProperties: (
         "capo_datazone.types.redshift_properties_input.RedshiftPropertiesInput"
     )
 
 
-class _ConnectionPropertiesInput_sparkEmrProperties(TypedDict, closed=True):
+class ConnectionPropertiesInputSparkEmrPropertiesMember(TypedDict, closed=True):
     sparkEmrProperties: (
         "capo_datazone.types.spark_emr_properties_input.SparkEmrPropertiesInput"
     )
 
 
-class _ConnectionPropertiesInput_sparkGlueProperties(TypedDict, closed=True):
+class ConnectionPropertiesInputSparkGluePropertiesMember(TypedDict, closed=True):
     sparkGlueProperties: (
         "capo_datazone.types.spark_glue_properties_input.SparkGluePropertiesInput"
     )
 
 
-class _ConnectionPropertiesInput_s3Properties(TypedDict, closed=True):
+class ConnectionPropertiesInputS3PropertiesMember(TypedDict, closed=True):
     s3Properties: "capo_datazone.types.s3_properties_input.S3PropertiesInput"
 
 
-class _ConnectionPropertiesInput_snowflakeProperties(TypedDict, closed=True):
+class ConnectionPropertiesInputSnowflakePropertiesMember(TypedDict, closed=True):
     snowflakeProperties: (
         "capo_datazone.types.snowflake_properties_input.SnowflakePropertiesInput"
     )
 
 
-class _ConnectionPropertiesInput_amazonQProperties(TypedDict, closed=True):
+class ConnectionPropertiesInputAmazonQPropertiesMember(TypedDict, closed=True):
     amazonQProperties: (
         "capo_datazone.types.amazon_q_properties_input.AmazonQPropertiesInput"
     )
 
 
-class _ConnectionPropertiesInput_mlflowProperties(TypedDict, closed=True):
+class ConnectionPropertiesInputMlflowPropertiesMember(TypedDict, closed=True):
     mlflowProperties: (
         "capo_datazone.types.mlflow_properties_input.MlflowPropertiesInput"
     )
 
 
-class _ConnectionPropertiesInput_workflowsMwaaProperties(TypedDict, closed=True):
+class ConnectionPropertiesInputWorkflowsMwaaPropertiesMember(TypedDict, closed=True):
     workflowsMwaaProperties: "capo_datazone.types.workflows_mwaa_properties_input.WorkflowsMwaaPropertiesInput"
 
 
-class _ConnectionPropertiesInput_workflowsServerlessProperties(TypedDict, closed=True):
+class ConnectionPropertiesInputWorkflowsServerlessPropertiesMember(
+    TypedDict, closed=True
+):
     workflowsServerlessProperties: "capo_datazone.types.workflows_serverless_properties_input.WorkflowsServerlessPropertiesInput"
 
 
-class _ConnectionPropertiesInput_lakehouseProperties(TypedDict, closed=True):
+class ConnectionPropertiesInputLakehousePropertiesMember(TypedDict, closed=True):
     lakehouseProperties: (
         "capo_datazone.types.lakehouse_properties_input.LakehousePropertiesInput"
     )
 
 
-class _ConnectionPropertiesInput_vpcProperties(TypedDict, closed=True):
+class ConnectionPropertiesInputVpcPropertiesMember(TypedDict, closed=True):
     vpcProperties: "capo_datazone.types.vpc_properties_input.VpcPropertiesInput"
 
 
-class _ConnectionPropertiesInput_gitProperties(TypedDict, closed=True):
+class ConnectionPropertiesInputGitPropertiesMember(TypedDict, closed=True):
     gitProperties: "capo_datazone.types.git_properties_input.GitPropertiesInput"
 
 
 ConnectionPropertiesInput: TypeAlias = (
-    _ConnectionPropertiesInput_athenaProperties
-    | _ConnectionPropertiesInput_glueProperties
-    | _ConnectionPropertiesInput_hyperPodProperties
-    | _ConnectionPropertiesInput_iamProperties
-    | _ConnectionPropertiesInput_redshiftProperties
-    | _ConnectionPropertiesInput_sparkEmrProperties
-    | _ConnectionPropertiesInput_sparkGlueProperties
-    | _ConnectionPropertiesInput_s3Properties
-    | _ConnectionPropertiesInput_snowflakeProperties
-    | _ConnectionPropertiesInput_amazonQProperties
-    | _ConnectionPropertiesInput_mlflowProperties
-    | _ConnectionPropertiesInput_workflowsMwaaProperties
-    | _ConnectionPropertiesInput_workflowsServerlessProperties
-    | _ConnectionPropertiesInput_lakehouseProperties
-    | _ConnectionPropertiesInput_vpcProperties
-    | _ConnectionPropertiesInput_gitProperties
+    ConnectionPropertiesInputAthenaPropertiesMember
+    | ConnectionPropertiesInputGluePropertiesMember
+    | ConnectionPropertiesInputHyperPodPropertiesMember
+    | ConnectionPropertiesInputIamPropertiesMember
+    | ConnectionPropertiesInputRedshiftPropertiesMember
+    | ConnectionPropertiesInputSparkEmrPropertiesMember
+    | ConnectionPropertiesInputSparkGluePropertiesMember
+    | ConnectionPropertiesInputS3PropertiesMember
+    | ConnectionPropertiesInputSnowflakePropertiesMember
+    | ConnectionPropertiesInputAmazonQPropertiesMember
+    | ConnectionPropertiesInputMlflowPropertiesMember
+    | ConnectionPropertiesInputWorkflowsMwaaPropertiesMember
+    | ConnectionPropertiesInputWorkflowsServerlessPropertiesMember
+    | ConnectionPropertiesInputLakehousePropertiesMember
+    | ConnectionPropertiesInputVpcPropertiesMember
+    | ConnectionPropertiesInputGitPropertiesMember
     | UnknownUnionMember
 )
 

@@ -7,7 +7,7 @@ title: ReferenceItem
       show_source: true
       merge_init_into_class: false
 
-::: capo_omics.types.reference_item._ReferenceItem_referenceArn
+::: capo_omics.types.reference_item.ReferenceItemReferenceArnMember
     options:
       show_source: true
       merge_init_into_class: false

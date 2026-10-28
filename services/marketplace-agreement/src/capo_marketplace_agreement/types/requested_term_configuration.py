@@ -13,26 +13,26 @@ if TYPE_CHECKING:
     import capo_marketplace_agreement.types.variable_payment_term_configuration
 
 
-class _RequestedTermConfiguration_configurableUpfrontPricingTermConfiguration(
+class RequestedTermConfigurationConfigurableUpfrontPricingTermConfigurationMember(
     TypedDict, closed=True
 ):
     configurableUpfrontPricingTermConfiguration: "capo_marketplace_agreement.types.configurable_upfront_pricing_term_configuration.ConfigurableUpfrontPricingTermConfiguration"
 
 
-class _RequestedTermConfiguration_renewalTermConfiguration(TypedDict, closed=True):
+class RequestedTermConfigurationRenewalTermConfigurationMember(TypedDict, closed=True):
     renewalTermConfiguration: "capo_marketplace_agreement.types.renewal_term_configuration.RenewalTermConfiguration"
 
 
-class _RequestedTermConfiguration_variablePaymentTermConfiguration(
+class RequestedTermConfigurationVariablePaymentTermConfigurationMember(
     TypedDict, closed=True
 ):
     variablePaymentTermConfiguration: "capo_marketplace_agreement.types.variable_payment_term_configuration.VariablePaymentTermConfiguration"
 
 
 RequestedTermConfiguration: TypeAlias = (
-    _RequestedTermConfiguration_configurableUpfrontPricingTermConfiguration
-    | _RequestedTermConfiguration_renewalTermConfiguration
-    | _RequestedTermConfiguration_variablePaymentTermConfiguration
+    RequestedTermConfigurationConfigurableUpfrontPricingTermConfigurationMember
+    | RequestedTermConfigurationRenewalTermConfigurationMember
+    | RequestedTermConfigurationVariablePaymentTermConfigurationMember
     | UnknownUnionMember
 )
 

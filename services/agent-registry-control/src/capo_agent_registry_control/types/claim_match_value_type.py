@@ -12,21 +12,21 @@ if TYPE_CHECKING:
     import capo_agent_registry_control.types.match_value_string_list
 
 
-class _ClaimMatchValueType_matchValueString(TypedDict, closed=True):
+class ClaimMatchValueTypeMatchValueStringMember(TypedDict, closed=True):
     matchValueString: (
         "capo_agent_registry_control.types.match_value_string.MatchValueString"
     )
 
 
-class _ClaimMatchValueType_matchValueStringList(TypedDict, closed=True):
+class ClaimMatchValueTypeMatchValueStringListMember(TypedDict, closed=True):
     matchValueStringList: (
         "capo_agent_registry_control.types.match_value_string_list.MatchValueStringList"
     )
 
 
 ClaimMatchValueType: TypeAlias = (
-    _ClaimMatchValueType_matchValueString
-    | _ClaimMatchValueType_matchValueStringList
+    ClaimMatchValueTypeMatchValueStringMember
+    | ClaimMatchValueTypeMatchValueStringListMember
     | UnknownUnionMember
 )
 

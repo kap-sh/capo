@@ -7,7 +7,7 @@ title: GatewayElbAccessLogDestination
       show_source: true
       merge_init_into_class: false
 
-::: capo_ecs.types.gateway_elb_access_log_destination._GatewayElbAccessLogDestination_s3
+::: capo_ecs.types.gateway_elb_access_log_destination.GatewayElbAccessLogDestinationS3Member
     options:
       show_source: true
       merge_init_into_class: false

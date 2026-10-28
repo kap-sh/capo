@@ -14,14 +14,14 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.ec2_configuration
 
 
-class _ComputeConfiguration_ec2Configuration(TypedDict, closed=True):
+class ComputeConfigurationEc2ConfigurationMember(TypedDict, closed=True):
     ec2Configuration: (
         "capo_bedrock_agentcore_control.types.ec2_configuration.Ec2Configuration"
     )
 
 
 ComputeConfiguration: TypeAlias = (
-    _ComputeConfiguration_ec2Configuration | UnknownUnionMember
+    ComputeConfigurationEc2ConfigurationMember | UnknownUnionMember
 )
 
 

@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_accessanalyzer.types.unused_access_findings_statistics
 
 
-class _FindingsStatistics_externalAccessFindingsStatistics(TypedDict, closed=True):
+class FindingsStatisticsExternalAccessFindingsStatisticsMember(TypedDict, closed=True):
     externalAccessFindingsStatistics: "capo_accessanalyzer.types.external_access_findings_statistics.ExternalAccessFindingsStatistics"
 
 
-class _FindingsStatistics_internalAccessFindingsStatistics(TypedDict, closed=True):
+class FindingsStatisticsInternalAccessFindingsStatisticsMember(TypedDict, closed=True):
     internalAccessFindingsStatistics: "capo_accessanalyzer.types.internal_access_findings_statistics.InternalAccessFindingsStatistics"
 
 
-class _FindingsStatistics_unusedAccessFindingsStatistics(TypedDict, closed=True):
+class FindingsStatisticsUnusedAccessFindingsStatisticsMember(TypedDict, closed=True):
     unusedAccessFindingsStatistics: "capo_accessanalyzer.types.unused_access_findings_statistics.UnusedAccessFindingsStatistics"
 
 
 FindingsStatistics: TypeAlias = (
-    _FindingsStatistics_externalAccessFindingsStatistics
-    | _FindingsStatistics_internalAccessFindingsStatistics
-    | _FindingsStatistics_unusedAccessFindingsStatistics
+    FindingsStatisticsExternalAccessFindingsStatisticsMember
+    | FindingsStatisticsInternalAccessFindingsStatisticsMember
+    | FindingsStatisticsUnusedAccessFindingsStatisticsMember
     | UnknownUnionMember
 )
 

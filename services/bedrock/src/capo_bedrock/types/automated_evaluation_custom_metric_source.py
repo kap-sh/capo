@@ -11,7 +11,7 @@ if TYPE_CHECKING:
     import capo_bedrock.types.custom_metric_definition
 
 
-class _AutomatedEvaluationCustomMetricSource_customMetricDefinition(
+class AutomatedEvaluationCustomMetricSourceCustomMetricDefinitionMember(
     TypedDict, closed=True
 ):
     customMetricDefinition: (
@@ -20,7 +20,8 @@ class _AutomatedEvaluationCustomMetricSource_customMetricDefinition(
 
 
 AutomatedEvaluationCustomMetricSource: TypeAlias = (
-    _AutomatedEvaluationCustomMetricSource_customMetricDefinition | UnknownUnionMember
+    AutomatedEvaluationCustomMetricSourceCustomMetricDefinitionMember
+    | UnknownUnionMember
 )
 
 

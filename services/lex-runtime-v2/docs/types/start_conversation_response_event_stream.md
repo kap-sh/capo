@@ -13,85 +13,85 @@ title: StartConversationResponseEventStream
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_lex_runtime_v2.types.start_conversation_response_event_stream._StartConversationResponseEventStream_PlaybackInterruptionEvent
+::: capo_lex_runtime_v2.types.start_conversation_response_event_stream.StartConversationResponseEventStreamPlaybackInterruptionEventMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_lex_runtime_v2.types.start_conversation_response_event_stream._StartConversationResponseEventStream_TranscriptEvent
+::: capo_lex_runtime_v2.types.start_conversation_response_event_stream.StartConversationResponseEventStreamTranscriptEventMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_lex_runtime_v2.types.start_conversation_response_event_stream._StartConversationResponseEventStream_IntentResultEvent
+::: capo_lex_runtime_v2.types.start_conversation_response_event_stream.StartConversationResponseEventStreamIntentResultEventMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_lex_runtime_v2.types.start_conversation_response_event_stream._StartConversationResponseEventStream_TextResponseEvent
+::: capo_lex_runtime_v2.types.start_conversation_response_event_stream.StartConversationResponseEventStreamTextResponseEventMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_lex_runtime_v2.types.start_conversation_response_event_stream._StartConversationResponseEventStream_AudioResponseEvent
+::: capo_lex_runtime_v2.types.start_conversation_response_event_stream.StartConversationResponseEventStreamAudioResponseEventMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_lex_runtime_v2.types.start_conversation_response_event_stream._StartConversationResponseEventStream_HeartbeatEvent
+::: capo_lex_runtime_v2.types.start_conversation_response_event_stream.StartConversationResponseEventStreamHeartbeatEventMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_lex_runtime_v2.types.start_conversation_response_event_stream._StartConversationResponseEventStream_AccessDeniedException
+::: capo_lex_runtime_v2.types.start_conversation_response_event_stream.StartConversationResponseEventStreamAccessDeniedExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_lex_runtime_v2.types.start_conversation_response_event_stream._StartConversationResponseEventStream_ResourceNotFoundException
+::: capo_lex_runtime_v2.types.start_conversation_response_event_stream.StartConversationResponseEventStreamResourceNotFoundExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_lex_runtime_v2.types.start_conversation_response_event_stream._StartConversationResponseEventStream_ValidationException
+::: capo_lex_runtime_v2.types.start_conversation_response_event_stream.StartConversationResponseEventStreamValidationExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_lex_runtime_v2.types.start_conversation_response_event_stream._StartConversationResponseEventStream_ThrottlingException
+::: capo_lex_runtime_v2.types.start_conversation_response_event_stream.StartConversationResponseEventStreamThrottlingExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_lex_runtime_v2.types.start_conversation_response_event_stream._StartConversationResponseEventStream_InternalServerException
+::: capo_lex_runtime_v2.types.start_conversation_response_event_stream.StartConversationResponseEventStreamInternalServerExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_lex_runtime_v2.types.start_conversation_response_event_stream._StartConversationResponseEventStream_ConflictException
+::: capo_lex_runtime_v2.types.start_conversation_response_event_stream.StartConversationResponseEventStreamConflictExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_lex_runtime_v2.types.start_conversation_response_event_stream._StartConversationResponseEventStream_DependencyFailedException
+::: capo_lex_runtime_v2.types.start_conversation_response_event_stream.StartConversationResponseEventStreamDependencyFailedExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_lex_runtime_v2.types.start_conversation_response_event_stream._StartConversationResponseEventStream_BadGatewayException
+::: capo_lex_runtime_v2.types.start_conversation_response_event_stream.StartConversationResponseEventStreamBadGatewayExceptionMember
     options:
       show_source: true
       merge_init_into_class: false

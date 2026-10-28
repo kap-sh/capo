@@ -7,7 +7,7 @@ title: GroundTruthSource
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore.types.ground_truth_source._GroundTruthSource_inline
+::: capo_bedrock_agentcore.types.ground_truth_source.GroundTruthSourceInlineMember
     options:
       show_source: true
       merge_init_into_class: false

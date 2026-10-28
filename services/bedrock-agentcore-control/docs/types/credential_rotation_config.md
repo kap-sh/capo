@@ -7,7 +7,7 @@ title: CredentialRotationConfig
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.credential_rotation_config._CredentialRotationConfig_coinbaseCDP
+::: capo_bedrock_agentcore_control.types.credential_rotation_config.CredentialRotationConfigCoinbaseCDPMember
     options:
       show_source: true
       merge_init_into_class: false

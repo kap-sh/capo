@@ -7,7 +7,7 @@ title: QueryRecords
       show_source: true
       merge_init_into_class: false
 
-::: capo_redshift_data.types.query_records._QueryRecords_CSVRecords
+::: capo_redshift_data.types.query_records.QueryRecordsCSVRecordsMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_opensearch.types.security_lake_direct_query_data_source
 
 
-class _DirectQueryDataSourceType_CloudWatchLog(TypedDict, closed=True):
+class DirectQueryDataSourceTypeCloudWatchLogMember(TypedDict, closed=True):
     CloudWatchLog: "capo_opensearch.types.cloud_watch_direct_query_data_source.CloudWatchDirectQueryDataSource"
 
 
-class _DirectQueryDataSourceType_SecurityLake(TypedDict, closed=True):
+class DirectQueryDataSourceTypeSecurityLakeMember(TypedDict, closed=True):
     SecurityLake: "capo_opensearch.types.security_lake_direct_query_data_source.SecurityLakeDirectQueryDataSource"
 
 
-class _DirectQueryDataSourceType_Prometheus(TypedDict, closed=True):
+class DirectQueryDataSourceTypePrometheusMember(TypedDict, closed=True):
     Prometheus: "capo_opensearch.types.prometheus_direct_query_data_source.PrometheusDirectQueryDataSource"
 
 
 DirectQueryDataSourceType: TypeAlias = (
-    _DirectQueryDataSourceType_CloudWatchLog
-    | _DirectQueryDataSourceType_SecurityLake
-    | _DirectQueryDataSourceType_Prometheus
+    DirectQueryDataSourceTypeCloudWatchLogMember
+    | DirectQueryDataSourceTypeSecurityLakeMember
+    | DirectQueryDataSourceTypePrometheusMember
     | UnknownUnionMember
 )
 

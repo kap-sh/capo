@@ -11,22 +11,22 @@ from capo_bedrock_agentcore_control.errors import (
 from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 
 
-class _FilterValue_stringValue(TypedDict, closed=True):
+class FilterValueStringValueMember(TypedDict, closed=True):
     stringValue: "str"
 
 
-class _FilterValue_doubleValue(TypedDict, closed=True):
+class FilterValueDoubleValueMember(TypedDict, closed=True):
     doubleValue: "float"
 
 
-class _FilterValue_booleanValue(TypedDict, closed=True):
+class FilterValueBooleanValueMember(TypedDict, closed=True):
     booleanValue: "bool"
 
 
 FilterValue: TypeAlias = (
-    _FilterValue_stringValue
-    | _FilterValue_doubleValue
-    | _FilterValue_booleanValue
+    FilterValueStringValueMember
+    | FilterValueDoubleValueMember
+    | FilterValueBooleanValueMember
     | UnknownUnionMember
 )
 

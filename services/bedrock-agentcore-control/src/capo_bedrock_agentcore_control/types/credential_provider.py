@@ -16,22 +16,22 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.o_auth_credential_provider
 
 
-class _CredentialProvider_oauthCredentialProvider(TypedDict, closed=True):
+class CredentialProviderOauthCredentialProviderMember(TypedDict, closed=True):
     oauthCredentialProvider: "capo_bedrock_agentcore_control.types.o_auth_credential_provider.OAuthCredentialProvider"
 
 
-class _CredentialProvider_apiKeyCredentialProvider(TypedDict, closed=True):
+class CredentialProviderApiKeyCredentialProviderMember(TypedDict, closed=True):
     apiKeyCredentialProvider: "capo_bedrock_agentcore_control.types.gateway_api_key_credential_provider.GatewayApiKeyCredentialProvider"
 
 
-class _CredentialProvider_iamCredentialProvider(TypedDict, closed=True):
+class CredentialProviderIamCredentialProviderMember(TypedDict, closed=True):
     iamCredentialProvider: "capo_bedrock_agentcore_control.types.iam_credential_provider.IamCredentialProvider"
 
 
 CredentialProvider: TypeAlias = (
-    _CredentialProvider_oauthCredentialProvider
-    | _CredentialProvider_apiKeyCredentialProvider
-    | _CredentialProvider_iamCredentialProvider
+    CredentialProviderOauthCredentialProviderMember
+    | CredentialProviderApiKeyCredentialProviderMember
+    | CredentialProviderIamCredentialProviderMember
     | UnknownUnionMember
 )
 

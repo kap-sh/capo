@@ -12,16 +12,18 @@ if TYPE_CHECKING:
     import capo_verifiedpermissions.types.context_map
 
 
-class _ContextDefinition_contextMap(TypedDict, closed=True):
+class ContextDefinitionContextMapMember(TypedDict, closed=True):
     contextMap: "capo_verifiedpermissions.types.context_map.ContextMap"
 
 
-class _ContextDefinition_cedarJson(TypedDict, closed=True):
+class ContextDefinitionCedarJsonMember(TypedDict, closed=True):
     cedarJson: "capo_verifiedpermissions.types.cedar_json.CedarJson"
 
 
 ContextDefinition: TypeAlias = (
-    _ContextDefinition_contextMap | _ContextDefinition_cedarJson | UnknownUnionMember
+    ContextDefinitionContextMapMember
+    | ContextDefinitionCedarJsonMember
+    | UnknownUnionMember
 )
 
 

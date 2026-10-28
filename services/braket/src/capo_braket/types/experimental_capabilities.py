@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_braket.types.experimental_capabilities_enablement_type
 
 
-class _ExperimentalCapabilities_enabled(TypedDict, closed=True):
+class ExperimentalCapabilitiesEnabledMember(TypedDict, closed=True):
     enabled: "capo_braket.types.experimental_capabilities_enablement_type.ExperimentalCapabilitiesEnablementType"
 
 
 ExperimentalCapabilities: TypeAlias = (
-    _ExperimentalCapabilities_enabled | UnknownUnionMember
+    ExperimentalCapabilitiesEnabledMember | UnknownUnionMember
 )
 
 

@@ -14,14 +14,14 @@ if TYPE_CHECKING:
     import capo_bedrock_data_automation_runtime.types.timestamp_segment
 
 
-class _VideoSegmentConfiguration_timestampSegment(TypedDict, closed=True):
+class VideoSegmentConfigurationTimestampSegmentMember(TypedDict, closed=True):
     timestampSegment: (
         "capo_bedrock_data_automation_runtime.types.timestamp_segment.TimestampSegment"
     )
 
 
 VideoSegmentConfiguration: TypeAlias = (
-    _VideoSegmentConfiguration_timestampSegment | UnknownUnionMember
+    VideoSegmentConfigurationTimestampSegmentMember | UnknownUnionMember
 )
 
 

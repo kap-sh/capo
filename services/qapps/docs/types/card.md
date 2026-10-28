@@ -7,31 +7,31 @@ title: Card
       show_source: true
       merge_init_into_class: false
 
-::: capo_qapps.types.card._Card_textInput
+::: capo_qapps.types.card.CardTextInputMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qapps.types.card._Card_qQuery
+::: capo_qapps.types.card.CardQQueryMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qapps.types.card._Card_qPlugin
+::: capo_qapps.types.card.CardQPluginMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qapps.types.card._Card_fileUpload
+::: capo_qapps.types.card.CardFileUploadMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qapps.types.card._Card_formInput
+::: capo_qapps.types.card.CardFormInputMember
     options:
       show_source: true
       merge_init_into_class: false

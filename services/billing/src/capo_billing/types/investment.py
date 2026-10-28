@@ -12,21 +12,21 @@ if TYPE_CHECKING:
     import capo_billing.types.outcome_based_investment
 
 
-class _Investment_milestoneBasedInvestment(TypedDict, closed=True):
+class InvestmentMilestoneBasedInvestmentMember(TypedDict, closed=True):
     milestoneBasedInvestment: (
         "capo_billing.types.milestone_based_investment.MilestoneBasedInvestment"
     )
 
 
-class _Investment_outcomeBasedInvestment(TypedDict, closed=True):
+class InvestmentOutcomeBasedInvestmentMember(TypedDict, closed=True):
     outcomeBasedInvestment: (
         "capo_billing.types.outcome_based_investment.OutcomeBasedInvestment"
     )
 
 
 Investment: TypeAlias = (
-    _Investment_milestoneBasedInvestment
-    | _Investment_outcomeBasedInvestment
+    InvestmentMilestoneBasedInvestmentMember
+    | InvestmentOutcomeBasedInvestmentMember
     | UnknownUnionMember
 )
 

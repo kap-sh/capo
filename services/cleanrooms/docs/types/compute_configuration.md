@@ -7,7 +7,7 @@ title: ComputeConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_cleanrooms.types.compute_configuration._ComputeConfiguration_worker
+::: capo_cleanrooms.types.compute_configuration.ComputeConfigurationWorkerMember
     options:
       show_source: true
       merge_init_into_class: false

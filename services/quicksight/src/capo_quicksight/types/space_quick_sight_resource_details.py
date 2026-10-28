@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_quicksight.types.arn
 
 
-class _SpaceQuickSightResourceDetails_resourceArn(TypedDict, closed=True):
+class SpaceQuickSightResourceDetailsResourceArnMember(TypedDict, closed=True):
     resourceArn: "capo_quicksight.types.arn.Arn"
 
 
 SpaceQuickSightResourceDetails: TypeAlias = (
-    _SpaceQuickSightResourceDetails_resourceArn | UnknownUnionMember
+    SpaceQuickSightResourceDetailsResourceArnMember | UnknownUnionMember
 )
 
 

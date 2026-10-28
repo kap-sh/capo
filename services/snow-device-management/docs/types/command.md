@@ -7,13 +7,13 @@ title: Command
       show_source: true
       merge_init_into_class: false
 
-::: capo_snow_device_management.types.command._Command_unlock
+::: capo_snow_device_management.types.command.CommandUnlockMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_snow_device_management.types.command._Command_reboot
+::: capo_snow_device_management.types.command.CommandRebootMember
     options:
       show_source: true
       merge_init_into_class: false

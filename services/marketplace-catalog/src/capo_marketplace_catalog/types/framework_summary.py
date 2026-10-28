@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_marketplace_catalog.types.container_security_summary
 
 
-class _FrameworkSummary_AMISecuritySummary(TypedDict, closed=True):
+class FrameworkSummaryAMISecuritySummaryMember(TypedDict, closed=True):
     AMISecuritySummary: (
         "capo_marketplace_catalog.types.ami_security_summary.AMISecuritySummary"
     )
 
 
-class _FrameworkSummary_ContainerSecuritySummary(TypedDict, closed=True):
+class FrameworkSummaryContainerSecuritySummaryMember(TypedDict, closed=True):
     ContainerSecuritySummary: "capo_marketplace_catalog.types.container_security_summary.ContainerSecuritySummary"
 
 
 FrameworkSummary: TypeAlias = (
-    _FrameworkSummary_AMISecuritySummary
-    | _FrameworkSummary_ContainerSecuritySummary
+    FrameworkSummaryAMISecuritySummaryMember
+    | FrameworkSummaryContainerSecuritySummaryMember
     | UnknownUnionMember
 )
 

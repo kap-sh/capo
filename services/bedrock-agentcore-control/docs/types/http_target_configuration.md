@@ -7,19 +7,19 @@ title: HttpTargetConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.http_target_configuration._HttpTargetConfiguration_agentcoreRuntime
+::: capo_bedrock_agentcore_control.types.http_target_configuration.HttpTargetConfigurationAgentcoreRuntimeMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore_control.types.http_target_configuration._HttpTargetConfiguration_passthrough
+::: capo_bedrock_agentcore_control.types.http_target_configuration.HttpTargetConfigurationPassthroughMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore_control.types.http_target_configuration._HttpTargetConfiguration_connector
+::: capo_bedrock_agentcore_control.types.http_target_configuration.HttpTargetConfigurationConnectorMember
     options:
       show_source: true
       merge_init_into_class: false

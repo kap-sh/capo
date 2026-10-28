@@ -19,56 +19,56 @@ if TYPE_CHECKING:
     import capo_resiliencehubv2.types.system_user_journey_updated_metadata
 
 
-class _SystemEventMetadata_systemCreated(TypedDict, closed=True):
+class SystemEventMetadataSystemCreatedMember(TypedDict, closed=True):
     systemCreated: (
         "capo_resiliencehubv2.types.system_created_metadata.SystemCreatedMetadata"
     )
 
 
-class _SystemEventMetadata_systemDeleted(TypedDict, closed=True):
+class SystemEventMetadataSystemDeletedMember(TypedDict, closed=True):
     systemDeleted: (
         "capo_resiliencehubv2.types.system_deleted_metadata.SystemDeletedMetadata"
     )
 
 
-class _SystemEventMetadata_systemUserJourneyCreated(TypedDict, closed=True):
+class SystemEventMetadataSystemUserJourneyCreatedMember(TypedDict, closed=True):
     systemUserJourneyCreated: "capo_resiliencehubv2.types.system_user_journey_created_metadata.SystemUserJourneyCreatedMetadata"
 
 
-class _SystemEventMetadata_systemUserJourneyUpdated(TypedDict, closed=True):
+class SystemEventMetadataSystemUserJourneyUpdatedMember(TypedDict, closed=True):
     systemUserJourneyUpdated: "capo_resiliencehubv2.types.system_user_journey_updated_metadata.SystemUserJourneyUpdatedMetadata"
 
 
-class _SystemEventMetadata_systemUserJourneyDeleted(TypedDict, closed=True):
+class SystemEventMetadataSystemUserJourneyDeletedMember(TypedDict, closed=True):
     systemUserJourneyDeleted: "capo_resiliencehubv2.types.system_user_journey_deleted_metadata.SystemUserJourneyDeletedMetadata"
 
 
-class _SystemEventMetadata_systemServiceAssociated(TypedDict, closed=True):
+class SystemEventMetadataSystemServiceAssociatedMember(TypedDict, closed=True):
     systemServiceAssociated: "capo_resiliencehubv2.types.system_service_associated_metadata.SystemServiceAssociatedMetadata"
 
 
-class _SystemEventMetadata_systemServiceDisassociated(TypedDict, closed=True):
+class SystemEventMetadataSystemServiceDisassociatedMember(TypedDict, closed=True):
     systemServiceDisassociated: "capo_resiliencehubv2.types.system_service_disassociated_metadata.SystemServiceDisassociatedMetadata"
 
 
-class _SystemEventMetadata_systemPolicyAssociated(TypedDict, closed=True):
+class SystemEventMetadataSystemPolicyAssociatedMember(TypedDict, closed=True):
     systemPolicyAssociated: "capo_resiliencehubv2.types.system_policy_associated_metadata.SystemPolicyAssociatedMetadata"
 
 
-class _SystemEventMetadata_systemPolicyDisassociated(TypedDict, closed=True):
+class SystemEventMetadataSystemPolicyDisassociatedMember(TypedDict, closed=True):
     systemPolicyDisassociated: "capo_resiliencehubv2.types.system_policy_disassociated_metadata.SystemPolicyDisassociatedMetadata"
 
 
 SystemEventMetadata: TypeAlias = (
-    _SystemEventMetadata_systemCreated
-    | _SystemEventMetadata_systemDeleted
-    | _SystemEventMetadata_systemUserJourneyCreated
-    | _SystemEventMetadata_systemUserJourneyUpdated
-    | _SystemEventMetadata_systemUserJourneyDeleted
-    | _SystemEventMetadata_systemServiceAssociated
-    | _SystemEventMetadata_systemServiceDisassociated
-    | _SystemEventMetadata_systemPolicyAssociated
-    | _SystemEventMetadata_systemPolicyDisassociated
+    SystemEventMetadataSystemCreatedMember
+    | SystemEventMetadataSystemDeletedMember
+    | SystemEventMetadataSystemUserJourneyCreatedMember
+    | SystemEventMetadataSystemUserJourneyUpdatedMember
+    | SystemEventMetadataSystemUserJourneyDeletedMember
+    | SystemEventMetadataSystemServiceAssociatedMember
+    | SystemEventMetadataSystemServiceDisassociatedMember
+    | SystemEventMetadataSystemPolicyAssociatedMember
+    | SystemEventMetadataSystemPolicyDisassociatedMember
     | UnknownUnionMember
 )
 

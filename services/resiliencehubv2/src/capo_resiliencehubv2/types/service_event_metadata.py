@@ -29,112 +29,112 @@ if TYPE_CHECKING:
     import capo_resiliencehubv2.types.service_workflow_updated_metadata
 
 
-class _ServiceEventMetadata_serviceCreated(TypedDict, closed=True):
+class ServiceEventMetadataServiceCreatedMember(TypedDict, closed=True):
     serviceCreated: (
         "capo_resiliencehubv2.types.service_created_metadata.ServiceCreatedMetadata"
     )
 
 
-class _ServiceEventMetadata_serviceDeleted(TypedDict, closed=True):
+class ServiceEventMetadataServiceDeletedMember(TypedDict, closed=True):
     serviceDeleted: (
         "capo_resiliencehubv2.types.service_deleted_metadata.ServiceDeletedMetadata"
     )
 
 
-class _ServiceEventMetadata_serviceSystemAssociated(TypedDict, closed=True):
+class ServiceEventMetadataServiceSystemAssociatedMember(TypedDict, closed=True):
     serviceSystemAssociated: "capo_resiliencehubv2.types.service_system_associated_metadata.ServiceSystemAssociatedMetadata"
 
 
-class _ServiceEventMetadata_serviceSystemDisassociated(TypedDict, closed=True):
+class ServiceEventMetadataServiceSystemDisassociatedMember(TypedDict, closed=True):
     serviceSystemDisassociated: "capo_resiliencehubv2.types.service_system_disassociated_metadata.ServiceSystemDisassociatedMetadata"
 
 
-class _ServiceEventMetadata_serviceResourcesAssociated(TypedDict, closed=True):
+class ServiceEventMetadataServiceResourcesAssociatedMember(TypedDict, closed=True):
     serviceResourcesAssociated: "capo_resiliencehubv2.types.service_resources_associated_metadata.ServiceResourcesAssociatedMetadata"
 
 
-class _ServiceEventMetadata_serviceResourcesDisassociated(TypedDict, closed=True):
+class ServiceEventMetadataServiceResourcesDisassociatedMember(TypedDict, closed=True):
     serviceResourcesDisassociated: "capo_resiliencehubv2.types.service_resources_disassociated_metadata.ServiceResourcesDisassociatedMetadata"
 
 
-class _ServiceEventMetadata_serviceWorkflowUpdated(TypedDict, closed=True):
+class ServiceEventMetadataServiceWorkflowUpdatedMember(TypedDict, closed=True):
     serviceWorkflowUpdated: "capo_resiliencehubv2.types.service_workflow_updated_metadata.ServiceWorkflowUpdatedMetadata"
 
 
-class _ServiceEventMetadata_serviceInputSourcesUpdated(TypedDict, closed=True):
+class ServiceEventMetadataServiceInputSourcesUpdatedMember(TypedDict, closed=True):
     serviceInputSourcesUpdated: "capo_resiliencehubv2.types.service_input_sources_updated_metadata.ServiceInputSourcesUpdatedMetadata"
 
 
-class _ServiceEventMetadata_servicePolicyAssociated(TypedDict, closed=True):
+class ServiceEventMetadataServicePolicyAssociatedMember(TypedDict, closed=True):
     servicePolicyAssociated: "capo_resiliencehubv2.types.service_policy_associated_metadata.ServicePolicyAssociatedMetadata"
 
 
-class _ServiceEventMetadata_servicePolicyDisassociated(TypedDict, closed=True):
+class ServiceEventMetadataServicePolicyDisassociatedMember(TypedDict, closed=True):
     servicePolicyDisassociated: "capo_resiliencehubv2.types.service_policy_disassociated_metadata.ServicePolicyDisassociatedMetadata"
 
 
-class _ServiceEventMetadata_serviceFunctionCreated(TypedDict, closed=True):
+class ServiceEventMetadataServiceFunctionCreatedMember(TypedDict, closed=True):
     serviceFunctionCreated: "capo_resiliencehubv2.types.service_function_created_metadata.ServiceFunctionCreatedMetadata"
 
 
-class _ServiceEventMetadata_serviceFunctionUpdated(TypedDict, closed=True):
+class ServiceEventMetadataServiceFunctionUpdatedMember(TypedDict, closed=True):
     serviceFunctionUpdated: "capo_resiliencehubv2.types.service_function_updated_metadata.ServiceFunctionUpdatedMetadata"
 
 
-class _ServiceEventMetadata_serviceFunctionDeleted(TypedDict, closed=True):
+class ServiceEventMetadataServiceFunctionDeletedMember(TypedDict, closed=True):
     serviceFunctionDeleted: "capo_resiliencehubv2.types.service_function_deleted_metadata.ServiceFunctionDeletedMetadata"
 
 
-class _ServiceEventMetadata_serviceFunctionResourcesAdded(TypedDict, closed=True):
+class ServiceEventMetadataServiceFunctionResourcesAddedMember(TypedDict, closed=True):
     serviceFunctionResourcesAdded: "capo_resiliencehubv2.types.service_function_resources_added_metadata.ServiceFunctionResourcesAddedMetadata"
 
 
-class _ServiceEventMetadata_serviceFunctionResourcesRemoved(TypedDict, closed=True):
+class ServiceEventMetadataServiceFunctionResourcesRemovedMember(TypedDict, closed=True):
     serviceFunctionResourcesRemoved: "capo_resiliencehubv2.types.service_function_resources_removed_metadata.ServiceFunctionResourcesRemovedMetadata"
 
 
-class _ServiceEventMetadata_serviceAchievabilityUpdated(TypedDict, closed=True):
+class ServiceEventMetadataServiceAchievabilityUpdatedMember(TypedDict, closed=True):
     serviceAchievabilityUpdated: "capo_resiliencehubv2.types.service_achievability_updated_metadata.ServiceAchievabilityUpdatedMetadata"
 
 
-class _ServiceEventMetadata_assertionCreated(TypedDict, closed=True):
+class ServiceEventMetadataAssertionCreatedMember(TypedDict, closed=True):
     assertionCreated: (
         "capo_resiliencehubv2.types.assertion_created_metadata.AssertionCreatedMetadata"
     )
 
 
-class _ServiceEventMetadata_assertionUpdated(TypedDict, closed=True):
+class ServiceEventMetadataAssertionUpdatedMember(TypedDict, closed=True):
     assertionUpdated: (
         "capo_resiliencehubv2.types.assertion_updated_metadata.AssertionUpdatedMetadata"
     )
 
 
-class _ServiceEventMetadata_assertionDeleted(TypedDict, closed=True):
+class ServiceEventMetadataAssertionDeletedMember(TypedDict, closed=True):
     assertionDeleted: (
         "capo_resiliencehubv2.types.assertion_deleted_metadata.AssertionDeletedMetadata"
     )
 
 
 ServiceEventMetadata: TypeAlias = (
-    _ServiceEventMetadata_serviceCreated
-    | _ServiceEventMetadata_serviceDeleted
-    | _ServiceEventMetadata_serviceSystemAssociated
-    | _ServiceEventMetadata_serviceSystemDisassociated
-    | _ServiceEventMetadata_serviceResourcesAssociated
-    | _ServiceEventMetadata_serviceResourcesDisassociated
-    | _ServiceEventMetadata_serviceWorkflowUpdated
-    | _ServiceEventMetadata_serviceInputSourcesUpdated
-    | _ServiceEventMetadata_servicePolicyAssociated
-    | _ServiceEventMetadata_servicePolicyDisassociated
-    | _ServiceEventMetadata_serviceFunctionCreated
-    | _ServiceEventMetadata_serviceFunctionUpdated
-    | _ServiceEventMetadata_serviceFunctionDeleted
-    | _ServiceEventMetadata_serviceFunctionResourcesAdded
-    | _ServiceEventMetadata_serviceFunctionResourcesRemoved
-    | _ServiceEventMetadata_serviceAchievabilityUpdated
-    | _ServiceEventMetadata_assertionCreated
-    | _ServiceEventMetadata_assertionUpdated
-    | _ServiceEventMetadata_assertionDeleted
+    ServiceEventMetadataServiceCreatedMember
+    | ServiceEventMetadataServiceDeletedMember
+    | ServiceEventMetadataServiceSystemAssociatedMember
+    | ServiceEventMetadataServiceSystemDisassociatedMember
+    | ServiceEventMetadataServiceResourcesAssociatedMember
+    | ServiceEventMetadataServiceResourcesDisassociatedMember
+    | ServiceEventMetadataServiceWorkflowUpdatedMember
+    | ServiceEventMetadataServiceInputSourcesUpdatedMember
+    | ServiceEventMetadataServicePolicyAssociatedMember
+    | ServiceEventMetadataServicePolicyDisassociatedMember
+    | ServiceEventMetadataServiceFunctionCreatedMember
+    | ServiceEventMetadataServiceFunctionUpdatedMember
+    | ServiceEventMetadataServiceFunctionDeletedMember
+    | ServiceEventMetadataServiceFunctionResourcesAddedMember
+    | ServiceEventMetadataServiceFunctionResourcesRemovedMember
+    | ServiceEventMetadataServiceAchievabilityUpdatedMember
+    | ServiceEventMetadataAssertionCreatedMember
+    | ServiceEventMetadataAssertionUpdatedMember
+    | ServiceEventMetadataAssertionDeletedMember
     | UnknownUnionMember
 )
 

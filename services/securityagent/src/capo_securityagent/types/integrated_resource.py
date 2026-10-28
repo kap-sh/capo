@@ -16,41 +16,41 @@ if TYPE_CHECKING:
     import capo_securityagent.types.jira_project_resource
 
 
-class _IntegratedResource_githubRepository(TypedDict, closed=True):
+class IntegratedResourceGithubRepositoryMember(TypedDict, closed=True):
     githubRepository: (
         "capo_securityagent.types.git_hub_repository_resource.GitHubRepositoryResource"
     )
 
 
-class _IntegratedResource_gitlabRepository(TypedDict, closed=True):
+class IntegratedResourceGitlabRepositoryMember(TypedDict, closed=True):
     gitlabRepository: (
         "capo_securityagent.types.git_lab_repository_resource.GitLabRepositoryResource"
     )
 
 
-class _IntegratedResource_bitbucketRepository(TypedDict, closed=True):
+class IntegratedResourceBitbucketRepositoryMember(TypedDict, closed=True):
     bitbucketRepository: "capo_securityagent.types.bitbucket_repository_resource.BitbucketRepositoryResource"
 
 
-class _IntegratedResource_confluenceDocument(TypedDict, closed=True):
+class IntegratedResourceConfluenceDocumentMember(TypedDict, closed=True):
     confluenceDocument: "capo_securityagent.types.confluence_document_resource.ConfluenceDocumentResource"
 
 
-class _IntegratedResource_azureDevOpsRepository(TypedDict, closed=True):
+class IntegratedResourceAzureDevOpsRepositoryMember(TypedDict, closed=True):
     azureDevOpsRepository: "capo_securityagent.types.azure_dev_ops_repository_resource.AzureDevOpsRepositoryResource"
 
 
-class _IntegratedResource_jiraProject(TypedDict, closed=True):
+class IntegratedResourceJiraProjectMember(TypedDict, closed=True):
     jiraProject: "capo_securityagent.types.jira_project_resource.JiraProjectResource"
 
 
 IntegratedResource: TypeAlias = (
-    _IntegratedResource_githubRepository
-    | _IntegratedResource_gitlabRepository
-    | _IntegratedResource_bitbucketRepository
-    | _IntegratedResource_confluenceDocument
-    | _IntegratedResource_azureDevOpsRepository
-    | _IntegratedResource_jiraProject
+    IntegratedResourceGithubRepositoryMember
+    | IntegratedResourceGitlabRepositoryMember
+    | IntegratedResourceBitbucketRepositoryMember
+    | IntegratedResourceConfluenceDocumentMember
+    | IntegratedResourceAzureDevOpsRepositoryMember
+    | IntegratedResourceJiraProjectMember
     | UnknownUnionMember
 )
 

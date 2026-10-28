@@ -7,31 +7,31 @@ title: LinkedAccountOAuth2
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore.types.linked_account_o_auth2._LinkedAccountOAuth2_google
+::: capo_bedrock_agentcore.types.linked_account_o_auth2.LinkedAccountOAuth2GoogleMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.linked_account_o_auth2._LinkedAccountOAuth2_apple
+::: capo_bedrock_agentcore.types.linked_account_o_auth2.LinkedAccountOAuth2AppleMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.linked_account_o_auth2._LinkedAccountOAuth2_x
+::: capo_bedrock_agentcore.types.linked_account_o_auth2.LinkedAccountOAuth2XMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.linked_account_o_auth2._LinkedAccountOAuth2_telegram
+::: capo_bedrock_agentcore.types.linked_account_o_auth2.LinkedAccountOAuth2TelegramMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.linked_account_o_auth2._LinkedAccountOAuth2_github
+::: capo_bedrock_agentcore.types.linked_account_o_auth2.LinkedAccountOAuth2GithubMember
     options:
       show_source: true
       merge_init_into_class: false

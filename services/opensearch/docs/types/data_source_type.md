@@ -7,7 +7,7 @@ title: DataSourceType
       show_source: true
       merge_init_into_class: false
 
-::: capo_opensearch.types.data_source_type._DataSourceType_S3GlueDataCatalog
+::: capo_opensearch.types.data_source_type.DataSourceTypeS3GlueDataCatalogMember
     options:
       show_source: true
       merge_init_into_class: false

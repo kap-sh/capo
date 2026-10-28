@@ -7,7 +7,7 @@ title: ExperimentalCapabilities
       show_source: true
       merge_init_into_class: false
 
-::: capo_braket.types.experimental_capabilities._ExperimentalCapabilities_enabled
+::: capo_braket.types.experimental_capabilities.ExperimentalCapabilitiesEnabledMember
     options:
       show_source: true
       merge_init_into_class: false

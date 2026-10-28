@@ -14,27 +14,27 @@ if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.whats_app_channel_subtype_parameters
 
 
-class _ChannelSubtypeParameters_telephony(TypedDict, closed=True):
+class ChannelSubtypeParametersTelephonyMember(TypedDict, closed=True):
     telephony: "capo_connectcampaignsv2.types.telephony_channel_subtype_parameters.TelephonyChannelSubtypeParameters"
 
 
-class _ChannelSubtypeParameters_sms(TypedDict, closed=True):
+class ChannelSubtypeParametersSmsMember(TypedDict, closed=True):
     sms: "capo_connectcampaignsv2.types.sms_channel_subtype_parameters.SmsChannelSubtypeParameters"
 
 
-class _ChannelSubtypeParameters_email(TypedDict, closed=True):
+class ChannelSubtypeParametersEmailMember(TypedDict, closed=True):
     email: "capo_connectcampaignsv2.types.email_channel_subtype_parameters.EmailChannelSubtypeParameters"
 
 
-class _ChannelSubtypeParameters_whatsApp(TypedDict, closed=True):
+class ChannelSubtypeParametersWhatsAppMember(TypedDict, closed=True):
     whatsApp: "capo_connectcampaignsv2.types.whats_app_channel_subtype_parameters.WhatsAppChannelSubtypeParameters"
 
 
 ChannelSubtypeParameters: TypeAlias = (
-    _ChannelSubtypeParameters_telephony
-    | _ChannelSubtypeParameters_sms
-    | _ChannelSubtypeParameters_email
-    | _ChannelSubtypeParameters_whatsApp
+    ChannelSubtypeParametersTelephonyMember
+    | ChannelSubtypeParametersSmsMember
+    | ChannelSubtypeParametersEmailMember
+    | ChannelSubtypeParametersWhatsAppMember
     | UnknownUnionMember
 )
 

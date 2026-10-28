@@ -7,7 +7,7 @@ title: QuickResponseContentProvider
       show_source: true
       merge_init_into_class: false
 
-::: capo_wisdom.types.quick_response_content_provider._QuickResponseContentProvider_content
+::: capo_wisdom.types.quick_response_content_provider.QuickResponseContentProviderContentMember
     options:
       show_source: true
       merge_init_into_class: false

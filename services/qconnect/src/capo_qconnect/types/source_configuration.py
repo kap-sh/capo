@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_qconnect.types.managed_source_configuration
 
 
-class _SourceConfiguration_appIntegrations(TypedDict, closed=True):
+class SourceConfigurationAppIntegrationsMember(TypedDict, closed=True):
     appIntegrations: "capo_qconnect.types.app_integrations_configuration.AppIntegrationsConfiguration"
 
 
-class _SourceConfiguration_managedSourceConfiguration(TypedDict, closed=True):
+class SourceConfigurationManagedSourceConfigurationMember(TypedDict, closed=True):
     managedSourceConfiguration: (
         "capo_qconnect.types.managed_source_configuration.ManagedSourceConfiguration"
     )
 
 
 SourceConfiguration: TypeAlias = (
-    _SourceConfiguration_appIntegrations
-    | _SourceConfiguration_managedSourceConfiguration
+    SourceConfigurationAppIntegrationsMember
+    | SourceConfigurationManagedSourceConfigurationMember
     | UnknownUnionMember
 )
 

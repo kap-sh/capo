@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_lakeformation.types.redshift_service_integrations
 
 
-class _ServiceIntegrationUnion_Redshift(TypedDict, closed=True):
+class ServiceIntegrationUnionRedshiftMember(TypedDict, closed=True):
     Redshift: "capo_lakeformation.types.redshift_service_integrations.RedshiftServiceIntegrations"
 
 
 ServiceIntegrationUnion: TypeAlias = (
-    _ServiceIntegrationUnion_Redshift | UnknownUnionMember
+    ServiceIntegrationUnionRedshiftMember | UnknownUnionMember
 )
 
 

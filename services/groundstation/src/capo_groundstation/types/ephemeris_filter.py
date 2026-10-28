@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_groundstation.types.az_el_ephemeris_filter
 
 
-class _EphemerisFilter_azEl(TypedDict, closed=True):
+class EphemerisFilterAzElMember(TypedDict, closed=True):
     azEl: "capo_groundstation.types.az_el_ephemeris_filter.AzElEphemerisFilter"
 
 
-EphemerisFilter: TypeAlias = _EphemerisFilter_azEl | UnknownUnionMember
+EphemerisFilter: TypeAlias = EphemerisFilterAzElMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

@@ -16,39 +16,39 @@ if TYPE_CHECKING:
     import capo_odb.types.restore_from_backup_configuration
 
 
-class _SourceConfiguration_databaseClone(TypedDict, closed=True):
+class SourceConfigurationDatabaseCloneMember(TypedDict, closed=True):
     databaseClone: (
         "capo_odb.types.database_clone_configuration.DatabaseCloneConfiguration"
     )
 
 
-class _SourceConfiguration_restoreFromBackup(TypedDict, closed=True):
+class SourceConfigurationRestoreFromBackupMember(TypedDict, closed=True):
     restoreFromBackup: "capo_odb.types.restore_from_backup_configuration.RestoreFromBackupConfiguration"
 
 
-class _SourceConfiguration_pointInTimeRestore(TypedDict, closed=True):
+class SourceConfigurationPointInTimeRestoreMember(TypedDict, closed=True):
     pointInTimeRestore: "capo_odb.types.point_in_time_restore_configuration.PointInTimeRestoreConfiguration"
 
 
-class _SourceConfiguration_crossRegionDataGuard(TypedDict, closed=True):
+class SourceConfigurationCrossRegionDataGuardMember(TypedDict, closed=True):
     crossRegionDataGuard: "capo_odb.types.cross_region_data_guard_configuration.CrossRegionDataGuardConfiguration"
 
 
-class _SourceConfiguration_crossRegionDisasterRecovery(TypedDict, closed=True):
+class SourceConfigurationCrossRegionDisasterRecoveryMember(TypedDict, closed=True):
     crossRegionDisasterRecovery: "capo_odb.types.cross_region_disaster_recovery_configuration.CrossRegionDisasterRecoveryConfiguration"
 
 
-class _SourceConfiguration_cloneToRefreshable(TypedDict, closed=True):
+class SourceConfigurationCloneToRefreshableMember(TypedDict, closed=True):
     cloneToRefreshable: "capo_odb.types.clone_to_refreshable_configuration.CloneToRefreshableConfiguration"
 
 
 SourceConfiguration: TypeAlias = (
-    _SourceConfiguration_databaseClone
-    | _SourceConfiguration_restoreFromBackup
-    | _SourceConfiguration_pointInTimeRestore
-    | _SourceConfiguration_crossRegionDataGuard
-    | _SourceConfiguration_crossRegionDisasterRecovery
-    | _SourceConfiguration_cloneToRefreshable
+    SourceConfigurationDatabaseCloneMember
+    | SourceConfigurationRestoreFromBackupMember
+    | SourceConfigurationPointInTimeRestoreMember
+    | SourceConfigurationCrossRegionDataGuardMember
+    | SourceConfigurationCrossRegionDisasterRecoveryMember
+    | SourceConfigurationCloneToRefreshableMember
     | UnknownUnionMember
 )
 

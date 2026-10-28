@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_groundstation.types.s3_object
 
 
-class _AzElSegmentsData_s3Object(TypedDict, closed=True):
+class AzElSegmentsDataS3ObjectMember(TypedDict, closed=True):
     s3Object: "capo_groundstation.types.s3_object.S3Object"
 
 
-class _AzElSegmentsData_azElData(TypedDict, closed=True):
+class AzElSegmentsDataAzElDataMember(TypedDict, closed=True):
     azElData: "capo_groundstation.types.az_el_segments.AzElSegments"
 
 
 AzElSegmentsData: TypeAlias = (
-    _AzElSegmentsData_s3Object | _AzElSegmentsData_azElData | UnknownUnionMember
+    AzElSegmentsDataS3ObjectMember | AzElSegmentsDataAzElDataMember | UnknownUnionMember
 )
 
 

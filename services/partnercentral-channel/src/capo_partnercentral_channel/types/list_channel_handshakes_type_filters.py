@@ -13,28 +13,28 @@ if TYPE_CHECKING:
     import capo_partnercentral_channel.types.start_service_period_type_filters
 
 
-class _ListChannelHandshakesTypeFilters_startServicePeriodTypeFilters(
+class ListChannelHandshakesTypeFiltersStartServicePeriodTypeFiltersMember(
     TypedDict, closed=True
 ):
     startServicePeriodTypeFilters: "capo_partnercentral_channel.types.start_service_period_type_filters.StartServicePeriodTypeFilters"
 
 
-class _ListChannelHandshakesTypeFilters_revokeServicePeriodTypeFilters(
+class ListChannelHandshakesTypeFiltersRevokeServicePeriodTypeFiltersMember(
     TypedDict, closed=True
 ):
     revokeServicePeriodTypeFilters: "capo_partnercentral_channel.types.revoke_service_period_type_filters.RevokeServicePeriodTypeFilters"
 
 
-class _ListChannelHandshakesTypeFilters_programManagementAccountTypeFilters(
+class ListChannelHandshakesTypeFiltersProgramManagementAccountTypeFiltersMember(
     TypedDict, closed=True
 ):
     programManagementAccountTypeFilters: "capo_partnercentral_channel.types.program_management_account_type_filters.ProgramManagementAccountTypeFilters"
 
 
 ListChannelHandshakesTypeFilters: TypeAlias = (
-    _ListChannelHandshakesTypeFilters_startServicePeriodTypeFilters
-    | _ListChannelHandshakesTypeFilters_revokeServicePeriodTypeFilters
-    | _ListChannelHandshakesTypeFilters_programManagementAccountTypeFilters
+    ListChannelHandshakesTypeFiltersStartServicePeriodTypeFiltersMember
+    | ListChannelHandshakesTypeFiltersRevokeServicePeriodTypeFiltersMember
+    | ListChannelHandshakesTypeFiltersProgramManagementAccountTypeFiltersMember
     | UnknownUnionMember
 )
 

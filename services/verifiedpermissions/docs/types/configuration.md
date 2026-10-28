@@ -7,13 +7,13 @@ title: Configuration
       show_source: true
       merge_init_into_class: false
 
-::: capo_verifiedpermissions.types.configuration._Configuration_cognitoUserPoolConfiguration
+::: capo_verifiedpermissions.types.configuration.ConfigurationCognitoUserPoolConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_verifiedpermissions.types.configuration._Configuration_openIdConnectConfiguration
+::: capo_verifiedpermissions.types.configuration.ConfigurationOpenIdConnectConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false

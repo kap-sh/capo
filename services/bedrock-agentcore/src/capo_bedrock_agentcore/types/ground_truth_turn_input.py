@@ -8,11 +8,11 @@ from capo_bedrock_agentcore.errors import DeserializationError, SerializationErr
 from capo_bedrock_agentcore.types._unknown import UnknownUnionMember
 
 
-class _GroundTruthTurnInput_prompt(TypedDict, closed=True):
+class GroundTruthTurnInputPromptMember(TypedDict, closed=True):
     prompt: "str"
 
 
-GroundTruthTurnInput: TypeAlias = _GroundTruthTurnInput_prompt | UnknownUnionMember
+GroundTruthTurnInput: TypeAlias = GroundTruthTurnInputPromptMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_bedrock_agent.types.functions
 
 
-class _FunctionSchema_functions(TypedDict, closed=True):
+class FunctionSchemaFunctionsMember(TypedDict, closed=True):
     functions: "capo_bedrock_agent.types.functions.Functions"
 
 
-FunctionSchema: TypeAlias = _FunctionSchema_functions | UnknownUnionMember
+FunctionSchema: TypeAlias = FunctionSchemaFunctionsMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

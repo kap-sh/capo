@@ -7,7 +7,7 @@ title: Memory
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agent_runtime.types.memory._Memory_sessionSummary
+::: capo_bedrock_agent_runtime.types.memory.MemorySessionSummaryMember
     options:
       show_source: true
       merge_init_into_class: false

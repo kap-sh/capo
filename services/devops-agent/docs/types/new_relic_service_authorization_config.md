@@ -7,7 +7,7 @@ title: NewRelicServiceAuthorizationConfig
       show_source: true
       merge_init_into_class: false
 
-::: capo_devops_agent.types.new_relic_service_authorization_config._NewRelicServiceAuthorizationConfig_apiKey
+::: capo_devops_agent.types.new_relic_service_authorization_config.NewRelicServiceAuthorizationConfigApiKeyMember
     options:
       show_source: true
       merge_init_into_class: false

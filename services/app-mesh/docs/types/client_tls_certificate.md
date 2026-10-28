@@ -7,13 +7,13 @@ title: ClientTlsCertificate
       show_source: true
       merge_init_into_class: false
 
-::: capo_app_mesh.types.client_tls_certificate._ClientTlsCertificate_file
+::: capo_app_mesh.types.client_tls_certificate.ClientTlsCertificateFileMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_app_mesh.types.client_tls_certificate._ClientTlsCertificate_sds
+::: capo_app_mesh.types.client_tls_certificate.ClientTlsCertificateSdsMember
     options:
       show_source: true
       merge_init_into_class: false

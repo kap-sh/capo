@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_securitylake.types.custom_log_source_resource
 
 
-class _LogSourceResource_awsLogSource(TypedDict, closed=True):
+class LogSourceResourceAwsLogSourceMember(TypedDict, closed=True):
     awsLogSource: "capo_securitylake.types.aws_log_source_resource.AwsLogSourceResource"
 
 
-class _LogSourceResource_customLogSource(TypedDict, closed=True):
+class LogSourceResourceCustomLogSourceMember(TypedDict, closed=True):
     customLogSource: (
         "capo_securitylake.types.custom_log_source_resource.CustomLogSourceResource"
     )
 
 
 LogSourceResource: TypeAlias = (
-    _LogSourceResource_awsLogSource
-    | _LogSourceResource_customLogSource
+    LogSourceResourceAwsLogSourceMember
+    | LogSourceResourceCustomLogSourceMember
     | UnknownUnionMember
 )
 

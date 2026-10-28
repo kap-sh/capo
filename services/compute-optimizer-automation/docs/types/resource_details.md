@@ -7,7 +7,7 @@ title: ResourceDetails
       show_source: true
       merge_init_into_class: false
 
-::: capo_compute_optimizer_automation.types.resource_details._ResourceDetails_ebsVolume
+::: capo_compute_optimizer_automation.types.resource_details.ResourceDetailsEbsVolumeMember
     options:
       show_source: true
       merge_init_into_class: false

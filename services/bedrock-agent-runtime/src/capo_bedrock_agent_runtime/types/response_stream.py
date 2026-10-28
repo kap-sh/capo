@@ -29,87 +29,87 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.trace_part
 
 
-class _ResponseStream_chunk(TypedDict, closed=True):
+class ResponseStreamChunkMember(TypedDict, closed=True):
     chunk: "capo_bedrock_agent_runtime.types.payload_part.PayloadPart"
 
 
-class _ResponseStream_trace(TypedDict, closed=True):
+class ResponseStreamTraceMember(TypedDict, closed=True):
     trace: "capo_bedrock_agent_runtime.types.trace_part.TracePart"
 
 
-class _ResponseStream_returnControl(TypedDict, closed=True):
+class ResponseStreamReturnControlMember(TypedDict, closed=True):
     returnControl: (
         "capo_bedrock_agent_runtime.types.return_control_payload.ReturnControlPayload"
     )
 
 
-class _ResponseStream_internalServerException(TypedDict, closed=True):
+class ResponseStreamInternalServerExceptionMember(TypedDict, closed=True):
     internalServerException: "capo_bedrock_agent_runtime.errors.internal_server_exception.InternalServerException_"
 
 
-class _ResponseStream_validationException(TypedDict, closed=True):
+class ResponseStreamValidationExceptionMember(TypedDict, closed=True):
     validationException: (
         "capo_bedrock_agent_runtime.errors.validation_exception.ValidationException_"
     )
 
 
-class _ResponseStream_resourceNotFoundException(TypedDict, closed=True):
+class ResponseStreamResourceNotFoundExceptionMember(TypedDict, closed=True):
     resourceNotFoundException: "capo_bedrock_agent_runtime.errors.resource_not_found_exception.ResourceNotFoundException_"
 
 
-class _ResponseStream_serviceQuotaExceededException(TypedDict, closed=True):
+class ResponseStreamServiceQuotaExceededExceptionMember(TypedDict, closed=True):
     serviceQuotaExceededException: "capo_bedrock_agent_runtime.errors.service_quota_exceeded_exception.ServiceQuotaExceededException_"
 
 
-class _ResponseStream_throttlingException(TypedDict, closed=True):
+class ResponseStreamThrottlingExceptionMember(TypedDict, closed=True):
     throttlingException: (
         "capo_bedrock_agent_runtime.errors.throttling_exception.ThrottlingException_"
     )
 
 
-class _ResponseStream_accessDeniedException(TypedDict, closed=True):
+class ResponseStreamAccessDeniedExceptionMember(TypedDict, closed=True):
     accessDeniedException: "capo_bedrock_agent_runtime.errors.access_denied_exception.AccessDeniedException_"
 
 
-class _ResponseStream_conflictException(TypedDict, closed=True):
+class ResponseStreamConflictExceptionMember(TypedDict, closed=True):
     conflictException: (
         "capo_bedrock_agent_runtime.errors.conflict_exception.ConflictException_"
     )
 
 
-class _ResponseStream_dependencyFailedException(TypedDict, closed=True):
+class ResponseStreamDependencyFailedExceptionMember(TypedDict, closed=True):
     dependencyFailedException: "capo_bedrock_agent_runtime.errors.dependency_failed_exception.DependencyFailedException_"
 
 
-class _ResponseStream_badGatewayException(TypedDict, closed=True):
+class ResponseStreamBadGatewayExceptionMember(TypedDict, closed=True):
     badGatewayException: (
         "capo_bedrock_agent_runtime.errors.bad_gateway_exception.BadGatewayException_"
     )
 
 
-class _ResponseStream_modelNotReadyException(TypedDict, closed=True):
+class ResponseStreamModelNotReadyExceptionMember(TypedDict, closed=True):
     modelNotReadyException: "capo_bedrock_agent_runtime.errors.model_not_ready_exception.ModelNotReadyException_"
 
 
-class _ResponseStream_files(TypedDict, closed=True):
+class ResponseStreamFilesMember(TypedDict, closed=True):
     files: "capo_bedrock_agent_runtime.types.file_part.FilePart"
 
 
 _ResponseStream: TypeAlias = (
-    _ResponseStream_chunk
-    | _ResponseStream_trace
-    | _ResponseStream_returnControl
-    | _ResponseStream_internalServerException
-    | _ResponseStream_validationException
-    | _ResponseStream_resourceNotFoundException
-    | _ResponseStream_serviceQuotaExceededException
-    | _ResponseStream_throttlingException
-    | _ResponseStream_accessDeniedException
-    | _ResponseStream_conflictException
-    | _ResponseStream_dependencyFailedException
-    | _ResponseStream_badGatewayException
-    | _ResponseStream_modelNotReadyException
-    | _ResponseStream_files
+    ResponseStreamChunkMember
+    | ResponseStreamTraceMember
+    | ResponseStreamReturnControlMember
+    | ResponseStreamInternalServerExceptionMember
+    | ResponseStreamValidationExceptionMember
+    | ResponseStreamResourceNotFoundExceptionMember
+    | ResponseStreamServiceQuotaExceededExceptionMember
+    | ResponseStreamThrottlingExceptionMember
+    | ResponseStreamAccessDeniedExceptionMember
+    | ResponseStreamConflictExceptionMember
+    | ResponseStreamDependencyFailedExceptionMember
+    | ResponseStreamBadGatewayExceptionMember
+    | ResponseStreamModelNotReadyExceptionMember
+    | ResponseStreamFilesMember
     | UnknownEvent
 )
 ResponseStream: TypeAlias = AnyIterator[_ResponseStream]

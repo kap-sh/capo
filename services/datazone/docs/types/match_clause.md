@@ -7,13 +7,13 @@ title: MatchClause
       show_source: true
       merge_init_into_class: false
 
-::: capo_datazone.types.match_clause._MatchClause_relationPattern
+::: capo_datazone.types.match_clause.MatchClauseRelationPatternMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.match_clause._MatchClause_entityPattern
+::: capo_datazone.types.match_clause.MatchClauseEntityPatternMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_agent_registry_control.types.custom_jwt_authorizer_configuration
 
 
-class _AuthorizerConfiguration_customJWTAuthorizer(TypedDict, closed=True):
+class AuthorizerConfigurationCustomJWTAuthorizerMember(TypedDict, closed=True):
     customJWTAuthorizer: "capo_agent_registry_control.types.custom_jwt_authorizer_configuration.CustomJWTAuthorizerConfiguration"
 
 
 AuthorizerConfiguration: TypeAlias = (
-    _AuthorizerConfiguration_customJWTAuthorizer | UnknownUnionMember
+    AuthorizerConfigurationCustomJWTAuthorizerMember | UnknownUnionMember
 )
 
 

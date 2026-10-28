@@ -16,22 +16,22 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.numerical_scale_definitions
 
 
-class _RatingScale_numerical(TypedDict, closed=True):
+class RatingScaleNumericalMember(TypedDict, closed=True):
     numerical: "capo_bedrock_agentcore_control.types.numerical_scale_definitions.NumericalScaleDefinitions"
 
 
-class _RatingScale_categorical(TypedDict, closed=True):
+class RatingScaleCategoricalMember(TypedDict, closed=True):
     categorical: "capo_bedrock_agentcore_control.types.categorical_scale_definitions.CategoricalScaleDefinitions"
 
 
-class _RatingScale_multiDimensional(TypedDict, closed=True):
+class RatingScaleMultiDimensionalMember(TypedDict, closed=True):
     multiDimensional: "capo_bedrock_agentcore_control.types.evaluation_dimensions.EvaluationDimensions"
 
 
 RatingScale: TypeAlias = (
-    _RatingScale_numerical
-    | _RatingScale_categorical
-    | _RatingScale_multiDimensional
+    RatingScaleNumericalMember
+    | RatingScaleCategoricalMember
+    | RatingScaleMultiDimensionalMember
     | UnknownUnionMember
 )
 

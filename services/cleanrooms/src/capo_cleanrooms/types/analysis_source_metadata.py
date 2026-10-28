@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.analysis_template_artifact_metadata
 
 
-class _AnalysisSourceMetadata_artifacts(TypedDict, closed=True):
+class AnalysisSourceMetadataArtifactsMember(TypedDict, closed=True):
     artifacts: "capo_cleanrooms.types.analysis_template_artifact_metadata.AnalysisTemplateArtifactMetadata"
 
 
 AnalysisSourceMetadata: TypeAlias = (
-    _AnalysisSourceMetadata_artifacts | UnknownUnionMember
+    AnalysisSourceMetadataArtifactsMember | UnknownUnionMember
 )
 
 

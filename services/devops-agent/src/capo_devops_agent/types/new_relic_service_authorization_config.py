@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.new_relic_api_key_config
 
 
-class _NewRelicServiceAuthorizationConfig_apiKey(TypedDict, closed=True):
+class NewRelicServiceAuthorizationConfigApiKeyMember(TypedDict, closed=True):
     apiKey: "capo_devops_agent.types.new_relic_api_key_config.NewRelicApiKeyConfig"
 
 
 NewRelicServiceAuthorizationConfig: TypeAlias = (
-    _NewRelicServiceAuthorizationConfig_apiKey | UnknownUnionMember
+    NewRelicServiceAuthorizationConfigApiKeyMember | UnknownUnionMember
 )
 
 

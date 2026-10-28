@@ -12,18 +12,18 @@ if TYPE_CHECKING:
     import capo_application_signals.types.rolling_interval
 
 
-class _Interval_RollingInterval(TypedDict, closed=True):
+class IntervalRollingIntervalMember(TypedDict, closed=True):
     RollingInterval: "capo_application_signals.types.rolling_interval.RollingInterval"
 
 
-class _Interval_CalendarInterval(TypedDict, closed=True):
+class IntervalCalendarIntervalMember(TypedDict, closed=True):
     CalendarInterval: (
         "capo_application_signals.types.calendar_interval.CalendarInterval"
     )
 
 
 Interval: TypeAlias = (
-    _Interval_RollingInterval | _Interval_CalendarInterval | UnknownUnionMember
+    IntervalRollingIntervalMember | IntervalCalendarIntervalMember | UnknownUnionMember
 )
 
 

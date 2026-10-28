@@ -11,13 +11,13 @@ if TYPE_CHECKING:
     import capo_datazone.types.aws_console_link_parameters
 
 
-class _ActionParameters_awsConsoleLink(TypedDict, closed=True):
+class ActionParametersAwsConsoleLinkMember(TypedDict, closed=True):
     awsConsoleLink: (
         "capo_datazone.types.aws_console_link_parameters.AwsConsoleLinkParameters"
     )
 
 
-ActionParameters: TypeAlias = _ActionParameters_awsConsoleLink | UnknownUnionMember
+ActionParameters: TypeAlias = ActionParametersAwsConsoleLinkMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

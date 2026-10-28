@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.sensitive_text
 
 
-class _HarnessToolResultContentBlock_text(TypedDict, closed=True):
+class HarnessToolResultContentBlockTextMember(TypedDict, closed=True):
     text: "capo_bedrock_agentcore.types.sensitive_text.SensitiveText"
 
 
-class _HarnessToolResultContentBlock_json(TypedDict, closed=True):
+class HarnessToolResultContentBlockJsonMember(TypedDict, closed=True):
     json: "capo_bedrock_agentcore.types.sensitive_json.SensitiveJson"
 
 
 HarnessToolResultContentBlock: TypeAlias = (
-    _HarnessToolResultContentBlock_text
-    | _HarnessToolResultContentBlock_json
+    HarnessToolResultContentBlockTextMember
+    | HarnessToolResultContentBlockJsonMember
     | UnknownUnionMember
 )
 

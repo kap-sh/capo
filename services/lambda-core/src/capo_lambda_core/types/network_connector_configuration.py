@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_lambda_core.types.network_connector_vpc_egress_configuration
 
 
-class _NetworkConnectorConfiguration_VpcEgressConfiguration(TypedDict, closed=True):
+class NetworkConnectorConfigurationVpcEgressConfigurationMember(TypedDict, closed=True):
     VpcEgressConfiguration: "capo_lambda_core.types.network_connector_vpc_egress_configuration.NetworkConnectorVpcEgressConfiguration"
 
 
 NetworkConnectorConfiguration: TypeAlias = (
-    _NetworkConnectorConfiguration_VpcEgressConfiguration | UnknownUnionMember
+    NetworkConnectorConfigurationVpcEgressConfigurationMember | UnknownUnionMember
 )
 
 

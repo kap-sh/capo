@@ -7,7 +7,7 @@ title: ExportPreferences
       show_source: true
       merge_init_into_class: false
 
-::: capo_application_discovery_service.types.export_preferences._ExportPreferences_ec2RecommendationsPreferences
+::: capo_application_discovery_service.types.export_preferences.ExportPreferencesEc2RecommendationsPreferencesMember
     options:
       show_source: true
       merge_init_into_class: false

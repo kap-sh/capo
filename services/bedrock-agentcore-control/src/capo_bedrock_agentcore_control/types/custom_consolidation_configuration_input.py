@@ -17,35 +17,35 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.user_preference_override_consolidation_configuration_input
 
 
-class _CustomConsolidationConfigurationInput_semanticConsolidationOverride(
+class CustomConsolidationConfigurationInputSemanticConsolidationOverrideMember(
     TypedDict, closed=True
 ):
     semanticConsolidationOverride: "capo_bedrock_agentcore_control.types.semantic_override_consolidation_configuration_input.SemanticOverrideConsolidationConfigurationInput"
 
 
-class _CustomConsolidationConfigurationInput_summaryConsolidationOverride(
+class CustomConsolidationConfigurationInputSummaryConsolidationOverrideMember(
     TypedDict, closed=True
 ):
     summaryConsolidationOverride: "capo_bedrock_agentcore_control.types.summary_override_consolidation_configuration_input.SummaryOverrideConsolidationConfigurationInput"
 
 
-class _CustomConsolidationConfigurationInput_userPreferenceConsolidationOverride(
+class CustomConsolidationConfigurationInputUserPreferenceConsolidationOverrideMember(
     TypedDict, closed=True
 ):
     userPreferenceConsolidationOverride: "capo_bedrock_agentcore_control.types.user_preference_override_consolidation_configuration_input.UserPreferenceOverrideConsolidationConfigurationInput"
 
 
-class _CustomConsolidationConfigurationInput_episodicConsolidationOverride(
+class CustomConsolidationConfigurationInputEpisodicConsolidationOverrideMember(
     TypedDict, closed=True
 ):
     episodicConsolidationOverride: "capo_bedrock_agentcore_control.types.episodic_override_consolidation_configuration_input.EpisodicOverrideConsolidationConfigurationInput"
 
 
 CustomConsolidationConfigurationInput: TypeAlias = (
-    _CustomConsolidationConfigurationInput_semanticConsolidationOverride
-    | _CustomConsolidationConfigurationInput_summaryConsolidationOverride
-    | _CustomConsolidationConfigurationInput_userPreferenceConsolidationOverride
-    | _CustomConsolidationConfigurationInput_episodicConsolidationOverride
+    CustomConsolidationConfigurationInputSemanticConsolidationOverrideMember
+    | CustomConsolidationConfigurationInputSummaryConsolidationOverrideMember
+    | CustomConsolidationConfigurationInputUserPreferenceConsolidationOverrideMember
+    | CustomConsolidationConfigurationInputEpisodicConsolidationOverrideMember
     | UnknownUnionMember
 )
 

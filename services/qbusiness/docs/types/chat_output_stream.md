@@ -13,31 +13,31 @@ title: ChatOutputStream
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qbusiness.types.chat_output_stream._ChatOutputStream_textEvent
+::: capo_qbusiness.types.chat_output_stream.ChatOutputStreamTextEventMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qbusiness.types.chat_output_stream._ChatOutputStream_metadataEvent
+::: capo_qbusiness.types.chat_output_stream.ChatOutputStreamMetadataEventMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qbusiness.types.chat_output_stream._ChatOutputStream_actionReviewEvent
+::: capo_qbusiness.types.chat_output_stream.ChatOutputStreamActionReviewEventMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qbusiness.types.chat_output_stream._ChatOutputStream_failedAttachmentEvent
+::: capo_qbusiness.types.chat_output_stream.ChatOutputStreamFailedAttachmentEventMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qbusiness.types.chat_output_stream._ChatOutputStream_authChallengeRequestEvent
+::: capo_qbusiness.types.chat_output_stream.ChatOutputStreamAuthChallengeRequestEventMember
     options:
       show_source: true
       merge_init_into_class: false

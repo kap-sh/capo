@@ -7,7 +7,7 @@ title: InferenceProfileModelSource
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock.types.inference_profile_model_source._InferenceProfileModelSource_copyFrom
+::: capo_bedrock.types.inference_profile_model_source.InferenceProfileModelSourceCopyFromMember
     options:
       show_source: true
       merge_init_into_class: false

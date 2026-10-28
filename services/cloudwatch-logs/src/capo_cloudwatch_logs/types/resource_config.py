@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.open_search_resource_config
 
 
-class _ResourceConfig_openSearchResourceConfig(TypedDict, closed=True):
+class ResourceConfigOpenSearchResourceConfigMember(TypedDict, closed=True):
     openSearchResourceConfig: "capo_cloudwatch_logs.types.open_search_resource_config.OpenSearchResourceConfig"
 
 
 ResourceConfig: TypeAlias = (
-    _ResourceConfig_openSearchResourceConfig | UnknownUnionMember
+    ResourceConfigOpenSearchResourceConfigMember | UnknownUnionMember
 )
 
 

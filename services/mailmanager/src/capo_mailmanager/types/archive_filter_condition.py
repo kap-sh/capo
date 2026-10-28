@@ -12,21 +12,21 @@ if TYPE_CHECKING:
     import capo_mailmanager.types.archive_string_expression
 
 
-class _ArchiveFilterCondition_StringExpression(TypedDict, closed=True):
+class ArchiveFilterConditionStringExpressionMember(TypedDict, closed=True):
     StringExpression: (
         "capo_mailmanager.types.archive_string_expression.ArchiveStringExpression"
     )
 
 
-class _ArchiveFilterCondition_BooleanExpression(TypedDict, closed=True):
+class ArchiveFilterConditionBooleanExpressionMember(TypedDict, closed=True):
     BooleanExpression: (
         "capo_mailmanager.types.archive_boolean_expression.ArchiveBooleanExpression"
     )
 
 
 ArchiveFilterCondition: TypeAlias = (
-    _ArchiveFilterCondition_StringExpression
-    | _ArchiveFilterCondition_BooleanExpression
+    ArchiveFilterConditionStringExpressionMember
+    | ArchiveFilterConditionBooleanExpressionMember
     | UnknownUnionMember
 )
 

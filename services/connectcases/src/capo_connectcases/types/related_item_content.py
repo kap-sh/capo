@@ -16,37 +16,37 @@ if TYPE_CHECKING:
     import capo_connectcases.types.sla_content
 
 
-class _RelatedItemContent_contact(TypedDict, closed=True):
+class RelatedItemContentContactMember(TypedDict, closed=True):
     contact: "capo_connectcases.types.contact_content.ContactContent"
 
 
-class _RelatedItemContent_comment(TypedDict, closed=True):
+class RelatedItemContentCommentMember(TypedDict, closed=True):
     comment: "capo_connectcases.types.comment_content.CommentContent"
 
 
-class _RelatedItemContent_file(TypedDict, closed=True):
+class RelatedItemContentFileMember(TypedDict, closed=True):
     file: "capo_connectcases.types.file_content.FileContent"
 
 
-class _RelatedItemContent_sla(TypedDict, closed=True):
+class RelatedItemContentSlaMember(TypedDict, closed=True):
     sla: "capo_connectcases.types.sla_content.SlaContent"
 
 
-class _RelatedItemContent_connectCase(TypedDict, closed=True):
+class RelatedItemContentConnectCaseMember(TypedDict, closed=True):
     connectCase: "capo_connectcases.types.connect_case_content.ConnectCaseContent"
 
 
-class _RelatedItemContent_custom(TypedDict, closed=True):
+class RelatedItemContentCustomMember(TypedDict, closed=True):
     custom: "capo_connectcases.types.custom_content.CustomContent"
 
 
 RelatedItemContent: TypeAlias = (
-    _RelatedItemContent_contact
-    | _RelatedItemContent_comment
-    | _RelatedItemContent_file
-    | _RelatedItemContent_sla
-    | _RelatedItemContent_connectCase
-    | _RelatedItemContent_custom
+    RelatedItemContentContactMember
+    | RelatedItemContentCommentMember
+    | RelatedItemContentFileMember
+    | RelatedItemContentSlaMember
+    | RelatedItemContentConnectCaseMember
+    | RelatedItemContentCustomMember
     | UnknownUnionMember
 )
 

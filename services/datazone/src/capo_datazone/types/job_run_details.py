@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_datazone.types.lineage_run_details
 
 
-class _JobRunDetails_lineageRunDetails(TypedDict, closed=True):
+class JobRunDetailsLineageRunDetailsMember(TypedDict, closed=True):
     lineageRunDetails: "capo_datazone.types.lineage_run_details.LineageRunDetails"
 
 
-JobRunDetails: TypeAlias = _JobRunDetails_lineageRunDetails | UnknownUnionMember
+JobRunDetails: TypeAlias = JobRunDetailsLineageRunDetailsMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

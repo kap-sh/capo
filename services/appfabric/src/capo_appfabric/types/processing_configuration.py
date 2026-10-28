@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_appfabric.types.audit_log_processing_configuration
 
 
-class _ProcessingConfiguration_auditLog(TypedDict, closed=True):
+class ProcessingConfigurationAuditLogMember(TypedDict, closed=True):
     auditLog: "capo_appfabric.types.audit_log_processing_configuration.AuditLogProcessingConfiguration"
 
 
 ProcessingConfiguration: TypeAlias = (
-    _ProcessingConfiguration_auditLog | UnknownUnionMember
+    ProcessingConfigurationAuditLogMember | UnknownUnionMember
 )
 
 

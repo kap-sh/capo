@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_healthlake.types.s3_uri
 
 
-class _InputDataConfig_S3Uri(TypedDict, closed=True):
+class InputDataConfigS3UriMember(TypedDict, closed=True):
     S3Uri: "capo_healthlake.types.s3_uri.S3Uri"
 
 
-InputDataConfig: TypeAlias = _InputDataConfig_S3Uri | UnknownUnionMember
+InputDataConfig: TypeAlias = InputDataConfigS3UriMember | UnknownUnionMember
 
 
 # --- awsJson1_0 ser/de ---

@@ -7,7 +7,7 @@ title: CopyFromSource
       show_source: true
       merge_init_into_class: false
 
-::: capo_qbusiness.types.copy_from_source._CopyFromSource_conversation
+::: capo_qbusiness.types.copy_from_source.CopyFromSourceConversationMember
     options:
       show_source: true
       merge_init_into_class: false

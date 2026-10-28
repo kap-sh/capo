@@ -7,7 +7,7 @@ title: ArchiveBooleanToEvaluate
       show_source: true
       merge_init_into_class: false
 
-::: capo_mailmanager.types.archive_boolean_to_evaluate._ArchiveBooleanToEvaluate_Attribute
+::: capo_mailmanager.types.archive_boolean_to_evaluate.ArchiveBooleanToEvaluateAttributeMember
     options:
       show_source: true
       merge_init_into_class: false

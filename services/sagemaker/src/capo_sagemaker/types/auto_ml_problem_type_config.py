@@ -15,34 +15,36 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.time_series_forecasting_job_config
 
 
-class _AutoMLProblemTypeConfig_ImageClassificationJobConfig(TypedDict, closed=True):
+class AutoMLProblemTypeConfigImageClassificationJobConfigMember(TypedDict, closed=True):
     ImageClassificationJobConfig: "capo_sagemaker.types.image_classification_job_config.ImageClassificationJobConfig"
 
 
-class _AutoMLProblemTypeConfig_TextClassificationJobConfig(TypedDict, closed=True):
+class AutoMLProblemTypeConfigTextClassificationJobConfigMember(TypedDict, closed=True):
     TextClassificationJobConfig: "capo_sagemaker.types.text_classification_job_config.TextClassificationJobConfig"
 
 
-class _AutoMLProblemTypeConfig_TimeSeriesForecastingJobConfig(TypedDict, closed=True):
+class AutoMLProblemTypeConfigTimeSeriesForecastingJobConfigMember(
+    TypedDict, closed=True
+):
     TimeSeriesForecastingJobConfig: "capo_sagemaker.types.time_series_forecasting_job_config.TimeSeriesForecastingJobConfig"
 
 
-class _AutoMLProblemTypeConfig_TabularJobConfig(TypedDict, closed=True):
+class AutoMLProblemTypeConfigTabularJobConfigMember(TypedDict, closed=True):
     TabularJobConfig: "capo_sagemaker.types.tabular_job_config.TabularJobConfig"
 
 
-class _AutoMLProblemTypeConfig_TextGenerationJobConfig(TypedDict, closed=True):
+class AutoMLProblemTypeConfigTextGenerationJobConfigMember(TypedDict, closed=True):
     TextGenerationJobConfig: (
         "capo_sagemaker.types.text_generation_job_config.TextGenerationJobConfig"
     )
 
 
 AutoMLProblemTypeConfig: TypeAlias = (
-    _AutoMLProblemTypeConfig_ImageClassificationJobConfig
-    | _AutoMLProblemTypeConfig_TextClassificationJobConfig
-    | _AutoMLProblemTypeConfig_TimeSeriesForecastingJobConfig
-    | _AutoMLProblemTypeConfig_TabularJobConfig
-    | _AutoMLProblemTypeConfig_TextGenerationJobConfig
+    AutoMLProblemTypeConfigImageClassificationJobConfigMember
+    | AutoMLProblemTypeConfigTextClassificationJobConfigMember
+    | AutoMLProblemTypeConfigTimeSeriesForecastingJobConfigMember
+    | AutoMLProblemTypeConfigTabularJobConfigMember
+    | AutoMLProblemTypeConfigTextGenerationJobConfigMember
     | UnknownUnionMember
 )
 

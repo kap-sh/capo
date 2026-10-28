@@ -16,26 +16,26 @@ if TYPE_CHECKING:
     import capo_network_security_manager.types.resource_logical_expression_list
 
 
-class _ResourceLogicalExpression_criteria(TypedDict, closed=True):
+class ResourceLogicalExpressionCriteriaMember(TypedDict, closed=True):
     criteria: "capo_network_security_manager.types.resource_criteria.ResourceCriteria"
 
 
-_ResourceLogicalExpression_and = TypedDict(
-    "_ResourceLogicalExpression_and",
+ResourceLogicalExpressionAndMember = TypedDict(
+    "ResourceLogicalExpressionAndMember",
     {
         "and": "capo_network_security_manager.types.resource_logical_expression_list.ResourceLogicalExpressionList",
     },
     closed=True,
 )
-_ResourceLogicalExpression_or = TypedDict(
-    "_ResourceLogicalExpression_or",
+ResourceLogicalExpressionOrMember = TypedDict(
+    "ResourceLogicalExpressionOrMember",
     {
         "or": "capo_network_security_manager.types.resource_logical_expression_list.ResourceLogicalExpressionList",
     },
     closed=True,
 )
-_ResourceLogicalExpression_not = TypedDict(
-    "_ResourceLogicalExpression_not",
+ResourceLogicalExpressionNotMember = TypedDict(
+    "ResourceLogicalExpressionNotMember",
     {
         "not": "capo_network_security_manager.types.resource_logical_expression.ResourceLogicalExpression",
     },
@@ -43,10 +43,10 @@ _ResourceLogicalExpression_not = TypedDict(
 )
 
 ResourceLogicalExpression: TypeAlias = (
-    _ResourceLogicalExpression_criteria
-    | _ResourceLogicalExpression_and
-    | _ResourceLogicalExpression_or
-    | _ResourceLogicalExpression_not
+    ResourceLogicalExpressionCriteriaMember
+    | ResourceLogicalExpressionAndMember
+    | ResourceLogicalExpressionOrMember
+    | ResourceLogicalExpressionNotMember
     | UnknownUnionMember
 )
 

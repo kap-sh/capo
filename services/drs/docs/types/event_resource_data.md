@@ -7,7 +7,7 @@ title: EventResourceData
       show_source: true
       merge_init_into_class: false
 
-::: capo_drs.types.event_resource_data._EventResourceData_sourceNetworkData
+::: capo_drs.types.event_resource_data.EventResourceDataSourceNetworkDataMember
     options:
       show_source: true
       merge_init_into_class: false

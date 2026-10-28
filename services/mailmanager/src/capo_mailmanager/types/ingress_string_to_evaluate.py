@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_mailmanager.types.ingress_string_email_attribute
 
 
-class _IngressStringToEvaluate_Attribute(TypedDict, closed=True):
+class IngressStringToEvaluateAttributeMember(TypedDict, closed=True):
     Attribute: "capo_mailmanager.types.ingress_string_email_attribute.IngressStringEmailAttribute"
 
 
-class _IngressStringToEvaluate_Analysis(TypedDict, closed=True):
+class IngressStringToEvaluateAnalysisMember(TypedDict, closed=True):
     Analysis: "capo_mailmanager.types.ingress_analysis.IngressAnalysis"
 
 
 IngressStringToEvaluate: TypeAlias = (
-    _IngressStringToEvaluate_Attribute
-    | _IngressStringToEvaluate_Analysis
+    IngressStringToEvaluateAttributeMember
+    | IngressStringToEvaluateAnalysisMember
     | UnknownUnionMember
 )
 

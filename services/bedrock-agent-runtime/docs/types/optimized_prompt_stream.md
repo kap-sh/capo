@@ -13,49 +13,49 @@ title: OptimizedPromptStream
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.optimized_prompt_stream._OptimizedPromptStream_optimizedPromptEvent
+::: capo_bedrock_agent_runtime.types.optimized_prompt_stream.OptimizedPromptStreamOptimizedPromptEventMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.optimized_prompt_stream._OptimizedPromptStream_analyzePromptEvent
+::: capo_bedrock_agent_runtime.types.optimized_prompt_stream.OptimizedPromptStreamAnalyzePromptEventMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.optimized_prompt_stream._OptimizedPromptStream_internalServerException
+::: capo_bedrock_agent_runtime.types.optimized_prompt_stream.OptimizedPromptStreamInternalServerExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.optimized_prompt_stream._OptimizedPromptStream_throttlingException
+::: capo_bedrock_agent_runtime.types.optimized_prompt_stream.OptimizedPromptStreamThrottlingExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.optimized_prompt_stream._OptimizedPromptStream_validationException
+::: capo_bedrock_agent_runtime.types.optimized_prompt_stream.OptimizedPromptStreamValidationExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.optimized_prompt_stream._OptimizedPromptStream_dependencyFailedException
+::: capo_bedrock_agent_runtime.types.optimized_prompt_stream.OptimizedPromptStreamDependencyFailedExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.optimized_prompt_stream._OptimizedPromptStream_accessDeniedException
+::: capo_bedrock_agent_runtime.types.optimized_prompt_stream.OptimizedPromptStreamAccessDeniedExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.optimized_prompt_stream._OptimizedPromptStream_badGatewayException
+::: capo_bedrock_agent_runtime.types.optimized_prompt_stream.OptimizedPromptStreamBadGatewayExceptionMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_qconnect.types.non_empty_unlimited_string
 
 
-class _MessageTemplateBodyContentProvider_content(TypedDict, closed=True):
+class MessageTemplateBodyContentProviderContentMember(TypedDict, closed=True):
     content: "capo_qconnect.types.non_empty_unlimited_string.NonEmptyUnlimitedString"
 
 
 MessageTemplateBodyContentProvider: TypeAlias = (
-    _MessageTemplateBodyContentProvider_content | UnknownUnionMember
+    MessageTemplateBodyContentProviderContentMember | UnknownUnionMember
 )
 
 

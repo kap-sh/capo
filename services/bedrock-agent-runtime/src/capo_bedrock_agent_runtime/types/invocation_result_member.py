@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.function_result
 
 
-class _InvocationResultMember_apiResult(TypedDict, closed=True):
+class InvocationResultMemberApiResultMember(TypedDict, closed=True):
     apiResult: "capo_bedrock_agent_runtime.types.api_result.ApiResult"
 
 
-class _InvocationResultMember_functionResult(TypedDict, closed=True):
+class InvocationResultMemberFunctionResultMember(TypedDict, closed=True):
     functionResult: "capo_bedrock_agent_runtime.types.function_result.FunctionResult"
 
 
 InvocationResultMember: TypeAlias = (
-    _InvocationResultMember_apiResult
-    | _InvocationResultMember_functionResult
+    InvocationResultMemberApiResultMember
+    | InvocationResultMemberFunctionResultMember
     | UnknownUnionMember
 )
 

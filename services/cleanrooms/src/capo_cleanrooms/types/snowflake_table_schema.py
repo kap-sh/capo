@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.snowflake_table_schema_list
 
 
-class _SnowflakeTableSchema_v1(TypedDict, closed=True):
+class SnowflakeTableSchemaV1Member(TypedDict, closed=True):
     v1: "capo_cleanrooms.types.snowflake_table_schema_list.SnowflakeTableSchemaList"
 
 
-SnowflakeTableSchema: TypeAlias = _SnowflakeTableSchema_v1 | UnknownUnionMember
+SnowflakeTableSchema: TypeAlias = SnowflakeTableSchemaV1Member | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

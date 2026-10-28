@@ -7,37 +7,37 @@ title: RuleCondition
       show_source: true
       merge_init_into_class: false
 
-::: capo_mailmanager.types.rule_condition._RuleCondition_BooleanExpression
+::: capo_mailmanager.types.rule_condition.RuleConditionBooleanExpressionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mailmanager.types.rule_condition._RuleCondition_StringExpression
+::: capo_mailmanager.types.rule_condition.RuleConditionStringExpressionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mailmanager.types.rule_condition._RuleCondition_NumberExpression
+::: capo_mailmanager.types.rule_condition.RuleConditionNumberExpressionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mailmanager.types.rule_condition._RuleCondition_IpExpression
+::: capo_mailmanager.types.rule_condition.RuleConditionIpExpressionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mailmanager.types.rule_condition._RuleCondition_VerdictExpression
+::: capo_mailmanager.types.rule_condition.RuleConditionVerdictExpressionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mailmanager.types.rule_condition._RuleCondition_DmarcExpression
+::: capo_mailmanager.types.rule_condition.RuleConditionDmarcExpressionMember
     options:
       show_source: true
       merge_init_into_class: false

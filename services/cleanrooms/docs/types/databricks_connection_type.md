@@ -7,7 +7,7 @@ title: DatabricksConnectionType
       show_source: true
       merge_init_into_class: false
 
-::: capo_cleanrooms.types.databricks_connection_type._DatabricksConnectionType_deltaSharing
+::: capo_cleanrooms.types.databricks_connection_type.DatabricksConnectionTypeDeltaSharingMember
     options:
       show_source: true
       merge_init_into_class: false

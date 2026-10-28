@@ -14,27 +14,27 @@ if TYPE_CHECKING:
     import capo_deadline.types.step_details_identifiers
 
 
-class _JobEntityIdentifiersUnion_jobDetails(TypedDict, closed=True):
+class JobEntityIdentifiersUnionJobDetailsMember(TypedDict, closed=True):
     jobDetails: "capo_deadline.types.job_details_identifiers.JobDetailsIdentifiers"
 
 
-class _JobEntityIdentifiersUnion_jobAttachmentDetails(TypedDict, closed=True):
+class JobEntityIdentifiersUnionJobAttachmentDetailsMember(TypedDict, closed=True):
     jobAttachmentDetails: "capo_deadline.types.job_attachment_details_identifiers.JobAttachmentDetailsIdentifiers"
 
 
-class _JobEntityIdentifiersUnion_stepDetails(TypedDict, closed=True):
+class JobEntityIdentifiersUnionStepDetailsMember(TypedDict, closed=True):
     stepDetails: "capo_deadline.types.step_details_identifiers.StepDetailsIdentifiers"
 
 
-class _JobEntityIdentifiersUnion_environmentDetails(TypedDict, closed=True):
+class JobEntityIdentifiersUnionEnvironmentDetailsMember(TypedDict, closed=True):
     environmentDetails: "capo_deadline.types.environment_details_identifiers.EnvironmentDetailsIdentifiers"
 
 
 JobEntityIdentifiersUnion: TypeAlias = (
-    _JobEntityIdentifiersUnion_jobDetails
-    | _JobEntityIdentifiersUnion_jobAttachmentDetails
-    | _JobEntityIdentifiersUnion_stepDetails
-    | _JobEntityIdentifiersUnion_environmentDetails
+    JobEntityIdentifiersUnionJobDetailsMember
+    | JobEntityIdentifiersUnionJobAttachmentDetailsMember
+    | JobEntityIdentifiersUnionStepDetailsMember
+    | JobEntityIdentifiersUnionEnvironmentDetailsMember
     | UnknownUnionMember
 )
 

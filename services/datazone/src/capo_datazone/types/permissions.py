@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_datazone.types.s3_permissions
 
 
-class _Permissions_s3(TypedDict, closed=True):
+class PermissionsS3Member(TypedDict, closed=True):
     s3: "capo_datazone.types.s3_permissions.S3Permissions"
 
 
-Permissions: TypeAlias = _Permissions_s3 | UnknownUnionMember
+Permissions: TypeAlias = PermissionsS3Member | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

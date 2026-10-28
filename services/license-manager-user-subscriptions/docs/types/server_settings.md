@@ -7,7 +7,7 @@ title: ServerSettings
       show_source: true
       merge_init_into_class: false
 
-::: capo_license_manager_user_subscriptions.types.server_settings._ServerSettings_RdsSalSettings
+::: capo_license_manager_user_subscriptions.types.server_settings.ServerSettingsRdsSalSettingsMember
     options:
       show_source: true
       merge_init_into_class: false

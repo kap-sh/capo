@@ -7,7 +7,7 @@ title: TrustedTokenIssuerConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_sso_admin.types.trusted_token_issuer_configuration._TrustedTokenIssuerConfiguration_OidcJwtConfiguration
+::: capo_sso_admin.types.trusted_token_issuer_configuration.TrustedTokenIssuerConfigurationOidcJwtConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false

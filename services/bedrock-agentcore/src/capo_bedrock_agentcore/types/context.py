@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.span_context
 
 
-class _Context_spanContext(TypedDict, closed=True):
+class ContextSpanContextMember(TypedDict, closed=True):
     spanContext: "capo_bedrock_agentcore.types.span_context.SpanContext"
 
 
-Context: TypeAlias = _Context_spanContext | UnknownUnionMember
+Context: TypeAlias = ContextSpanContextMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

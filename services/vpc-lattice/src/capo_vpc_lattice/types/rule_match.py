@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_vpc_lattice.types.http_match
 
 
-class _RuleMatch_httpMatch(TypedDict, closed=True):
+class RuleMatchHttpMatchMember(TypedDict, closed=True):
     httpMatch: "capo_vpc_lattice.types.http_match.HttpMatch"
 
 
-RuleMatch: TypeAlias = _RuleMatch_httpMatch | UnknownUnionMember
+RuleMatch: TypeAlias = RuleMatchHttpMatchMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

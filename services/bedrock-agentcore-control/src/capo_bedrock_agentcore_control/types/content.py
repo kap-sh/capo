@@ -14,11 +14,11 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.natural_language
 
 
-class _Content_rawText(TypedDict, closed=True):
+class ContentRawTextMember(TypedDict, closed=True):
     rawText: "capo_bedrock_agentcore_control.types.natural_language.NaturalLanguage"
 
 
-Content: TypeAlias = _Content_rawText | UnknownUnionMember
+Content: TypeAlias = ContentRawTextMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

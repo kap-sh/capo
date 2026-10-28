@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.open_search_integration_details
 
 
-class _IntegrationDetails_openSearchIntegrationDetails(TypedDict, closed=True):
+class IntegrationDetailsOpenSearchIntegrationDetailsMember(TypedDict, closed=True):
     openSearchIntegrationDetails: "capo_cloudwatch_logs.types.open_search_integration_details.OpenSearchIntegrationDetails"
 
 
 IntegrationDetails: TypeAlias = (
-    _IntegrationDetails_openSearchIntegrationDetails | UnknownUnionMember
+    IntegrationDetailsOpenSearchIntegrationDetailsMember | UnknownUnionMember
 )
 
 

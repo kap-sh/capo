@@ -11,16 +11,18 @@ if TYPE_CHECKING:
     import capo_verifiedpermissions.types.entity_identifier
 
 
-class _EntityReference_unspecified(TypedDict, closed=True):
+class EntityReferenceUnspecifiedMember(TypedDict, closed=True):
     unspecified: "bool"
 
 
-class _EntityReference_identifier(TypedDict, closed=True):
+class EntityReferenceIdentifierMember(TypedDict, closed=True):
     identifier: "capo_verifiedpermissions.types.entity_identifier.EntityIdentifier"
 
 
 EntityReference: TypeAlias = (
-    _EntityReference_unspecified | _EntityReference_identifier | UnknownUnionMember
+    EntityReferenceUnspecifiedMember
+    | EntityReferenceIdentifierMember
+    | UnknownUnionMember
 )
 
 

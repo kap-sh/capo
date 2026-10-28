@@ -20,65 +20,65 @@ if TYPE_CHECKING:
     import capo_marketplace_catalog.types.subsidiary_authorization_filters
 
 
-class _EntityTypeFilters_DataProductFilters(TypedDict, closed=True):
+class EntityTypeFiltersDataProductFiltersMember(TypedDict, closed=True):
     DataProductFilters: (
         "capo_marketplace_catalog.types.data_product_filters.DataProductFilters"
     )
 
 
-class _EntityTypeFilters_SaaSProductFilters(TypedDict, closed=True):
+class EntityTypeFiltersSaaSProductFiltersMember(TypedDict, closed=True):
     SaaSProductFilters: (
         "capo_marketplace_catalog.types.saa_s_product_filters.SaaSProductFilters"
     )
 
 
-class _EntityTypeFilters_AmiProductFilters(TypedDict, closed=True):
+class EntityTypeFiltersAmiProductFiltersMember(TypedDict, closed=True):
     AmiProductFilters: (
         "capo_marketplace_catalog.types.ami_product_filters.AmiProductFilters"
     )
 
 
-class _EntityTypeFilters_OfferFilters(TypedDict, closed=True):
+class EntityTypeFiltersOfferFiltersMember(TypedDict, closed=True):
     OfferFilters: "capo_marketplace_catalog.types.offer_filters.OfferFilters"
 
 
-class _EntityTypeFilters_ContainerProductFilters(TypedDict, closed=True):
+class EntityTypeFiltersContainerProductFiltersMember(TypedDict, closed=True):
     ContainerProductFilters: "capo_marketplace_catalog.types.container_product_filters.ContainerProductFilters"
 
 
-class _EntityTypeFilters_ResaleAuthorizationFilters(TypedDict, closed=True):
+class EntityTypeFiltersResaleAuthorizationFiltersMember(TypedDict, closed=True):
     ResaleAuthorizationFilters: "capo_marketplace_catalog.types.resale_authorization_filters.ResaleAuthorizationFilters"
 
 
-class _EntityTypeFilters_MachineLearningProductFilters(TypedDict, closed=True):
+class EntityTypeFiltersMachineLearningProductFiltersMember(TypedDict, closed=True):
     MachineLearningProductFilters: "capo_marketplace_catalog.types.machine_learning_product_filters.MachineLearningProductFilters"
 
 
-class _EntityTypeFilters_OfferSetFilters(TypedDict, closed=True):
+class EntityTypeFiltersOfferSetFiltersMember(TypedDict, closed=True):
     OfferSetFilters: "capo_marketplace_catalog.types.offer_set_filters.OfferSetFilters"
 
 
-class _EntityTypeFilters_ExpressPrivateOfferConfigurationFilters(
+class EntityTypeFiltersExpressPrivateOfferConfigurationFiltersMember(
     TypedDict, closed=True
 ):
     ExpressPrivateOfferConfigurationFilters: "capo_marketplace_catalog.types.express_private_offer_configuration_filters.ExpressPrivateOfferConfigurationFilters"
 
 
-class _EntityTypeFilters_SubsidiaryAuthorizationFilters(TypedDict, closed=True):
+class EntityTypeFiltersSubsidiaryAuthorizationFiltersMember(TypedDict, closed=True):
     SubsidiaryAuthorizationFilters: "capo_marketplace_catalog.types.subsidiary_authorization_filters.SubsidiaryAuthorizationFilters"
 
 
 EntityTypeFilters: TypeAlias = (
-    _EntityTypeFilters_DataProductFilters
-    | _EntityTypeFilters_SaaSProductFilters
-    | _EntityTypeFilters_AmiProductFilters
-    | _EntityTypeFilters_OfferFilters
-    | _EntityTypeFilters_ContainerProductFilters
-    | _EntityTypeFilters_ResaleAuthorizationFilters
-    | _EntityTypeFilters_MachineLearningProductFilters
-    | _EntityTypeFilters_OfferSetFilters
-    | _EntityTypeFilters_ExpressPrivateOfferConfigurationFilters
-    | _EntityTypeFilters_SubsidiaryAuthorizationFilters
+    EntityTypeFiltersDataProductFiltersMember
+    | EntityTypeFiltersSaaSProductFiltersMember
+    | EntityTypeFiltersAmiProductFiltersMember
+    | EntityTypeFiltersOfferFiltersMember
+    | EntityTypeFiltersContainerProductFiltersMember
+    | EntityTypeFiltersResaleAuthorizationFiltersMember
+    | EntityTypeFiltersMachineLearningProductFiltersMember
+    | EntityTypeFiltersOfferSetFiltersMember
+    | EntityTypeFiltersExpressPrivateOfferConfigurationFiltersMember
+    | EntityTypeFiltersSubsidiaryAuthorizationFiltersMember
     | UnknownUnionMember
 )
 

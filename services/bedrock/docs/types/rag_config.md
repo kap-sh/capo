@@ -7,13 +7,13 @@ title: RAGConfig
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock.types.rag_config._RAGConfig_knowledgeBaseConfig
+::: capo_bedrock.types.rag_config.RAGConfigKnowledgeBaseConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.rag_config._RAGConfig_precomputedRagSourceConfig
+::: capo_bedrock.types.rag_config.RAGConfigPrecomputedRagSourceConfigMember
     options:
       show_source: true
       merge_init_into_class: false

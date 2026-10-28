@@ -7,13 +7,13 @@ title: BatchDeleteDeletionTarget
       show_source: true
       merge_init_into_class: false
 
-::: capo_application_signals.types.batch_delete_deletion_target._BatchDeleteDeletionTarget_Scope
+::: capo_application_signals.types.batch_delete_deletion_target.BatchDeleteDeletionTargetScopeMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_application_signals.types.batch_delete_deletion_target._BatchDeleteDeletionTarget_ResourceArns
+::: capo_application_signals.types.batch_delete_deletion_target.BatchDeleteDeletionTargetResourceArnsMember
     options:
       show_source: true
       merge_init_into_class: false

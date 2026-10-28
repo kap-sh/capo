@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_connectcases.types.tag_value
 
 
-class _TagFilter_equalTo(TypedDict, closed=True):
+class TagFilterEqualToMember(TypedDict, closed=True):
     equalTo: "capo_connectcases.types.tag_value.TagValue"
 
 
-TagFilter: TypeAlias = _TagFilter_equalTo | UnknownUnionMember
+TagFilter: TypeAlias = TagFilterEqualToMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

@@ -8,12 +8,12 @@ from capo_bedrock_runtime.errors import DeserializationError, SerializationError
 from capo_bedrock_runtime.types._unknown import UnknownUnionMember
 
 
-class _GuardrailConverseImageSource_bytes(TypedDict, closed=True):
+class GuardrailConverseImageSourceBytesMember(TypedDict, closed=True):
     bytes: "bytes"
 
 
 GuardrailConverseImageSource: TypeAlias = (
-    _GuardrailConverseImageSource_bytes | UnknownUnionMember
+    GuardrailConverseImageSourceBytesMember | UnknownUnionMember
 )
 
 

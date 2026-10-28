@@ -19,58 +19,58 @@ if TYPE_CHECKING:
     import capo_sagemaker_geospatial.types.zonal_statistics_config_input
 
 
-class _JobConfigInput_BandMathConfig(TypedDict, closed=True):
+class JobConfigInputBandMathConfigMember(TypedDict, closed=True):
     BandMathConfig: (
         "capo_sagemaker_geospatial.types.band_math_config_input.BandMathConfigInput"
     )
 
 
-class _JobConfigInput_ResamplingConfig(TypedDict, closed=True):
+class JobConfigInputResamplingConfigMember(TypedDict, closed=True):
     ResamplingConfig: (
         "capo_sagemaker_geospatial.types.resampling_config_input.ResamplingConfigInput"
     )
 
 
-class _JobConfigInput_TemporalStatisticsConfig(TypedDict, closed=True):
+class JobConfigInputTemporalStatisticsConfigMember(TypedDict, closed=True):
     TemporalStatisticsConfig: "capo_sagemaker_geospatial.types.temporal_statistics_config_input.TemporalStatisticsConfigInput"
 
 
-class _JobConfigInput_CloudRemovalConfig(TypedDict, closed=True):
+class JobConfigInputCloudRemovalConfigMember(TypedDict, closed=True):
     CloudRemovalConfig: "capo_sagemaker_geospatial.types.cloud_removal_config_input.CloudRemovalConfigInput"
 
 
-class _JobConfigInput_ZonalStatisticsConfig(TypedDict, closed=True):
+class JobConfigInputZonalStatisticsConfigMember(TypedDict, closed=True):
     ZonalStatisticsConfig: "capo_sagemaker_geospatial.types.zonal_statistics_config_input.ZonalStatisticsConfigInput"
 
 
-class _JobConfigInput_GeoMosaicConfig(TypedDict, closed=True):
+class JobConfigInputGeoMosaicConfigMember(TypedDict, closed=True):
     GeoMosaicConfig: (
         "capo_sagemaker_geospatial.types.geo_mosaic_config_input.GeoMosaicConfigInput"
     )
 
 
-class _JobConfigInput_StackConfig(TypedDict, closed=True):
+class JobConfigInputStackConfigMember(TypedDict, closed=True):
     StackConfig: "capo_sagemaker_geospatial.types.stack_config_input.StackConfigInput"
 
 
-class _JobConfigInput_CloudMaskingConfig(TypedDict, closed=True):
+class JobConfigInputCloudMaskingConfigMember(TypedDict, closed=True):
     CloudMaskingConfig: "capo_sagemaker_geospatial.types.cloud_masking_config_input.CloudMaskingConfigInput"
 
 
-class _JobConfigInput_LandCoverSegmentationConfig(TypedDict, closed=True):
+class JobConfigInputLandCoverSegmentationConfigMember(TypedDict, closed=True):
     LandCoverSegmentationConfig: "capo_sagemaker_geospatial.types.land_cover_segmentation_config_input.LandCoverSegmentationConfigInput"
 
 
 JobConfigInput: TypeAlias = (
-    _JobConfigInput_BandMathConfig
-    | _JobConfigInput_ResamplingConfig
-    | _JobConfigInput_TemporalStatisticsConfig
-    | _JobConfigInput_CloudRemovalConfig
-    | _JobConfigInput_ZonalStatisticsConfig
-    | _JobConfigInput_GeoMosaicConfig
-    | _JobConfigInput_StackConfig
-    | _JobConfigInput_CloudMaskingConfig
-    | _JobConfigInput_LandCoverSegmentationConfig
+    JobConfigInputBandMathConfigMember
+    | JobConfigInputResamplingConfigMember
+    | JobConfigInputTemporalStatisticsConfigMember
+    | JobConfigInputCloudRemovalConfigMember
+    | JobConfigInputZonalStatisticsConfigMember
+    | JobConfigInputGeoMosaicConfigMember
+    | JobConfigInputStackConfigMember
+    | JobConfigInputCloudMaskingConfigMember
+    | JobConfigInputLandCoverSegmentationConfigMember
     | UnknownUnionMember
 )
 

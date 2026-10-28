@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_mailmanager.types.ingress_is_in_address_list
 
 
-class _IngressBooleanToEvaluate_Analysis(TypedDict, closed=True):
+class IngressBooleanToEvaluateAnalysisMember(TypedDict, closed=True):
     Analysis: "capo_mailmanager.types.ingress_analysis.IngressAnalysis"
 
 
-class _IngressBooleanToEvaluate_IsInAddressList(TypedDict, closed=True):
+class IngressBooleanToEvaluateIsInAddressListMember(TypedDict, closed=True):
     IsInAddressList: (
         "capo_mailmanager.types.ingress_is_in_address_list.IngressIsInAddressList"
     )
 
 
 IngressBooleanToEvaluate: TypeAlias = (
-    _IngressBooleanToEvaluate_Analysis
-    | _IngressBooleanToEvaluate_IsInAddressList
+    IngressBooleanToEvaluateAnalysisMember
+    | IngressBooleanToEvaluateIsInAddressListMember
     | UnknownUnionMember
 )
 

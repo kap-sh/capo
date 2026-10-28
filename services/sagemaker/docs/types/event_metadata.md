@@ -7,37 +7,37 @@ title: EventMetadata
       show_source: true
       merge_init_into_class: false
 
-::: capo_sagemaker.types.event_metadata._EventMetadata_Cluster
+::: capo_sagemaker.types.event_metadata.EventMetadataClusterMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_sagemaker.types.event_metadata._EventMetadata_InstanceGroup
+::: capo_sagemaker.types.event_metadata.EventMetadataInstanceGroupMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_sagemaker.types.event_metadata._EventMetadata_InstanceGroupScaling
+::: capo_sagemaker.types.event_metadata.EventMetadataInstanceGroupScalingMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_sagemaker.types.event_metadata._EventMetadata_Instance
+::: capo_sagemaker.types.event_metadata.EventMetadataInstanceMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_sagemaker.types.event_metadata._EventMetadata_DatabaseConfiguration
+::: capo_sagemaker.types.event_metadata.EventMetadataDatabaseConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_sagemaker.types.event_metadata._EventMetadata_SlurmHealth
+::: capo_sagemaker.types.event_metadata.EventMetadataSlurmHealthMember
     options:
       show_source: true
       merge_init_into_class: false

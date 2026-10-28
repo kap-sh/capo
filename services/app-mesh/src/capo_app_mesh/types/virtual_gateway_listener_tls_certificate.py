@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_app_mesh.types.virtual_gateway_listener_tls_sds_certificate
 
 
-class _VirtualGatewayListenerTlsCertificate_acm(TypedDict, closed=True):
+class VirtualGatewayListenerTlsCertificateAcmMember(TypedDict, closed=True):
     acm: "capo_app_mesh.types.virtual_gateway_listener_tls_acm_certificate.VirtualGatewayListenerTlsAcmCertificate"
 
 
-class _VirtualGatewayListenerTlsCertificate_file(TypedDict, closed=True):
+class VirtualGatewayListenerTlsCertificateFileMember(TypedDict, closed=True):
     file: "capo_app_mesh.types.virtual_gateway_listener_tls_file_certificate.VirtualGatewayListenerTlsFileCertificate"
 
 
-class _VirtualGatewayListenerTlsCertificate_sds(TypedDict, closed=True):
+class VirtualGatewayListenerTlsCertificateSdsMember(TypedDict, closed=True):
     sds: "capo_app_mesh.types.virtual_gateway_listener_tls_sds_certificate.VirtualGatewayListenerTlsSdsCertificate"
 
 
 VirtualGatewayListenerTlsCertificate: TypeAlias = (
-    _VirtualGatewayListenerTlsCertificate_acm
-    | _VirtualGatewayListenerTlsCertificate_file
-    | _VirtualGatewayListenerTlsCertificate_sds
+    VirtualGatewayListenerTlsCertificateAcmMember
+    | VirtualGatewayListenerTlsCertificateFileMember
+    | VirtualGatewayListenerTlsCertificateSdsMember
     | UnknownUnionMember
 )
 

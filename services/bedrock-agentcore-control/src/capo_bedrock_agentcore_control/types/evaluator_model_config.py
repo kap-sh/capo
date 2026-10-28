@@ -15,17 +15,17 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.open_responses_evaluator_model_config
 
 
-class _EvaluatorModelConfig_bedrockEvaluatorModelConfig(TypedDict, closed=True):
+class EvaluatorModelConfigBedrockEvaluatorModelConfigMember(TypedDict, closed=True):
     bedrockEvaluatorModelConfig: "capo_bedrock_agentcore_control.types.bedrock_evaluator_model_config.BedrockEvaluatorModelConfig"
 
 
-class _EvaluatorModelConfig_responsesEvaluatorModelConfig(TypedDict, closed=True):
+class EvaluatorModelConfigResponsesEvaluatorModelConfigMember(TypedDict, closed=True):
     responsesEvaluatorModelConfig: "capo_bedrock_agentcore_control.types.open_responses_evaluator_model_config.OpenResponsesEvaluatorModelConfig"
 
 
 EvaluatorModelConfig: TypeAlias = (
-    _EvaluatorModelConfig_bedrockEvaluatorModelConfig
-    | _EvaluatorModelConfig_responsesEvaluatorModelConfig
+    EvaluatorModelConfigBedrockEvaluatorModelConfigMember
+    | EvaluatorModelConfigResponsesEvaluatorModelConfigMember
     | UnknownUnionMember
 )
 

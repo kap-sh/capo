@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_partnercentral_account.types.field_validation_error
 
 
-class _ValidationError_FieldValidationError(TypedDict, closed=True):
+class ValidationErrorFieldValidationErrorMember(TypedDict, closed=True):
     FieldValidationError: (
         "capo_partnercentral_account.types.field_validation_error.FieldValidationError"
     )
 
 
-class _ValidationError_BusinessValidationError(TypedDict, closed=True):
+class ValidationErrorBusinessValidationErrorMember(TypedDict, closed=True):
     BusinessValidationError: "capo_partnercentral_account.types.business_validation_error.BusinessValidationError"
 
 
 ValidationError: TypeAlias = (
-    _ValidationError_FieldValidationError
-    | _ValidationError_BusinessValidationError
+    ValidationErrorFieldValidationErrorMember
+    | ValidationErrorBusinessValidationErrorMember
     | UnknownUnionMember
 )
 

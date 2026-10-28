@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_securityhub.types.azure_update_configuration
 
 
-class _CspmProviderUpdateConfiguration_Azure(TypedDict, closed=True):
+class CspmProviderUpdateConfigurationAzureMember(TypedDict, closed=True):
     Azure: "capo_securityhub.types.azure_update_configuration.AzureUpdateConfiguration"
 
 
 CspmProviderUpdateConfiguration: TypeAlias = (
-    _CspmProviderUpdateConfiguration_Azure | UnknownUnionMember
+    CspmProviderUpdateConfigurationAzureMember | UnknownUnionMember
 )
 
 

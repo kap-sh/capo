@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.tool_description_text
 
 
-class _ToolDescriptionConfig_text(TypedDict, closed=True):
+class ToolDescriptionConfigTextMember(TypedDict, closed=True):
     text: "capo_bedrock_agentcore.types.tool_description_text.ToolDescriptionText"
 
 
-ToolDescriptionConfig: TypeAlias = _ToolDescriptionConfig_text | UnknownUnionMember
+ToolDescriptionConfig: TypeAlias = ToolDescriptionConfigTextMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

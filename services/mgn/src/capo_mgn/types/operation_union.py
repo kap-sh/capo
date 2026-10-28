@@ -14,27 +14,27 @@ if TYPE_CHECKING:
     import capo_mgn.types.update_operation
 
 
-class _OperationUnion_merge(TypedDict, closed=True):
+class OperationUnionMergeMember(TypedDict, closed=True):
     merge: "capo_mgn.types.merge_operation.MergeOperation"
 
 
-class _OperationUnion_split(TypedDict, closed=True):
+class OperationUnionSplitMember(TypedDict, closed=True):
     split: "capo_mgn.types.split_operation.SplitOperation"
 
 
-class _OperationUnion_delete(TypedDict, closed=True):
+class OperationUnionDeleteMember(TypedDict, closed=True):
     delete: "capo_mgn.types.delete_operation.DeleteOperation"
 
 
-class _OperationUnion_update(TypedDict, closed=True):
+class OperationUnionUpdateMember(TypedDict, closed=True):
     update: "capo_mgn.types.update_operation.UpdateOperation"
 
 
 OperationUnion: TypeAlias = (
-    _OperationUnion_merge
-    | _OperationUnion_split
-    | _OperationUnion_delete
-    | _OperationUnion_update
+    OperationUnionMergeMember
+    | OperationUnionSplitMember
+    | OperationUnionDeleteMember
+    | OperationUnionUpdateMember
     | UnknownUnionMember
 )
 

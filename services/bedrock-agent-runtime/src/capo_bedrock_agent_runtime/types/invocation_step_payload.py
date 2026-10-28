@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.bedrock_session_content_blocks
 
 
-class _InvocationStepPayload_contentBlocks(TypedDict, closed=True):
+class InvocationStepPayloadContentBlocksMember(TypedDict, closed=True):
     contentBlocks: "capo_bedrock_agent_runtime.types.bedrock_session_content_blocks.BedrockSessionContentBlocks"
 
 
 InvocationStepPayload: TypeAlias = (
-    _InvocationStepPayload_contentBlocks | UnknownUnionMember
+    InvocationStepPayloadContentBlocksMember | UnknownUnionMember
 )
 
 

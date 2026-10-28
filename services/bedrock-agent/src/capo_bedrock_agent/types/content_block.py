@@ -11,16 +11,16 @@ if TYPE_CHECKING:
     import capo_bedrock_agent.types.cache_point_block
 
 
-class _ContentBlock_text(TypedDict, closed=True):
+class ContentBlockTextMember(TypedDict, closed=True):
     text: "str"
 
 
-class _ContentBlock_cachePoint(TypedDict, closed=True):
+class ContentBlockCachePointMember(TypedDict, closed=True):
     cachePoint: "capo_bedrock_agent.types.cache_point_block.CachePointBlock"
 
 
 ContentBlock: TypeAlias = (
-    _ContentBlock_text | _ContentBlock_cachePoint | UnknownUnionMember
+    ContentBlockTextMember | ContentBlockCachePointMember | UnknownUnionMember
 )
 
 

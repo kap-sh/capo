@@ -7,7 +7,7 @@ title: UpdateGatewayConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_ecs.types.update_gateway_configuration._UpdateGatewayConfiguration_hostSharedAlb
+::: capo_ecs.types.update_gateway_configuration.UpdateGatewayConfigurationHostSharedAlbMember
     options:
       show_source: true
       merge_init_into_class: false

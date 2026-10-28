@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.analysis_rule_policy_v1
 
 
-class _AnalysisRulePolicy_v1(TypedDict, closed=True):
+class AnalysisRulePolicyV1Member(TypedDict, closed=True):
     v1: "capo_cleanrooms.types.analysis_rule_policy_v1.AnalysisRulePolicyV1"
 
 
-AnalysisRulePolicy: TypeAlias = _AnalysisRulePolicy_v1 | UnknownUnionMember
+AnalysisRulePolicy: TypeAlias = AnalysisRulePolicyV1Member | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

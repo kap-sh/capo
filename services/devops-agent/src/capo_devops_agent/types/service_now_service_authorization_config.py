@@ -11,14 +11,15 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.service_now_o_auth_client_credentials_config
 
 
-class _ServiceNowServiceAuthorizationConfig_oAuthClientCredentials(
+class ServiceNowServiceAuthorizationConfigOAuthClientCredentialsMember(
     TypedDict, closed=True
 ):
     oAuthClientCredentials: "capo_devops_agent.types.service_now_o_auth_client_credentials_config.ServiceNowOAuthClientCredentialsConfig"
 
 
 ServiceNowServiceAuthorizationConfig: TypeAlias = (
-    _ServiceNowServiceAuthorizationConfig_oAuthClientCredentials | UnknownUnionMember
+    ServiceNowServiceAuthorizationConfigOAuthClientCredentialsMember
+    | UnknownUnionMember
 )
 
 

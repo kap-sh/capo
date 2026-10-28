@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_securityagent.types.user_metadata
 
 
-class _MemberMetadata_user(TypedDict, closed=True):
+class MemberMetadataUserMember(TypedDict, closed=True):
     user: "capo_securityagent.types.user_metadata.UserMetadata"
 
 
-MemberMetadata: TypeAlias = _MemberMetadata_user | UnknownUnionMember
+MemberMetadata: TypeAlias = MemberMetadataUserMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

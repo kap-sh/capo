@@ -7,7 +7,7 @@ title: WalletPasswordSourceConfigurationInput
       show_source: true
       merge_init_into_class: false
 
-::: capo_odb.types.wallet_password_source_configuration_input._WalletPasswordSourceConfigurationInput_customerManagedAwsSecret
+::: capo_odb.types.wallet_password_source_configuration_input.WalletPasswordSourceConfigurationInputCustomerManagedAwsSecretMember
     options:
       show_source: true
       merge_init_into_class: false

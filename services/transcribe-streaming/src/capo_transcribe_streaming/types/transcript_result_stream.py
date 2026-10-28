@@ -21,41 +21,41 @@ if TYPE_CHECKING:
     import capo_transcribe_streaming.types.transcript_event
 
 
-class _TranscriptResultStream_TranscriptEvent(TypedDict, closed=True):
+class TranscriptResultStreamTranscriptEventMember(TypedDict, closed=True):
     TranscriptEvent: "capo_transcribe_streaming.types.transcript_event.TranscriptEvent"
 
 
-class _TranscriptResultStream_BadRequestException(TypedDict, closed=True):
+class TranscriptResultStreamBadRequestExceptionMember(TypedDict, closed=True):
     BadRequestException: (
         "capo_transcribe_streaming.errors.bad_request_exception.BadRequestException_"
     )
 
 
-class _TranscriptResultStream_LimitExceededException(TypedDict, closed=True):
+class TranscriptResultStreamLimitExceededExceptionMember(TypedDict, closed=True):
     LimitExceededException: "capo_transcribe_streaming.errors.limit_exceeded_exception.LimitExceededException_"
 
 
-class _TranscriptResultStream_InternalFailureException(TypedDict, closed=True):
+class TranscriptResultStreamInternalFailureExceptionMember(TypedDict, closed=True):
     InternalFailureException: "capo_transcribe_streaming.errors.internal_failure_exception.InternalFailureException_"
 
 
-class _TranscriptResultStream_ConflictException(TypedDict, closed=True):
+class TranscriptResultStreamConflictExceptionMember(TypedDict, closed=True):
     ConflictException: (
         "capo_transcribe_streaming.errors.conflict_exception.ConflictException_"
     )
 
 
-class _TranscriptResultStream_ServiceUnavailableException(TypedDict, closed=True):
+class TranscriptResultStreamServiceUnavailableExceptionMember(TypedDict, closed=True):
     ServiceUnavailableException: "capo_transcribe_streaming.errors.service_unavailable_exception.ServiceUnavailableException_"
 
 
 _TranscriptResultStream: TypeAlias = (
-    _TranscriptResultStream_TranscriptEvent
-    | _TranscriptResultStream_BadRequestException
-    | _TranscriptResultStream_LimitExceededException
-    | _TranscriptResultStream_InternalFailureException
-    | _TranscriptResultStream_ConflictException
-    | _TranscriptResultStream_ServiceUnavailableException
+    TranscriptResultStreamTranscriptEventMember
+    | TranscriptResultStreamBadRequestExceptionMember
+    | TranscriptResultStreamLimitExceededExceptionMember
+    | TranscriptResultStreamInternalFailureExceptionMember
+    | TranscriptResultStreamConflictExceptionMember
+    | TranscriptResultStreamServiceUnavailableExceptionMember
     | UnknownEvent
 )
 TranscriptResultStream: TypeAlias = AnyIterator[_TranscriptResultStream]

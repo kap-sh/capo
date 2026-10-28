@@ -18,70 +18,70 @@ if TYPE_CHECKING:
     import capo_connect.types.url_reference
 
 
-class _ReferenceSummary_Url(TypedDict, closed=True):
+class ReferenceSummaryUrlMember(TypedDict, closed=True):
     Url: "capo_connect.types.url_reference.UrlReference"
 
 
-class _ReferenceSummary_Attachment(TypedDict, closed=True):
+class ReferenceSummaryAttachmentMember(TypedDict, closed=True):
     Attachment: "capo_connect.types.attachment_reference.AttachmentReference"
 
 
-class _ReferenceSummary_EmailMessage(TypedDict, closed=True):
+class ReferenceSummaryEmailMessageMember(TypedDict, closed=True):
     EmailMessage: "capo_connect.types.email_message_reference.EmailMessageReference"
 
 
-class _ReferenceSummary_EmailMessageRedacted(TypedDict, closed=True):
+class ReferenceSummaryEmailMessageRedactedMember(TypedDict, closed=True):
     EmailMessageRedacted: (
         "capo_connect.types.email_message_reference.EmailMessageReference"
     )
 
 
-class _ReferenceSummary_EmailMessagePlainText(TypedDict, closed=True):
+class ReferenceSummaryEmailMessagePlainTextMember(TypedDict, closed=True):
     EmailMessagePlainText: (
         "capo_connect.types.email_message_reference.EmailMessageReference"
     )
 
 
-class _ReferenceSummary_EmailMessagePlainTextRedacted(TypedDict, closed=True):
+class ReferenceSummaryEmailMessagePlainTextRedactedMember(TypedDict, closed=True):
     EmailMessagePlainTextRedacted: (
         "capo_connect.types.email_message_reference.EmailMessageReference"
     )
 
 
-class _ReferenceSummary_String(TypedDict, closed=True):
+class ReferenceSummaryStringMember(TypedDict, closed=True):
     String: "capo_connect.types.string_reference.StringReference"
 
 
-class _ReferenceSummary_Number(TypedDict, closed=True):
+class ReferenceSummaryNumberMember(TypedDict, closed=True):
     Number: "capo_connect.types.number_reference.NumberReference"
 
 
-class _ReferenceSummary_Date(TypedDict, closed=True):
+class ReferenceSummaryDateMember(TypedDict, closed=True):
     Date: "capo_connect.types.date_reference.DateReference"
 
 
-class _ReferenceSummary_Email(TypedDict, closed=True):
+class ReferenceSummaryEmailMember(TypedDict, closed=True):
     Email: "capo_connect.types.email_reference.EmailReference"
 
 
-class _ReferenceSummary_ContactAnalysis(TypedDict, closed=True):
+class ReferenceSummaryContactAnalysisMember(TypedDict, closed=True):
     ContactAnalysis: (
         "capo_connect.types.contact_analysis_reference.ContactAnalysisReference"
     )
 
 
 ReferenceSummary: TypeAlias = (
-    _ReferenceSummary_Url
-    | _ReferenceSummary_Attachment
-    | _ReferenceSummary_EmailMessage
-    | _ReferenceSummary_EmailMessageRedacted
-    | _ReferenceSummary_EmailMessagePlainText
-    | _ReferenceSummary_EmailMessagePlainTextRedacted
-    | _ReferenceSummary_String
-    | _ReferenceSummary_Number
-    | _ReferenceSummary_Date
-    | _ReferenceSummary_Email
-    | _ReferenceSummary_ContactAnalysis
+    ReferenceSummaryUrlMember
+    | ReferenceSummaryAttachmentMember
+    | ReferenceSummaryEmailMessageMember
+    | ReferenceSummaryEmailMessageRedactedMember
+    | ReferenceSummaryEmailMessagePlainTextMember
+    | ReferenceSummaryEmailMessagePlainTextRedactedMember
+    | ReferenceSummaryStringMember
+    | ReferenceSummaryNumberMember
+    | ReferenceSummaryDateMember
+    | ReferenceSummaryEmailMember
+    | ReferenceSummaryContactAnalysisMember
     | UnknownUnionMember
 )
 

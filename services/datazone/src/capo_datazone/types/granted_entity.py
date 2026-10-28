@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_datazone.types.listing_revision
 
 
-class _GrantedEntity_listing(TypedDict, closed=True):
+class GrantedEntityListingMember(TypedDict, closed=True):
     listing: "capo_datazone.types.listing_revision.ListingRevision"
 
 
-GrantedEntity: TypeAlias = _GrantedEntity_listing | UnknownUnionMember
+GrantedEntity: TypeAlias = GrantedEntityListingMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

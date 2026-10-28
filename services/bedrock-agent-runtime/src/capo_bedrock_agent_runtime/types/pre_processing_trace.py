@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.pre_processing_model_invocation_output
 
 
-class _PreProcessingTrace_modelInvocationInput(TypedDict, closed=True):
+class PreProcessingTraceModelInvocationInputMember(TypedDict, closed=True):
     modelInvocationInput: (
         "capo_bedrock_agent_runtime.types.model_invocation_input.ModelInvocationInput"
     )
 
 
-class _PreProcessingTrace_modelInvocationOutput(TypedDict, closed=True):
+class PreProcessingTraceModelInvocationOutputMember(TypedDict, closed=True):
     modelInvocationOutput: "capo_bedrock_agent_runtime.types.pre_processing_model_invocation_output.PreProcessingModelInvocationOutput"
 
 
 PreProcessingTrace: TypeAlias = (
-    _PreProcessingTrace_modelInvocationInput
-    | _PreProcessingTrace_modelInvocationOutput
+    PreProcessingTraceModelInvocationInputMember
+    | PreProcessingTraceModelInvocationOutputMember
     | UnknownUnionMember
 )
 

@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_bedrock_agent.types.last_day_of_month
 
 
-class _DayOfMonth_dayNumber(TypedDict, closed=True):
+class DayOfMonthDayNumberMember(TypedDict, closed=True):
     dayNumber: "capo_bedrock_agent.types.day_of_month_number.DayOfMonthNumber"
 
 
-class _DayOfMonth_lastDayOfMonth(TypedDict, closed=True):
+class DayOfMonthLastDayOfMonthMember(TypedDict, closed=True):
     lastDayOfMonth: "capo_bedrock_agent.types.last_day_of_month.LastDayOfMonth"
 
 
 DayOfMonth: TypeAlias = (
-    _DayOfMonth_dayNumber | _DayOfMonth_lastDayOfMonth | UnknownUnionMember
+    DayOfMonthDayNumberMember | DayOfMonthLastDayOfMonthMember | UnknownUnionMember
 )
 
 

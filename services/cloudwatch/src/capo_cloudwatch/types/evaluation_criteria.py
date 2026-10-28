@@ -12,11 +12,13 @@ if TYPE_CHECKING:
     import capo_cloudwatch.types.alarm_prom_ql_criteria
 
 
-class _EvaluationCriteria_PromQLCriteria(TypedDict, closed=True):
+class EvaluationCriteriaPromQLCriteriaMember(TypedDict, closed=True):
     PromQLCriteria: "capo_cloudwatch.types.alarm_prom_ql_criteria.AlarmPromQLCriteria"
 
 
-EvaluationCriteria: TypeAlias = _EvaluationCriteria_PromQLCriteria | UnknownUnionMember
+EvaluationCriteria: TypeAlias = (
+    EvaluationCriteriaPromQLCriteriaMember | UnknownUnionMember
+)
 
 
 # --- awsQuery ser/de ---

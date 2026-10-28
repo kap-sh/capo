@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_partnercentral_channel.types.start_service_period_payload
 
 
-class _ChannelHandshakePayload_startServicePeriodPayload(TypedDict, closed=True):
+class ChannelHandshakePayloadStartServicePeriodPayloadMember(TypedDict, closed=True):
     startServicePeriodPayload: "capo_partnercentral_channel.types.start_service_period_payload.StartServicePeriodPayload"
 
 
-class _ChannelHandshakePayload_revokeServicePeriodPayload(TypedDict, closed=True):
+class ChannelHandshakePayloadRevokeServicePeriodPayloadMember(TypedDict, closed=True):
     revokeServicePeriodPayload: "capo_partnercentral_channel.types.revoke_service_period_payload.RevokeServicePeriodPayload"
 
 
 ChannelHandshakePayload: TypeAlias = (
-    _ChannelHandshakePayload_startServicePeriodPayload
-    | _ChannelHandshakePayload_revokeServicePeriodPayload
+    ChannelHandshakePayloadStartServicePeriodPayloadMember
+    | ChannelHandshakePayloadRevokeServicePeriodPayloadMember
     | UnknownUnionMember
 )
 

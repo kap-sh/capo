@@ -12,16 +12,18 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.ai_adapter_s3_entry_list
 
 
-class _AIAdapterSource_ModelPackageArns(TypedDict, closed=True):
+class AIAdapterSourceModelPackageArnsMember(TypedDict, closed=True):
     ModelPackageArns: "capo_sagemaker.types.ai_adapter_model_package_entry_list.AIAdapterModelPackageEntryList"
 
 
-class _AIAdapterSource_S3Uris(TypedDict, closed=True):
+class AIAdapterSourceS3UrisMember(TypedDict, closed=True):
     S3Uris: "capo_sagemaker.types.ai_adapter_s3_entry_list.AIAdapterS3EntryList"
 
 
 AIAdapterSource: TypeAlias = (
-    _AIAdapterSource_ModelPackageArns | _AIAdapterSource_S3Uris | UnknownUnionMember
+    AIAdapterSourceModelPackageArnsMember
+    | AIAdapterSourceS3UrisMember
+    | UnknownUnionMember
 )
 
 

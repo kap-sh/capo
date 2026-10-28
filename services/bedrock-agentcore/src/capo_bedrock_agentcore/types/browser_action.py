@@ -18,51 +18,51 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.screenshot_arguments
 
 
-class _BrowserAction_mouseClick(TypedDict, closed=True):
+class BrowserActionMouseClickMember(TypedDict, closed=True):
     mouseClick: "capo_bedrock_agentcore.types.mouse_click_arguments.MouseClickArguments"
 
 
-class _BrowserAction_mouseMove(TypedDict, closed=True):
+class BrowserActionMouseMoveMember(TypedDict, closed=True):
     mouseMove: "capo_bedrock_agentcore.types.mouse_move_arguments.MouseMoveArguments"
 
 
-class _BrowserAction_mouseDrag(TypedDict, closed=True):
+class BrowserActionMouseDragMember(TypedDict, closed=True):
     mouseDrag: "capo_bedrock_agentcore.types.mouse_drag_arguments.MouseDragArguments"
 
 
-class _BrowserAction_mouseScroll(TypedDict, closed=True):
+class BrowserActionMouseScrollMember(TypedDict, closed=True):
     mouseScroll: (
         "capo_bedrock_agentcore.types.mouse_scroll_arguments.MouseScrollArguments"
     )
 
 
-class _BrowserAction_keyType(TypedDict, closed=True):
+class BrowserActionKeyTypeMember(TypedDict, closed=True):
     keyType: "capo_bedrock_agentcore.types.key_type_arguments.KeyTypeArguments"
 
 
-class _BrowserAction_keyPress(TypedDict, closed=True):
+class BrowserActionKeyPressMember(TypedDict, closed=True):
     keyPress: "capo_bedrock_agentcore.types.key_press_arguments.KeyPressArguments"
 
 
-class _BrowserAction_keyShortcut(TypedDict, closed=True):
+class BrowserActionKeyShortcutMember(TypedDict, closed=True):
     keyShortcut: (
         "capo_bedrock_agentcore.types.key_shortcut_arguments.KeyShortcutArguments"
     )
 
 
-class _BrowserAction_screenshot(TypedDict, closed=True):
+class BrowserActionScreenshotMember(TypedDict, closed=True):
     screenshot: "capo_bedrock_agentcore.types.screenshot_arguments.ScreenshotArguments"
 
 
 BrowserAction: TypeAlias = (
-    _BrowserAction_mouseClick
-    | _BrowserAction_mouseMove
-    | _BrowserAction_mouseDrag
-    | _BrowserAction_mouseScroll
-    | _BrowserAction_keyType
-    | _BrowserAction_keyPress
-    | _BrowserAction_keyShortcut
-    | _BrowserAction_screenshot
+    BrowserActionMouseClickMember
+    | BrowserActionMouseMoveMember
+    | BrowserActionMouseDragMember
+    | BrowserActionMouseScrollMember
+    | BrowserActionKeyTypeMember
+    | BrowserActionKeyPressMember
+    | BrowserActionKeyShortcutMember
+    | BrowserActionScreenshotMember
     | UnknownUnionMember
 )
 

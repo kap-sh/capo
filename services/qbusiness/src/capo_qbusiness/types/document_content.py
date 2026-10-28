@@ -11,16 +11,16 @@ if TYPE_CHECKING:
     import capo_qbusiness.types.s3
 
 
-class _DocumentContent_blob(TypedDict, closed=True):
+class DocumentContentBlobMember(TypedDict, closed=True):
     blob: "bytes"
 
 
-class _DocumentContent_s3(TypedDict, closed=True):
+class DocumentContentS3Member(TypedDict, closed=True):
     s3: "capo_qbusiness.types.s3.S3"
 
 
 DocumentContent: TypeAlias = (
-    _DocumentContent_blob | _DocumentContent_s3 | UnknownUnionMember
+    DocumentContentBlobMember | DocumentContentS3Member | UnknownUnionMember
 )
 
 

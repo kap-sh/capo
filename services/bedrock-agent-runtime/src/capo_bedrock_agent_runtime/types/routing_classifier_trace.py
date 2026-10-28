@@ -14,29 +14,29 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.routing_classifier_model_invocation_output
 
 
-class _RoutingClassifierTrace_invocationInput(TypedDict, closed=True):
+class RoutingClassifierTraceInvocationInputMember(TypedDict, closed=True):
     invocationInput: "capo_bedrock_agent_runtime.types.invocation_input.InvocationInput"
 
 
-class _RoutingClassifierTrace_observation(TypedDict, closed=True):
+class RoutingClassifierTraceObservationMember(TypedDict, closed=True):
     observation: "capo_bedrock_agent_runtime.types.observation.Observation"
 
 
-class _RoutingClassifierTrace_modelInvocationInput(TypedDict, closed=True):
+class RoutingClassifierTraceModelInvocationInputMember(TypedDict, closed=True):
     modelInvocationInput: (
         "capo_bedrock_agent_runtime.types.model_invocation_input.ModelInvocationInput"
     )
 
 
-class _RoutingClassifierTrace_modelInvocationOutput(TypedDict, closed=True):
+class RoutingClassifierTraceModelInvocationOutputMember(TypedDict, closed=True):
     modelInvocationOutput: "capo_bedrock_agent_runtime.types.routing_classifier_model_invocation_output.RoutingClassifierModelInvocationOutput"
 
 
 RoutingClassifierTrace: TypeAlias = (
-    _RoutingClassifierTrace_invocationInput
-    | _RoutingClassifierTrace_observation
-    | _RoutingClassifierTrace_modelInvocationInput
-    | _RoutingClassifierTrace_modelInvocationOutput
+    RoutingClassifierTraceInvocationInputMember
+    | RoutingClassifierTraceObservationMember
+    | RoutingClassifierTraceModelInvocationInputMember
+    | RoutingClassifierTraceModelInvocationOutputMember
     | UnknownUnionMember
 )
 

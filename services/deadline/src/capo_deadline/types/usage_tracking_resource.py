@@ -11,11 +11,13 @@ if TYPE_CHECKING:
     import capo_deadline.types.queue_id
 
 
-class _UsageTrackingResource_queueId(TypedDict, closed=True):
+class UsageTrackingResourceQueueIdMember(TypedDict, closed=True):
     queueId: "capo_deadline.types.queue_id.QueueId"
 
 
-UsageTrackingResource: TypeAlias = _UsageTrackingResource_queueId | UnknownUnionMember
+UsageTrackingResource: TypeAlias = (
+    UsageTrackingResourceQueueIdMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

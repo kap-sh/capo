@@ -8,11 +8,11 @@ from capo_bedrock_agent_runtime.errors import DeserializationError, Serializatio
 from capo_bedrock_agent_runtime.types._unknown import UnknownUnionMember
 
 
-class _ImageInputSource_bytes(TypedDict, closed=True):
+class ImageInputSourceBytesMember(TypedDict, closed=True):
     bytes: "bytes"
 
 
-ImageInputSource: TypeAlias = _ImageInputSource_bytes | UnknownUnionMember
+ImageInputSource: TypeAlias = ImageInputSourceBytesMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

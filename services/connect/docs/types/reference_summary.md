@@ -7,67 +7,67 @@ title: ReferenceSummary
       show_source: true
       merge_init_into_class: false
 
-::: capo_connect.types.reference_summary._ReferenceSummary_Url
+::: capo_connect.types.reference_summary.ReferenceSummaryUrlMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connect.types.reference_summary._ReferenceSummary_Attachment
+::: capo_connect.types.reference_summary.ReferenceSummaryAttachmentMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connect.types.reference_summary._ReferenceSummary_EmailMessage
+::: capo_connect.types.reference_summary.ReferenceSummaryEmailMessageMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connect.types.reference_summary._ReferenceSummary_EmailMessageRedacted
+::: capo_connect.types.reference_summary.ReferenceSummaryEmailMessageRedactedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connect.types.reference_summary._ReferenceSummary_EmailMessagePlainText
+::: capo_connect.types.reference_summary.ReferenceSummaryEmailMessagePlainTextMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connect.types.reference_summary._ReferenceSummary_EmailMessagePlainTextRedacted
+::: capo_connect.types.reference_summary.ReferenceSummaryEmailMessagePlainTextRedactedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connect.types.reference_summary._ReferenceSummary_String
+::: capo_connect.types.reference_summary.ReferenceSummaryStringMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connect.types.reference_summary._ReferenceSummary_Number
+::: capo_connect.types.reference_summary.ReferenceSummaryNumberMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connect.types.reference_summary._ReferenceSummary_Date
+::: capo_connect.types.reference_summary.ReferenceSummaryDateMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connect.types.reference_summary._ReferenceSummary_Email
+::: capo_connect.types.reference_summary.ReferenceSummaryEmailMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connect.types.reference_summary._ReferenceSummary_ContactAnalysis
+::: capo_connect.types.reference_summary.ReferenceSummaryContactAnalysisMember
     options:
       show_source: true
       merge_init_into_class: false

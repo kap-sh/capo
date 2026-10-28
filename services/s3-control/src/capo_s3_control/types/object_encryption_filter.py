@@ -16,32 +16,32 @@ if TYPE_CHECKING:
     import capo_s3_control.types.sses3_filter
 
 
-class _ObjectEncryptionFilter_SSES3(TypedDict, closed=True):
+class ObjectEncryptionFilterSSES3Member(TypedDict, closed=True):
     SSES3: "capo_s3_control.types.sses3_filter.SSES3Filter"
 
 
-class _ObjectEncryptionFilter_SSEKMS(TypedDict, closed=True):
+class ObjectEncryptionFilterSSEKMSMember(TypedDict, closed=True):
     SSEKMS: "capo_s3_control.types.ssekms_filter.SSEKMSFilter"
 
 
-class _ObjectEncryptionFilter_DSSEKMS(TypedDict, closed=True):
+class ObjectEncryptionFilterDSSEKMSMember(TypedDict, closed=True):
     DSSEKMS: "capo_s3_control.types.dssekms_filter.DSSEKMSFilter"
 
 
-class _ObjectEncryptionFilter_SSEC(TypedDict, closed=True):
+class ObjectEncryptionFilterSSECMember(TypedDict, closed=True):
     SSEC: "capo_s3_control.types.ssec_filter.SSECFilter"
 
 
-class _ObjectEncryptionFilter_NOTSSE(TypedDict, closed=True):
+class ObjectEncryptionFilterNOTSSEMember(TypedDict, closed=True):
     NOTSSE: "capo_s3_control.types.not_sse_filter.NotSSEFilter"
 
 
 ObjectEncryptionFilter: TypeAlias = (
-    _ObjectEncryptionFilter_SSES3
-    | _ObjectEncryptionFilter_SSEKMS
-    | _ObjectEncryptionFilter_DSSEKMS
-    | _ObjectEncryptionFilter_SSEC
-    | _ObjectEncryptionFilter_NOTSSE
+    ObjectEncryptionFilterSSES3Member
+    | ObjectEncryptionFilterSSEKMSMember
+    | ObjectEncryptionFilterDSSEKMSMember
+    | ObjectEncryptionFilterSSECMember
+    | ObjectEncryptionFilterNOTSSEMember
     | UnknownUnionMember
 )
 

@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_ssm_incidents.types.related_item
 
 
-class _RelatedItemsUpdate_itemToAdd(TypedDict, closed=True):
+class RelatedItemsUpdateItemToAddMember(TypedDict, closed=True):
     itemToAdd: "capo_ssm_incidents.types.related_item.RelatedItem"
 
 
-class _RelatedItemsUpdate_itemToRemove(TypedDict, closed=True):
+class RelatedItemsUpdateItemToRemoveMember(TypedDict, closed=True):
     itemToRemove: "capo_ssm_incidents.types.item_identifier.ItemIdentifier"
 
 
 RelatedItemsUpdate: TypeAlias = (
-    _RelatedItemsUpdate_itemToAdd
-    | _RelatedItemsUpdate_itemToRemove
+    RelatedItemsUpdateItemToAddMember
+    | RelatedItemsUpdateItemToRemoveMember
     | UnknownUnionMember
 )
 

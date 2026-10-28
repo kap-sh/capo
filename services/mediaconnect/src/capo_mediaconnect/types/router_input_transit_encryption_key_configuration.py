@@ -12,19 +12,21 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.secrets_manager_encryption_key_configuration
 
 
-class _RouterInputTransitEncryptionKeyConfiguration_SecretsManager(
+class RouterInputTransitEncryptionKeyConfigurationSecretsManagerMember(
     TypedDict, closed=True
 ):
     SecretsManager: "capo_mediaconnect.types.secrets_manager_encryption_key_configuration.SecretsManagerEncryptionKeyConfiguration"
 
 
-class _RouterInputTransitEncryptionKeyConfiguration_Automatic(TypedDict, closed=True):
+class RouterInputTransitEncryptionKeyConfigurationAutomaticMember(
+    TypedDict, closed=True
+):
     Automatic: "capo_mediaconnect.types.automatic_encryption_key_configuration.AutomaticEncryptionKeyConfiguration"
 
 
 RouterInputTransitEncryptionKeyConfiguration: TypeAlias = (
-    _RouterInputTransitEncryptionKeyConfiguration_SecretsManager
-    | _RouterInputTransitEncryptionKeyConfiguration_Automatic
+    RouterInputTransitEncryptionKeyConfigurationSecretsManagerMember
+    | RouterInputTransitEncryptionKeyConfigurationAutomaticMember
     | UnknownUnionMember
 )
 

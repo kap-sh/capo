@@ -8,16 +8,18 @@ from capo_amplifyuibuilder.errors import DeserializationError, SerializationErro
 from capo_amplifyuibuilder.types._unknown import UnknownUnionMember
 
 
-class _FormStyleConfig_tokenReference(TypedDict, closed=True):
+class FormStyleConfigTokenReferenceMember(TypedDict, closed=True):
     tokenReference: "str"
 
 
-class _FormStyleConfig_value(TypedDict, closed=True):
+class FormStyleConfigValueMember(TypedDict, closed=True):
     value: "str"
 
 
 FormStyleConfig: TypeAlias = (
-    _FormStyleConfig_tokenReference | _FormStyleConfig_value | UnknownUnionMember
+    FormStyleConfigTokenReferenceMember
+    | FormStyleConfigValueMember
+    | UnknownUnionMember
 )
 
 

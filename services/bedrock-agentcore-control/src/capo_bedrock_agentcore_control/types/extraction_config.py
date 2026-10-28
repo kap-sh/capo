@@ -14,13 +14,15 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.llm_extraction_config
 
 
-class _ExtractionConfig_llmExtractionConfig(TypedDict, closed=True):
+class ExtractionConfigLlmExtractionConfigMember(TypedDict, closed=True):
     llmExtractionConfig: (
         "capo_bedrock_agentcore_control.types.llm_extraction_config.LlmExtractionConfig"
     )
 
 
-ExtractionConfig: TypeAlias = _ExtractionConfig_llmExtractionConfig | UnknownUnionMember
+ExtractionConfig: TypeAlias = (
+    ExtractionConfigLlmExtractionConfigMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

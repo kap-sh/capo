@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_sso_admin.types.oidc_jwt_configuration
 
 
-class _TrustedTokenIssuerConfiguration_OidcJwtConfiguration(TypedDict, closed=True):
+class TrustedTokenIssuerConfigurationOidcJwtConfigurationMember(TypedDict, closed=True):
     OidcJwtConfiguration: (
         "capo_sso_admin.types.oidc_jwt_configuration.OidcJwtConfiguration"
     )
 
 
 TrustedTokenIssuerConfiguration: TypeAlias = (
-    _TrustedTokenIssuerConfiguration_OidcJwtConfiguration | UnknownUnionMember
+    TrustedTokenIssuerConfigurationOidcJwtConfigurationMember | UnknownUnionMember
 )
 
 

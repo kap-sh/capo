@@ -14,31 +14,31 @@ if TYPE_CHECKING:
     import capo_iot.types.asset_property_string_value
 
 
-class _AssetPropertyVariant_stringValue(TypedDict, closed=True):
+class AssetPropertyVariantStringValueMember(TypedDict, closed=True):
     stringValue: "capo_iot.types.asset_property_string_value.AssetPropertyStringValue"
 
 
-class _AssetPropertyVariant_integerValue(TypedDict, closed=True):
+class AssetPropertyVariantIntegerValueMember(TypedDict, closed=True):
     integerValue: (
         "capo_iot.types.asset_property_integer_value.AssetPropertyIntegerValue"
     )
 
 
-class _AssetPropertyVariant_doubleValue(TypedDict, closed=True):
+class AssetPropertyVariantDoubleValueMember(TypedDict, closed=True):
     doubleValue: "capo_iot.types.asset_property_double_value.AssetPropertyDoubleValue"
 
 
-class _AssetPropertyVariant_booleanValue(TypedDict, closed=True):
+class AssetPropertyVariantBooleanValueMember(TypedDict, closed=True):
     booleanValue: (
         "capo_iot.types.asset_property_boolean_value.AssetPropertyBooleanValue"
     )
 
 
 AssetPropertyVariant: TypeAlias = (
-    _AssetPropertyVariant_stringValue
-    | _AssetPropertyVariant_integerValue
-    | _AssetPropertyVariant_doubleValue
-    | _AssetPropertyVariant_booleanValue
+    AssetPropertyVariantStringValueMember
+    | AssetPropertyVariantIntegerValueMember
+    | AssetPropertyVariantDoubleValueMember
+    | AssetPropertyVariantBooleanValueMember
     | UnknownUnionMember
 )
 

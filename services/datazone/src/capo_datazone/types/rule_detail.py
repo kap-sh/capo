@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_datazone.types.metadata_form_enforcement_detail
 
 
-class _RuleDetail_metadataFormEnforcementDetail(TypedDict, closed=True):
+class RuleDetailMetadataFormEnforcementDetailMember(TypedDict, closed=True):
     metadataFormEnforcementDetail: "capo_datazone.types.metadata_form_enforcement_detail.MetadataFormEnforcementDetail"
 
 
-class _RuleDetail_glossaryTermEnforcementDetail(TypedDict, closed=True):
+class RuleDetailGlossaryTermEnforcementDetailMember(TypedDict, closed=True):
     glossaryTermEnforcementDetail: "capo_datazone.types.glossary_term_enforcement_detail.GlossaryTermEnforcementDetail"
 
 
 RuleDetail: TypeAlias = (
-    _RuleDetail_metadataFormEnforcementDetail
-    | _RuleDetail_glossaryTermEnforcementDetail
+    RuleDetailMetadataFormEnforcementDetailMember
+    | RuleDetailGlossaryTermEnforcementDetailMember
     | UnknownUnionMember
 )
 

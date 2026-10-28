@@ -7,7 +7,7 @@ title: Caller
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agent_runtime.types.caller._Caller_agentAliasArn
+::: capo_bedrock_agent_runtime.types.caller.CallerAgentAliasArnMember
     options:
       show_source: true
       merge_init_into_class: false

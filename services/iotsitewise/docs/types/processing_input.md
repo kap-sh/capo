@@ -7,13 +7,13 @@ title: ProcessingInput
       show_source: true
       merge_init_into_class: false
 
-::: capo_iotsitewise.types.processing_input._ProcessingInput_timeseries
+::: capo_iotsitewise.types.processing_input.ProcessingInputTimeseriesMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_iotsitewise.types.processing_input._ProcessingInput_dataset
+::: capo_iotsitewise.types.processing_input.ProcessingInputDatasetMember
     options:
       show_source: true
       merge_init_into_class: false

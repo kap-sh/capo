@@ -7,73 +7,73 @@ title: RuleAction
       show_source: true
       merge_init_into_class: false
 
-::: capo_mailmanager.types.rule_action._RuleAction_Drop
+::: capo_mailmanager.types.rule_action.RuleActionDropMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mailmanager.types.rule_action._RuleAction_Relay
+::: capo_mailmanager.types.rule_action.RuleActionRelayMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mailmanager.types.rule_action._RuleAction_Archive
+::: capo_mailmanager.types.rule_action.RuleActionArchiveMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mailmanager.types.rule_action._RuleAction_WriteToS3
+::: capo_mailmanager.types.rule_action.RuleActionWriteToS3Member
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mailmanager.types.rule_action._RuleAction_Send
+::: capo_mailmanager.types.rule_action.RuleActionSendMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mailmanager.types.rule_action._RuleAction_AddHeader
+::: capo_mailmanager.types.rule_action.RuleActionAddHeaderMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mailmanager.types.rule_action._RuleAction_ReplaceRecipient
+::: capo_mailmanager.types.rule_action.RuleActionReplaceRecipientMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mailmanager.types.rule_action._RuleAction_DeliverToMailbox
+::: capo_mailmanager.types.rule_action.RuleActionDeliverToMailboxMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mailmanager.types.rule_action._RuleAction_DeliverToQBusiness
+::: capo_mailmanager.types.rule_action.RuleActionDeliverToQBusinessMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mailmanager.types.rule_action._RuleAction_PublishToSns
+::: capo_mailmanager.types.rule_action.RuleActionPublishToSnsMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mailmanager.types.rule_action._RuleAction_Bounce
+::: capo_mailmanager.types.rule_action.RuleActionBounceMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mailmanager.types.rule_action._RuleAction_InvokeLambda
+::: capo_mailmanager.types.rule_action.RuleActionInvokeLambdaMember
     options:
       show_source: true
       merge_init_into_class: false

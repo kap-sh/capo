@@ -7,7 +7,7 @@ title: MemoryContent
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore.types.memory_content._MemoryContent_text
+::: capo_bedrock_agentcore.types.memory_content.MemoryContentTextMember
     options:
       show_source: true
       merge_init_into_class: false

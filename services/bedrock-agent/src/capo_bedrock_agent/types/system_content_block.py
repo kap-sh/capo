@@ -12,16 +12,18 @@ if TYPE_CHECKING:
     import capo_bedrock_agent.types.non_empty_string
 
 
-class _SystemContentBlock_text(TypedDict, closed=True):
+class SystemContentBlockTextMember(TypedDict, closed=True):
     text: "capo_bedrock_agent.types.non_empty_string.NonEmptyString"
 
 
-class _SystemContentBlock_cachePoint(TypedDict, closed=True):
+class SystemContentBlockCachePointMember(TypedDict, closed=True):
     cachePoint: "capo_bedrock_agent.types.cache_point_block.CachePointBlock"
 
 
 SystemContentBlock: TypeAlias = (
-    _SystemContentBlock_text | _SystemContentBlock_cachePoint | UnknownUnionMember
+    SystemContentBlockTextMember
+    | SystemContentBlockCachePointMember
+    | UnknownUnionMember
 )
 
 

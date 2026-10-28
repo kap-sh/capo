@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_panorama.types.manifest_payload_data
 
 
-class _ManifestPayload_PayloadData(TypedDict, closed=True):
+class ManifestPayloadPayloadDataMember(TypedDict, closed=True):
     PayloadData: "capo_panorama.types.manifest_payload_data.ManifestPayloadData"
 
 
-ManifestPayload: TypeAlias = _ManifestPayload_PayloadData | UnknownUnionMember
+ManifestPayload: TypeAlias = ManifestPayloadPayloadDataMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

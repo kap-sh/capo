@@ -7,7 +7,7 @@ title: StreamDeliveryResource
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.stream_delivery_resource._StreamDeliveryResource_kinesis
+::: capo_bedrock_agentcore_control.types.stream_delivery_resource.StreamDeliveryResourceKinesisMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_bedrock_agent.types.storage_flow_node_s3_configuration
 
 
-class _StorageFlowNodeServiceConfiguration_s3(TypedDict, closed=True):
+class StorageFlowNodeServiceConfigurationS3Member(TypedDict, closed=True):
     s3: "capo_bedrock_agent.types.storage_flow_node_s3_configuration.StorageFlowNodeS3Configuration"
 
 
 StorageFlowNodeServiceConfiguration: TypeAlias = (
-    _StorageFlowNodeServiceConfiguration_s3 | UnknownUnionMember
+    StorageFlowNodeServiceConfigurationS3Member | UnknownUnionMember
 )
 
 

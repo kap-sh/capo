@@ -19,57 +19,57 @@ if TYPE_CHECKING:
     import capo_rds_data.types.struct_value
 
 
-class _Value_isNull(TypedDict, closed=True):
+class ValueIsNullMember(TypedDict, closed=True):
     isNull: "capo_rds_data.types.boxed_boolean.BoxedBoolean"
 
 
-class _Value_bitValue(TypedDict, closed=True):
+class ValueBitValueMember(TypedDict, closed=True):
     bitValue: "capo_rds_data.types.boxed_boolean.BoxedBoolean"
 
 
-class _Value_bigIntValue(TypedDict, closed=True):
+class ValueBigIntValueMember(TypedDict, closed=True):
     bigIntValue: "capo_rds_data.types.boxed_long.BoxedLong"
 
 
-class _Value_intValue(TypedDict, closed=True):
+class ValueIntValueMember(TypedDict, closed=True):
     intValue: "capo_rds_data.types.boxed_integer.BoxedInteger"
 
 
-class _Value_doubleValue(TypedDict, closed=True):
+class ValueDoubleValueMember(TypedDict, closed=True):
     doubleValue: "capo_rds_data.types.boxed_double.BoxedDouble"
 
 
-class _Value_realValue(TypedDict, closed=True):
+class ValueRealValueMember(TypedDict, closed=True):
     realValue: "capo_rds_data.types.boxed_float.BoxedFloat"
 
 
-class _Value_stringValue(TypedDict, closed=True):
+class ValueStringValueMember(TypedDict, closed=True):
     stringValue: "capo_rds_data.types.string.String"
 
 
-class _Value_blobValue(TypedDict, closed=True):
+class ValueBlobValueMember(TypedDict, closed=True):
     blobValue: "capo_rds_data.types.blob.Blob"
 
 
-class _Value_arrayValues(TypedDict, closed=True):
+class ValueArrayValuesMember(TypedDict, closed=True):
     arrayValues: "capo_rds_data.types.array_value_list.ArrayValueList"
 
 
-class _Value_structValue(TypedDict, closed=True):
+class ValueStructValueMember(TypedDict, closed=True):
     structValue: "capo_rds_data.types.struct_value.StructValue"
 
 
 Value: TypeAlias = (
-    _Value_isNull
-    | _Value_bitValue
-    | _Value_bigIntValue
-    | _Value_intValue
-    | _Value_doubleValue
-    | _Value_realValue
-    | _Value_stringValue
-    | _Value_blobValue
-    | _Value_arrayValues
-    | _Value_structValue
+    ValueIsNullMember
+    | ValueBitValueMember
+    | ValueBigIntValueMember
+    | ValueIntValueMember
+    | ValueDoubleValueMember
+    | ValueRealValueMember
+    | ValueStringValueMember
+    | ValueBlobValueMember
+    | ValueArrayValuesMember
+    | ValueStructValueMember
     | UnknownUnionMember
 )
 

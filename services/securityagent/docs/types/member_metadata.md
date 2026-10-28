@@ -7,7 +7,7 @@ title: MemberMetadata
       show_source: true
       merge_init_into_class: false
 
-::: capo_securityagent.types.member_metadata._MemberMetadata_user
+::: capo_securityagent.types.member_metadata.MemberMetadataUserMember
     options:
       show_source: true
       merge_init_into_class: false

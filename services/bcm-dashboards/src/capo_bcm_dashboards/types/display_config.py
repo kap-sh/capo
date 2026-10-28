@@ -12,18 +12,18 @@ if TYPE_CHECKING:
     import capo_bcm_dashboards.types.table_display_config_struct
 
 
-class _DisplayConfig_graph(TypedDict, closed=True):
+class DisplayConfigGraphMember(TypedDict, closed=True):
     graph: "capo_bcm_dashboards.types.graph_display_config_map.GraphDisplayConfigMap"
 
 
-class _DisplayConfig_table(TypedDict, closed=True):
+class DisplayConfigTableMember(TypedDict, closed=True):
     table: (
         "capo_bcm_dashboards.types.table_display_config_struct.TableDisplayConfigStruct"
     )
 
 
 DisplayConfig: TypeAlias = (
-    _DisplayConfig_graph | _DisplayConfig_table | UnknownUnionMember
+    DisplayConfigGraphMember | DisplayConfigTableMember | UnknownUnionMember
 )
 
 

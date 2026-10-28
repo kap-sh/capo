@@ -7,7 +7,7 @@ title: ScalingPolicy
       show_source: true
       merge_init_into_class: false
 
-::: capo_sagemaker.types.scaling_policy._ScalingPolicy_TargetTracking
+::: capo_sagemaker.types.scaling_policy.ScalingPolicyTargetTrackingMember
     options:
       show_source: true
       merge_init_into_class: false

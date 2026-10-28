@@ -13,24 +13,24 @@ if TYPE_CHECKING:
     import capo_groundstation.types.s3_recording_details
 
 
-class _ConfigDetails_endpointDetails(TypedDict, closed=True):
+class ConfigDetailsEndpointDetailsMember(TypedDict, closed=True):
     endpointDetails: "capo_groundstation.types.endpoint_details.EndpointDetails"
 
 
-class _ConfigDetails_antennaDemodDecodeDetails(TypedDict, closed=True):
+class ConfigDetailsAntennaDemodDecodeDetailsMember(TypedDict, closed=True):
     antennaDemodDecodeDetails: "capo_groundstation.types.antenna_demod_decode_details.AntennaDemodDecodeDetails"
 
 
-class _ConfigDetails_s3RecordingDetails(TypedDict, closed=True):
+class ConfigDetailsS3RecordingDetailsMember(TypedDict, closed=True):
     s3RecordingDetails: (
         "capo_groundstation.types.s3_recording_details.S3RecordingDetails"
     )
 
 
 ConfigDetails: TypeAlias = (
-    _ConfigDetails_endpointDetails
-    | _ConfigDetails_antennaDemodDecodeDetails
-    | _ConfigDetails_s3RecordingDetails
+    ConfigDetailsEndpointDetailsMember
+    | ConfigDetailsAntennaDemodDecodeDetailsMember
+    | ConfigDetailsS3RecordingDetailsMember
     | UnknownUnionMember
 )
 

@@ -14,27 +14,27 @@ if TYPE_CHECKING:
     import capo_qconnect.types.span_tool_use_value
 
 
-class _SpanMessageValue_text(TypedDict, closed=True):
+class SpanMessageValueTextMember(TypedDict, closed=True):
     text: "capo_qconnect.types.span_text_value.SpanTextValue"
 
 
-class _SpanMessageValue_toolUse(TypedDict, closed=True):
+class SpanMessageValueToolUseMember(TypedDict, closed=True):
     toolUse: "capo_qconnect.types.span_tool_use_value.SpanToolUseValue"
 
 
-class _SpanMessageValue_toolResult(TypedDict, closed=True):
+class SpanMessageValueToolResultMember(TypedDict, closed=True):
     toolResult: "capo_qconnect.types.span_tool_result_value.SpanToolResultValue"
 
 
-class _SpanMessageValue_reasoning(TypedDict, closed=True):
+class SpanMessageValueReasoningMember(TypedDict, closed=True):
     reasoning: "capo_qconnect.types.span_reasoning_value.SpanReasoningValue"
 
 
 SpanMessageValue: TypeAlias = (
-    _SpanMessageValue_text
-    | _SpanMessageValue_toolUse
-    | _SpanMessageValue_toolResult
-    | _SpanMessageValue_reasoning
+    SpanMessageValueTextMember
+    | SpanMessageValueToolUseMember
+    | SpanMessageValueToolResultMember
+    | SpanMessageValueReasoningMember
     | UnknownUnionMember
 )
 

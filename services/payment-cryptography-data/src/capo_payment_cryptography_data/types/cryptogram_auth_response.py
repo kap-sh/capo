@@ -15,17 +15,17 @@ if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.cryptogram_verification_arpc_method2
 
 
-class _CryptogramAuthResponse_ArpcMethod1(TypedDict, closed=True):
+class CryptogramAuthResponseArpcMethod1Member(TypedDict, closed=True):
     ArpcMethod1: "capo_payment_cryptography_data.types.cryptogram_verification_arpc_method1.CryptogramVerificationArpcMethod1"
 
 
-class _CryptogramAuthResponse_ArpcMethod2(TypedDict, closed=True):
+class CryptogramAuthResponseArpcMethod2Member(TypedDict, closed=True):
     ArpcMethod2: "capo_payment_cryptography_data.types.cryptogram_verification_arpc_method2.CryptogramVerificationArpcMethod2"
 
 
 CryptogramAuthResponse: TypeAlias = (
-    _CryptogramAuthResponse_ArpcMethod1
-    | _CryptogramAuthResponse_ArpcMethod2
+    CryptogramAuthResponseArpcMethod1Member
+    | CryptogramAuthResponseArpcMethod2Member
     | UnknownUnionMember
 )
 

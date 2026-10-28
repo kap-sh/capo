@@ -8,11 +8,11 @@ from capo_b2bi.errors import DeserializationError, SerializationError
 from capo_b2bi.types._unknown import UnknownUnionMember
 
 
-class _InputFileSource_fileContent(TypedDict, closed=True):
+class InputFileSourceFileContentMember(TypedDict, closed=True):
     fileContent: "str"
 
 
-InputFileSource: TypeAlias = _InputFileSource_fileContent | UnknownUnionMember
+InputFileSource: TypeAlias = InputFileSourceFileContentMember | UnknownUnionMember
 
 
 # --- awsJson1_0 ser/de ---

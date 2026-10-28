@@ -7,7 +7,7 @@ title: S3AccessGrantsScopeUnion
       show_source: true
       merge_init_into_class: false
 
-::: capo_redshift.types.s3_access_grants_scope_union._S3AccessGrantsScopeUnion_ReadWriteAccess
+::: capo_redshift.types.s3_access_grants_scope_union.S3AccessGrantsScopeUnionReadWriteAccessMember
     options:
       show_source: true
       merge_init_into_class: false

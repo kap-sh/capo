@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_bedrock.types.lambda_grader_config
 
 
-class _GraderConfig_lambdaGrader(TypedDict, closed=True):
+class GraderConfigLambdaGraderMember(TypedDict, closed=True):
     lambdaGrader: "capo_bedrock.types.lambda_grader_config.LambdaGraderConfig"
 
 
-GraderConfig: TypeAlias = _GraderConfig_lambdaGrader | UnknownUnionMember
+GraderConfig: TypeAlias = GraderConfigLambdaGraderMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

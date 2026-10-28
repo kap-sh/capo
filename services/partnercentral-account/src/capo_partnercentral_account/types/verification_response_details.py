@@ -12,19 +12,21 @@ if TYPE_CHECKING:
     import capo_partnercentral_account.types.registrant_verification_response
 
 
-class _VerificationResponseDetails_BusinessVerificationResponse(TypedDict, closed=True):
+class VerificationResponseDetailsBusinessVerificationResponseMember(
+    TypedDict, closed=True
+):
     BusinessVerificationResponse: "capo_partnercentral_account.types.business_verification_response.BusinessVerificationResponse"
 
 
-class _VerificationResponseDetails_RegistrantVerificationResponse(
+class VerificationResponseDetailsRegistrantVerificationResponseMember(
     TypedDict, closed=True
 ):
     RegistrantVerificationResponse: "capo_partnercentral_account.types.registrant_verification_response.RegistrantVerificationResponse"
 
 
 VerificationResponseDetails: TypeAlias = (
-    _VerificationResponseDetails_BusinessVerificationResponse
-    | _VerificationResponseDetails_RegistrantVerificationResponse
+    VerificationResponseDetailsBusinessVerificationResponseMember
+    | VerificationResponseDetailsRegistrantVerificationResponseMember
     | UnknownUnionMember
 )
 

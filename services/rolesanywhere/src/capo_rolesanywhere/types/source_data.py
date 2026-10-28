@@ -8,16 +8,16 @@ from capo_rolesanywhere.errors import DeserializationError, SerializationError
 from capo_rolesanywhere.types._unknown import UnknownUnionMember
 
 
-class _SourceData_x509CertificateData(TypedDict, closed=True):
+class SourceDataX509CertificateDataMember(TypedDict, closed=True):
     x509CertificateData: "str"
 
 
-class _SourceData_acmPcaArn(TypedDict, closed=True):
+class SourceDataAcmPcaArnMember(TypedDict, closed=True):
     acmPcaArn: "str"
 
 
 SourceData: TypeAlias = (
-    _SourceData_x509CertificateData | _SourceData_acmPcaArn | UnknownUnionMember
+    SourceDataX509CertificateDataMember | SourceDataAcmPcaArnMember | UnknownUnionMember
 )
 
 

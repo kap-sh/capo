@@ -7,7 +7,7 @@ title: PopulationAnalysisConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_cleanrooms.types.population_analysis_configuration._PopulationAnalysisConfiguration_sqlParameters
+::: capo_cleanrooms.types.population_analysis_configuration.PopulationAnalysisConfigurationSqlParametersMember
     options:
       show_source: true
       merge_init_into_class: false

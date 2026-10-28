@@ -7,7 +7,7 @@ title: IdentityProvider
       show_source: true
       merge_init_into_class: false
 
-::: capo_license_manager_user_subscriptions.types.identity_provider._IdentityProvider_ActiveDirectoryIdentityProvider
+::: capo_license_manager_user_subscriptions.types.identity_provider.IdentityProviderActiveDirectoryIdentityProviderMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_wisdom.types.uuid
 
 
-class _AssistantAssociationInputData_knowledgeBaseId(TypedDict, closed=True):
+class AssistantAssociationInputDataKnowledgeBaseIdMember(TypedDict, closed=True):
     knowledgeBaseId: "capo_wisdom.types.uuid.Uuid"
 
 
 AssistantAssociationInputData: TypeAlias = (
-    _AssistantAssociationInputData_knowledgeBaseId | UnknownUnionMember
+    AssistantAssociationInputDataKnowledgeBaseIdMember | UnknownUnionMember
 )
 
 

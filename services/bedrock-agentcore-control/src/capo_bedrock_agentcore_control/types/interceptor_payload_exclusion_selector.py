@@ -14,12 +14,12 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.interceptor_payload_exclusion
 
 
-class _InterceptorPayloadExclusionSelector_field(TypedDict, closed=True):
+class InterceptorPayloadExclusionSelectorFieldMember(TypedDict, closed=True):
     field: "capo_bedrock_agentcore_control.types.interceptor_payload_exclusion.InterceptorPayloadExclusion"
 
 
 InterceptorPayloadExclusionSelector: TypeAlias = (
-    _InterceptorPayloadExclusionSelector_field | UnknownUnionMember
+    InterceptorPayloadExclusionSelectorFieldMember | UnknownUnionMember
 )
 
 

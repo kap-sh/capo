@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_transfer.types.web_app_vpc_config
 
 
-class _WebAppEndpointDetails_Vpc(TypedDict, closed=True):
+class WebAppEndpointDetailsVpcMember(TypedDict, closed=True):
     Vpc: "capo_transfer.types.web_app_vpc_config.WebAppVpcConfig"
 
 
-WebAppEndpointDetails: TypeAlias = _WebAppEndpointDetails_Vpc | UnknownUnionMember
+WebAppEndpointDetails: TypeAlias = WebAppEndpointDetailsVpcMember | UnknownUnionMember
 
 
 # --- awsJson1_1 ser/de ---

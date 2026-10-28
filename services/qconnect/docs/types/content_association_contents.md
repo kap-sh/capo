@@ -7,7 +7,7 @@ title: ContentAssociationContents
       show_source: true
       merge_init_into_class: false
 
-::: capo_qconnect.types.content_association_contents._ContentAssociationContents_amazonConnectGuideAssociation
+::: capo_qconnect.types.content_association_contents.ContentAssociationContentsAmazonConnectGuideAssociationMember
     options:
       show_source: true
       merge_init_into_class: false

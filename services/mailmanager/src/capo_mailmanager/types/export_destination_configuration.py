@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_mailmanager.types.s3_export_destination_configuration
 
 
-class _ExportDestinationConfiguration_S3(TypedDict, closed=True):
+class ExportDestinationConfigurationS3Member(TypedDict, closed=True):
     S3: "capo_mailmanager.types.s3_export_destination_configuration.S3ExportDestinationConfiguration"
 
 
 ExportDestinationConfiguration: TypeAlias = (
-    _ExportDestinationConfiguration_S3 | UnknownUnionMember
+    ExportDestinationConfigurationS3Member | UnknownUnionMember
 )
 
 

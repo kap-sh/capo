@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.restricted_period_list
 
 
-class _RestrictedPeriods_restrictedPeriodList(TypedDict, closed=True):
+class RestrictedPeriodsRestrictedPeriodListMember(TypedDict, closed=True):
     restrictedPeriodList: (
         "capo_connectcampaignsv2.types.restricted_period_list.RestrictedPeriodList"
     )
 
 
 RestrictedPeriods: TypeAlias = (
-    _RestrictedPeriods_restrictedPeriodList | UnknownUnionMember
+    RestrictedPeriodsRestrictedPeriodListMember | UnknownUnionMember
 )
 
 

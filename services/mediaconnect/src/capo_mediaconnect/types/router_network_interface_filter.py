@@ -12,22 +12,22 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.string_list
 
 
-class _RouterNetworkInterfaceFilter_RegionNames(TypedDict, closed=True):
+class RouterNetworkInterfaceFilterRegionNamesMember(TypedDict, closed=True):
     RegionNames: "capo_mediaconnect.types.string_list.StringList"
 
 
-class _RouterNetworkInterfaceFilter_NetworkInterfaceTypes(TypedDict, closed=True):
+class RouterNetworkInterfaceFilterNetworkInterfaceTypesMember(TypedDict, closed=True):
     NetworkInterfaceTypes: "capo_mediaconnect.types.router_network_interface_type_list.RouterNetworkInterfaceTypeList"
 
 
-class _RouterNetworkInterfaceFilter_NameContains(TypedDict, closed=True):
+class RouterNetworkInterfaceFilterNameContainsMember(TypedDict, closed=True):
     NameContains: "capo_mediaconnect.types.string_list.StringList"
 
 
 RouterNetworkInterfaceFilter: TypeAlias = (
-    _RouterNetworkInterfaceFilter_RegionNames
-    | _RouterNetworkInterfaceFilter_NetworkInterfaceTypes
-    | _RouterNetworkInterfaceFilter_NameContains
+    RouterNetworkInterfaceFilterRegionNamesMember
+    | RouterNetworkInterfaceFilterNetworkInterfaceTypesMember
+    | RouterNetworkInterfaceFilterNameContainsMember
     | UnknownUnionMember
 )
 

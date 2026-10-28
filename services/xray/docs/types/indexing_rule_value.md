@@ -7,7 +7,7 @@ title: IndexingRuleValue
       show_source: true
       merge_init_into_class: false
 
-::: capo_xray.types.indexing_rule_value._IndexingRuleValue_Probabilistic
+::: capo_xray.types.indexing_rule_value.IndexingRuleValueProbabilisticMember
     options:
       show_source: true
       merge_init_into_class: false

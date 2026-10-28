@@ -7,7 +7,7 @@ title: BudgetSchedule
       show_source: true
       merge_init_into_class: false
 
-::: capo_deadline.types.budget_schedule._BudgetSchedule_fixed
+::: capo_deadline.types.budget_schedule.BudgetScheduleFixedMember
     options:
       show_source: true
       merge_init_into_class: false

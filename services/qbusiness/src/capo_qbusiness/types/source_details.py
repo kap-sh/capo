@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_qbusiness.types.video_source_details
 
 
-class _SourceDetails_imageSourceDetails(TypedDict, closed=True):
+class SourceDetailsImageSourceDetailsMember(TypedDict, closed=True):
     imageSourceDetails: "capo_qbusiness.types.image_source_details.ImageSourceDetails"
 
 
-class _SourceDetails_audioSourceDetails(TypedDict, closed=True):
+class SourceDetailsAudioSourceDetailsMember(TypedDict, closed=True):
     audioSourceDetails: "capo_qbusiness.types.audio_source_details.AudioSourceDetails"
 
 
-class _SourceDetails_videoSourceDetails(TypedDict, closed=True):
+class SourceDetailsVideoSourceDetailsMember(TypedDict, closed=True):
     videoSourceDetails: "capo_qbusiness.types.video_source_details.VideoSourceDetails"
 
 
 SourceDetails: TypeAlias = (
-    _SourceDetails_imageSourceDetails
-    | _SourceDetails_audioSourceDetails
-    | _SourceDetails_videoSourceDetails
+    SourceDetailsImageSourceDetailsMember
+    | SourceDetailsAudioSourceDetailsMember
+    | SourceDetailsVideoSourceDetailsMember
     | UnknownUnionMember
 )
 

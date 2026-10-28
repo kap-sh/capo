@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_bedrock.types.s3_uri
 
 
-class _InvocationLogSource_s3Uri(TypedDict, closed=True):
+class InvocationLogSourceS3UriMember(TypedDict, closed=True):
     s3Uri: "capo_bedrock.types.s3_uri.S3Uri"
 
 
-InvocationLogSource: TypeAlias = _InvocationLogSource_s3Uri | UnknownUnionMember
+InvocationLogSource: TypeAlias = InvocationLogSourceS3UriMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

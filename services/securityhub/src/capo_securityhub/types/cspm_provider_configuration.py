@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_securityhub.types.azure_provider_configuration
 
 
-class _CspmProviderConfiguration_Azure(TypedDict, closed=True):
+class CspmProviderConfigurationAzureMember(TypedDict, closed=True):
     Azure: (
         "capo_securityhub.types.azure_provider_configuration.AzureProviderConfiguration"
     )
 
 
 CspmProviderConfiguration: TypeAlias = (
-    _CspmProviderConfiguration_Azure | UnknownUnionMember
+    CspmProviderConfigurationAzureMember | UnknownUnionMember
 )
 
 

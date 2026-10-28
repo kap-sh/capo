@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_datazone.types.cloud_formation_properties
 
 
-class _ProvisioningProperties_cloudFormation(TypedDict, closed=True):
+class ProvisioningPropertiesCloudFormationMember(TypedDict, closed=True):
     cloudFormation: (
         "capo_datazone.types.cloud_formation_properties.CloudFormationProperties"
     )
 
 
 ProvisioningProperties: TypeAlias = (
-    _ProvisioningProperties_cloudFormation | UnknownUnionMember
+    ProvisioningPropertiesCloudFormationMember | UnknownUnionMember
 )
 
 

@@ -7,7 +7,7 @@ title: RecommendationTriggerData
       show_source: true
       merge_init_into_class: false
 
-::: capo_wisdom.types.recommendation_trigger_data._RecommendationTriggerData_query
+::: capo_wisdom.types.recommendation_trigger_data.RecommendationTriggerDataQueryMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_qconnect.types.knowledge_base_association_configuration_data
 
 
-class _AssociationConfigurationData_knowledgeBaseAssociationConfigurationData(
+class AssociationConfigurationDataKnowledgeBaseAssociationConfigurationDataMember(
     TypedDict, closed=True
 ):
     knowledgeBaseAssociationConfigurationData: "capo_qconnect.types.knowledge_base_association_configuration_data.KnowledgeBaseAssociationConfigurationData"
 
 
 AssociationConfigurationData: TypeAlias = (
-    _AssociationConfigurationData_knowledgeBaseAssociationConfigurationData
+    AssociationConfigurationDataKnowledgeBaseAssociationConfigurationDataMember
     | UnknownUnionMember
 )
 

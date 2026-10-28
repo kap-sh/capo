@@ -7,7 +7,7 @@ title: AIBenchmarkTarget
       show_source: true
       merge_init_into_class: false
 
-::: capo_sagemaker.types.ai_benchmark_target._AIBenchmarkTarget_Endpoint
+::: capo_sagemaker.types.ai_benchmark_target.AIBenchmarkTargetEndpointMember
     options:
       show_source: true
       merge_init_into_class: false

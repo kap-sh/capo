@@ -7,223 +7,223 @@ title: DataSourceParameters
       show_source: true
       merge_init_into_class: false
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_AmazonElasticsearchParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersAmazonElasticsearchParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_AthenaParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersAthenaParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_AuroraParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersAuroraParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_AuroraPostgreSqlParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersAuroraPostgreSqlParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_AwsIotAnalyticsParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersAwsIotAnalyticsParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_JiraParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersJiraParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_MariaDbParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersMariaDbParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_MySqlParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersMySqlParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_OracleParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersOracleParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_PostgreSqlParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersPostgreSqlParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_PrestoParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersPrestoParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_RdsParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersRdsParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_RedshiftParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersRedshiftParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_S3Parameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersS3ParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_S3TablesParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersS3TablesParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_S3KnowledgeBaseParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersS3KnowledgeBaseParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_ServiceNowParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersServiceNowParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_SnowflakeParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersSnowflakeParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_SparkParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersSparkParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_SqlServerParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersSqlServerParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_TeradataParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersTeradataParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_TwitterParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersTwitterParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_AmazonOpenSearchParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersAmazonOpenSearchParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_ExasolParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersExasolParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_DatabricksParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersDatabricksParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_StarburstParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersStarburstParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_TrinoParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersTrinoParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_BigQueryParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersBigQueryParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_ImpalaParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersImpalaParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_CustomConnectionParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersCustomConnectionParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_WebCrawlerParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersWebCrawlerParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_ConfluenceParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersConfluenceParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_QBusinessParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersQBusinessParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_SharePointParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersSharePointParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_GoogleDriveParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersGoogleDriveParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_OneDriveParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersOneDriveParametersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.data_source_parameters._DataSourceParameters_FMKBParameters
+::: capo_quicksight.types.data_source_parameters.DataSourceParametersFMKBParametersMember
     options:
       show_source: true
       merge_init_into_class: false

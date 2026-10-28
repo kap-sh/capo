@@ -14,11 +14,13 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.iam_principal
 
 
-class _MatchPrincipalEntry_iamPrincipal(TypedDict, closed=True):
+class MatchPrincipalEntryIamPrincipalMember(TypedDict, closed=True):
     iamPrincipal: "capo_bedrock_agentcore_control.types.iam_principal.IamPrincipal"
 
 
-MatchPrincipalEntry: TypeAlias = _MatchPrincipalEntry_iamPrincipal | UnknownUnionMember
+MatchPrincipalEntry: TypeAlias = (
+    MatchPrincipalEntryIamPrincipalMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

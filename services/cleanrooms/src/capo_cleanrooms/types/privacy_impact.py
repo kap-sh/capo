@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.differential_privacy_privacy_impact
 
 
-class _PrivacyImpact_differentialPrivacy(TypedDict, closed=True):
+class PrivacyImpactDifferentialPrivacyMember(TypedDict, closed=True):
     differentialPrivacy: "capo_cleanrooms.types.differential_privacy_privacy_impact.DifferentialPrivacyPrivacyImpact"
 
 
-PrivacyImpact: TypeAlias = _PrivacyImpact_differentialPrivacy | UnknownUnionMember
+PrivacyImpact: TypeAlias = PrivacyImpactDifferentialPrivacyMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.asset_zip_content
 
 
-class _AssetContent_file(TypedDict, closed=True):
+class AssetContentFileMember(TypedDict, closed=True):
     file: "capo_devops_agent.types.asset_file_content.AssetFileContent"
 
 
-class _AssetContent_zip(TypedDict, closed=True):
+class AssetContentZipMember(TypedDict, closed=True):
     zip: "capo_devops_agent.types.asset_zip_content.AssetZipContent"
 
 
-class _AssetContent_sourceUrl(TypedDict, closed=True):
+class AssetContentSourceUrlMember(TypedDict, closed=True):
     sourceUrl: "capo_devops_agent.types.asset_source_url_content.AssetSourceUrlContent"
 
 
 AssetContent: TypeAlias = (
-    _AssetContent_file
-    | _AssetContent_zip
-    | _AssetContent_sourceUrl
+    AssetContentFileMember
+    | AssetContentZipMember
+    | AssetContentSourceUrlMember
     | UnknownUnionMember
 )
 

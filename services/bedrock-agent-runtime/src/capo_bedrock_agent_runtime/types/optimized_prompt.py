@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.text_prompt
 
 
-class _OptimizedPrompt_textPrompt(TypedDict, closed=True):
+class OptimizedPromptTextPromptMember(TypedDict, closed=True):
     textPrompt: "capo_bedrock_agent_runtime.types.text_prompt.TextPrompt"
 
 
-OptimizedPrompt: TypeAlias = _OptimizedPrompt_textPrompt | UnknownUnionMember
+OptimizedPrompt: TypeAlias = OptimizedPromptTextPromptMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

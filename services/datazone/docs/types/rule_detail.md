@@ -7,13 +7,13 @@ title: RuleDetail
       show_source: true
       merge_init_into_class: false
 
-::: capo_datazone.types.rule_detail._RuleDetail_metadataFormEnforcementDetail
+::: capo_datazone.types.rule_detail.RuleDetailMetadataFormEnforcementDetailMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.rule_detail._RuleDetail_glossaryTermEnforcementDetail
+::: capo_datazone.types.rule_detail.RuleDetailGlossaryTermEnforcementDetailMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -7,7 +7,7 @@ title: InputPrompt
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agent_runtime.types.input_prompt._InputPrompt_textPrompt
+::: capo_bedrock_agent_runtime.types.input_prompt.InputPromptTextPromptMember
     options:
       show_source: true
       merge_init_into_class: false

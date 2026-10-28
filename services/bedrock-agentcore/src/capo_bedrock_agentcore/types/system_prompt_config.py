@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.system_prompt_text
 
 
-class _SystemPromptConfig_text(TypedDict, closed=True):
+class SystemPromptConfigTextMember(TypedDict, closed=True):
     text: "capo_bedrock_agentcore.types.system_prompt_text.SystemPromptText"
 
 
-class _SystemPromptConfig_configurationBundle(TypedDict, closed=True):
+class SystemPromptConfigConfigurationBundleMember(TypedDict, closed=True):
     configurationBundle: "capo_bedrock_agentcore.types.system_prompt_configuration_bundle.SystemPromptConfigurationBundle"
 
 
 SystemPromptConfig: TypeAlias = (
-    _SystemPromptConfig_text
-    | _SystemPromptConfig_configurationBundle
+    SystemPromptConfigTextMember
+    | SystemPromptConfigConfigurationBundleMember
     | UnknownUnionMember
 )
 

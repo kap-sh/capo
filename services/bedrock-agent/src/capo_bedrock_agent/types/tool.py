@@ -12,15 +12,15 @@ if TYPE_CHECKING:
     import capo_bedrock_agent.types.tool_specification
 
 
-class _Tool_toolSpec(TypedDict, closed=True):
+class ToolToolSpecMember(TypedDict, closed=True):
     toolSpec: "capo_bedrock_agent.types.tool_specification.ToolSpecification"
 
 
-class _Tool_cachePoint(TypedDict, closed=True):
+class ToolCachePointMember(TypedDict, closed=True):
     cachePoint: "capo_bedrock_agent.types.cache_point_block.CachePointBlock"
 
 
-Tool: TypeAlias = _Tool_toolSpec | _Tool_cachePoint | UnknownUnionMember
+Tool: TypeAlias = ToolToolSpecMember | ToolCachePointMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

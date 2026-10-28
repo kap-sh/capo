@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_deadline.types.service_managed_ec2_fleet_configuration
 
 
-class _FleetConfiguration_customerManaged(TypedDict, closed=True):
+class FleetConfigurationCustomerManagedMember(TypedDict, closed=True):
     customerManaged: "capo_deadline.types.customer_managed_fleet_configuration.CustomerManagedFleetConfiguration"
 
 
-class _FleetConfiguration_serviceManagedEc2(TypedDict, closed=True):
+class FleetConfigurationServiceManagedEc2Member(TypedDict, closed=True):
     serviceManagedEc2: "capo_deadline.types.service_managed_ec2_fleet_configuration.ServiceManagedEc2FleetConfiguration"
 
 
 FleetConfiguration: TypeAlias = (
-    _FleetConfiguration_customerManaged
-    | _FleetConfiguration_serviceManagedEc2
+    FleetConfigurationCustomerManagedMember
+    | FleetConfigurationServiceManagedEc2Member
     | UnknownUnionMember
 )
 

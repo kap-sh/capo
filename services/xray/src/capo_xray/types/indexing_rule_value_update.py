@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_xray.types.probabilistic_rule_value_update
 
 
-class _IndexingRuleValueUpdate_Probabilistic(TypedDict, closed=True):
+class IndexingRuleValueUpdateProbabilisticMember(TypedDict, closed=True):
     Probabilistic: (
         "capo_xray.types.probabilistic_rule_value_update.ProbabilisticRuleValueUpdate"
     )
 
 
 IndexingRuleValueUpdate: TypeAlias = (
-    _IndexingRuleValueUpdate_Probabilistic | UnknownUnionMember
+    IndexingRuleValueUpdateProbabilisticMember | UnknownUnionMember
 )
 
 

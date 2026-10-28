@@ -16,39 +16,39 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.mcp_server_o_auth_client_credentials_config
 
 
-class _MCPServerAuthorizationConfig_oAuthClientCredentials(TypedDict, closed=True):
+class MCPServerAuthorizationConfigOAuthClientCredentialsMember(TypedDict, closed=True):
     oAuthClientCredentials: "capo_devops_agent.types.mcp_server_o_auth_client_credentials_config.MCPServerOAuthClientCredentialsConfig"
 
 
-class _MCPServerAuthorizationConfig_oAuth3LO(TypedDict, closed=True):
+class MCPServerAuthorizationConfigOAuth3LOMember(TypedDict, closed=True):
     oAuth3LO: (
         "capo_devops_agent.types.mcp_server_o_auth3_lo_config.MCPServerOAuth3LOConfig"
     )
 
 
-class _MCPServerAuthorizationConfig_apiKey(TypedDict, closed=True):
+class MCPServerAuthorizationConfigApiKeyMember(TypedDict, closed=True):
     apiKey: "capo_devops_agent.types.mcp_server_api_key_config.MCPServerAPIKeyConfig"
 
 
-class _MCPServerAuthorizationConfig_bearerToken(TypedDict, closed=True):
+class MCPServerAuthorizationConfigBearerTokenMember(TypedDict, closed=True):
     bearerToken: "capo_devops_agent.types.mcp_server_bearer_token_config.MCPServerBearerTokenConfig"
 
 
-class _MCPServerAuthorizationConfig_customHeaders(TypedDict, closed=True):
+class MCPServerAuthorizationConfigCustomHeadersMember(TypedDict, closed=True):
     customHeaders: "capo_devops_agent.types.mcp_server_custom_headers_config.MCPServerCustomHeadersConfig"
 
 
-class _MCPServerAuthorizationConfig_authorizationDiscovery(TypedDict, closed=True):
+class MCPServerAuthorizationConfigAuthorizationDiscoveryMember(TypedDict, closed=True):
     authorizationDiscovery: "capo_devops_agent.types.mcp_server_authorization_discovery_config.MCPServerAuthorizationDiscoveryConfig"
 
 
 MCPServerAuthorizationConfig: TypeAlias = (
-    _MCPServerAuthorizationConfig_oAuthClientCredentials
-    | _MCPServerAuthorizationConfig_oAuth3LO
-    | _MCPServerAuthorizationConfig_apiKey
-    | _MCPServerAuthorizationConfig_bearerToken
-    | _MCPServerAuthorizationConfig_customHeaders
-    | _MCPServerAuthorizationConfig_authorizationDiscovery
+    MCPServerAuthorizationConfigOAuthClientCredentialsMember
+    | MCPServerAuthorizationConfigOAuth3LOMember
+    | MCPServerAuthorizationConfigApiKeyMember
+    | MCPServerAuthorizationConfigBearerTokenMember
+    | MCPServerAuthorizationConfigCustomHeadersMember
+    | MCPServerAuthorizationConfigAuthorizationDiscoveryMember
     | UnknownUnionMember
 )
 

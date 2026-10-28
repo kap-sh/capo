@@ -14,13 +14,13 @@ if TYPE_CHECKING:
     import capo_migrationhuborchestrator.types.migration_workflow_id
 
 
-class _TemplateSource_workflowId(TypedDict, closed=True):
+class TemplateSourceWorkflowIdMember(TypedDict, closed=True):
     workflowId: (
         "capo_migrationhuborchestrator.types.migration_workflow_id.MigrationWorkflowId"
     )
 
 
-TemplateSource: TypeAlias = _TemplateSource_workflowId | UnknownUnionMember
+TemplateSource: TypeAlias = TemplateSourceWorkflowIdMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

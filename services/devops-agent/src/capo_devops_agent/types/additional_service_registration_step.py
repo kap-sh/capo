@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.o_auth_additional_step_details
 
 
-class _AdditionalServiceRegistrationStep_oauth(TypedDict, closed=True):
+class AdditionalServiceRegistrationStepOauthMember(TypedDict, closed=True):
     oauth: "capo_devops_agent.types.o_auth_additional_step_details.OAuthAdditionalStepDetails"
 
 
 AdditionalServiceRegistrationStep: TypeAlias = (
-    _AdditionalServiceRegistrationStep_oauth | UnknownUnionMember
+    AdditionalServiceRegistrationStepOauthMember | UnknownUnionMember
 )
 
 

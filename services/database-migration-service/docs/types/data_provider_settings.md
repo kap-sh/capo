@@ -7,67 +7,67 @@ title: DataProviderSettings
       show_source: true
       merge_init_into_class: false
 
-::: capo_database_migration_service.types.data_provider_settings._DataProviderSettings_RedshiftSettings
+::: capo_database_migration_service.types.data_provider_settings.DataProviderSettingsRedshiftSettingsMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_database_migration_service.types.data_provider_settings._DataProviderSettings_PostgreSqlSettings
+::: capo_database_migration_service.types.data_provider_settings.DataProviderSettingsPostgreSqlSettingsMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_database_migration_service.types.data_provider_settings._DataProviderSettings_MySqlSettings
+::: capo_database_migration_service.types.data_provider_settings.DataProviderSettingsMySqlSettingsMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_database_migration_service.types.data_provider_settings._DataProviderSettings_OracleSettings
+::: capo_database_migration_service.types.data_provider_settings.DataProviderSettingsOracleSettingsMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_database_migration_service.types.data_provider_settings._DataProviderSettings_SybaseAseSettings
+::: capo_database_migration_service.types.data_provider_settings.DataProviderSettingsSybaseAseSettingsMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_database_migration_service.types.data_provider_settings._DataProviderSettings_MicrosoftSqlServerSettings
+::: capo_database_migration_service.types.data_provider_settings.DataProviderSettingsMicrosoftSqlServerSettingsMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_database_migration_service.types.data_provider_settings._DataProviderSettings_DocDbSettings
+::: capo_database_migration_service.types.data_provider_settings.DataProviderSettingsDocDbSettingsMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_database_migration_service.types.data_provider_settings._DataProviderSettings_MariaDbSettings
+::: capo_database_migration_service.types.data_provider_settings.DataProviderSettingsMariaDbSettingsMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_database_migration_service.types.data_provider_settings._DataProviderSettings_IbmDb2LuwSettings
+::: capo_database_migration_service.types.data_provider_settings.DataProviderSettingsIbmDb2LuwSettingsMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_database_migration_service.types.data_provider_settings._DataProviderSettings_IbmDb2zOsSettings
+::: capo_database_migration_service.types.data_provider_settings.DataProviderSettingsIbmDb2zOsSettingsMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_database_migration_service.types.data_provider_settings._DataProviderSettings_MongoDbSettings
+::: capo_database_migration_service.types.data_provider_settings.DataProviderSettingsMongoDbSettingsMember
     options:
       show_source: true
       merge_init_into_class: false

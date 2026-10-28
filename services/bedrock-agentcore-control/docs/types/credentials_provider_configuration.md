@@ -7,13 +7,13 @@ title: CredentialsProviderConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.credentials_provider_configuration._CredentialsProviderConfiguration_coinbaseCDP
+::: capo_bedrock_agentcore_control.types.credentials_provider_configuration.CredentialsProviderConfigurationCoinbaseCDPMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore_control.types.credentials_provider_configuration._CredentialsProviderConfiguration_stripePrivy
+::: capo_bedrock_agentcore_control.types.credentials_provider_configuration.CredentialsProviderConfigurationStripePrivyMember
     options:
       show_source: true
       merge_init_into_class: false

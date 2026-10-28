@@ -14,37 +14,37 @@ if TYPE_CHECKING:
     import capo_bedrock_runtime.types.video_block
 
 
-class _ToolResultContentBlock_json(TypedDict, closed=True):
+class ToolResultContentBlockJsonMember(TypedDict, closed=True):
     json: "object"
 
 
-class _ToolResultContentBlock_text(TypedDict, closed=True):
+class ToolResultContentBlockTextMember(TypedDict, closed=True):
     text: "str"
 
 
-class _ToolResultContentBlock_image(TypedDict, closed=True):
+class ToolResultContentBlockImageMember(TypedDict, closed=True):
     image: "capo_bedrock_runtime.types.image_block.ImageBlock"
 
 
-class _ToolResultContentBlock_document(TypedDict, closed=True):
+class ToolResultContentBlockDocumentMember(TypedDict, closed=True):
     document: "capo_bedrock_runtime.types.document_block.DocumentBlock"
 
 
-class _ToolResultContentBlock_video(TypedDict, closed=True):
+class ToolResultContentBlockVideoMember(TypedDict, closed=True):
     video: "capo_bedrock_runtime.types.video_block.VideoBlock"
 
 
-class _ToolResultContentBlock_searchResult(TypedDict, closed=True):
+class ToolResultContentBlockSearchResultMember(TypedDict, closed=True):
     searchResult: "capo_bedrock_runtime.types.search_result_block.SearchResultBlock"
 
 
 ToolResultContentBlock: TypeAlias = (
-    _ToolResultContentBlock_json
-    | _ToolResultContentBlock_text
-    | _ToolResultContentBlock_image
-    | _ToolResultContentBlock_document
-    | _ToolResultContentBlock_video
-    | _ToolResultContentBlock_searchResult
+    ToolResultContentBlockJsonMember
+    | ToolResultContentBlockTextMember
+    | ToolResultContentBlockImageMember
+    | ToolResultContentBlockDocumentMember
+    | ToolResultContentBlockVideoMember
+    | ToolResultContentBlockSearchResultMember
     | UnknownUnionMember
 )
 

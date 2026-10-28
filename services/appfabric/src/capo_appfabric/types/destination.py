@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_appfabric.types.s3_bucket
 
 
-class _Destination_s3Bucket(TypedDict, closed=True):
+class DestinationS3BucketMember(TypedDict, closed=True):
     s3Bucket: "capo_appfabric.types.s3_bucket.S3Bucket"
 
 
-class _Destination_firehoseStream(TypedDict, closed=True):
+class DestinationFirehoseStreamMember(TypedDict, closed=True):
     firehoseStream: "capo_appfabric.types.firehose_stream.FirehoseStream"
 
 
 Destination: TypeAlias = (
-    _Destination_s3Bucket | _Destination_firehoseStream | UnknownUnionMember
+    DestinationS3BucketMember | DestinationFirehoseStreamMember | UnknownUnionMember
 )
 
 

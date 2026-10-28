@@ -15,32 +15,32 @@ if TYPE_CHECKING:
     import capo_rds_data.types.string_array
 
 
-class _ArrayValue_booleanValues(TypedDict, closed=True):
+class ArrayValueBooleanValuesMember(TypedDict, closed=True):
     booleanValues: "capo_rds_data.types.boolean_array.BooleanArray"
 
 
-class _ArrayValue_longValues(TypedDict, closed=True):
+class ArrayValueLongValuesMember(TypedDict, closed=True):
     longValues: "capo_rds_data.types.long_array.LongArray"
 
 
-class _ArrayValue_doubleValues(TypedDict, closed=True):
+class ArrayValueDoubleValuesMember(TypedDict, closed=True):
     doubleValues: "capo_rds_data.types.double_array.DoubleArray"
 
 
-class _ArrayValue_stringValues(TypedDict, closed=True):
+class ArrayValueStringValuesMember(TypedDict, closed=True):
     stringValues: "capo_rds_data.types.string_array.StringArray"
 
 
-class _ArrayValue_arrayValues(TypedDict, closed=True):
+class ArrayValueArrayValuesMember(TypedDict, closed=True):
     arrayValues: "capo_rds_data.types.array_of_array.ArrayOfArray"
 
 
 ArrayValue: TypeAlias = (
-    _ArrayValue_booleanValues
-    | _ArrayValue_longValues
-    | _ArrayValue_doubleValues
-    | _ArrayValue_stringValues
-    | _ArrayValue_arrayValues
+    ArrayValueBooleanValuesMember
+    | ArrayValueLongValuesMember
+    | ArrayValueDoubleValuesMember
+    | ArrayValueStringValuesMember
+    | ArrayValueArrayValuesMember
     | UnknownUnionMember
 )
 

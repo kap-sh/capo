@@ -14,14 +14,14 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.launch_parameters
 
 
-class _LaunchTemplateSource_launchParameters(TypedDict, closed=True):
+class LaunchTemplateSourceLaunchParametersMember(TypedDict, closed=True):
     launchParameters: (
         "capo_bedrock_agentcore_control.types.launch_parameters.LaunchParameters"
     )
 
 
 LaunchTemplateSource: TypeAlias = (
-    _LaunchTemplateSource_launchParameters | UnknownUnionMember
+    LaunchTemplateSourceLaunchParametersMember | UnknownUnionMember
 )
 
 

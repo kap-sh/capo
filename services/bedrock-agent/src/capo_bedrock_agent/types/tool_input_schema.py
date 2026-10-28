@@ -8,11 +8,11 @@ from capo_bedrock_agent.errors import DeserializationError, SerializationError
 from capo_bedrock_agent.types._unknown import UnknownUnionMember
 
 
-class _ToolInputSchema_json(TypedDict, closed=True):
+class ToolInputSchemaJsonMember(TypedDict, closed=True):
     json: "object"
 
 
-ToolInputSchema: TypeAlias = _ToolInputSchema_json | UnknownUnionMember
+ToolInputSchema: TypeAlias = ToolInputSchemaJsonMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

@@ -7,7 +7,7 @@ title: MemberId
       show_source: true
       merge_init_into_class: false
 
-::: capo_identitystore.types.member_id._MemberId_UserId
+::: capo_identitystore.types.member_id.MemberIdUserIdMember
     options:
       show_source: true
       merge_init_into_class: false

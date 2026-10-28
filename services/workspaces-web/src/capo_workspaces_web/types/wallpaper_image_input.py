@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_workspaces_web.types.wallpaper_image
 
 
-class _WallpaperImageInput_blob(TypedDict, closed=True):
+class WallpaperImageInputBlobMember(TypedDict, closed=True):
     blob: "capo_workspaces_web.types.wallpaper_image.WallpaperImage"
 
 
-class _WallpaperImageInput_s3Uri(TypedDict, closed=True):
+class WallpaperImageInputS3UriMember(TypedDict, closed=True):
     s3Uri: "capo_workspaces_web.types.s3_uri.S3Uri"
 
 
 WallpaperImageInput: TypeAlias = (
-    _WallpaperImageInput_blob | _WallpaperImageInput_s3Uri | UnknownUnionMember
+    WallpaperImageInputBlobMember | WallpaperImageInputS3UriMember | UnknownUnionMember
 )
 
 

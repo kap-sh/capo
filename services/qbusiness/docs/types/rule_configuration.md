@@ -7,13 +7,13 @@ title: RuleConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_qbusiness.types.rule_configuration._RuleConfiguration_contentBlockerRule
+::: capo_qbusiness.types.rule_configuration.RuleConfigurationContentBlockerRuleMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qbusiness.types.rule_configuration._RuleConfiguration_contentRetrievalRule
+::: capo_qbusiness.types.rule_configuration.RuleConfigurationContentRetrievalRuleMember
     options:
       show_source: true
       merge_init_into_class: false

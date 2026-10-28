@@ -14,27 +14,27 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.spans
 
 
-class _AgentTracesConfig_sessionSpans(TypedDict, closed=True):
+class AgentTracesConfigSessionSpansMember(TypedDict, closed=True):
     sessionSpans: "capo_bedrock_agentcore.types.spans.Spans"
 
 
-class _AgentTracesConfig_cloudwatchLogs(TypedDict, closed=True):
+class AgentTracesConfigCloudwatchLogsMember(TypedDict, closed=True):
     cloudwatchLogs: "capo_bedrock_agentcore.types.cloud_watch_logs_trace_config.CloudWatchLogsTraceConfig"
 
 
-class _AgentTracesConfig_batchEvaluation(TypedDict, closed=True):
+class AgentTracesConfigBatchEvaluationMember(TypedDict, closed=True):
     batchEvaluation: "capo_bedrock_agentcore.types.batch_evaluation_trace_config.BatchEvaluationTraceConfig"
 
 
-class _AgentTracesConfig_onlineEvaluation(TypedDict, closed=True):
+class AgentTracesConfigOnlineEvaluationMember(TypedDict, closed=True):
     onlineEvaluation: "capo_bedrock_agentcore.types.online_evaluation_trace_config.OnlineEvaluationTraceConfig"
 
 
 AgentTracesConfig: TypeAlias = (
-    _AgentTracesConfig_sessionSpans
-    | _AgentTracesConfig_cloudwatchLogs
-    | _AgentTracesConfig_batchEvaluation
-    | _AgentTracesConfig_onlineEvaluation
+    AgentTracesConfigSessionSpansMember
+    | AgentTracesConfigCloudwatchLogsMember
+    | AgentTracesConfigBatchEvaluationMember
+    | AgentTracesConfigOnlineEvaluationMember
     | UnknownUnionMember
 )
 

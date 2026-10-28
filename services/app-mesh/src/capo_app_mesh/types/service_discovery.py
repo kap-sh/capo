@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_app_mesh.types.dns_service_discovery
 
 
-class _ServiceDiscovery_dns(TypedDict, closed=True):
+class ServiceDiscoveryDnsMember(TypedDict, closed=True):
     dns: "capo_app_mesh.types.dns_service_discovery.DnsServiceDiscovery"
 
 
-class _ServiceDiscovery_awsCloudMap(TypedDict, closed=True):
+class ServiceDiscoveryAwsCloudMapMember(TypedDict, closed=True):
     awsCloudMap: "capo_app_mesh.types.aws_cloud_map_service_discovery.AwsCloudMapServiceDiscovery"
 
 
 ServiceDiscovery: TypeAlias = (
-    _ServiceDiscovery_dns | _ServiceDiscovery_awsCloudMap | UnknownUnionMember
+    ServiceDiscoveryDnsMember | ServiceDiscoveryAwsCloudMapMember | UnknownUnionMember
 )
 
 

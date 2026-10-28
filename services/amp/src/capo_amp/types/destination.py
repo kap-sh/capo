@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_amp.types.cloud_watch_configuration
 
 
-class _Destination_ampConfiguration(TypedDict, closed=True):
+class DestinationAmpConfigurationMember(TypedDict, closed=True):
     ampConfiguration: "capo_amp.types.amp_configuration.AmpConfiguration"
 
 
-class _Destination_cloudWatchConfiguration(TypedDict, closed=True):
+class DestinationCloudWatchConfigurationMember(TypedDict, closed=True):
     cloudWatchConfiguration: (
         "capo_amp.types.cloud_watch_configuration.CloudWatchConfiguration"
     )
 
 
 Destination: TypeAlias = (
-    _Destination_ampConfiguration
-    | _Destination_cloudWatchConfiguration
+    DestinationAmpConfigurationMember
+    | DestinationCloudWatchConfigurationMember
     | UnknownUnionMember
 )
 

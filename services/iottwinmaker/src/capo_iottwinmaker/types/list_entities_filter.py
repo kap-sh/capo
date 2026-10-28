@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_iottwinmaker.types.string
 
 
-class _ListEntitiesFilter_parentEntityId(TypedDict, closed=True):
+class ListEntitiesFilterParentEntityIdMember(TypedDict, closed=True):
     parentEntityId: "capo_iottwinmaker.types.parent_entity_id.ParentEntityId"
 
 
-class _ListEntitiesFilter_componentTypeId(TypedDict, closed=True):
+class ListEntitiesFilterComponentTypeIdMember(TypedDict, closed=True):
     componentTypeId: "capo_iottwinmaker.types.component_type_id.ComponentTypeId"
 
 
-class _ListEntitiesFilter_externalId(TypedDict, closed=True):
+class ListEntitiesFilterExternalIdMember(TypedDict, closed=True):
     externalId: "capo_iottwinmaker.types.string.String"
 
 
 ListEntitiesFilter: TypeAlias = (
-    _ListEntitiesFilter_parentEntityId
-    | _ListEntitiesFilter_componentTypeId
-    | _ListEntitiesFilter_externalId
+    ListEntitiesFilterParentEntityIdMember
+    | ListEntitiesFilterComponentTypeIdMember
+    | ListEntitiesFilterExternalIdMember
     | UnknownUnionMember
 )
 

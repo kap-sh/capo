@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_quicksight.types.microsoft_purview_provider_config
 
 
-class _ProviderConfig_MicrosoftPurview(TypedDict, closed=True):
+class ProviderConfigMicrosoftPurviewMember(TypedDict, closed=True):
     MicrosoftPurview: "capo_quicksight.types.microsoft_purview_provider_config.MicrosoftPurviewProviderConfig"
 
 
-ProviderConfig: TypeAlias = _ProviderConfig_MicrosoftPurview | UnknownUnionMember
+ProviderConfig: TypeAlias = ProviderConfigMicrosoftPurviewMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

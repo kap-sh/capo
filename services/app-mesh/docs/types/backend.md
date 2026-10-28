@@ -7,7 +7,7 @@ title: Backend
       show_source: true
       merge_init_into_class: false
 
-::: capo_app_mesh.types.backend._Backend_virtualService
+::: capo_app_mesh.types.backend.BackendVirtualServiceMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -13,26 +13,26 @@ if TYPE_CHECKING:
     import capo_mailmanager.types.rule_is_in_address_list
 
 
-class _RuleBooleanToEvaluate_Attribute(TypedDict, closed=True):
+class RuleBooleanToEvaluateAttributeMember(TypedDict, closed=True):
     Attribute: (
         "capo_mailmanager.types.rule_boolean_email_attribute.RuleBooleanEmailAttribute"
     )
 
 
-class _RuleBooleanToEvaluate_Analysis(TypedDict, closed=True):
+class RuleBooleanToEvaluateAnalysisMember(TypedDict, closed=True):
     Analysis: "capo_mailmanager.types.analysis.Analysis"
 
 
-class _RuleBooleanToEvaluate_IsInAddressList(TypedDict, closed=True):
+class RuleBooleanToEvaluateIsInAddressListMember(TypedDict, closed=True):
     IsInAddressList: (
         "capo_mailmanager.types.rule_is_in_address_list.RuleIsInAddressList"
     )
 
 
 RuleBooleanToEvaluate: TypeAlias = (
-    _RuleBooleanToEvaluate_Attribute
-    | _RuleBooleanToEvaluate_Analysis
-    | _RuleBooleanToEvaluate_IsInAddressList
+    RuleBooleanToEvaluateAttributeMember
+    | RuleBooleanToEvaluateAnalysisMember
+    | RuleBooleanToEvaluateIsInAddressListMember
     | UnknownUnionMember
 )
 

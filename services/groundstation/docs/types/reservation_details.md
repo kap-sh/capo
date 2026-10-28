@@ -7,13 +7,13 @@ title: ReservationDetails
       show_source: true
       merge_init_into_class: false
 
-::: capo_groundstation.types.reservation_details._ReservationDetails_maintenance
+::: capo_groundstation.types.reservation_details.ReservationDetailsMaintenanceMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_groundstation.types.reservation_details._ReservationDetails_contact
+::: capo_groundstation.types.reservation_details.ReservationDetailsContactMember
     options:
       show_source: true
       merge_init_into_class: false

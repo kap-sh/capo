@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_m2.types.fsx_storage_configuration
 
 
-class _StorageConfiguration_efs(TypedDict, closed=True):
+class StorageConfigurationEfsMember(TypedDict, closed=True):
     efs: "capo_m2.types.efs_storage_configuration.EfsStorageConfiguration"
 
 
-class _StorageConfiguration_fsx(TypedDict, closed=True):
+class StorageConfigurationFsxMember(TypedDict, closed=True):
     fsx: "capo_m2.types.fsx_storage_configuration.FsxStorageConfiguration"
 
 
 StorageConfiguration: TypeAlias = (
-    _StorageConfiguration_efs | _StorageConfiguration_fsx | UnknownUnionMember
+    StorageConfigurationEfsMember | StorageConfigurationFsxMember | UnknownUnionMember
 )
 
 

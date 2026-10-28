@@ -19,52 +19,52 @@ if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_update_variable_mutation
 
 
-class _AutomatedReasoningPolicyMutation_addType(TypedDict, closed=True):
+class AutomatedReasoningPolicyMutationAddTypeMember(TypedDict, closed=True):
     addType: "capo_bedrock.types.automated_reasoning_policy_add_type_mutation.AutomatedReasoningPolicyAddTypeMutation"
 
 
-class _AutomatedReasoningPolicyMutation_updateType(TypedDict, closed=True):
+class AutomatedReasoningPolicyMutationUpdateTypeMember(TypedDict, closed=True):
     updateType: "capo_bedrock.types.automated_reasoning_policy_update_type_mutation.AutomatedReasoningPolicyUpdateTypeMutation"
 
 
-class _AutomatedReasoningPolicyMutation_deleteType(TypedDict, closed=True):
+class AutomatedReasoningPolicyMutationDeleteTypeMember(TypedDict, closed=True):
     deleteType: "capo_bedrock.types.automated_reasoning_policy_delete_type_mutation.AutomatedReasoningPolicyDeleteTypeMutation"
 
 
-class _AutomatedReasoningPolicyMutation_addVariable(TypedDict, closed=True):
+class AutomatedReasoningPolicyMutationAddVariableMember(TypedDict, closed=True):
     addVariable: "capo_bedrock.types.automated_reasoning_policy_add_variable_mutation.AutomatedReasoningPolicyAddVariableMutation"
 
 
-class _AutomatedReasoningPolicyMutation_updateVariable(TypedDict, closed=True):
+class AutomatedReasoningPolicyMutationUpdateVariableMember(TypedDict, closed=True):
     updateVariable: "capo_bedrock.types.automated_reasoning_policy_update_variable_mutation.AutomatedReasoningPolicyUpdateVariableMutation"
 
 
-class _AutomatedReasoningPolicyMutation_deleteVariable(TypedDict, closed=True):
+class AutomatedReasoningPolicyMutationDeleteVariableMember(TypedDict, closed=True):
     deleteVariable: "capo_bedrock.types.automated_reasoning_policy_delete_variable_mutation.AutomatedReasoningPolicyDeleteVariableMutation"
 
 
-class _AutomatedReasoningPolicyMutation_addRule(TypedDict, closed=True):
+class AutomatedReasoningPolicyMutationAddRuleMember(TypedDict, closed=True):
     addRule: "capo_bedrock.types.automated_reasoning_policy_add_rule_mutation.AutomatedReasoningPolicyAddRuleMutation"
 
 
-class _AutomatedReasoningPolicyMutation_updateRule(TypedDict, closed=True):
+class AutomatedReasoningPolicyMutationUpdateRuleMember(TypedDict, closed=True):
     updateRule: "capo_bedrock.types.automated_reasoning_policy_update_rule_mutation.AutomatedReasoningPolicyUpdateRuleMutation"
 
 
-class _AutomatedReasoningPolicyMutation_deleteRule(TypedDict, closed=True):
+class AutomatedReasoningPolicyMutationDeleteRuleMember(TypedDict, closed=True):
     deleteRule: "capo_bedrock.types.automated_reasoning_policy_delete_rule_mutation.AutomatedReasoningPolicyDeleteRuleMutation"
 
 
 AutomatedReasoningPolicyMutation: TypeAlias = (
-    _AutomatedReasoningPolicyMutation_addType
-    | _AutomatedReasoningPolicyMutation_updateType
-    | _AutomatedReasoningPolicyMutation_deleteType
-    | _AutomatedReasoningPolicyMutation_addVariable
-    | _AutomatedReasoningPolicyMutation_updateVariable
-    | _AutomatedReasoningPolicyMutation_deleteVariable
-    | _AutomatedReasoningPolicyMutation_addRule
-    | _AutomatedReasoningPolicyMutation_updateRule
-    | _AutomatedReasoningPolicyMutation_deleteRule
+    AutomatedReasoningPolicyMutationAddTypeMember
+    | AutomatedReasoningPolicyMutationUpdateTypeMember
+    | AutomatedReasoningPolicyMutationDeleteTypeMember
+    | AutomatedReasoningPolicyMutationAddVariableMember
+    | AutomatedReasoningPolicyMutationUpdateVariableMember
+    | AutomatedReasoningPolicyMutationDeleteVariableMember
+    | AutomatedReasoningPolicyMutationAddRuleMember
+    | AutomatedReasoningPolicyMutationUpdateRuleMember
+    | AutomatedReasoningPolicyMutationDeleteRuleMember
     | UnknownUnionMember
 )
 

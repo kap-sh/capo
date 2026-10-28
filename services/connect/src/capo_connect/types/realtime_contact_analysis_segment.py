@@ -17,42 +17,42 @@ if TYPE_CHECKING:
     import capo_connect.types.real_time_contact_analysis_segment_transcript
 
 
-class _RealtimeContactAnalysisSegment_Transcript(TypedDict, closed=True):
+class RealtimeContactAnalysisSegmentTranscriptMember(TypedDict, closed=True):
     Transcript: "capo_connect.types.real_time_contact_analysis_segment_transcript.RealTimeContactAnalysisSegmentTranscript"
 
 
-class _RealtimeContactAnalysisSegment_Categories(TypedDict, closed=True):
+class RealtimeContactAnalysisSegmentCategoriesMember(TypedDict, closed=True):
     Categories: "capo_connect.types.real_time_contact_analysis_segment_categories.RealTimeContactAnalysisSegmentCategories"
 
 
-class _RealtimeContactAnalysisSegment_Issues(TypedDict, closed=True):
+class RealtimeContactAnalysisSegmentIssuesMember(TypedDict, closed=True):
     Issues: "capo_connect.types.real_time_contact_analysis_segment_issues.RealTimeContactAnalysisSegmentIssues"
 
 
-class _RealtimeContactAnalysisSegment_Event(TypedDict, closed=True):
+class RealtimeContactAnalysisSegmentEventMember(TypedDict, closed=True):
     Event: "capo_connect.types.real_time_contact_analysis_segment_event.RealTimeContactAnalysisSegmentEvent"
 
 
-class _RealtimeContactAnalysisSegment_Attachments(TypedDict, closed=True):
+class RealtimeContactAnalysisSegmentAttachmentsMember(TypedDict, closed=True):
     Attachments: "capo_connect.types.real_time_contact_analysis_segment_attachments.RealTimeContactAnalysisSegmentAttachments"
 
 
-class _RealtimeContactAnalysisSegment_PostContactSummary(TypedDict, closed=True):
+class RealtimeContactAnalysisSegmentPostContactSummaryMember(TypedDict, closed=True):
     PostContactSummary: "capo_connect.types.real_time_contact_analysis_segment_post_contact_summary.RealTimeContactAnalysisSegmentPostContactSummary"
 
 
-class _RealtimeContactAnalysisSegment_ExtractedInformation(TypedDict, closed=True):
+class RealtimeContactAnalysisSegmentExtractedInformationMember(TypedDict, closed=True):
     ExtractedInformation: "capo_connect.types.real_time_contact_analysis_segment_extracted_information.RealTimeContactAnalysisSegmentExtractedInformation"
 
 
 RealtimeContactAnalysisSegment: TypeAlias = (
-    _RealtimeContactAnalysisSegment_Transcript
-    | _RealtimeContactAnalysisSegment_Categories
-    | _RealtimeContactAnalysisSegment_Issues
-    | _RealtimeContactAnalysisSegment_Event
-    | _RealtimeContactAnalysisSegment_Attachments
-    | _RealtimeContactAnalysisSegment_PostContactSummary
-    | _RealtimeContactAnalysisSegment_ExtractedInformation
+    RealtimeContactAnalysisSegmentTranscriptMember
+    | RealtimeContactAnalysisSegmentCategoriesMember
+    | RealtimeContactAnalysisSegmentIssuesMember
+    | RealtimeContactAnalysisSegmentEventMember
+    | RealtimeContactAnalysisSegmentAttachmentsMember
+    | RealtimeContactAnalysisSegmentPostContactSummaryMember
+    | RealtimeContactAnalysisSegmentExtractedInformationMember
     | UnknownUnionMember
 )
 

@@ -12,14 +12,14 @@ if TYPE_CHECKING:
     import capo_cloudfront.types.ca_certificates_bundle_s3_location
 
 
-class _CaCertificatesBundleSource_CaCertificatesBundleS3Location(
+class CaCertificatesBundleSourceCaCertificatesBundleS3LocationMember(
     TypedDict, closed=True
 ):
     CaCertificatesBundleS3Location: "capo_cloudfront.types.ca_certificates_bundle_s3_location.CaCertificatesBundleS3Location"
 
 
 CaCertificatesBundleSource: TypeAlias = (
-    _CaCertificatesBundleSource_CaCertificatesBundleS3Location | UnknownUnionMember
+    CaCertificatesBundleSourceCaCertificatesBundleS3LocationMember | UnknownUnionMember
 )
 
 

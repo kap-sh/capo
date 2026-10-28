@@ -12,12 +12,12 @@ if TYPE_CHECKING:
     import capo_s3_control.types.aws_lambda_transformation
 
 
-class _ObjectLambdaContentTransformation_AwsLambda(TypedDict, closed=True):
+class ObjectLambdaContentTransformationAwsLambdaMember(TypedDict, closed=True):
     AwsLambda: "capo_s3_control.types.aws_lambda_transformation.AwsLambdaTransformation"
 
 
 ObjectLambdaContentTransformation: TypeAlias = (
-    _ObjectLambdaContentTransformation_AwsLambda | UnknownUnionMember
+    ObjectLambdaContentTransformationAwsLambdaMember | UnknownUnionMember
 )
 
 

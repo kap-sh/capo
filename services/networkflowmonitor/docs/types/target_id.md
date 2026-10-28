@@ -7,7 +7,7 @@ title: TargetId
       show_source: true
       merge_init_into_class: false
 
-::: capo_networkflowmonitor.types.target_id._TargetId_accountId
+::: capo_networkflowmonitor.types.target_id.TargetIdAccountIdMember
     options:
       show_source: true
       merge_init_into_class: false

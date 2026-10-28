@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_bedrock.types.knowledge_base_config
 
 
-class _RAGConfig_knowledgeBaseConfig(TypedDict, closed=True):
+class RAGConfigKnowledgeBaseConfigMember(TypedDict, closed=True):
     knowledgeBaseConfig: "capo_bedrock.types.knowledge_base_config.KnowledgeBaseConfig"
 
 
-class _RAGConfig_precomputedRagSourceConfig(TypedDict, closed=True):
+class RAGConfigPrecomputedRagSourceConfigMember(TypedDict, closed=True):
     precomputedRagSourceConfig: "capo_bedrock.types.evaluation_precomputed_rag_source_config.EvaluationPrecomputedRagSourceConfig"
 
 
 RAGConfig: TypeAlias = (
-    _RAGConfig_knowledgeBaseConfig
-    | _RAGConfig_precomputedRagSourceConfig
+    RAGConfigKnowledgeBaseConfigMember
+    | RAGConfigPrecomputedRagSourceConfigMember
     | UnknownUnionMember
 )
 

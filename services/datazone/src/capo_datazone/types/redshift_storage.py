@@ -12,21 +12,21 @@ if TYPE_CHECKING:
     import capo_datazone.types.redshift_serverless_storage
 
 
-class _RedshiftStorage_redshiftClusterSource(TypedDict, closed=True):
+class RedshiftStorageRedshiftClusterSourceMember(TypedDict, closed=True):
     redshiftClusterSource: (
         "capo_datazone.types.redshift_cluster_storage.RedshiftClusterStorage"
     )
 
 
-class _RedshiftStorage_redshiftServerlessSource(TypedDict, closed=True):
+class RedshiftStorageRedshiftServerlessSourceMember(TypedDict, closed=True):
     redshiftServerlessSource: (
         "capo_datazone.types.redshift_serverless_storage.RedshiftServerlessStorage"
     )
 
 
 RedshiftStorage: TypeAlias = (
-    _RedshiftStorage_redshiftClusterSource
-    | _RedshiftStorage_redshiftServerlessSource
+    RedshiftStorageRedshiftClusterSourceMember
+    | RedshiftStorageRedshiftServerlessSourceMember
     | UnknownUnionMember
 )
 

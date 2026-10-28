@@ -11,15 +11,17 @@ if TYPE_CHECKING:
     import capo_workspaces_web.types.events
 
 
-class _EventFilter_all(TypedDict, closed=True):
+class EventFilterAllMember(TypedDict, closed=True):
     all: "None"
 
 
-class _EventFilter_include(TypedDict, closed=True):
+class EventFilterIncludeMember(TypedDict, closed=True):
     include: "capo_workspaces_web.types.events.Events"
 
 
-EventFilter: TypeAlias = _EventFilter_all | _EventFilter_include | UnknownUnionMember
+EventFilter: TypeAlias = (
+    EventFilterAllMember | EventFilterIncludeMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

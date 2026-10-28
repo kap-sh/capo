@@ -13,24 +13,24 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.s3_file_system
 
 
-class _CustomFileSystem_EFSFileSystem(TypedDict, closed=True):
+class CustomFileSystemEFSFileSystemMember(TypedDict, closed=True):
     EFSFileSystem: "capo_sagemaker.types.efs_file_system.EFSFileSystem"
 
 
-class _CustomFileSystem_FSxLustreFileSystem(TypedDict, closed=True):
+class CustomFileSystemFSxLustreFileSystemMember(TypedDict, closed=True):
     FSxLustreFileSystem: (
         "capo_sagemaker.types.f_sx_lustre_file_system.FSxLustreFileSystem"
     )
 
 
-class _CustomFileSystem_S3FileSystem(TypedDict, closed=True):
+class CustomFileSystemS3FileSystemMember(TypedDict, closed=True):
     S3FileSystem: "capo_sagemaker.types.s3_file_system.S3FileSystem"
 
 
 CustomFileSystem: TypeAlias = (
-    _CustomFileSystem_EFSFileSystem
-    | _CustomFileSystem_FSxLustreFileSystem
-    | _CustomFileSystem_S3FileSystem
+    CustomFileSystemEFSFileSystemMember
+    | CustomFileSystemFSxLustreFileSystemMember
+    | CustomFileSystemS3FileSystemMember
     | UnknownUnionMember
 )
 

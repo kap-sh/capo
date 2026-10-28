@@ -7,7 +7,7 @@ title: OpenHours
       show_source: true
       merge_init_into_class: false
 
-::: capo_connectcampaignsv2.types.open_hours._OpenHours_dailyHours
+::: capo_connectcampaignsv2.types.open_hours.OpenHoursDailyHoursMember
     options:
       show_source: true
       merge_init_into_class: false

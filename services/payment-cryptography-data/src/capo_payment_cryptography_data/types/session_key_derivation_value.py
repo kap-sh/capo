@@ -15,19 +15,21 @@ if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.hex_length_equals4
 
 
-class _SessionKeyDerivationValue_ApplicationCryptogram(TypedDict, closed=True):
+class SessionKeyDerivationValueApplicationCryptogramMember(TypedDict, closed=True):
     ApplicationCryptogram: "capo_payment_cryptography_data.types.application_cryptogram_type.ApplicationCryptogramType"
 
 
-class _SessionKeyDerivationValue_ApplicationTransactionCounter(TypedDict, closed=True):
+class SessionKeyDerivationValueApplicationTransactionCounterMember(
+    TypedDict, closed=True
+):
     ApplicationTransactionCounter: (
         "capo_payment_cryptography_data.types.hex_length_equals4.HexLengthEquals4"
     )
 
 
 SessionKeyDerivationValue: TypeAlias = (
-    _SessionKeyDerivationValue_ApplicationCryptogram
-    | _SessionKeyDerivationValue_ApplicationTransactionCounter
+    SessionKeyDerivationValueApplicationCryptogramMember
+    | SessionKeyDerivationValueApplicationTransactionCounterMember
     | UnknownUnionMember
 )
 

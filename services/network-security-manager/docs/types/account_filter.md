@@ -7,19 +7,19 @@ title: AccountFilter
       show_source: true
       merge_init_into_class: false
 
-::: capo_network_security_manager.types.account_filter._AccountFilter_includeAll
+::: capo_network_security_manager.types.account_filter.AccountFilterIncludeAllMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_network_security_manager.types.account_filter._AccountFilter_include
+::: capo_network_security_manager.types.account_filter.AccountFilterIncludeMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_network_security_manager.types.account_filter._AccountFilter_exclude
+::: capo_network_security_manager.types.account_filter.AccountFilterExcludeMember
     options:
       show_source: true
       merge_init_into_class: false

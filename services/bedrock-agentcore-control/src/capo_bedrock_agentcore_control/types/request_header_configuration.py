@@ -14,12 +14,12 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.request_header_allowlist
 
 
-class _RequestHeaderConfiguration_requestHeaderAllowlist(TypedDict, closed=True):
+class RequestHeaderConfigurationRequestHeaderAllowlistMember(TypedDict, closed=True):
     requestHeaderAllowlist: "capo_bedrock_agentcore_control.types.request_header_allowlist.RequestHeaderAllowlist"
 
 
 RequestHeaderConfiguration: TypeAlias = (
-    _RequestHeaderConfiguration_requestHeaderAllowlist | UnknownUnionMember
+    RequestHeaderConfigurationRequestHeaderAllowlistMember | UnknownUnionMember
 )
 
 

@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_datazone.types.custom_account_pool_handler
 
 
-class _AccountSource_accounts(TypedDict, closed=True):
+class AccountSourceAccountsMember(TypedDict, closed=True):
     accounts: "capo_datazone.types.account_info_list.AccountInfoList"
 
 
-class _AccountSource_customAccountPoolHandler(TypedDict, closed=True):
+class AccountSourceCustomAccountPoolHandlerMember(TypedDict, closed=True):
     customAccountPoolHandler: (
         "capo_datazone.types.custom_account_pool_handler.CustomAccountPoolHandler"
     )
 
 
 AccountSource: TypeAlias = (
-    _AccountSource_accounts
-    | _AccountSource_customAccountPoolHandler
+    AccountSourceAccountsMember
+    | AccountSourceCustomAccountPoolHandlerMember
     | UnknownUnionMember
 )
 

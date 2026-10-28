@@ -7,19 +7,19 @@ title: EncryptionKeyConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_odb.types.encryption_key_configuration._EncryptionKeyConfiguration_awsEncryptionKey
+::: capo_odb.types.encryption_key_configuration.EncryptionKeyConfigurationAwsEncryptionKeyMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_odb.types.encryption_key_configuration._EncryptionKeyConfiguration_ociEncryptionKey
+::: capo_odb.types.encryption_key_configuration.EncryptionKeyConfigurationOciEncryptionKeyMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_odb.types.encryption_key_configuration._EncryptionKeyConfiguration_okvEncryptionKey
+::: capo_odb.types.encryption_key_configuration.EncryptionKeyConfigurationOkvEncryptionKeyMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_sso_admin.types.iam_authentication_method
 
 
-class _AuthenticationMethod_Iam(TypedDict, closed=True):
+class AuthenticationMethodIamMember(TypedDict, closed=True):
     Iam: "capo_sso_admin.types.iam_authentication_method.IamAuthenticationMethod"
 
 
-AuthenticationMethod: TypeAlias = _AuthenticationMethod_Iam | UnknownUnionMember
+AuthenticationMethod: TypeAlias = AuthenticationMethodIamMember | UnknownUnionMember
 
 
 # --- awsJson1_1 ser/de ---

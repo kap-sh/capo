@@ -13,73 +13,73 @@ title: RetrieveAndGenerateStreamResponseOutput
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.retrieve_and_generate_stream_response_output._RetrieveAndGenerateStreamResponseOutput_output
+::: capo_bedrock_agent_runtime.types.retrieve_and_generate_stream_response_output.RetrieveAndGenerateStreamResponseOutputOutputMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.retrieve_and_generate_stream_response_output._RetrieveAndGenerateStreamResponseOutput_citation
+::: capo_bedrock_agent_runtime.types.retrieve_and_generate_stream_response_output.RetrieveAndGenerateStreamResponseOutputCitationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.retrieve_and_generate_stream_response_output._RetrieveAndGenerateStreamResponseOutput_guardrail
+::: capo_bedrock_agent_runtime.types.retrieve_and_generate_stream_response_output.RetrieveAndGenerateStreamResponseOutputGuardrailMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.retrieve_and_generate_stream_response_output._RetrieveAndGenerateStreamResponseOutput_internalServerException
+::: capo_bedrock_agent_runtime.types.retrieve_and_generate_stream_response_output.RetrieveAndGenerateStreamResponseOutputInternalServerExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.retrieve_and_generate_stream_response_output._RetrieveAndGenerateStreamResponseOutput_validationException
+::: capo_bedrock_agent_runtime.types.retrieve_and_generate_stream_response_output.RetrieveAndGenerateStreamResponseOutputValidationExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.retrieve_and_generate_stream_response_output._RetrieveAndGenerateStreamResponseOutput_resourceNotFoundException
+::: capo_bedrock_agent_runtime.types.retrieve_and_generate_stream_response_output.RetrieveAndGenerateStreamResponseOutputResourceNotFoundExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.retrieve_and_generate_stream_response_output._RetrieveAndGenerateStreamResponseOutput_serviceQuotaExceededException
+::: capo_bedrock_agent_runtime.types.retrieve_and_generate_stream_response_output.RetrieveAndGenerateStreamResponseOutputServiceQuotaExceededExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.retrieve_and_generate_stream_response_output._RetrieveAndGenerateStreamResponseOutput_throttlingException
+::: capo_bedrock_agent_runtime.types.retrieve_and_generate_stream_response_output.RetrieveAndGenerateStreamResponseOutputThrottlingExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.retrieve_and_generate_stream_response_output._RetrieveAndGenerateStreamResponseOutput_accessDeniedException
+::: capo_bedrock_agent_runtime.types.retrieve_and_generate_stream_response_output.RetrieveAndGenerateStreamResponseOutputAccessDeniedExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.retrieve_and_generate_stream_response_output._RetrieveAndGenerateStreamResponseOutput_conflictException
+::: capo_bedrock_agent_runtime.types.retrieve_and_generate_stream_response_output.RetrieveAndGenerateStreamResponseOutputConflictExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.retrieve_and_generate_stream_response_output._RetrieveAndGenerateStreamResponseOutput_dependencyFailedException
+::: capo_bedrock_agent_runtime.types.retrieve_and_generate_stream_response_output.RetrieveAndGenerateStreamResponseOutputDependencyFailedExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.retrieve_and_generate_stream_response_output._RetrieveAndGenerateStreamResponseOutput_badGatewayException
+::: capo_bedrock_agent_runtime.types.retrieve_and_generate_stream_response_output.RetrieveAndGenerateStreamResponseOutputBadGatewayExceptionMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_planning
 
 
-class _AutomatedReasoningPolicyBuildStepContext_planning(TypedDict, closed=True):
+class AutomatedReasoningPolicyBuildStepContextPlanningMember(TypedDict, closed=True):
     planning: "capo_bedrock.types.automated_reasoning_policy_planning.AutomatedReasoningPolicyPlanning"
 
 
-class _AutomatedReasoningPolicyBuildStepContext_mutation(TypedDict, closed=True):
+class AutomatedReasoningPolicyBuildStepContextMutationMember(TypedDict, closed=True):
     mutation: "capo_bedrock.types.automated_reasoning_policy_mutation.AutomatedReasoningPolicyMutation"
 
 
 AutomatedReasoningPolicyBuildStepContext: TypeAlias = (
-    _AutomatedReasoningPolicyBuildStepContext_planning
-    | _AutomatedReasoningPolicyBuildStepContext_mutation
+    AutomatedReasoningPolicyBuildStepContextPlanningMember
+    | AutomatedReasoningPolicyBuildStepContextMutationMember
     | UnknownUnionMember
 )
 

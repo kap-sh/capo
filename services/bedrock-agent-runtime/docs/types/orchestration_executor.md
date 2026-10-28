@@ -7,7 +7,7 @@ title: OrchestrationExecutor
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agent_runtime.types.orchestration_executor._OrchestrationExecutor_lambda
+::: capo_bedrock_agent_runtime.types.orchestration_executor.OrchestrationExecutorLambdaMember
     options:
       show_source: true
       merge_init_into_class: false

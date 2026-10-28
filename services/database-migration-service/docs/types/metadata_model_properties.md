@@ -7,7 +7,7 @@ title: MetadataModelProperties
       show_source: true
       merge_init_into_class: false
 
-::: capo_database_migration_service.types.metadata_model_properties._MetadataModelProperties_StatementProperties
+::: capo_database_migration_service.types.metadata_model_properties.MetadataModelPropertiesStatementPropertiesMember
     options:
       show_source: true
       merge_init_into_class: false

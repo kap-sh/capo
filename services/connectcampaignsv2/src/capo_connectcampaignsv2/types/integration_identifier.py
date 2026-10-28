@@ -13,16 +13,16 @@ if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.q_connect_integration_identifier
 
 
-class _IntegrationIdentifier_customerProfiles(TypedDict, closed=True):
+class IntegrationIdentifierCustomerProfilesMember(TypedDict, closed=True):
     customerProfiles: "capo_connectcampaignsv2.types.customer_profiles_integration_identifier.CustomerProfilesIntegrationIdentifier"
 
 
-class _IntegrationIdentifier_qConnect(TypedDict, closed=True):
+class IntegrationIdentifierQConnectMember(TypedDict, closed=True):
     qConnect: "capo_connectcampaignsv2.types.q_connect_integration_identifier.QConnectIntegrationIdentifier"
 
 
-_IntegrationIdentifier_lambda = TypedDict(
-    "_IntegrationIdentifier_lambda",
+IntegrationIdentifierLambdaMember = TypedDict(
+    "IntegrationIdentifierLambdaMember",
     {
         "lambda": "capo_connectcampaignsv2.types.lambda_integration_identifier.LambdaIntegrationIdentifier",
     },
@@ -30,9 +30,9 @@ _IntegrationIdentifier_lambda = TypedDict(
 )
 
 IntegrationIdentifier: TypeAlias = (
-    _IntegrationIdentifier_customerProfiles
-    | _IntegrationIdentifier_qConnect
-    | _IntegrationIdentifier_lambda
+    IntegrationIdentifierCustomerProfilesMember
+    | IntegrationIdentifierQConnectMember
+    | IntegrationIdentifierLambdaMember
     | UnknownUnionMember
 )
 

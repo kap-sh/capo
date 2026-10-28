@@ -7,7 +7,7 @@ title: AuthenticationMethod
       show_source: true
       merge_init_into_class: false
 
-::: capo_sso_admin.types.authentication_method._AuthenticationMethod_Iam
+::: capo_sso_admin.types.authentication_method.AuthenticationMethodIamMember
     options:
       show_source: true
       merge_init_into_class: false

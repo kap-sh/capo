@@ -8,17 +8,17 @@ from capo_amp.errors import DeserializationError, SerializationError
 from capo_amp.types._unknown import UnknownUnionMember
 
 
-class _AnomalyDetectorMissingDataAction_markAsAnomaly(TypedDict, closed=True):
+class AnomalyDetectorMissingDataActionMarkAsAnomalyMember(TypedDict, closed=True):
     markAsAnomaly: "bool"
 
 
-class _AnomalyDetectorMissingDataAction_skip(TypedDict, closed=True):
+class AnomalyDetectorMissingDataActionSkipMember(TypedDict, closed=True):
     skip: "bool"
 
 
 AnomalyDetectorMissingDataAction: TypeAlias = (
-    _AnomalyDetectorMissingDataAction_markAsAnomaly
-    | _AnomalyDetectorMissingDataAction_skip
+    AnomalyDetectorMissingDataActionMarkAsAnomalyMember
+    | AnomalyDetectorMissingDataActionSkipMember
     | UnknownUnionMember
 )
 

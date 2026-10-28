@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.knowledge_base_retriever_configuration
 
 
-class _RetrieverConfiguration_knowledgeBase(TypedDict, closed=True):
+class RetrieverConfigurationKnowledgeBaseMember(TypedDict, closed=True):
     knowledgeBase: "capo_bedrock_agent_runtime.types.knowledge_base_retriever_configuration.KnowledgeBaseRetrieverConfiguration"
 
 
 RetrieverConfiguration: TypeAlias = (
-    _RetrieverConfiguration_knowledgeBase | UnknownUnionMember
+    RetrieverConfigurationKnowledgeBaseMember | UnknownUnionMember
 )
 
 

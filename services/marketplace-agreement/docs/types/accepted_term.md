@@ -7,79 +7,79 @@ title: AcceptedTerm
       show_source: true
       merge_init_into_class: false
 
-::: capo_marketplace_agreement.types.accepted_term._AcceptedTerm_legalTerm
+::: capo_marketplace_agreement.types.accepted_term.AcceptedTermLegalTermMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_marketplace_agreement.types.accepted_term._AcceptedTerm_supportTerm
+::: capo_marketplace_agreement.types.accepted_term.AcceptedTermSupportTermMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_marketplace_agreement.types.accepted_term._AcceptedTerm_renewalTerm
+::: capo_marketplace_agreement.types.accepted_term.AcceptedTermRenewalTermMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_marketplace_agreement.types.accepted_term._AcceptedTerm_usageBasedPricingTerm
+::: capo_marketplace_agreement.types.accepted_term.AcceptedTermUsageBasedPricingTermMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_marketplace_agreement.types.accepted_term._AcceptedTerm_configurableUpfrontPricingTerm
+::: capo_marketplace_agreement.types.accepted_term.AcceptedTermConfigurableUpfrontPricingTermMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_marketplace_agreement.types.accepted_term._AcceptedTerm_byolPricingTerm
+::: capo_marketplace_agreement.types.accepted_term.AcceptedTermByolPricingTermMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_marketplace_agreement.types.accepted_term._AcceptedTerm_recurringPaymentTerm
+::: capo_marketplace_agreement.types.accepted_term.AcceptedTermRecurringPaymentTermMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_marketplace_agreement.types.accepted_term._AcceptedTerm_validityTerm
+::: capo_marketplace_agreement.types.accepted_term.AcceptedTermValidityTermMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_marketplace_agreement.types.accepted_term._AcceptedTerm_paymentScheduleTerm
+::: capo_marketplace_agreement.types.accepted_term.AcceptedTermPaymentScheduleTermMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_marketplace_agreement.types.accepted_term._AcceptedTerm_freeTrialPricingTerm
+::: capo_marketplace_agreement.types.accepted_term.AcceptedTermFreeTrialPricingTermMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_marketplace_agreement.types.accepted_term._AcceptedTerm_fixedUpfrontPricingTerm
+::: capo_marketplace_agreement.types.accepted_term.AcceptedTermFixedUpfrontPricingTermMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_marketplace_agreement.types.accepted_term._AcceptedTerm_variablePaymentTerm
+::: capo_marketplace_agreement.types.accepted_term.AcceptedTermVariablePaymentTermMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_marketplace_agreement.types.accepted_term._AcceptedTerm_netPaymentTerm
+::: capo_marketplace_agreement.types.accepted_term.AcceptedTermNetPaymentTermMember
     options:
       show_source: true
       merge_init_into_class: false

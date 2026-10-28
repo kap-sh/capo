@@ -14,33 +14,33 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.model_speculative_decoding_config
 
 
-class _OptimizationConfig_ModelQuantizationConfig(TypedDict, closed=True):
+class OptimizationConfigModelQuantizationConfigMember(TypedDict, closed=True):
     ModelQuantizationConfig: (
         "capo_sagemaker.types.model_quantization_config.ModelQuantizationConfig"
     )
 
 
-class _OptimizationConfig_ModelCompilationConfig(TypedDict, closed=True):
+class OptimizationConfigModelCompilationConfigMember(TypedDict, closed=True):
     ModelCompilationConfig: (
         "capo_sagemaker.types.model_compilation_config.ModelCompilationConfig"
     )
 
 
-class _OptimizationConfig_ModelShardingConfig(TypedDict, closed=True):
+class OptimizationConfigModelShardingConfigMember(TypedDict, closed=True):
     ModelShardingConfig: (
         "capo_sagemaker.types.model_sharding_config.ModelShardingConfig"
     )
 
 
-class _OptimizationConfig_ModelSpeculativeDecodingConfig(TypedDict, closed=True):
+class OptimizationConfigModelSpeculativeDecodingConfigMember(TypedDict, closed=True):
     ModelSpeculativeDecodingConfig: "capo_sagemaker.types.model_speculative_decoding_config.ModelSpeculativeDecodingConfig"
 
 
 OptimizationConfig: TypeAlias = (
-    _OptimizationConfig_ModelQuantizationConfig
-    | _OptimizationConfig_ModelCompilationConfig
-    | _OptimizationConfig_ModelShardingConfig
-    | _OptimizationConfig_ModelSpeculativeDecodingConfig
+    OptimizationConfigModelQuantizationConfigMember
+    | OptimizationConfigModelCompilationConfigMember
+    | OptimizationConfigModelShardingConfigMember
+    | OptimizationConfigModelSpeculativeDecodingConfigMember
     | UnknownUnionMember
 )
 

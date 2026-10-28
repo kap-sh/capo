@@ -14,12 +14,12 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.mcp_gateway_configuration
 
 
-class _GatewayProtocolConfiguration_mcp(TypedDict, closed=True):
+class GatewayProtocolConfigurationMcpMember(TypedDict, closed=True):
     mcp: "capo_bedrock_agentcore_control.types.mcp_gateway_configuration.MCPGatewayConfiguration"
 
 
 GatewayProtocolConfiguration: TypeAlias = (
-    _GatewayProtocolConfiguration_mcp | UnknownUnionMember
+    GatewayProtocolConfigurationMcpMember | UnknownUnionMember
 )
 
 

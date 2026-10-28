@@ -7,13 +7,13 @@ title: GuardrailConverseContentBlock
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_runtime.types.guardrail_converse_content_block._GuardrailConverseContentBlock_text
+::: capo_bedrock_runtime.types.guardrail_converse_content_block.GuardrailConverseContentBlockTextMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.guardrail_converse_content_block._GuardrailConverseContentBlock_image
+::: capo_bedrock_runtime.types.guardrail_converse_content_block.GuardrailConverseContentBlockImageMember
     options:
       show_source: true
       merge_init_into_class: false

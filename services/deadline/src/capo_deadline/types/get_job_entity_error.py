@@ -14,31 +14,31 @@ if TYPE_CHECKING:
     import capo_deadline.types.step_details_error
 
 
-class _GetJobEntityError_jobDetails(TypedDict, closed=True):
+class GetJobEntityErrorJobDetailsMember(TypedDict, closed=True):
     jobDetails: "capo_deadline.types.job_details_error.JobDetailsError"
 
 
-class _GetJobEntityError_jobAttachmentDetails(TypedDict, closed=True):
+class GetJobEntityErrorJobAttachmentDetailsMember(TypedDict, closed=True):
     jobAttachmentDetails: (
         "capo_deadline.types.job_attachment_details_error.JobAttachmentDetailsError"
     )
 
 
-class _GetJobEntityError_stepDetails(TypedDict, closed=True):
+class GetJobEntityErrorStepDetailsMember(TypedDict, closed=True):
     stepDetails: "capo_deadline.types.step_details_error.StepDetailsError"
 
 
-class _GetJobEntityError_environmentDetails(TypedDict, closed=True):
+class GetJobEntityErrorEnvironmentDetailsMember(TypedDict, closed=True):
     environmentDetails: (
         "capo_deadline.types.environment_details_error.EnvironmentDetailsError"
     )
 
 
 GetJobEntityError: TypeAlias = (
-    _GetJobEntityError_jobDetails
-    | _GetJobEntityError_jobAttachmentDetails
-    | _GetJobEntityError_stepDetails
-    | _GetJobEntityError_environmentDetails
+    GetJobEntityErrorJobDetailsMember
+    | GetJobEntityErrorJobAttachmentDetailsMember
+    | GetJobEntityErrorStepDetailsMember
+    | GetJobEntityErrorEnvironmentDetailsMember
     | UnknownUnionMember
 )
 

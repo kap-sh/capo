@@ -7,37 +7,37 @@ title: SearchFilterExpression
       show_source: true
       merge_init_into_class: false
 
-::: capo_deadline.types.search_filter_expression._SearchFilterExpression_dateTimeFilter
+::: capo_deadline.types.search_filter_expression.SearchFilterExpressionDateTimeFilterMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_deadline.types.search_filter_expression._SearchFilterExpression_parameterFilter
+::: capo_deadline.types.search_filter_expression.SearchFilterExpressionParameterFilterMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_deadline.types.search_filter_expression._SearchFilterExpression_searchTermFilter
+::: capo_deadline.types.search_filter_expression.SearchFilterExpressionSearchTermFilterMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_deadline.types.search_filter_expression._SearchFilterExpression_stringFilter
+::: capo_deadline.types.search_filter_expression.SearchFilterExpressionStringFilterMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_deadline.types.search_filter_expression._SearchFilterExpression_stringListFilter
+::: capo_deadline.types.search_filter_expression.SearchFilterExpressionStringListFilterMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_deadline.types.search_filter_expression._SearchFilterExpression_groupFilter
+::: capo_deadline.types.search_filter_expression.SearchFilterExpressionGroupFilterMember
     options:
       show_source: true
       merge_init_into_class: false

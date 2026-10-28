@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_bedrock.types.retrieve_config
 
 
-class _KnowledgeBaseConfig_retrieveConfig(TypedDict, closed=True):
+class KnowledgeBaseConfigRetrieveConfigMember(TypedDict, closed=True):
     retrieveConfig: "capo_bedrock.types.retrieve_config.RetrieveConfig"
 
 
-class _KnowledgeBaseConfig_retrieveAndGenerateConfig(TypedDict, closed=True):
+class KnowledgeBaseConfigRetrieveAndGenerateConfigMember(TypedDict, closed=True):
     retrieveAndGenerateConfig: "capo_bedrock.types.retrieve_and_generate_configuration.RetrieveAndGenerateConfiguration"
 
 
 KnowledgeBaseConfig: TypeAlias = (
-    _KnowledgeBaseConfig_retrieveConfig
-    | _KnowledgeBaseConfig_retrieveAndGenerateConfig
+    KnowledgeBaseConfigRetrieveConfigMember
+    | KnowledgeBaseConfigRetrieveAndGenerateConfigMember
     | UnknownUnionMember
 )
 

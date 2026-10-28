@@ -7,7 +7,7 @@ title: ProvisioningConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_datazone.types.provisioning_configuration._ProvisioningConfiguration_lakeFormationConfiguration
+::: capo_datazone.types.provisioning_configuration.ProvisioningConfigurationLakeFormationConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false

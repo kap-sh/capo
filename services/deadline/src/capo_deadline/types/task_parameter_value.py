@@ -15,32 +15,32 @@ if TYPE_CHECKING:
     import capo_deadline.types.string
 
 
-class _TaskParameterValue_int(TypedDict, closed=True):
+class TaskParameterValueIntMember(TypedDict, closed=True):
     int: "capo_deadline.types.int_string.IntString"
 
 
-class _TaskParameterValue_float(TypedDict, closed=True):
+class TaskParameterValueFloatMember(TypedDict, closed=True):
     float: "capo_deadline.types.float_string.FloatString"
 
 
-class _TaskParameterValue_string(TypedDict, closed=True):
+class TaskParameterValueStringMember(TypedDict, closed=True):
     string: "capo_deadline.types.parameter_string.ParameterString"
 
 
-class _TaskParameterValue_path(TypedDict, closed=True):
+class TaskParameterValuePathMember(TypedDict, closed=True):
     path: "capo_deadline.types.path_string.PathString"
 
 
-class _TaskParameterValue_chunkInt(TypedDict, closed=True):
+class TaskParameterValueChunkIntMember(TypedDict, closed=True):
     chunkInt: "capo_deadline.types.string.String"
 
 
 TaskParameterValue: TypeAlias = (
-    _TaskParameterValue_int
-    | _TaskParameterValue_float
-    | _TaskParameterValue_string
-    | _TaskParameterValue_path
-    | _TaskParameterValue_chunkInt
+    TaskParameterValueIntMember
+    | TaskParameterValueFloatMember
+    | TaskParameterValueStringMember
+    | TaskParameterValuePathMember
+    | TaskParameterValueChunkIntMember
     | UnknownUnionMember
 )
 

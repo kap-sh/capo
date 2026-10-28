@@ -14,27 +14,27 @@ if TYPE_CHECKING:
     import capo_proton.types.service_pipeline_state
 
 
-class _DeploymentState_serviceInstance(TypedDict, closed=True):
+class DeploymentStateServiceInstanceMember(TypedDict, closed=True):
     serviceInstance: "capo_proton.types.service_instance_state.ServiceInstanceState"
 
 
-class _DeploymentState_environment(TypedDict, closed=True):
+class DeploymentStateEnvironmentMember(TypedDict, closed=True):
     environment: "capo_proton.types.environment_state.EnvironmentState"
 
 
-class _DeploymentState_servicePipeline(TypedDict, closed=True):
+class DeploymentStateServicePipelineMember(TypedDict, closed=True):
     servicePipeline: "capo_proton.types.service_pipeline_state.ServicePipelineState"
 
 
-class _DeploymentState_component(TypedDict, closed=True):
+class DeploymentStateComponentMember(TypedDict, closed=True):
     component: "capo_proton.types.component_state.ComponentState"
 
 
 DeploymentState: TypeAlias = (
-    _DeploymentState_serviceInstance
-    | _DeploymentState_environment
-    | _DeploymentState_servicePipeline
-    | _DeploymentState_component
+    DeploymentStateServiceInstanceMember
+    | DeploymentStateEnvironmentMember
+    | DeploymentStateServicePipelineMember
+    | DeploymentStateComponentMember
     | UnknownUnionMember
 )
 

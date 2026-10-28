@@ -7,7 +7,7 @@ title: CapabilityConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_b2bi.types.capability_configuration._CapabilityConfiguration_edi
+::: capo_b2bi.types.capability_configuration.CapabilityConfigurationEdiMember
     options:
       show_source: true
       merge_init_into_class: false

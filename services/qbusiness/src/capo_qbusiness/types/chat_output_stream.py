@@ -20,36 +20,36 @@ if TYPE_CHECKING:
     import capo_qbusiness.types.text_output_event
 
 
-class _ChatOutputStream_textEvent(TypedDict, closed=True):
+class ChatOutputStreamTextEventMember(TypedDict, closed=True):
     textEvent: "capo_qbusiness.types.text_output_event.TextOutputEvent"
 
 
-class _ChatOutputStream_metadataEvent(TypedDict, closed=True):
+class ChatOutputStreamMetadataEventMember(TypedDict, closed=True):
     metadataEvent: "capo_qbusiness.types.metadata_event.MetadataEvent"
 
 
-class _ChatOutputStream_actionReviewEvent(TypedDict, closed=True):
+class ChatOutputStreamActionReviewEventMember(TypedDict, closed=True):
     actionReviewEvent: "capo_qbusiness.types.action_review_event.ActionReviewEvent"
 
 
-class _ChatOutputStream_failedAttachmentEvent(TypedDict, closed=True):
+class ChatOutputStreamFailedAttachmentEventMember(TypedDict, closed=True):
     failedAttachmentEvent: (
         "capo_qbusiness.types.failed_attachment_event.FailedAttachmentEvent"
     )
 
 
-class _ChatOutputStream_authChallengeRequestEvent(TypedDict, closed=True):
+class ChatOutputStreamAuthChallengeRequestEventMember(TypedDict, closed=True):
     authChallengeRequestEvent: (
         "capo_qbusiness.types.auth_challenge_request_event.AuthChallengeRequestEvent"
     )
 
 
 _ChatOutputStream: TypeAlias = (
-    _ChatOutputStream_textEvent
-    | _ChatOutputStream_metadataEvent
-    | _ChatOutputStream_actionReviewEvent
-    | _ChatOutputStream_failedAttachmentEvent
-    | _ChatOutputStream_authChallengeRequestEvent
+    ChatOutputStreamTextEventMember
+    | ChatOutputStreamMetadataEventMember
+    | ChatOutputStreamActionReviewEventMember
+    | ChatOutputStreamFailedAttachmentEventMember
+    | ChatOutputStreamAuthChallengeRequestEventMember
     | UnknownEvent
 )
 ChatOutputStream: TypeAlias = AnyIterator[_ChatOutputStream]

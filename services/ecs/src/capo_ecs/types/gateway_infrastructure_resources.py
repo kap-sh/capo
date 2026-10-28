@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_ecs.types.elb_gateway_resources_list
 
 
-class _GatewayInfrastructureResources_hostSharedAlb(TypedDict, closed=True):
+class GatewayInfrastructureResourcesHostSharedAlbMember(TypedDict, closed=True):
     hostSharedAlb: "capo_ecs.types.elb_gateway_resources_list.ElbGatewayResourcesList"
 
 
 GatewayInfrastructureResources: TypeAlias = (
-    _GatewayInfrastructureResources_hostSharedAlb | UnknownUnionMember
+    GatewayInfrastructureResourcesHostSharedAlbMember | UnknownUnionMember
 )
 
 

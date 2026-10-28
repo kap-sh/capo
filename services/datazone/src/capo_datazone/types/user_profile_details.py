@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_datazone.types.sso_user_profile_details
 
 
-class _UserProfileDetails_iam(TypedDict, closed=True):
+class UserProfileDetailsIamMember(TypedDict, closed=True):
     iam: "capo_datazone.types.iam_user_profile_details.IamUserProfileDetails"
 
 
-class _UserProfileDetails_sso(TypedDict, closed=True):
+class UserProfileDetailsSsoMember(TypedDict, closed=True):
     sso: "capo_datazone.types.sso_user_profile_details.SsoUserProfileDetails"
 
 
 UserProfileDetails: TypeAlias = (
-    _UserProfileDetails_iam | _UserProfileDetails_sso | UnknownUnionMember
+    UserProfileDetailsIamMember | UserProfileDetailsSsoMember | UnknownUnionMember
 )
 
 

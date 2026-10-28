@@ -7,7 +7,7 @@ title: Code
       show_source: true
       merge_init_into_class: false
 
-::: capo_mwaa_serverless.types.code._Code_S3Location
+::: capo_mwaa_serverless.types.code.CodeS3LocationMember
     options:
       show_source: true
       merge_init_into_class: false

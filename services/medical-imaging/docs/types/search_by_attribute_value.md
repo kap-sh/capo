@@ -7,55 +7,55 @@ title: SearchByAttributeValue
       show_source: true
       merge_init_into_class: false
 
-::: capo_medical_imaging.types.search_by_attribute_value._SearchByAttributeValue_DICOMPatientId
+::: capo_medical_imaging.types.search_by_attribute_value.SearchByAttributeValueDICOMPatientIdMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_medical_imaging.types.search_by_attribute_value._SearchByAttributeValue_DICOMAccessionNumber
+::: capo_medical_imaging.types.search_by_attribute_value.SearchByAttributeValueDICOMAccessionNumberMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_medical_imaging.types.search_by_attribute_value._SearchByAttributeValue_DICOMStudyId
+::: capo_medical_imaging.types.search_by_attribute_value.SearchByAttributeValueDICOMStudyIdMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_medical_imaging.types.search_by_attribute_value._SearchByAttributeValue_DICOMStudyInstanceUID
+::: capo_medical_imaging.types.search_by_attribute_value.SearchByAttributeValueDICOMStudyInstanceUIDMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_medical_imaging.types.search_by_attribute_value._SearchByAttributeValue_DICOMSeriesInstanceUID
+::: capo_medical_imaging.types.search_by_attribute_value.SearchByAttributeValueDICOMSeriesInstanceUIDMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_medical_imaging.types.search_by_attribute_value._SearchByAttributeValue_createdAt
+::: capo_medical_imaging.types.search_by_attribute_value.SearchByAttributeValueCreatedAtMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_medical_imaging.types.search_by_attribute_value._SearchByAttributeValue_updatedAt
+::: capo_medical_imaging.types.search_by_attribute_value.SearchByAttributeValueUpdatedAtMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_medical_imaging.types.search_by_attribute_value._SearchByAttributeValue_DICOMStudyDateAndTime
+::: capo_medical_imaging.types.search_by_attribute_value.SearchByAttributeValueDICOMStudyDateAndTimeMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_medical_imaging.types.search_by_attribute_value._SearchByAttributeValue_isPrimary
+::: capo_medical_imaging.types.search_by_attribute_value.SearchByAttributeValueIsPrimaryMember
     options:
       show_source: true
       merge_init_into_class: false

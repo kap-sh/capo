@@ -13,28 +13,28 @@ if TYPE_CHECKING:
     import capo_elementalinference.types.update_output_status
 
 
-class _ScheduleActionOperation_updateOutputStatus(TypedDict, closed=True):
+class ScheduleActionOperationUpdateOutputStatusMember(TypedDict, closed=True):
     updateOutputStatus: (
         "capo_elementalinference.types.update_output_status.UpdateOutputStatus"
     )
 
 
-class _ScheduleActionOperation_updateClippingDataSourceConfiguration(
+class ScheduleActionOperationUpdateClippingDataSourceConfigurationMember(
     TypedDict, closed=True
 ):
     updateClippingDataSourceConfiguration: "capo_elementalinference.types.update_clipping_data_source_configuration.UpdateClippingDataSourceConfiguration"
 
 
-class _ScheduleActionOperation_removeClippingDataSourceConfiguration(
+class ScheduleActionOperationRemoveClippingDataSourceConfigurationMember(
     TypedDict, closed=True
 ):
     removeClippingDataSourceConfiguration: "capo_elementalinference.types.remove_clipping_data_source_configuration.RemoveClippingDataSourceConfiguration"
 
 
 ScheduleActionOperation: TypeAlias = (
-    _ScheduleActionOperation_updateOutputStatus
-    | _ScheduleActionOperation_updateClippingDataSourceConfiguration
-    | _ScheduleActionOperation_removeClippingDataSourceConfiguration
+    ScheduleActionOperationUpdateOutputStatusMember
+    | ScheduleActionOperationUpdateClippingDataSourceConfigurationMember
+    | ScheduleActionOperationRemoveClippingDataSourceConfigurationMember
     | UnknownUnionMember
 )
 

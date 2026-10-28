@@ -7,13 +7,13 @@ title: CreatedByInfo
       show_source: true
       merge_init_into_class: false
 
-::: capo_connect.types.created_by_info._CreatedByInfo_ConnectUserArn
+::: capo_connect.types.created_by_info.CreatedByInfoConnectUserArnMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connect.types.created_by_info._CreatedByInfo_AWSIdentityArn
+::: capo_connect.types.created_by_info.CreatedByInfoAWSIdentityArnMember
     options:
       show_source: true
       merge_init_into_class: false

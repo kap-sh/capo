@@ -7,7 +7,7 @@ title: QueryConstraint
       show_source: true
       merge_init_into_class: false
 
-::: capo_cleanrooms.types.query_constraint._QueryConstraint_requireOverlap
+::: capo_cleanrooms.types.query_constraint.QueryConstraintRequireOverlapMember
     options:
       show_source: true
       merge_init_into_class: false

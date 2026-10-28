@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_interconnect.types.direct_connect_gateway_attach_point
 
 
-class _AttachPoint_directConnectGateway(TypedDict, closed=True):
+class AttachPointDirectConnectGatewayMember(TypedDict, closed=True):
     directConnectGateway: "capo_interconnect.types.direct_connect_gateway_attach_point.DirectConnectGatewayAttachPoint"
 
 
-class _AttachPoint_arn(TypedDict, closed=True):
+class AttachPointArnMember(TypedDict, closed=True):
     arn: "capo_interconnect.types.amazon_resource_name.AmazonResourceName"
 
 
 AttachPoint: TypeAlias = (
-    _AttachPoint_directConnectGateway | _AttachPoint_arn | UnknownUnionMember
+    AttachPointDirectConnectGatewayMember | AttachPointArnMember | UnknownUnionMember
 )
 
 

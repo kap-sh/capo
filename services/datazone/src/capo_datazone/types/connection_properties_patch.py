@@ -22,81 +22,81 @@ if TYPE_CHECKING:
     import capo_datazone.types.vpc_properties_patch
 
 
-class _ConnectionPropertiesPatch_athenaProperties(TypedDict, closed=True):
+class ConnectionPropertiesPatchAthenaPropertiesMember(TypedDict, closed=True):
     athenaProperties: (
         "capo_datazone.types.athena_properties_patch.AthenaPropertiesPatch"
     )
 
 
-class _ConnectionPropertiesPatch_glueProperties(TypedDict, closed=True):
+class ConnectionPropertiesPatchGluePropertiesMember(TypedDict, closed=True):
     glueProperties: "capo_datazone.types.glue_properties_patch.GluePropertiesPatch"
 
 
-class _ConnectionPropertiesPatch_iamProperties(TypedDict, closed=True):
+class ConnectionPropertiesPatchIamPropertiesMember(TypedDict, closed=True):
     iamProperties: "capo_datazone.types.iam_properties_patch.IamPropertiesPatch"
 
 
-class _ConnectionPropertiesPatch_redshiftProperties(TypedDict, closed=True):
+class ConnectionPropertiesPatchRedshiftPropertiesMember(TypedDict, closed=True):
     redshiftProperties: (
         "capo_datazone.types.redshift_properties_patch.RedshiftPropertiesPatch"
     )
 
 
-class _ConnectionPropertiesPatch_sparkEmrProperties(TypedDict, closed=True):
+class ConnectionPropertiesPatchSparkEmrPropertiesMember(TypedDict, closed=True):
     sparkEmrProperties: (
         "capo_datazone.types.spark_emr_properties_patch.SparkEmrPropertiesPatch"
     )
 
 
-class _ConnectionPropertiesPatch_s3Properties(TypedDict, closed=True):
+class ConnectionPropertiesPatchS3PropertiesMember(TypedDict, closed=True):
     s3Properties: "capo_datazone.types.s3_properties_patch.S3PropertiesPatch"
 
 
-class _ConnectionPropertiesPatch_snowflakeProperties(TypedDict, closed=True):
+class ConnectionPropertiesPatchSnowflakePropertiesMember(TypedDict, closed=True):
     snowflakeProperties: (
         "capo_datazone.types.snowflake_properties_patch.SnowflakePropertiesPatch"
     )
 
 
-class _ConnectionPropertiesPatch_amazonQProperties(TypedDict, closed=True):
+class ConnectionPropertiesPatchAmazonQPropertiesMember(TypedDict, closed=True):
     amazonQProperties: (
         "capo_datazone.types.amazon_q_properties_patch.AmazonQPropertiesPatch"
     )
 
 
-class _ConnectionPropertiesPatch_mlflowProperties(TypedDict, closed=True):
+class ConnectionPropertiesPatchMlflowPropertiesMember(TypedDict, closed=True):
     mlflowProperties: (
         "capo_datazone.types.mlflow_properties_patch.MlflowPropertiesPatch"
     )
 
 
-class _ConnectionPropertiesPatch_lakehouseProperties(TypedDict, closed=True):
+class ConnectionPropertiesPatchLakehousePropertiesMember(TypedDict, closed=True):
     lakehouseProperties: (
         "capo_datazone.types.lakehouse_properties_patch.LakehousePropertiesPatch"
     )
 
 
-class _ConnectionPropertiesPatch_vpcProperties(TypedDict, closed=True):
+class ConnectionPropertiesPatchVpcPropertiesMember(TypedDict, closed=True):
     vpcProperties: "capo_datazone.types.vpc_properties_patch.VpcPropertiesPatch"
 
 
-class _ConnectionPropertiesPatch_gitProperties(TypedDict, closed=True):
+class ConnectionPropertiesPatchGitPropertiesMember(TypedDict, closed=True):
     gitProperties: "capo_datazone.types.git_properties_patch.GitPropertiesPatch"
 
 
 ConnectionPropertiesPatch: TypeAlias = (
-    _ConnectionPropertiesPatch_athenaProperties
-    | _ConnectionPropertiesPatch_glueProperties
-    | _ConnectionPropertiesPatch_iamProperties
-    | _ConnectionPropertiesPatch_redshiftProperties
-    | _ConnectionPropertiesPatch_sparkEmrProperties
-    | _ConnectionPropertiesPatch_s3Properties
-    | _ConnectionPropertiesPatch_snowflakeProperties
-    | _ConnectionPropertiesPatch_amazonQProperties
-    | _ConnectionPropertiesPatch_mlflowProperties
-    | _ConnectionPropertiesPatch_lakehouseProperties
-    | _ConnectionPropertiesPatch_vpcProperties
-    | _ConnectionPropertiesPatch_gitProperties
+    ConnectionPropertiesPatchAthenaPropertiesMember
+    | ConnectionPropertiesPatchGluePropertiesMember
+    | ConnectionPropertiesPatchIamPropertiesMember
+    | ConnectionPropertiesPatchRedshiftPropertiesMember
+    | ConnectionPropertiesPatchSparkEmrPropertiesMember
+    | ConnectionPropertiesPatchS3PropertiesMember
+    | ConnectionPropertiesPatchSnowflakePropertiesMember
+    | ConnectionPropertiesPatchAmazonQPropertiesMember
+    | ConnectionPropertiesPatchMlflowPropertiesMember
+    | ConnectionPropertiesPatchLakehousePropertiesMember
+    | ConnectionPropertiesPatchVpcPropertiesMember
+    | ConnectionPropertiesPatchGitPropertiesMember
     | UnknownUnionMember
 )
 

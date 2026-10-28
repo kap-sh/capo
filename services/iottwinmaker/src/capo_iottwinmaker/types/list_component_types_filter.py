@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_iottwinmaker.types.string
 
 
-class _ListComponentTypesFilter_extendsFrom(TypedDict, closed=True):
+class ListComponentTypesFilterExtendsFromMember(TypedDict, closed=True):
     extendsFrom: "capo_iottwinmaker.types.component_type_id.ComponentTypeId"
 
 
-class _ListComponentTypesFilter_namespace(TypedDict, closed=True):
+class ListComponentTypesFilterNamespaceMember(TypedDict, closed=True):
     namespace: "capo_iottwinmaker.types.string.String"
 
 
-class _ListComponentTypesFilter_isAbstract(TypedDict, closed=True):
+class ListComponentTypesFilterIsAbstractMember(TypedDict, closed=True):
     isAbstract: "capo_iottwinmaker.types.boolean.Boolean"
 
 
 ListComponentTypesFilter: TypeAlias = (
-    _ListComponentTypesFilter_extendsFrom
-    | _ListComponentTypesFilter_namespace
-    | _ListComponentTypesFilter_isAbstract
+    ListComponentTypesFilterExtendsFromMember
+    | ListComponentTypesFilterNamespaceMember
+    | ListComponentTypesFilterIsAbstractMember
     | UnknownUnionMember
 )
 

@@ -7,7 +7,7 @@ title: EvaluatorReference
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.evaluator_reference._EvaluatorReference_evaluatorId
+::: capo_bedrock_agentcore_control.types.evaluator_reference.EvaluatorReferenceEvaluatorIdMember
     options:
       show_source: true
       merge_init_into_class: false

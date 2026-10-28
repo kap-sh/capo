@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_resiliencehubv2.types.success_criteria_alarm_summary
 
 
-class _TestSourceSummary_successCriteriaAlarm(TypedDict, closed=True):
+class TestSourceSummarySuccessCriteriaAlarmMember(TypedDict, closed=True):
     successCriteriaAlarm: "capo_resiliencehubv2.types.success_criteria_alarm_summary.SuccessCriteriaAlarmSummary"
 
 
-class _TestSourceSummary_observabilityAlarm(TypedDict, closed=True):
+class TestSourceSummaryObservabilityAlarmMember(TypedDict, closed=True):
     observabilityAlarm: "capo_resiliencehubv2.types.observability_alarm_summary.ObservabilityAlarmSummary"
 
 
 TestSourceSummary: TypeAlias = (
-    _TestSourceSummary_successCriteriaAlarm
-    | _TestSourceSummary_observabilityAlarm
+    TestSourceSummarySuccessCriteriaAlarmMember
+    | TestSourceSummaryObservabilityAlarmMember
     | UnknownUnionMember
 )
 

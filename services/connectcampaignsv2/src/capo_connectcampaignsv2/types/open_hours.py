@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.daily_hours
 
 
-class _OpenHours_dailyHours(TypedDict, closed=True):
+class OpenHoursDailyHoursMember(TypedDict, closed=True):
     dailyHours: "capo_connectcampaignsv2.types.daily_hours.DailyHours"
 
 
-OpenHours: TypeAlias = _OpenHours_dailyHours | UnknownUnionMember
+OpenHours: TypeAlias = OpenHoursDailyHoursMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

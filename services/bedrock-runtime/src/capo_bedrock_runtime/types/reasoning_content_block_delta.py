@@ -8,22 +8,22 @@ from capo_bedrock_runtime.errors import DeserializationError, SerializationError
 from capo_bedrock_runtime.types._unknown import UnknownUnionMember
 
 
-class _ReasoningContentBlockDelta_text(TypedDict, closed=True):
+class ReasoningContentBlockDeltaTextMember(TypedDict, closed=True):
     text: "str"
 
 
-class _ReasoningContentBlockDelta_redactedContent(TypedDict, closed=True):
+class ReasoningContentBlockDeltaRedactedContentMember(TypedDict, closed=True):
     redactedContent: "bytes"
 
 
-class _ReasoningContentBlockDelta_signature(TypedDict, closed=True):
+class ReasoningContentBlockDeltaSignatureMember(TypedDict, closed=True):
     signature: "str"
 
 
 ReasoningContentBlockDelta: TypeAlias = (
-    _ReasoningContentBlockDelta_text
-    | _ReasoningContentBlockDelta_redactedContent
-    | _ReasoningContentBlockDelta_signature
+    ReasoningContentBlockDeltaTextMember
+    | ReasoningContentBlockDeltaRedactedContentMember
+    | ReasoningContentBlockDeltaSignatureMember
     | UnknownUnionMember
 )
 

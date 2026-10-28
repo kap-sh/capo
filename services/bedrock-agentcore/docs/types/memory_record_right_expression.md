@@ -7,7 +7,7 @@ title: MemoryRecordRightExpression
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore.types.memory_record_right_expression._MemoryRecordRightExpression_metadataValue
+::: capo_bedrock_agentcore.types.memory_record_right_expression.MemoryRecordRightExpressionMetadataValueMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -7,13 +7,13 @@ title: Member
       show_source: true
       merge_init_into_class: false
 
-::: capo_datazone.types.member._Member_userIdentifier
+::: capo_datazone.types.member.MemberUserIdentifierMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.member._Member_groupIdentifier
+::: capo_datazone.types.member.MemberGroupIdentifierMember
     options:
       show_source: true
       merge_init_into_class: false

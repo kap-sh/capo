@@ -7,7 +7,7 @@ title: ExportOutput
       show_source: true
       merge_init_into_class: false
 
-::: capo_securityhub.types.export_output._ExportOutput_Findings
+::: capo_securityhub.types.export_output.ExportOutputFindingsMember
     options:
       show_source: true
       merge_init_into_class: false

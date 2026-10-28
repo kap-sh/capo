@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.secrets_manager_location
 
 
-class _CertificateLocation_secretsManager(TypedDict, closed=True):
+class CertificateLocationSecretsManagerMember(TypedDict, closed=True):
     secretsManager: (
         "capo_bedrock_agentcore.types.secrets_manager_location.SecretsManagerLocation"
     )
 
 
 CertificateLocation: TypeAlias = (
-    _CertificateLocation_secretsManager | UnknownUnionMember
+    CertificateLocationSecretsManagerMember | UnknownUnionMember
 )
 
 

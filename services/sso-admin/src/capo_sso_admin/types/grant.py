@@ -14,29 +14,29 @@ if TYPE_CHECKING:
     import capo_sso_admin.types.token_exchange_grant
 
 
-class _Grant_AuthorizationCode(TypedDict, closed=True):
+class GrantAuthorizationCodeMember(TypedDict, closed=True):
     AuthorizationCode: (
         "capo_sso_admin.types.authorization_code_grant.AuthorizationCodeGrant"
     )
 
 
-class _Grant_JwtBearer(TypedDict, closed=True):
+class GrantJwtBearerMember(TypedDict, closed=True):
     JwtBearer: "capo_sso_admin.types.jwt_bearer_grant.JwtBearerGrant"
 
 
-class _Grant_RefreshToken(TypedDict, closed=True):
+class GrantRefreshTokenMember(TypedDict, closed=True):
     RefreshToken: "capo_sso_admin.types.refresh_token_grant.RefreshTokenGrant"
 
 
-class _Grant_TokenExchange(TypedDict, closed=True):
+class GrantTokenExchangeMember(TypedDict, closed=True):
     TokenExchange: "capo_sso_admin.types.token_exchange_grant.TokenExchangeGrant"
 
 
 Grant: TypeAlias = (
-    _Grant_AuthorizationCode
-    | _Grant_JwtBearer
-    | _Grant_RefreshToken
-    | _Grant_TokenExchange
+    GrantAuthorizationCodeMember
+    | GrantJwtBearerMember
+    | GrantRefreshTokenMember
+    | GrantTokenExchangeMember
     | UnknownUnionMember
 )
 

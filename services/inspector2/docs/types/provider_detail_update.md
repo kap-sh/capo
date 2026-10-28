@@ -7,7 +7,7 @@ title: ProviderDetailUpdate
       show_source: true
       merge_init_into_class: false
 
-::: capo_inspector2.types.provider_detail_update._ProviderDetailUpdate_azure
+::: capo_inspector2.types.provider_detail_update.ProviderDetailUpdateAzureMember
     options:
       show_source: true
       merge_init_into_class: false

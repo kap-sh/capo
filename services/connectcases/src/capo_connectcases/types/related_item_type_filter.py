@@ -16,37 +16,37 @@ if TYPE_CHECKING:
     import capo_connectcases.types.sla_filter
 
 
-class _RelatedItemTypeFilter_contact(TypedDict, closed=True):
+class RelatedItemTypeFilterContactMember(TypedDict, closed=True):
     contact: "capo_connectcases.types.contact_filter.ContactFilter"
 
 
-class _RelatedItemTypeFilter_comment(TypedDict, closed=True):
+class RelatedItemTypeFilterCommentMember(TypedDict, closed=True):
     comment: "capo_connectcases.types.comment_filter.CommentFilter"
 
 
-class _RelatedItemTypeFilter_file(TypedDict, closed=True):
+class RelatedItemTypeFilterFileMember(TypedDict, closed=True):
     file: "capo_connectcases.types.file_filter.FileFilter"
 
 
-class _RelatedItemTypeFilter_sla(TypedDict, closed=True):
+class RelatedItemTypeFilterSlaMember(TypedDict, closed=True):
     sla: "capo_connectcases.types.sla_filter.SlaFilter"
 
 
-class _RelatedItemTypeFilter_connectCase(TypedDict, closed=True):
+class RelatedItemTypeFilterConnectCaseMember(TypedDict, closed=True):
     connectCase: "capo_connectcases.types.connect_case_filter.ConnectCaseFilter"
 
 
-class _RelatedItemTypeFilter_custom(TypedDict, closed=True):
+class RelatedItemTypeFilterCustomMember(TypedDict, closed=True):
     custom: "capo_connectcases.types.custom_filter.CustomFilter"
 
 
 RelatedItemTypeFilter: TypeAlias = (
-    _RelatedItemTypeFilter_contact
-    | _RelatedItemTypeFilter_comment
-    | _RelatedItemTypeFilter_file
-    | _RelatedItemTypeFilter_sla
-    | _RelatedItemTypeFilter_connectCase
-    | _RelatedItemTypeFilter_custom
+    RelatedItemTypeFilterContactMember
+    | RelatedItemTypeFilterCommentMember
+    | RelatedItemTypeFilterFileMember
+    | RelatedItemTypeFilterSlaMember
+    | RelatedItemTypeFilterConnectCaseMember
+    | RelatedItemTypeFilterCustomMember
     | UnknownUnionMember
 )
 

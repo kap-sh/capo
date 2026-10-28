@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_bedrock_agent.types.prompt_agent_resource
 
 
-class _PromptGenAiResource_agent(TypedDict, closed=True):
+class PromptGenAiResourceAgentMember(TypedDict, closed=True):
     agent: "capo_bedrock_agent.types.prompt_agent_resource.PromptAgentResource"
 
 
-PromptGenAiResource: TypeAlias = _PromptGenAiResource_agent | UnknownUnionMember
+PromptGenAiResource: TypeAlias = PromptGenAiResourceAgentMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

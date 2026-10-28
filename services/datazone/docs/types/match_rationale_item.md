@@ -7,7 +7,7 @@ title: MatchRationaleItem
       show_source: true
       merge_init_into_class: false
 
-::: capo_datazone.types.match_rationale_item._MatchRationaleItem_textMatches
+::: capo_datazone.types.match_rationale_item.MatchRationaleItemTextMatchesMember
     options:
       show_source: true
       merge_init_into_class: false

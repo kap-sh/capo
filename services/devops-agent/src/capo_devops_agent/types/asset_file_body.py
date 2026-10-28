@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.asset_file_text
 
 
-class _AssetFileBody_bytes(TypedDict, closed=True):
+class AssetFileBodyBytesMember(TypedDict, closed=True):
     bytes: "capo_devops_agent.types.asset_file_bytes.AssetFileBytes"
 
 
-class _AssetFileBody_text(TypedDict, closed=True):
+class AssetFileBodyTextMember(TypedDict, closed=True):
     text: "capo_devops_agent.types.asset_file_text.AssetFileText"
 
 
 AssetFileBody: TypeAlias = (
-    _AssetFileBody_bytes | _AssetFileBody_text | UnknownUnionMember
+    AssetFileBodyBytesMember | AssetFileBodyTextMember | UnknownUnionMember
 )
 
 

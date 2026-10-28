@@ -16,47 +16,47 @@ if TYPE_CHECKING:
     import capo_securityhub.types.string_list
 
 
-class _ParameterValue_Integer(TypedDict, closed=True):
+class ParameterValueIntegerMember(TypedDict, closed=True):
     Integer: "capo_securityhub.types.integer.Integer"
 
 
-class _ParameterValue_IntegerList(TypedDict, closed=True):
+class ParameterValueIntegerListMember(TypedDict, closed=True):
     IntegerList: "capo_securityhub.types.integer_list.IntegerList"
 
 
-class _ParameterValue_Double(TypedDict, closed=True):
+class ParameterValueDoubleMember(TypedDict, closed=True):
     Double: "capo_securityhub.types.double.Double"
 
 
-class _ParameterValue_String(TypedDict, closed=True):
+class ParameterValueStringMember(TypedDict, closed=True):
     String: "capo_securityhub.types.non_empty_string.NonEmptyString"
 
 
-class _ParameterValue_StringList(TypedDict, closed=True):
+class ParameterValueStringListMember(TypedDict, closed=True):
     StringList: "capo_securityhub.types.string_list.StringList"
 
 
-class _ParameterValue_Boolean(TypedDict, closed=True):
+class ParameterValueBooleanMember(TypedDict, closed=True):
     Boolean: "capo_securityhub.types.boolean.Boolean"
 
 
-class _ParameterValue_Enum(TypedDict, closed=True):
+class ParameterValueEnumMember(TypedDict, closed=True):
     Enum: "capo_securityhub.types.non_empty_string.NonEmptyString"
 
 
-class _ParameterValue_EnumList(TypedDict, closed=True):
+class ParameterValueEnumListMember(TypedDict, closed=True):
     EnumList: "capo_securityhub.types.string_list.StringList"
 
 
 ParameterValue: TypeAlias = (
-    _ParameterValue_Integer
-    | _ParameterValue_IntegerList
-    | _ParameterValue_Double
-    | _ParameterValue_String
-    | _ParameterValue_StringList
-    | _ParameterValue_Boolean
-    | _ParameterValue_Enum
-    | _ParameterValue_EnumList
+    ParameterValueIntegerMember
+    | ParameterValueIntegerListMember
+    | ParameterValueDoubleMember
+    | ParameterValueStringMember
+    | ParameterValueStringListMember
+    | ParameterValueBooleanMember
+    | ParameterValueEnumMember
+    | ParameterValueEnumListMember
     | UnknownUnionMember
 )
 

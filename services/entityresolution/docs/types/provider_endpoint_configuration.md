@@ -7,7 +7,7 @@ title: ProviderEndpointConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_entityresolution.types.provider_endpoint_configuration._ProviderEndpointConfiguration_marketplaceConfiguration
+::: capo_entityresolution.types.provider_endpoint_configuration.ProviderEndpointConfigurationMarketplaceConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false

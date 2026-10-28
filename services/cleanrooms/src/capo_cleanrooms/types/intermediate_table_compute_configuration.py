@@ -11,7 +11,7 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.worker_compute_configuration
 
 
-class _IntermediateTableComputeConfiguration_queryComputeConfiguration(
+class IntermediateTableComputeConfigurationQueryComputeConfigurationMember(
     TypedDict, closed=True
 ):
     queryComputeConfiguration: (
@@ -20,7 +20,7 @@ class _IntermediateTableComputeConfiguration_queryComputeConfiguration(
 
 
 IntermediateTableComputeConfiguration: TypeAlias = (
-    _IntermediateTableComputeConfiguration_queryComputeConfiguration
+    IntermediateTableComputeConfigurationQueryComputeConfigurationMember
     | UnknownUnionMember
 )
 

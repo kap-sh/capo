@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.send_message_text_delta
 
 
-class _SendMessageContentBlockDelta_textDelta(TypedDict, closed=True):
+class SendMessageContentBlockDeltaTextDeltaMember(TypedDict, closed=True):
     textDelta: "capo_devops_agent.types.send_message_text_delta.SendMessageTextDelta"
 
 
-class _SendMessageContentBlockDelta_jsonDelta(TypedDict, closed=True):
+class SendMessageContentBlockDeltaJsonDeltaMember(TypedDict, closed=True):
     jsonDelta: "capo_devops_agent.types.send_message_json_delta.SendMessageJsonDelta"
 
 
 SendMessageContentBlockDelta: TypeAlias = (
-    _SendMessageContentBlockDelta_textDelta
-    | _SendMessageContentBlockDelta_jsonDelta
+    SendMessageContentBlockDeltaTextDeltaMember
+    | SendMessageContentBlockDeltaJsonDeltaMember
     | UnknownUnionMember
 )
 

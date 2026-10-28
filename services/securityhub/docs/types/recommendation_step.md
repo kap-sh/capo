@@ -7,7 +7,7 @@ title: RecommendationStep
       show_source: true
       merge_init_into_class: false
 
-::: capo_securityhub.types.recommendation_step._RecommendationStep_UnusedPermissions
+::: capo_securityhub.types.recommendation_step.RecommendationStepUnusedPermissionsMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_qconnect.types.tool_override_constant_input_value
 
 
-class _ToolOverrideInputValueConfiguration_constant(TypedDict, closed=True):
+class ToolOverrideInputValueConfigurationConstantMember(TypedDict, closed=True):
     constant: "capo_qconnect.types.tool_override_constant_input_value.ToolOverrideConstantInputValue"
 
 
 ToolOverrideInputValueConfiguration: TypeAlias = (
-    _ToolOverrideInputValueConfiguration_constant | UnknownUnionMember
+    ToolOverrideInputValueConfigurationConstantMember | UnknownUnionMember
 )
 
 

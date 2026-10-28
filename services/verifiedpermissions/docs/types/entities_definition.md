@@ -7,13 +7,13 @@ title: EntitiesDefinition
       show_source: true
       merge_init_into_class: false
 
-::: capo_verifiedpermissions.types.entities_definition._EntitiesDefinition_entityList
+::: capo_verifiedpermissions.types.entities_definition.EntitiesDefinitionEntityListMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_verifiedpermissions.types.entities_definition._EntitiesDefinition_cedarJson
+::: capo_verifiedpermissions.types.entities_definition.EntitiesDefinitionCedarJsonMember
     options:
       show_source: true
       merge_init_into_class: false

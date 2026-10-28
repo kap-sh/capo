@@ -7,7 +7,7 @@ title: SmsOutboundMode
       show_source: true
       merge_init_into_class: false
 
-::: capo_connectcampaignsv2.types.sms_outbound_mode._SmsOutboundMode_agentless
+::: capo_connectcampaignsv2.types.sms_outbound_mode.SmsOutboundModeAgentlessMember
     options:
       show_source: true
       merge_init_into_class: false

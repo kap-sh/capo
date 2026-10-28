@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_qconnect.types.query_condition_item
 
 
-class _QueryCondition_single(TypedDict, closed=True):
+class QueryConditionSingleMember(TypedDict, closed=True):
     single: "capo_qconnect.types.query_condition_item.QueryConditionItem"
 
 
-QueryCondition: TypeAlias = _QueryCondition_single | UnknownUnionMember
+QueryCondition: TypeAlias = QueryConditionSingleMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

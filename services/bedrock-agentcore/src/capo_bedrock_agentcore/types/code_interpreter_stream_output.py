@@ -23,57 +23,59 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.code_interpreter_result
 
 
-class _CodeInterpreterStreamOutput_result(TypedDict, closed=True):
+class CodeInterpreterStreamOutputResultMember(TypedDict, closed=True):
     result: "capo_bedrock_agentcore.types.code_interpreter_result.CodeInterpreterResult"
 
 
-class _CodeInterpreterStreamOutput_accessDeniedException(TypedDict, closed=True):
+class CodeInterpreterStreamOutputAccessDeniedExceptionMember(TypedDict, closed=True):
     accessDeniedException: (
         "capo_bedrock_agentcore.errors.access_denied_exception.AccessDeniedException_"
     )
 
 
-class _CodeInterpreterStreamOutput_conflictException(TypedDict, closed=True):
+class CodeInterpreterStreamOutputConflictExceptionMember(TypedDict, closed=True):
     conflictException: (
         "capo_bedrock_agentcore.errors.conflict_exception.ConflictException_"
     )
 
 
-class _CodeInterpreterStreamOutput_internalServerException(TypedDict, closed=True):
+class CodeInterpreterStreamOutputInternalServerExceptionMember(TypedDict, closed=True):
     internalServerException: "capo_bedrock_agentcore.errors.internal_server_exception.InternalServerException_"
 
 
-class _CodeInterpreterStreamOutput_resourceNotFoundException(TypedDict, closed=True):
+class CodeInterpreterStreamOutputResourceNotFoundExceptionMember(
+    TypedDict, closed=True
+):
     resourceNotFoundException: "capo_bedrock_agentcore.errors.resource_not_found_exception.ResourceNotFoundException_"
 
 
-class _CodeInterpreterStreamOutput_serviceQuotaExceededException(
+class CodeInterpreterStreamOutputServiceQuotaExceededExceptionMember(
     TypedDict, closed=True
 ):
     serviceQuotaExceededException: "capo_bedrock_agentcore.errors.service_quota_exceeded_exception.ServiceQuotaExceededException_"
 
 
-class _CodeInterpreterStreamOutput_throttlingException(TypedDict, closed=True):
+class CodeInterpreterStreamOutputThrottlingExceptionMember(TypedDict, closed=True):
     throttlingException: (
         "capo_bedrock_agentcore.errors.throttling_exception.ThrottlingException_"
     )
 
 
-class _CodeInterpreterStreamOutput_validationException(TypedDict, closed=True):
+class CodeInterpreterStreamOutputValidationExceptionMember(TypedDict, closed=True):
     validationException: (
         "capo_bedrock_agentcore.errors.validation_exception.ValidationException_"
     )
 
 
 _CodeInterpreterStreamOutput: TypeAlias = (
-    _CodeInterpreterStreamOutput_result
-    | _CodeInterpreterStreamOutput_accessDeniedException
-    | _CodeInterpreterStreamOutput_conflictException
-    | _CodeInterpreterStreamOutput_internalServerException
-    | _CodeInterpreterStreamOutput_resourceNotFoundException
-    | _CodeInterpreterStreamOutput_serviceQuotaExceededException
-    | _CodeInterpreterStreamOutput_throttlingException
-    | _CodeInterpreterStreamOutput_validationException
+    CodeInterpreterStreamOutputResultMember
+    | CodeInterpreterStreamOutputAccessDeniedExceptionMember
+    | CodeInterpreterStreamOutputConflictExceptionMember
+    | CodeInterpreterStreamOutputInternalServerExceptionMember
+    | CodeInterpreterStreamOutputResourceNotFoundExceptionMember
+    | CodeInterpreterStreamOutputServiceQuotaExceededExceptionMember
+    | CodeInterpreterStreamOutputThrottlingExceptionMember
+    | CodeInterpreterStreamOutputValidationExceptionMember
     | UnknownEvent
 )
 CodeInterpreterStreamOutput: TypeAlias = AnyIterator[_CodeInterpreterStreamOutput]

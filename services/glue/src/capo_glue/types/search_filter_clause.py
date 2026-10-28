@@ -13,27 +13,27 @@ if TYPE_CHECKING:
     import capo_glue.types.search_map_filter
 
 
-class _SearchFilterClause_AndAllFilters(TypedDict, closed=True):
+class SearchFilterClauseAndAllFiltersMember(TypedDict, closed=True):
     AndAllFilters: "capo_glue.types.search_filter_clause_list.SearchFilterClauseList"
 
 
-class _SearchFilterClause_OrAnyFilters(TypedDict, closed=True):
+class SearchFilterClauseOrAnyFiltersMember(TypedDict, closed=True):
     OrAnyFilters: "capo_glue.types.search_filter_clause_list.SearchFilterClauseList"
 
 
-class _SearchFilterClause_AttributeFilter(TypedDict, closed=True):
+class SearchFilterClauseAttributeFilterMember(TypedDict, closed=True):
     AttributeFilter: "capo_glue.types.search_attribute_filter.SearchAttributeFilter"
 
 
-class _SearchFilterClause_MapFilter(TypedDict, closed=True):
+class SearchFilterClauseMapFilterMember(TypedDict, closed=True):
     MapFilter: "capo_glue.types.search_map_filter.SearchMapFilter"
 
 
 SearchFilterClause: TypeAlias = (
-    _SearchFilterClause_AndAllFilters
-    | _SearchFilterClause_OrAnyFilters
-    | _SearchFilterClause_AttributeFilter
-    | _SearchFilterClause_MapFilter
+    SearchFilterClauseAndAllFiltersMember
+    | SearchFilterClauseOrAnyFiltersMember
+    | SearchFilterClauseAttributeFilterMember
+    | SearchFilterClauseMapFilterMember
     | UnknownUnionMember
 )
 

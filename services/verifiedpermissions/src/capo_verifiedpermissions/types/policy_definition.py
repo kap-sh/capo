@@ -12,18 +12,20 @@ if TYPE_CHECKING:
     import capo_verifiedpermissions.types.template_linked_policy_definition
 
 
-class _PolicyDefinition_static(TypedDict, closed=True):
+class PolicyDefinitionStaticMember(TypedDict, closed=True):
     static: (
         "capo_verifiedpermissions.types.static_policy_definition.StaticPolicyDefinition"
     )
 
 
-class _PolicyDefinition_templateLinked(TypedDict, closed=True):
+class PolicyDefinitionTemplateLinkedMember(TypedDict, closed=True):
     templateLinked: "capo_verifiedpermissions.types.template_linked_policy_definition.TemplateLinkedPolicyDefinition"
 
 
 PolicyDefinition: TypeAlias = (
-    _PolicyDefinition_static | _PolicyDefinition_templateLinked | UnknownUnionMember
+    PolicyDefinitionStaticMember
+    | PolicyDefinitionTemplateLinkedMember
+    | UnknownUnionMember
 )
 
 

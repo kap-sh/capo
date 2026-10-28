@@ -7,7 +7,7 @@ title: CloudConnectorConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_ssm.types.cloud_connector_configuration._CloudConnectorConfiguration_AzureConfiguration
+::: capo_ssm.types.cloud_connector_configuration.CloudConnectorConfigurationAzureConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false

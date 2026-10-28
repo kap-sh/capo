@@ -7,19 +7,19 @@ title: DataDestinationConfig
       show_source: true
       merge_init_into_class: false
 
-::: capo_iotfleetwise.types.data_destination_config._DataDestinationConfig_s3Config
+::: capo_iotfleetwise.types.data_destination_config.DataDestinationConfigS3ConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_iotfleetwise.types.data_destination_config._DataDestinationConfig_timestreamConfig
+::: capo_iotfleetwise.types.data_destination_config.DataDestinationConfigTimestreamConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_iotfleetwise.types.data_destination_config._DataDestinationConfig_mqttTopicConfig
+::: capo_iotfleetwise.types.data_destination_config.DataDestinationConfigMqttTopicConfigMember
     options:
       show_source: true
       merge_init_into_class: false

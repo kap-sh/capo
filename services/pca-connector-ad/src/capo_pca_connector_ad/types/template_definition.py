@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_pca_connector_ad.types.template_v4
 
 
-class _TemplateDefinition_TemplateV2(TypedDict, closed=True):
+class TemplateDefinitionTemplateV2Member(TypedDict, closed=True):
     TemplateV2: "capo_pca_connector_ad.types.template_v2.TemplateV2"
 
 
-class _TemplateDefinition_TemplateV3(TypedDict, closed=True):
+class TemplateDefinitionTemplateV3Member(TypedDict, closed=True):
     TemplateV3: "capo_pca_connector_ad.types.template_v3.TemplateV3"
 
 
-class _TemplateDefinition_TemplateV4(TypedDict, closed=True):
+class TemplateDefinitionTemplateV4Member(TypedDict, closed=True):
     TemplateV4: "capo_pca_connector_ad.types.template_v4.TemplateV4"
 
 
 TemplateDefinition: TypeAlias = (
-    _TemplateDefinition_TemplateV2
-    | _TemplateDefinition_TemplateV3
-    | _TemplateDefinition_TemplateV4
+    TemplateDefinitionTemplateV2Member
+    | TemplateDefinitionTemplateV3Member
+    | TemplateDefinitionTemplateV4Member
     | UnknownUnionMember
 )
 

@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_qbusiness.types.content_retrieval_rule
 
 
-class _RuleConfiguration_contentBlockerRule(TypedDict, closed=True):
+class RuleConfigurationContentBlockerRuleMember(TypedDict, closed=True):
     contentBlockerRule: "capo_qbusiness.types.content_blocker_rule.ContentBlockerRule"
 
 
-class _RuleConfiguration_contentRetrievalRule(TypedDict, closed=True):
+class RuleConfigurationContentRetrievalRuleMember(TypedDict, closed=True):
     contentRetrievalRule: (
         "capo_qbusiness.types.content_retrieval_rule.ContentRetrievalRule"
     )
 
 
 RuleConfiguration: TypeAlias = (
-    _RuleConfiguration_contentBlockerRule
-    | _RuleConfiguration_contentRetrievalRule
+    RuleConfigurationContentBlockerRuleMember
+    | RuleConfigurationContentRetrievalRuleMember
     | UnknownUnionMember
 )
 

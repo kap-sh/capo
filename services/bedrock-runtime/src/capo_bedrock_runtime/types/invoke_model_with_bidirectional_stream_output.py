@@ -22,11 +22,11 @@ if TYPE_CHECKING:
     import capo_bedrock_runtime.types.bidirectional_output_payload_part
 
 
-class _InvokeModelWithBidirectionalStreamOutput_chunk(TypedDict, closed=True):
+class InvokeModelWithBidirectionalStreamOutputChunkMember(TypedDict, closed=True):
     chunk: "capo_bedrock_runtime.types.bidirectional_output_payload_part.BidirectionalOutputPayloadPart"
 
 
-class _InvokeModelWithBidirectionalStreamOutput_internalServerException(
+class InvokeModelWithBidirectionalStreamOutputInternalServerExceptionMember(
     TypedDict, closed=True
 ):
     internalServerException: (
@@ -34,13 +34,13 @@ class _InvokeModelWithBidirectionalStreamOutput_internalServerException(
     )
 
 
-class _InvokeModelWithBidirectionalStreamOutput_modelStreamErrorException(
+class InvokeModelWithBidirectionalStreamOutputModelStreamErrorExceptionMember(
     TypedDict, closed=True
 ):
     modelStreamErrorException: "capo_bedrock_runtime.errors.model_stream_error_exception.ModelStreamErrorException_"
 
 
-class _InvokeModelWithBidirectionalStreamOutput_validationException(
+class InvokeModelWithBidirectionalStreamOutputValidationExceptionMember(
     TypedDict, closed=True
 ):
     validationException: (
@@ -48,7 +48,7 @@ class _InvokeModelWithBidirectionalStreamOutput_validationException(
     )
 
 
-class _InvokeModelWithBidirectionalStreamOutput_throttlingException(
+class InvokeModelWithBidirectionalStreamOutputThrottlingExceptionMember(
     TypedDict, closed=True
 ):
     throttlingException: (
@@ -56,7 +56,7 @@ class _InvokeModelWithBidirectionalStreamOutput_throttlingException(
     )
 
 
-class _InvokeModelWithBidirectionalStreamOutput_modelTimeoutException(
+class InvokeModelWithBidirectionalStreamOutputModelTimeoutExceptionMember(
     TypedDict, closed=True
 ):
     modelTimeoutException: (
@@ -64,20 +64,20 @@ class _InvokeModelWithBidirectionalStreamOutput_modelTimeoutException(
     )
 
 
-class _InvokeModelWithBidirectionalStreamOutput_serviceUnavailableException(
+class InvokeModelWithBidirectionalStreamOutputServiceUnavailableExceptionMember(
     TypedDict, closed=True
 ):
     serviceUnavailableException: "capo_bedrock_runtime.errors.service_unavailable_exception.ServiceUnavailableException_"
 
 
 _InvokeModelWithBidirectionalStreamOutput: TypeAlias = (
-    _InvokeModelWithBidirectionalStreamOutput_chunk
-    | _InvokeModelWithBidirectionalStreamOutput_internalServerException
-    | _InvokeModelWithBidirectionalStreamOutput_modelStreamErrorException
-    | _InvokeModelWithBidirectionalStreamOutput_validationException
-    | _InvokeModelWithBidirectionalStreamOutput_throttlingException
-    | _InvokeModelWithBidirectionalStreamOutput_modelTimeoutException
-    | _InvokeModelWithBidirectionalStreamOutput_serviceUnavailableException
+    InvokeModelWithBidirectionalStreamOutputChunkMember
+    | InvokeModelWithBidirectionalStreamOutputInternalServerExceptionMember
+    | InvokeModelWithBidirectionalStreamOutputModelStreamErrorExceptionMember
+    | InvokeModelWithBidirectionalStreamOutputValidationExceptionMember
+    | InvokeModelWithBidirectionalStreamOutputThrottlingExceptionMember
+    | InvokeModelWithBidirectionalStreamOutputModelTimeoutExceptionMember
+    | InvokeModelWithBidirectionalStreamOutputServiceUnavailableExceptionMember
     | UnknownEvent
 )
 InvokeModelWithBidirectionalStreamOutput: TypeAlias = AnyIterator[

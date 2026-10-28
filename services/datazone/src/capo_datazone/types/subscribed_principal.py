@@ -14,27 +14,27 @@ if TYPE_CHECKING:
     import capo_datazone.types.subscribed_user
 
 
-class _SubscribedPrincipal_project(TypedDict, closed=True):
+class SubscribedPrincipalProjectMember(TypedDict, closed=True):
     project: "capo_datazone.types.subscribed_project.SubscribedProject"
 
 
-class _SubscribedPrincipal_user(TypedDict, closed=True):
+class SubscribedPrincipalUserMember(TypedDict, closed=True):
     user: "capo_datazone.types.subscribed_user.SubscribedUser"
 
 
-class _SubscribedPrincipal_group(TypedDict, closed=True):
+class SubscribedPrincipalGroupMember(TypedDict, closed=True):
     group: "capo_datazone.types.subscribed_group.SubscribedGroup"
 
 
-class _SubscribedPrincipal_iam(TypedDict, closed=True):
+class SubscribedPrincipalIamMember(TypedDict, closed=True):
     iam: "capo_datazone.types.subscribed_iam_principal.SubscribedIamPrincipal"
 
 
 SubscribedPrincipal: TypeAlias = (
-    _SubscribedPrincipal_project
-    | _SubscribedPrincipal_user
-    | _SubscribedPrincipal_group
-    | _SubscribedPrincipal_iam
+    SubscribedPrincipalProjectMember
+    | SubscribedPrincipalUserMember
+    | SubscribedPrincipalGroupMember
+    | SubscribedPrincipalIamMember
     | UnknownUnionMember
 )
 

@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.metadata_value
 
 
-class _RightExpression_metadataValue(TypedDict, closed=True):
+class RightExpressionMetadataValueMember(TypedDict, closed=True):
     metadataValue: "capo_bedrock_agentcore.types.metadata_value.MetadataValue"
 
 
-RightExpression: TypeAlias = _RightExpression_metadataValue | UnknownUnionMember
+RightExpression: TypeAlias = RightExpressionMetadataValueMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

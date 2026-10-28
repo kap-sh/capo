@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_datazone.types.s3_source_location
 
 
-class _SourceLocation_s3(TypedDict, closed=True):
+class SourceLocationS3Member(TypedDict, closed=True):
     s3: "capo_datazone.types.s3_source_location.S3SourceLocation"
 
 
-class _SourceLocation_s3Files(TypedDict, closed=True):
+class SourceLocationS3FilesMember(TypedDict, closed=True):
     s3Files: "capo_datazone.types.s3_files_location.S3FilesLocation"
 
 
 SourceLocation: TypeAlias = (
-    _SourceLocation_s3 | _SourceLocation_s3Files | UnknownUnionMember
+    SourceLocationS3Member | SourceLocationS3FilesMember | UnknownUnionMember
 )
 
 

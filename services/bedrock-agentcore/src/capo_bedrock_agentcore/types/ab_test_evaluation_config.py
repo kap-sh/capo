@@ -12,17 +12,19 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.per_variant_online_evaluation_config_list
 
 
-class _ABTestEvaluationConfig_onlineEvaluationConfigArn(TypedDict, closed=True):
+class ABTestEvaluationConfigOnlineEvaluationConfigArnMember(TypedDict, closed=True):
     onlineEvaluationConfigArn: "capo_bedrock_agentcore.types.online_evaluation_config_arn.OnlineEvaluationConfigArn"
 
 
-class _ABTestEvaluationConfig_perVariantOnlineEvaluationConfig(TypedDict, closed=True):
+class ABTestEvaluationConfigPerVariantOnlineEvaluationConfigMember(
+    TypedDict, closed=True
+):
     perVariantOnlineEvaluationConfig: "capo_bedrock_agentcore.types.per_variant_online_evaluation_config_list.PerVariantOnlineEvaluationConfigList"
 
 
 ABTestEvaluationConfig: TypeAlias = (
-    _ABTestEvaluationConfig_onlineEvaluationConfigArn
-    | _ABTestEvaluationConfig_perVariantOnlineEvaluationConfig
+    ABTestEvaluationConfigOnlineEvaluationConfigArnMember
+    | ABTestEvaluationConfigPerVariantOnlineEvaluationConfigMember
     | UnknownUnionMember
 )
 

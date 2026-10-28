@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.consolidated_policy_v1
 
 
-class _ConsolidatedPolicy_v1(TypedDict, closed=True):
+class ConsolidatedPolicyV1Member(TypedDict, closed=True):
     v1: "capo_cleanrooms.types.consolidated_policy_v1.ConsolidatedPolicyV1"
 
 
-ConsolidatedPolicy: TypeAlias = _ConsolidatedPolicy_v1 | UnknownUnionMember
+ConsolidatedPolicy: TypeAlias = ConsolidatedPolicyV1Member | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

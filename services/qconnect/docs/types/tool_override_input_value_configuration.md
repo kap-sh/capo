@@ -7,7 +7,7 @@ title: ToolOverrideInputValueConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_qconnect.types.tool_override_input_value_configuration._ToolOverrideInputValueConfiguration_constant
+::: capo_qconnect.types.tool_override_input_value_configuration.ToolOverrideInputValueConfigurationConstantMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -12,15 +12,15 @@ if TYPE_CHECKING:
     import capo_qbusiness.types.s3
 
 
-class _APISchema_payload(TypedDict, closed=True):
+class APISchemaPayloadMember(TypedDict, closed=True):
     payload: "capo_qbusiness.types.payload.Payload"
 
 
-class _APISchema_s3(TypedDict, closed=True):
+class APISchemaS3Member(TypedDict, closed=True):
     s3: "capo_qbusiness.types.s3.S3"
 
 
-APISchema: TypeAlias = _APISchema_payload | _APISchema_s3 | UnknownUnionMember
+APISchema: TypeAlias = APISchemaPayloadMember | APISchemaS3Member | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

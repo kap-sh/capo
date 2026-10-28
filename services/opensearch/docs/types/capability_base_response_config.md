@@ -7,7 +7,7 @@ title: CapabilityBaseResponseConfig
       show_source: true
       merge_init_into_class: false
 
-::: capo_opensearch.types.capability_base_response_config._CapabilityBaseResponseConfig_aiConfig
+::: capo_opensearch.types.capability_base_response_config.CapabilityBaseResponseConfigAiConfigMember
     options:
       show_source: true
       merge_init_into_class: false

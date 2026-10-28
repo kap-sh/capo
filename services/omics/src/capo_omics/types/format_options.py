@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_omics.types.vcf_options
 
 
-class _FormatOptions_tsvOptions(TypedDict, closed=True):
+class FormatOptionsTsvOptionsMember(TypedDict, closed=True):
     tsvOptions: "capo_omics.types.tsv_options.TsvOptions"
 
 
-class _FormatOptions_vcfOptions(TypedDict, closed=True):
+class FormatOptionsVcfOptionsMember(TypedDict, closed=True):
     vcfOptions: "capo_omics.types.vcf_options.VcfOptions"
 
 
 FormatOptions: TypeAlias = (
-    _FormatOptions_tsvOptions | _FormatOptions_vcfOptions | UnknownUnionMember
+    FormatOptionsTsvOptionsMember | FormatOptionsVcfOptionsMember | UnknownUnionMember
 )
 
 

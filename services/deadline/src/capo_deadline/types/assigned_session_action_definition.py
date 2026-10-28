@@ -14,27 +14,29 @@ if TYPE_CHECKING:
     import capo_deadline.types.assigned_task_run_session_action_definition
 
 
-class _AssignedSessionActionDefinition_envEnter(TypedDict, closed=True):
+class AssignedSessionActionDefinitionEnvEnterMember(TypedDict, closed=True):
     envEnter: "capo_deadline.types.assigned_environment_enter_session_action_definition.AssignedEnvironmentEnterSessionActionDefinition"
 
 
-class _AssignedSessionActionDefinition_envExit(TypedDict, closed=True):
+class AssignedSessionActionDefinitionEnvExitMember(TypedDict, closed=True):
     envExit: "capo_deadline.types.assigned_environment_exit_session_action_definition.AssignedEnvironmentExitSessionActionDefinition"
 
 
-class _AssignedSessionActionDefinition_taskRun(TypedDict, closed=True):
+class AssignedSessionActionDefinitionTaskRunMember(TypedDict, closed=True):
     taskRun: "capo_deadline.types.assigned_task_run_session_action_definition.AssignedTaskRunSessionActionDefinition"
 
 
-class _AssignedSessionActionDefinition_syncInputJobAttachments(TypedDict, closed=True):
+class AssignedSessionActionDefinitionSyncInputJobAttachmentsMember(
+    TypedDict, closed=True
+):
     syncInputJobAttachments: "capo_deadline.types.assigned_sync_input_job_attachments_session_action_definition.AssignedSyncInputJobAttachmentsSessionActionDefinition"
 
 
 AssignedSessionActionDefinition: TypeAlias = (
-    _AssignedSessionActionDefinition_envEnter
-    | _AssignedSessionActionDefinition_envExit
-    | _AssignedSessionActionDefinition_taskRun
-    | _AssignedSessionActionDefinition_syncInputJobAttachments
+    AssignedSessionActionDefinitionEnvEnterMember
+    | AssignedSessionActionDefinitionEnvExitMember
+    | AssignedSessionActionDefinitionTaskRunMember
+    | AssignedSessionActionDefinitionSyncInputJobAttachmentsMember
     | UnknownUnionMember
 )
 

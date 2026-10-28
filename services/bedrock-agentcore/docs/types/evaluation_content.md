@@ -7,7 +7,7 @@ title: EvaluationContent
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore.types.evaluation_content._EvaluationContent_text
+::: capo_bedrock_agentcore.types.evaluation_content.EvaluationContentTextMember
     options:
       show_source: true
       merge_init_into_class: false

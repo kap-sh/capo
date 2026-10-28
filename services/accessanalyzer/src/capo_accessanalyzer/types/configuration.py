@@ -24,79 +24,79 @@ if TYPE_CHECKING:
     import capo_accessanalyzer.types.sqs_queue_configuration
 
 
-class _Configuration_ebsSnapshot(TypedDict, closed=True):
+class ConfigurationEbsSnapshotMember(TypedDict, closed=True):
     ebsSnapshot: (
         "capo_accessanalyzer.types.ebs_snapshot_configuration.EbsSnapshotConfiguration"
     )
 
 
-class _Configuration_ecrRepository(TypedDict, closed=True):
+class ConfigurationEcrRepositoryMember(TypedDict, closed=True):
     ecrRepository: "capo_accessanalyzer.types.ecr_repository_configuration.EcrRepositoryConfiguration"
 
 
-class _Configuration_iamRole(TypedDict, closed=True):
+class ConfigurationIamRoleMember(TypedDict, closed=True):
     iamRole: "capo_accessanalyzer.types.iam_role_configuration.IamRoleConfiguration"
 
 
-class _Configuration_efsFileSystem(TypedDict, closed=True):
+class ConfigurationEfsFileSystemMember(TypedDict, closed=True):
     efsFileSystem: "capo_accessanalyzer.types.efs_file_system_configuration.EfsFileSystemConfiguration"
 
 
-class _Configuration_kmsKey(TypedDict, closed=True):
+class ConfigurationKmsKeyMember(TypedDict, closed=True):
     kmsKey: "capo_accessanalyzer.types.kms_key_configuration.KmsKeyConfiguration"
 
 
-class _Configuration_rdsDbClusterSnapshot(TypedDict, closed=True):
+class ConfigurationRdsDbClusterSnapshotMember(TypedDict, closed=True):
     rdsDbClusterSnapshot: "capo_accessanalyzer.types.rds_db_cluster_snapshot_configuration.RdsDbClusterSnapshotConfiguration"
 
 
-class _Configuration_rdsDbSnapshot(TypedDict, closed=True):
+class ConfigurationRdsDbSnapshotMember(TypedDict, closed=True):
     rdsDbSnapshot: "capo_accessanalyzer.types.rds_db_snapshot_configuration.RdsDbSnapshotConfiguration"
 
 
-class _Configuration_secretsManagerSecret(TypedDict, closed=True):
+class ConfigurationSecretsManagerSecretMember(TypedDict, closed=True):
     secretsManagerSecret: "capo_accessanalyzer.types.secrets_manager_secret_configuration.SecretsManagerSecretConfiguration"
 
 
-class _Configuration_s3Bucket(TypedDict, closed=True):
+class ConfigurationS3BucketMember(TypedDict, closed=True):
     s3Bucket: "capo_accessanalyzer.types.s3_bucket_configuration.S3BucketConfiguration"
 
 
-class _Configuration_snsTopic(TypedDict, closed=True):
+class ConfigurationSnsTopicMember(TypedDict, closed=True):
     snsTopic: "capo_accessanalyzer.types.sns_topic_configuration.SnsTopicConfiguration"
 
 
-class _Configuration_sqsQueue(TypedDict, closed=True):
+class ConfigurationSqsQueueMember(TypedDict, closed=True):
     sqsQueue: "capo_accessanalyzer.types.sqs_queue_configuration.SqsQueueConfiguration"
 
 
-class _Configuration_s3ExpressDirectoryBucket(TypedDict, closed=True):
+class ConfigurationS3ExpressDirectoryBucketMember(TypedDict, closed=True):
     s3ExpressDirectoryBucket: "capo_accessanalyzer.types.s3_express_directory_bucket_configuration.S3ExpressDirectoryBucketConfiguration"
 
 
-class _Configuration_dynamodbStream(TypedDict, closed=True):
+class ConfigurationDynamodbStreamMember(TypedDict, closed=True):
     dynamodbStream: "capo_accessanalyzer.types.dynamodb_stream_configuration.DynamodbStreamConfiguration"
 
 
-class _Configuration_dynamodbTable(TypedDict, closed=True):
+class ConfigurationDynamodbTableMember(TypedDict, closed=True):
     dynamodbTable: "capo_accessanalyzer.types.dynamodb_table_configuration.DynamodbTableConfiguration"
 
 
 Configuration: TypeAlias = (
-    _Configuration_ebsSnapshot
-    | _Configuration_ecrRepository
-    | _Configuration_iamRole
-    | _Configuration_efsFileSystem
-    | _Configuration_kmsKey
-    | _Configuration_rdsDbClusterSnapshot
-    | _Configuration_rdsDbSnapshot
-    | _Configuration_secretsManagerSecret
-    | _Configuration_s3Bucket
-    | _Configuration_snsTopic
-    | _Configuration_sqsQueue
-    | _Configuration_s3ExpressDirectoryBucket
-    | _Configuration_dynamodbStream
-    | _Configuration_dynamodbTable
+    ConfigurationEbsSnapshotMember
+    | ConfigurationEcrRepositoryMember
+    | ConfigurationIamRoleMember
+    | ConfigurationEfsFileSystemMember
+    | ConfigurationKmsKeyMember
+    | ConfigurationRdsDbClusterSnapshotMember
+    | ConfigurationRdsDbSnapshotMember
+    | ConfigurationSecretsManagerSecretMember
+    | ConfigurationS3BucketMember
+    | ConfigurationSnsTopicMember
+    | ConfigurationSqsQueueMember
+    | ConfigurationS3ExpressDirectoryBucketMember
+    | ConfigurationDynamodbStreamMember
+    | ConfigurationDynamodbTableMember
     | UnknownUnionMember
 )
 

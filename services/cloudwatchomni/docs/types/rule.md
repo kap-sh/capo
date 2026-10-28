@@ -7,7 +7,7 @@ title: Rule
       show_source: true
       merge_init_into_class: false
 
-::: capo_cloudwatchomni.types.rule._Rule_telemetryRule
+::: capo_cloudwatchomni.types.rule.RuleTelemetryRuleMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -14,14 +14,14 @@ if TYPE_CHECKING:
     import capo_database_migration_service.types.statement_properties
 
 
-class _MetadataModelProperties_StatementProperties(TypedDict, closed=True):
+class MetadataModelPropertiesStatementPropertiesMember(TypedDict, closed=True):
     StatementProperties: (
         "capo_database_migration_service.types.statement_properties.StatementProperties"
     )
 
 
 MetadataModelProperties: TypeAlias = (
-    _MetadataModelProperties_StatementProperties | UnknownUnionMember
+    MetadataModelPropertiesStatementPropertiesMember | UnknownUnionMember
 )
 
 

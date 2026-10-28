@@ -12,18 +12,20 @@ if TYPE_CHECKING:
     import capo_securityhub.types.resources_filters
 
 
-class _Criteria_OcsfFindingCriteria(TypedDict, closed=True):
+class CriteriaOcsfFindingCriteriaMember(TypedDict, closed=True):
     OcsfFindingCriteria: (
         "capo_securityhub.types.ocsf_finding_filters.OcsfFindingFilters"
     )
 
 
-class _Criteria_ResourceCriteria(TypedDict, closed=True):
+class CriteriaResourceCriteriaMember(TypedDict, closed=True):
     ResourceCriteria: "capo_securityhub.types.resources_filters.ResourcesFilters"
 
 
 Criteria: TypeAlias = (
-    _Criteria_OcsfFindingCriteria | _Criteria_ResourceCriteria | UnknownUnionMember
+    CriteriaOcsfFindingCriteriaMember
+    | CriteriaResourceCriteriaMember
+    | UnknownUnionMember
 )
 
 

@@ -14,27 +14,27 @@ if TYPE_CHECKING:
     import capo_transcribe.types.transcript_filter
 
 
-class _Rule_NonTalkTimeFilter(TypedDict, closed=True):
+class RuleNonTalkTimeFilterMember(TypedDict, closed=True):
     NonTalkTimeFilter: "capo_transcribe.types.non_talk_time_filter.NonTalkTimeFilter"
 
 
-class _Rule_InterruptionFilter(TypedDict, closed=True):
+class RuleInterruptionFilterMember(TypedDict, closed=True):
     InterruptionFilter: "capo_transcribe.types.interruption_filter.InterruptionFilter"
 
 
-class _Rule_TranscriptFilter(TypedDict, closed=True):
+class RuleTranscriptFilterMember(TypedDict, closed=True):
     TranscriptFilter: "capo_transcribe.types.transcript_filter.TranscriptFilter"
 
 
-class _Rule_SentimentFilter(TypedDict, closed=True):
+class RuleSentimentFilterMember(TypedDict, closed=True):
     SentimentFilter: "capo_transcribe.types.sentiment_filter.SentimentFilter"
 
 
 Rule: TypeAlias = (
-    _Rule_NonTalkTimeFilter
-    | _Rule_InterruptionFilter
-    | _Rule_TranscriptFilter
-    | _Rule_SentimentFilter
+    RuleNonTalkTimeFilterMember
+    | RuleInterruptionFilterMember
+    | RuleTranscriptFilterMember
+    | RuleSentimentFilterMember
     | UnknownUnionMember
 )
 

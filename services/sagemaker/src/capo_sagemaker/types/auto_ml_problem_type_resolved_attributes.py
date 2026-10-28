@@ -12,7 +12,7 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.text_generation_resolved_attributes
 
 
-class _AutoMLProblemTypeResolvedAttributes_TabularResolvedAttributes(
+class AutoMLProblemTypeResolvedAttributesTabularResolvedAttributesMember(
     TypedDict, closed=True
 ):
     TabularResolvedAttributes: (
@@ -20,15 +20,15 @@ class _AutoMLProblemTypeResolvedAttributes_TabularResolvedAttributes(
     )
 
 
-class _AutoMLProblemTypeResolvedAttributes_TextGenerationResolvedAttributes(
+class AutoMLProblemTypeResolvedAttributesTextGenerationResolvedAttributesMember(
     TypedDict, closed=True
 ):
     TextGenerationResolvedAttributes: "capo_sagemaker.types.text_generation_resolved_attributes.TextGenerationResolvedAttributes"
 
 
 AutoMLProblemTypeResolvedAttributes: TypeAlias = (
-    _AutoMLProblemTypeResolvedAttributes_TabularResolvedAttributes
-    | _AutoMLProblemTypeResolvedAttributes_TextGenerationResolvedAttributes
+    AutoMLProblemTypeResolvedAttributesTabularResolvedAttributesMember
+    | AutoMLProblemTypeResolvedAttributesTextGenerationResolvedAttributesMember
     | UnknownUnionMember
 )
 

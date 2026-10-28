@@ -12,16 +12,18 @@ if TYPE_CHECKING:
     import capo_securityagent.types.provider_type
 
 
-class _IntegrationFilter_provider(TypedDict, closed=True):
+class IntegrationFilterProviderMember(TypedDict, closed=True):
     provider: "capo_securityagent.types.provider.Provider"
 
 
-class _IntegrationFilter_providerType(TypedDict, closed=True):
+class IntegrationFilterProviderTypeMember(TypedDict, closed=True):
     providerType: "capo_securityagent.types.provider_type.ProviderType"
 
 
 IntegrationFilter: TypeAlias = (
-    _IntegrationFilter_provider | _IntegrationFilter_providerType | UnknownUnionMember
+    IntegrationFilterProviderMember
+    | IntegrationFilterProviderTypeMember
+    | UnknownUnionMember
 )
 
 

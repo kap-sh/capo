@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_datazone.types.domain_unit_filter_for_project
 
 
-class _ProjectGrantFilter_domainUnitFilter(TypedDict, closed=True):
+class ProjectGrantFilterDomainUnitFilterMember(TypedDict, closed=True):
     domainUnitFilter: (
         "capo_datazone.types.domain_unit_filter_for_project.DomainUnitFilterForProject"
     )
 
 
 ProjectGrantFilter: TypeAlias = (
-    _ProjectGrantFilter_domainUnitFilter | UnknownUnionMember
+    ProjectGrantFilterDomainUnitFilterMember | UnknownUnionMember
 )
 
 

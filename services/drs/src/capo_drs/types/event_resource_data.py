@@ -11,11 +11,13 @@ if TYPE_CHECKING:
     import capo_drs.types.source_network_data
 
 
-class _EventResourceData_sourceNetworkData(TypedDict, closed=True):
+class EventResourceDataSourceNetworkDataMember(TypedDict, closed=True):
     sourceNetworkData: "capo_drs.types.source_network_data.SourceNetworkData"
 
 
-EventResourceData: TypeAlias = _EventResourceData_sourceNetworkData | UnknownUnionMember
+EventResourceData: TypeAlias = (
+    EventResourceDataSourceNetworkDataMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

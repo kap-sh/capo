@@ -14,12 +14,12 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.lambda_evaluator_config
 
 
-class _CodeBasedEvaluatorConfig_lambdaConfig(TypedDict, closed=True):
+class CodeBasedEvaluatorConfigLambdaConfigMember(TypedDict, closed=True):
     lambdaConfig: "capo_bedrock_agentcore_control.types.lambda_evaluator_config.LambdaEvaluatorConfig"
 
 
 CodeBasedEvaluatorConfig: TypeAlias = (
-    _CodeBasedEvaluatorConfig_lambdaConfig | UnknownUnionMember
+    CodeBasedEvaluatorConfigLambdaConfigMember | UnknownUnionMember
 )
 
 

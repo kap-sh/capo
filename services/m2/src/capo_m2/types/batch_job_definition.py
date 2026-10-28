@@ -12,21 +12,21 @@ if TYPE_CHECKING:
     import capo_m2.types.script_batch_job_definition
 
 
-class _BatchJobDefinition_fileBatchJobDefinition(TypedDict, closed=True):
+class BatchJobDefinitionFileBatchJobDefinitionMember(TypedDict, closed=True):
     fileBatchJobDefinition: (
         "capo_m2.types.file_batch_job_definition.FileBatchJobDefinition"
     )
 
 
-class _BatchJobDefinition_scriptBatchJobDefinition(TypedDict, closed=True):
+class BatchJobDefinitionScriptBatchJobDefinitionMember(TypedDict, closed=True):
     scriptBatchJobDefinition: (
         "capo_m2.types.script_batch_job_definition.ScriptBatchJobDefinition"
     )
 
 
 BatchJobDefinition: TypeAlias = (
-    _BatchJobDefinition_fileBatchJobDefinition
-    | _BatchJobDefinition_scriptBatchJobDefinition
+    BatchJobDefinitionFileBatchJobDefinitionMember
+    | BatchJobDefinitionScriptBatchJobDefinitionMember
     | UnknownUnionMember
 )
 

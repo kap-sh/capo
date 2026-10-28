@@ -7,115 +7,115 @@ title: ExecutionBlockConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_arc_region_switch.types.execution_block_configuration._ExecutionBlockConfiguration_customActionLambdaConfig
+::: capo_arc_region_switch.types.execution_block_configuration.ExecutionBlockConfigurationCustomActionLambdaConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_arc_region_switch.types.execution_block_configuration._ExecutionBlockConfiguration_ec2AsgCapacityIncreaseConfig
+::: capo_arc_region_switch.types.execution_block_configuration.ExecutionBlockConfigurationEc2AsgCapacityIncreaseConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_arc_region_switch.types.execution_block_configuration._ExecutionBlockConfiguration_executionApprovalConfig
+::: capo_arc_region_switch.types.execution_block_configuration.ExecutionBlockConfigurationExecutionApprovalConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_arc_region_switch.types.execution_block_configuration._ExecutionBlockConfiguration_arcRoutingControlConfig
+::: capo_arc_region_switch.types.execution_block_configuration.ExecutionBlockConfigurationArcRoutingControlConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_arc_region_switch.types.execution_block_configuration._ExecutionBlockConfiguration_globalAuroraConfig
+::: capo_arc_region_switch.types.execution_block_configuration.ExecutionBlockConfigurationGlobalAuroraConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_arc_region_switch.types.execution_block_configuration._ExecutionBlockConfiguration_parallelConfig
+::: capo_arc_region_switch.types.execution_block_configuration.ExecutionBlockConfigurationParallelConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_arc_region_switch.types.execution_block_configuration._ExecutionBlockConfiguration_regionSwitchPlanConfig
+::: capo_arc_region_switch.types.execution_block_configuration.ExecutionBlockConfigurationRegionSwitchPlanConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_arc_region_switch.types.execution_block_configuration._ExecutionBlockConfiguration_ecsCapacityIncreaseConfig
+::: capo_arc_region_switch.types.execution_block_configuration.ExecutionBlockConfigurationEcsCapacityIncreaseConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_arc_region_switch.types.execution_block_configuration._ExecutionBlockConfiguration_eksResourceScalingConfig
+::: capo_arc_region_switch.types.execution_block_configuration.ExecutionBlockConfigurationEksResourceScalingConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_arc_region_switch.types.execution_block_configuration._ExecutionBlockConfiguration_route53HealthCheckConfig
+::: capo_arc_region_switch.types.execution_block_configuration.ExecutionBlockConfigurationRoute53HealthCheckConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_arc_region_switch.types.execution_block_configuration._ExecutionBlockConfiguration_documentDbConfig
+::: capo_arc_region_switch.types.execution_block_configuration.ExecutionBlockConfigurationDocumentDbConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_arc_region_switch.types.execution_block_configuration._ExecutionBlockConfiguration_rdsPromoteReadReplicaConfig
+::: capo_arc_region_switch.types.execution_block_configuration.ExecutionBlockConfigurationRdsPromoteReadReplicaConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_arc_region_switch.types.execution_block_configuration._ExecutionBlockConfiguration_rdsCreateCrossRegionReadReplicaConfig
+::: capo_arc_region_switch.types.execution_block_configuration.ExecutionBlockConfigurationRdsCreateCrossRegionReadReplicaConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_arc_region_switch.types.execution_block_configuration._ExecutionBlockConfiguration_lambdaEventSourceMappingConfig
+::: capo_arc_region_switch.types.execution_block_configuration.ExecutionBlockConfigurationLambdaEventSourceMappingConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_arc_region_switch.types.execution_block_configuration._ExecutionBlockConfiguration_auroraServerlessScalingConfig
+::: capo_arc_region_switch.types.execution_block_configuration.ExecutionBlockConfigurationAuroraServerlessScalingConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_arc_region_switch.types.execution_block_configuration._ExecutionBlockConfiguration_auroraProvisionedScalingConfig
+::: capo_arc_region_switch.types.execution_block_configuration.ExecutionBlockConfigurationAuroraProvisionedScalingConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_arc_region_switch.types.execution_block_configuration._ExecutionBlockConfiguration_neptuneGlobalDatabaseConfig
+::: capo_arc_region_switch.types.execution_block_configuration.ExecutionBlockConfigurationNeptuneGlobalDatabaseConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_arc_region_switch.types.execution_block_configuration._ExecutionBlockConfiguration_rdsSwitchoverReadReplicaConfig
+::: capo_arc_region_switch.types.execution_block_configuration.ExecutionBlockConfigurationRdsSwitchoverReadReplicaConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_arc_region_switch.types.execution_block_configuration._ExecutionBlockConfiguration_ssmSendCommandConfig
+::: capo_arc_region_switch.types.execution_block_configuration.ExecutionBlockConfigurationSsmSendCommandConfigMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -14,14 +14,14 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.resource_configuration_identifier
 
 
-class _SelfManagedLatticeResource_resourceConfigurationIdentifier(
+class SelfManagedLatticeResourceResourceConfigurationIdentifierMember(
     TypedDict, closed=True
 ):
     resourceConfigurationIdentifier: "capo_bedrock_agentcore_control.types.resource_configuration_identifier.ResourceConfigurationIdentifier"
 
 
 SelfManagedLatticeResource: TypeAlias = (
-    _SelfManagedLatticeResource_resourceConfigurationIdentifier | UnknownUnionMember
+    SelfManagedLatticeResourceResourceConfigurationIdentifierMember | UnknownUnionMember
 )
 
 

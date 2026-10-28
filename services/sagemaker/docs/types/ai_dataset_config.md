@@ -7,7 +7,7 @@ title: AIDatasetConfig
       show_source: true
       merge_init_into_class: false
 
-::: capo_sagemaker.types.ai_dataset_config._AIDatasetConfig_InputDataConfig
+::: capo_sagemaker.types.ai_dataset_config.AIDatasetConfigInputDataConfigMember
     options:
       show_source: true
       merge_init_into_class: false

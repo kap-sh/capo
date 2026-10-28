@@ -11,14 +11,16 @@ if TYPE_CHECKING:
     import capo_wisdom.types.knowledge_base_association_data
 
 
-class _AssistantAssociationOutputData_knowledgeBaseAssociation(TypedDict, closed=True):
+class AssistantAssociationOutputDataKnowledgeBaseAssociationMember(
+    TypedDict, closed=True
+):
     knowledgeBaseAssociation: (
         "capo_wisdom.types.knowledge_base_association_data.KnowledgeBaseAssociationData"
     )
 
 
 AssistantAssociationOutputData: TypeAlias = (
-    _AssistantAssociationOutputData_knowledgeBaseAssociation | UnknownUnionMember
+    AssistantAssociationOutputDataKnowledgeBaseAssociationMember | UnknownUnionMember
 )
 
 

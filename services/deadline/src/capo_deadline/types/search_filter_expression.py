@@ -16,45 +16,45 @@ if TYPE_CHECKING:
     import capo_deadline.types.string_list_filter_expression
 
 
-class _SearchFilterExpression_dateTimeFilter(TypedDict, closed=True):
+class SearchFilterExpressionDateTimeFilterMember(TypedDict, closed=True):
     dateTimeFilter: (
         "capo_deadline.types.date_time_filter_expression.DateTimeFilterExpression"
     )
 
 
-class _SearchFilterExpression_parameterFilter(TypedDict, closed=True):
+class SearchFilterExpressionParameterFilterMember(TypedDict, closed=True):
     parameterFilter: (
         "capo_deadline.types.parameter_filter_expression.ParameterFilterExpression"
     )
 
 
-class _SearchFilterExpression_searchTermFilter(TypedDict, closed=True):
+class SearchFilterExpressionSearchTermFilterMember(TypedDict, closed=True):
     searchTermFilter: (
         "capo_deadline.types.search_term_filter_expression.SearchTermFilterExpression"
     )
 
 
-class _SearchFilterExpression_stringFilter(TypedDict, closed=True):
+class SearchFilterExpressionStringFilterMember(TypedDict, closed=True):
     stringFilter: "capo_deadline.types.string_filter_expression.StringFilterExpression"
 
 
-class _SearchFilterExpression_stringListFilter(TypedDict, closed=True):
+class SearchFilterExpressionStringListFilterMember(TypedDict, closed=True):
     stringListFilter: (
         "capo_deadline.types.string_list_filter_expression.StringListFilterExpression"
     )
 
 
-class _SearchFilterExpression_groupFilter(TypedDict, closed=True):
+class SearchFilterExpressionGroupFilterMember(TypedDict, closed=True):
     groupFilter: "capo_deadline.types.search_grouped_filter_expressions.SearchGroupedFilterExpressions"
 
 
 SearchFilterExpression: TypeAlias = (
-    _SearchFilterExpression_dateTimeFilter
-    | _SearchFilterExpression_parameterFilter
-    | _SearchFilterExpression_searchTermFilter
-    | _SearchFilterExpression_stringFilter
-    | _SearchFilterExpression_stringListFilter
-    | _SearchFilterExpression_groupFilter
+    SearchFilterExpressionDateTimeFilterMember
+    | SearchFilterExpressionParameterFilterMember
+    | SearchFilterExpressionSearchTermFilterMember
+    | SearchFilterExpressionStringFilterMember
+    | SearchFilterExpressionStringListFilterMember
+    | SearchFilterExpressionGroupFilterMember
     | UnknownUnionMember
 )
 

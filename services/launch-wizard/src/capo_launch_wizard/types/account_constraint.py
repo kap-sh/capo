@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_launch_wizard.types.management_account_constraint
 
 
-class _AccountConstraint_managementAccount(TypedDict, closed=True):
+class AccountConstraintManagementAccountMember(TypedDict, closed=True):
     managementAccount: "capo_launch_wizard.types.management_account_constraint.ManagementAccountConstraint"
 
 
-class _AccountConstraint_delegatedAdmin(TypedDict, closed=True):
+class AccountConstraintDelegatedAdminMember(TypedDict, closed=True):
     delegatedAdmin: (
         "capo_launch_wizard.types.delegated_admin_constraint.DelegatedAdminConstraint"
     )
 
 
 AccountConstraint: TypeAlias = (
-    _AccountConstraint_managementAccount
-    | _AccountConstraint_delegatedAdmin
+    AccountConstraintManagementAccountMember
+    | AccountConstraintDelegatedAdminMember
     | UnknownUnionMember
 )
 

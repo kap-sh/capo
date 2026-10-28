@@ -7,13 +7,13 @@ title: ActionSet
       show_source: true
       merge_init_into_class: false
 
-::: capo_supportauthz.types.action_set._ActionSet_allActions
+::: capo_supportauthz.types.action_set.ActionSetAllActionsMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_supportauthz.types.action_set._ActionSet_actions
+::: capo_supportauthz.types.action_set.ActionSetActionsMember
     options:
       show_source: true
       merge_init_into_class: false

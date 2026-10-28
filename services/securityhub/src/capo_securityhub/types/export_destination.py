@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_securityhub.types.s3_export_destination
 
 
-class _ExportDestination_S3(TypedDict, closed=True):
+class ExportDestinationS3Member(TypedDict, closed=True):
     S3: "capo_securityhub.types.s3_export_destination.S3ExportDestination"
 
 
-ExportDestination: TypeAlias = _ExportDestination_S3 | UnknownUnionMember
+ExportDestination: TypeAlias = ExportDestinationS3Member | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

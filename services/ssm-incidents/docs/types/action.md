@@ -7,7 +7,7 @@ title: Action
       show_source: true
       merge_init_into_class: false
 
-::: capo_ssm_incidents.types.action._Action_ssmAutomation
+::: capo_ssm_incidents.types.action.ActionSsmAutomationMember
     options:
       show_source: true
       merge_init_into_class: false

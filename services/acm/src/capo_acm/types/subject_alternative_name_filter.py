@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_acm.types.dns_name_filter
 
 
-class _SubjectAlternativeNameFilter_DnsName(TypedDict, closed=True):
+class SubjectAlternativeNameFilterDnsNameMember(TypedDict, closed=True):
     DnsName: "capo_acm.types.dns_name_filter.DnsNameFilter"
 
 
 SubjectAlternativeNameFilter: TypeAlias = (
-    _SubjectAlternativeNameFilter_DnsName | UnknownUnionMember
+    SubjectAlternativeNameFilterDnsNameMember | UnknownUnionMember
 )
 
 

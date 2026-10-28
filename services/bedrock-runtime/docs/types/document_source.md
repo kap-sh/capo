@@ -7,25 +7,25 @@ title: DocumentSource
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_runtime.types.document_source._DocumentSource_bytes
+::: capo_bedrock_runtime.types.document_source.DocumentSourceBytesMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.document_source._DocumentSource_s3Location
+::: capo_bedrock_runtime.types.document_source.DocumentSourceS3LocationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.document_source._DocumentSource_text
+::: capo_bedrock_runtime.types.document_source.DocumentSourceTextMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.document_source._DocumentSource_content
+::: capo_bedrock_runtime.types.document_source.DocumentSourceContentMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -7,7 +7,7 @@ title: NetworkFileDefinition
       show_source: true
       merge_init_into_class: false
 
-::: capo_iotfleetwise.types.network_file_definition._NetworkFileDefinition_canDbc
+::: capo_iotfleetwise.types.network_file_definition.NetworkFileDefinitionCanDbcMember
     options:
       show_source: true
       merge_init_into_class: false

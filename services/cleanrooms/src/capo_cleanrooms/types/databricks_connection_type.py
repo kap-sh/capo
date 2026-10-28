@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.databricks_delta_sharing_connection
 
 
-class _DatabricksConnectionType_deltaSharing(TypedDict, closed=True):
+class DatabricksConnectionTypeDeltaSharingMember(TypedDict, closed=True):
     deltaSharing: "capo_cleanrooms.types.databricks_delta_sharing_connection.DatabricksDeltaSharingConnection"
 
 
 DatabricksConnectionType: TypeAlias = (
-    _DatabricksConnectionType_deltaSharing | UnknownUnionMember
+    DatabricksConnectionTypeDeltaSharingMember | UnknownUnionMember
 )
 
 

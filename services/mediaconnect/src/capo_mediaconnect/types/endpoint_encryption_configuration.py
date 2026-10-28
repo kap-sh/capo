@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.secrets_manager_endpoint_encryption_configuration
 
 
-class _EndpointEncryptionConfiguration_SecretsManager(TypedDict, closed=True):
+class EndpointEncryptionConfigurationSecretsManagerMember(TypedDict, closed=True):
     SecretsManager: "capo_mediaconnect.types.secrets_manager_endpoint_encryption_configuration.SecretsManagerEndpointEncryptionConfiguration"
 
 
-class _EndpointEncryptionConfiguration_Automatic(TypedDict, closed=True):
+class EndpointEncryptionConfigurationAutomaticMember(TypedDict, closed=True):
     Automatic: "capo_mediaconnect.types.automatic_endpoint_encryption_configuration.AutomaticEndpointEncryptionConfiguration"
 
 
 EndpointEncryptionConfiguration: TypeAlias = (
-    _EndpointEncryptionConfiguration_SecretsManager
-    | _EndpointEncryptionConfiguration_Automatic
+    EndpointEncryptionConfigurationSecretsManagerMember
+    | EndpointEncryptionConfigurationAutomaticMember
     | UnknownUnionMember
 )
 

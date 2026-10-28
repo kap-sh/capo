@@ -7,7 +7,7 @@ title: EntityDetails
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_data_automation.types.entity_details._EntityDetails_vocabulary
+::: capo_bedrock_data_automation.types.entity_details.EntityDetailsVocabularyMember
     options:
       show_source: true
       merge_init_into_class: false

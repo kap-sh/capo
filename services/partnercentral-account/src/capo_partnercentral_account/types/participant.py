@@ -13,24 +13,24 @@ if TYPE_CHECKING:
     import capo_partnercentral_account.types.seller_profile_summary
 
 
-class _Participant_PartnerProfile(TypedDict, closed=True):
+class ParticipantPartnerProfileMember(TypedDict, closed=True):
     PartnerProfile: "capo_partnercentral_account.types.partner_profile_summary.PartnerProfileSummary"
 
 
-class _Participant_SellerProfile(TypedDict, closed=True):
+class ParticipantSellerProfileMember(TypedDict, closed=True):
     SellerProfile: (
         "capo_partnercentral_account.types.seller_profile_summary.SellerProfileSummary"
     )
 
 
-class _Participant_Account(TypedDict, closed=True):
+class ParticipantAccountMember(TypedDict, closed=True):
     Account: "capo_partnercentral_account.types.account_summary.AccountSummary"
 
 
 Participant: TypeAlias = (
-    _Participant_PartnerProfile
-    | _Participant_SellerProfile
-    | _Participant_Account
+    ParticipantPartnerProfileMember
+    | ParticipantSellerProfileMember
+    | ParticipantAccountMember
     | UnknownUnionMember
 )
 

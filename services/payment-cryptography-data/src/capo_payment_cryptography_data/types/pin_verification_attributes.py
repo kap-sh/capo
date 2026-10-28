@@ -15,19 +15,19 @@ if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.visa_pin_verification
 
 
-class _PinVerificationAttributes_VisaPin(TypedDict, closed=True):
+class PinVerificationAttributesVisaPinMember(TypedDict, closed=True):
     VisaPin: (
         "capo_payment_cryptography_data.types.visa_pin_verification.VisaPinVerification"
     )
 
 
-class _PinVerificationAttributes_Ibm3624Pin(TypedDict, closed=True):
+class PinVerificationAttributesIbm3624PinMember(TypedDict, closed=True):
     Ibm3624Pin: "capo_payment_cryptography_data.types.ibm3624_pin_verification.Ibm3624PinVerification"
 
 
 PinVerificationAttributes: TypeAlias = (
-    _PinVerificationAttributes_VisaPin
-    | _PinVerificationAttributes_Ibm3624Pin
+    PinVerificationAttributesVisaPinMember
+    | PinVerificationAttributesIbm3624PinMember
     | UnknownUnionMember
 )
 

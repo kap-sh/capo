@@ -8,16 +8,16 @@ from capo_m2.errors import DeserializationError, SerializationError
 from capo_m2.types._unknown import UnknownUnionMember
 
 
-class _JobIdentifier_fileName(TypedDict, closed=True):
+class JobIdentifierFileNameMember(TypedDict, closed=True):
     fileName: "str"
 
 
-class _JobIdentifier_scriptName(TypedDict, closed=True):
+class JobIdentifierScriptNameMember(TypedDict, closed=True):
     scriptName: "str"
 
 
 JobIdentifier: TypeAlias = (
-    _JobIdentifier_fileName | _JobIdentifier_scriptName | UnknownUnionMember
+    JobIdentifierFileNameMember | JobIdentifierScriptNameMember | UnknownUnionMember
 )
 
 

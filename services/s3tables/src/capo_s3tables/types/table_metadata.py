@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_s3tables.types.iceberg_metadata
 
 
-class _TableMetadata_iceberg(TypedDict, closed=True):
+class TableMetadataIcebergMember(TypedDict, closed=True):
     iceberg: "capo_s3tables.types.iceberg_metadata.IcebergMetadata"
 
 
-TableMetadata: TypeAlias = _TableMetadata_iceberg | UnknownUnionMember
+TableMetadata: TypeAlias = TableMetadataIcebergMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_networkflowmonitor.types.account_id
 
 
-class _TargetId_accountId(TypedDict, closed=True):
+class TargetIdAccountIdMember(TypedDict, closed=True):
     accountId: "capo_networkflowmonitor.types.account_id.AccountId"
 
 
-TargetId: TypeAlias = _TargetId_accountId | UnknownUnionMember
+TargetId: TypeAlias = TargetIdAccountIdMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

@@ -14,29 +14,29 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.snowflake_table_reference
 
 
-class _TableReference_glue(TypedDict, closed=True):
+class TableReferenceGlueMember(TypedDict, closed=True):
     glue: "capo_cleanrooms.types.glue_table_reference.GlueTableReference"
 
 
-class _TableReference_snowflake(TypedDict, closed=True):
+class TableReferenceSnowflakeMember(TypedDict, closed=True):
     snowflake: "capo_cleanrooms.types.snowflake_table_reference.SnowflakeTableReference"
 
 
-class _TableReference_athena(TypedDict, closed=True):
+class TableReferenceAthenaMember(TypedDict, closed=True):
     athena: "capo_cleanrooms.types.athena_table_reference.AthenaTableReference"
 
 
-class _TableReference_databricks(TypedDict, closed=True):
+class TableReferenceDatabricksMember(TypedDict, closed=True):
     databricks: (
         "capo_cleanrooms.types.databricks_table_reference.DatabricksTableReference"
     )
 
 
 TableReference: TypeAlias = (
-    _TableReference_glue
-    | _TableReference_snowflake
-    | _TableReference_athena
-    | _TableReference_databricks
+    TableReferenceGlueMember
+    | TableReferenceSnowflakeMember
+    | TableReferenceAthenaMember
+    | TableReferenceDatabricksMember
     | UnknownUnionMember
 )
 

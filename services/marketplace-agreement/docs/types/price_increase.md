@@ -7,13 +7,13 @@ title: PriceIncrease
       show_source: true
       merge_init_into_class: false
 
-::: capo_marketplace_agreement.types.price_increase._PriceIncrease_fixedPercentage
+::: capo_marketplace_agreement.types.price_increase.PriceIncreaseFixedPercentageMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_marketplace_agreement.types.price_increase._PriceIncrease_percentageRange
+::: capo_marketplace_agreement.types.price_increase.PriceIncreasePercentageRangeMember
     options:
       show_source: true
       merge_init_into_class: false

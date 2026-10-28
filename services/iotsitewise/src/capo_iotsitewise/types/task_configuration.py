@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_iotsitewise.types.container_task_configuration
 
 
-class _TaskConfiguration_containerTaskConfiguration(TypedDict, closed=True):
+class TaskConfigurationContainerTaskConfigurationMember(TypedDict, closed=True):
     containerTaskConfiguration: (
         "capo_iotsitewise.types.container_task_configuration.ContainerTaskConfiguration"
     )
 
 
 TaskConfiguration: TypeAlias = (
-    _TaskConfiguration_containerTaskConfiguration | UnknownUnionMember
+    TaskConfigurationContainerTaskConfigurationMember | UnknownUnionMember
 )
 
 

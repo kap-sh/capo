@@ -15,19 +15,19 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.s3_files_configuration
 
 
-class _ToolsFileSystemConfiguration_s3FilesConfiguration(TypedDict, closed=True):
+class ToolsFileSystemConfigurationS3FilesConfigurationMember(TypedDict, closed=True):
     s3FilesConfiguration: "capo_bedrock_agentcore_control.types.s3_files_configuration.S3FilesConfiguration"
 
 
-class _ToolsFileSystemConfiguration_efsConfiguration(TypedDict, closed=True):
+class ToolsFileSystemConfigurationEfsConfigurationMember(TypedDict, closed=True):
     efsConfiguration: (
         "capo_bedrock_agentcore_control.types.efs_configuration.EfsConfiguration"
     )
 
 
 ToolsFileSystemConfiguration: TypeAlias = (
-    _ToolsFileSystemConfiguration_s3FilesConfiguration
-    | _ToolsFileSystemConfiguration_efsConfiguration
+    ToolsFileSystemConfigurationS3FilesConfigurationMember
+    | ToolsFileSystemConfigurationEfsConfigurationMember
     | UnknownUnionMember
 )
 

@@ -7,7 +7,7 @@ title: NotificationTargetItem
       show_source: true
       merge_init_into_class: false
 
-::: capo_ssm_incidents.types.notification_target_item._NotificationTargetItem_snsTopicArn
+::: capo_ssm_incidents.types.notification_target_item.NotificationTargetItemSnsTopicArnMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -23,84 +23,84 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.registered_slack_service_details
 
 
-class _AdditionalServiceDetails_github(TypedDict, closed=True):
+class AdditionalServiceDetailsGithubMember(TypedDict, closed=True):
     github: "capo_devops_agent.types.registered_github_service_details.RegisteredGithubServiceDetails"
 
 
-class _AdditionalServiceDetails_slack(TypedDict, closed=True):
+class AdditionalServiceDetailsSlackMember(TypedDict, closed=True):
     slack: "capo_devops_agent.types.registered_slack_service_details.RegisteredSlackServiceDetails"
 
 
-class _AdditionalServiceDetails_mcpserverdatadog(TypedDict, closed=True):
+class AdditionalServiceDetailsMcpserverdatadogMember(TypedDict, closed=True):
     mcpserverdatadog: "capo_devops_agent.types.registered_mcp_server_details.RegisteredMCPServerDetails"
 
 
-class _AdditionalServiceDetails_mcpserver(TypedDict, closed=True):
+class AdditionalServiceDetailsMcpserverMember(TypedDict, closed=True):
     mcpserver: "capo_devops_agent.types.registered_mcp_server_details.RegisteredMCPServerDetails"
 
 
-class _AdditionalServiceDetails_servicenow(TypedDict, closed=True):
+class AdditionalServiceDetailsServicenowMember(TypedDict, closed=True):
     servicenow: "capo_devops_agent.types.registered_service_now_details.RegisteredServiceNowDetails"
 
 
-class _AdditionalServiceDetails_gitlab(TypedDict, closed=True):
+class AdditionalServiceDetailsGitlabMember(TypedDict, closed=True):
     gitlab: "capo_devops_agent.types.registered_git_lab_service_details.RegisteredGitLabServiceDetails"
 
 
-class _AdditionalServiceDetails_mcpserversplunk(TypedDict, closed=True):
+class AdditionalServiceDetailsMcpserversplunkMember(TypedDict, closed=True):
     mcpserversplunk: "capo_devops_agent.types.registered_mcp_server_details.RegisteredMCPServerDetails"
 
 
-class _AdditionalServiceDetails_mcpservernewrelic(TypedDict, closed=True):
+class AdditionalServiceDetailsMcpservernewrelicMember(TypedDict, closed=True):
     mcpservernewrelic: (
         "capo_devops_agent.types.registered_new_relic_details.RegisteredNewRelicDetails"
     )
 
 
-class _AdditionalServiceDetails_azuredevops(TypedDict, closed=True):
+class AdditionalServiceDetailsAzuredevopsMember(TypedDict, closed=True):
     azuredevops: "capo_devops_agent.types.registered_azure_dev_ops_service_details.RegisteredAzureDevOpsServiceDetails"
 
 
-class _AdditionalServiceDetails_azureidentity(TypedDict, closed=True):
+class AdditionalServiceDetailsAzureidentityMember(TypedDict, closed=True):
     azureidentity: "capo_devops_agent.types.registered_azure_identity_details.RegisteredAzureIdentityDetails"
 
 
-class _AdditionalServiceDetails_mcpservergrafana(TypedDict, closed=True):
+class AdditionalServiceDetailsMcpservergrafanaMember(TypedDict, closed=True):
     mcpservergrafana: "capo_devops_agent.types.registered_grafana_server_details.RegisteredGrafanaServerDetails"
 
 
-class _AdditionalServiceDetails_pagerduty(TypedDict, closed=True):
+class AdditionalServiceDetailsPagerdutyMember(TypedDict, closed=True):
     pagerduty: "capo_devops_agent.types.registered_pager_duty_details.RegisteredPagerDutyDetails"
 
 
-class _AdditionalServiceDetails_mcpserversigv4(TypedDict, closed=True):
+class AdditionalServiceDetailsMcpserversigv4Member(TypedDict, closed=True):
     mcpserversigv4: "capo_devops_agent.types.registered_mcp_server_sig_v4_details.RegisteredMCPServerSigV4Details"
 
 
-class _AdditionalServiceDetails_remoteagent(TypedDict, closed=True):
+class AdditionalServiceDetailsRemoteagentMember(TypedDict, closed=True):
     remoteagent: "capo_devops_agent.types.registered_remote_agent_details.RegisteredRemoteAgentDetails"
 
 
-class _AdditionalServiceDetails_remoteagentsigv4(TypedDict, closed=True):
+class AdditionalServiceDetailsRemoteagentsigv4Member(TypedDict, closed=True):
     remoteagentsigv4: "capo_devops_agent.types.registered_remote_agent_sig_v4_details.RegisteredRemoteAgentSigV4Details"
 
 
 AdditionalServiceDetails: TypeAlias = (
-    _AdditionalServiceDetails_github
-    | _AdditionalServiceDetails_slack
-    | _AdditionalServiceDetails_mcpserverdatadog
-    | _AdditionalServiceDetails_mcpserver
-    | _AdditionalServiceDetails_servicenow
-    | _AdditionalServiceDetails_gitlab
-    | _AdditionalServiceDetails_mcpserversplunk
-    | _AdditionalServiceDetails_mcpservernewrelic
-    | _AdditionalServiceDetails_azuredevops
-    | _AdditionalServiceDetails_azureidentity
-    | _AdditionalServiceDetails_mcpservergrafana
-    | _AdditionalServiceDetails_pagerduty
-    | _AdditionalServiceDetails_mcpserversigv4
-    | _AdditionalServiceDetails_remoteagent
-    | _AdditionalServiceDetails_remoteagentsigv4
+    AdditionalServiceDetailsGithubMember
+    | AdditionalServiceDetailsSlackMember
+    | AdditionalServiceDetailsMcpserverdatadogMember
+    | AdditionalServiceDetailsMcpserverMember
+    | AdditionalServiceDetailsServicenowMember
+    | AdditionalServiceDetailsGitlabMember
+    | AdditionalServiceDetailsMcpserversplunkMember
+    | AdditionalServiceDetailsMcpservernewrelicMember
+    | AdditionalServiceDetailsAzuredevopsMember
+    | AdditionalServiceDetailsAzureidentityMember
+    | AdditionalServiceDetailsMcpservergrafanaMember
+    | AdditionalServiceDetailsPagerdutyMember
+    | AdditionalServiceDetailsMcpserversigv4Member
+    | AdditionalServiceDetailsRemoteagentMember
+    | AdditionalServiceDetailsRemoteagentsigv4Member
     | UnknownUnionMember
 )
 

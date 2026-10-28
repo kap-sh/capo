@@ -7,7 +7,7 @@ title: FlowTraceNodeOutputContent
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agent_runtime.types.flow_trace_node_output_content._FlowTraceNodeOutputContent_document
+::: capo_bedrock_agent_runtime.types.flow_trace_node_output_content.FlowTraceNodeOutputContentDocumentMember
     options:
       show_source: true
       merge_init_into_class: false

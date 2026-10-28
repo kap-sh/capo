@@ -7,7 +7,7 @@ title: Matcher
       show_source: true
       merge_init_into_class: false
 
-::: capo_vpc_lattice.types.matcher._Matcher_httpCode
+::: capo_vpc_lattice.types.matcher.MatcherHttpCodeMember
     options:
       show_source: true
       merge_init_into_class: false

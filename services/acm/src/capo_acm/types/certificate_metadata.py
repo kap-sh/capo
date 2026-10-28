@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_acm.types.acm_certificate_metadata
 
 
-class _CertificateMetadata_AcmCertificateMetadata(TypedDict, closed=True):
+class CertificateMetadataAcmCertificateMetadataMember(TypedDict, closed=True):
     AcmCertificateMetadata: (
         "capo_acm.types.acm_certificate_metadata.AcmCertificateMetadata"
     )
 
 
 CertificateMetadata: TypeAlias = (
-    _CertificateMetadata_AcmCertificateMetadata | UnknownUnionMember
+    CertificateMetadataAcmCertificateMetadataMember | UnknownUnionMember
 )
 
 

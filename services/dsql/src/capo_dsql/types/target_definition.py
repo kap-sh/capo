@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_dsql.types.kinesis_target_definition
 
 
-class _TargetDefinition_kinesis(TypedDict, closed=True):
+class TargetDefinitionKinesisMember(TypedDict, closed=True):
     kinesis: "capo_dsql.types.kinesis_target_definition.KinesisTargetDefinition"
 
 
-TargetDefinition: TypeAlias = _TargetDefinition_kinesis | UnknownUnionMember
+TargetDefinition: TypeAlias = TargetDefinitionKinesisMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

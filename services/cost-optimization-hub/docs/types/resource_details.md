@@ -7,151 +7,151 @@ title: ResourceDetails
       show_source: true
       merge_init_into_class: false
 
-::: capo_cost_optimization_hub.types.resource_details._ResourceDetails_lambdaFunction
+::: capo_cost_optimization_hub.types.resource_details.ResourceDetailsLambdaFunctionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cost_optimization_hub.types.resource_details._ResourceDetails_ecsService
+::: capo_cost_optimization_hub.types.resource_details.ResourceDetailsEcsServiceMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cost_optimization_hub.types.resource_details._ResourceDetails_ec2Instance
+::: capo_cost_optimization_hub.types.resource_details.ResourceDetailsEc2InstanceMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cost_optimization_hub.types.resource_details._ResourceDetails_ebsVolume
+::: capo_cost_optimization_hub.types.resource_details.ResourceDetailsEbsVolumeMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cost_optimization_hub.types.resource_details._ResourceDetails_ec2AutoScalingGroup
+::: capo_cost_optimization_hub.types.resource_details.ResourceDetailsEc2AutoScalingGroupMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cost_optimization_hub.types.resource_details._ResourceDetails_ec2ReservedInstances
+::: capo_cost_optimization_hub.types.resource_details.ResourceDetailsEc2ReservedInstancesMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cost_optimization_hub.types.resource_details._ResourceDetails_rdsReservedInstances
+::: capo_cost_optimization_hub.types.resource_details.ResourceDetailsRdsReservedInstancesMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cost_optimization_hub.types.resource_details._ResourceDetails_elastiCacheReservedInstances
+::: capo_cost_optimization_hub.types.resource_details.ResourceDetailsElastiCacheReservedInstancesMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cost_optimization_hub.types.resource_details._ResourceDetails_openSearchReservedInstances
+::: capo_cost_optimization_hub.types.resource_details.ResourceDetailsOpenSearchReservedInstancesMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cost_optimization_hub.types.resource_details._ResourceDetails_redshiftReservedInstances
+::: capo_cost_optimization_hub.types.resource_details.ResourceDetailsRedshiftReservedInstancesMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cost_optimization_hub.types.resource_details._ResourceDetails_ec2InstanceSavingsPlans
+::: capo_cost_optimization_hub.types.resource_details.ResourceDetailsEc2InstanceSavingsPlansMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cost_optimization_hub.types.resource_details._ResourceDetails_computeSavingsPlans
+::: capo_cost_optimization_hub.types.resource_details.ResourceDetailsComputeSavingsPlansMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cost_optimization_hub.types.resource_details._ResourceDetails_sageMakerSavingsPlans
+::: capo_cost_optimization_hub.types.resource_details.ResourceDetailsSageMakerSavingsPlansMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cost_optimization_hub.types.resource_details._ResourceDetails_rdsDbInstance
+::: capo_cost_optimization_hub.types.resource_details.ResourceDetailsRdsDbInstanceMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cost_optimization_hub.types.resource_details._ResourceDetails_rdsDbInstanceStorage
+::: capo_cost_optimization_hub.types.resource_details.ResourceDetailsRdsDbInstanceStorageMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cost_optimization_hub.types.resource_details._ResourceDetails_auroraDbClusterStorage
+::: capo_cost_optimization_hub.types.resource_details.ResourceDetailsAuroraDbClusterStorageMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cost_optimization_hub.types.resource_details._ResourceDetails_dynamoDbReservedCapacity
+::: capo_cost_optimization_hub.types.resource_details.ResourceDetailsDynamoDbReservedCapacityMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cost_optimization_hub.types.resource_details._ResourceDetails_memoryDbReservedInstances
+::: capo_cost_optimization_hub.types.resource_details.ResourceDetailsMemoryDbReservedInstancesMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cost_optimization_hub.types.resource_details._ResourceDetails_natGateway
+::: capo_cost_optimization_hub.types.resource_details.ResourceDetailsNatGatewayMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cost_optimization_hub.types.resource_details._ResourceDetails_dynamoDbTable
+::: capo_cost_optimization_hub.types.resource_details.ResourceDetailsDynamoDbTableMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cost_optimization_hub.types.resource_details._ResourceDetails_elastiCacheCluster
+::: capo_cost_optimization_hub.types.resource_details.ResourceDetailsElastiCacheClusterMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cost_optimization_hub.types.resource_details._ResourceDetails_memoryDbCluster
+::: capo_cost_optimization_hub.types.resource_details.ResourceDetailsMemoryDbClusterMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cost_optimization_hub.types.resource_details._ResourceDetails_documentDbCluster
+::: capo_cost_optimization_hub.types.resource_details.ResourceDetailsDocumentDbClusterMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cost_optimization_hub.types.resource_details._ResourceDetails_workSpaces
+::: capo_cost_optimization_hub.types.resource_details.ResourceDetailsWorkSpacesMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cost_optimization_hub.types.resource_details._ResourceDetails_sageMakerEndpoint
+::: capo_cost_optimization_hub.types.resource_details.ResourceDetailsSageMakerEndpointMember
     options:
       show_source: true
       merge_init_into_class: false

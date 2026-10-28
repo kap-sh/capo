@@ -7,7 +7,7 @@ title: CertificateLocation
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore.types.certificate_location._CertificateLocation_secretsManager
+::: capo_bedrock_agentcore.types.certificate_location.CertificateLocationSecretsManagerMember
     options:
       show_source: true
       merge_init_into_class: false

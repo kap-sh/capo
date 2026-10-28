@@ -7,7 +7,7 @@ title: ConverseOutput
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_runtime.types.converse_output._ConverseOutput_message
+::: capo_bedrock_runtime.types.converse_output.ConverseOutputMessageMember
     options:
       show_source: true
       merge_init_into_class: false

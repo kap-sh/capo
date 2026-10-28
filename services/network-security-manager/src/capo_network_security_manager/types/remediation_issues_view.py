@@ -15,19 +15,19 @@ if TYPE_CHECKING:
     import capo_network_security_manager.types.remediation_issues
 
 
-class _RemediationIssuesView_issues(TypedDict, closed=True):
+class RemediationIssuesViewIssuesMember(TypedDict, closed=True):
     issues: "capo_network_security_manager.types.remediation_issues.RemediationIssues"
 
 
-class _RemediationIssuesView_notVisible(TypedDict, closed=True):
+class RemediationIssuesViewNotVisibleMember(TypedDict, closed=True):
     notVisible: (
         "capo_network_security_manager.types.not_visible_marker.NotVisibleMarker"
     )
 
 
 RemediationIssuesView: TypeAlias = (
-    _RemediationIssuesView_issues
-    | _RemediationIssuesView_notVisible
+    RemediationIssuesViewIssuesMember
+    | RemediationIssuesViewNotVisibleMember
     | UnknownUnionMember
 )
 

@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_wisdom.types.connect_configuration
 
 
-class _Configuration_connectConfiguration(TypedDict, closed=True):
+class ConfigurationConnectConfigurationMember(TypedDict, closed=True):
     connectConfiguration: "capo_wisdom.types.connect_configuration.ConnectConfiguration"
 
 
-Configuration: TypeAlias = _Configuration_connectConfiguration | UnknownUnionMember
+Configuration: TypeAlias = ConfigurationConnectConfigurationMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

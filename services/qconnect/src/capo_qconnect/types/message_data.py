@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_qconnect.types.tool_use_result_data
 
 
-class _MessageData_text(TypedDict, closed=True):
+class MessageDataTextMember(TypedDict, closed=True):
     text: "capo_qconnect.types.text_message.TextMessage"
 
 
-class _MessageData_toolUseResult(TypedDict, closed=True):
+class MessageDataToolUseResultMember(TypedDict, closed=True):
     toolUseResult: "capo_qconnect.types.tool_use_result_data.ToolUseResultData"
 
 
-class _MessageData_data(TypedDict, closed=True):
+class MessageDataDataMember(TypedDict, closed=True):
     data: "capo_qconnect.types.json_document.JSONDocument"
 
 
 MessageData: TypeAlias = (
-    _MessageData_text
-    | _MessageData_toolUseResult
-    | _MessageData_data
+    MessageDataTextMember
+    | MessageDataToolUseResultMember
+    | MessageDataDataMember
     | UnknownUnionMember
 )
 

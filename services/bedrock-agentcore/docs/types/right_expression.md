@@ -7,7 +7,7 @@ title: RightExpression
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore.types.right_expression._RightExpression_metadataValue
+::: capo_bedrock_agentcore.types.right_expression.RightExpressionMetadataValueMember
     options:
       show_source: true
       merge_init_into_class: false

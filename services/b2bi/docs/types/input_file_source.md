@@ -7,7 +7,7 @@ title: InputFileSource
       show_source: true
       merge_init_into_class: false
 
-::: capo_b2bi.types.input_file_source._InputFileSource_fileContent
+::: capo_b2bi.types.input_file_source.InputFileSourceFileContentMember
     options:
       show_source: true
       merge_init_into_class: false

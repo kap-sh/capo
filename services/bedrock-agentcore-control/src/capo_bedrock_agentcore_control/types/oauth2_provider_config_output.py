@@ -22,54 +22,68 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.slack_oauth2_provider_config_output
 
 
-class _Oauth2ProviderConfigOutput_customOauth2ProviderConfig(TypedDict, closed=True):
+class Oauth2ProviderConfigOutputCustomOauth2ProviderConfigMember(
+    TypedDict, closed=True
+):
     customOauth2ProviderConfig: "capo_bedrock_agentcore_control.types.custom_oauth2_provider_config_output.CustomOauth2ProviderConfigOutput"
 
 
-class _Oauth2ProviderConfigOutput_googleOauth2ProviderConfig(TypedDict, closed=True):
+class Oauth2ProviderConfigOutputGoogleOauth2ProviderConfigMember(
+    TypedDict, closed=True
+):
     googleOauth2ProviderConfig: "capo_bedrock_agentcore_control.types.google_oauth2_provider_config_output.GoogleOauth2ProviderConfigOutput"
 
 
-class _Oauth2ProviderConfigOutput_githubOauth2ProviderConfig(TypedDict, closed=True):
+class Oauth2ProviderConfigOutputGithubOauth2ProviderConfigMember(
+    TypedDict, closed=True
+):
     githubOauth2ProviderConfig: "capo_bedrock_agentcore_control.types.github_oauth2_provider_config_output.GithubOauth2ProviderConfigOutput"
 
 
-class _Oauth2ProviderConfigOutput_slackOauth2ProviderConfig(TypedDict, closed=True):
+class Oauth2ProviderConfigOutputSlackOauth2ProviderConfigMember(TypedDict, closed=True):
     slackOauth2ProviderConfig: "capo_bedrock_agentcore_control.types.slack_oauth2_provider_config_output.SlackOauth2ProviderConfigOutput"
 
 
-class _Oauth2ProviderConfigOutput_salesforceOauth2ProviderConfig(
+class Oauth2ProviderConfigOutputSalesforceOauth2ProviderConfigMember(
     TypedDict, closed=True
 ):
     salesforceOauth2ProviderConfig: "capo_bedrock_agentcore_control.types.salesforce_oauth2_provider_config_output.SalesforceOauth2ProviderConfigOutput"
 
 
-class _Oauth2ProviderConfigOutput_microsoftOauth2ProviderConfig(TypedDict, closed=True):
+class Oauth2ProviderConfigOutputMicrosoftOauth2ProviderConfigMember(
+    TypedDict, closed=True
+):
     microsoftOauth2ProviderConfig: "capo_bedrock_agentcore_control.types.microsoft_oauth2_provider_config_output.MicrosoftOauth2ProviderConfigOutput"
 
 
-class _Oauth2ProviderConfigOutput_atlassianOauth2ProviderConfig(TypedDict, closed=True):
+class Oauth2ProviderConfigOutputAtlassianOauth2ProviderConfigMember(
+    TypedDict, closed=True
+):
     atlassianOauth2ProviderConfig: "capo_bedrock_agentcore_control.types.atlassian_oauth2_provider_config_output.AtlassianOauth2ProviderConfigOutput"
 
 
-class _Oauth2ProviderConfigOutput_linkedinOauth2ProviderConfig(TypedDict, closed=True):
+class Oauth2ProviderConfigOutputLinkedinOauth2ProviderConfigMember(
+    TypedDict, closed=True
+):
     linkedinOauth2ProviderConfig: "capo_bedrock_agentcore_control.types.linkedin_oauth2_provider_config_output.LinkedinOauth2ProviderConfigOutput"
 
 
-class _Oauth2ProviderConfigOutput_includedOauth2ProviderConfig(TypedDict, closed=True):
+class Oauth2ProviderConfigOutputIncludedOauth2ProviderConfigMember(
+    TypedDict, closed=True
+):
     includedOauth2ProviderConfig: "capo_bedrock_agentcore_control.types.included_oauth2_provider_config_output.IncludedOauth2ProviderConfigOutput"
 
 
 Oauth2ProviderConfigOutput: TypeAlias = (
-    _Oauth2ProviderConfigOutput_customOauth2ProviderConfig
-    | _Oauth2ProviderConfigOutput_googleOauth2ProviderConfig
-    | _Oauth2ProviderConfigOutput_githubOauth2ProviderConfig
-    | _Oauth2ProviderConfigOutput_slackOauth2ProviderConfig
-    | _Oauth2ProviderConfigOutput_salesforceOauth2ProviderConfig
-    | _Oauth2ProviderConfigOutput_microsoftOauth2ProviderConfig
-    | _Oauth2ProviderConfigOutput_atlassianOauth2ProviderConfig
-    | _Oauth2ProviderConfigOutput_linkedinOauth2ProviderConfig
-    | _Oauth2ProviderConfigOutput_includedOauth2ProviderConfig
+    Oauth2ProviderConfigOutputCustomOauth2ProviderConfigMember
+    | Oauth2ProviderConfigOutputGoogleOauth2ProviderConfigMember
+    | Oauth2ProviderConfigOutputGithubOauth2ProviderConfigMember
+    | Oauth2ProviderConfigOutputSlackOauth2ProviderConfigMember
+    | Oauth2ProviderConfigOutputSalesforceOauth2ProviderConfigMember
+    | Oauth2ProviderConfigOutputMicrosoftOauth2ProviderConfigMember
+    | Oauth2ProviderConfigOutputAtlassianOauth2ProviderConfigMember
+    | Oauth2ProviderConfigOutputLinkedinOauth2ProviderConfigMember
+    | Oauth2ProviderConfigOutputIncludedOauth2ProviderConfigMember
     | UnknownUnionMember
 )
 

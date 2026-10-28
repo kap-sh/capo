@@ -15,21 +15,21 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.registry_record_o_auth_credential_provider
 
 
-class _RegistryRecordCredentialProviderUnion_oauthCredentialProvider(
+class RegistryRecordCredentialProviderUnionOauthCredentialProviderMember(
     TypedDict, closed=True
 ):
     oauthCredentialProvider: "capo_bedrock_agentcore_control.types.registry_record_o_auth_credential_provider.RegistryRecordOAuthCredentialProvider"
 
 
-class _RegistryRecordCredentialProviderUnion_iamCredentialProvider(
+class RegistryRecordCredentialProviderUnionIamCredentialProviderMember(
     TypedDict, closed=True
 ):
     iamCredentialProvider: "capo_bedrock_agentcore_control.types.registry_record_iam_credential_provider.RegistryRecordIamCredentialProvider"
 
 
 RegistryRecordCredentialProviderUnion: TypeAlias = (
-    _RegistryRecordCredentialProviderUnion_oauthCredentialProvider
-    | _RegistryRecordCredentialProviderUnion_iamCredentialProvider
+    RegistryRecordCredentialProviderUnionOauthCredentialProviderMember
+    | RegistryRecordCredentialProviderUnionIamCredentialProviderMember
     | UnknownUnionMember
 )
 

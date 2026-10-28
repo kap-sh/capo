@@ -14,22 +14,22 @@ if TYPE_CHECKING:
     import capo_network_security_manager.types.account_set
 
 
-class _AccountFilter_includeAll(TypedDict, closed=True):
+class AccountFilterIncludeAllMember(TypedDict, closed=True):
     includeAll: "None"
 
 
-class _AccountFilter_include(TypedDict, closed=True):
+class AccountFilterIncludeMember(TypedDict, closed=True):
     include: "capo_network_security_manager.types.account_set.AccountSet"
 
 
-class _AccountFilter_exclude(TypedDict, closed=True):
+class AccountFilterExcludeMember(TypedDict, closed=True):
     exclude: "capo_network_security_manager.types.account_set.AccountSet"
 
 
 AccountFilter: TypeAlias = (
-    _AccountFilter_includeAll
-    | _AccountFilter_include
-    | _AccountFilter_exclude
+    AccountFilterIncludeAllMember
+    | AccountFilterIncludeMember
+    | AccountFilterExcludeMember
     | UnknownUnionMember
 )
 

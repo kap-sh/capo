@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_transfer.types.connector_vpc_lattice_egress_config
 
 
-class _ConnectorEgressConfig_VpcLattice(TypedDict, closed=True):
+class ConnectorEgressConfigVpcLatticeMember(TypedDict, closed=True):
     VpcLattice: "capo_transfer.types.connector_vpc_lattice_egress_config.ConnectorVpcLatticeEgressConfig"
 
 
 ConnectorEgressConfig: TypeAlias = (
-    _ConnectorEgressConfig_VpcLattice | UnknownUnionMember
+    ConnectorEgressConfigVpcLatticeMember | UnknownUnionMember
 )
 
 

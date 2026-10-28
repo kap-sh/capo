@@ -16,24 +16,28 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.user_preference_extraction_override
 
 
-class _CustomExtractionConfiguration_semanticExtractionOverride(TypedDict, closed=True):
+class CustomExtractionConfigurationSemanticExtractionOverrideMember(
+    TypedDict, closed=True
+):
     semanticExtractionOverride: "capo_bedrock_agentcore_control.types.semantic_extraction_override.SemanticExtractionOverride"
 
 
-class _CustomExtractionConfiguration_userPreferenceExtractionOverride(
+class CustomExtractionConfigurationUserPreferenceExtractionOverrideMember(
     TypedDict, closed=True
 ):
     userPreferenceExtractionOverride: "capo_bedrock_agentcore_control.types.user_preference_extraction_override.UserPreferenceExtractionOverride"
 
 
-class _CustomExtractionConfiguration_episodicExtractionOverride(TypedDict, closed=True):
+class CustomExtractionConfigurationEpisodicExtractionOverrideMember(
+    TypedDict, closed=True
+):
     episodicExtractionOverride: "capo_bedrock_agentcore_control.types.episodic_extraction_override.EpisodicExtractionOverride"
 
 
 CustomExtractionConfiguration: TypeAlias = (
-    _CustomExtractionConfiguration_semanticExtractionOverride
-    | _CustomExtractionConfiguration_userPreferenceExtractionOverride
-    | _CustomExtractionConfiguration_episodicExtractionOverride
+    CustomExtractionConfigurationSemanticExtractionOverrideMember
+    | CustomExtractionConfigurationUserPreferenceExtractionOverrideMember
+    | CustomExtractionConfigurationEpisodicExtractionOverrideMember
     | UnknownUnionMember
 )
 

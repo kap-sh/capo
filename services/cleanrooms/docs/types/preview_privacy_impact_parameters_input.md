@@ -7,7 +7,7 @@ title: PreviewPrivacyImpactParametersInput
       show_source: true
       merge_init_into_class: false
 
-::: capo_cleanrooms.types.preview_privacy_impact_parameters_input._PreviewPrivacyImpactParametersInput_differentialPrivacy
+::: capo_cleanrooms.types.preview_privacy_impact_parameters_input.PreviewPrivacyImpactParametersInputDifferentialPrivacyMember
     options:
       show_source: true
       merge_init_into_class: false

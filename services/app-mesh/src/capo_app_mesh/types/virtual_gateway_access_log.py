@@ -11,11 +11,13 @@ if TYPE_CHECKING:
     import capo_app_mesh.types.virtual_gateway_file_access_log
 
 
-class _VirtualGatewayAccessLog_file(TypedDict, closed=True):
+class VirtualGatewayAccessLogFileMember(TypedDict, closed=True):
     file: "capo_app_mesh.types.virtual_gateway_file_access_log.VirtualGatewayFileAccessLog"
 
 
-VirtualGatewayAccessLog: TypeAlias = _VirtualGatewayAccessLog_file | UnknownUnionMember
+VirtualGatewayAccessLog: TypeAlias = (
+    VirtualGatewayAccessLogFileMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

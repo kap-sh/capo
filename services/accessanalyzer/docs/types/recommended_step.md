@@ -7,7 +7,7 @@ title: RecommendedStep
       show_source: true
       merge_init_into_class: false
 
-::: capo_accessanalyzer.types.recommended_step._RecommendedStep_unusedPermissionsRecommendedStep
+::: capo_accessanalyzer.types.recommended_step.RecommendedStepUnusedPermissionsRecommendedStepMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_m2.types.string2000
 
 
-class _ExternalLocation_s3Location(TypedDict, closed=True):
+class ExternalLocationS3LocationMember(TypedDict, closed=True):
     s3Location: "capo_m2.types.string2000.String2000"
 
 
-ExternalLocation: TypeAlias = _ExternalLocation_s3Location | UnknownUnionMember
+ExternalLocation: TypeAlias = ExternalLocationS3LocationMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

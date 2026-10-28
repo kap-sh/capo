@@ -7,13 +7,13 @@ title: NoteTemplateSettings
       show_source: true
       merge_init_into_class: false
 
-::: capo_connecthealth.types.note_template_settings._NoteTemplateSettings_managedTemplate
+::: capo_connecthealth.types.note_template_settings.NoteTemplateSettingsManagedTemplateMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connecthealth.types.note_template_settings._NoteTemplateSettings_customTemplate
+::: capo_connecthealth.types.note_template_settings.NoteTemplateSettingsCustomTemplateMember
     options:
       show_source: true
       merge_init_into_class: false

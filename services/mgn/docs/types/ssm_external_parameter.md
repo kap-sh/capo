@@ -7,7 +7,7 @@ title: SsmExternalParameter
       show_source: true
       merge_init_into_class: false
 
-::: capo_mgn.types.ssm_external_parameter._SsmExternalParameter_dynamicPath
+::: capo_mgn.types.ssm_external_parameter.SsmExternalParameterDynamicPathMember
     options:
       show_source: true
       merge_init_into_class: false

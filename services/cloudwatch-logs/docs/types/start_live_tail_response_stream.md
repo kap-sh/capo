@@ -13,25 +13,25 @@ title: StartLiveTailResponseStream
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cloudwatch_logs.types.start_live_tail_response_stream._StartLiveTailResponseStream_sessionStart
+::: capo_cloudwatch_logs.types.start_live_tail_response_stream.StartLiveTailResponseStreamSessionStartMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cloudwatch_logs.types.start_live_tail_response_stream._StartLiveTailResponseStream_sessionUpdate
+::: capo_cloudwatch_logs.types.start_live_tail_response_stream.StartLiveTailResponseStreamSessionUpdateMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cloudwatch_logs.types.start_live_tail_response_stream._StartLiveTailResponseStream_SessionTimeoutException
+::: capo_cloudwatch_logs.types.start_live_tail_response_stream.StartLiveTailResponseStreamSessionTimeoutExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cloudwatch_logs.types.start_live_tail_response_stream._StartLiveTailResponseStream_SessionStreamingException
+::: capo_cloudwatch_logs.types.start_live_tail_response_stream.StartLiveTailResponseStreamSessionStreamingExceptionMember
     options:
       show_source: true
       merge_init_into_class: false

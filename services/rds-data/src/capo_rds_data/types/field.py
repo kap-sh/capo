@@ -16,42 +16,42 @@ if TYPE_CHECKING:
     import capo_rds_data.types.string
 
 
-class _Field_isNull(TypedDict, closed=True):
+class FieldIsNullMember(TypedDict, closed=True):
     isNull: "capo_rds_data.types.boxed_boolean.BoxedBoolean"
 
 
-class _Field_booleanValue(TypedDict, closed=True):
+class FieldBooleanValueMember(TypedDict, closed=True):
     booleanValue: "capo_rds_data.types.boxed_boolean.BoxedBoolean"
 
 
-class _Field_longValue(TypedDict, closed=True):
+class FieldLongValueMember(TypedDict, closed=True):
     longValue: "capo_rds_data.types.boxed_long.BoxedLong"
 
 
-class _Field_doubleValue(TypedDict, closed=True):
+class FieldDoubleValueMember(TypedDict, closed=True):
     doubleValue: "capo_rds_data.types.boxed_double.BoxedDouble"
 
 
-class _Field_stringValue(TypedDict, closed=True):
+class FieldStringValueMember(TypedDict, closed=True):
     stringValue: "capo_rds_data.types.string.String"
 
 
-class _Field_blobValue(TypedDict, closed=True):
+class FieldBlobValueMember(TypedDict, closed=True):
     blobValue: "capo_rds_data.types.blob.Blob"
 
 
-class _Field_arrayValue(TypedDict, closed=True):
+class FieldArrayValueMember(TypedDict, closed=True):
     arrayValue: "capo_rds_data.types.array_value.ArrayValue"
 
 
 Field: TypeAlias = (
-    _Field_isNull
-    | _Field_booleanValue
-    | _Field_longValue
-    | _Field_doubleValue
-    | _Field_stringValue
-    | _Field_blobValue
-    | _Field_arrayValue
+    FieldIsNullMember
+    | FieldBooleanValueMember
+    | FieldLongValueMember
+    | FieldDoubleValueMember
+    | FieldStringValueMember
+    | FieldBlobValueMember
+    | FieldArrayValueMember
     | UnknownUnionMember
 )
 

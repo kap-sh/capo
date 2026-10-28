@@ -7,25 +7,25 @@ title: PolicyGrantPrincipal
       show_source: true
       merge_init_into_class: false
 
-::: capo_datazone.types.policy_grant_principal._PolicyGrantPrincipal_user
+::: capo_datazone.types.policy_grant_principal.PolicyGrantPrincipalUserMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.policy_grant_principal._PolicyGrantPrincipal_group
+::: capo_datazone.types.policy_grant_principal.PolicyGrantPrincipalGroupMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.policy_grant_principal._PolicyGrantPrincipal_project
+::: capo_datazone.types.policy_grant_principal.PolicyGrantPrincipalProjectMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.policy_grant_principal._PolicyGrantPrincipal_domainUnit
+::: capo_datazone.types.policy_grant_principal.PolicyGrantPrincipalDomainUnitMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_agent_registry_control.types.self_managed_lattice_resource
 
 
-class _PrivateEndpoint_selfManagedLatticeResource(TypedDict, closed=True):
+class PrivateEndpointSelfManagedLatticeResourceMember(TypedDict, closed=True):
     selfManagedLatticeResource: "capo_agent_registry_control.types.self_managed_lattice_resource.SelfManagedLatticeResource"
 
 
-class _PrivateEndpoint_managedVpcResource(TypedDict, closed=True):
+class PrivateEndpointManagedVpcResourceMember(TypedDict, closed=True):
     managedVpcResource: (
         "capo_agent_registry_control.types.managed_vpc_resource.ManagedVpcResource"
     )
 
 
 PrivateEndpoint: TypeAlias = (
-    _PrivateEndpoint_selfManagedLatticeResource
-    | _PrivateEndpoint_managedVpcResource
+    PrivateEndpointSelfManagedLatticeResourceMember
+    | PrivateEndpointManagedVpcResourceMember
     | UnknownUnionMember
 )
 

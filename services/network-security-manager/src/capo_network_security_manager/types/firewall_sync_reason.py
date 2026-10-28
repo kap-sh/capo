@@ -14,17 +14,17 @@ if TYPE_CHECKING:
     import capo_network_security_manager.types.invalid_firewall_reasons
 
 
-class _FirewallSyncReason_missingFirewall(TypedDict, closed=True):
+class FirewallSyncReasonMissingFirewallMember(TypedDict, closed=True):
     missingFirewall: "str"
 
 
-class _FirewallSyncReason_invalidFirewall(TypedDict, closed=True):
+class FirewallSyncReasonInvalidFirewallMember(TypedDict, closed=True):
     invalidFirewall: "capo_network_security_manager.types.invalid_firewall_reasons.InvalidFirewallReasons"
 
 
 FirewallSyncReason: TypeAlias = (
-    _FirewallSyncReason_missingFirewall
-    | _FirewallSyncReason_invalidFirewall
+    FirewallSyncReasonMissingFirewallMember
+    | FirewallSyncReasonInvalidFirewallMember
     | UnknownUnionMember
 )
 

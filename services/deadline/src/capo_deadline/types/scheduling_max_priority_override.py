@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_deadline.types.scheduling_max_priority_override_always_schedule_first
 
 
-class _SchedulingMaxPriorityOverride_alwaysScheduleFirst(TypedDict, closed=True):
+class SchedulingMaxPriorityOverrideAlwaysScheduleFirstMember(TypedDict, closed=True):
     alwaysScheduleFirst: "capo_deadline.types.scheduling_max_priority_override_always_schedule_first.SchedulingMaxPriorityOverrideAlwaysScheduleFirst"
 
 
 SchedulingMaxPriorityOverride: TypeAlias = (
-    _SchedulingMaxPriorityOverride_alwaysScheduleFirst | UnknownUnionMember
+    SchedulingMaxPriorityOverrideAlwaysScheduleFirstMember | UnknownUnionMember
 )
 
 

@@ -7,7 +7,7 @@ title: CodeArtifact
       show_source: true
       merge_init_into_class: false
 
-::: capo_lambda_microvms.types.code_artifact._CodeArtifact_uri
+::: capo_lambda_microvms.types.code_artifact.CodeArtifactUriMember
     options:
       show_source: true
       merge_init_into_class: false

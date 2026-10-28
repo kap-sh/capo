@@ -15,40 +15,40 @@ if TYPE_CHECKING:
     import capo_bedrock_runtime.types.web_location
 
 
-class _CitationLocation_web(TypedDict, closed=True):
+class CitationLocationWebMember(TypedDict, closed=True):
     web: "capo_bedrock_runtime.types.web_location.WebLocation"
 
 
-class _CitationLocation_documentChar(TypedDict, closed=True):
+class CitationLocationDocumentCharMember(TypedDict, closed=True):
     documentChar: (
         "capo_bedrock_runtime.types.document_char_location.DocumentCharLocation"
     )
 
 
-class _CitationLocation_documentPage(TypedDict, closed=True):
+class CitationLocationDocumentPageMember(TypedDict, closed=True):
     documentPage: (
         "capo_bedrock_runtime.types.document_page_location.DocumentPageLocation"
     )
 
 
-class _CitationLocation_documentChunk(TypedDict, closed=True):
+class CitationLocationDocumentChunkMember(TypedDict, closed=True):
     documentChunk: (
         "capo_bedrock_runtime.types.document_chunk_location.DocumentChunkLocation"
     )
 
 
-class _CitationLocation_searchResultLocation(TypedDict, closed=True):
+class CitationLocationSearchResultLocationMember(TypedDict, closed=True):
     searchResultLocation: (
         "capo_bedrock_runtime.types.search_result_location.SearchResultLocation"
     )
 
 
 CitationLocation: TypeAlias = (
-    _CitationLocation_web
-    | _CitationLocation_documentChar
-    | _CitationLocation_documentPage
-    | _CitationLocation_documentChunk
-    | _CitationLocation_searchResultLocation
+    CitationLocationWebMember
+    | CitationLocationDocumentCharMember
+    | CitationLocationDocumentPageMember
+    | CitationLocationDocumentChunkMember
+    | CitationLocationSearchResultLocationMember
     | UnknownUnionMember
 )
 

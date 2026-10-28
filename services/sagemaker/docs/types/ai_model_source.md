@@ -7,7 +7,7 @@ title: AIModelSource
       show_source: true
       merge_init_into_class: false
 
-::: capo_sagemaker.types.ai_model_source._AIModelSource_S3
+::: capo_sagemaker.types.ai_model_source.AIModelSourceS3Member
     options:
       show_source: true
       merge_init_into_class: false

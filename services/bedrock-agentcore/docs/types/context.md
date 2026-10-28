@@ -7,7 +7,7 @@ title: Context
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore.types.context._Context_spanContext
+::: capo_bedrock_agentcore.types.context.ContextSpanContextMember
     options:
       show_source: true
       merge_init_into_class: false

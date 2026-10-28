@@ -7,19 +7,19 @@ title: DialerConfig
       show_source: true
       merge_init_into_class: false
 
-::: capo_connectcampaigns.types.dialer_config._DialerConfig_progressiveDialerConfig
+::: capo_connectcampaigns.types.dialer_config.DialerConfigProgressiveDialerConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connectcampaigns.types.dialer_config._DialerConfig_predictiveDialerConfig
+::: capo_connectcampaigns.types.dialer_config.DialerConfigPredictiveDialerConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connectcampaigns.types.dialer_config._DialerConfig_agentlessDialerConfig
+::: capo_connectcampaigns.types.dialer_config.DialerConfigAgentlessDialerConfigMember
     options:
       show_source: true
       merge_init_into_class: false

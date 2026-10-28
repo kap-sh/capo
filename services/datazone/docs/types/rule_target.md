@@ -7,7 +7,7 @@ title: RuleTarget
       show_source: true
       merge_init_into_class: false
 
-::: capo_datazone.types.rule_target._RuleTarget_domainUnitTarget
+::: capo_datazone.types.rule_target.RuleTargetDomainUnitTargetMember
     options:
       show_source: true
       merge_init_into_class: false

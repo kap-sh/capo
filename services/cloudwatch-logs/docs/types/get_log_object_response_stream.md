@@ -13,13 +13,13 @@ title: GetLogObjectResponseStream
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cloudwatch_logs.types.get_log_object_response_stream._GetLogObjectResponseStream_fields
+::: capo_cloudwatch_logs.types.get_log_object_response_stream.GetLogObjectResponseStreamFieldsMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cloudwatch_logs.types.get_log_object_response_stream._GetLogObjectResponseStream_InternalStreamingException
+::: capo_cloudwatch_logs.types.get_log_object_response_stream.GetLogObjectResponseStreamInternalStreamingExceptionMember
     options:
       show_source: true
       merge_init_into_class: false

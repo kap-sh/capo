@@ -14,11 +14,11 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.cloud_watch_logs_input_config
 
 
-class _DataSourceConfig_cloudWatchLogs(TypedDict, closed=True):
+class DataSourceConfigCloudWatchLogsMember(TypedDict, closed=True):
     cloudWatchLogs: "capo_bedrock_agentcore_control.types.cloud_watch_logs_input_config.CloudWatchLogsInputConfig"
 
 
-DataSourceConfig: TypeAlias = _DataSourceConfig_cloudWatchLogs | UnknownUnionMember
+DataSourceConfig: TypeAlias = DataSourceConfigCloudWatchLogsMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

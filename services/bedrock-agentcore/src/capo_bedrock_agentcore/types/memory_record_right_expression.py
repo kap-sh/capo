@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.memory_record_metadata_value
 
 
-class _MemoryRecordRightExpression_metadataValue(TypedDict, closed=True):
+class MemoryRecordRightExpressionMetadataValueMember(TypedDict, closed=True):
     metadataValue: "capo_bedrock_agentcore.types.memory_record_metadata_value.MemoryRecordMetadataValue"
 
 
 MemoryRecordRightExpression: TypeAlias = (
-    _MemoryRecordRightExpression_metadataValue | UnknownUnionMember
+    MemoryRecordRightExpressionMetadataValueMember | UnknownUnionMember
 )
 
 

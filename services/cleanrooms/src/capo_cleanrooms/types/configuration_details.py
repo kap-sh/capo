@@ -11,12 +11,14 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.direct_analysis_configuration_details
 
 
-class _ConfigurationDetails_directAnalysisConfigurationDetails(TypedDict, closed=True):
+class ConfigurationDetailsDirectAnalysisConfigurationDetailsMember(
+    TypedDict, closed=True
+):
     directAnalysisConfigurationDetails: "capo_cleanrooms.types.direct_analysis_configuration_details.DirectAnalysisConfigurationDetails"
 
 
 ConfigurationDetails: TypeAlias = (
-    _ConfigurationDetails_directAnalysisConfigurationDetails | UnknownUnionMember
+    ConfigurationDetailsDirectAnalysisConfigurationDetailsMember | UnknownUnionMember
 )
 
 

@@ -7,13 +7,13 @@ title: AzElSegmentsData
       show_source: true
       merge_init_into_class: false
 
-::: capo_groundstation.types.az_el_segments_data._AzElSegmentsData_s3Object
+::: capo_groundstation.types.az_el_segments_data.AzElSegmentsDataS3ObjectMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_groundstation.types.az_el_segments_data._AzElSegmentsData_azElData
+::: capo_groundstation.types.az_el_segments_data.AzElSegmentsDataAzElDataMember
     options:
       show_source: true
       merge_init_into_class: false

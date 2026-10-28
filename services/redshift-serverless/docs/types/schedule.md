@@ -7,13 +7,13 @@ title: Schedule
       show_source: true
       merge_init_into_class: false
 
-::: capo_redshift_serverless.types.schedule._Schedule_at
+::: capo_redshift_serverless.types.schedule.ScheduleAtMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_redshift_serverless.types.schedule._Schedule_cron
+::: capo_redshift_serverless.types.schedule.ScheduleCronMember
     options:
       show_source: true
       merge_init_into_class: false

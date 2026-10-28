@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_qconnect.types.text_full_ai_prompt_edit_template_configuration
 
 
-class _AIPromptTemplateConfiguration_textFullAIPromptEditTemplateConfiguration(
+class AIPromptTemplateConfigurationTextFullAIPromptEditTemplateConfigurationMember(
     TypedDict, closed=True
 ):
     textFullAIPromptEditTemplateConfiguration: "capo_qconnect.types.text_full_ai_prompt_edit_template_configuration.TextFullAIPromptEditTemplateConfiguration"
 
 
 AIPromptTemplateConfiguration: TypeAlias = (
-    _AIPromptTemplateConfiguration_textFullAIPromptEditTemplateConfiguration
+    AIPromptTemplateConfigurationTextFullAIPromptEditTemplateConfigurationMember
     | UnknownUnionMember
 )
 

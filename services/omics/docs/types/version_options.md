@@ -7,7 +7,7 @@ title: VersionOptions
       show_source: true
       merge_init_into_class: false
 
-::: capo_omics.types.version_options._VersionOptions_tsvVersionOptions
+::: capo_omics.types.version_options.VersionOptionsTsvVersionOptionsMember
     options:
       show_source: true
       merge_init_into_class: false

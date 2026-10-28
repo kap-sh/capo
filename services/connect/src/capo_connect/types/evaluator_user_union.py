@@ -11,11 +11,13 @@ if TYPE_CHECKING:
     import capo_connect.types.arn
 
 
-class _EvaluatorUserUnion_ConnectUserArn(TypedDict, closed=True):
+class EvaluatorUserUnionConnectUserArnMember(TypedDict, closed=True):
     ConnectUserArn: "capo_connect.types.arn.ARN"
 
 
-EvaluatorUserUnion: TypeAlias = _EvaluatorUserUnion_ConnectUserArn | UnknownUnionMember
+EvaluatorUserUnion: TypeAlias = (
+    EvaluatorUserUnionConnectUserArnMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

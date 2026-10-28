@@ -18,53 +18,59 @@ if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_source_document
 
 
-class _AutomatedReasoningPolicyBuildResultAssets_policyDefinition(
+class AutomatedReasoningPolicyBuildResultAssetsPolicyDefinitionMember(
     TypedDict, closed=True
 ):
     policyDefinition: "capo_bedrock.types.automated_reasoning_policy_definition.AutomatedReasoningPolicyDefinition"
 
 
-class _AutomatedReasoningPolicyBuildResultAssets_qualityReport(TypedDict, closed=True):
+class AutomatedReasoningPolicyBuildResultAssetsQualityReportMember(
+    TypedDict, closed=True
+):
     qualityReport: "capo_bedrock.types.automated_reasoning_policy_definition_quality_report.AutomatedReasoningPolicyDefinitionQualityReport"
 
 
-class _AutomatedReasoningPolicyBuildResultAssets_buildLog(TypedDict, closed=True):
+class AutomatedReasoningPolicyBuildResultAssetsBuildLogMember(TypedDict, closed=True):
     buildLog: "capo_bedrock.types.automated_reasoning_policy_build_log.AutomatedReasoningPolicyBuildLog"
 
 
-class _AutomatedReasoningPolicyBuildResultAssets_generatedTestCases(
+class AutomatedReasoningPolicyBuildResultAssetsGeneratedTestCasesMember(
     TypedDict, closed=True
 ):
     generatedTestCases: "capo_bedrock.types.automated_reasoning_policy_generated_test_cases.AutomatedReasoningPolicyGeneratedTestCases"
 
 
-class _AutomatedReasoningPolicyBuildResultAssets_policyScenarios(
+class AutomatedReasoningPolicyBuildResultAssetsPolicyScenariosMember(
     TypedDict, closed=True
 ):
     policyScenarios: "capo_bedrock.types.automated_reasoning_policy_scenarios.AutomatedReasoningPolicyScenarios"
 
 
-class _AutomatedReasoningPolicyBuildResultAssets_assetManifest(TypedDict, closed=True):
+class AutomatedReasoningPolicyBuildResultAssetsAssetManifestMember(
+    TypedDict, closed=True
+):
     assetManifest: "capo_bedrock.types.automated_reasoning_policy_build_result_asset_manifest.AutomatedReasoningPolicyBuildResultAssetManifest"
 
 
-class _AutomatedReasoningPolicyBuildResultAssets_document(TypedDict, closed=True):
+class AutomatedReasoningPolicyBuildResultAssetsDocumentMember(TypedDict, closed=True):
     document: "capo_bedrock.types.automated_reasoning_policy_source_document.AutomatedReasoningPolicySourceDocument"
 
 
-class _AutomatedReasoningPolicyBuildResultAssets_fidelityReport(TypedDict, closed=True):
+class AutomatedReasoningPolicyBuildResultAssetsFidelityReportMember(
+    TypedDict, closed=True
+):
     fidelityReport: "capo_bedrock.types.automated_reasoning_policy_fidelity_report.AutomatedReasoningPolicyFidelityReport"
 
 
 AutomatedReasoningPolicyBuildResultAssets: TypeAlias = (
-    _AutomatedReasoningPolicyBuildResultAssets_policyDefinition
-    | _AutomatedReasoningPolicyBuildResultAssets_qualityReport
-    | _AutomatedReasoningPolicyBuildResultAssets_buildLog
-    | _AutomatedReasoningPolicyBuildResultAssets_generatedTestCases
-    | _AutomatedReasoningPolicyBuildResultAssets_policyScenarios
-    | _AutomatedReasoningPolicyBuildResultAssets_assetManifest
-    | _AutomatedReasoningPolicyBuildResultAssets_document
-    | _AutomatedReasoningPolicyBuildResultAssets_fidelityReport
+    AutomatedReasoningPolicyBuildResultAssetsPolicyDefinitionMember
+    | AutomatedReasoningPolicyBuildResultAssetsQualityReportMember
+    | AutomatedReasoningPolicyBuildResultAssetsBuildLogMember
+    | AutomatedReasoningPolicyBuildResultAssetsGeneratedTestCasesMember
+    | AutomatedReasoningPolicyBuildResultAssetsPolicyScenariosMember
+    | AutomatedReasoningPolicyBuildResultAssetsAssetManifestMember
+    | AutomatedReasoningPolicyBuildResultAssetsDocumentMember
+    | AutomatedReasoningPolicyBuildResultAssetsFidelityReportMember
     | UnknownUnionMember
 )
 

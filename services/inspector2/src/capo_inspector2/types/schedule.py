@@ -14,27 +14,27 @@ if TYPE_CHECKING:
     import capo_inspector2.types.weekly_schedule
 
 
-class _Schedule_oneTime(TypedDict, closed=True):
+class ScheduleOneTimeMember(TypedDict, closed=True):
     oneTime: "capo_inspector2.types.one_time_schedule.OneTimeSchedule"
 
 
-class _Schedule_daily(TypedDict, closed=True):
+class ScheduleDailyMember(TypedDict, closed=True):
     daily: "capo_inspector2.types.daily_schedule.DailySchedule"
 
 
-class _Schedule_weekly(TypedDict, closed=True):
+class ScheduleWeeklyMember(TypedDict, closed=True):
     weekly: "capo_inspector2.types.weekly_schedule.WeeklySchedule"
 
 
-class _Schedule_monthly(TypedDict, closed=True):
+class ScheduleMonthlyMember(TypedDict, closed=True):
     monthly: "capo_inspector2.types.monthly_schedule.MonthlySchedule"
 
 
 Schedule: TypeAlias = (
-    _Schedule_oneTime
-    | _Schedule_daily
-    | _Schedule_weekly
-    | _Schedule_monthly
+    ScheduleOneTimeMember
+    | ScheduleDailyMember
+    | ScheduleWeeklyMember
+    | ScheduleMonthlyMember
     | UnknownUnionMember
 )
 

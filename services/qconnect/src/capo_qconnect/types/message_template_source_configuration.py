@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_qconnect.types.whats_app_message_template_source_configuration
 
 
-class _MessageTemplateSourceConfiguration_whatsApp(TypedDict, closed=True):
+class MessageTemplateSourceConfigurationWhatsAppMember(TypedDict, closed=True):
     whatsApp: "capo_qconnect.types.whats_app_message_template_source_configuration.WhatsAppMessageTemplateSourceConfiguration"
 
 
 MessageTemplateSourceConfiguration: TypeAlias = (
-    _MessageTemplateSourceConfiguration_whatsApp | UnknownUnionMember
+    MessageTemplateSourceConfigurationWhatsAppMember | UnknownUnionMember
 )
 
 

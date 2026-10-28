@@ -11,11 +11,13 @@ if TYPE_CHECKING:
     import capo_account_access.types.principal_role_entitlement_details
 
 
-class _EntitlementDetails_principalRole(TypedDict, closed=True):
+class EntitlementDetailsPrincipalRoleMember(TypedDict, closed=True):
     principalRole: "capo_account_access.types.principal_role_entitlement_details.PrincipalRoleEntitlementDetails"
 
 
-EntitlementDetails: TypeAlias = _EntitlementDetails_principalRole | UnknownUnionMember
+EntitlementDetails: TypeAlias = (
+    EntitlementDetailsPrincipalRoleMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

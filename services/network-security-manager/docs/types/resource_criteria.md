@@ -7,13 +7,13 @@ title: ResourceCriteria
       show_source: true
       merge_init_into_class: false
 
-::: capo_network_security_manager.types.resource_criteria._ResourceCriteria_tags
+::: capo_network_security_manager.types.resource_criteria.ResourceCriteriaTagsMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_network_security_manager.types.resource_criteria._ResourceCriteria_albConfig
+::: capo_network_security_manager.types.resource_criteria.ResourceCriteriaAlbConfigMember
     options:
       show_source: true
       merge_init_into_class: false

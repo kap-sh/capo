@@ -12,15 +12,17 @@ if TYPE_CHECKING:
     import capo_connectcases.types.user_arn
 
 
-class _UserUnion_userArn(TypedDict, closed=True):
+class UserUnionUserArnMember(TypedDict, closed=True):
     userArn: "capo_connectcases.types.user_arn.UserArn"
 
 
-class _UserUnion_customEntity(TypedDict, closed=True):
+class UserUnionCustomEntityMember(TypedDict, closed=True):
     customEntity: "capo_connectcases.types.custom_entity.CustomEntity"
 
 
-UserUnion: TypeAlias = _UserUnion_userArn | _UserUnion_customEntity | UnknownUnionMember
+UserUnion: TypeAlias = (
+    UserUnionUserArnMember | UserUnionCustomEntityMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

@@ -7,7 +7,7 @@ title: DiffieHellmanDerivationData
       show_source: true
       merge_init_into_class: false
 
-::: capo_payment_cryptography.types.diffie_hellman_derivation_data._DiffieHellmanDerivationData_SharedInformation
+::: capo_payment_cryptography.types.diffie_hellman_derivation_data.DiffieHellmanDerivationDataSharedInformationMember
     options:
       show_source: true
       merge_init_into_class: false

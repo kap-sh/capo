@@ -8,12 +8,12 @@ from capo_bedrock_agent_runtime.errors import DeserializationError, Serializatio
 from capo_bedrock_agent_runtime.types._unknown import UnknownUnionMember
 
 
-class _FlowTraceNodeOutputContent_document(TypedDict, closed=True):
+class FlowTraceNodeOutputContentDocumentMember(TypedDict, closed=True):
     document: "object"
 
 
 FlowTraceNodeOutputContent: TypeAlias = (
-    _FlowTraceNodeOutputContent_document | UnknownUnionMember
+    FlowTraceNodeOutputContentDocumentMember | UnknownUnionMember
 )
 
 

@@ -13,27 +13,27 @@ if TYPE_CHECKING:
     import capo_iottwinmaker.types.sync_resource_type
 
 
-class _SyncResourceFilter_state(TypedDict, closed=True):
+class SyncResourceFilterStateMember(TypedDict, closed=True):
     state: "capo_iottwinmaker.types.sync_resource_state.SyncResourceState"
 
 
-class _SyncResourceFilter_resourceType(TypedDict, closed=True):
+class SyncResourceFilterResourceTypeMember(TypedDict, closed=True):
     resourceType: "capo_iottwinmaker.types.sync_resource_type.SyncResourceType"
 
 
-class _SyncResourceFilter_resourceId(TypedDict, closed=True):
+class SyncResourceFilterResourceIdMember(TypedDict, closed=True):
     resourceId: "capo_iottwinmaker.types.id.Id"
 
 
-class _SyncResourceFilter_externalId(TypedDict, closed=True):
+class SyncResourceFilterExternalIdMember(TypedDict, closed=True):
     externalId: "capo_iottwinmaker.types.id.Id"
 
 
 SyncResourceFilter: TypeAlias = (
-    _SyncResourceFilter_state
-    | _SyncResourceFilter_resourceType
-    | _SyncResourceFilter_resourceId
-    | _SyncResourceFilter_externalId
+    SyncResourceFilterStateMember
+    | SyncResourceFilterResourceTypeMember
+    | SyncResourceFilterResourceIdMember
+    | SyncResourceFilterExternalIdMember
     | UnknownUnionMember
 )
 

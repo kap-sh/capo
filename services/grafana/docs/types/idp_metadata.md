@@ -7,13 +7,13 @@ title: IdpMetadata
       show_source: true
       merge_init_into_class: false
 
-::: capo_grafana.types.idp_metadata._IdpMetadata_url
+::: capo_grafana.types.idp_metadata.IdpMetadataUrlMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_grafana.types.idp_metadata._IdpMetadata_xml
+::: capo_grafana.types.idp_metadata.IdpMetadataXmlMember
     options:
       show_source: true
       merge_init_into_class: false

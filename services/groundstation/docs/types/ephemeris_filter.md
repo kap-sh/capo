@@ -7,7 +7,7 @@ title: EphemerisFilter
       show_source: true
       merge_init_into_class: false
 
-::: capo_groundstation.types.ephemeris_filter._EphemerisFilter_azEl
+::: capo_groundstation.types.ephemeris_filter.EphemerisFilterAzElMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.schedule_condition
 
 
-class _TriggerCondition_schedule(TypedDict, closed=True):
+class TriggerConditionScheduleMember(TypedDict, closed=True):
     schedule: "capo_devops_agent.types.schedule_condition.ScheduleCondition"
 
 
-TriggerCondition: TypeAlias = _TriggerCondition_schedule | UnknownUnionMember
+TriggerCondition: TypeAlias = TriggerConditionScheduleMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

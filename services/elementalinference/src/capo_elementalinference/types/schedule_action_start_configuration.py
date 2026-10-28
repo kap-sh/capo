@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_elementalinference.types.fixed_mode_schedule_action_start_settings
 
 
-class _ScheduleActionStartConfiguration_fixedModeScheduleActionStartSettings(
+class ScheduleActionStartConfigurationFixedModeScheduleActionStartSettingsMember(
     TypedDict, closed=True
 ):
     fixedModeScheduleActionStartSettings: "capo_elementalinference.types.fixed_mode_schedule_action_start_settings.FixedModeScheduleActionStartSettings"
 
 
 ScheduleActionStartConfiguration: TypeAlias = (
-    _ScheduleActionStartConfiguration_fixedModeScheduleActionStartSettings
+    ScheduleActionStartConfigurationFixedModeScheduleActionStartSettingsMember
     | UnknownUnionMember
 )
 

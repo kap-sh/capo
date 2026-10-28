@@ -13,24 +13,24 @@ if TYPE_CHECKING:
     import capo_timestream_influxdb.types.influx_d_bv3_enterprise_parameters
 
 
-class _Parameters_InfluxDBv2(TypedDict, closed=True):
+class ParametersInfluxDBv2Member(TypedDict, closed=True):
     InfluxDBv2: (
         "capo_timestream_influxdb.types.influx_d_bv2_parameters.InfluxDBv2Parameters"
     )
 
 
-class _Parameters_InfluxDBv3Core(TypedDict, closed=True):
+class ParametersInfluxDBv3CoreMember(TypedDict, closed=True):
     InfluxDBv3Core: "capo_timestream_influxdb.types.influx_d_bv3_core_parameters.InfluxDBv3CoreParameters"
 
 
-class _Parameters_InfluxDBv3Enterprise(TypedDict, closed=True):
+class ParametersInfluxDBv3EnterpriseMember(TypedDict, closed=True):
     InfluxDBv3Enterprise: "capo_timestream_influxdb.types.influx_d_bv3_enterprise_parameters.InfluxDBv3EnterpriseParameters"
 
 
 Parameters: TypeAlias = (
-    _Parameters_InfluxDBv2
-    | _Parameters_InfluxDBv3Core
-    | _Parameters_InfluxDBv3Enterprise
+    ParametersInfluxDBv2Member
+    | ParametersInfluxDBv3CoreMember
+    | ParametersInfluxDBv3EnterpriseMember
     | UnknownUnionMember
 )
 

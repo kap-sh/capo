@@ -7,13 +7,13 @@ title: Destination
       show_source: true
       merge_init_into_class: false
 
-::: capo_appfabric.types.destination._Destination_s3Bucket
+::: capo_appfabric.types.destination.DestinationS3BucketMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_appfabric.types.destination._Destination_firehoseStream
+::: capo_appfabric.types.destination.DestinationFirehoseStreamMember
     options:
       show_source: true
       merge_init_into_class: false

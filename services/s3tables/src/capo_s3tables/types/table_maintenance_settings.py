@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_s3tables.types.iceberg_snapshot_management_settings
 
 
-class _TableMaintenanceSettings_icebergCompaction(TypedDict, closed=True):
+class TableMaintenanceSettingsIcebergCompactionMember(TypedDict, closed=True):
     icebergCompaction: (
         "capo_s3tables.types.iceberg_compaction_settings.IcebergCompactionSettings"
     )
 
 
-class _TableMaintenanceSettings_icebergSnapshotManagement(TypedDict, closed=True):
+class TableMaintenanceSettingsIcebergSnapshotManagementMember(TypedDict, closed=True):
     icebergSnapshotManagement: "capo_s3tables.types.iceberg_snapshot_management_settings.IcebergSnapshotManagementSettings"
 
 
 TableMaintenanceSettings: TypeAlias = (
-    _TableMaintenanceSettings_icebergCompaction
-    | _TableMaintenanceSettings_icebergSnapshotManagement
+    TableMaintenanceSettingsIcebergCompactionMember
+    | TableMaintenanceSettingsIcebergSnapshotManagementMember
     | UnknownUnionMember
 )
 

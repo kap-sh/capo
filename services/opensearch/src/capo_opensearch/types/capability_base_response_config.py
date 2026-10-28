@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_opensearch.types.ai_config
 
 
-class _CapabilityBaseResponseConfig_aiConfig(TypedDict, closed=True):
+class CapabilityBaseResponseConfigAiConfigMember(TypedDict, closed=True):
     aiConfig: "capo_opensearch.types.ai_config.AIConfig"
 
 
 CapabilityBaseResponseConfig: TypeAlias = (
-    _CapabilityBaseResponseConfig_aiConfig | UnknownUnionMember
+    CapabilityBaseResponseConfigAiConfigMember | UnknownUnionMember
 )
 
 

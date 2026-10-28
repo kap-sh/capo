@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_application_signals.types.operation_name
 
 
-class _CompositeSliComponent_OperationName(TypedDict, closed=True):
+class CompositeSliComponentOperationNameMember(TypedDict, closed=True):
     OperationName: "capo_application_signals.types.operation_name.OperationName"
 
 
 CompositeSliComponent: TypeAlias = (
-    _CompositeSliComponent_OperationName | UnknownUnionMember
+    CompositeSliComponentOperationNameMember | UnknownUnionMember
 )
 
 

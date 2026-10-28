@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.population_analysis_sql_parameters
 
 
-class _PopulationAnalysisConfiguration_sqlParameters(TypedDict, closed=True):
+class PopulationAnalysisConfigurationSqlParametersMember(TypedDict, closed=True):
     sqlParameters: "capo_cleanrooms.types.population_analysis_sql_parameters.PopulationAnalysisSqlParameters"
 
 
 PopulationAnalysisConfiguration: TypeAlias = (
-    _PopulationAnalysisConfiguration_sqlParameters | UnknownUnionMember
+    PopulationAnalysisConfigurationSqlParametersMember | UnknownUnionMember
 )
 
 

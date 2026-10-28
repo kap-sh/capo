@@ -24,62 +24,62 @@ if TYPE_CHECKING:
     import capo_iotsitewise.types.trace
 
 
-class _ResponseStream_trace(TypedDict, closed=True):
+class ResponseStreamTraceMember(TypedDict, closed=True):
     trace: "capo_iotsitewise.types.trace.Trace"
 
 
-class _ResponseStream_output(TypedDict, closed=True):
+class ResponseStreamOutputMember(TypedDict, closed=True):
     output: "capo_iotsitewise.types.invocation_output.InvocationOutput"
 
 
-class _ResponseStream_accessDeniedException(TypedDict, closed=True):
+class ResponseStreamAccessDeniedExceptionMember(TypedDict, closed=True):
     accessDeniedException: (
         "capo_iotsitewise.errors.access_denied_exception.AccessDeniedException_"
     )
 
 
-class _ResponseStream_conflictingOperationException(TypedDict, closed=True):
+class ResponseStreamConflictingOperationExceptionMember(TypedDict, closed=True):
     conflictingOperationException: "capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException_"
 
 
-class _ResponseStream_internalFailureException(TypedDict, closed=True):
+class ResponseStreamInternalFailureExceptionMember(TypedDict, closed=True):
     internalFailureException: (
         "capo_iotsitewise.errors.internal_failure_exception.InternalFailureException_"
     )
 
 
-class _ResponseStream_invalidRequestException(TypedDict, closed=True):
+class ResponseStreamInvalidRequestExceptionMember(TypedDict, closed=True):
     invalidRequestException: (
         "capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException_"
     )
 
 
-class _ResponseStream_limitExceededException(TypedDict, closed=True):
+class ResponseStreamLimitExceededExceptionMember(TypedDict, closed=True):
     limitExceededException: (
         "capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException_"
     )
 
 
-class _ResponseStream_resourceNotFoundException(TypedDict, closed=True):
+class ResponseStreamResourceNotFoundExceptionMember(TypedDict, closed=True):
     resourceNotFoundException: "capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException_"
 
 
-class _ResponseStream_throttlingException(TypedDict, closed=True):
+class ResponseStreamThrottlingExceptionMember(TypedDict, closed=True):
     throttlingException: (
         "capo_iotsitewise.errors.throttling_exception.ThrottlingException_"
     )
 
 
 _ResponseStream: TypeAlias = (
-    _ResponseStream_trace
-    | _ResponseStream_output
-    | _ResponseStream_accessDeniedException
-    | _ResponseStream_conflictingOperationException
-    | _ResponseStream_internalFailureException
-    | _ResponseStream_invalidRequestException
-    | _ResponseStream_limitExceededException
-    | _ResponseStream_resourceNotFoundException
-    | _ResponseStream_throttlingException
+    ResponseStreamTraceMember
+    | ResponseStreamOutputMember
+    | ResponseStreamAccessDeniedExceptionMember
+    | ResponseStreamConflictingOperationExceptionMember
+    | ResponseStreamInternalFailureExceptionMember
+    | ResponseStreamInvalidRequestExceptionMember
+    | ResponseStreamLimitExceededExceptionMember
+    | ResponseStreamResourceNotFoundExceptionMember
+    | ResponseStreamThrottlingExceptionMember
     | UnknownEvent
 )
 ResponseStream: TypeAlias = AnyIterator[_ResponseStream]

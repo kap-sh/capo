@@ -7,7 +7,7 @@ title: ContentSource
       show_source: true
       merge_init_into_class: false
 
-::: capo_qbusiness.types.content_source._ContentSource_retriever
+::: capo_qbusiness.types.content_source.ContentSourceRetrieverMember
     options:
       show_source: true
       merge_init_into_class: false

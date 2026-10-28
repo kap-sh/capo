@@ -7,7 +7,7 @@ title: Credentials
       show_source: true
       merge_init_into_class: false
 
-::: capo_emr.types.credentials._Credentials_UsernamePassword
+::: capo_emr.types.credentials.CredentialsUsernamePasswordMember
     options:
       show_source: true
       merge_init_into_class: false

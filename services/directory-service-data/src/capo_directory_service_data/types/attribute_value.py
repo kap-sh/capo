@@ -14,27 +14,27 @@ if TYPE_CHECKING:
     import capo_directory_service_data.types.string_set_attribute_value
 
 
-class _AttributeValue_S(TypedDict, closed=True):
+class AttributeValueSMember(TypedDict, closed=True):
     S: "capo_directory_service_data.types.string_attribute_value.StringAttributeValue"
 
 
-class _AttributeValue_N(TypedDict, closed=True):
+class AttributeValueNMember(TypedDict, closed=True):
     N: "capo_directory_service_data.types.number_attribute_value.NumberAttributeValue"
 
 
-class _AttributeValue_BOOL(TypedDict, closed=True):
+class AttributeValueBOOLMember(TypedDict, closed=True):
     BOOL: "capo_directory_service_data.types.boolean_attribute_value.BooleanAttributeValue"
 
 
-class _AttributeValue_SS(TypedDict, closed=True):
+class AttributeValueSSMember(TypedDict, closed=True):
     SS: "capo_directory_service_data.types.string_set_attribute_value.StringSetAttributeValue"
 
 
 AttributeValue: TypeAlias = (
-    _AttributeValue_S
-    | _AttributeValue_N
-    | _AttributeValue_BOOL
-    | _AttributeValue_SS
+    AttributeValueSMember
+    | AttributeValueNMember
+    | AttributeValueBOOLMember
+    | AttributeValueSSMember
     | UnknownUnionMember
 )
 

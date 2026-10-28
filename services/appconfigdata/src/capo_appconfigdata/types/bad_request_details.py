@@ -11,13 +11,15 @@ if TYPE_CHECKING:
     import capo_appconfigdata.types.invalid_parameter_map
 
 
-class _BadRequestDetails_InvalidParameters(TypedDict, closed=True):
+class BadRequestDetailsInvalidParametersMember(TypedDict, closed=True):
     InvalidParameters: (
         "capo_appconfigdata.types.invalid_parameter_map.InvalidParameterMap"
     )
 
 
-BadRequestDetails: TypeAlias = _BadRequestDetails_InvalidParameters | UnknownUnionMember
+BadRequestDetails: TypeAlias = (
+    BadRequestDetailsInvalidParametersMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

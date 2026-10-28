@@ -7,7 +7,7 @@ title: HarnessSystemContentBlock
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.harness_system_content_block._HarnessSystemContentBlock_text
+::: capo_bedrock_agentcore_control.types.harness_system_content_block.HarnessSystemContentBlockTextMember
     options:
       show_source: true
       merge_init_into_class: false

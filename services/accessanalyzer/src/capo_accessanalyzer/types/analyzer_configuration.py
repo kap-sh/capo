@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_accessanalyzer.types.unused_access_configuration
 
 
-class _AnalyzerConfiguration_unusedAccess(TypedDict, closed=True):
+class AnalyzerConfigurationUnusedAccessMember(TypedDict, closed=True):
     unusedAccess: "capo_accessanalyzer.types.unused_access_configuration.UnusedAccessConfiguration"
 
 
-class _AnalyzerConfiguration_internalAccess(TypedDict, closed=True):
+class AnalyzerConfigurationInternalAccessMember(TypedDict, closed=True):
     internalAccess: "capo_accessanalyzer.types.internal_access_configuration.InternalAccessConfiguration"
 
 
 AnalyzerConfiguration: TypeAlias = (
-    _AnalyzerConfiguration_unusedAccess
-    | _AnalyzerConfiguration_internalAccess
+    AnalyzerConfigurationUnusedAccessMember
+    | AnalyzerConfigurationInternalAccessMember
     | UnknownUnionMember
 )
 

@@ -7,7 +7,7 @@ title: InvocationLogSource
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock.types.invocation_log_source._InvocationLogSource_s3Uri
+::: capo_bedrock.types.invocation_log_source.InvocationLogSourceS3UriMember
     options:
       show_source: true
       merge_init_into_class: false

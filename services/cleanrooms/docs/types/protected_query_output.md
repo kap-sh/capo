@@ -7,19 +7,19 @@ title: ProtectedQueryOutput
       show_source: true
       merge_init_into_class: false
 
-::: capo_cleanrooms.types.protected_query_output._ProtectedQueryOutput_s3
+::: capo_cleanrooms.types.protected_query_output.ProtectedQueryOutputS3Member
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cleanrooms.types.protected_query_output._ProtectedQueryOutput_memberList
+::: capo_cleanrooms.types.protected_query_output.ProtectedQueryOutputMemberListMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cleanrooms.types.protected_query_output._ProtectedQueryOutput_distribute
+::: capo_cleanrooms.types.protected_query_output.ProtectedQueryOutputDistributeMember
     options:
       show_source: true
       merge_init_into_class: false

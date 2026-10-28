@@ -7,7 +7,7 @@ title: DataSourceConfig
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.data_source_config._DataSourceConfig_cloudWatchLogs
+::: capo_bedrock_agentcore_control.types.data_source_config.DataSourceConfigCloudWatchLogsMember
     options:
       show_source: true
       merge_init_into_class: false

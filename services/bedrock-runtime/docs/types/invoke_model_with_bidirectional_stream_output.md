@@ -13,43 +13,43 @@ title: InvokeModelWithBidirectionalStreamOutput
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.invoke_model_with_bidirectional_stream_output._InvokeModelWithBidirectionalStreamOutput_chunk
+::: capo_bedrock_runtime.types.invoke_model_with_bidirectional_stream_output.InvokeModelWithBidirectionalStreamOutputChunkMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.invoke_model_with_bidirectional_stream_output._InvokeModelWithBidirectionalStreamOutput_internalServerException
+::: capo_bedrock_runtime.types.invoke_model_with_bidirectional_stream_output.InvokeModelWithBidirectionalStreamOutputInternalServerExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.invoke_model_with_bidirectional_stream_output._InvokeModelWithBidirectionalStreamOutput_modelStreamErrorException
+::: capo_bedrock_runtime.types.invoke_model_with_bidirectional_stream_output.InvokeModelWithBidirectionalStreamOutputModelStreamErrorExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.invoke_model_with_bidirectional_stream_output._InvokeModelWithBidirectionalStreamOutput_validationException
+::: capo_bedrock_runtime.types.invoke_model_with_bidirectional_stream_output.InvokeModelWithBidirectionalStreamOutputValidationExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.invoke_model_with_bidirectional_stream_output._InvokeModelWithBidirectionalStreamOutput_throttlingException
+::: capo_bedrock_runtime.types.invoke_model_with_bidirectional_stream_output.InvokeModelWithBidirectionalStreamOutputThrottlingExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.invoke_model_with_bidirectional_stream_output._InvokeModelWithBidirectionalStreamOutput_modelTimeoutException
+::: capo_bedrock_runtime.types.invoke_model_with_bidirectional_stream_output.InvokeModelWithBidirectionalStreamOutputModelTimeoutExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.invoke_model_with_bidirectional_stream_output._InvokeModelWithBidirectionalStreamOutput_serviceUnavailableException
+::: capo_bedrock_runtime.types.invoke_model_with_bidirectional_stream_output.InvokeModelWithBidirectionalStreamOutputServiceUnavailableExceptionMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -14,27 +14,27 @@ if TYPE_CHECKING:
     import capo_connect.types.evaluation_form_text_question_properties
 
 
-class _EvaluationFormQuestionTypeProperties_Numeric(TypedDict, closed=True):
+class EvaluationFormQuestionTypePropertiesNumericMember(TypedDict, closed=True):
     Numeric: "capo_connect.types.evaluation_form_numeric_question_properties.EvaluationFormNumericQuestionProperties"
 
 
-class _EvaluationFormQuestionTypeProperties_SingleSelect(TypedDict, closed=True):
+class EvaluationFormQuestionTypePropertiesSingleSelectMember(TypedDict, closed=True):
     SingleSelect: "capo_connect.types.evaluation_form_single_select_question_properties.EvaluationFormSingleSelectQuestionProperties"
 
 
-class _EvaluationFormQuestionTypeProperties_Text(TypedDict, closed=True):
+class EvaluationFormQuestionTypePropertiesTextMember(TypedDict, closed=True):
     Text: "capo_connect.types.evaluation_form_text_question_properties.EvaluationFormTextQuestionProperties"
 
 
-class _EvaluationFormQuestionTypeProperties_MultiSelect(TypedDict, closed=True):
+class EvaluationFormQuestionTypePropertiesMultiSelectMember(TypedDict, closed=True):
     MultiSelect: "capo_connect.types.evaluation_form_multi_select_question_properties.EvaluationFormMultiSelectQuestionProperties"
 
 
 EvaluationFormQuestionTypeProperties: TypeAlias = (
-    _EvaluationFormQuestionTypeProperties_Numeric
-    | _EvaluationFormQuestionTypeProperties_SingleSelect
-    | _EvaluationFormQuestionTypeProperties_Text
-    | _EvaluationFormQuestionTypeProperties_MultiSelect
+    EvaluationFormQuestionTypePropertiesNumericMember
+    | EvaluationFormQuestionTypePropertiesSingleSelectMember
+    | EvaluationFormQuestionTypePropertiesTextMember
+    | EvaluationFormQuestionTypePropertiesMultiSelectMember
     | UnknownUnionMember
 )
 

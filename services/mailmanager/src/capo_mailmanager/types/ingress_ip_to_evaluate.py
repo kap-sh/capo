@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_mailmanager.types.ingress_ipv4_attribute
 
 
-class _IngressIpToEvaluate_Attribute(TypedDict, closed=True):
+class IngressIpToEvaluateAttributeMember(TypedDict, closed=True):
     Attribute: "capo_mailmanager.types.ingress_ipv4_attribute.IngressIpv4Attribute"
 
 
-IngressIpToEvaluate: TypeAlias = _IngressIpToEvaluate_Attribute | UnknownUnionMember
+IngressIpToEvaluate: TypeAlias = IngressIpToEvaluateAttributeMember | UnknownUnionMember
 
 
 # --- awsJson1_0 ser/de ---

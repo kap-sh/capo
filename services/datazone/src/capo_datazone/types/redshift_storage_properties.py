@@ -8,17 +8,17 @@ from capo_datazone.errors import DeserializationError, SerializationError
 from capo_datazone.types._unknown import UnknownUnionMember
 
 
-class _RedshiftStorageProperties_clusterName(TypedDict, closed=True):
+class RedshiftStoragePropertiesClusterNameMember(TypedDict, closed=True):
     clusterName: "str"
 
 
-class _RedshiftStorageProperties_workgroupName(TypedDict, closed=True):
+class RedshiftStoragePropertiesWorkgroupNameMember(TypedDict, closed=True):
     workgroupName: "str"
 
 
 RedshiftStorageProperties: TypeAlias = (
-    _RedshiftStorageProperties_clusterName
-    | _RedshiftStorageProperties_workgroupName
+    RedshiftStoragePropertiesClusterNameMember
+    | RedshiftStoragePropertiesWorkgroupNameMember
     | UnknownUnionMember
 )
 

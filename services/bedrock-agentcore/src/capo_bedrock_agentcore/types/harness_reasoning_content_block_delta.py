@@ -11,22 +11,22 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.body
 
 
-class _HarnessReasoningContentBlockDelta_text(TypedDict, closed=True):
+class HarnessReasoningContentBlockDeltaTextMember(TypedDict, closed=True):
     text: "str"
 
 
-class _HarnessReasoningContentBlockDelta_redactedContent(TypedDict, closed=True):
+class HarnessReasoningContentBlockDeltaRedactedContentMember(TypedDict, closed=True):
     redactedContent: "capo_bedrock_agentcore.types.body.Body"
 
 
-class _HarnessReasoningContentBlockDelta_signature(TypedDict, closed=True):
+class HarnessReasoningContentBlockDeltaSignatureMember(TypedDict, closed=True):
     signature: "str"
 
 
 HarnessReasoningContentBlockDelta: TypeAlias = (
-    _HarnessReasoningContentBlockDelta_text
-    | _HarnessReasoningContentBlockDelta_redactedContent
-    | _HarnessReasoningContentBlockDelta_signature
+    HarnessReasoningContentBlockDeltaTextMember
+    | HarnessReasoningContentBlockDeltaRedactedContentMember
+    | HarnessReasoningContentBlockDeltaSignatureMember
     | UnknownUnionMember
 )
 

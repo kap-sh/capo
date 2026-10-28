@@ -7,7 +7,7 @@ title: InterceptorConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.interceptor_configuration._InterceptorConfiguration_lambda
+::: capo_bedrock_agentcore_control.types.interceptor_configuration.InterceptorConfigurationLambdaMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -12,21 +12,21 @@ if TYPE_CHECKING:
     import capo_qconnect.types.handoff_agent_configuration
 
 
-class _MultiAgentConfiguration_delegateAgentConfiguration(TypedDict, closed=True):
+class MultiAgentConfigurationDelegateAgentConfigurationMember(TypedDict, closed=True):
     delegateAgentConfiguration: (
         "capo_qconnect.types.delegate_agent_configuration.DelegateAgentConfiguration"
     )
 
 
-class _MultiAgentConfiguration_handoffAgentConfiguration(TypedDict, closed=True):
+class MultiAgentConfigurationHandoffAgentConfigurationMember(TypedDict, closed=True):
     handoffAgentConfiguration: (
         "capo_qconnect.types.handoff_agent_configuration.HandoffAgentConfiguration"
     )
 
 
 MultiAgentConfiguration: TypeAlias = (
-    _MultiAgentConfiguration_delegateAgentConfiguration
-    | _MultiAgentConfiguration_handoffAgentConfiguration
+    MultiAgentConfigurationDelegateAgentConfigurationMember
+    | MultiAgentConfigurationHandoffAgentConfigurationMember
     | UnknownUnionMember
 )
 

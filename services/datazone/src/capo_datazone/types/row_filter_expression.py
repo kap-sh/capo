@@ -22,40 +22,40 @@ if TYPE_CHECKING:
     import capo_datazone.types.not_like_expression
 
 
-class _RowFilterExpression_equalTo(TypedDict, closed=True):
+class RowFilterExpressionEqualToMember(TypedDict, closed=True):
     equalTo: "capo_datazone.types.equal_to_expression.EqualToExpression"
 
 
-class _RowFilterExpression_notEqualTo(TypedDict, closed=True):
+class RowFilterExpressionNotEqualToMember(TypedDict, closed=True):
     notEqualTo: "capo_datazone.types.not_equal_to_expression.NotEqualToExpression"
 
 
-class _RowFilterExpression_greaterThan(TypedDict, closed=True):
+class RowFilterExpressionGreaterThanMember(TypedDict, closed=True):
     greaterThan: "capo_datazone.types.greater_than_expression.GreaterThanExpression"
 
 
-class _RowFilterExpression_lessThan(TypedDict, closed=True):
+class RowFilterExpressionLessThanMember(TypedDict, closed=True):
     lessThan: "capo_datazone.types.less_than_expression.LessThanExpression"
 
 
-class _RowFilterExpression_greaterThanOrEqualTo(TypedDict, closed=True):
+class RowFilterExpressionGreaterThanOrEqualToMember(TypedDict, closed=True):
     greaterThanOrEqualTo: "capo_datazone.types.greater_than_or_equal_to_expression.GreaterThanOrEqualToExpression"
 
 
-class _RowFilterExpression_lessThanOrEqualTo(TypedDict, closed=True):
+class RowFilterExpressionLessThanOrEqualToMember(TypedDict, closed=True):
     lessThanOrEqualTo: "capo_datazone.types.less_than_or_equal_to_expression.LessThanOrEqualToExpression"
 
 
-class _RowFilterExpression_isNull(TypedDict, closed=True):
+class RowFilterExpressionIsNullMember(TypedDict, closed=True):
     isNull: "capo_datazone.types.is_null_expression.IsNullExpression"
 
 
-class _RowFilterExpression_isNotNull(TypedDict, closed=True):
+class RowFilterExpressionIsNotNullMember(TypedDict, closed=True):
     isNotNull: "capo_datazone.types.is_not_null_expression.IsNotNullExpression"
 
 
-_RowFilterExpression_in = TypedDict(
-    "_RowFilterExpression_in",
+RowFilterExpressionInMember = TypedDict(
+    "RowFilterExpressionInMember",
     {
         "in": "capo_datazone.types.in_expression.InExpression",
     },
@@ -63,31 +63,31 @@ _RowFilterExpression_in = TypedDict(
 )
 
 
-class _RowFilterExpression_notIn(TypedDict, closed=True):
+class RowFilterExpressionNotInMember(TypedDict, closed=True):
     notIn: "capo_datazone.types.not_in_expression.NotInExpression"
 
 
-class _RowFilterExpression_like(TypedDict, closed=True):
+class RowFilterExpressionLikeMember(TypedDict, closed=True):
     like: "capo_datazone.types.like_expression.LikeExpression"
 
 
-class _RowFilterExpression_notLike(TypedDict, closed=True):
+class RowFilterExpressionNotLikeMember(TypedDict, closed=True):
     notLike: "capo_datazone.types.not_like_expression.NotLikeExpression"
 
 
 RowFilterExpression: TypeAlias = (
-    _RowFilterExpression_equalTo
-    | _RowFilterExpression_notEqualTo
-    | _RowFilterExpression_greaterThan
-    | _RowFilterExpression_lessThan
-    | _RowFilterExpression_greaterThanOrEqualTo
-    | _RowFilterExpression_lessThanOrEqualTo
-    | _RowFilterExpression_isNull
-    | _RowFilterExpression_isNotNull
-    | _RowFilterExpression_in
-    | _RowFilterExpression_notIn
-    | _RowFilterExpression_like
-    | _RowFilterExpression_notLike
+    RowFilterExpressionEqualToMember
+    | RowFilterExpressionNotEqualToMember
+    | RowFilterExpressionGreaterThanMember
+    | RowFilterExpressionLessThanMember
+    | RowFilterExpressionGreaterThanOrEqualToMember
+    | RowFilterExpressionLessThanOrEqualToMember
+    | RowFilterExpressionIsNullMember
+    | RowFilterExpressionIsNotNullMember
+    | RowFilterExpressionInMember
+    | RowFilterExpressionNotInMember
+    | RowFilterExpressionLikeMember
+    | RowFilterExpressionNotLikeMember
     | UnknownUnionMember
 )
 

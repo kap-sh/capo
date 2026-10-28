@@ -15,19 +15,19 @@ if TYPE_CHECKING:
     import capo_network_security_manager.types.template_identifier
 
 
-class _TemplateOrRuleReference_templateIdentifier(TypedDict, closed=True):
+class TemplateOrRuleReferenceTemplateIdentifierMember(TypedDict, closed=True):
     templateIdentifier: (
         "capo_network_security_manager.types.template_identifier.TemplateIdentifier"
     )
 
 
-class _TemplateOrRuleReference_ruleIdentifier(TypedDict, closed=True):
+class TemplateOrRuleReferenceRuleIdentifierMember(TypedDict, closed=True):
     ruleIdentifier: "capo_network_security_manager.types.rule_identifier.RuleIdentifier"
 
 
 TemplateOrRuleReference: TypeAlias = (
-    _TemplateOrRuleReference_templateIdentifier
-    | _TemplateOrRuleReference_ruleIdentifier
+    TemplateOrRuleReferenceTemplateIdentifierMember
+    | TemplateOrRuleReferenceRuleIdentifierMember
     | UnknownUnionMember
 )
 

@@ -11,32 +11,32 @@ if TYPE_CHECKING:
     import capo_connectcases.types.empty_field_value
 
 
-class _AuditEventFieldValueUnion_stringValue(TypedDict, closed=True):
+class AuditEventFieldValueUnionStringValueMember(TypedDict, closed=True):
     stringValue: "str"
 
 
-class _AuditEventFieldValueUnion_doubleValue(TypedDict, closed=True):
+class AuditEventFieldValueUnionDoubleValueMember(TypedDict, closed=True):
     doubleValue: "float"
 
 
-class _AuditEventFieldValueUnion_booleanValue(TypedDict, closed=True):
+class AuditEventFieldValueUnionBooleanValueMember(TypedDict, closed=True):
     booleanValue: "bool"
 
 
-class _AuditEventFieldValueUnion_emptyValue(TypedDict, closed=True):
+class AuditEventFieldValueUnionEmptyValueMember(TypedDict, closed=True):
     emptyValue: "capo_connectcases.types.empty_field_value.EmptyFieldValue"
 
 
-class _AuditEventFieldValueUnion_userArnValue(TypedDict, closed=True):
+class AuditEventFieldValueUnionUserArnValueMember(TypedDict, closed=True):
     userArnValue: "str"
 
 
 AuditEventFieldValueUnion: TypeAlias = (
-    _AuditEventFieldValueUnion_stringValue
-    | _AuditEventFieldValueUnion_doubleValue
-    | _AuditEventFieldValueUnion_booleanValue
-    | _AuditEventFieldValueUnion_emptyValue
-    | _AuditEventFieldValueUnion_userArnValue
+    AuditEventFieldValueUnionStringValueMember
+    | AuditEventFieldValueUnionDoubleValueMember
+    | AuditEventFieldValueUnionBooleanValueMember
+    | AuditEventFieldValueUnionEmptyValueMember
+    | AuditEventFieldValueUnionUserArnValueMember
     | UnknownUnionMember
 )
 

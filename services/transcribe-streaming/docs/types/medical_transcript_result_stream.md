@@ -13,37 +13,37 @@ title: MedicalTranscriptResultStream
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_transcribe_streaming.types.medical_transcript_result_stream._MedicalTranscriptResultStream_TranscriptEvent
+::: capo_transcribe_streaming.types.medical_transcript_result_stream.MedicalTranscriptResultStreamTranscriptEventMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_transcribe_streaming.types.medical_transcript_result_stream._MedicalTranscriptResultStream_BadRequestException
+::: capo_transcribe_streaming.types.medical_transcript_result_stream.MedicalTranscriptResultStreamBadRequestExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_transcribe_streaming.types.medical_transcript_result_stream._MedicalTranscriptResultStream_LimitExceededException
+::: capo_transcribe_streaming.types.medical_transcript_result_stream.MedicalTranscriptResultStreamLimitExceededExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_transcribe_streaming.types.medical_transcript_result_stream._MedicalTranscriptResultStream_InternalFailureException
+::: capo_transcribe_streaming.types.medical_transcript_result_stream.MedicalTranscriptResultStreamInternalFailureExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_transcribe_streaming.types.medical_transcript_result_stream._MedicalTranscriptResultStream_ConflictException
+::: capo_transcribe_streaming.types.medical_transcript_result_stream.MedicalTranscriptResultStreamConflictExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_transcribe_streaming.types.medical_transcript_result_stream._MedicalTranscriptResultStream_ServiceUnavailableException
+::: capo_transcribe_streaming.types.medical_transcript_result_stream.MedicalTranscriptResultStreamServiceUnavailableExceptionMember
     options:
       show_source: true
       merge_init_into_class: false

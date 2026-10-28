@@ -7,7 +7,7 @@ title: IngressTlsProtocolToEvaluate
       show_source: true
       merge_init_into_class: false
 
-::: capo_mailmanager.types.ingress_tls_protocol_to_evaluate._IngressTlsProtocolToEvaluate_Attribute
+::: capo_mailmanager.types.ingress_tls_protocol_to_evaluate.IngressTlsProtocolToEvaluateAttributeMember
     options:
       show_source: true
       merge_init_into_class: false

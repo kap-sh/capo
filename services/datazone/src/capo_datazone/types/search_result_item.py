@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_datazone.types.data_product_listing_item
 
 
-class _SearchResultItem_assetListing(TypedDict, closed=True):
+class SearchResultItemAssetListingMember(TypedDict, closed=True):
     assetListing: "capo_datazone.types.asset_listing_item.AssetListingItem"
 
 
-class _SearchResultItem_dataProductListing(TypedDict, closed=True):
+class SearchResultItemDataProductListingMember(TypedDict, closed=True):
     dataProductListing: (
         "capo_datazone.types.data_product_listing_item.DataProductListingItem"
     )
 
 
 SearchResultItem: TypeAlias = (
-    _SearchResultItem_assetListing
-    | _SearchResultItem_dataProductListing
+    SearchResultItemAssetListingMember
+    | SearchResultItemDataProductListingMember
     | UnknownUnionMember
 )
 

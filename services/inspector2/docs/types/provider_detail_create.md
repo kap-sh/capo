@@ -7,7 +7,7 @@ title: ProviderDetailCreate
       show_source: true
       merge_init_into_class: false
 
-::: capo_inspector2.types.provider_detail_create._ProviderDetailCreate_azure
+::: capo_inspector2.types.provider_detail_create.ProviderDetailCreateAzureMember
     options:
       show_source: true
       merge_init_into_class: false

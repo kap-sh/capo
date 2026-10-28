@@ -11,12 +11,14 @@ if TYPE_CHECKING:
     import capo_bedrock.types.model_invocation_job_s3_output_data_config
 
 
-class _ModelInvocationJobOutputDataConfig_s3OutputDataConfig(TypedDict, closed=True):
+class ModelInvocationJobOutputDataConfigS3OutputDataConfigMember(
+    TypedDict, closed=True
+):
     s3OutputDataConfig: "capo_bedrock.types.model_invocation_job_s3_output_data_config.ModelInvocationJobS3OutputDataConfig"
 
 
 ModelInvocationJobOutputDataConfig: TypeAlias = (
-    _ModelInvocationJobOutputDataConfig_s3OutputDataConfig | UnknownUnionMember
+    ModelInvocationJobOutputDataConfigS3OutputDataConfigMember | UnknownUnionMember
 )
 
 

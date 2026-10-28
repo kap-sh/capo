@@ -14,14 +14,15 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.custom_consolidation_configuration
 
 
-class _ConsolidationConfiguration_customConsolidationConfiguration(
+class ConsolidationConfigurationCustomConsolidationConfigurationMember(
     TypedDict, closed=True
 ):
     customConsolidationConfiguration: "capo_bedrock_agentcore_control.types.custom_consolidation_configuration.CustomConsolidationConfiguration"
 
 
 ConsolidationConfiguration: TypeAlias = (
-    _ConsolidationConfiguration_customConsolidationConfiguration | UnknownUnionMember
+    ConsolidationConfigurationCustomConsolidationConfigurationMember
+    | UnknownUnionMember
 )
 
 

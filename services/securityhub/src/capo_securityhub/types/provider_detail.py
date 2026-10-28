@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_securityhub.types.service_now_detail
 
 
-class _ProviderDetail_JiraCloud(TypedDict, closed=True):
+class ProviderDetailJiraCloudMember(TypedDict, closed=True):
     JiraCloud: "capo_securityhub.types.jira_cloud_detail.JiraCloudDetail"
 
 
-class _ProviderDetail_ServiceNow(TypedDict, closed=True):
+class ProviderDetailServiceNowMember(TypedDict, closed=True):
     ServiceNow: "capo_securityhub.types.service_now_detail.ServiceNowDetail"
 
 
-class _ProviderDetail_Azure(TypedDict, closed=True):
+class ProviderDetailAzureMember(TypedDict, closed=True):
     Azure: "capo_securityhub.types.azure_detail.AzureDetail"
 
 
 ProviderDetail: TypeAlias = (
-    _ProviderDetail_JiraCloud
-    | _ProviderDetail_ServiceNow
-    | _ProviderDetail_Azure
+    ProviderDetailJiraCloudMember
+    | ProviderDetailServiceNowMember
+    | ProviderDetailAzureMember
     | UnknownUnionMember
 )
 

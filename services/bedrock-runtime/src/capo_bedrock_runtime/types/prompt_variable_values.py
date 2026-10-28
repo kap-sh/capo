@@ -8,11 +8,11 @@ from capo_bedrock_runtime.errors import DeserializationError, SerializationError
 from capo_bedrock_runtime.types._unknown import UnknownUnionMember
 
 
-class _PromptVariableValues_text(TypedDict, closed=True):
+class PromptVariableValuesTextMember(TypedDict, closed=True):
     text: "str"
 
 
-PromptVariableValues: TypeAlias = _PromptVariableValues_text | UnknownUnionMember
+PromptVariableValues: TypeAlias = PromptVariableValuesTextMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

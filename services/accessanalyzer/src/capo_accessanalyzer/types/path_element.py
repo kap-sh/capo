@@ -11,27 +11,27 @@ if TYPE_CHECKING:
     import capo_accessanalyzer.types.substring
 
 
-class _PathElement_index(TypedDict, closed=True):
+class PathElementIndexMember(TypedDict, closed=True):
     index: "int"
 
 
-class _PathElement_key(TypedDict, closed=True):
+class PathElementKeyMember(TypedDict, closed=True):
     key: "str"
 
 
-class _PathElement_substring(TypedDict, closed=True):
+class PathElementSubstringMember(TypedDict, closed=True):
     substring: "capo_accessanalyzer.types.substring.Substring"
 
 
-class _PathElement_value(TypedDict, closed=True):
+class PathElementValueMember(TypedDict, closed=True):
     value: "str"
 
 
 PathElement: TypeAlias = (
-    _PathElement_index
-    | _PathElement_key
-    | _PathElement_substring
-    | _PathElement_value
+    PathElementIndexMember
+    | PathElementKeyMember
+    | PathElementSubstringMember
+    | PathElementValueMember
     | UnknownUnionMember
 )
 

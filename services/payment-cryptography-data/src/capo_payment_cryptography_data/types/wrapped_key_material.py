@@ -15,17 +15,17 @@ if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.tr31_wrapped_key_block
 
 
-class _WrappedKeyMaterial_Tr31KeyBlock(TypedDict, closed=True):
+class WrappedKeyMaterialTr31KeyBlockMember(TypedDict, closed=True):
     Tr31KeyBlock: "capo_payment_cryptography_data.types.tr31_wrapped_key_block.Tr31WrappedKeyBlock"
 
 
-class _WrappedKeyMaterial_DiffieHellmanSymmetricKey(TypedDict, closed=True):
+class WrappedKeyMaterialDiffieHellmanSymmetricKeyMember(TypedDict, closed=True):
     DiffieHellmanSymmetricKey: "capo_payment_cryptography_data.types.ecdh_derivation_attributes.EcdhDerivationAttributes"
 
 
 WrappedKeyMaterial: TypeAlias = (
-    _WrappedKeyMaterial_Tr31KeyBlock
-    | _WrappedKeyMaterial_DiffieHellmanSymmetricKey
+    WrappedKeyMaterialTr31KeyBlockMember
+    | WrappedKeyMaterialDiffieHellmanSymmetricKeyMember
     | UnknownUnionMember
 )
 

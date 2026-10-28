@@ -7,7 +7,7 @@ title: DataAccessorAuthenticationConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_qbusiness.types.data_accessor_authentication_configuration._DataAccessorAuthenticationConfiguration_idcTrustedTokenIssuerConfiguration
+::: capo_qbusiness.types.data_accessor_authentication_configuration.DataAccessorAuthenticationConfigurationIdcTrustedTokenIssuerConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false

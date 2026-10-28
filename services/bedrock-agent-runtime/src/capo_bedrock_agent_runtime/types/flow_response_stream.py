@@ -28,84 +28,84 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.flow_trace_event
 
 
-class _FlowResponseStream_flowOutputEvent(TypedDict, closed=True):
+class FlowResponseStreamFlowOutputEventMember(TypedDict, closed=True):
     flowOutputEvent: (
         "capo_bedrock_agent_runtime.types.flow_output_event.FlowOutputEvent"
     )
 
 
-class _FlowResponseStream_flowCompletionEvent(TypedDict, closed=True):
+class FlowResponseStreamFlowCompletionEventMember(TypedDict, closed=True):
     flowCompletionEvent: (
         "capo_bedrock_agent_runtime.types.flow_completion_event.FlowCompletionEvent"
     )
 
 
-class _FlowResponseStream_flowTraceEvent(TypedDict, closed=True):
+class FlowResponseStreamFlowTraceEventMember(TypedDict, closed=True):
     flowTraceEvent: "capo_bedrock_agent_runtime.types.flow_trace_event.FlowTraceEvent"
 
 
-class _FlowResponseStream_internalServerException(TypedDict, closed=True):
+class FlowResponseStreamInternalServerExceptionMember(TypedDict, closed=True):
     internalServerException: "capo_bedrock_agent_runtime.errors.internal_server_exception.InternalServerException_"
 
 
-class _FlowResponseStream_validationException(TypedDict, closed=True):
+class FlowResponseStreamValidationExceptionMember(TypedDict, closed=True):
     validationException: (
         "capo_bedrock_agent_runtime.errors.validation_exception.ValidationException_"
     )
 
 
-class _FlowResponseStream_resourceNotFoundException(TypedDict, closed=True):
+class FlowResponseStreamResourceNotFoundExceptionMember(TypedDict, closed=True):
     resourceNotFoundException: "capo_bedrock_agent_runtime.errors.resource_not_found_exception.ResourceNotFoundException_"
 
 
-class _FlowResponseStream_serviceQuotaExceededException(TypedDict, closed=True):
+class FlowResponseStreamServiceQuotaExceededExceptionMember(TypedDict, closed=True):
     serviceQuotaExceededException: "capo_bedrock_agent_runtime.errors.service_quota_exceeded_exception.ServiceQuotaExceededException_"
 
 
-class _FlowResponseStream_throttlingException(TypedDict, closed=True):
+class FlowResponseStreamThrottlingExceptionMember(TypedDict, closed=True):
     throttlingException: (
         "capo_bedrock_agent_runtime.errors.throttling_exception.ThrottlingException_"
     )
 
 
-class _FlowResponseStream_accessDeniedException(TypedDict, closed=True):
+class FlowResponseStreamAccessDeniedExceptionMember(TypedDict, closed=True):
     accessDeniedException: "capo_bedrock_agent_runtime.errors.access_denied_exception.AccessDeniedException_"
 
 
-class _FlowResponseStream_conflictException(TypedDict, closed=True):
+class FlowResponseStreamConflictExceptionMember(TypedDict, closed=True):
     conflictException: (
         "capo_bedrock_agent_runtime.errors.conflict_exception.ConflictException_"
     )
 
 
-class _FlowResponseStream_dependencyFailedException(TypedDict, closed=True):
+class FlowResponseStreamDependencyFailedExceptionMember(TypedDict, closed=True):
     dependencyFailedException: "capo_bedrock_agent_runtime.errors.dependency_failed_exception.DependencyFailedException_"
 
 
-class _FlowResponseStream_badGatewayException(TypedDict, closed=True):
+class FlowResponseStreamBadGatewayExceptionMember(TypedDict, closed=True):
     badGatewayException: (
         "capo_bedrock_agent_runtime.errors.bad_gateway_exception.BadGatewayException_"
     )
 
 
-class _FlowResponseStream_flowMultiTurnInputRequestEvent(TypedDict, closed=True):
+class FlowResponseStreamFlowMultiTurnInputRequestEventMember(TypedDict, closed=True):
     flowMultiTurnInputRequestEvent: "capo_bedrock_agent_runtime.types.flow_multi_turn_input_request_event.FlowMultiTurnInputRequestEvent"
 
 
 _FlowResponseStream: TypeAlias = (
-    _FlowResponseStream_flowOutputEvent
-    | _FlowResponseStream_flowCompletionEvent
-    | _FlowResponseStream_flowTraceEvent
-    | _FlowResponseStream_internalServerException
-    | _FlowResponseStream_validationException
-    | _FlowResponseStream_resourceNotFoundException
-    | _FlowResponseStream_serviceQuotaExceededException
-    | _FlowResponseStream_throttlingException
-    | _FlowResponseStream_accessDeniedException
-    | _FlowResponseStream_conflictException
-    | _FlowResponseStream_dependencyFailedException
-    | _FlowResponseStream_badGatewayException
-    | _FlowResponseStream_flowMultiTurnInputRequestEvent
+    FlowResponseStreamFlowOutputEventMember
+    | FlowResponseStreamFlowCompletionEventMember
+    | FlowResponseStreamFlowTraceEventMember
+    | FlowResponseStreamInternalServerExceptionMember
+    | FlowResponseStreamValidationExceptionMember
+    | FlowResponseStreamResourceNotFoundExceptionMember
+    | FlowResponseStreamServiceQuotaExceededExceptionMember
+    | FlowResponseStreamThrottlingExceptionMember
+    | FlowResponseStreamAccessDeniedExceptionMember
+    | FlowResponseStreamConflictExceptionMember
+    | FlowResponseStreamDependencyFailedExceptionMember
+    | FlowResponseStreamBadGatewayExceptionMember
+    | FlowResponseStreamFlowMultiTurnInputRequestEventMember
     | UnknownEvent
 )
 FlowResponseStream: TypeAlias = AnyIterator[_FlowResponseStream]

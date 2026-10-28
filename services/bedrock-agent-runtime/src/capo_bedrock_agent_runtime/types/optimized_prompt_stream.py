@@ -23,57 +23,57 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.optimized_prompt_event
 
 
-class _OptimizedPromptStream_optimizedPromptEvent(TypedDict, closed=True):
+class OptimizedPromptStreamOptimizedPromptEventMember(TypedDict, closed=True):
     optimizedPromptEvent: (
         "capo_bedrock_agent_runtime.types.optimized_prompt_event.OptimizedPromptEvent"
     )
 
 
-class _OptimizedPromptStream_analyzePromptEvent(TypedDict, closed=True):
+class OptimizedPromptStreamAnalyzePromptEventMember(TypedDict, closed=True):
     analyzePromptEvent: (
         "capo_bedrock_agent_runtime.types.analyze_prompt_event.AnalyzePromptEvent"
     )
 
 
-class _OptimizedPromptStream_internalServerException(TypedDict, closed=True):
+class OptimizedPromptStreamInternalServerExceptionMember(TypedDict, closed=True):
     internalServerException: "capo_bedrock_agent_runtime.errors.internal_server_exception.InternalServerException_"
 
 
-class _OptimizedPromptStream_throttlingException(TypedDict, closed=True):
+class OptimizedPromptStreamThrottlingExceptionMember(TypedDict, closed=True):
     throttlingException: (
         "capo_bedrock_agent_runtime.errors.throttling_exception.ThrottlingException_"
     )
 
 
-class _OptimizedPromptStream_validationException(TypedDict, closed=True):
+class OptimizedPromptStreamValidationExceptionMember(TypedDict, closed=True):
     validationException: (
         "capo_bedrock_agent_runtime.errors.validation_exception.ValidationException_"
     )
 
 
-class _OptimizedPromptStream_dependencyFailedException(TypedDict, closed=True):
+class OptimizedPromptStreamDependencyFailedExceptionMember(TypedDict, closed=True):
     dependencyFailedException: "capo_bedrock_agent_runtime.errors.dependency_failed_exception.DependencyFailedException_"
 
 
-class _OptimizedPromptStream_accessDeniedException(TypedDict, closed=True):
+class OptimizedPromptStreamAccessDeniedExceptionMember(TypedDict, closed=True):
     accessDeniedException: "capo_bedrock_agent_runtime.errors.access_denied_exception.AccessDeniedException_"
 
 
-class _OptimizedPromptStream_badGatewayException(TypedDict, closed=True):
+class OptimizedPromptStreamBadGatewayExceptionMember(TypedDict, closed=True):
     badGatewayException: (
         "capo_bedrock_agent_runtime.errors.bad_gateway_exception.BadGatewayException_"
     )
 
 
 _OptimizedPromptStream: TypeAlias = (
-    _OptimizedPromptStream_optimizedPromptEvent
-    | _OptimizedPromptStream_analyzePromptEvent
-    | _OptimizedPromptStream_internalServerException
-    | _OptimizedPromptStream_throttlingException
-    | _OptimizedPromptStream_validationException
-    | _OptimizedPromptStream_dependencyFailedException
-    | _OptimizedPromptStream_accessDeniedException
-    | _OptimizedPromptStream_badGatewayException
+    OptimizedPromptStreamOptimizedPromptEventMember
+    | OptimizedPromptStreamAnalyzePromptEventMember
+    | OptimizedPromptStreamInternalServerExceptionMember
+    | OptimizedPromptStreamThrottlingExceptionMember
+    | OptimizedPromptStreamValidationExceptionMember
+    | OptimizedPromptStreamDependencyFailedExceptionMember
+    | OptimizedPromptStreamAccessDeniedExceptionMember
+    | OptimizedPromptStreamBadGatewayExceptionMember
     | UnknownEvent
 )
 OptimizedPromptStream: TypeAlias = AnyIterator[_OptimizedPromptStream]

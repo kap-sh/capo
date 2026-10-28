@@ -12,16 +12,18 @@ if TYPE_CHECKING:
     import capo_m2.types.string2000
 
 
-class _DataSetImportConfig_s3Location(TypedDict, closed=True):
+class DataSetImportConfigS3LocationMember(TypedDict, closed=True):
     s3Location: "capo_m2.types.string2000.String2000"
 
 
-class _DataSetImportConfig_dataSets(TypedDict, closed=True):
+class DataSetImportConfigDataSetsMember(TypedDict, closed=True):
     dataSets: "capo_m2.types.data_set_import_list.DataSetImportList"
 
 
 DataSetImportConfig: TypeAlias = (
-    _DataSetImportConfig_s3Location | _DataSetImportConfig_dataSets | UnknownUnionMember
+    DataSetImportConfigS3LocationMember
+    | DataSetImportConfigDataSetsMember
+    | UnknownUnionMember
 )
 
 

@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.rtp_router_input_configuration
 
 
-class _MergeRouterInputProtocolConfiguration_Rtp(TypedDict, closed=True):
+class MergeRouterInputProtocolConfigurationRtpMember(TypedDict, closed=True):
     Rtp: "capo_mediaconnect.types.rtp_router_input_configuration.RtpRouterInputConfiguration"
 
 
-class _MergeRouterInputProtocolConfiguration_Rist(TypedDict, closed=True):
+class MergeRouterInputProtocolConfigurationRistMember(TypedDict, closed=True):
     Rist: "capo_mediaconnect.types.rist_router_input_configuration.RistRouterInputConfiguration"
 
 
 MergeRouterInputProtocolConfiguration: TypeAlias = (
-    _MergeRouterInputProtocolConfiguration_Rtp
-    | _MergeRouterInputProtocolConfiguration_Rist
+    MergeRouterInputProtocolConfigurationRtpMember
+    | MergeRouterInputProtocolConfigurationRistMember
     | UnknownUnionMember
 )
 

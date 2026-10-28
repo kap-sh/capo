@@ -7,7 +7,7 @@ title: RetrieverConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agent_runtime.types.retriever_configuration._RetrieverConfiguration_knowledgeBase
+::: capo_bedrock_agent_runtime.types.retriever_configuration.RetrieverConfigurationKnowledgeBaseMember
     options:
       show_source: true
       merge_init_into_class: false

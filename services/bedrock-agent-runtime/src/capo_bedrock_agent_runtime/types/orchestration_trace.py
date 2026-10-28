@@ -15,34 +15,34 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.rationale
 
 
-class _OrchestrationTrace_rationale(TypedDict, closed=True):
+class OrchestrationTraceRationaleMember(TypedDict, closed=True):
     rationale: "capo_bedrock_agent_runtime.types.rationale.Rationale"
 
 
-class _OrchestrationTrace_invocationInput(TypedDict, closed=True):
+class OrchestrationTraceInvocationInputMember(TypedDict, closed=True):
     invocationInput: "capo_bedrock_agent_runtime.types.invocation_input.InvocationInput"
 
 
-class _OrchestrationTrace_observation(TypedDict, closed=True):
+class OrchestrationTraceObservationMember(TypedDict, closed=True):
     observation: "capo_bedrock_agent_runtime.types.observation.Observation"
 
 
-class _OrchestrationTrace_modelInvocationInput(TypedDict, closed=True):
+class OrchestrationTraceModelInvocationInputMember(TypedDict, closed=True):
     modelInvocationInput: (
         "capo_bedrock_agent_runtime.types.model_invocation_input.ModelInvocationInput"
     )
 
 
-class _OrchestrationTrace_modelInvocationOutput(TypedDict, closed=True):
+class OrchestrationTraceModelInvocationOutputMember(TypedDict, closed=True):
     modelInvocationOutput: "capo_bedrock_agent_runtime.types.orchestration_model_invocation_output.OrchestrationModelInvocationOutput"
 
 
 OrchestrationTrace: TypeAlias = (
-    _OrchestrationTrace_rationale
-    | _OrchestrationTrace_invocationInput
-    | _OrchestrationTrace_observation
-    | _OrchestrationTrace_modelInvocationInput
-    | _OrchestrationTrace_modelInvocationOutput
+    OrchestrationTraceRationaleMember
+    | OrchestrationTraceInvocationInputMember
+    | OrchestrationTraceObservationMember
+    | OrchestrationTraceModelInvocationInputMember
+    | OrchestrationTraceModelInvocationOutputMember
     | UnknownUnionMember
 )
 

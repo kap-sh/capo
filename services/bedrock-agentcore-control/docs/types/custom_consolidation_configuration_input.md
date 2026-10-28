@@ -7,25 +7,25 @@ title: CustomConsolidationConfigurationInput
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.custom_consolidation_configuration_input._CustomConsolidationConfigurationInput_semanticConsolidationOverride
+::: capo_bedrock_agentcore_control.types.custom_consolidation_configuration_input.CustomConsolidationConfigurationInputSemanticConsolidationOverrideMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore_control.types.custom_consolidation_configuration_input._CustomConsolidationConfigurationInput_summaryConsolidationOverride
+::: capo_bedrock_agentcore_control.types.custom_consolidation_configuration_input.CustomConsolidationConfigurationInputSummaryConsolidationOverrideMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore_control.types.custom_consolidation_configuration_input._CustomConsolidationConfigurationInput_userPreferenceConsolidationOverride
+::: capo_bedrock_agentcore_control.types.custom_consolidation_configuration_input.CustomConsolidationConfigurationInputUserPreferenceConsolidationOverrideMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore_control.types.custom_consolidation_configuration_input._CustomConsolidationConfigurationInput_episodicConsolidationOverride
+::: capo_bedrock_agentcore_control.types.custom_consolidation_configuration_input.CustomConsolidationConfigurationInputEpisodicConsolidationOverrideMember
     options:
       show_source: true
       merge_init_into_class: false

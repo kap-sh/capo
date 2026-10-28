@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_app_mesh.types.virtual_gateway_http_connection_pool
 
 
-class _VirtualGatewayConnectionPool_http(TypedDict, closed=True):
+class VirtualGatewayConnectionPoolHttpMember(TypedDict, closed=True):
     http: "capo_app_mesh.types.virtual_gateway_http_connection_pool.VirtualGatewayHttpConnectionPool"
 
 
-class _VirtualGatewayConnectionPool_http2(TypedDict, closed=True):
+class VirtualGatewayConnectionPoolHttp2Member(TypedDict, closed=True):
     http2: "capo_app_mesh.types.virtual_gateway_http2_connection_pool.VirtualGatewayHttp2ConnectionPool"
 
 
-class _VirtualGatewayConnectionPool_grpc(TypedDict, closed=True):
+class VirtualGatewayConnectionPoolGrpcMember(TypedDict, closed=True):
     grpc: "capo_app_mesh.types.virtual_gateway_grpc_connection_pool.VirtualGatewayGrpcConnectionPool"
 
 
 VirtualGatewayConnectionPool: TypeAlias = (
-    _VirtualGatewayConnectionPool_http
-    | _VirtualGatewayConnectionPool_http2
-    | _VirtualGatewayConnectionPool_grpc
+    VirtualGatewayConnectionPoolHttpMember
+    | VirtualGatewayConnectionPoolHttp2Member
+    | VirtualGatewayConnectionPoolGrpcMember
     | UnknownUnionMember
 )
 

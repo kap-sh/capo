@@ -11,11 +11,13 @@ if TYPE_CHECKING:
     import capo_sagemaker_geospatial.types.area_of_interest_geometry
 
 
-class _AreaOfInterest_AreaOfInterestGeometry(TypedDict, closed=True):
+class AreaOfInterestAreaOfInterestGeometryMember(TypedDict, closed=True):
     AreaOfInterestGeometry: "capo_sagemaker_geospatial.types.area_of_interest_geometry.AreaOfInterestGeometry"
 
 
-AreaOfInterest: TypeAlias = _AreaOfInterest_AreaOfInterestGeometry | UnknownUnionMember
+AreaOfInterest: TypeAlias = (
+    AreaOfInterestAreaOfInterestGeometryMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_mailmanager.types.secret_arn
 
 
-class _RelayAuthentication_SecretArn(TypedDict, closed=True):
+class RelayAuthenticationSecretArnMember(TypedDict, closed=True):
     SecretArn: "capo_mailmanager.types.secret_arn.SecretArn"
 
 
-class _RelayAuthentication_NoAuthentication(TypedDict, closed=True):
+class RelayAuthenticationNoAuthenticationMember(TypedDict, closed=True):
     NoAuthentication: "capo_mailmanager.types.no_authentication.NoAuthentication"
 
 
 RelayAuthentication: TypeAlias = (
-    _RelayAuthentication_SecretArn
-    | _RelayAuthentication_NoAuthentication
+    RelayAuthenticationSecretArnMember
+    | RelayAuthenticationNoAuthenticationMember
     | UnknownUnionMember
 )
 

@@ -7,13 +7,13 @@ title: BatchJobDefinition
       show_source: true
       merge_init_into_class: false
 
-::: capo_m2.types.batch_job_definition._BatchJobDefinition_fileBatchJobDefinition
+::: capo_m2.types.batch_job_definition.BatchJobDefinitionFileBatchJobDefinitionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_m2.types.batch_job_definition._BatchJobDefinition_scriptBatchJobDefinition
+::: capo_m2.types.batch_job_definition.BatchJobDefinitionScriptBatchJobDefinitionMember
     options:
       show_source: true
       merge_init_into_class: false

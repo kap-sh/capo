@@ -7,25 +7,25 @@ title: SelfManagedKafkaAccessConfigurationCredentials
       show_source: true
       merge_init_into_class: false
 
-::: capo_pipes.types.self_managed_kafka_access_configuration_credentials._SelfManagedKafkaAccessConfigurationCredentials_BasicAuth
+::: capo_pipes.types.self_managed_kafka_access_configuration_credentials.SelfManagedKafkaAccessConfigurationCredentialsBasicAuthMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_pipes.types.self_managed_kafka_access_configuration_credentials._SelfManagedKafkaAccessConfigurationCredentials_SaslScram512Auth
+::: capo_pipes.types.self_managed_kafka_access_configuration_credentials.SelfManagedKafkaAccessConfigurationCredentialsSaslScram512AuthMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_pipes.types.self_managed_kafka_access_configuration_credentials._SelfManagedKafkaAccessConfigurationCredentials_SaslScram256Auth
+::: capo_pipes.types.self_managed_kafka_access_configuration_credentials.SelfManagedKafkaAccessConfigurationCredentialsSaslScram256AuthMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_pipes.types.self_managed_kafka_access_configuration_credentials._SelfManagedKafkaAccessConfigurationCredentials_ClientCertificateTlsAuth
+::: capo_pipes.types.self_managed_kafka_access_configuration_credentials.SelfManagedKafkaAccessConfigurationCredentialsClientCertificateTlsAuthMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_xray.types.string
 
 
-class _AnnotationValue_NumberValue(TypedDict, closed=True):
+class AnnotationValueNumberValueMember(TypedDict, closed=True):
     NumberValue: "capo_xray.types.nullable_double.NullableDouble"
 
 
-class _AnnotationValue_BooleanValue(TypedDict, closed=True):
+class AnnotationValueBooleanValueMember(TypedDict, closed=True):
     BooleanValue: "capo_xray.types.nullable_boolean.NullableBoolean"
 
 
-class _AnnotationValue_StringValue(TypedDict, closed=True):
+class AnnotationValueStringValueMember(TypedDict, closed=True):
     StringValue: "capo_xray.types.string.String"
 
 
 AnnotationValue: TypeAlias = (
-    _AnnotationValue_NumberValue
-    | _AnnotationValue_BooleanValue
-    | _AnnotationValue_StringValue
+    AnnotationValueNumberValueMember
+    | AnnotationValueBooleanValueMember
+    | AnnotationValueStringValueMember
     | UnknownUnionMember
 )
 

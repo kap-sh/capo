@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_bedrock_agent.types.prompt_model_inference_configuration
 
 
-class _PromptInferenceConfiguration_text(TypedDict, closed=True):
+class PromptInferenceConfigurationTextMember(TypedDict, closed=True):
     text: "capo_bedrock_agent.types.prompt_model_inference_configuration.PromptModelInferenceConfiguration"
 
 
 PromptInferenceConfiguration: TypeAlias = (
-    _PromptInferenceConfiguration_text | UnknownUnionMember
+    PromptInferenceConfigurationTextMember | UnknownUnionMember
 )
 
 

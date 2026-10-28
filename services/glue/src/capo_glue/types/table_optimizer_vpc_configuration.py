@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_glue.types.glue_connection_name_string
 
 
-class _TableOptimizerVpcConfiguration_glueConnectionName(TypedDict, closed=True):
+class TableOptimizerVpcConfigurationGlueConnectionNameMember(TypedDict, closed=True):
     glueConnectionName: (
         "capo_glue.types.glue_connection_name_string.glueConnectionNameString"
     )
 
 
 TableOptimizerVpcConfiguration: TypeAlias = (
-    _TableOptimizerVpcConfiguration_glueConnectionName | UnknownUnionMember
+    TableOptimizerVpcConfigurationGlueConnectionNameMember | UnknownUnionMember
 )
 
 

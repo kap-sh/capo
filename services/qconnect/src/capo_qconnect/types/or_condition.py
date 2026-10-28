@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_qconnect.types.tag_condition
 
 
-class _OrCondition_andConditions(TypedDict, closed=True):
+class OrConditionAndConditionsMember(TypedDict, closed=True):
     andConditions: "capo_qconnect.types.and_conditions.AndConditions"
 
 
-class _OrCondition_tagCondition(TypedDict, closed=True):
+class OrConditionTagConditionMember(TypedDict, closed=True):
     tagCondition: "capo_qconnect.types.tag_condition.TagCondition"
 
 
 OrCondition: TypeAlias = (
-    _OrCondition_andConditions | _OrCondition_tagCondition | UnknownUnionMember
+    OrConditionAndConditionsMember | OrConditionTagConditionMember | UnknownUnionMember
 )
 
 

@@ -15,32 +15,32 @@ if TYPE_CHECKING:
     import capo_connect.types.iso8601_datetime
 
 
-class _EvaluationAnswerData_StringValue(TypedDict, closed=True):
+class EvaluationAnswerDataStringValueMember(TypedDict, closed=True):
     StringValue: "capo_connect.types.evaluation_answer_data_string_value.EvaluationAnswerDataStringValue"
 
 
-class _EvaluationAnswerData_NumericValue(TypedDict, closed=True):
+class EvaluationAnswerDataNumericValueMember(TypedDict, closed=True):
     NumericValue: "capo_connect.types.evaluation_answer_data_numeric_value.EvaluationAnswerDataNumericValue"
 
 
-class _EvaluationAnswerData_StringValues(TypedDict, closed=True):
+class EvaluationAnswerDataStringValuesMember(TypedDict, closed=True):
     StringValues: "capo_connect.types.evaluation_answer_data_string_value_list.EvaluationAnswerDataStringValueList"
 
 
-class _EvaluationAnswerData_DateTimeValue(TypedDict, closed=True):
+class EvaluationAnswerDataDateTimeValueMember(TypedDict, closed=True):
     DateTimeValue: "capo_connect.types.iso8601_datetime.ISO8601Datetime"
 
 
-class _EvaluationAnswerData_NotApplicable(TypedDict, closed=True):
+class EvaluationAnswerDataNotApplicableMember(TypedDict, closed=True):
     NotApplicable: "capo_connect.types.boolean.Boolean"
 
 
 EvaluationAnswerData: TypeAlias = (
-    _EvaluationAnswerData_StringValue
-    | _EvaluationAnswerData_NumericValue
-    | _EvaluationAnswerData_StringValues
-    | _EvaluationAnswerData_DateTimeValue
-    | _EvaluationAnswerData_NotApplicable
+    EvaluationAnswerDataStringValueMember
+    | EvaluationAnswerDataNumericValueMember
+    | EvaluationAnswerDataStringValuesMember
+    | EvaluationAnswerDataDateTimeValueMember
+    | EvaluationAnswerDataNotApplicableMember
     | UnknownUnionMember
 )
 

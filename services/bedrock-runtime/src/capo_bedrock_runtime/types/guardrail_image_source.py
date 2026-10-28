@@ -8,11 +8,11 @@ from capo_bedrock_runtime.errors import DeserializationError, SerializationError
 from capo_bedrock_runtime.types._unknown import UnknownUnionMember
 
 
-class _GuardrailImageSource_bytes(TypedDict, closed=True):
+class GuardrailImageSourceBytesMember(TypedDict, closed=True):
     bytes: "bytes"
 
 
-GuardrailImageSource: TypeAlias = _GuardrailImageSource_bytes | UnknownUnionMember
+GuardrailImageSource: TypeAlias = GuardrailImageSourceBytesMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

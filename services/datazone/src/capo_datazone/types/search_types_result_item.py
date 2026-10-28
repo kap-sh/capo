@@ -13,24 +13,24 @@ if TYPE_CHECKING:
     import capo_datazone.types.lineage_node_type_item
 
 
-class _SearchTypesResultItem_assetTypeItem(TypedDict, closed=True):
+class SearchTypesResultItemAssetTypeItemMember(TypedDict, closed=True):
     assetTypeItem: "capo_datazone.types.asset_type_item.AssetTypeItem"
 
 
-class _SearchTypesResultItem_formTypeItem(TypedDict, closed=True):
+class SearchTypesResultItemFormTypeItemMember(TypedDict, closed=True):
     formTypeItem: "capo_datazone.types.form_type_data.FormTypeData"
 
 
-class _SearchTypesResultItem_lineageNodeTypeItem(TypedDict, closed=True):
+class SearchTypesResultItemLineageNodeTypeItemMember(TypedDict, closed=True):
     lineageNodeTypeItem: (
         "capo_datazone.types.lineage_node_type_item.LineageNodeTypeItem"
     )
 
 
 SearchTypesResultItem: TypeAlias = (
-    _SearchTypesResultItem_assetTypeItem
-    | _SearchTypesResultItem_formTypeItem
-    | _SearchTypesResultItem_lineageNodeTypeItem
+    SearchTypesResultItemAssetTypeItemMember
+    | SearchTypesResultItemFormTypeItemMember
+    | SearchTypesResultItemLineageNodeTypeItemMember
     | UnknownUnionMember
 )
 

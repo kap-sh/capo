@@ -15,32 +15,32 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.srt_listener_router_output_configuration
 
 
-class _RouterOutputProtocolConfiguration_Rist(TypedDict, closed=True):
+class RouterOutputProtocolConfigurationRistMember(TypedDict, closed=True):
     Rist: "capo_mediaconnect.types.rist_router_output_configuration.RistRouterOutputConfiguration"
 
 
-class _RouterOutputProtocolConfiguration_SrtListener(TypedDict, closed=True):
+class RouterOutputProtocolConfigurationSrtListenerMember(TypedDict, closed=True):
     SrtListener: "capo_mediaconnect.types.srt_listener_router_output_configuration.SrtListenerRouterOutputConfiguration"
 
 
-class _RouterOutputProtocolConfiguration_RtmpPush(TypedDict, closed=True):
+class RouterOutputProtocolConfigurationRtmpPushMember(TypedDict, closed=True):
     RtmpPush: "capo_mediaconnect.types.rtmp_push_router_output_configuration.RtmpPushRouterOutputConfiguration"
 
 
-class _RouterOutputProtocolConfiguration_SrtCaller(TypedDict, closed=True):
+class RouterOutputProtocolConfigurationSrtCallerMember(TypedDict, closed=True):
     SrtCaller: "capo_mediaconnect.types.srt_caller_router_output_configuration.SrtCallerRouterOutputConfiguration"
 
 
-class _RouterOutputProtocolConfiguration_Rtp(TypedDict, closed=True):
+class RouterOutputProtocolConfigurationRtpMember(TypedDict, closed=True):
     Rtp: "capo_mediaconnect.types.rtp_router_output_configuration.RtpRouterOutputConfiguration"
 
 
 RouterOutputProtocolConfiguration: TypeAlias = (
-    _RouterOutputProtocolConfiguration_Rist
-    | _RouterOutputProtocolConfiguration_SrtListener
-    | _RouterOutputProtocolConfiguration_RtmpPush
-    | _RouterOutputProtocolConfiguration_SrtCaller
-    | _RouterOutputProtocolConfiguration_Rtp
+    RouterOutputProtocolConfigurationRistMember
+    | RouterOutputProtocolConfigurationSrtListenerMember
+    | RouterOutputProtocolConfigurationRtmpPushMember
+    | RouterOutputProtocolConfigurationSrtCallerMember
+    | RouterOutputProtocolConfigurationRtpMember
     | UnknownUnionMember
 )
 

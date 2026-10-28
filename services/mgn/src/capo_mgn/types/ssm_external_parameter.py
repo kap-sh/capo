@@ -11,11 +11,13 @@ if TYPE_CHECKING:
     import capo_mgn.types.jmes_path_string
 
 
-class _SsmExternalParameter_dynamicPath(TypedDict, closed=True):
+class SsmExternalParameterDynamicPathMember(TypedDict, closed=True):
     dynamicPath: "capo_mgn.types.jmes_path_string.JmesPathString"
 
 
-SsmExternalParameter: TypeAlias = _SsmExternalParameter_dynamicPath | UnknownUnionMember
+SsmExternalParameter: TypeAlias = (
+    SsmExternalParameterDynamicPathMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

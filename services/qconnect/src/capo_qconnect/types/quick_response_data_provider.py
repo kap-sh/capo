@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_qconnect.types.quick_response_content
 
 
-class _QuickResponseDataProvider_content(TypedDict, closed=True):
+class QuickResponseDataProviderContentMember(TypedDict, closed=True):
     content: "capo_qconnect.types.quick_response_content.QuickResponseContent"
 
 
 QuickResponseDataProvider: TypeAlias = (
-    _QuickResponseDataProvider_content | UnknownUnionMember
+    QuickResponseDataProviderContentMember | UnknownUnionMember
 )
 
 

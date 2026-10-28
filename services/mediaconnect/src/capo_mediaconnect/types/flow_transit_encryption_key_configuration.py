@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.secrets_manager_encryption_key_configuration
 
 
-class _FlowTransitEncryptionKeyConfiguration_SecretsManager(TypedDict, closed=True):
+class FlowTransitEncryptionKeyConfigurationSecretsManagerMember(TypedDict, closed=True):
     SecretsManager: "capo_mediaconnect.types.secrets_manager_encryption_key_configuration.SecretsManagerEncryptionKeyConfiguration"
 
 
-class _FlowTransitEncryptionKeyConfiguration_Automatic(TypedDict, closed=True):
+class FlowTransitEncryptionKeyConfigurationAutomaticMember(TypedDict, closed=True):
     Automatic: "capo_mediaconnect.types.automatic_encryption_key_configuration.AutomaticEncryptionKeyConfiguration"
 
 
 FlowTransitEncryptionKeyConfiguration: TypeAlias = (
-    _FlowTransitEncryptionKeyConfiguration_SecretsManager
-    | _FlowTransitEncryptionKeyConfiguration_Automatic
+    FlowTransitEncryptionKeyConfigurationSecretsManagerMember
+    | FlowTransitEncryptionKeyConfigurationAutomaticMember
     | UnknownUnionMember
 )
 

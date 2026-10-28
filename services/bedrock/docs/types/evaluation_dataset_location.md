@@ -7,7 +7,7 @@ title: EvaluationDatasetLocation
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock.types.evaluation_dataset_location._EvaluationDatasetLocation_s3Uri
+::: capo_bedrock.types.evaluation_dataset_location.EvaluationDatasetLocationS3UriMember
     options:
       show_source: true
       merge_init_into_class: false

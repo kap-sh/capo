@@ -7,7 +7,7 @@ title: IdentitySource
       show_source: true
       merge_init_into_class: false
 
-::: capo_account_access.types.identity_source._IdentitySource_identityCenter
+::: capo_account_access.types.identity_source.IdentitySourceIdentityCenterMember
     options:
       show_source: true
       merge_init_into_class: false

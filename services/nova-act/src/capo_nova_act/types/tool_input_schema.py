@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_nova_act.types.tool_input_schema_document
 
 
-class _ToolInputSchema_json(TypedDict, closed=True):
+class ToolInputSchemaJsonMember(TypedDict, closed=True):
     json: "capo_nova_act.types.tool_input_schema_document.ToolInputSchemaDocument"
 
 
-ToolInputSchema: TypeAlias = _ToolInputSchema_json | UnknownUnionMember
+ToolInputSchema: TypeAlias = ToolInputSchemaJsonMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

@@ -8,11 +8,11 @@ from capo_nova_act.errors import DeserializationError, SerializationError
 from capo_nova_act.types._unknown import UnknownUnionMember
 
 
-class _CallResultContent_text(TypedDict, closed=True):
+class CallResultContentTextMember(TypedDict, closed=True):
     text: "str"
 
 
-CallResultContent: TypeAlias = _CallResultContent_text | UnknownUnionMember
+CallResultContent: TypeAlias = CallResultContentTextMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

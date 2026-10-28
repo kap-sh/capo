@@ -7,13 +7,13 @@ title: EvaluationWindow
       show_source: true
       merge_init_into_class: false
 
-::: capo_cloudwatch.types.evaluation_window._EvaluationWindow_WallClockWindow
+::: capo_cloudwatch.types.evaluation_window.EvaluationWindowWallClockWindowMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cloudwatch.types.evaluation_window._EvaluationWindow_SlidingWindow
+::: capo_cloudwatch.types.evaluation_window.EvaluationWindowSlidingWindowMember
     options:
       show_source: true
       merge_init_into_class: false

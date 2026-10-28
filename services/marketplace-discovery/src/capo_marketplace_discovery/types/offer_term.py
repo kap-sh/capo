@@ -23,82 +23,82 @@ if TYPE_CHECKING:
     import capo_marketplace_discovery.types.variable_payment_term
 
 
-class _OfferTerm_byolPricingTerm(TypedDict, closed=True):
+class OfferTermByolPricingTermMember(TypedDict, closed=True):
     byolPricingTerm: (
         "capo_marketplace_discovery.types.byol_pricing_term.ByolPricingTerm"
     )
 
 
-class _OfferTerm_configurableUpfrontPricingTerm(TypedDict, closed=True):
+class OfferTermConfigurableUpfrontPricingTermMember(TypedDict, closed=True):
     configurableUpfrontPricingTerm: "capo_marketplace_discovery.types.configurable_upfront_pricing_term.ConfigurableUpfrontPricingTerm"
 
 
-class _OfferTerm_fixedUpfrontPricingTerm(TypedDict, closed=True):
+class OfferTermFixedUpfrontPricingTermMember(TypedDict, closed=True):
     fixedUpfrontPricingTerm: "capo_marketplace_discovery.types.fixed_upfront_pricing_term.FixedUpfrontPricingTerm"
 
 
-class _OfferTerm_freeTrialPricingTerm(TypedDict, closed=True):
+class OfferTermFreeTrialPricingTermMember(TypedDict, closed=True):
     freeTrialPricingTerm: (
         "capo_marketplace_discovery.types.free_trial_pricing_term.FreeTrialPricingTerm"
     )
 
 
-class _OfferTerm_legalTerm(TypedDict, closed=True):
+class OfferTermLegalTermMember(TypedDict, closed=True):
     legalTerm: "capo_marketplace_discovery.types.legal_term.LegalTerm"
 
 
-class _OfferTerm_paymentScheduleTerm(TypedDict, closed=True):
+class OfferTermPaymentScheduleTermMember(TypedDict, closed=True):
     paymentScheduleTerm: (
         "capo_marketplace_discovery.types.payment_schedule_term.PaymentScheduleTerm"
     )
 
 
-class _OfferTerm_recurringPaymentTerm(TypedDict, closed=True):
+class OfferTermRecurringPaymentTermMember(TypedDict, closed=True):
     recurringPaymentTerm: (
         "capo_marketplace_discovery.types.recurring_payment_term.RecurringPaymentTerm"
     )
 
 
-class _OfferTerm_renewalTerm(TypedDict, closed=True):
+class OfferTermRenewalTermMember(TypedDict, closed=True):
     renewalTerm: "capo_marketplace_discovery.types.renewal_term.RenewalTerm"
 
 
-class _OfferTerm_supportTerm(TypedDict, closed=True):
+class OfferTermSupportTermMember(TypedDict, closed=True):
     supportTerm: "capo_marketplace_discovery.types.support_term.SupportTerm"
 
 
-class _OfferTerm_usageBasedPricingTerm(TypedDict, closed=True):
+class OfferTermUsageBasedPricingTermMember(TypedDict, closed=True):
     usageBasedPricingTerm: "capo_marketplace_discovery.types.usage_based_pricing_term.UsageBasedPricingTerm"
 
 
-class _OfferTerm_validityTerm(TypedDict, closed=True):
+class OfferTermValidityTermMember(TypedDict, closed=True):
     validityTerm: "capo_marketplace_discovery.types.validity_term.ValidityTerm"
 
 
-class _OfferTerm_variablePaymentTerm(TypedDict, closed=True):
+class OfferTermVariablePaymentTermMember(TypedDict, closed=True):
     variablePaymentTerm: (
         "capo_marketplace_discovery.types.variable_payment_term.VariablePaymentTerm"
     )
 
 
-class _OfferTerm_netPaymentTerm(TypedDict, closed=True):
+class OfferTermNetPaymentTermMember(TypedDict, closed=True):
     netPaymentTerm: "capo_marketplace_discovery.types.net_payment_term.NetPaymentTerm"
 
 
 OfferTerm: TypeAlias = (
-    _OfferTerm_byolPricingTerm
-    | _OfferTerm_configurableUpfrontPricingTerm
-    | _OfferTerm_fixedUpfrontPricingTerm
-    | _OfferTerm_freeTrialPricingTerm
-    | _OfferTerm_legalTerm
-    | _OfferTerm_paymentScheduleTerm
-    | _OfferTerm_recurringPaymentTerm
-    | _OfferTerm_renewalTerm
-    | _OfferTerm_supportTerm
-    | _OfferTerm_usageBasedPricingTerm
-    | _OfferTerm_validityTerm
-    | _OfferTerm_variablePaymentTerm
-    | _OfferTerm_netPaymentTerm
+    OfferTermByolPricingTermMember
+    | OfferTermConfigurableUpfrontPricingTermMember
+    | OfferTermFixedUpfrontPricingTermMember
+    | OfferTermFreeTrialPricingTermMember
+    | OfferTermLegalTermMember
+    | OfferTermPaymentScheduleTermMember
+    | OfferTermRecurringPaymentTermMember
+    | OfferTermRenewalTermMember
+    | OfferTermSupportTermMember
+    | OfferTermUsageBasedPricingTermMember
+    | OfferTermValidityTermMember
+    | OfferTermVariablePaymentTermMember
+    | OfferTermNetPaymentTermMember
     | UnknownUnionMember
 )
 

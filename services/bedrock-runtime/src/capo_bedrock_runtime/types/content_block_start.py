@@ -13,24 +13,24 @@ if TYPE_CHECKING:
     import capo_bedrock_runtime.types.tool_use_block_start
 
 
-class _ContentBlockStart_toolUse(TypedDict, closed=True):
+class ContentBlockStartToolUseMember(TypedDict, closed=True):
     toolUse: "capo_bedrock_runtime.types.tool_use_block_start.ToolUseBlockStart"
 
 
-class _ContentBlockStart_toolResult(TypedDict, closed=True):
+class ContentBlockStartToolResultMember(TypedDict, closed=True):
     toolResult: (
         "capo_bedrock_runtime.types.tool_result_block_start.ToolResultBlockStart"
     )
 
 
-class _ContentBlockStart_image(TypedDict, closed=True):
+class ContentBlockStartImageMember(TypedDict, closed=True):
     image: "capo_bedrock_runtime.types.image_block_start.ImageBlockStart"
 
 
 ContentBlockStart: TypeAlias = (
-    _ContentBlockStart_toolUse
-    | _ContentBlockStart_toolResult
-    | _ContentBlockStart_image
+    ContentBlockStartToolUseMember
+    | ContentBlockStartToolResultMember
+    | ContentBlockStartImageMember
     | UnknownUnionMember
 )
 

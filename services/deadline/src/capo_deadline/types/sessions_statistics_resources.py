@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_deadline.types.queue_ids
 
 
-class _SessionsStatisticsResources_queueIds(TypedDict, closed=True):
+class SessionsStatisticsResourcesQueueIdsMember(TypedDict, closed=True):
     queueIds: "capo_deadline.types.queue_ids.QueueIds"
 
 
-class _SessionsStatisticsResources_fleetIds(TypedDict, closed=True):
+class SessionsStatisticsResourcesFleetIdsMember(TypedDict, closed=True):
     fleetIds: "capo_deadline.types.fleet_ids.FleetIds"
 
 
 SessionsStatisticsResources: TypeAlias = (
-    _SessionsStatisticsResources_queueIds
-    | _SessionsStatisticsResources_fleetIds
+    SessionsStatisticsResourcesQueueIdsMember
+    | SessionsStatisticsResourcesFleetIdsMember
     | UnknownUnionMember
 )
 

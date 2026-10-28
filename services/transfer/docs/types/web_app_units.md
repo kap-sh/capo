@@ -7,7 +7,7 @@ title: WebAppUnits
       show_source: true
       merge_init_into_class: false
 
-::: capo_transfer.types.web_app_units._WebAppUnits_Provisioned
+::: capo_transfer.types.web_app_units.WebAppUnitsProvisionedMember
     options:
       show_source: true
       merge_init_into_class: false

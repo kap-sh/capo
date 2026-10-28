@@ -15,17 +15,17 @@ if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.kek_validation_response
 
 
-class _As2805KekValidationType_KekValidationRequest(TypedDict, closed=True):
+class As2805KekValidationTypeKekValidationRequestMember(TypedDict, closed=True):
     KekValidationRequest: "capo_payment_cryptography_data.types.kek_validation_request.KekValidationRequest"
 
 
-class _As2805KekValidationType_KekValidationResponse(TypedDict, closed=True):
+class As2805KekValidationTypeKekValidationResponseMember(TypedDict, closed=True):
     KekValidationResponse: "capo_payment_cryptography_data.types.kek_validation_response.KekValidationResponse"
 
 
 As2805KekValidationType: TypeAlias = (
-    _As2805KekValidationType_KekValidationRequest
-    | _As2805KekValidationType_KekValidationResponse
+    As2805KekValidationTypeKekValidationRequestMember
+    | As2805KekValidationTypeKekValidationResponseMember
     | UnknownUnionMember
 )
 

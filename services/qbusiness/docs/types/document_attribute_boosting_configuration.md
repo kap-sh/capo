@@ -7,25 +7,25 @@ title: DocumentAttributeBoostingConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_qbusiness.types.document_attribute_boosting_configuration._DocumentAttributeBoostingConfiguration_numberConfiguration
+::: capo_qbusiness.types.document_attribute_boosting_configuration.DocumentAttributeBoostingConfigurationNumberConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qbusiness.types.document_attribute_boosting_configuration._DocumentAttributeBoostingConfiguration_stringConfiguration
+::: capo_qbusiness.types.document_attribute_boosting_configuration.DocumentAttributeBoostingConfigurationStringConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qbusiness.types.document_attribute_boosting_configuration._DocumentAttributeBoostingConfiguration_dateConfiguration
+::: capo_qbusiness.types.document_attribute_boosting_configuration.DocumentAttributeBoostingConfigurationDateConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qbusiness.types.document_attribute_boosting_configuration._DocumentAttributeBoostingConfiguration_stringListConfiguration
+::: capo_qbusiness.types.document_attribute_boosting_configuration.DocumentAttributeBoostingConfigurationStringListConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false

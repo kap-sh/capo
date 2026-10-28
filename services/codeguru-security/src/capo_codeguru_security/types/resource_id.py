@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_codeguru_security.types.uuid
 
 
-class _ResourceId_codeArtifactId(TypedDict, closed=True):
+class ResourceIdCodeArtifactIdMember(TypedDict, closed=True):
     codeArtifactId: "capo_codeguru_security.types.uuid.Uuid"
 
 
-ResourceId: TypeAlias = _ResourceId_codeArtifactId | UnknownUnionMember
+ResourceId: TypeAlias = ResourceIdCodeArtifactIdMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

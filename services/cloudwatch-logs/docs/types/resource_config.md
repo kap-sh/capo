@@ -7,7 +7,7 @@ title: ResourceConfig
       show_source: true
       merge_init_into_class: false
 
-::: capo_cloudwatch_logs.types.resource_config._ResourceConfig_openSearchResourceConfig
+::: capo_cloudwatch_logs.types.resource_config.ResourceConfigOpenSearchResourceConfigMember
     options:
       show_source: true
       merge_init_into_class: false

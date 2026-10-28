@@ -15,39 +15,39 @@ if TYPE_CHECKING:
     import capo_bedrock_runtime.types.tool_use_block_delta
 
 
-class _ContentBlockDelta_text(TypedDict, closed=True):
+class ContentBlockDeltaTextMember(TypedDict, closed=True):
     text: "str"
 
 
-class _ContentBlockDelta_toolUse(TypedDict, closed=True):
+class ContentBlockDeltaToolUseMember(TypedDict, closed=True):
     toolUse: "capo_bedrock_runtime.types.tool_use_block_delta.ToolUseBlockDelta"
 
 
-class _ContentBlockDelta_toolResult(TypedDict, closed=True):
+class ContentBlockDeltaToolResultMember(TypedDict, closed=True):
     toolResult: (
         "capo_bedrock_runtime.types.tool_result_blocks_delta.ToolResultBlocksDelta"
     )
 
 
-class _ContentBlockDelta_reasoningContent(TypedDict, closed=True):
+class ContentBlockDeltaReasoningContentMember(TypedDict, closed=True):
     reasoningContent: "capo_bedrock_runtime.types.reasoning_content_block_delta.ReasoningContentBlockDelta"
 
 
-class _ContentBlockDelta_citation(TypedDict, closed=True):
+class ContentBlockDeltaCitationMember(TypedDict, closed=True):
     citation: "capo_bedrock_runtime.types.citations_delta.CitationsDelta"
 
 
-class _ContentBlockDelta_image(TypedDict, closed=True):
+class ContentBlockDeltaImageMember(TypedDict, closed=True):
     image: "capo_bedrock_runtime.types.image_block_delta.ImageBlockDelta"
 
 
 ContentBlockDelta: TypeAlias = (
-    _ContentBlockDelta_text
-    | _ContentBlockDelta_toolUse
-    | _ContentBlockDelta_toolResult
-    | _ContentBlockDelta_reasoningContent
-    | _ContentBlockDelta_citation
-    | _ContentBlockDelta_image
+    ContentBlockDeltaTextMember
+    | ContentBlockDeltaToolUseMember
+    | ContentBlockDeltaToolResultMember
+    | ContentBlockDeltaReasoningContentMember
+    | ContentBlockDeltaCitationMember
+    | ContentBlockDeltaImageMember
     | UnknownUnionMember
 )
 

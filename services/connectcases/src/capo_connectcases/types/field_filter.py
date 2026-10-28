@@ -11,37 +11,37 @@ if TYPE_CHECKING:
     import capo_connectcases.types.field_value
 
 
-class _FieldFilter_equalTo(TypedDict, closed=True):
+class FieldFilterEqualToMember(TypedDict, closed=True):
     equalTo: "capo_connectcases.types.field_value.FieldValue"
 
 
-class _FieldFilter_contains(TypedDict, closed=True):
+class FieldFilterContainsMember(TypedDict, closed=True):
     contains: "capo_connectcases.types.field_value.FieldValue"
 
 
-class _FieldFilter_greaterThan(TypedDict, closed=True):
+class FieldFilterGreaterThanMember(TypedDict, closed=True):
     greaterThan: "capo_connectcases.types.field_value.FieldValue"
 
 
-class _FieldFilter_greaterThanOrEqualTo(TypedDict, closed=True):
+class FieldFilterGreaterThanOrEqualToMember(TypedDict, closed=True):
     greaterThanOrEqualTo: "capo_connectcases.types.field_value.FieldValue"
 
 
-class _FieldFilter_lessThan(TypedDict, closed=True):
+class FieldFilterLessThanMember(TypedDict, closed=True):
     lessThan: "capo_connectcases.types.field_value.FieldValue"
 
 
-class _FieldFilter_lessThanOrEqualTo(TypedDict, closed=True):
+class FieldFilterLessThanOrEqualToMember(TypedDict, closed=True):
     lessThanOrEqualTo: "capo_connectcases.types.field_value.FieldValue"
 
 
 FieldFilter: TypeAlias = (
-    _FieldFilter_equalTo
-    | _FieldFilter_contains
-    | _FieldFilter_greaterThan
-    | _FieldFilter_greaterThanOrEqualTo
-    | _FieldFilter_lessThan
-    | _FieldFilter_lessThanOrEqualTo
+    FieldFilterEqualToMember
+    | FieldFilterContainsMember
+    | FieldFilterGreaterThanMember
+    | FieldFilterGreaterThanOrEqualToMember
+    | FieldFilterLessThanMember
+    | FieldFilterLessThanOrEqualToMember
     | UnknownUnionMember
 )
 

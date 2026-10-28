@@ -16,37 +16,37 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.standard_router_input_configuration
 
 
-class _RouterInputConfiguration_DestinationEndpoint(TypedDict, closed=True):
+class RouterInputConfigurationDestinationEndpointMember(TypedDict, closed=True):
     DestinationEndpoint: "capo_mediaconnect.types.destination_endpoint_router_input_configuration.DestinationEndpointRouterInputConfiguration"
 
 
-class _RouterInputConfiguration_Standard(TypedDict, closed=True):
+class RouterInputConfigurationStandardMember(TypedDict, closed=True):
     Standard: "capo_mediaconnect.types.standard_router_input_configuration.StandardRouterInputConfiguration"
 
 
-class _RouterInputConfiguration_MediaLiveChannel(TypedDict, closed=True):
+class RouterInputConfigurationMediaLiveChannelMember(TypedDict, closed=True):
     MediaLiveChannel: "capo_mediaconnect.types.media_live_channel_router_input_configuration.MediaLiveChannelRouterInputConfiguration"
 
 
-class _RouterInputConfiguration_Failover(TypedDict, closed=True):
+class RouterInputConfigurationFailoverMember(TypedDict, closed=True):
     Failover: "capo_mediaconnect.types.failover_router_input_configuration.FailoverRouterInputConfiguration"
 
 
-class _RouterInputConfiguration_MediaConnectFlow(TypedDict, closed=True):
+class RouterInputConfigurationMediaConnectFlowMember(TypedDict, closed=True):
     MediaConnectFlow: "capo_mediaconnect.types.media_connect_flow_router_input_configuration.MediaConnectFlowRouterInputConfiguration"
 
 
-class _RouterInputConfiguration_Merge(TypedDict, closed=True):
+class RouterInputConfigurationMergeMember(TypedDict, closed=True):
     Merge: "capo_mediaconnect.types.merge_router_input_configuration.MergeRouterInputConfiguration"
 
 
 RouterInputConfiguration: TypeAlias = (
-    _RouterInputConfiguration_DestinationEndpoint
-    | _RouterInputConfiguration_Standard
-    | _RouterInputConfiguration_MediaLiveChannel
-    | _RouterInputConfiguration_Failover
-    | _RouterInputConfiguration_MediaConnectFlow
-    | _RouterInputConfiguration_Merge
+    RouterInputConfigurationDestinationEndpointMember
+    | RouterInputConfigurationStandardMember
+    | RouterInputConfigurationMediaLiveChannelMember
+    | RouterInputConfigurationFailoverMember
+    | RouterInputConfigurationMediaConnectFlowMember
+    | RouterInputConfigurationMergeMember
     | UnknownUnionMember
 )
 

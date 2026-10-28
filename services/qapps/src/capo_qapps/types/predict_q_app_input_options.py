@@ -11,17 +11,17 @@ if TYPE_CHECKING:
     import capo_qapps.types.message_list
 
 
-class _PredictQAppInputOptions_conversation(TypedDict, closed=True):
+class PredictQAppInputOptionsConversationMember(TypedDict, closed=True):
     conversation: "capo_qapps.types.message_list.MessageList"
 
 
-class _PredictQAppInputOptions_problemStatement(TypedDict, closed=True):
+class PredictQAppInputOptionsProblemStatementMember(TypedDict, closed=True):
     problemStatement: "str"
 
 
 PredictQAppInputOptions: TypeAlias = (
-    _PredictQAppInputOptions_conversation
-    | _PredictQAppInputOptions_problemStatement
+    PredictQAppInputOptionsConversationMember
+    | PredictQAppInputOptionsProblemStatementMember
     | UnknownUnionMember
 )
 

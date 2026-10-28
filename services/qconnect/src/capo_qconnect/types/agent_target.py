@@ -11,16 +11,16 @@ if TYPE_CHECKING:
     import capo_qconnect.types.non_empty_string
 
 
-class _AgentTarget_aiAgentId(TypedDict, closed=True):
+class AgentTargetAiAgentIdMember(TypedDict, closed=True):
     aiAgentId: "capo_qconnect.types.non_empty_string.NonEmptyString"
 
 
-class _AgentTarget_applicationId(TypedDict, closed=True):
+class AgentTargetApplicationIdMember(TypedDict, closed=True):
     applicationId: "capo_qconnect.types.non_empty_string.NonEmptyString"
 
 
 AgentTarget: TypeAlias = (
-    _AgentTarget_aiAgentId | _AgentTarget_applicationId | UnknownUnionMember
+    AgentTargetAiAgentIdMember | AgentTargetApplicationIdMember | UnknownUnionMember
 )
 
 

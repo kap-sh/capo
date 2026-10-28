@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.preferred_day_time_maintenance_configuration
 
 
-class _MaintenanceConfiguration_PreferredDayTime(TypedDict, closed=True):
+class MaintenanceConfigurationPreferredDayTimeMember(TypedDict, closed=True):
     PreferredDayTime: "capo_mediaconnect.types.preferred_day_time_maintenance_configuration.PreferredDayTimeMaintenanceConfiguration"
 
 
-class _MaintenanceConfiguration_Default(TypedDict, closed=True):
+class MaintenanceConfigurationDefaultMember(TypedDict, closed=True):
     Default: "capo_mediaconnect.types.default_maintenance_configuration.DefaultMaintenanceConfiguration"
 
 
 MaintenanceConfiguration: TypeAlias = (
-    _MaintenanceConfiguration_PreferredDayTime
-    | _MaintenanceConfiguration_Default
+    MaintenanceConfigurationPreferredDayTimeMember
+    | MaintenanceConfigurationDefaultMember
     | UnknownUnionMember
 )
 

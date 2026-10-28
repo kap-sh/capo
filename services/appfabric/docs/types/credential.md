@@ -7,13 +7,13 @@ title: Credential
       show_source: true
       merge_init_into_class: false
 
-::: capo_appfabric.types.credential._Credential_oauth2Credential
+::: capo_appfabric.types.credential.CredentialOauth2CredentialMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_appfabric.types.credential._Credential_apiKeyCredential
+::: capo_appfabric.types.credential.CredentialApiKeyCredentialMember
     options:
       show_source: true
       merge_init_into_class: false

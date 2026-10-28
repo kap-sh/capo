@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_datazone.types.text_matches
 
 
-class _MatchRationaleItem_textMatches(TypedDict, closed=True):
+class MatchRationaleItemTextMatchesMember(TypedDict, closed=True):
     textMatches: "capo_datazone.types.text_matches.TextMatches"
 
 
-MatchRationaleItem: TypeAlias = _MatchRationaleItem_textMatches | UnknownUnionMember
+MatchRationaleItem: TypeAlias = MatchRationaleItemTextMatchesMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

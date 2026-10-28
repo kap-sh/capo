@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_app_mesh.types.virtual_service_backend
 
 
-class _Backend_virtualService(TypedDict, closed=True):
+class BackendVirtualServiceMember(TypedDict, closed=True):
     virtualService: "capo_app_mesh.types.virtual_service_backend.VirtualServiceBackend"
 
 
-Backend: TypeAlias = _Backend_virtualService | UnknownUnionMember
+Backend: TypeAlias = BackendVirtualServiceMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

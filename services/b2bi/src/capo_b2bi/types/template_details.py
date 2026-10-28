@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_b2bi.types.x12_details
 
 
-class _TemplateDetails_x12(TypedDict, closed=True):
+class TemplateDetailsX12Member(TypedDict, closed=True):
     x12: "capo_b2bi.types.x12_details.X12Details"
 
 
-TemplateDetails: TypeAlias = _TemplateDetails_x12 | UnknownUnionMember
+TemplateDetails: TypeAlias = TemplateDetailsX12Member | UnknownUnionMember
 
 
 # --- awsJson1_0 ser/de ---

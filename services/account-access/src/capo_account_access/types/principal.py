@@ -11,13 +11,13 @@ if TYPE_CHECKING:
     import capo_account_access.types.identity_center_principal
 
 
-class _Principal_identityCenter(TypedDict, closed=True):
+class PrincipalIdentityCenterMember(TypedDict, closed=True):
     identityCenter: (
         "capo_account_access.types.identity_center_principal.IdentityCenterPrincipal"
     )
 
 
-Principal: TypeAlias = _Principal_identityCenter | UnknownUnionMember
+Principal: TypeAlias = PrincipalIdentityCenterMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

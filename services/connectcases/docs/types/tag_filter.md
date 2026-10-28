@@ -7,7 +7,7 @@ title: TagFilter
       show_source: true
       merge_init_into_class: false
 
-::: capo_connectcases.types.tag_filter._TagFilter_equalTo
+::: capo_connectcases.types.tag_filter.TagFilterEqualToMember
     options:
       show_source: true
       merge_init_into_class: false

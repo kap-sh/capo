@@ -7,7 +7,7 @@ title: AdditionalServiceRegistrationStep
       show_source: true
       merge_init_into_class: false
 
-::: capo_devops_agent.types.additional_service_registration_step._AdditionalServiceRegistrationStep_oauth
+::: capo_devops_agent.types.additional_service_registration_step.AdditionalServiceRegistrationStepOauthMember
     options:
       show_source: true
       merge_init_into_class: false

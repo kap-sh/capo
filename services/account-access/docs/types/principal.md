@@ -7,7 +7,7 @@ title: Principal
       show_source: true
       merge_init_into_class: false
 
-::: capo_account_access.types.principal._Principal_identityCenter
+::: capo_account_access.types.principal.PrincipalIdentityCenterMember
     options:
       show_source: true
       merge_init_into_class: false

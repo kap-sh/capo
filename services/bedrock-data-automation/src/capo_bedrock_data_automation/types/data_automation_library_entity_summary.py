@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_bedrock_data_automation.types.vocabulary_entity_summary
 
 
-class _DataAutomationLibraryEntitySummary_vocabulary(TypedDict, closed=True):
+class DataAutomationLibraryEntitySummaryVocabularyMember(TypedDict, closed=True):
     vocabulary: "capo_bedrock_data_automation.types.vocabulary_entity_summary.VocabularyEntitySummary"
 
 
 DataAutomationLibraryEntitySummary: TypeAlias = (
-    _DataAutomationLibraryEntitySummary_vocabulary | UnknownUnionMember
+    DataAutomationLibraryEntitySummaryVocabularyMember | UnknownUnionMember
 )
 
 

@@ -15,37 +15,37 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.string_list
 
 
-class _RouterOutputFilter_RegionNames(TypedDict, closed=True):
+class RouterOutputFilterRegionNamesMember(TypedDict, closed=True):
     RegionNames: "capo_mediaconnect.types.string_list.StringList"
 
 
-class _RouterOutputFilter_NetworkInterfaceArns(TypedDict, closed=True):
+class RouterOutputFilterNetworkInterfaceArnsMember(TypedDict, closed=True):
     NetworkInterfaceArns: "capo_mediaconnect.types.router_network_interface_arn_list.RouterNetworkInterfaceArnList"
 
 
-class _RouterOutputFilter_RoutingScopes(TypedDict, closed=True):
+class RouterOutputFilterRoutingScopesMember(TypedDict, closed=True):
     RoutingScopes: "capo_mediaconnect.types.routing_scope_list.RoutingScopeList"
 
 
-class _RouterOutputFilter_OutputTypes(TypedDict, closed=True):
+class RouterOutputFilterOutputTypesMember(TypedDict, closed=True):
     OutputTypes: "capo_mediaconnect.types.router_output_type_list.RouterOutputTypeList"
 
 
-class _RouterOutputFilter_RoutedInputArns(TypedDict, closed=True):
+class RouterOutputFilterRoutedInputArnsMember(TypedDict, closed=True):
     RoutedInputArns: "capo_mediaconnect.types.router_input_arn_list.RouterInputArnList"
 
 
-class _RouterOutputFilter_NameContains(TypedDict, closed=True):
+class RouterOutputFilterNameContainsMember(TypedDict, closed=True):
     NameContains: "capo_mediaconnect.types.string_list.StringList"
 
 
 RouterOutputFilter: TypeAlias = (
-    _RouterOutputFilter_RegionNames
-    | _RouterOutputFilter_NetworkInterfaceArns
-    | _RouterOutputFilter_RoutingScopes
-    | _RouterOutputFilter_OutputTypes
-    | _RouterOutputFilter_RoutedInputArns
-    | _RouterOutputFilter_NameContains
+    RouterOutputFilterRegionNamesMember
+    | RouterOutputFilterNetworkInterfaceArnsMember
+    | RouterOutputFilterRoutingScopesMember
+    | RouterOutputFilterOutputTypesMember
+    | RouterOutputFilterRoutedInputArnsMember
+    | RouterOutputFilterNameContainsMember
     | UnknownUnionMember
 )
 

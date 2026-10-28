@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_bedrock.types.rag_configs
 
 
-class _EvaluationInferenceConfig_models(TypedDict, closed=True):
+class EvaluationInferenceConfigModelsMember(TypedDict, closed=True):
     models: "capo_bedrock.types.evaluation_model_configs.EvaluationModelConfigs"
 
 
-class _EvaluationInferenceConfig_ragConfigs(TypedDict, closed=True):
+class EvaluationInferenceConfigRagConfigsMember(TypedDict, closed=True):
     ragConfigs: "capo_bedrock.types.rag_configs.RagConfigs"
 
 
 EvaluationInferenceConfig: TypeAlias = (
-    _EvaluationInferenceConfig_models
-    | _EvaluationInferenceConfig_ragConfigs
+    EvaluationInferenceConfigModelsMember
+    | EvaluationInferenceConfigRagConfigsMember
     | UnknownUnionMember
 )
 

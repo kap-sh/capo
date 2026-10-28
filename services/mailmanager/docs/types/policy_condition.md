@@ -7,31 +7,31 @@ title: PolicyCondition
       show_source: true
       merge_init_into_class: false
 
-::: capo_mailmanager.types.policy_condition._PolicyCondition_StringExpression
+::: capo_mailmanager.types.policy_condition.PolicyConditionStringExpressionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mailmanager.types.policy_condition._PolicyCondition_IpExpression
+::: capo_mailmanager.types.policy_condition.PolicyConditionIpExpressionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mailmanager.types.policy_condition._PolicyCondition_Ipv6Expression
+::: capo_mailmanager.types.policy_condition.PolicyConditionIpv6ExpressionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mailmanager.types.policy_condition._PolicyCondition_TlsExpression
+::: capo_mailmanager.types.policy_condition.PolicyConditionTlsExpressionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mailmanager.types.policy_condition._PolicyCondition_BooleanExpression
+::: capo_mailmanager.types.policy_condition.PolicyConditionBooleanExpressionMember
     options:
       show_source: true
       merge_init_into_class: false

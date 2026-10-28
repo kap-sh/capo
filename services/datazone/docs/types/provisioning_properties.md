@@ -7,7 +7,7 @@ title: ProvisioningProperties
       show_source: true
       merge_init_into_class: false
 
-::: capo_datazone.types.provisioning_properties._ProvisioningProperties_cloudFormation
+::: capo_datazone.types.provisioning_properties.ProvisioningPropertiesCloudFormationMember
     options:
       show_source: true
       merge_init_into_class: false

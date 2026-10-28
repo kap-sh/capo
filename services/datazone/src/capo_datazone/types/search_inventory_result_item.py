@@ -14,29 +14,29 @@ if TYPE_CHECKING:
     import capo_datazone.types.glossary_term_item
 
 
-class _SearchInventoryResultItem_glossaryItem(TypedDict, closed=True):
+class SearchInventoryResultItemGlossaryItemMember(TypedDict, closed=True):
     glossaryItem: "capo_datazone.types.glossary_item.GlossaryItem"
 
 
-class _SearchInventoryResultItem_glossaryTermItem(TypedDict, closed=True):
+class SearchInventoryResultItemGlossaryTermItemMember(TypedDict, closed=True):
     glossaryTermItem: "capo_datazone.types.glossary_term_item.GlossaryTermItem"
 
 
-class _SearchInventoryResultItem_assetItem(TypedDict, closed=True):
+class SearchInventoryResultItemAssetItemMember(TypedDict, closed=True):
     assetItem: "capo_datazone.types.asset_item.AssetItem"
 
 
-class _SearchInventoryResultItem_dataProductItem(TypedDict, closed=True):
+class SearchInventoryResultItemDataProductItemMember(TypedDict, closed=True):
     dataProductItem: (
         "capo_datazone.types.data_product_result_item.DataProductResultItem"
     )
 
 
 SearchInventoryResultItem: TypeAlias = (
-    _SearchInventoryResultItem_glossaryItem
-    | _SearchInventoryResultItem_glossaryTermItem
-    | _SearchInventoryResultItem_assetItem
-    | _SearchInventoryResultItem_dataProductItem
+    SearchInventoryResultItemGlossaryItemMember
+    | SearchInventoryResultItemGlossaryTermItemMember
+    | SearchInventoryResultItemAssetItemMember
+    | SearchInventoryResultItemDataProductItemMember
     | UnknownUnionMember
 )
 

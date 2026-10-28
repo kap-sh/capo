@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_bedrock_agent.types.flow_data_connection_configuration
 
 
-class _FlowConnectionConfiguration_data(TypedDict, closed=True):
+class FlowConnectionConfigurationDataMember(TypedDict, closed=True):
     data: "capo_bedrock_agent.types.flow_data_connection_configuration.FlowDataConnectionConfiguration"
 
 
-class _FlowConnectionConfiguration_conditional(TypedDict, closed=True):
+class FlowConnectionConfigurationConditionalMember(TypedDict, closed=True):
     conditional: "capo_bedrock_agent.types.flow_conditional_connection_configuration.FlowConditionalConnectionConfiguration"
 
 
 FlowConnectionConfiguration: TypeAlias = (
-    _FlowConnectionConfiguration_data
-    | _FlowConnectionConfiguration_conditional
+    FlowConnectionConfigurationDataMember
+    | FlowConnectionConfigurationConditionalMember
     | UnknownUnionMember
 )
 

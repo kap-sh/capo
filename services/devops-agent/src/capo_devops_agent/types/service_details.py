@@ -23,89 +23,89 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.service_now_service_details
 
 
-class _ServiceDetails_dynatrace(TypedDict, closed=True):
+class ServiceDetailsDynatraceMember(TypedDict, closed=True):
     dynatrace: (
         "capo_devops_agent.types.dynatrace_service_details.DynatraceServiceDetails"
     )
 
 
-class _ServiceDetails_servicenow(TypedDict, closed=True):
+class ServiceDetailsServicenowMember(TypedDict, closed=True):
     servicenow: (
         "capo_devops_agent.types.service_now_service_details.ServiceNowServiceDetails"
     )
 
 
-class _ServiceDetails_mcpserverdatadog(TypedDict, closed=True):
+class ServiceDetailsMcpserverdatadogMember(TypedDict, closed=True):
     mcpserverdatadog: (
         "capo_devops_agent.types.datadog_service_details.DatadogServiceDetails"
     )
 
 
-class _ServiceDetails_mcpserver(TypedDict, closed=True):
+class ServiceDetailsMcpserverMember(TypedDict, closed=True):
     mcpserver: "capo_devops_agent.types.mcp_server_details.MCPServerDetails"
 
 
-class _ServiceDetails_gitlab(TypedDict, closed=True):
+class ServiceDetailsGitlabMember(TypedDict, closed=True):
     gitlab: "capo_devops_agent.types.git_lab_details.GitLabDetails"
 
 
-class _ServiceDetails_mcpserversplunk(TypedDict, closed=True):
+class ServiceDetailsMcpserversplunkMember(TypedDict, closed=True):
     mcpserversplunk: "capo_devops_agent.types.mcp_server_details.MCPServerDetails"
 
 
-class _ServiceDetails_mcpservernewrelic(TypedDict, closed=True):
+class ServiceDetailsMcpservernewrelicMember(TypedDict, closed=True):
     mcpservernewrelic: (
         "capo_devops_agent.types.new_relic_service_details.NewRelicServiceDetails"
     )
 
 
-class _ServiceDetails_eventChannel(TypedDict, closed=True):
+class ServiceDetailsEventChannelMember(TypedDict, closed=True):
     eventChannel: "capo_devops_agent.types.event_channel_details.EventChannelDetails"
 
 
-class _ServiceDetails_mcpservergrafana(TypedDict, closed=True):
+class ServiceDetailsMcpservergrafanaMember(TypedDict, closed=True):
     mcpservergrafana: (
         "capo_devops_agent.types.grafana_service_details.GrafanaServiceDetails"
     )
 
 
-class _ServiceDetails_pagerduty(TypedDict, closed=True):
+class ServiceDetailsPagerdutyMember(TypedDict, closed=True):
     pagerduty: "capo_devops_agent.types.pager_duty_details.PagerDutyDetails"
 
 
-class _ServiceDetails_azureidentity(TypedDict, closed=True):
+class ServiceDetailsAzureidentityMember(TypedDict, closed=True):
     azureidentity: "capo_devops_agent.types.registered_azure_identity_details.RegisteredAzureIdentityDetails"
 
 
-class _ServiceDetails_mcpserversigv4(TypedDict, closed=True):
+class ServiceDetailsMcpserversigv4Member(TypedDict, closed=True):
     mcpserversigv4: "capo_devops_agent.types.mcp_server_sig_v4_service_details.MCPServerSigV4ServiceDetails"
 
 
-class _ServiceDetails_remoteagent(TypedDict, closed=True):
+class ServiceDetailsRemoteagentMember(TypedDict, closed=True):
     remoteagent: (
         "capo_devops_agent.types.remote_agent_service_details.RemoteAgentServiceDetails"
     )
 
 
-class _ServiceDetails_remoteagentsigv4(TypedDict, closed=True):
+class ServiceDetailsRemoteagentsigv4Member(TypedDict, closed=True):
     remoteagentsigv4: "capo_devops_agent.types.remote_agent_sig_v4_service_details.RemoteAgentSigV4ServiceDetails"
 
 
 ServiceDetails: TypeAlias = (
-    _ServiceDetails_dynatrace
-    | _ServiceDetails_servicenow
-    | _ServiceDetails_mcpserverdatadog
-    | _ServiceDetails_mcpserver
-    | _ServiceDetails_gitlab
-    | _ServiceDetails_mcpserversplunk
-    | _ServiceDetails_mcpservernewrelic
-    | _ServiceDetails_eventChannel
-    | _ServiceDetails_mcpservergrafana
-    | _ServiceDetails_pagerduty
-    | _ServiceDetails_azureidentity
-    | _ServiceDetails_mcpserversigv4
-    | _ServiceDetails_remoteagent
-    | _ServiceDetails_remoteagentsigv4
+    ServiceDetailsDynatraceMember
+    | ServiceDetailsServicenowMember
+    | ServiceDetailsMcpserverdatadogMember
+    | ServiceDetailsMcpserverMember
+    | ServiceDetailsGitlabMember
+    | ServiceDetailsMcpserversplunkMember
+    | ServiceDetailsMcpservernewrelicMember
+    | ServiceDetailsEventChannelMember
+    | ServiceDetailsMcpservergrafanaMember
+    | ServiceDetailsPagerdutyMember
+    | ServiceDetailsAzureidentityMember
+    | ServiceDetailsMcpserversigv4Member
+    | ServiceDetailsRemoteagentMember
+    | ServiceDetailsRemoteagentsigv4Member
     | UnknownUnionMember
 )
 

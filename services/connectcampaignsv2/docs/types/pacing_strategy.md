@@ -7,7 +7,7 @@ title: PacingStrategy
       show_source: true
       merge_init_into_class: false
 
-::: capo_connectcampaignsv2.types.pacing_strategy._PacingStrategy_abandonmentRate
+::: capo_connectcampaignsv2.types.pacing_strategy.PacingStrategyAbandonmentRateMember
     options:
       show_source: true
       merge_init_into_class: false

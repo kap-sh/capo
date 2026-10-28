@@ -12,16 +12,18 @@ if TYPE_CHECKING:
     import capo_connect.types.evaluation_form_section
 
 
-class _EvaluationFormItem_Section(TypedDict, closed=True):
+class EvaluationFormItemSectionMember(TypedDict, closed=True):
     Section: "capo_connect.types.evaluation_form_section.EvaluationFormSection"
 
 
-class _EvaluationFormItem_Question(TypedDict, closed=True):
+class EvaluationFormItemQuestionMember(TypedDict, closed=True):
     Question: "capo_connect.types.evaluation_form_question.EvaluationFormQuestion"
 
 
 EvaluationFormItem: TypeAlias = (
-    _EvaluationFormItem_Section | _EvaluationFormItem_Question | UnknownUnionMember
+    EvaluationFormItemSectionMember
+    | EvaluationFormItemQuestionMember
+    | UnknownUnionMember
 )
 
 

@@ -11,11 +11,13 @@ if TYPE_CHECKING:
     import capo_b2bi.types.edi_configuration
 
 
-class _CapabilityConfiguration_edi(TypedDict, closed=True):
+class CapabilityConfigurationEdiMember(TypedDict, closed=True):
     edi: "capo_b2bi.types.edi_configuration.EdiConfiguration"
 
 
-CapabilityConfiguration: TypeAlias = _CapabilityConfiguration_edi | UnknownUnionMember
+CapabilityConfiguration: TypeAlias = (
+    CapabilityConfigurationEdiMember | UnknownUnionMember
+)
 
 
 # --- awsJson1_0 ser/de ---

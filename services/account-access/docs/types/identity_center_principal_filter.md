@@ -7,13 +7,13 @@ title: IdentityCenterPrincipalFilter
       show_source: true
       merge_init_into_class: false
 
-::: capo_account_access.types.identity_center_principal_filter._IdentityCenterPrincipalFilter_userId
+::: capo_account_access.types.identity_center_principal_filter.IdentityCenterPrincipalFilterUserIdMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_account_access.types.identity_center_principal_filter._IdentityCenterPrincipalFilter_groupId
+::: capo_account_access.types.identity_center_principal_filter.IdentityCenterPrincipalFilterGroupIdMember
     options:
       show_source: true
       merge_init_into_class: false

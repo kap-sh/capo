@@ -12,16 +12,18 @@ if TYPE_CHECKING:
     import capo_glue.types.search_filter_string_value
 
 
-class _SearchFilterValue_StringValue(TypedDict, closed=True):
+class SearchFilterValueStringValueMember(TypedDict, closed=True):
     StringValue: "capo_glue.types.search_filter_string_value.SearchFilterStringValue"
 
 
-class _SearchFilterValue_LongValue(TypedDict, closed=True):
+class SearchFilterValueLongValueMember(TypedDict, closed=True):
     LongValue: "capo_glue.types.search_filter_long_value.SearchFilterLongValue"
 
 
 SearchFilterValue: TypeAlias = (
-    _SearchFilterValue_StringValue | _SearchFilterValue_LongValue | UnknownUnionMember
+    SearchFilterValueStringValueMember
+    | SearchFilterValueLongValueMember
+    | UnknownUnionMember
 )
 
 

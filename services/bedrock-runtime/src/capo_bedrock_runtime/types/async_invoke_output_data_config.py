@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_bedrock_runtime.types.async_invoke_s3_output_data_config
 
 
-class _AsyncInvokeOutputDataConfig_s3OutputDataConfig(TypedDict, closed=True):
+class AsyncInvokeOutputDataConfigS3OutputDataConfigMember(TypedDict, closed=True):
     s3OutputDataConfig: "capo_bedrock_runtime.types.async_invoke_s3_output_data_config.AsyncInvokeS3OutputDataConfig"
 
 
 AsyncInvokeOutputDataConfig: TypeAlias = (
-    _AsyncInvokeOutputDataConfig_s3OutputDataConfig | UnknownUnionMember
+    AsyncInvokeOutputDataConfigS3OutputDataConfigMember | UnknownUnionMember
 )
 
 

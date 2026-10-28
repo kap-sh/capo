@@ -7,7 +7,7 @@ title: LaunchTemplateSource
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.launch_template_source._LaunchTemplateSource_launchParameters
+::: capo_bedrock_agentcore_control.types.launch_template_source.LaunchTemplateSourceLaunchParametersMember
     options:
       show_source: true
       merge_init_into_class: false

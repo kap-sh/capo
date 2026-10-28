@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_bedrock_runtime.types.guardrail_converse_text_block
 
 
-class _GuardrailConverseContentBlock_text(TypedDict, closed=True):
+class GuardrailConverseContentBlockTextMember(TypedDict, closed=True):
     text: "capo_bedrock_runtime.types.guardrail_converse_text_block.GuardrailConverseTextBlock"
 
 
-class _GuardrailConverseContentBlock_image(TypedDict, closed=True):
+class GuardrailConverseContentBlockImageMember(TypedDict, closed=True):
     image: "capo_bedrock_runtime.types.guardrail_converse_image_block.GuardrailConverseImageBlock"
 
 
 GuardrailConverseContentBlock: TypeAlias = (
-    _GuardrailConverseContentBlock_text
-    | _GuardrailConverseContentBlock_image
+    GuardrailConverseContentBlockTextMember
+    | GuardrailConverseContentBlockImageMember
     | UnknownUnionMember
 )
 

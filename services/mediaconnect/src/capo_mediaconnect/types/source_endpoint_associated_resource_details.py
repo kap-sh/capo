@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.standard_source_endpoint_associated_resource_details
 
 
-class _SourceEndpointAssociatedResourceDetails_Standard(TypedDict, closed=True):
+class SourceEndpointAssociatedResourceDetailsStandardMember(TypedDict, closed=True):
     Standard: "capo_mediaconnect.types.standard_source_endpoint_associated_resource_details.StandardSourceEndpointAssociatedResourceDetails"
 
 
-class _SourceEndpointAssociatedResourceDetails_RouterOutput(TypedDict, closed=True):
+class SourceEndpointAssociatedResourceDetailsRouterOutputMember(TypedDict, closed=True):
     RouterOutput: "capo_mediaconnect.types.router_output_source_endpoint_associated_resource_details.RouterOutputSourceEndpointAssociatedResourceDetails"
 
 
 SourceEndpointAssociatedResourceDetails: TypeAlias = (
-    _SourceEndpointAssociatedResourceDetails_Standard
-    | _SourceEndpointAssociatedResourceDetails_RouterOutput
+    SourceEndpointAssociatedResourceDetailsStandardMember
+    | SourceEndpointAssociatedResourceDetailsRouterOutputMember
     | UnknownUnionMember
 )
 

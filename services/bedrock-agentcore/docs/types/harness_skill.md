@@ -7,25 +7,25 @@ title: HarnessSkill
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore.types.harness_skill._HarnessSkill_path
+::: capo_bedrock_agentcore.types.harness_skill.HarnessSkillPathMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.harness_skill._HarnessSkill_s3
+::: capo_bedrock_agentcore.types.harness_skill.HarnessSkillS3Member
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.harness_skill._HarnessSkill_git
+::: capo_bedrock_agentcore.types.harness_skill.HarnessSkillGitMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.harness_skill._HarnessSkill_awsSkills
+::: capo_bedrock_agentcore.types.harness_skill.HarnessSkillAwsSkillsMember
     options:
       show_source: true
       merge_init_into_class: false

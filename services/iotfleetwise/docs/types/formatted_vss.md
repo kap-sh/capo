@@ -7,7 +7,7 @@ title: FormattedVss
       show_source: true
       merge_init_into_class: false
 
-::: capo_iotfleetwise.types.formatted_vss._FormattedVss_vssJson
+::: capo_iotfleetwise.types.formatted_vss.FormattedVssVssJsonMember
     options:
       show_source: true
       merge_init_into_class: false

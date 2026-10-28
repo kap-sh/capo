@@ -7,91 +7,91 @@ title: AggregationResponse
       show_source: true
       merge_init_into_class: false
 
-::: capo_inspector2.types.aggregation_response._AggregationResponse_accountAggregation
+::: capo_inspector2.types.aggregation_response.AggregationResponseAccountAggregationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_inspector2.types.aggregation_response._AggregationResponse_amiAggregation
+::: capo_inspector2.types.aggregation_response.AggregationResponseAmiAggregationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_inspector2.types.aggregation_response._AggregationResponse_awsEcrContainerAggregation
+::: capo_inspector2.types.aggregation_response.AggregationResponseAwsEcrContainerAggregationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_inspector2.types.aggregation_response._AggregationResponse_ec2InstanceAggregation
+::: capo_inspector2.types.aggregation_response.AggregationResponseEc2InstanceAggregationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_inspector2.types.aggregation_response._AggregationResponse_findingTypeAggregation
+::: capo_inspector2.types.aggregation_response.AggregationResponseFindingTypeAggregationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_inspector2.types.aggregation_response._AggregationResponse_imageLayerAggregation
+::: capo_inspector2.types.aggregation_response.AggregationResponseImageLayerAggregationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_inspector2.types.aggregation_response._AggregationResponse_packageAggregation
+::: capo_inspector2.types.aggregation_response.AggregationResponsePackageAggregationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_inspector2.types.aggregation_response._AggregationResponse_repositoryAggregation
+::: capo_inspector2.types.aggregation_response.AggregationResponseRepositoryAggregationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_inspector2.types.aggregation_response._AggregationResponse_titleAggregation
+::: capo_inspector2.types.aggregation_response.AggregationResponseTitleAggregationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_inspector2.types.aggregation_response._AggregationResponse_lambdaLayerAggregation
+::: capo_inspector2.types.aggregation_response.AggregationResponseLambdaLayerAggregationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_inspector2.types.aggregation_response._AggregationResponse_lambdaFunctionAggregation
+::: capo_inspector2.types.aggregation_response.AggregationResponseLambdaFunctionAggregationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_inspector2.types.aggregation_response._AggregationResponse_codeRepositoryAggregation
+::: capo_inspector2.types.aggregation_response.AggregationResponseCodeRepositoryAggregationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_inspector2.types.aggregation_response._AggregationResponse_vmInstanceAggregation
+::: capo_inspector2.types.aggregation_response.AggregationResponseVmInstanceAggregationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_inspector2.types.aggregation_response._AggregationResponse_containerImageAggregation
+::: capo_inspector2.types.aggregation_response.AggregationResponseContainerImageAggregationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_inspector2.types.aggregation_response._AggregationResponse_serverlessFunctionAggregation
+::: capo_inspector2.types.aggregation_response.AggregationResponseServerlessFunctionAggregationMember
     options:
       show_source: true
       merge_init_into_class: false

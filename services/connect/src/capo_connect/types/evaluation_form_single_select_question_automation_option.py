@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_connect.types.single_select_question_rule_category_automation
 
 
-class _EvaluationFormSingleSelectQuestionAutomationOption_RuleCategory(
+class EvaluationFormSingleSelectQuestionAutomationOptionRuleCategoryMember(
     TypedDict, closed=True
 ):
     RuleCategory: "capo_connect.types.single_select_question_rule_category_automation.SingleSelectQuestionRuleCategoryAutomation"
 
 
 EvaluationFormSingleSelectQuestionAutomationOption: TypeAlias = (
-    _EvaluationFormSingleSelectQuestionAutomationOption_RuleCategory
+    EvaluationFormSingleSelectQuestionAutomationOptionRuleCategoryMember
     | UnknownUnionMember
 )
 

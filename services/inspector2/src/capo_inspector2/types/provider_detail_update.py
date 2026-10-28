@@ -11,13 +11,13 @@ if TYPE_CHECKING:
     import capo_inspector2.types.azure_provider_detail_update
 
 
-class _ProviderDetailUpdate_azure(TypedDict, closed=True):
+class ProviderDetailUpdateAzureMember(TypedDict, closed=True):
     azure: (
         "capo_inspector2.types.azure_provider_detail_update.AzureProviderDetailUpdate"
     )
 
 
-ProviderDetailUpdate: TypeAlias = _ProviderDetailUpdate_azure | UnknownUnionMember
+ProviderDetailUpdate: TypeAlias = ProviderDetailUpdateAzureMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

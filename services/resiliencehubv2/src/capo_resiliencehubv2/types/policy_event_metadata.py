@@ -14,29 +14,29 @@ if TYPE_CHECKING:
     import capo_resiliencehubv2.types.policy_sharing_revoked_metadata
 
 
-class _PolicyEventMetadata_policyAttachedToService(TypedDict, closed=True):
+class PolicyEventMetadataPolicyAttachedToServiceMember(TypedDict, closed=True):
     policyAttachedToService: "capo_resiliencehubv2.types.policy_attached_to_service_metadata.PolicyAttachedToServiceMetadata"
 
 
-class _PolicyEventMetadata_policyDetachedFromService(TypedDict, closed=True):
+class PolicyEventMetadataPolicyDetachedFromServiceMember(TypedDict, closed=True):
     policyDetachedFromService: "capo_resiliencehubv2.types.policy_detached_from_service_metadata.PolicyDetachedFromServiceMetadata"
 
 
-class _PolicyEventMetadata_policySharingRevoked(TypedDict, closed=True):
+class PolicyEventMetadataPolicySharingRevokedMember(TypedDict, closed=True):
     policySharingRevoked: "capo_resiliencehubv2.types.policy_sharing_revoked_metadata.PolicySharingRevokedMetadata"
 
 
-class _PolicyEventMetadata_policyDeleted(TypedDict, closed=True):
+class PolicyEventMetadataPolicyDeletedMember(TypedDict, closed=True):
     policyDeleted: (
         "capo_resiliencehubv2.types.policy_deleted_metadata.PolicyDeletedMetadata"
     )
 
 
 PolicyEventMetadata: TypeAlias = (
-    _PolicyEventMetadata_policyAttachedToService
-    | _PolicyEventMetadata_policyDetachedFromService
-    | _PolicyEventMetadata_policySharingRevoked
-    | _PolicyEventMetadata_policyDeleted
+    PolicyEventMetadataPolicyAttachedToServiceMember
+    | PolicyEventMetadataPolicyDetachedFromServiceMember
+    | PolicyEventMetadataPolicySharingRevokedMember
+    | PolicyEventMetadataPolicyDeletedMember
     | UnknownUnionMember
 )
 

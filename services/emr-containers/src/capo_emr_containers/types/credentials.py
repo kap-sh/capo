@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_emr_containers.types.token
 
 
-class _Credentials_token(TypedDict, closed=True):
+class CredentialsTokenMember(TypedDict, closed=True):
     token: "capo_emr_containers.types.token.Token"
 
 
-Credentials: TypeAlias = _Credentials_token | UnknownUnionMember
+Credentials: TypeAlias = CredentialsTokenMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

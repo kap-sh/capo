@@ -14,31 +14,31 @@ if TYPE_CHECKING:
     import capo_partnercentral_benefits.types.disbursement_details
 
 
-class _FulfillmentDetails_DisbursementDetails(TypedDict, closed=True):
+class FulfillmentDetailsDisbursementDetailsMember(TypedDict, closed=True):
     DisbursementDetails: (
         "capo_partnercentral_benefits.types.disbursement_details.DisbursementDetails"
     )
 
 
-class _FulfillmentDetails_ConsumableDetails(TypedDict, closed=True):
+class FulfillmentDetailsConsumableDetailsMember(TypedDict, closed=True):
     ConsumableDetails: (
         "capo_partnercentral_benefits.types.consumable_details.ConsumableDetails"
     )
 
 
-class _FulfillmentDetails_CreditDetails(TypedDict, closed=True):
+class FulfillmentDetailsCreditDetailsMember(TypedDict, closed=True):
     CreditDetails: "capo_partnercentral_benefits.types.credit_details.CreditDetails"
 
 
-class _FulfillmentDetails_AccessDetails(TypedDict, closed=True):
+class FulfillmentDetailsAccessDetailsMember(TypedDict, closed=True):
     AccessDetails: "capo_partnercentral_benefits.types.access_details.AccessDetails"
 
 
 FulfillmentDetails: TypeAlias = (
-    _FulfillmentDetails_DisbursementDetails
-    | _FulfillmentDetails_ConsumableDetails
-    | _FulfillmentDetails_CreditDetails
-    | _FulfillmentDetails_AccessDetails
+    FulfillmentDetailsDisbursementDetailsMember
+    | FulfillmentDetailsConsumableDetailsMember
+    | FulfillmentDetailsCreditDetailsMember
+    | FulfillmentDetailsAccessDetailsMember
     | UnknownUnionMember
 )
 

@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_amp.types.random_cut_forest_configuration
 
 
-class _AnomalyDetectorConfiguration_randomCutForest(TypedDict, closed=True):
+class AnomalyDetectorConfigurationRandomCutForestMember(TypedDict, closed=True):
     randomCutForest: (
         "capo_amp.types.random_cut_forest_configuration.RandomCutForestConfiguration"
     )
 
 
 AnomalyDetectorConfiguration: TypeAlias = (
-    _AnomalyDetectorConfiguration_randomCutForest | UnknownUnionMember
+    AnomalyDetectorConfigurationRandomCutForestMember | UnknownUnionMember
 )
 
 

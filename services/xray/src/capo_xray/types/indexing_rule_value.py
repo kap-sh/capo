@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_xray.types.probabilistic_rule_value
 
 
-class _IndexingRuleValue_Probabilistic(TypedDict, closed=True):
+class IndexingRuleValueProbabilisticMember(TypedDict, closed=True):
     Probabilistic: "capo_xray.types.probabilistic_rule_value.ProbabilisticRuleValue"
 
 
-IndexingRuleValue: TypeAlias = _IndexingRuleValue_Probabilistic | UnknownUnionMember
+IndexingRuleValue: TypeAlias = IndexingRuleValueProbabilisticMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

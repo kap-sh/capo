@@ -7,7 +7,7 @@ title: InterceptorPayloadExclusionSelector
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.interceptor_payload_exclusion_selector._InterceptorPayloadExclusionSelector_field
+::: capo_bedrock_agentcore_control.types.interceptor_payload_exclusion_selector.InterceptorPayloadExclusionSelectorFieldMember
     options:
       show_source: true
       merge_init_into_class: false

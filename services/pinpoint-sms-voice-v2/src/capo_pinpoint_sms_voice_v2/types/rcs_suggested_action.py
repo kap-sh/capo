@@ -16,39 +16,39 @@ if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.rcs_show_location_action
 
 
-class _RcsSuggestedAction_Reply(TypedDict, closed=True):
+class RcsSuggestedActionReplyMember(TypedDict, closed=True):
     Reply: "capo_pinpoint_sms_voice_v2.types.rcs_reply_action.RcsReplyAction"
 
 
-class _RcsSuggestedAction_OpenUrl(TypedDict, closed=True):
+class RcsSuggestedActionOpenUrlMember(TypedDict, closed=True):
     OpenUrl: "capo_pinpoint_sms_voice_v2.types.rcs_open_url_action.RcsOpenUrlAction"
 
 
-class _RcsSuggestedAction_DialPhone(TypedDict, closed=True):
+class RcsSuggestedActionDialPhoneMember(TypedDict, closed=True):
     DialPhone: (
         "capo_pinpoint_sms_voice_v2.types.rcs_dial_phone_action.RcsDialPhoneAction"
     )
 
 
-class _RcsSuggestedAction_ShowLocation(TypedDict, closed=True):
+class RcsSuggestedActionShowLocationMember(TypedDict, closed=True):
     ShowLocation: "capo_pinpoint_sms_voice_v2.types.rcs_show_location_action.RcsShowLocationAction"
 
 
-class _RcsSuggestedAction_RequestLocation(TypedDict, closed=True):
+class RcsSuggestedActionRequestLocationMember(TypedDict, closed=True):
     RequestLocation: "capo_pinpoint_sms_voice_v2.types.rcs_request_location_action.RcsRequestLocationAction"
 
 
-class _RcsSuggestedAction_CreateCalendarEvent(TypedDict, closed=True):
+class RcsSuggestedActionCreateCalendarEventMember(TypedDict, closed=True):
     CreateCalendarEvent: "capo_pinpoint_sms_voice_v2.types.rcs_create_calendar_event_action.RcsCreateCalendarEventAction"
 
 
 RcsSuggestedAction: TypeAlias = (
-    _RcsSuggestedAction_Reply
-    | _RcsSuggestedAction_OpenUrl
-    | _RcsSuggestedAction_DialPhone
-    | _RcsSuggestedAction_ShowLocation
-    | _RcsSuggestedAction_RequestLocation
-    | _RcsSuggestedAction_CreateCalendarEvent
+    RcsSuggestedActionReplyMember
+    | RcsSuggestedActionOpenUrlMember
+    | RcsSuggestedActionDialPhoneMember
+    | RcsSuggestedActionShowLocationMember
+    | RcsSuggestedActionRequestLocationMember
+    | RcsSuggestedActionCreateCalendarEventMember
     | UnknownUnionMember
 )
 

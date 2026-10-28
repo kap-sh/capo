@@ -7,7 +7,7 @@ title: FunctionSchema
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agent_runtime.types.function_schema._FunctionSchema_functions
+::: capo_bedrock_agent_runtime.types.function_schema.FunctionSchemaFunctionsMember
     options:
       show_source: true
       merge_init_into_class: false

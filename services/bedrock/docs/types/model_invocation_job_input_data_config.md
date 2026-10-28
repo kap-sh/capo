@@ -7,7 +7,7 @@ title: ModelInvocationJobInputDataConfig
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock.types.model_invocation_job_input_data_config._ModelInvocationJobInputDataConfig_s3InputDataConfig
+::: capo_bedrock.types.model_invocation_job_input_data_config.ModelInvocationJobInputDataConfigS3InputDataConfigMember
     options:
       show_source: true
       merge_init_into_class: false

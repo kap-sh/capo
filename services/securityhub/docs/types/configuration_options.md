@@ -7,49 +7,49 @@ title: ConfigurationOptions
       show_source: true
       merge_init_into_class: false
 
-::: capo_securityhub.types.configuration_options._ConfigurationOptions_Integer
+::: capo_securityhub.types.configuration_options.ConfigurationOptionsIntegerMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_securityhub.types.configuration_options._ConfigurationOptions_IntegerList
+::: capo_securityhub.types.configuration_options.ConfigurationOptionsIntegerListMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_securityhub.types.configuration_options._ConfigurationOptions_Double
+::: capo_securityhub.types.configuration_options.ConfigurationOptionsDoubleMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_securityhub.types.configuration_options._ConfigurationOptions_String
+::: capo_securityhub.types.configuration_options.ConfigurationOptionsStringMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_securityhub.types.configuration_options._ConfigurationOptions_StringList
+::: capo_securityhub.types.configuration_options.ConfigurationOptionsStringListMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_securityhub.types.configuration_options._ConfigurationOptions_Boolean
+::: capo_securityhub.types.configuration_options.ConfigurationOptionsBooleanMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_securityhub.types.configuration_options._ConfigurationOptions_Enum
+::: capo_securityhub.types.configuration_options.ConfigurationOptionsEnumMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_securityhub.types.configuration_options._ConfigurationOptions_EnumList
+::: capo_securityhub.types.configuration_options.ConfigurationOptionsEnumListMember
     options:
       show_source: true
       merge_init_into_class: false

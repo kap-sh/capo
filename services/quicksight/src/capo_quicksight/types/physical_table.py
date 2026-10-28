@@ -15,32 +15,32 @@ if TYPE_CHECKING:
     import capo_quicksight.types.saa_s_table
 
 
-class _PhysicalTable_RelationalTable(TypedDict, closed=True):
+class PhysicalTableRelationalTableMember(TypedDict, closed=True):
     RelationalTable: "capo_quicksight.types.relational_table.RelationalTable"
 
 
-class _PhysicalTable_CustomSql(TypedDict, closed=True):
+class PhysicalTableCustomSqlMember(TypedDict, closed=True):
     CustomSql: "capo_quicksight.types.custom_sql.CustomSql"
 
 
-class _PhysicalTable_S3Source(TypedDict, closed=True):
+class PhysicalTableS3SourceMember(TypedDict, closed=True):
     S3Source: "capo_quicksight.types.s3_source.S3Source"
 
 
-class _PhysicalTable_SaaSTable(TypedDict, closed=True):
+class PhysicalTableSaaSTableMember(TypedDict, closed=True):
     SaaSTable: "capo_quicksight.types.saa_s_table.SaaSTable"
 
 
-class _PhysicalTable_FileSource(TypedDict, closed=True):
+class PhysicalTableFileSourceMember(TypedDict, closed=True):
     FileSource: "capo_quicksight.types.file_source.FileSource"
 
 
 PhysicalTable: TypeAlias = (
-    _PhysicalTable_RelationalTable
-    | _PhysicalTable_CustomSql
-    | _PhysicalTable_S3Source
-    | _PhysicalTable_SaaSTable
-    | _PhysicalTable_FileSource
+    PhysicalTableRelationalTableMember
+    | PhysicalTableCustomSqlMember
+    | PhysicalTableS3SourceMember
+    | PhysicalTableSaaSTableMember
+    | PhysicalTableFileSourceMember
     | UnknownUnionMember
 )
 

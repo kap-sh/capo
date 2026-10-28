@@ -7,7 +7,7 @@ title: ConfigurationTargets
       show_source: true
       merge_init_into_class: false
 
-::: capo_ssm.types.configuration_targets._ConfigurationTargets_Subscriptions
+::: capo_ssm.types.configuration_targets.ConfigurationTargetsSubscriptionsMember
     options:
       show_source: true
       merge_init_into_class: false

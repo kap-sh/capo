@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_ecs.types.update_gateway_alb_configuration
 
 
-class _UpdateGatewayConfiguration_hostSharedAlb(TypedDict, closed=True):
+class UpdateGatewayConfigurationHostSharedAlbMember(TypedDict, closed=True):
     hostSharedAlb: (
         "capo_ecs.types.update_gateway_alb_configuration.UpdateGatewayAlbConfiguration"
     )
 
 
 UpdateGatewayConfiguration: TypeAlias = (
-    _UpdateGatewayConfiguration_hostSharedAlb | UnknownUnionMember
+    UpdateGatewayConfigurationHostSharedAlbMember | UnknownUnionMember
 )
 
 

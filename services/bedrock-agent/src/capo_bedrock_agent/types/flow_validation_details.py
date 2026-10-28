@@ -43,172 +43,174 @@ if TYPE_CHECKING:
     import capo_bedrock_agent.types.unspecified_flow_validation_details
 
 
-class _FlowValidationDetails_cyclicConnection(TypedDict, closed=True):
+class FlowValidationDetailsCyclicConnectionMember(TypedDict, closed=True):
     cyclicConnection: "capo_bedrock_agent.types.cyclic_connection_flow_validation_details.CyclicConnectionFlowValidationDetails"
 
 
-class _FlowValidationDetails_duplicateConnections(TypedDict, closed=True):
+class FlowValidationDetailsDuplicateConnectionsMember(TypedDict, closed=True):
     duplicateConnections: "capo_bedrock_agent.types.duplicate_connections_flow_validation_details.DuplicateConnectionsFlowValidationDetails"
 
 
-class _FlowValidationDetails_duplicateConditionExpression(TypedDict, closed=True):
+class FlowValidationDetailsDuplicateConditionExpressionMember(TypedDict, closed=True):
     duplicateConditionExpression: "capo_bedrock_agent.types.duplicate_condition_expression_flow_validation_details.DuplicateConditionExpressionFlowValidationDetails"
 
 
-class _FlowValidationDetails_unreachableNode(TypedDict, closed=True):
+class FlowValidationDetailsUnreachableNodeMember(TypedDict, closed=True):
     unreachableNode: "capo_bedrock_agent.types.unreachable_node_flow_validation_details.UnreachableNodeFlowValidationDetails"
 
 
-class _FlowValidationDetails_unknownConnectionSource(TypedDict, closed=True):
+class FlowValidationDetailsUnknownConnectionSourceMember(TypedDict, closed=True):
     unknownConnectionSource: "capo_bedrock_agent.types.unknown_connection_source_flow_validation_details.UnknownConnectionSourceFlowValidationDetails"
 
 
-class _FlowValidationDetails_unknownConnectionSourceOutput(TypedDict, closed=True):
+class FlowValidationDetailsUnknownConnectionSourceOutputMember(TypedDict, closed=True):
     unknownConnectionSourceOutput: "capo_bedrock_agent.types.unknown_connection_source_output_flow_validation_details.UnknownConnectionSourceOutputFlowValidationDetails"
 
 
-class _FlowValidationDetails_unknownConnectionTarget(TypedDict, closed=True):
+class FlowValidationDetailsUnknownConnectionTargetMember(TypedDict, closed=True):
     unknownConnectionTarget: "capo_bedrock_agent.types.unknown_connection_target_flow_validation_details.UnknownConnectionTargetFlowValidationDetails"
 
 
-class _FlowValidationDetails_unknownConnectionTargetInput(TypedDict, closed=True):
+class FlowValidationDetailsUnknownConnectionTargetInputMember(TypedDict, closed=True):
     unknownConnectionTargetInput: "capo_bedrock_agent.types.unknown_connection_target_input_flow_validation_details.UnknownConnectionTargetInputFlowValidationDetails"
 
 
-class _FlowValidationDetails_unknownConnectionCondition(TypedDict, closed=True):
+class FlowValidationDetailsUnknownConnectionConditionMember(TypedDict, closed=True):
     unknownConnectionCondition: "capo_bedrock_agent.types.unknown_connection_condition_flow_validation_details.UnknownConnectionConditionFlowValidationDetails"
 
 
-class _FlowValidationDetails_malformedConditionExpression(TypedDict, closed=True):
+class FlowValidationDetailsMalformedConditionExpressionMember(TypedDict, closed=True):
     malformedConditionExpression: "capo_bedrock_agent.types.malformed_condition_expression_flow_validation_details.MalformedConditionExpressionFlowValidationDetails"
 
 
-class _FlowValidationDetails_malformedNodeInputExpression(TypedDict, closed=True):
+class FlowValidationDetailsMalformedNodeInputExpressionMember(TypedDict, closed=True):
     malformedNodeInputExpression: "capo_bedrock_agent.types.malformed_node_input_expression_flow_validation_details.MalformedNodeInputExpressionFlowValidationDetails"
 
 
-class _FlowValidationDetails_mismatchedNodeInputType(TypedDict, closed=True):
+class FlowValidationDetailsMismatchedNodeInputTypeMember(TypedDict, closed=True):
     mismatchedNodeInputType: "capo_bedrock_agent.types.mismatched_node_input_type_flow_validation_details.MismatchedNodeInputTypeFlowValidationDetails"
 
 
-class _FlowValidationDetails_mismatchedNodeOutputType(TypedDict, closed=True):
+class FlowValidationDetailsMismatchedNodeOutputTypeMember(TypedDict, closed=True):
     mismatchedNodeOutputType: "capo_bedrock_agent.types.mismatched_node_output_type_flow_validation_details.MismatchedNodeOutputTypeFlowValidationDetails"
 
 
-class _FlowValidationDetails_incompatibleConnectionDataType(TypedDict, closed=True):
+class FlowValidationDetailsIncompatibleConnectionDataTypeMember(TypedDict, closed=True):
     incompatibleConnectionDataType: "capo_bedrock_agent.types.incompatible_connection_data_type_flow_validation_details.IncompatibleConnectionDataTypeFlowValidationDetails"
 
 
-class _FlowValidationDetails_missingConnectionConfiguration(TypedDict, closed=True):
+class FlowValidationDetailsMissingConnectionConfigurationMember(TypedDict, closed=True):
     missingConnectionConfiguration: "capo_bedrock_agent.types.missing_connection_configuration_flow_validation_details.MissingConnectionConfigurationFlowValidationDetails"
 
 
-class _FlowValidationDetails_missingDefaultCondition(TypedDict, closed=True):
+class FlowValidationDetailsMissingDefaultConditionMember(TypedDict, closed=True):
     missingDefaultCondition: "capo_bedrock_agent.types.missing_default_condition_flow_validation_details.MissingDefaultConditionFlowValidationDetails"
 
 
-class _FlowValidationDetails_missingEndingNodes(TypedDict, closed=True):
+class FlowValidationDetailsMissingEndingNodesMember(TypedDict, closed=True):
     missingEndingNodes: "capo_bedrock_agent.types.missing_ending_nodes_flow_validation_details.MissingEndingNodesFlowValidationDetails"
 
 
-class _FlowValidationDetails_missingNodeConfiguration(TypedDict, closed=True):
+class FlowValidationDetailsMissingNodeConfigurationMember(TypedDict, closed=True):
     missingNodeConfiguration: "capo_bedrock_agent.types.missing_node_configuration_flow_validation_details.MissingNodeConfigurationFlowValidationDetails"
 
 
-class _FlowValidationDetails_missingNodeInput(TypedDict, closed=True):
+class FlowValidationDetailsMissingNodeInputMember(TypedDict, closed=True):
     missingNodeInput: "capo_bedrock_agent.types.missing_node_input_flow_validation_details.MissingNodeInputFlowValidationDetails"
 
 
-class _FlowValidationDetails_missingNodeOutput(TypedDict, closed=True):
+class FlowValidationDetailsMissingNodeOutputMember(TypedDict, closed=True):
     missingNodeOutput: "capo_bedrock_agent.types.missing_node_output_flow_validation_details.MissingNodeOutputFlowValidationDetails"
 
 
-class _FlowValidationDetails_missingStartingNodes(TypedDict, closed=True):
+class FlowValidationDetailsMissingStartingNodesMember(TypedDict, closed=True):
     missingStartingNodes: "capo_bedrock_agent.types.missing_starting_nodes_flow_validation_details.MissingStartingNodesFlowValidationDetails"
 
 
-class _FlowValidationDetails_multipleNodeInputConnections(TypedDict, closed=True):
+class FlowValidationDetailsMultipleNodeInputConnectionsMember(TypedDict, closed=True):
     multipleNodeInputConnections: "capo_bedrock_agent.types.multiple_node_input_connections_flow_validation_details.MultipleNodeInputConnectionsFlowValidationDetails"
 
 
-class _FlowValidationDetails_unfulfilledNodeInput(TypedDict, closed=True):
+class FlowValidationDetailsUnfulfilledNodeInputMember(TypedDict, closed=True):
     unfulfilledNodeInput: "capo_bedrock_agent.types.unfulfilled_node_input_flow_validation_details.UnfulfilledNodeInputFlowValidationDetails"
 
 
-class _FlowValidationDetails_unsatisfiedConnectionConditions(TypedDict, closed=True):
+class FlowValidationDetailsUnsatisfiedConnectionConditionsMember(
+    TypedDict, closed=True
+):
     unsatisfiedConnectionConditions: "capo_bedrock_agent.types.unsatisfied_connection_conditions_flow_validation_details.UnsatisfiedConnectionConditionsFlowValidationDetails"
 
 
-class _FlowValidationDetails_unspecified(TypedDict, closed=True):
+class FlowValidationDetailsUnspecifiedMember(TypedDict, closed=True):
     unspecified: "capo_bedrock_agent.types.unspecified_flow_validation_details.UnspecifiedFlowValidationDetails"
 
 
-class _FlowValidationDetails_unknownNodeInput(TypedDict, closed=True):
+class FlowValidationDetailsUnknownNodeInputMember(TypedDict, closed=True):
     unknownNodeInput: "capo_bedrock_agent.types.unknown_node_input_flow_validation_details.UnknownNodeInputFlowValidationDetails"
 
 
-class _FlowValidationDetails_unknownNodeOutput(TypedDict, closed=True):
+class FlowValidationDetailsUnknownNodeOutputMember(TypedDict, closed=True):
     unknownNodeOutput: "capo_bedrock_agent.types.unknown_node_output_flow_validation_details.UnknownNodeOutputFlowValidationDetails"
 
 
-class _FlowValidationDetails_missingLoopInputNode(TypedDict, closed=True):
+class FlowValidationDetailsMissingLoopInputNodeMember(TypedDict, closed=True):
     missingLoopInputNode: "capo_bedrock_agent.types.missing_loop_input_node_flow_validation_details.MissingLoopInputNodeFlowValidationDetails"
 
 
-class _FlowValidationDetails_missingLoopControllerNode(TypedDict, closed=True):
+class FlowValidationDetailsMissingLoopControllerNodeMember(TypedDict, closed=True):
     missingLoopControllerNode: "capo_bedrock_agent.types.missing_loop_controller_node_flow_validation_details.MissingLoopControllerNodeFlowValidationDetails"
 
 
-class _FlowValidationDetails_multipleLoopInputNodes(TypedDict, closed=True):
+class FlowValidationDetailsMultipleLoopInputNodesMember(TypedDict, closed=True):
     multipleLoopInputNodes: "capo_bedrock_agent.types.multiple_loop_input_nodes_flow_validation_details.MultipleLoopInputNodesFlowValidationDetails"
 
 
-class _FlowValidationDetails_multipleLoopControllerNodes(TypedDict, closed=True):
+class FlowValidationDetailsMultipleLoopControllerNodesMember(TypedDict, closed=True):
     multipleLoopControllerNodes: "capo_bedrock_agent.types.multiple_loop_controller_nodes_flow_validation_details.MultipleLoopControllerNodesFlowValidationDetails"
 
 
-class _FlowValidationDetails_loopIncompatibleNodeType(TypedDict, closed=True):
+class FlowValidationDetailsLoopIncompatibleNodeTypeMember(TypedDict, closed=True):
     loopIncompatibleNodeType: "capo_bedrock_agent.types.loop_incompatible_node_type_flow_validation_details.LoopIncompatibleNodeTypeFlowValidationDetails"
 
 
-class _FlowValidationDetails_invalidLoopBoundary(TypedDict, closed=True):
+class FlowValidationDetailsInvalidLoopBoundaryMember(TypedDict, closed=True):
     invalidLoopBoundary: "capo_bedrock_agent.types.invalid_loop_boundary_flow_validation_details.InvalidLoopBoundaryFlowValidationDetails"
 
 
 FlowValidationDetails: TypeAlias = (
-    _FlowValidationDetails_cyclicConnection
-    | _FlowValidationDetails_duplicateConnections
-    | _FlowValidationDetails_duplicateConditionExpression
-    | _FlowValidationDetails_unreachableNode
-    | _FlowValidationDetails_unknownConnectionSource
-    | _FlowValidationDetails_unknownConnectionSourceOutput
-    | _FlowValidationDetails_unknownConnectionTarget
-    | _FlowValidationDetails_unknownConnectionTargetInput
-    | _FlowValidationDetails_unknownConnectionCondition
-    | _FlowValidationDetails_malformedConditionExpression
-    | _FlowValidationDetails_malformedNodeInputExpression
-    | _FlowValidationDetails_mismatchedNodeInputType
-    | _FlowValidationDetails_mismatchedNodeOutputType
-    | _FlowValidationDetails_incompatibleConnectionDataType
-    | _FlowValidationDetails_missingConnectionConfiguration
-    | _FlowValidationDetails_missingDefaultCondition
-    | _FlowValidationDetails_missingEndingNodes
-    | _FlowValidationDetails_missingNodeConfiguration
-    | _FlowValidationDetails_missingNodeInput
-    | _FlowValidationDetails_missingNodeOutput
-    | _FlowValidationDetails_missingStartingNodes
-    | _FlowValidationDetails_multipleNodeInputConnections
-    | _FlowValidationDetails_unfulfilledNodeInput
-    | _FlowValidationDetails_unsatisfiedConnectionConditions
-    | _FlowValidationDetails_unspecified
-    | _FlowValidationDetails_unknownNodeInput
-    | _FlowValidationDetails_unknownNodeOutput
-    | _FlowValidationDetails_missingLoopInputNode
-    | _FlowValidationDetails_missingLoopControllerNode
-    | _FlowValidationDetails_multipleLoopInputNodes
-    | _FlowValidationDetails_multipleLoopControllerNodes
-    | _FlowValidationDetails_loopIncompatibleNodeType
-    | _FlowValidationDetails_invalidLoopBoundary
+    FlowValidationDetailsCyclicConnectionMember
+    | FlowValidationDetailsDuplicateConnectionsMember
+    | FlowValidationDetailsDuplicateConditionExpressionMember
+    | FlowValidationDetailsUnreachableNodeMember
+    | FlowValidationDetailsUnknownConnectionSourceMember
+    | FlowValidationDetailsUnknownConnectionSourceOutputMember
+    | FlowValidationDetailsUnknownConnectionTargetMember
+    | FlowValidationDetailsUnknownConnectionTargetInputMember
+    | FlowValidationDetailsUnknownConnectionConditionMember
+    | FlowValidationDetailsMalformedConditionExpressionMember
+    | FlowValidationDetailsMalformedNodeInputExpressionMember
+    | FlowValidationDetailsMismatchedNodeInputTypeMember
+    | FlowValidationDetailsMismatchedNodeOutputTypeMember
+    | FlowValidationDetailsIncompatibleConnectionDataTypeMember
+    | FlowValidationDetailsMissingConnectionConfigurationMember
+    | FlowValidationDetailsMissingDefaultConditionMember
+    | FlowValidationDetailsMissingEndingNodesMember
+    | FlowValidationDetailsMissingNodeConfigurationMember
+    | FlowValidationDetailsMissingNodeInputMember
+    | FlowValidationDetailsMissingNodeOutputMember
+    | FlowValidationDetailsMissingStartingNodesMember
+    | FlowValidationDetailsMultipleNodeInputConnectionsMember
+    | FlowValidationDetailsUnfulfilledNodeInputMember
+    | FlowValidationDetailsUnsatisfiedConnectionConditionsMember
+    | FlowValidationDetailsUnspecifiedMember
+    | FlowValidationDetailsUnknownNodeInputMember
+    | FlowValidationDetailsUnknownNodeOutputMember
+    | FlowValidationDetailsMissingLoopInputNodeMember
+    | FlowValidationDetailsMissingLoopControllerNodeMember
+    | FlowValidationDetailsMultipleLoopInputNodesMember
+    | FlowValidationDetailsMultipleLoopControllerNodesMember
+    | FlowValidationDetailsLoopIncompatibleNodeTypeMember
+    | FlowValidationDetailsInvalidLoopBoundaryMember
     | UnknownUnionMember
 )
 

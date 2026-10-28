@@ -7,7 +7,7 @@ title: RestrictedPeriods
       show_source: true
       merge_init_into_class: false
 
-::: capo_connectcampaignsv2.types.restricted_periods._RestrictedPeriods_restrictedPeriodList
+::: capo_connectcampaignsv2.types.restricted_periods.RestrictedPeriodsRestrictedPeriodListMember
     options:
       show_source: true
       merge_init_into_class: false

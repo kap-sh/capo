@@ -20,59 +20,59 @@ if TYPE_CHECKING:
     import capo_verifiedpermissions.types.string_attribute
 
 
-class _CedarTagValue_boolean(TypedDict, closed=True):
+class CedarTagValueBooleanMember(TypedDict, closed=True):
     boolean: "capo_verifiedpermissions.types.boolean_attribute.BooleanAttribute"
 
 
-class _CedarTagValue_entityIdentifier(TypedDict, closed=True):
+class CedarTagValueEntityIdentifierMember(TypedDict, closed=True):
     entityIdentifier: (
         "capo_verifiedpermissions.types.entity_identifier.EntityIdentifier"
     )
 
 
-class _CedarTagValue_long(TypedDict, closed=True):
+class CedarTagValueLongMember(TypedDict, closed=True):
     long: "capo_verifiedpermissions.types.long_attribute.LongAttribute"
 
 
-class _CedarTagValue_string(TypedDict, closed=True):
+class CedarTagValueStringMember(TypedDict, closed=True):
     string: "capo_verifiedpermissions.types.string_attribute.StringAttribute"
 
 
-class _CedarTagValue_set(TypedDict, closed=True):
+class CedarTagValueSetMember(TypedDict, closed=True):
     set: "capo_verifiedpermissions.types.cedar_tag_set_attribute.CedarTagSetAttribute"
 
 
-class _CedarTagValue_record(TypedDict, closed=True):
+class CedarTagValueRecordMember(TypedDict, closed=True):
     record: "capo_verifiedpermissions.types.cedar_tag_record_attribute.CedarTagRecordAttribute"
 
 
-class _CedarTagValue_ipaddr(TypedDict, closed=True):
+class CedarTagValueIpaddrMember(TypedDict, closed=True):
     ipaddr: "capo_verifiedpermissions.types.ip_addr.IpAddr"
 
 
-class _CedarTagValue_decimal(TypedDict, closed=True):
+class CedarTagValueDecimalMember(TypedDict, closed=True):
     decimal: "capo_verifiedpermissions.types.decimal.Decimal"
 
 
-class _CedarTagValue_datetime(TypedDict, closed=True):
+class CedarTagValueDatetimeMember(TypedDict, closed=True):
     datetime: "capo_verifiedpermissions.types.datetime_attribute.DatetimeAttribute"
 
 
-class _CedarTagValue_duration(TypedDict, closed=True):
+class CedarTagValueDurationMember(TypedDict, closed=True):
     duration: "capo_verifiedpermissions.types.duration.Duration"
 
 
 CedarTagValue: TypeAlias = (
-    _CedarTagValue_boolean
-    | _CedarTagValue_entityIdentifier
-    | _CedarTagValue_long
-    | _CedarTagValue_string
-    | _CedarTagValue_set
-    | _CedarTagValue_record
-    | _CedarTagValue_ipaddr
-    | _CedarTagValue_decimal
-    | _CedarTagValue_datetime
-    | _CedarTagValue_duration
+    CedarTagValueBooleanMember
+    | CedarTagValueEntityIdentifierMember
+    | CedarTagValueLongMember
+    | CedarTagValueStringMember
+    | CedarTagValueSetMember
+    | CedarTagValueRecordMember
+    | CedarTagValueIpaddrMember
+    | CedarTagValueDecimalMember
+    | CedarTagValueDatetimeMember
+    | CedarTagValueDurationMember
     | UnknownUnionMember
 )
 

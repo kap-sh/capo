@@ -7,7 +7,7 @@ title: PromptVariableValues
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_runtime.types.prompt_variable_values._PromptVariableValues_text
+::: capo_bedrock_runtime.types.prompt_variable_values.PromptVariableValuesTextMember
     options:
       show_source: true
       merge_init_into_class: false

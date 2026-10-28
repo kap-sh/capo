@@ -11,13 +11,15 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.session_metadata_list
 
 
-class _EvaluationMetadata_sessionMetadata(TypedDict, closed=True):
+class EvaluationMetadataSessionMetadataMember(TypedDict, closed=True):
     sessionMetadata: (
         "capo_bedrock_agentcore.types.session_metadata_list.SessionMetadataList"
     )
 
 
-EvaluationMetadata: TypeAlias = _EvaluationMetadata_sessionMetadata | UnknownUnionMember
+EvaluationMetadata: TypeAlias = (
+    EvaluationMetadataSessionMetadataMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

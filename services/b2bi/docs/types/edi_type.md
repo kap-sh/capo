@@ -7,7 +7,7 @@ title: EdiType
       show_source: true
       merge_init_into_class: false
 
-::: capo_b2bi.types.edi_type._EdiType_x12Details
+::: capo_b2bi.types.edi_type.EdiTypeX12DetailsMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -7,7 +7,7 @@ title: DomainUnitGrantFilter
       show_source: true
       merge_init_into_class: false
 
-::: capo_datazone.types.domain_unit_grant_filter._DomainUnitGrantFilter_allDomainUnitsGrantFilter
+::: capo_datazone.types.domain_unit_grant_filter.DomainUnitGrantFilterAllDomainUnitsGrantFilterMember
     options:
       show_source: true
       merge_init_into_class: false

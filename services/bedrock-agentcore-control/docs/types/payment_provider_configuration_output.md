@@ -7,13 +7,13 @@ title: PaymentProviderConfigurationOutput
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.payment_provider_configuration_output._PaymentProviderConfigurationOutput_coinbaseCdpConfiguration
+::: capo_bedrock_agentcore_control.types.payment_provider_configuration_output.PaymentProviderConfigurationOutputCoinbaseCdpConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore_control.types.payment_provider_configuration_output._PaymentProviderConfigurationOutput_stripePrivyConfiguration
+::: capo_bedrock_agentcore_control.types.payment_provider_configuration_output.PaymentProviderConfigurationOutputStripePrivyConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false

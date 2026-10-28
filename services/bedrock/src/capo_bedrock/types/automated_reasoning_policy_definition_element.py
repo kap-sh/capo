@@ -13,28 +13,28 @@ if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_definition_variable
 
 
-class _AutomatedReasoningPolicyDefinitionElement_policyDefinitionVariable(
+class AutomatedReasoningPolicyDefinitionElementPolicyDefinitionVariableMember(
     TypedDict, closed=True
 ):
     policyDefinitionVariable: "capo_bedrock.types.automated_reasoning_policy_definition_variable.AutomatedReasoningPolicyDefinitionVariable"
 
 
-class _AutomatedReasoningPolicyDefinitionElement_policyDefinitionType(
+class AutomatedReasoningPolicyDefinitionElementPolicyDefinitionTypeMember(
     TypedDict, closed=True
 ):
     policyDefinitionType: "capo_bedrock.types.automated_reasoning_policy_definition_type.AutomatedReasoningPolicyDefinitionType"
 
 
-class _AutomatedReasoningPolicyDefinitionElement_policyDefinitionRule(
+class AutomatedReasoningPolicyDefinitionElementPolicyDefinitionRuleMember(
     TypedDict, closed=True
 ):
     policyDefinitionRule: "capo_bedrock.types.automated_reasoning_policy_definition_rule.AutomatedReasoningPolicyDefinitionRule"
 
 
 AutomatedReasoningPolicyDefinitionElement: TypeAlias = (
-    _AutomatedReasoningPolicyDefinitionElement_policyDefinitionVariable
-    | _AutomatedReasoningPolicyDefinitionElement_policyDefinitionType
-    | _AutomatedReasoningPolicyDefinitionElement_policyDefinitionRule
+    AutomatedReasoningPolicyDefinitionElementPolicyDefinitionVariableMember
+    | AutomatedReasoningPolicyDefinitionElementPolicyDefinitionTypeMember
+    | AutomatedReasoningPolicyDefinitionElementPolicyDefinitionRuleMember
     | UnknownUnionMember
 )
 

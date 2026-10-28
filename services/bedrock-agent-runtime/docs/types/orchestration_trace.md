@@ -7,31 +7,31 @@ title: OrchestrationTrace
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agent_runtime.types.orchestration_trace._OrchestrationTrace_rationale
+::: capo_bedrock_agent_runtime.types.orchestration_trace.OrchestrationTraceRationaleMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.orchestration_trace._OrchestrationTrace_invocationInput
+::: capo_bedrock_agent_runtime.types.orchestration_trace.OrchestrationTraceInvocationInputMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.orchestration_trace._OrchestrationTrace_observation
+::: capo_bedrock_agent_runtime.types.orchestration_trace.OrchestrationTraceObservationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.orchestration_trace._OrchestrationTrace_modelInvocationInput
+::: capo_bedrock_agent_runtime.types.orchestration_trace.OrchestrationTraceModelInvocationInputMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.orchestration_trace._OrchestrationTrace_modelInvocationOutput
+::: capo_bedrock_agent_runtime.types.orchestration_trace.OrchestrationTraceModelInvocationOutputMember
     options:
       show_source: true
       merge_init_into_class: false

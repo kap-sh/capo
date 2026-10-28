@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_deadline.types.fixed_budget_schedule
 
 
-class _BudgetSchedule_fixed(TypedDict, closed=True):
+class BudgetScheduleFixedMember(TypedDict, closed=True):
     fixed: "capo_deadline.types.fixed_budget_schedule.FixedBudgetSchedule"
 
 
-BudgetSchedule: TypeAlias = _BudgetSchedule_fixed | UnknownUnionMember
+BudgetSchedule: TypeAlias = BudgetScheduleFixedMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

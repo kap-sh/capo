@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_appconfig.types.invalid_configuration_detail_list
 
 
-class _BadRequestDetails_InvalidConfiguration(TypedDict, closed=True):
+class BadRequestDetailsInvalidConfigurationMember(TypedDict, closed=True):
     InvalidConfiguration: "capo_appconfig.types.invalid_configuration_detail_list.InvalidConfigurationDetailList"
 
 
 BadRequestDetails: TypeAlias = (
-    _BadRequestDetails_InvalidConfiguration | UnknownUnionMember
+    BadRequestDetailsInvalidConfigurationMember | UnknownUnionMember
 )
 
 

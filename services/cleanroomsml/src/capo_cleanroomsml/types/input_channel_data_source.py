@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_cleanroomsml.types.protected_query_input_parameters
 
 
-class _InputChannelDataSource_protectedQueryInputParameters(TypedDict, closed=True):
+class InputChannelDataSourceProtectedQueryInputParametersMember(TypedDict, closed=True):
     protectedQueryInputParameters: "capo_cleanroomsml.types.protected_query_input_parameters.ProtectedQueryInputParameters"
 
 
 InputChannelDataSource: TypeAlias = (
-    _InputChannelDataSource_protectedQueryInputParameters | UnknownUnionMember
+    InputChannelDataSourceProtectedQueryInputParametersMember | UnknownUnionMember
 )
 
 

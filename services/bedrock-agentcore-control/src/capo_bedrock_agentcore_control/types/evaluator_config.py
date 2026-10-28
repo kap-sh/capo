@@ -16,22 +16,22 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.llm_as_a_judge_evaluator_config
 
 
-class _EvaluatorConfig_llmAsAJudge(TypedDict, closed=True):
+class EvaluatorConfigLlmAsAJudgeMember(TypedDict, closed=True):
     llmAsAJudge: "capo_bedrock_agentcore_control.types.llm_as_a_judge_evaluator_config.LlmAsAJudgeEvaluatorConfig"
 
 
-class _EvaluatorConfig_codeBased(TypedDict, closed=True):
+class EvaluatorConfigCodeBasedMember(TypedDict, closed=True):
     codeBased: "capo_bedrock_agentcore_control.types.code_based_evaluator_config.CodeBasedEvaluatorConfig"
 
 
-class _EvaluatorConfig_derived(TypedDict, closed=True):
+class EvaluatorConfigDerivedMember(TypedDict, closed=True):
     derived: "capo_bedrock_agentcore_control.types.derived_evaluator_config.DerivedEvaluatorConfig"
 
 
 EvaluatorConfig: TypeAlias = (
-    _EvaluatorConfig_llmAsAJudge
-    | _EvaluatorConfig_codeBased
-    | _EvaluatorConfig_derived
+    EvaluatorConfigLlmAsAJudgeMember
+    | EvaluatorConfigCodeBasedMember
+    | EvaluatorConfigDerivedMember
     | UnknownUnionMember
 )
 

@@ -15,21 +15,21 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.weighted_override
 
 
-class _ConfigurationBundleAction_staticOverride(TypedDict, closed=True):
+class ConfigurationBundleActionStaticOverrideMember(TypedDict, closed=True):
     staticOverride: (
         "capo_bedrock_agentcore_control.types.static_override.StaticOverride"
     )
 
 
-class _ConfigurationBundleAction_weightedOverride(TypedDict, closed=True):
+class ConfigurationBundleActionWeightedOverrideMember(TypedDict, closed=True):
     weightedOverride: (
         "capo_bedrock_agentcore_control.types.weighted_override.WeightedOverride"
     )
 
 
 ConfigurationBundleAction: TypeAlias = (
-    _ConfigurationBundleAction_staticOverride
-    | _ConfigurationBundleAction_weightedOverride
+    ConfigurationBundleActionStaticOverrideMember
+    | ConfigurationBundleActionWeightedOverrideMember
     | UnknownUnionMember
 )
 

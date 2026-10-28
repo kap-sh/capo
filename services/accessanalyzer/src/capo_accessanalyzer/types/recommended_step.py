@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_accessanalyzer.types.unused_permissions_recommended_step
 
 
-class _RecommendedStep_unusedPermissionsRecommendedStep(TypedDict, closed=True):
+class RecommendedStepUnusedPermissionsRecommendedStepMember(TypedDict, closed=True):
     unusedPermissionsRecommendedStep: "capo_accessanalyzer.types.unused_permissions_recommended_step.UnusedPermissionsRecommendedStep"
 
 
 RecommendedStep: TypeAlias = (
-    _RecommendedStep_unusedPermissionsRecommendedStep | UnknownUnionMember
+    RecommendedStepUnusedPermissionsRecommendedStepMember | UnknownUnionMember
 )
 
 

@@ -13,22 +13,24 @@ if TYPE_CHECKING:
     import capo_partnercentral_channel.types.start_service_period_handshake_detail
 
 
-class _HandshakeDetail_startServicePeriodHandshakeDetail(TypedDict, closed=True):
+class HandshakeDetailStartServicePeriodHandshakeDetailMember(TypedDict, closed=True):
     startServicePeriodHandshakeDetail: "capo_partnercentral_channel.types.start_service_period_handshake_detail.StartServicePeriodHandshakeDetail"
 
 
-class _HandshakeDetail_revokeServicePeriodHandshakeDetail(TypedDict, closed=True):
+class HandshakeDetailRevokeServicePeriodHandshakeDetailMember(TypedDict, closed=True):
     revokeServicePeriodHandshakeDetail: "capo_partnercentral_channel.types.revoke_service_period_handshake_detail.RevokeServicePeriodHandshakeDetail"
 
 
-class _HandshakeDetail_programManagementAccountHandshakeDetail(TypedDict, closed=True):
+class HandshakeDetailProgramManagementAccountHandshakeDetailMember(
+    TypedDict, closed=True
+):
     programManagementAccountHandshakeDetail: "capo_partnercentral_channel.types.program_management_account_handshake_detail.ProgramManagementAccountHandshakeDetail"
 
 
 HandshakeDetail: TypeAlias = (
-    _HandshakeDetail_startServicePeriodHandshakeDetail
-    | _HandshakeDetail_revokeServicePeriodHandshakeDetail
-    | _HandshakeDetail_programManagementAccountHandshakeDetail
+    HandshakeDetailStartServicePeriodHandshakeDetailMember
+    | HandshakeDetailRevokeServicePeriodHandshakeDetailMember
+    | HandshakeDetailProgramManagementAccountHandshakeDetailMember
     | UnknownUnionMember
 )
 

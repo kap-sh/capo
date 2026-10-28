@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_qbusiness.types.conversation_source
 
 
-class _CopyFromSource_conversation(TypedDict, closed=True):
+class CopyFromSourceConversationMember(TypedDict, closed=True):
     conversation: "capo_qbusiness.types.conversation_source.ConversationSource"
 
 
-CopyFromSource: TypeAlias = _CopyFromSource_conversation | UnknownUnionMember
+CopyFromSource: TypeAlias = CopyFromSourceConversationMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

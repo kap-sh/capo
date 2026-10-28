@@ -11,11 +11,13 @@ if TYPE_CHECKING:
     import capo_marketplace_agreement.types.payment_schedule_term_template
 
 
-class _TermTemplate_paymentScheduleTermTemplate(TypedDict, closed=True):
+class TermTemplatePaymentScheduleTermTemplateMember(TypedDict, closed=True):
     paymentScheduleTermTemplate: "capo_marketplace_agreement.types.payment_schedule_term_template.PaymentScheduleTermTemplate"
 
 
-TermTemplate: TypeAlias = _TermTemplate_paymentScheduleTermTemplate | UnknownUnionMember
+TermTemplate: TypeAlias = (
+    TermTemplatePaymentScheduleTermTemplateMember | UnknownUnionMember
+)
 
 
 # --- awsJson1_0 ser/de ---

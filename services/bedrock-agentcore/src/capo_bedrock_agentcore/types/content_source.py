@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.inline_memory_content
 
 
-class _ContentSource_inline(TypedDict, closed=True):
+class ContentSourceInlineMember(TypedDict, closed=True):
     inline: "capo_bedrock_agentcore.types.inline_memory_content.InlineMemoryContent"
 
 
-ContentSource: TypeAlias = _ContentSource_inline | UnknownUnionMember
+ContentSource: TypeAlias = ContentSourceInlineMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

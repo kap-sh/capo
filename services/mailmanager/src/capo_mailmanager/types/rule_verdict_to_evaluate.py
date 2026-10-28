@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_mailmanager.types.rule_verdict_attribute
 
 
-class _RuleVerdictToEvaluate_Attribute(TypedDict, closed=True):
+class RuleVerdictToEvaluateAttributeMember(TypedDict, closed=True):
     Attribute: "capo_mailmanager.types.rule_verdict_attribute.RuleVerdictAttribute"
 
 
-class _RuleVerdictToEvaluate_Analysis(TypedDict, closed=True):
+class RuleVerdictToEvaluateAnalysisMember(TypedDict, closed=True):
     Analysis: "capo_mailmanager.types.analysis.Analysis"
 
 
 RuleVerdictToEvaluate: TypeAlias = (
-    _RuleVerdictToEvaluate_Attribute
-    | _RuleVerdictToEvaluate_Analysis
+    RuleVerdictToEvaluateAttributeMember
+    | RuleVerdictToEvaluateAnalysisMember
     | UnknownUnionMember
 )
 

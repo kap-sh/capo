@@ -7,7 +7,7 @@ title: EventSummary
       show_source: true
       merge_init_into_class: false
 
-::: capo_datazone.types.event_summary._EventSummary_openLineageRunEventSummary
+::: capo_datazone.types.event_summary.EventSummaryOpenLineageRunEventSummaryMember
     options:
       show_source: true
       merge_init_into_class: false

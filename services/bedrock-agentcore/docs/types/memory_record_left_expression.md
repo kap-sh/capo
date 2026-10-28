@@ -7,7 +7,7 @@ title: MemoryRecordLeftExpression
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore.types.memory_record_left_expression._MemoryRecordLeftExpression_metadataKey
+::: capo_bedrock_agentcore.types.memory_record_left_expression.MemoryRecordLeftExpressionMetadataKeyMember
     options:
       show_source: true
       merge_init_into_class: false

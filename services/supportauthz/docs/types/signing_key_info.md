@@ -7,7 +7,7 @@ title: SigningKeyInfo
       show_source: true
       merge_init_into_class: false
 
-::: capo_supportauthz.types.signing_key_info._SigningKeyInfo_kmsKey
+::: capo_supportauthz.types.signing_key_info.SigningKeyInfoKmsKeyMember
     options:
       show_source: true
       merge_init_into_class: false

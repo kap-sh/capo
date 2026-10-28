@@ -15,17 +15,21 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.episodic_reflection_configuration
 
 
-class _ReflectionConfiguration_customReflectionConfiguration(TypedDict, closed=True):
+class ReflectionConfigurationCustomReflectionConfigurationMember(
+    TypedDict, closed=True
+):
     customReflectionConfiguration: "capo_bedrock_agentcore_control.types.custom_reflection_configuration.CustomReflectionConfiguration"
 
 
-class _ReflectionConfiguration_episodicReflectionConfiguration(TypedDict, closed=True):
+class ReflectionConfigurationEpisodicReflectionConfigurationMember(
+    TypedDict, closed=True
+):
     episodicReflectionConfiguration: "capo_bedrock_agentcore_control.types.episodic_reflection_configuration.EpisodicReflectionConfiguration"
 
 
 ReflectionConfiguration: TypeAlias = (
-    _ReflectionConfiguration_customReflectionConfiguration
-    | _ReflectionConfiguration_episodicReflectionConfiguration
+    ReflectionConfigurationCustomReflectionConfigurationMember
+    | ReflectionConfigurationEpisodicReflectionConfigurationMember
     | UnknownUnionMember
 )
 

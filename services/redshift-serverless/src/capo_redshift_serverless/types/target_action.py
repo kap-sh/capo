@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_redshift_serverless.types.create_snapshot_schedule_action_parameters
 
 
-class _TargetAction_createSnapshot(TypedDict, closed=True):
+class TargetActionCreateSnapshotMember(TypedDict, closed=True):
     createSnapshot: "capo_redshift_serverless.types.create_snapshot_schedule_action_parameters.CreateSnapshotScheduleActionParameters"
 
 
-TargetAction: TypeAlias = _TargetAction_createSnapshot | UnknownUnionMember
+TargetAction: TypeAlias = TargetActionCreateSnapshotMember | UnknownUnionMember
 
 
 # --- awsJson1_1 ser/de ---

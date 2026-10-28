@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_accessanalyzer.types.vpc_configuration
 
 
-class _NetworkOriginConfiguration_vpcConfiguration(TypedDict, closed=True):
+class NetworkOriginConfigurationVpcConfigurationMember(TypedDict, closed=True):
     vpcConfiguration: "capo_accessanalyzer.types.vpc_configuration.VpcConfiguration"
 
 
-class _NetworkOriginConfiguration_internetConfiguration(TypedDict, closed=True):
+class NetworkOriginConfigurationInternetConfigurationMember(TypedDict, closed=True):
     internetConfiguration: (
         "capo_accessanalyzer.types.internet_configuration.InternetConfiguration"
     )
 
 
 NetworkOriginConfiguration: TypeAlias = (
-    _NetworkOriginConfiguration_vpcConfiguration
-    | _NetworkOriginConfiguration_internetConfiguration
+    NetworkOriginConfigurationVpcConfigurationMember
+    | NetworkOriginConfigurationInternetConfigurationMember
     | UnknownUnionMember
 )
 

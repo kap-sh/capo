@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_connect.types.evaluation_gen_ai_answer_analysis_details
 
 
-class _EvaluationQuestionAnswerAnalysisDetails_GenAI(TypedDict, closed=True):
+class EvaluationQuestionAnswerAnalysisDetailsGenAIMember(TypedDict, closed=True):
     GenAI: "capo_connect.types.evaluation_gen_ai_answer_analysis_details.EvaluationGenAIAnswerAnalysisDetails"
 
 
-class _EvaluationQuestionAnswerAnalysisDetails_ContactLens(TypedDict, closed=True):
+class EvaluationQuestionAnswerAnalysisDetailsContactLensMember(TypedDict, closed=True):
     ContactLens: "capo_connect.types.evaluation_contact_lens_answer_analysis_details.EvaluationContactLensAnswerAnalysisDetails"
 
 
 EvaluationQuestionAnswerAnalysisDetails: TypeAlias = (
-    _EvaluationQuestionAnswerAnalysisDetails_GenAI
-    | _EvaluationQuestionAnswerAnalysisDetails_ContactLens
+    EvaluationQuestionAnswerAnalysisDetailsGenAIMember
+    | EvaluationQuestionAnswerAnalysisDetailsContactLensMember
     | UnknownUnionMember
 )
 

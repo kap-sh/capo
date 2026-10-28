@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_bedrock_agent.types.prompt_flow_node_resource_configuration
 
 
-class _PromptFlowNodeSourceConfiguration_resource(TypedDict, closed=True):
+class PromptFlowNodeSourceConfigurationResourceMember(TypedDict, closed=True):
     resource: "capo_bedrock_agent.types.prompt_flow_node_resource_configuration.PromptFlowNodeResourceConfiguration"
 
 
-class _PromptFlowNodeSourceConfiguration_inline(TypedDict, closed=True):
+class PromptFlowNodeSourceConfigurationInlineMember(TypedDict, closed=True):
     inline: "capo_bedrock_agent.types.prompt_flow_node_inline_configuration.PromptFlowNodeInlineConfiguration"
 
 
 PromptFlowNodeSourceConfiguration: TypeAlias = (
-    _PromptFlowNodeSourceConfiguration_resource
-    | _PromptFlowNodeSourceConfiguration_inline
+    PromptFlowNodeSourceConfigurationResourceMember
+    | PromptFlowNodeSourceConfigurationInlineMember
     | UnknownUnionMember
 )
 

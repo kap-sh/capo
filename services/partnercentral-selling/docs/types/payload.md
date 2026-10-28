@@ -7,13 +7,13 @@ title: Payload
       show_source: true
       merge_init_into_class: false
 
-::: capo_partnercentral_selling.types.payload._Payload_OpportunityInvitation
+::: capo_partnercentral_selling.types.payload.PayloadOpportunityInvitationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_partnercentral_selling.types.payload._Payload_LeadInvitation
+::: capo_partnercentral_selling.types.payload.PayloadLeadInvitationMember
     options:
       show_source: true
       merge_init_into_class: false

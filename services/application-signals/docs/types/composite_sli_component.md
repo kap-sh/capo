@@ -7,7 +7,7 @@ title: CompositeSliComponent
       show_source: true
       merge_init_into_class: false
 
-::: capo_application_signals.types.composite_sli_component._CompositeSliComponent_OperationName
+::: capo_application_signals.types.composite_sli_component.CompositeSliComponentOperationNameMember
     options:
       show_source: true
       merge_init_into_class: false

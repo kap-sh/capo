@@ -7,7 +7,7 @@ title: EmailOutboundMode
       show_source: true
       merge_init_into_class: false
 
-::: capo_connectcampaignsv2.types.email_outbound_mode._EmailOutboundMode_agentless
+::: capo_connectcampaignsv2.types.email_outbound_mode.EmailOutboundModeAgentlessMember
     options:
       show_source: true
       merge_init_into_class: false

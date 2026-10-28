@@ -7,7 +7,7 @@ title: GatewayRouteResources
       show_source: true
       merge_init_into_class: false
 
-::: capo_ecs.types.gateway_route_resources._GatewayRouteResources_hostSharedAlb
+::: capo_ecs.types.gateway_route_resources.GatewayRouteResourcesHostSharedAlbMember
     options:
       show_source: true
       merge_init_into_class: false

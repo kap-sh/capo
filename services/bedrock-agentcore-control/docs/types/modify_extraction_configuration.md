@@ -7,7 +7,7 @@ title: ModifyExtractionConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.modify_extraction_configuration._ModifyExtractionConfiguration_customExtractionConfiguration
+::: capo_bedrock_agentcore_control.types.modify_extraction_configuration.ModifyExtractionConfigurationCustomExtractionConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false

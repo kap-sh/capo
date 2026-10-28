@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_connect.types.double
 
 
-class _ContactMetricValue_Number(TypedDict, closed=True):
+class ContactMetricValueNumberMember(TypedDict, closed=True):
     Number: "capo_connect.types.double.Double"
 
 
-ContactMetricValue: TypeAlias = _ContactMetricValue_Number | UnknownUnionMember
+ContactMetricValue: TypeAlias = ContactMetricValueNumberMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

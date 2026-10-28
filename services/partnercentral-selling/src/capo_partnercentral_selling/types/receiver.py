@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_partnercentral_selling.types.account_receiver
 
 
-class _Receiver_Account(TypedDict, closed=True):
+class ReceiverAccountMember(TypedDict, closed=True):
     Account: "capo_partnercentral_selling.types.account_receiver.AccountReceiver"
 
 
-Receiver: TypeAlias = _Receiver_Account | UnknownUnionMember
+Receiver: TypeAlias = ReceiverAccountMember | UnknownUnionMember
 
 
 # --- awsJson1_0 ser/de ---

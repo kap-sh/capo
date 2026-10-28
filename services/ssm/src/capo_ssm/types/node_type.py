@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_ssm.types.instance_info
 
 
-class _NodeType_Instance(TypedDict, closed=True):
+class NodeTypeInstanceMember(TypedDict, closed=True):
     Instance: "capo_ssm.types.instance_info.InstanceInfo"
 
 
-NodeType: TypeAlias = _NodeType_Instance | UnknownUnionMember
+NodeType: TypeAlias = NodeTypeInstanceMember | UnknownUnionMember
 
 
 # --- awsJson1_1 ser/de ---

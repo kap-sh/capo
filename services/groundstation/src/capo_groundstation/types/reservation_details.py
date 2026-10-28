@@ -12,18 +12,20 @@ if TYPE_CHECKING:
     import capo_groundstation.types.maintenance_reservation_details
 
 
-class _ReservationDetails_maintenance(TypedDict, closed=True):
+class ReservationDetailsMaintenanceMember(TypedDict, closed=True):
     maintenance: "capo_groundstation.types.maintenance_reservation_details.MaintenanceReservationDetails"
 
 
-class _ReservationDetails_contact(TypedDict, closed=True):
+class ReservationDetailsContactMember(TypedDict, closed=True):
     contact: (
         "capo_groundstation.types.contact_reservation_details.ContactReservationDetails"
     )
 
 
 ReservationDetails: TypeAlias = (
-    _ReservationDetails_maintenance | _ReservationDetails_contact | UnknownUnionMember
+    ReservationDetailsMaintenanceMember
+    | ReservationDetailsContactMember
+    | UnknownUnionMember
 )
 
 

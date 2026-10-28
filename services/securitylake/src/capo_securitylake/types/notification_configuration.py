@@ -12,17 +12,21 @@ if TYPE_CHECKING:
     import capo_securitylake.types.sqs_notification_configuration
 
 
-class _NotificationConfiguration_sqsNotificationConfiguration(TypedDict, closed=True):
+class NotificationConfigurationSqsNotificationConfigurationMember(
+    TypedDict, closed=True
+):
     sqsNotificationConfiguration: "capo_securitylake.types.sqs_notification_configuration.SqsNotificationConfiguration"
 
 
-class _NotificationConfiguration_httpsNotificationConfiguration(TypedDict, closed=True):
+class NotificationConfigurationHttpsNotificationConfigurationMember(
+    TypedDict, closed=True
+):
     httpsNotificationConfiguration: "capo_securitylake.types.https_notification_configuration.HttpsNotificationConfiguration"
 
 
 NotificationConfiguration: TypeAlias = (
-    _NotificationConfiguration_sqsNotificationConfiguration
-    | _NotificationConfiguration_httpsNotificationConfiguration
+    NotificationConfigurationSqsNotificationConfigurationMember
+    | NotificationConfigurationHttpsNotificationConfigurationMember
     | UnknownUnionMember
 )
 

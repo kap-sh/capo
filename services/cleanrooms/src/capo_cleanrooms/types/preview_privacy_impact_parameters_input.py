@@ -11,12 +11,14 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.differential_privacy_preview_parameters_input
 
 
-class _PreviewPrivacyImpactParametersInput_differentialPrivacy(TypedDict, closed=True):
+class PreviewPrivacyImpactParametersInputDifferentialPrivacyMember(
+    TypedDict, closed=True
+):
     differentialPrivacy: "capo_cleanrooms.types.differential_privacy_preview_parameters_input.DifferentialPrivacyPreviewParametersInput"
 
 
 PreviewPrivacyImpactParametersInput: TypeAlias = (
-    _PreviewPrivacyImpactParametersInput_differentialPrivacy | UnknownUnionMember
+    PreviewPrivacyImpactParametersInputDifferentialPrivacyMember | UnknownUnionMember
 )
 
 

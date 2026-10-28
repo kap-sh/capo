@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_migrationhubstrategy.types.no_database_migration_preference
 
 
-class _DatabaseMigrationPreference_heterogeneous(TypedDict, closed=True):
+class DatabaseMigrationPreferenceHeterogeneousMember(TypedDict, closed=True):
     heterogeneous: "capo_migrationhubstrategy.types.heterogeneous.Heterogeneous"
 
 
-class _DatabaseMigrationPreference_homogeneous(TypedDict, closed=True):
+class DatabaseMigrationPreferenceHomogeneousMember(TypedDict, closed=True):
     homogeneous: "capo_migrationhubstrategy.types.homogeneous.Homogeneous"
 
 
-class _DatabaseMigrationPreference_noPreference(TypedDict, closed=True):
+class DatabaseMigrationPreferenceNoPreferenceMember(TypedDict, closed=True):
     noPreference: "capo_migrationhubstrategy.types.no_database_migration_preference.NoDatabaseMigrationPreference"
 
 
 DatabaseMigrationPreference: TypeAlias = (
-    _DatabaseMigrationPreference_heterogeneous
-    | _DatabaseMigrationPreference_homogeneous
-    | _DatabaseMigrationPreference_noPreference
+    DatabaseMigrationPreferenceHeterogeneousMember
+    | DatabaseMigrationPreferenceHomogeneousMember
+    | DatabaseMigrationPreferenceNoPreferenceMember
     | UnknownUnionMember
 )
 

@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_appconfig.types.treatment_override_map
 
 
-class _TreatmentOverrides_Inline(TypedDict, closed=True):
+class TreatmentOverridesInlineMember(TypedDict, closed=True):
     Inline: "capo_appconfig.types.treatment_override_map.TreatmentOverrideMap"
 
 
-TreatmentOverrides: TypeAlias = _TreatmentOverrides_Inline | UnknownUnionMember
+TreatmentOverrides: TypeAlias = TreatmentOverridesInlineMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

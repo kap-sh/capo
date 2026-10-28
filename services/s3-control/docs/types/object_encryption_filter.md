@@ -7,31 +7,31 @@ title: ObjectEncryptionFilter
       show_source: true
       merge_init_into_class: false
 
-::: capo_s3_control.types.object_encryption_filter._ObjectEncryptionFilter_SSES3
+::: capo_s3_control.types.object_encryption_filter.ObjectEncryptionFilterSSES3Member
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_s3_control.types.object_encryption_filter._ObjectEncryptionFilter_SSEKMS
+::: capo_s3_control.types.object_encryption_filter.ObjectEncryptionFilterSSEKMSMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_s3_control.types.object_encryption_filter._ObjectEncryptionFilter_DSSEKMS
+::: capo_s3_control.types.object_encryption_filter.ObjectEncryptionFilterDSSEKMSMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_s3_control.types.object_encryption_filter._ObjectEncryptionFilter_SSEC
+::: capo_s3_control.types.object_encryption_filter.ObjectEncryptionFilterSSECMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_s3_control.types.object_encryption_filter._ObjectEncryptionFilter_NOTSSE
+::: capo_s3_control.types.object_encryption_filter.ObjectEncryptionFilterNOTSSEMember
     options:
       show_source: true
       merge_init_into_class: false

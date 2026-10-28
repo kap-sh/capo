@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.protected_job_s3_output
 
 
-class _ProtectedJobOutput_s3(TypedDict, closed=True):
+class ProtectedJobOutputS3Member(TypedDict, closed=True):
     s3: "capo_cleanrooms.types.protected_job_s3_output.ProtectedJobS3Output"
 
 
-class _ProtectedJobOutput_memberList(TypedDict, closed=True):
+class ProtectedJobOutputMemberListMember(TypedDict, closed=True):
     memberList: "capo_cleanrooms.types.protected_job_member_output_list.ProtectedJobMemberOutputList"
 
 
 ProtectedJobOutput: TypeAlias = (
-    _ProtectedJobOutput_s3 | _ProtectedJobOutput_memberList | UnknownUnionMember
+    ProtectedJobOutputS3Member | ProtectedJobOutputMemberListMember | UnknownUnionMember
 )
 
 

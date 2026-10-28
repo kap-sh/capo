@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.vpc_router_network_interface_configuration
 
 
-class _RouterNetworkInterfaceConfiguration_Public(TypedDict, closed=True):
+class RouterNetworkInterfaceConfigurationPublicMember(TypedDict, closed=True):
     Public: "capo_mediaconnect.types.public_router_network_interface_configuration.PublicRouterNetworkInterfaceConfiguration"
 
 
-class _RouterNetworkInterfaceConfiguration_Vpc(TypedDict, closed=True):
+class RouterNetworkInterfaceConfigurationVpcMember(TypedDict, closed=True):
     Vpc: "capo_mediaconnect.types.vpc_router_network_interface_configuration.VpcRouterNetworkInterfaceConfiguration"
 
 
 RouterNetworkInterfaceConfiguration: TypeAlias = (
-    _RouterNetworkInterfaceConfiguration_Public
-    | _RouterNetworkInterfaceConfiguration_Vpc
+    RouterNetworkInterfaceConfigurationPublicMember
+    | RouterNetworkInterfaceConfigurationVpcMember
     | UnknownUnionMember
 )
 

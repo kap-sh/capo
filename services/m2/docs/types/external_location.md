@@ -7,7 +7,7 @@ title: ExternalLocation
       show_source: true
       merge_init_into_class: false
 
-::: capo_m2.types.external_location._ExternalLocation_s3Location
+::: capo_m2.types.external_location.ExternalLocationS3LocationMember
     options:
       show_source: true
       merge_init_into_class: false

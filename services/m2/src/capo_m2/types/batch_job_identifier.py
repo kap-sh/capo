@@ -14,33 +14,33 @@ if TYPE_CHECKING:
     import capo_m2.types.script_batch_job_identifier
 
 
-class _BatchJobIdentifier_fileBatchJobIdentifier(TypedDict, closed=True):
+class BatchJobIdentifierFileBatchJobIdentifierMember(TypedDict, closed=True):
     fileBatchJobIdentifier: (
         "capo_m2.types.file_batch_job_identifier.FileBatchJobIdentifier"
     )
 
 
-class _BatchJobIdentifier_scriptBatchJobIdentifier(TypedDict, closed=True):
+class BatchJobIdentifierScriptBatchJobIdentifierMember(TypedDict, closed=True):
     scriptBatchJobIdentifier: (
         "capo_m2.types.script_batch_job_identifier.ScriptBatchJobIdentifier"
     )
 
 
-class _BatchJobIdentifier_s3BatchJobIdentifier(TypedDict, closed=True):
+class BatchJobIdentifierS3BatchJobIdentifierMember(TypedDict, closed=True):
     s3BatchJobIdentifier: "capo_m2.types.s3_batch_job_identifier.S3BatchJobIdentifier"
 
 
-class _BatchJobIdentifier_restartBatchJobIdentifier(TypedDict, closed=True):
+class BatchJobIdentifierRestartBatchJobIdentifierMember(TypedDict, closed=True):
     restartBatchJobIdentifier: (
         "capo_m2.types.restart_batch_job_identifier.RestartBatchJobIdentifier"
     )
 
 
 BatchJobIdentifier: TypeAlias = (
-    _BatchJobIdentifier_fileBatchJobIdentifier
-    | _BatchJobIdentifier_scriptBatchJobIdentifier
-    | _BatchJobIdentifier_s3BatchJobIdentifier
-    | _BatchJobIdentifier_restartBatchJobIdentifier
+    BatchJobIdentifierFileBatchJobIdentifierMember
+    | BatchJobIdentifierScriptBatchJobIdentifierMember
+    | BatchJobIdentifierS3BatchJobIdentifierMember
+    | BatchJobIdentifierRestartBatchJobIdentifierMember
     | UnknownUnionMember
 )
 

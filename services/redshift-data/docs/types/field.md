@@ -7,37 +7,37 @@ title: Field
       show_source: true
       merge_init_into_class: false
 
-::: capo_redshift_data.types.field._Field_isNull
+::: capo_redshift_data.types.field.FieldIsNullMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_redshift_data.types.field._Field_booleanValue
+::: capo_redshift_data.types.field.FieldBooleanValueMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_redshift_data.types.field._Field_longValue
+::: capo_redshift_data.types.field.FieldLongValueMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_redshift_data.types.field._Field_doubleValue
+::: capo_redshift_data.types.field.FieldDoubleValueMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_redshift_data.types.field._Field_stringValue
+::: capo_redshift_data.types.field.FieldStringValueMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_redshift_data.types.field._Field_blobValue
+::: capo_redshift_data.types.field.FieldBlobValueMember
     options:
       show_source: true
       merge_init_into_class: false

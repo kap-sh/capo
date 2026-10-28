@@ -14,33 +14,35 @@ if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_iterative_refinement_content
 
 
-class _AutomatedReasoningPolicyWorkflowTypeContent_documents(TypedDict, closed=True):
+class AutomatedReasoningPolicyWorkflowTypeContentDocumentsMember(
+    TypedDict, closed=True
+):
     documents: "capo_bedrock.types.automated_reasoning_policy_build_workflow_document_list.AutomatedReasoningPolicyBuildWorkflowDocumentList"
 
 
-class _AutomatedReasoningPolicyWorkflowTypeContent_policyRepairAssets(
+class AutomatedReasoningPolicyWorkflowTypeContentPolicyRepairAssetsMember(
     TypedDict, closed=True
 ):
     policyRepairAssets: "capo_bedrock.types.automated_reasoning_policy_build_workflow_repair_content.AutomatedReasoningPolicyBuildWorkflowRepairContent"
 
 
-class _AutomatedReasoningPolicyWorkflowTypeContent_generateFidelityReportContent(
+class AutomatedReasoningPolicyWorkflowTypeContentGenerateFidelityReportContentMember(
     TypedDict, closed=True
 ):
     generateFidelityReportContent: "capo_bedrock.types.automated_reasoning_policy_generate_fidelity_report_content.AutomatedReasoningPolicyGenerateFidelityReportContent"
 
 
-class _AutomatedReasoningPolicyWorkflowTypeContent_iterativeRefinementContent(
+class AutomatedReasoningPolicyWorkflowTypeContentIterativeRefinementContentMember(
     TypedDict, closed=True
 ):
     iterativeRefinementContent: "capo_bedrock.types.automated_reasoning_policy_iterative_refinement_content.AutomatedReasoningPolicyIterativeRefinementContent"
 
 
 AutomatedReasoningPolicyWorkflowTypeContent: TypeAlias = (
-    _AutomatedReasoningPolicyWorkflowTypeContent_documents
-    | _AutomatedReasoningPolicyWorkflowTypeContent_policyRepairAssets
-    | _AutomatedReasoningPolicyWorkflowTypeContent_generateFidelityReportContent
-    | _AutomatedReasoningPolicyWorkflowTypeContent_iterativeRefinementContent
+    AutomatedReasoningPolicyWorkflowTypeContentDocumentsMember
+    | AutomatedReasoningPolicyWorkflowTypeContentPolicyRepairAssetsMember
+    | AutomatedReasoningPolicyWorkflowTypeContentGenerateFidelityReportContentMember
+    | AutomatedReasoningPolicyWorkflowTypeContentIterativeRefinementContentMember
     | UnknownUnionMember
 )
 

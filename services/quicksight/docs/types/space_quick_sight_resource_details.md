@@ -7,7 +7,7 @@ title: SpaceQuickSightResourceDetails
       show_source: true
       merge_init_into_class: false
 
-::: capo_quicksight.types.space_quick_sight_resource_details._SpaceQuickSightResourceDetails_resourceArn
+::: capo_quicksight.types.space_quick_sight_resource_details.SpaceQuickSightResourceDetailsResourceArnMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -7,7 +7,7 @@ title: CodeBasedEvaluatorConfig
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.code_based_evaluator_config._CodeBasedEvaluatorConfig_lambdaConfig
+::: capo_bedrock_agentcore_control.types.code_based_evaluator_config.CodeBasedEvaluatorConfigLambdaConfigMember
     options:
       show_source: true
       merge_init_into_class: false

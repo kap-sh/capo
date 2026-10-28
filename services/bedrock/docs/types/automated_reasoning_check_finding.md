@@ -7,43 +7,43 @@ title: AutomatedReasoningCheckFinding
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock.types.automated_reasoning_check_finding._AutomatedReasoningCheckFinding_valid
+::: capo_bedrock.types.automated_reasoning_check_finding.AutomatedReasoningCheckFindingValidMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_check_finding._AutomatedReasoningCheckFinding_invalid
+::: capo_bedrock.types.automated_reasoning_check_finding.AutomatedReasoningCheckFindingInvalidMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_check_finding._AutomatedReasoningCheckFinding_satisfiable
+::: capo_bedrock.types.automated_reasoning_check_finding.AutomatedReasoningCheckFindingSatisfiableMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_check_finding._AutomatedReasoningCheckFinding_impossible
+::: capo_bedrock.types.automated_reasoning_check_finding.AutomatedReasoningCheckFindingImpossibleMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_check_finding._AutomatedReasoningCheckFinding_translationAmbiguous
+::: capo_bedrock.types.automated_reasoning_check_finding.AutomatedReasoningCheckFindingTranslationAmbiguousMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_check_finding._AutomatedReasoningCheckFinding_tooComplex
+::: capo_bedrock.types.automated_reasoning_check_finding.AutomatedReasoningCheckFindingTooComplexMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_check_finding._AutomatedReasoningCheckFinding_noTranslations
+::: capo_bedrock.types.automated_reasoning_check_finding.AutomatedReasoningCheckFindingNoTranslationsMember
     options:
       show_source: true
       merge_init_into_class: false

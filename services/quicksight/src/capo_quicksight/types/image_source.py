@@ -11,16 +11,16 @@ if TYPE_CHECKING:
     import capo_quicksight.types.string
 
 
-class _ImageSource_PublicUrl(TypedDict, closed=True):
+class ImageSourcePublicUrlMember(TypedDict, closed=True):
     PublicUrl: "capo_quicksight.types.string.String"
 
 
-class _ImageSource_S3Uri(TypedDict, closed=True):
+class ImageSourceS3UriMember(TypedDict, closed=True):
     S3Uri: "capo_quicksight.types.string.String"
 
 
 ImageSource: TypeAlias = (
-    _ImageSource_PublicUrl | _ImageSource_S3Uri | UnknownUnionMember
+    ImageSourcePublicUrlMember | ImageSourceS3UriMember | UnknownUnionMember
 )
 
 

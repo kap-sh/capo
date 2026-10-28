@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_marketplace_discovery.types.promotional_embedded_video
 
 
-class _PromotionalMedia_embeddedImage(TypedDict, closed=True):
+class PromotionalMediaEmbeddedImageMember(TypedDict, closed=True):
     embeddedImage: "capo_marketplace_discovery.types.promotional_embedded_image.PromotionalEmbeddedImage"
 
 
-class _PromotionalMedia_embeddedVideo(TypedDict, closed=True):
+class PromotionalMediaEmbeddedVideoMember(TypedDict, closed=True):
     embeddedVideo: "capo_marketplace_discovery.types.promotional_embedded_video.PromotionalEmbeddedVideo"
 
 
 PromotionalMedia: TypeAlias = (
-    _PromotionalMedia_embeddedImage
-    | _PromotionalMedia_embeddedVideo
+    PromotionalMediaEmbeddedImageMember
+    | PromotionalMediaEmbeddedVideoMember
     | UnknownUnionMember
 )
 

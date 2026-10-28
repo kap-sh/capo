@@ -12,21 +12,21 @@ if TYPE_CHECKING:
     import capo_acm.types.email_validation_challenge
 
 
-class _ValidationChallenge_EmailValidationChallenge(TypedDict, closed=True):
+class ValidationChallengeEmailValidationChallengeMember(TypedDict, closed=True):
     EmailValidationChallenge: (
         "capo_acm.types.email_validation_challenge.EmailValidationChallenge"
     )
 
 
-class _ValidationChallenge_DnsValidationChallenge(TypedDict, closed=True):
+class ValidationChallengeDnsValidationChallengeMember(TypedDict, closed=True):
     DnsValidationChallenge: (
         "capo_acm.types.dns_validation_challenge.DnsValidationChallenge"
     )
 
 
 ValidationChallenge: TypeAlias = (
-    _ValidationChallenge_EmailValidationChallenge
-    | _ValidationChallenge_DnsValidationChallenge
+    ValidationChallengeEmailValidationChallengeMember
+    | ValidationChallengeDnsValidationChallengeMember
     | UnknownUnionMember
 )
 

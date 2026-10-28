@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.protected_job_direct_analysis_configuration_details
 
 
-class _ProtectedJobConfigurationDetails_directAnalysisConfigurationDetails(
+class ProtectedJobConfigurationDetailsDirectAnalysisConfigurationDetailsMember(
     TypedDict, closed=True
 ):
     directAnalysisConfigurationDetails: "capo_cleanrooms.types.protected_job_direct_analysis_configuration_details.ProtectedJobDirectAnalysisConfigurationDetails"
 
 
 ProtectedJobConfigurationDetails: TypeAlias = (
-    _ProtectedJobConfigurationDetails_directAnalysisConfigurationDetails
+    ProtectedJobConfigurationDetailsDirectAnalysisConfigurationDetailsMember
     | UnknownUnionMember
 )
 

@@ -15,16 +15,16 @@ if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.verification_value_type
 
 
-class _PinData_PinOffset(TypedDict, closed=True):
+class PinDataPinOffsetMember(TypedDict, closed=True):
     PinOffset: "capo_payment_cryptography_data.types.pin_offset_type.PinOffsetType"
 
 
-class _PinData_VerificationValue(TypedDict, closed=True):
+class PinDataVerificationValueMember(TypedDict, closed=True):
     VerificationValue: "capo_payment_cryptography_data.types.verification_value_type.VerificationValueType"
 
 
 PinData: TypeAlias = (
-    _PinData_PinOffset | _PinData_VerificationValue | UnknownUnionMember
+    PinDataPinOffsetMember | PinDataVerificationValueMember | UnknownUnionMember
 )
 
 

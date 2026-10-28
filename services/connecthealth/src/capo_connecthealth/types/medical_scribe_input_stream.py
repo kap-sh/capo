@@ -19,29 +19,29 @@ if TYPE_CHECKING:
     import capo_connecthealth.types.medical_scribe_session_control_event
 
 
-class _MedicalScribeInputStream_audioEvent(TypedDict, closed=True):
+class MedicalScribeInputStreamAudioEventMember(TypedDict, closed=True):
     audioEvent: (
         "capo_connecthealth.types.medical_scribe_audio_event.MedicalScribeAudioEvent"
     )
 
 
-class _MedicalScribeInputStream_binaryAudioEvent(TypedDict, closed=True):
+class MedicalScribeInputStreamBinaryAudioEventMember(TypedDict, closed=True):
     binaryAudioEvent: "capo_connecthealth.types.medical_scribe_binary_audio_event.MedicalScribeBinaryAudioEvent"
 
 
-class _MedicalScribeInputStream_sessionControlEvent(TypedDict, closed=True):
+class MedicalScribeInputStreamSessionControlEventMember(TypedDict, closed=True):
     sessionControlEvent: "capo_connecthealth.types.medical_scribe_session_control_event.MedicalScribeSessionControlEvent"
 
 
-class _MedicalScribeInputStream_configurationEvent(TypedDict, closed=True):
+class MedicalScribeInputStreamConfigurationEventMember(TypedDict, closed=True):
     configurationEvent: "capo_connecthealth.types.medical_scribe_configuration_event.MedicalScribeConfigurationEvent"
 
 
 _MedicalScribeInputStream: TypeAlias = (
-    _MedicalScribeInputStream_audioEvent
-    | _MedicalScribeInputStream_binaryAudioEvent
-    | _MedicalScribeInputStream_sessionControlEvent
-    | _MedicalScribeInputStream_configurationEvent
+    MedicalScribeInputStreamAudioEventMember
+    | MedicalScribeInputStreamBinaryAudioEventMember
+    | MedicalScribeInputStreamSessionControlEventMember
+    | MedicalScribeInputStreamConfigurationEventMember
     | UnknownEvent
 )
 MedicalScribeInputStream: TypeAlias = AnyIterator[_MedicalScribeInputStream]

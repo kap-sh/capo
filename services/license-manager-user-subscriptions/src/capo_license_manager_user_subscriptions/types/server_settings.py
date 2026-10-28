@@ -14,13 +14,13 @@ if TYPE_CHECKING:
     import capo_license_manager_user_subscriptions.types.rds_sal_settings
 
 
-class _ServerSettings_RdsSalSettings(TypedDict, closed=True):
+class ServerSettingsRdsSalSettingsMember(TypedDict, closed=True):
     RdsSalSettings: (
         "capo_license_manager_user_subscriptions.types.rds_sal_settings.RdsSalSettings"
     )
 
 
-ServerSettings: TypeAlias = _ServerSettings_RdsSalSettings | UnknownUnionMember
+ServerSettings: TypeAlias = ServerSettingsRdsSalSettingsMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

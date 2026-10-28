@@ -16,22 +16,22 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.runtime_target_configuration
 
 
-class _HttpTargetConfiguration_agentcoreRuntime(TypedDict, closed=True):
+class HttpTargetConfigurationAgentcoreRuntimeMember(TypedDict, closed=True):
     agentcoreRuntime: "capo_bedrock_agentcore_control.types.runtime_target_configuration.RuntimeTargetConfiguration"
 
 
-class _HttpTargetConfiguration_passthrough(TypedDict, closed=True):
+class HttpTargetConfigurationPassthroughMember(TypedDict, closed=True):
     passthrough: "capo_bedrock_agentcore_control.types.passthrough_target_configuration.PassthroughTargetConfiguration"
 
 
-class _HttpTargetConfiguration_connector(TypedDict, closed=True):
+class HttpTargetConfigurationConnectorMember(TypedDict, closed=True):
     connector: "capo_bedrock_agentcore_control.types.http_connector_target_configuration.HttpConnectorTargetConfiguration"
 
 
 HttpTargetConfiguration: TypeAlias = (
-    _HttpTargetConfiguration_agentcoreRuntime
-    | _HttpTargetConfiguration_passthrough
-    | _HttpTargetConfiguration_connector
+    HttpTargetConfigurationAgentcoreRuntimeMember
+    | HttpTargetConfigurationPassthroughMember
+    | HttpTargetConfigurationConnectorMember
     | UnknownUnionMember
 )
 

@@ -16,43 +16,47 @@ if TYPE_CHECKING:
     import capo_quicksight.types.none_connection_metadata
 
 
-class _AuthenticationMetadata_AuthorizationCodeGrantMetadata(TypedDict, closed=True):
+class AuthenticationMetadataAuthorizationCodeGrantMetadataMember(
+    TypedDict, closed=True
+):
     AuthorizationCodeGrantMetadata: "capo_quicksight.types.authorization_code_grant_metadata.AuthorizationCodeGrantMetadata"
 
 
-class _AuthenticationMetadata_ClientCredentialsGrantMetadata(TypedDict, closed=True):
+class AuthenticationMetadataClientCredentialsGrantMetadataMember(
+    TypedDict, closed=True
+):
     ClientCredentialsGrantMetadata: "capo_quicksight.types.client_credentials_grant_metadata.ClientCredentialsGrantMetadata"
 
 
-class _AuthenticationMetadata_BasicAuthConnectionMetadata(TypedDict, closed=True):
+class AuthenticationMetadataBasicAuthConnectionMetadataMember(TypedDict, closed=True):
     BasicAuthConnectionMetadata: "capo_quicksight.types.basic_auth_connection_metadata.BasicAuthConnectionMetadata"
 
 
-class _AuthenticationMetadata_ApiKeyConnectionMetadata(TypedDict, closed=True):
+class AuthenticationMetadataApiKeyConnectionMetadataMember(TypedDict, closed=True):
     ApiKeyConnectionMetadata: (
         "capo_quicksight.types.api_key_connection_metadata.APIKeyConnectionMetadata"
     )
 
 
-class _AuthenticationMetadata_NoneConnectionMetadata(TypedDict, closed=True):
+class AuthenticationMetadataNoneConnectionMetadataMember(TypedDict, closed=True):
     NoneConnectionMetadata: (
         "capo_quicksight.types.none_connection_metadata.NoneConnectionMetadata"
     )
 
 
-class _AuthenticationMetadata_IamConnectionMetadata(TypedDict, closed=True):
+class AuthenticationMetadataIamConnectionMetadataMember(TypedDict, closed=True):
     IamConnectionMetadata: (
         "capo_quicksight.types.iam_connection_metadata.IAMConnectionMetadata"
     )
 
 
 AuthenticationMetadata: TypeAlias = (
-    _AuthenticationMetadata_AuthorizationCodeGrantMetadata
-    | _AuthenticationMetadata_ClientCredentialsGrantMetadata
-    | _AuthenticationMetadata_BasicAuthConnectionMetadata
-    | _AuthenticationMetadata_ApiKeyConnectionMetadata
-    | _AuthenticationMetadata_NoneConnectionMetadata
-    | _AuthenticationMetadata_IamConnectionMetadata
+    AuthenticationMetadataAuthorizationCodeGrantMetadataMember
+    | AuthenticationMetadataClientCredentialsGrantMetadataMember
+    | AuthenticationMetadataBasicAuthConnectionMetadataMember
+    | AuthenticationMetadataApiKeyConnectionMetadataMember
+    | AuthenticationMetadataNoneConnectionMetadataMember
+    | AuthenticationMetadataIamConnectionMetadataMember
     | UnknownUnionMember
 )
 

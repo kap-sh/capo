@@ -7,7 +7,7 @@ title: InputChannelDataSource
       show_source: true
       merge_init_into_class: false
 
-::: capo_cleanroomsml.types.input_channel_data_source._InputChannelDataSource_protectedQueryInputParameters
+::: capo_cleanroomsml.types.input_channel_data_source.InputChannelDataSourceProtectedQueryInputParametersMember
     options:
       show_source: true
       merge_init_into_class: false

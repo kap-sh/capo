@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_accessanalyzer.types.rds_db_cluster_snapshot_account_ids_list
 
 
-class _RdsDbClusterSnapshotAttributeValue_accountIds(TypedDict, closed=True):
+class RdsDbClusterSnapshotAttributeValueAccountIdsMember(TypedDict, closed=True):
     accountIds: "capo_accessanalyzer.types.rds_db_cluster_snapshot_account_ids_list.RdsDbClusterSnapshotAccountIdsList"
 
 
 RdsDbClusterSnapshotAttributeValue: TypeAlias = (
-    _RdsDbClusterSnapshotAttributeValue_accountIds | UnknownUnionMember
+    RdsDbClusterSnapshotAttributeValueAccountIdsMember | UnknownUnionMember
 )
 
 

@@ -15,38 +15,38 @@ if TYPE_CHECKING:
     import capo_payment_cryptography.types.export_tr34_key_block
 
 
-class _ExportKeyMaterial_Tr31KeyBlock(TypedDict, closed=True):
+class ExportKeyMaterialTr31KeyBlockMember(TypedDict, closed=True):
     Tr31KeyBlock: (
         "capo_payment_cryptography.types.export_tr31_key_block.ExportTr31KeyBlock"
     )
 
 
-class _ExportKeyMaterial_Tr34KeyBlock(TypedDict, closed=True):
+class ExportKeyMaterialTr34KeyBlockMember(TypedDict, closed=True):
     Tr34KeyBlock: (
         "capo_payment_cryptography.types.export_tr34_key_block.ExportTr34KeyBlock"
     )
 
 
-class _ExportKeyMaterial_KeyCryptogram(TypedDict, closed=True):
+class ExportKeyMaterialKeyCryptogramMember(TypedDict, closed=True):
     KeyCryptogram: (
         "capo_payment_cryptography.types.export_key_cryptogram.ExportKeyCryptogram"
     )
 
 
-class _ExportKeyMaterial_DiffieHellmanTr31KeyBlock(TypedDict, closed=True):
+class ExportKeyMaterialDiffieHellmanTr31KeyBlockMember(TypedDict, closed=True):
     DiffieHellmanTr31KeyBlock: "capo_payment_cryptography.types.export_diffie_hellman_tr31_key_block.ExportDiffieHellmanTr31KeyBlock"
 
 
-class _ExportKeyMaterial_As2805KeyCryptogram(TypedDict, closed=True):
+class ExportKeyMaterialAs2805KeyCryptogramMember(TypedDict, closed=True):
     As2805KeyCryptogram: "capo_payment_cryptography.types.export_as2805_key_cryptogram.ExportAs2805KeyCryptogram"
 
 
 ExportKeyMaterial: TypeAlias = (
-    _ExportKeyMaterial_Tr31KeyBlock
-    | _ExportKeyMaterial_Tr34KeyBlock
-    | _ExportKeyMaterial_KeyCryptogram
-    | _ExportKeyMaterial_DiffieHellmanTr31KeyBlock
-    | _ExportKeyMaterial_As2805KeyCryptogram
+    ExportKeyMaterialTr31KeyBlockMember
+    | ExportKeyMaterialTr34KeyBlockMember
+    | ExportKeyMaterialKeyCryptogramMember
+    | ExportKeyMaterialDiffieHellmanTr31KeyBlockMember
+    | ExportKeyMaterialAs2805KeyCryptogramMember
     | UnknownUnionMember
 )
 

@@ -23,82 +23,82 @@ if TYPE_CHECKING:
     import capo_marketplace_agreement.types.variable_payment_term
 
 
-class _AcceptedTerm_legalTerm(TypedDict, closed=True):
+class AcceptedTermLegalTermMember(TypedDict, closed=True):
     legalTerm: "capo_marketplace_agreement.types.legal_term.LegalTerm"
 
 
-class _AcceptedTerm_supportTerm(TypedDict, closed=True):
+class AcceptedTermSupportTermMember(TypedDict, closed=True):
     supportTerm: "capo_marketplace_agreement.types.support_term.SupportTerm"
 
 
-class _AcceptedTerm_renewalTerm(TypedDict, closed=True):
+class AcceptedTermRenewalTermMember(TypedDict, closed=True):
     renewalTerm: "capo_marketplace_agreement.types.renewal_term.RenewalTerm"
 
 
-class _AcceptedTerm_usageBasedPricingTerm(TypedDict, closed=True):
+class AcceptedTermUsageBasedPricingTermMember(TypedDict, closed=True):
     usageBasedPricingTerm: "capo_marketplace_agreement.types.usage_based_pricing_term.UsageBasedPricingTerm"
 
 
-class _AcceptedTerm_configurableUpfrontPricingTerm(TypedDict, closed=True):
+class AcceptedTermConfigurableUpfrontPricingTermMember(TypedDict, closed=True):
     configurableUpfrontPricingTerm: "capo_marketplace_agreement.types.configurable_upfront_pricing_term.ConfigurableUpfrontPricingTerm"
 
 
-class _AcceptedTerm_byolPricingTerm(TypedDict, closed=True):
+class AcceptedTermByolPricingTermMember(TypedDict, closed=True):
     byolPricingTerm: (
         "capo_marketplace_agreement.types.byol_pricing_term.ByolPricingTerm"
     )
 
 
-class _AcceptedTerm_recurringPaymentTerm(TypedDict, closed=True):
+class AcceptedTermRecurringPaymentTermMember(TypedDict, closed=True):
     recurringPaymentTerm: (
         "capo_marketplace_agreement.types.recurring_payment_term.RecurringPaymentTerm"
     )
 
 
-class _AcceptedTerm_validityTerm(TypedDict, closed=True):
+class AcceptedTermValidityTermMember(TypedDict, closed=True):
     validityTerm: "capo_marketplace_agreement.types.validity_term.ValidityTerm"
 
 
-class _AcceptedTerm_paymentScheduleTerm(TypedDict, closed=True):
+class AcceptedTermPaymentScheduleTermMember(TypedDict, closed=True):
     paymentScheduleTerm: (
         "capo_marketplace_agreement.types.payment_schedule_term.PaymentScheduleTerm"
     )
 
 
-class _AcceptedTerm_freeTrialPricingTerm(TypedDict, closed=True):
+class AcceptedTermFreeTrialPricingTermMember(TypedDict, closed=True):
     freeTrialPricingTerm: (
         "capo_marketplace_agreement.types.free_trial_pricing_term.FreeTrialPricingTerm"
     )
 
 
-class _AcceptedTerm_fixedUpfrontPricingTerm(TypedDict, closed=True):
+class AcceptedTermFixedUpfrontPricingTermMember(TypedDict, closed=True):
     fixedUpfrontPricingTerm: "capo_marketplace_agreement.types.fixed_upfront_pricing_term.FixedUpfrontPricingTerm"
 
 
-class _AcceptedTerm_variablePaymentTerm(TypedDict, closed=True):
+class AcceptedTermVariablePaymentTermMember(TypedDict, closed=True):
     variablePaymentTerm: (
         "capo_marketplace_agreement.types.variable_payment_term.VariablePaymentTerm"
     )
 
 
-class _AcceptedTerm_netPaymentTerm(TypedDict, closed=True):
+class AcceptedTermNetPaymentTermMember(TypedDict, closed=True):
     netPaymentTerm: "capo_marketplace_agreement.types.net_payment_term.NetPaymentTerm"
 
 
 AcceptedTerm: TypeAlias = (
-    _AcceptedTerm_legalTerm
-    | _AcceptedTerm_supportTerm
-    | _AcceptedTerm_renewalTerm
-    | _AcceptedTerm_usageBasedPricingTerm
-    | _AcceptedTerm_configurableUpfrontPricingTerm
-    | _AcceptedTerm_byolPricingTerm
-    | _AcceptedTerm_recurringPaymentTerm
-    | _AcceptedTerm_validityTerm
-    | _AcceptedTerm_paymentScheduleTerm
-    | _AcceptedTerm_freeTrialPricingTerm
-    | _AcceptedTerm_fixedUpfrontPricingTerm
-    | _AcceptedTerm_variablePaymentTerm
-    | _AcceptedTerm_netPaymentTerm
+    AcceptedTermLegalTermMember
+    | AcceptedTermSupportTermMember
+    | AcceptedTermRenewalTermMember
+    | AcceptedTermUsageBasedPricingTermMember
+    | AcceptedTermConfigurableUpfrontPricingTermMember
+    | AcceptedTermByolPricingTermMember
+    | AcceptedTermRecurringPaymentTermMember
+    | AcceptedTermValidityTermMember
+    | AcceptedTermPaymentScheduleTermMember
+    | AcceptedTermFreeTrialPricingTermMember
+    | AcceptedTermFixedUpfrontPricingTermMember
+    | AcceptedTermVariablePaymentTermMember
+    | AcceptedTermNetPaymentTermMember
     | UnknownUnionMember
 )
 

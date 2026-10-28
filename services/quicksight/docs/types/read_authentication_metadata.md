@@ -7,37 +7,37 @@ title: ReadAuthenticationMetadata
       show_source: true
       merge_init_into_class: false
 
-::: capo_quicksight.types.read_authentication_metadata._ReadAuthenticationMetadata_AuthorizationCodeGrantMetadata
+::: capo_quicksight.types.read_authentication_metadata.ReadAuthenticationMetadataAuthorizationCodeGrantMetadataMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.read_authentication_metadata._ReadAuthenticationMetadata_ClientCredentialsGrantMetadata
+::: capo_quicksight.types.read_authentication_metadata.ReadAuthenticationMetadataClientCredentialsGrantMetadataMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.read_authentication_metadata._ReadAuthenticationMetadata_BasicAuthConnectionMetadata
+::: capo_quicksight.types.read_authentication_metadata.ReadAuthenticationMetadataBasicAuthConnectionMetadataMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.read_authentication_metadata._ReadAuthenticationMetadata_ApiKeyConnectionMetadata
+::: capo_quicksight.types.read_authentication_metadata.ReadAuthenticationMetadataApiKeyConnectionMetadataMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.read_authentication_metadata._ReadAuthenticationMetadata_NoneConnectionMetadata
+::: capo_quicksight.types.read_authentication_metadata.ReadAuthenticationMetadataNoneConnectionMetadataMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.read_authentication_metadata._ReadAuthenticationMetadata_IamConnectionMetadata
+::: capo_quicksight.types.read_authentication_metadata.ReadAuthenticationMetadataIamConnectionMetadataMember
     options:
       show_source: true
       merge_init_into_class: false

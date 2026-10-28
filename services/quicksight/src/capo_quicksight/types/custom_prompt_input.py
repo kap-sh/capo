@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_quicksight.types.custom_prompt_profile
 
 
-class _CustomPromptInput_ExistingPrompt(TypedDict, closed=True):
+class CustomPromptInputExistingPromptMember(TypedDict, closed=True):
     ExistingPrompt: "capo_quicksight.types.custom_prompt_profile.CustomPromptProfile"
 
 
-class _CustomPromptInput_NewPrompt(TypedDict, closed=True):
+class CustomPromptInputNewPromptMember(TypedDict, closed=True):
     NewPrompt: "capo_quicksight.types.custom_prompt_input_parameters.CustomPromptInputParameters"
 
 
 CustomPromptInput: TypeAlias = (
-    _CustomPromptInput_ExistingPrompt
-    | _CustomPromptInput_NewPrompt
+    CustomPromptInputExistingPromptMember
+    | CustomPromptInputNewPromptMember
     | UnknownUnionMember
 )
 

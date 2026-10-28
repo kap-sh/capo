@@ -16,27 +16,27 @@ if TYPE_CHECKING:
     import capo_migrationhuborchestrator.types.string_value
 
 
-class _StepInput_integerValue(TypedDict, closed=True):
+class StepInputIntegerValueMember(TypedDict, closed=True):
     integerValue: "int"
 
 
-class _StepInput_stringValue(TypedDict, closed=True):
+class StepInputStringValueMember(TypedDict, closed=True):
     stringValue: "capo_migrationhuborchestrator.types.string_value.StringValue"
 
 
-class _StepInput_listOfStringsValue(TypedDict, closed=True):
+class StepInputListOfStringsValueMember(TypedDict, closed=True):
     listOfStringsValue: "capo_migrationhuborchestrator.types.string_list.StringList"
 
 
-class _StepInput_mapOfStringValue(TypedDict, closed=True):
+class StepInputMapOfStringValueMember(TypedDict, closed=True):
     mapOfStringValue: "capo_migrationhuborchestrator.types.string_map.StringMap"
 
 
 StepInput: TypeAlias = (
-    _StepInput_integerValue
-    | _StepInput_stringValue
-    | _StepInput_listOfStringsValue
-    | _StepInput_mapOfStringValue
+    StepInputIntegerValueMember
+    | StepInputStringValueMember
+    | StepInputListOfStringsValueMember
+    | StepInputMapOfStringValueMember
     | UnknownUnionMember
 )
 

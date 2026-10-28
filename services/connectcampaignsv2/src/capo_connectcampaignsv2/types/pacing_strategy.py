@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.abandonment_rate_pacing_config
 
 
-class _PacingStrategy_abandonmentRate(TypedDict, closed=True):
+class PacingStrategyAbandonmentRateMember(TypedDict, closed=True):
     abandonmentRate: "capo_connectcampaignsv2.types.abandonment_rate_pacing_config.AbandonmentRatePacingConfig"
 
 
-PacingStrategy: TypeAlias = _PacingStrategy_abandonmentRate | UnknownUnionMember
+PacingStrategy: TypeAlias = PacingStrategyAbandonmentRateMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

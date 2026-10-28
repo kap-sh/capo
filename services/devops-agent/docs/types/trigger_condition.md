@@ -7,7 +7,7 @@ title: TriggerCondition
       show_source: true
       merge_init_into_class: false
 
-::: capo_devops_agent.types.trigger_condition._TriggerCondition_schedule
+::: capo_devops_agent.types.trigger_condition.TriggerConditionScheduleMember
     options:
       show_source: true
       merge_init_into_class: false

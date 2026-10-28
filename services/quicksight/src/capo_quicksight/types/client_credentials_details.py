@@ -11,12 +11,14 @@ if TYPE_CHECKING:
     import capo_quicksight.types.client_credentials_grant_details
 
 
-class _ClientCredentialsDetails_ClientCredentialsGrantDetails(TypedDict, closed=True):
+class ClientCredentialsDetailsClientCredentialsGrantDetailsMember(
+    TypedDict, closed=True
+):
     ClientCredentialsGrantDetails: "capo_quicksight.types.client_credentials_grant_details.ClientCredentialsGrantDetails"
 
 
 ClientCredentialsDetails: TypeAlias = (
-    _ClientCredentialsDetails_ClientCredentialsGrantDetails | UnknownUnionMember
+    ClientCredentialsDetailsClientCredentialsGrantDetailsMember | UnknownUnionMember
 )
 
 

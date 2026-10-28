@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_cloudwatchomni.types.telemetry_rule
 
 
-class _Rule_telemetryRule(TypedDict, closed=True):
+class RuleTelemetryRuleMember(TypedDict, closed=True):
     telemetryRule: "capo_cloudwatchomni.types.telemetry_rule.TelemetryRule"
 
 
-Rule: TypeAlias = _Rule_telemetryRule | UnknownUnionMember
+Rule: TypeAlias = RuleTelemetryRuleMember | UnknownUnionMember
 
 
 # --- rpcv2Cbor ser/de ---

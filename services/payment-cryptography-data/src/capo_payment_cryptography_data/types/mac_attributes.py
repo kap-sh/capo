@@ -16,38 +16,38 @@ if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.mac_algorithm_emv
 
 
-class _MacAttributes_Algorithm(TypedDict, closed=True):
+class MacAttributesAlgorithmMember(TypedDict, closed=True):
     Algorithm: "capo_payment_cryptography_data.types.mac_algorithm.MacAlgorithm"
 
 
-class _MacAttributes_EmvMac(TypedDict, closed=True):
+class MacAttributesEmvMacMember(TypedDict, closed=True):
     EmvMac: "capo_payment_cryptography_data.types.mac_algorithm_emv.MacAlgorithmEmv"
 
 
-class _MacAttributes_DukptIso9797Algorithm1(TypedDict, closed=True):
+class MacAttributesDukptIso9797Algorithm1Member(TypedDict, closed=True):
     DukptIso9797Algorithm1: (
         "capo_payment_cryptography_data.types.mac_algorithm_dukpt.MacAlgorithmDukpt"
     )
 
 
-class _MacAttributes_DukptIso9797Algorithm3(TypedDict, closed=True):
+class MacAttributesDukptIso9797Algorithm3Member(TypedDict, closed=True):
     DukptIso9797Algorithm3: (
         "capo_payment_cryptography_data.types.mac_algorithm_dukpt.MacAlgorithmDukpt"
     )
 
 
-class _MacAttributes_DukptCmac(TypedDict, closed=True):
+class MacAttributesDukptCmacMember(TypedDict, closed=True):
     DukptCmac: (
         "capo_payment_cryptography_data.types.mac_algorithm_dukpt.MacAlgorithmDukpt"
     )
 
 
 MacAttributes: TypeAlias = (
-    _MacAttributes_Algorithm
-    | _MacAttributes_EmvMac
-    | _MacAttributes_DukptIso9797Algorithm1
-    | _MacAttributes_DukptIso9797Algorithm3
-    | _MacAttributes_DukptCmac
+    MacAttributesAlgorithmMember
+    | MacAttributesEmvMacMember
+    | MacAttributesDukptIso9797Algorithm1Member
+    | MacAttributesDukptIso9797Algorithm3Member
+    | MacAttributesDukptCmacMember
     | UnknownUnionMember
 )
 

@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_neptune_graph.types.neptune_import_options
 
 
-class _ImportOptions_neptune(TypedDict, closed=True):
+class ImportOptionsNeptuneMember(TypedDict, closed=True):
     neptune: "capo_neptune_graph.types.neptune_import_options.NeptuneImportOptions"
 
 
-ImportOptions: TypeAlias = _ImportOptions_neptune | UnknownUnionMember
+ImportOptions: TypeAlias = ImportOptionsNeptuneMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

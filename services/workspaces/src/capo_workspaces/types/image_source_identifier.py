@@ -13,24 +13,24 @@ if TYPE_CHECKING:
     import capo_workspaces.types.image_build_version_arn
 
 
-class _ImageSourceIdentifier_Ec2ImportTaskId(TypedDict, closed=True):
+class ImageSourceIdentifierEc2ImportTaskIdMember(TypedDict, closed=True):
     Ec2ImportTaskId: "capo_workspaces.types.ec2_import_task_id.Ec2ImportTaskId"
 
 
-class _ImageSourceIdentifier_ImageBuildVersionArn(TypedDict, closed=True):
+class ImageSourceIdentifierImageBuildVersionArnMember(TypedDict, closed=True):
     ImageBuildVersionArn: (
         "capo_workspaces.types.image_build_version_arn.ImageBuildVersionArn"
     )
 
 
-class _ImageSourceIdentifier_Ec2ImageId(TypedDict, closed=True):
+class ImageSourceIdentifierEc2ImageIdMember(TypedDict, closed=True):
     Ec2ImageId: "capo_workspaces.types.ec2_image_id.Ec2ImageId"
 
 
 ImageSourceIdentifier: TypeAlias = (
-    _ImageSourceIdentifier_Ec2ImportTaskId
-    | _ImageSourceIdentifier_ImageBuildVersionArn
-    | _ImageSourceIdentifier_Ec2ImageId
+    ImageSourceIdentifierEc2ImportTaskIdMember
+    | ImageSourceIdentifierImageBuildVersionArnMember
+    | ImageSourceIdentifierEc2ImageIdMember
     | UnknownUnionMember
 )
 

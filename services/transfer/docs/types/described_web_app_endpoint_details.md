@@ -7,7 +7,7 @@ title: DescribedWebAppEndpointDetails
       show_source: true
       merge_init_into_class: false
 
-::: capo_transfer.types.described_web_app_endpoint_details._DescribedWebAppEndpointDetails_Vpc
+::: capo_transfer.types.described_web_app_endpoint_details.DescribedWebAppEndpointDetailsVpcMember
     options:
       show_source: true
       merge_init_into_class: false

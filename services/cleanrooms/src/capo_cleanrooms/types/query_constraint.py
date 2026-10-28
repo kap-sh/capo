@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.query_constraint_require_overlap
 
 
-class _QueryConstraint_requireOverlap(TypedDict, closed=True):
+class QueryConstraintRequireOverlapMember(TypedDict, closed=True):
     requireOverlap: "capo_cleanrooms.types.query_constraint_require_overlap.QueryConstraintRequireOverlap"
 
 
-QueryConstraint: TypeAlias = _QueryConstraint_requireOverlap | UnknownUnionMember
+QueryConstraint: TypeAlias = QueryConstraintRequireOverlapMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

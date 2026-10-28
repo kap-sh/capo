@@ -13,26 +13,26 @@ if TYPE_CHECKING:
     import capo_migrationhubstrategy.types.source_code_analyzer_name
 
 
-class _AnalyzerNameUnion_binaryAnalyzerName(TypedDict, closed=True):
+class AnalyzerNameUnionBinaryAnalyzerNameMember(TypedDict, closed=True):
     binaryAnalyzerName: (
         "capo_migrationhubstrategy.types.binary_analyzer_name.BinaryAnalyzerName"
     )
 
 
-class _AnalyzerNameUnion_runTimeAnalyzerName(TypedDict, closed=True):
+class AnalyzerNameUnionRunTimeAnalyzerNameMember(TypedDict, closed=True):
     runTimeAnalyzerName: (
         "capo_migrationhubstrategy.types.run_time_analyzer_name.RunTimeAnalyzerName"
     )
 
 
-class _AnalyzerNameUnion_sourceCodeAnalyzerName(TypedDict, closed=True):
+class AnalyzerNameUnionSourceCodeAnalyzerNameMember(TypedDict, closed=True):
     sourceCodeAnalyzerName: "capo_migrationhubstrategy.types.source_code_analyzer_name.SourceCodeAnalyzerName"
 
 
 AnalyzerNameUnion: TypeAlias = (
-    _AnalyzerNameUnion_binaryAnalyzerName
-    | _AnalyzerNameUnion_runTimeAnalyzerName
-    | _AnalyzerNameUnion_sourceCodeAnalyzerName
+    AnalyzerNameUnionBinaryAnalyzerNameMember
+    | AnalyzerNameUnionRunTimeAnalyzerNameMember
+    | AnalyzerNameUnionSourceCodeAnalyzerNameMember
     | UnknownUnionMember
 )
 

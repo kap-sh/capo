@@ -7,7 +7,7 @@ title: DownlinkDataflowDetails
       show_source: true
       merge_init_into_class: false
 
-::: capo_groundstation.types.downlink_dataflow_details._DownlinkDataflowDetails_agentConnectionDetails
+::: capo_groundstation.types.downlink_dataflow_details.DownlinkDataflowDetailsAgentConnectionDetailsMember
     options:
       show_source: true
       merge_init_into_class: false

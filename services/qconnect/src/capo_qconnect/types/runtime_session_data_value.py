@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_qconnect.types.non_empty_sensitive_string
 
 
-class _RuntimeSessionDataValue_stringValue(TypedDict, closed=True):
+class RuntimeSessionDataValueStringValueMember(TypedDict, closed=True):
     stringValue: (
         "capo_qconnect.types.non_empty_sensitive_string.NonEmptySensitiveString"
     )
 
 
 RuntimeSessionDataValue: TypeAlias = (
-    _RuntimeSessionDataValue_stringValue | UnknownUnionMember
+    RuntimeSessionDataValueStringValueMember | UnknownUnionMember
 )
 
 

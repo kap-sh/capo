@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_m2.types.string_free65000
 
 
-class _Definition_s3Location(TypedDict, closed=True):
+class DefinitionS3LocationMember(TypedDict, closed=True):
     s3Location: "capo_m2.types.string2000.String2000"
 
 
-class _Definition_content(TypedDict, closed=True):
+class DefinitionContentMember(TypedDict, closed=True):
     content: "capo_m2.types.string_free65000.StringFree65000"
 
 
 Definition: TypeAlias = (
-    _Definition_s3Location | _Definition_content | UnknownUnionMember
+    DefinitionS3LocationMember | DefinitionContentMember | UnknownUnionMember
 )
 
 

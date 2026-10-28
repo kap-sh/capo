@@ -7,13 +7,13 @@ title: HarnessTruncationStrategyConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.harness_truncation_strategy_configuration._HarnessTruncationStrategyConfiguration_slidingWindow
+::: capo_bedrock_agentcore_control.types.harness_truncation_strategy_configuration.HarnessTruncationStrategyConfigurationSlidingWindowMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore_control.types.harness_truncation_strategy_configuration._HarnessTruncationStrategyConfiguration_summarization
+::: capo_bedrock_agentcore_control.types.harness_truncation_strategy_configuration.HarnessTruncationStrategyConfigurationSummarizationMember
     options:
       show_source: true
       merge_init_into_class: false

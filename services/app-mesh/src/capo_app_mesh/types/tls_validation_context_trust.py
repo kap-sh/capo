@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_app_mesh.types.tls_validation_context_sds_trust
 
 
-class _TlsValidationContextTrust_acm(TypedDict, closed=True):
+class TlsValidationContextTrustAcmMember(TypedDict, closed=True):
     acm: "capo_app_mesh.types.tls_validation_context_acm_trust.TlsValidationContextAcmTrust"
 
 
-class _TlsValidationContextTrust_file(TypedDict, closed=True):
+class TlsValidationContextTrustFileMember(TypedDict, closed=True):
     file: "capo_app_mesh.types.tls_validation_context_file_trust.TlsValidationContextFileTrust"
 
 
-class _TlsValidationContextTrust_sds(TypedDict, closed=True):
+class TlsValidationContextTrustSdsMember(TypedDict, closed=True):
     sds: "capo_app_mesh.types.tls_validation_context_sds_trust.TlsValidationContextSdsTrust"
 
 
 TlsValidationContextTrust: TypeAlias = (
-    _TlsValidationContextTrust_acm
-    | _TlsValidationContextTrust_file
-    | _TlsValidationContextTrust_sds
+    TlsValidationContextTrustAcmMember
+    | TlsValidationContextTrustFileMember
+    | TlsValidationContextTrustSdsMember
     | UnknownUnionMember
 )
 

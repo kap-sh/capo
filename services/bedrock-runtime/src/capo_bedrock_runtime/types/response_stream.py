@@ -22,50 +22,50 @@ if TYPE_CHECKING:
     import capo_bedrock_runtime.types.payload_part
 
 
-class _ResponseStream_chunk(TypedDict, closed=True):
+class ResponseStreamChunkMember(TypedDict, closed=True):
     chunk: "capo_bedrock_runtime.types.payload_part.PayloadPart"
 
 
-class _ResponseStream_internalServerException(TypedDict, closed=True):
+class ResponseStreamInternalServerExceptionMember(TypedDict, closed=True):
     internalServerException: (
         "capo_bedrock_runtime.errors.internal_server_exception.InternalServerException_"
     )
 
 
-class _ResponseStream_modelStreamErrorException(TypedDict, closed=True):
+class ResponseStreamModelStreamErrorExceptionMember(TypedDict, closed=True):
     modelStreamErrorException: "capo_bedrock_runtime.errors.model_stream_error_exception.ModelStreamErrorException_"
 
 
-class _ResponseStream_validationException(TypedDict, closed=True):
+class ResponseStreamValidationExceptionMember(TypedDict, closed=True):
     validationException: (
         "capo_bedrock_runtime.errors.validation_exception.ValidationException_"
     )
 
 
-class _ResponseStream_throttlingException(TypedDict, closed=True):
+class ResponseStreamThrottlingExceptionMember(TypedDict, closed=True):
     throttlingException: (
         "capo_bedrock_runtime.errors.throttling_exception.ThrottlingException_"
     )
 
 
-class _ResponseStream_modelTimeoutException(TypedDict, closed=True):
+class ResponseStreamModelTimeoutExceptionMember(TypedDict, closed=True):
     modelTimeoutException: (
         "capo_bedrock_runtime.errors.model_timeout_exception.ModelTimeoutException_"
     )
 
 
-class _ResponseStream_serviceUnavailableException(TypedDict, closed=True):
+class ResponseStreamServiceUnavailableExceptionMember(TypedDict, closed=True):
     serviceUnavailableException: "capo_bedrock_runtime.errors.service_unavailable_exception.ServiceUnavailableException_"
 
 
 _ResponseStream: TypeAlias = (
-    _ResponseStream_chunk
-    | _ResponseStream_internalServerException
-    | _ResponseStream_modelStreamErrorException
-    | _ResponseStream_validationException
-    | _ResponseStream_throttlingException
-    | _ResponseStream_modelTimeoutException
-    | _ResponseStream_serviceUnavailableException
+    ResponseStreamChunkMember
+    | ResponseStreamInternalServerExceptionMember
+    | ResponseStreamModelStreamErrorExceptionMember
+    | ResponseStreamValidationExceptionMember
+    | ResponseStreamThrottlingExceptionMember
+    | ResponseStreamModelTimeoutExceptionMember
+    | ResponseStreamServiceUnavailableExceptionMember
     | UnknownEvent
 )
 ResponseStream: TypeAlias = AnyIterator[_ResponseStream]

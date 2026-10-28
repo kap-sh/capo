@@ -7,7 +7,7 @@ title: HarnessEnvironmentProviderRequest
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.harness_environment_provider_request._HarnessEnvironmentProviderRequest_agentCoreRuntimeEnvironment
+::: capo_bedrock_agentcore_control.types.harness_environment_provider_request.HarnessEnvironmentProviderRequestAgentCoreRuntimeEnvironmentMember
     options:
       show_source: true
       merge_init_into_class: false

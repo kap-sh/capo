@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_datazone.types.lineage_node_item
 
 
-class _ResultItem_lineageNode(TypedDict, closed=True):
+class ResultItemLineageNodeMember(TypedDict, closed=True):
     lineageNode: "capo_datazone.types.lineage_node_item.LineageNodeItem"
 
 
-ResultItem: TypeAlias = _ResultItem_lineageNode | UnknownUnionMember
+ResultItem: TypeAlias = ResultItemLineageNodeMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

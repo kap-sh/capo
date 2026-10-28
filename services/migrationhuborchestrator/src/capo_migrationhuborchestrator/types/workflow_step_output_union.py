@@ -15,24 +15,24 @@ if TYPE_CHECKING:
     import capo_migrationhuborchestrator.types.max_string_value
 
 
-class _WorkflowStepOutputUnion_integerValue(TypedDict, closed=True):
+class WorkflowStepOutputUnionIntegerValueMember(TypedDict, closed=True):
     integerValue: "int"
 
 
-class _WorkflowStepOutputUnion_stringValue(TypedDict, closed=True):
+class WorkflowStepOutputUnionStringValueMember(TypedDict, closed=True):
     stringValue: "capo_migrationhuborchestrator.types.max_string_value.MaxStringValue"
 
 
-class _WorkflowStepOutputUnion_listOfStringValue(TypedDict, closed=True):
+class WorkflowStepOutputUnionListOfStringValueMember(TypedDict, closed=True):
     listOfStringValue: (
         "capo_migrationhuborchestrator.types.max_string_list.MaxStringList"
     )
 
 
 WorkflowStepOutputUnion: TypeAlias = (
-    _WorkflowStepOutputUnion_integerValue
-    | _WorkflowStepOutputUnion_stringValue
-    | _WorkflowStepOutputUnion_listOfStringValue
+    WorkflowStepOutputUnionIntegerValueMember
+    | WorkflowStepOutputUnionStringValueMember
+    | WorkflowStepOutputUnionListOfStringValueMember
     | UnknownUnionMember
 )
 

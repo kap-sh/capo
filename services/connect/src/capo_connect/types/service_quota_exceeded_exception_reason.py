@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_connect.types.attached_file_service_quota_exceeded_exception_reason
 
 
-class _ServiceQuotaExceededExceptionReason_AttachedFileServiceQuotaExceededExceptionReason(
+class ServiceQuotaExceededExceptionReasonAttachedFileServiceQuotaExceededExceptionReasonMember(
     TypedDict, closed=True
 ):
     AttachedFileServiceQuotaExceededExceptionReason: "capo_connect.types.attached_file_service_quota_exceeded_exception_reason.AttachedFileServiceQuotaExceededExceptionReason"
 
 
 ServiceQuotaExceededExceptionReason: TypeAlias = (
-    _ServiceQuotaExceededExceptionReason_AttachedFileServiceQuotaExceededExceptionReason
+    ServiceQuotaExceededExceptionReasonAttachedFileServiceQuotaExceededExceptionReasonMember
     | UnknownUnionMember
 )
 

@@ -11,11 +11,13 @@ if TYPE_CHECKING:
     import capo_verifiedpermissions.types.update_static_policy_definition
 
 
-class _UpdatePolicyDefinition_static(TypedDict, closed=True):
+class UpdatePolicyDefinitionStaticMember(TypedDict, closed=True):
     static: "capo_verifiedpermissions.types.update_static_policy_definition.UpdateStaticPolicyDefinition"
 
 
-UpdatePolicyDefinition: TypeAlias = _UpdatePolicyDefinition_static | UnknownUnionMember
+UpdatePolicyDefinition: TypeAlias = (
+    UpdatePolicyDefinitionStaticMember | UnknownUnionMember
+)
 
 
 # --- awsJson1_0 ser/de ---

@@ -16,12 +16,12 @@ if TYPE_CHECKING:
     import capo_bedrock_runtime.types.bidirectional_input_payload_part
 
 
-class _InvokeModelWithBidirectionalStreamInput_chunk(TypedDict, closed=True):
+class InvokeModelWithBidirectionalStreamInputChunkMember(TypedDict, closed=True):
     chunk: "capo_bedrock_runtime.types.bidirectional_input_payload_part.BidirectionalInputPayloadPart"
 
 
 _InvokeModelWithBidirectionalStreamInput: TypeAlias = (
-    _InvokeModelWithBidirectionalStreamInput_chunk | UnknownEvent
+    InvokeModelWithBidirectionalStreamInputChunkMember | UnknownEvent
 )
 InvokeModelWithBidirectionalStreamInput: TypeAlias = AnyIterator[
     _InvokeModelWithBidirectionalStreamInput

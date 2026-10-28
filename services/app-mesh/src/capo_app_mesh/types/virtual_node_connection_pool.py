@@ -14,27 +14,27 @@ if TYPE_CHECKING:
     import capo_app_mesh.types.virtual_node_tcp_connection_pool
 
 
-class _VirtualNodeConnectionPool_tcp(TypedDict, closed=True):
+class VirtualNodeConnectionPoolTcpMember(TypedDict, closed=True):
     tcp: "capo_app_mesh.types.virtual_node_tcp_connection_pool.VirtualNodeTcpConnectionPool"
 
 
-class _VirtualNodeConnectionPool_http(TypedDict, closed=True):
+class VirtualNodeConnectionPoolHttpMember(TypedDict, closed=True):
     http: "capo_app_mesh.types.virtual_node_http_connection_pool.VirtualNodeHttpConnectionPool"
 
 
-class _VirtualNodeConnectionPool_http2(TypedDict, closed=True):
+class VirtualNodeConnectionPoolHttp2Member(TypedDict, closed=True):
     http2: "capo_app_mesh.types.virtual_node_http2_connection_pool.VirtualNodeHttp2ConnectionPool"
 
 
-class _VirtualNodeConnectionPool_grpc(TypedDict, closed=True):
+class VirtualNodeConnectionPoolGrpcMember(TypedDict, closed=True):
     grpc: "capo_app_mesh.types.virtual_node_grpc_connection_pool.VirtualNodeGrpcConnectionPool"
 
 
 VirtualNodeConnectionPool: TypeAlias = (
-    _VirtualNodeConnectionPool_tcp
-    | _VirtualNodeConnectionPool_http
-    | _VirtualNodeConnectionPool_http2
-    | _VirtualNodeConnectionPool_grpc
+    VirtualNodeConnectionPoolTcpMember
+    | VirtualNodeConnectionPoolHttpMember
+    | VirtualNodeConnectionPoolHttp2Member
+    | VirtualNodeConnectionPoolGrpcMember
     | UnknownUnionMember
 )
 

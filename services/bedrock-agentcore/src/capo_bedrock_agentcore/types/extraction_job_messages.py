@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.messages_list
 
 
-class _ExtractionJobMessages_messagesList(TypedDict, closed=True):
+class ExtractionJobMessagesMessagesListMember(TypedDict, closed=True):
     messagesList: "capo_bedrock_agentcore.types.messages_list.MessagesList"
 
 
 ExtractionJobMessages: TypeAlias = (
-    _ExtractionJobMessages_messagesList | UnknownUnionMember
+    ExtractionJobMessagesMessagesListMember | UnknownUnionMember
 )
 
 

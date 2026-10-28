@@ -7,25 +7,25 @@ title: LinkedAccount
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore.types.linked_account._LinkedAccount_email
+::: capo_bedrock_agentcore.types.linked_account.LinkedAccountEmailMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.linked_account._LinkedAccount_sms
+::: capo_bedrock_agentcore.types.linked_account.LinkedAccountSmsMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.linked_account._LinkedAccount_developerJwt
+::: capo_bedrock_agentcore.types.linked_account.LinkedAccountDeveloperJwtMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.linked_account._LinkedAccount_oAuth2
+::: capo_bedrock_agentcore.types.linked_account.LinkedAccountOAuth2Member
     options:
       show_source: true
       merge_init_into_class: false

@@ -7,19 +7,19 @@ title: DataReference
       show_source: true
       merge_init_into_class: false
 
-::: capo_qconnect.types.data_reference._DataReference_contentReference
+::: capo_qconnect.types.data_reference.DataReferenceContentReferenceMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qconnect.types.data_reference._DataReference_generativeReference
+::: capo_qconnect.types.data_reference.DataReferenceGenerativeReferenceMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qconnect.types.data_reference._DataReference_suggestedMessageReference
+::: capo_qconnect.types.data_reference.DataReferenceSuggestedMessageReferenceMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -7,7 +7,7 @@ title: CodegenJobRenderConfig
       show_source: true
       merge_init_into_class: false
 
-::: capo_amplifyuibuilder.types.codegen_job_render_config._CodegenJobRenderConfig_react
+::: capo_amplifyuibuilder.types.codegen_job_render_config.CodegenJobRenderConfigReactMember
     options:
       show_source: true
       merge_init_into_class: false

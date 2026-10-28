@@ -7,13 +7,13 @@ title: PolicyDefinition
       show_source: true
       merge_init_into_class: false
 
-::: capo_verifiedpermissions.types.policy_definition._PolicyDefinition_static
+::: capo_verifiedpermissions.types.policy_definition.PolicyDefinitionStaticMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_verifiedpermissions.types.policy_definition._PolicyDefinition_templateLinked
+::: capo_verifiedpermissions.types.policy_definition.PolicyDefinitionTemplateLinkedMember
     options:
       show_source: true
       merge_init_into_class: false

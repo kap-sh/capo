@@ -7,7 +7,7 @@ title: VectorData
       show_source: true
       merge_init_into_class: false
 
-::: capo_s3vectors.types.vector_data._VectorData_float32
+::: capo_s3vectors.types.vector_data.VectorDataFloat32Member
     options:
       show_source: true
       merge_init_into_class: false

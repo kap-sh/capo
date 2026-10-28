@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import datetime
 
 
-class _DashAvailabilityStartTimeConfiguration_FixedAvailabilityStartTime(
+class DashAvailabilityStartTimeConfigurationFixedAvailabilityStartTimeMember(
     TypedDict, closed=True
 ):
     FixedAvailabilityStartTime: "datetime.datetime"
 
 
 DashAvailabilityStartTimeConfiguration: TypeAlias = (
-    _DashAvailabilityStartTimeConfiguration_FixedAvailabilityStartTime
+    DashAvailabilityStartTimeConfigurationFixedAvailabilityStartTimeMember
     | UnknownUnionMember
 )
 

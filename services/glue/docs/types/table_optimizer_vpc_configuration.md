@@ -7,7 +7,7 @@ title: TableOptimizerVpcConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_glue.types.table_optimizer_vpc_configuration._TableOptimizerVpcConfiguration_glueConnectionName
+::: capo_glue.types.table_optimizer_vpc_configuration.TableOptimizerVpcConfigurationGlueConnectionNameMember
     options:
       show_source: true
       merge_init_into_class: false

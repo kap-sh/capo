@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_ecs.types.gateway_elb_access_log_s3_destination
 
 
-class _GatewayElbAccessLogDestination_s3(TypedDict, closed=True):
+class GatewayElbAccessLogDestinationS3Member(TypedDict, closed=True):
     s3: "capo_ecs.types.gateway_elb_access_log_s3_destination.GatewayElbAccessLogS3Destination"
 
 
 GatewayElbAccessLogDestination: TypeAlias = (
-    _GatewayElbAccessLogDestination_s3 | UnknownUnionMember
+    GatewayElbAccessLogDestinationS3Member | UnknownUnionMember
 )
 
 

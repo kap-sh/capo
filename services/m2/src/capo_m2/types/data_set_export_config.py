@@ -11,16 +11,18 @@ if TYPE_CHECKING:
     import capo_m2.types.data_set_export_list
 
 
-class _DataSetExportConfig_s3Location(TypedDict, closed=True):
+class DataSetExportConfigS3LocationMember(TypedDict, closed=True):
     s3Location: "str"
 
 
-class _DataSetExportConfig_dataSets(TypedDict, closed=True):
+class DataSetExportConfigDataSetsMember(TypedDict, closed=True):
     dataSets: "capo_m2.types.data_set_export_list.DataSetExportList"
 
 
 DataSetExportConfig: TypeAlias = (
-    _DataSetExportConfig_s3Location | _DataSetExportConfig_dataSets | UnknownUnionMember
+    DataSetExportConfigS3LocationMember
+    | DataSetExportConfigDataSetsMember
+    | UnknownUnionMember
 )
 
 

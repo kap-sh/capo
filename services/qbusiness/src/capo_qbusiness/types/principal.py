@@ -12,15 +12,15 @@ if TYPE_CHECKING:
     import capo_qbusiness.types.principal_user
 
 
-class _Principal_user(TypedDict, closed=True):
+class PrincipalUserMember(TypedDict, closed=True):
     user: "capo_qbusiness.types.principal_user.PrincipalUser"
 
 
-class _Principal_group(TypedDict, closed=True):
+class PrincipalGroupMember(TypedDict, closed=True):
     group: "capo_qbusiness.types.principal_group.PrincipalGroup"
 
 
-Principal: TypeAlias = _Principal_user | _Principal_group | UnknownUnionMember
+Principal: TypeAlias = PrincipalUserMember | PrincipalGroupMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

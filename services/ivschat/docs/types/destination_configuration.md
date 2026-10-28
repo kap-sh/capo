@@ -7,19 +7,19 @@ title: DestinationConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_ivschat.types.destination_configuration._DestinationConfiguration_s3
+::: capo_ivschat.types.destination_configuration.DestinationConfigurationS3Member
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_ivschat.types.destination_configuration._DestinationConfiguration_cloudWatchLogs
+::: capo_ivschat.types.destination_configuration.DestinationConfigurationCloudWatchLogsMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_ivschat.types.destination_configuration._DestinationConfiguration_firehose
+::: capo_ivschat.types.destination_configuration.DestinationConfigurationFirehoseMember
     options:
       show_source: true
       merge_init_into_class: false

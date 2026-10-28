@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.agent_alias_arn
 
 
-class _Caller_agentAliasArn(TypedDict, closed=True):
+class CallerAgentAliasArnMember(TypedDict, closed=True):
     agentAliasArn: "capo_bedrock_agent_runtime.types.agent_alias_arn.AgentAliasArn"
 
 
-Caller: TypeAlias = _Caller_agentAliasArn | UnknownUnionMember
+Caller: TypeAlias = CallerAgentAliasArnMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

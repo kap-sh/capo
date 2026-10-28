@@ -7,7 +7,7 @@ title: AutomatedReasoningPolicyGenerateFidelityReportContent
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock.types.automated_reasoning_policy_generate_fidelity_report_content._AutomatedReasoningPolicyGenerateFidelityReportContent_documents
+::: capo_bedrock.types.automated_reasoning_policy_generate_fidelity_report_content.AutomatedReasoningPolicyGenerateFidelityReportContentDocumentsMember
     options:
       show_source: true
       merge_init_into_class: false

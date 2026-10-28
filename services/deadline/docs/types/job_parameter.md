@@ -7,73 +7,73 @@ title: JobParameter
       show_source: true
       merge_init_into_class: false
 
-::: capo_deadline.types.job_parameter._JobParameter_int
+::: capo_deadline.types.job_parameter.JobParameterIntMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_deadline.types.job_parameter._JobParameter_float
+::: capo_deadline.types.job_parameter.JobParameterFloatMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_deadline.types.job_parameter._JobParameter_string
+::: capo_deadline.types.job_parameter.JobParameterStringMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_deadline.types.job_parameter._JobParameter_path
+::: capo_deadline.types.job_parameter.JobParameterPathMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_deadline.types.job_parameter._JobParameter_bool
+::: capo_deadline.types.job_parameter.JobParameterBoolMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_deadline.types.job_parameter._JobParameter_rangeExpr
+::: capo_deadline.types.job_parameter.JobParameterRangeExprMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_deadline.types.job_parameter._JobParameter_stringList
+::: capo_deadline.types.job_parameter.JobParameterStringListMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_deadline.types.job_parameter._JobParameter_pathList
+::: capo_deadline.types.job_parameter.JobParameterPathListMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_deadline.types.job_parameter._JobParameter_intList
+::: capo_deadline.types.job_parameter.JobParameterIntListMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_deadline.types.job_parameter._JobParameter_floatList
+::: capo_deadline.types.job_parameter.JobParameterFloatListMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_deadline.types.job_parameter._JobParameter_boolList
+::: capo_deadline.types.job_parameter.JobParameterBoolListMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_deadline.types.job_parameter._JobParameter_intListList
+::: capo_deadline.types.job_parameter.JobParameterIntListListMember
     options:
       show_source: true
       merge_init_into_class: false

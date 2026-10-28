@@ -7,19 +7,19 @@ title: VirtualGatewayTlsValidationContextTrust
       show_source: true
       merge_init_into_class: false
 
-::: capo_app_mesh.types.virtual_gateway_tls_validation_context_trust._VirtualGatewayTlsValidationContextTrust_acm
+::: capo_app_mesh.types.virtual_gateway_tls_validation_context_trust.VirtualGatewayTlsValidationContextTrustAcmMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_app_mesh.types.virtual_gateway_tls_validation_context_trust._VirtualGatewayTlsValidationContextTrust_file
+::: capo_app_mesh.types.virtual_gateway_tls_validation_context_trust.VirtualGatewayTlsValidationContextTrustFileMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_app_mesh.types.virtual_gateway_tls_validation_context_trust._VirtualGatewayTlsValidationContextTrust_sds
+::: capo_app_mesh.types.virtual_gateway_tls_validation_context_trust.VirtualGatewayTlsValidationContextTrustSdsMember
     options:
       show_source: true
       merge_init_into_class: false

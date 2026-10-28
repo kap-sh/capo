@@ -7,13 +7,13 @@ title: AttributeValueList
       show_source: true
       merge_init_into_class: false
 
-::: capo_ssm_incidents.types.attribute_value_list._AttributeValueList_stringValues
+::: capo_ssm_incidents.types.attribute_value_list.AttributeValueListStringValuesMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_ssm_incidents.types.attribute_value_list._AttributeValueList_integerValues
+::: capo_ssm_incidents.types.attribute_value_list.AttributeValueListIntegerValuesMember
     options:
       show_source: true
       merge_init_into_class: false

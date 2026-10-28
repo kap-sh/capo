@@ -7,7 +7,7 @@ title: RuleIpToEvaluate
       show_source: true
       merge_init_into_class: false
 
-::: capo_mailmanager.types.rule_ip_to_evaluate._RuleIpToEvaluate_Attribute
+::: capo_mailmanager.types.rule_ip_to_evaluate.RuleIpToEvaluateAttributeMember
     options:
       show_source: true
       merge_init_into_class: false

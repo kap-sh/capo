@@ -7,73 +7,73 @@ title: ConnectionPropertiesPatch
       show_source: true
       merge_init_into_class: false
 
-::: capo_datazone.types.connection_properties_patch._ConnectionPropertiesPatch_athenaProperties
+::: capo_datazone.types.connection_properties_patch.ConnectionPropertiesPatchAthenaPropertiesMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.connection_properties_patch._ConnectionPropertiesPatch_glueProperties
+::: capo_datazone.types.connection_properties_patch.ConnectionPropertiesPatchGluePropertiesMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.connection_properties_patch._ConnectionPropertiesPatch_iamProperties
+::: capo_datazone.types.connection_properties_patch.ConnectionPropertiesPatchIamPropertiesMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.connection_properties_patch._ConnectionPropertiesPatch_redshiftProperties
+::: capo_datazone.types.connection_properties_patch.ConnectionPropertiesPatchRedshiftPropertiesMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.connection_properties_patch._ConnectionPropertiesPatch_sparkEmrProperties
+::: capo_datazone.types.connection_properties_patch.ConnectionPropertiesPatchSparkEmrPropertiesMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.connection_properties_patch._ConnectionPropertiesPatch_s3Properties
+::: capo_datazone.types.connection_properties_patch.ConnectionPropertiesPatchS3PropertiesMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.connection_properties_patch._ConnectionPropertiesPatch_snowflakeProperties
+::: capo_datazone.types.connection_properties_patch.ConnectionPropertiesPatchSnowflakePropertiesMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.connection_properties_patch._ConnectionPropertiesPatch_amazonQProperties
+::: capo_datazone.types.connection_properties_patch.ConnectionPropertiesPatchAmazonQPropertiesMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.connection_properties_patch._ConnectionPropertiesPatch_mlflowProperties
+::: capo_datazone.types.connection_properties_patch.ConnectionPropertiesPatchMlflowPropertiesMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.connection_properties_patch._ConnectionPropertiesPatch_lakehouseProperties
+::: capo_datazone.types.connection_properties_patch.ConnectionPropertiesPatchLakehousePropertiesMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.connection_properties_patch._ConnectionPropertiesPatch_vpcProperties
+::: capo_datazone.types.connection_properties_patch.ConnectionPropertiesPatchVpcPropertiesMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.connection_properties_patch._ConnectionPropertiesPatch_gitProperties
+::: capo_datazone.types.connection_properties_patch.ConnectionPropertiesPatchGitPropertiesMember
     options:
       show_source: true
       merge_init_into_class: false

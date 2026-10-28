@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.online_evaluation_config_source
 
 
-class _DataSourceConfig_cloudWatchLogs(TypedDict, closed=True):
+class DataSourceConfigCloudWatchLogsMember(TypedDict, closed=True):
     cloudWatchLogs: (
         "capo_bedrock_agentcore.types.cloud_watch_logs_source.CloudWatchLogsSource"
     )
 
 
-class _DataSourceConfig_onlineEvaluationConfigSource(TypedDict, closed=True):
+class DataSourceConfigOnlineEvaluationConfigSourceMember(TypedDict, closed=True):
     onlineEvaluationConfigSource: "capo_bedrock_agentcore.types.online_evaluation_config_source.OnlineEvaluationConfigSource"
 
 
 DataSourceConfig: TypeAlias = (
-    _DataSourceConfig_cloudWatchLogs
-    | _DataSourceConfig_onlineEvaluationConfigSource
+    DataSourceConfigCloudWatchLogsMember
+    | DataSourceConfigOnlineEvaluationConfigSourceMember
     | UnknownUnionMember
 )
 

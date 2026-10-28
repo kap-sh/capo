@@ -11,13 +11,13 @@ if TYPE_CHECKING:
     import capo_ssm_incidents.types.pager_duty_configuration
 
 
-class _Integration_pagerDutyConfiguration(TypedDict, closed=True):
+class IntegrationPagerDutyConfigurationMember(TypedDict, closed=True):
     pagerDutyConfiguration: (
         "capo_ssm_incidents.types.pager_duty_configuration.PagerDutyConfiguration"
     )
 
 
-Integration: TypeAlias = _Integration_pagerDutyConfiguration | UnknownUnionMember
+Integration: TypeAlias = IntegrationPagerDutyConfigurationMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

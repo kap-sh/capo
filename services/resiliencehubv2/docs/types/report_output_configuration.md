@@ -7,7 +7,7 @@ title: ReportOutputConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_resiliencehubv2.types.report_output_configuration._ReportOutputConfiguration_s3
+::: capo_resiliencehubv2.types.report_output_configuration.ReportOutputConfigurationS3Member
     options:
       show_source: true
       merge_init_into_class: false

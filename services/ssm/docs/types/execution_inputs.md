@@ -7,7 +7,7 @@ title: ExecutionInputs
       show_source: true
       merge_init_into_class: false
 
-::: capo_ssm.types.execution_inputs._ExecutionInputs_Automation
+::: capo_ssm.types.execution_inputs.ExecutionInputsAutomationMember
     options:
       show_source: true
       merge_init_into_class: false

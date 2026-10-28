@@ -14,11 +14,13 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.kinesis_resource
 
 
-class _StreamDeliveryResource_kinesis(TypedDict, closed=True):
+class StreamDeliveryResourceKinesisMember(TypedDict, closed=True):
     kinesis: "capo_bedrock_agentcore_control.types.kinesis_resource.KinesisResource"
 
 
-StreamDeliveryResource: TypeAlias = _StreamDeliveryResource_kinesis | UnknownUnionMember
+StreamDeliveryResource: TypeAlias = (
+    StreamDeliveryResourceKinesisMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

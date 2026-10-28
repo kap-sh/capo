@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_opensearch.types.s3_glue_data_catalog
 
 
-class _DataSourceType_S3GlueDataCatalog(TypedDict, closed=True):
+class DataSourceTypeS3GlueDataCatalogMember(TypedDict, closed=True):
     S3GlueDataCatalog: "capo_opensearch.types.s3_glue_data_catalog.S3GlueDataCatalog"
 
 
-DataSourceType: TypeAlias = _DataSourceType_S3GlueDataCatalog | UnknownUnionMember
+DataSourceType: TypeAlias = DataSourceTypeS3GlueDataCatalogMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

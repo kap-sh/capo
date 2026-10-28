@@ -13,26 +13,26 @@ if TYPE_CHECKING:
     import capo_migrationhubstrategy.types.self_manage_resources
 
 
-class _ManagementPreference_awsManagedResources(TypedDict, closed=True):
+class ManagementPreferenceAwsManagedResourcesMember(TypedDict, closed=True):
     awsManagedResources: (
         "capo_migrationhubstrategy.types.aws_managed_resources.AwsManagedResources"
     )
 
 
-class _ManagementPreference_selfManageResources(TypedDict, closed=True):
+class ManagementPreferenceSelfManageResourcesMember(TypedDict, closed=True):
     selfManageResources: (
         "capo_migrationhubstrategy.types.self_manage_resources.SelfManageResources"
     )
 
 
-class _ManagementPreference_noPreference(TypedDict, closed=True):
+class ManagementPreferenceNoPreferenceMember(TypedDict, closed=True):
     noPreference: "capo_migrationhubstrategy.types.no_management_preference.NoManagementPreference"
 
 
 ManagementPreference: TypeAlias = (
-    _ManagementPreference_awsManagedResources
-    | _ManagementPreference_selfManageResources
-    | _ManagementPreference_noPreference
+    ManagementPreferenceAwsManagedResourcesMember
+    | ManagementPreferenceSelfManageResourcesMember
+    | ManagementPreferenceNoPreferenceMember
     | UnknownUnionMember
 )
 

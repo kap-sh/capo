@@ -16,37 +16,37 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.slurm_health_metadata
 
 
-class _EventMetadata_Cluster(TypedDict, closed=True):
+class EventMetadataClusterMember(TypedDict, closed=True):
     Cluster: "capo_sagemaker.types.cluster_metadata.ClusterMetadata"
 
 
-class _EventMetadata_InstanceGroup(TypedDict, closed=True):
+class EventMetadataInstanceGroupMember(TypedDict, closed=True):
     InstanceGroup: "capo_sagemaker.types.instance_group_metadata.InstanceGroupMetadata"
 
 
-class _EventMetadata_InstanceGroupScaling(TypedDict, closed=True):
+class EventMetadataInstanceGroupScalingMember(TypedDict, closed=True):
     InstanceGroupScaling: "capo_sagemaker.types.instance_group_scaling_metadata.InstanceGroupScalingMetadata"
 
 
-class _EventMetadata_Instance(TypedDict, closed=True):
+class EventMetadataInstanceMember(TypedDict, closed=True):
     Instance: "capo_sagemaker.types.instance_metadata.InstanceMetadata"
 
 
-class _EventMetadata_DatabaseConfiguration(TypedDict, closed=True):
+class EventMetadataDatabaseConfigurationMember(TypedDict, closed=True):
     DatabaseConfiguration: "capo_sagemaker.types.database_configuration_metadata.DatabaseConfigurationMetadata"
 
 
-class _EventMetadata_SlurmHealth(TypedDict, closed=True):
+class EventMetadataSlurmHealthMember(TypedDict, closed=True):
     SlurmHealth: "capo_sagemaker.types.slurm_health_metadata.SlurmHealthMetadata"
 
 
 EventMetadata: TypeAlias = (
-    _EventMetadata_Cluster
-    | _EventMetadata_InstanceGroup
-    | _EventMetadata_InstanceGroupScaling
-    | _EventMetadata_Instance
-    | _EventMetadata_DatabaseConfiguration
-    | _EventMetadata_SlurmHealth
+    EventMetadataClusterMember
+    | EventMetadataInstanceGroupMember
+    | EventMetadataInstanceGroupScalingMember
+    | EventMetadataInstanceMember
+    | EventMetadataDatabaseConfigurationMember
+    | EventMetadataSlurmHealthMember
     | UnknownUnionMember
 )
 

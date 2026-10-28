@@ -7,7 +7,7 @@ title: AutomationExecution
       show_source: true
       merge_init_into_class: false
 
-::: capo_ssm_incidents.types.automation_execution._AutomationExecution_ssmExecutionArn
+::: capo_ssm_incidents.types.automation_execution.AutomationExecutionSsmExecutionArnMember
     options:
       show_source: true
       merge_init_into_class: false

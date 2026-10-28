@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_amp.types.vpc_configuration
 
 
-class _Source_eksConfiguration(TypedDict, closed=True):
+class SourceEksConfigurationMember(TypedDict, closed=True):
     eksConfiguration: "capo_amp.types.eks_configuration.EksConfiguration"
 
 
-class _Source_vpcConfiguration(TypedDict, closed=True):
+class SourceVpcConfigurationMember(TypedDict, closed=True):
     vpcConfiguration: "capo_amp.types.vpc_configuration.VpcConfiguration"
 
 
 Source: TypeAlias = (
-    _Source_eksConfiguration | _Source_vpcConfiguration | UnknownUnionMember
+    SourceEksConfigurationMember | SourceVpcConfigurationMember | UnknownUnionMember
 )
 
 

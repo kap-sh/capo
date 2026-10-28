@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.ai_model_source_s3
 
 
-class _AIModelSource_S3(TypedDict, closed=True):
+class AIModelSourceS3Member(TypedDict, closed=True):
     S3: "capo_sagemaker.types.ai_model_source_s3.AIModelSourceS3"
 
 
-AIModelSource: TypeAlias = _AIModelSource_S3 | UnknownUnionMember
+AIModelSource: TypeAlias = AIModelSourceS3Member | UnknownUnionMember
 
 
 # --- awsJson1_1 ser/de ---

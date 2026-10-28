@@ -8,17 +8,17 @@ from capo_timestream_influxdb.errors import DeserializationError, SerializationE
 from capo_timestream_influxdb.types._unknown import UnknownUnionMember
 
 
-class _PercentOrAbsoluteLong_percent(TypedDict, closed=True):
+class PercentOrAbsoluteLongPercentMember(TypedDict, closed=True):
     percent: "str"
 
 
-class _PercentOrAbsoluteLong_absolute(TypedDict, closed=True):
+class PercentOrAbsoluteLongAbsoluteMember(TypedDict, closed=True):
     absolute: "int"
 
 
 PercentOrAbsoluteLong: TypeAlias = (
-    _PercentOrAbsoluteLong_percent
-    | _PercentOrAbsoluteLong_absolute
+    PercentOrAbsoluteLongPercentMember
+    | PercentOrAbsoluteLongAbsoluteMember
     | UnknownUnionMember
 )
 

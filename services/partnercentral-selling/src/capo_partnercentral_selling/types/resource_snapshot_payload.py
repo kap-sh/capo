@@ -12,17 +12,19 @@ if TYPE_CHECKING:
     import capo_partnercentral_selling.types.opportunity_summary_view
 
 
-class _ResourceSnapshotPayload_OpportunitySummary(TypedDict, closed=True):
+class ResourceSnapshotPayloadOpportunitySummaryMember(TypedDict, closed=True):
     OpportunitySummary: "capo_partnercentral_selling.types.opportunity_summary_view.OpportunitySummaryView"
 
 
-class _ResourceSnapshotPayload_AwsOpportunitySummaryFullView(TypedDict, closed=True):
+class ResourceSnapshotPayloadAwsOpportunitySummaryFullViewMember(
+    TypedDict, closed=True
+):
     AwsOpportunitySummaryFullView: "capo_partnercentral_selling.types.aws_opportunity_summary_full_view.AwsOpportunitySummaryFullView"
 
 
 ResourceSnapshotPayload: TypeAlias = (
-    _ResourceSnapshotPayload_OpportunitySummary
-    | _ResourceSnapshotPayload_AwsOpportunitySummaryFullView
+    ResourceSnapshotPayloadOpportunitySummaryMember
+    | ResourceSnapshotPayloadAwsOpportunitySummaryFullViewMember
     | UnknownUnionMember
 )
 

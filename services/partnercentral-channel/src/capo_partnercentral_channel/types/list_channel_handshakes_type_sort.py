@@ -13,26 +13,28 @@ if TYPE_CHECKING:
     import capo_partnercentral_channel.types.start_service_period_type_sort
 
 
-class _ListChannelHandshakesTypeSort_startServicePeriodTypeSort(TypedDict, closed=True):
+class ListChannelHandshakesTypeSortStartServicePeriodTypeSortMember(
+    TypedDict, closed=True
+):
     startServicePeriodTypeSort: "capo_partnercentral_channel.types.start_service_period_type_sort.StartServicePeriodTypeSort"
 
 
-class _ListChannelHandshakesTypeSort_revokeServicePeriodTypeSort(
+class ListChannelHandshakesTypeSortRevokeServicePeriodTypeSortMember(
     TypedDict, closed=True
 ):
     revokeServicePeriodTypeSort: "capo_partnercentral_channel.types.revoke_service_period_type_sort.RevokeServicePeriodTypeSort"
 
 
-class _ListChannelHandshakesTypeSort_programManagementAccountTypeSort(
+class ListChannelHandshakesTypeSortProgramManagementAccountTypeSortMember(
     TypedDict, closed=True
 ):
     programManagementAccountTypeSort: "capo_partnercentral_channel.types.program_management_account_type_sort.ProgramManagementAccountTypeSort"
 
 
 ListChannelHandshakesTypeSort: TypeAlias = (
-    _ListChannelHandshakesTypeSort_startServicePeriodTypeSort
-    | _ListChannelHandshakesTypeSort_revokeServicePeriodTypeSort
-    | _ListChannelHandshakesTypeSort_programManagementAccountTypeSort
+    ListChannelHandshakesTypeSortStartServicePeriodTypeSortMember
+    | ListChannelHandshakesTypeSortRevokeServicePeriodTypeSortMember
+    | ListChannelHandshakesTypeSortProgramManagementAccountTypeSortMember
     | UnknownUnionMember
 )
 

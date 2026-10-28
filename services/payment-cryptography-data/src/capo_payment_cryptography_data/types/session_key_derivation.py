@@ -19,41 +19,41 @@ if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.session_key_visa
 
 
-class _SessionKeyDerivation_EmvCommon(TypedDict, closed=True):
+class SessionKeyDerivationEmvCommonMember(TypedDict, closed=True):
     EmvCommon: "capo_payment_cryptography_data.types.session_key_emv_common.SessionKeyEmvCommon"
 
 
-class _SessionKeyDerivation_Mastercard(TypedDict, closed=True):
+class SessionKeyDerivationMastercardMember(TypedDict, closed=True):
     Mastercard: "capo_payment_cryptography_data.types.session_key_mastercard.SessionKeyMastercard"
 
 
-class _SessionKeyDerivation_Emv2000(TypedDict, closed=True):
+class SessionKeyDerivationEmv2000Member(TypedDict, closed=True):
     Emv2000: (
         "capo_payment_cryptography_data.types.session_key_emv2000.SessionKeyEmv2000"
     )
 
 
-class _SessionKeyDerivation_Amex(TypedDict, closed=True):
+class SessionKeyDerivationAmexMember(TypedDict, closed=True):
     Amex: "capo_payment_cryptography_data.types.session_key_amex.SessionKeyAmex"
 
 
-class _SessionKeyDerivation_Visa(TypedDict, closed=True):
+class SessionKeyDerivationVisaMember(TypedDict, closed=True):
     Visa: "capo_payment_cryptography_data.types.session_key_visa.SessionKeyVisa"
 
 
-class _SessionKeyDerivation_UnionPay(TypedDict, closed=True):
+class SessionKeyDerivationUnionPayMember(TypedDict, closed=True):
     UnionPay: (
         "capo_payment_cryptography_data.types.session_key_union_pay.SessionKeyUnionPay"
     )
 
 
 SessionKeyDerivation: TypeAlias = (
-    _SessionKeyDerivation_EmvCommon
-    | _SessionKeyDerivation_Mastercard
-    | _SessionKeyDerivation_Emv2000
-    | _SessionKeyDerivation_Amex
-    | _SessionKeyDerivation_Visa
-    | _SessionKeyDerivation_UnionPay
+    SessionKeyDerivationEmvCommonMember
+    | SessionKeyDerivationMastercardMember
+    | SessionKeyDerivationEmv2000Member
+    | SessionKeyDerivationAmexMember
+    | SessionKeyDerivationVisaMember
+    | SessionKeyDerivationUnionPayMember
     | UnknownUnionMember
 )
 

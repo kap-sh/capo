@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_bedrock.types.evaluation_precomputed_inference_source
 
 
-class _EvaluationModelConfig_bedrockModel(TypedDict, closed=True):
+class EvaluationModelConfigBedrockModelMember(TypedDict, closed=True):
     bedrockModel: "capo_bedrock.types.evaluation_bedrock_model.EvaluationBedrockModel"
 
 
-class _EvaluationModelConfig_precomputedInferenceSource(TypedDict, closed=True):
+class EvaluationModelConfigPrecomputedInferenceSourceMember(TypedDict, closed=True):
     precomputedInferenceSource: "capo_bedrock.types.evaluation_precomputed_inference_source.EvaluationPrecomputedInferenceSource"
 
 
 EvaluationModelConfig: TypeAlias = (
-    _EvaluationModelConfig_bedrockModel
-    | _EvaluationModelConfig_precomputedInferenceSource
+    EvaluationModelConfigBedrockModelMember
+    | EvaluationModelConfigPrecomputedInferenceSourceMember
     | UnknownUnionMember
 )
 

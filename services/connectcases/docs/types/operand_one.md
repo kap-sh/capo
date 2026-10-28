@@ -7,7 +7,7 @@ title: OperandOne
       show_source: true
       merge_init_into_class: false
 
-::: capo_connectcases.types.operand_one._OperandOne_fieldId
+::: capo_connectcases.types.operand_one.OperandOneFieldIdMember
     options:
       show_source: true
       merge_init_into_class: false

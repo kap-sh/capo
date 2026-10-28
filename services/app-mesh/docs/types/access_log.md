@@ -7,7 +7,7 @@ title: AccessLog
       show_source: true
       merge_init_into_class: false
 
-::: capo_app_mesh.types.access_log._AccessLog_file
+::: capo_app_mesh.types.access_log.AccessLogFileMember
     options:
       show_source: true
       merge_init_into_class: false

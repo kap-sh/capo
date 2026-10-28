@@ -11,7 +11,7 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.fields_for_reranking
 
 
-class _RerankingMetadataSelectiveModeConfiguration_fieldsToInclude(
+class RerankingMetadataSelectiveModeConfigurationFieldsToIncludeMember(
     TypedDict, closed=True
 ):
     fieldsToInclude: (
@@ -19,7 +19,7 @@ class _RerankingMetadataSelectiveModeConfiguration_fieldsToInclude(
     )
 
 
-class _RerankingMetadataSelectiveModeConfiguration_fieldsToExclude(
+class RerankingMetadataSelectiveModeConfigurationFieldsToExcludeMember(
     TypedDict, closed=True
 ):
     fieldsToExclude: (
@@ -28,8 +28,8 @@ class _RerankingMetadataSelectiveModeConfiguration_fieldsToExclude(
 
 
 RerankingMetadataSelectiveModeConfiguration: TypeAlias = (
-    _RerankingMetadataSelectiveModeConfiguration_fieldsToInclude
-    | _RerankingMetadataSelectiveModeConfiguration_fieldsToExclude
+    RerankingMetadataSelectiveModeConfigurationFieldsToIncludeMember
+    | RerankingMetadataSelectiveModeConfigurationFieldsToExcludeMember
     | UnknownUnionMember
 )
 

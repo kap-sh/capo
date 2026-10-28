@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_datazone.types.domain_unit_target
 
 
-class _RuleTarget_domainUnitTarget(TypedDict, closed=True):
+class RuleTargetDomainUnitTargetMember(TypedDict, closed=True):
     domainUnitTarget: "capo_datazone.types.domain_unit_target.DomainUnitTarget"
 
 
-RuleTarget: TypeAlias = _RuleTarget_domainUnitTarget | UnknownUnionMember
+RuleTarget: TypeAlias = RuleTargetDomainUnitTargetMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

@@ -7,7 +7,7 @@ title: TelemetrySinkData
       show_source: true
       merge_init_into_class: false
 
-::: capo_groundstation.types.telemetry_sink_data._TelemetrySinkData_kinesisDataStreamData
+::: capo_groundstation.types.telemetry_sink_data.TelemetrySinkDataKinesisDataStreamDataMember
     options:
       show_source: true
       merge_init_into_class: false

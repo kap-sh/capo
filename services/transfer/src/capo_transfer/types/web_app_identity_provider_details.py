@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_transfer.types.identity_center_config
 
 
-class _WebAppIdentityProviderDetails_IdentityCenterConfig(TypedDict, closed=True):
+class WebAppIdentityProviderDetailsIdentityCenterConfigMember(TypedDict, closed=True):
     IdentityCenterConfig: (
         "capo_transfer.types.identity_center_config.IdentityCenterConfig"
     )
 
 
 WebAppIdentityProviderDetails: TypeAlias = (
-    _WebAppIdentityProviderDetails_IdentityCenterConfig | UnknownUnionMember
+    WebAppIdentityProviderDetailsIdentityCenterConfigMember | UnknownUnionMember
 )
 
 

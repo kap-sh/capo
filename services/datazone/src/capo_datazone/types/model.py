@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_datazone.types.smithy
 
 
-class _Model_smithy(TypedDict, closed=True):
+class ModelSmithyMember(TypedDict, closed=True):
     smithy: "capo_datazone.types.smithy.Smithy"
 
 
-Model: TypeAlias = _Model_smithy | UnknownUnionMember
+Model: TypeAlias = ModelSmithyMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

@@ -14,35 +14,35 @@ if TYPE_CHECKING:
     import capo_qbusiness.types.o_auth2_client_credential_configuration
 
 
-class _PluginAuthConfiguration_basicAuthConfiguration(TypedDict, closed=True):
+class PluginAuthConfigurationBasicAuthConfigurationMember(TypedDict, closed=True):
     basicAuthConfiguration: (
         "capo_qbusiness.types.basic_auth_configuration.BasicAuthConfiguration"
     )
 
 
-class _PluginAuthConfiguration_oAuth2ClientCredentialConfiguration(
+class PluginAuthConfigurationOAuth2ClientCredentialConfigurationMember(
     TypedDict, closed=True
 ):
     oAuth2ClientCredentialConfiguration: "capo_qbusiness.types.o_auth2_client_credential_configuration.OAuth2ClientCredentialConfiguration"
 
 
-class _PluginAuthConfiguration_noAuthConfiguration(TypedDict, closed=True):
+class PluginAuthConfigurationNoAuthConfigurationMember(TypedDict, closed=True):
     noAuthConfiguration: (
         "capo_qbusiness.types.no_auth_configuration.NoAuthConfiguration"
     )
 
 
-class _PluginAuthConfiguration_idcAuthConfiguration(TypedDict, closed=True):
+class PluginAuthConfigurationIdcAuthConfigurationMember(TypedDict, closed=True):
     idcAuthConfiguration: (
         "capo_qbusiness.types.idc_auth_configuration.IdcAuthConfiguration"
     )
 
 
 PluginAuthConfiguration: TypeAlias = (
-    _PluginAuthConfiguration_basicAuthConfiguration
-    | _PluginAuthConfiguration_oAuth2ClientCredentialConfiguration
-    | _PluginAuthConfiguration_noAuthConfiguration
-    | _PluginAuthConfiguration_idcAuthConfiguration
+    PluginAuthConfigurationBasicAuthConfigurationMember
+    | PluginAuthConfigurationOAuth2ClientCredentialConfigurationMember
+    | PluginAuthConfigurationNoAuthConfigurationMember
+    | PluginAuthConfigurationIdcAuthConfigurationMember
     | UnknownUnionMember
 )
 

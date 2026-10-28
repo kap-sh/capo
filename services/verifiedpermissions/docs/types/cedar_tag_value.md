@@ -7,61 +7,61 @@ title: CedarTagValue
       show_source: true
       merge_init_into_class: false
 
-::: capo_verifiedpermissions.types.cedar_tag_value._CedarTagValue_boolean
+::: capo_verifiedpermissions.types.cedar_tag_value.CedarTagValueBooleanMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_verifiedpermissions.types.cedar_tag_value._CedarTagValue_entityIdentifier
+::: capo_verifiedpermissions.types.cedar_tag_value.CedarTagValueEntityIdentifierMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_verifiedpermissions.types.cedar_tag_value._CedarTagValue_long
+::: capo_verifiedpermissions.types.cedar_tag_value.CedarTagValueLongMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_verifiedpermissions.types.cedar_tag_value._CedarTagValue_string
+::: capo_verifiedpermissions.types.cedar_tag_value.CedarTagValueStringMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_verifiedpermissions.types.cedar_tag_value._CedarTagValue_set
+::: capo_verifiedpermissions.types.cedar_tag_value.CedarTagValueSetMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_verifiedpermissions.types.cedar_tag_value._CedarTagValue_record
+::: capo_verifiedpermissions.types.cedar_tag_value.CedarTagValueRecordMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_verifiedpermissions.types.cedar_tag_value._CedarTagValue_ipaddr
+::: capo_verifiedpermissions.types.cedar_tag_value.CedarTagValueIpaddrMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_verifiedpermissions.types.cedar_tag_value._CedarTagValue_decimal
+::: capo_verifiedpermissions.types.cedar_tag_value.CedarTagValueDecimalMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_verifiedpermissions.types.cedar_tag_value._CedarTagValue_datetime
+::: capo_verifiedpermissions.types.cedar_tag_value.CedarTagValueDatetimeMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_verifiedpermissions.types.cedar_tag_value._CedarTagValue_duration
+::: capo_verifiedpermissions.types.cedar_tag_value.CedarTagValueDurationMember
     options:
       show_source: true
       merge_init_into_class: false

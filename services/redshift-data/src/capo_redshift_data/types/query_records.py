@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_redshift_data.types.string
 
 
-class _QueryRecords_CSVRecords(TypedDict, closed=True):
+class QueryRecordsCSVRecordsMember(TypedDict, closed=True):
     CSVRecords: "capo_redshift_data.types.string.String"
 
 
-QueryRecords: TypeAlias = _QueryRecords_CSVRecords | UnknownUnionMember
+QueryRecords: TypeAlias = QueryRecordsCSVRecordsMember | UnknownUnionMember
 
 
 # --- awsJson1_1 ser/de ---

@@ -13,24 +13,26 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.configured_table_association_analysis_rule_list
 
 
-class _ConfiguredTableAssociationAnalysisRulePolicyV1_list(TypedDict, closed=True):
+class ConfiguredTableAssociationAnalysisRulePolicyV1ListMember(TypedDict, closed=True):
     list: "capo_cleanrooms.types.configured_table_association_analysis_rule_list.ConfiguredTableAssociationAnalysisRuleList"
 
 
-class _ConfiguredTableAssociationAnalysisRulePolicyV1_aggregation(
+class ConfiguredTableAssociationAnalysisRulePolicyV1AggregationMember(
     TypedDict, closed=True
 ):
     aggregation: "capo_cleanrooms.types.configured_table_association_analysis_rule_aggregation.ConfiguredTableAssociationAnalysisRuleAggregation"
 
 
-class _ConfiguredTableAssociationAnalysisRulePolicyV1_custom(TypedDict, closed=True):
+class ConfiguredTableAssociationAnalysisRulePolicyV1CustomMember(
+    TypedDict, closed=True
+):
     custom: "capo_cleanrooms.types.configured_table_association_analysis_rule_custom.ConfiguredTableAssociationAnalysisRuleCustom"
 
 
 ConfiguredTableAssociationAnalysisRulePolicyV1: TypeAlias = (
-    _ConfiguredTableAssociationAnalysisRulePolicyV1_list
-    | _ConfiguredTableAssociationAnalysisRulePolicyV1_aggregation
-    | _ConfiguredTableAssociationAnalysisRulePolicyV1_custom
+    ConfiguredTableAssociationAnalysisRulePolicyV1ListMember
+    | ConfiguredTableAssociationAnalysisRulePolicyV1AggregationMember
+    | ConfiguredTableAssociationAnalysisRulePolicyV1CustomMember
     | UnknownUnionMember
 )
 

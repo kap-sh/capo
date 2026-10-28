@@ -12,16 +12,18 @@ if TYPE_CHECKING:
     import capo_partnercentral_selling.types.opportunity_invitation_payload
 
 
-class _Payload_OpportunityInvitation(TypedDict, closed=True):
+class PayloadOpportunityInvitationMember(TypedDict, closed=True):
     OpportunityInvitation: "capo_partnercentral_selling.types.opportunity_invitation_payload.OpportunityInvitationPayload"
 
 
-class _Payload_LeadInvitation(TypedDict, closed=True):
+class PayloadLeadInvitationMember(TypedDict, closed=True):
     LeadInvitation: "capo_partnercentral_selling.types.lead_invitation_payload.LeadInvitationPayload"
 
 
 Payload: TypeAlias = (
-    _Payload_OpportunityInvitation | _Payload_LeadInvitation | UnknownUnionMember
+    PayloadOpportunityInvitationMember
+    | PayloadLeadInvitationMember
+    | UnknownUnionMember
 )
 
 

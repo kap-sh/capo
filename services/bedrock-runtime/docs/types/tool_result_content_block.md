@@ -7,37 +7,37 @@ title: ToolResultContentBlock
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_runtime.types.tool_result_content_block._ToolResultContentBlock_json
+::: capo_bedrock_runtime.types.tool_result_content_block.ToolResultContentBlockJsonMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.tool_result_content_block._ToolResultContentBlock_text
+::: capo_bedrock_runtime.types.tool_result_content_block.ToolResultContentBlockTextMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.tool_result_content_block._ToolResultContentBlock_image
+::: capo_bedrock_runtime.types.tool_result_content_block.ToolResultContentBlockImageMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.tool_result_content_block._ToolResultContentBlock_document
+::: capo_bedrock_runtime.types.tool_result_content_block.ToolResultContentBlockDocumentMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.tool_result_content_block._ToolResultContentBlock_video
+::: capo_bedrock_runtime.types.tool_result_content_block.ToolResultContentBlockVideoMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_runtime.types.tool_result_content_block._ToolResultContentBlock_searchResult
+::: capo_bedrock_runtime.types.tool_result_content_block.ToolResultContentBlockSearchResultMember
     options:
       show_source: true
       merge_init_into_class: false

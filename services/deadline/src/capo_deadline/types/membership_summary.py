@@ -14,27 +14,27 @@ if TYPE_CHECKING:
     import capo_deadline.types.queue_member
 
 
-class _MembershipSummary_farm(TypedDict, closed=True):
+class MembershipSummaryFarmMember(TypedDict, closed=True):
     farm: "capo_deadline.types.farm_member.FarmMember"
 
 
-class _MembershipSummary_queue(TypedDict, closed=True):
+class MembershipSummaryQueueMember(TypedDict, closed=True):
     queue: "capo_deadline.types.queue_member.QueueMember"
 
 
-class _MembershipSummary_fleet(TypedDict, closed=True):
+class MembershipSummaryFleetMember(TypedDict, closed=True):
     fleet: "capo_deadline.types.fleet_member.FleetMember"
 
 
-class _MembershipSummary_job(TypedDict, closed=True):
+class MembershipSummaryJobMember(TypedDict, closed=True):
     job: "capo_deadline.types.job_member.JobMember"
 
 
 MembershipSummary: TypeAlias = (
-    _MembershipSummary_farm
-    | _MembershipSummary_queue
-    | _MembershipSummary_fleet
-    | _MembershipSummary_job
+    MembershipSummaryFarmMember
+    | MembershipSummaryQueueMember
+    | MembershipSummaryFleetMember
+    | MembershipSummaryJobMember
     | UnknownUnionMember
 )
 

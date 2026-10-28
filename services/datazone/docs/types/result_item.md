@@ -7,7 +7,7 @@ title: ResultItem
       show_source: true
       merge_init_into_class: false
 
-::: capo_datazone.types.result_item._ResultItem_lineageNode
+::: capo_datazone.types.result_item.ResultItemLineageNodeMember
     options:
       show_source: true
       merge_init_into_class: false

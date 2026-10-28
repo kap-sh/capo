@@ -16,45 +16,45 @@ if TYPE_CHECKING:
     import capo_sagemaker_geospatial.types.view_sun_elevation_input
 
 
-class _Property_EoCloudCover(TypedDict, closed=True):
+class PropertyEoCloudCoverMember(TypedDict, closed=True):
     EoCloudCover: (
         "capo_sagemaker_geospatial.types.eo_cloud_cover_input.EoCloudCoverInput"
     )
 
 
-class _Property_ViewOffNadir(TypedDict, closed=True):
+class PropertyViewOffNadirMember(TypedDict, closed=True):
     ViewOffNadir: (
         "capo_sagemaker_geospatial.types.view_off_nadir_input.ViewOffNadirInput"
     )
 
 
-class _Property_ViewSunAzimuth(TypedDict, closed=True):
+class PropertyViewSunAzimuthMember(TypedDict, closed=True):
     ViewSunAzimuth: (
         "capo_sagemaker_geospatial.types.view_sun_azimuth_input.ViewSunAzimuthInput"
     )
 
 
-class _Property_ViewSunElevation(TypedDict, closed=True):
+class PropertyViewSunElevationMember(TypedDict, closed=True):
     ViewSunElevation: (
         "capo_sagemaker_geospatial.types.view_sun_elevation_input.ViewSunElevationInput"
     )
 
 
-class _Property_Platform(TypedDict, closed=True):
+class PropertyPlatformMember(TypedDict, closed=True):
     Platform: "capo_sagemaker_geospatial.types.platform_input.PlatformInput"
 
 
-class _Property_LandsatCloudCoverLand(TypedDict, closed=True):
+class PropertyLandsatCloudCoverLandMember(TypedDict, closed=True):
     LandsatCloudCoverLand: "capo_sagemaker_geospatial.types.landsat_cloud_cover_land_input.LandsatCloudCoverLandInput"
 
 
 Property: TypeAlias = (
-    _Property_EoCloudCover
-    | _Property_ViewOffNadir
-    | _Property_ViewSunAzimuth
-    | _Property_ViewSunElevation
-    | _Property_Platform
-    | _Property_LandsatCloudCoverLand
+    PropertyEoCloudCoverMember
+    | PropertyViewOffNadirMember
+    | PropertyViewSunAzimuthMember
+    | PropertyViewSunElevationMember
+    | PropertyPlatformMember
+    | PropertyLandsatCloudCoverLandMember
     | UnknownUnionMember
 )
 

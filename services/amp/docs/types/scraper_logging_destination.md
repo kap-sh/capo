@@ -7,7 +7,7 @@ title: ScraperLoggingDestination
       show_source: true
       merge_init_into_class: false
 
-::: capo_amp.types.scraper_logging_destination._ScraperLoggingDestination_cloudWatchLogs
+::: capo_amp.types.scraper_logging_destination.ScraperLoggingDestinationCloudWatchLogsMember
     options:
       show_source: true
       merge_init_into_class: false

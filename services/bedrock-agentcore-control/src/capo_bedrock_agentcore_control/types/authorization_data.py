@@ -14,11 +14,11 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.o_auth2_authorization_data
 
 
-class _AuthorizationData_oauth2(TypedDict, closed=True):
+class AuthorizationDataOauth2Member(TypedDict, closed=True):
     oauth2: "capo_bedrock_agentcore_control.types.o_auth2_authorization_data.OAuth2AuthorizationData"
 
 
-AuthorizationData: TypeAlias = _AuthorizationData_oauth2 | UnknownUnionMember
+AuthorizationData: TypeAlias = AuthorizationDataOauth2Member | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

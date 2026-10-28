@@ -7,19 +7,19 @@ title: TagFilter
       show_source: true
       merge_init_into_class: false
 
-::: capo_qconnect.types.tag_filter._TagFilter_tagCondition
+::: capo_qconnect.types.tag_filter.TagFilterTagConditionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qconnect.types.tag_filter._TagFilter_andConditions
+::: capo_qconnect.types.tag_filter.TagFilterAndConditionsMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qconnect.types.tag_filter._TagFilter_orConditions
+::: capo_qconnect.types.tag_filter.TagFilterOrConditionsMember
     options:
       show_source: true
       merge_init_into_class: false

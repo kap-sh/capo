@@ -7,19 +7,19 @@ title: VirtualGatewayListenerTlsCertificate
       show_source: true
       merge_init_into_class: false
 
-::: capo_app_mesh.types.virtual_gateway_listener_tls_certificate._VirtualGatewayListenerTlsCertificate_acm
+::: capo_app_mesh.types.virtual_gateway_listener_tls_certificate.VirtualGatewayListenerTlsCertificateAcmMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_app_mesh.types.virtual_gateway_listener_tls_certificate._VirtualGatewayListenerTlsCertificate_file
+::: capo_app_mesh.types.virtual_gateway_listener_tls_certificate.VirtualGatewayListenerTlsCertificateFileMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_app_mesh.types.virtual_gateway_listener_tls_certificate._VirtualGatewayListenerTlsCertificate_sds
+::: capo_app_mesh.types.virtual_gateway_listener_tls_certificate.VirtualGatewayListenerTlsCertificateSdsMember
     options:
       show_source: true
       merge_init_into_class: false

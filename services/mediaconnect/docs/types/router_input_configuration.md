@@ -7,37 +7,37 @@ title: RouterInputConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_mediaconnect.types.router_input_configuration._RouterInputConfiguration_DestinationEndpoint
+::: capo_mediaconnect.types.router_input_configuration.RouterInputConfigurationDestinationEndpointMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mediaconnect.types.router_input_configuration._RouterInputConfiguration_Standard
+::: capo_mediaconnect.types.router_input_configuration.RouterInputConfigurationStandardMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mediaconnect.types.router_input_configuration._RouterInputConfiguration_MediaLiveChannel
+::: capo_mediaconnect.types.router_input_configuration.RouterInputConfigurationMediaLiveChannelMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mediaconnect.types.router_input_configuration._RouterInputConfiguration_Failover
+::: capo_mediaconnect.types.router_input_configuration.RouterInputConfigurationFailoverMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mediaconnect.types.router_input_configuration._RouterInputConfiguration_MediaConnectFlow
+::: capo_mediaconnect.types.router_input_configuration.RouterInputConfigurationMediaConnectFlowMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mediaconnect.types.router_input_configuration._RouterInputConfiguration_Merge
+::: capo_mediaconnect.types.router_input_configuration.RouterInputConfigurationMergeMember
     options:
       show_source: true
       merge_init_into_class: false

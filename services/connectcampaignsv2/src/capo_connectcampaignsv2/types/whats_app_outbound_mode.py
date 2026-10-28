@@ -11,11 +11,13 @@ if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.agentless_config
 
 
-class _WhatsAppOutboundMode_agentless(TypedDict, closed=True):
+class WhatsAppOutboundModeAgentlessMember(TypedDict, closed=True):
     agentless: "capo_connectcampaignsv2.types.agentless_config.AgentlessConfig"
 
 
-WhatsAppOutboundMode: TypeAlias = _WhatsAppOutboundMode_agentless | UnknownUnionMember
+WhatsAppOutboundMode: TypeAlias = (
+    WhatsAppOutboundModeAgentlessMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

@@ -12,22 +12,22 @@ if TYPE_CHECKING:
     import capo_lambda_microvms.types.port_range
 
 
-class _PortSpecification_port(TypedDict, closed=True):
+class PortSpecificationPortMember(TypedDict, closed=True):
     port: "capo_lambda_microvms.types.port_number.PortNumber"
 
 
-class _PortSpecification_range(TypedDict, closed=True):
+class PortSpecificationRangeMember(TypedDict, closed=True):
     range: "capo_lambda_microvms.types.port_range.PortRange"
 
 
-class _PortSpecification_allPorts(TypedDict, closed=True):
+class PortSpecificationAllPortsMember(TypedDict, closed=True):
     allPorts: "None"
 
 
 PortSpecification: TypeAlias = (
-    _PortSpecification_port
-    | _PortSpecification_range
-    | _PortSpecification_allPorts
+    PortSpecificationPortMember
+    | PortSpecificationRangeMember
+    | PortSpecificationAllPortsMember
     | UnknownUnionMember
 )
 

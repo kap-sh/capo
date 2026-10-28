@@ -13,20 +13,23 @@ if TYPE_CHECKING:
     import capo_ssm_incidents.types.attribute_value_list
 
 
-class _Condition_before(TypedDict, closed=True):
+class ConditionBeforeMember(TypedDict, closed=True):
     before: "datetime.datetime"
 
 
-class _Condition_after(TypedDict, closed=True):
+class ConditionAfterMember(TypedDict, closed=True):
     after: "datetime.datetime"
 
 
-class _Condition_equals(TypedDict, closed=True):
+class ConditionEqualsMember(TypedDict, closed=True):
     equals: "capo_ssm_incidents.types.attribute_value_list.AttributeValueList"
 
 
 Condition: TypeAlias = (
-    _Condition_before | _Condition_after | _Condition_equals | UnknownUnionMember
+    ConditionBeforeMember
+    | ConditionAfterMember
+    | ConditionEqualsMember
+    | UnknownUnionMember
 )
 
 

@@ -7,7 +7,7 @@ title: VectorEnrichmentJobDataSourceConfigInput
       show_source: true
       merge_init_into_class: false
 
-::: capo_sagemaker_geospatial.types.vector_enrichment_job_data_source_config_input._VectorEnrichmentJobDataSourceConfigInput_S3Data
+::: capo_sagemaker_geospatial.types.vector_enrichment_job_data_source_config_input.VectorEnrichmentJobDataSourceConfigInputS3DataMember
     options:
       show_source: true
       merge_init_into_class: false

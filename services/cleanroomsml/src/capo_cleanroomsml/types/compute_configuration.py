@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_cleanroomsml.types.worker_compute_configuration
 
 
-class _ComputeConfiguration_worker(TypedDict, closed=True):
+class ComputeConfigurationWorkerMember(TypedDict, closed=True):
     worker: "capo_cleanroomsml.types.worker_compute_configuration.WorkerComputeConfiguration"
 
 
-ComputeConfiguration: TypeAlias = _ComputeConfiguration_worker | UnknownUnionMember
+ComputeConfiguration: TypeAlias = ComputeConfigurationWorkerMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

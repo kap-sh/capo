@@ -14,27 +14,27 @@ if TYPE_CHECKING:
     import capo_elementalinference.types.subtitling_config
 
 
-class _OutputConfig_cropping(TypedDict, closed=True):
+class OutputConfigCroppingMember(TypedDict, closed=True):
     cropping: "capo_elementalinference.types.cropping_config.CroppingConfig"
 
 
-class _OutputConfig_clipping(TypedDict, closed=True):
+class OutputConfigClippingMember(TypedDict, closed=True):
     clipping: "capo_elementalinference.types.clipping_config.ClippingConfig"
 
 
-class _OutputConfig_subtitling(TypedDict, closed=True):
+class OutputConfigSubtitlingMember(TypedDict, closed=True):
     subtitling: "capo_elementalinference.types.subtitling_config.SubtitlingConfig"
 
 
-class _OutputConfig_contextualMetadata(TypedDict, closed=True):
+class OutputConfigContextualMetadataMember(TypedDict, closed=True):
     contextualMetadata: "capo_elementalinference.types.contextual_metadata_config.ContextualMetadataConfig"
 
 
 OutputConfig: TypeAlias = (
-    _OutputConfig_cropping
-    | _OutputConfig_clipping
-    | _OutputConfig_subtitling
-    | _OutputConfig_contextualMetadata
+    OutputConfigCroppingMember
+    | OutputConfigClippingMember
+    | OutputConfigSubtitlingMember
+    | OutputConfigContextualMetadataMember
     | UnknownUnionMember
 )
 

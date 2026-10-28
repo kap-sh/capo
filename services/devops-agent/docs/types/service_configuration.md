@@ -7,127 +7,127 @@ title: ServiceConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_devops_agent.types.service_configuration._ServiceConfiguration_sourceAws
+::: capo_devops_agent.types.service_configuration.ServiceConfigurationSourceAwsMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_devops_agent.types.service_configuration._ServiceConfiguration_aws
+::: capo_devops_agent.types.service_configuration.ServiceConfigurationAwsMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_devops_agent.types.service_configuration._ServiceConfiguration_github
+::: capo_devops_agent.types.service_configuration.ServiceConfigurationGithubMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_devops_agent.types.service_configuration._ServiceConfiguration_slack
+::: capo_devops_agent.types.service_configuration.ServiceConfigurationSlackMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_devops_agent.types.service_configuration._ServiceConfiguration_dynatrace
+::: capo_devops_agent.types.service_configuration.ServiceConfigurationDynatraceMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_devops_agent.types.service_configuration._ServiceConfiguration_servicenow
+::: capo_devops_agent.types.service_configuration.ServiceConfigurationServicenowMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_devops_agent.types.service_configuration._ServiceConfiguration_mcpservernewrelic
+::: capo_devops_agent.types.service_configuration.ServiceConfigurationMcpservernewrelicMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_devops_agent.types.service_configuration._ServiceConfiguration_mcpserverdatadog
+::: capo_devops_agent.types.service_configuration.ServiceConfigurationMcpserverdatadogMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_devops_agent.types.service_configuration._ServiceConfiguration_mcpserver
+::: capo_devops_agent.types.service_configuration.ServiceConfigurationMcpserverMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_devops_agent.types.service_configuration._ServiceConfiguration_gitlab
+::: capo_devops_agent.types.service_configuration.ServiceConfigurationGitlabMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_devops_agent.types.service_configuration._ServiceConfiguration_mcpserversplunk
+::: capo_devops_agent.types.service_configuration.ServiceConfigurationMcpserversplunkMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_devops_agent.types.service_configuration._ServiceConfiguration_eventChannel
+::: capo_devops_agent.types.service_configuration.ServiceConfigurationEventChannelMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_devops_agent.types.service_configuration._ServiceConfiguration_azure
+::: capo_devops_agent.types.service_configuration.ServiceConfigurationAzureMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_devops_agent.types.service_configuration._ServiceConfiguration_azuredevops
+::: capo_devops_agent.types.service_configuration.ServiceConfigurationAzuredevopsMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_devops_agent.types.service_configuration._ServiceConfiguration_mcpservergrafana
+::: capo_devops_agent.types.service_configuration.ServiceConfigurationMcpservergrafanaMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_devops_agent.types.service_configuration._ServiceConfiguration_pagerduty
+::: capo_devops_agent.types.service_configuration.ServiceConfigurationPagerdutyMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_devops_agent.types.service_configuration._ServiceConfiguration_mcpserversigv4
+::: capo_devops_agent.types.service_configuration.ServiceConfigurationMcpserversigv4Member
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_devops_agent.types.service_configuration._ServiceConfiguration_remoteagent
+::: capo_devops_agent.types.service_configuration.ServiceConfigurationRemoteagentMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_devops_agent.types.service_configuration._ServiceConfiguration_remoteagentsigv4
+::: capo_devops_agent.types.service_configuration.ServiceConfigurationRemoteagentsigv4Member
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_devops_agent.types.service_configuration._ServiceConfiguration_msteams
+::: capo_devops_agent.types.service_configuration.ServiceConfigurationMsteamsMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_devops_agent.types.service_configuration._ServiceConfiguration_releaseManagement
+::: capo_devops_agent.types.service_configuration.ServiceConfigurationReleaseManagementMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -14,29 +14,29 @@ if TYPE_CHECKING:
     import capo_datazone.types.user_policy_grant_principal
 
 
-class _PolicyGrantPrincipal_user(TypedDict, closed=True):
+class PolicyGrantPrincipalUserMember(TypedDict, closed=True):
     user: "capo_datazone.types.user_policy_grant_principal.UserPolicyGrantPrincipal"
 
 
-class _PolicyGrantPrincipal_group(TypedDict, closed=True):
+class PolicyGrantPrincipalGroupMember(TypedDict, closed=True):
     group: "capo_datazone.types.group_policy_grant_principal.GroupPolicyGrantPrincipal"
 
 
-class _PolicyGrantPrincipal_project(TypedDict, closed=True):
+class PolicyGrantPrincipalProjectMember(TypedDict, closed=True):
     project: (
         "capo_datazone.types.project_policy_grant_principal.ProjectPolicyGrantPrincipal"
     )
 
 
-class _PolicyGrantPrincipal_domainUnit(TypedDict, closed=True):
+class PolicyGrantPrincipalDomainUnitMember(TypedDict, closed=True):
     domainUnit: "capo_datazone.types.domain_unit_policy_grant_principal.DomainUnitPolicyGrantPrincipal"
 
 
 PolicyGrantPrincipal: TypeAlias = (
-    _PolicyGrantPrincipal_user
-    | _PolicyGrantPrincipal_group
-    | _PolicyGrantPrincipal_project
-    | _PolicyGrantPrincipal_domainUnit
+    PolicyGrantPrincipalUserMember
+    | PolicyGrantPrincipalGroupMember
+    | PolicyGrantPrincipalProjectMember
+    | PolicyGrantPrincipalDomainUnitMember
     | UnknownUnionMember
 )
 

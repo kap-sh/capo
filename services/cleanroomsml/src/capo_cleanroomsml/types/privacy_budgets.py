@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_cleanroomsml.types.access_budgets
 
 
-class _PrivacyBudgets_accessBudgets(TypedDict, closed=True):
+class PrivacyBudgetsAccessBudgetsMember(TypedDict, closed=True):
     accessBudgets: "capo_cleanroomsml.types.access_budgets.AccessBudgets"
 
 
-PrivacyBudgets: TypeAlias = _PrivacyBudgets_accessBudgets | UnknownUnionMember
+PrivacyBudgets: TypeAlias = PrivacyBudgetsAccessBudgetsMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

@@ -7,7 +7,7 @@ title: TreatmentOverrides
       show_source: true
       merge_init_into_class: false
 
-::: capo_appconfig.types.treatment_overrides._TreatmentOverrides_Inline
+::: capo_appconfig.types.treatment_overrides.TreatmentOverridesInlineMember
     options:
       show_source: true
       merge_init_into_class: false

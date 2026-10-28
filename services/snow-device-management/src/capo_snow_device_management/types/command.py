@@ -12,15 +12,15 @@ if TYPE_CHECKING:
     import capo_snow_device_management.types.unlock
 
 
-class _Command_unlock(TypedDict, closed=True):
+class CommandUnlockMember(TypedDict, closed=True):
     unlock: "capo_snow_device_management.types.unlock.Unlock"
 
 
-class _Command_reboot(TypedDict, closed=True):
+class CommandRebootMember(TypedDict, closed=True):
     reboot: "capo_snow_device_management.types.reboot.Reboot"
 
 
-Command: TypeAlias = _Command_unlock | _Command_reboot | UnknownUnionMember
+Command: TypeAlias = CommandUnlockMember | CommandRebootMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_connectcases.types.required_case_rule
 
 
-class _CaseRuleDetails_required(TypedDict, closed=True):
+class CaseRuleDetailsRequiredMember(TypedDict, closed=True):
     required: "capo_connectcases.types.required_case_rule.RequiredCaseRule"
 
 
-class _CaseRuleDetails_fieldOptions(TypedDict, closed=True):
+class CaseRuleDetailsFieldOptionsMember(TypedDict, closed=True):
     fieldOptions: "capo_connectcases.types.field_options_case_rule.FieldOptionsCaseRule"
 
 
-class _CaseRuleDetails_hidden(TypedDict, closed=True):
+class CaseRuleDetailsHiddenMember(TypedDict, closed=True):
     hidden: "capo_connectcases.types.hidden_case_rule.HiddenCaseRule"
 
 
 CaseRuleDetails: TypeAlias = (
-    _CaseRuleDetails_required
-    | _CaseRuleDetails_fieldOptions
-    | _CaseRuleDetails_hidden
+    CaseRuleDetailsRequiredMember
+    | CaseRuleDetailsFieldOptionsMember
+    | CaseRuleDetailsHiddenMember
     | UnknownUnionMember
 )
 

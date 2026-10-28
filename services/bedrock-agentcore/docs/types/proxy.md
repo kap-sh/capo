@@ -7,7 +7,7 @@ title: Proxy
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore.types.proxy._Proxy_externalProxy
+::: capo_bedrock_agentcore.types.proxy.ProxyExternalProxyMember
     options:
       show_source: true
       merge_init_into_class: false

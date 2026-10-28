@@ -7,13 +7,13 @@ title: EvaluationConfig
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock.types.evaluation_config._EvaluationConfig_automated
+::: capo_bedrock.types.evaluation_config.EvaluationConfigAutomatedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.evaluation_config._EvaluationConfig_human
+::: capo_bedrock.types.evaluation_config.EvaluationConfigHumanMember
     options:
       show_source: true
       merge_init_into_class: false

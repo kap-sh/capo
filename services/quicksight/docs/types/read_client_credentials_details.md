@@ -7,7 +7,7 @@ title: ReadClientCredentialsDetails
       show_source: true
       merge_init_into_class: false
 
-::: capo_quicksight.types.read_client_credentials_details._ReadClientCredentialsDetails_ReadClientCredentialsGrantDetails
+::: capo_quicksight.types.read_client_credentials_details.ReadClientCredentialsDetailsReadClientCredentialsGrantDetailsMember
     options:
       show_source: true
       merge_init_into_class: false

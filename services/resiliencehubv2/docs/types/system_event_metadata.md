@@ -7,55 +7,55 @@ title: SystemEventMetadata
       show_source: true
       merge_init_into_class: false
 
-::: capo_resiliencehubv2.types.system_event_metadata._SystemEventMetadata_systemCreated
+::: capo_resiliencehubv2.types.system_event_metadata.SystemEventMetadataSystemCreatedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_resiliencehubv2.types.system_event_metadata._SystemEventMetadata_systemDeleted
+::: capo_resiliencehubv2.types.system_event_metadata.SystemEventMetadataSystemDeletedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_resiliencehubv2.types.system_event_metadata._SystemEventMetadata_systemUserJourneyCreated
+::: capo_resiliencehubv2.types.system_event_metadata.SystemEventMetadataSystemUserJourneyCreatedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_resiliencehubv2.types.system_event_metadata._SystemEventMetadata_systemUserJourneyUpdated
+::: capo_resiliencehubv2.types.system_event_metadata.SystemEventMetadataSystemUserJourneyUpdatedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_resiliencehubv2.types.system_event_metadata._SystemEventMetadata_systemUserJourneyDeleted
+::: capo_resiliencehubv2.types.system_event_metadata.SystemEventMetadataSystemUserJourneyDeletedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_resiliencehubv2.types.system_event_metadata._SystemEventMetadata_systemServiceAssociated
+::: capo_resiliencehubv2.types.system_event_metadata.SystemEventMetadataSystemServiceAssociatedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_resiliencehubv2.types.system_event_metadata._SystemEventMetadata_systemServiceDisassociated
+::: capo_resiliencehubv2.types.system_event_metadata.SystemEventMetadataSystemServiceDisassociatedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_resiliencehubv2.types.system_event_metadata._SystemEventMetadata_systemPolicyAssociated
+::: capo_resiliencehubv2.types.system_event_metadata.SystemEventMetadataSystemPolicyAssociatedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_resiliencehubv2.types.system_event_metadata._SystemEventMetadata_systemPolicyDisassociated
+::: capo_resiliencehubv2.types.system_event_metadata.SystemEventMetadataSystemPolicyDisassociatedMember
     options:
       show_source: true
       merge_init_into_class: false

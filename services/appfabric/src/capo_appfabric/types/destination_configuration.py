@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_appfabric.types.audit_log_destination_configuration
 
 
-class _DestinationConfiguration_auditLog(TypedDict, closed=True):
+class DestinationConfigurationAuditLogMember(TypedDict, closed=True):
     auditLog: "capo_appfabric.types.audit_log_destination_configuration.AuditLogDestinationConfiguration"
 
 
 DestinationConfiguration: TypeAlias = (
-    _DestinationConfiguration_auditLog | UnknownUnionMember
+    DestinationConfigurationAuditLogMember | UnknownUnionMember
 )
 
 

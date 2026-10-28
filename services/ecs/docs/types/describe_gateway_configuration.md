@@ -7,7 +7,7 @@ title: DescribeGatewayConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_ecs.types.describe_gateway_configuration._DescribeGatewayConfiguration_hostSharedAlb
+::: capo_ecs.types.describe_gateway_configuration.DescribeGatewayConfigurationHostSharedAlbMember
     options:
       show_source: true
       merge_init_into_class: false

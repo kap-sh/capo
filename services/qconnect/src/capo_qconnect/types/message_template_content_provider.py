@@ -14,29 +14,29 @@ if TYPE_CHECKING:
     import capo_qconnect.types.whats_app_message_template_content
 
 
-class _MessageTemplateContentProvider_email(TypedDict, closed=True):
+class MessageTemplateContentProviderEmailMember(TypedDict, closed=True):
     email: (
         "capo_qconnect.types.email_message_template_content.EmailMessageTemplateContent"
     )
 
 
-class _MessageTemplateContentProvider_sms(TypedDict, closed=True):
+class MessageTemplateContentProviderSmsMember(TypedDict, closed=True):
     sms: "capo_qconnect.types.sms_message_template_content.SMSMessageTemplateContent"
 
 
-class _MessageTemplateContentProvider_whatsApp(TypedDict, closed=True):
+class MessageTemplateContentProviderWhatsAppMember(TypedDict, closed=True):
     whatsApp: "capo_qconnect.types.whats_app_message_template_content.WhatsAppMessageTemplateContent"
 
 
-class _MessageTemplateContentProvider_push(TypedDict, closed=True):
+class MessageTemplateContentProviderPushMember(TypedDict, closed=True):
     push: "capo_qconnect.types.push_message_template_content.PushMessageTemplateContent"
 
 
 MessageTemplateContentProvider: TypeAlias = (
-    _MessageTemplateContentProvider_email
-    | _MessageTemplateContentProvider_sms
-    | _MessageTemplateContentProvider_whatsApp
-    | _MessageTemplateContentProvider_push
+    MessageTemplateContentProviderEmailMember
+    | MessageTemplateContentProviderSmsMember
+    | MessageTemplateContentProviderWhatsAppMember
+    | MessageTemplateContentProviderPushMember
     | UnknownUnionMember
 )
 

@@ -7,7 +7,7 @@ title: ExtractionConfig
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.extraction_config._ExtractionConfig_llmExtractionConfig
+::: capo_bedrock_agentcore_control.types.extraction_config.ExtractionConfigLlmExtractionConfigMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -14,27 +14,27 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.harness_open_ai_model_config
 
 
-class _HarnessModelConfiguration_bedrockModelConfig(TypedDict, closed=True):
+class HarnessModelConfigurationBedrockModelConfigMember(TypedDict, closed=True):
     bedrockModelConfig: "capo_bedrock_agentcore.types.harness_bedrock_model_config.HarnessBedrockModelConfig"
 
 
-class _HarnessModelConfiguration_openAiModelConfig(TypedDict, closed=True):
+class HarnessModelConfigurationOpenAiModelConfigMember(TypedDict, closed=True):
     openAiModelConfig: "capo_bedrock_agentcore.types.harness_open_ai_model_config.HarnessOpenAiModelConfig"
 
 
-class _HarnessModelConfiguration_geminiModelConfig(TypedDict, closed=True):
+class HarnessModelConfigurationGeminiModelConfigMember(TypedDict, closed=True):
     geminiModelConfig: "capo_bedrock_agentcore.types.harness_gemini_model_config.HarnessGeminiModelConfig"
 
 
-class _HarnessModelConfiguration_liteLlmModelConfig(TypedDict, closed=True):
+class HarnessModelConfigurationLiteLlmModelConfigMember(TypedDict, closed=True):
     liteLlmModelConfig: "capo_bedrock_agentcore.types.harness_lite_llm_model_config.HarnessLiteLlmModelConfig"
 
 
 HarnessModelConfiguration: TypeAlias = (
-    _HarnessModelConfiguration_bedrockModelConfig
-    | _HarnessModelConfiguration_openAiModelConfig
-    | _HarnessModelConfiguration_geminiModelConfig
-    | _HarnessModelConfiguration_liteLlmModelConfig
+    HarnessModelConfigurationBedrockModelConfigMember
+    | HarnessModelConfigurationOpenAiModelConfigMember
+    | HarnessModelConfigurationGeminiModelConfigMember
+    | HarnessModelConfigurationLiteLlmModelConfigMember
     | UnknownUnionMember
 )
 

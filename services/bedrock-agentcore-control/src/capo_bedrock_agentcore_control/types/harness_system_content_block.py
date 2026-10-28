@@ -14,12 +14,12 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.sensitive_text
 
 
-class _HarnessSystemContentBlock_text(TypedDict, closed=True):
+class HarnessSystemContentBlockTextMember(TypedDict, closed=True):
     text: "capo_bedrock_agentcore_control.types.sensitive_text.SensitiveText"
 
 
 HarnessSystemContentBlock: TypeAlias = (
-    _HarnessSystemContentBlock_text | UnknownUnionMember
+    HarnessSystemContentBlockTextMember | UnknownUnionMember
 )
 
 

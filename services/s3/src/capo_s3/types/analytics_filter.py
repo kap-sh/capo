@@ -14,22 +14,22 @@ if TYPE_CHECKING:
     import capo_s3.types.tag
 
 
-class _AnalyticsFilter_Prefix(TypedDict, closed=True):
+class AnalyticsFilterPrefixMember(TypedDict, closed=True):
     Prefix: "capo_s3.types.prefix.Prefix"
 
 
-class _AnalyticsFilter_Tag(TypedDict, closed=True):
+class AnalyticsFilterTagMember(TypedDict, closed=True):
     Tag: "capo_s3.types.tag.Tag"
 
 
-class _AnalyticsFilter_And(TypedDict, closed=True):
+class AnalyticsFilterAndMember(TypedDict, closed=True):
     And: "capo_s3.types.analytics_and_operator.AnalyticsAndOperator"
 
 
 AnalyticsFilter: TypeAlias = (
-    _AnalyticsFilter_Prefix
-    | _AnalyticsFilter_Tag
-    | _AnalyticsFilter_And
+    AnalyticsFilterPrefixMember
+    | AnalyticsFilterTagMember
+    | AnalyticsFilterAndMember
     | UnknownUnionMember
 )
 

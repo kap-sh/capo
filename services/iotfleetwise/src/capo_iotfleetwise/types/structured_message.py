@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_iotfleetwise.types.structured_message_list_definition
 
 
-class _StructuredMessage_primitiveMessageDefinition(TypedDict, closed=True):
+class StructuredMessagePrimitiveMessageDefinitionMember(TypedDict, closed=True):
     primitiveMessageDefinition: "capo_iotfleetwise.types.primitive_message_definition.PrimitiveMessageDefinition"
 
 
-class _StructuredMessage_structuredMessageListDefinition(TypedDict, closed=True):
+class StructuredMessageStructuredMessageListDefinitionMember(TypedDict, closed=True):
     structuredMessageListDefinition: "capo_iotfleetwise.types.structured_message_list_definition.StructuredMessageListDefinition"
 
 
-class _StructuredMessage_structuredMessageDefinition(TypedDict, closed=True):
+class StructuredMessageStructuredMessageDefinitionMember(TypedDict, closed=True):
     structuredMessageDefinition: "capo_iotfleetwise.types.structured_message_definition.StructuredMessageDefinition"
 
 
 StructuredMessage: TypeAlias = (
-    _StructuredMessage_primitiveMessageDefinition
-    | _StructuredMessage_structuredMessageListDefinition
-    | _StructuredMessage_structuredMessageDefinition
+    StructuredMessagePrimitiveMessageDefinitionMember
+    | StructuredMessageStructuredMessageListDefinitionMember
+    | StructuredMessageStructuredMessageDefinitionMember
     | UnknownUnionMember
 )
 

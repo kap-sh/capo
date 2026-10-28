@@ -7,7 +7,7 @@ title: CspmProviderDetail
       show_source: true
       merge_init_into_class: false
 
-::: capo_securityhub.types.cspm_provider_detail._CspmProviderDetail_Azure
+::: capo_securityhub.types.cspm_provider_detail.CspmProviderDetailAzureMember
     options:
       show_source: true
       merge_init_into_class: false

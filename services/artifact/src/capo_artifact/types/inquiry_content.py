@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_artifact.types.long_string_attribute
 
 
-class _InquiryContent_query(TypedDict, closed=True):
+class InquiryContentQueryMember(TypedDict, closed=True):
     query: "capo_artifact.types.long_string_attribute.LongStringAttribute"
 
 
-class _InquiryContent_fileContent(TypedDict, closed=True):
+class InquiryContentFileContentMember(TypedDict, closed=True):
     fileContent: "capo_artifact.types.inquiry_file_content.InquiryFileContent"
 
 
 InquiryContent: TypeAlias = (
-    _InquiryContent_query | _InquiryContent_fileContent | UnknownUnionMember
+    InquiryContentQueryMember | InquiryContentFileContentMember | UnknownUnionMember
 )
 
 

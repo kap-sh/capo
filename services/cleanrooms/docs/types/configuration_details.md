@@ -7,7 +7,7 @@ title: ConfigurationDetails
       show_source: true
       merge_init_into_class: false
 
-::: capo_cleanrooms.types.configuration_details._ConfigurationDetails_directAnalysisConfigurationDetails
+::: capo_cleanrooms.types.configuration_details.ConfigurationDetailsDirectAnalysisConfigurationDetailsMember
     options:
       show_source: true
       merge_init_into_class: false

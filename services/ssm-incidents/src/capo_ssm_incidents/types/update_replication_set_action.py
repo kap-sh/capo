@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_ssm_incidents.types.delete_region_action
 
 
-class _UpdateReplicationSetAction_addRegionAction(TypedDict, closed=True):
+class UpdateReplicationSetActionAddRegionActionMember(TypedDict, closed=True):
     addRegionAction: "capo_ssm_incidents.types.add_region_action.AddRegionAction"
 
 
-class _UpdateReplicationSetAction_deleteRegionAction(TypedDict, closed=True):
+class UpdateReplicationSetActionDeleteRegionActionMember(TypedDict, closed=True):
     deleteRegionAction: (
         "capo_ssm_incidents.types.delete_region_action.DeleteRegionAction"
     )
 
 
 UpdateReplicationSetAction: TypeAlias = (
-    _UpdateReplicationSetAction_addRegionAction
-    | _UpdateReplicationSetAction_deleteRegionAction
+    UpdateReplicationSetActionAddRegionActionMember
+    | UpdateReplicationSetActionDeleteRegionActionMember
     | UnknownUnionMember
 )
 

@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_sagemaker_geospatial.types.vector_enrichment_job_s3_data
 
 
-class _VectorEnrichmentJobDataSourceConfigInput_S3Data(TypedDict, closed=True):
+class VectorEnrichmentJobDataSourceConfigInputS3DataMember(TypedDict, closed=True):
     S3Data: "capo_sagemaker_geospatial.types.vector_enrichment_job_s3_data.VectorEnrichmentJobS3Data"
 
 
 VectorEnrichmentJobDataSourceConfigInput: TypeAlias = (
-    _VectorEnrichmentJobDataSourceConfigInput_S3Data | UnknownUnionMember
+    VectorEnrichmentJobDataSourceConfigInputS3DataMember | UnknownUnionMember
 )
 
 

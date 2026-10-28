@@ -7,31 +7,31 @@ title: RouterOutputProtocolConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_mediaconnect.types.router_output_protocol_configuration._RouterOutputProtocolConfiguration_Rist
+::: capo_mediaconnect.types.router_output_protocol_configuration.RouterOutputProtocolConfigurationRistMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mediaconnect.types.router_output_protocol_configuration._RouterOutputProtocolConfiguration_SrtListener
+::: capo_mediaconnect.types.router_output_protocol_configuration.RouterOutputProtocolConfigurationSrtListenerMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mediaconnect.types.router_output_protocol_configuration._RouterOutputProtocolConfiguration_RtmpPush
+::: capo_mediaconnect.types.router_output_protocol_configuration.RouterOutputProtocolConfigurationRtmpPushMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mediaconnect.types.router_output_protocol_configuration._RouterOutputProtocolConfiguration_SrtCaller
+::: capo_mediaconnect.types.router_output_protocol_configuration.RouterOutputProtocolConfigurationSrtCallerMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mediaconnect.types.router_output_protocol_configuration._RouterOutputProtocolConfiguration_Rtp
+::: capo_mediaconnect.types.router_output_protocol_configuration.RouterOutputProtocolConfigurationRtpMember
     options:
       show_source: true
       merge_init_into_class: false

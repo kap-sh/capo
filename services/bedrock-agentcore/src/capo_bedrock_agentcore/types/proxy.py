@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.external_proxy
 
 
-class _Proxy_externalProxy(TypedDict, closed=True):
+class ProxyExternalProxyMember(TypedDict, closed=True):
     externalProxy: "capo_bedrock_agentcore.types.external_proxy.ExternalProxy"
 
 
-Proxy: TypeAlias = _Proxy_externalProxy | UnknownUnionMember
+Proxy: TypeAlias = ProxyExternalProxyMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

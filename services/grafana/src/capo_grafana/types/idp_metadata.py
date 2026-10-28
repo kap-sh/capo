@@ -11,15 +11,17 @@ if TYPE_CHECKING:
     import capo_grafana.types.idp_metadata_url
 
 
-class _IdpMetadata_url(TypedDict, closed=True):
+class IdpMetadataUrlMember(TypedDict, closed=True):
     url: "capo_grafana.types.idp_metadata_url.IdpMetadataUrl"
 
 
-class _IdpMetadata_xml(TypedDict, closed=True):
+class IdpMetadataXmlMember(TypedDict, closed=True):
     xml: "str"
 
 
-IdpMetadata: TypeAlias = _IdpMetadata_url | _IdpMetadata_xml | UnknownUnionMember
+IdpMetadata: TypeAlias = (
+    IdpMetadataUrlMember | IdpMetadataXmlMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

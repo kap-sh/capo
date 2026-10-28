@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.mpp_payment_output
 
 
-class _PaymentOutput_cryptoX402(TypedDict, closed=True):
+class PaymentOutputCryptoX402Member(TypedDict, closed=True):
     cryptoX402: "capo_bedrock_agentcore.types.crypto_x402_payment_output.CryptoX402PaymentOutput"
 
 
-class _PaymentOutput_mpp(TypedDict, closed=True):
+class PaymentOutputMppMember(TypedDict, closed=True):
     mpp: "capo_bedrock_agentcore.types.mpp_payment_output.MppPaymentOutput"
 
 
 PaymentOutput: TypeAlias = (
-    _PaymentOutput_cryptoX402 | _PaymentOutput_mpp | UnknownUnionMember
+    PaymentOutputCryptoX402Member | PaymentOutputMppMember | UnknownUnionMember
 )
 
 

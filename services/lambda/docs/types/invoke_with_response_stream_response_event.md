@@ -13,13 +13,13 @@ title: InvokeWithResponseStreamResponseEvent
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_lambda.types.invoke_with_response_stream_response_event._InvokeWithResponseStreamResponseEvent_PayloadChunk
+::: capo_lambda.types.invoke_with_response_stream_response_event.InvokeWithResponseStreamResponseEventPayloadChunkMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_lambda.types.invoke_with_response_stream_response_event._InvokeWithResponseStreamResponseEvent_InvokeComplete
+::: capo_lambda.types.invoke_with_response_stream_response_event.InvokeWithResponseStreamResponseEventInvokeCompleteMember
     options:
       show_source: true
       merge_init_into_class: false

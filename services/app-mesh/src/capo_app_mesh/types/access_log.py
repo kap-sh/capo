@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_app_mesh.types.file_access_log
 
 
-class _AccessLog_file(TypedDict, closed=True):
+class AccessLogFileMember(TypedDict, closed=True):
     file: "capo_app_mesh.types.file_access_log.FileAccessLog"
 
 
-AccessLog: TypeAlias = _AccessLog_file | UnknownUnionMember
+AccessLog: TypeAlias = AccessLogFileMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

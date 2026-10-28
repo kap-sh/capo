@@ -20,64 +20,66 @@ if TYPE_CHECKING:
     import capo_acm.types.validation_method
 
 
-class _AcmCertificateMetadataFilter_Status(TypedDict, closed=True):
+class AcmCertificateMetadataFilterStatusMember(TypedDict, closed=True):
     Status: "capo_acm.types.certificate_status.CertificateStatus"
 
 
-class _AcmCertificateMetadataFilter_RenewalStatus(TypedDict, closed=True):
+class AcmCertificateMetadataFilterRenewalStatusMember(TypedDict, closed=True):
     RenewalStatus: "capo_acm.types.renewal_status.RenewalStatus"
 
 
-class _AcmCertificateMetadataFilter_Type(TypedDict, closed=True):
+class AcmCertificateMetadataFilterTypeMember(TypedDict, closed=True):
     Type: "capo_acm.types.certificate_type.CertificateType"
 
 
-class _AcmCertificateMetadataFilter_InUse(TypedDict, closed=True):
+class AcmCertificateMetadataFilterInUseMember(TypedDict, closed=True):
     InUse: "capo_acm.types.nullable_boolean.NullableBoolean"
 
 
-class _AcmCertificateMetadataFilter_Exported(TypedDict, closed=True):
+class AcmCertificateMetadataFilterExportedMember(TypedDict, closed=True):
     Exported: "capo_acm.types.nullable_boolean.NullableBoolean"
 
 
-class _AcmCertificateMetadataFilter_ExportOption(TypedDict, closed=True):
+class AcmCertificateMetadataFilterExportOptionMember(TypedDict, closed=True):
     ExportOption: "capo_acm.types.certificate_export.CertificateExport"
 
 
-class _AcmCertificateMetadataFilter_ManagedBy(TypedDict, closed=True):
+class AcmCertificateMetadataFilterManagedByMember(TypedDict, closed=True):
     ManagedBy: "capo_acm.types.certificate_managed_by.CertificateManagedBy"
 
 
-class _AcmCertificateMetadataFilter_ValidationMethod(TypedDict, closed=True):
+class AcmCertificateMetadataFilterValidationMethodMember(TypedDict, closed=True):
     ValidationMethod: "capo_acm.types.validation_method.ValidationMethod"
 
 
-class _AcmCertificateMetadataFilter_CertificateKeyPairOrigin(TypedDict, closed=True):
+class AcmCertificateMetadataFilterCertificateKeyPairOriginMember(
+    TypedDict, closed=True
+):
     CertificateKeyPairOrigin: (
         "capo_acm.types.certificate_key_pair_origin.CertificateKeyPairOrigin"
     )
 
 
-class _AcmCertificateMetadataFilter_AcmeEndpointArn(TypedDict, closed=True):
+class AcmCertificateMetadataFilterAcmeEndpointArnMember(TypedDict, closed=True):
     AcmeEndpointArn: "capo_acm.types.arn.Arn"
 
 
-class _AcmCertificateMetadataFilter_AcmeAccountId(TypedDict, closed=True):
+class AcmCertificateMetadataFilterAcmeAccountIdMember(TypedDict, closed=True):
     AcmeAccountId: "capo_acm.types.acme_account_id.AcmeAccountId"
 
 
 AcmCertificateMetadataFilter: TypeAlias = (
-    _AcmCertificateMetadataFilter_Status
-    | _AcmCertificateMetadataFilter_RenewalStatus
-    | _AcmCertificateMetadataFilter_Type
-    | _AcmCertificateMetadataFilter_InUse
-    | _AcmCertificateMetadataFilter_Exported
-    | _AcmCertificateMetadataFilter_ExportOption
-    | _AcmCertificateMetadataFilter_ManagedBy
-    | _AcmCertificateMetadataFilter_ValidationMethod
-    | _AcmCertificateMetadataFilter_CertificateKeyPairOrigin
-    | _AcmCertificateMetadataFilter_AcmeEndpointArn
-    | _AcmCertificateMetadataFilter_AcmeAccountId
+    AcmCertificateMetadataFilterStatusMember
+    | AcmCertificateMetadataFilterRenewalStatusMember
+    | AcmCertificateMetadataFilterTypeMember
+    | AcmCertificateMetadataFilterInUseMember
+    | AcmCertificateMetadataFilterExportedMember
+    | AcmCertificateMetadataFilterExportOptionMember
+    | AcmCertificateMetadataFilterManagedByMember
+    | AcmCertificateMetadataFilterValidationMethodMember
+    | AcmCertificateMetadataFilterCertificateKeyPairOriginMember
+    | AcmCertificateMetadataFilterAcmeEndpointArnMember
+    | AcmCertificateMetadataFilterAcmeAccountIdMember
     | UnknownUnionMember
 )
 

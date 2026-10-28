@@ -12,21 +12,21 @@ if TYPE_CHECKING:
     import capo_datazone.types.row_filter_configuration
 
 
-class _AssetFilterConfiguration_columnConfiguration(TypedDict, closed=True):
+class AssetFilterConfigurationColumnConfigurationMember(TypedDict, closed=True):
     columnConfiguration: (
         "capo_datazone.types.column_filter_configuration.ColumnFilterConfiguration"
     )
 
 
-class _AssetFilterConfiguration_rowConfiguration(TypedDict, closed=True):
+class AssetFilterConfigurationRowConfigurationMember(TypedDict, closed=True):
     rowConfiguration: (
         "capo_datazone.types.row_filter_configuration.RowFilterConfiguration"
     )
 
 
 AssetFilterConfiguration: TypeAlias = (
-    _AssetFilterConfiguration_columnConfiguration
-    | _AssetFilterConfiguration_rowConfiguration
+    AssetFilterConfigurationColumnConfigurationMember
+    | AssetFilterConfigurationRowConfigurationMember
     | UnknownUnionMember
 )
 

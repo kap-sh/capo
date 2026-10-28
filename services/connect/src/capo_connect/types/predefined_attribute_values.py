@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_connect.types.predefined_attribute_string_values_list
 
 
-class _PredefinedAttributeValues_StringList(TypedDict, closed=True):
+class PredefinedAttributeValuesStringListMember(TypedDict, closed=True):
     StringList: "capo_connect.types.predefined_attribute_string_values_list.PredefinedAttributeStringValuesList"
 
 
 PredefinedAttributeValues: TypeAlias = (
-    _PredefinedAttributeValues_StringList | UnknownUnionMember
+    PredefinedAttributeValuesStringListMember | UnknownUnionMember
 )
 
 

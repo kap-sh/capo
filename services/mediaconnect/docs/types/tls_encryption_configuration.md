@@ -7,7 +7,7 @@ title: TlsEncryptionConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_mediaconnect.types.tls_encryption_configuration._TlsEncryptionConfiguration_Public
+::: capo_mediaconnect.types.tls_encryption_configuration.TlsEncryptionConfigurationPublicMember
     options:
       show_source: true
       merge_init_into_class: false

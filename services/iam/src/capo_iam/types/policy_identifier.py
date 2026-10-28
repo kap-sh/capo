@@ -14,26 +14,26 @@ if TYPE_CHECKING:
     import capo_iam.types.policy_identifier_policy_type
 
 
-class _PolicyIdentifier_PolicyType(TypedDict, closed=True):
+class PolicyIdentifierPolicyTypeMember(TypedDict, closed=True):
     PolicyType: (
         "capo_iam.types.policy_identifier_policy_type.PolicyIdentifierPolicyType"
     )
 
 
-class _PolicyIdentifier_PolicyArn(TypedDict, closed=True):
+class PolicyIdentifierPolicyArnMember(TypedDict, closed=True):
     PolicyArn: "capo_iam.types.arn_type.arnType"
 
 
-class _PolicyIdentifier_InlinePolicyIdentifier(TypedDict, closed=True):
+class PolicyIdentifierInlinePolicyIdentifierMember(TypedDict, closed=True):
     InlinePolicyIdentifier: (
         "capo_iam.types.inline_policy_identifier_type.InlinePolicyIdentifierType"
     )
 
 
 PolicyIdentifier: TypeAlias = (
-    _PolicyIdentifier_PolicyType
-    | _PolicyIdentifier_PolicyArn
-    | _PolicyIdentifier_InlinePolicyIdentifier
+    PolicyIdentifierPolicyTypeMember
+    | PolicyIdentifierPolicyArnMember
+    | PolicyIdentifierInlinePolicyIdentifierMember
     | UnknownUnionMember
 )
 

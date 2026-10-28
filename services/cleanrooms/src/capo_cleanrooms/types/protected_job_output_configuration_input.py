@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.protected_job_member_output_configuration_input
 
 
-class _ProtectedJobOutputConfigurationInput_member(TypedDict, closed=True):
+class ProtectedJobOutputConfigurationInputMemberMember(TypedDict, closed=True):
     member: "capo_cleanrooms.types.protected_job_member_output_configuration_input.ProtectedJobMemberOutputConfigurationInput"
 
 
 ProtectedJobOutputConfigurationInput: TypeAlias = (
-    _ProtectedJobOutputConfigurationInput_member | UnknownUnionMember
+    ProtectedJobOutputConfigurationInputMemberMember | UnknownUnionMember
 )
 
 

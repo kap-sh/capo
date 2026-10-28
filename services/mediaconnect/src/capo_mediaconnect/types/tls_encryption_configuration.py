@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.public_tls_encryption_configuration
 
 
-class _TlsEncryptionConfiguration_Public(TypedDict, closed=True):
+class TlsEncryptionConfigurationPublicMember(TypedDict, closed=True):
     Public: "capo_mediaconnect.types.public_tls_encryption_configuration.PublicTlsEncryptionConfiguration"
 
 
 TlsEncryptionConfiguration: TypeAlias = (
-    _TlsEncryptionConfiguration_Public | UnknownUnionMember
+    TlsEncryptionConfigurationPublicMember | UnknownUnionMember
 )
 
 

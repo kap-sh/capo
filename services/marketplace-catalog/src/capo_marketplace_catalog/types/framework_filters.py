@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_marketplace_catalog.types.container_security_filters
 
 
-class _FrameworkFilters_AMISecurityFilters(TypedDict, closed=True):
+class FrameworkFiltersAMISecurityFiltersMember(TypedDict, closed=True):
     AMISecurityFilters: (
         "capo_marketplace_catalog.types.ami_security_filters.AMISecurityFilters"
     )
 
 
-class _FrameworkFilters_ContainerSecurityFilters(TypedDict, closed=True):
+class FrameworkFiltersContainerSecurityFiltersMember(TypedDict, closed=True):
     ContainerSecurityFilters: "capo_marketplace_catalog.types.container_security_filters.ContainerSecurityFilters"
 
 
 FrameworkFilters: TypeAlias = (
-    _FrameworkFilters_AMISecurityFilters
-    | _FrameworkFilters_ContainerSecurityFilters
+    FrameworkFiltersAMISecurityFiltersMember
+    | FrameworkFiltersContainerSecurityFiltersMember
     | UnknownUnionMember
 )
 

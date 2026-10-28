@@ -7,7 +7,7 @@ title: UpdatePolicyDefinition
       show_source: true
       merge_init_into_class: false
 
-::: capo_verifiedpermissions.types.update_policy_definition._UpdatePolicyDefinition_static
+::: capo_verifiedpermissions.types.update_policy_definition.UpdatePolicyDefinitionStaticMember
     options:
       show_source: true
       merge_init_into_class: false

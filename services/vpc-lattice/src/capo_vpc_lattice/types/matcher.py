@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_vpc_lattice.types.http_code_matcher
 
 
-class _Matcher_httpCode(TypedDict, closed=True):
+class MatcherHttpCodeMember(TypedDict, closed=True):
     httpCode: "capo_vpc_lattice.types.http_code_matcher.HttpCodeMatcher"
 
 
-Matcher: TypeAlias = _Matcher_httpCode | UnknownUnionMember
+Matcher: TypeAlias = MatcherHttpCodeMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

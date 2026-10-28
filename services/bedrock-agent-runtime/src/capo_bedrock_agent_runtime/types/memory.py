@@ -11,13 +11,13 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.memory_session_summary
 
 
-class _Memory_sessionSummary(TypedDict, closed=True):
+class MemorySessionSummaryMember(TypedDict, closed=True):
     sessionSummary: (
         "capo_bedrock_agent_runtime.types.memory_session_summary.MemorySessionSummary"
     )
 
 
-Memory: TypeAlias = _Memory_sessionSummary | UnknownUnionMember
+Memory: TypeAlias = MemorySessionSummaryMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

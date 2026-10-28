@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_mpa.types.mof_n_approval_strategy
 
 
-class _ApprovalStrategyResponse_MofN(TypedDict, closed=True):
+class ApprovalStrategyResponseMofNMember(TypedDict, closed=True):
     MofN: "capo_mpa.types.mof_n_approval_strategy.MofNApprovalStrategy"
 
 
 ApprovalStrategyResponse: TypeAlias = (
-    _ApprovalStrategyResponse_MofN | UnknownUnionMember
+    ApprovalStrategyResponseMofNMember | UnknownUnionMember
 )
 
 

@@ -14,27 +14,27 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.protected_query_s3_output_configuration
 
 
-class _ProtectedQueryOutputConfiguration_s3(TypedDict, closed=True):
+class ProtectedQueryOutputConfigurationS3Member(TypedDict, closed=True):
     s3: "capo_cleanrooms.types.protected_query_s3_output_configuration.ProtectedQueryS3OutputConfiguration"
 
 
-class _ProtectedQueryOutputConfiguration_member(TypedDict, closed=True):
+class ProtectedQueryOutputConfigurationMemberMember(TypedDict, closed=True):
     member: "capo_cleanrooms.types.protected_query_member_output_configuration.ProtectedQueryMemberOutputConfiguration"
 
 
-class _ProtectedQueryOutputConfiguration_distribute(TypedDict, closed=True):
+class ProtectedQueryOutputConfigurationDistributeMember(TypedDict, closed=True):
     distribute: "capo_cleanrooms.types.protected_query_distribute_output_configuration.ProtectedQueryDistributeOutputConfiguration"
 
 
-class _ProtectedQueryOutputConfiguration_intermediateTable(TypedDict, closed=True):
+class ProtectedQueryOutputConfigurationIntermediateTableMember(TypedDict, closed=True):
     intermediateTable: "capo_cleanrooms.types.intermediate_table_output_configuration.IntermediateTableOutputConfiguration"
 
 
 ProtectedQueryOutputConfiguration: TypeAlias = (
-    _ProtectedQueryOutputConfiguration_s3
-    | _ProtectedQueryOutputConfiguration_member
-    | _ProtectedQueryOutputConfiguration_distribute
-    | _ProtectedQueryOutputConfiguration_intermediateTable
+    ProtectedQueryOutputConfigurationS3Member
+    | ProtectedQueryOutputConfigurationMemberMember
+    | ProtectedQueryOutputConfigurationDistributeMember
+    | ProtectedQueryOutputConfigurationIntermediateTableMember
     | UnknownUnionMember
 )
 

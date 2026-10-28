@@ -17,19 +17,19 @@ if TYPE_CHECKING:
     import capo_lambda.types.invoke_with_response_stream_complete_event
 
 
-class _InvokeWithResponseStreamResponseEvent_PayloadChunk(TypedDict, closed=True):
+class InvokeWithResponseStreamResponseEventPayloadChunkMember(TypedDict, closed=True):
     PayloadChunk: (
         "capo_lambda.types.invoke_response_stream_update.InvokeResponseStreamUpdate"
     )
 
 
-class _InvokeWithResponseStreamResponseEvent_InvokeComplete(TypedDict, closed=True):
+class InvokeWithResponseStreamResponseEventInvokeCompleteMember(TypedDict, closed=True):
     InvokeComplete: "capo_lambda.types.invoke_with_response_stream_complete_event.InvokeWithResponseStreamCompleteEvent"
 
 
 _InvokeWithResponseStreamResponseEvent: TypeAlias = (
-    _InvokeWithResponseStreamResponseEvent_PayloadChunk
-    | _InvokeWithResponseStreamResponseEvent_InvokeComplete
+    InvokeWithResponseStreamResponseEventPayloadChunkMember
+    | InvokeWithResponseStreamResponseEventInvokeCompleteMember
     | UnknownEvent
 )
 InvokeWithResponseStreamResponseEvent: TypeAlias = AnyIterator[

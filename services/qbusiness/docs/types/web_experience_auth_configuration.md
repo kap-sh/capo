@@ -7,7 +7,7 @@ title: WebExperienceAuthConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_qbusiness.types.web_experience_auth_configuration._WebExperienceAuthConfiguration_samlConfiguration
+::: capo_qbusiness.types.web_experience_auth_configuration.WebExperienceAuthConfigurationSamlConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false

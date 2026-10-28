@@ -7,7 +7,7 @@ title: Configuration
       show_source: true
       merge_init_into_class: false
 
-::: capo_qconnect.types.configuration._Configuration_connectConfiguration
+::: capo_qconnect.types.configuration.ConfigurationConnectConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -17,17 +17,19 @@ if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.fields_data
 
 
-class _GetLogObjectResponseStream_fields(TypedDict, closed=True):
+class GetLogObjectResponseStreamFieldsMember(TypedDict, closed=True):
     fields: "capo_cloudwatch_logs.types.fields_data.FieldsData"
 
 
-class _GetLogObjectResponseStream_InternalStreamingException(TypedDict, closed=True):
+class GetLogObjectResponseStreamInternalStreamingExceptionMember(
+    TypedDict, closed=True
+):
     InternalStreamingException: "capo_cloudwatch_logs.errors.internal_streaming_exception.InternalStreamingException_"
 
 
 _GetLogObjectResponseStream: TypeAlias = (
-    _GetLogObjectResponseStream_fields
-    | _GetLogObjectResponseStream_InternalStreamingException
+    GetLogObjectResponseStreamFieldsMember
+    | GetLogObjectResponseStreamInternalStreamingExceptionMember
     | UnknownEvent
 )
 GetLogObjectResponseStream: TypeAlias = AnyIterator[_GetLogObjectResponseStream]

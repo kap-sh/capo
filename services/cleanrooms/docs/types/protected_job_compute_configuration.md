@@ -7,7 +7,7 @@ title: ProtectedJobComputeConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_cleanrooms.types.protected_job_compute_configuration._ProtectedJobComputeConfiguration_worker
+::: capo_cleanrooms.types.protected_job_compute_configuration.ProtectedJobComputeConfigurationWorkerMember
     options:
       show_source: true
       merge_init_into_class: false

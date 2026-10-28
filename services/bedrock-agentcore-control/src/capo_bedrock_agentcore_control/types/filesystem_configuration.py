@@ -17,27 +17,27 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.session_storage_configuration
 
 
-class _FilesystemConfiguration_sessionStorage(TypedDict, closed=True):
+class FilesystemConfigurationSessionStorageMember(TypedDict, closed=True):
     sessionStorage: "capo_bedrock_agentcore_control.types.session_storage_configuration.SessionStorageConfiguration"
 
 
-class _FilesystemConfiguration_s3FilesAccessPoint(TypedDict, closed=True):
+class FilesystemConfigurationS3FilesAccessPointMember(TypedDict, closed=True):
     s3FilesAccessPoint: "capo_bedrock_agentcore_control.types.s3_files_access_point_configuration.S3FilesAccessPointConfiguration"
 
 
-class _FilesystemConfiguration_efsAccessPoint(TypedDict, closed=True):
+class FilesystemConfigurationEfsAccessPointMember(TypedDict, closed=True):
     efsAccessPoint: "capo_bedrock_agentcore_control.types.efs_access_point_configuration.EfsAccessPointConfiguration"
 
 
-class _FilesystemConfiguration_capacityProviderVolume(TypedDict, closed=True):
+class FilesystemConfigurationCapacityProviderVolumeMember(TypedDict, closed=True):
     capacityProviderVolume: "capo_bedrock_agentcore_control.types.capacity_provider_volume_configuration.CapacityProviderVolumeConfiguration"
 
 
 FilesystemConfiguration: TypeAlias = (
-    _FilesystemConfiguration_sessionStorage
-    | _FilesystemConfiguration_s3FilesAccessPoint
-    | _FilesystemConfiguration_efsAccessPoint
-    | _FilesystemConfiguration_capacityProviderVolume
+    FilesystemConfigurationSessionStorageMember
+    | FilesystemConfigurationS3FilesAccessPointMember
+    | FilesystemConfigurationEfsAccessPointMember
+    | FilesystemConfigurationCapacityProviderVolumeMember
     | UnknownUnionMember
 )
 

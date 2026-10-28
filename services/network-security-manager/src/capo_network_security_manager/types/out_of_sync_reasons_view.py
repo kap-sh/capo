@@ -15,19 +15,19 @@ if TYPE_CHECKING:
     import capo_network_security_manager.types.out_of_sync_reasons
 
 
-class _OutOfSyncReasonsView_reasons(TypedDict, closed=True):
+class OutOfSyncReasonsViewReasonsMember(TypedDict, closed=True):
     reasons: "capo_network_security_manager.types.out_of_sync_reasons.OutOfSyncReasons"
 
 
-class _OutOfSyncReasonsView_notVisible(TypedDict, closed=True):
+class OutOfSyncReasonsViewNotVisibleMember(TypedDict, closed=True):
     notVisible: (
         "capo_network_security_manager.types.not_visible_marker.NotVisibleMarker"
     )
 
 
 OutOfSyncReasonsView: TypeAlias = (
-    _OutOfSyncReasonsView_reasons
-    | _OutOfSyncReasonsView_notVisible
+    OutOfSyncReasonsViewReasonsMember
+    | OutOfSyncReasonsViewNotVisibleMember
     | UnknownUnionMember
 )
 

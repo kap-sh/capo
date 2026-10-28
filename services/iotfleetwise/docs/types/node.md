@@ -7,37 +7,37 @@ title: Node
       show_source: true
       merge_init_into_class: false
 
-::: capo_iotfleetwise.types.node._Node_branch
+::: capo_iotfleetwise.types.node.NodeBranchMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_iotfleetwise.types.node._Node_sensor
+::: capo_iotfleetwise.types.node.NodeSensorMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_iotfleetwise.types.node._Node_actuator
+::: capo_iotfleetwise.types.node.NodeActuatorMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_iotfleetwise.types.node._Node_attribute
+::: capo_iotfleetwise.types.node.NodeAttributeMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_iotfleetwise.types.node._Node_struct
+::: capo_iotfleetwise.types.node.NodeStructMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_iotfleetwise.types.node._Node_property
+::: capo_iotfleetwise.types.node.NodePropertyMember
     options:
       show_source: true
       merge_init_into_class: false

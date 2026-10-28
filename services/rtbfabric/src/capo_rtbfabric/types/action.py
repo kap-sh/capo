@@ -12,15 +12,15 @@ if TYPE_CHECKING:
     import capo_rtbfabric.types.no_bid_action
 
 
-class _Action_noBid(TypedDict, closed=True):
+class ActionNoBidMember(TypedDict, closed=True):
     noBid: "capo_rtbfabric.types.no_bid_action.NoBidAction"
 
 
-class _Action_headerTag(TypedDict, closed=True):
+class ActionHeaderTagMember(TypedDict, closed=True):
     headerTag: "capo_rtbfabric.types.header_tag_action.HeaderTagAction"
 
 
-Action: TypeAlias = _Action_noBid | _Action_headerTag | UnknownUnionMember
+Action: TypeAlias = ActionNoBidMember | ActionHeaderTagMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

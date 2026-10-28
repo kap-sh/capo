@@ -14,12 +14,12 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.ebs_volume_configuration
 
 
-class _VolumeConfiguration_ebsConfiguration(TypedDict, closed=True):
+class VolumeConfigurationEbsConfigurationMember(TypedDict, closed=True):
     ebsConfiguration: "capo_bedrock_agentcore_control.types.ebs_volume_configuration.EbsVolumeConfiguration"
 
 
 VolumeConfiguration: TypeAlias = (
-    _VolumeConfiguration_ebsConfiguration | UnknownUnionMember
+    VolumeConfigurationEbsConfigurationMember | UnknownUnionMember
 )
 
 

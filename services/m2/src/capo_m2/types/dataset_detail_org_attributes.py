@@ -14,27 +14,27 @@ if TYPE_CHECKING:
     import capo_m2.types.vsam_detail_attributes
 
 
-class _DatasetDetailOrgAttributes_vsam(TypedDict, closed=True):
+class DatasetDetailOrgAttributesVsamMember(TypedDict, closed=True):
     vsam: "capo_m2.types.vsam_detail_attributes.VsamDetailAttributes"
 
 
-class _DatasetDetailOrgAttributes_gdg(TypedDict, closed=True):
+class DatasetDetailOrgAttributesGdgMember(TypedDict, closed=True):
     gdg: "capo_m2.types.gdg_detail_attributes.GdgDetailAttributes"
 
 
-class _DatasetDetailOrgAttributes_po(TypedDict, closed=True):
+class DatasetDetailOrgAttributesPoMember(TypedDict, closed=True):
     po: "capo_m2.types.po_detail_attributes.PoDetailAttributes"
 
 
-class _DatasetDetailOrgAttributes_ps(TypedDict, closed=True):
+class DatasetDetailOrgAttributesPsMember(TypedDict, closed=True):
     ps: "capo_m2.types.ps_detail_attributes.PsDetailAttributes"
 
 
 DatasetDetailOrgAttributes: TypeAlias = (
-    _DatasetDetailOrgAttributes_vsam
-    | _DatasetDetailOrgAttributes_gdg
-    | _DatasetDetailOrgAttributes_po
-    | _DatasetDetailOrgAttributes_ps
+    DatasetDetailOrgAttributesVsamMember
+    | DatasetDetailOrgAttributesGdgMember
+    | DatasetDetailOrgAttributesPoMember
+    | DatasetDetailOrgAttributesPsMember
     | UnknownUnionMember
 )
 

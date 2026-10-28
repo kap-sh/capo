@@ -7,7 +7,7 @@ title: ConsolidationConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.consolidation_configuration._ConsolidationConfiguration_customConsolidationConfiguration
+::: capo_bedrock_agentcore_control.types.consolidation_configuration.ConsolidationConfigurationCustomConsolidationConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false

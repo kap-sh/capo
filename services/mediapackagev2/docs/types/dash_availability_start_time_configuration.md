@@ -7,7 +7,7 @@ title: DashAvailabilityStartTimeConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_mediapackagev2.types.dash_availability_start_time_configuration._DashAvailabilityStartTimeConfiguration_FixedAvailabilityStartTime
+::: capo_mediapackagev2.types.dash_availability_start_time_configuration.DashAvailabilityStartTimeConfigurationFixedAvailabilityStartTimeMember
     options:
       show_source: true
       merge_init_into_class: false

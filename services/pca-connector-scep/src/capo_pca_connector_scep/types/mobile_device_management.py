@@ -11,11 +11,13 @@ if TYPE_CHECKING:
     import capo_pca_connector_scep.types.intune_configuration
 
 
-class _MobileDeviceManagement_Intune(TypedDict, closed=True):
+class MobileDeviceManagementIntuneMember(TypedDict, closed=True):
     Intune: "capo_pca_connector_scep.types.intune_configuration.IntuneConfiguration"
 
 
-MobileDeviceManagement: TypeAlias = _MobileDeviceManagement_Intune | UnknownUnionMember
+MobileDeviceManagement: TypeAlias = (
+    MobileDeviceManagementIntuneMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

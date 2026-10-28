@@ -11,19 +11,19 @@ if TYPE_CHECKING:
     import capo_verifiedpermissions.types.kms_encryption_settings
 
 
-class _EncryptionSettings_kmsEncryptionSettings(TypedDict, closed=True):
+class EncryptionSettingsKmsEncryptionSettingsMember(TypedDict, closed=True):
     kmsEncryptionSettings: (
         "capo_verifiedpermissions.types.kms_encryption_settings.KmsEncryptionSettings"
     )
 
 
-class _EncryptionSettings_default(TypedDict, closed=True):
+class EncryptionSettingsDefaultMember(TypedDict, closed=True):
     default: "None"
 
 
 EncryptionSettings: TypeAlias = (
-    _EncryptionSettings_kmsEncryptionSettings
-    | _EncryptionSettings_default
+    EncryptionSettingsKmsEncryptionSettingsMember
+    | EncryptionSettingsDefaultMember
     | UnknownUnionMember
 )
 

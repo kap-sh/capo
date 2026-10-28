@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_securityhub.types.service_now_update_configuration
 
 
-class _ProviderUpdateConfiguration_JiraCloud(TypedDict, closed=True):
+class ProviderUpdateConfigurationJiraCloudMember(TypedDict, closed=True):
     JiraCloud: "capo_securityhub.types.jira_cloud_update_configuration.JiraCloudUpdateConfiguration"
 
 
-class _ProviderUpdateConfiguration_ServiceNow(TypedDict, closed=True):
+class ProviderUpdateConfigurationServiceNowMember(TypedDict, closed=True):
     ServiceNow: "capo_securityhub.types.service_now_update_configuration.ServiceNowUpdateConfiguration"
 
 
-class _ProviderUpdateConfiguration_Azure(TypedDict, closed=True):
+class ProviderUpdateConfigurationAzureMember(TypedDict, closed=True):
     Azure: "capo_securityhub.types.azure_update_configuration.AzureUpdateConfiguration"
 
 
 ProviderUpdateConfiguration: TypeAlias = (
-    _ProviderUpdateConfiguration_JiraCloud
-    | _ProviderUpdateConfiguration_ServiceNow
-    | _ProviderUpdateConfiguration_Azure
+    ProviderUpdateConfigurationJiraCloudMember
+    | ProviderUpdateConfigurationServiceNowMember
+    | ProviderUpdateConfigurationAzureMember
     | UnknownUnionMember
 )
 

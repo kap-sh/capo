@@ -7,7 +7,7 @@ title: CustomReflectionConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.custom_reflection_configuration._CustomReflectionConfiguration_episodicReflectionOverride
+::: capo_bedrock_agentcore_control.types.custom_reflection_configuration.CustomReflectionConfigurationEpisodicReflectionOverrideMember
     options:
       show_source: true
       merge_init_into_class: false

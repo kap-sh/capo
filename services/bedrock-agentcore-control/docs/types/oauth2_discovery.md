@@ -7,13 +7,13 @@ title: Oauth2Discovery
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.oauth2_discovery._Oauth2Discovery_discoveryUrl
+::: capo_bedrock_agentcore_control.types.oauth2_discovery.Oauth2DiscoveryDiscoveryUrlMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore_control.types.oauth2_discovery._Oauth2Discovery_authorizationServerMetadata
+::: capo_bedrock_agentcore_control.types.oauth2_discovery.Oauth2DiscoveryAuthorizationServerMetadataMember
     options:
       show_source: true
       merge_init_into_class: false

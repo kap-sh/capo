@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.function_invocation_input
 
 
-class _InvocationInputMember_apiInvocationInput(TypedDict, closed=True):
+class InvocationInputMemberApiInvocationInputMember(TypedDict, closed=True):
     apiInvocationInput: (
         "capo_bedrock_agent_runtime.types.api_invocation_input.ApiInvocationInput"
     )
 
 
-class _InvocationInputMember_functionInvocationInput(TypedDict, closed=True):
+class InvocationInputMemberFunctionInvocationInputMember(TypedDict, closed=True):
     functionInvocationInput: "capo_bedrock_agent_runtime.types.function_invocation_input.FunctionInvocationInput"
 
 
 InvocationInputMember: TypeAlias = (
-    _InvocationInputMember_apiInvocationInput
-    | _InvocationInputMember_functionInvocationInput
+    InvocationInputMemberApiInvocationInputMember
+    | InvocationInputMemberFunctionInvocationInputMember
     | UnknownUnionMember
 )
 

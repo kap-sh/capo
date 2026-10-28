@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_mailmanager.types.rule_ip_email_attribute
 
 
-class _RuleIpToEvaluate_Attribute(TypedDict, closed=True):
+class RuleIpToEvaluateAttributeMember(TypedDict, closed=True):
     Attribute: "capo_mailmanager.types.rule_ip_email_attribute.RuleIpEmailAttribute"
 
 
-RuleIpToEvaluate: TypeAlias = _RuleIpToEvaluate_Attribute | UnknownUnionMember
+RuleIpToEvaluate: TypeAlias = RuleIpToEvaluateAttributeMember | UnknownUnionMember
 
 
 # --- awsJson1_0 ser/de ---

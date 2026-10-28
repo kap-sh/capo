@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_agent_registry_control.types.agent_core_runtime_source_details
 
 
-class _SourceDetails_agentcoreRuntime(TypedDict, closed=True):
+class SourceDetailsAgentcoreRuntimeMember(TypedDict, closed=True):
     agentcoreRuntime: "capo_agent_registry_control.types.agent_core_runtime_source_details.AgentCoreRuntimeSourceDetails"
 
 
-class _SourceDetails_agentcoreGateway(TypedDict, closed=True):
+class SourceDetailsAgentcoreGatewayMember(TypedDict, closed=True):
     agentcoreGateway: "capo_agent_registry_control.types.agent_core_gateway_source_details.AgentCoreGatewaySourceDetails"
 
 
 SourceDetails: TypeAlias = (
-    _SourceDetails_agentcoreRuntime
-    | _SourceDetails_agentcoreGateway
+    SourceDetailsAgentcoreRuntimeMember
+    | SourceDetailsAgentcoreGatewayMember
     | UnknownUnionMember
 )
 

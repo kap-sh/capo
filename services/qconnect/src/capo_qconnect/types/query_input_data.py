@@ -13,24 +13,24 @@ if TYPE_CHECKING:
     import capo_qconnect.types.query_text_input_data
 
 
-class _QueryInputData_queryTextInputData(TypedDict, closed=True):
+class QueryInputDataQueryTextInputDataMember(TypedDict, closed=True):
     queryTextInputData: "capo_qconnect.types.query_text_input_data.QueryTextInputData"
 
 
-class _QueryInputData_intentInputData(TypedDict, closed=True):
+class QueryInputDataIntentInputDataMember(TypedDict, closed=True):
     intentInputData: "capo_qconnect.types.intent_input_data.IntentInputData"
 
 
-class _QueryInputData_caseSummarizationInputData(TypedDict, closed=True):
+class QueryInputDataCaseSummarizationInputDataMember(TypedDict, closed=True):
     caseSummarizationInputData: (
         "capo_qconnect.types.case_summarization_input_data.CaseSummarizationInputData"
     )
 
 
 QueryInputData: TypeAlias = (
-    _QueryInputData_queryTextInputData
-    | _QueryInputData_intentInputData
-    | _QueryInputData_caseSummarizationInputData
+    QueryInputDataQueryTextInputDataMember
+    | QueryInputDataIntentInputDataMember
+    | QueryInputDataCaseSummarizationInputDataMember
     | UnknownUnionMember
 )
 

@@ -15,17 +15,17 @@ if TYPE_CHECKING:
     import capo_network_security_manager.types.template_arn
 
 
-class _AssociatedTemplateOrRule_templateArn(TypedDict, closed=True):
+class AssociatedTemplateOrRuleTemplateArnMember(TypedDict, closed=True):
     templateArn: "capo_network_security_manager.types.template_arn.TemplateArn"
 
 
-class _AssociatedTemplateOrRule_ruleArn(TypedDict, closed=True):
+class AssociatedTemplateOrRuleRuleArnMember(TypedDict, closed=True):
     ruleArn: "capo_network_security_manager.types.rule_arn.RuleArn"
 
 
 AssociatedTemplateOrRule: TypeAlias = (
-    _AssociatedTemplateOrRule_templateArn
-    | _AssociatedTemplateOrRule_ruleArn
+    AssociatedTemplateOrRuleTemplateArnMember
+    | AssociatedTemplateOrRuleRuleArnMember
     | UnknownUnionMember
 )
 

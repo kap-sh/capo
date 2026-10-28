@@ -26,74 +26,74 @@ if TYPE_CHECKING:
     import capo_bedrock_runtime.types.message_stop_event
 
 
-class _ConverseStreamOutput_messageStart(TypedDict, closed=True):
+class ConverseStreamOutputMessageStartMember(TypedDict, closed=True):
     messageStart: "capo_bedrock_runtime.types.message_start_event.MessageStartEvent"
 
 
-class _ConverseStreamOutput_contentBlockStart(TypedDict, closed=True):
+class ConverseStreamOutputContentBlockStartMember(TypedDict, closed=True):
     contentBlockStart: (
         "capo_bedrock_runtime.types.content_block_start_event.ContentBlockStartEvent"
     )
 
 
-class _ConverseStreamOutput_contentBlockDelta(TypedDict, closed=True):
+class ConverseStreamOutputContentBlockDeltaMember(TypedDict, closed=True):
     contentBlockDelta: (
         "capo_bedrock_runtime.types.content_block_delta_event.ContentBlockDeltaEvent"
     )
 
 
-class _ConverseStreamOutput_contentBlockStop(TypedDict, closed=True):
+class ConverseStreamOutputContentBlockStopMember(TypedDict, closed=True):
     contentBlockStop: (
         "capo_bedrock_runtime.types.content_block_stop_event.ContentBlockStopEvent"
     )
 
 
-class _ConverseStreamOutput_messageStop(TypedDict, closed=True):
+class ConverseStreamOutputMessageStopMember(TypedDict, closed=True):
     messageStop: "capo_bedrock_runtime.types.message_stop_event.MessageStopEvent"
 
 
-class _ConverseStreamOutput_metadata(TypedDict, closed=True):
+class ConverseStreamOutputMetadataMember(TypedDict, closed=True):
     metadata: "capo_bedrock_runtime.types.converse_stream_metadata_event.ConverseStreamMetadataEvent"
 
 
-class _ConverseStreamOutput_internalServerException(TypedDict, closed=True):
+class ConverseStreamOutputInternalServerExceptionMember(TypedDict, closed=True):
     internalServerException: (
         "capo_bedrock_runtime.errors.internal_server_exception.InternalServerException_"
     )
 
 
-class _ConverseStreamOutput_modelStreamErrorException(TypedDict, closed=True):
+class ConverseStreamOutputModelStreamErrorExceptionMember(TypedDict, closed=True):
     modelStreamErrorException: "capo_bedrock_runtime.errors.model_stream_error_exception.ModelStreamErrorException_"
 
 
-class _ConverseStreamOutput_validationException(TypedDict, closed=True):
+class ConverseStreamOutputValidationExceptionMember(TypedDict, closed=True):
     validationException: (
         "capo_bedrock_runtime.errors.validation_exception.ValidationException_"
     )
 
 
-class _ConverseStreamOutput_throttlingException(TypedDict, closed=True):
+class ConverseStreamOutputThrottlingExceptionMember(TypedDict, closed=True):
     throttlingException: (
         "capo_bedrock_runtime.errors.throttling_exception.ThrottlingException_"
     )
 
 
-class _ConverseStreamOutput_serviceUnavailableException(TypedDict, closed=True):
+class ConverseStreamOutputServiceUnavailableExceptionMember(TypedDict, closed=True):
     serviceUnavailableException: "capo_bedrock_runtime.errors.service_unavailable_exception.ServiceUnavailableException_"
 
 
 _ConverseStreamOutput: TypeAlias = (
-    _ConverseStreamOutput_messageStart
-    | _ConverseStreamOutput_contentBlockStart
-    | _ConverseStreamOutput_contentBlockDelta
-    | _ConverseStreamOutput_contentBlockStop
-    | _ConverseStreamOutput_messageStop
-    | _ConverseStreamOutput_metadata
-    | _ConverseStreamOutput_internalServerException
-    | _ConverseStreamOutput_modelStreamErrorException
-    | _ConverseStreamOutput_validationException
-    | _ConverseStreamOutput_throttlingException
-    | _ConverseStreamOutput_serviceUnavailableException
+    ConverseStreamOutputMessageStartMember
+    | ConverseStreamOutputContentBlockStartMember
+    | ConverseStreamOutputContentBlockDeltaMember
+    | ConverseStreamOutputContentBlockStopMember
+    | ConverseStreamOutputMessageStopMember
+    | ConverseStreamOutputMetadataMember
+    | ConverseStreamOutputInternalServerExceptionMember
+    | ConverseStreamOutputModelStreamErrorExceptionMember
+    | ConverseStreamOutputValidationExceptionMember
+    | ConverseStreamOutputThrottlingExceptionMember
+    | ConverseStreamOutputServiceUnavailableExceptionMember
     | UnknownEvent
 )
 ConverseStreamOutput: TypeAlias = AnyIterator[_ConverseStreamOutput]

@@ -7,7 +7,7 @@ title: SubjectFilter
       show_source: true
       merge_init_into_class: false
 
-::: capo_acm.types.subject_filter._SubjectFilter_CommonName
+::: capo_acm.types.subject_filter.SubjectFilterCommonNameMember
     options:
       show_source: true
       merge_init_into_class: false

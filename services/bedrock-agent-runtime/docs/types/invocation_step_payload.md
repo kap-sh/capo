@@ -7,7 +7,7 @@ title: InvocationStepPayload
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agent_runtime.types.invocation_step_payload._InvocationStepPayload_contentBlocks
+::: capo_bedrock_agent_runtime.types.invocation_step_payload.InvocationStepPayloadContentBlocksMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -7,19 +7,19 @@ title: HandshakeDetail
       show_source: true
       merge_init_into_class: false
 
-::: capo_partnercentral_channel.types.handshake_detail._HandshakeDetail_startServicePeriodHandshakeDetail
+::: capo_partnercentral_channel.types.handshake_detail.HandshakeDetailStartServicePeriodHandshakeDetailMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_partnercentral_channel.types.handshake_detail._HandshakeDetail_revokeServicePeriodHandshakeDetail
+::: capo_partnercentral_channel.types.handshake_detail.HandshakeDetailRevokeServicePeriodHandshakeDetailMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_partnercentral_channel.types.handshake_detail._HandshakeDetail_programManagementAccountHandshakeDetail
+::: capo_partnercentral_channel.types.handshake_detail.HandshakeDetailProgramManagementAccountHandshakeDetailMember
     options:
       show_source: true
       merge_init_into_class: false

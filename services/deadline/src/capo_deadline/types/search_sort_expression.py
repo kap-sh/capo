@@ -13,24 +13,24 @@ if TYPE_CHECKING:
     import capo_deadline.types.user_jobs_first
 
 
-class _SearchSortExpression_userJobsFirst(TypedDict, closed=True):
+class SearchSortExpressionUserJobsFirstMember(TypedDict, closed=True):
     userJobsFirst: "capo_deadline.types.user_jobs_first.UserJobsFirst"
 
 
-class _SearchSortExpression_fieldSort(TypedDict, closed=True):
+class SearchSortExpressionFieldSortMember(TypedDict, closed=True):
     fieldSort: "capo_deadline.types.field_sort_expression.FieldSortExpression"
 
 
-class _SearchSortExpression_parameterSort(TypedDict, closed=True):
+class SearchSortExpressionParameterSortMember(TypedDict, closed=True):
     parameterSort: (
         "capo_deadline.types.parameter_sort_expression.ParameterSortExpression"
     )
 
 
 SearchSortExpression: TypeAlias = (
-    _SearchSortExpression_userJobsFirst
-    | _SearchSortExpression_fieldSort
-    | _SearchSortExpression_parameterSort
+    SearchSortExpressionUserJobsFirstMember
+    | SearchSortExpressionFieldSortMember
+    | SearchSortExpressionParameterSortMember
     | UnknownUnionMember
 )
 

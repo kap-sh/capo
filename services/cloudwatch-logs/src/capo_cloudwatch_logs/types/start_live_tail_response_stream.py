@@ -19,33 +19,35 @@ if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.live_tail_session_update
 
 
-class _StartLiveTailResponseStream_sessionStart(TypedDict, closed=True):
+class StartLiveTailResponseStreamSessionStartMember(TypedDict, closed=True):
     sessionStart: (
         "capo_cloudwatch_logs.types.live_tail_session_start.LiveTailSessionStart"
     )
 
 
-class _StartLiveTailResponseStream_sessionUpdate(TypedDict, closed=True):
+class StartLiveTailResponseStreamSessionUpdateMember(TypedDict, closed=True):
     sessionUpdate: (
         "capo_cloudwatch_logs.types.live_tail_session_update.LiveTailSessionUpdate"
     )
 
 
-class _StartLiveTailResponseStream_SessionTimeoutException(TypedDict, closed=True):
+class StartLiveTailResponseStreamSessionTimeoutExceptionMember(TypedDict, closed=True):
     SessionTimeoutException: (
         "capo_cloudwatch_logs.errors.session_timeout_exception.SessionTimeoutException_"
     )
 
 
-class _StartLiveTailResponseStream_SessionStreamingException(TypedDict, closed=True):
+class StartLiveTailResponseStreamSessionStreamingExceptionMember(
+    TypedDict, closed=True
+):
     SessionStreamingException: "capo_cloudwatch_logs.errors.session_streaming_exception.SessionStreamingException_"
 
 
 _StartLiveTailResponseStream: TypeAlias = (
-    _StartLiveTailResponseStream_sessionStart
-    | _StartLiveTailResponseStream_sessionUpdate
-    | _StartLiveTailResponseStream_SessionTimeoutException
-    | _StartLiveTailResponseStream_SessionStreamingException
+    StartLiveTailResponseStreamSessionStartMember
+    | StartLiveTailResponseStreamSessionUpdateMember
+    | StartLiveTailResponseStreamSessionTimeoutExceptionMember
+    | StartLiveTailResponseStreamSessionStreamingExceptionMember
     | UnknownEvent
 )
 StartLiveTailResponseStream: TypeAlias = AnyIterator[_StartLiveTailResponseStream]

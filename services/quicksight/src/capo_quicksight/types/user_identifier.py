@@ -12,22 +12,22 @@ if TYPE_CHECKING:
     import capo_quicksight.types.sensitive_string
 
 
-class _UserIdentifier_UserName(TypedDict, closed=True):
+class UserIdentifierUserNameMember(TypedDict, closed=True):
     UserName: "capo_quicksight.types.sensitive_string.SensitiveString"
 
 
-class _UserIdentifier_Email(TypedDict, closed=True):
+class UserIdentifierEmailMember(TypedDict, closed=True):
     Email: "capo_quicksight.types.sensitive_string.SensitiveString"
 
 
-class _UserIdentifier_UserArn(TypedDict, closed=True):
+class UserIdentifierUserArnMember(TypedDict, closed=True):
     UserArn: "capo_quicksight.types.arn.Arn"
 
 
 UserIdentifier: TypeAlias = (
-    _UserIdentifier_UserName
-    | _UserIdentifier_Email
-    | _UserIdentifier_UserArn
+    UserIdentifierUserNameMember
+    | UserIdentifierEmailMember
+    | UserIdentifierUserArnMember
     | UnknownUnionMember
 )
 

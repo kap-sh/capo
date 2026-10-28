@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_qconnect.types.uuid
 
 
-class _AssistantAssociationInputData_knowledgeBaseId(TypedDict, closed=True):
+class AssistantAssociationInputDataKnowledgeBaseIdMember(TypedDict, closed=True):
     knowledgeBaseId: "capo_qconnect.types.uuid.Uuid"
 
 
-class _AssistantAssociationInputData_externalBedrockKnowledgeBaseConfig(
+class AssistantAssociationInputDataExternalBedrockKnowledgeBaseConfigMember(
     TypedDict, closed=True
 ):
     externalBedrockKnowledgeBaseConfig: "capo_qconnect.types.external_bedrock_knowledge_base_config.ExternalBedrockKnowledgeBaseConfig"
 
 
 AssistantAssociationInputData: TypeAlias = (
-    _AssistantAssociationInputData_knowledgeBaseId
-    | _AssistantAssociationInputData_externalBedrockKnowledgeBaseConfig
+    AssistantAssociationInputDataKnowledgeBaseIdMember
+    | AssistantAssociationInputDataExternalBedrockKnowledgeBaseConfigMember
     | UnknownUnionMember
 )
 

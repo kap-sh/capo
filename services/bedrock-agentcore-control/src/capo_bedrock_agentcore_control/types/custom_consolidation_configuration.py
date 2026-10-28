@@ -17,35 +17,35 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.user_preference_consolidation_override
 
 
-class _CustomConsolidationConfiguration_semanticConsolidationOverride(
+class CustomConsolidationConfigurationSemanticConsolidationOverrideMember(
     TypedDict, closed=True
 ):
     semanticConsolidationOverride: "capo_bedrock_agentcore_control.types.semantic_consolidation_override.SemanticConsolidationOverride"
 
 
-class _CustomConsolidationConfiguration_summaryConsolidationOverride(
+class CustomConsolidationConfigurationSummaryConsolidationOverrideMember(
     TypedDict, closed=True
 ):
     summaryConsolidationOverride: "capo_bedrock_agentcore_control.types.summary_consolidation_override.SummaryConsolidationOverride"
 
 
-class _CustomConsolidationConfiguration_userPreferenceConsolidationOverride(
+class CustomConsolidationConfigurationUserPreferenceConsolidationOverrideMember(
     TypedDict, closed=True
 ):
     userPreferenceConsolidationOverride: "capo_bedrock_agentcore_control.types.user_preference_consolidation_override.UserPreferenceConsolidationOverride"
 
 
-class _CustomConsolidationConfiguration_episodicConsolidationOverride(
+class CustomConsolidationConfigurationEpisodicConsolidationOverrideMember(
     TypedDict, closed=True
 ):
     episodicConsolidationOverride: "capo_bedrock_agentcore_control.types.episodic_consolidation_override.EpisodicConsolidationOverride"
 
 
 CustomConsolidationConfiguration: TypeAlias = (
-    _CustomConsolidationConfiguration_semanticConsolidationOverride
-    | _CustomConsolidationConfiguration_summaryConsolidationOverride
-    | _CustomConsolidationConfiguration_userPreferenceConsolidationOverride
-    | _CustomConsolidationConfiguration_episodicConsolidationOverride
+    CustomConsolidationConfigurationSemanticConsolidationOverrideMember
+    | CustomConsolidationConfigurationSummaryConsolidationOverrideMember
+    | CustomConsolidationConfigurationUserPreferenceConsolidationOverrideMember
+    | CustomConsolidationConfigurationEpisodicConsolidationOverrideMember
     | UnknownUnionMember
 )
 

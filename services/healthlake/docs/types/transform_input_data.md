@@ -7,13 +7,13 @@ title: TransformInputData
       show_source: true
       merge_init_into_class: false
 
-::: capo_healthlake.types.transform_input_data._TransformInputData_CcdaInput
+::: capo_healthlake.types.transform_input_data.TransformInputDataCcdaInputMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_healthlake.types.transform_input_data._TransformInputData_CsvInput
+::: capo_healthlake.types.transform_input_data.TransformInputDataCsvInputMember
     options:
       show_source: true
       merge_init_into_class: false

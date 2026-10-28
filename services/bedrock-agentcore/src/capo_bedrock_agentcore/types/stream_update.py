@@ -11,13 +11,13 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.automation_stream_update
 
 
-class _StreamUpdate_automationStreamUpdate(TypedDict, closed=True):
+class StreamUpdateAutomationStreamUpdateMember(TypedDict, closed=True):
     automationStreamUpdate: (
         "capo_bedrock_agentcore.types.automation_stream_update.AutomationStreamUpdate"
     )
 
 
-StreamUpdate: TypeAlias = _StreamUpdate_automationStreamUpdate | UnknownUnionMember
+StreamUpdate: TypeAlias = StreamUpdateAutomationStreamUpdateMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

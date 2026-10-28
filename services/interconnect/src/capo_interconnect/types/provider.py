@@ -12,18 +12,20 @@ if TYPE_CHECKING:
     import capo_interconnect.types.last_mile_provider
 
 
-class _Provider_cloudServiceProvider(TypedDict, closed=True):
+class ProviderCloudServiceProviderMember(TypedDict, closed=True):
     cloudServiceProvider: (
         "capo_interconnect.types.cloud_service_provider.CloudServiceProvider"
     )
 
 
-class _Provider_lastMileProvider(TypedDict, closed=True):
+class ProviderLastMileProviderMember(TypedDict, closed=True):
     lastMileProvider: "capo_interconnect.types.last_mile_provider.LastMileProvider"
 
 
 Provider: TypeAlias = (
-    _Provider_cloudServiceProvider | _Provider_lastMileProvider | UnknownUnionMember
+    ProviderCloudServiceProviderMember
+    | ProviderLastMileProviderMember
+    | UnknownUnionMember
 )
 
 

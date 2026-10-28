@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_b2bi.types.x12_envelope
 
 
-class _OutboundEdiOptions_x12(TypedDict, closed=True):
+class OutboundEdiOptionsX12Member(TypedDict, closed=True):
     x12: "capo_b2bi.types.x12_envelope.X12Envelope"
 
 
-OutboundEdiOptions: TypeAlias = _OutboundEdiOptions_x12 | UnknownUnionMember
+OutboundEdiOptions: TypeAlias = OutboundEdiOptionsX12Member | UnknownUnionMember
 
 
 # --- awsJson1_0 ser/de ---

@@ -7,7 +7,7 @@ title: EndpointConfig
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock.types.endpoint_config._EndpointConfig_sageMaker
+::: capo_bedrock.types.endpoint_config.EndpointConfigSageMakerMember
     options:
       show_source: true
       merge_init_into_class: false

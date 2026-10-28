@@ -12,14 +12,14 @@ if TYPE_CHECKING:
     import capo_s3_control.types.s3_job_manifest_generator
 
 
-class _JobManifestGenerator_S3JobManifestGenerator(TypedDict, closed=True):
+class JobManifestGeneratorS3JobManifestGeneratorMember(TypedDict, closed=True):
     S3JobManifestGenerator: (
         "capo_s3_control.types.s3_job_manifest_generator.S3JobManifestGenerator"
     )
 
 
 JobManifestGenerator: TypeAlias = (
-    _JobManifestGenerator_S3JobManifestGenerator | UnknownUnionMember
+    JobManifestGeneratorS3JobManifestGeneratorMember | UnknownUnionMember
 )
 
 

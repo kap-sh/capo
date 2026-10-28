@@ -8,16 +8,16 @@ from capo_datazone.errors import DeserializationError, SerializationError
 from capo_datazone.types._unknown import UnknownUnionMember
 
 
-class _Member_userIdentifier(TypedDict, closed=True):
+class MemberUserIdentifierMember(TypedDict, closed=True):
     userIdentifier: "str"
 
 
-class _Member_groupIdentifier(TypedDict, closed=True):
+class MemberGroupIdentifierMember(TypedDict, closed=True):
     groupIdentifier: "str"
 
 
 Member: TypeAlias = (
-    _Member_userIdentifier | _Member_groupIdentifier | UnknownUnionMember
+    MemberUserIdentifierMember | MemberGroupIdentifierMember | UnknownUnionMember
 )
 
 

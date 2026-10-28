@@ -20,59 +20,59 @@ if TYPE_CHECKING:
     import capo_verifiedpermissions.types.string_attribute
 
 
-class _AttributeValue_boolean(TypedDict, closed=True):
+class AttributeValueBooleanMember(TypedDict, closed=True):
     boolean: "capo_verifiedpermissions.types.boolean_attribute.BooleanAttribute"
 
 
-class _AttributeValue_entityIdentifier(TypedDict, closed=True):
+class AttributeValueEntityIdentifierMember(TypedDict, closed=True):
     entityIdentifier: (
         "capo_verifiedpermissions.types.entity_identifier.EntityIdentifier"
     )
 
 
-class _AttributeValue_long(TypedDict, closed=True):
+class AttributeValueLongMember(TypedDict, closed=True):
     long: "capo_verifiedpermissions.types.long_attribute.LongAttribute"
 
 
-class _AttributeValue_string(TypedDict, closed=True):
+class AttributeValueStringMember(TypedDict, closed=True):
     string: "capo_verifiedpermissions.types.string_attribute.StringAttribute"
 
 
-class _AttributeValue_set(TypedDict, closed=True):
+class AttributeValueSetMember(TypedDict, closed=True):
     set: "capo_verifiedpermissions.types.set_attribute.SetAttribute"
 
 
-class _AttributeValue_record(TypedDict, closed=True):
+class AttributeValueRecordMember(TypedDict, closed=True):
     record: "capo_verifiedpermissions.types.record_attribute.RecordAttribute"
 
 
-class _AttributeValue_ipaddr(TypedDict, closed=True):
+class AttributeValueIpaddrMember(TypedDict, closed=True):
     ipaddr: "capo_verifiedpermissions.types.ip_addr.IpAddr"
 
 
-class _AttributeValue_decimal(TypedDict, closed=True):
+class AttributeValueDecimalMember(TypedDict, closed=True):
     decimal: "capo_verifiedpermissions.types.decimal.Decimal"
 
 
-class _AttributeValue_datetime(TypedDict, closed=True):
+class AttributeValueDatetimeMember(TypedDict, closed=True):
     datetime: "capo_verifiedpermissions.types.datetime_attribute.DatetimeAttribute"
 
 
-class _AttributeValue_duration(TypedDict, closed=True):
+class AttributeValueDurationMember(TypedDict, closed=True):
     duration: "capo_verifiedpermissions.types.duration.Duration"
 
 
 AttributeValue: TypeAlias = (
-    _AttributeValue_boolean
-    | _AttributeValue_entityIdentifier
-    | _AttributeValue_long
-    | _AttributeValue_string
-    | _AttributeValue_set
-    | _AttributeValue_record
-    | _AttributeValue_ipaddr
-    | _AttributeValue_decimal
-    | _AttributeValue_datetime
-    | _AttributeValue_duration
+    AttributeValueBooleanMember
+    | AttributeValueEntityIdentifierMember
+    | AttributeValueLongMember
+    | AttributeValueStringMember
+    | AttributeValueSetMember
+    | AttributeValueRecordMember
+    | AttributeValueIpaddrMember
+    | AttributeValueDecimalMember
+    | AttributeValueDatetimeMember
+    | AttributeValueDurationMember
     | UnknownUnionMember
 )
 

@@ -14,27 +14,27 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.agentic_retrieve_memory_metadata_string_value
 
 
-class _AgenticRetrieveMemoryMetadataValue_stringValue(TypedDict, closed=True):
+class AgenticRetrieveMemoryMetadataValueStringValueMember(TypedDict, closed=True):
     stringValue: "capo_bedrock_agent_runtime.types.agentic_retrieve_memory_metadata_string_value.AgenticRetrieveMemoryMetadataStringValue"
 
 
-class _AgenticRetrieveMemoryMetadataValue_numberValue(TypedDict, closed=True):
+class AgenticRetrieveMemoryMetadataValueNumberValueMember(TypedDict, closed=True):
     numberValue: "float"
 
 
-class _AgenticRetrieveMemoryMetadataValue_stringListValue(TypedDict, closed=True):
+class AgenticRetrieveMemoryMetadataValueStringListValueMember(TypedDict, closed=True):
     stringListValue: "capo_bedrock_agent_runtime.types.agentic_retrieve_memory_metadata_string_list.AgenticRetrieveMemoryMetadataStringList"
 
 
-class _AgenticRetrieveMemoryMetadataValue_dateTimeValue(TypedDict, closed=True):
+class AgenticRetrieveMemoryMetadataValueDateTimeValueMember(TypedDict, closed=True):
     dateTimeValue: "datetime.datetime"
 
 
 AgenticRetrieveMemoryMetadataValue: TypeAlias = (
-    _AgenticRetrieveMemoryMetadataValue_stringValue
-    | _AgenticRetrieveMemoryMetadataValue_numberValue
-    | _AgenticRetrieveMemoryMetadataValue_stringListValue
-    | _AgenticRetrieveMemoryMetadataValue_dateTimeValue
+    AgenticRetrieveMemoryMetadataValueStringValueMember
+    | AgenticRetrieveMemoryMetadataValueNumberValueMember
+    | AgenticRetrieveMemoryMetadataValueStringListValueMember
+    | AgenticRetrieveMemoryMetadataValueDateTimeValueMember
     | UnknownUnionMember
 )
 

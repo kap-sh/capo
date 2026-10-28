@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_connect.types.attached_file_invalid_request_exception_reason
 
 
-class _InvalidRequestExceptionReason_AttachedFileInvalidRequestExceptionReason(
+class InvalidRequestExceptionReasonAttachedFileInvalidRequestExceptionReasonMember(
     TypedDict, closed=True
 ):
     AttachedFileInvalidRequestExceptionReason: "capo_connect.types.attached_file_invalid_request_exception_reason.AttachedFileInvalidRequestExceptionReason"
 
 
 InvalidRequestExceptionReason: TypeAlias = (
-    _InvalidRequestExceptionReason_AttachedFileInvalidRequestExceptionReason
+    InvalidRequestExceptionReasonAttachedFileInvalidRequestExceptionReasonMember
     | UnknownUnionMember
 )
 

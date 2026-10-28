@@ -7,7 +7,7 @@ title: IdentitySourceParametersForList
       show_source: true
       merge_init_into_class: false
 
-::: capo_mpa.types.identity_source_parameters_for_list._IdentitySourceParametersForList_IamIdentityCenter
+::: capo_mpa.types.identity_source_parameters_for_list.IdentitySourceParametersForListIamIdentityCenterMember
     options:
       show_source: true
       merge_init_into_class: false

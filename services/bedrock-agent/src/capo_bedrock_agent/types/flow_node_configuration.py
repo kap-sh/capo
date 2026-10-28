@@ -26,87 +26,87 @@ if TYPE_CHECKING:
     import capo_bedrock_agent.types.storage_flow_node_configuration
 
 
-class _FlowNodeConfiguration_input(TypedDict, closed=True):
+class FlowNodeConfigurationInputMember(TypedDict, closed=True):
     input: "capo_bedrock_agent.types.input_flow_node_configuration.InputFlowNodeConfiguration"
 
 
-class _FlowNodeConfiguration_output(TypedDict, closed=True):
+class FlowNodeConfigurationOutputMember(TypedDict, closed=True):
     output: "capo_bedrock_agent.types.output_flow_node_configuration.OutputFlowNodeConfiguration"
 
 
-class _FlowNodeConfiguration_knowledgeBase(TypedDict, closed=True):
+class FlowNodeConfigurationKnowledgeBaseMember(TypedDict, closed=True):
     knowledgeBase: "capo_bedrock_agent.types.knowledge_base_flow_node_configuration.KnowledgeBaseFlowNodeConfiguration"
 
 
-class _FlowNodeConfiguration_condition(TypedDict, closed=True):
+class FlowNodeConfigurationConditionMember(TypedDict, closed=True):
     condition: "capo_bedrock_agent.types.condition_flow_node_configuration.ConditionFlowNodeConfiguration"
 
 
-class _FlowNodeConfiguration_lex(TypedDict, closed=True):
+class FlowNodeConfigurationLexMember(TypedDict, closed=True):
     lex: "capo_bedrock_agent.types.lex_flow_node_configuration.LexFlowNodeConfiguration"
 
 
-class _FlowNodeConfiguration_prompt(TypedDict, closed=True):
+class FlowNodeConfigurationPromptMember(TypedDict, closed=True):
     prompt: "capo_bedrock_agent.types.prompt_flow_node_configuration.PromptFlowNodeConfiguration"
 
 
-class _FlowNodeConfiguration_lambdaFunction(TypedDict, closed=True):
+class FlowNodeConfigurationLambdaFunctionMember(TypedDict, closed=True):
     lambdaFunction: "capo_bedrock_agent.types.lambda_function_flow_node_configuration.LambdaFunctionFlowNodeConfiguration"
 
 
-class _FlowNodeConfiguration_storage(TypedDict, closed=True):
+class FlowNodeConfigurationStorageMember(TypedDict, closed=True):
     storage: "capo_bedrock_agent.types.storage_flow_node_configuration.StorageFlowNodeConfiguration"
 
 
-class _FlowNodeConfiguration_agent(TypedDict, closed=True):
+class FlowNodeConfigurationAgentMember(TypedDict, closed=True):
     agent: "capo_bedrock_agent.types.agent_flow_node_configuration.AgentFlowNodeConfiguration"
 
 
-class _FlowNodeConfiguration_retrieval(TypedDict, closed=True):
+class FlowNodeConfigurationRetrievalMember(TypedDict, closed=True):
     retrieval: "capo_bedrock_agent.types.retrieval_flow_node_configuration.RetrievalFlowNodeConfiguration"
 
 
-class _FlowNodeConfiguration_iterator(TypedDict, closed=True):
+class FlowNodeConfigurationIteratorMember(TypedDict, closed=True):
     iterator: "capo_bedrock_agent.types.iterator_flow_node_configuration.IteratorFlowNodeConfiguration"
 
 
-class _FlowNodeConfiguration_collector(TypedDict, closed=True):
+class FlowNodeConfigurationCollectorMember(TypedDict, closed=True):
     collector: "capo_bedrock_agent.types.collector_flow_node_configuration.CollectorFlowNodeConfiguration"
 
 
-class _FlowNodeConfiguration_inlineCode(TypedDict, closed=True):
+class FlowNodeConfigurationInlineCodeMember(TypedDict, closed=True):
     inlineCode: "capo_bedrock_agent.types.inline_code_flow_node_configuration.InlineCodeFlowNodeConfiguration"
 
 
-class _FlowNodeConfiguration_loop(TypedDict, closed=True):
+class FlowNodeConfigurationLoopMember(TypedDict, closed=True):
     loop: "capo_bedrock_agent.types.loop_flow_node_configuration.LoopFlowNodeConfiguration"
 
 
-class _FlowNodeConfiguration_loopInput(TypedDict, closed=True):
+class FlowNodeConfigurationLoopInputMember(TypedDict, closed=True):
     loopInput: "capo_bedrock_agent.types.loop_input_flow_node_configuration.LoopInputFlowNodeConfiguration"
 
 
-class _FlowNodeConfiguration_loopController(TypedDict, closed=True):
+class FlowNodeConfigurationLoopControllerMember(TypedDict, closed=True):
     loopController: "capo_bedrock_agent.types.loop_controller_flow_node_configuration.LoopControllerFlowNodeConfiguration"
 
 
 FlowNodeConfiguration: TypeAlias = (
-    _FlowNodeConfiguration_input
-    | _FlowNodeConfiguration_output
-    | _FlowNodeConfiguration_knowledgeBase
-    | _FlowNodeConfiguration_condition
-    | _FlowNodeConfiguration_lex
-    | _FlowNodeConfiguration_prompt
-    | _FlowNodeConfiguration_lambdaFunction
-    | _FlowNodeConfiguration_storage
-    | _FlowNodeConfiguration_agent
-    | _FlowNodeConfiguration_retrieval
-    | _FlowNodeConfiguration_iterator
-    | _FlowNodeConfiguration_collector
-    | _FlowNodeConfiguration_inlineCode
-    | _FlowNodeConfiguration_loop
-    | _FlowNodeConfiguration_loopInput
-    | _FlowNodeConfiguration_loopController
+    FlowNodeConfigurationInputMember
+    | FlowNodeConfigurationOutputMember
+    | FlowNodeConfigurationKnowledgeBaseMember
+    | FlowNodeConfigurationConditionMember
+    | FlowNodeConfigurationLexMember
+    | FlowNodeConfigurationPromptMember
+    | FlowNodeConfigurationLambdaFunctionMember
+    | FlowNodeConfigurationStorageMember
+    | FlowNodeConfigurationAgentMember
+    | FlowNodeConfigurationRetrievalMember
+    | FlowNodeConfigurationIteratorMember
+    | FlowNodeConfigurationCollectorMember
+    | FlowNodeConfigurationInlineCodeMember
+    | FlowNodeConfigurationLoopMember
+    | FlowNodeConfigurationLoopInputMember
+    | FlowNodeConfigurationLoopControllerMember
     | UnknownUnionMember
 )
 

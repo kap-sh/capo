@@ -14,27 +14,27 @@ if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.progressive_config
 
 
-class _TelephonyOutboundMode_progressive(TypedDict, closed=True):
+class TelephonyOutboundModeProgressiveMember(TypedDict, closed=True):
     progressive: "capo_connectcampaignsv2.types.progressive_config.ProgressiveConfig"
 
 
-class _TelephonyOutboundMode_predictive(TypedDict, closed=True):
+class TelephonyOutboundModePredictiveMember(TypedDict, closed=True):
     predictive: "capo_connectcampaignsv2.types.predictive_config.PredictiveConfig"
 
 
-class _TelephonyOutboundMode_agentless(TypedDict, closed=True):
+class TelephonyOutboundModeAgentlessMember(TypedDict, closed=True):
     agentless: "capo_connectcampaignsv2.types.agentless_config.AgentlessConfig"
 
 
-class _TelephonyOutboundMode_preview(TypedDict, closed=True):
+class TelephonyOutboundModePreviewMember(TypedDict, closed=True):
     preview: "capo_connectcampaignsv2.types.preview_config.PreviewConfig"
 
 
 TelephonyOutboundMode: TypeAlias = (
-    _TelephonyOutboundMode_progressive
-    | _TelephonyOutboundMode_predictive
-    | _TelephonyOutboundMode_agentless
-    | _TelephonyOutboundMode_preview
+    TelephonyOutboundModeProgressiveMember
+    | TelephonyOutboundModePredictiveMember
+    | TelephonyOutboundModeAgentlessMember
+    | TelephonyOutboundModePreviewMember
     | UnknownUnionMember
 )
 

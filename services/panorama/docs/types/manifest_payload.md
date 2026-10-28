@@ -7,7 +7,7 @@ title: ManifestPayload
       show_source: true
       merge_init_into_class: false
 
-::: capo_panorama.types.manifest_payload._ManifestPayload_PayloadData
+::: capo_panorama.types.manifest_payload.ManifestPayloadPayloadDataMember
     options:
       show_source: true
       merge_init_into_class: false

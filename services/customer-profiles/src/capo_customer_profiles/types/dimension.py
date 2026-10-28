@@ -12,18 +12,20 @@ if TYPE_CHECKING:
     import capo_customer_profiles.types.profile_attributes
 
 
-class _Dimension_ProfileAttributes(TypedDict, closed=True):
+class DimensionProfileAttributesMember(TypedDict, closed=True):
     ProfileAttributes: (
         "capo_customer_profiles.types.profile_attributes.ProfileAttributes"
     )
 
 
-class _Dimension_CalculatedAttributes(TypedDict, closed=True):
+class DimensionCalculatedAttributesMember(TypedDict, closed=True):
     CalculatedAttributes: "capo_customer_profiles.types.calculated_custom_attributes.CalculatedCustomAttributes"
 
 
 Dimension: TypeAlias = (
-    _Dimension_ProfileAttributes | _Dimension_CalculatedAttributes | UnknownUnionMember
+    DimensionProfileAttributesMember
+    | DimensionCalculatedAttributesMember
+    | UnknownUnionMember
 )
 
 

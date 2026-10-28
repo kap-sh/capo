@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_wisdom.types.app_integrations_configuration
 
 
-class _SourceConfiguration_appIntegrations(TypedDict, closed=True):
+class SourceConfigurationAppIntegrationsMember(TypedDict, closed=True):
     appIntegrations: (
         "capo_wisdom.types.app_integrations_configuration.AppIntegrationsConfiguration"
     )
 
 
 SourceConfiguration: TypeAlias = (
-    _SourceConfiguration_appIntegrations | UnknownUnionMember
+    SourceConfigurationAppIntegrationsMember | UnknownUnionMember
 )
 
 

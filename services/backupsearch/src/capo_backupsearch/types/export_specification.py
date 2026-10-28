@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_backupsearch.types.s3_export_specification
 
 
-class _ExportSpecification_s3ExportSpecification(TypedDict, closed=True):
+class ExportSpecificationS3ExportSpecificationMember(TypedDict, closed=True):
     s3ExportSpecification: (
         "capo_backupsearch.types.s3_export_specification.S3ExportSpecification"
     )
 
 
 ExportSpecification: TypeAlias = (
-    _ExportSpecification_s3ExportSpecification | UnknownUnionMember
+    ExportSpecificationS3ExportSpecificationMember | UnknownUnionMember
 )
 
 

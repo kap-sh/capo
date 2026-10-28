@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_datazone.types.group_identifier
 
 
-class _GroupPolicyGrantPrincipal_groupIdentifier(TypedDict, closed=True):
+class GroupPolicyGrantPrincipalGroupIdentifierMember(TypedDict, closed=True):
     groupIdentifier: "capo_datazone.types.group_identifier.GroupIdentifier"
 
 
 GroupPolicyGrantPrincipal: TypeAlias = (
-    _GroupPolicyGrantPrincipal_groupIdentifier | UnknownUnionMember
+    GroupPolicyGrantPrincipalGroupIdentifierMember | UnknownUnionMember
 )
 
 

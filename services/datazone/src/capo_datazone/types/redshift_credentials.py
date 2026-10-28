@@ -11,17 +11,17 @@ if TYPE_CHECKING:
     import capo_datazone.types.username_password
 
 
-class _RedshiftCredentials_secretArn(TypedDict, closed=True):
+class RedshiftCredentialsSecretArnMember(TypedDict, closed=True):
     secretArn: "str"
 
 
-class _RedshiftCredentials_usernamePassword(TypedDict, closed=True):
+class RedshiftCredentialsUsernamePasswordMember(TypedDict, closed=True):
     usernamePassword: "capo_datazone.types.username_password.UsernamePassword"
 
 
 RedshiftCredentials: TypeAlias = (
-    _RedshiftCredentials_secretArn
-    | _RedshiftCredentials_usernamePassword
+    RedshiftCredentialsSecretArnMember
+    | RedshiftCredentialsUsernamePasswordMember
     | UnknownUnionMember
 )
 

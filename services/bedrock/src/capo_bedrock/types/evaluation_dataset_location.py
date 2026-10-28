@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_bedrock.types.s3_uri
 
 
-class _EvaluationDatasetLocation_s3Uri(TypedDict, closed=True):
+class EvaluationDatasetLocationS3UriMember(TypedDict, closed=True):
     s3Uri: "capo_bedrock.types.s3_uri.S3Uri"
 
 
 EvaluationDatasetLocation: TypeAlias = (
-    _EvaluationDatasetLocation_s3Uri | UnknownUnionMember
+    EvaluationDatasetLocationS3UriMember | UnknownUnionMember
 )
 
 

@@ -13,137 +13,137 @@ if TYPE_CHECKING:
     import capo_keyspacesstreams.types.keyspaces_udt_map
 
 
-class _KeyspacesCellValue_asciiT(TypedDict, closed=True):
+class KeyspacesCellValueAsciiTMember(TypedDict, closed=True):
     asciiT: "str"
 
 
-class _KeyspacesCellValue_bigintT(TypedDict, closed=True):
+class KeyspacesCellValueBigintTMember(TypedDict, closed=True):
     bigintT: "str"
 
 
-class _KeyspacesCellValue_blobT(TypedDict, closed=True):
+class KeyspacesCellValueBlobTMember(TypedDict, closed=True):
     blobT: "bytes"
 
 
-class _KeyspacesCellValue_boolT(TypedDict, closed=True):
+class KeyspacesCellValueBoolTMember(TypedDict, closed=True):
     boolT: "bool"
 
 
-class _KeyspacesCellValue_counterT(TypedDict, closed=True):
+class KeyspacesCellValueCounterTMember(TypedDict, closed=True):
     counterT: "str"
 
 
-class _KeyspacesCellValue_dateT(TypedDict, closed=True):
+class KeyspacesCellValueDateTMember(TypedDict, closed=True):
     dateT: "str"
 
 
-class _KeyspacesCellValue_decimalT(TypedDict, closed=True):
+class KeyspacesCellValueDecimalTMember(TypedDict, closed=True):
     decimalT: "str"
 
 
-class _KeyspacesCellValue_doubleT(TypedDict, closed=True):
+class KeyspacesCellValueDoubleTMember(TypedDict, closed=True):
     doubleT: "str"
 
 
-class _KeyspacesCellValue_durationT(TypedDict, closed=True):
+class KeyspacesCellValueDurationTMember(TypedDict, closed=True):
     durationT: "str"
 
 
-class _KeyspacesCellValue_floatT(TypedDict, closed=True):
+class KeyspacesCellValueFloatTMember(TypedDict, closed=True):
     floatT: "str"
 
 
-class _KeyspacesCellValue_inetT(TypedDict, closed=True):
+class KeyspacesCellValueInetTMember(TypedDict, closed=True):
     inetT: "str"
 
 
-class _KeyspacesCellValue_intT(TypedDict, closed=True):
+class KeyspacesCellValueIntTMember(TypedDict, closed=True):
     intT: "str"
 
 
-class _KeyspacesCellValue_listT(TypedDict, closed=True):
+class KeyspacesCellValueListTMember(TypedDict, closed=True):
     listT: "capo_keyspacesstreams.types.keyspaces_cell_list.KeyspacesCellList"
 
 
-class _KeyspacesCellValue_mapT(TypedDict, closed=True):
+class KeyspacesCellValueMapTMember(TypedDict, closed=True):
     mapT: "capo_keyspacesstreams.types.keyspaces_cell_map.KeyspacesCellMap"
 
 
-class _KeyspacesCellValue_setT(TypedDict, closed=True):
+class KeyspacesCellValueSetTMember(TypedDict, closed=True):
     setT: "capo_keyspacesstreams.types.keyspaces_cell_list.KeyspacesCellList"
 
 
-class _KeyspacesCellValue_smallintT(TypedDict, closed=True):
+class KeyspacesCellValueSmallintTMember(TypedDict, closed=True):
     smallintT: "str"
 
 
-class _KeyspacesCellValue_textT(TypedDict, closed=True):
+class KeyspacesCellValueTextTMember(TypedDict, closed=True):
     textT: "str"
 
 
-class _KeyspacesCellValue_timeT(TypedDict, closed=True):
+class KeyspacesCellValueTimeTMember(TypedDict, closed=True):
     timeT: "str"
 
 
-class _KeyspacesCellValue_timestampT(TypedDict, closed=True):
+class KeyspacesCellValueTimestampTMember(TypedDict, closed=True):
     timestampT: "str"
 
 
-class _KeyspacesCellValue_timeuuidT(TypedDict, closed=True):
+class KeyspacesCellValueTimeuuidTMember(TypedDict, closed=True):
     timeuuidT: "str"
 
 
-class _KeyspacesCellValue_tinyintT(TypedDict, closed=True):
+class KeyspacesCellValueTinyintTMember(TypedDict, closed=True):
     tinyintT: "str"
 
 
-class _KeyspacesCellValue_tupleT(TypedDict, closed=True):
+class KeyspacesCellValueTupleTMember(TypedDict, closed=True):
     tupleT: "capo_keyspacesstreams.types.keyspaces_cell_list.KeyspacesCellList"
 
 
-class _KeyspacesCellValue_uuidT(TypedDict, closed=True):
+class KeyspacesCellValueUuidTMember(TypedDict, closed=True):
     uuidT: "str"
 
 
-class _KeyspacesCellValue_varcharT(TypedDict, closed=True):
+class KeyspacesCellValueVarcharTMember(TypedDict, closed=True):
     varcharT: "str"
 
 
-class _KeyspacesCellValue_varintT(TypedDict, closed=True):
+class KeyspacesCellValueVarintTMember(TypedDict, closed=True):
     varintT: "str"
 
 
-class _KeyspacesCellValue_udtT(TypedDict, closed=True):
+class KeyspacesCellValueUdtTMember(TypedDict, closed=True):
     udtT: "capo_keyspacesstreams.types.keyspaces_udt_map.KeyspacesUdtMap"
 
 
 KeyspacesCellValue: TypeAlias = (
-    _KeyspacesCellValue_asciiT
-    | _KeyspacesCellValue_bigintT
-    | _KeyspacesCellValue_blobT
-    | _KeyspacesCellValue_boolT
-    | _KeyspacesCellValue_counterT
-    | _KeyspacesCellValue_dateT
-    | _KeyspacesCellValue_decimalT
-    | _KeyspacesCellValue_doubleT
-    | _KeyspacesCellValue_durationT
-    | _KeyspacesCellValue_floatT
-    | _KeyspacesCellValue_inetT
-    | _KeyspacesCellValue_intT
-    | _KeyspacesCellValue_listT
-    | _KeyspacesCellValue_mapT
-    | _KeyspacesCellValue_setT
-    | _KeyspacesCellValue_smallintT
-    | _KeyspacesCellValue_textT
-    | _KeyspacesCellValue_timeT
-    | _KeyspacesCellValue_timestampT
-    | _KeyspacesCellValue_timeuuidT
-    | _KeyspacesCellValue_tinyintT
-    | _KeyspacesCellValue_tupleT
-    | _KeyspacesCellValue_uuidT
-    | _KeyspacesCellValue_varcharT
-    | _KeyspacesCellValue_varintT
-    | _KeyspacesCellValue_udtT
+    KeyspacesCellValueAsciiTMember
+    | KeyspacesCellValueBigintTMember
+    | KeyspacesCellValueBlobTMember
+    | KeyspacesCellValueBoolTMember
+    | KeyspacesCellValueCounterTMember
+    | KeyspacesCellValueDateTMember
+    | KeyspacesCellValueDecimalTMember
+    | KeyspacesCellValueDoubleTMember
+    | KeyspacesCellValueDurationTMember
+    | KeyspacesCellValueFloatTMember
+    | KeyspacesCellValueInetTMember
+    | KeyspacesCellValueIntTMember
+    | KeyspacesCellValueListTMember
+    | KeyspacesCellValueMapTMember
+    | KeyspacesCellValueSetTMember
+    | KeyspacesCellValueSmallintTMember
+    | KeyspacesCellValueTextTMember
+    | KeyspacesCellValueTimeTMember
+    | KeyspacesCellValueTimestampTMember
+    | KeyspacesCellValueTimeuuidTMember
+    | KeyspacesCellValueTinyintTMember
+    | KeyspacesCellValueTupleTMember
+    | KeyspacesCellValueUuidTMember
+    | KeyspacesCellValueVarcharTMember
+    | KeyspacesCellValueVarintTMember
+    | KeyspacesCellValueUdtTMember
     | UnknownUnionMember
 )
 

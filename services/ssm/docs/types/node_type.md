@@ -7,7 +7,7 @@ title: NodeType
       show_source: true
       merge_init_into_class: false
 
-::: capo_ssm.types.node_type._NodeType_Instance
+::: capo_ssm.types.node_type.NodeTypeInstanceMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -16,37 +16,37 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.standard_router_input_stream_details
 
 
-class _RouterInputStreamDetails_DestinationEndpoint(TypedDict, closed=True):
+class RouterInputStreamDetailsDestinationEndpointMember(TypedDict, closed=True):
     DestinationEndpoint: "capo_mediaconnect.types.destination_endpoint_router_input_stream_details.DestinationEndpointRouterInputStreamDetails"
 
 
-class _RouterInputStreamDetails_Standard(TypedDict, closed=True):
+class RouterInputStreamDetailsStandardMember(TypedDict, closed=True):
     Standard: "capo_mediaconnect.types.standard_router_input_stream_details.StandardRouterInputStreamDetails"
 
 
-class _RouterInputStreamDetails_MediaLiveChannel(TypedDict, closed=True):
+class RouterInputStreamDetailsMediaLiveChannelMember(TypedDict, closed=True):
     MediaLiveChannel: "capo_mediaconnect.types.media_live_channel_router_input_stream_details.MediaLiveChannelRouterInputStreamDetails"
 
 
-class _RouterInputStreamDetails_Failover(TypedDict, closed=True):
+class RouterInputStreamDetailsFailoverMember(TypedDict, closed=True):
     Failover: "capo_mediaconnect.types.failover_router_input_stream_details.FailoverRouterInputStreamDetails"
 
 
-class _RouterInputStreamDetails_MediaConnectFlow(TypedDict, closed=True):
+class RouterInputStreamDetailsMediaConnectFlowMember(TypedDict, closed=True):
     MediaConnectFlow: "capo_mediaconnect.types.media_connect_flow_router_input_stream_details.MediaConnectFlowRouterInputStreamDetails"
 
 
-class _RouterInputStreamDetails_Merge(TypedDict, closed=True):
+class RouterInputStreamDetailsMergeMember(TypedDict, closed=True):
     Merge: "capo_mediaconnect.types.merge_router_input_stream_details.MergeRouterInputStreamDetails"
 
 
 RouterInputStreamDetails: TypeAlias = (
-    _RouterInputStreamDetails_DestinationEndpoint
-    | _RouterInputStreamDetails_Standard
-    | _RouterInputStreamDetails_MediaLiveChannel
-    | _RouterInputStreamDetails_Failover
-    | _RouterInputStreamDetails_MediaConnectFlow
-    | _RouterInputStreamDetails_Merge
+    RouterInputStreamDetailsDestinationEndpointMember
+    | RouterInputStreamDetailsStandardMember
+    | RouterInputStreamDetailsMediaLiveChannelMember
+    | RouterInputStreamDetailsFailoverMember
+    | RouterInputStreamDetailsMediaConnectFlowMember
+    | RouterInputStreamDetailsMergeMember
     | UnknownUnionMember
 )
 

@@ -7,7 +7,7 @@ title: IntermediateTableAnalysisRulePolicy
       show_source: true
       merge_init_into_class: false
 
-::: capo_cleanrooms.types.intermediate_table_analysis_rule_policy._IntermediateTableAnalysisRulePolicy_v1
+::: capo_cleanrooms.types.intermediate_table_analysis_rule_policy.IntermediateTableAnalysisRulePolicyV1Member
     options:
       show_source: true
       merge_init_into_class: false

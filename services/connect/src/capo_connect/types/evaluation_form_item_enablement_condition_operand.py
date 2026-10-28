@@ -12,17 +12,21 @@ if TYPE_CHECKING:
     import capo_connect.types.evaluation_form_item_enablement_expression
 
 
-class _EvaluationFormItemEnablementConditionOperand_Expression(TypedDict, closed=True):
+class EvaluationFormItemEnablementConditionOperandExpressionMember(
+    TypedDict, closed=True
+):
     Expression: "capo_connect.types.evaluation_form_item_enablement_expression.EvaluationFormItemEnablementExpression"
 
 
-class _EvaluationFormItemEnablementConditionOperand_Condition(TypedDict, closed=True):
+class EvaluationFormItemEnablementConditionOperandConditionMember(
+    TypedDict, closed=True
+):
     Condition: "capo_connect.types.evaluation_form_item_enablement_condition.EvaluationFormItemEnablementCondition"
 
 
 EvaluationFormItemEnablementConditionOperand: TypeAlias = (
-    _EvaluationFormItemEnablementConditionOperand_Expression
-    | _EvaluationFormItemEnablementConditionOperand_Condition
+    EvaluationFormItemEnablementConditionOperandExpressionMember
+    | EvaluationFormItemEnablementConditionOperandConditionMember
     | UnknownUnionMember
 )
 

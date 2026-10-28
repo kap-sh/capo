@@ -11,16 +11,18 @@ if TYPE_CHECKING:
     import capo_healthlake.types.file_input_map
 
 
-class _TransformInputData_CcdaInput(TypedDict, closed=True):
+class TransformInputDataCcdaInputMember(TypedDict, closed=True):
     CcdaInput: "str"
 
 
-class _TransformInputData_CsvInput(TypedDict, closed=True):
+class TransformInputDataCsvInputMember(TypedDict, closed=True):
     CsvInput: "capo_healthlake.types.file_input_map.FileInputMap"
 
 
 TransformInputData: TypeAlias = (
-    _TransformInputData_CcdaInput | _TransformInputData_CsvInput | UnknownUnionMember
+    TransformInputDataCcdaInputMember
+    | TransformInputDataCsvInputMember
+    | UnknownUnionMember
 )
 
 

@@ -16,37 +16,37 @@ if TYPE_CHECKING:
     import capo_securityagent.types.jira_resource_capabilities
 
 
-class _ProviderResourceCapabilities_github(TypedDict, closed=True):
+class ProviderResourceCapabilitiesGithubMember(TypedDict, closed=True):
     github: "capo_securityagent.types.git_hub_resource_capabilities.GitHubResourceCapabilities"
 
 
-class _ProviderResourceCapabilities_gitlab(TypedDict, closed=True):
+class ProviderResourceCapabilitiesGitlabMember(TypedDict, closed=True):
     gitlab: "capo_securityagent.types.git_lab_resource_capabilities.GitLabResourceCapabilities"
 
 
-class _ProviderResourceCapabilities_bitbucket(TypedDict, closed=True):
+class ProviderResourceCapabilitiesBitbucketMember(TypedDict, closed=True):
     bitbucket: "capo_securityagent.types.bitbucket_resource_capabilities.BitbucketResourceCapabilities"
 
 
-class _ProviderResourceCapabilities_confluence(TypedDict, closed=True):
+class ProviderResourceCapabilitiesConfluenceMember(TypedDict, closed=True):
     confluence: "capo_securityagent.types.confluence_resource_capabilities.ConfluenceResourceCapabilities"
 
 
-class _ProviderResourceCapabilities_azureDevOps(TypedDict, closed=True):
+class ProviderResourceCapabilitiesAzureDevOpsMember(TypedDict, closed=True):
     azureDevOps: "capo_securityagent.types.azure_dev_ops_resource_capabilities.AzureDevOpsResourceCapabilities"
 
 
-class _ProviderResourceCapabilities_jira(TypedDict, closed=True):
+class ProviderResourceCapabilitiesJiraMember(TypedDict, closed=True):
     jira: "capo_securityagent.types.jira_resource_capabilities.JiraResourceCapabilities"
 
 
 ProviderResourceCapabilities: TypeAlias = (
-    _ProviderResourceCapabilities_github
-    | _ProviderResourceCapabilities_gitlab
-    | _ProviderResourceCapabilities_bitbucket
-    | _ProviderResourceCapabilities_confluence
-    | _ProviderResourceCapabilities_azureDevOps
-    | _ProviderResourceCapabilities_jira
+    ProviderResourceCapabilitiesGithubMember
+    | ProviderResourceCapabilitiesGitlabMember
+    | ProviderResourceCapabilitiesBitbucketMember
+    | ProviderResourceCapabilitiesConfluenceMember
+    | ProviderResourceCapabilitiesAzureDevOpsMember
+    | ProviderResourceCapabilitiesJiraMember
     | UnknownUnionMember
 )
 

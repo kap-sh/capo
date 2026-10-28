@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_account_access.types.identity_center
 
 
-class _IdentitySource_identityCenter(TypedDict, closed=True):
+class IdentitySourceIdentityCenterMember(TypedDict, closed=True):
     identityCenter: "capo_account_access.types.identity_center.IdentityCenter"
 
 
-IdentitySource: TypeAlias = _IdentitySource_identityCenter | UnknownUnionMember
+IdentitySource: TypeAlias = IdentitySourceIdentityCenterMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

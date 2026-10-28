@@ -20,32 +20,32 @@ if TYPE_CHECKING:
     import capo_healthlake.types.text_message_event
 
 
-class _AgentOutputMessageStream_TextMessageEvent(TypedDict, closed=True):
+class AgentOutputMessageStreamTextMessageEventMember(TypedDict, closed=True):
     TextMessageEvent: "capo_healthlake.types.text_message_event.TextMessageEvent"
 
 
-class _AgentOutputMessageStream_ProgressEvent(TypedDict, closed=True):
+class AgentOutputMessageStreamProgressEventMember(TypedDict, closed=True):
     ProgressEvent: "capo_healthlake.types.progress_event.ProgressEvent"
 
 
-class _AgentOutputMessageStream_HeartbeatEvent(TypedDict, closed=True):
+class AgentOutputMessageStreamHeartbeatEventMember(TypedDict, closed=True):
     HeartbeatEvent: "capo_healthlake.types.heartbeat_event.HeartbeatEvent"
 
 
-class _AgentOutputMessageStream_ErrorEvent(TypedDict, closed=True):
+class AgentOutputMessageStreamErrorEventMember(TypedDict, closed=True):
     ErrorEvent: "capo_healthlake.types.error_event.ErrorEvent"
 
 
-class _AgentOutputMessageStream_EndOfOutputEvent(TypedDict, closed=True):
+class AgentOutputMessageStreamEndOfOutputEventMember(TypedDict, closed=True):
     EndOfOutputEvent: "capo_healthlake.types.end_of_output_event.EndOfOutputEvent"
 
 
 _AgentOutputMessageStream: TypeAlias = (
-    _AgentOutputMessageStream_TextMessageEvent
-    | _AgentOutputMessageStream_ProgressEvent
-    | _AgentOutputMessageStream_HeartbeatEvent
-    | _AgentOutputMessageStream_ErrorEvent
-    | _AgentOutputMessageStream_EndOfOutputEvent
+    AgentOutputMessageStreamTextMessageEventMember
+    | AgentOutputMessageStreamProgressEventMember
+    | AgentOutputMessageStreamHeartbeatEventMember
+    | AgentOutputMessageStreamErrorEventMember
+    | AgentOutputMessageStreamEndOfOutputEventMember
     | UnknownEvent
 )
 AgentOutputMessageStream: TypeAlias = AnyIterator[_AgentOutputMessageStream]

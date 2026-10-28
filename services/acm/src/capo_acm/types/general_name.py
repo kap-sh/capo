@@ -13,42 +13,42 @@ if TYPE_CHECKING:
     import capo_acm.types.string
 
 
-class _GeneralName_DirectoryName(TypedDict, closed=True):
+class GeneralNameDirectoryNameMember(TypedDict, closed=True):
     DirectoryName: "capo_acm.types.distinguished_name.DistinguishedName"
 
 
-class _GeneralName_DnsName(TypedDict, closed=True):
+class GeneralNameDnsNameMember(TypedDict, closed=True):
     DnsName: "capo_acm.types.string.String"
 
 
-class _GeneralName_IpAddress(TypedDict, closed=True):
+class GeneralNameIpAddressMember(TypedDict, closed=True):
     IpAddress: "capo_acm.types.string.String"
 
 
-class _GeneralName_OtherName(TypedDict, closed=True):
+class GeneralNameOtherNameMember(TypedDict, closed=True):
     OtherName: "capo_acm.types.other_name.OtherName"
 
 
-class _GeneralName_RegisteredId(TypedDict, closed=True):
+class GeneralNameRegisteredIdMember(TypedDict, closed=True):
     RegisteredId: "capo_acm.types.string.String"
 
 
-class _GeneralName_Rfc822Name(TypedDict, closed=True):
+class GeneralNameRfc822NameMember(TypedDict, closed=True):
     Rfc822Name: "capo_acm.types.string.String"
 
 
-class _GeneralName_UniformResourceIdentifier(TypedDict, closed=True):
+class GeneralNameUniformResourceIdentifierMember(TypedDict, closed=True):
     UniformResourceIdentifier: "capo_acm.types.string.String"
 
 
 GeneralName: TypeAlias = (
-    _GeneralName_DirectoryName
-    | _GeneralName_DnsName
-    | _GeneralName_IpAddress
-    | _GeneralName_OtherName
-    | _GeneralName_RegisteredId
-    | _GeneralName_Rfc822Name
-    | _GeneralName_UniformResourceIdentifier
+    GeneralNameDirectoryNameMember
+    | GeneralNameDnsNameMember
+    | GeneralNameIpAddressMember
+    | GeneralNameOtherNameMember
+    | GeneralNameRegisteredIdMember
+    | GeneralNameRfc822NameMember
+    | GeneralNameUniformResourceIdentifierMember
     | UnknownUnionMember
 )
 

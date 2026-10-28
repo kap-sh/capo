@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_iotfleetwise.types.time_based_collection_scheme
 
 
-class _CollectionScheme_timeBasedCollectionScheme(TypedDict, closed=True):
+class CollectionSchemeTimeBasedCollectionSchemeMember(TypedDict, closed=True):
     timeBasedCollectionScheme: (
         "capo_iotfleetwise.types.time_based_collection_scheme.TimeBasedCollectionScheme"
     )
 
 
-class _CollectionScheme_conditionBasedCollectionScheme(TypedDict, closed=True):
+class CollectionSchemeConditionBasedCollectionSchemeMember(TypedDict, closed=True):
     conditionBasedCollectionScheme: "capo_iotfleetwise.types.condition_based_collection_scheme.ConditionBasedCollectionScheme"
 
 
 CollectionScheme: TypeAlias = (
-    _CollectionScheme_timeBasedCollectionScheme
-    | _CollectionScheme_conditionBasedCollectionScheme
+    CollectionSchemeTimeBasedCollectionSchemeMember
+    | CollectionSchemeConditionBasedCollectionSchemeMember
     | UnknownUnionMember
 )
 

@@ -7,13 +7,13 @@ title: KnowledgeBaseConfig
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock.types.knowledge_base_config._KnowledgeBaseConfig_retrieveConfig
+::: capo_bedrock.types.knowledge_base_config.KnowledgeBaseConfigRetrieveConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.knowledge_base_config._KnowledgeBaseConfig_retrieveAndGenerateConfig
+::: capo_bedrock.types.knowledge_base_config.KnowledgeBaseConfigRetrieveAndGenerateConfigMember
     options:
       show_source: true
       merge_init_into_class: false

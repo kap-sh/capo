@@ -7,31 +7,31 @@ title: PhysicalTable
       show_source: true
       merge_init_into_class: false
 
-::: capo_quicksight.types.physical_table._PhysicalTable_RelationalTable
+::: capo_quicksight.types.physical_table.PhysicalTableRelationalTableMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.physical_table._PhysicalTable_CustomSql
+::: capo_quicksight.types.physical_table.PhysicalTableCustomSqlMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.physical_table._PhysicalTable_S3Source
+::: capo_quicksight.types.physical_table.PhysicalTableS3SourceMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.physical_table._PhysicalTable_SaaSTable
+::: capo_quicksight.types.physical_table.PhysicalTableSaaSTableMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.physical_table._PhysicalTable_FileSource
+::: capo_quicksight.types.physical_table.PhysicalTableFileSourceMember
     options:
       show_source: true
       merge_init_into_class: false

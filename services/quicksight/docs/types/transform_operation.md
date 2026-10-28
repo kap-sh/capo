@@ -7,49 +7,49 @@ title: TransformOperation
       show_source: true
       merge_init_into_class: false
 
-::: capo_quicksight.types.transform_operation._TransformOperation_ProjectOperation
+::: capo_quicksight.types.transform_operation.TransformOperationProjectOperationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.transform_operation._TransformOperation_FilterOperation
+::: capo_quicksight.types.transform_operation.TransformOperationFilterOperationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.transform_operation._TransformOperation_CreateColumnsOperation
+::: capo_quicksight.types.transform_operation.TransformOperationCreateColumnsOperationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.transform_operation._TransformOperation_RenameColumnOperation
+::: capo_quicksight.types.transform_operation.TransformOperationRenameColumnOperationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.transform_operation._TransformOperation_CastColumnTypeOperation
+::: capo_quicksight.types.transform_operation.TransformOperationCastColumnTypeOperationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.transform_operation._TransformOperation_TagColumnOperation
+::: capo_quicksight.types.transform_operation.TransformOperationTagColumnOperationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.transform_operation._TransformOperation_UntagColumnOperation
+::: capo_quicksight.types.transform_operation.TransformOperationUntagColumnOperationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.transform_operation._TransformOperation_OverrideDatasetParameterOperation
+::: capo_quicksight.types.transform_operation.TransformOperationOverrideDatasetParameterOperationMember
     options:
       show_source: true
       merge_init_into_class: false

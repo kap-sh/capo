@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_iotsitewise.types.s3_access_point_source
 
 
-class _MountSource_s3AccessPoint(TypedDict, closed=True):
+class MountSourceS3AccessPointMember(TypedDict, closed=True):
     s3AccessPoint: "capo_iotsitewise.types.s3_access_point_source.S3AccessPointSource"
 
 
-MountSource: TypeAlias = _MountSource_s3AccessPoint | UnknownUnionMember
+MountSource: TypeAlias = MountSourceS3AccessPointMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

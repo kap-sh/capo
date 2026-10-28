@@ -7,7 +7,7 @@ title: ExporterConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_amp.types.exporter_configuration._ExporterConfiguration_openSearchConfiguration
+::: capo_amp.types.exporter_configuration.ExporterConfigurationOpenSearchConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false

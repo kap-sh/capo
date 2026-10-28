@@ -12,17 +12,21 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.tool_description_recommendation_config
 
 
-class _RecommendationConfig_systemPromptRecommendationConfig(TypedDict, closed=True):
+class RecommendationConfigSystemPromptRecommendationConfigMember(
+    TypedDict, closed=True
+):
     systemPromptRecommendationConfig: "capo_bedrock_agentcore.types.system_prompt_recommendation_config.SystemPromptRecommendationConfig"
 
 
-class _RecommendationConfig_toolDescriptionRecommendationConfig(TypedDict, closed=True):
+class RecommendationConfigToolDescriptionRecommendationConfigMember(
+    TypedDict, closed=True
+):
     toolDescriptionRecommendationConfig: "capo_bedrock_agentcore.types.tool_description_recommendation_config.ToolDescriptionRecommendationConfig"
 
 
 RecommendationConfig: TypeAlias = (
-    _RecommendationConfig_systemPromptRecommendationConfig
-    | _RecommendationConfig_toolDescriptionRecommendationConfig
+    RecommendationConfigSystemPromptRecommendationConfigMember
+    | RecommendationConfigToolDescriptionRecommendationConfigMember
     | UnknownUnionMember
 )
 

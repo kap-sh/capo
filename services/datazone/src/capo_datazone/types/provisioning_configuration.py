@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_datazone.types.lake_formation_configuration
 
 
-class _ProvisioningConfiguration_lakeFormationConfiguration(TypedDict, closed=True):
+class ProvisioningConfigurationLakeFormationConfigurationMember(TypedDict, closed=True):
     lakeFormationConfiguration: (
         "capo_datazone.types.lake_formation_configuration.LakeFormationConfiguration"
     )
 
 
 ProvisioningConfiguration: TypeAlias = (
-    _ProvisioningConfiguration_lakeFormationConfiguration | UnknownUnionMember
+    ProvisioningConfigurationLakeFormationConfigurationMember | UnknownUnionMember
 )
 
 

@@ -11,17 +11,17 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.harness_reasoning_text_block
 
 
-class _HarnessReasoningContentBlock_reasoningText(TypedDict, closed=True):
+class HarnessReasoningContentBlockReasoningTextMember(TypedDict, closed=True):
     reasoningText: "capo_bedrock_agentcore.types.harness_reasoning_text_block.HarnessReasoningTextBlock"
 
 
-class _HarnessReasoningContentBlock_redactedContent(TypedDict, closed=True):
+class HarnessReasoningContentBlockRedactedContentMember(TypedDict, closed=True):
     redactedContent: "bytes"
 
 
 HarnessReasoningContentBlock: TypeAlias = (
-    _HarnessReasoningContentBlock_reasoningText
-    | _HarnessReasoningContentBlock_redactedContent
+    HarnessReasoningContentBlockReasoningTextMember
+    | HarnessReasoningContentBlockRedactedContentMember
     | UnknownUnionMember
 )
 

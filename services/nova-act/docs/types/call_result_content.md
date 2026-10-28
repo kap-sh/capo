@@ -7,7 +7,7 @@ title: CallResultContent
       show_source: true
       merge_init_into_class: false
 
-::: capo_nova_act.types.call_result_content._CallResultContent_text
+::: capo_nova_act.types.call_result_content.CallResultContentTextMember
     options:
       show_source: true
       merge_init_into_class: false

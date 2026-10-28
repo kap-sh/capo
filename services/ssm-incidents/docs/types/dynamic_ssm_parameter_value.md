@@ -7,7 +7,7 @@ title: DynamicSsmParameterValue
       show_source: true
       merge_init_into_class: false
 
-::: capo_ssm_incidents.types.dynamic_ssm_parameter_value._DynamicSsmParameterValue_variable
+::: capo_ssm_incidents.types.dynamic_ssm_parameter_value.DynamicSsmParameterValueVariableMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_account_access.types.user_id
 
 
-class _IdentityCenterPrincipal_userId(TypedDict, closed=True):
+class IdentityCenterPrincipalUserIdMember(TypedDict, closed=True):
     userId: "capo_account_access.types.user_id.UserId"
 
 
-class _IdentityCenterPrincipal_groupId(TypedDict, closed=True):
+class IdentityCenterPrincipalGroupIdMember(TypedDict, closed=True):
     groupId: "capo_account_access.types.group_id.GroupId"
 
 
 IdentityCenterPrincipal: TypeAlias = (
-    _IdentityCenterPrincipal_userId
-    | _IdentityCenterPrincipal_groupId
+    IdentityCenterPrincipalUserIdMember
+    | IdentityCenterPrincipalGroupIdMember
     | UnknownUnionMember
 )
 

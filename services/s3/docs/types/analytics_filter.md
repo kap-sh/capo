@@ -7,19 +7,19 @@ title: AnalyticsFilter
       show_source: true
       merge_init_into_class: false
 
-::: capo_s3.types.analytics_filter._AnalyticsFilter_Prefix
+::: capo_s3.types.analytics_filter.AnalyticsFilterPrefixMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_s3.types.analytics_filter._AnalyticsFilter_Tag
+::: capo_s3.types.analytics_filter.AnalyticsFilterTagMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_s3.types.analytics_filter._AnalyticsFilter_And
+::: capo_s3.types.analytics_filter.AnalyticsFilterAndMember
     options:
       show_source: true
       merge_init_into_class: false

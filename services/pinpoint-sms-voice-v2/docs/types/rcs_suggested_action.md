@@ -7,37 +7,37 @@ title: RcsSuggestedAction
       show_source: true
       merge_init_into_class: false
 
-::: capo_pinpoint_sms_voice_v2.types.rcs_suggested_action._RcsSuggestedAction_Reply
+::: capo_pinpoint_sms_voice_v2.types.rcs_suggested_action.RcsSuggestedActionReplyMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_pinpoint_sms_voice_v2.types.rcs_suggested_action._RcsSuggestedAction_OpenUrl
+::: capo_pinpoint_sms_voice_v2.types.rcs_suggested_action.RcsSuggestedActionOpenUrlMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_pinpoint_sms_voice_v2.types.rcs_suggested_action._RcsSuggestedAction_DialPhone
+::: capo_pinpoint_sms_voice_v2.types.rcs_suggested_action.RcsSuggestedActionDialPhoneMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_pinpoint_sms_voice_v2.types.rcs_suggested_action._RcsSuggestedAction_ShowLocation
+::: capo_pinpoint_sms_voice_v2.types.rcs_suggested_action.RcsSuggestedActionShowLocationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_pinpoint_sms_voice_v2.types.rcs_suggested_action._RcsSuggestedAction_RequestLocation
+::: capo_pinpoint_sms_voice_v2.types.rcs_suggested_action.RcsSuggestedActionRequestLocationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_pinpoint_sms_voice_v2.types.rcs_suggested_action._RcsSuggestedAction_CreateCalendarEvent
+::: capo_pinpoint_sms_voice_v2.types.rcs_suggested_action.RcsSuggestedActionCreateCalendarEventMember
     options:
       show_source: true
       merge_init_into_class: false

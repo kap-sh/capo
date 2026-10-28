@@ -11,13 +11,15 @@ if TYPE_CHECKING:
     import capo_connectcases.types.sla_input_configuration
 
 
-class _SlaInputContent_slaInputConfiguration(TypedDict, closed=True):
+class SlaInputContentSlaInputConfigurationMember(TypedDict, closed=True):
     slaInputConfiguration: (
         "capo_connectcases.types.sla_input_configuration.SlaInputConfiguration"
     )
 
 
-SlaInputContent: TypeAlias = _SlaInputContent_slaInputConfiguration | UnknownUnionMember
+SlaInputContent: TypeAlias = (
+    SlaInputContentSlaInputConfigurationMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

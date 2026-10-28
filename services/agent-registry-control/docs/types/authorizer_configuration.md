@@ -7,7 +7,7 @@ title: AuthorizerConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_agent_registry_control.types.authorizer_configuration._AuthorizerConfiguration_customJWTAuthorizer
+::: capo_agent_registry_control.types.authorizer_configuration.AuthorizerConfigurationCustomJWTAuthorizerMember
     options:
       show_source: true
       merge_init_into_class: false

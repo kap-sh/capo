@@ -7,7 +7,7 @@ title: Model
       show_source: true
       merge_init_into_class: false
 
-::: capo_datazone.types.model._Model_smithy
+::: capo_datazone.types.model.ModelSmithyMember
     options:
       show_source: true
       merge_init_into_class: false

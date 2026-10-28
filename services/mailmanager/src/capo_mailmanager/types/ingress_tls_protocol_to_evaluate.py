@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_mailmanager.types.ingress_tls_attribute
 
 
-class _IngressTlsProtocolToEvaluate_Attribute(TypedDict, closed=True):
+class IngressTlsProtocolToEvaluateAttributeMember(TypedDict, closed=True):
     Attribute: "capo_mailmanager.types.ingress_tls_attribute.IngressTlsAttribute"
 
 
 IngressTlsProtocolToEvaluate: TypeAlias = (
-    _IngressTlsProtocolToEvaluate_Attribute | UnknownUnionMember
+    IngressTlsProtocolToEvaluateAttributeMember | UnknownUnionMember
 )
 
 

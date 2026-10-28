@@ -18,16 +18,16 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.mcp_server_target_configuration
 
 
-class _McpTargetConfiguration_openApiSchema(TypedDict, closed=True):
+class McpTargetConfigurationOpenApiSchemaMember(TypedDict, closed=True):
     openApiSchema: "capo_bedrock_agentcore_control.types.api_schema_configuration.ApiSchemaConfiguration"
 
 
-class _McpTargetConfiguration_smithyModel(TypedDict, closed=True):
+class McpTargetConfigurationSmithyModelMember(TypedDict, closed=True):
     smithyModel: "capo_bedrock_agentcore_control.types.api_schema_configuration.ApiSchemaConfiguration"
 
 
-_McpTargetConfiguration_lambda = TypedDict(
-    "_McpTargetConfiguration_lambda",
+McpTargetConfigurationLambdaMember = TypedDict(
+    "McpTargetConfigurationLambdaMember",
     {
         "lambda": "capo_bedrock_agentcore_control.types.mcp_lambda_target_configuration.McpLambdaTargetConfiguration",
     },
@@ -35,25 +35,25 @@ _McpTargetConfiguration_lambda = TypedDict(
 )
 
 
-class _McpTargetConfiguration_mcpServer(TypedDict, closed=True):
+class McpTargetConfigurationMcpServerMember(TypedDict, closed=True):
     mcpServer: "capo_bedrock_agentcore_control.types.mcp_server_target_configuration.McpServerTargetConfiguration"
 
 
-class _McpTargetConfiguration_apiGateway(TypedDict, closed=True):
+class McpTargetConfigurationApiGatewayMember(TypedDict, closed=True):
     apiGateway: "capo_bedrock_agentcore_control.types.api_gateway_target_configuration.ApiGatewayTargetConfiguration"
 
 
-class _McpTargetConfiguration_connector(TypedDict, closed=True):
+class McpTargetConfigurationConnectorMember(TypedDict, closed=True):
     connector: "capo_bedrock_agentcore_control.types.connector_target_configuration.ConnectorTargetConfiguration"
 
 
 McpTargetConfiguration: TypeAlias = (
-    _McpTargetConfiguration_openApiSchema
-    | _McpTargetConfiguration_smithyModel
-    | _McpTargetConfiguration_lambda
-    | _McpTargetConfiguration_mcpServer
-    | _McpTargetConfiguration_apiGateway
-    | _McpTargetConfiguration_connector
+    McpTargetConfigurationOpenApiSchemaMember
+    | McpTargetConfigurationSmithyModelMember
+    | McpTargetConfigurationLambdaMember
+    | McpTargetConfigurationMcpServerMember
+    | McpTargetConfigurationApiGatewayMember
+    | McpTargetConfigurationConnectorMember
     | UnknownUnionMember
 )
 

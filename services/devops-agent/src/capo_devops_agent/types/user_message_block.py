@@ -8,16 +8,16 @@ from capo_devops_agent.errors import DeserializationError, SerializationError
 from capo_devops_agent.types._unknown import UnknownUnionMember
 
 
-class _UserMessageBlock_text(TypedDict, closed=True):
+class UserMessageBlockTextMember(TypedDict, closed=True):
     text: "str"
 
 
-class _UserMessageBlock_toolResult(TypedDict, closed=True):
+class UserMessageBlockToolResultMember(TypedDict, closed=True):
     toolResult: "object"
 
 
 UserMessageBlock: TypeAlias = (
-    _UserMessageBlock_text | _UserMessageBlock_toolResult | UnknownUnionMember
+    UserMessageBlockTextMember | UserMessageBlockToolResultMember | UnknownUnionMember
 )
 
 

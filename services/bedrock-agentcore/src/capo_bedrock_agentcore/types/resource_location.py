@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.s3_location
 
 
-class _ResourceLocation_s3(TypedDict, closed=True):
+class ResourceLocationS3Member(TypedDict, closed=True):
     s3: "capo_bedrock_agentcore.types.s3_location.S3Location"
 
 
-ResourceLocation: TypeAlias = _ResourceLocation_s3 | UnknownUnionMember
+ResourceLocation: TypeAlias = ResourceLocationS3Member | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

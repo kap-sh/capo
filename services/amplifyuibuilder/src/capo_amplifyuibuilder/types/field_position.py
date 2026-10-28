@@ -11,22 +11,22 @@ if TYPE_CHECKING:
     import capo_amplifyuibuilder.types.fixed_position
 
 
-class _FieldPosition_fixed(TypedDict, closed=True):
+class FieldPositionFixedMember(TypedDict, closed=True):
     fixed: "capo_amplifyuibuilder.types.fixed_position.FixedPosition"
 
 
-class _FieldPosition_rightOf(TypedDict, closed=True):
+class FieldPositionRightOfMember(TypedDict, closed=True):
     rightOf: "str"
 
 
-class _FieldPosition_below(TypedDict, closed=True):
+class FieldPositionBelowMember(TypedDict, closed=True):
     below: "str"
 
 
 FieldPosition: TypeAlias = (
-    _FieldPosition_fixed
-    | _FieldPosition_rightOf
-    | _FieldPosition_below
+    FieldPositionFixedMember
+    | FieldPositionRightOfMember
+    | FieldPositionBelowMember
     | UnknownUnionMember
 )
 

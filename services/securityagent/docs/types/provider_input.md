@@ -7,43 +7,43 @@ title: ProviderInput
       show_source: true
       merge_init_into_class: false
 
-::: capo_securityagent.types.provider_input._ProviderInput_github
+::: capo_securityagent.types.provider_input.ProviderInputGithubMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_securityagent.types.provider_input._ProviderInput_gitlab
+::: capo_securityagent.types.provider_input.ProviderInputGitlabMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_securityagent.types.provider_input._ProviderInput_bitbucket
+::: capo_securityagent.types.provider_input.ProviderInputBitbucketMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_securityagent.types.provider_input._ProviderInput_confluence
+::: capo_securityagent.types.provider_input.ProviderInputConfluenceMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_securityagent.types.provider_input._ProviderInput_azureDevOps
+::: capo_securityagent.types.provider_input.ProviderInputAzureDevOpsMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_securityagent.types.provider_input._ProviderInput_bitbucketDataCenter
+::: capo_securityagent.types.provider_input.ProviderInputBitbucketDataCenterMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_securityagent.types.provider_input._ProviderInput_jira
+::: capo_securityagent.types.provider_input.ProviderInputJiraMember
     options:
       show_source: true
       merge_init_into_class: false

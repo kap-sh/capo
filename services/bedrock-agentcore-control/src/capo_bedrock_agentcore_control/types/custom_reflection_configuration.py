@@ -14,12 +14,14 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.episodic_reflection_override
 
 
-class _CustomReflectionConfiguration_episodicReflectionOverride(TypedDict, closed=True):
+class CustomReflectionConfigurationEpisodicReflectionOverrideMember(
+    TypedDict, closed=True
+):
     episodicReflectionOverride: "capo_bedrock_agentcore_control.types.episodic_reflection_override.EpisodicReflectionOverride"
 
 
 CustomReflectionConfiguration: TypeAlias = (
-    _CustomReflectionConfiguration_episodicReflectionOverride | UnknownUnionMember
+    CustomReflectionConfigurationEpisodicReflectionOverrideMember | UnknownUnionMember
 )
 
 

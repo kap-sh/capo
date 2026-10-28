@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.communication_limit_list
 
 
-class _CommunicationLimits_communicationLimitsList(TypedDict, closed=True):
+class CommunicationLimitsCommunicationLimitsListMember(TypedDict, closed=True):
     communicationLimitsList: (
         "capo_connectcampaignsv2.types.communication_limit_list.CommunicationLimitList"
     )
 
 
 CommunicationLimits: TypeAlias = (
-    _CommunicationLimits_communicationLimitsList | UnknownUnionMember
+    CommunicationLimitsCommunicationLimitsListMember | UnknownUnionMember
 )
 
 

@@ -7,7 +7,7 @@ title: Resource
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.resource._Resource_arn
+::: capo_bedrock_agentcore_control.types.resource.ResourceArnMember
     options:
       show_source: true
       merge_init_into_class: false

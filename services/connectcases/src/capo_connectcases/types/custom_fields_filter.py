@@ -13,12 +13,12 @@ if TYPE_CHECKING:
     import capo_connectcases.types.field_filter
 
 
-class _CustomFieldsFilter_field(TypedDict, closed=True):
+class CustomFieldsFilterFieldMember(TypedDict, closed=True):
     field: "capo_connectcases.types.field_filter.FieldFilter"
 
 
-_CustomFieldsFilter_not = TypedDict(
-    "_CustomFieldsFilter_not",
+CustomFieldsFilterNotMember = TypedDict(
+    "CustomFieldsFilterNotMember",
     {
         "not": "capo_connectcases.types.custom_fields_filter.CustomFieldsFilter",
     },
@@ -26,19 +26,19 @@ _CustomFieldsFilter_not = TypedDict(
 )
 
 
-class _CustomFieldsFilter_andAll(TypedDict, closed=True):
+class CustomFieldsFilterAndAllMember(TypedDict, closed=True):
     andAll: "capo_connectcases.types.custom_fields_filter_list.CustomFieldsFilterList"
 
 
-class _CustomFieldsFilter_orAll(TypedDict, closed=True):
+class CustomFieldsFilterOrAllMember(TypedDict, closed=True):
     orAll: "capo_connectcases.types.custom_fields_filter_list.CustomFieldsFilterList"
 
 
 CustomFieldsFilter: TypeAlias = (
-    _CustomFieldsFilter_field
-    | _CustomFieldsFilter_not
-    | _CustomFieldsFilter_andAll
-    | _CustomFieldsFilter_orAll
+    CustomFieldsFilterFieldMember
+    | CustomFieldsFilterNotMember
+    | CustomFieldsFilterAndAllMember
+    | CustomFieldsFilterOrAllMember
     | UnknownUnionMember
 )
 

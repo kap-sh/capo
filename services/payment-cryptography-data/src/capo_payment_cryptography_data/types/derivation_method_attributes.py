@@ -18,34 +18,34 @@ if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.visa_attributes
 
 
-class _DerivationMethodAttributes_EmvCommon(TypedDict, closed=True):
+class DerivationMethodAttributesEmvCommonMember(TypedDict, closed=True):
     EmvCommon: (
         "capo_payment_cryptography_data.types.emv_common_attributes.EmvCommonAttributes"
     )
 
 
-class _DerivationMethodAttributes_Amex(TypedDict, closed=True):
+class DerivationMethodAttributesAmexMember(TypedDict, closed=True):
     Amex: "capo_payment_cryptography_data.types.amex_attributes.AmexAttributes"
 
 
-class _DerivationMethodAttributes_Visa(TypedDict, closed=True):
+class DerivationMethodAttributesVisaMember(TypedDict, closed=True):
     Visa: "capo_payment_cryptography_data.types.visa_attributes.VisaAttributes"
 
 
-class _DerivationMethodAttributes_Emv2000(TypedDict, closed=True):
+class DerivationMethodAttributesEmv2000Member(TypedDict, closed=True):
     Emv2000: "capo_payment_cryptography_data.types.emv2000_attributes.Emv2000Attributes"
 
 
-class _DerivationMethodAttributes_Mastercard(TypedDict, closed=True):
+class DerivationMethodAttributesMastercardMember(TypedDict, closed=True):
     Mastercard: "capo_payment_cryptography_data.types.master_card_attributes.MasterCardAttributes"
 
 
 DerivationMethodAttributes: TypeAlias = (
-    _DerivationMethodAttributes_EmvCommon
-    | _DerivationMethodAttributes_Amex
-    | _DerivationMethodAttributes_Visa
-    | _DerivationMethodAttributes_Emv2000
-    | _DerivationMethodAttributes_Mastercard
+    DerivationMethodAttributesEmvCommonMember
+    | DerivationMethodAttributesAmexMember
+    | DerivationMethodAttributesVisaMember
+    | DerivationMethodAttributesEmv2000Member
+    | DerivationMethodAttributesMastercardMember
     | UnknownUnionMember
 )
 

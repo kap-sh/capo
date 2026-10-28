@@ -16,24 +16,24 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.match_principals
 
 
-class _Condition_matchPrincipals(TypedDict, closed=True):
+class ConditionMatchPrincipalsMember(TypedDict, closed=True):
     matchPrincipals: (
         "capo_bedrock_agentcore_control.types.match_principals.MatchPrincipals"
     )
 
 
-class _Condition_matchPaths(TypedDict, closed=True):
+class ConditionMatchPathsMember(TypedDict, closed=True):
     matchPaths: "capo_bedrock_agentcore_control.types.match_paths.MatchPaths"
 
 
-class _Condition_matchModels(TypedDict, closed=True):
+class ConditionMatchModelsMember(TypedDict, closed=True):
     matchModels: "capo_bedrock_agentcore_control.types.match_models.MatchModels"
 
 
 Condition: TypeAlias = (
-    _Condition_matchPrincipals
-    | _Condition_matchPaths
-    | _Condition_matchModels
+    ConditionMatchPrincipalsMember
+    | ConditionMatchPathsMember
+    | ConditionMatchModelsMember
     | UnknownUnionMember
 )
 

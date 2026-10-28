@@ -7,7 +7,7 @@ title: ConnectorEgressConfig
       show_source: true
       merge_init_into_class: false
 
-::: capo_transfer.types.connector_egress_config._ConnectorEgressConfig_VpcLattice
+::: capo_transfer.types.connector_egress_config.ConnectorEgressConfigVpcLatticeMember
     options:
       show_source: true
       merge_init_into_class: false

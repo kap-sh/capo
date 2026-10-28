@@ -12,16 +12,18 @@ if TYPE_CHECKING:
     import capo_appfabric.types.oauth2_credential
 
 
-class _Credential_oauth2Credential(TypedDict, closed=True):
+class CredentialOauth2CredentialMember(TypedDict, closed=True):
     oauth2Credential: "capo_appfabric.types.oauth2_credential.Oauth2Credential"
 
 
-class _Credential_apiKeyCredential(TypedDict, closed=True):
+class CredentialApiKeyCredentialMember(TypedDict, closed=True):
     apiKeyCredential: "capo_appfabric.types.api_key_credential.ApiKeyCredential"
 
 
 Credential: TypeAlias = (
-    _Credential_oauth2Credential | _Credential_apiKeyCredential | UnknownUnionMember
+    CredentialOauth2CredentialMember
+    | CredentialApiKeyCredentialMember
+    | UnknownUnionMember
 )
 
 

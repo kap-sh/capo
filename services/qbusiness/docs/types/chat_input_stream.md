@@ -13,37 +13,37 @@ title: ChatInputStream
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qbusiness.types.chat_input_stream._ChatInputStream_configurationEvent
+::: capo_qbusiness.types.chat_input_stream.ChatInputStreamConfigurationEventMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qbusiness.types.chat_input_stream._ChatInputStream_textEvent
+::: capo_qbusiness.types.chat_input_stream.ChatInputStreamTextEventMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qbusiness.types.chat_input_stream._ChatInputStream_attachmentEvent
+::: capo_qbusiness.types.chat_input_stream.ChatInputStreamAttachmentEventMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qbusiness.types.chat_input_stream._ChatInputStream_actionExecutionEvent
+::: capo_qbusiness.types.chat_input_stream.ChatInputStreamActionExecutionEventMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qbusiness.types.chat_input_stream._ChatInputStream_endOfInputEvent
+::: capo_qbusiness.types.chat_input_stream.ChatInputStreamEndOfInputEventMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qbusiness.types.chat_input_stream._ChatInputStream_authChallengeResponseEvent
+::: capo_qbusiness.types.chat_input_stream.ChatInputStreamAuthChallengeResponseEventMember
     options:
       show_source: true
       merge_init_into_class: false

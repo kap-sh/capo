@@ -16,26 +16,26 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.string_validation
 
 
-class _Validation_stringValidation(TypedDict, closed=True):
+class ValidationStringValidationMember(TypedDict, closed=True):
     stringValidation: (
         "capo_bedrock_agentcore_control.types.string_validation.StringValidation"
     )
 
 
-class _Validation_stringListValidation(TypedDict, closed=True):
+class ValidationStringListValidationMember(TypedDict, closed=True):
     stringListValidation: "capo_bedrock_agentcore_control.types.string_list_validation.StringListValidation"
 
 
-class _Validation_numberValidation(TypedDict, closed=True):
+class ValidationNumberValidationMember(TypedDict, closed=True):
     numberValidation: (
         "capo_bedrock_agentcore_control.types.number_validation.NumberValidation"
     )
 
 
 Validation: TypeAlias = (
-    _Validation_stringValidation
-    | _Validation_stringListValidation
-    | _Validation_numberValidation
+    ValidationStringValidationMember
+    | ValidationStringListValidationMember
+    | ValidationNumberValidationMember
     | UnknownUnionMember
 )
 

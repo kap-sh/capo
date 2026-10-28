@@ -7,19 +7,19 @@ title: ListChannelHandshakesTypeFilters
       show_source: true
       merge_init_into_class: false
 
-::: capo_partnercentral_channel.types.list_channel_handshakes_type_filters._ListChannelHandshakesTypeFilters_startServicePeriodTypeFilters
+::: capo_partnercentral_channel.types.list_channel_handshakes_type_filters.ListChannelHandshakesTypeFiltersStartServicePeriodTypeFiltersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_partnercentral_channel.types.list_channel_handshakes_type_filters._ListChannelHandshakesTypeFilters_revokeServicePeriodTypeFilters
+::: capo_partnercentral_channel.types.list_channel_handshakes_type_filters.ListChannelHandshakesTypeFiltersRevokeServicePeriodTypeFiltersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_partnercentral_channel.types.list_channel_handshakes_type_filters._ListChannelHandshakesTypeFilters_programManagementAccountTypeFilters
+::: capo_partnercentral_channel.types.list_channel_handshakes_type_filters.ListChannelHandshakesTypeFiltersProgramManagementAccountTypeFiltersMember
     options:
       show_source: true
       merge_init_into_class: false

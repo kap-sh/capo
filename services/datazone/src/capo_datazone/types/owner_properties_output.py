@@ -12,18 +12,20 @@ if TYPE_CHECKING:
     import capo_datazone.types.owner_user_properties_output
 
 
-class _OwnerPropertiesOutput_user(TypedDict, closed=True):
+class OwnerPropertiesOutputUserMember(TypedDict, closed=True):
     user: "capo_datazone.types.owner_user_properties_output.OwnerUserPropertiesOutput"
 
 
-class _OwnerPropertiesOutput_group(TypedDict, closed=True):
+class OwnerPropertiesOutputGroupMember(TypedDict, closed=True):
     group: (
         "capo_datazone.types.owner_group_properties_output.OwnerGroupPropertiesOutput"
     )
 
 
 OwnerPropertiesOutput: TypeAlias = (
-    _OwnerPropertiesOutput_user | _OwnerPropertiesOutput_group | UnknownUnionMember
+    OwnerPropertiesOutputUserMember
+    | OwnerPropertiesOutputGroupMember
+    | UnknownUnionMember
 )
 
 

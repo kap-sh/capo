@@ -7,7 +7,7 @@ title: DescribedWebAppIdentityProviderDetails
       show_source: true
       merge_init_into_class: false
 
-::: capo_transfer.types.described_web_app_identity_provider_details._DescribedWebAppIdentityProviderDetails_IdentityCenterConfig
+::: capo_transfer.types.described_web_app_identity_provider_details.DescribedWebAppIdentityProviderDetailsIdentityCenterConfigMember
     options:
       show_source: true
       merge_init_into_class: false

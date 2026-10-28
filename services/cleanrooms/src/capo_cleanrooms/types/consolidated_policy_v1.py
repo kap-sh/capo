@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.consolidated_policy_list
 
 
-class _ConsolidatedPolicyV1_list(TypedDict, closed=True):
+class ConsolidatedPolicyV1ListMember(TypedDict, closed=True):
     list: "capo_cleanrooms.types.consolidated_policy_list.ConsolidatedPolicyList"
 
 
-class _ConsolidatedPolicyV1_aggregation(TypedDict, closed=True):
+class ConsolidatedPolicyV1AggregationMember(TypedDict, closed=True):
     aggregation: "capo_cleanrooms.types.consolidated_policy_aggregation.ConsolidatedPolicyAggregation"
 
 
-class _ConsolidatedPolicyV1_custom(TypedDict, closed=True):
+class ConsolidatedPolicyV1CustomMember(TypedDict, closed=True):
     custom: "capo_cleanrooms.types.consolidated_policy_custom.ConsolidatedPolicyCustom"
 
 
 ConsolidatedPolicyV1: TypeAlias = (
-    _ConsolidatedPolicyV1_list
-    | _ConsolidatedPolicyV1_aggregation
-    | _ConsolidatedPolicyV1_custom
+    ConsolidatedPolicyV1ListMember
+    | ConsolidatedPolicyV1AggregationMember
+    | ConsolidatedPolicyV1CustomMember
     | UnknownUnionMember
 )
 

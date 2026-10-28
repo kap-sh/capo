@@ -13,24 +13,24 @@ if TYPE_CHECKING:
     import capo_mailmanager.types.tls_auth_configuration
 
 
-class _IngressPointConfiguration_SmtpPassword(TypedDict, closed=True):
+class IngressPointConfigurationSmtpPasswordMember(TypedDict, closed=True):
     SmtpPassword: "capo_mailmanager.types.smtp_password.SmtpPassword"
 
 
-class _IngressPointConfiguration_SecretArn(TypedDict, closed=True):
+class IngressPointConfigurationSecretArnMember(TypedDict, closed=True):
     SecretArn: "capo_mailmanager.types.secret_arn.SecretArn"
 
 
-class _IngressPointConfiguration_TlsAuthConfiguration(TypedDict, closed=True):
+class IngressPointConfigurationTlsAuthConfigurationMember(TypedDict, closed=True):
     TlsAuthConfiguration: (
         "capo_mailmanager.types.tls_auth_configuration.TlsAuthConfiguration"
     )
 
 
 IngressPointConfiguration: TypeAlias = (
-    _IngressPointConfiguration_SmtpPassword
-    | _IngressPointConfiguration_SecretArn
-    | _IngressPointConfiguration_TlsAuthConfiguration
+    IngressPointConfigurationSmtpPasswordMember
+    | IngressPointConfigurationSecretArnMember
+    | IngressPointConfigurationTlsAuthConfigurationMember
     | UnknownUnionMember
 )
 

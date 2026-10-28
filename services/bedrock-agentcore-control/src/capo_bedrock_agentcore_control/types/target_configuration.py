@@ -16,22 +16,22 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.mcp_target_configuration
 
 
-class _TargetConfiguration_mcp(TypedDict, closed=True):
+class TargetConfigurationMcpMember(TypedDict, closed=True):
     mcp: "capo_bedrock_agentcore_control.types.mcp_target_configuration.McpTargetConfiguration"
 
 
-class _TargetConfiguration_http(TypedDict, closed=True):
+class TargetConfigurationHttpMember(TypedDict, closed=True):
     http: "capo_bedrock_agentcore_control.types.http_target_configuration.HttpTargetConfiguration"
 
 
-class _TargetConfiguration_inference(TypedDict, closed=True):
+class TargetConfigurationInferenceMember(TypedDict, closed=True):
     inference: "capo_bedrock_agentcore_control.types.inference_target_configuration.InferenceTargetConfiguration"
 
 
 TargetConfiguration: TypeAlias = (
-    _TargetConfiguration_mcp
-    | _TargetConfiguration_http
-    | _TargetConfiguration_inference
+    TargetConfigurationMcpMember
+    | TargetConfigurationHttpMember
+    | TargetConfigurationInferenceMember
     | UnknownUnionMember
 )
 

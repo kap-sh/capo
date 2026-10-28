@@ -7,7 +7,7 @@ title: ServiceIntegrationUnion
       show_source: true
       merge_init_into_class: false
 
-::: capo_lakeformation.types.service_integration_union._ServiceIntegrationUnion_Redshift
+::: capo_lakeformation.types.service_integration_union.ServiceIntegrationUnionRedshiftMember
     options:
       show_source: true
       merge_init_into_class: false

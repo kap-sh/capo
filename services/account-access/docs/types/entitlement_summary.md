@@ -7,7 +7,7 @@ title: EntitlementSummary
       show_source: true
       merge_init_into_class: false
 
-::: capo_account_access.types.entitlement_summary._EntitlementSummary_principalRole
+::: capo_account_access.types.entitlement_summary.EntitlementSummaryPrincipalRoleMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -7,7 +7,7 @@ title: NetworkAccessConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_devops_agent.types.network_access_configuration._NetworkAccessConfiguration_privateAccess
+::: capo_devops_agent.types.network_access_configuration.NetworkAccessConfigurationPrivateAccessMember
     options:
       show_source: true
       merge_init_into_class: false

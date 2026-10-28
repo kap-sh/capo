@@ -7,7 +7,7 @@ title: NodeTraceElements
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agent_runtime.types.node_trace_elements._NodeTraceElements_agentTraces
+::: capo_bedrock_agent_runtime.types.node_trace_elements.NodeTraceElementsAgentTracesMember
     options:
       show_source: true
       merge_init_into_class: false

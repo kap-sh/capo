@@ -11,14 +11,15 @@ if TYPE_CHECKING:
     import capo_s3tables.types.iceberg_unreferenced_file_removal_settings
 
 
-class _TableBucketMaintenanceSettings_icebergUnreferencedFileRemoval(
+class TableBucketMaintenanceSettingsIcebergUnreferencedFileRemovalMember(
     TypedDict, closed=True
 ):
     icebergUnreferencedFileRemoval: "capo_s3tables.types.iceberg_unreferenced_file_removal_settings.IcebergUnreferencedFileRemovalSettings"
 
 
 TableBucketMaintenanceSettings: TypeAlias = (
-    _TableBucketMaintenanceSettings_icebergUnreferencedFileRemoval | UnknownUnionMember
+    TableBucketMaintenanceSettingsIcebergUnreferencedFileRemovalMember
+    | UnknownUnionMember
 )
 
 

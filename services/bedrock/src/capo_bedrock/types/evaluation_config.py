@@ -12,18 +12,18 @@ if TYPE_CHECKING:
     import capo_bedrock.types.human_evaluation_config
 
 
-class _EvaluationConfig_automated(TypedDict, closed=True):
+class EvaluationConfigAutomatedMember(TypedDict, closed=True):
     automated: (
         "capo_bedrock.types.automated_evaluation_config.AutomatedEvaluationConfig"
     )
 
 
-class _EvaluationConfig_human(TypedDict, closed=True):
+class EvaluationConfigHumanMember(TypedDict, closed=True):
     human: "capo_bedrock.types.human_evaluation_config.HumanEvaluationConfig"
 
 
 EvaluationConfig: TypeAlias = (
-    _EvaluationConfig_automated | _EvaluationConfig_human | UnknownUnionMember
+    EvaluationConfigAutomatedMember | EvaluationConfigHumanMember | UnknownUnionMember
 )
 
 

@@ -7,19 +7,19 @@ title: SchemaTypeProperties
       show_source: true
       merge_init_into_class: false
 
-::: capo_cleanrooms.types.schema_type_properties._SchemaTypeProperties_idMappingTable
+::: capo_cleanrooms.types.schema_type_properties.SchemaTypePropertiesIdMappingTableMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cleanrooms.types.schema_type_properties._SchemaTypeProperties_intermediateTable
+::: capo_cleanrooms.types.schema_type_properties.SchemaTypePropertiesIntermediateTableMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cleanrooms.types.schema_type_properties._SchemaTypeProperties_configuredTableAssociation
+::: capo_cleanrooms.types.schema_type_properties.SchemaTypePropertiesConfiguredTableAssociationMember
     options:
       show_source: true
       merge_init_into_class: false

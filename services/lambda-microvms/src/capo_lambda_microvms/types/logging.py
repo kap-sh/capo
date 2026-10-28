@@ -12,15 +12,17 @@ if TYPE_CHECKING:
     import capo_lambda_microvms.types.logging_disabled
 
 
-class _Logging_disabled(TypedDict, closed=True):
+class LoggingDisabledMember(TypedDict, closed=True):
     disabled: "capo_lambda_microvms.types.logging_disabled.LoggingDisabled"
 
 
-class _Logging_cloudWatch(TypedDict, closed=True):
+class LoggingCloudWatchMember(TypedDict, closed=True):
     cloudWatch: "capo_lambda_microvms.types.cloud_watch_logging.CloudWatchLogging"
 
 
-Logging: TypeAlias = _Logging_disabled | _Logging_cloudWatch | UnknownUnionMember
+Logging: TypeAlias = (
+    LoggingDisabledMember | LoggingCloudWatchMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

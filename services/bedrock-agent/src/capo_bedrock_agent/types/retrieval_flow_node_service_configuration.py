@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_bedrock_agent.types.retrieval_flow_node_s3_configuration
 
 
-class _RetrievalFlowNodeServiceConfiguration_s3(TypedDict, closed=True):
+class RetrievalFlowNodeServiceConfigurationS3Member(TypedDict, closed=True):
     s3: "capo_bedrock_agent.types.retrieval_flow_node_s3_configuration.RetrievalFlowNodeS3Configuration"
 
 
 RetrievalFlowNodeServiceConfiguration: TypeAlias = (
-    _RetrievalFlowNodeServiceConfiguration_s3 | UnknownUnionMember
+    RetrievalFlowNodeServiceConfigurationS3Member | UnknownUnionMember
 )
 
 

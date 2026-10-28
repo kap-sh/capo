@@ -7,7 +7,7 @@ title: ToolInputSchema
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agent.types.tool_input_schema._ToolInputSchema_json
+::: capo_bedrock_agent.types.tool_input_schema.ToolInputSchemaJsonMember
     options:
       show_source: true
       merge_init_into_class: false

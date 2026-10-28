@@ -7,79 +7,79 @@ title: AutomatedReasoningPolicyAnnotation
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock.types.automated_reasoning_policy_annotation._AutomatedReasoningPolicyAnnotation_addType
+::: capo_bedrock.types.automated_reasoning_policy_annotation.AutomatedReasoningPolicyAnnotationAddTypeMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_policy_annotation._AutomatedReasoningPolicyAnnotation_updateType
+::: capo_bedrock.types.automated_reasoning_policy_annotation.AutomatedReasoningPolicyAnnotationUpdateTypeMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_policy_annotation._AutomatedReasoningPolicyAnnotation_deleteType
+::: capo_bedrock.types.automated_reasoning_policy_annotation.AutomatedReasoningPolicyAnnotationDeleteTypeMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_policy_annotation._AutomatedReasoningPolicyAnnotation_addVariable
+::: capo_bedrock.types.automated_reasoning_policy_annotation.AutomatedReasoningPolicyAnnotationAddVariableMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_policy_annotation._AutomatedReasoningPolicyAnnotation_updateVariable
+::: capo_bedrock.types.automated_reasoning_policy_annotation.AutomatedReasoningPolicyAnnotationUpdateVariableMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_policy_annotation._AutomatedReasoningPolicyAnnotation_deleteVariable
+::: capo_bedrock.types.automated_reasoning_policy_annotation.AutomatedReasoningPolicyAnnotationDeleteVariableMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_policy_annotation._AutomatedReasoningPolicyAnnotation_addRule
+::: capo_bedrock.types.automated_reasoning_policy_annotation.AutomatedReasoningPolicyAnnotationAddRuleMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_policy_annotation._AutomatedReasoningPolicyAnnotation_updateRule
+::: capo_bedrock.types.automated_reasoning_policy_annotation.AutomatedReasoningPolicyAnnotationUpdateRuleMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_policy_annotation._AutomatedReasoningPolicyAnnotation_deleteRule
+::: capo_bedrock.types.automated_reasoning_policy_annotation.AutomatedReasoningPolicyAnnotationDeleteRuleMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_policy_annotation._AutomatedReasoningPolicyAnnotation_addRuleFromNaturalLanguage
+::: capo_bedrock.types.automated_reasoning_policy_annotation.AutomatedReasoningPolicyAnnotationAddRuleFromNaturalLanguageMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_policy_annotation._AutomatedReasoningPolicyAnnotation_updateFromRulesFeedback
+::: capo_bedrock.types.automated_reasoning_policy_annotation.AutomatedReasoningPolicyAnnotationUpdateFromRulesFeedbackMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_policy_annotation._AutomatedReasoningPolicyAnnotation_updateFromScenarioFeedback
+::: capo_bedrock.types.automated_reasoning_policy_annotation.AutomatedReasoningPolicyAnnotationUpdateFromScenarioFeedbackMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_policy_annotation._AutomatedReasoningPolicyAnnotation_ingestContent
+::: capo_bedrock.types.automated_reasoning_policy_annotation.AutomatedReasoningPolicyAnnotationIngestContentMember
     options:
       show_source: true
       merge_init_into_class: false

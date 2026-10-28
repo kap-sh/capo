@@ -21,27 +21,29 @@ if TYPE_CHECKING:
     import capo_polly.types.stream_closed_event
 
 
-class _StartSpeechSynthesisStreamEventStream_AudioEvent(TypedDict, closed=True):
+class StartSpeechSynthesisStreamEventStreamAudioEventMember(TypedDict, closed=True):
     AudioEvent: "capo_polly.types.audio_event.AudioEvent"
 
 
-class _StartSpeechSynthesisStreamEventStream_StreamClosedEvent(TypedDict, closed=True):
+class StartSpeechSynthesisStreamEventStreamStreamClosedEventMember(
+    TypedDict, closed=True
+):
     StreamClosedEvent: "capo_polly.types.stream_closed_event.StreamClosedEvent"
 
 
-class _StartSpeechSynthesisStreamEventStream_ValidationException(
+class StartSpeechSynthesisStreamEventStreamValidationExceptionMember(
     TypedDict, closed=True
 ):
     ValidationException: "capo_polly.errors.validation_exception.ValidationException_"
 
 
-class _StartSpeechSynthesisStreamEventStream_ServiceQuotaExceededException(
+class StartSpeechSynthesisStreamEventStreamServiceQuotaExceededExceptionMember(
     TypedDict, closed=True
 ):
     ServiceQuotaExceededException: "capo_polly.errors.service_quota_exceeded_exception.ServiceQuotaExceededException_"
 
 
-class _StartSpeechSynthesisStreamEventStream_ServiceFailureException(
+class StartSpeechSynthesisStreamEventStreamServiceFailureExceptionMember(
     TypedDict, closed=True
 ):
     ServiceFailureException: (
@@ -49,19 +51,19 @@ class _StartSpeechSynthesisStreamEventStream_ServiceFailureException(
     )
 
 
-class _StartSpeechSynthesisStreamEventStream_ThrottlingException(
+class StartSpeechSynthesisStreamEventStreamThrottlingExceptionMember(
     TypedDict, closed=True
 ):
     ThrottlingException: "capo_polly.errors.throttling_exception.ThrottlingException_"
 
 
 _StartSpeechSynthesisStreamEventStream: TypeAlias = (
-    _StartSpeechSynthesisStreamEventStream_AudioEvent
-    | _StartSpeechSynthesisStreamEventStream_StreamClosedEvent
-    | _StartSpeechSynthesisStreamEventStream_ValidationException
-    | _StartSpeechSynthesisStreamEventStream_ServiceQuotaExceededException
-    | _StartSpeechSynthesisStreamEventStream_ServiceFailureException
-    | _StartSpeechSynthesisStreamEventStream_ThrottlingException
+    StartSpeechSynthesisStreamEventStreamAudioEventMember
+    | StartSpeechSynthesisStreamEventStreamStreamClosedEventMember
+    | StartSpeechSynthesisStreamEventStreamValidationExceptionMember
+    | StartSpeechSynthesisStreamEventStreamServiceQuotaExceededExceptionMember
+    | StartSpeechSynthesisStreamEventStreamServiceFailureExceptionMember
+    | StartSpeechSynthesisStreamEventStreamThrottlingExceptionMember
     | UnknownEvent
 )
 StartSpeechSynthesisStreamEventStream: TypeAlias = AnyIterator[

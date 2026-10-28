@@ -14,13 +14,13 @@ if TYPE_CHECKING:
     import capo_bcm_pricing_calculator.types.negate_savings_plan_action
 
 
-class _BillScenarioCommitmentModificationAction_addReservedInstanceAction(
+class BillScenarioCommitmentModificationActionAddReservedInstanceActionMember(
     TypedDict, closed=True
 ):
     addReservedInstanceAction: "capo_bcm_pricing_calculator.types.add_reserved_instance_action.AddReservedInstanceAction"
 
 
-class _BillScenarioCommitmentModificationAction_addSavingsPlanAction(
+class BillScenarioCommitmentModificationActionAddSavingsPlanActionMember(
     TypedDict, closed=True
 ):
     addSavingsPlanAction: (
@@ -28,23 +28,23 @@ class _BillScenarioCommitmentModificationAction_addSavingsPlanAction(
     )
 
 
-class _BillScenarioCommitmentModificationAction_negateReservedInstanceAction(
+class BillScenarioCommitmentModificationActionNegateReservedInstanceActionMember(
     TypedDict, closed=True
 ):
     negateReservedInstanceAction: "capo_bcm_pricing_calculator.types.negate_reserved_instance_action.NegateReservedInstanceAction"
 
 
-class _BillScenarioCommitmentModificationAction_negateSavingsPlanAction(
+class BillScenarioCommitmentModificationActionNegateSavingsPlanActionMember(
     TypedDict, closed=True
 ):
     negateSavingsPlanAction: "capo_bcm_pricing_calculator.types.negate_savings_plan_action.NegateSavingsPlanAction"
 
 
 BillScenarioCommitmentModificationAction: TypeAlias = (
-    _BillScenarioCommitmentModificationAction_addReservedInstanceAction
-    | _BillScenarioCommitmentModificationAction_addSavingsPlanAction
-    | _BillScenarioCommitmentModificationAction_negateReservedInstanceAction
-    | _BillScenarioCommitmentModificationAction_negateSavingsPlanAction
+    BillScenarioCommitmentModificationActionAddReservedInstanceActionMember
+    | BillScenarioCommitmentModificationActionAddSavingsPlanActionMember
+    | BillScenarioCommitmentModificationActionNegateReservedInstanceActionMember
+    | BillScenarioCommitmentModificationActionNegateSavingsPlanActionMember
     | UnknownUnionMember
 )
 

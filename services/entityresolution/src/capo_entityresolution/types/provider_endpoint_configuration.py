@@ -11,12 +11,14 @@ if TYPE_CHECKING:
     import capo_entityresolution.types.provider_marketplace_configuration
 
 
-class _ProviderEndpointConfiguration_marketplaceConfiguration(TypedDict, closed=True):
+class ProviderEndpointConfigurationMarketplaceConfigurationMember(
+    TypedDict, closed=True
+):
     marketplaceConfiguration: "capo_entityresolution.types.provider_marketplace_configuration.ProviderMarketplaceConfiguration"
 
 
 ProviderEndpointConfiguration: TypeAlias = (
-    _ProviderEndpointConfiguration_marketplaceConfiguration | UnknownUnionMember
+    ProviderEndpointConfigurationMarketplaceConfigurationMember | UnknownUnionMember
 )
 
 

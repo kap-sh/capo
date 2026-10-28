@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_bedrock_runtime.types.json_schema_definition
 
 
-class _OutputFormatStructure_jsonSchema(TypedDict, closed=True):
+class OutputFormatStructureJsonSchemaMember(TypedDict, closed=True):
     jsonSchema: "capo_bedrock_runtime.types.json_schema_definition.JsonSchemaDefinition"
 
 
 OutputFormatStructure: TypeAlias = (
-    _OutputFormatStructure_jsonSchema | UnknownUnionMember
+    OutputFormatStructureJsonSchemaMember | UnknownUnionMember
 )
 
 

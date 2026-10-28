@@ -7,55 +7,55 @@ title: AIAgentConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_qconnect.types.ai_agent_configuration._AIAgentConfiguration_manualSearchAIAgentConfiguration
+::: capo_qconnect.types.ai_agent_configuration.AIAgentConfigurationManualSearchAIAgentConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qconnect.types.ai_agent_configuration._AIAgentConfiguration_answerRecommendationAIAgentConfiguration
+::: capo_qconnect.types.ai_agent_configuration.AIAgentConfigurationAnswerRecommendationAIAgentConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qconnect.types.ai_agent_configuration._AIAgentConfiguration_selfServiceAIAgentConfiguration
+::: capo_qconnect.types.ai_agent_configuration.AIAgentConfigurationSelfServiceAIAgentConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qconnect.types.ai_agent_configuration._AIAgentConfiguration_emailResponseAIAgentConfiguration
+::: capo_qconnect.types.ai_agent_configuration.AIAgentConfigurationEmailResponseAIAgentConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qconnect.types.ai_agent_configuration._AIAgentConfiguration_emailOverviewAIAgentConfiguration
+::: capo_qconnect.types.ai_agent_configuration.AIAgentConfigurationEmailOverviewAIAgentConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qconnect.types.ai_agent_configuration._AIAgentConfiguration_emailGenerativeAnswerAIAgentConfiguration
+::: capo_qconnect.types.ai_agent_configuration.AIAgentConfigurationEmailGenerativeAnswerAIAgentConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qconnect.types.ai_agent_configuration._AIAgentConfiguration_orchestrationAIAgentConfiguration
+::: capo_qconnect.types.ai_agent_configuration.AIAgentConfigurationOrchestrationAIAgentConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qconnect.types.ai_agent_configuration._AIAgentConfiguration_noteTakingAIAgentConfiguration
+::: capo_qconnect.types.ai_agent_configuration.AIAgentConfigurationNoteTakingAIAgentConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qconnect.types.ai_agent_configuration._AIAgentConfiguration_caseSummarizationAIAgentConfiguration
+::: capo_qconnect.types.ai_agent_configuration.AIAgentConfigurationCaseSummarizationAIAgentConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false

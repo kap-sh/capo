@@ -12,21 +12,21 @@ if TYPE_CHECKING:
     import capo_pca_connector_ad.types.custom_object_identifier
 
 
-class _ApplicationPolicy_PolicyType(TypedDict, closed=True):
+class ApplicationPolicyPolicyTypeMember(TypedDict, closed=True):
     PolicyType: (
         "capo_pca_connector_ad.types.application_policy_type.ApplicationPolicyType"
     )
 
 
-class _ApplicationPolicy_PolicyObjectIdentifier(TypedDict, closed=True):
+class ApplicationPolicyPolicyObjectIdentifierMember(TypedDict, closed=True):
     PolicyObjectIdentifier: (
         "capo_pca_connector_ad.types.custom_object_identifier.CustomObjectIdentifier"
     )
 
 
 ApplicationPolicy: TypeAlias = (
-    _ApplicationPolicy_PolicyType
-    | _ApplicationPolicy_PolicyObjectIdentifier
+    ApplicationPolicyPolicyTypeMember
+    | ApplicationPolicyPolicyObjectIdentifierMember
     | UnknownUnionMember
 )
 

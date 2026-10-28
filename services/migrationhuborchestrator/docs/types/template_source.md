@@ -7,7 +7,7 @@ title: TemplateSource
       show_source: true
       merge_init_into_class: false
 
-::: capo_migrationhuborchestrator.types.template_source._TemplateSource_workflowId
+::: capo_migrationhuborchestrator.types.template_source.TemplateSourceWorkflowIdMember
     options:
       show_source: true
       merge_init_into_class: false

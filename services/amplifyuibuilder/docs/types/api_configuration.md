@@ -7,19 +7,19 @@ title: ApiConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_amplifyuibuilder.types.api_configuration._ApiConfiguration_graphQLConfig
+::: capo_amplifyuibuilder.types.api_configuration.ApiConfigurationGraphQLConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_amplifyuibuilder.types.api_configuration._ApiConfiguration_dataStoreConfig
+::: capo_amplifyuibuilder.types.api_configuration.ApiConfigurationDataStoreConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_amplifyuibuilder.types.api_configuration._ApiConfiguration_noApiConfig
+::: capo_amplifyuibuilder.types.api_configuration.ApiConfigurationNoApiConfigMember
     options:
       show_source: true
       merge_init_into_class: false

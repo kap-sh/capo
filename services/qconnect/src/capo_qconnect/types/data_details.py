@@ -23,80 +23,80 @@ if TYPE_CHECKING:
     import capo_qconnect.types.suggested_message_data_details
 
 
-class _DataDetails_contentData(TypedDict, closed=True):
+class DataDetailsContentDataMember(TypedDict, closed=True):
     contentData: "capo_qconnect.types.content_data_details.ContentDataDetails"
 
 
-class _DataDetails_generativeData(TypedDict, closed=True):
+class DataDetailsGenerativeDataMember(TypedDict, closed=True):
     generativeData: "capo_qconnect.types.generative_data_details.GenerativeDataDetails"
 
 
-class _DataDetails_intentDetectedData(TypedDict, closed=True):
+class DataDetailsIntentDetectedDataMember(TypedDict, closed=True):
     intentDetectedData: (
         "capo_qconnect.types.intent_detected_data_details.IntentDetectedDataDetails"
     )
 
 
-class _DataDetails_sourceContentData(TypedDict, closed=True):
+class DataDetailsSourceContentDataMember(TypedDict, closed=True):
     sourceContentData: (
         "capo_qconnect.types.source_content_data_details.SourceContentDataDetails"
     )
 
 
-class _DataDetails_generativeChunkData(TypedDict, closed=True):
+class DataDetailsGenerativeChunkDataMember(TypedDict, closed=True):
     generativeChunkData: (
         "capo_qconnect.types.generative_chunk_data_details.GenerativeChunkDataDetails"
     )
 
 
-class _DataDetails_emailResponseChunkData(TypedDict, closed=True):
+class DataDetailsEmailResponseChunkDataMember(TypedDict, closed=True):
     emailResponseChunkData: "capo_qconnect.types.email_response_chunk_data_details.EmailResponseChunkDataDetails"
 
 
-class _DataDetails_emailOverviewChunkData(TypedDict, closed=True):
+class DataDetailsEmailOverviewChunkDataMember(TypedDict, closed=True):
     emailOverviewChunkData: "capo_qconnect.types.email_overview_chunk_data_details.EmailOverviewChunkDataDetails"
 
 
-class _DataDetails_emailGenerativeAnswerChunkData(TypedDict, closed=True):
+class DataDetailsEmailGenerativeAnswerChunkDataMember(TypedDict, closed=True):
     emailGenerativeAnswerChunkData: "capo_qconnect.types.email_generative_answer_chunk_data_details.EmailGenerativeAnswerChunkDataDetails"
 
 
-class _DataDetails_caseSummarizationChunkData(TypedDict, closed=True):
+class DataDetailsCaseSummarizationChunkDataMember(TypedDict, closed=True):
     caseSummarizationChunkData: "capo_qconnect.types.case_summarization_chunk_data_details.CaseSummarizationChunkDataDetails"
 
 
-class _DataDetails_suggestedMessageData(TypedDict, closed=True):
+class DataDetailsSuggestedMessageDataMember(TypedDict, closed=True):
     suggestedMessageData: (
         "capo_qconnect.types.suggested_message_data_details.SuggestedMessageDataDetails"
     )
 
 
-class _DataDetails_notesData(TypedDict, closed=True):
+class DataDetailsNotesDataMember(TypedDict, closed=True):
     notesData: "capo_qconnect.types.notes_data_details.NotesDataDetails"
 
 
-class _DataDetails_notesChunkData(TypedDict, closed=True):
+class DataDetailsNotesChunkDataMember(TypedDict, closed=True):
     notesChunkData: "capo_qconnect.types.notes_chunk_data_details.NotesChunkDataDetails"
 
 
-class _DataDetails_proactiveRecommendationData(TypedDict, closed=True):
+class DataDetailsProactiveRecommendationDataMember(TypedDict, closed=True):
     proactiveRecommendationData: "capo_qconnect.types.proactive_recommendation_data_details.ProactiveRecommendationDataDetails"
 
 
 DataDetails: TypeAlias = (
-    _DataDetails_contentData
-    | _DataDetails_generativeData
-    | _DataDetails_intentDetectedData
-    | _DataDetails_sourceContentData
-    | _DataDetails_generativeChunkData
-    | _DataDetails_emailResponseChunkData
-    | _DataDetails_emailOverviewChunkData
-    | _DataDetails_emailGenerativeAnswerChunkData
-    | _DataDetails_caseSummarizationChunkData
-    | _DataDetails_suggestedMessageData
-    | _DataDetails_notesData
-    | _DataDetails_notesChunkData
-    | _DataDetails_proactiveRecommendationData
+    DataDetailsContentDataMember
+    | DataDetailsGenerativeDataMember
+    | DataDetailsIntentDetectedDataMember
+    | DataDetailsSourceContentDataMember
+    | DataDetailsGenerativeChunkDataMember
+    | DataDetailsEmailResponseChunkDataMember
+    | DataDetailsEmailOverviewChunkDataMember
+    | DataDetailsEmailGenerativeAnswerChunkDataMember
+    | DataDetailsCaseSummarizationChunkDataMember
+    | DataDetailsSuggestedMessageDataMember
+    | DataDetailsNotesDataMember
+    | DataDetailsNotesChunkDataMember
+    | DataDetailsProactiveRecommendationDataMember
     | UnknownUnionMember
 )
 

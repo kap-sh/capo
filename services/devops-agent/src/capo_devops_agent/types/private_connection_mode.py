@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.service_managed_input
 
 
-class _PrivateConnectionMode_serviceManaged(TypedDict, closed=True):
+class PrivateConnectionModeServiceManagedMember(TypedDict, closed=True):
     serviceManaged: "capo_devops_agent.types.service_managed_input.ServiceManagedInput"
 
 
-class _PrivateConnectionMode_selfManaged(TypedDict, closed=True):
+class PrivateConnectionModeSelfManagedMember(TypedDict, closed=True):
     selfManaged: "capo_devops_agent.types.self_managed_input.SelfManagedInput"
 
 
 PrivateConnectionMode: TypeAlias = (
-    _PrivateConnectionMode_serviceManaged
-    | _PrivateConnectionMode_selfManaged
+    PrivateConnectionModeServiceManagedMember
+    | PrivateConnectionModeSelfManagedMember
     | UnknownUnionMember
 )
 

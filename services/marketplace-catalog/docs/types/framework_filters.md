@@ -7,13 +7,13 @@ title: FrameworkFilters
       show_source: true
       merge_init_into_class: false
 
-::: capo_marketplace_catalog.types.framework_filters._FrameworkFilters_AMISecurityFilters
+::: capo_marketplace_catalog.types.framework_filters.FrameworkFiltersAMISecurityFiltersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_marketplace_catalog.types.framework_filters._FrameworkFilters_ContainerSecurityFilters
+::: capo_marketplace_catalog.types.framework_filters.FrameworkFiltersContainerSecurityFiltersMember
     options:
       show_source: true
       merge_init_into_class: false

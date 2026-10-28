@@ -7,31 +7,31 @@ title: HarnessContentBlockDelta
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore.types.harness_content_block_delta._HarnessContentBlockDelta_text
+::: capo_bedrock_agentcore.types.harness_content_block_delta.HarnessContentBlockDeltaTextMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.harness_content_block_delta._HarnessContentBlockDelta_toolUse
+::: capo_bedrock_agentcore.types.harness_content_block_delta.HarnessContentBlockDeltaToolUseMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.harness_content_block_delta._HarnessContentBlockDelta_toolResult
+::: capo_bedrock_agentcore.types.harness_content_block_delta.HarnessContentBlockDeltaToolResultMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.harness_content_block_delta._HarnessContentBlockDelta_reasoningContent
+::: capo_bedrock_agentcore.types.harness_content_block_delta.HarnessContentBlockDeltaReasoningContentMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.harness_content_block_delta._HarnessContentBlockDelta_toolResultMetadata
+::: capo_bedrock_agentcore.types.harness_content_block_delta.HarnessContentBlockDeltaToolResultMetadataMember
     options:
       show_source: true
       merge_init_into_class: false

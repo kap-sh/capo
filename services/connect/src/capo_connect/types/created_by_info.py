@@ -11,16 +11,18 @@ if TYPE_CHECKING:
     import capo_connect.types.arn
 
 
-class _CreatedByInfo_ConnectUserArn(TypedDict, closed=True):
+class CreatedByInfoConnectUserArnMember(TypedDict, closed=True):
     ConnectUserArn: "capo_connect.types.arn.ARN"
 
 
-class _CreatedByInfo_AWSIdentityArn(TypedDict, closed=True):
+class CreatedByInfoAWSIdentityArnMember(TypedDict, closed=True):
     AWSIdentityArn: "capo_connect.types.arn.ARN"
 
 
 CreatedByInfo: TypeAlias = (
-    _CreatedByInfo_ConnectUserArn | _CreatedByInfo_AWSIdentityArn | UnknownUnionMember
+    CreatedByInfoConnectUserArnMember
+    | CreatedByInfoAWSIdentityArnMember
+    | UnknownUnionMember
 )
 
 

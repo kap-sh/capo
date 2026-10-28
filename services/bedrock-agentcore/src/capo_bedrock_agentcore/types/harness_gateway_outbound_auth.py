@@ -11,22 +11,22 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.o_auth_credential_provider
 
 
-class _HarnessGatewayOutboundAuth_awsIam(TypedDict, closed=True):
+class HarnessGatewayOutboundAuthAwsIamMember(TypedDict, closed=True):
     awsIam: "None"
 
 
-class _HarnessGatewayOutboundAuth_none(TypedDict, closed=True):
+class HarnessGatewayOutboundAuthNoneMember(TypedDict, closed=True):
     none: "None"
 
 
-class _HarnessGatewayOutboundAuth_oauth(TypedDict, closed=True):
+class HarnessGatewayOutboundAuthOauthMember(TypedDict, closed=True):
     oauth: "capo_bedrock_agentcore.types.o_auth_credential_provider.OAuthCredentialProvider"
 
 
 HarnessGatewayOutboundAuth: TypeAlias = (
-    _HarnessGatewayOutboundAuth_awsIam
-    | _HarnessGatewayOutboundAuth_none
-    | _HarnessGatewayOutboundAuth_oauth
+    HarnessGatewayOutboundAuthAwsIamMember
+    | HarnessGatewayOutboundAuthNoneMember
+    | HarnessGatewayOutboundAuthOauthMember
     | UnknownUnionMember
 )
 

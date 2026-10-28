@@ -12,16 +12,18 @@ if TYPE_CHECKING:
     import capo_bedrock_runtime.types.invoke_model_tokens_request
 
 
-class _CountTokensInput_invokeModel(TypedDict, closed=True):
+class CountTokensInputInvokeModelMember(TypedDict, closed=True):
     invokeModel: "capo_bedrock_runtime.types.invoke_model_tokens_request.InvokeModelTokensRequest"
 
 
-class _CountTokensInput_converse(TypedDict, closed=True):
+class CountTokensInputConverseMember(TypedDict, closed=True):
     converse: "capo_bedrock_runtime.types.converse_tokens_request.ConverseTokensRequest"
 
 
 CountTokensInput: TypeAlias = (
-    _CountTokensInput_invokeModel | _CountTokensInput_converse | UnknownUnionMember
+    CountTokensInputInvokeModelMember
+    | CountTokensInputConverseMember
+    | UnknownUnionMember
 )
 
 

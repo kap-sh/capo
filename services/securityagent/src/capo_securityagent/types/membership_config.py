@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_securityagent.types.user_config
 
 
-class _MembershipConfig_user(TypedDict, closed=True):
+class MembershipConfigUserMember(TypedDict, closed=True):
     user: "capo_securityagent.types.user_config.UserConfig"
 
 
-MembershipConfig: TypeAlias = _MembershipConfig_user | UnknownUnionMember
+MembershipConfig: TypeAlias = MembershipConfigUserMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

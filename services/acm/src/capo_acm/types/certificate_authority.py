@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_acm.types.public_certificate_authority
 
 
-class _CertificateAuthority_PublicCertificateAuthority(TypedDict, closed=True):
+class CertificateAuthorityPublicCertificateAuthorityMember(TypedDict, closed=True):
     PublicCertificateAuthority: (
         "capo_acm.types.public_certificate_authority.PublicCertificateAuthority"
     )
 
 
 CertificateAuthority: TypeAlias = (
-    _CertificateAuthority_PublicCertificateAuthority | UnknownUnionMember
+    CertificateAuthorityPublicCertificateAuthorityMember | UnknownUnionMember
 )
 
 

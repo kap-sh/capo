@@ -13,37 +13,37 @@ title: TranscriptResultStream
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_transcribe_streaming.types.transcript_result_stream._TranscriptResultStream_TranscriptEvent
+::: capo_transcribe_streaming.types.transcript_result_stream.TranscriptResultStreamTranscriptEventMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_transcribe_streaming.types.transcript_result_stream._TranscriptResultStream_BadRequestException
+::: capo_transcribe_streaming.types.transcript_result_stream.TranscriptResultStreamBadRequestExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_transcribe_streaming.types.transcript_result_stream._TranscriptResultStream_LimitExceededException
+::: capo_transcribe_streaming.types.transcript_result_stream.TranscriptResultStreamLimitExceededExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_transcribe_streaming.types.transcript_result_stream._TranscriptResultStream_InternalFailureException
+::: capo_transcribe_streaming.types.transcript_result_stream.TranscriptResultStreamInternalFailureExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_transcribe_streaming.types.transcript_result_stream._TranscriptResultStream_ConflictException
+::: capo_transcribe_streaming.types.transcript_result_stream.TranscriptResultStreamConflictExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_transcribe_streaming.types.transcript_result_stream._TranscriptResultStream_ServiceUnavailableException
+::: capo_transcribe_streaming.types.transcript_result_stream.TranscriptResultStreamServiceUnavailableExceptionMember
     options:
       show_source: true
       merge_init_into_class: false

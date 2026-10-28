@@ -7,7 +7,7 @@ title: GroundTruthTurnInput
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore.types.ground_truth_turn_input._GroundTruthTurnInput_prompt
+::: capo_bedrock_agentcore.types.ground_truth_turn_input.GroundTruthTurnInputPromptMember
     options:
       show_source: true
       merge_init_into_class: false

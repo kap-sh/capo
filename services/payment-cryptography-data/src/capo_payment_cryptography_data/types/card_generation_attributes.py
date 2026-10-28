@@ -20,42 +20,48 @@ if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.dynamic_card_verification_value
 
 
-class _CardGenerationAttributes_AmexCardSecurityCodeVersion1(TypedDict, closed=True):
+class CardGenerationAttributesAmexCardSecurityCodeVersion1Member(
+    TypedDict, closed=True
+):
     AmexCardSecurityCodeVersion1: "capo_payment_cryptography_data.types.amex_card_security_code_version1.AmexCardSecurityCodeVersion1"
 
 
-class _CardGenerationAttributes_AmexCardSecurityCodeVersion2(TypedDict, closed=True):
+class CardGenerationAttributesAmexCardSecurityCodeVersion2Member(
+    TypedDict, closed=True
+):
     AmexCardSecurityCodeVersion2: "capo_payment_cryptography_data.types.amex_card_security_code_version2.AmexCardSecurityCodeVersion2"
 
 
-class _CardGenerationAttributes_CardVerificationValue1(TypedDict, closed=True):
+class CardGenerationAttributesCardVerificationValue1Member(TypedDict, closed=True):
     CardVerificationValue1: "capo_payment_cryptography_data.types.card_verification_value1.CardVerificationValue1"
 
 
-class _CardGenerationAttributes_CardVerificationValue2(TypedDict, closed=True):
+class CardGenerationAttributesCardVerificationValue2Member(TypedDict, closed=True):
     CardVerificationValue2: "capo_payment_cryptography_data.types.card_verification_value2.CardVerificationValue2"
 
 
-class _CardGenerationAttributes_CardHolderVerificationValue(TypedDict, closed=True):
+class CardGenerationAttributesCardHolderVerificationValueMember(TypedDict, closed=True):
     CardHolderVerificationValue: "capo_payment_cryptography_data.types.card_holder_verification_value.CardHolderVerificationValue"
 
 
-class _CardGenerationAttributes_DynamicCardVerificationCode(TypedDict, closed=True):
+class CardGenerationAttributesDynamicCardVerificationCodeMember(TypedDict, closed=True):
     DynamicCardVerificationCode: "capo_payment_cryptography_data.types.dynamic_card_verification_code.DynamicCardVerificationCode"
 
 
-class _CardGenerationAttributes_DynamicCardVerificationValue(TypedDict, closed=True):
+class CardGenerationAttributesDynamicCardVerificationValueMember(
+    TypedDict, closed=True
+):
     DynamicCardVerificationValue: "capo_payment_cryptography_data.types.dynamic_card_verification_value.DynamicCardVerificationValue"
 
 
 CardGenerationAttributes: TypeAlias = (
-    _CardGenerationAttributes_AmexCardSecurityCodeVersion1
-    | _CardGenerationAttributes_AmexCardSecurityCodeVersion2
-    | _CardGenerationAttributes_CardVerificationValue1
-    | _CardGenerationAttributes_CardVerificationValue2
-    | _CardGenerationAttributes_CardHolderVerificationValue
-    | _CardGenerationAttributes_DynamicCardVerificationCode
-    | _CardGenerationAttributes_DynamicCardVerificationValue
+    CardGenerationAttributesAmexCardSecurityCodeVersion1Member
+    | CardGenerationAttributesAmexCardSecurityCodeVersion2Member
+    | CardGenerationAttributesCardVerificationValue1Member
+    | CardGenerationAttributesCardVerificationValue2Member
+    | CardGenerationAttributesCardHolderVerificationValueMember
+    | CardGenerationAttributesDynamicCardVerificationCodeMember
+    | CardGenerationAttributesDynamicCardVerificationValueMember
     | UnknownUnionMember
 )
 

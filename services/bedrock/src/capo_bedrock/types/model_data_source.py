@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_bedrock.types.s3_data_source
 
 
-class _ModelDataSource_s3DataSource(TypedDict, closed=True):
+class ModelDataSourceS3DataSourceMember(TypedDict, closed=True):
     s3DataSource: "capo_bedrock.types.s3_data_source.S3DataSource"
 
 
-ModelDataSource: TypeAlias = _ModelDataSource_s3DataSource | UnknownUnionMember
+ModelDataSource: TypeAlias = ModelDataSourceS3DataSourceMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

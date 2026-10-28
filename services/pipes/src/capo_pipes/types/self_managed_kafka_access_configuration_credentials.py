@@ -11,33 +11,35 @@ if TYPE_CHECKING:
     import capo_pipes.types.secret_manager_arn
 
 
-class _SelfManagedKafkaAccessConfigurationCredentials_BasicAuth(TypedDict, closed=True):
+class SelfManagedKafkaAccessConfigurationCredentialsBasicAuthMember(
+    TypedDict, closed=True
+):
     BasicAuth: "capo_pipes.types.secret_manager_arn.SecretManagerArn"
 
 
-class _SelfManagedKafkaAccessConfigurationCredentials_SaslScram512Auth(
+class SelfManagedKafkaAccessConfigurationCredentialsSaslScram512AuthMember(
     TypedDict, closed=True
 ):
     SaslScram512Auth: "capo_pipes.types.secret_manager_arn.SecretManagerArn"
 
 
-class _SelfManagedKafkaAccessConfigurationCredentials_SaslScram256Auth(
+class SelfManagedKafkaAccessConfigurationCredentialsSaslScram256AuthMember(
     TypedDict, closed=True
 ):
     SaslScram256Auth: "capo_pipes.types.secret_manager_arn.SecretManagerArn"
 
 
-class _SelfManagedKafkaAccessConfigurationCredentials_ClientCertificateTlsAuth(
+class SelfManagedKafkaAccessConfigurationCredentialsClientCertificateTlsAuthMember(
     TypedDict, closed=True
 ):
     ClientCertificateTlsAuth: "capo_pipes.types.secret_manager_arn.SecretManagerArn"
 
 
 SelfManagedKafkaAccessConfigurationCredentials: TypeAlias = (
-    _SelfManagedKafkaAccessConfigurationCredentials_BasicAuth
-    | _SelfManagedKafkaAccessConfigurationCredentials_SaslScram512Auth
-    | _SelfManagedKafkaAccessConfigurationCredentials_SaslScram256Auth
-    | _SelfManagedKafkaAccessConfigurationCredentials_ClientCertificateTlsAuth
+    SelfManagedKafkaAccessConfigurationCredentialsBasicAuthMember
+    | SelfManagedKafkaAccessConfigurationCredentialsSaslScram512AuthMember
+    | SelfManagedKafkaAccessConfigurationCredentialsSaslScram256AuthMember
+    | SelfManagedKafkaAccessConfigurationCredentialsClientCertificateTlsAuthMember
     | UnknownUnionMember
 )
 

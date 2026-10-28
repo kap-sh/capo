@@ -19,43 +19,43 @@ if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.visa_pin_verification_value
 
 
-class _PinGenerationAttributes_VisaPin(TypedDict, closed=True):
+class PinGenerationAttributesVisaPinMember(TypedDict, closed=True):
     VisaPin: "capo_payment_cryptography_data.types.visa_pin.VisaPin"
 
 
-class _PinGenerationAttributes_VisaPinVerificationValue(TypedDict, closed=True):
+class PinGenerationAttributesVisaPinVerificationValueMember(TypedDict, closed=True):
     VisaPinVerificationValue: "capo_payment_cryptography_data.types.visa_pin_verification_value.VisaPinVerificationValue"
 
 
-class _PinGenerationAttributes_Ibm3624PinOffset(TypedDict, closed=True):
+class PinGenerationAttributesIbm3624PinOffsetMember(TypedDict, closed=True):
     Ibm3624PinOffset: (
         "capo_payment_cryptography_data.types.ibm3624_pin_offset.Ibm3624PinOffset"
     )
 
 
-class _PinGenerationAttributes_Ibm3624NaturalPin(TypedDict, closed=True):
+class PinGenerationAttributesIbm3624NaturalPinMember(TypedDict, closed=True):
     Ibm3624NaturalPin: (
         "capo_payment_cryptography_data.types.ibm3624_natural_pin.Ibm3624NaturalPin"
     )
 
 
-class _PinGenerationAttributes_Ibm3624RandomPin(TypedDict, closed=True):
+class PinGenerationAttributesIbm3624RandomPinMember(TypedDict, closed=True):
     Ibm3624RandomPin: (
         "capo_payment_cryptography_data.types.ibm3624_random_pin.Ibm3624RandomPin"
     )
 
 
-class _PinGenerationAttributes_Ibm3624PinFromOffset(TypedDict, closed=True):
+class PinGenerationAttributesIbm3624PinFromOffsetMember(TypedDict, closed=True):
     Ibm3624PinFromOffset: "capo_payment_cryptography_data.types.ibm3624_pin_from_offset.Ibm3624PinFromOffset"
 
 
 PinGenerationAttributes: TypeAlias = (
-    _PinGenerationAttributes_VisaPin
-    | _PinGenerationAttributes_VisaPinVerificationValue
-    | _PinGenerationAttributes_Ibm3624PinOffset
-    | _PinGenerationAttributes_Ibm3624NaturalPin
-    | _PinGenerationAttributes_Ibm3624RandomPin
-    | _PinGenerationAttributes_Ibm3624PinFromOffset
+    PinGenerationAttributesVisaPinMember
+    | PinGenerationAttributesVisaPinVerificationValueMember
+    | PinGenerationAttributesIbm3624PinOffsetMember
+    | PinGenerationAttributesIbm3624NaturalPinMember
+    | PinGenerationAttributesIbm3624RandomPinMember
+    | PinGenerationAttributesIbm3624PinFromOffsetMember
     | UnknownUnionMember
 )
 

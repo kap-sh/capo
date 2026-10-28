@@ -8,17 +8,17 @@ from capo_bedrock.errors import DeserializationError, SerializationError
 from capo_bedrock.types._unknown import UnknownUnionMember
 
 
-class _RatingScaleItemValue_stringValue(TypedDict, closed=True):
+class RatingScaleItemValueStringValueMember(TypedDict, closed=True):
     stringValue: "str"
 
 
-class _RatingScaleItemValue_floatValue(TypedDict, closed=True):
+class RatingScaleItemValueFloatValueMember(TypedDict, closed=True):
     floatValue: "float"
 
 
 RatingScaleItemValue: TypeAlias = (
-    _RatingScaleItemValue_stringValue
-    | _RatingScaleItemValue_floatValue
+    RatingScaleItemValueStringValueMember
+    | RatingScaleItemValueFloatValueMember
     | UnknownUnionMember
 )
 

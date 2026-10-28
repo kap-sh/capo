@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_verifiedpermissions.types.open_id_connect_configuration_item
 
 
-class _ConfigurationItem_cognitoUserPoolConfiguration(TypedDict, closed=True):
+class ConfigurationItemCognitoUserPoolConfigurationMember(TypedDict, closed=True):
     cognitoUserPoolConfiguration: "capo_verifiedpermissions.types.cognito_user_pool_configuration_item.CognitoUserPoolConfigurationItem"
 
 
-class _ConfigurationItem_openIdConnectConfiguration(TypedDict, closed=True):
+class ConfigurationItemOpenIdConnectConfigurationMember(TypedDict, closed=True):
     openIdConnectConfiguration: "capo_verifiedpermissions.types.open_id_connect_configuration_item.OpenIdConnectConfigurationItem"
 
 
 ConfigurationItem: TypeAlias = (
-    _ConfigurationItem_cognitoUserPoolConfiguration
-    | _ConfigurationItem_openIdConnectConfiguration
+    ConfigurationItemCognitoUserPoolConfigurationMember
+    | ConfigurationItemOpenIdConnectConfigurationMember
     | UnknownUnionMember
 )
 

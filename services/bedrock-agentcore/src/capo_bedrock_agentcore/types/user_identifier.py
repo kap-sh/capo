@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.user_token_type
 
 
-class _UserIdentifier_userToken(TypedDict, closed=True):
+class UserIdentifierUserTokenMember(TypedDict, closed=True):
     userToken: "capo_bedrock_agentcore.types.user_token_type.UserTokenType"
 
 
-class _UserIdentifier_userId(TypedDict, closed=True):
+class UserIdentifierUserIdMember(TypedDict, closed=True):
     userId: "capo_bedrock_agentcore.types.user_id_type.UserIdType"
 
 
 UserIdentifier: TypeAlias = (
-    _UserIdentifier_userToken | _UserIdentifier_userId | UnknownUnionMember
+    UserIdentifierUserTokenMember | UserIdentifierUserIdMember | UnknownUnionMember
 )
 
 

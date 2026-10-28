@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.inline_ground_truth
 
 
-class _GroundTruthSource_inline(TypedDict, closed=True):
+class GroundTruthSourceInlineMember(TypedDict, closed=True):
     inline: "capo_bedrock_agentcore.types.inline_ground_truth.InlineGroundTruth"
 
 
-GroundTruthSource: TypeAlias = _GroundTruthSource_inline | UnknownUnionMember
+GroundTruthSource: TypeAlias = GroundTruthSourceInlineMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

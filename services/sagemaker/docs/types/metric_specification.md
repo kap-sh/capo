@@ -7,13 +7,13 @@ title: MetricSpecification
       show_source: true
       merge_init_into_class: false
 
-::: capo_sagemaker.types.metric_specification._MetricSpecification_Predefined
+::: capo_sagemaker.types.metric_specification.MetricSpecificationPredefinedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_sagemaker.types.metric_specification._MetricSpecification_Customized
+::: capo_sagemaker.types.metric_specification.MetricSpecificationCustomizedMember
     options:
       show_source: true
       merge_init_into_class: false

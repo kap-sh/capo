@@ -14,12 +14,12 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.custom_jwt_authorizer_configuration
 
 
-class _AuthorizerConfiguration_customJWTAuthorizer(TypedDict, closed=True):
+class AuthorizerConfigurationCustomJWTAuthorizerMember(TypedDict, closed=True):
     customJWTAuthorizer: "capo_bedrock_agentcore_control.types.custom_jwt_authorizer_configuration.CustomJWTAuthorizerConfiguration"
 
 
 AuthorizerConfiguration: TypeAlias = (
-    _AuthorizerConfiguration_customJWTAuthorizer | UnknownUnionMember
+    AuthorizerConfigurationCustomJWTAuthorizerMember | UnknownUnionMember
 )
 
 

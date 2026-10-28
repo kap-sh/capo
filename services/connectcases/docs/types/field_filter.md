@@ -7,37 +7,37 @@ title: FieldFilter
       show_source: true
       merge_init_into_class: false
 
-::: capo_connectcases.types.field_filter._FieldFilter_equalTo
+::: capo_connectcases.types.field_filter.FieldFilterEqualToMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connectcases.types.field_filter._FieldFilter_contains
+::: capo_connectcases.types.field_filter.FieldFilterContainsMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connectcases.types.field_filter._FieldFilter_greaterThan
+::: capo_connectcases.types.field_filter.FieldFilterGreaterThanMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connectcases.types.field_filter._FieldFilter_greaterThanOrEqualTo
+::: capo_connectcases.types.field_filter.FieldFilterGreaterThanOrEqualToMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connectcases.types.field_filter._FieldFilter_lessThan
+::: capo_connectcases.types.field_filter.FieldFilterLessThanMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connectcases.types.field_filter._FieldFilter_lessThanOrEqualTo
+::: capo_connectcases.types.field_filter.FieldFilterLessThanOrEqualToMember
     options:
       show_source: true
       merge_init_into_class: false

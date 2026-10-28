@@ -14,27 +14,27 @@ if TYPE_CHECKING:
     import capo_qbusiness.types.timestamp
 
 
-class _DocumentAttributeValue_stringValue(TypedDict, closed=True):
+class DocumentAttributeValueStringValueMember(TypedDict, closed=True):
     stringValue: "capo_qbusiness.types.document_attribute_string_value.DocumentAttributeStringValue"
 
 
-class _DocumentAttributeValue_stringListValue(TypedDict, closed=True):
+class DocumentAttributeValueStringListValueMember(TypedDict, closed=True):
     stringListValue: "capo_qbusiness.types.document_attribute_string_list_value.DocumentAttributeStringListValue"
 
 
-class _DocumentAttributeValue_longValue(TypedDict, closed=True):
+class DocumentAttributeValueLongValueMember(TypedDict, closed=True):
     longValue: "capo_qbusiness.types.long.Long"
 
 
-class _DocumentAttributeValue_dateValue(TypedDict, closed=True):
+class DocumentAttributeValueDateValueMember(TypedDict, closed=True):
     dateValue: "capo_qbusiness.types.timestamp.Timestamp"
 
 
 DocumentAttributeValue: TypeAlias = (
-    _DocumentAttributeValue_stringValue
-    | _DocumentAttributeValue_stringListValue
-    | _DocumentAttributeValue_longValue
-    | _DocumentAttributeValue_dateValue
+    DocumentAttributeValueStringValueMember
+    | DocumentAttributeValueStringListValueMember
+    | DocumentAttributeValueLongValueMember
+    | DocumentAttributeValueDateValueMember
     | UnknownUnionMember
 )
 

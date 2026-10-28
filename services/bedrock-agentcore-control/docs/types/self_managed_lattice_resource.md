@@ -7,7 +7,7 @@ title: SelfManagedLatticeResource
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.self_managed_lattice_resource._SelfManagedLatticeResource_resourceConfigurationIdentifier
+::: capo_bedrock_agentcore_control.types.self_managed_lattice_resource.SelfManagedLatticeResourceResourceConfigurationIdentifierMember
     options:
       show_source: true
       merge_init_into_class: false

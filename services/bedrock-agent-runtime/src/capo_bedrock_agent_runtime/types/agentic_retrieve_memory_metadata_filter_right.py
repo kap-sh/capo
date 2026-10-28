@@ -11,12 +11,14 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.agentic_retrieve_memory_metadata_value
 
 
-class _AgenticRetrieveMemoryMetadataFilterRight_metadataValue(TypedDict, closed=True):
+class AgenticRetrieveMemoryMetadataFilterRightMetadataValueMember(
+    TypedDict, closed=True
+):
     metadataValue: "capo_bedrock_agent_runtime.types.agentic_retrieve_memory_metadata_value.AgenticRetrieveMemoryMetadataValue"
 
 
 AgenticRetrieveMemoryMetadataFilterRight: TypeAlias = (
-    _AgenticRetrieveMemoryMetadataFilterRight_metadataValue | UnknownUnionMember
+    AgenticRetrieveMemoryMetadataFilterRightMetadataValueMember | UnknownUnionMember
 )
 
 

@@ -12,15 +12,15 @@ if TYPE_CHECKING:
     import capo_accessanalyzer.types.acl_uri
 
 
-class _AclGrantee_id(TypedDict, closed=True):
+class AclGranteeIdMember(TypedDict, closed=True):
     id: "capo_accessanalyzer.types.acl_canonical_id.AclCanonicalId"
 
 
-class _AclGrantee_uri(TypedDict, closed=True):
+class AclGranteeUriMember(TypedDict, closed=True):
     uri: "capo_accessanalyzer.types.acl_uri.AclUri"
 
 
-AclGrantee: TypeAlias = _AclGrantee_id | _AclGrantee_uri | UnknownUnionMember
+AclGrantee: TypeAlias = AclGranteeIdMember | AclGranteeUriMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

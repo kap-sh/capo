@@ -7,7 +7,7 @@ title: SchedulingMaxPriorityOverride
       show_source: true
       merge_init_into_class: false
 
-::: capo_deadline.types.scheduling_max_priority_override._SchedulingMaxPriorityOverride_alwaysScheduleFirst
+::: capo_deadline.types.scheduling_max_priority_override.SchedulingMaxPriorityOverrideAlwaysScheduleFirstMember
     options:
       show_source: true
       merge_init_into_class: false

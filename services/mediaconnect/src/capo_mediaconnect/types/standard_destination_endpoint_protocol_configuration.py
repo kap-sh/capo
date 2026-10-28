@@ -14,31 +14,33 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.srt_listener_standard_destination_endpoint_configuration
 
 
-class _StandardDestinationEndpointProtocolConfiguration_Rist(TypedDict, closed=True):
+class StandardDestinationEndpointProtocolConfigurationRistMember(
+    TypedDict, closed=True
+):
     Rist: "capo_mediaconnect.types.rist_standard_destination_endpoint_configuration.RistStandardDestinationEndpointConfiguration"
 
 
-class _StandardDestinationEndpointProtocolConfiguration_SrtListener(
+class StandardDestinationEndpointProtocolConfigurationSrtListenerMember(
     TypedDict, closed=True
 ):
     SrtListener: "capo_mediaconnect.types.srt_listener_standard_destination_endpoint_configuration.SrtListenerStandardDestinationEndpointConfiguration"
 
 
-class _StandardDestinationEndpointProtocolConfiguration_SrtCaller(
+class StandardDestinationEndpointProtocolConfigurationSrtCallerMember(
     TypedDict, closed=True
 ):
     SrtCaller: "capo_mediaconnect.types.srt_caller_standard_destination_endpoint_configuration.SrtCallerStandardDestinationEndpointConfiguration"
 
 
-class _StandardDestinationEndpointProtocolConfiguration_Rtp(TypedDict, closed=True):
+class StandardDestinationEndpointProtocolConfigurationRtpMember(TypedDict, closed=True):
     Rtp: "capo_mediaconnect.types.rtp_standard_destination_endpoint_configuration.RtpStandardDestinationEndpointConfiguration"
 
 
 StandardDestinationEndpointProtocolConfiguration: TypeAlias = (
-    _StandardDestinationEndpointProtocolConfiguration_Rist
-    | _StandardDestinationEndpointProtocolConfiguration_SrtListener
-    | _StandardDestinationEndpointProtocolConfiguration_SrtCaller
-    | _StandardDestinationEndpointProtocolConfiguration_Rtp
+    StandardDestinationEndpointProtocolConfigurationRistMember
+    | StandardDestinationEndpointProtocolConfigurationSrtListenerMember
+    | StandardDestinationEndpointProtocolConfigurationSrtCallerMember
+    | StandardDestinationEndpointProtocolConfigurationRtpMember
     | UnknownUnionMember
 )
 

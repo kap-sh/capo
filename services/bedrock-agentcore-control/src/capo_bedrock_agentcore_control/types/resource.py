@@ -14,11 +14,11 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.bedrock_agentcore_resource_arn
 
 
-class _Resource_arn(TypedDict, closed=True):
+class ResourceArnMember(TypedDict, closed=True):
     arn: "capo_bedrock_agentcore_control.types.bedrock_agentcore_resource_arn.BedrockAgentcoreResourceArn"
 
 
-Resource: TypeAlias = _Resource_arn | UnknownUnionMember
+Resource: TypeAlias = ResourceArnMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

@@ -7,13 +7,13 @@ title: AssistantMessageBlock
       show_source: true
       merge_init_into_class: false
 
-::: capo_devops_agent.types.assistant_message_block._AssistantMessageBlock_text
+::: capo_devops_agent.types.assistant_message_block.AssistantMessageBlockTextMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_devops_agent.types.assistant_message_block._AssistantMessageBlock_toolUse
+::: capo_devops_agent.types.assistant_message_block.AssistantMessageBlockToolUseMember
     options:
       show_source: true
       merge_init_into_class: false

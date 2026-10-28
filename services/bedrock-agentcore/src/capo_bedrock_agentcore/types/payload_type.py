@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.memory_json_data
 
 
-class _PayloadType_conversational(TypedDict, closed=True):
+class PayloadTypeConversationalMember(TypedDict, closed=True):
     conversational: "capo_bedrock_agentcore.types.conversational.Conversational"
 
 
-class _PayloadType_blob(TypedDict, closed=True):
+class PayloadTypeBlobMember(TypedDict, closed=True):
     blob: "capo_bedrock_agentcore.types.memory_document.MemoryDocument"
 
 
-class _PayloadType_json(TypedDict, closed=True):
+class PayloadTypeJsonMember(TypedDict, closed=True):
     json: "capo_bedrock_agentcore.types.memory_json_data.MemoryJsonData"
 
 
 PayloadType: TypeAlias = (
-    _PayloadType_conversational
-    | _PayloadType_blob
-    | _PayloadType_json
+    PayloadTypeConversationalMember
+    | PayloadTypeBlobMember
+    | PayloadTypeJsonMember
     | UnknownUnionMember
 )
 

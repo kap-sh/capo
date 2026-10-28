@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_workspaces_web.types.s3_uri
 
 
-class _IconImageInput_blob(TypedDict, closed=True):
+class IconImageInputBlobMember(TypedDict, closed=True):
     blob: "capo_workspaces_web.types.icon_image.IconImage"
 
 
-class _IconImageInput_s3Uri(TypedDict, closed=True):
+class IconImageInputS3UriMember(TypedDict, closed=True):
     s3Uri: "capo_workspaces_web.types.s3_uri.S3Uri"
 
 
 IconImageInput: TypeAlias = (
-    _IconImageInput_blob | _IconImageInput_s3Uri | UnknownUnionMember
+    IconImageInputBlobMember | IconImageInputS3UriMember | UnknownUnionMember
 )
 
 

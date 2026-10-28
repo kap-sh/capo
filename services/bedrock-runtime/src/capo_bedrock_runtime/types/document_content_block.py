@@ -8,11 +8,11 @@ from capo_bedrock_runtime.errors import DeserializationError, SerializationError
 from capo_bedrock_runtime.types._unknown import UnknownUnionMember
 
 
-class _DocumentContentBlock_text(TypedDict, closed=True):
+class DocumentContentBlockTextMember(TypedDict, closed=True):
     text: "str"
 
 
-DocumentContentBlock: TypeAlias = _DocumentContentBlock_text | UnknownUnionMember
+DocumentContentBlock: TypeAlias = DocumentContentBlockTextMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

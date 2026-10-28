@@ -7,7 +7,7 @@ title: PrivateKeySource
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.private_key_source._PrivateKeySource_kmsKeySource
+::: capo_bedrock_agentcore_control.types.private_key_source.PrivateKeySourceKmsKeySourceMember
     options:
       show_source: true
       merge_init_into_class: false

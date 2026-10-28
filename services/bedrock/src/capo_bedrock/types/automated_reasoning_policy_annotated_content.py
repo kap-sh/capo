@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_annotated_line
 
 
-class _AutomatedReasoningPolicyAnnotatedContent_line(TypedDict, closed=True):
+class AutomatedReasoningPolicyAnnotatedContentLineMember(TypedDict, closed=True):
     line: "capo_bedrock.types.automated_reasoning_policy_annotated_line.AutomatedReasoningPolicyAnnotatedLine"
 
 
 AutomatedReasoningPolicyAnnotatedContent: TypeAlias = (
-    _AutomatedReasoningPolicyAnnotatedContent_line | UnknownUnionMember
+    AutomatedReasoningPolicyAnnotatedContentLineMember | UnknownUnionMember
 )
 
 

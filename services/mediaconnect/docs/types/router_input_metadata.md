@@ -7,7 +7,7 @@ title: RouterInputMetadata
       show_source: true
       merge_init_into_class: false
 
-::: capo_mediaconnect.types.router_input_metadata._RouterInputMetadata_TransportStreamMediaInfo
+::: capo_mediaconnect.types.router_input_metadata.RouterInputMetadataTransportStreamMediaInfoMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -11,11 +11,13 @@ if TYPE_CHECKING:
     import capo_iotfleetwise.types.can_dbc_definition
 
 
-class _NetworkFileDefinition_canDbc(TypedDict, closed=True):
+class NetworkFileDefinitionCanDbcMember(TypedDict, closed=True):
     canDbc: "capo_iotfleetwise.types.can_dbc_definition.CanDbcDefinition"
 
 
-NetworkFileDefinition: TypeAlias = _NetworkFileDefinition_canDbc | UnknownUnionMember
+NetworkFileDefinition: TypeAlias = (
+    NetworkFileDefinitionCanDbcMember | UnknownUnionMember
+)
 
 
 # --- awsJson1_0 ser/de ---

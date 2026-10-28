@@ -11,16 +11,16 @@ if TYPE_CHECKING:
     import capo_bedrock_runtime.types.s3_location
 
 
-class _AudioSource_bytes(TypedDict, closed=True):
+class AudioSourceBytesMember(TypedDict, closed=True):
     bytes: "bytes"
 
 
-class _AudioSource_s3Location(TypedDict, closed=True):
+class AudioSourceS3LocationMember(TypedDict, closed=True):
     s3Location: "capo_bedrock_runtime.types.s3_location.S3Location"
 
 
 AudioSource: TypeAlias = (
-    _AudioSource_bytes | _AudioSource_s3Location | UnknownUnionMember
+    AudioSourceBytesMember | AudioSourceS3LocationMember | UnknownUnionMember
 )
 
 

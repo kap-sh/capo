@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_panorama.types.manifest_overrides_payload_data
 
 
-class _ManifestOverridesPayload_PayloadData(TypedDict, closed=True):
+class ManifestOverridesPayloadPayloadDataMember(TypedDict, closed=True):
     PayloadData: "capo_panorama.types.manifest_overrides_payload_data.ManifestOverridesPayloadData"
 
 
 ManifestOverridesPayload: TypeAlias = (
-    _ManifestOverridesPayload_PayloadData | UnknownUnionMember
+    ManifestOverridesPayloadPayloadDataMember | UnknownUnionMember
 )
 
 

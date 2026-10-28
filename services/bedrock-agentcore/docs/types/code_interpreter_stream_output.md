@@ -13,49 +13,49 @@ title: CodeInterpreterStreamOutput
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.code_interpreter_stream_output._CodeInterpreterStreamOutput_result
+::: capo_bedrock_agentcore.types.code_interpreter_stream_output.CodeInterpreterStreamOutputResultMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.code_interpreter_stream_output._CodeInterpreterStreamOutput_accessDeniedException
+::: capo_bedrock_agentcore.types.code_interpreter_stream_output.CodeInterpreterStreamOutputAccessDeniedExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.code_interpreter_stream_output._CodeInterpreterStreamOutput_conflictException
+::: capo_bedrock_agentcore.types.code_interpreter_stream_output.CodeInterpreterStreamOutputConflictExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.code_interpreter_stream_output._CodeInterpreterStreamOutput_internalServerException
+::: capo_bedrock_agentcore.types.code_interpreter_stream_output.CodeInterpreterStreamOutputInternalServerExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.code_interpreter_stream_output._CodeInterpreterStreamOutput_resourceNotFoundException
+::: capo_bedrock_agentcore.types.code_interpreter_stream_output.CodeInterpreterStreamOutputResourceNotFoundExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.code_interpreter_stream_output._CodeInterpreterStreamOutput_serviceQuotaExceededException
+::: capo_bedrock_agentcore.types.code_interpreter_stream_output.CodeInterpreterStreamOutputServiceQuotaExceededExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.code_interpreter_stream_output._CodeInterpreterStreamOutput_throttlingException
+::: capo_bedrock_agentcore.types.code_interpreter_stream_output.CodeInterpreterStreamOutputThrottlingExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.code_interpreter_stream_output._CodeInterpreterStreamOutput_validationException
+::: capo_bedrock_agentcore.types.code_interpreter_stream_output.CodeInterpreterStreamOutputValidationExceptionMember
     options:
       show_source: true
       merge_init_into_class: false

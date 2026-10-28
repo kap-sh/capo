@@ -12,16 +12,18 @@ if TYPE_CHECKING:
     import capo_marketplace_agreement.types.percentage_range
 
 
-class _PriceIncrease_fixedPercentage(TypedDict, closed=True):
+class PriceIncreaseFixedPercentageMember(TypedDict, closed=True):
     fixedPercentage: "capo_marketplace_agreement.types.fixed_percentage.FixedPercentage"
 
 
-class _PriceIncrease_percentageRange(TypedDict, closed=True):
+class PriceIncreasePercentageRangeMember(TypedDict, closed=True):
     percentageRange: "capo_marketplace_agreement.types.percentage_range.PercentageRange"
 
 
 PriceIncrease: TypeAlias = (
-    _PriceIncrease_fixedPercentage | _PriceIncrease_percentageRange | UnknownUnionMember
+    PriceIncreaseFixedPercentageMember
+    | PriceIncreasePercentageRangeMember
+    | UnknownUnionMember
 )
 
 

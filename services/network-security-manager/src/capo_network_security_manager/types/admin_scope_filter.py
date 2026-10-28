@@ -14,26 +14,26 @@ if TYPE_CHECKING:
     import capo_network_security_manager.types.admin_scope_selection
 
 
-class _AdminScopeFilter_includeAll(TypedDict, closed=True):
+class AdminScopeFilterIncludeAllMember(TypedDict, closed=True):
     includeAll: "None"
 
 
-class _AdminScopeFilter_includeOnly(TypedDict, closed=True):
+class AdminScopeFilterIncludeOnlyMember(TypedDict, closed=True):
     includeOnly: (
         "capo_network_security_manager.types.admin_scope_selection.AdminScopeSelection"
     )
 
 
-class _AdminScopeFilter_excludeOnly(TypedDict, closed=True):
+class AdminScopeFilterExcludeOnlyMember(TypedDict, closed=True):
     excludeOnly: (
         "capo_network_security_manager.types.admin_scope_selection.AdminScopeSelection"
     )
 
 
 AdminScopeFilter: TypeAlias = (
-    _AdminScopeFilter_includeAll
-    | _AdminScopeFilter_includeOnly
-    | _AdminScopeFilter_excludeOnly
+    AdminScopeFilterIncludeAllMember
+    | AdminScopeFilterIncludeOnlyMember
+    | AdminScopeFilterExcludeOnlyMember
     | UnknownUnionMember
 )
 

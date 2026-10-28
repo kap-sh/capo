@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_arc_region_switch.types.s3_report_output_configuration
 
 
-class _ReportOutputConfiguration_s3Configuration(TypedDict, closed=True):
+class ReportOutputConfigurationS3ConfigurationMember(TypedDict, closed=True):
     s3Configuration: "capo_arc_region_switch.types.s3_report_output_configuration.S3ReportOutputConfiguration"
 
 
 ReportOutputConfiguration: TypeAlias = (
-    _ReportOutputConfiguration_s3Configuration | UnknownUnionMember
+    ReportOutputConfigurationS3ConfigurationMember | UnknownUnionMember
 )
 
 

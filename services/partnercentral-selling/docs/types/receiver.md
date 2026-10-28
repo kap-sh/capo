@@ -7,7 +7,7 @@ title: Receiver
       show_source: true
       merge_init_into_class: false
 
-::: capo_partnercentral_selling.types.receiver._Receiver_Account
+::: capo_partnercentral_selling.types.receiver.ReceiverAccountMember
     options:
       show_source: true
       merge_init_into_class: false

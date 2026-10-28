@@ -7,7 +7,7 @@ title: IncomingKeyMaterial
       show_source: true
       merge_init_into_class: false
 
-::: capo_payment_cryptography_data.types.incoming_key_material._IncomingKeyMaterial_DiffieHellmanTr31KeyBlock
+::: capo_payment_cryptography_data.types.incoming_key_material.IncomingKeyMaterialDiffieHellmanTr31KeyBlockMember
     options:
       show_source: true
       merge_init_into_class: false

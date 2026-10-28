@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.stripe_privy_token_response_output
 
 
-class _PaymentTokenResponseOutput_coinbaseCdpTokenResponse(TypedDict, closed=True):
+class PaymentTokenResponseOutputCoinbaseCdpTokenResponseMember(TypedDict, closed=True):
     coinbaseCdpTokenResponse: "capo_bedrock_agentcore.types.coinbase_cdp_token_response_output.CoinbaseCdpTokenResponseOutput"
 
 
-class _PaymentTokenResponseOutput_stripePrivyTokenResponse(TypedDict, closed=True):
+class PaymentTokenResponseOutputStripePrivyTokenResponseMember(TypedDict, closed=True):
     stripePrivyTokenResponse: "capo_bedrock_agentcore.types.stripe_privy_token_response_output.StripePrivyTokenResponseOutput"
 
 
 PaymentTokenResponseOutput: TypeAlias = (
-    _PaymentTokenResponseOutput_coinbaseCdpTokenResponse
-    | _PaymentTokenResponseOutput_stripePrivyTokenResponse
+    PaymentTokenResponseOutputCoinbaseCdpTokenResponseMember
+    | PaymentTokenResponseOutputStripePrivyTokenResponseMember
     | UnknownUnionMember
 )
 

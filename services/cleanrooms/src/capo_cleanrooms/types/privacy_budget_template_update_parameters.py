@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.differential_privacy_template_update_parameters
 
 
-class _PrivacyBudgetTemplateUpdateParameters_differentialPrivacy(
+class PrivacyBudgetTemplateUpdateParametersDifferentialPrivacyMember(
     TypedDict, closed=True
 ):
     differentialPrivacy: "capo_cleanrooms.types.differential_privacy_template_update_parameters.DifferentialPrivacyTemplateUpdateParameters"
 
 
-class _PrivacyBudgetTemplateUpdateParameters_accessBudget(TypedDict, closed=True):
+class PrivacyBudgetTemplateUpdateParametersAccessBudgetMember(TypedDict, closed=True):
     accessBudget: "capo_cleanrooms.types.access_budgets_privacy_template_update_parameters.AccessBudgetsPrivacyTemplateUpdateParameters"
 
 
 PrivacyBudgetTemplateUpdateParameters: TypeAlias = (
-    _PrivacyBudgetTemplateUpdateParameters_differentialPrivacy
-    | _PrivacyBudgetTemplateUpdateParameters_accessBudget
+    PrivacyBudgetTemplateUpdateParametersDifferentialPrivacyMember
+    | PrivacyBudgetTemplateUpdateParametersAccessBudgetMember
     | UnknownUnionMember
 )
 

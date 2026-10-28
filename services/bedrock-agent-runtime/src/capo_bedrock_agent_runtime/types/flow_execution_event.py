@@ -19,64 +19,64 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.node_output_event
 
 
-class _FlowExecutionEvent_flowInputEvent(TypedDict, closed=True):
+class FlowExecutionEventFlowInputEventMember(TypedDict, closed=True):
     flowInputEvent: "capo_bedrock_agent_runtime.types.flow_execution_input_event.FlowExecutionInputEvent"
 
 
-class _FlowExecutionEvent_flowOutputEvent(TypedDict, closed=True):
+class FlowExecutionEventFlowOutputEventMember(TypedDict, closed=True):
     flowOutputEvent: "capo_bedrock_agent_runtime.types.flow_execution_output_event.FlowExecutionOutputEvent"
 
 
-class _FlowExecutionEvent_nodeInputEvent(TypedDict, closed=True):
+class FlowExecutionEventNodeInputEventMember(TypedDict, closed=True):
     nodeInputEvent: "capo_bedrock_agent_runtime.types.node_input_event.NodeInputEvent"
 
 
-class _FlowExecutionEvent_nodeOutputEvent(TypedDict, closed=True):
+class FlowExecutionEventNodeOutputEventMember(TypedDict, closed=True):
     nodeOutputEvent: (
         "capo_bedrock_agent_runtime.types.node_output_event.NodeOutputEvent"
     )
 
 
-class _FlowExecutionEvent_conditionResultEvent(TypedDict, closed=True):
+class FlowExecutionEventConditionResultEventMember(TypedDict, closed=True):
     conditionResultEvent: (
         "capo_bedrock_agent_runtime.types.condition_result_event.ConditionResultEvent"
     )
 
 
-class _FlowExecutionEvent_nodeFailureEvent(TypedDict, closed=True):
+class FlowExecutionEventNodeFailureEventMember(TypedDict, closed=True):
     nodeFailureEvent: (
         "capo_bedrock_agent_runtime.types.node_failure_event.NodeFailureEvent"
     )
 
 
-class _FlowExecutionEvent_flowFailureEvent(TypedDict, closed=True):
+class FlowExecutionEventFlowFailureEventMember(TypedDict, closed=True):
     flowFailureEvent: (
         "capo_bedrock_agent_runtime.types.flow_failure_event.FlowFailureEvent"
     )
 
 
-class _FlowExecutionEvent_nodeActionEvent(TypedDict, closed=True):
+class FlowExecutionEventNodeActionEventMember(TypedDict, closed=True):
     nodeActionEvent: (
         "capo_bedrock_agent_runtime.types.node_action_event.NodeActionEvent"
     )
 
 
-class _FlowExecutionEvent_nodeDependencyEvent(TypedDict, closed=True):
+class FlowExecutionEventNodeDependencyEventMember(TypedDict, closed=True):
     nodeDependencyEvent: (
         "capo_bedrock_agent_runtime.types.node_dependency_event.NodeDependencyEvent"
     )
 
 
 FlowExecutionEvent: TypeAlias = (
-    _FlowExecutionEvent_flowInputEvent
-    | _FlowExecutionEvent_flowOutputEvent
-    | _FlowExecutionEvent_nodeInputEvent
-    | _FlowExecutionEvent_nodeOutputEvent
-    | _FlowExecutionEvent_conditionResultEvent
-    | _FlowExecutionEvent_nodeFailureEvent
-    | _FlowExecutionEvent_flowFailureEvent
-    | _FlowExecutionEvent_nodeActionEvent
-    | _FlowExecutionEvent_nodeDependencyEvent
+    FlowExecutionEventFlowInputEventMember
+    | FlowExecutionEventFlowOutputEventMember
+    | FlowExecutionEventNodeInputEventMember
+    | FlowExecutionEventNodeOutputEventMember
+    | FlowExecutionEventConditionResultEventMember
+    | FlowExecutionEventNodeFailureEventMember
+    | FlowExecutionEventFlowFailureEventMember
+    | FlowExecutionEventNodeActionEventMember
+    | FlowExecutionEventNodeDependencyEventMember
     | UnknownUnionMember
 )
 

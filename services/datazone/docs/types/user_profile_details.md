@@ -7,13 +7,13 @@ title: UserProfileDetails
       show_source: true
       merge_init_into_class: false
 
-::: capo_datazone.types.user_profile_details._UserProfileDetails_iam
+::: capo_datazone.types.user_profile_details.UserProfileDetailsIamMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.user_profile_details._UserProfileDetails_sso
+::: capo_datazone.types.user_profile_details.UserProfileDetailsSsoMember
     options:
       show_source: true
       merge_init_into_class: false

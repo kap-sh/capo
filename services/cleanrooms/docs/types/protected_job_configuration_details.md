@@ -7,7 +7,7 @@ title: ProtectedJobConfigurationDetails
       show_source: true
       merge_init_into_class: false
 
-::: capo_cleanrooms.types.protected_job_configuration_details._ProtectedJobConfigurationDetails_directAnalysisConfigurationDetails
+::: capo_cleanrooms.types.protected_job_configuration_details.ProtectedJobConfigurationDetailsDirectAnalysisConfigurationDetailsMember
     options:
       show_source: true
       merge_init_into_class: false

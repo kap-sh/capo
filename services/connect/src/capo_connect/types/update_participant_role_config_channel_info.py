@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_connect.types.chat_participant_role_config
 
 
-class _UpdateParticipantRoleConfigChannelInfo_Chat(TypedDict, closed=True):
+class UpdateParticipantRoleConfigChannelInfoChatMember(TypedDict, closed=True):
     Chat: "capo_connect.types.chat_participant_role_config.ChatParticipantRoleConfig"
 
 
 UpdateParticipantRoleConfigChannelInfo: TypeAlias = (
-    _UpdateParticipantRoleConfigChannelInfo_Chat | UnknownUnionMember
+    UpdateParticipantRoleConfigChannelInfoChatMember | UnknownUnionMember
 )
 
 

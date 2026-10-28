@@ -11,22 +11,22 @@ if TYPE_CHECKING:
     import capo_securityhub.types.non_empty_string
 
 
-class _Target_AccountId(TypedDict, closed=True):
+class TargetAccountIdMember(TypedDict, closed=True):
     AccountId: "capo_securityhub.types.non_empty_string.NonEmptyString"
 
 
-class _Target_OrganizationalUnitId(TypedDict, closed=True):
+class TargetOrganizationalUnitIdMember(TypedDict, closed=True):
     OrganizationalUnitId: "capo_securityhub.types.non_empty_string.NonEmptyString"
 
 
-class _Target_RootId(TypedDict, closed=True):
+class TargetRootIdMember(TypedDict, closed=True):
     RootId: "capo_securityhub.types.non_empty_string.NonEmptyString"
 
 
 Target: TypeAlias = (
-    _Target_AccountId
-    | _Target_OrganizationalUnitId
-    | _Target_RootId
+    TargetAccountIdMember
+    | TargetOrganizationalUnitIdMember
+    | TargetRootIdMember
     | UnknownUnionMember
 )
 

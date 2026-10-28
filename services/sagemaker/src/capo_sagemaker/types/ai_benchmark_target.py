@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.ai_benchmark_endpoint
 
 
-class _AIBenchmarkTarget_Endpoint(TypedDict, closed=True):
+class AIBenchmarkTargetEndpointMember(TypedDict, closed=True):
     Endpoint: "capo_sagemaker.types.ai_benchmark_endpoint.AIBenchmarkEndpoint"
 
 
-AIBenchmarkTarget: TypeAlias = _AIBenchmarkTarget_Endpoint | UnknownUnionMember
+AIBenchmarkTarget: TypeAlias = AIBenchmarkTargetEndpointMember | UnknownUnionMember
 
 
 # --- awsJson1_1 ser/de ---

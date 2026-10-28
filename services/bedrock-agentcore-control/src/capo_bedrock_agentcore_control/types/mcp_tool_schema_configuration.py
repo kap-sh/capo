@@ -15,17 +15,17 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.s3_configuration
 
 
-class _McpToolSchemaConfiguration_s3(TypedDict, closed=True):
+class McpToolSchemaConfigurationS3Member(TypedDict, closed=True):
     s3: "capo_bedrock_agentcore_control.types.s3_configuration.S3Configuration"
 
 
-class _McpToolSchemaConfiguration_inlinePayload(TypedDict, closed=True):
+class McpToolSchemaConfigurationInlinePayloadMember(TypedDict, closed=True):
     inlinePayload: "capo_bedrock_agentcore_control.types.inline_payload.InlinePayload"
 
 
 McpToolSchemaConfiguration: TypeAlias = (
-    _McpToolSchemaConfiguration_s3
-    | _McpToolSchemaConfiguration_inlinePayload
+    McpToolSchemaConfigurationS3Member
+    | McpToolSchemaConfigurationInlinePayloadMember
     | UnknownUnionMember
 )
 

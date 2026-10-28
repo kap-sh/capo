@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_account_access.types.identity_center_details
 
 
-class _IdentitySourceDetails_identityCenter(TypedDict, closed=True):
+class IdentitySourceDetailsIdentityCenterMember(TypedDict, closed=True):
     identityCenter: (
         "capo_account_access.types.identity_center_details.IdentityCenterDetails"
     )
 
 
 IdentitySourceDetails: TypeAlias = (
-    _IdentitySourceDetails_identityCenter | UnknownUnionMember
+    IdentitySourceDetailsIdentityCenterMember | UnknownUnionMember
 )
 
 

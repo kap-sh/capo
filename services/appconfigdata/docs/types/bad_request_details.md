@@ -7,7 +7,7 @@ title: BadRequestDetails
       show_source: true
       merge_init_into_class: false
 
-::: capo_appconfigdata.types.bad_request_details._BadRequestDetails_InvalidParameters
+::: capo_appconfigdata.types.bad_request_details.BadRequestDetailsInvalidParametersMember
     options:
       show_source: true
       merge_init_into_class: false

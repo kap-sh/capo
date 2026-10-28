@@ -12,22 +12,22 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.string_list
 
 
-class _DestinationEndpointFilter_RegionNames(TypedDict, closed=True):
+class DestinationEndpointFilterRegionNamesMember(TypedDict, closed=True):
     RegionNames: "capo_mediaconnect.types.string_list.StringList"
 
 
-class _DestinationEndpointFilter_DestinationTypes(TypedDict, closed=True):
+class DestinationEndpointFilterDestinationTypesMember(TypedDict, closed=True):
     DestinationTypes: "capo_mediaconnect.types.destination_endpoint_type_list.DestinationEndpointTypeList"
 
 
-class _DestinationEndpointFilter_NameContains(TypedDict, closed=True):
+class DestinationEndpointFilterNameContainsMember(TypedDict, closed=True):
     NameContains: "capo_mediaconnect.types.string_list.StringList"
 
 
 DestinationEndpointFilter: TypeAlias = (
-    _DestinationEndpointFilter_RegionNames
-    | _DestinationEndpointFilter_DestinationTypes
-    | _DestinationEndpointFilter_NameContains
+    DestinationEndpointFilterRegionNamesMember
+    | DestinationEndpointFilterDestinationTypesMember
+    | DestinationEndpointFilterNameContainsMember
     | UnknownUnionMember
 )
 

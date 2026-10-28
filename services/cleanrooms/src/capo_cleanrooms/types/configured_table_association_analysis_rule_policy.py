@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.configured_table_association_analysis_rule_policy_v1
 
 
-class _ConfiguredTableAssociationAnalysisRulePolicy_v1(TypedDict, closed=True):
+class ConfiguredTableAssociationAnalysisRulePolicyV1Member(TypedDict, closed=True):
     v1: "capo_cleanrooms.types.configured_table_association_analysis_rule_policy_v1.ConfiguredTableAssociationAnalysisRulePolicyV1"
 
 
 ConfiguredTableAssociationAnalysisRulePolicy: TypeAlias = (
-    _ConfiguredTableAssociationAnalysisRulePolicy_v1 | UnknownUnionMember
+    ConfiguredTableAssociationAnalysisRulePolicyV1Member | UnknownUnionMember
 )
 
 

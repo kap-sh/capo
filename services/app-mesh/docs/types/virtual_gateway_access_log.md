@@ -7,7 +7,7 @@ title: VirtualGatewayAccessLog
       show_source: true
       merge_init_into_class: false
 
-::: capo_app_mesh.types.virtual_gateway_access_log._VirtualGatewayAccessLog_file
+::: capo_app_mesh.types.virtual_gateway_access_log.VirtualGatewayAccessLogFileMember
     options:
       show_source: true
       merge_init_into_class: false

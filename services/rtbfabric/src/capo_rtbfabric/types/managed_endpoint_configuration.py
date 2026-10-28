@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_rtbfabric.types.eks_endpoints_configuration
 
 
-class _ManagedEndpointConfiguration_autoScalingGroups(TypedDict, closed=True):
+class ManagedEndpointConfigurationAutoScalingGroupsMember(TypedDict, closed=True):
     autoScalingGroups: "capo_rtbfabric.types.auto_scaling_groups_configuration.AutoScalingGroupsConfiguration"
 
 
-class _ManagedEndpointConfiguration_eksEndpoints(TypedDict, closed=True):
+class ManagedEndpointConfigurationEksEndpointsMember(TypedDict, closed=True):
     eksEndpoints: (
         "capo_rtbfabric.types.eks_endpoints_configuration.EksEndpointsConfiguration"
     )
 
 
 ManagedEndpointConfiguration: TypeAlias = (
-    _ManagedEndpointConfiguration_autoScalingGroups
-    | _ManagedEndpointConfiguration_eksEndpoints
+    ManagedEndpointConfigurationAutoScalingGroupsMember
+    | ManagedEndpointConfigurationEksEndpointsMember
     | UnknownUnionMember
 )
 

@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.string_parameter_value
 
 
-class _TrialComponentParameterValue_StringValue(TypedDict, closed=True):
+class TrialComponentParameterValueStringValueMember(TypedDict, closed=True):
     StringValue: "capo_sagemaker.types.string_parameter_value.StringParameterValue"
 
 
-class _TrialComponentParameterValue_NumberValue(TypedDict, closed=True):
+class TrialComponentParameterValueNumberValueMember(TypedDict, closed=True):
     NumberValue: "capo_sagemaker.types.double_parameter_value.DoubleParameterValue"
 
 
 TrialComponentParameterValue: TypeAlias = (
-    _TrialComponentParameterValue_StringValue
-    | _TrialComponentParameterValue_NumberValue
+    TrialComponentParameterValueStringValueMember
+    | TrialComponentParameterValueNumberValueMember
     | UnknownUnionMember
 )
 

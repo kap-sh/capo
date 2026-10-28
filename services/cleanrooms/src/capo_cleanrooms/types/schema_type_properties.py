@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.intermediate_table_schema_type_properties
 
 
-class _SchemaTypeProperties_idMappingTable(TypedDict, closed=True):
+class SchemaTypePropertiesIdMappingTableMember(TypedDict, closed=True):
     idMappingTable: "capo_cleanrooms.types.id_mapping_table_schema_type_properties.IdMappingTableSchemaTypeProperties"
 
 
-class _SchemaTypeProperties_intermediateTable(TypedDict, closed=True):
+class SchemaTypePropertiesIntermediateTableMember(TypedDict, closed=True):
     intermediateTable: "capo_cleanrooms.types.intermediate_table_schema_type_properties.IntermediateTableSchemaTypeProperties"
 
 
-class _SchemaTypeProperties_configuredTableAssociation(TypedDict, closed=True):
+class SchemaTypePropertiesConfiguredTableAssociationMember(TypedDict, closed=True):
     configuredTableAssociation: "capo_cleanrooms.types.configured_table_association_schema_type_properties.ConfiguredTableAssociationSchemaTypeProperties"
 
 
 SchemaTypeProperties: TypeAlias = (
-    _SchemaTypeProperties_idMappingTable
-    | _SchemaTypeProperties_intermediateTable
-    | _SchemaTypeProperties_configuredTableAssociation
+    SchemaTypePropertiesIdMappingTableMember
+    | SchemaTypePropertiesIntermediateTableMember
+    | SchemaTypePropertiesConfiguredTableAssociationMember
     | UnknownUnionMember
 )
 

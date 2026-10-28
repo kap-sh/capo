@@ -12,21 +12,21 @@ if TYPE_CHECKING:
     import capo_pca_connector_ad.types.key_usage_property_type
 
 
-class _KeyUsageProperty_PropertyType(TypedDict, closed=True):
+class KeyUsagePropertyPropertyTypeMember(TypedDict, closed=True):
     PropertyType: (
         "capo_pca_connector_ad.types.key_usage_property_type.KeyUsagePropertyType"
     )
 
 
-class _KeyUsageProperty_PropertyFlags(TypedDict, closed=True):
+class KeyUsagePropertyPropertyFlagsMember(TypedDict, closed=True):
     PropertyFlags: (
         "capo_pca_connector_ad.types.key_usage_property_flags.KeyUsagePropertyFlags"
     )
 
 
 KeyUsageProperty: TypeAlias = (
-    _KeyUsageProperty_PropertyType
-    | _KeyUsageProperty_PropertyFlags
+    KeyUsagePropertyPropertyTypeMember
+    | KeyUsagePropertyPropertyFlagsMember
     | UnknownUnionMember
 )
 

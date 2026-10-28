@@ -7,13 +7,13 @@ title: RecordExpirySpecification
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore.types.record_expiry_specification._RecordExpirySpecification_recordExpiryDurationDays
+::: capo_bedrock_agentcore.types.record_expiry_specification.RecordExpirySpecificationRecordExpiryDurationDaysMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.record_expiry_specification._RecordExpirySpecification_action
+::: capo_bedrock_agentcore.types.record_expiry_specification.RecordExpirySpecificationActionMember
     options:
       show_source: true
       merge_init_into_class: false

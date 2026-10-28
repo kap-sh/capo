@@ -7,13 +7,13 @@ title: EncryptionState
       show_source: true
       merge_init_into_class: false
 
-::: capo_verifiedpermissions.types.encryption_state._EncryptionState_kmsEncryptionState
+::: capo_verifiedpermissions.types.encryption_state.EncryptionStateKmsEncryptionStateMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_verifiedpermissions.types.encryption_state._EncryptionState_default
+::: capo_verifiedpermissions.types.encryption_state.EncryptionStateDefaultMember
     options:
       show_source: true
       merge_init_into_class: false

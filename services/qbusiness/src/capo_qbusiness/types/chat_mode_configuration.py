@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_qbusiness.types.plugin_configuration
 
 
-class _ChatModeConfiguration_pluginConfiguration(TypedDict, closed=True):
+class ChatModeConfigurationPluginConfigurationMember(TypedDict, closed=True):
     pluginConfiguration: "capo_qbusiness.types.plugin_configuration.PluginConfiguration"
 
 
 ChatModeConfiguration: TypeAlias = (
-    _ChatModeConfiguration_pluginConfiguration | UnknownUnionMember
+    ChatModeConfigurationPluginConfigurationMember | UnknownUnionMember
 )
 
 

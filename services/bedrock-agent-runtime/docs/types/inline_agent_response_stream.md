@@ -13,79 +13,79 @@ title: InlineAgentResponseStream
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.inline_agent_response_stream._InlineAgentResponseStream_chunk
+::: capo_bedrock_agent_runtime.types.inline_agent_response_stream.InlineAgentResponseStreamChunkMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.inline_agent_response_stream._InlineAgentResponseStream_trace
+::: capo_bedrock_agent_runtime.types.inline_agent_response_stream.InlineAgentResponseStreamTraceMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.inline_agent_response_stream._InlineAgentResponseStream_returnControl
+::: capo_bedrock_agent_runtime.types.inline_agent_response_stream.InlineAgentResponseStreamReturnControlMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.inline_agent_response_stream._InlineAgentResponseStream_internalServerException
+::: capo_bedrock_agent_runtime.types.inline_agent_response_stream.InlineAgentResponseStreamInternalServerExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.inline_agent_response_stream._InlineAgentResponseStream_validationException
+::: capo_bedrock_agent_runtime.types.inline_agent_response_stream.InlineAgentResponseStreamValidationExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.inline_agent_response_stream._InlineAgentResponseStream_resourceNotFoundException
+::: capo_bedrock_agent_runtime.types.inline_agent_response_stream.InlineAgentResponseStreamResourceNotFoundExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.inline_agent_response_stream._InlineAgentResponseStream_serviceQuotaExceededException
+::: capo_bedrock_agent_runtime.types.inline_agent_response_stream.InlineAgentResponseStreamServiceQuotaExceededExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.inline_agent_response_stream._InlineAgentResponseStream_throttlingException
+::: capo_bedrock_agent_runtime.types.inline_agent_response_stream.InlineAgentResponseStreamThrottlingExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.inline_agent_response_stream._InlineAgentResponseStream_accessDeniedException
+::: capo_bedrock_agent_runtime.types.inline_agent_response_stream.InlineAgentResponseStreamAccessDeniedExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.inline_agent_response_stream._InlineAgentResponseStream_conflictException
+::: capo_bedrock_agent_runtime.types.inline_agent_response_stream.InlineAgentResponseStreamConflictExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.inline_agent_response_stream._InlineAgentResponseStream_dependencyFailedException
+::: capo_bedrock_agent_runtime.types.inline_agent_response_stream.InlineAgentResponseStreamDependencyFailedExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.inline_agent_response_stream._InlineAgentResponseStream_badGatewayException
+::: capo_bedrock_agent_runtime.types.inline_agent_response_stream.InlineAgentResponseStreamBadGatewayExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent_runtime.types.inline_agent_response_stream._InlineAgentResponseStream_files
+::: capo_bedrock_agent_runtime.types.inline_agent_response_stream.InlineAgentResponseStreamFilesMember
     options:
       show_source: true
       merge_init_into_class: false

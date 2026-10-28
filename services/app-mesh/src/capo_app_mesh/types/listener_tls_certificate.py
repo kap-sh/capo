@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_app_mesh.types.listener_tls_sds_certificate
 
 
-class _ListenerTlsCertificate_acm(TypedDict, closed=True):
+class ListenerTlsCertificateAcmMember(TypedDict, closed=True):
     acm: "capo_app_mesh.types.listener_tls_acm_certificate.ListenerTlsAcmCertificate"
 
 
-class _ListenerTlsCertificate_file(TypedDict, closed=True):
+class ListenerTlsCertificateFileMember(TypedDict, closed=True):
     file: "capo_app_mesh.types.listener_tls_file_certificate.ListenerTlsFileCertificate"
 
 
-class _ListenerTlsCertificate_sds(TypedDict, closed=True):
+class ListenerTlsCertificateSdsMember(TypedDict, closed=True):
     sds: "capo_app_mesh.types.listener_tls_sds_certificate.ListenerTlsSdsCertificate"
 
 
 ListenerTlsCertificate: TypeAlias = (
-    _ListenerTlsCertificate_acm
-    | _ListenerTlsCertificate_file
-    | _ListenerTlsCertificate_sds
+    ListenerTlsCertificateAcmMember
+    | ListenerTlsCertificateFileMember
+    | ListenerTlsCertificateSdsMember
     | UnknownUnionMember
 )
 

@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_datazone.types.s3_destination
 
 
-class _OutputLocation_s3(TypedDict, closed=True):
+class OutputLocationS3Member(TypedDict, closed=True):
     s3: "capo_datazone.types.s3_destination.S3Destination"
 
 
-OutputLocation: TypeAlias = _OutputLocation_s3 | UnknownUnionMember
+OutputLocation: TypeAlias = OutputLocationS3Member | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

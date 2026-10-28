@@ -7,7 +7,7 @@ title: ManifestOverridesPayload
       show_source: true
       merge_init_into_class: false
 
-::: capo_panorama.types.manifest_overrides_payload._ManifestOverridesPayload_PayloadData
+::: capo_panorama.types.manifest_overrides_payload.ManifestOverridesPayloadPayloadDataMember
     options:
       show_source: true
       merge_init_into_class: false

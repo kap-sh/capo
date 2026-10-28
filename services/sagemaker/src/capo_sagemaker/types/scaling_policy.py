@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.target_tracking_scaling_policy_configuration
 
 
-class _ScalingPolicy_TargetTracking(TypedDict, closed=True):
+class ScalingPolicyTargetTrackingMember(TypedDict, closed=True):
     TargetTracking: "capo_sagemaker.types.target_tracking_scaling_policy_configuration.TargetTrackingScalingPolicyConfiguration"
 
 
-ScalingPolicy: TypeAlias = _ScalingPolicy_TargetTracking | UnknownUnionMember
+ScalingPolicy: TypeAlias = ScalingPolicyTargetTrackingMember | UnknownUnionMember
 
 
 # --- awsJson1_1 ser/de ---

@@ -16,45 +16,45 @@ if TYPE_CHECKING:
     import capo_accessanalyzer.types.unused_permission_details
 
 
-class _FindingDetails_internalAccessDetails(TypedDict, closed=True):
+class FindingDetailsInternalAccessDetailsMember(TypedDict, closed=True):
     internalAccessDetails: (
         "capo_accessanalyzer.types.internal_access_details.InternalAccessDetails"
     )
 
 
-class _FindingDetails_externalAccessDetails(TypedDict, closed=True):
+class FindingDetailsExternalAccessDetailsMember(TypedDict, closed=True):
     externalAccessDetails: (
         "capo_accessanalyzer.types.external_access_details.ExternalAccessDetails"
     )
 
 
-class _FindingDetails_unusedPermissionDetails(TypedDict, closed=True):
+class FindingDetailsUnusedPermissionDetailsMember(TypedDict, closed=True):
     unusedPermissionDetails: (
         "capo_accessanalyzer.types.unused_permission_details.UnusedPermissionDetails"
     )
 
 
-class _FindingDetails_unusedIamUserAccessKeyDetails(TypedDict, closed=True):
+class FindingDetailsUnusedIamUserAccessKeyDetailsMember(TypedDict, closed=True):
     unusedIamUserAccessKeyDetails: "capo_accessanalyzer.types.unused_iam_user_access_key_details.UnusedIamUserAccessKeyDetails"
 
 
-class _FindingDetails_unusedIamRoleDetails(TypedDict, closed=True):
+class FindingDetailsUnusedIamRoleDetailsMember(TypedDict, closed=True):
     unusedIamRoleDetails: (
         "capo_accessanalyzer.types.unused_iam_role_details.UnusedIamRoleDetails"
     )
 
 
-class _FindingDetails_unusedIamUserPasswordDetails(TypedDict, closed=True):
+class FindingDetailsUnusedIamUserPasswordDetailsMember(TypedDict, closed=True):
     unusedIamUserPasswordDetails: "capo_accessanalyzer.types.unused_iam_user_password_details.UnusedIamUserPasswordDetails"
 
 
 FindingDetails: TypeAlias = (
-    _FindingDetails_internalAccessDetails
-    | _FindingDetails_externalAccessDetails
-    | _FindingDetails_unusedPermissionDetails
-    | _FindingDetails_unusedIamUserAccessKeyDetails
-    | _FindingDetails_unusedIamRoleDetails
-    | _FindingDetails_unusedIamUserPasswordDetails
+    FindingDetailsInternalAccessDetailsMember
+    | FindingDetailsExternalAccessDetailsMember
+    | FindingDetailsUnusedPermissionDetailsMember
+    | FindingDetailsUnusedIamUserAccessKeyDetailsMember
+    | FindingDetailsUnusedIamRoleDetailsMember
+    | FindingDetailsUnusedIamUserPasswordDetailsMember
     | UnknownUnionMember
 )
 

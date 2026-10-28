@@ -7,7 +7,7 @@ title: TemplateVersionSourceInput
       show_source: true
       merge_init_into_class: false
 
-::: capo_proton.types.template_version_source_input._TemplateVersionSourceInput_s3
+::: capo_proton.types.template_version_source_input.TemplateVersionSourceInputS3Member
     options:
       show_source: true
       merge_init_into_class: false

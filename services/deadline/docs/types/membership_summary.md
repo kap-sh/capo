@@ -7,25 +7,25 @@ title: MembershipSummary
       show_source: true
       merge_init_into_class: false
 
-::: capo_deadline.types.membership_summary._MembershipSummary_farm
+::: capo_deadline.types.membership_summary.MembershipSummaryFarmMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_deadline.types.membership_summary._MembershipSummary_queue
+::: capo_deadline.types.membership_summary.MembershipSummaryQueueMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_deadline.types.membership_summary._MembershipSummary_fleet
+::: capo_deadline.types.membership_summary.MembershipSummaryFleetMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_deadline.types.membership_summary._MembershipSummary_job
+::: capo_deadline.types.membership_summary.MembershipSummaryJobMember
     options:
       show_source: true
       merge_init_into_class: false

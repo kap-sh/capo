@@ -11,16 +11,16 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.s3_location
 
 
-class _ImageSource_bytes(TypedDict, closed=True):
+class ImageSourceBytesMember(TypedDict, closed=True):
     bytes: "bytes"
 
 
-class _ImageSource_s3Location(TypedDict, closed=True):
+class ImageSourceS3LocationMember(TypedDict, closed=True):
     s3Location: "capo_bedrock_agent_runtime.types.s3_location.S3Location"
 
 
 ImageSource: TypeAlias = (
-    _ImageSource_bytes | _ImageSource_s3Location | UnknownUnionMember
+    ImageSourceBytesMember | ImageSourceS3LocationMember | UnknownUnionMember
 )
 
 

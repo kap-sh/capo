@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.string
 
 
-class _WorkloadSpec_Inline(TypedDict, closed=True):
+class WorkloadSpecInlineMember(TypedDict, closed=True):
     Inline: "capo_sagemaker.types.string.String"
 
 
-WorkloadSpec: TypeAlias = _WorkloadSpec_Inline | UnknownUnionMember
+WorkloadSpec: TypeAlias = WorkloadSpecInlineMember | UnknownUnionMember
 
 
 # --- awsJson1_1 ser/de ---

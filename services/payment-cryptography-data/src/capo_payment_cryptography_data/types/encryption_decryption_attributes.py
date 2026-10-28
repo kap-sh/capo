@@ -17,27 +17,27 @@ if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.symmetric_encryption_attributes
 
 
-class _EncryptionDecryptionAttributes_Symmetric(TypedDict, closed=True):
+class EncryptionDecryptionAttributesSymmetricMember(TypedDict, closed=True):
     Symmetric: "capo_payment_cryptography_data.types.symmetric_encryption_attributes.SymmetricEncryptionAttributes"
 
 
-class _EncryptionDecryptionAttributes_Asymmetric(TypedDict, closed=True):
+class EncryptionDecryptionAttributesAsymmetricMember(TypedDict, closed=True):
     Asymmetric: "capo_payment_cryptography_data.types.asymmetric_encryption_attributes.AsymmetricEncryptionAttributes"
 
 
-class _EncryptionDecryptionAttributes_Dukpt(TypedDict, closed=True):
+class EncryptionDecryptionAttributesDukptMember(TypedDict, closed=True):
     Dukpt: "capo_payment_cryptography_data.types.dukpt_encryption_attributes.DukptEncryptionAttributes"
 
 
-class _EncryptionDecryptionAttributes_Emv(TypedDict, closed=True):
+class EncryptionDecryptionAttributesEmvMember(TypedDict, closed=True):
     Emv: "capo_payment_cryptography_data.types.emv_encryption_attributes.EmvEncryptionAttributes"
 
 
 EncryptionDecryptionAttributes: TypeAlias = (
-    _EncryptionDecryptionAttributes_Symmetric
-    | _EncryptionDecryptionAttributes_Asymmetric
-    | _EncryptionDecryptionAttributes_Dukpt
-    | _EncryptionDecryptionAttributes_Emv
+    EncryptionDecryptionAttributesSymmetricMember
+    | EncryptionDecryptionAttributesAsymmetricMember
+    | EncryptionDecryptionAttributesDukptMember
+    | EncryptionDecryptionAttributesEmvMember
     | UnknownUnionMember
 )
 

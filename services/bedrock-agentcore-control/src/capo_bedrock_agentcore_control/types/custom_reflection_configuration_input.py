@@ -14,14 +14,15 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.episodic_override_reflection_configuration_input
 
 
-class _CustomReflectionConfigurationInput_episodicReflectionOverride(
+class CustomReflectionConfigurationInputEpisodicReflectionOverrideMember(
     TypedDict, closed=True
 ):
     episodicReflectionOverride: "capo_bedrock_agentcore_control.types.episodic_override_reflection_configuration_input.EpisodicOverrideReflectionConfigurationInput"
 
 
 CustomReflectionConfigurationInput: TypeAlias = (
-    _CustomReflectionConfigurationInput_episodicReflectionOverride | UnknownUnionMember
+    CustomReflectionConfigurationInputEpisodicReflectionOverrideMember
+    | UnknownUnionMember
 )
 
 

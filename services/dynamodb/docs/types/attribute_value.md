@@ -7,61 +7,61 @@ title: AttributeValue
       show_source: true
       merge_init_into_class: false
 
-::: capo_dynamodb.types.attribute_value._AttributeValue_S
+::: capo_dynamodb.types.attribute_value.AttributeValueSMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_dynamodb.types.attribute_value._AttributeValue_N
+::: capo_dynamodb.types.attribute_value.AttributeValueNMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_dynamodb.types.attribute_value._AttributeValue_B
+::: capo_dynamodb.types.attribute_value.AttributeValueBMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_dynamodb.types.attribute_value._AttributeValue_SS
+::: capo_dynamodb.types.attribute_value.AttributeValueSSMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_dynamodb.types.attribute_value._AttributeValue_NS
+::: capo_dynamodb.types.attribute_value.AttributeValueNSMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_dynamodb.types.attribute_value._AttributeValue_BS
+::: capo_dynamodb.types.attribute_value.AttributeValueBSMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_dynamodb.types.attribute_value._AttributeValue_M
+::: capo_dynamodb.types.attribute_value.AttributeValueMMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_dynamodb.types.attribute_value._AttributeValue_L
+::: capo_dynamodb.types.attribute_value.AttributeValueLMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_dynamodb.types.attribute_value._AttributeValue_NULL
+::: capo_dynamodb.types.attribute_value.AttributeValueNULLMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_dynamodb.types.attribute_value._AttributeValue_BOOL
+::: capo_dynamodb.types.attribute_value.AttributeValueBOOLMember
     options:
       show_source: true
       merge_init_into_class: false

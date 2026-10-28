@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_securityagent.types.security_requirement_artifact_list
 
 
-class _ImportSource_documents(TypedDict, closed=True):
+class ImportSourceDocumentsMember(TypedDict, closed=True):
     documents: "capo_securityagent.types.security_requirement_artifact_list.SecurityRequirementArtifactList"
 
 
-ImportSource: TypeAlias = _ImportSource_documents | UnknownUnionMember
+ImportSource: TypeAlias = ImportSourceDocumentsMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

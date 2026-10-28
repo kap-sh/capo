@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.pager_duty_o_auth_client_credentials_config
 
 
-class _PagerDutyAuthorizationConfig_oAuthClientCredentials(TypedDict, closed=True):
+class PagerDutyAuthorizationConfigOAuthClientCredentialsMember(TypedDict, closed=True):
     oAuthClientCredentials: "capo_devops_agent.types.pager_duty_o_auth_client_credentials_config.PagerDutyOAuthClientCredentialsConfig"
 
 
 PagerDutyAuthorizationConfig: TypeAlias = (
-    _PagerDutyAuthorizationConfig_oAuthClientCredentials | UnknownUnionMember
+    PagerDutyAuthorizationConfigOAuthClientCredentialsMember | UnknownUnionMember
 )
 
 

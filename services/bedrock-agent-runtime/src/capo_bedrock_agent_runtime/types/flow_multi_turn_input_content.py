@@ -8,12 +8,12 @@ from capo_bedrock_agent_runtime.errors import DeserializationError, Serializatio
 from capo_bedrock_agent_runtime.types._unknown import UnknownUnionMember
 
 
-class _FlowMultiTurnInputContent_document(TypedDict, closed=True):
+class FlowMultiTurnInputContentDocumentMember(TypedDict, closed=True):
     document: "object"
 
 
 FlowMultiTurnInputContent: TypeAlias = (
-    _FlowMultiTurnInputContent_document | UnknownUnionMember
+    FlowMultiTurnInputContentDocumentMember | UnknownUnionMember
 )
 
 

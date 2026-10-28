@@ -13,26 +13,26 @@ if TYPE_CHECKING:
     import capo_amplifyuibuilder.types.no_api_render_config
 
 
-class _ApiConfiguration_graphQLConfig(TypedDict, closed=True):
+class ApiConfigurationGraphQLConfigMember(TypedDict, closed=True):
     graphQLConfig: (
         "capo_amplifyuibuilder.types.graph_ql_render_config.GraphQLRenderConfig"
     )
 
 
-class _ApiConfiguration_dataStoreConfig(TypedDict, closed=True):
+class ApiConfigurationDataStoreConfigMember(TypedDict, closed=True):
     dataStoreConfig: (
         "capo_amplifyuibuilder.types.data_store_render_config.DataStoreRenderConfig"
     )
 
 
-class _ApiConfiguration_noApiConfig(TypedDict, closed=True):
+class ApiConfigurationNoApiConfigMember(TypedDict, closed=True):
     noApiConfig: "capo_amplifyuibuilder.types.no_api_render_config.NoApiRenderConfig"
 
 
 ApiConfiguration: TypeAlias = (
-    _ApiConfiguration_graphQLConfig
-    | _ApiConfiguration_dataStoreConfig
-    | _ApiConfiguration_noApiConfig
+    ApiConfigurationGraphQLConfigMember
+    | ApiConfigurationDataStoreConfigMember
+    | ApiConfigurationNoApiConfigMember
     | UnknownUnionMember
 )
 

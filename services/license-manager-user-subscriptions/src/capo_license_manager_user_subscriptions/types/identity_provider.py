@@ -14,12 +14,12 @@ if TYPE_CHECKING:
     import capo_license_manager_user_subscriptions.types.active_directory_identity_provider
 
 
-class _IdentityProvider_ActiveDirectoryIdentityProvider(TypedDict, closed=True):
+class IdentityProviderActiveDirectoryIdentityProviderMember(TypedDict, closed=True):
     ActiveDirectoryIdentityProvider: "capo_license_manager_user_subscriptions.types.active_directory_identity_provider.ActiveDirectoryIdentityProvider"
 
 
 IdentityProvider: TypeAlias = (
-    _IdentityProvider_ActiveDirectoryIdentityProvider | UnknownUnionMember
+    IdentityProviderActiveDirectoryIdentityProviderMember | UnknownUnionMember
 )
 
 

@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_qconnect.types.tag_condition
 
 
-class _TagFilter_tagCondition(TypedDict, closed=True):
+class TagFilterTagConditionMember(TypedDict, closed=True):
     tagCondition: "capo_qconnect.types.tag_condition.TagCondition"
 
 
-class _TagFilter_andConditions(TypedDict, closed=True):
+class TagFilterAndConditionsMember(TypedDict, closed=True):
     andConditions: "capo_qconnect.types.and_conditions.AndConditions"
 
 
-class _TagFilter_orConditions(TypedDict, closed=True):
+class TagFilterOrConditionsMember(TypedDict, closed=True):
     orConditions: "capo_qconnect.types.or_conditions.OrConditions"
 
 
 TagFilter: TypeAlias = (
-    _TagFilter_tagCondition
-    | _TagFilter_andConditions
-    | _TagFilter_orConditions
+    TagFilterTagConditionMember
+    | TagFilterAndConditionsMember
+    | TagFilterOrConditionsMember
     | UnknownUnionMember
 )
 

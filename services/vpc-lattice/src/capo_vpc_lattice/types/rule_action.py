@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_vpc_lattice.types.forward_action
 
 
-class _RuleAction_forward(TypedDict, closed=True):
+class RuleActionForwardMember(TypedDict, closed=True):
     forward: "capo_vpc_lattice.types.forward_action.ForwardAction"
 
 
-class _RuleAction_fixedResponse(TypedDict, closed=True):
+class RuleActionFixedResponseMember(TypedDict, closed=True):
     fixedResponse: "capo_vpc_lattice.types.fixed_response_action.FixedResponseAction"
 
 
 RuleAction: TypeAlias = (
-    _RuleAction_forward | _RuleAction_fixedResponse | UnknownUnionMember
+    RuleActionForwardMember | RuleActionFixedResponseMember | UnknownUnionMember
 )
 
 

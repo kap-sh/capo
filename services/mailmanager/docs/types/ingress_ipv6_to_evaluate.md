@@ -7,7 +7,7 @@ title: IngressIpv6ToEvaluate
       show_source: true
       merge_init_into_class: false
 
-::: capo_mailmanager.types.ingress_ipv6_to_evaluate._IngressIpv6ToEvaluate_Attribute
+::: capo_mailmanager.types.ingress_ipv6_to_evaluate.IngressIpv6ToEvaluateAttributeMember
     options:
       show_source: true
       merge_init_into_class: false

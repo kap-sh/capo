@@ -7,7 +7,7 @@ title: Integration
       show_source: true
       merge_init_into_class: false
 
-::: capo_ssm_incidents.types.integration._Integration_pagerDutyConfiguration
+::: capo_ssm_incidents.types.integration.IntegrationPagerDutyConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false

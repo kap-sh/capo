@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_connectcases.types.field_id
 
 
-class _OperandOne_fieldId(TypedDict, closed=True):
+class OperandOneFieldIdMember(TypedDict, closed=True):
     fieldId: "capo_connectcases.types.field_id.FieldId"
 
 
-OperandOne: TypeAlias = _OperandOne_fieldId | UnknownUnionMember
+OperandOne: TypeAlias = OperandOneFieldIdMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

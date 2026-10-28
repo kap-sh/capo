@@ -12,36 +12,36 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.retrieval_filter_list
 
 
-class _RetrievalFilter_equals(TypedDict, closed=True):
+class RetrievalFilterEqualsMember(TypedDict, closed=True):
     equals: "capo_bedrock_agent_runtime.types.filter_attribute.FilterAttribute"
 
 
-class _RetrievalFilter_notEquals(TypedDict, closed=True):
+class RetrievalFilterNotEqualsMember(TypedDict, closed=True):
     notEquals: "capo_bedrock_agent_runtime.types.filter_attribute.FilterAttribute"
 
 
-class _RetrievalFilter_greaterThan(TypedDict, closed=True):
+class RetrievalFilterGreaterThanMember(TypedDict, closed=True):
     greaterThan: "capo_bedrock_agent_runtime.types.filter_attribute.FilterAttribute"
 
 
-class _RetrievalFilter_greaterThanOrEquals(TypedDict, closed=True):
+class RetrievalFilterGreaterThanOrEqualsMember(TypedDict, closed=True):
     greaterThanOrEquals: (
         "capo_bedrock_agent_runtime.types.filter_attribute.FilterAttribute"
     )
 
 
-class _RetrievalFilter_lessThan(TypedDict, closed=True):
+class RetrievalFilterLessThanMember(TypedDict, closed=True):
     lessThan: "capo_bedrock_agent_runtime.types.filter_attribute.FilterAttribute"
 
 
-class _RetrievalFilter_lessThanOrEquals(TypedDict, closed=True):
+class RetrievalFilterLessThanOrEqualsMember(TypedDict, closed=True):
     lessThanOrEquals: (
         "capo_bedrock_agent_runtime.types.filter_attribute.FilterAttribute"
     )
 
 
-_RetrievalFilter_in = TypedDict(
-    "_RetrievalFilter_in",
+RetrievalFilterInMember = TypedDict(
+    "RetrievalFilterInMember",
     {
         "in": "capo_bedrock_agent_runtime.types.filter_attribute.FilterAttribute",
     },
@@ -49,44 +49,44 @@ _RetrievalFilter_in = TypedDict(
 )
 
 
-class _RetrievalFilter_notIn(TypedDict, closed=True):
+class RetrievalFilterNotInMember(TypedDict, closed=True):
     notIn: "capo_bedrock_agent_runtime.types.filter_attribute.FilterAttribute"
 
 
-class _RetrievalFilter_startsWith(TypedDict, closed=True):
+class RetrievalFilterStartsWithMember(TypedDict, closed=True):
     startsWith: "capo_bedrock_agent_runtime.types.filter_attribute.FilterAttribute"
 
 
-class _RetrievalFilter_listContains(TypedDict, closed=True):
+class RetrievalFilterListContainsMember(TypedDict, closed=True):
     listContains: "capo_bedrock_agent_runtime.types.filter_attribute.FilterAttribute"
 
 
-class _RetrievalFilter_stringContains(TypedDict, closed=True):
+class RetrievalFilterStringContainsMember(TypedDict, closed=True):
     stringContains: "capo_bedrock_agent_runtime.types.filter_attribute.FilterAttribute"
 
 
-class _RetrievalFilter_andAll(TypedDict, closed=True):
+class RetrievalFilterAndAllMember(TypedDict, closed=True):
     andAll: "capo_bedrock_agent_runtime.types.retrieval_filter_list.RetrievalFilterList"
 
 
-class _RetrievalFilter_orAll(TypedDict, closed=True):
+class RetrievalFilterOrAllMember(TypedDict, closed=True):
     orAll: "capo_bedrock_agent_runtime.types.retrieval_filter_list.RetrievalFilterList"
 
 
 RetrievalFilter: TypeAlias = (
-    _RetrievalFilter_equals
-    | _RetrievalFilter_notEquals
-    | _RetrievalFilter_greaterThan
-    | _RetrievalFilter_greaterThanOrEquals
-    | _RetrievalFilter_lessThan
-    | _RetrievalFilter_lessThanOrEquals
-    | _RetrievalFilter_in
-    | _RetrievalFilter_notIn
-    | _RetrievalFilter_startsWith
-    | _RetrievalFilter_listContains
-    | _RetrievalFilter_stringContains
-    | _RetrievalFilter_andAll
-    | _RetrievalFilter_orAll
+    RetrievalFilterEqualsMember
+    | RetrievalFilterNotEqualsMember
+    | RetrievalFilterGreaterThanMember
+    | RetrievalFilterGreaterThanOrEqualsMember
+    | RetrievalFilterLessThanMember
+    | RetrievalFilterLessThanOrEqualsMember
+    | RetrievalFilterInMember
+    | RetrievalFilterNotInMember
+    | RetrievalFilterStartsWithMember
+    | RetrievalFilterListContainsMember
+    | RetrievalFilterStringContainsMember
+    | RetrievalFilterAndAllMember
+    | RetrievalFilterOrAllMember
     | UnknownUnionMember
 )
 

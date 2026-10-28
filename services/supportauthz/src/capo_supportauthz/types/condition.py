@@ -11,16 +11,16 @@ if TYPE_CHECKING:
     import datetime
 
 
-class _Condition_allowAfter(TypedDict, closed=True):
+class ConditionAllowAfterMember(TypedDict, closed=True):
     allowAfter: "datetime.datetime"
 
 
-class _Condition_allowBefore(TypedDict, closed=True):
+class ConditionAllowBeforeMember(TypedDict, closed=True):
     allowBefore: "datetime.datetime"
 
 
 Condition: TypeAlias = (
-    _Condition_allowAfter | _Condition_allowBefore | UnknownUnionMember
+    ConditionAllowAfterMember | ConditionAllowBeforeMember | UnknownUnionMember
 )
 
 

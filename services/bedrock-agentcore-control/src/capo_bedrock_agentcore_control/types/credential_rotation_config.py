@@ -14,12 +14,12 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.coinbase_cdp_rotation_targets
 
 
-class _CredentialRotationConfig_coinbaseCDP(TypedDict, closed=True):
+class CredentialRotationConfigCoinbaseCDPMember(TypedDict, closed=True):
     coinbaseCDP: "capo_bedrock_agentcore_control.types.coinbase_cdp_rotation_targets.CoinbaseCdpRotationTargets"
 
 
 CredentialRotationConfig: TypeAlias = (
-    _CredentialRotationConfig_coinbaseCDP | UnknownUnionMember
+    CredentialRotationConfigCoinbaseCDPMember | UnknownUnionMember
 )
 
 

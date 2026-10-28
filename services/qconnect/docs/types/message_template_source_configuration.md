@@ -7,7 +7,7 @@ title: MessageTemplateSourceConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_qconnect.types.message_template_source_configuration._MessageTemplateSourceConfiguration_whatsApp
+::: capo_qconnect.types.message_template_source_configuration.MessageTemplateSourceConfigurationWhatsAppMember
     options:
       show_source: true
       merge_init_into_class: false

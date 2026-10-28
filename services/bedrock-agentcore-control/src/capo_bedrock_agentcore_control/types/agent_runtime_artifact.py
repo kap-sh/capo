@@ -15,19 +15,19 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.container_configuration
 
 
-class _AgentRuntimeArtifact_containerConfiguration(TypedDict, closed=True):
+class AgentRuntimeArtifactContainerConfigurationMember(TypedDict, closed=True):
     containerConfiguration: "capo_bedrock_agentcore_control.types.container_configuration.ContainerConfiguration"
 
 
-class _AgentRuntimeArtifact_codeConfiguration(TypedDict, closed=True):
+class AgentRuntimeArtifactCodeConfigurationMember(TypedDict, closed=True):
     codeConfiguration: (
         "capo_bedrock_agentcore_control.types.code_configuration.CodeConfiguration"
     )
 
 
 AgentRuntimeArtifact: TypeAlias = (
-    _AgentRuntimeArtifact_containerConfiguration
-    | _AgentRuntimeArtifact_codeConfiguration
+    AgentRuntimeArtifactContainerConfigurationMember
+    | AgentRuntimeArtifactCodeConfigurationMember
     | UnknownUnionMember
 )
 

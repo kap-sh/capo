@@ -7,7 +7,7 @@ title: EvaluationMetadata
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore.types.evaluation_metadata._EvaluationMetadata_sessionMetadata
+::: capo_bedrock_agentcore.types.evaluation_metadata.EvaluationMetadataSessionMetadataMember
     options:
       show_source: true
       merge_init_into_class: false

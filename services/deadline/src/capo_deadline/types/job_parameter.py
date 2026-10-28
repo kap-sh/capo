@@ -22,67 +22,67 @@ if TYPE_CHECKING:
     import capo_deadline.types.range_expr_string
 
 
-class _JobParameter_int(TypedDict, closed=True):
+class JobParameterIntMember(TypedDict, closed=True):
     int: "capo_deadline.types.int_string.IntString"
 
 
-class _JobParameter_float(TypedDict, closed=True):
+class JobParameterFloatMember(TypedDict, closed=True):
     float: "capo_deadline.types.float_string.FloatString"
 
 
-class _JobParameter_string(TypedDict, closed=True):
+class JobParameterStringMember(TypedDict, closed=True):
     string: "capo_deadline.types.parameter_string.ParameterString"
 
 
-class _JobParameter_path(TypedDict, closed=True):
+class JobParameterPathMember(TypedDict, closed=True):
     path: "capo_deadline.types.path_string.PathString"
 
 
-class _JobParameter_bool(TypedDict, closed=True):
+class JobParameterBoolMember(TypedDict, closed=True):
     bool: "capo_deadline.types.boolean_string.BooleanString"
 
 
-class _JobParameter_rangeExpr(TypedDict, closed=True):
+class JobParameterRangeExprMember(TypedDict, closed=True):
     rangeExpr: "capo_deadline.types.range_expr_string.RangeExprString"
 
 
-class _JobParameter_stringList(TypedDict, closed=True):
+class JobParameterStringListMember(TypedDict, closed=True):
     stringList: "capo_deadline.types.parameter_string_list.ParameterStringList"
 
 
-class _JobParameter_pathList(TypedDict, closed=True):
+class JobParameterPathListMember(TypedDict, closed=True):
     pathList: "capo_deadline.types.path_string_list.PathStringList"
 
 
-class _JobParameter_intList(TypedDict, closed=True):
+class JobParameterIntListMember(TypedDict, closed=True):
     intList: "capo_deadline.types.int_string_list.IntStringList"
 
 
-class _JobParameter_floatList(TypedDict, closed=True):
+class JobParameterFloatListMember(TypedDict, closed=True):
     floatList: "capo_deadline.types.float_string_list.FloatStringList"
 
 
-class _JobParameter_boolList(TypedDict, closed=True):
+class JobParameterBoolListMember(TypedDict, closed=True):
     boolList: "capo_deadline.types.boolean_string_list.BooleanStringList"
 
 
-class _JobParameter_intListList(TypedDict, closed=True):
+class JobParameterIntListListMember(TypedDict, closed=True):
     intListList: "capo_deadline.types.int_string_list_list.IntStringListList"
 
 
 JobParameter: TypeAlias = (
-    _JobParameter_int
-    | _JobParameter_float
-    | _JobParameter_string
-    | _JobParameter_path
-    | _JobParameter_bool
-    | _JobParameter_rangeExpr
-    | _JobParameter_stringList
-    | _JobParameter_pathList
-    | _JobParameter_intList
-    | _JobParameter_floatList
-    | _JobParameter_boolList
-    | _JobParameter_intListList
+    JobParameterIntMember
+    | JobParameterFloatMember
+    | JobParameterStringMember
+    | JobParameterPathMember
+    | JobParameterBoolMember
+    | JobParameterRangeExprMember
+    | JobParameterStringListMember
+    | JobParameterPathListMember
+    | JobParameterIntListMember
+    | JobParameterFloatListMember
+    | JobParameterBoolListMember
+    | JobParameterIntListListMember
     | UnknownUnionMember
 )
 

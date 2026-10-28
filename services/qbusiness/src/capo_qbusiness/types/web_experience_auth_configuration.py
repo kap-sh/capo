@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_qbusiness.types.saml_configuration
 
 
-class _WebExperienceAuthConfiguration_samlConfiguration(TypedDict, closed=True):
+class WebExperienceAuthConfigurationSamlConfigurationMember(TypedDict, closed=True):
     samlConfiguration: "capo_qbusiness.types.saml_configuration.SamlConfiguration"
 
 
 WebExperienceAuthConfiguration: TypeAlias = (
-    _WebExperienceAuthConfiguration_samlConfiguration | UnknownUnionMember
+    WebExperienceAuthConfigurationSamlConfigurationMember | UnknownUnionMember
 )
 
 

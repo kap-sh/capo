@@ -11,12 +11,14 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.content_quality_analysis_feature_configuration
 
 
-class _RouterContentQualityAnalysisConfiguration_ContentLevel(TypedDict, closed=True):
+class RouterContentQualityAnalysisConfigurationContentLevelMember(
+    TypedDict, closed=True
+):
     ContentLevel: "capo_mediaconnect.types.content_quality_analysis_feature_configuration.ContentQualityAnalysisFeatureConfiguration"
 
 
 RouterContentQualityAnalysisConfiguration: TypeAlias = (
-    _RouterContentQualityAnalysisConfiguration_ContentLevel | UnknownUnionMember
+    RouterContentQualityAnalysisConfigurationContentLevelMember | UnknownUnionMember
 )
 
 

@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_pipes.types.secret_manager_arn
 
 
-class _MQBrokerAccessCredentials_BasicAuth(TypedDict, closed=True):
+class MQBrokerAccessCredentialsBasicAuthMember(TypedDict, closed=True):
     BasicAuth: "capo_pipes.types.secret_manager_arn.SecretManagerArn"
 
 
 MQBrokerAccessCredentials: TypeAlias = (
-    _MQBrokerAccessCredentials_BasicAuth | UnknownUnionMember
+    MQBrokerAccessCredentialsBasicAuthMember | UnknownUnionMember
 )
 
 

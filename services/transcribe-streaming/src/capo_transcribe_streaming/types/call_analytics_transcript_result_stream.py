@@ -22,52 +22,56 @@ if TYPE_CHECKING:
     import capo_transcribe_streaming.types.utterance_event
 
 
-class _CallAnalyticsTranscriptResultStream_UtteranceEvent(TypedDict, closed=True):
+class CallAnalyticsTranscriptResultStreamUtteranceEventMember(TypedDict, closed=True):
     UtteranceEvent: "capo_transcribe_streaming.types.utterance_event.UtteranceEvent"
 
 
-class _CallAnalyticsTranscriptResultStream_CategoryEvent(TypedDict, closed=True):
+class CallAnalyticsTranscriptResultStreamCategoryEventMember(TypedDict, closed=True):
     CategoryEvent: "capo_transcribe_streaming.types.category_event.CategoryEvent"
 
 
-class _CallAnalyticsTranscriptResultStream_BadRequestException(TypedDict, closed=True):
+class CallAnalyticsTranscriptResultStreamBadRequestExceptionMember(
+    TypedDict, closed=True
+):
     BadRequestException: (
         "capo_transcribe_streaming.errors.bad_request_exception.BadRequestException_"
     )
 
 
-class _CallAnalyticsTranscriptResultStream_LimitExceededException(
+class CallAnalyticsTranscriptResultStreamLimitExceededExceptionMember(
     TypedDict, closed=True
 ):
     LimitExceededException: "capo_transcribe_streaming.errors.limit_exceeded_exception.LimitExceededException_"
 
 
-class _CallAnalyticsTranscriptResultStream_InternalFailureException(
+class CallAnalyticsTranscriptResultStreamInternalFailureExceptionMember(
     TypedDict, closed=True
 ):
     InternalFailureException: "capo_transcribe_streaming.errors.internal_failure_exception.InternalFailureException_"
 
 
-class _CallAnalyticsTranscriptResultStream_ConflictException(TypedDict, closed=True):
+class CallAnalyticsTranscriptResultStreamConflictExceptionMember(
+    TypedDict, closed=True
+):
     ConflictException: (
         "capo_transcribe_streaming.errors.conflict_exception.ConflictException_"
     )
 
 
-class _CallAnalyticsTranscriptResultStream_ServiceUnavailableException(
+class CallAnalyticsTranscriptResultStreamServiceUnavailableExceptionMember(
     TypedDict, closed=True
 ):
     ServiceUnavailableException: "capo_transcribe_streaming.errors.service_unavailable_exception.ServiceUnavailableException_"
 
 
 _CallAnalyticsTranscriptResultStream: TypeAlias = (
-    _CallAnalyticsTranscriptResultStream_UtteranceEvent
-    | _CallAnalyticsTranscriptResultStream_CategoryEvent
-    | _CallAnalyticsTranscriptResultStream_BadRequestException
-    | _CallAnalyticsTranscriptResultStream_LimitExceededException
-    | _CallAnalyticsTranscriptResultStream_InternalFailureException
-    | _CallAnalyticsTranscriptResultStream_ConflictException
-    | _CallAnalyticsTranscriptResultStream_ServiceUnavailableException
+    CallAnalyticsTranscriptResultStreamUtteranceEventMember
+    | CallAnalyticsTranscriptResultStreamCategoryEventMember
+    | CallAnalyticsTranscriptResultStreamBadRequestExceptionMember
+    | CallAnalyticsTranscriptResultStreamLimitExceededExceptionMember
+    | CallAnalyticsTranscriptResultStreamInternalFailureExceptionMember
+    | CallAnalyticsTranscriptResultStreamConflictExceptionMember
+    | CallAnalyticsTranscriptResultStreamServiceUnavailableExceptionMember
     | UnknownEvent
 )
 CallAnalyticsTranscriptResultStream: TypeAlias = AnyIterator[

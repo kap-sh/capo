@@ -7,13 +7,13 @@ title: ResourceShareDetails
       show_source: true
       merge_init_into_class: false
 
-::: capo_mediaconnect.types.resource_share_details._ResourceShareDetails_Owned
+::: capo_mediaconnect.types.resource_share_details.ResourceShareDetailsOwnedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mediaconnect.types.resource_share_details._ResourceShareDetails_Consumed
+::: capo_mediaconnect.types.resource_share_details.ResourceShareDetailsConsumedMember
     options:
       show_source: true
       merge_init_into_class: false

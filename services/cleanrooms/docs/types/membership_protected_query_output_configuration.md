@@ -7,7 +7,7 @@ title: MembershipProtectedQueryOutputConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_cleanrooms.types.membership_protected_query_output_configuration._MembershipProtectedQueryOutputConfiguration_s3
+::: capo_cleanrooms.types.membership_protected_query_output_configuration.MembershipProtectedQueryOutputConfigurationS3Member
     options:
       show_source: true
       merge_init_into_class: false

@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_datazone.types.domain_unit_user_properties
 
 
-class _DomainUnitOwnerProperties_user(TypedDict, closed=True):
+class DomainUnitOwnerPropertiesUserMember(TypedDict, closed=True):
     user: "capo_datazone.types.domain_unit_user_properties.DomainUnitUserProperties"
 
 
-class _DomainUnitOwnerProperties_group(TypedDict, closed=True):
+class DomainUnitOwnerPropertiesGroupMember(TypedDict, closed=True):
     group: "capo_datazone.types.domain_unit_group_properties.DomainUnitGroupProperties"
 
 
 DomainUnitOwnerProperties: TypeAlias = (
-    _DomainUnitOwnerProperties_user
-    | _DomainUnitOwnerProperties_group
+    DomainUnitOwnerPropertiesUserMember
+    | DomainUnitOwnerPropertiesGroupMember
     | UnknownUnionMember
 )
 

@@ -7,7 +7,7 @@ title: ProtectedJobOutputConfigurationInput
       show_source: true
       merge_init_into_class: false
 
-::: capo_cleanrooms.types.protected_job_output_configuration_input._ProtectedJobOutputConfigurationInput_member
+::: capo_cleanrooms.types.protected_job_output_configuration_input.ProtectedJobOutputConfigurationInputMemberMember
     options:
       show_source: true
       merge_init_into_class: false

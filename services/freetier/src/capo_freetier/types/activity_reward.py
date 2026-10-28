@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_freetier.types.monetary_amount
 
 
-class _ActivityReward_credit(TypedDict, closed=True):
+class ActivityRewardCreditMember(TypedDict, closed=True):
     credit: "capo_freetier.types.monetary_amount.MonetaryAmount"
 
 
-ActivityReward: TypeAlias = _ActivityReward_credit | UnknownUnionMember
+ActivityReward: TypeAlias = ActivityRewardCreditMember | UnknownUnionMember
 
 
 # --- awsJson1_0 ser/de ---

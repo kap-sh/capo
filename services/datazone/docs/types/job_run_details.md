@@ -7,7 +7,7 @@ title: JobRunDetails
       show_source: true
       merge_init_into_class: false
 
-::: capo_datazone.types.job_run_details._JobRunDetails_lineageRunDetails
+::: capo_datazone.types.job_run_details.JobRunDetailsLineageRunDetailsMember
     options:
       show_source: true
       merge_init_into_class: false

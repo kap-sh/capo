@@ -13,37 +13,37 @@ title: MedicalScribeResultStream
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_transcribe_streaming.types.medical_scribe_result_stream._MedicalScribeResultStream_TranscriptEvent
+::: capo_transcribe_streaming.types.medical_scribe_result_stream.MedicalScribeResultStreamTranscriptEventMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_transcribe_streaming.types.medical_scribe_result_stream._MedicalScribeResultStream_BadRequestException
+::: capo_transcribe_streaming.types.medical_scribe_result_stream.MedicalScribeResultStreamBadRequestExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_transcribe_streaming.types.medical_scribe_result_stream._MedicalScribeResultStream_LimitExceededException
+::: capo_transcribe_streaming.types.medical_scribe_result_stream.MedicalScribeResultStreamLimitExceededExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_transcribe_streaming.types.medical_scribe_result_stream._MedicalScribeResultStream_InternalFailureException
+::: capo_transcribe_streaming.types.medical_scribe_result_stream.MedicalScribeResultStreamInternalFailureExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_transcribe_streaming.types.medical_scribe_result_stream._MedicalScribeResultStream_ConflictException
+::: capo_transcribe_streaming.types.medical_scribe_result_stream.MedicalScribeResultStreamConflictExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_transcribe_streaming.types.medical_scribe_result_stream._MedicalScribeResultStream_ServiceUnavailableException
+::: capo_transcribe_streaming.types.medical_scribe_result_stream.MedicalScribeResultStreamServiceUnavailableExceptionMember
     options:
       show_source: true
       merge_init_into_class: false

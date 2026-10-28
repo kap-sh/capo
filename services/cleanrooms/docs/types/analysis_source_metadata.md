@@ -7,7 +7,7 @@ title: AnalysisSourceMetadata
       show_source: true
       merge_init_into_class: false
 
-::: capo_cleanrooms.types.analysis_source_metadata._AnalysisSourceMetadata_artifacts
+::: capo_cleanrooms.types.analysis_source_metadata.AnalysisSourceMetadataArtifactsMember
     options:
       show_source: true
       merge_init_into_class: false

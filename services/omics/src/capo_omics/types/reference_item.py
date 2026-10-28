@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_omics.types.reference_arn
 
 
-class _ReferenceItem_referenceArn(TypedDict, closed=True):
+class ReferenceItemReferenceArnMember(TypedDict, closed=True):
     referenceArn: "capo_omics.types.reference_arn.ReferenceArn"
 
 
-ReferenceItem: TypeAlias = _ReferenceItem_referenceArn | UnknownUnionMember
+ReferenceItem: TypeAlias = ReferenceItemReferenceArnMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

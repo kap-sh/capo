@@ -7,7 +7,7 @@ title: AssistantAssociationInputData
       show_source: true
       merge_init_into_class: false
 
-::: capo_wisdom.types.assistant_association_input_data._AssistantAssociationInputData_knowledgeBaseId
+::: capo_wisdom.types.assistant_association_input_data.AssistantAssociationInputDataKnowledgeBaseIdMember
     options:
       show_source: true
       merge_init_into_class: false

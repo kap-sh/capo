@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_app_mesh.types.text_format
 
 
-class _LoggingFormat_text(TypedDict, closed=True):
+class LoggingFormatTextMember(TypedDict, closed=True):
     text: "capo_app_mesh.types.text_format.TextFormat"
 
 
-class _LoggingFormat_json(TypedDict, closed=True):
+class LoggingFormatJsonMember(TypedDict, closed=True):
     json: "capo_app_mesh.types.json_format.JsonFormat"
 
 
 LoggingFormat: TypeAlias = (
-    _LoggingFormat_text | _LoggingFormat_json | UnknownUnionMember
+    LoggingFormatTextMember | LoggingFormatJsonMember | UnknownUnionMember
 )
 
 

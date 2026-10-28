@@ -7,25 +7,25 @@ title: SearchFilterClause
       show_source: true
       merge_init_into_class: false
 
-::: capo_glue.types.search_filter_clause._SearchFilterClause_AndAllFilters
+::: capo_glue.types.search_filter_clause.SearchFilterClauseAndAllFiltersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_glue.types.search_filter_clause._SearchFilterClause_OrAnyFilters
+::: capo_glue.types.search_filter_clause.SearchFilterClauseOrAnyFiltersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_glue.types.search_filter_clause._SearchFilterClause_AttributeFilter
+::: capo_glue.types.search_filter_clause.SearchFilterClauseAttributeFilterMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_glue.types.search_filter_clause._SearchFilterClause_MapFilter
+::: capo_glue.types.search_filter_clause.SearchFilterClauseMapFilterMember
     options:
       show_source: true
       merge_init_into_class: false

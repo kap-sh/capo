@@ -7,7 +7,7 @@ title: ContainerInfo
       show_source: true
       merge_init_into_class: false
 
-::: capo_emr_containers.types.container_info._ContainerInfo_eksInfo
+::: capo_emr_containers.types.container_info.ContainerInfoEksInfoMember
     options:
       show_source: true
       merge_init_into_class: false

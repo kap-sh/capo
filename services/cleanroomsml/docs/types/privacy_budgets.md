@@ -7,7 +7,7 @@ title: PrivacyBudgets
       show_source: true
       merge_init_into_class: false
 
-::: capo_cleanroomsml.types.privacy_budgets._PrivacyBudgets_accessBudgets
+::: capo_cleanroomsml.types.privacy_budgets.PrivacyBudgetsAccessBudgetsMember
     options:
       show_source: true
       merge_init_into_class: false

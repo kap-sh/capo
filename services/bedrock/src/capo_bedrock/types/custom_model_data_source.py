@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_bedrock.types.model_package_arn_data_source
 
 
-class _CustomModelDataSource_modelPackageArnDataSource(TypedDict, closed=True):
+class CustomModelDataSourceModelPackageArnDataSourceMember(TypedDict, closed=True):
     modelPackageArnDataSource: (
         "capo_bedrock.types.model_package_arn_data_source.ModelPackageArnDataSource"
     )
 
 
 CustomModelDataSource: TypeAlias = (
-    _CustomModelDataSource_modelPackageArnDataSource | UnknownUnionMember
+    CustomModelDataSourceModelPackageArnDataSourceMember | UnknownUnionMember
 )
 
 

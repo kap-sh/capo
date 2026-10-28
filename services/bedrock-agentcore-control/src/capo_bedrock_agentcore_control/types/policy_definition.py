@@ -16,22 +16,22 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.policy_statement
 
 
-class _PolicyDefinition_cedar(TypedDict, closed=True):
+class PolicyDefinitionCedarMember(TypedDict, closed=True):
     cedar: "capo_bedrock_agentcore_control.types.cedar_policy.CedarPolicy"
 
 
-class _PolicyDefinition_policyGeneration(TypedDict, closed=True):
+class PolicyDefinitionPolicyGenerationMember(TypedDict, closed=True):
     policyGeneration: "capo_bedrock_agentcore_control.types.policy_generation_details.PolicyGenerationDetails"
 
 
-class _PolicyDefinition_policy(TypedDict, closed=True):
+class PolicyDefinitionPolicyMember(TypedDict, closed=True):
     policy: "capo_bedrock_agentcore_control.types.policy_statement.PolicyStatement"
 
 
 PolicyDefinition: TypeAlias = (
-    _PolicyDefinition_cedar
-    | _PolicyDefinition_policyGeneration
-    | _PolicyDefinition_policy
+    PolicyDefinitionCedarMember
+    | PolicyDefinitionPolicyGenerationMember
+    | PolicyDefinitionPolicyMember
     | UnknownUnionMember
 )
 

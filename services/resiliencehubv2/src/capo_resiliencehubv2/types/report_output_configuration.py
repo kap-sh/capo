@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_resiliencehubv2.types.s3_report_output_configuration
 
 
-class _ReportOutputConfiguration_s3(TypedDict, closed=True):
+class ReportOutputConfigurationS3Member(TypedDict, closed=True):
     s3: "capo_resiliencehubv2.types.s3_report_output_configuration.S3ReportOutputConfiguration"
 
 
 ReportOutputConfiguration: TypeAlias = (
-    _ReportOutputConfiguration_s3 | UnknownUnionMember
+    ReportOutputConfigurationS3Member | UnknownUnionMember
 )
 
 

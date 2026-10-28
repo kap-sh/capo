@@ -7,7 +7,7 @@ title: KnowledgeSource
       show_source: true
       merge_init_into_class: false
 
-::: capo_qconnect.types.knowledge_source._KnowledgeSource_assistantAssociationIds
+::: capo_qconnect.types.knowledge_source.KnowledgeSourceAssistantAssociationIdsMember
     options:
       show_source: true
       merge_init_into_class: false

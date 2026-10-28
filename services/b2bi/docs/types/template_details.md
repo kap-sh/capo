@@ -7,7 +7,7 @@ title: TemplateDetails
       show_source: true
       merge_init_into_class: false
 
-::: capo_b2bi.types.template_details._TemplateDetails_x12
+::: capo_b2bi.types.template_details.TemplateDetailsX12Member
     options:
       show_source: true
       merge_init_into_class: false

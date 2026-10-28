@@ -7,7 +7,7 @@ title: RouterContentQualityAnalysisConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_mediaconnect.types.router_content_quality_analysis_configuration._RouterContentQualityAnalysisConfiguration_ContentLevel
+::: capo_mediaconnect.types.router_content_quality_analysis_configuration.RouterContentQualityAnalysisConfigurationContentLevelMember
     options:
       show_source: true
       merge_init_into_class: false

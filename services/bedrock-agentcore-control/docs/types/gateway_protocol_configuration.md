@@ -7,7 +7,7 @@ title: GatewayProtocolConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.gateway_protocol_configuration._GatewayProtocolConfiguration_mcp
+::: capo_bedrock_agentcore_control.types.gateway_protocol_configuration.GatewayProtocolConfigurationMcpMember
     options:
       show_source: true
       merge_init_into_class: false

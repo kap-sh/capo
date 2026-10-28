@@ -13,24 +13,24 @@ if TYPE_CHECKING:
     import capo_partnercentral_selling.types.prospecting_result
 
 
-class _EngagementContextPayload_CustomerProject(TypedDict, closed=True):
+class EngagementContextPayloadCustomerProjectMember(TypedDict, closed=True):
     CustomerProject: "capo_partnercentral_selling.types.customer_projects_context.CustomerProjectsContext"
 
 
-class _EngagementContextPayload_Lead(TypedDict, closed=True):
+class EngagementContextPayloadLeadMember(TypedDict, closed=True):
     Lead: "capo_partnercentral_selling.types.lead_context.LeadContext"
 
 
-class _EngagementContextPayload_ProspectingResult(TypedDict, closed=True):
+class EngagementContextPayloadProspectingResultMember(TypedDict, closed=True):
     ProspectingResult: (
         "capo_partnercentral_selling.types.prospecting_result.ProspectingResult"
     )
 
 
 EngagementContextPayload: TypeAlias = (
-    _EngagementContextPayload_CustomerProject
-    | _EngagementContextPayload_Lead
-    | _EngagementContextPayload_ProspectingResult
+    EngagementContextPayloadCustomerProjectMember
+    | EngagementContextPayloadLeadMember
+    | EngagementContextPayloadProspectingResultMember
     | UnknownUnionMember
 )
 

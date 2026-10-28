@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_securityhub.types.findings_output_summary
 
 
-class _ExportOutputSummary_Findings(TypedDict, closed=True):
+class ExportOutputSummaryFindingsMember(TypedDict, closed=True):
     Findings: "capo_securityhub.types.findings_output_summary.FindingsOutputSummary"
 
 
-ExportOutputSummary: TypeAlias = _ExportOutputSummary_Findings | UnknownUnionMember
+ExportOutputSummary: TypeAlias = ExportOutputSummaryFindingsMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

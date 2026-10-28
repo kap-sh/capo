@@ -7,7 +7,7 @@ title: TableMetadata
       show_source: true
       merge_init_into_class: false
 
-::: capo_s3tables.types.table_metadata._TableMetadata_iceberg
+::: capo_s3tables.types.table_metadata.TableMetadataIcebergMember
     options:
       show_source: true
       merge_init_into_class: false

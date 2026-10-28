@@ -8,16 +8,16 @@ from capo_bedrock_runtime.errors import DeserializationError, SerializationError
 from capo_bedrock_runtime.types._unknown import UnknownUnionMember
 
 
-class _ToolResultBlockDelta_text(TypedDict, closed=True):
+class ToolResultBlockDeltaTextMember(TypedDict, closed=True):
     text: "str"
 
 
-class _ToolResultBlockDelta_json(TypedDict, closed=True):
+class ToolResultBlockDeltaJsonMember(TypedDict, closed=True):
     json: "object"
 
 
 ToolResultBlockDelta: TypeAlias = (
-    _ToolResultBlockDelta_text | _ToolResultBlockDelta_json | UnknownUnionMember
+    ToolResultBlockDeltaTextMember | ToolResultBlockDeltaJsonMember | UnknownUnionMember
 )
 
 

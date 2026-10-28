@@ -12,21 +12,21 @@ if TYPE_CHECKING:
     import capo_resiliencehubv2.types.test_run_source_event_error
 
 
-class _TestRunSourceEventDetail_alarmStateChange(TypedDict, closed=True):
+class TestRunSourceEventDetailAlarmStateChangeMember(TypedDict, closed=True):
     alarmStateChange: (
         "capo_resiliencehubv2.types.alarm_state_change_detail.AlarmStateChangeDetail"
     )
 
 
-class _TestRunSourceEventDetail_error(TypedDict, closed=True):
+class TestRunSourceEventDetailErrorMember(TypedDict, closed=True):
     error: (
         "capo_resiliencehubv2.types.test_run_source_event_error.TestRunSourceEventError"
     )
 
 
 TestRunSourceEventDetail: TypeAlias = (
-    _TestRunSourceEventDetail_alarmStateChange
-    | _TestRunSourceEventDetail_error
+    TestRunSourceEventDetailAlarmStateChangeMember
+    | TestRunSourceEventDetailErrorMember
     | UnknownUnionMember
 )
 

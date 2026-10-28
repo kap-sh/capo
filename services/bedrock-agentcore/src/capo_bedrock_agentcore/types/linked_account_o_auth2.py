@@ -11,32 +11,32 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.o_auth2_authentication
 
 
-class _LinkedAccountOAuth2_google(TypedDict, closed=True):
+class LinkedAccountOAuth2GoogleMember(TypedDict, closed=True):
     google: "capo_bedrock_agentcore.types.o_auth2_authentication.OAuth2Authentication"
 
 
-class _LinkedAccountOAuth2_apple(TypedDict, closed=True):
+class LinkedAccountOAuth2AppleMember(TypedDict, closed=True):
     apple: "capo_bedrock_agentcore.types.o_auth2_authentication.OAuth2Authentication"
 
 
-class _LinkedAccountOAuth2_x(TypedDict, closed=True):
+class LinkedAccountOAuth2XMember(TypedDict, closed=True):
     x: "capo_bedrock_agentcore.types.o_auth2_authentication.OAuth2Authentication"
 
 
-class _LinkedAccountOAuth2_telegram(TypedDict, closed=True):
+class LinkedAccountOAuth2TelegramMember(TypedDict, closed=True):
     telegram: "capo_bedrock_agentcore.types.o_auth2_authentication.OAuth2Authentication"
 
 
-class _LinkedAccountOAuth2_github(TypedDict, closed=True):
+class LinkedAccountOAuth2GithubMember(TypedDict, closed=True):
     github: "capo_bedrock_agentcore.types.o_auth2_authentication.OAuth2Authentication"
 
 
 LinkedAccountOAuth2: TypeAlias = (
-    _LinkedAccountOAuth2_google
-    | _LinkedAccountOAuth2_apple
-    | _LinkedAccountOAuth2_x
-    | _LinkedAccountOAuth2_telegram
-    | _LinkedAccountOAuth2_github
+    LinkedAccountOAuth2GoogleMember
+    | LinkedAccountOAuth2AppleMember
+    | LinkedAccountOAuth2XMember
+    | LinkedAccountOAuth2TelegramMember
+    | LinkedAccountOAuth2GithubMember
     | UnknownUnionMember
 )
 

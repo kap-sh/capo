@@ -11,13 +11,13 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.window_maintenance_schedule
 
 
-class _MaintenanceSchedule_Window(TypedDict, closed=True):
+class MaintenanceScheduleWindowMember(TypedDict, closed=True):
     Window: (
         "capo_mediaconnect.types.window_maintenance_schedule.WindowMaintenanceSchedule"
     )
 
 
-MaintenanceSchedule: TypeAlias = _MaintenanceSchedule_Window | UnknownUnionMember
+MaintenanceSchedule: TypeAlias = MaintenanceScheduleWindowMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

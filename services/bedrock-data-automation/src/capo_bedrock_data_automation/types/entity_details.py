@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_bedrock_data_automation.types.vocabulary_entity
 
 
-class _EntityDetails_vocabulary(TypedDict, closed=True):
+class EntityDetailsVocabularyMember(TypedDict, closed=True):
     vocabulary: "capo_bedrock_data_automation.types.vocabulary_entity.VocabularyEntity"
 
 
-EntityDetails: TypeAlias = _EntityDetails_vocabulary | UnknownUnionMember
+EntityDetails: TypeAlias = EntityDetailsVocabularyMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

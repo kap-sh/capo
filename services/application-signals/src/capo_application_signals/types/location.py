@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_application_signals.types.code_location
 
 
-class _Location_CodeLocation(TypedDict, closed=True):
+class LocationCodeLocationMember(TypedDict, closed=True):
     CodeLocation: "capo_application_signals.types.code_location.CodeLocation"
 
 
-Location: TypeAlias = _Location_CodeLocation | UnknownUnionMember
+Location: TypeAlias = LocationCodeLocationMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

@@ -13,8 +13,8 @@ from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.lambda_interceptor_configuration
 
-_InterceptorConfiguration_lambda = TypedDict(
-    "_InterceptorConfiguration_lambda",
+InterceptorConfigurationLambdaMember = TypedDict(
+    "InterceptorConfigurationLambdaMember",
     {
         "lambda": "capo_bedrock_agentcore_control.types.lambda_interceptor_configuration.LambdaInterceptorConfiguration",
     },
@@ -22,7 +22,7 @@ _InterceptorConfiguration_lambda = TypedDict(
 )
 
 InterceptorConfiguration: TypeAlias = (
-    _InterceptorConfiguration_lambda | UnknownUnionMember
+    InterceptorConfigurationLambdaMember | UnknownUnionMember
 )
 
 

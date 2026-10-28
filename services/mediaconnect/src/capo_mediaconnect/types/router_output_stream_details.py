@@ -14,27 +14,27 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.standard_router_output_stream_details
 
 
-class _RouterOutputStreamDetails_Standard(TypedDict, closed=True):
+class RouterOutputStreamDetailsStandardMember(TypedDict, closed=True):
     Standard: "capo_mediaconnect.types.standard_router_output_stream_details.StandardRouterOutputStreamDetails"
 
 
-class _RouterOutputStreamDetails_MediaConnectFlow(TypedDict, closed=True):
+class RouterOutputStreamDetailsMediaConnectFlowMember(TypedDict, closed=True):
     MediaConnectFlow: "capo_mediaconnect.types.media_connect_flow_router_output_stream_details.MediaConnectFlowRouterOutputStreamDetails"
 
 
-class _RouterOutputStreamDetails_MediaLiveInput(TypedDict, closed=True):
+class RouterOutputStreamDetailsMediaLiveInputMember(TypedDict, closed=True):
     MediaLiveInput: "capo_mediaconnect.types.media_live_input_router_output_stream_details.MediaLiveInputRouterOutputStreamDetails"
 
 
-class _RouterOutputStreamDetails_SourceEndpoint(TypedDict, closed=True):
+class RouterOutputStreamDetailsSourceEndpointMember(TypedDict, closed=True):
     SourceEndpoint: "capo_mediaconnect.types.source_endpoint_router_output_stream_details.SourceEndpointRouterOutputStreamDetails"
 
 
 RouterOutputStreamDetails: TypeAlias = (
-    _RouterOutputStreamDetails_Standard
-    | _RouterOutputStreamDetails_MediaConnectFlow
-    | _RouterOutputStreamDetails_MediaLiveInput
-    | _RouterOutputStreamDetails_SourceEndpoint
+    RouterOutputStreamDetailsStandardMember
+    | RouterOutputStreamDetailsMediaConnectFlowMember
+    | RouterOutputStreamDetailsMediaLiveInputMember
+    | RouterOutputStreamDetailsSourceEndpointMember
     | UnknownUnionMember
 )
 

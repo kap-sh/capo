@@ -18,47 +18,47 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.screenshot_result
 
 
-class _BrowserActionResult_mouseClick(TypedDict, closed=True):
+class BrowserActionResultMouseClickMember(TypedDict, closed=True):
     mouseClick: "capo_bedrock_agentcore.types.mouse_click_result.MouseClickResult"
 
 
-class _BrowserActionResult_mouseMove(TypedDict, closed=True):
+class BrowserActionResultMouseMoveMember(TypedDict, closed=True):
     mouseMove: "capo_bedrock_agentcore.types.mouse_move_result.MouseMoveResult"
 
 
-class _BrowserActionResult_mouseDrag(TypedDict, closed=True):
+class BrowserActionResultMouseDragMember(TypedDict, closed=True):
     mouseDrag: "capo_bedrock_agentcore.types.mouse_drag_result.MouseDragResult"
 
 
-class _BrowserActionResult_mouseScroll(TypedDict, closed=True):
+class BrowserActionResultMouseScrollMember(TypedDict, closed=True):
     mouseScroll: "capo_bedrock_agentcore.types.mouse_scroll_result.MouseScrollResult"
 
 
-class _BrowserActionResult_keyType(TypedDict, closed=True):
+class BrowserActionResultKeyTypeMember(TypedDict, closed=True):
     keyType: "capo_bedrock_agentcore.types.key_type_result.KeyTypeResult"
 
 
-class _BrowserActionResult_keyPress(TypedDict, closed=True):
+class BrowserActionResultKeyPressMember(TypedDict, closed=True):
     keyPress: "capo_bedrock_agentcore.types.key_press_result.KeyPressResult"
 
 
-class _BrowserActionResult_keyShortcut(TypedDict, closed=True):
+class BrowserActionResultKeyShortcutMember(TypedDict, closed=True):
     keyShortcut: "capo_bedrock_agentcore.types.key_shortcut_result.KeyShortcutResult"
 
 
-class _BrowserActionResult_screenshot(TypedDict, closed=True):
+class BrowserActionResultScreenshotMember(TypedDict, closed=True):
     screenshot: "capo_bedrock_agentcore.types.screenshot_result.ScreenshotResult"
 
 
 BrowserActionResult: TypeAlias = (
-    _BrowserActionResult_mouseClick
-    | _BrowserActionResult_mouseMove
-    | _BrowserActionResult_mouseDrag
-    | _BrowserActionResult_mouseScroll
-    | _BrowserActionResult_keyType
-    | _BrowserActionResult_keyPress
-    | _BrowserActionResult_keyShortcut
-    | _BrowserActionResult_screenshot
+    BrowserActionResultMouseClickMember
+    | BrowserActionResultMouseMoveMember
+    | BrowserActionResultMouseDragMember
+    | BrowserActionResultMouseScrollMember
+    | BrowserActionResultKeyTypeMember
+    | BrowserActionResultKeyPressMember
+    | BrowserActionResultKeyShortcutMember
+    | BrowserActionResultScreenshotMember
     | UnknownUnionMember
 )
 

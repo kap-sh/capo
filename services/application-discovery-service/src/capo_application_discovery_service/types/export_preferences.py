@@ -14,12 +14,12 @@ if TYPE_CHECKING:
     import capo_application_discovery_service.types.ec2_recommendations_export_preferences
 
 
-class _ExportPreferences_ec2RecommendationsPreferences(TypedDict, closed=True):
+class ExportPreferencesEc2RecommendationsPreferencesMember(TypedDict, closed=True):
     ec2RecommendationsPreferences: "capo_application_discovery_service.types.ec2_recommendations_export_preferences.Ec2RecommendationsExportPreferences"
 
 
 ExportPreferences: TypeAlias = (
-    _ExportPreferences_ec2RecommendationsPreferences | UnknownUnionMember
+    ExportPreferencesEc2RecommendationsPreferencesMember | UnknownUnionMember
 )
 
 

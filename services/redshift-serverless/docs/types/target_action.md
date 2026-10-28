@@ -7,7 +7,7 @@ title: TargetAction
       show_source: true
       merge_init_into_class: false
 
-::: capo_redshift_serverless.types.target_action._TargetAction_createSnapshot
+::: capo_redshift_serverless.types.target_action.TargetActionCreateSnapshotMember
     options:
       show_source: true
       merge_init_into_class: false

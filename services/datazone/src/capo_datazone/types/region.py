@@ -12,15 +12,17 @@ if TYPE_CHECKING:
     import capo_datazone.types.region_name
 
 
-class _Region_regionName(TypedDict, closed=True):
+class RegionRegionNameMember(TypedDict, closed=True):
     regionName: "capo_datazone.types.region_name.RegionName"
 
 
-class _Region_regionNamePath(TypedDict, closed=True):
+class RegionRegionNamePathMember(TypedDict, closed=True):
     regionNamePath: "capo_datazone.types.parameter_store_path.ParameterStorePath"
 
 
-Region: TypeAlias = _Region_regionName | _Region_regionNamePath | UnknownUnionMember
+Region: TypeAlias = (
+    RegionRegionNameMember | RegionRegionNamePathMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

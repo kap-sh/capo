@@ -12,21 +12,21 @@ if TYPE_CHECKING:
     import capo_quicksight.types.user_name_or_email_filter
 
 
-class _UserIndexCapacityFilter_userNameOrEmail(TypedDict, closed=True):
+class UserIndexCapacityFilterUserNameOrEmailMember(TypedDict, closed=True):
     userNameOrEmail: (
         "capo_quicksight.types.user_name_or_email_filter.UserNameOrEmailFilter"
     )
 
 
-class _UserIndexCapacityFilter_totalCapacityBytes(TypedDict, closed=True):
+class UserIndexCapacityFilterTotalCapacityBytesMember(TypedDict, closed=True):
     totalCapacityBytes: (
         "capo_quicksight.types.capacity_bytes_range_filter.CapacityBytesRangeFilter"
     )
 
 
 UserIndexCapacityFilter: TypeAlias = (
-    _UserIndexCapacityFilter_userNameOrEmail
-    | _UserIndexCapacityFilter_totalCapacityBytes
+    UserIndexCapacityFilterUserNameOrEmailMember
+    | UserIndexCapacityFilterTotalCapacityBytesMember
     | UnknownUnionMember
 )
 

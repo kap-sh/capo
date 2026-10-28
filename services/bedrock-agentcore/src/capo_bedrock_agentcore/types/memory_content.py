@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.sensitive_string
 
 
-class _MemoryContent_text(TypedDict, closed=True):
+class MemoryContentTextMember(TypedDict, closed=True):
     text: "capo_bedrock_agentcore.types.sensitive_string.SensitiveString"
 
 
-MemoryContent: TypeAlias = _MemoryContent_text | UnknownUnionMember
+MemoryContent: TypeAlias = MemoryContentTextMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

@@ -7,19 +7,19 @@ title: QueryInputData
       show_source: true
       merge_init_into_class: false
 
-::: capo_qconnect.types.query_input_data._QueryInputData_queryTextInputData
+::: capo_qconnect.types.query_input_data.QueryInputDataQueryTextInputDataMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qconnect.types.query_input_data._QueryInputData_intentInputData
+::: capo_qconnect.types.query_input_data.QueryInputDataIntentInputDataMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qconnect.types.query_input_data._QueryInputData_caseSummarizationInputData
+::: capo_qconnect.types.query_input_data.QueryInputDataCaseSummarizationInputDataMember
     options:
       show_source: true
       merge_init_into_class: false

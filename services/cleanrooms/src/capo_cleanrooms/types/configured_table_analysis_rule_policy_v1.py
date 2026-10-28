@@ -13,24 +13,24 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.analysis_rule_list
 
 
-class _ConfiguredTableAnalysisRulePolicyV1_list(TypedDict, closed=True):
+class ConfiguredTableAnalysisRulePolicyV1ListMember(TypedDict, closed=True):
     list: "capo_cleanrooms.types.analysis_rule_list.AnalysisRuleList"
 
 
-class _ConfiguredTableAnalysisRulePolicyV1_aggregation(TypedDict, closed=True):
+class ConfiguredTableAnalysisRulePolicyV1AggregationMember(TypedDict, closed=True):
     aggregation: (
         "capo_cleanrooms.types.analysis_rule_aggregation.AnalysisRuleAggregation"
     )
 
 
-class _ConfiguredTableAnalysisRulePolicyV1_custom(TypedDict, closed=True):
+class ConfiguredTableAnalysisRulePolicyV1CustomMember(TypedDict, closed=True):
     custom: "capo_cleanrooms.types.analysis_rule_custom.AnalysisRuleCustom"
 
 
 ConfiguredTableAnalysisRulePolicyV1: TypeAlias = (
-    _ConfiguredTableAnalysisRulePolicyV1_list
-    | _ConfiguredTableAnalysisRulePolicyV1_aggregation
-    | _ConfiguredTableAnalysisRulePolicyV1_custom
+    ConfiguredTableAnalysisRulePolicyV1ListMember
+    | ConfiguredTableAnalysisRulePolicyV1AggregationMember
+    | ConfiguredTableAnalysisRulePolicyV1CustomMember
     | UnknownUnionMember
 )
 

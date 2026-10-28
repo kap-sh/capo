@@ -13,20 +13,23 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.weekly_recurrence
 
 
-class _Recurrence_daily(TypedDict, closed=True):
+class RecurrenceDailyMember(TypedDict, closed=True):
     daily: "capo_devops_agent.types.daily_recurrence.DailyRecurrence"
 
 
-class _Recurrence_weekly(TypedDict, closed=True):
+class RecurrenceWeeklyMember(TypedDict, closed=True):
     weekly: "capo_devops_agent.types.weekly_recurrence.WeeklyRecurrence"
 
 
-class _Recurrence_monthly(TypedDict, closed=True):
+class RecurrenceMonthlyMember(TypedDict, closed=True):
     monthly: "capo_devops_agent.types.monthly_recurrence.MonthlyRecurrence"
 
 
 Recurrence: TypeAlias = (
-    _Recurrence_daily | _Recurrence_weekly | _Recurrence_monthly | UnknownUnionMember
+    RecurrenceDailyMember
+    | RecurrenceWeeklyMember
+    | RecurrenceMonthlyMember
+    | UnknownUnionMember
 )
 
 

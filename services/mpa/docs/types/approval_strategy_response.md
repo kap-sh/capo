@@ -7,7 +7,7 @@ title: ApprovalStrategyResponse
       show_source: true
       merge_init_into_class: false
 
-::: capo_mpa.types.approval_strategy_response._ApprovalStrategyResponse_MofN
+::: capo_mpa.types.approval_strategy_response.ApprovalStrategyResponseMofNMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_ivschat.types.s3_destination_configuration
 
 
-class _DestinationConfiguration_s3(TypedDict, closed=True):
+class DestinationConfigurationS3Member(TypedDict, closed=True):
     s3: "capo_ivschat.types.s3_destination_configuration.S3DestinationConfiguration"
 
 
-class _DestinationConfiguration_cloudWatchLogs(TypedDict, closed=True):
+class DestinationConfigurationCloudWatchLogsMember(TypedDict, closed=True):
     cloudWatchLogs: "capo_ivschat.types.cloud_watch_logs_destination_configuration.CloudWatchLogsDestinationConfiguration"
 
 
-class _DestinationConfiguration_firehose(TypedDict, closed=True):
+class DestinationConfigurationFirehoseMember(TypedDict, closed=True):
     firehose: "capo_ivschat.types.firehose_destination_configuration.FirehoseDestinationConfiguration"
 
 
 DestinationConfiguration: TypeAlias = (
-    _DestinationConfiguration_s3
-    | _DestinationConfiguration_cloudWatchLogs
-    | _DestinationConfiguration_firehose
+    DestinationConfigurationS3Member
+    | DestinationConfigurationCloudWatchLogsMember
+    | DestinationConfigurationFirehoseMember
     | UnknownUnionMember
 )
 

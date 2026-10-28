@@ -11,14 +11,15 @@ if TYPE_CHECKING:
     import capo_odb.types.customer_managed_aws_secret_configuration_input
 
 
-class _AdminPasswordSourceConfigurationInput_customerManagedAwsSecret(
+class AdminPasswordSourceConfigurationInputCustomerManagedAwsSecretMember(
     TypedDict, closed=True
 ):
     customerManagedAwsSecret: "capo_odb.types.customer_managed_aws_secret_configuration_input.CustomerManagedAwsSecretConfigurationInput"
 
 
 AdminPasswordSourceConfigurationInput: TypeAlias = (
-    _AdminPasswordSourceConfigurationInput_customerManagedAwsSecret | UnknownUnionMember
+    AdminPasswordSourceConfigurationInputCustomerManagedAwsSecretMember
+    | UnknownUnionMember
 )
 
 

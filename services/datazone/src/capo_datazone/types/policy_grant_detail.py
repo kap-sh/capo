@@ -22,77 +22,77 @@ if TYPE_CHECKING:
     import capo_datazone.types.use_asset_type_policy_grant_detail
 
 
-class _PolicyGrantDetail_createDomainUnit(TypedDict, closed=True):
+class PolicyGrantDetailCreateDomainUnitMember(TypedDict, closed=True):
     createDomainUnit: "capo_datazone.types.create_domain_unit_policy_grant_detail.CreateDomainUnitPolicyGrantDetail"
 
 
-class _PolicyGrantDetail_overrideDomainUnitOwners(TypedDict, closed=True):
+class PolicyGrantDetailOverrideDomainUnitOwnersMember(TypedDict, closed=True):
     overrideDomainUnitOwners: "capo_datazone.types.override_domain_unit_owners_policy_grant_detail.OverrideDomainUnitOwnersPolicyGrantDetail"
 
 
-class _PolicyGrantDetail_addToProjectMemberPool(TypedDict, closed=True):
+class PolicyGrantDetailAddToProjectMemberPoolMember(TypedDict, closed=True):
     addToProjectMemberPool: "capo_datazone.types.add_to_project_member_pool_policy_grant_detail.AddToProjectMemberPoolPolicyGrantDetail"
 
 
-class _PolicyGrantDetail_overrideProjectOwners(TypedDict, closed=True):
+class PolicyGrantDetailOverrideProjectOwnersMember(TypedDict, closed=True):
     overrideProjectOwners: "capo_datazone.types.override_project_owners_policy_grant_detail.OverrideProjectOwnersPolicyGrantDetail"
 
 
-class _PolicyGrantDetail_createGlossary(TypedDict, closed=True):
+class PolicyGrantDetailCreateGlossaryMember(TypedDict, closed=True):
     createGlossary: "capo_datazone.types.create_glossary_policy_grant_detail.CreateGlossaryPolicyGrantDetail"
 
 
-class _PolicyGrantDetail_createFormType(TypedDict, closed=True):
+class PolicyGrantDetailCreateFormTypeMember(TypedDict, closed=True):
     createFormType: "capo_datazone.types.create_form_type_policy_grant_detail.CreateFormTypePolicyGrantDetail"
 
 
-class _PolicyGrantDetail_createAssetType(TypedDict, closed=True):
+class PolicyGrantDetailCreateAssetTypeMember(TypedDict, closed=True):
     createAssetType: "capo_datazone.types.create_asset_type_policy_grant_detail.CreateAssetTypePolicyGrantDetail"
 
 
-class _PolicyGrantDetail_createProject(TypedDict, closed=True):
+class PolicyGrantDetailCreateProjectMember(TypedDict, closed=True):
     createProject: "capo_datazone.types.create_project_policy_grant_detail.CreateProjectPolicyGrantDetail"
 
 
-class _PolicyGrantDetail_createEnvironmentProfile(TypedDict, closed=True):
+class PolicyGrantDetailCreateEnvironmentProfileMember(TypedDict, closed=True):
     createEnvironmentProfile: "capo_datazone.types.create_environment_profile_policy_grant_detail.CreateEnvironmentProfilePolicyGrantDetail"
 
 
-class _PolicyGrantDetail_delegateCreateEnvironmentProfile(TypedDict, closed=True):
+class PolicyGrantDetailDelegateCreateEnvironmentProfileMember(TypedDict, closed=True):
     delegateCreateEnvironmentProfile: "capo_datazone.types.unit.Unit"
 
 
-class _PolicyGrantDetail_createEnvironment(TypedDict, closed=True):
+class PolicyGrantDetailCreateEnvironmentMember(TypedDict, closed=True):
     createEnvironment: "capo_datazone.types.unit.Unit"
 
 
-class _PolicyGrantDetail_createEnvironmentFromBlueprint(TypedDict, closed=True):
+class PolicyGrantDetailCreateEnvironmentFromBlueprintMember(TypedDict, closed=True):
     createEnvironmentFromBlueprint: "capo_datazone.types.unit.Unit"
 
 
-class _PolicyGrantDetail_createProjectFromProjectProfile(TypedDict, closed=True):
+class PolicyGrantDetailCreateProjectFromProjectProfileMember(TypedDict, closed=True):
     createProjectFromProjectProfile: "capo_datazone.types.create_project_from_project_profile_policy_grant_detail.CreateProjectFromProjectProfilePolicyGrantDetail"
 
 
-class _PolicyGrantDetail_useAssetType(TypedDict, closed=True):
+class PolicyGrantDetailUseAssetTypeMember(TypedDict, closed=True):
     useAssetType: "capo_datazone.types.use_asset_type_policy_grant_detail.UseAssetTypePolicyGrantDetail"
 
 
 PolicyGrantDetail: TypeAlias = (
-    _PolicyGrantDetail_createDomainUnit
-    | _PolicyGrantDetail_overrideDomainUnitOwners
-    | _PolicyGrantDetail_addToProjectMemberPool
-    | _PolicyGrantDetail_overrideProjectOwners
-    | _PolicyGrantDetail_createGlossary
-    | _PolicyGrantDetail_createFormType
-    | _PolicyGrantDetail_createAssetType
-    | _PolicyGrantDetail_createProject
-    | _PolicyGrantDetail_createEnvironmentProfile
-    | _PolicyGrantDetail_delegateCreateEnvironmentProfile
-    | _PolicyGrantDetail_createEnvironment
-    | _PolicyGrantDetail_createEnvironmentFromBlueprint
-    | _PolicyGrantDetail_createProjectFromProjectProfile
-    | _PolicyGrantDetail_useAssetType
+    PolicyGrantDetailCreateDomainUnitMember
+    | PolicyGrantDetailOverrideDomainUnitOwnersMember
+    | PolicyGrantDetailAddToProjectMemberPoolMember
+    | PolicyGrantDetailOverrideProjectOwnersMember
+    | PolicyGrantDetailCreateGlossaryMember
+    | PolicyGrantDetailCreateFormTypeMember
+    | PolicyGrantDetailCreateAssetTypeMember
+    | PolicyGrantDetailCreateProjectMember
+    | PolicyGrantDetailCreateEnvironmentProfileMember
+    | PolicyGrantDetailDelegateCreateEnvironmentProfileMember
+    | PolicyGrantDetailCreateEnvironmentMember
+    | PolicyGrantDetailCreateEnvironmentFromBlueprintMember
+    | PolicyGrantDetailCreateProjectFromProjectProfileMember
+    | PolicyGrantDetailUseAssetTypeMember
     | UnknownUnionMember
 )
 

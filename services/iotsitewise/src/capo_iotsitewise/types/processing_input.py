@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_iotsitewise.types.timeseries_list
 
 
-class _ProcessingInput_timeseries(TypedDict, closed=True):
+class ProcessingInputTimeseriesMember(TypedDict, closed=True):
     timeseries: "capo_iotsitewise.types.timeseries_list.TimeseriesList"
 
 
-class _ProcessingInput_dataset(TypedDict, closed=True):
+class ProcessingInputDatasetMember(TypedDict, closed=True):
     dataset: "capo_iotsitewise.types.dataset_item.DatasetItem"
 
 
 ProcessingInput: TypeAlias = (
-    _ProcessingInput_timeseries | _ProcessingInput_dataset | UnknownUnionMember
+    ProcessingInputTimeseriesMember | ProcessingInputDatasetMember | UnknownUnionMember
 )
 
 

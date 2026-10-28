@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_billing.types.attestation_quantities
 
 
-class _AttestationValue_attestationAmount(TypedDict, closed=True):
+class AttestationValueAttestationAmountMember(TypedDict, closed=True):
     attestationAmount: "capo_billing.types.amount.Amount"
 
 
-class _AttestationValue_attestationQuantities(TypedDict, closed=True):
+class AttestationValueAttestationQuantitiesMember(TypedDict, closed=True):
     attestationQuantities: (
         "capo_billing.types.attestation_quantities.AttestationQuantities"
     )
 
 
 AttestationValue: TypeAlias = (
-    _AttestationValue_attestationAmount
-    | _AttestationValue_attestationQuantities
+    AttestationValueAttestationAmountMember
+    | AttestationValueAttestationQuantitiesMember
     | UnknownUnionMember
 )
 

@@ -7,7 +7,7 @@ title: ConfiguredTableAssociationAnalysisRulePolicy
       show_source: true
       merge_init_into_class: false
 
-::: capo_cleanrooms.types.configured_table_association_analysis_rule_policy._ConfiguredTableAssociationAnalysisRulePolicy_v1
+::: capo_cleanrooms.types.configured_table_association_analysis_rule_policy.ConfiguredTableAssociationAnalysisRulePolicyV1Member
     options:
       show_source: true
       merge_init_into_class: false

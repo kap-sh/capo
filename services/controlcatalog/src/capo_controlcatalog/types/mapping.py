@@ -13,24 +13,24 @@ if TYPE_CHECKING:
     import capo_controlcatalog.types.related_control_mapping_details
 
 
-class _Mapping_Framework(TypedDict, closed=True):
+class MappingFrameworkMember(TypedDict, closed=True):
     Framework: (
         "capo_controlcatalog.types.framework_mapping_details.FrameworkMappingDetails"
     )
 
 
-class _Mapping_CommonControl(TypedDict, closed=True):
+class MappingCommonControlMember(TypedDict, closed=True):
     CommonControl: "capo_controlcatalog.types.common_control_mapping_details.CommonControlMappingDetails"
 
 
-class _Mapping_RelatedControl(TypedDict, closed=True):
+class MappingRelatedControlMember(TypedDict, closed=True):
     RelatedControl: "capo_controlcatalog.types.related_control_mapping_details.RelatedControlMappingDetails"
 
 
 Mapping: TypeAlias = (
-    _Mapping_Framework
-    | _Mapping_CommonControl
-    | _Mapping_RelatedControl
+    MappingFrameworkMember
+    | MappingCommonControlMember
+    | MappingRelatedControlMember
     | UnknownUnionMember
 )
 

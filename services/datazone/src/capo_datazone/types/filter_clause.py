@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_datazone.types.filter_list
 
 
-class _FilterClause_filter(TypedDict, closed=True):
+class FilterClauseFilterMember(TypedDict, closed=True):
     filter: "capo_datazone.types.filter.Filter"
 
 
-_FilterClause_and = TypedDict(
-    "_FilterClause_and",
+FilterClauseAndMember = TypedDict(
+    "FilterClauseAndMember",
     {
         "and": "capo_datazone.types.filter_list.FilterList",
     },
     closed=True,
 )
-_FilterClause_or = TypedDict(
-    "_FilterClause_or",
+FilterClauseOrMember = TypedDict(
+    "FilterClauseOrMember",
     {
         "or": "capo_datazone.types.filter_list.FilterList",
     },
@@ -32,7 +32,10 @@ _FilterClause_or = TypedDict(
 )
 
 FilterClause: TypeAlias = (
-    _FilterClause_filter | _FilterClause_and | _FilterClause_or | UnknownUnionMember
+    FilterClauseFilterMember
+    | FilterClauseAndMember
+    | FilterClauseOrMember
+    | UnknownUnionMember
 )
 
 

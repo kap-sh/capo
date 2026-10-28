@@ -7,7 +7,7 @@ title: LayoutContent
       show_source: true
       merge_init_into_class: false
 
-::: capo_connectcases.types.layout_content._LayoutContent_basic
+::: capo_connectcases.types.layout_content.LayoutContentBasicMember
     options:
       show_source: true
       merge_init_into_class: false

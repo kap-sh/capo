@@ -14,29 +14,29 @@ if TYPE_CHECKING:
     import capo_healthlake.types.starter_profile_source
 
 
-class _CreateDataTransformationProfileSource_StarterProfile(TypedDict, closed=True):
+class CreateDataTransformationProfileSourceStarterProfileMember(TypedDict, closed=True):
     StarterProfile: "capo_healthlake.types.starter_profile_source.StarterProfileSource"
 
 
-class _CreateDataTransformationProfileSource_ExistingVersionedProfileId(
+class CreateDataTransformationProfileSourceExistingVersionedProfileIdMember(
     TypedDict, closed=True
 ):
     ExistingVersionedProfileId: "capo_healthlake.types.existing_versioned_profile_source.ExistingVersionedProfileSource"
 
 
-class _CreateDataTransformationProfileSource_ProfileMapping(TypedDict, closed=True):
+class CreateDataTransformationProfileSourceProfileMappingMember(TypedDict, closed=True):
     ProfileMapping: "capo_healthlake.types.profile_mapping_source.ProfileMappingSource"
 
 
-class _CreateDataTransformationProfileSource_SampleData(TypedDict, closed=True):
+class CreateDataTransformationProfileSourceSampleDataMember(TypedDict, closed=True):
     SampleData: "capo_healthlake.types.sample_data_source.SampleDataSource"
 
 
 CreateDataTransformationProfileSource: TypeAlias = (
-    _CreateDataTransformationProfileSource_StarterProfile
-    | _CreateDataTransformationProfileSource_ExistingVersionedProfileId
-    | _CreateDataTransformationProfileSource_ProfileMapping
-    | _CreateDataTransformationProfileSource_SampleData
+    CreateDataTransformationProfileSourceStarterProfileMember
+    | CreateDataTransformationProfileSourceExistingVersionedProfileIdMember
+    | CreateDataTransformationProfileSourceProfileMappingMember
+    | CreateDataTransformationProfileSourceSampleDataMember
     | UnknownUnionMember
 )
 

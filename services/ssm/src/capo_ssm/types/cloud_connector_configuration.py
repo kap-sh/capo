@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_ssm.types.azure_configuration
 
 
-class _CloudConnectorConfiguration_AzureConfiguration(TypedDict, closed=True):
+class CloudConnectorConfigurationAzureConfigurationMember(TypedDict, closed=True):
     AzureConfiguration: "capo_ssm.types.azure_configuration.AzureConfiguration"
 
 
 CloudConnectorConfiguration: TypeAlias = (
-    _CloudConnectorConfiguration_AzureConfiguration | UnknownUnionMember
+    CloudConnectorConfigurationAzureConfigurationMember | UnknownUnionMember
 )
 
 

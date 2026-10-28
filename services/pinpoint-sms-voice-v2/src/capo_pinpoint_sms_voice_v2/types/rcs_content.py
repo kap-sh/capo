@@ -14,27 +14,27 @@ if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.rcs_text_message
 
 
-class _RcsContent_TextMessage(TypedDict, closed=True):
+class RcsContentTextMessageMember(TypedDict, closed=True):
     TextMessage: "capo_pinpoint_sms_voice_v2.types.rcs_text_message.RcsTextMessage"
 
 
-class _RcsContent_FileMessage(TypedDict, closed=True):
+class RcsContentFileMessageMember(TypedDict, closed=True):
     FileMessage: "capo_pinpoint_sms_voice_v2.types.rcs_file_message.RcsFileMessage"
 
 
-class _RcsContent_RichCard(TypedDict, closed=True):
+class RcsContentRichCardMember(TypedDict, closed=True):
     RichCard: "capo_pinpoint_sms_voice_v2.types.rcs_standalone_card.RcsStandaloneCard"
 
 
-class _RcsContent_Carousel(TypedDict, closed=True):
+class RcsContentCarouselMember(TypedDict, closed=True):
     Carousel: "capo_pinpoint_sms_voice_v2.types.rcs_carousel.RcsCarousel"
 
 
 RcsContent: TypeAlias = (
-    _RcsContent_TextMessage
-    | _RcsContent_FileMessage
-    | _RcsContent_RichCard
-    | _RcsContent_Carousel
+    RcsContentTextMessageMember
+    | RcsContentFileMessageMember
+    | RcsContentRichCardMember
+    | RcsContentCarouselMember
     | UnknownUnionMember
 )
 

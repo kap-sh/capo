@@ -7,7 +7,7 @@ title: PredefinedAttributeValues
       show_source: true
       merge_init_into_class: false
 
-::: capo_connect.types.predefined_attribute_values._PredefinedAttributeValues_StringList
+::: capo_connect.types.predefined_attribute_values.PredefinedAttributeValuesStringListMember
     options:
       show_source: true
       merge_init_into_class: false

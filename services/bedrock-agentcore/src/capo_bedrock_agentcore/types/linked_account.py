@@ -14,27 +14,27 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.linked_account_sms
 
 
-class _LinkedAccount_email(TypedDict, closed=True):
+class LinkedAccountEmailMember(TypedDict, closed=True):
     email: "capo_bedrock_agentcore.types.linked_account_email.LinkedAccountEmail"
 
 
-class _LinkedAccount_sms(TypedDict, closed=True):
+class LinkedAccountSmsMember(TypedDict, closed=True):
     sms: "capo_bedrock_agentcore.types.linked_account_sms.LinkedAccountSms"
 
 
-class _LinkedAccount_developerJwt(TypedDict, closed=True):
+class LinkedAccountDeveloperJwtMember(TypedDict, closed=True):
     developerJwt: "capo_bedrock_agentcore.types.linked_account_developer_jwt.LinkedAccountDeveloperJwt"
 
 
-class _LinkedAccount_oAuth2(TypedDict, closed=True):
+class LinkedAccountOAuth2Member(TypedDict, closed=True):
     oAuth2: "capo_bedrock_agentcore.types.linked_account_o_auth2.LinkedAccountOAuth2"
 
 
 LinkedAccount: TypeAlias = (
-    _LinkedAccount_email
-    | _LinkedAccount_sms
-    | _LinkedAccount_developerJwt
-    | _LinkedAccount_oAuth2
+    LinkedAccountEmailMember
+    | LinkedAccountSmsMember
+    | LinkedAccountDeveloperJwtMember
+    | LinkedAccountOAuth2Member
     | UnknownUnionMember
 )
 

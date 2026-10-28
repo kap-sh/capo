@@ -7,7 +7,7 @@ title: SearchMapFilterValue
       show_source: true
       merge_init_into_class: false
 
-::: capo_glue.types.search_map_filter_value._SearchMapFilterValue_StringValue
+::: capo_glue.types.search_map_filter_value.SearchMapFilterValueStringValueMember
     options:
       show_source: true
       merge_init_into_class: false

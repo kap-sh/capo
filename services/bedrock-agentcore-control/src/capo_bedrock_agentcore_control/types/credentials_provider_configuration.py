@@ -14,17 +14,17 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.payment_credential_provider_configuration
 
 
-class _CredentialsProviderConfiguration_coinbaseCDP(TypedDict, closed=True):
+class CredentialsProviderConfigurationCoinbaseCDPMember(TypedDict, closed=True):
     coinbaseCDP: "capo_bedrock_agentcore_control.types.payment_credential_provider_configuration.PaymentCredentialProviderConfiguration"
 
 
-class _CredentialsProviderConfiguration_stripePrivy(TypedDict, closed=True):
+class CredentialsProviderConfigurationStripePrivyMember(TypedDict, closed=True):
     stripePrivy: "capo_bedrock_agentcore_control.types.payment_credential_provider_configuration.PaymentCredentialProviderConfiguration"
 
 
 CredentialsProviderConfiguration: TypeAlias = (
-    _CredentialsProviderConfiguration_coinbaseCDP
-    | _CredentialsProviderConfiguration_stripePrivy
+    CredentialsProviderConfigurationCoinbaseCDPMember
+    | CredentialsProviderConfigurationStripePrivyMember
     | UnknownUnionMember
 )
 

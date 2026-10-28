@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_transfer.types.web_app_unit_count
 
 
-class _WebAppUnits_Provisioned(TypedDict, closed=True):
+class WebAppUnitsProvisionedMember(TypedDict, closed=True):
     Provisioned: "capo_transfer.types.web_app_unit_count.WebAppUnitCount"
 
 
-WebAppUnits: TypeAlias = _WebAppUnits_Provisioned | UnknownUnionMember
+WebAppUnits: TypeAlias = WebAppUnitsProvisionedMember | UnknownUnionMember
 
 
 # --- awsJson1_1 ser/de ---

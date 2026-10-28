@@ -7,7 +7,7 @@ title: ExtractionJobMessages
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore.types.extraction_job_messages._ExtractionJobMessages_messagesList
+::: capo_bedrock_agentcore.types.extraction_job_messages.ExtractionJobMessagesMessagesListMember
     options:
       show_source: true
       merge_init_into_class: false

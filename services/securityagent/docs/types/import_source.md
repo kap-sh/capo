@@ -7,7 +7,7 @@ title: ImportSource
       show_source: true
       merge_init_into_class: false
 
-::: capo_securityagent.types.import_source._ImportSource_documents
+::: capo_securityagent.types.import_source.ImportSourceDocumentsMember
     options:
       show_source: true
       merge_init_into_class: false

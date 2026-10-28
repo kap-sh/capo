@@ -7,7 +7,7 @@ title: CaptureConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_application_signals.types.capture_configuration._CaptureConfiguration_CodeCapture
+::: capo_application_signals.types.capture_configuration.CaptureConfigurationCodeCaptureMember
     options:
       show_source: true
       merge_init_into_class: false

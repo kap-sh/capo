@@ -11,13 +11,15 @@ if TYPE_CHECKING:
     import capo_datazone.types.open_lineage_run_event_summary
 
 
-class _EventSummary_openLineageRunEventSummary(TypedDict, closed=True):
+class EventSummaryOpenLineageRunEventSummaryMember(TypedDict, closed=True):
     openLineageRunEventSummary: (
         "capo_datazone.types.open_lineage_run_event_summary.OpenLineageRunEventSummary"
     )
 
 
-EventSummary: TypeAlias = _EventSummary_openLineageRunEventSummary | UnknownUnionMember
+EventSummary: TypeAlias = (
+    EventSummaryOpenLineageRunEventSummaryMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

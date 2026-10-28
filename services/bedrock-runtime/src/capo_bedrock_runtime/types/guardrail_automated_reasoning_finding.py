@@ -17,42 +17,44 @@ if TYPE_CHECKING:
     import capo_bedrock_runtime.types.guardrail_automated_reasoning_valid_finding
 
 
-class _GuardrailAutomatedReasoningFinding_valid(TypedDict, closed=True):
+class GuardrailAutomatedReasoningFindingValidMember(TypedDict, closed=True):
     valid: "capo_bedrock_runtime.types.guardrail_automated_reasoning_valid_finding.GuardrailAutomatedReasoningValidFinding"
 
 
-class _GuardrailAutomatedReasoningFinding_invalid(TypedDict, closed=True):
+class GuardrailAutomatedReasoningFindingInvalidMember(TypedDict, closed=True):
     invalid: "capo_bedrock_runtime.types.guardrail_automated_reasoning_invalid_finding.GuardrailAutomatedReasoningInvalidFinding"
 
 
-class _GuardrailAutomatedReasoningFinding_satisfiable(TypedDict, closed=True):
+class GuardrailAutomatedReasoningFindingSatisfiableMember(TypedDict, closed=True):
     satisfiable: "capo_bedrock_runtime.types.guardrail_automated_reasoning_satisfiable_finding.GuardrailAutomatedReasoningSatisfiableFinding"
 
 
-class _GuardrailAutomatedReasoningFinding_impossible(TypedDict, closed=True):
+class GuardrailAutomatedReasoningFindingImpossibleMember(TypedDict, closed=True):
     impossible: "capo_bedrock_runtime.types.guardrail_automated_reasoning_impossible_finding.GuardrailAutomatedReasoningImpossibleFinding"
 
 
-class _GuardrailAutomatedReasoningFinding_translationAmbiguous(TypedDict, closed=True):
+class GuardrailAutomatedReasoningFindingTranslationAmbiguousMember(
+    TypedDict, closed=True
+):
     translationAmbiguous: "capo_bedrock_runtime.types.guardrail_automated_reasoning_translation_ambiguous_finding.GuardrailAutomatedReasoningTranslationAmbiguousFinding"
 
 
-class _GuardrailAutomatedReasoningFinding_tooComplex(TypedDict, closed=True):
+class GuardrailAutomatedReasoningFindingTooComplexMember(TypedDict, closed=True):
     tooComplex: "capo_bedrock_runtime.types.guardrail_automated_reasoning_too_complex_finding.GuardrailAutomatedReasoningTooComplexFinding"
 
 
-class _GuardrailAutomatedReasoningFinding_noTranslations(TypedDict, closed=True):
+class GuardrailAutomatedReasoningFindingNoTranslationsMember(TypedDict, closed=True):
     noTranslations: "capo_bedrock_runtime.types.guardrail_automated_reasoning_no_translations_finding.GuardrailAutomatedReasoningNoTranslationsFinding"
 
 
 GuardrailAutomatedReasoningFinding: TypeAlias = (
-    _GuardrailAutomatedReasoningFinding_valid
-    | _GuardrailAutomatedReasoningFinding_invalid
-    | _GuardrailAutomatedReasoningFinding_satisfiable
-    | _GuardrailAutomatedReasoningFinding_impossible
-    | _GuardrailAutomatedReasoningFinding_translationAmbiguous
-    | _GuardrailAutomatedReasoningFinding_tooComplex
-    | _GuardrailAutomatedReasoningFinding_noTranslations
+    GuardrailAutomatedReasoningFindingValidMember
+    | GuardrailAutomatedReasoningFindingInvalidMember
+    | GuardrailAutomatedReasoningFindingSatisfiableMember
+    | GuardrailAutomatedReasoningFindingImpossibleMember
+    | GuardrailAutomatedReasoningFindingTranslationAmbiguousMember
+    | GuardrailAutomatedReasoningFindingTooComplexMember
+    | GuardrailAutomatedReasoningFindingNoTranslationsMember
     | UnknownUnionMember
 )
 

@@ -18,26 +18,26 @@ if TYPE_CHECKING:
     import capo_connecthealth.types.medical_scribe_transcript_event
 
 
-class _MedicalScribeOutputStream_transcriptEvent(TypedDict, closed=True):
+class MedicalScribeOutputStreamTranscriptEventMember(TypedDict, closed=True):
     transcriptEvent: "capo_connecthealth.types.medical_scribe_transcript_event.MedicalScribeTranscriptEvent"
 
 
-class _MedicalScribeOutputStream_internalFailureException(TypedDict, closed=True):
+class MedicalScribeOutputStreamInternalFailureExceptionMember(TypedDict, closed=True):
     internalFailureException: (
         "capo_connecthealth.errors.internal_server_exception.InternalServerException_"
     )
 
 
-class _MedicalScribeOutputStream_validationException(TypedDict, closed=True):
+class MedicalScribeOutputStreamValidationExceptionMember(TypedDict, closed=True):
     validationException: (
         "capo_connecthealth.errors.validation_exception.ValidationException_"
     )
 
 
 _MedicalScribeOutputStream: TypeAlias = (
-    _MedicalScribeOutputStream_transcriptEvent
-    | _MedicalScribeOutputStream_internalFailureException
-    | _MedicalScribeOutputStream_validationException
+    MedicalScribeOutputStreamTranscriptEventMember
+    | MedicalScribeOutputStreamInternalFailureExceptionMember
+    | MedicalScribeOutputStreamValidationExceptionMember
     | UnknownEvent
 )
 MedicalScribeOutputStream: TypeAlias = AnyIterator[_MedicalScribeOutputStream]

@@ -11,8 +11,8 @@ if TYPE_CHECKING:
     import capo_bedrock_agent.types.custom_control_method
     import capo_bedrock_agent.types.lambda_arn
 
-_ActionGroupExecutor_lambda = TypedDict(
-    "_ActionGroupExecutor_lambda",
+ActionGroupExecutorLambdaMember = TypedDict(
+    "ActionGroupExecutorLambdaMember",
     {
         "lambda": "capo_bedrock_agent.types.lambda_arn.LambdaArn",
     },
@@ -20,13 +20,13 @@ _ActionGroupExecutor_lambda = TypedDict(
 )
 
 
-class _ActionGroupExecutor_customControl(TypedDict, closed=True):
+class ActionGroupExecutorCustomControlMember(TypedDict, closed=True):
     customControl: "capo_bedrock_agent.types.custom_control_method.CustomControlMethod"
 
 
 ActionGroupExecutor: TypeAlias = (
-    _ActionGroupExecutor_lambda
-    | _ActionGroupExecutor_customControl
+    ActionGroupExecutorLambdaMember
+    | ActionGroupExecutorCustomControlMember
     | UnknownUnionMember
 )
 

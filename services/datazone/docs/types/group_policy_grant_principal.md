@@ -7,7 +7,7 @@ title: GroupPolicyGrantPrincipal
       show_source: true
       merge_init_into_class: false
 
-::: capo_datazone.types.group_policy_grant_principal._GroupPolicyGrantPrincipal_groupIdentifier
+::: capo_datazone.types.group_policy_grant_principal.GroupPolicyGrantPrincipalGroupIdentifierMember
     options:
       show_source: true
       merge_init_into_class: false

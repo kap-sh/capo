@@ -7,25 +7,25 @@ title: Rule
       show_source: true
       merge_init_into_class: false
 
-::: capo_transcribe.types.rule._Rule_NonTalkTimeFilter
+::: capo_transcribe.types.rule.RuleNonTalkTimeFilterMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_transcribe.types.rule._Rule_InterruptionFilter
+::: capo_transcribe.types.rule.RuleInterruptionFilterMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_transcribe.types.rule._Rule_TranscriptFilter
+::: capo_transcribe.types.rule.RuleTranscriptFilterMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_transcribe.types.rule._Rule_SentimentFilter
+::: capo_transcribe.types.rule.RuleSentimentFilterMember
     options:
       show_source: true
       merge_init_into_class: false

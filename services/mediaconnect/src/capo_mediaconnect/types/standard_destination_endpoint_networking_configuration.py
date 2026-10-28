@@ -12,19 +12,21 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.vpc_destination_endpoint_networking_configuration
 
 
-class _StandardDestinationEndpointNetworkingConfiguration_Public(
+class StandardDestinationEndpointNetworkingConfigurationPublicMember(
     TypedDict, closed=True
 ):
     Public: "capo_mediaconnect.types.public_destination_endpoint_networking_configuration.PublicDestinationEndpointNetworkingConfiguration"
 
 
-class _StandardDestinationEndpointNetworkingConfiguration_Vpc(TypedDict, closed=True):
+class StandardDestinationEndpointNetworkingConfigurationVpcMember(
+    TypedDict, closed=True
+):
     Vpc: "capo_mediaconnect.types.vpc_destination_endpoint_networking_configuration.VpcDestinationEndpointNetworkingConfiguration"
 
 
 StandardDestinationEndpointNetworkingConfiguration: TypeAlias = (
-    _StandardDestinationEndpointNetworkingConfiguration_Public
-    | _StandardDestinationEndpointNetworkingConfiguration_Vpc
+    StandardDestinationEndpointNetworkingConfigurationPublicMember
+    | StandardDestinationEndpointNetworkingConfigurationVpcMember
     | UnknownUnionMember
 )
 

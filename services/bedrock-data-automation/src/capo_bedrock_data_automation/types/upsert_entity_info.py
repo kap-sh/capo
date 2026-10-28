@@ -11,13 +11,13 @@ if TYPE_CHECKING:
     import capo_bedrock_data_automation.types.vocabulary_entity_info
 
 
-class _UpsertEntityInfo_vocabulary(TypedDict, closed=True):
+class UpsertEntityInfoVocabularyMember(TypedDict, closed=True):
     vocabulary: (
         "capo_bedrock_data_automation.types.vocabulary_entity_info.VocabularyEntityInfo"
     )
 
 
-UpsertEntityInfo: TypeAlias = _UpsertEntityInfo_vocabulary | UnknownUnionMember
+UpsertEntityInfo: TypeAlias = UpsertEntityInfoVocabularyMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

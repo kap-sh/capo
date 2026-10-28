@@ -17,49 +17,49 @@ if TYPE_CHECKING:
     import capo_acm.types.timestamp_range
 
 
-class _X509AttributeFilter_Subject(TypedDict, closed=True):
+class X509AttributeFilterSubjectMember(TypedDict, closed=True):
     Subject: "capo_acm.types.subject_filter.SubjectFilter"
 
 
-class _X509AttributeFilter_SubjectAlternativeName(TypedDict, closed=True):
+class X509AttributeFilterSubjectAlternativeNameMember(TypedDict, closed=True):
     SubjectAlternativeName: (
         "capo_acm.types.subject_alternative_name_filter.SubjectAlternativeNameFilter"
     )
 
 
-class _X509AttributeFilter_ExtendedKeyUsage(TypedDict, closed=True):
+class X509AttributeFilterExtendedKeyUsageMember(TypedDict, closed=True):
     ExtendedKeyUsage: "capo_acm.types.extended_key_usage_name.ExtendedKeyUsageName"
 
 
-class _X509AttributeFilter_KeyUsage(TypedDict, closed=True):
+class X509AttributeFilterKeyUsageMember(TypedDict, closed=True):
     KeyUsage: "capo_acm.types.key_usage_name.KeyUsageName"
 
 
-class _X509AttributeFilter_KeyAlgorithm(TypedDict, closed=True):
+class X509AttributeFilterKeyAlgorithmMember(TypedDict, closed=True):
     KeyAlgorithm: "capo_acm.types.key_algorithm.KeyAlgorithm"
 
 
-class _X509AttributeFilter_SerialNumber(TypedDict, closed=True):
+class X509AttributeFilterSerialNumberMember(TypedDict, closed=True):
     SerialNumber: "capo_acm.types.serial_number.SerialNumber"
 
 
-class _X509AttributeFilter_NotAfter(TypedDict, closed=True):
+class X509AttributeFilterNotAfterMember(TypedDict, closed=True):
     NotAfter: "capo_acm.types.timestamp_range.TimestampRange"
 
 
-class _X509AttributeFilter_NotBefore(TypedDict, closed=True):
+class X509AttributeFilterNotBeforeMember(TypedDict, closed=True):
     NotBefore: "capo_acm.types.timestamp_range.TimestampRange"
 
 
 X509AttributeFilter: TypeAlias = (
-    _X509AttributeFilter_Subject
-    | _X509AttributeFilter_SubjectAlternativeName
-    | _X509AttributeFilter_ExtendedKeyUsage
-    | _X509AttributeFilter_KeyUsage
-    | _X509AttributeFilter_KeyAlgorithm
-    | _X509AttributeFilter_SerialNumber
-    | _X509AttributeFilter_NotAfter
-    | _X509AttributeFilter_NotBefore
+    X509AttributeFilterSubjectMember
+    | X509AttributeFilterSubjectAlternativeNameMember
+    | X509AttributeFilterExtendedKeyUsageMember
+    | X509AttributeFilterKeyUsageMember
+    | X509AttributeFilterKeyAlgorithmMember
+    | X509AttributeFilterSerialNumberMember
+    | X509AttributeFilterNotAfterMember
+    | X509AttributeFilterNotBeforeMember
     | UnknownUnionMember
 )
 

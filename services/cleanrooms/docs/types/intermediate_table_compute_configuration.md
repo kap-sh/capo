@@ -7,7 +7,7 @@ title: IntermediateTableComputeConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_cleanrooms.types.intermediate_table_compute_configuration._IntermediateTableComputeConfiguration_queryComputeConfiguration
+::: capo_cleanrooms.types.intermediate_table_compute_configuration.IntermediateTableComputeConfigurationQueryComputeConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -7,73 +7,73 @@ title: FulfillmentOption
       show_source: true
       merge_init_into_class: false
 
-::: capo_marketplace_discovery.types.fulfillment_option._FulfillmentOption_amazonMachineImageFulfillmentOption
+::: capo_marketplace_discovery.types.fulfillment_option.FulfillmentOptionAmazonMachineImageFulfillmentOptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_marketplace_discovery.types.fulfillment_option._FulfillmentOption_apiFulfillmentOption
+::: capo_marketplace_discovery.types.fulfillment_option.FulfillmentOptionApiFulfillmentOptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_marketplace_discovery.types.fulfillment_option._FulfillmentOption_cloudFormationFulfillmentOption
+::: capo_marketplace_discovery.types.fulfillment_option.FulfillmentOptionCloudFormationFulfillmentOptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_marketplace_discovery.types.fulfillment_option._FulfillmentOption_containerFulfillmentOption
+::: capo_marketplace_discovery.types.fulfillment_option.FulfillmentOptionContainerFulfillmentOptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_marketplace_discovery.types.fulfillment_option._FulfillmentOption_helmFulfillmentOption
+::: capo_marketplace_discovery.types.fulfillment_option.FulfillmentOptionHelmFulfillmentOptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_marketplace_discovery.types.fulfillment_option._FulfillmentOption_eksAddOnFulfillmentOption
+::: capo_marketplace_discovery.types.fulfillment_option.FulfillmentOptionEksAddOnFulfillmentOptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_marketplace_discovery.types.fulfillment_option._FulfillmentOption_ec2ImageBuilderComponentFulfillmentOption
+::: capo_marketplace_discovery.types.fulfillment_option.FulfillmentOptionEc2ImageBuilderComponentFulfillmentOptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_marketplace_discovery.types.fulfillment_option._FulfillmentOption_dataExchangeFulfillmentOption
+::: capo_marketplace_discovery.types.fulfillment_option.FulfillmentOptionDataExchangeFulfillmentOptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_marketplace_discovery.types.fulfillment_option._FulfillmentOption_professionalServicesFulfillmentOption
+::: capo_marketplace_discovery.types.fulfillment_option.FulfillmentOptionProfessionalServicesFulfillmentOptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_marketplace_discovery.types.fulfillment_option._FulfillmentOption_saasFulfillmentOption
+::: capo_marketplace_discovery.types.fulfillment_option.FulfillmentOptionSaasFulfillmentOptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_marketplace_discovery.types.fulfillment_option._FulfillmentOption_sageMakerAlgorithmFulfillmentOption
+::: capo_marketplace_discovery.types.fulfillment_option.FulfillmentOptionSageMakerAlgorithmFulfillmentOptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_marketplace_discovery.types.fulfillment_option._FulfillmentOption_sageMakerModelFulfillmentOption
+::: capo_marketplace_discovery.types.fulfillment_option.FulfillmentOptionSageMakerModelFulfillmentOptionMember
     options:
       show_source: true
       merge_init_into_class: false

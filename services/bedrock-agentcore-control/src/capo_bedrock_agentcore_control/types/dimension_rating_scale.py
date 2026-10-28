@@ -15,17 +15,17 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.numerical_scale_definitions
 
 
-class _DimensionRatingScale_numerical(TypedDict, closed=True):
+class DimensionRatingScaleNumericalMember(TypedDict, closed=True):
     numerical: "capo_bedrock_agentcore_control.types.numerical_scale_definitions.NumericalScaleDefinitions"
 
 
-class _DimensionRatingScale_categorical(TypedDict, closed=True):
+class DimensionRatingScaleCategoricalMember(TypedDict, closed=True):
     categorical: "capo_bedrock_agentcore_control.types.categorical_scale_definitions.CategoricalScaleDefinitions"
 
 
 DimensionRatingScale: TypeAlias = (
-    _DimensionRatingScale_numerical
-    | _DimensionRatingScale_categorical
+    DimensionRatingScaleNumericalMember
+    | DimensionRatingScaleCategoricalMember
     | UnknownUnionMember
 )
 

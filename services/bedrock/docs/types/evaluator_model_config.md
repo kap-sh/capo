@@ -7,7 +7,7 @@ title: EvaluatorModelConfig
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock.types.evaluator_model_config._EvaluatorModelConfig_bedrockEvaluatorModels
+::: capo_bedrock.types.evaluator_model_config.EvaluatorModelConfigBedrockEvaluatorModelsMember
     options:
       show_source: true
       merge_init_into_class: false

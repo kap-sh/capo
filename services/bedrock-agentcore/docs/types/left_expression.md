@@ -7,7 +7,7 @@ title: LeftExpression
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore.types.left_expression._LeftExpression_metadataKey
+::: capo_bedrock_agentcore.types.left_expression.LeftExpressionMetadataKeyMember
     options:
       show_source: true
       merge_init_into_class: false

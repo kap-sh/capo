@@ -8,11 +8,11 @@ from capo_iotfleetwise.errors import DeserializationError, SerializationError
 from capo_iotfleetwise.types._unknown import UnknownUnionMember
 
 
-class _FormattedVss_vssJson(TypedDict, closed=True):
+class FormattedVssVssJsonMember(TypedDict, closed=True):
     vssJson: "str"
 
 
-FormattedVss: TypeAlias = _FormattedVss_vssJson | UnknownUnionMember
+FormattedVss: TypeAlias = FormattedVssVssJsonMember | UnknownUnionMember
 
 
 # --- awsJson1_0 ser/de ---

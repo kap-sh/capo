@@ -7,49 +7,49 @@ title: AutomatedReasoningPolicyBuildResultAssets
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock.types.automated_reasoning_policy_build_result_assets._AutomatedReasoningPolicyBuildResultAssets_policyDefinition
+::: capo_bedrock.types.automated_reasoning_policy_build_result_assets.AutomatedReasoningPolicyBuildResultAssetsPolicyDefinitionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_policy_build_result_assets._AutomatedReasoningPolicyBuildResultAssets_qualityReport
+::: capo_bedrock.types.automated_reasoning_policy_build_result_assets.AutomatedReasoningPolicyBuildResultAssetsQualityReportMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_policy_build_result_assets._AutomatedReasoningPolicyBuildResultAssets_buildLog
+::: capo_bedrock.types.automated_reasoning_policy_build_result_assets.AutomatedReasoningPolicyBuildResultAssetsBuildLogMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_policy_build_result_assets._AutomatedReasoningPolicyBuildResultAssets_generatedTestCases
+::: capo_bedrock.types.automated_reasoning_policy_build_result_assets.AutomatedReasoningPolicyBuildResultAssetsGeneratedTestCasesMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_policy_build_result_assets._AutomatedReasoningPolicyBuildResultAssets_policyScenarios
+::: capo_bedrock.types.automated_reasoning_policy_build_result_assets.AutomatedReasoningPolicyBuildResultAssetsPolicyScenariosMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_policy_build_result_assets._AutomatedReasoningPolicyBuildResultAssets_assetManifest
+::: capo_bedrock.types.automated_reasoning_policy_build_result_assets.AutomatedReasoningPolicyBuildResultAssetsAssetManifestMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_policy_build_result_assets._AutomatedReasoningPolicyBuildResultAssets_document
+::: capo_bedrock.types.automated_reasoning_policy_build_result_assets.AutomatedReasoningPolicyBuildResultAssetsDocumentMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock.types.automated_reasoning_policy_build_result_assets._AutomatedReasoningPolicyBuildResultAssets_fidelityReport
+::: capo_bedrock.types.automated_reasoning_policy_build_result_assets.AutomatedReasoningPolicyBuildResultAssetsFidelityReportMember
     options:
       show_source: true
       merge_init_into_class: false

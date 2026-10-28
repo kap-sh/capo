@@ -28,82 +28,84 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.inline_agent_trace_part
 
 
-class _InlineAgentResponseStream_chunk(TypedDict, closed=True):
+class InlineAgentResponseStreamChunkMember(TypedDict, closed=True):
     chunk: "capo_bedrock_agent_runtime.types.inline_agent_payload_part.InlineAgentPayloadPart"
 
 
-class _InlineAgentResponseStream_trace(TypedDict, closed=True):
+class InlineAgentResponseStreamTraceMember(TypedDict, closed=True):
     trace: (
         "capo_bedrock_agent_runtime.types.inline_agent_trace_part.InlineAgentTracePart"
     )
 
 
-class _InlineAgentResponseStream_returnControl(TypedDict, closed=True):
+class InlineAgentResponseStreamReturnControlMember(TypedDict, closed=True):
     returnControl: "capo_bedrock_agent_runtime.types.inline_agent_return_control_payload.InlineAgentReturnControlPayload"
 
 
-class _InlineAgentResponseStream_internalServerException(TypedDict, closed=True):
+class InlineAgentResponseStreamInternalServerExceptionMember(TypedDict, closed=True):
     internalServerException: "capo_bedrock_agent_runtime.errors.internal_server_exception.InternalServerException_"
 
 
-class _InlineAgentResponseStream_validationException(TypedDict, closed=True):
+class InlineAgentResponseStreamValidationExceptionMember(TypedDict, closed=True):
     validationException: (
         "capo_bedrock_agent_runtime.errors.validation_exception.ValidationException_"
     )
 
 
-class _InlineAgentResponseStream_resourceNotFoundException(TypedDict, closed=True):
+class InlineAgentResponseStreamResourceNotFoundExceptionMember(TypedDict, closed=True):
     resourceNotFoundException: "capo_bedrock_agent_runtime.errors.resource_not_found_exception.ResourceNotFoundException_"
 
 
-class _InlineAgentResponseStream_serviceQuotaExceededException(TypedDict, closed=True):
+class InlineAgentResponseStreamServiceQuotaExceededExceptionMember(
+    TypedDict, closed=True
+):
     serviceQuotaExceededException: "capo_bedrock_agent_runtime.errors.service_quota_exceeded_exception.ServiceQuotaExceededException_"
 
 
-class _InlineAgentResponseStream_throttlingException(TypedDict, closed=True):
+class InlineAgentResponseStreamThrottlingExceptionMember(TypedDict, closed=True):
     throttlingException: (
         "capo_bedrock_agent_runtime.errors.throttling_exception.ThrottlingException_"
     )
 
 
-class _InlineAgentResponseStream_accessDeniedException(TypedDict, closed=True):
+class InlineAgentResponseStreamAccessDeniedExceptionMember(TypedDict, closed=True):
     accessDeniedException: "capo_bedrock_agent_runtime.errors.access_denied_exception.AccessDeniedException_"
 
 
-class _InlineAgentResponseStream_conflictException(TypedDict, closed=True):
+class InlineAgentResponseStreamConflictExceptionMember(TypedDict, closed=True):
     conflictException: (
         "capo_bedrock_agent_runtime.errors.conflict_exception.ConflictException_"
     )
 
 
-class _InlineAgentResponseStream_dependencyFailedException(TypedDict, closed=True):
+class InlineAgentResponseStreamDependencyFailedExceptionMember(TypedDict, closed=True):
     dependencyFailedException: "capo_bedrock_agent_runtime.errors.dependency_failed_exception.DependencyFailedException_"
 
 
-class _InlineAgentResponseStream_badGatewayException(TypedDict, closed=True):
+class InlineAgentResponseStreamBadGatewayExceptionMember(TypedDict, closed=True):
     badGatewayException: (
         "capo_bedrock_agent_runtime.errors.bad_gateway_exception.BadGatewayException_"
     )
 
 
-class _InlineAgentResponseStream_files(TypedDict, closed=True):
+class InlineAgentResponseStreamFilesMember(TypedDict, closed=True):
     files: "capo_bedrock_agent_runtime.types.inline_agent_file_part.InlineAgentFilePart"
 
 
 _InlineAgentResponseStream: TypeAlias = (
-    _InlineAgentResponseStream_chunk
-    | _InlineAgentResponseStream_trace
-    | _InlineAgentResponseStream_returnControl
-    | _InlineAgentResponseStream_internalServerException
-    | _InlineAgentResponseStream_validationException
-    | _InlineAgentResponseStream_resourceNotFoundException
-    | _InlineAgentResponseStream_serviceQuotaExceededException
-    | _InlineAgentResponseStream_throttlingException
-    | _InlineAgentResponseStream_accessDeniedException
-    | _InlineAgentResponseStream_conflictException
-    | _InlineAgentResponseStream_dependencyFailedException
-    | _InlineAgentResponseStream_badGatewayException
-    | _InlineAgentResponseStream_files
+    InlineAgentResponseStreamChunkMember
+    | InlineAgentResponseStreamTraceMember
+    | InlineAgentResponseStreamReturnControlMember
+    | InlineAgentResponseStreamInternalServerExceptionMember
+    | InlineAgentResponseStreamValidationExceptionMember
+    | InlineAgentResponseStreamResourceNotFoundExceptionMember
+    | InlineAgentResponseStreamServiceQuotaExceededExceptionMember
+    | InlineAgentResponseStreamThrottlingExceptionMember
+    | InlineAgentResponseStreamAccessDeniedExceptionMember
+    | InlineAgentResponseStreamConflictExceptionMember
+    | InlineAgentResponseStreamDependencyFailedExceptionMember
+    | InlineAgentResponseStreamBadGatewayExceptionMember
+    | InlineAgentResponseStreamFilesMember
     | UnknownEvent
 )
 InlineAgentResponseStream: TypeAlias = AnyIterator[_InlineAgentResponseStream]

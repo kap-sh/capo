@@ -13,28 +13,28 @@ if TYPE_CHECKING:
     import capo_odb.types.okv_encryption_key_configuration
 
 
-class _EncryptionKeyConfiguration_awsEncryptionKey(TypedDict, closed=True):
+class EncryptionKeyConfigurationAwsEncryptionKeyMember(TypedDict, closed=True):
     awsEncryptionKey: (
         "capo_odb.types.aws_encryption_key_configuration.AwsEncryptionKeyConfiguration"
     )
 
 
-class _EncryptionKeyConfiguration_ociEncryptionKey(TypedDict, closed=True):
+class EncryptionKeyConfigurationOciEncryptionKeyMember(TypedDict, closed=True):
     ociEncryptionKey: (
         "capo_odb.types.oci_encryption_key_configuration.OciEncryptionKeyConfiguration"
     )
 
 
-class _EncryptionKeyConfiguration_okvEncryptionKey(TypedDict, closed=True):
+class EncryptionKeyConfigurationOkvEncryptionKeyMember(TypedDict, closed=True):
     okvEncryptionKey: (
         "capo_odb.types.okv_encryption_key_configuration.OkvEncryptionKeyConfiguration"
     )
 
 
 EncryptionKeyConfiguration: TypeAlias = (
-    _EncryptionKeyConfiguration_awsEncryptionKey
-    | _EncryptionKeyConfiguration_ociEncryptionKey
-    | _EncryptionKeyConfiguration_okvEncryptionKey
+    EncryptionKeyConfigurationAwsEncryptionKeyMember
+    | EncryptionKeyConfigurationOciEncryptionKeyMember
+    | EncryptionKeyConfigurationOkvEncryptionKeyMember
     | UnknownUnionMember
 )
 

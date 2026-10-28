@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_datazone.types.user_identifier
 
 
-class _UserPolicyGrantPrincipal_userIdentifier(TypedDict, closed=True):
+class UserPolicyGrantPrincipalUserIdentifierMember(TypedDict, closed=True):
     userIdentifier: "capo_datazone.types.user_identifier.UserIdentifier"
 
 
-class _UserPolicyGrantPrincipal_allUsersGrantFilter(TypedDict, closed=True):
+class UserPolicyGrantPrincipalAllUsersGrantFilterMember(TypedDict, closed=True):
     allUsersGrantFilter: (
         "capo_datazone.types.all_users_grant_filter.AllUsersGrantFilter"
     )
 
 
 UserPolicyGrantPrincipal: TypeAlias = (
-    _UserPolicyGrantPrincipal_userIdentifier
-    | _UserPolicyGrantPrincipal_allUsersGrantFilter
+    UserPolicyGrantPrincipalUserIdentifierMember
+    | UserPolicyGrantPrincipalAllUsersGrantFilterMember
     | UnknownUnionMember
 )
 

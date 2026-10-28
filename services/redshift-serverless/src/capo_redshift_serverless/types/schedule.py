@@ -11,15 +11,15 @@ if TYPE_CHECKING:
     import datetime
 
 
-class _Schedule_at(TypedDict, closed=True):
+class ScheduleAtMember(TypedDict, closed=True):
     at: "datetime.datetime"
 
 
-class _Schedule_cron(TypedDict, closed=True):
+class ScheduleCronMember(TypedDict, closed=True):
     cron: "str"
 
 
-Schedule: TypeAlias = _Schedule_at | _Schedule_cron | UnknownUnionMember
+Schedule: TypeAlias = ScheduleAtMember | ScheduleCronMember | UnknownUnionMember
 
 
 # --- awsJson1_1 ser/de ---

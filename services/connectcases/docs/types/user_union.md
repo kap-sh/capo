@@ -7,13 +7,13 @@ title: UserUnion
       show_source: true
       merge_init_into_class: false
 
-::: capo_connectcases.types.user_union._UserUnion_userArn
+::: capo_connectcases.types.user_union.UserUnionUserArnMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connectcases.types.user_union._UserUnion_customEntity
+::: capo_connectcases.types.user_union.UserUnionCustomEntityMember
     options:
       show_source: true
       merge_init_into_class: false

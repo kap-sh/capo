@@ -11,15 +11,17 @@ if TYPE_CHECKING:
     import capo_supportauthz.types.actions
 
 
-class _ActionSet_allActions(TypedDict, closed=True):
+class ActionSetAllActionsMember(TypedDict, closed=True):
     allActions: "None"
 
 
-class _ActionSet_actions(TypedDict, closed=True):
+class ActionSetActionsMember(TypedDict, closed=True):
     actions: "capo_supportauthz.types.actions.Actions"
 
 
-ActionSet: TypeAlias = _ActionSet_allActions | _ActionSet_actions | UnknownUnionMember
+ActionSet: TypeAlias = (
+    ActionSetAllActionsMember | ActionSetActionsMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

@@ -11,17 +11,17 @@ if TYPE_CHECKING:
     import capo_pipes.types.secret_manager_arn
 
 
-class _MSKAccessCredentials_SaslScram512Auth(TypedDict, closed=True):
+class MSKAccessCredentialsSaslScram512AuthMember(TypedDict, closed=True):
     SaslScram512Auth: "capo_pipes.types.secret_manager_arn.SecretManagerArn"
 
 
-class _MSKAccessCredentials_ClientCertificateTlsAuth(TypedDict, closed=True):
+class MSKAccessCredentialsClientCertificateTlsAuthMember(TypedDict, closed=True):
     ClientCertificateTlsAuth: "capo_pipes.types.secret_manager_arn.SecretManagerArn"
 
 
 MSKAccessCredentials: TypeAlias = (
-    _MSKAccessCredentials_SaslScram512Auth
-    | _MSKAccessCredentials_ClientCertificateTlsAuth
+    MSKAccessCredentialsSaslScram512AuthMember
+    | MSKAccessCredentialsClientCertificateTlsAuthMember
     | UnknownUnionMember
 )
 

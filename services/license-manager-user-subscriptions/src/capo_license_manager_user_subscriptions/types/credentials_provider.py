@@ -14,12 +14,14 @@ if TYPE_CHECKING:
     import capo_license_manager_user_subscriptions.types.secrets_manager_credentials_provider
 
 
-class _CredentialsProvider_SecretsManagerCredentialsProvider(TypedDict, closed=True):
+class CredentialsProviderSecretsManagerCredentialsProviderMember(
+    TypedDict, closed=True
+):
     SecretsManagerCredentialsProvider: "capo_license_manager_user_subscriptions.types.secrets_manager_credentials_provider.SecretsManagerCredentialsProvider"
 
 
 CredentialsProvider: TypeAlias = (
-    _CredentialsProvider_SecretsManagerCredentialsProvider | UnknownUnionMember
+    CredentialsProviderSecretsManagerCredentialsProviderMember | UnknownUnionMember
 )
 
 

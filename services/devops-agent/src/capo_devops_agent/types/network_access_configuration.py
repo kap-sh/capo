@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.private_network_access
 
 
-class _NetworkAccessConfiguration_privateAccess(TypedDict, closed=True):
+class NetworkAccessConfigurationPrivateAccessMember(TypedDict, closed=True):
     privateAccess: "capo_devops_agent.types.private_network_access.PrivateNetworkAccess"
 
 
 NetworkAccessConfiguration: TypeAlias = (
-    _NetworkAccessConfiguration_privateAccess | UnknownUnionMember
+    NetworkAccessConfigurationPrivateAccessMember | UnknownUnionMember
 )
 
 

@@ -7,19 +7,19 @@ title: DataSourceConfigurationInput
       show_source: true
       merge_init_into_class: false
 
-::: capo_datazone.types.data_source_configuration_input._DataSourceConfigurationInput_glueRunConfiguration
+::: capo_datazone.types.data_source_configuration_input.DataSourceConfigurationInputGlueRunConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.data_source_configuration_input._DataSourceConfigurationInput_redshiftRunConfiguration
+::: capo_datazone.types.data_source_configuration_input.DataSourceConfigurationInputRedshiftRunConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.data_source_configuration_input._DataSourceConfigurationInput_sageMakerRunConfiguration
+::: capo_datazone.types.data_source_configuration_input.DataSourceConfigurationInputSageMakerRunConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false

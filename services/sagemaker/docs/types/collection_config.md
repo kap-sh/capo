@@ -7,7 +7,7 @@ title: CollectionConfig
       show_source: true
       merge_init_into_class: false
 
-::: capo_sagemaker.types.collection_config._CollectionConfig_VectorConfig
+::: capo_sagemaker.types.collection_config.CollectionConfigVectorConfigMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -8,16 +8,16 @@ from capo_amp.errors import DeserializationError, SerializationError
 from capo_amp.types._unknown import UnknownUnionMember
 
 
-class _IgnoreNearExpected_amount(TypedDict, closed=True):
+class IgnoreNearExpectedAmountMember(TypedDict, closed=True):
     amount: "float"
 
 
-class _IgnoreNearExpected_ratio(TypedDict, closed=True):
+class IgnoreNearExpectedRatioMember(TypedDict, closed=True):
     ratio: "float"
 
 
 IgnoreNearExpected: TypeAlias = (
-    _IgnoreNearExpected_amount | _IgnoreNearExpected_ratio | UnknownUnionMember
+    IgnoreNearExpectedAmountMember | IgnoreNearExpectedRatioMember | UnknownUnionMember
 )
 
 

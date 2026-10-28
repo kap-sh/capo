@@ -17,48 +17,48 @@ if TYPE_CHECKING:
     import capo_payment_cryptography.types.trusted_certificate_public_key
 
 
-class _ImportKeyMaterial_RootCertificatePublicKey(TypedDict, closed=True):
+class ImportKeyMaterialRootCertificatePublicKeyMember(TypedDict, closed=True):
     RootCertificatePublicKey: "capo_payment_cryptography.types.root_certificate_public_key.RootCertificatePublicKey"
 
 
-class _ImportKeyMaterial_TrustedCertificatePublicKey(TypedDict, closed=True):
+class ImportKeyMaterialTrustedCertificatePublicKeyMember(TypedDict, closed=True):
     TrustedCertificatePublicKey: "capo_payment_cryptography.types.trusted_certificate_public_key.TrustedCertificatePublicKey"
 
 
-class _ImportKeyMaterial_Tr31KeyBlock(TypedDict, closed=True):
+class ImportKeyMaterialTr31KeyBlockMember(TypedDict, closed=True):
     Tr31KeyBlock: (
         "capo_payment_cryptography.types.import_tr31_key_block.ImportTr31KeyBlock"
     )
 
 
-class _ImportKeyMaterial_Tr34KeyBlock(TypedDict, closed=True):
+class ImportKeyMaterialTr34KeyBlockMember(TypedDict, closed=True):
     Tr34KeyBlock: (
         "capo_payment_cryptography.types.import_tr34_key_block.ImportTr34KeyBlock"
     )
 
 
-class _ImportKeyMaterial_KeyCryptogram(TypedDict, closed=True):
+class ImportKeyMaterialKeyCryptogramMember(TypedDict, closed=True):
     KeyCryptogram: (
         "capo_payment_cryptography.types.import_key_cryptogram.ImportKeyCryptogram"
     )
 
 
-class _ImportKeyMaterial_DiffieHellmanTr31KeyBlock(TypedDict, closed=True):
+class ImportKeyMaterialDiffieHellmanTr31KeyBlockMember(TypedDict, closed=True):
     DiffieHellmanTr31KeyBlock: "capo_payment_cryptography.types.import_diffie_hellman_tr31_key_block.ImportDiffieHellmanTr31KeyBlock"
 
 
-class _ImportKeyMaterial_As2805KeyCryptogram(TypedDict, closed=True):
+class ImportKeyMaterialAs2805KeyCryptogramMember(TypedDict, closed=True):
     As2805KeyCryptogram: "capo_payment_cryptography.types.import_as2805_key_cryptogram.ImportAs2805KeyCryptogram"
 
 
 ImportKeyMaterial: TypeAlias = (
-    _ImportKeyMaterial_RootCertificatePublicKey
-    | _ImportKeyMaterial_TrustedCertificatePublicKey
-    | _ImportKeyMaterial_Tr31KeyBlock
-    | _ImportKeyMaterial_Tr34KeyBlock
-    | _ImportKeyMaterial_KeyCryptogram
-    | _ImportKeyMaterial_DiffieHellmanTr31KeyBlock
-    | _ImportKeyMaterial_As2805KeyCryptogram
+    ImportKeyMaterialRootCertificatePublicKeyMember
+    | ImportKeyMaterialTrustedCertificatePublicKeyMember
+    | ImportKeyMaterialTr31KeyBlockMember
+    | ImportKeyMaterialTr34KeyBlockMember
+    | ImportKeyMaterialKeyCryptogramMember
+    | ImportKeyMaterialDiffieHellmanTr31KeyBlockMember
+    | ImportKeyMaterialAs2805KeyCryptogramMember
     | UnknownUnionMember
 )
 

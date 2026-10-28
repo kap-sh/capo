@@ -21,41 +21,43 @@ if TYPE_CHECKING:
     import capo_transcribe_streaming.types.medical_scribe_transcript_event
 
 
-class _MedicalScribeResultStream_TranscriptEvent(TypedDict, closed=True):
+class MedicalScribeResultStreamTranscriptEventMember(TypedDict, closed=True):
     TranscriptEvent: "capo_transcribe_streaming.types.medical_scribe_transcript_event.MedicalScribeTranscriptEvent"
 
 
-class _MedicalScribeResultStream_BadRequestException(TypedDict, closed=True):
+class MedicalScribeResultStreamBadRequestExceptionMember(TypedDict, closed=True):
     BadRequestException: (
         "capo_transcribe_streaming.errors.bad_request_exception.BadRequestException_"
     )
 
 
-class _MedicalScribeResultStream_LimitExceededException(TypedDict, closed=True):
+class MedicalScribeResultStreamLimitExceededExceptionMember(TypedDict, closed=True):
     LimitExceededException: "capo_transcribe_streaming.errors.limit_exceeded_exception.LimitExceededException_"
 
 
-class _MedicalScribeResultStream_InternalFailureException(TypedDict, closed=True):
+class MedicalScribeResultStreamInternalFailureExceptionMember(TypedDict, closed=True):
     InternalFailureException: "capo_transcribe_streaming.errors.internal_failure_exception.InternalFailureException_"
 
 
-class _MedicalScribeResultStream_ConflictException(TypedDict, closed=True):
+class MedicalScribeResultStreamConflictExceptionMember(TypedDict, closed=True):
     ConflictException: (
         "capo_transcribe_streaming.errors.conflict_exception.ConflictException_"
     )
 
 
-class _MedicalScribeResultStream_ServiceUnavailableException(TypedDict, closed=True):
+class MedicalScribeResultStreamServiceUnavailableExceptionMember(
+    TypedDict, closed=True
+):
     ServiceUnavailableException: "capo_transcribe_streaming.errors.service_unavailable_exception.ServiceUnavailableException_"
 
 
 _MedicalScribeResultStream: TypeAlias = (
-    _MedicalScribeResultStream_TranscriptEvent
-    | _MedicalScribeResultStream_BadRequestException
-    | _MedicalScribeResultStream_LimitExceededException
-    | _MedicalScribeResultStream_InternalFailureException
-    | _MedicalScribeResultStream_ConflictException
-    | _MedicalScribeResultStream_ServiceUnavailableException
+    MedicalScribeResultStreamTranscriptEventMember
+    | MedicalScribeResultStreamBadRequestExceptionMember
+    | MedicalScribeResultStreamLimitExceededExceptionMember
+    | MedicalScribeResultStreamInternalFailureExceptionMember
+    | MedicalScribeResultStreamConflictExceptionMember
+    | MedicalScribeResultStreamServiceUnavailableExceptionMember
     | UnknownEvent
 )
 MedicalScribeResultStream: TypeAlias = AnyIterator[_MedicalScribeResultStream]

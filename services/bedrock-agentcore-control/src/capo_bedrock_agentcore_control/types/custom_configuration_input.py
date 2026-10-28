@@ -18,32 +18,32 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.user_preference_override_configuration_input
 
 
-class _CustomConfigurationInput_semanticOverride(TypedDict, closed=True):
+class CustomConfigurationInputSemanticOverrideMember(TypedDict, closed=True):
     semanticOverride: "capo_bedrock_agentcore_control.types.semantic_override_configuration_input.SemanticOverrideConfigurationInput"
 
 
-class _CustomConfigurationInput_summaryOverride(TypedDict, closed=True):
+class CustomConfigurationInputSummaryOverrideMember(TypedDict, closed=True):
     summaryOverride: "capo_bedrock_agentcore_control.types.summary_override_configuration_input.SummaryOverrideConfigurationInput"
 
 
-class _CustomConfigurationInput_userPreferenceOverride(TypedDict, closed=True):
+class CustomConfigurationInputUserPreferenceOverrideMember(TypedDict, closed=True):
     userPreferenceOverride: "capo_bedrock_agentcore_control.types.user_preference_override_configuration_input.UserPreferenceOverrideConfigurationInput"
 
 
-class _CustomConfigurationInput_episodicOverride(TypedDict, closed=True):
+class CustomConfigurationInputEpisodicOverrideMember(TypedDict, closed=True):
     episodicOverride: "capo_bedrock_agentcore_control.types.episodic_override_configuration_input.EpisodicOverrideConfigurationInput"
 
 
-class _CustomConfigurationInput_selfManagedConfiguration(TypedDict, closed=True):
+class CustomConfigurationInputSelfManagedConfigurationMember(TypedDict, closed=True):
     selfManagedConfiguration: "capo_bedrock_agentcore_control.types.self_managed_configuration_input.SelfManagedConfigurationInput"
 
 
 CustomConfigurationInput: TypeAlias = (
-    _CustomConfigurationInput_semanticOverride
-    | _CustomConfigurationInput_summaryOverride
-    | _CustomConfigurationInput_userPreferenceOverride
-    | _CustomConfigurationInput_episodicOverride
-    | _CustomConfigurationInput_selfManagedConfiguration
+    CustomConfigurationInputSemanticOverrideMember
+    | CustomConfigurationInputSummaryOverrideMember
+    | CustomConfigurationInputUserPreferenceOverrideMember
+    | CustomConfigurationInputEpisodicOverrideMember
+    | CustomConfigurationInputSelfManagedConfigurationMember
     | UnknownUnionMember
 )
 

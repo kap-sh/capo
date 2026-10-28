@@ -15,21 +15,21 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.stripe_privy_configuration_output
 
 
-class _PaymentProviderConfigurationOutput_coinbaseCdpConfiguration(
+class PaymentProviderConfigurationOutputCoinbaseCdpConfigurationMember(
     TypedDict, closed=True
 ):
     coinbaseCdpConfiguration: "capo_bedrock_agentcore_control.types.coinbase_cdp_configuration_output.CoinbaseCdpConfigurationOutput"
 
 
-class _PaymentProviderConfigurationOutput_stripePrivyConfiguration(
+class PaymentProviderConfigurationOutputStripePrivyConfigurationMember(
     TypedDict, closed=True
 ):
     stripePrivyConfiguration: "capo_bedrock_agentcore_control.types.stripe_privy_configuration_output.StripePrivyConfigurationOutput"
 
 
 PaymentProviderConfigurationOutput: TypeAlias = (
-    _PaymentProviderConfigurationOutput_coinbaseCdpConfiguration
-    | _PaymentProviderConfigurationOutput_stripePrivyConfiguration
+    PaymentProviderConfigurationOutputCoinbaseCdpConfigurationMember
+    | PaymentProviderConfigurationOutputStripePrivyConfigurationMember
     | UnknownUnionMember
 )
 

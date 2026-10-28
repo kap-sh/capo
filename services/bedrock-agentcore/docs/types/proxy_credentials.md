@@ -7,7 +7,7 @@ title: ProxyCredentials
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore.types.proxy_credentials._ProxyCredentials_basicAuth
+::: capo_bedrock_agentcore.types.proxy_credentials.ProxyCredentialsBasicAuthMember
     options:
       show_source: true
       merge_init_into_class: false

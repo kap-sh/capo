@@ -16,45 +16,45 @@ if TYPE_CHECKING:
     import capo_mailmanager.types.rule_verdict_expression
 
 
-class _RuleCondition_BooleanExpression(TypedDict, closed=True):
+class RuleConditionBooleanExpressionMember(TypedDict, closed=True):
     BooleanExpression: (
         "capo_mailmanager.types.rule_boolean_expression.RuleBooleanExpression"
     )
 
 
-class _RuleCondition_StringExpression(TypedDict, closed=True):
+class RuleConditionStringExpressionMember(TypedDict, closed=True):
     StringExpression: (
         "capo_mailmanager.types.rule_string_expression.RuleStringExpression"
     )
 
 
-class _RuleCondition_NumberExpression(TypedDict, closed=True):
+class RuleConditionNumberExpressionMember(TypedDict, closed=True):
     NumberExpression: (
         "capo_mailmanager.types.rule_number_expression.RuleNumberExpression"
     )
 
 
-class _RuleCondition_IpExpression(TypedDict, closed=True):
+class RuleConditionIpExpressionMember(TypedDict, closed=True):
     IpExpression: "capo_mailmanager.types.rule_ip_expression.RuleIpExpression"
 
 
-class _RuleCondition_VerdictExpression(TypedDict, closed=True):
+class RuleConditionVerdictExpressionMember(TypedDict, closed=True):
     VerdictExpression: (
         "capo_mailmanager.types.rule_verdict_expression.RuleVerdictExpression"
     )
 
 
-class _RuleCondition_DmarcExpression(TypedDict, closed=True):
+class RuleConditionDmarcExpressionMember(TypedDict, closed=True):
     DmarcExpression: "capo_mailmanager.types.rule_dmarc_expression.RuleDmarcExpression"
 
 
 RuleCondition: TypeAlias = (
-    _RuleCondition_BooleanExpression
-    | _RuleCondition_StringExpression
-    | _RuleCondition_NumberExpression
-    | _RuleCondition_IpExpression
-    | _RuleCondition_VerdictExpression
-    | _RuleCondition_DmarcExpression
+    RuleConditionBooleanExpressionMember
+    | RuleConditionStringExpressionMember
+    | RuleConditionNumberExpressionMember
+    | RuleConditionIpExpressionMember
+    | RuleConditionVerdictExpressionMember
+    | RuleConditionDmarcExpressionMember
     | UnknownUnionMember
 )
 

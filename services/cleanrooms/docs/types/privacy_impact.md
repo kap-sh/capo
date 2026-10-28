@@ -7,7 +7,7 @@ title: PrivacyImpact
       show_source: true
       merge_init_into_class: false
 
-::: capo_cleanrooms.types.privacy_impact._PrivacyImpact_differentialPrivacy
+::: capo_cleanrooms.types.privacy_impact.PrivacyImpactDifferentialPrivacyMember
     options:
       show_source: true
       merge_init_into_class: false

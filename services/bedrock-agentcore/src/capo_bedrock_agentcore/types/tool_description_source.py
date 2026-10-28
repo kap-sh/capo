@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.tool_description_text_input
 
 
-class _ToolDescriptionSource_toolDescriptionText(TypedDict, closed=True):
+class ToolDescriptionSourceToolDescriptionTextMember(TypedDict, closed=True):
     toolDescriptionText: "capo_bedrock_agentcore.types.tool_description_text_input.ToolDescriptionTextInput"
 
 
-class _ToolDescriptionSource_configurationBundle(TypedDict, closed=True):
+class ToolDescriptionSourceConfigurationBundleMember(TypedDict, closed=True):
     configurationBundle: "capo_bedrock_agentcore.types.tool_description_configuration_bundle.ToolDescriptionConfigurationBundle"
 
 
 ToolDescriptionSource: TypeAlias = (
-    _ToolDescriptionSource_toolDescriptionText
-    | _ToolDescriptionSource_configurationBundle
+    ToolDescriptionSourceToolDescriptionTextMember
+    | ToolDescriptionSourceConfigurationBundleMember
     | UnknownUnionMember
 )
 

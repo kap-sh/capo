@@ -14,12 +14,12 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.container_configuration
 
 
-class _HarnessEnvironmentArtifact_containerConfiguration(TypedDict, closed=True):
+class HarnessEnvironmentArtifactContainerConfigurationMember(TypedDict, closed=True):
     containerConfiguration: "capo_bedrock_agentcore_control.types.container_configuration.ContainerConfiguration"
 
 
 HarnessEnvironmentArtifact: TypeAlias = (
-    _HarnessEnvironmentArtifact_containerConfiguration | UnknownUnionMember
+    HarnessEnvironmentArtifactContainerConfigurationMember | UnknownUnionMember
 )
 
 

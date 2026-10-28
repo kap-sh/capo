@@ -7,19 +7,19 @@ title: X12ValidationRule
       show_source: true
       merge_init_into_class: false
 
-::: capo_b2bi.types.x12_validation_rule._X12ValidationRule_codeListValidationRule
+::: capo_b2bi.types.x12_validation_rule.X12ValidationRuleCodeListValidationRuleMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_b2bi.types.x12_validation_rule._X12ValidationRule_elementLengthValidationRule
+::: capo_b2bi.types.x12_validation_rule.X12ValidationRuleElementLengthValidationRuleMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_b2bi.types.x12_validation_rule._X12ValidationRule_elementRequirementValidationRule
+::: capo_b2bi.types.x12_validation_rule.X12ValidationRuleElementRequirementValidationRuleMember
     options:
       show_source: true
       merge_init_into_class: false

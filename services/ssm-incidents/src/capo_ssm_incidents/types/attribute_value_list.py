@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_ssm_incidents.types.string_list
 
 
-class _AttributeValueList_stringValues(TypedDict, closed=True):
+class AttributeValueListStringValuesMember(TypedDict, closed=True):
     stringValues: "capo_ssm_incidents.types.string_list.StringList"
 
 
-class _AttributeValueList_integerValues(TypedDict, closed=True):
+class AttributeValueListIntegerValuesMember(TypedDict, closed=True):
     integerValues: "capo_ssm_incidents.types.integer_list.IntegerList"
 
 
 AttributeValueList: TypeAlias = (
-    _AttributeValueList_stringValues
-    | _AttributeValueList_integerValues
+    AttributeValueListStringValuesMember
+    | AttributeValueListIntegerValuesMember
     | UnknownUnionMember
 )
 

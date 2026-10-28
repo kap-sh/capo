@@ -15,38 +15,38 @@ if TYPE_CHECKING:
     import capo_mailmanager.types.ingress_tls_protocol_expression
 
 
-class _PolicyCondition_StringExpression(TypedDict, closed=True):
+class PolicyConditionStringExpressionMember(TypedDict, closed=True):
     StringExpression: (
         "capo_mailmanager.types.ingress_string_expression.IngressStringExpression"
     )
 
 
-class _PolicyCondition_IpExpression(TypedDict, closed=True):
+class PolicyConditionIpExpressionMember(TypedDict, closed=True):
     IpExpression: "capo_mailmanager.types.ingress_ipv4_expression.IngressIpv4Expression"
 
 
-class _PolicyCondition_Ipv6Expression(TypedDict, closed=True):
+class PolicyConditionIpv6ExpressionMember(TypedDict, closed=True):
     Ipv6Expression: (
         "capo_mailmanager.types.ingress_ipv6_expression.IngressIpv6Expression"
     )
 
 
-class _PolicyCondition_TlsExpression(TypedDict, closed=True):
+class PolicyConditionTlsExpressionMember(TypedDict, closed=True):
     TlsExpression: "capo_mailmanager.types.ingress_tls_protocol_expression.IngressTlsProtocolExpression"
 
 
-class _PolicyCondition_BooleanExpression(TypedDict, closed=True):
+class PolicyConditionBooleanExpressionMember(TypedDict, closed=True):
     BooleanExpression: (
         "capo_mailmanager.types.ingress_boolean_expression.IngressBooleanExpression"
     )
 
 
 PolicyCondition: TypeAlias = (
-    _PolicyCondition_StringExpression
-    | _PolicyCondition_IpExpression
-    | _PolicyCondition_Ipv6Expression
-    | _PolicyCondition_TlsExpression
-    | _PolicyCondition_BooleanExpression
+    PolicyConditionStringExpressionMember
+    | PolicyConditionIpExpressionMember
+    | PolicyConditionIpv6ExpressionMember
+    | PolicyConditionTlsExpressionMember
+    | PolicyConditionBooleanExpressionMember
     | UnknownUnionMember
 )
 

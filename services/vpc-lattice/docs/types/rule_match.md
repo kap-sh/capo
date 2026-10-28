@@ -7,7 +7,7 @@ title: RuleMatch
       show_source: true
       merge_init_into_class: false
 
-::: capo_vpc_lattice.types.rule_match._RuleMatch_httpMatch
+::: capo_vpc_lattice.types.rule_match.RuleMatchHttpMatchMember
     options:
       show_source: true
       merge_init_into_class: false

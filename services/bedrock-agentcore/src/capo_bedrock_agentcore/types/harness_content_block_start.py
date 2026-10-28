@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.harness_tool_use_block_start
 
 
-class _HarnessContentBlockStart_toolUse(TypedDict, closed=True):
+class HarnessContentBlockStartToolUseMember(TypedDict, closed=True):
     toolUse: "capo_bedrock_agentcore.types.harness_tool_use_block_start.HarnessToolUseBlockStart"
 
 
-class _HarnessContentBlockStart_toolResult(TypedDict, closed=True):
+class HarnessContentBlockStartToolResultMember(TypedDict, closed=True):
     toolResult: "capo_bedrock_agentcore.types.harness_tool_result_block_start.HarnessToolResultBlockStart"
 
 
 HarnessContentBlockStart: TypeAlias = (
-    _HarnessContentBlockStart_toolUse
-    | _HarnessContentBlockStart_toolResult
+    HarnessContentBlockStartToolUseMember
+    | HarnessContentBlockStartToolResultMember
     | UnknownUnionMember
 )
 

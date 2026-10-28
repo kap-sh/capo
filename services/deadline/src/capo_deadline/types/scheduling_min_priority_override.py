@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_deadline.types.scheduling_min_priority_override_always_schedule_last
 
 
-class _SchedulingMinPriorityOverride_alwaysScheduleLast(TypedDict, closed=True):
+class SchedulingMinPriorityOverrideAlwaysScheduleLastMember(TypedDict, closed=True):
     alwaysScheduleLast: "capo_deadline.types.scheduling_min_priority_override_always_schedule_last.SchedulingMinPriorityOverrideAlwaysScheduleLast"
 
 
 SchedulingMinPriorityOverride: TypeAlias = (
-    _SchedulingMinPriorityOverride_alwaysScheduleLast | UnknownUnionMember
+    SchedulingMinPriorityOverrideAlwaysScheduleLastMember | UnknownUnionMember
 )
 
 

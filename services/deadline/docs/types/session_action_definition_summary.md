@@ -7,25 +7,25 @@ title: SessionActionDefinitionSummary
       show_source: true
       merge_init_into_class: false
 
-::: capo_deadline.types.session_action_definition_summary._SessionActionDefinitionSummary_envEnter
+::: capo_deadline.types.session_action_definition_summary.SessionActionDefinitionSummaryEnvEnterMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_deadline.types.session_action_definition_summary._SessionActionDefinitionSummary_envExit
+::: capo_deadline.types.session_action_definition_summary.SessionActionDefinitionSummaryEnvExitMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_deadline.types.session_action_definition_summary._SessionActionDefinitionSummary_taskRun
+::: capo_deadline.types.session_action_definition_summary.SessionActionDefinitionSummaryTaskRunMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_deadline.types.session_action_definition_summary._SessionActionDefinitionSummary_syncInputJobAttachments
+::: capo_deadline.types.session_action_definition_summary.SessionActionDefinitionSummarySyncInputJobAttachmentsMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -7,7 +7,7 @@ title: QueryCondition
       show_source: true
       merge_init_into_class: false
 
-::: capo_qconnect.types.query_condition._QueryCondition_single
+::: capo_qconnect.types.query_condition.QueryConditionSingleMember
     options:
       show_source: true
       merge_init_into_class: false

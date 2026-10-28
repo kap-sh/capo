@@ -16,22 +16,26 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.harness_managed_memory_configuration
 
 
-class _HarnessMemoryConfiguration_agentCoreMemoryConfiguration(TypedDict, closed=True):
+class HarnessMemoryConfigurationAgentCoreMemoryConfigurationMember(
+    TypedDict, closed=True
+):
     agentCoreMemoryConfiguration: "capo_bedrock_agentcore_control.types.harness_agent_core_memory_configuration.HarnessAgentCoreMemoryConfiguration"
 
 
-class _HarnessMemoryConfiguration_managedMemoryConfiguration(TypedDict, closed=True):
+class HarnessMemoryConfigurationManagedMemoryConfigurationMember(
+    TypedDict, closed=True
+):
     managedMemoryConfiguration: "capo_bedrock_agentcore_control.types.harness_managed_memory_configuration.HarnessManagedMemoryConfiguration"
 
 
-class _HarnessMemoryConfiguration_disabled(TypedDict, closed=True):
+class HarnessMemoryConfigurationDisabledMember(TypedDict, closed=True):
     disabled: "capo_bedrock_agentcore_control.types.harness_disabled_memory_configuration.HarnessDisabledMemoryConfiguration"
 
 
 HarnessMemoryConfiguration: TypeAlias = (
-    _HarnessMemoryConfiguration_agentCoreMemoryConfiguration
-    | _HarnessMemoryConfiguration_managedMemoryConfiguration
-    | _HarnessMemoryConfiguration_disabled
+    HarnessMemoryConfigurationAgentCoreMemoryConfigurationMember
+    | HarnessMemoryConfigurationManagedMemoryConfigurationMember
+    | HarnessMemoryConfigurationDisabledMember
     | UnknownUnionMember
 )
 

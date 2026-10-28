@@ -7,7 +7,7 @@ title: CertificateAuthority
       show_source: true
       merge_init_into_class: false
 
-::: capo_acm.types.certificate_authority._CertificateAuthority_PublicCertificateAuthority
+::: capo_acm.types.certificate_authority.CertificateAuthorityPublicCertificateAuthorityMember
     options:
       show_source: true
       merge_init_into_class: false

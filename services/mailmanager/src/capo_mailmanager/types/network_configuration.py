@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_mailmanager.types.public_network_configuration
 
 
-class _NetworkConfiguration_PublicNetworkConfiguration(TypedDict, closed=True):
+class NetworkConfigurationPublicNetworkConfigurationMember(TypedDict, closed=True):
     PublicNetworkConfiguration: (
         "capo_mailmanager.types.public_network_configuration.PublicNetworkConfiguration"
     )
 
 
-class _NetworkConfiguration_PrivateNetworkConfiguration(TypedDict, closed=True):
+class NetworkConfigurationPrivateNetworkConfigurationMember(TypedDict, closed=True):
     PrivateNetworkConfiguration: "capo_mailmanager.types.private_network_configuration.PrivateNetworkConfiguration"
 
 
 NetworkConfiguration: TypeAlias = (
-    _NetworkConfiguration_PublicNetworkConfiguration
-    | _NetworkConfiguration_PrivateNetworkConfiguration
+    NetworkConfigurationPublicNetworkConfigurationMember
+    | NetworkConfigurationPrivateNetworkConfigurationMember
     | UnknownUnionMember
 )
 

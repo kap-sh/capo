@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_verifiedpermissions.types.schema_json
 
 
-class _SchemaDefinition_cedarJson(TypedDict, closed=True):
+class SchemaDefinitionCedarJsonMember(TypedDict, closed=True):
     cedarJson: "capo_verifiedpermissions.types.schema_json.SchemaJson"
 
 
-SchemaDefinition: TypeAlias = _SchemaDefinition_cedarJson | UnknownUnionMember
+SchemaDefinition: TypeAlias = SchemaDefinitionCedarJsonMember | UnknownUnionMember
 
 
 # --- awsJson1_0 ser/de ---

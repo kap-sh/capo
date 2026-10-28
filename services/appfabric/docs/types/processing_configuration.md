@@ -7,7 +7,7 @@ title: ProcessingConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_appfabric.types.processing_configuration._ProcessingConfiguration_auditLog
+::: capo_appfabric.types.processing_configuration.ProcessingConfigurationAuditLogMember
     options:
       show_source: true
       merge_init_into_class: false

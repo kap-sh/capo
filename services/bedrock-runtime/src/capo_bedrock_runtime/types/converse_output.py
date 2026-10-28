@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_bedrock_runtime.types.message
 
 
-class _ConverseOutput_message(TypedDict, closed=True):
+class ConverseOutputMessageMember(TypedDict, closed=True):
     message: "capo_bedrock_runtime.types.message.Message"
 
 
-ConverseOutput: TypeAlias = _ConverseOutput_message | UnknownUnionMember
+ConverseOutput: TypeAlias = ConverseOutputMessageMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

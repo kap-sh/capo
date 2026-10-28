@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_identitystore.types.resource_id
 
 
-class _MemberId_UserId(TypedDict, closed=True):
+class MemberIdUserIdMember(TypedDict, closed=True):
     UserId: "capo_identitystore.types.resource_id.ResourceId"
 
 
-MemberId: TypeAlias = _MemberId_UserId | UnknownUnionMember
+MemberId: TypeAlias = MemberIdUserIdMember | UnknownUnionMember
 
 
 # --- awsJson1_1 ser/de ---

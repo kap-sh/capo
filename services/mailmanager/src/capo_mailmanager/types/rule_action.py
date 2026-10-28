@@ -22,73 +22,73 @@ if TYPE_CHECKING:
     import capo_mailmanager.types.sns_action
 
 
-class _RuleAction_Drop(TypedDict, closed=True):
+class RuleActionDropMember(TypedDict, closed=True):
     Drop: "capo_mailmanager.types.drop_action.DropAction"
 
 
-class _RuleAction_Relay(TypedDict, closed=True):
+class RuleActionRelayMember(TypedDict, closed=True):
     Relay: "capo_mailmanager.types.relay_action.RelayAction"
 
 
-class _RuleAction_Archive(TypedDict, closed=True):
+class RuleActionArchiveMember(TypedDict, closed=True):
     Archive: "capo_mailmanager.types.archive_action.ArchiveAction"
 
 
-class _RuleAction_WriteToS3(TypedDict, closed=True):
+class RuleActionWriteToS3Member(TypedDict, closed=True):
     WriteToS3: "capo_mailmanager.types.s3_action.S3Action"
 
 
-class _RuleAction_Send(TypedDict, closed=True):
+class RuleActionSendMember(TypedDict, closed=True):
     Send: "capo_mailmanager.types.send_action.SendAction"
 
 
-class _RuleAction_AddHeader(TypedDict, closed=True):
+class RuleActionAddHeaderMember(TypedDict, closed=True):
     AddHeader: "capo_mailmanager.types.add_header_action.AddHeaderAction"
 
 
-class _RuleAction_ReplaceRecipient(TypedDict, closed=True):
+class RuleActionReplaceRecipientMember(TypedDict, closed=True):
     ReplaceRecipient: (
         "capo_mailmanager.types.replace_recipient_action.ReplaceRecipientAction"
     )
 
 
-class _RuleAction_DeliverToMailbox(TypedDict, closed=True):
+class RuleActionDeliverToMailboxMember(TypedDict, closed=True):
     DeliverToMailbox: (
         "capo_mailmanager.types.deliver_to_mailbox_action.DeliverToMailboxAction"
     )
 
 
-class _RuleAction_DeliverToQBusiness(TypedDict, closed=True):
+class RuleActionDeliverToQBusinessMember(TypedDict, closed=True):
     DeliverToQBusiness: (
         "capo_mailmanager.types.deliver_to_q_business_action.DeliverToQBusinessAction"
     )
 
 
-class _RuleAction_PublishToSns(TypedDict, closed=True):
+class RuleActionPublishToSnsMember(TypedDict, closed=True):
     PublishToSns: "capo_mailmanager.types.sns_action.SnsAction"
 
 
-class _RuleAction_Bounce(TypedDict, closed=True):
+class RuleActionBounceMember(TypedDict, closed=True):
     Bounce: "capo_mailmanager.types.bounce_action.BounceAction"
 
 
-class _RuleAction_InvokeLambda(TypedDict, closed=True):
+class RuleActionInvokeLambdaMember(TypedDict, closed=True):
     InvokeLambda: "capo_mailmanager.types.invoke_lambda_action.InvokeLambdaAction"
 
 
 RuleAction: TypeAlias = (
-    _RuleAction_Drop
-    | _RuleAction_Relay
-    | _RuleAction_Archive
-    | _RuleAction_WriteToS3
-    | _RuleAction_Send
-    | _RuleAction_AddHeader
-    | _RuleAction_ReplaceRecipient
-    | _RuleAction_DeliverToMailbox
-    | _RuleAction_DeliverToQBusiness
-    | _RuleAction_PublishToSns
-    | _RuleAction_Bounce
-    | _RuleAction_InvokeLambda
+    RuleActionDropMember
+    | RuleActionRelayMember
+    | RuleActionArchiveMember
+    | RuleActionWriteToS3Member
+    | RuleActionSendMember
+    | RuleActionAddHeaderMember
+    | RuleActionReplaceRecipientMember
+    | RuleActionDeliverToMailboxMember
+    | RuleActionDeliverToQBusinessMember
+    | RuleActionPublishToSnsMember
+    | RuleActionBounceMember
+    | RuleActionInvokeLambdaMember
     | UnknownUnionMember
 )
 

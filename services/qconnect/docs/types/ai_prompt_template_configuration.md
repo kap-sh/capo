@@ -7,7 +7,7 @@ title: AIPromptTemplateConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_qconnect.types.ai_prompt_template_configuration._AIPromptTemplateConfiguration_textFullAIPromptEditTemplateConfiguration
+::: capo_qconnect.types.ai_prompt_template_configuration.AIPromptTemplateConfigurationTextFullAIPromptEditTemplateConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false

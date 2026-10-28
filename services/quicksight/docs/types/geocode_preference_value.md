@@ -7,13 +7,13 @@ title: GeocodePreferenceValue
       show_source: true
       merge_init_into_class: false
 
-::: capo_quicksight.types.geocode_preference_value._GeocodePreferenceValue_GeocoderHierarchy
+::: capo_quicksight.types.geocode_preference_value.GeocodePreferenceValueGeocoderHierarchyMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.geocode_preference_value._GeocodePreferenceValue_Coordinate
+::: capo_quicksight.types.geocode_preference_value.GeocodePreferenceValueCoordinateMember
     options:
       show_source: true
       merge_init_into_class: false

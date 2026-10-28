@@ -7,31 +7,31 @@ title: QueryParameters
       show_source: true
       merge_init_into_class: false
 
-::: capo_bcm_dashboards.types.query_parameters._QueryParameters_costAndUsage
+::: capo_bcm_dashboards.types.query_parameters.QueryParametersCostAndUsageMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bcm_dashboards.types.query_parameters._QueryParameters_savingsPlansCoverage
+::: capo_bcm_dashboards.types.query_parameters.QueryParametersSavingsPlansCoverageMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bcm_dashboards.types.query_parameters._QueryParameters_savingsPlansUtilization
+::: capo_bcm_dashboards.types.query_parameters.QueryParametersSavingsPlansUtilizationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bcm_dashboards.types.query_parameters._QueryParameters_reservationCoverage
+::: capo_bcm_dashboards.types.query_parameters.QueryParametersReservationCoverageMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bcm_dashboards.types.query_parameters._QueryParameters_reservationUtilization
+::: capo_bcm_dashboards.types.query_parameters.QueryParametersReservationUtilizationMember
     options:
       show_source: true
       merge_init_into_class: false

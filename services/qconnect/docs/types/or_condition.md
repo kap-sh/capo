@@ -7,13 +7,13 @@ title: OrCondition
       show_source: true
       merge_init_into_class: false
 
-::: capo_qconnect.types.or_condition._OrCondition_andConditions
+::: capo_qconnect.types.or_condition.OrConditionAndConditionsMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_qconnect.types.or_condition._OrCondition_tagCondition
+::: capo_qconnect.types.or_condition.OrConditionTagConditionMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.secrets_manager_encryption_key_configuration
 
 
-class _MediaLiveTransitEncryptionKeyConfiguration_SecretsManager(
+class MediaLiveTransitEncryptionKeyConfigurationSecretsManagerMember(
     TypedDict, closed=True
 ):
     SecretsManager: "capo_mediaconnect.types.secrets_manager_encryption_key_configuration.SecretsManagerEncryptionKeyConfiguration"
 
 
-class _MediaLiveTransitEncryptionKeyConfiguration_Automatic(TypedDict, closed=True):
+class MediaLiveTransitEncryptionKeyConfigurationAutomaticMember(TypedDict, closed=True):
     Automatic: "capo_mediaconnect.types.automatic_encryption_key_configuration.AutomaticEncryptionKeyConfiguration"
 
 
 MediaLiveTransitEncryptionKeyConfiguration: TypeAlias = (
-    _MediaLiveTransitEncryptionKeyConfiguration_SecretsManager
-    | _MediaLiveTransitEncryptionKeyConfiguration_Automatic
+    MediaLiveTransitEncryptionKeyConfigurationSecretsManagerMember
+    | MediaLiveTransitEncryptionKeyConfigurationAutomaticMember
     | UnknownUnionMember
 )
 

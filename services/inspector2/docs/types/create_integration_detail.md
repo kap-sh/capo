@@ -7,7 +7,7 @@ title: CreateIntegrationDetail
       show_source: true
       merge_init_into_class: false
 
-::: capo_inspector2.types.create_integration_detail._CreateIntegrationDetail_gitlabSelfManaged
+::: capo_inspector2.types.create_integration_detail.CreateIntegrationDetailGitlabSelfManagedMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -7,13 +7,13 @@ title: ApiSchemaConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.api_schema_configuration._ApiSchemaConfiguration_s3
+::: capo_bedrock_agentcore_control.types.api_schema_configuration.ApiSchemaConfigurationS3Member
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore_control.types.api_schema_configuration._ApiSchemaConfiguration_inlinePayload
+::: capo_bedrock_agentcore_control.types.api_schema_configuration.ApiSchemaConfigurationInlinePayloadMember
     options:
       show_source: true
       merge_init_into_class: false

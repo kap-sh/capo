@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.agent_traces
 
 
-class _TraceElements_agentTraces(TypedDict, closed=True):
+class TraceElementsAgentTracesMember(TypedDict, closed=True):
     agentTraces: "capo_bedrock_agent_runtime.types.agent_traces.AgentTraces"
 
 
-TraceElements: TypeAlias = _TraceElements_agentTraces | UnknownUnionMember
+TraceElements: TypeAlias = TraceElementsAgentTracesMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

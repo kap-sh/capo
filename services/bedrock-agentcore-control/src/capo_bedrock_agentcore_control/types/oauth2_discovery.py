@@ -15,19 +15,19 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.oauth2_authorization_server_metadata
 
 
-class _Oauth2Discovery_discoveryUrl(TypedDict, closed=True):
+class Oauth2DiscoveryDiscoveryUrlMember(TypedDict, closed=True):
     discoveryUrl: (
         "capo_bedrock_agentcore_control.types.discovery_url_type.DiscoveryUrlType"
     )
 
 
-class _Oauth2Discovery_authorizationServerMetadata(TypedDict, closed=True):
+class Oauth2DiscoveryAuthorizationServerMetadataMember(TypedDict, closed=True):
     authorizationServerMetadata: "capo_bedrock_agentcore_control.types.oauth2_authorization_server_metadata.Oauth2AuthorizationServerMetadata"
 
 
 Oauth2Discovery: TypeAlias = (
-    _Oauth2Discovery_discoveryUrl
-    | _Oauth2Discovery_authorizationServerMetadata
+    Oauth2DiscoveryDiscoveryUrlMember
+    | Oauth2DiscoveryAuthorizationServerMetadataMember
     | UnknownUnionMember
 )
 

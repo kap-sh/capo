@@ -23,81 +23,81 @@ if TYPE_CHECKING:
     import capo_bedrock_runtime.types.video_block
 
 
-class _ContentBlock_text(TypedDict, closed=True):
+class ContentBlockTextMember(TypedDict, closed=True):
     text: "str"
 
 
-class _ContentBlock_image(TypedDict, closed=True):
+class ContentBlockImageMember(TypedDict, closed=True):
     image: "capo_bedrock_runtime.types.image_block.ImageBlock"
 
 
-class _ContentBlock_document(TypedDict, closed=True):
+class ContentBlockDocumentMember(TypedDict, closed=True):
     document: "capo_bedrock_runtime.types.document_block.DocumentBlock"
 
 
-class _ContentBlock_video(TypedDict, closed=True):
+class ContentBlockVideoMember(TypedDict, closed=True):
     video: "capo_bedrock_runtime.types.video_block.VideoBlock"
 
 
-class _ContentBlock_audio(TypedDict, closed=True):
+class ContentBlockAudioMember(TypedDict, closed=True):
     audio: "capo_bedrock_runtime.types.audio_block.AudioBlock"
 
 
-class _ContentBlock_toolUse(TypedDict, closed=True):
+class ContentBlockToolUseMember(TypedDict, closed=True):
     toolUse: "capo_bedrock_runtime.types.tool_use_block.ToolUseBlock"
 
 
-class _ContentBlock_toolResult(TypedDict, closed=True):
+class ContentBlockToolResultMember(TypedDict, closed=True):
     toolResult: "capo_bedrock_runtime.types.tool_result_block.ToolResultBlock"
 
 
-class _ContentBlock_guardContent(TypedDict, closed=True):
+class ContentBlockGuardContentMember(TypedDict, closed=True):
     guardContent: "capo_bedrock_runtime.types.guardrail_converse_content_block.GuardrailConverseContentBlock"
 
 
-class _ContentBlock_cachePoint(TypedDict, closed=True):
+class ContentBlockCachePointMember(TypedDict, closed=True):
     cachePoint: "capo_bedrock_runtime.types.cache_point_block.CachePointBlock"
 
 
-class _ContentBlock_reasoningContent(TypedDict, closed=True):
+class ContentBlockReasoningContentMember(TypedDict, closed=True):
     reasoningContent: (
         "capo_bedrock_runtime.types.reasoning_content_block.ReasoningContentBlock"
     )
 
 
-class _ContentBlock_citationsContent(TypedDict, closed=True):
+class ContentBlockCitationsContentMember(TypedDict, closed=True):
     citationsContent: (
         "capo_bedrock_runtime.types.citations_content_block.CitationsContentBlock"
     )
 
 
-class _ContentBlock_searchResult(TypedDict, closed=True):
+class ContentBlockSearchResultMember(TypedDict, closed=True):
     searchResult: "capo_bedrock_runtime.types.search_result_block.SearchResultBlock"
 
 
-class _ContentBlock_toolAddition(TypedDict, closed=True):
+class ContentBlockToolAdditionMember(TypedDict, closed=True):
     toolAddition: "capo_bedrock_runtime.types.tool_addition_block.ToolAdditionBlock"
 
 
-class _ContentBlock_toolRemoval(TypedDict, closed=True):
+class ContentBlockToolRemovalMember(TypedDict, closed=True):
     toolRemoval: "capo_bedrock_runtime.types.tool_removal_block.ToolRemovalBlock"
 
 
 ContentBlock: TypeAlias = (
-    _ContentBlock_text
-    | _ContentBlock_image
-    | _ContentBlock_document
-    | _ContentBlock_video
-    | _ContentBlock_audio
-    | _ContentBlock_toolUse
-    | _ContentBlock_toolResult
-    | _ContentBlock_guardContent
-    | _ContentBlock_cachePoint
-    | _ContentBlock_reasoningContent
-    | _ContentBlock_citationsContent
-    | _ContentBlock_searchResult
-    | _ContentBlock_toolAddition
-    | _ContentBlock_toolRemoval
+    ContentBlockTextMember
+    | ContentBlockImageMember
+    | ContentBlockDocumentMember
+    | ContentBlockVideoMember
+    | ContentBlockAudioMember
+    | ContentBlockToolUseMember
+    | ContentBlockToolResultMember
+    | ContentBlockGuardContentMember
+    | ContentBlockCachePointMember
+    | ContentBlockReasoningContentMember
+    | ContentBlockCitationsContentMember
+    | ContentBlockSearchResultMember
+    | ContentBlockToolAdditionMember
+    | ContentBlockToolRemovalMember
     | UnknownUnionMember
 )
 

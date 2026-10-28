@@ -14,27 +14,27 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.srt_listener_router_input_configuration
 
 
-class _FailoverRouterInputProtocolConfiguration_Rist(TypedDict, closed=True):
+class FailoverRouterInputProtocolConfigurationRistMember(TypedDict, closed=True):
     Rist: "capo_mediaconnect.types.rist_router_input_configuration.RistRouterInputConfiguration"
 
 
-class _FailoverRouterInputProtocolConfiguration_SrtListener(TypedDict, closed=True):
+class FailoverRouterInputProtocolConfigurationSrtListenerMember(TypedDict, closed=True):
     SrtListener: "capo_mediaconnect.types.srt_listener_router_input_configuration.SrtListenerRouterInputConfiguration"
 
 
-class _FailoverRouterInputProtocolConfiguration_SrtCaller(TypedDict, closed=True):
+class FailoverRouterInputProtocolConfigurationSrtCallerMember(TypedDict, closed=True):
     SrtCaller: "capo_mediaconnect.types.srt_caller_router_input_configuration.SrtCallerRouterInputConfiguration"
 
 
-class _FailoverRouterInputProtocolConfiguration_Rtp(TypedDict, closed=True):
+class FailoverRouterInputProtocolConfigurationRtpMember(TypedDict, closed=True):
     Rtp: "capo_mediaconnect.types.rtp_router_input_configuration.RtpRouterInputConfiguration"
 
 
 FailoverRouterInputProtocolConfiguration: TypeAlias = (
-    _FailoverRouterInputProtocolConfiguration_Rist
-    | _FailoverRouterInputProtocolConfiguration_SrtListener
-    | _FailoverRouterInputProtocolConfiguration_SrtCaller
-    | _FailoverRouterInputProtocolConfiguration_Rtp
+    FailoverRouterInputProtocolConfigurationRistMember
+    | FailoverRouterInputProtocolConfigurationSrtListenerMember
+    | FailoverRouterInputProtocolConfigurationSrtCallerMember
+    | FailoverRouterInputProtocolConfigurationRtpMember
     | UnknownUnionMember
 )
 

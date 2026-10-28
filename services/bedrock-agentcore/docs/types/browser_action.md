@@ -7,49 +7,49 @@ title: BrowserAction
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore.types.browser_action._BrowserAction_mouseClick
+::: capo_bedrock_agentcore.types.browser_action.BrowserActionMouseClickMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.browser_action._BrowserAction_mouseMove
+::: capo_bedrock_agentcore.types.browser_action.BrowserActionMouseMoveMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.browser_action._BrowserAction_mouseDrag
+::: capo_bedrock_agentcore.types.browser_action.BrowserActionMouseDragMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.browser_action._BrowserAction_mouseScroll
+::: capo_bedrock_agentcore.types.browser_action.BrowserActionMouseScrollMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.browser_action._BrowserAction_keyType
+::: capo_bedrock_agentcore.types.browser_action.BrowserActionKeyTypeMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.browser_action._BrowserAction_keyPress
+::: capo_bedrock_agentcore.types.browser_action.BrowserActionKeyPressMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.browser_action._BrowserAction_keyShortcut
+::: capo_bedrock_agentcore.types.browser_action.BrowserActionKeyShortcutMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.browser_action._BrowserAction_screenshot
+::: capo_bedrock_agentcore.types.browser_action.BrowserActionScreenshotMember
     options:
       show_source: true
       merge_init_into_class: false

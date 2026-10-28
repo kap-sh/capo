@@ -7,7 +7,7 @@ title: ExportDestination
       show_source: true
       merge_init_into_class: false
 
-::: capo_securityhub.types.export_destination._ExportDestination_S3
+::: capo_securityhub.types.export_destination.ExportDestinationS3Member
     options:
       show_source: true
       merge_init_into_class: false

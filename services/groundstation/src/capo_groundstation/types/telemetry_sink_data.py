@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_groundstation.types.kinesis_data_stream_data
 
 
-class _TelemetrySinkData_kinesisDataStreamData(TypedDict, closed=True):
+class TelemetrySinkDataKinesisDataStreamDataMember(TypedDict, closed=True):
     kinesisDataStreamData: (
         "capo_groundstation.types.kinesis_data_stream_data.KinesisDataStreamData"
     )
 
 
 TelemetrySinkData: TypeAlias = (
-    _TelemetrySinkData_kinesisDataStreamData | UnknownUnionMember
+    TelemetrySinkDataKinesisDataStreamDataMember | UnknownUnionMember
 )
 
 

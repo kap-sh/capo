@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_iottwinmaker.types.metadata_transfer_job_state
 
 
-class _ListMetadataTransferJobsFilter_workspaceId(TypedDict, closed=True):
+class ListMetadataTransferJobsFilterWorkspaceIdMember(TypedDict, closed=True):
     workspaceId: "capo_iottwinmaker.types.id.Id"
 
 
-class _ListMetadataTransferJobsFilter_state(TypedDict, closed=True):
+class ListMetadataTransferJobsFilterStateMember(TypedDict, closed=True):
     state: (
         "capo_iottwinmaker.types.metadata_transfer_job_state.MetadataTransferJobState"
     )
 
 
 ListMetadataTransferJobsFilter: TypeAlias = (
-    _ListMetadataTransferJobsFilter_workspaceId
-    | _ListMetadataTransferJobsFilter_state
+    ListMetadataTransferJobsFilterWorkspaceIdMember
+    | ListMetadataTransferJobsFilterStateMember
     | UnknownUnionMember
 )
 

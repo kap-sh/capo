@@ -12,24 +12,24 @@ if TYPE_CHECKING:
     import capo_qconnect.types.retrieval_filter_list
 
 
-class _RetrievalFilterConfiguration_andAll(TypedDict, closed=True):
+class RetrievalFilterConfigurationAndAllMember(TypedDict, closed=True):
     andAll: "capo_qconnect.types.retrieval_filter_list.RetrievalFilterList"
 
 
-class _RetrievalFilterConfiguration_equals(TypedDict, closed=True):
+class RetrievalFilterConfigurationEqualsMember(TypedDict, closed=True):
     equals: "capo_qconnect.types.filter_attribute.FilterAttribute"
 
 
-class _RetrievalFilterConfiguration_greaterThan(TypedDict, closed=True):
+class RetrievalFilterConfigurationGreaterThanMember(TypedDict, closed=True):
     greaterThan: "capo_qconnect.types.filter_attribute.FilterAttribute"
 
 
-class _RetrievalFilterConfiguration_greaterThanOrEquals(TypedDict, closed=True):
+class RetrievalFilterConfigurationGreaterThanOrEqualsMember(TypedDict, closed=True):
     greaterThanOrEquals: "capo_qconnect.types.filter_attribute.FilterAttribute"
 
 
-_RetrievalFilterConfiguration_in = TypedDict(
-    "_RetrievalFilterConfiguration_in",
+RetrievalFilterConfigurationInMember = TypedDict(
+    "RetrievalFilterConfigurationInMember",
     {
         "in": "capo_qconnect.types.filter_attribute.FilterAttribute",
     },
@@ -37,52 +37,52 @@ _RetrievalFilterConfiguration_in = TypedDict(
 )
 
 
-class _RetrievalFilterConfiguration_lessThan(TypedDict, closed=True):
+class RetrievalFilterConfigurationLessThanMember(TypedDict, closed=True):
     lessThan: "capo_qconnect.types.filter_attribute.FilterAttribute"
 
 
-class _RetrievalFilterConfiguration_lessThanOrEquals(TypedDict, closed=True):
+class RetrievalFilterConfigurationLessThanOrEqualsMember(TypedDict, closed=True):
     lessThanOrEquals: "capo_qconnect.types.filter_attribute.FilterAttribute"
 
 
-class _RetrievalFilterConfiguration_listContains(TypedDict, closed=True):
+class RetrievalFilterConfigurationListContainsMember(TypedDict, closed=True):
     listContains: "capo_qconnect.types.filter_attribute.FilterAttribute"
 
 
-class _RetrievalFilterConfiguration_notEquals(TypedDict, closed=True):
+class RetrievalFilterConfigurationNotEqualsMember(TypedDict, closed=True):
     notEquals: "capo_qconnect.types.filter_attribute.FilterAttribute"
 
 
-class _RetrievalFilterConfiguration_notIn(TypedDict, closed=True):
+class RetrievalFilterConfigurationNotInMember(TypedDict, closed=True):
     notIn: "capo_qconnect.types.filter_attribute.FilterAttribute"
 
 
-class _RetrievalFilterConfiguration_orAll(TypedDict, closed=True):
+class RetrievalFilterConfigurationOrAllMember(TypedDict, closed=True):
     orAll: "capo_qconnect.types.retrieval_filter_list.RetrievalFilterList"
 
 
-class _RetrievalFilterConfiguration_startsWith(TypedDict, closed=True):
+class RetrievalFilterConfigurationStartsWithMember(TypedDict, closed=True):
     startsWith: "capo_qconnect.types.filter_attribute.FilterAttribute"
 
 
-class _RetrievalFilterConfiguration_stringContains(TypedDict, closed=True):
+class RetrievalFilterConfigurationStringContainsMember(TypedDict, closed=True):
     stringContains: "capo_qconnect.types.filter_attribute.FilterAttribute"
 
 
 RetrievalFilterConfiguration: TypeAlias = (
-    _RetrievalFilterConfiguration_andAll
-    | _RetrievalFilterConfiguration_equals
-    | _RetrievalFilterConfiguration_greaterThan
-    | _RetrievalFilterConfiguration_greaterThanOrEquals
-    | _RetrievalFilterConfiguration_in
-    | _RetrievalFilterConfiguration_lessThan
-    | _RetrievalFilterConfiguration_lessThanOrEquals
-    | _RetrievalFilterConfiguration_listContains
-    | _RetrievalFilterConfiguration_notEquals
-    | _RetrievalFilterConfiguration_notIn
-    | _RetrievalFilterConfiguration_orAll
-    | _RetrievalFilterConfiguration_startsWith
-    | _RetrievalFilterConfiguration_stringContains
+    RetrievalFilterConfigurationAndAllMember
+    | RetrievalFilterConfigurationEqualsMember
+    | RetrievalFilterConfigurationGreaterThanMember
+    | RetrievalFilterConfigurationGreaterThanOrEqualsMember
+    | RetrievalFilterConfigurationInMember
+    | RetrievalFilterConfigurationLessThanMember
+    | RetrievalFilterConfigurationLessThanOrEqualsMember
+    | RetrievalFilterConfigurationListContainsMember
+    | RetrievalFilterConfigurationNotEqualsMember
+    | RetrievalFilterConfigurationNotInMember
+    | RetrievalFilterConfigurationOrAllMember
+    | RetrievalFilterConfigurationStartsWithMember
+    | RetrievalFilterConfigurationStringContainsMember
     | UnknownUnionMember
 )
 

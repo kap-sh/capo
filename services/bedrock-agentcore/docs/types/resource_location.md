@@ -7,7 +7,7 @@ title: ResourceLocation
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore.types.resource_location._ResourceLocation_s3
+::: capo_bedrock_agentcore.types.resource_location.ResourceLocationS3Member
     options:
       show_source: true
       merge_init_into_class: false

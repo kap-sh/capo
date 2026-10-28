@@ -14,33 +14,35 @@ if TYPE_CHECKING:
     import capo_qbusiness.types.string_list_attribute_boosting_configuration
 
 
-class _DocumentAttributeBoostingConfiguration_numberConfiguration(
+class DocumentAttributeBoostingConfigurationNumberConfigurationMember(
     TypedDict, closed=True
 ):
     numberConfiguration: "capo_qbusiness.types.number_attribute_boosting_configuration.NumberAttributeBoostingConfiguration"
 
 
-class _DocumentAttributeBoostingConfiguration_stringConfiguration(
+class DocumentAttributeBoostingConfigurationStringConfigurationMember(
     TypedDict, closed=True
 ):
     stringConfiguration: "capo_qbusiness.types.string_attribute_boosting_configuration.StringAttributeBoostingConfiguration"
 
 
-class _DocumentAttributeBoostingConfiguration_dateConfiguration(TypedDict, closed=True):
+class DocumentAttributeBoostingConfigurationDateConfigurationMember(
+    TypedDict, closed=True
+):
     dateConfiguration: "capo_qbusiness.types.date_attribute_boosting_configuration.DateAttributeBoostingConfiguration"
 
 
-class _DocumentAttributeBoostingConfiguration_stringListConfiguration(
+class DocumentAttributeBoostingConfigurationStringListConfigurationMember(
     TypedDict, closed=True
 ):
     stringListConfiguration: "capo_qbusiness.types.string_list_attribute_boosting_configuration.StringListAttributeBoostingConfiguration"
 
 
 DocumentAttributeBoostingConfiguration: TypeAlias = (
-    _DocumentAttributeBoostingConfiguration_numberConfiguration
-    | _DocumentAttributeBoostingConfiguration_stringConfiguration
-    | _DocumentAttributeBoostingConfiguration_dateConfiguration
-    | _DocumentAttributeBoostingConfiguration_stringListConfiguration
+    DocumentAttributeBoostingConfigurationNumberConfigurationMember
+    | DocumentAttributeBoostingConfigurationStringConfigurationMember
+    | DocumentAttributeBoostingConfigurationDateConfigurationMember
+    | DocumentAttributeBoostingConfigurationStringListConfigurationMember
     | UnknownUnionMember
 )
 

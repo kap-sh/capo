@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.embedded_crypto_wallet
 
 
-class _PaymentInstrumentDetails_embeddedCryptoWallet(TypedDict, closed=True):
+class PaymentInstrumentDetailsEmbeddedCryptoWalletMember(TypedDict, closed=True):
     embeddedCryptoWallet: (
         "capo_bedrock_agentcore.types.embedded_crypto_wallet.EmbeddedCryptoWallet"
     )
 
 
 PaymentInstrumentDetails: TypeAlias = (
-    _PaymentInstrumentDetails_embeddedCryptoWallet | UnknownUnionMember
+    PaymentInstrumentDetailsEmbeddedCryptoWalletMember | UnknownUnionMember
 )
 
 

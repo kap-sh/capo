@@ -7,7 +7,7 @@ title: ClientCredentialsDetails
       show_source: true
       merge_init_into_class: false
 
-::: capo_quicksight.types.client_credentials_details._ClientCredentialsDetails_ClientCredentialsGrantDetails
+::: capo_quicksight.types.client_credentials_details.ClientCredentialsDetailsClientCredentialsGrantDetailsMember
     options:
       show_source: true
       merge_init_into_class: false

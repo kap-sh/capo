@@ -7,7 +7,7 @@ title: Permissions
       show_source: true
       merge_init_into_class: false
 
-::: capo_datazone.types.permissions._Permissions_s3
+::: capo_datazone.types.permissions.PermissionsS3Member
     options:
       show_source: true
       merge_init_into_class: false

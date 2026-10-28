@@ -15,17 +15,17 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.weighted_route
 
 
-class _RouteToTargetAction_staticRoute(TypedDict, closed=True):
+class RouteToTargetActionStaticRouteMember(TypedDict, closed=True):
     staticRoute: "capo_bedrock_agentcore_control.types.static_route.StaticRoute"
 
 
-class _RouteToTargetAction_weightedRoute(TypedDict, closed=True):
+class RouteToTargetActionWeightedRouteMember(TypedDict, closed=True):
     weightedRoute: "capo_bedrock_agentcore_control.types.weighted_route.WeightedRoute"
 
 
 RouteToTargetAction: TypeAlias = (
-    _RouteToTargetAction_staticRoute
-    | _RouteToTargetAction_weightedRoute
+    RouteToTargetActionStaticRouteMember
+    | RouteToTargetActionWeightedRouteMember
     | UnknownUnionMember
 )
 

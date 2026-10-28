@@ -7,7 +7,7 @@ title: MembershipProtectedJobOutputConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_cleanrooms.types.membership_protected_job_output_configuration._MembershipProtectedJobOutputConfiguration_s3
+::: capo_cleanrooms.types.membership_protected_job_output_configuration.MembershipProtectedJobOutputConfigurationS3Member
     options:
       show_source: true
       merge_init_into_class: false

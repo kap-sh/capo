@@ -25,61 +25,61 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.harness_metadata_event
 
 
-class _InvokeHarnessStreamOutput_messageStart(TypedDict, closed=True):
+class InvokeHarnessStreamOutputMessageStartMember(TypedDict, closed=True):
     messageStart: "capo_bedrock_agentcore.types.harness_message_start_event.HarnessMessageStartEvent"
 
 
-class _InvokeHarnessStreamOutput_contentBlockStart(TypedDict, closed=True):
+class InvokeHarnessStreamOutputContentBlockStartMember(TypedDict, closed=True):
     contentBlockStart: "capo_bedrock_agentcore.types.harness_content_block_start_event.HarnessContentBlockStartEvent"
 
 
-class _InvokeHarnessStreamOutput_contentBlockDelta(TypedDict, closed=True):
+class InvokeHarnessStreamOutputContentBlockDeltaMember(TypedDict, closed=True):
     contentBlockDelta: "capo_bedrock_agentcore.types.harness_content_block_delta_event.HarnessContentBlockDeltaEvent"
 
 
-class _InvokeHarnessStreamOutput_contentBlockStop(TypedDict, closed=True):
+class InvokeHarnessStreamOutputContentBlockStopMember(TypedDict, closed=True):
     contentBlockStop: "capo_bedrock_agentcore.types.harness_content_block_stop_event.HarnessContentBlockStopEvent"
 
 
-class _InvokeHarnessStreamOutput_messageStop(TypedDict, closed=True):
+class InvokeHarnessStreamOutputMessageStopMember(TypedDict, closed=True):
     messageStop: "capo_bedrock_agentcore.types.harness_message_stop_event.HarnessMessageStopEvent"
 
 
-class _InvokeHarnessStreamOutput_metadata(TypedDict, closed=True):
+class InvokeHarnessStreamOutputMetadataMember(TypedDict, closed=True):
     metadata: "capo_bedrock_agentcore.types.harness_metadata_event.HarnessMetadataEvent"
 
 
-class _InvokeHarnessStreamOutput_internalServerException(TypedDict, closed=True):
+class InvokeHarnessStreamOutputInternalServerExceptionMember(TypedDict, closed=True):
     internalServerException: "capo_bedrock_agentcore.errors.internal_server_exception.InternalServerException_"
 
 
-class _InvokeHarnessStreamOutput_validationException(TypedDict, closed=True):
+class InvokeHarnessStreamOutputValidationExceptionMember(TypedDict, closed=True):
     validationException: (
         "capo_bedrock_agentcore.errors.validation_exception.ValidationException_"
     )
 
 
-class _InvokeHarnessStreamOutput_runtimeClientError(TypedDict, closed=True):
+class InvokeHarnessStreamOutputRuntimeClientErrorMember(TypedDict, closed=True):
     runtimeClientError: (
         "capo_bedrock_agentcore.errors.runtime_client_error.RuntimeClientError_"
     )
 
 
-class _InvokeHarnessStreamOutput_hookEvent(TypedDict, closed=True):
+class InvokeHarnessStreamOutputHookEventMember(TypedDict, closed=True):
     hookEvent: "capo_bedrock_agentcore.types.harness_hook_event.HarnessHookEvent"
 
 
 _InvokeHarnessStreamOutput: TypeAlias = (
-    _InvokeHarnessStreamOutput_messageStart
-    | _InvokeHarnessStreamOutput_contentBlockStart
-    | _InvokeHarnessStreamOutput_contentBlockDelta
-    | _InvokeHarnessStreamOutput_contentBlockStop
-    | _InvokeHarnessStreamOutput_messageStop
-    | _InvokeHarnessStreamOutput_metadata
-    | _InvokeHarnessStreamOutput_internalServerException
-    | _InvokeHarnessStreamOutput_validationException
-    | _InvokeHarnessStreamOutput_runtimeClientError
-    | _InvokeHarnessStreamOutput_hookEvent
+    InvokeHarnessStreamOutputMessageStartMember
+    | InvokeHarnessStreamOutputContentBlockStartMember
+    | InvokeHarnessStreamOutputContentBlockDeltaMember
+    | InvokeHarnessStreamOutputContentBlockStopMember
+    | InvokeHarnessStreamOutputMessageStopMember
+    | InvokeHarnessStreamOutputMetadataMember
+    | InvokeHarnessStreamOutputInternalServerExceptionMember
+    | InvokeHarnessStreamOutputValidationExceptionMember
+    | InvokeHarnessStreamOutputRuntimeClientErrorMember
+    | InvokeHarnessStreamOutputHookEventMember
     | UnknownEvent
 )
 InvokeHarnessStreamOutput: TypeAlias = AnyIterator[_InvokeHarnessStreamOutput]

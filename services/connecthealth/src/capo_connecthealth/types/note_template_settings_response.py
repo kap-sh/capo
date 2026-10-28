@@ -12,21 +12,21 @@ if TYPE_CHECKING:
     import capo_connecthealth.types.managed_template_response
 
 
-class _NoteTemplateSettingsResponse_managedTemplate(TypedDict, closed=True):
+class NoteTemplateSettingsResponseManagedTemplateMember(TypedDict, closed=True):
     managedTemplate: (
         "capo_connecthealth.types.managed_template_response.ManagedTemplateResponse"
     )
 
 
-class _NoteTemplateSettingsResponse_customTemplate(TypedDict, closed=True):
+class NoteTemplateSettingsResponseCustomTemplateMember(TypedDict, closed=True):
     customTemplate: (
         "capo_connecthealth.types.custom_template_response.CustomTemplateResponse"
     )
 
 
 NoteTemplateSettingsResponse: TypeAlias = (
-    _NoteTemplateSettingsResponse_managedTemplate
-    | _NoteTemplateSettingsResponse_customTemplate
+    NoteTemplateSettingsResponseManagedTemplateMember
+    | NoteTemplateSettingsResponseCustomTemplateMember
     | UnknownUnionMember
 )
 

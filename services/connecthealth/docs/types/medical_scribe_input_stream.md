@@ -13,25 +13,25 @@ title: MedicalScribeInputStream
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connecthealth.types.medical_scribe_input_stream._MedicalScribeInputStream_audioEvent
+::: capo_connecthealth.types.medical_scribe_input_stream.MedicalScribeInputStreamAudioEventMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connecthealth.types.medical_scribe_input_stream._MedicalScribeInputStream_binaryAudioEvent
+::: capo_connecthealth.types.medical_scribe_input_stream.MedicalScribeInputStreamBinaryAudioEventMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connecthealth.types.medical_scribe_input_stream._MedicalScribeInputStream_sessionControlEvent
+::: capo_connecthealth.types.medical_scribe_input_stream.MedicalScribeInputStreamSessionControlEventMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connecthealth.types.medical_scribe_input_stream._MedicalScribeInputStream_configurationEvent
+::: capo_connecthealth.types.medical_scribe_input_stream.MedicalScribeInputStreamConfigurationEventMember
     options:
       show_source: true
       merge_init_into_class: false

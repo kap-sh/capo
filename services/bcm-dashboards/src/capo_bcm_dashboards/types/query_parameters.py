@@ -15,34 +15,34 @@ if TYPE_CHECKING:
     import capo_bcm_dashboards.types.savings_plans_utilization_query
 
 
-class _QueryParameters_costAndUsage(TypedDict, closed=True):
+class QueryParametersCostAndUsageMember(TypedDict, closed=True):
     costAndUsage: "capo_bcm_dashboards.types.cost_and_usage_query.CostAndUsageQuery"
 
 
-class _QueryParameters_savingsPlansCoverage(TypedDict, closed=True):
+class QueryParametersSavingsPlansCoverageMember(TypedDict, closed=True):
     savingsPlansCoverage: "capo_bcm_dashboards.types.savings_plans_coverage_query.SavingsPlansCoverageQuery"
 
 
-class _QueryParameters_savingsPlansUtilization(TypedDict, closed=True):
+class QueryParametersSavingsPlansUtilizationMember(TypedDict, closed=True):
     savingsPlansUtilization: "capo_bcm_dashboards.types.savings_plans_utilization_query.SavingsPlansUtilizationQuery"
 
 
-class _QueryParameters_reservationCoverage(TypedDict, closed=True):
+class QueryParametersReservationCoverageMember(TypedDict, closed=True):
     reservationCoverage: (
         "capo_bcm_dashboards.types.reservation_coverage_query.ReservationCoverageQuery"
     )
 
 
-class _QueryParameters_reservationUtilization(TypedDict, closed=True):
+class QueryParametersReservationUtilizationMember(TypedDict, closed=True):
     reservationUtilization: "capo_bcm_dashboards.types.reservation_utilization_query.ReservationUtilizationQuery"
 
 
 QueryParameters: TypeAlias = (
-    _QueryParameters_costAndUsage
-    | _QueryParameters_savingsPlansCoverage
-    | _QueryParameters_savingsPlansUtilization
-    | _QueryParameters_reservationCoverage
-    | _QueryParameters_reservationUtilization
+    QueryParametersCostAndUsageMember
+    | QueryParametersSavingsPlansCoverageMember
+    | QueryParametersSavingsPlansUtilizationMember
+    | QueryParametersReservationCoverageMember
+    | QueryParametersReservationUtilizationMember
     | UnknownUnionMember
 )
 

@@ -7,7 +7,7 @@ title: CaCertificatesBundleSource
       show_source: true
       merge_init_into_class: false
 
-::: capo_cloudfront.types.ca_certificates_bundle_source._CaCertificatesBundleSource_CaCertificatesBundleS3Location
+::: capo_cloudfront.types.ca_certificates_bundle_source.CaCertificatesBundleSourceCaCertificatesBundleS3LocationMember
     options:
       show_source: true
       merge_init_into_class: false

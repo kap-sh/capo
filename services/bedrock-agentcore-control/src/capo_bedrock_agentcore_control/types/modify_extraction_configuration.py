@@ -14,14 +14,15 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.custom_extraction_configuration_input
 
 
-class _ModifyExtractionConfiguration_customExtractionConfiguration(
+class ModifyExtractionConfigurationCustomExtractionConfigurationMember(
     TypedDict, closed=True
 ):
     customExtractionConfiguration: "capo_bedrock_agentcore_control.types.custom_extraction_configuration_input.CustomExtractionConfigurationInput"
 
 
 ModifyExtractionConfiguration: TypeAlias = (
-    _ModifyExtractionConfiguration_customExtractionConfiguration | UnknownUnionMember
+    ModifyExtractionConfigurationCustomExtractionConfigurationMember
+    | UnknownUnionMember
 )
 
 

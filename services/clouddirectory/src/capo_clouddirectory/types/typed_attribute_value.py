@@ -15,36 +15,36 @@ if TYPE_CHECKING:
     import capo_clouddirectory.types.string_attribute_value
 
 
-class _TypedAttributeValue_StringValue(TypedDict, closed=True):
+class TypedAttributeValueStringValueMember(TypedDict, closed=True):
     StringValue: "capo_clouddirectory.types.string_attribute_value.StringAttributeValue"
 
 
-class _TypedAttributeValue_BinaryValue(TypedDict, closed=True):
+class TypedAttributeValueBinaryValueMember(TypedDict, closed=True):
     BinaryValue: "capo_clouddirectory.types.binary_attribute_value.BinaryAttributeValue"
 
 
-class _TypedAttributeValue_BooleanValue(TypedDict, closed=True):
+class TypedAttributeValueBooleanValueMember(TypedDict, closed=True):
     BooleanValue: (
         "capo_clouddirectory.types.boolean_attribute_value.BooleanAttributeValue"
     )
 
 
-class _TypedAttributeValue_NumberValue(TypedDict, closed=True):
+class TypedAttributeValueNumberValueMember(TypedDict, closed=True):
     NumberValue: "capo_clouddirectory.types.number_attribute_value.NumberAttributeValue"
 
 
-class _TypedAttributeValue_DatetimeValue(TypedDict, closed=True):
+class TypedAttributeValueDatetimeValueMember(TypedDict, closed=True):
     DatetimeValue: (
         "capo_clouddirectory.types.datetime_attribute_value.DatetimeAttributeValue"
     )
 
 
 TypedAttributeValue: TypeAlias = (
-    _TypedAttributeValue_StringValue
-    | _TypedAttributeValue_BinaryValue
-    | _TypedAttributeValue_BooleanValue
-    | _TypedAttributeValue_NumberValue
-    | _TypedAttributeValue_DatetimeValue
+    TypedAttributeValueStringValueMember
+    | TypedAttributeValueBinaryValueMember
+    | TypedAttributeValueBooleanValueMember
+    | TypedAttributeValueNumberValueMember
+    | TypedAttributeValueDatetimeValueMember
     | UnknownUnionMember
 )
 

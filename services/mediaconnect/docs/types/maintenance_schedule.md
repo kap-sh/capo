@@ -7,7 +7,7 @@ title: MaintenanceSchedule
       show_source: true
       merge_init_into_class: false
 
-::: capo_mediaconnect.types.maintenance_schedule._MaintenanceSchedule_Window
+::: capo_mediaconnect.types.maintenance_schedule.MaintenanceScheduleWindowMember
     options:
       show_source: true
       merge_init_into_class: false

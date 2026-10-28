@@ -17,60 +17,60 @@ if TYPE_CHECKING:
     import capo_medical_imaging.types.dicom_study_instance_uid
 
 
-class _SearchByAttributeValue_DICOMPatientId(TypedDict, closed=True):
+class SearchByAttributeValueDICOMPatientIdMember(TypedDict, closed=True):
     DICOMPatientId: "capo_medical_imaging.types.dicom_patient_id.DICOMPatientId"
 
 
-class _SearchByAttributeValue_DICOMAccessionNumber(TypedDict, closed=True):
+class SearchByAttributeValueDICOMAccessionNumberMember(TypedDict, closed=True):
     DICOMAccessionNumber: (
         "capo_medical_imaging.types.dicom_accession_number.DICOMAccessionNumber"
     )
 
 
-class _SearchByAttributeValue_DICOMStudyId(TypedDict, closed=True):
+class SearchByAttributeValueDICOMStudyIdMember(TypedDict, closed=True):
     DICOMStudyId: "capo_medical_imaging.types.dicom_study_id.DICOMStudyId"
 
 
-class _SearchByAttributeValue_DICOMStudyInstanceUID(TypedDict, closed=True):
+class SearchByAttributeValueDICOMStudyInstanceUIDMember(TypedDict, closed=True):
     DICOMStudyInstanceUID: (
         "capo_medical_imaging.types.dicom_study_instance_uid.DICOMStudyInstanceUID"
     )
 
 
-class _SearchByAttributeValue_DICOMSeriesInstanceUID(TypedDict, closed=True):
+class SearchByAttributeValueDICOMSeriesInstanceUIDMember(TypedDict, closed=True):
     DICOMSeriesInstanceUID: (
         "capo_medical_imaging.types.dicom_series_instance_uid.DICOMSeriesInstanceUID"
     )
 
 
-class _SearchByAttributeValue_createdAt(TypedDict, closed=True):
+class SearchByAttributeValueCreatedAtMember(TypedDict, closed=True):
     createdAt: "capo_medical_imaging.types.date.Date"
 
 
-class _SearchByAttributeValue_updatedAt(TypedDict, closed=True):
+class SearchByAttributeValueUpdatedAtMember(TypedDict, closed=True):
     updatedAt: "capo_medical_imaging.types.date.Date"
 
 
-class _SearchByAttributeValue_DICOMStudyDateAndTime(TypedDict, closed=True):
+class SearchByAttributeValueDICOMStudyDateAndTimeMember(TypedDict, closed=True):
     DICOMStudyDateAndTime: (
         "capo_medical_imaging.types.dicom_study_date_and_time.DICOMStudyDateAndTime"
     )
 
 
-class _SearchByAttributeValue_isPrimary(TypedDict, closed=True):
+class SearchByAttributeValueIsPrimaryMember(TypedDict, closed=True):
     isPrimary: "bool"
 
 
 SearchByAttributeValue: TypeAlias = (
-    _SearchByAttributeValue_DICOMPatientId
-    | _SearchByAttributeValue_DICOMAccessionNumber
-    | _SearchByAttributeValue_DICOMStudyId
-    | _SearchByAttributeValue_DICOMStudyInstanceUID
-    | _SearchByAttributeValue_DICOMSeriesInstanceUID
-    | _SearchByAttributeValue_createdAt
-    | _SearchByAttributeValue_updatedAt
-    | _SearchByAttributeValue_DICOMStudyDateAndTime
-    | _SearchByAttributeValue_isPrimary
+    SearchByAttributeValueDICOMPatientIdMember
+    | SearchByAttributeValueDICOMAccessionNumberMember
+    | SearchByAttributeValueDICOMStudyIdMember
+    | SearchByAttributeValueDICOMStudyInstanceUIDMember
+    | SearchByAttributeValueDICOMSeriesInstanceUIDMember
+    | SearchByAttributeValueCreatedAtMember
+    | SearchByAttributeValueUpdatedAtMember
+    | SearchByAttributeValueDICOMStudyDateAndTimeMember
+    | SearchByAttributeValueIsPrimaryMember
     | UnknownUnionMember
 )
 

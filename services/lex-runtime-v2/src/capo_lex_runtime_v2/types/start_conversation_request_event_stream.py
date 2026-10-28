@@ -21,25 +21,27 @@ if TYPE_CHECKING:
     import capo_lex_runtime_v2.types.text_input_event
 
 
-class _StartConversationRequestEventStream_ConfigurationEvent(TypedDict, closed=True):
+class StartConversationRequestEventStreamConfigurationEventMember(
+    TypedDict, closed=True
+):
     ConfigurationEvent: (
         "capo_lex_runtime_v2.types.configuration_event.ConfigurationEvent"
     )
 
 
-class _StartConversationRequestEventStream_AudioInputEvent(TypedDict, closed=True):
+class StartConversationRequestEventStreamAudioInputEventMember(TypedDict, closed=True):
     AudioInputEvent: "capo_lex_runtime_v2.types.audio_input_event.AudioInputEvent"
 
 
-class _StartConversationRequestEventStream_DTMFInputEvent(TypedDict, closed=True):
+class StartConversationRequestEventStreamDTMFInputEventMember(TypedDict, closed=True):
     DTMFInputEvent: "capo_lex_runtime_v2.types.dtmf_input_event.DTMFInputEvent"
 
 
-class _StartConversationRequestEventStream_TextInputEvent(TypedDict, closed=True):
+class StartConversationRequestEventStreamTextInputEventMember(TypedDict, closed=True):
     TextInputEvent: "capo_lex_runtime_v2.types.text_input_event.TextInputEvent"
 
 
-class _StartConversationRequestEventStream_PlaybackCompletionEvent(
+class StartConversationRequestEventStreamPlaybackCompletionEventMember(
     TypedDict, closed=True
 ):
     PlaybackCompletionEvent: (
@@ -47,19 +49,21 @@ class _StartConversationRequestEventStream_PlaybackCompletionEvent(
     )
 
 
-class _StartConversationRequestEventStream_DisconnectionEvent(TypedDict, closed=True):
+class StartConversationRequestEventStreamDisconnectionEventMember(
+    TypedDict, closed=True
+):
     DisconnectionEvent: (
         "capo_lex_runtime_v2.types.disconnection_event.DisconnectionEvent"
     )
 
 
 _StartConversationRequestEventStream: TypeAlias = (
-    _StartConversationRequestEventStream_ConfigurationEvent
-    | _StartConversationRequestEventStream_AudioInputEvent
-    | _StartConversationRequestEventStream_DTMFInputEvent
-    | _StartConversationRequestEventStream_TextInputEvent
-    | _StartConversationRequestEventStream_PlaybackCompletionEvent
-    | _StartConversationRequestEventStream_DisconnectionEvent
+    StartConversationRequestEventStreamConfigurationEventMember
+    | StartConversationRequestEventStreamAudioInputEventMember
+    | StartConversationRequestEventStreamDTMFInputEventMember
+    | StartConversationRequestEventStreamTextInputEventMember
+    | StartConversationRequestEventStreamPlaybackCompletionEventMember
+    | StartConversationRequestEventStreamDisconnectionEventMember
     | UnknownEvent
 )
 StartConversationRequestEventStream: TypeAlias = AnyIterator[

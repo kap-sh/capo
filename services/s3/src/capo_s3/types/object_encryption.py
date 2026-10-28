@@ -12,11 +12,11 @@ if TYPE_CHECKING:
     import capo_s3.types.ssekms_encryption
 
 
-class _ObjectEncryption_SSEKMS(TypedDict, closed=True):
+class ObjectEncryptionSSEKMSMember(TypedDict, closed=True):
     SSEKMS: "capo_s3.types.ssekms_encryption.SSEKMSEncryption"
 
 
-ObjectEncryption: TypeAlias = _ObjectEncryption_SSEKMS | UnknownUnionMember
+ObjectEncryption: TypeAlias = ObjectEncryptionSSEKMSMember | UnknownUnionMember
 
 
 # --- restXml ser/de ---

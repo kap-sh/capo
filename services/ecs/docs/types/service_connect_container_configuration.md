@@ -7,7 +7,7 @@ title: ServiceConnectContainerConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_ecs.types.service_connect_container_configuration._ServiceConnectContainerConfiguration_logLevel
+::: capo_ecs.types.service_connect_container_configuration.ServiceConnectContainerConfigurationLogLevelMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -7,7 +7,7 @@ title: AnalysisRulePolicy
       show_source: true
       merge_init_into_class: false
 
-::: capo_cleanrooms.types.analysis_rule_policy._AnalysisRulePolicy_v1
+::: capo_cleanrooms.types.analysis_rule_policy.AnalysisRulePolicyV1Member
     options:
       show_source: true
       merge_init_into_class: false

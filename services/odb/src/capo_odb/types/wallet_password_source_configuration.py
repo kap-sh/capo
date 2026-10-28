@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_odb.types.customer_managed_aws_secret_configuration
 
 
-class _WalletPasswordSourceConfiguration_customerManagedAwsSecret(
+class WalletPasswordSourceConfigurationCustomerManagedAwsSecretMember(
     TypedDict, closed=True
 ):
     customerManagedAwsSecret: "capo_odb.types.customer_managed_aws_secret_configuration.CustomerManagedAwsSecretConfiguration"
 
 
 WalletPasswordSourceConfiguration: TypeAlias = (
-    _WalletPasswordSourceConfiguration_customerManagedAwsSecret | UnknownUnionMember
+    WalletPasswordSourceConfigurationCustomerManagedAwsSecretMember | UnknownUnionMember
 )
 
 

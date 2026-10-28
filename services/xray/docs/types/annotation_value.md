@@ -7,19 +7,19 @@ title: AnnotationValue
       show_source: true
       merge_init_into_class: false
 
-::: capo_xray.types.annotation_value._AnnotationValue_NumberValue
+::: capo_xray.types.annotation_value.AnnotationValueNumberValueMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_xray.types.annotation_value._AnnotationValue_BooleanValue
+::: capo_xray.types.annotation_value.AnnotationValueBooleanValueMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_xray.types.annotation_value._AnnotationValue_StringValue
+::: capo_xray.types.annotation_value.AnnotationValueStringValueMember
     options:
       show_source: true
       merge_init_into_class: false

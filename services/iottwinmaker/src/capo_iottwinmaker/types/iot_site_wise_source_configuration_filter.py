@@ -12,19 +12,21 @@ if TYPE_CHECKING:
     import capo_iottwinmaker.types.filter_by_asset_model
 
 
-class _IotSiteWiseSourceConfigurationFilter_filterByAssetModel(TypedDict, closed=True):
+class IotSiteWiseSourceConfigurationFilterFilterByAssetModelMember(
+    TypedDict, closed=True
+):
     filterByAssetModel: (
         "capo_iottwinmaker.types.filter_by_asset_model.FilterByAssetModel"
     )
 
 
-class _IotSiteWiseSourceConfigurationFilter_filterByAsset(TypedDict, closed=True):
+class IotSiteWiseSourceConfigurationFilterFilterByAssetMember(TypedDict, closed=True):
     filterByAsset: "capo_iottwinmaker.types.filter_by_asset.FilterByAsset"
 
 
 IotSiteWiseSourceConfigurationFilter: TypeAlias = (
-    _IotSiteWiseSourceConfigurationFilter_filterByAssetModel
-    | _IotSiteWiseSourceConfigurationFilter_filterByAsset
+    IotSiteWiseSourceConfigurationFilterFilterByAssetModelMember
+    | IotSiteWiseSourceConfigurationFilterFilterByAssetMember
     | UnknownUnionMember
 )
 

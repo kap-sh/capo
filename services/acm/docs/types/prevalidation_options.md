@@ -7,7 +7,7 @@ title: PrevalidationOptions
       show_source: true
       merge_init_into_class: false
 
-::: capo_acm.types.prevalidation_options._PrevalidationOptions_DnsPrevalidation
+::: capo_acm.types.prevalidation_options.PrevalidationOptionsDnsPrevalidationMember
     options:
       show_source: true
       merge_init_into_class: false

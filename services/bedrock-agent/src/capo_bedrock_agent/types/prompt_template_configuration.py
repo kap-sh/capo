@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_bedrock_agent.types.text_prompt_template_configuration
 
 
-class _PromptTemplateConfiguration_text(TypedDict, closed=True):
+class PromptTemplateConfigurationTextMember(TypedDict, closed=True):
     text: "capo_bedrock_agent.types.text_prompt_template_configuration.TextPromptTemplateConfiguration"
 
 
-class _PromptTemplateConfiguration_chat(TypedDict, closed=True):
+class PromptTemplateConfigurationChatMember(TypedDict, closed=True):
     chat: "capo_bedrock_agent.types.chat_prompt_template_configuration.ChatPromptTemplateConfiguration"
 
 
 PromptTemplateConfiguration: TypeAlias = (
-    _PromptTemplateConfiguration_text
-    | _PromptTemplateConfiguration_chat
+    PromptTemplateConfigurationTextMember
+    | PromptTemplateConfigurationChatMember
     | UnknownUnionMember
 )
 

@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_datazone.types.redshift_self_grant_status_output
 
 
-class _SelfGrantStatusOutput_glueSelfGrantStatus(TypedDict, closed=True):
+class SelfGrantStatusOutputGlueSelfGrantStatusMember(TypedDict, closed=True):
     glueSelfGrantStatus: (
         "capo_datazone.types.glue_self_grant_status_output.GlueSelfGrantStatusOutput"
     )
 
 
-class _SelfGrantStatusOutput_redshiftSelfGrantStatus(TypedDict, closed=True):
+class SelfGrantStatusOutputRedshiftSelfGrantStatusMember(TypedDict, closed=True):
     redshiftSelfGrantStatus: "capo_datazone.types.redshift_self_grant_status_output.RedshiftSelfGrantStatusOutput"
 
 
 SelfGrantStatusOutput: TypeAlias = (
-    _SelfGrantStatusOutput_glueSelfGrantStatus
-    | _SelfGrantStatusOutput_redshiftSelfGrantStatus
+    SelfGrantStatusOutputGlueSelfGrantStatusMember
+    | SelfGrantStatusOutputRedshiftSelfGrantStatusMember
     | UnknownUnionMember
 )
 

@@ -7,7 +7,7 @@ title: ChatModeConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_qbusiness.types.chat_mode_configuration._ChatModeConfiguration_pluginConfiguration
+::: capo_qbusiness.types.chat_mode_configuration.ChatModeConfigurationPluginConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false

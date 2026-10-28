@@ -12,15 +12,17 @@ if TYPE_CHECKING:
     import capo_emr_serverless.types.spark_submit
 
 
-class _JobDriver_sparkSubmit(TypedDict, closed=True):
+class JobDriverSparkSubmitMember(TypedDict, closed=True):
     sparkSubmit: "capo_emr_serverless.types.spark_submit.SparkSubmit"
 
 
-class _JobDriver_hive(TypedDict, closed=True):
+class JobDriverHiveMember(TypedDict, closed=True):
     hive: "capo_emr_serverless.types.hive.Hive"
 
 
-JobDriver: TypeAlias = _JobDriver_sparkSubmit | _JobDriver_hive | UnknownUnionMember
+JobDriver: TypeAlias = (
+    JobDriverSparkSubmitMember | JobDriverHiveMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

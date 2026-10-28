@@ -7,25 +7,25 @@ title: RouterOutputConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_mediaconnect.types.router_output_configuration._RouterOutputConfiguration_Standard
+::: capo_mediaconnect.types.router_output_configuration.RouterOutputConfigurationStandardMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mediaconnect.types.router_output_configuration._RouterOutputConfiguration_MediaConnectFlow
+::: capo_mediaconnect.types.router_output_configuration.RouterOutputConfigurationMediaConnectFlowMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mediaconnect.types.router_output_configuration._RouterOutputConfiguration_MediaLiveInput
+::: capo_mediaconnect.types.router_output_configuration.RouterOutputConfigurationMediaLiveInputMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mediaconnect.types.router_output_configuration._RouterOutputConfiguration_SourceEndpoint
+::: capo_mediaconnect.types.router_output_configuration.RouterOutputConfigurationSourceEndpointMember
     options:
       show_source: true
       merge_init_into_class: false

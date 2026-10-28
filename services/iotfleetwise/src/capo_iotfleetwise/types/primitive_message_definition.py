@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_iotfleetwise.types.ros2_primitive_message_definition
 
 
-class _PrimitiveMessageDefinition_ros2PrimitiveMessageDefinition(
+class PrimitiveMessageDefinitionRos2PrimitiveMessageDefinitionMember(
     TypedDict, closed=True
 ):
     ros2PrimitiveMessageDefinition: "capo_iotfleetwise.types.ros2_primitive_message_definition.ROS2PrimitiveMessageDefinition"
 
 
 PrimitiveMessageDefinition: TypeAlias = (
-    _PrimitiveMessageDefinition_ros2PrimitiveMessageDefinition | UnknownUnionMember
+    PrimitiveMessageDefinitionRos2PrimitiveMessageDefinitionMember | UnknownUnionMember
 )
 
 

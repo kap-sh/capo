@@ -16,37 +16,37 @@ if TYPE_CHECKING:
     import capo_iotfleetwise.types.sensor
 
 
-class _Node_branch(TypedDict, closed=True):
+class NodeBranchMember(TypedDict, closed=True):
     branch: "capo_iotfleetwise.types.branch.Branch"
 
 
-class _Node_sensor(TypedDict, closed=True):
+class NodeSensorMember(TypedDict, closed=True):
     sensor: "capo_iotfleetwise.types.sensor.Sensor"
 
 
-class _Node_actuator(TypedDict, closed=True):
+class NodeActuatorMember(TypedDict, closed=True):
     actuator: "capo_iotfleetwise.types.actuator.Actuator"
 
 
-class _Node_attribute(TypedDict, closed=True):
+class NodeAttributeMember(TypedDict, closed=True):
     attribute: "capo_iotfleetwise.types.attribute.Attribute"
 
 
-class _Node_struct(TypedDict, closed=True):
+class NodeStructMember(TypedDict, closed=True):
     struct: "capo_iotfleetwise.types.custom_struct.CustomStruct"
 
 
-class _Node_property(TypedDict, closed=True):
+class NodePropertyMember(TypedDict, closed=True):
     property: "capo_iotfleetwise.types.custom_property.CustomProperty"
 
 
 Node: TypeAlias = (
-    _Node_branch
-    | _Node_sensor
-    | _Node_actuator
-    | _Node_attribute
-    | _Node_struct
-    | _Node_property
+    NodeBranchMember
+    | NodeSensorMember
+    | NodeActuatorMember
+    | NodeAttributeMember
+    | NodeStructMember
+    | NodePropertyMember
     | UnknownUnionMember
 )
 

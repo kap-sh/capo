@@ -12,19 +12,21 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.protected_query_s3_output_configuration
 
 
-class _ProtectedQueryDistributeOutputConfigurationLocation_s3(TypedDict, closed=True):
+class ProtectedQueryDistributeOutputConfigurationLocationS3Member(
+    TypedDict, closed=True
+):
     s3: "capo_cleanrooms.types.protected_query_s3_output_configuration.ProtectedQueryS3OutputConfiguration"
 
 
-class _ProtectedQueryDistributeOutputConfigurationLocation_member(
+class ProtectedQueryDistributeOutputConfigurationLocationMemberMember(
     TypedDict, closed=True
 ):
     member: "capo_cleanrooms.types.protected_query_member_output_configuration.ProtectedQueryMemberOutputConfiguration"
 
 
 ProtectedQueryDistributeOutputConfigurationLocation: TypeAlias = (
-    _ProtectedQueryDistributeOutputConfigurationLocation_s3
-    | _ProtectedQueryDistributeOutputConfigurationLocation_member
+    ProtectedQueryDistributeOutputConfigurationLocationS3Member
+    | ProtectedQueryDistributeOutputConfigurationLocationMemberMember
     | UnknownUnionMember
 )
 

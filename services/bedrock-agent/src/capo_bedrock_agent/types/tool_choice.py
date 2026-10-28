@@ -13,20 +13,23 @@ if TYPE_CHECKING:
     import capo_bedrock_agent.types.specific_tool_choice
 
 
-class _ToolChoice_auto(TypedDict, closed=True):
+class ToolChoiceAutoMember(TypedDict, closed=True):
     auto: "capo_bedrock_agent.types.auto_tool_choice.AutoToolChoice"
 
 
-class _ToolChoice_any(TypedDict, closed=True):
+class ToolChoiceAnyMember(TypedDict, closed=True):
     any: "capo_bedrock_agent.types.any_tool_choice.AnyToolChoice"
 
 
-class _ToolChoice_tool(TypedDict, closed=True):
+class ToolChoiceToolMember(TypedDict, closed=True):
     tool: "capo_bedrock_agent.types.specific_tool_choice.SpecificToolChoice"
 
 
 ToolChoice: TypeAlias = (
-    _ToolChoice_auto | _ToolChoice_any | _ToolChoice_tool | UnknownUnionMember
+    ToolChoiceAutoMember
+    | ToolChoiceAnyMember
+    | ToolChoiceToolMember
+    | UnknownUnionMember
 )
 
 

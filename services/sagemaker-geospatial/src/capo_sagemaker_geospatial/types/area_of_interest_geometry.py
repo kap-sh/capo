@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_sagemaker_geospatial.types.polygon_geometry_input
 
 
-class _AreaOfInterestGeometry_PolygonGeometry(TypedDict, closed=True):
+class AreaOfInterestGeometryPolygonGeometryMember(TypedDict, closed=True):
     PolygonGeometry: (
         "capo_sagemaker_geospatial.types.polygon_geometry_input.PolygonGeometryInput"
     )
 
 
-class _AreaOfInterestGeometry_MultiPolygonGeometry(TypedDict, closed=True):
+class AreaOfInterestGeometryMultiPolygonGeometryMember(TypedDict, closed=True):
     MultiPolygonGeometry: "capo_sagemaker_geospatial.types.multi_polygon_geometry_input.MultiPolygonGeometryInput"
 
 
 AreaOfInterestGeometry: TypeAlias = (
-    _AreaOfInterestGeometry_PolygonGeometry
-    | _AreaOfInterestGeometry_MultiPolygonGeometry
+    AreaOfInterestGeometryPolygonGeometryMember
+    | AreaOfInterestGeometryMultiPolygonGeometryMember
     | UnknownUnionMember
 )
 

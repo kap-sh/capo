@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_rtbfabric.types.rate_limiter_module_parameters
 
 
-class _ModuleParameters_noBid(TypedDict, closed=True):
+class ModuleParametersNoBidMember(TypedDict, closed=True):
     noBid: "capo_rtbfabric.types.no_bid_module_parameters.NoBidModuleParameters"
 
 
-class _ModuleParameters_openRtbAttribute(TypedDict, closed=True):
+class ModuleParametersOpenRtbAttributeMember(TypedDict, closed=True):
     openRtbAttribute: "capo_rtbfabric.types.open_rtb_attribute_module_parameters.OpenRtbAttributeModuleParameters"
 
 
-class _ModuleParameters_rateLimiter(TypedDict, closed=True):
+class ModuleParametersRateLimiterMember(TypedDict, closed=True):
     rateLimiter: "capo_rtbfabric.types.rate_limiter_module_parameters.RateLimiterModuleParameters"
 
 
 ModuleParameters: TypeAlias = (
-    _ModuleParameters_noBid
-    | _ModuleParameters_openRtbAttribute
-    | _ModuleParameters_rateLimiter
+    ModuleParametersNoBidMember
+    | ModuleParametersOpenRtbAttributeMember
+    | ModuleParametersRateLimiterMember
     | UnknownUnionMember
 )
 

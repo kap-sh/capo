@@ -12,19 +12,21 @@ if TYPE_CHECKING:
     import capo_connect.types.participant_timer_duration_in_minutes
 
 
-class _ParticipantTimerValue_ParticipantTimerAction(TypedDict, closed=True):
+class ParticipantTimerValueParticipantTimerActionMember(TypedDict, closed=True):
     ParticipantTimerAction: (
         "capo_connect.types.participant_timer_action.ParticipantTimerAction"
     )
 
 
-class _ParticipantTimerValue_ParticipantTimerDurationInMinutes(TypedDict, closed=True):
+class ParticipantTimerValueParticipantTimerDurationInMinutesMember(
+    TypedDict, closed=True
+):
     ParticipantTimerDurationInMinutes: "capo_connect.types.participant_timer_duration_in_minutes.ParticipantTimerDurationInMinutes"
 
 
 ParticipantTimerValue: TypeAlias = (
-    _ParticipantTimerValue_ParticipantTimerAction
-    | _ParticipantTimerValue_ParticipantTimerDurationInMinutes
+    ParticipantTimerValueParticipantTimerActionMember
+    | ParticipantTimerValueParticipantTimerDurationInMinutesMember
     | UnknownUnionMember
 )
 

@@ -13,26 +13,26 @@ if TYPE_CHECKING:
     import capo_partnercentral_channel.types.resold_unified_operations
 
 
-class _SupportPlan_resoldEnterprise(TypedDict, closed=True):
+class SupportPlanResoldEnterpriseMember(TypedDict, closed=True):
     resoldEnterprise: (
         "capo_partnercentral_channel.types.resold_enterprise.ResoldEnterprise"
     )
 
 
-class _SupportPlan_partnerLedSupport(TypedDict, closed=True):
+class SupportPlanPartnerLedSupportMember(TypedDict, closed=True):
     partnerLedSupport: (
         "capo_partnercentral_channel.types.partner_led_support.PartnerLedSupport"
     )
 
 
-class _SupportPlan_resoldUnifiedOperations(TypedDict, closed=True):
+class SupportPlanResoldUnifiedOperationsMember(TypedDict, closed=True):
     resoldUnifiedOperations: "capo_partnercentral_channel.types.resold_unified_operations.ResoldUnifiedOperations"
 
 
 SupportPlan: TypeAlias = (
-    _SupportPlan_resoldEnterprise
-    | _SupportPlan_partnerLedSupport
-    | _SupportPlan_resoldUnifiedOperations
+    SupportPlanResoldEnterpriseMember
+    | SupportPlanPartnerLedSupportMember
+    | SupportPlanResoldUnifiedOperationsMember
     | UnknownUnionMember
 )
 

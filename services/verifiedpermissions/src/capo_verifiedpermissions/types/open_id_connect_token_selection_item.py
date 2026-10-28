@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_verifiedpermissions.types.open_id_connect_identity_token_configuration_item
 
 
-class _OpenIdConnectTokenSelectionItem_accessTokenOnly(TypedDict, closed=True):
+class OpenIdConnectTokenSelectionItemAccessTokenOnlyMember(TypedDict, closed=True):
     accessTokenOnly: "capo_verifiedpermissions.types.open_id_connect_access_token_configuration_item.OpenIdConnectAccessTokenConfigurationItem"
 
 
-class _OpenIdConnectTokenSelectionItem_identityTokenOnly(TypedDict, closed=True):
+class OpenIdConnectTokenSelectionItemIdentityTokenOnlyMember(TypedDict, closed=True):
     identityTokenOnly: "capo_verifiedpermissions.types.open_id_connect_identity_token_configuration_item.OpenIdConnectIdentityTokenConfigurationItem"
 
 
 OpenIdConnectTokenSelectionItem: TypeAlias = (
-    _OpenIdConnectTokenSelectionItem_accessTokenOnly
-    | _OpenIdConnectTokenSelectionItem_identityTokenOnly
+    OpenIdConnectTokenSelectionItemAccessTokenOnlyMember
+    | OpenIdConnectTokenSelectionItemIdentityTokenOnlyMember
     | UnknownUnionMember
 )
 

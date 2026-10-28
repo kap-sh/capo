@@ -24,56 +24,56 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.send_message_summary_event
 
 
-class _SendMessageEvents_responseCreated(TypedDict, closed=True):
+class SendMessageEventsResponseCreatedMember(TypedDict, closed=True):
     responseCreated: "capo_devops_agent.types.send_message_response_created_event.SendMessageResponseCreatedEvent"
 
 
-class _SendMessageEvents_responseInProgress(TypedDict, closed=True):
+class SendMessageEventsResponseInProgressMember(TypedDict, closed=True):
     responseInProgress: "capo_devops_agent.types.send_message_response_in_progress_event.SendMessageResponseInProgressEvent"
 
 
-class _SendMessageEvents_responseCompleted(TypedDict, closed=True):
+class SendMessageEventsResponseCompletedMember(TypedDict, closed=True):
     responseCompleted: "capo_devops_agent.types.send_message_response_completed_event.SendMessageResponseCompletedEvent"
 
 
-class _SendMessageEvents_responseFailed(TypedDict, closed=True):
+class SendMessageEventsResponseFailedMember(TypedDict, closed=True):
     responseFailed: "capo_devops_agent.types.send_message_response_failed_event.SendMessageResponseFailedEvent"
 
 
-class _SendMessageEvents_summary(TypedDict, closed=True):
+class SendMessageEventsSummaryMember(TypedDict, closed=True):
     summary: (
         "capo_devops_agent.types.send_message_summary_event.SendMessageSummaryEvent"
     )
 
 
-class _SendMessageEvents_heartbeat(TypedDict, closed=True):
+class SendMessageEventsHeartbeatMember(TypedDict, closed=True):
     heartbeat: (
         "capo_devops_agent.types.send_message_heartbeat_event.SendMessageHeartbeatEvent"
     )
 
 
-class _SendMessageEvents_contentBlockStart(TypedDict, closed=True):
+class SendMessageEventsContentBlockStartMember(TypedDict, closed=True):
     contentBlockStart: "capo_devops_agent.types.send_message_content_block_start_event.SendMessageContentBlockStartEvent"
 
 
-class _SendMessageEvents_contentBlockDelta(TypedDict, closed=True):
+class SendMessageEventsContentBlockDeltaMember(TypedDict, closed=True):
     contentBlockDelta: "capo_devops_agent.types.send_message_content_block_delta_event.SendMessageContentBlockDeltaEvent"
 
 
-class _SendMessageEvents_contentBlockStop(TypedDict, closed=True):
+class SendMessageEventsContentBlockStopMember(TypedDict, closed=True):
     contentBlockStop: "capo_devops_agent.types.send_message_content_block_stop_event.SendMessageContentBlockStopEvent"
 
 
 _SendMessageEvents: TypeAlias = (
-    _SendMessageEvents_responseCreated
-    | _SendMessageEvents_responseInProgress
-    | _SendMessageEvents_responseCompleted
-    | _SendMessageEvents_responseFailed
-    | _SendMessageEvents_summary
-    | _SendMessageEvents_heartbeat
-    | _SendMessageEvents_contentBlockStart
-    | _SendMessageEvents_contentBlockDelta
-    | _SendMessageEvents_contentBlockStop
+    SendMessageEventsResponseCreatedMember
+    | SendMessageEventsResponseInProgressMember
+    | SendMessageEventsResponseCompletedMember
+    | SendMessageEventsResponseFailedMember
+    | SendMessageEventsSummaryMember
+    | SendMessageEventsHeartbeatMember
+    | SendMessageEventsContentBlockStartMember
+    | SendMessageEventsContentBlockDeltaMember
+    | SendMessageEventsContentBlockStopMember
     | UnknownEvent
 )
 SendMessageEvents: TypeAlias = AnyIterator[_SendMessageEvents]

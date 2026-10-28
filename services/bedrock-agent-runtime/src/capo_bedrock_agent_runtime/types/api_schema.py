@@ -12,15 +12,15 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.s3_identifier
 
 
-class _APISchema_s3(TypedDict, closed=True):
+class APISchemaS3Member(TypedDict, closed=True):
     s3: "capo_bedrock_agent_runtime.types.s3_identifier.S3Identifier"
 
 
-class _APISchema_payload(TypedDict, closed=True):
+class APISchemaPayloadMember(TypedDict, closed=True):
     payload: "capo_bedrock_agent_runtime.types.payload.Payload"
 
 
-APISchema: TypeAlias = _APISchema_s3 | _APISchema_payload | UnknownUnionMember
+APISchema: TypeAlias = APISchemaS3Member | APISchemaPayloadMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

@@ -7,7 +7,7 @@ title: Credentials
       show_source: true
       merge_init_into_class: false
 
-::: capo_emr_containers.types.credentials._Credentials_token
+::: capo_emr_containers.types.credentials.CredentialsTokenMember
     options:
       show_source: true
       merge_init_into_class: false

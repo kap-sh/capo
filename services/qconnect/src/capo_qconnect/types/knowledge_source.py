@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_qconnect.types.assistant_association_id_list
 
 
-class _KnowledgeSource_assistantAssociationIds(TypedDict, closed=True):
+class KnowledgeSourceAssistantAssociationIdsMember(TypedDict, closed=True):
     assistantAssociationIds: (
         "capo_qconnect.types.assistant_association_id_list.AssistantAssociationIdList"
     )
 
 
 KnowledgeSource: TypeAlias = (
-    _KnowledgeSource_assistantAssociationIds | UnknownUnionMember
+    KnowledgeSourceAssistantAssociationIdsMember | UnknownUnionMember
 )
 
 

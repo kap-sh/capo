@@ -12,19 +12,19 @@ if TYPE_CHECKING:
     import capo_sagemaker_geospatial.types.reverse_geocoding_config
 
 
-class _VectorEnrichmentJobConfig_ReverseGeocodingConfig(TypedDict, closed=True):
+class VectorEnrichmentJobConfigReverseGeocodingConfigMember(TypedDict, closed=True):
     ReverseGeocodingConfig: "capo_sagemaker_geospatial.types.reverse_geocoding_config.ReverseGeocodingConfig"
 
 
-class _VectorEnrichmentJobConfig_MapMatchingConfig(TypedDict, closed=True):
+class VectorEnrichmentJobConfigMapMatchingConfigMember(TypedDict, closed=True):
     MapMatchingConfig: (
         "capo_sagemaker_geospatial.types.map_matching_config.MapMatchingConfig"
     )
 
 
 VectorEnrichmentJobConfig: TypeAlias = (
-    _VectorEnrichmentJobConfig_ReverseGeocodingConfig
-    | _VectorEnrichmentJobConfig_MapMatchingConfig
+    VectorEnrichmentJobConfigReverseGeocodingConfigMember
+    | VectorEnrichmentJobConfigMapMatchingConfigMember
     | UnknownUnionMember
 )
 

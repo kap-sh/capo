@@ -16,32 +16,32 @@ if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.translation_pin_data_iso_format1
 
 
-class _TranslationIsoFormats_IsoFormat0(TypedDict, closed=True):
+class TranslationIsoFormatsIsoFormat0Member(TypedDict, closed=True):
     IsoFormat0: "capo_payment_cryptography_data.types.translation_pin_data_iso_format034.TranslationPinDataIsoFormat034"
 
 
-class _TranslationIsoFormats_IsoFormat1(TypedDict, closed=True):
+class TranslationIsoFormatsIsoFormat1Member(TypedDict, closed=True):
     IsoFormat1: "capo_payment_cryptography_data.types.translation_pin_data_iso_format1.TranslationPinDataIsoFormat1"
 
 
-class _TranslationIsoFormats_IsoFormat3(TypedDict, closed=True):
+class TranslationIsoFormatsIsoFormat3Member(TypedDict, closed=True):
     IsoFormat3: "capo_payment_cryptography_data.types.translation_pin_data_iso_format034.TranslationPinDataIsoFormat034"
 
 
-class _TranslationIsoFormats_IsoFormat4(TypedDict, closed=True):
+class TranslationIsoFormatsIsoFormat4Member(TypedDict, closed=True):
     IsoFormat4: "capo_payment_cryptography_data.types.translation_pin_data_iso_format034.TranslationPinDataIsoFormat034"
 
 
-class _TranslationIsoFormats_As2805Format0(TypedDict, closed=True):
+class TranslationIsoFormatsAs2805Format0Member(TypedDict, closed=True):
     As2805Format0: "capo_payment_cryptography_data.types.translation_pin_data_as2805_format0.TranslationPinDataAs2805Format0"
 
 
 TranslationIsoFormats: TypeAlias = (
-    _TranslationIsoFormats_IsoFormat0
-    | _TranslationIsoFormats_IsoFormat1
-    | _TranslationIsoFormats_IsoFormat3
-    | _TranslationIsoFormats_IsoFormat4
-    | _TranslationIsoFormats_As2805Format0
+    TranslationIsoFormatsIsoFormat0Member
+    | TranslationIsoFormatsIsoFormat1Member
+    | TranslationIsoFormatsIsoFormat3Member
+    | TranslationIsoFormatsIsoFormat4Member
+    | TranslationIsoFormatsAs2805Format0Member
     | UnknownUnionMember
 )
 

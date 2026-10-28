@@ -15,8 +15,8 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.harness_hook_lambda_target
     import capo_bedrock_agentcore_control.types.harness_hook_sns_target
 
-_HarnessHookTarget_lambda = TypedDict(
-    "_HarnessHookTarget_lambda",
+HarnessHookTargetLambdaMember = TypedDict(
+    "HarnessHookTargetLambdaMember",
     {
         "lambda": "capo_bedrock_agentcore_control.types.harness_hook_lambda_target.HarnessHookLambdaTarget",
     },
@@ -24,18 +24,18 @@ _HarnessHookTarget_lambda = TypedDict(
 )
 
 
-class _HarnessHookTarget_sns(TypedDict, closed=True):
+class HarnessHookTargetSnsMember(TypedDict, closed=True):
     sns: "capo_bedrock_agentcore_control.types.harness_hook_sns_target.HarnessHookSnsTarget"
 
 
-class _HarnessHookTarget_eventBridge(TypedDict, closed=True):
+class HarnessHookTargetEventBridgeMember(TypedDict, closed=True):
     eventBridge: "capo_bedrock_agentcore_control.types.harness_hook_event_bridge_target.HarnessHookEventBridgeTarget"
 
 
 HarnessHookTarget: TypeAlias = (
-    _HarnessHookTarget_lambda
-    | _HarnessHookTarget_sns
-    | _HarnessHookTarget_eventBridge
+    HarnessHookTargetLambdaMember
+    | HarnessHookTargetSnsMember
+    | HarnessHookTargetEventBridgeMember
     | UnknownUnionMember
 )
 

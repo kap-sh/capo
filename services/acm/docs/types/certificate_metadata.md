@@ -7,7 +7,7 @@ title: CertificateMetadata
       show_source: true
       merge_init_into_class: false
 
-::: capo_acm.types.certificate_metadata._CertificateMetadata_AcmCertificateMetadata
+::: capo_acm.types.certificate_metadata.CertificateMetadataAcmCertificateMetadataMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -7,43 +7,43 @@ title: GeneralName
       show_source: true
       merge_init_into_class: false
 
-::: capo_acm.types.general_name._GeneralName_DirectoryName
+::: capo_acm.types.general_name.GeneralNameDirectoryNameMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_acm.types.general_name._GeneralName_DnsName
+::: capo_acm.types.general_name.GeneralNameDnsNameMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_acm.types.general_name._GeneralName_IpAddress
+::: capo_acm.types.general_name.GeneralNameIpAddressMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_acm.types.general_name._GeneralName_OtherName
+::: capo_acm.types.general_name.GeneralNameOtherNameMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_acm.types.general_name._GeneralName_RegisteredId
+::: capo_acm.types.general_name.GeneralNameRegisteredIdMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_acm.types.general_name._GeneralName_Rfc822Name
+::: capo_acm.types.general_name.GeneralNameRfc822NameMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_acm.types.general_name._GeneralName_UniformResourceIdentifier
+::: capo_acm.types.general_name.GeneralNameUniformResourceIdentifierMember
     options:
       show_source: true
       merge_init_into_class: false

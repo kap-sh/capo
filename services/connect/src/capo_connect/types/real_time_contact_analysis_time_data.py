@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_connect.types.real_time_contact_analysis_time_instant
 
 
-class _RealTimeContactAnalysisTimeData_AbsoluteTime(TypedDict, closed=True):
+class RealTimeContactAnalysisTimeDataAbsoluteTimeMember(TypedDict, closed=True):
     AbsoluteTime: "capo_connect.types.real_time_contact_analysis_time_instant.RealTimeContactAnalysisTimeInstant"
 
 
 RealTimeContactAnalysisTimeData: TypeAlias = (
-    _RealTimeContactAnalysisTimeData_AbsoluteTime | UnknownUnionMember
+    RealTimeContactAnalysisTimeDataAbsoluteTimeMember | UnknownUnionMember
 )
 
 

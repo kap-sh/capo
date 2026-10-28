@@ -11,19 +11,19 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.reasoning_text_block
 
 
-class _ReasoningContentBlock_reasoningText(TypedDict, closed=True):
+class ReasoningContentBlockReasoningTextMember(TypedDict, closed=True):
     reasoningText: (
         "capo_bedrock_agent_runtime.types.reasoning_text_block.ReasoningTextBlock"
     )
 
 
-class _ReasoningContentBlock_redactedContent(TypedDict, closed=True):
+class ReasoningContentBlockRedactedContentMember(TypedDict, closed=True):
     redactedContent: "bytes"
 
 
 ReasoningContentBlock: TypeAlias = (
-    _ReasoningContentBlock_reasoningText
-    | _ReasoningContentBlock_redactedContent
+    ReasoningContentBlockReasoningTextMember
+    | ReasoningContentBlockRedactedContentMember
     | UnknownUnionMember
 )
 

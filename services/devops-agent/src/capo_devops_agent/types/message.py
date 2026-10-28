@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.user_message
 
 
-class _Message_userMessage(TypedDict, closed=True):
+class MessageUserMessageMember(TypedDict, closed=True):
     userMessage: "capo_devops_agent.types.user_message.UserMessage"
 
 
-class _Message_assistantMessage(TypedDict, closed=True):
+class MessageAssistantMessageMember(TypedDict, closed=True):
     assistantMessage: "capo_devops_agent.types.assistant_message.AssistantMessage"
 
 
 Message: TypeAlias = (
-    _Message_userMessage | _Message_assistantMessage | UnknownUnionMember
+    MessageUserMessageMember | MessageAssistantMessageMember | UnknownUnionMember
 )
 
 

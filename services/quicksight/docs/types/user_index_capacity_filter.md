@@ -7,13 +7,13 @@ title: UserIndexCapacityFilter
       show_source: true
       merge_init_into_class: false
 
-::: capo_quicksight.types.user_index_capacity_filter._UserIndexCapacityFilter_userNameOrEmail
+::: capo_quicksight.types.user_index_capacity_filter.UserIndexCapacityFilterUserNameOrEmailMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_quicksight.types.user_index_capacity_filter._UserIndexCapacityFilter_totalCapacityBytes
+::: capo_quicksight.types.user_index_capacity_filter.UserIndexCapacityFilterTotalCapacityBytesMember
     options:
       show_source: true
       merge_init_into_class: false

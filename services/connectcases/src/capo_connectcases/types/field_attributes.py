@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_connectcases.types.text_attributes
 
 
-class _FieldAttributes_text(TypedDict, closed=True):
+class FieldAttributesTextMember(TypedDict, closed=True):
     text: "capo_connectcases.types.text_attributes.TextAttributes"
 
 
-FieldAttributes: TypeAlias = _FieldAttributes_text | UnknownUnionMember
+FieldAttributes: TypeAlias = FieldAttributesTextMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

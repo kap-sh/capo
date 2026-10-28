@@ -7,7 +7,7 @@ title: AutomatedReasoningPolicyAnnotatedContent
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock.types.automated_reasoning_policy_annotated_content._AutomatedReasoningPolicyAnnotatedContent_line
+::: capo_bedrock.types.automated_reasoning_policy_annotated_content.AutomatedReasoningPolicyAnnotatedContentLineMember
     options:
       show_source: true
       merge_init_into_class: false

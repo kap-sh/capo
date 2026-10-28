@@ -8,11 +8,11 @@ from capo_bedrock_agentcore.errors import DeserializationError, SerializationErr
 from capo_bedrock_agentcore.types._unknown import UnknownUnionMember
 
 
-class _MetadataValue_stringValue(TypedDict, closed=True):
+class MetadataValueStringValueMember(TypedDict, closed=True):
     stringValue: "str"
 
 
-MetadataValue: TypeAlias = _MetadataValue_stringValue | UnknownUnionMember
+MetadataValue: TypeAlias = MetadataValueStringValueMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_mpa.types.iam_identity_center_for_list
 
 
-class _IdentitySourceParametersForList_IamIdentityCenter(TypedDict, closed=True):
+class IdentitySourceParametersForListIamIdentityCenterMember(TypedDict, closed=True):
     IamIdentityCenter: (
         "capo_mpa.types.iam_identity_center_for_list.IamIdentityCenterForList"
     )
 
 
 IdentitySourceParametersForList: TypeAlias = (
-    _IdentitySourceParametersForList_IamIdentityCenter | UnknownUnionMember
+    IdentitySourceParametersForListIamIdentityCenterMember | UnknownUnionMember
 )
 
 

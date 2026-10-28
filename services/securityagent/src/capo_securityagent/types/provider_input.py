@@ -17,44 +17,44 @@ if TYPE_CHECKING:
     import capo_securityagent.types.jira_integration_input
 
 
-class _ProviderInput_github(TypedDict, closed=True):
+class ProviderInputGithubMember(TypedDict, closed=True):
     github: "capo_securityagent.types.git_hub_integration_input.GitHubIntegrationInput"
 
 
-class _ProviderInput_gitlab(TypedDict, closed=True):
+class ProviderInputGitlabMember(TypedDict, closed=True):
     gitlab: "capo_securityagent.types.git_lab_integration_input.GitLabIntegrationInput"
 
 
-class _ProviderInput_bitbucket(TypedDict, closed=True):
+class ProviderInputBitbucketMember(TypedDict, closed=True):
     bitbucket: (
         "capo_securityagent.types.bitbucket_integration_input.BitbucketIntegrationInput"
     )
 
 
-class _ProviderInput_confluence(TypedDict, closed=True):
+class ProviderInputConfluenceMember(TypedDict, closed=True):
     confluence: "capo_securityagent.types.confluence_integration_input.ConfluenceIntegrationInput"
 
 
-class _ProviderInput_azureDevOps(TypedDict, closed=True):
+class ProviderInputAzureDevOpsMember(TypedDict, closed=True):
     azureDevOps: "capo_securityagent.types.azure_dev_ops_integration_input.AzureDevOpsIntegrationInput"
 
 
-class _ProviderInput_bitbucketDataCenter(TypedDict, closed=True):
+class ProviderInputBitbucketDataCenterMember(TypedDict, closed=True):
     bitbucketDataCenter: "capo_securityagent.types.bitbucket_data_center_integration_input.BitbucketDataCenterIntegrationInput"
 
 
-class _ProviderInput_jira(TypedDict, closed=True):
+class ProviderInputJiraMember(TypedDict, closed=True):
     jira: "capo_securityagent.types.jira_integration_input.JiraIntegrationInput"
 
 
 ProviderInput: TypeAlias = (
-    _ProviderInput_github
-    | _ProviderInput_gitlab
-    | _ProviderInput_bitbucket
-    | _ProviderInput_confluence
-    | _ProviderInput_azureDevOps
-    | _ProviderInput_bitbucketDataCenter
-    | _ProviderInput_jira
+    ProviderInputGithubMember
+    | ProviderInputGitlabMember
+    | ProviderInputBitbucketMember
+    | ProviderInputConfluenceMember
+    | ProviderInputAzureDevOpsMember
+    | ProviderInputBitbucketDataCenterMember
+    | ProviderInputJiraMember
     | UnknownUnionMember
 )
 

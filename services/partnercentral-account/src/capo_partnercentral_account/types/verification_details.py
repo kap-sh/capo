@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_partnercentral_account.types.registrant_verification_details
 
 
-class _VerificationDetails_BusinessVerificationDetails(TypedDict, closed=True):
+class VerificationDetailsBusinessVerificationDetailsMember(TypedDict, closed=True):
     BusinessVerificationDetails: "capo_partnercentral_account.types.business_verification_details.BusinessVerificationDetails"
 
 
-class _VerificationDetails_RegistrantVerificationDetails(TypedDict, closed=True):
+class VerificationDetailsRegistrantVerificationDetailsMember(TypedDict, closed=True):
     RegistrantVerificationDetails: "capo_partnercentral_account.types.registrant_verification_details.RegistrantVerificationDetails"
 
 
 VerificationDetails: TypeAlias = (
-    _VerificationDetails_BusinessVerificationDetails
-    | _VerificationDetails_RegistrantVerificationDetails
+    VerificationDetailsBusinessVerificationDetailsMember
+    | VerificationDetailsRegistrantVerificationDetailsMember
     | UnknownUnionMember
 )
 

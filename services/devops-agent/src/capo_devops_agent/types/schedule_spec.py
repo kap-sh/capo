@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.time_range_schedule
 
 
-class _ScheduleSpec_cron(TypedDict, closed=True):
+class ScheduleSpecCronMember(TypedDict, closed=True):
     cron: "capo_devops_agent.types.cron_schedule.CronSchedule"
 
 
-class _ScheduleSpec_timeRange(TypedDict, closed=True):
+class ScheduleSpecTimeRangeMember(TypedDict, closed=True):
     timeRange: "capo_devops_agent.types.time_range_schedule.TimeRangeSchedule"
 
 
 ScheduleSpec: TypeAlias = (
-    _ScheduleSpec_cron | _ScheduleSpec_timeRange | UnknownUnionMember
+    ScheduleSpecCronMember | ScheduleSpecTimeRangeMember | UnknownUnionMember
 )
 
 

@@ -12,29 +12,29 @@ if TYPE_CHECKING:
     import capo_bedrock.types.request_metadata_map
 
 
-class _RequestMetadataFilters_equals(TypedDict, closed=True):
+class RequestMetadataFiltersEqualsMember(TypedDict, closed=True):
     equals: "capo_bedrock.types.request_metadata_map.RequestMetadataMap"
 
 
-class _RequestMetadataFilters_notEquals(TypedDict, closed=True):
+class RequestMetadataFiltersNotEqualsMember(TypedDict, closed=True):
     notEquals: "capo_bedrock.types.request_metadata_map.RequestMetadataMap"
 
 
-class _RequestMetadataFilters_andAll(TypedDict, closed=True):
+class RequestMetadataFiltersAndAllMember(TypedDict, closed=True):
     andAll: (
         "capo_bedrock.types.request_metadata_filters_list.RequestMetadataFiltersList"
     )
 
 
-class _RequestMetadataFilters_orAll(TypedDict, closed=True):
+class RequestMetadataFiltersOrAllMember(TypedDict, closed=True):
     orAll: "capo_bedrock.types.request_metadata_filters_list.RequestMetadataFiltersList"
 
 
 RequestMetadataFilters: TypeAlias = (
-    _RequestMetadataFilters_equals
-    | _RequestMetadataFilters_notEquals
-    | _RequestMetadataFilters_andAll
-    | _RequestMetadataFilters_orAll
+    RequestMetadataFiltersEqualsMember
+    | RequestMetadataFiltersNotEqualsMember
+    | RequestMetadataFiltersAndAllMember
+    | RequestMetadataFiltersOrAllMember
     | UnknownUnionMember
 )
 

@@ -16,13 +16,13 @@ if TYPE_CHECKING:
     import capo_sagemaker_runtime_http2.types.request_payload_part
 
 
-class _RequestStreamEvent_PayloadPart(TypedDict, closed=True):
+class RequestStreamEventPayloadPartMember(TypedDict, closed=True):
     PayloadPart: (
         "capo_sagemaker_runtime_http2.types.request_payload_part.RequestPayloadPart"
     )
 
 
-_RequestStreamEvent: TypeAlias = _RequestStreamEvent_PayloadPart | UnknownEvent
+_RequestStreamEvent: TypeAlias = RequestStreamEventPayloadPartMember | UnknownEvent
 RequestStreamEvent: TypeAlias = AnyIterator[_RequestStreamEvent]
 
 

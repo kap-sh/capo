@@ -13,20 +13,23 @@ if TYPE_CHECKING:
     import capo_groundstation.types.tle_ephemeris
 
 
-class _EphemerisData_tle(TypedDict, closed=True):
+class EphemerisDataTleMember(TypedDict, closed=True):
     tle: "capo_groundstation.types.tle_ephemeris.TLEEphemeris"
 
 
-class _EphemerisData_oem(TypedDict, closed=True):
+class EphemerisDataOemMember(TypedDict, closed=True):
     oem: "capo_groundstation.types.oem_ephemeris.OEMEphemeris"
 
 
-class _EphemerisData_azEl(TypedDict, closed=True):
+class EphemerisDataAzElMember(TypedDict, closed=True):
     azEl: "capo_groundstation.types.az_el_ephemeris.AzElEphemeris"
 
 
 EphemerisData: TypeAlias = (
-    _EphemerisData_tle | _EphemerisData_oem | _EphemerisData_azEl | UnknownUnionMember
+    EphemerisDataTleMember
+    | EphemerisDataOemMember
+    | EphemerisDataAzElMember
+    | UnknownUnionMember
 )
 
 

@@ -7,7 +7,7 @@ title: SnowflakeTableSchema
       show_source: true
       merge_init_into_class: false
 
-::: capo_cleanrooms.types.snowflake_table_schema._SnowflakeTableSchema_v1
+::: capo_cleanrooms.types.snowflake_table_schema.SnowflakeTableSchemaV1Member
     options:
       show_source: true
       merge_init_into_class: false

@@ -7,13 +7,13 @@ title: CreateEndpointDetails
       show_source: true
       merge_init_into_class: false
 
-::: capo_groundstation.types.create_endpoint_details._CreateEndpointDetails_uplinkAwsGroundStationAgentEndpoint
+::: capo_groundstation.types.create_endpoint_details.CreateEndpointDetailsUplinkAwsGroundStationAgentEndpointMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_groundstation.types.create_endpoint_details._CreateEndpointDetails_downlinkAwsGroundStationAgentEndpoint
+::: capo_groundstation.types.create_endpoint_details.CreateEndpointDetailsDownlinkAwsGroundStationAgentEndpointMember
     options:
       show_source: true
       merge_init_into_class: false

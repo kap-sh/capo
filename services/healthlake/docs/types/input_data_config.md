@@ -7,7 +7,7 @@ title: InputDataConfig
       show_source: true
       merge_init_into_class: false
 
-::: capo_healthlake.types.input_data_config._InputDataConfig_S3Uri
+::: capo_healthlake.types.input_data_config.InputDataConfigS3UriMember
     options:
       show_source: true
       merge_init_into_class: false

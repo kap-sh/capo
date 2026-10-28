@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_s3vectors.types.float32_vector_data
 
 
-class _VectorData_float32(TypedDict, closed=True):
+class VectorDataFloat32Member(TypedDict, closed=True):
     float32: "capo_s3vectors.types.float32_vector_data.Float32VectorData"
 
 
-VectorData: TypeAlias = _VectorData_float32 | UnknownUnionMember
+VectorData: TypeAlias = VectorDataFloat32Member | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

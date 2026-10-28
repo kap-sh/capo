@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.standard_destination_endpoint_connection_details
 
 
-class _DestinationEndpointConnectionDetails_Standard(TypedDict, closed=True):
+class DestinationEndpointConnectionDetailsStandardMember(TypedDict, closed=True):
     Standard: "capo_mediaconnect.types.standard_destination_endpoint_connection_details.StandardDestinationEndpointConnectionDetails"
 
 
-class _DestinationEndpointConnectionDetails_RouterInput(TypedDict, closed=True):
+class DestinationEndpointConnectionDetailsRouterInputMember(TypedDict, closed=True):
     RouterInput: "capo_mediaconnect.types.router_input_destination_endpoint_connection_details.RouterInputDestinationEndpointConnectionDetails"
 
 
 DestinationEndpointConnectionDetails: TypeAlias = (
-    _DestinationEndpointConnectionDetails_Standard
-    | _DestinationEndpointConnectionDetails_RouterInput
+    DestinationEndpointConnectionDetailsStandardMember
+    | DestinationEndpointConnectionDetailsRouterInputMember
     | UnknownUnionMember
 )
 

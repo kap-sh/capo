@@ -7,7 +7,7 @@ title: VolumeConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.volume_configuration._VolumeConfiguration_ebsConfiguration
+::: capo_bedrock_agentcore_control.types.volume_configuration.VolumeConfigurationEbsConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false

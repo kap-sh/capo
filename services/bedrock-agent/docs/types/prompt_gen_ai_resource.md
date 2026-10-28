@@ -7,7 +7,7 @@ title: PromptGenAiResource
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agent.types.prompt_gen_ai_resource._PromptGenAiResource_agent
+::: capo_bedrock_agent.types.prompt_gen_ai_resource.PromptGenAiResourceAgentMember
     options:
       show_source: true
       merge_init_into_class: false

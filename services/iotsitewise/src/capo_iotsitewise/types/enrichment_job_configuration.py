@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_iotsitewise.types.event_detection
 
 
-class _EnrichmentJobConfiguration_eventDetection(TypedDict, closed=True):
+class EnrichmentJobConfigurationEventDetectionMember(TypedDict, closed=True):
     eventDetection: "capo_iotsitewise.types.event_detection.EventDetection"
 
 
 EnrichmentJobConfiguration: TypeAlias = (
-    _EnrichmentJobConfiguration_eventDetection | UnknownUnionMember
+    EnrichmentJobConfigurationEventDetectionMember | UnknownUnionMember
 )
 
 

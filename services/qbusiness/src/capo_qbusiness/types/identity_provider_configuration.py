@@ -12,19 +12,21 @@ if TYPE_CHECKING:
     import capo_qbusiness.types.saml_provider_configuration
 
 
-class _IdentityProviderConfiguration_samlConfiguration(TypedDict, closed=True):
+class IdentityProviderConfigurationSamlConfigurationMember(TypedDict, closed=True):
     samlConfiguration: (
         "capo_qbusiness.types.saml_provider_configuration.SamlProviderConfiguration"
     )
 
 
-class _IdentityProviderConfiguration_openIDConnectConfiguration(TypedDict, closed=True):
+class IdentityProviderConfigurationOpenIDConnectConfigurationMember(
+    TypedDict, closed=True
+):
     openIDConnectConfiguration: "capo_qbusiness.types.open_id_connect_provider_configuration.OpenIDConnectProviderConfiguration"
 
 
 IdentityProviderConfiguration: TypeAlias = (
-    _IdentityProviderConfiguration_samlConfiguration
-    | _IdentityProviderConfiguration_openIDConnectConfiguration
+    IdentityProviderConfigurationSamlConfigurationMember
+    | IdentityProviderConfigurationOpenIDConnectConfigurationMember
     | UnknownUnionMember
 )
 

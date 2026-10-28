@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_app_mesh.types.virtual_gateway_tls_validation_context_sds_trust
 
 
-class _VirtualGatewayTlsValidationContextTrust_acm(TypedDict, closed=True):
+class VirtualGatewayTlsValidationContextTrustAcmMember(TypedDict, closed=True):
     acm: "capo_app_mesh.types.virtual_gateway_tls_validation_context_acm_trust.VirtualGatewayTlsValidationContextAcmTrust"
 
 
-class _VirtualGatewayTlsValidationContextTrust_file(TypedDict, closed=True):
+class VirtualGatewayTlsValidationContextTrustFileMember(TypedDict, closed=True):
     file: "capo_app_mesh.types.virtual_gateway_tls_validation_context_file_trust.VirtualGatewayTlsValidationContextFileTrust"
 
 
-class _VirtualGatewayTlsValidationContextTrust_sds(TypedDict, closed=True):
+class VirtualGatewayTlsValidationContextTrustSdsMember(TypedDict, closed=True):
     sds: "capo_app_mesh.types.virtual_gateway_tls_validation_context_sds_trust.VirtualGatewayTlsValidationContextSdsTrust"
 
 
 VirtualGatewayTlsValidationContextTrust: TypeAlias = (
-    _VirtualGatewayTlsValidationContextTrust_acm
-    | _VirtualGatewayTlsValidationContextTrust_file
-    | _VirtualGatewayTlsValidationContextTrust_sds
+    VirtualGatewayTlsValidationContextTrustAcmMember
+    | VirtualGatewayTlsValidationContextTrustFileMember
+    | VirtualGatewayTlsValidationContextTrustSdsMember
     | UnknownUnionMember
 )
 

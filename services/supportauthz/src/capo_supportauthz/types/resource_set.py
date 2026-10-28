@@ -11,16 +11,18 @@ if TYPE_CHECKING:
     import capo_supportauthz.types.resources
 
 
-class _ResourceSet_allResourcesInRegion(TypedDict, closed=True):
+class ResourceSetAllResourcesInRegionMember(TypedDict, closed=True):
     allResourcesInRegion: "None"
 
 
-class _ResourceSet_resources(TypedDict, closed=True):
+class ResourceSetResourcesMember(TypedDict, closed=True):
     resources: "capo_supportauthz.types.resources.Resources"
 
 
 ResourceSet: TypeAlias = (
-    _ResourceSet_allResourcesInRegion | _ResourceSet_resources | UnknownUnionMember
+    ResourceSetAllResourcesInRegionMember
+    | ResourceSetResourcesMember
+    | UnknownUnionMember
 )
 
 

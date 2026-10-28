@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_medical_imaging.types.image_set_external_version_id
 
 
-class _MetadataUpdates_DICOMUpdates(TypedDict, closed=True):
+class MetadataUpdatesDICOMUpdatesMember(TypedDict, closed=True):
     DICOMUpdates: "capo_medical_imaging.types.dicom_updates.DICOMUpdates"
 
 
-class _MetadataUpdates_revertToVersionId(TypedDict, closed=True):
+class MetadataUpdatesRevertToVersionIdMember(TypedDict, closed=True):
     revertToVersionId: "capo_medical_imaging.types.image_set_external_version_id.ImageSetExternalVersionId"
 
 
 MetadataUpdates: TypeAlias = (
-    _MetadataUpdates_DICOMUpdates
-    | _MetadataUpdates_revertToVersionId
+    MetadataUpdatesDICOMUpdatesMember
+    | MetadataUpdatesRevertToVersionIdMember
     | UnknownUnionMember
 )
 

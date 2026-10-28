@@ -7,7 +7,7 @@ title: MessageTemplateBodyContentProvider
       show_source: true
       merge_init_into_class: false
 
-::: capo_qconnect.types.message_template_body_content_provider._MessageTemplateBodyContentProvider_content
+::: capo_qconnect.types.message_template_body_content_provider.MessageTemplateBodyContentProviderContentMember
     options:
       show_source: true
       merge_init_into_class: false

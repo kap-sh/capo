@@ -11,22 +11,22 @@ if TYPE_CHECKING:
     import capo_securityagent.types.ca_certificate_pem
 
 
-class _CaCertificateSource_inlinePem(TypedDict, closed=True):
+class CaCertificateSourceInlinePemMember(TypedDict, closed=True):
     inlinePem: "capo_securityagent.types.ca_certificate_pem.CaCertificatePem"
 
 
-class _CaCertificateSource_artifactId(TypedDict, closed=True):
+class CaCertificateSourceArtifactIdMember(TypedDict, closed=True):
     artifactId: "str"
 
 
-class _CaCertificateSource_s3Location(TypedDict, closed=True):
+class CaCertificateSourceS3LocationMember(TypedDict, closed=True):
     s3Location: "str"
 
 
 CaCertificateSource: TypeAlias = (
-    _CaCertificateSource_inlinePem
-    | _CaCertificateSource_artifactId
-    | _CaCertificateSource_s3Location
+    CaCertificateSourceInlinePemMember
+    | CaCertificateSourceArtifactIdMember
+    | CaCertificateSourceS3LocationMember
     | UnknownUnionMember
 )
 

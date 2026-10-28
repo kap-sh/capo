@@ -14,27 +14,27 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.string_value_list
 
 
-class _MemoryRecordMetadataValue_stringValue(TypedDict, closed=True):
+class MemoryRecordMetadataValueStringValueMember(TypedDict, closed=True):
     stringValue: "capo_bedrock_agentcore.types.string_value.StringValue"
 
 
-class _MemoryRecordMetadataValue_stringListValue(TypedDict, closed=True):
+class MemoryRecordMetadataValueStringListValueMember(TypedDict, closed=True):
     stringListValue: "capo_bedrock_agentcore.types.string_value_list.StringValueList"
 
 
-class _MemoryRecordMetadataValue_numberValue(TypedDict, closed=True):
+class MemoryRecordMetadataValueNumberValueMember(TypedDict, closed=True):
     numberValue: "float"
 
 
-class _MemoryRecordMetadataValue_dateTimeValue(TypedDict, closed=True):
+class MemoryRecordMetadataValueDateTimeValueMember(TypedDict, closed=True):
     dateTimeValue: "datetime.datetime"
 
 
 MemoryRecordMetadataValue: TypeAlias = (
-    _MemoryRecordMetadataValue_stringValue
-    | _MemoryRecordMetadataValue_stringListValue
-    | _MemoryRecordMetadataValue_numberValue
-    | _MemoryRecordMetadataValue_dateTimeValue
+    MemoryRecordMetadataValueStringValueMember
+    | MemoryRecordMetadataValueStringListValueMember
+    | MemoryRecordMetadataValueNumberValueMember
+    | MemoryRecordMetadataValueDateTimeValueMember
     | UnknownUnionMember
 )
 

@@ -8,16 +8,18 @@ from capo_devops_agent.errors import DeserializationError, SerializationError
 from capo_devops_agent.types._unknown import UnknownUnionMember
 
 
-class _AssistantMessageBlock_text(TypedDict, closed=True):
+class AssistantMessageBlockTextMember(TypedDict, closed=True):
     text: "str"
 
 
-class _AssistantMessageBlock_toolUse(TypedDict, closed=True):
+class AssistantMessageBlockToolUseMember(TypedDict, closed=True):
     toolUse: "object"
 
 
 AssistantMessageBlock: TypeAlias = (
-    _AssistantMessageBlock_text | _AssistantMessageBlock_toolUse | UnknownUnionMember
+    AssistantMessageBlockTextMember
+    | AssistantMessageBlockToolUseMember
+    | UnknownUnionMember
 )
 
 

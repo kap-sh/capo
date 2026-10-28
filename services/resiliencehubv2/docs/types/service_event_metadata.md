@@ -7,115 +7,115 @@ title: ServiceEventMetadata
       show_source: true
       merge_init_into_class: false
 
-::: capo_resiliencehubv2.types.service_event_metadata._ServiceEventMetadata_serviceCreated
+::: capo_resiliencehubv2.types.service_event_metadata.ServiceEventMetadataServiceCreatedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_resiliencehubv2.types.service_event_metadata._ServiceEventMetadata_serviceDeleted
+::: capo_resiliencehubv2.types.service_event_metadata.ServiceEventMetadataServiceDeletedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_resiliencehubv2.types.service_event_metadata._ServiceEventMetadata_serviceSystemAssociated
+::: capo_resiliencehubv2.types.service_event_metadata.ServiceEventMetadataServiceSystemAssociatedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_resiliencehubv2.types.service_event_metadata._ServiceEventMetadata_serviceSystemDisassociated
+::: capo_resiliencehubv2.types.service_event_metadata.ServiceEventMetadataServiceSystemDisassociatedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_resiliencehubv2.types.service_event_metadata._ServiceEventMetadata_serviceResourcesAssociated
+::: capo_resiliencehubv2.types.service_event_metadata.ServiceEventMetadataServiceResourcesAssociatedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_resiliencehubv2.types.service_event_metadata._ServiceEventMetadata_serviceResourcesDisassociated
+::: capo_resiliencehubv2.types.service_event_metadata.ServiceEventMetadataServiceResourcesDisassociatedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_resiliencehubv2.types.service_event_metadata._ServiceEventMetadata_serviceWorkflowUpdated
+::: capo_resiliencehubv2.types.service_event_metadata.ServiceEventMetadataServiceWorkflowUpdatedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_resiliencehubv2.types.service_event_metadata._ServiceEventMetadata_serviceInputSourcesUpdated
+::: capo_resiliencehubv2.types.service_event_metadata.ServiceEventMetadataServiceInputSourcesUpdatedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_resiliencehubv2.types.service_event_metadata._ServiceEventMetadata_servicePolicyAssociated
+::: capo_resiliencehubv2.types.service_event_metadata.ServiceEventMetadataServicePolicyAssociatedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_resiliencehubv2.types.service_event_metadata._ServiceEventMetadata_servicePolicyDisassociated
+::: capo_resiliencehubv2.types.service_event_metadata.ServiceEventMetadataServicePolicyDisassociatedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_resiliencehubv2.types.service_event_metadata._ServiceEventMetadata_serviceFunctionCreated
+::: capo_resiliencehubv2.types.service_event_metadata.ServiceEventMetadataServiceFunctionCreatedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_resiliencehubv2.types.service_event_metadata._ServiceEventMetadata_serviceFunctionUpdated
+::: capo_resiliencehubv2.types.service_event_metadata.ServiceEventMetadataServiceFunctionUpdatedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_resiliencehubv2.types.service_event_metadata._ServiceEventMetadata_serviceFunctionDeleted
+::: capo_resiliencehubv2.types.service_event_metadata.ServiceEventMetadataServiceFunctionDeletedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_resiliencehubv2.types.service_event_metadata._ServiceEventMetadata_serviceFunctionResourcesAdded
+::: capo_resiliencehubv2.types.service_event_metadata.ServiceEventMetadataServiceFunctionResourcesAddedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_resiliencehubv2.types.service_event_metadata._ServiceEventMetadata_serviceFunctionResourcesRemoved
+::: capo_resiliencehubv2.types.service_event_metadata.ServiceEventMetadataServiceFunctionResourcesRemovedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_resiliencehubv2.types.service_event_metadata._ServiceEventMetadata_serviceAchievabilityUpdated
+::: capo_resiliencehubv2.types.service_event_metadata.ServiceEventMetadataServiceAchievabilityUpdatedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_resiliencehubv2.types.service_event_metadata._ServiceEventMetadata_assertionCreated
+::: capo_resiliencehubv2.types.service_event_metadata.ServiceEventMetadataAssertionCreatedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_resiliencehubv2.types.service_event_metadata._ServiceEventMetadata_assertionUpdated
+::: capo_resiliencehubv2.types.service_event_metadata.ServiceEventMetadataAssertionUpdatedMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_resiliencehubv2.types.service_event_metadata._ServiceEventMetadata_assertionDeleted
+::: capo_resiliencehubv2.types.service_event_metadata.ServiceEventMetadataAssertionDeletedMember
     options:
       show_source: true
       merge_init_into_class: false

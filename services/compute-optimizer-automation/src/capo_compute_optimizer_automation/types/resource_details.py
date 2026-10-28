@@ -14,11 +14,11 @@ if TYPE_CHECKING:
     import capo_compute_optimizer_automation.types.ebs_volume
 
 
-class _ResourceDetails_ebsVolume(TypedDict, closed=True):
+class ResourceDetailsEbsVolumeMember(TypedDict, closed=True):
     ebsVolume: "capo_compute_optimizer_automation.types.ebs_volume.EbsVolume"
 
 
-ResourceDetails: TypeAlias = _ResourceDetails_ebsVolume | UnknownUnionMember
+ResourceDetails: TypeAlias = ResourceDetailsEbsVolumeMember | UnknownUnionMember
 
 
 # --- awsJson1_0 ser/de ---

@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_ssm.types.automation_execution_preview
 
 
-class _ExecutionPreview_Automation(TypedDict, closed=True):
+class ExecutionPreviewAutomationMember(TypedDict, closed=True):
     Automation: "capo_ssm.types.automation_execution_preview.AutomationExecutionPreview"
 
 
-ExecutionPreview: TypeAlias = _ExecutionPreview_Automation | UnknownUnionMember
+ExecutionPreview: TypeAlias = ExecutionPreviewAutomationMember | UnknownUnionMember
 
 
 # --- awsJson1_1 ser/de ---

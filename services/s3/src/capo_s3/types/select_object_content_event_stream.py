@@ -18,32 +18,32 @@ if TYPE_CHECKING:
     import capo_s3.types.stats_event
 
 
-class _SelectObjectContentEventStream_Records(TypedDict, closed=True):
+class SelectObjectContentEventStreamRecordsMember(TypedDict, closed=True):
     Records: "capo_s3.types.records_event.RecordsEvent"
 
 
-class _SelectObjectContentEventStream_Stats(TypedDict, closed=True):
+class SelectObjectContentEventStreamStatsMember(TypedDict, closed=True):
     Stats: "capo_s3.types.stats_event.StatsEvent"
 
 
-class _SelectObjectContentEventStream_Progress(TypedDict, closed=True):
+class SelectObjectContentEventStreamProgressMember(TypedDict, closed=True):
     Progress: "capo_s3.types.progress_event.ProgressEvent"
 
 
-class _SelectObjectContentEventStream_Cont(TypedDict, closed=True):
+class SelectObjectContentEventStreamContMember(TypedDict, closed=True):
     Cont: "capo_s3.types.continuation_event.ContinuationEvent"
 
 
-class _SelectObjectContentEventStream_End(TypedDict, closed=True):
+class SelectObjectContentEventStreamEndMember(TypedDict, closed=True):
     End: "capo_s3.types.end_event.EndEvent"
 
 
 _SelectObjectContentEventStream: TypeAlias = (
-    _SelectObjectContentEventStream_Records
-    | _SelectObjectContentEventStream_Stats
-    | _SelectObjectContentEventStream_Progress
-    | _SelectObjectContentEventStream_Cont
-    | _SelectObjectContentEventStream_End
+    SelectObjectContentEventStreamRecordsMember
+    | SelectObjectContentEventStreamStatsMember
+    | SelectObjectContentEventStreamProgressMember
+    | SelectObjectContentEventStreamContMember
+    | SelectObjectContentEventStreamEndMember
     | UnknownEvent
 )
 SelectObjectContentEventStream: TypeAlias = AnyIterator[_SelectObjectContentEventStream]

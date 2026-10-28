@@ -15,19 +15,19 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.record_expiry_duration_days
 
 
-class _RecordExpirySpecification_recordExpiryDurationDays(TypedDict, closed=True):
+class RecordExpirySpecificationRecordExpiryDurationDaysMember(TypedDict, closed=True):
     recordExpiryDurationDays: "capo_bedrock_agentcore_control.types.record_expiry_duration_days.RecordExpiryDurationDays"
 
 
-class _RecordExpirySpecification_action(TypedDict, closed=True):
+class RecordExpirySpecificationActionMember(TypedDict, closed=True):
     action: (
         "capo_bedrock_agentcore_control.types.record_expiry_action.RecordExpiryAction"
     )
 
 
 RecordExpirySpecification: TypeAlias = (
-    _RecordExpirySpecification_recordExpiryDurationDays
-    | _RecordExpirySpecification_action
+    RecordExpirySpecificationRecordExpiryDurationDaysMember
+    | RecordExpirySpecificationActionMember
     | UnknownUnionMember
 )
 

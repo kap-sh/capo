@@ -15,16 +15,16 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.route_to_target_action
 
 
-class _Action_configurationBundle(TypedDict, closed=True):
+class ActionConfigurationBundleMember(TypedDict, closed=True):
     configurationBundle: "capo_bedrock_agentcore_control.types.configuration_bundle_action.ConfigurationBundleAction"
 
 
-class _Action_routeToTarget(TypedDict, closed=True):
+class ActionRouteToTargetMember(TypedDict, closed=True):
     routeToTarget: "capo_bedrock_agentcore_control.types.route_to_target_action.RouteToTargetAction"
 
 
 Action: TypeAlias = (
-    _Action_configurationBundle | _Action_routeToTarget | UnknownUnionMember
+    ActionConfigurationBundleMember | ActionRouteToTargetMember | UnknownUnionMember
 )
 
 

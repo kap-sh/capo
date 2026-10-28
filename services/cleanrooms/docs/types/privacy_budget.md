@@ -7,13 +7,13 @@ title: PrivacyBudget
       show_source: true
       merge_init_into_class: false
 
-::: capo_cleanrooms.types.privacy_budget._PrivacyBudget_differentialPrivacy
+::: capo_cleanrooms.types.privacy_budget.PrivacyBudgetDifferentialPrivacyMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cleanrooms.types.privacy_budget._PrivacyBudget_accessBudget
+::: capo_cleanrooms.types.privacy_budget.PrivacyBudgetAccessBudgetMember
     options:
       show_source: true
       merge_init_into_class: false

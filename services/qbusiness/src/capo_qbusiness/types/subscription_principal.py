@@ -12,16 +12,18 @@ if TYPE_CHECKING:
     import capo_qbusiness.types.user_identifier
 
 
-class _SubscriptionPrincipal_user(TypedDict, closed=True):
+class SubscriptionPrincipalUserMember(TypedDict, closed=True):
     user: "capo_qbusiness.types.user_identifier.UserIdentifier"
 
 
-class _SubscriptionPrincipal_group(TypedDict, closed=True):
+class SubscriptionPrincipalGroupMember(TypedDict, closed=True):
     group: "capo_qbusiness.types.group_identifier.GroupIdentifier"
 
 
 SubscriptionPrincipal: TypeAlias = (
-    _SubscriptionPrincipal_user | _SubscriptionPrincipal_group | UnknownUnionMember
+    SubscriptionPrincipalUserMember
+    | SubscriptionPrincipalGroupMember
+    | UnknownUnionMember
 )
 
 

@@ -14,29 +14,29 @@ if TYPE_CHECKING:
     import capo_application_signals.types.service_operation_entity
 
 
-class _AuditTargetEntity_Service(TypedDict, closed=True):
+class AuditTargetEntityServiceMember(TypedDict, closed=True):
     Service: "capo_application_signals.types.service_entity.ServiceEntity"
 
 
-class _AuditTargetEntity_Slo(TypedDict, closed=True):
+class AuditTargetEntitySloMember(TypedDict, closed=True):
     Slo: "capo_application_signals.types.service_level_objective_entity.ServiceLevelObjectiveEntity"
 
 
-class _AuditTargetEntity_ServiceOperation(TypedDict, closed=True):
+class AuditTargetEntityServiceOperationMember(TypedDict, closed=True):
     ServiceOperation: (
         "capo_application_signals.types.service_operation_entity.ServiceOperationEntity"
     )
 
 
-class _AuditTargetEntity_Canary(TypedDict, closed=True):
+class AuditTargetEntityCanaryMember(TypedDict, closed=True):
     Canary: "capo_application_signals.types.canary_entity.CanaryEntity"
 
 
 AuditTargetEntity: TypeAlias = (
-    _AuditTargetEntity_Service
-    | _AuditTargetEntity_Slo
-    | _AuditTargetEntity_ServiceOperation
-    | _AuditTargetEntity_Canary
+    AuditTargetEntityServiceMember
+    | AuditTargetEntitySloMember
+    | AuditTargetEntityServiceOperationMember
+    | AuditTargetEntityCanaryMember
     | UnknownUnionMember
 )
 

@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_emr_containers.types.eks_info
 
 
-class _ContainerInfo_eksInfo(TypedDict, closed=True):
+class ContainerInfoEksInfoMember(TypedDict, closed=True):
     eksInfo: "capo_emr_containers.types.eks_info.EksInfo"
 
 
-ContainerInfo: TypeAlias = _ContainerInfo_eksInfo | UnknownUnionMember
+ContainerInfo: TypeAlias = ContainerInfoEksInfoMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

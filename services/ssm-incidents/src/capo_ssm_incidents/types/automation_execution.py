@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_ssm_incidents.types.arn
 
 
-class _AutomationExecution_ssmExecutionArn(TypedDict, closed=True):
+class AutomationExecutionSsmExecutionArnMember(TypedDict, closed=True):
     ssmExecutionArn: "capo_ssm_incidents.types.arn.Arn"
 
 
 AutomationExecution: TypeAlias = (
-    _AutomationExecution_ssmExecutionArn | UnknownUnionMember
+    AutomationExecutionSsmExecutionArnMember | UnknownUnionMember
 )
 
 

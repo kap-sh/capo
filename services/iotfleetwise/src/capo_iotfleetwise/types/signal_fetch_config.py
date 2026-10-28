@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_iotfleetwise.types.time_based_signal_fetch_config
 
 
-class _SignalFetchConfig_timeBased(TypedDict, closed=True):
+class SignalFetchConfigTimeBasedMember(TypedDict, closed=True):
     timeBased: "capo_iotfleetwise.types.time_based_signal_fetch_config.TimeBasedSignalFetchConfig"
 
 
-class _SignalFetchConfig_conditionBased(TypedDict, closed=True):
+class SignalFetchConfigConditionBasedMember(TypedDict, closed=True):
     conditionBased: "capo_iotfleetwise.types.condition_based_signal_fetch_config.ConditionBasedSignalFetchConfig"
 
 
 SignalFetchConfig: TypeAlias = (
-    _SignalFetchConfig_timeBased
-    | _SignalFetchConfig_conditionBased
+    SignalFetchConfigTimeBasedMember
+    | SignalFetchConfigConditionBasedMember
     | UnknownUnionMember
 )
 

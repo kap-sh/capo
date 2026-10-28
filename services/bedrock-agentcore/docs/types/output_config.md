@@ -7,7 +7,7 @@ title: OutputConfig
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore.types.output_config._OutputConfig_cloudWatchConfig
+::: capo_bedrock_agentcore.types.output_config.OutputConfigCloudWatchConfigMember
     options:
       show_source: true
       merge_init_into_class: false

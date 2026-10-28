@@ -15,17 +15,17 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.harness_summarization_configuration
 
 
-class _HarnessTruncationStrategyConfiguration_slidingWindow(TypedDict, closed=True):
+class HarnessTruncationStrategyConfigurationSlidingWindowMember(TypedDict, closed=True):
     slidingWindow: "capo_bedrock_agentcore_control.types.harness_sliding_window_configuration.HarnessSlidingWindowConfiguration"
 
 
-class _HarnessTruncationStrategyConfiguration_summarization(TypedDict, closed=True):
+class HarnessTruncationStrategyConfigurationSummarizationMember(TypedDict, closed=True):
     summarization: "capo_bedrock_agentcore_control.types.harness_summarization_configuration.HarnessSummarizationConfiguration"
 
 
 HarnessTruncationStrategyConfiguration: TypeAlias = (
-    _HarnessTruncationStrategyConfiguration_slidingWindow
-    | _HarnessTruncationStrategyConfiguration_summarization
+    HarnessTruncationStrategyConfigurationSlidingWindowMember
+    | HarnessTruncationStrategyConfigurationSummarizationMember
     | UnknownUnionMember
 )
 

@@ -14,29 +14,29 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.analysis_rule_list
 
 
-class _AnalysisRulePolicyV1_list(TypedDict, closed=True):
+class AnalysisRulePolicyV1ListMember(TypedDict, closed=True):
     list: "capo_cleanrooms.types.analysis_rule_list.AnalysisRuleList"
 
 
-class _AnalysisRulePolicyV1_aggregation(TypedDict, closed=True):
+class AnalysisRulePolicyV1AggregationMember(TypedDict, closed=True):
     aggregation: (
         "capo_cleanrooms.types.analysis_rule_aggregation.AnalysisRuleAggregation"
     )
 
 
-class _AnalysisRulePolicyV1_custom(TypedDict, closed=True):
+class AnalysisRulePolicyV1CustomMember(TypedDict, closed=True):
     custom: "capo_cleanrooms.types.analysis_rule_custom.AnalysisRuleCustom"
 
 
-class _AnalysisRulePolicyV1_idMappingTable(TypedDict, closed=True):
+class AnalysisRulePolicyV1IdMappingTableMember(TypedDict, closed=True):
     idMappingTable: "capo_cleanrooms.types.analysis_rule_id_mapping_table.AnalysisRuleIdMappingTable"
 
 
 AnalysisRulePolicyV1: TypeAlias = (
-    _AnalysisRulePolicyV1_list
-    | _AnalysisRulePolicyV1_aggregation
-    | _AnalysisRulePolicyV1_custom
-    | _AnalysisRulePolicyV1_idMappingTable
+    AnalysisRulePolicyV1ListMember
+    | AnalysisRulePolicyV1AggregationMember
+    | AnalysisRulePolicyV1CustomMember
+    | AnalysisRulePolicyV1IdMappingTableMember
     | UnknownUnionMember
 )
 

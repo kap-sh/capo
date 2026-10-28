@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_mailmanager.types.retention_period
 
 
-class _ArchiveRetention_RetentionPeriod(TypedDict, closed=True):
+class ArchiveRetentionRetentionPeriodMember(TypedDict, closed=True):
     RetentionPeriod: "capo_mailmanager.types.retention_period.RetentionPeriod"
 
 
-ArchiveRetention: TypeAlias = _ArchiveRetention_RetentionPeriod | UnknownUnionMember
+ArchiveRetention: TypeAlias = ArchiveRetentionRetentionPeriodMember | UnknownUnionMember
 
 
 # --- awsJson1_0 ser/de ---

@@ -14,27 +14,27 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.srt_listener_router_input_configuration
 
 
-class _RouterInputProtocolConfiguration_Rist(TypedDict, closed=True):
+class RouterInputProtocolConfigurationRistMember(TypedDict, closed=True):
     Rist: "capo_mediaconnect.types.rist_router_input_configuration.RistRouterInputConfiguration"
 
 
-class _RouterInputProtocolConfiguration_SrtListener(TypedDict, closed=True):
+class RouterInputProtocolConfigurationSrtListenerMember(TypedDict, closed=True):
     SrtListener: "capo_mediaconnect.types.srt_listener_router_input_configuration.SrtListenerRouterInputConfiguration"
 
 
-class _RouterInputProtocolConfiguration_SrtCaller(TypedDict, closed=True):
+class RouterInputProtocolConfigurationSrtCallerMember(TypedDict, closed=True):
     SrtCaller: "capo_mediaconnect.types.srt_caller_router_input_configuration.SrtCallerRouterInputConfiguration"
 
 
-class _RouterInputProtocolConfiguration_Rtp(TypedDict, closed=True):
+class RouterInputProtocolConfigurationRtpMember(TypedDict, closed=True):
     Rtp: "capo_mediaconnect.types.rtp_router_input_configuration.RtpRouterInputConfiguration"
 
 
 RouterInputProtocolConfiguration: TypeAlias = (
-    _RouterInputProtocolConfiguration_Rist
-    | _RouterInputProtocolConfiguration_SrtListener
-    | _RouterInputProtocolConfiguration_SrtCaller
-    | _RouterInputProtocolConfiguration_Rtp
+    RouterInputProtocolConfigurationRistMember
+    | RouterInputProtocolConfigurationSrtListenerMember
+    | RouterInputProtocolConfigurationSrtCallerMember
+    | RouterInputProtocolConfigurationRtpMember
     | UnknownUnionMember
 )
 

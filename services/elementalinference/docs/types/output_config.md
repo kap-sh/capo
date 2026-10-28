@@ -7,25 +7,25 @@ title: OutputConfig
       show_source: true
       merge_init_into_class: false
 
-::: capo_elementalinference.types.output_config._OutputConfig_cropping
+::: capo_elementalinference.types.output_config.OutputConfigCroppingMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_elementalinference.types.output_config._OutputConfig_clipping
+::: capo_elementalinference.types.output_config.OutputConfigClippingMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_elementalinference.types.output_config._OutputConfig_subtitling
+::: capo_elementalinference.types.output_config.OutputConfigSubtitlingMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_elementalinference.types.output_config._OutputConfig_contextualMetadata
+::: capo_elementalinference.types.output_config.OutputConfigContextualMetadataMember
     options:
       show_source: true
       merge_init_into_class: false

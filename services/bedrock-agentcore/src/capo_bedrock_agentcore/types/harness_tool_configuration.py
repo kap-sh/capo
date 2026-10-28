@@ -15,34 +15,34 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.harness_remote_mcp_config
 
 
-class _HarnessToolConfiguration_remoteMcp(TypedDict, closed=True):
+class HarnessToolConfigurationRemoteMcpMember(TypedDict, closed=True):
     remoteMcp: (
         "capo_bedrock_agentcore.types.harness_remote_mcp_config.HarnessRemoteMcpConfig"
     )
 
 
-class _HarnessToolConfiguration_agentCoreBrowser(TypedDict, closed=True):
+class HarnessToolConfigurationAgentCoreBrowserMember(TypedDict, closed=True):
     agentCoreBrowser: "capo_bedrock_agentcore.types.harness_agent_core_browser_config.HarnessAgentCoreBrowserConfig"
 
 
-class _HarnessToolConfiguration_agentCoreGateway(TypedDict, closed=True):
+class HarnessToolConfigurationAgentCoreGatewayMember(TypedDict, closed=True):
     agentCoreGateway: "capo_bedrock_agentcore.types.harness_agent_core_gateway_config.HarnessAgentCoreGatewayConfig"
 
 
-class _HarnessToolConfiguration_inlineFunction(TypedDict, closed=True):
+class HarnessToolConfigurationInlineFunctionMember(TypedDict, closed=True):
     inlineFunction: "capo_bedrock_agentcore.types.harness_inline_function_config.HarnessInlineFunctionConfig"
 
 
-class _HarnessToolConfiguration_agentCoreCodeInterpreter(TypedDict, closed=True):
+class HarnessToolConfigurationAgentCoreCodeInterpreterMember(TypedDict, closed=True):
     agentCoreCodeInterpreter: "capo_bedrock_agentcore.types.harness_agent_core_code_interpreter_config.HarnessAgentCoreCodeInterpreterConfig"
 
 
 HarnessToolConfiguration: TypeAlias = (
-    _HarnessToolConfiguration_remoteMcp
-    | _HarnessToolConfiguration_agentCoreBrowser
-    | _HarnessToolConfiguration_agentCoreGateway
-    | _HarnessToolConfiguration_inlineFunction
-    | _HarnessToolConfiguration_agentCoreCodeInterpreter
+    HarnessToolConfigurationRemoteMcpMember
+    | HarnessToolConfigurationAgentCoreBrowserMember
+    | HarnessToolConfigurationAgentCoreGatewayMember
+    | HarnessToolConfigurationInlineFunctionMember
+    | HarnessToolConfigurationAgentCoreCodeInterpreterMember
     | UnknownUnionMember
 )
 

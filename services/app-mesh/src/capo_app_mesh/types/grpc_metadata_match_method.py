@@ -12,32 +12,32 @@ if TYPE_CHECKING:
     import capo_app_mesh.types.match_range
 
 
-class _GrpcMetadataMatchMethod_exact(TypedDict, closed=True):
+class GrpcMetadataMatchMethodExactMember(TypedDict, closed=True):
     exact: "capo_app_mesh.types.header_match.HeaderMatch"
 
 
-class _GrpcMetadataMatchMethod_regex(TypedDict, closed=True):
+class GrpcMetadataMatchMethodRegexMember(TypedDict, closed=True):
     regex: "capo_app_mesh.types.header_match.HeaderMatch"
 
 
-class _GrpcMetadataMatchMethod_range(TypedDict, closed=True):
+class GrpcMetadataMatchMethodRangeMember(TypedDict, closed=True):
     range: "capo_app_mesh.types.match_range.MatchRange"
 
 
-class _GrpcMetadataMatchMethod_prefix(TypedDict, closed=True):
+class GrpcMetadataMatchMethodPrefixMember(TypedDict, closed=True):
     prefix: "capo_app_mesh.types.header_match.HeaderMatch"
 
 
-class _GrpcMetadataMatchMethod_suffix(TypedDict, closed=True):
+class GrpcMetadataMatchMethodSuffixMember(TypedDict, closed=True):
     suffix: "capo_app_mesh.types.header_match.HeaderMatch"
 
 
 GrpcMetadataMatchMethod: TypeAlias = (
-    _GrpcMetadataMatchMethod_exact
-    | _GrpcMetadataMatchMethod_regex
-    | _GrpcMetadataMatchMethod_range
-    | _GrpcMetadataMatchMethod_prefix
-    | _GrpcMetadataMatchMethod_suffix
+    GrpcMetadataMatchMethodExactMember
+    | GrpcMetadataMatchMethodRegexMember
+    | GrpcMetadataMatchMethodRangeMember
+    | GrpcMetadataMatchMethodPrefixMember
+    | GrpcMetadataMatchMethodSuffixMember
     | UnknownUnionMember
 )
 

@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.basic_auth
 
 
-class _ProxyCredentials_basicAuth(TypedDict, closed=True):
+class ProxyCredentialsBasicAuthMember(TypedDict, closed=True):
     basicAuth: "capo_bedrock_agentcore.types.basic_auth.BasicAuth"
 
 
-ProxyCredentials: TypeAlias = _ProxyCredentials_basicAuth | UnknownUnionMember
+ProxyCredentials: TypeAlias = ProxyCredentialsBasicAuthMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

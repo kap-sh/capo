@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_proton.types.s3_object_source
 
 
-class _TemplateVersionSourceInput_s3(TypedDict, closed=True):
+class TemplateVersionSourceInputS3Member(TypedDict, closed=True):
     s3: "capo_proton.types.s3_object_source.S3ObjectSource"
 
 
 TemplateVersionSourceInput: TypeAlias = (
-    _TemplateVersionSourceInput_s3 | UnknownUnionMember
+    TemplateVersionSourceInputS3Member | UnknownUnionMember
 )
 
 

@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.agentic_retrieve_warning_message
 
 
-class _AgenticRetrieveWarning_message(TypedDict, closed=True):
+class AgenticRetrieveWarningMessageMember(TypedDict, closed=True):
     message: "capo_bedrock_agent_runtime.types.agentic_retrieve_warning_message.AgenticRetrieveWarningMessage"
 
 
-class _AgenticRetrieveWarning_guardrail(TypedDict, closed=True):
+class AgenticRetrieveWarningGuardrailMember(TypedDict, closed=True):
     guardrail: "capo_bedrock_agent_runtime.types.agentic_retrieve_guardrail_warning.AgenticRetrieveGuardrailWarning"
 
 
 AgenticRetrieveWarning: TypeAlias = (
-    _AgenticRetrieveWarning_message
-    | _AgenticRetrieveWarning_guardrail
+    AgenticRetrieveWarningMessageMember
+    | AgenticRetrieveWarningGuardrailMember
     | UnknownUnionMember
 )
 

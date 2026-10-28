@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_acm.types.common_name_filter
 
 
-class _SubjectFilter_CommonName(TypedDict, closed=True):
+class SubjectFilterCommonNameMember(TypedDict, closed=True):
     CommonName: "capo_acm.types.common_name_filter.CommonNameFilter"
 
 
-SubjectFilter: TypeAlias = _SubjectFilter_CommonName | UnknownUnionMember
+SubjectFilter: TypeAlias = SubjectFilterCommonNameMember | UnknownUnionMember
 
 
 # --- awsJson1_1 ser/de ---

@@ -18,55 +18,55 @@ if TYPE_CHECKING:
     import capo_groundstation.types.uplink_echo_config
 
 
-class _ConfigTypeData_antennaDownlinkConfig(TypedDict, closed=True):
+class ConfigTypeDataAntennaDownlinkConfigMember(TypedDict, closed=True):
     antennaDownlinkConfig: (
         "capo_groundstation.types.antenna_downlink_config.AntennaDownlinkConfig"
     )
 
 
-class _ConfigTypeData_trackingConfig(TypedDict, closed=True):
+class ConfigTypeDataTrackingConfigMember(TypedDict, closed=True):
     trackingConfig: "capo_groundstation.types.tracking_config.TrackingConfig"
 
 
-class _ConfigTypeData_dataflowEndpointConfig(TypedDict, closed=True):
+class ConfigTypeDataDataflowEndpointConfigMember(TypedDict, closed=True):
     dataflowEndpointConfig: (
         "capo_groundstation.types.dataflow_endpoint_config.DataflowEndpointConfig"
     )
 
 
-class _ConfigTypeData_antennaDownlinkDemodDecodeConfig(TypedDict, closed=True):
+class ConfigTypeDataAntennaDownlinkDemodDecodeConfigMember(TypedDict, closed=True):
     antennaDownlinkDemodDecodeConfig: "capo_groundstation.types.antenna_downlink_demod_decode_config.AntennaDownlinkDemodDecodeConfig"
 
 
-class _ConfigTypeData_antennaUplinkConfig(TypedDict, closed=True):
+class ConfigTypeDataAntennaUplinkConfigMember(TypedDict, closed=True):
     antennaUplinkConfig: (
         "capo_groundstation.types.antenna_uplink_config.AntennaUplinkConfig"
     )
 
 
-class _ConfigTypeData_uplinkEchoConfig(TypedDict, closed=True):
+class ConfigTypeDataUplinkEchoConfigMember(TypedDict, closed=True):
     uplinkEchoConfig: "capo_groundstation.types.uplink_echo_config.UplinkEchoConfig"
 
 
-class _ConfigTypeData_s3RecordingConfig(TypedDict, closed=True):
+class ConfigTypeDataS3RecordingConfigMember(TypedDict, closed=True):
     s3RecordingConfig: "capo_groundstation.types.s3_recording_config.S3RecordingConfig"
 
 
-class _ConfigTypeData_telemetrySinkConfig(TypedDict, closed=True):
+class ConfigTypeDataTelemetrySinkConfigMember(TypedDict, closed=True):
     telemetrySinkConfig: (
         "capo_groundstation.types.telemetry_sink_config.TelemetrySinkConfig"
     )
 
 
 ConfigTypeData: TypeAlias = (
-    _ConfigTypeData_antennaDownlinkConfig
-    | _ConfigTypeData_trackingConfig
-    | _ConfigTypeData_dataflowEndpointConfig
-    | _ConfigTypeData_antennaDownlinkDemodDecodeConfig
-    | _ConfigTypeData_antennaUplinkConfig
-    | _ConfigTypeData_uplinkEchoConfig
-    | _ConfigTypeData_s3RecordingConfig
-    | _ConfigTypeData_telemetrySinkConfig
+    ConfigTypeDataAntennaDownlinkConfigMember
+    | ConfigTypeDataTrackingConfigMember
+    | ConfigTypeDataDataflowEndpointConfigMember
+    | ConfigTypeDataAntennaDownlinkDemodDecodeConfigMember
+    | ConfigTypeDataAntennaUplinkConfigMember
+    | ConfigTypeDataUplinkEchoConfigMember
+    | ConfigTypeDataS3RecordingConfigMember
+    | ConfigTypeDataTelemetrySinkConfigMember
     | UnknownUnionMember
 )
 

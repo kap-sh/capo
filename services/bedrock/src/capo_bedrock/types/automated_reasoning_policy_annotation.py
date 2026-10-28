@@ -23,78 +23,78 @@ if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_update_variable_annotation
 
 
-class _AutomatedReasoningPolicyAnnotation_addType(TypedDict, closed=True):
+class AutomatedReasoningPolicyAnnotationAddTypeMember(TypedDict, closed=True):
     addType: "capo_bedrock.types.automated_reasoning_policy_add_type_annotation.AutomatedReasoningPolicyAddTypeAnnotation"
 
 
-class _AutomatedReasoningPolicyAnnotation_updateType(TypedDict, closed=True):
+class AutomatedReasoningPolicyAnnotationUpdateTypeMember(TypedDict, closed=True):
     updateType: "capo_bedrock.types.automated_reasoning_policy_update_type_annotation.AutomatedReasoningPolicyUpdateTypeAnnotation"
 
 
-class _AutomatedReasoningPolicyAnnotation_deleteType(TypedDict, closed=True):
+class AutomatedReasoningPolicyAnnotationDeleteTypeMember(TypedDict, closed=True):
     deleteType: "capo_bedrock.types.automated_reasoning_policy_delete_type_annotation.AutomatedReasoningPolicyDeleteTypeAnnotation"
 
 
-class _AutomatedReasoningPolicyAnnotation_addVariable(TypedDict, closed=True):
+class AutomatedReasoningPolicyAnnotationAddVariableMember(TypedDict, closed=True):
     addVariable: "capo_bedrock.types.automated_reasoning_policy_add_variable_annotation.AutomatedReasoningPolicyAddVariableAnnotation"
 
 
-class _AutomatedReasoningPolicyAnnotation_updateVariable(TypedDict, closed=True):
+class AutomatedReasoningPolicyAnnotationUpdateVariableMember(TypedDict, closed=True):
     updateVariable: "capo_bedrock.types.automated_reasoning_policy_update_variable_annotation.AutomatedReasoningPolicyUpdateVariableAnnotation"
 
 
-class _AutomatedReasoningPolicyAnnotation_deleteVariable(TypedDict, closed=True):
+class AutomatedReasoningPolicyAnnotationDeleteVariableMember(TypedDict, closed=True):
     deleteVariable: "capo_bedrock.types.automated_reasoning_policy_delete_variable_annotation.AutomatedReasoningPolicyDeleteVariableAnnotation"
 
 
-class _AutomatedReasoningPolicyAnnotation_addRule(TypedDict, closed=True):
+class AutomatedReasoningPolicyAnnotationAddRuleMember(TypedDict, closed=True):
     addRule: "capo_bedrock.types.automated_reasoning_policy_add_rule_annotation.AutomatedReasoningPolicyAddRuleAnnotation"
 
 
-class _AutomatedReasoningPolicyAnnotation_updateRule(TypedDict, closed=True):
+class AutomatedReasoningPolicyAnnotationUpdateRuleMember(TypedDict, closed=True):
     updateRule: "capo_bedrock.types.automated_reasoning_policy_update_rule_annotation.AutomatedReasoningPolicyUpdateRuleAnnotation"
 
 
-class _AutomatedReasoningPolicyAnnotation_deleteRule(TypedDict, closed=True):
+class AutomatedReasoningPolicyAnnotationDeleteRuleMember(TypedDict, closed=True):
     deleteRule: "capo_bedrock.types.automated_reasoning_policy_delete_rule_annotation.AutomatedReasoningPolicyDeleteRuleAnnotation"
 
 
-class _AutomatedReasoningPolicyAnnotation_addRuleFromNaturalLanguage(
+class AutomatedReasoningPolicyAnnotationAddRuleFromNaturalLanguageMember(
     TypedDict, closed=True
 ):
     addRuleFromNaturalLanguage: "capo_bedrock.types.automated_reasoning_policy_add_rule_from_natural_language_annotation.AutomatedReasoningPolicyAddRuleFromNaturalLanguageAnnotation"
 
 
-class _AutomatedReasoningPolicyAnnotation_updateFromRulesFeedback(
+class AutomatedReasoningPolicyAnnotationUpdateFromRulesFeedbackMember(
     TypedDict, closed=True
 ):
     updateFromRulesFeedback: "capo_bedrock.types.automated_reasoning_policy_update_from_rule_feedback_annotation.AutomatedReasoningPolicyUpdateFromRuleFeedbackAnnotation"
 
 
-class _AutomatedReasoningPolicyAnnotation_updateFromScenarioFeedback(
+class AutomatedReasoningPolicyAnnotationUpdateFromScenarioFeedbackMember(
     TypedDict, closed=True
 ):
     updateFromScenarioFeedback: "capo_bedrock.types.automated_reasoning_policy_update_from_scenario_feedback_annotation.AutomatedReasoningPolicyUpdateFromScenarioFeedbackAnnotation"
 
 
-class _AutomatedReasoningPolicyAnnotation_ingestContent(TypedDict, closed=True):
+class AutomatedReasoningPolicyAnnotationIngestContentMember(TypedDict, closed=True):
     ingestContent: "capo_bedrock.types.automated_reasoning_policy_ingest_content_annotation.AutomatedReasoningPolicyIngestContentAnnotation"
 
 
 AutomatedReasoningPolicyAnnotation: TypeAlias = (
-    _AutomatedReasoningPolicyAnnotation_addType
-    | _AutomatedReasoningPolicyAnnotation_updateType
-    | _AutomatedReasoningPolicyAnnotation_deleteType
-    | _AutomatedReasoningPolicyAnnotation_addVariable
-    | _AutomatedReasoningPolicyAnnotation_updateVariable
-    | _AutomatedReasoningPolicyAnnotation_deleteVariable
-    | _AutomatedReasoningPolicyAnnotation_addRule
-    | _AutomatedReasoningPolicyAnnotation_updateRule
-    | _AutomatedReasoningPolicyAnnotation_deleteRule
-    | _AutomatedReasoningPolicyAnnotation_addRuleFromNaturalLanguage
-    | _AutomatedReasoningPolicyAnnotation_updateFromRulesFeedback
-    | _AutomatedReasoningPolicyAnnotation_updateFromScenarioFeedback
-    | _AutomatedReasoningPolicyAnnotation_ingestContent
+    AutomatedReasoningPolicyAnnotationAddTypeMember
+    | AutomatedReasoningPolicyAnnotationUpdateTypeMember
+    | AutomatedReasoningPolicyAnnotationDeleteTypeMember
+    | AutomatedReasoningPolicyAnnotationAddVariableMember
+    | AutomatedReasoningPolicyAnnotationUpdateVariableMember
+    | AutomatedReasoningPolicyAnnotationDeleteVariableMember
+    | AutomatedReasoningPolicyAnnotationAddRuleMember
+    | AutomatedReasoningPolicyAnnotationUpdateRuleMember
+    | AutomatedReasoningPolicyAnnotationDeleteRuleMember
+    | AutomatedReasoningPolicyAnnotationAddRuleFromNaturalLanguageMember
+    | AutomatedReasoningPolicyAnnotationUpdateFromRulesFeedbackMember
+    | AutomatedReasoningPolicyAnnotationUpdateFromScenarioFeedbackMember
+    | AutomatedReasoningPolicyAnnotationIngestContentMember
     | UnknownUnionMember
 )
 

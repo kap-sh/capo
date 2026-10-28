@@ -7,7 +7,7 @@ title: ProviderConfig
       show_source: true
       merge_init_into_class: false
 
-::: capo_quicksight.types.provider_config._ProviderConfig_MicrosoftPurview
+::: capo_quicksight.types.provider_config.ProviderConfigMicrosoftPurviewMember
     options:
       show_source: true
       merge_init_into_class: false

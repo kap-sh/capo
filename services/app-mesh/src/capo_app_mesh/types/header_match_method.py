@@ -12,32 +12,32 @@ if TYPE_CHECKING:
     import capo_app_mesh.types.match_range
 
 
-class _HeaderMatchMethod_exact(TypedDict, closed=True):
+class HeaderMatchMethodExactMember(TypedDict, closed=True):
     exact: "capo_app_mesh.types.header_match.HeaderMatch"
 
 
-class _HeaderMatchMethod_regex(TypedDict, closed=True):
+class HeaderMatchMethodRegexMember(TypedDict, closed=True):
     regex: "capo_app_mesh.types.header_match.HeaderMatch"
 
 
-class _HeaderMatchMethod_range(TypedDict, closed=True):
+class HeaderMatchMethodRangeMember(TypedDict, closed=True):
     range: "capo_app_mesh.types.match_range.MatchRange"
 
 
-class _HeaderMatchMethod_prefix(TypedDict, closed=True):
+class HeaderMatchMethodPrefixMember(TypedDict, closed=True):
     prefix: "capo_app_mesh.types.header_match.HeaderMatch"
 
 
-class _HeaderMatchMethod_suffix(TypedDict, closed=True):
+class HeaderMatchMethodSuffixMember(TypedDict, closed=True):
     suffix: "capo_app_mesh.types.header_match.HeaderMatch"
 
 
 HeaderMatchMethod: TypeAlias = (
-    _HeaderMatchMethod_exact
-    | _HeaderMatchMethod_regex
-    | _HeaderMatchMethod_range
-    | _HeaderMatchMethod_prefix
-    | _HeaderMatchMethod_suffix
+    HeaderMatchMethodExactMember
+    | HeaderMatchMethodRegexMember
+    | HeaderMatchMethodRangeMember
+    | HeaderMatchMethodPrefixMember
+    | HeaderMatchMethodSuffixMember
     | UnknownUnionMember
 )
 

@@ -14,11 +14,11 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.evaluator_id
 
 
-class _EvaluatorReference_evaluatorId(TypedDict, closed=True):
+class EvaluatorReferenceEvaluatorIdMember(TypedDict, closed=True):
     evaluatorId: "capo_bedrock_agentcore_control.types.evaluator_id.EvaluatorId"
 
 
-EvaluatorReference: TypeAlias = _EvaluatorReference_evaluatorId | UnknownUnionMember
+EvaluatorReference: TypeAlias = EvaluatorReferenceEvaluatorIdMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

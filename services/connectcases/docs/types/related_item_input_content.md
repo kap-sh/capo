@@ -7,37 +7,37 @@ title: RelatedItemInputContent
       show_source: true
       merge_init_into_class: false
 
-::: capo_connectcases.types.related_item_input_content._RelatedItemInputContent_contact
+::: capo_connectcases.types.related_item_input_content.RelatedItemInputContentContactMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connectcases.types.related_item_input_content._RelatedItemInputContent_comment
+::: capo_connectcases.types.related_item_input_content.RelatedItemInputContentCommentMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connectcases.types.related_item_input_content._RelatedItemInputContent_file
+::: capo_connectcases.types.related_item_input_content.RelatedItemInputContentFileMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connectcases.types.related_item_input_content._RelatedItemInputContent_sla
+::: capo_connectcases.types.related_item_input_content.RelatedItemInputContentSlaMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connectcases.types.related_item_input_content._RelatedItemInputContent_connectCase
+::: capo_connectcases.types.related_item_input_content.RelatedItemInputContentConnectCaseMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_connectcases.types.related_item_input_content._RelatedItemInputContent_custom
+::: capo_connectcases.types.related_item_input_content.RelatedItemInputContentCustomMember
     options:
       show_source: true
       merge_init_into_class: false

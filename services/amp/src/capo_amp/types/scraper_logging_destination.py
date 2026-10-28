@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_amp.types.cloud_watch_log_destination
 
 
-class _ScraperLoggingDestination_cloudWatchLogs(TypedDict, closed=True):
+class ScraperLoggingDestinationCloudWatchLogsMember(TypedDict, closed=True):
     cloudWatchLogs: (
         "capo_amp.types.cloud_watch_log_destination.CloudWatchLogDestination"
     )
 
 
 ScraperLoggingDestination: TypeAlias = (
-    _ScraperLoggingDestination_cloudWatchLogs | UnknownUnionMember
+    ScraperLoggingDestinationCloudWatchLogsMember | UnknownUnionMember
 )
 
 

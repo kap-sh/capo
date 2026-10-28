@@ -13,17 +13,17 @@ if TYPE_CHECKING:
     import capo_cloudwatch.types.wall_clock_window
 
 
-class _EvaluationWindow_WallClockWindow(TypedDict, closed=True):
+class EvaluationWindowWallClockWindowMember(TypedDict, closed=True):
     WallClockWindow: "capo_cloudwatch.types.wall_clock_window.WallClockWindow"
 
 
-class _EvaluationWindow_SlidingWindow(TypedDict, closed=True):
+class EvaluationWindowSlidingWindowMember(TypedDict, closed=True):
     SlidingWindow: "capo_cloudwatch.types.sliding_window.SlidingWindow"
 
 
 EvaluationWindow: TypeAlias = (
-    _EvaluationWindow_WallClockWindow
-    | _EvaluationWindow_SlidingWindow
+    EvaluationWindowWallClockWindowMember
+    | EvaluationWindowSlidingWindowMember
     | UnknownUnionMember
 )
 

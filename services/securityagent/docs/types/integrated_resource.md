@@ -7,37 +7,37 @@ title: IntegratedResource
       show_source: true
       merge_init_into_class: false
 
-::: capo_securityagent.types.integrated_resource._IntegratedResource_githubRepository
+::: capo_securityagent.types.integrated_resource.IntegratedResourceGithubRepositoryMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_securityagent.types.integrated_resource._IntegratedResource_gitlabRepository
+::: capo_securityagent.types.integrated_resource.IntegratedResourceGitlabRepositoryMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_securityagent.types.integrated_resource._IntegratedResource_bitbucketRepository
+::: capo_securityagent.types.integrated_resource.IntegratedResourceBitbucketRepositoryMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_securityagent.types.integrated_resource._IntegratedResource_confluenceDocument
+::: capo_securityagent.types.integrated_resource.IntegratedResourceConfluenceDocumentMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_securityagent.types.integrated_resource._IntegratedResource_azureDevOpsRepository
+::: capo_securityagent.types.integrated_resource.IntegratedResourceAzureDevOpsRepositoryMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_securityagent.types.integrated_resource._IntegratedResource_jiraProject
+::: capo_securityagent.types.integrated_resource.IntegratedResourceJiraProjectMember
     options:
       show_source: true
       merge_init_into_class: false

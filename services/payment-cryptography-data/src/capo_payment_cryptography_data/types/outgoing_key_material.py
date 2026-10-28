@@ -14,11 +14,13 @@ if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.outgoing_tr31_key_block
 
 
-class _OutgoingKeyMaterial_Tr31KeyBlock(TypedDict, closed=True):
+class OutgoingKeyMaterialTr31KeyBlockMember(TypedDict, closed=True):
     Tr31KeyBlock: "capo_payment_cryptography_data.types.outgoing_tr31_key_block.OutgoingTr31KeyBlock"
 
 
-OutgoingKeyMaterial: TypeAlias = _OutgoingKeyMaterial_Tr31KeyBlock | UnknownUnionMember
+OutgoingKeyMaterial: TypeAlias = (
+    OutgoingKeyMaterialTr31KeyBlockMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

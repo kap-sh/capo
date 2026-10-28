@@ -13,24 +13,24 @@ if TYPE_CHECKING:
     import capo_acm.types.x509_attribute_filter
 
 
-class _CertificateFilter_CertificateArn(TypedDict, closed=True):
+class CertificateFilterCertificateArnMember(TypedDict, closed=True):
     CertificateArn: "capo_acm.types.arn.Arn"
 
 
-class _CertificateFilter_X509AttributeFilter(TypedDict, closed=True):
+class CertificateFilterX509AttributeFilterMember(TypedDict, closed=True):
     X509AttributeFilter: "capo_acm.types.x509_attribute_filter.X509AttributeFilter"
 
 
-class _CertificateFilter_AcmCertificateMetadataFilter(TypedDict, closed=True):
+class CertificateFilterAcmCertificateMetadataFilterMember(TypedDict, closed=True):
     AcmCertificateMetadataFilter: (
         "capo_acm.types.acm_certificate_metadata_filter.AcmCertificateMetadataFilter"
     )
 
 
 CertificateFilter: TypeAlias = (
-    _CertificateFilter_CertificateArn
-    | _CertificateFilter_X509AttributeFilter
-    | _CertificateFilter_AcmCertificateMetadataFilter
+    CertificateFilterCertificateArnMember
+    | CertificateFilterX509AttributeFilterMember
+    | CertificateFilterAcmCertificateMetadataFilterMember
     | UnknownUnionMember
 )
 

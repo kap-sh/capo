@@ -7,7 +7,7 @@ title: ConfiguredTableAnalysisRulePolicy
       show_source: true
       merge_init_into_class: false
 
-::: capo_cleanrooms.types.configured_table_analysis_rule_policy._ConfiguredTableAnalysisRulePolicy_v1
+::: capo_cleanrooms.types.configured_table_analysis_rule_policy.ConfiguredTableAnalysisRulePolicyV1Member
     options:
       show_source: true
       merge_init_into_class: false

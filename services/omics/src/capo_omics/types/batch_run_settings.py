@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_omics.types.s3_uri_settings
 
 
-class _BatchRunSettings_inlineSettings(TypedDict, closed=True):
+class BatchRunSettingsInlineSettingsMember(TypedDict, closed=True):
     inlineSettings: "capo_omics.types.inline_settings.InlineSettings"
 
 
-class _BatchRunSettings_s3UriSettings(TypedDict, closed=True):
+class BatchRunSettingsS3UriSettingsMember(TypedDict, closed=True):
     s3UriSettings: "capo_omics.types.s3_uri_settings.S3UriSettings"
 
 
 BatchRunSettings: TypeAlias = (
-    _BatchRunSettings_inlineSettings
-    | _BatchRunSettings_s3UriSettings
+    BatchRunSettingsInlineSettingsMember
+    | BatchRunSettingsS3UriSettingsMember
     | UnknownUnionMember
 )
 

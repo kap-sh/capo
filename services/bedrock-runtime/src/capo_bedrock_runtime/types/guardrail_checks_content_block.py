@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_bedrock_runtime.types.guardrail_checks_text_content
 
 
-class _GuardrailChecksContentBlock_text(TypedDict, closed=True):
+class GuardrailChecksContentBlockTextMember(TypedDict, closed=True):
     text: "capo_bedrock_runtime.types.guardrail_checks_text_content.GuardrailChecksTextContent"
 
 
 GuardrailChecksContentBlock: TypeAlias = (
-    _GuardrailChecksContentBlock_text | UnknownUnionMember
+    GuardrailChecksContentBlockTextMember | UnknownUnionMember
 )
 
 

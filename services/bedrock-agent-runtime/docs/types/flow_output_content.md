@@ -7,7 +7,7 @@ title: FlowOutputContent
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agent_runtime.types.flow_output_content._FlowOutputContent_document
+::: capo_bedrock_agent_runtime.types.flow_output_content.FlowOutputContentDocumentMember
     options:
       show_source: true
       merge_init_into_class: false

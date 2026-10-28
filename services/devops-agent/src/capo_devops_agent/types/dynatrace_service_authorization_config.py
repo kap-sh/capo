@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.dynatrace_o_auth_client_credentials_config
 
 
-class _DynatraceServiceAuthorizationConfig_oAuthClientCredentials(
+class DynatraceServiceAuthorizationConfigOAuthClientCredentialsMember(
     TypedDict, closed=True
 ):
     oAuthClientCredentials: "capo_devops_agent.types.dynatrace_o_auth_client_credentials_config.DynatraceOAuthClientCredentialsConfig"
 
 
 DynatraceServiceAuthorizationConfig: TypeAlias = (
-    _DynatraceServiceAuthorizationConfig_oAuthClientCredentials | UnknownUnionMember
+    DynatraceServiceAuthorizationConfigOAuthClientCredentialsMember | UnknownUnionMember
 )
 
 

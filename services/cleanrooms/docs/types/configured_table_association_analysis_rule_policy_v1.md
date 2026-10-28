@@ -7,19 +7,19 @@ title: ConfiguredTableAssociationAnalysisRulePolicyV1
       show_source: true
       merge_init_into_class: false
 
-::: capo_cleanrooms.types.configured_table_association_analysis_rule_policy_v1._ConfiguredTableAssociationAnalysisRulePolicyV1_list
+::: capo_cleanrooms.types.configured_table_association_analysis_rule_policy_v1.ConfiguredTableAssociationAnalysisRulePolicyV1ListMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cleanrooms.types.configured_table_association_analysis_rule_policy_v1._ConfiguredTableAssociationAnalysisRulePolicyV1_aggregation
+::: capo_cleanrooms.types.configured_table_association_analysis_rule_policy_v1.ConfiguredTableAssociationAnalysisRulePolicyV1AggregationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_cleanrooms.types.configured_table_association_analysis_rule_policy_v1._ConfiguredTableAssociationAnalysisRulePolicyV1_custom
+::: capo_cleanrooms.types.configured_table_association_analysis_rule_policy_v1.ConfiguredTableAssociationAnalysisRulePolicyV1CustomMember
     options:
       show_source: true
       merge_init_into_class: false

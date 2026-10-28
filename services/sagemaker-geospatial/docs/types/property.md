@@ -7,37 +7,37 @@ title: Property
       show_source: true
       merge_init_into_class: false
 
-::: capo_sagemaker_geospatial.types.property._Property_EoCloudCover
+::: capo_sagemaker_geospatial.types.property.PropertyEoCloudCoverMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_sagemaker_geospatial.types.property._Property_ViewOffNadir
+::: capo_sagemaker_geospatial.types.property.PropertyViewOffNadirMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_sagemaker_geospatial.types.property._Property_ViewSunAzimuth
+::: capo_sagemaker_geospatial.types.property.PropertyViewSunAzimuthMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_sagemaker_geospatial.types.property._Property_ViewSunElevation
+::: capo_sagemaker_geospatial.types.property.PropertyViewSunElevationMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_sagemaker_geospatial.types.property._Property_Platform
+::: capo_sagemaker_geospatial.types.property.PropertyPlatformMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_sagemaker_geospatial.types.property._Property_LandsatCloudCoverLand
+::: capo_sagemaker_geospatial.types.property.PropertyLandsatCloudCoverLandMember
     options:
       show_source: true
       merge_init_into_class: false

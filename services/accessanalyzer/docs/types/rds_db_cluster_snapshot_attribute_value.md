@@ -7,7 +7,7 @@ title: RdsDbClusterSnapshotAttributeValue
       show_source: true
       merge_init_into_class: false
 
-::: capo_accessanalyzer.types.rds_db_cluster_snapshot_attribute_value._RdsDbClusterSnapshotAttributeValue_accountIds
+::: capo_accessanalyzer.types.rds_db_cluster_snapshot_attribute_value.RdsDbClusterSnapshotAttributeValueAccountIdsMember
     options:
       show_source: true
       merge_init_into_class: false

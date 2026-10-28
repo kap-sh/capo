@@ -7,7 +7,7 @@ title: CustomModelDataSource
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock.types.custom_model_data_source._CustomModelDataSource_modelPackageArnDataSource
+::: capo_bedrock.types.custom_model_data_source.CustomModelDataSourceModelPackageArnDataSourceMember
     options:
       show_source: true
       merge_init_into_class: false

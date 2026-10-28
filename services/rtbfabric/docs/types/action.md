@@ -7,13 +7,13 @@ title: Action
       show_source: true
       merge_init_into_class: false
 
-::: capo_rtbfabric.types.action._Action_noBid
+::: capo_rtbfabric.types.action.ActionNoBidMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_rtbfabric.types.action._Action_headerTag
+::: capo_rtbfabric.types.action.ActionHeaderTagMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -11,16 +11,16 @@ if TYPE_CHECKING:
     import capo_bedrock_runtime.types.s3_location
 
 
-class _VideoSource_bytes(TypedDict, closed=True):
+class VideoSourceBytesMember(TypedDict, closed=True):
     bytes: "bytes"
 
 
-class _VideoSource_s3Location(TypedDict, closed=True):
+class VideoSourceS3LocationMember(TypedDict, closed=True):
     s3Location: "capo_bedrock_runtime.types.s3_location.S3Location"
 
 
 VideoSource: TypeAlias = (
-    _VideoSource_bytes | _VideoSource_s3Location | UnknownUnionMember
+    VideoSourceBytesMember | VideoSourceS3LocationMember | UnknownUnionMember
 )
 
 

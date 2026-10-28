@@ -13,49 +13,49 @@ title: InvokeAgentRuntimeCommandStreamOutput
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.invoke_agent_runtime_command_stream_output._InvokeAgentRuntimeCommandStreamOutput_chunk
+::: capo_bedrock_agentcore.types.invoke_agent_runtime_command_stream_output.InvokeAgentRuntimeCommandStreamOutputChunkMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.invoke_agent_runtime_command_stream_output._InvokeAgentRuntimeCommandStreamOutput_accessDeniedException
+::: capo_bedrock_agentcore.types.invoke_agent_runtime_command_stream_output.InvokeAgentRuntimeCommandStreamOutputAccessDeniedExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.invoke_agent_runtime_command_stream_output._InvokeAgentRuntimeCommandStreamOutput_internalServerException
+::: capo_bedrock_agentcore.types.invoke_agent_runtime_command_stream_output.InvokeAgentRuntimeCommandStreamOutputInternalServerExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.invoke_agent_runtime_command_stream_output._InvokeAgentRuntimeCommandStreamOutput_resourceNotFoundException
+::: capo_bedrock_agentcore.types.invoke_agent_runtime_command_stream_output.InvokeAgentRuntimeCommandStreamOutputResourceNotFoundExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.invoke_agent_runtime_command_stream_output._InvokeAgentRuntimeCommandStreamOutput_serviceQuotaExceededException
+::: capo_bedrock_agentcore.types.invoke_agent_runtime_command_stream_output.InvokeAgentRuntimeCommandStreamOutputServiceQuotaExceededExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.invoke_agent_runtime_command_stream_output._InvokeAgentRuntimeCommandStreamOutput_throttlingException
+::: capo_bedrock_agentcore.types.invoke_agent_runtime_command_stream_output.InvokeAgentRuntimeCommandStreamOutputThrottlingExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.invoke_agent_runtime_command_stream_output._InvokeAgentRuntimeCommandStreamOutput_validationException
+::: capo_bedrock_agentcore.types.invoke_agent_runtime_command_stream_output.InvokeAgentRuntimeCommandStreamOutputValidationExceptionMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agentcore.types.invoke_agent_runtime_command_stream_output._InvokeAgentRuntimeCommandStreamOutput_runtimeClientError
+::: capo_bedrock_agentcore.types.invoke_agent_runtime_command_stream_output.InvokeAgentRuntimeCommandStreamOutputRuntimeClientErrorMember
     options:
       show_source: true
       merge_init_into_class: false

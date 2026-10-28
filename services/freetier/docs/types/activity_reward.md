@@ -7,7 +7,7 @@ title: ActivityReward
       show_source: true
       merge_init_into_class: false
 
-::: capo_freetier.types.activity_reward._ActivityReward_credit
+::: capo_freetier.types.activity_reward.ActivityRewardCreditMember
     options:
       show_source: true
       merge_init_into_class: false

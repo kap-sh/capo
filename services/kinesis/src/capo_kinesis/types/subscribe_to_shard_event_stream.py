@@ -25,75 +25,77 @@ if TYPE_CHECKING:
     import capo_kinesis.types.subscribe_to_shard_event
 
 
-class _SubscribeToShardEventStream_SubscribeToShardEvent(TypedDict, closed=True):
+class SubscribeToShardEventStreamSubscribeToShardEventMember(TypedDict, closed=True):
     SubscribeToShardEvent: (
         "capo_kinesis.types.subscribe_to_shard_event.SubscribeToShardEvent"
     )
 
 
-class _SubscribeToShardEventStream_ResourceNotFoundException(TypedDict, closed=True):
+class SubscribeToShardEventStreamResourceNotFoundExceptionMember(
+    TypedDict, closed=True
+):
     ResourceNotFoundException: (
         "capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException_"
     )
 
 
-class _SubscribeToShardEventStream_ResourceInUseException(TypedDict, closed=True):
+class SubscribeToShardEventStreamResourceInUseExceptionMember(TypedDict, closed=True):
     ResourceInUseException: (
         "capo_kinesis.errors.resource_in_use_exception.ResourceInUseException_"
     )
 
 
-class _SubscribeToShardEventStream_KMSDisabledException(TypedDict, closed=True):
+class SubscribeToShardEventStreamKMSDisabledExceptionMember(TypedDict, closed=True):
     KMSDisabledException: (
         "capo_kinesis.errors.kms_disabled_exception.KMSDisabledException_"
     )
 
 
-class _SubscribeToShardEventStream_KMSInvalidStateException(TypedDict, closed=True):
+class SubscribeToShardEventStreamKMSInvalidStateExceptionMember(TypedDict, closed=True):
     KMSInvalidStateException: (
         "capo_kinesis.errors.kms_invalid_state_exception.KMSInvalidStateException_"
     )
 
 
-class _SubscribeToShardEventStream_KMSAccessDeniedException(TypedDict, closed=True):
+class SubscribeToShardEventStreamKMSAccessDeniedExceptionMember(TypedDict, closed=True):
     KMSAccessDeniedException: (
         "capo_kinesis.errors.kms_access_denied_exception.KMSAccessDeniedException_"
     )
 
 
-class _SubscribeToShardEventStream_KMSNotFoundException(TypedDict, closed=True):
+class SubscribeToShardEventStreamKMSNotFoundExceptionMember(TypedDict, closed=True):
     KMSNotFoundException: (
         "capo_kinesis.errors.kms_not_found_exception.KMSNotFoundException_"
     )
 
 
-class _SubscribeToShardEventStream_KMSOptInRequired(TypedDict, closed=True):
+class SubscribeToShardEventStreamKMSOptInRequiredMember(TypedDict, closed=True):
     KMSOptInRequired: "capo_kinesis.errors.kms_opt_in_required.KMSOptInRequired_"
 
 
-class _SubscribeToShardEventStream_KMSThrottlingException(TypedDict, closed=True):
+class SubscribeToShardEventStreamKMSThrottlingExceptionMember(TypedDict, closed=True):
     KMSThrottlingException: (
         "capo_kinesis.errors.kms_throttling_exception.KMSThrottlingException_"
     )
 
 
-class _SubscribeToShardEventStream_InternalFailureException(TypedDict, closed=True):
+class SubscribeToShardEventStreamInternalFailureExceptionMember(TypedDict, closed=True):
     InternalFailureException: (
         "capo_kinesis.errors.internal_failure_exception.InternalFailureException_"
     )
 
 
 _SubscribeToShardEventStream: TypeAlias = (
-    _SubscribeToShardEventStream_SubscribeToShardEvent
-    | _SubscribeToShardEventStream_ResourceNotFoundException
-    | _SubscribeToShardEventStream_ResourceInUseException
-    | _SubscribeToShardEventStream_KMSDisabledException
-    | _SubscribeToShardEventStream_KMSInvalidStateException
-    | _SubscribeToShardEventStream_KMSAccessDeniedException
-    | _SubscribeToShardEventStream_KMSNotFoundException
-    | _SubscribeToShardEventStream_KMSOptInRequired
-    | _SubscribeToShardEventStream_KMSThrottlingException
-    | _SubscribeToShardEventStream_InternalFailureException
+    SubscribeToShardEventStreamSubscribeToShardEventMember
+    | SubscribeToShardEventStreamResourceNotFoundExceptionMember
+    | SubscribeToShardEventStreamResourceInUseExceptionMember
+    | SubscribeToShardEventStreamKMSDisabledExceptionMember
+    | SubscribeToShardEventStreamKMSInvalidStateExceptionMember
+    | SubscribeToShardEventStreamKMSAccessDeniedExceptionMember
+    | SubscribeToShardEventStreamKMSNotFoundExceptionMember
+    | SubscribeToShardEventStreamKMSOptInRequiredMember
+    | SubscribeToShardEventStreamKMSThrottlingExceptionMember
+    | SubscribeToShardEventStreamInternalFailureExceptionMember
     | UnknownEvent
 )
 SubscribeToShardEventStream: TypeAlias = AnyIterator[_SubscribeToShardEventStream]

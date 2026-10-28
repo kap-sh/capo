@@ -7,7 +7,7 @@ title: WhatsAppOutboundMode
       show_source: true
       merge_init_into_class: false
 
-::: capo_connectcampaignsv2.types.whats_app_outbound_mode._WhatsAppOutboundMode_agentless
+::: capo_connectcampaignsv2.types.whats_app_outbound_mode.WhatsAppOutboundModeAgentlessMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_vpc_lattice.types.header_match_prefix
 
 
-class _HeaderMatchType_exact(TypedDict, closed=True):
+class HeaderMatchTypeExactMember(TypedDict, closed=True):
     exact: "capo_vpc_lattice.types.header_match_exact.HeaderMatchExact"
 
 
-class _HeaderMatchType_prefix(TypedDict, closed=True):
+class HeaderMatchTypePrefixMember(TypedDict, closed=True):
     prefix: "capo_vpc_lattice.types.header_match_prefix.HeaderMatchPrefix"
 
 
-class _HeaderMatchType_contains(TypedDict, closed=True):
+class HeaderMatchTypeContainsMember(TypedDict, closed=True):
     contains: "capo_vpc_lattice.types.header_match_contains.HeaderMatchContains"
 
 
 HeaderMatchType: TypeAlias = (
-    _HeaderMatchType_exact
-    | _HeaderMatchType_prefix
-    | _HeaderMatchType_contains
+    HeaderMatchTypeExactMember
+    | HeaderMatchTypePrefixMember
+    | HeaderMatchTypeContainsMember
     | UnknownUnionMember
 )
 

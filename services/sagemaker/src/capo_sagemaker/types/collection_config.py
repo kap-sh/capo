@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.vector_config
 
 
-class _CollectionConfig_VectorConfig(TypedDict, closed=True):
+class CollectionConfigVectorConfigMember(TypedDict, closed=True):
     VectorConfig: "capo_sagemaker.types.vector_config.VectorConfig"
 
 
-CollectionConfig: TypeAlias = _CollectionConfig_VectorConfig | UnknownUnionMember
+CollectionConfig: TypeAlias = CollectionConfigVectorConfigMember | UnknownUnionMember
 
 
 # --- awsJson1_1 ser/de ---

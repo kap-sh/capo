@@ -15,17 +15,17 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.inference_provider_target_configuration
 
 
-class _InferenceTargetConfiguration_connector(TypedDict, closed=True):
+class InferenceTargetConfigurationConnectorMember(TypedDict, closed=True):
     connector: "capo_bedrock_agentcore_control.types.inference_connector_target_configuration.InferenceConnectorTargetConfiguration"
 
 
-class _InferenceTargetConfiguration_provider(TypedDict, closed=True):
+class InferenceTargetConfigurationProviderMember(TypedDict, closed=True):
     provider: "capo_bedrock_agentcore_control.types.inference_provider_target_configuration.InferenceProviderTargetConfiguration"
 
 
 InferenceTargetConfiguration: TypeAlias = (
-    _InferenceTargetConfiguration_connector
-    | _InferenceTargetConfiguration_provider
+    InferenceTargetConfigurationConnectorMember
+    | InferenceTargetConfigurationProviderMember
     | UnknownUnionMember
 )
 

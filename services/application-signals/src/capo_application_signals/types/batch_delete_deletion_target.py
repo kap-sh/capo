@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_application_signals.types.batch_delete_scope
 
 
-class _BatchDeleteDeletionTarget_Scope(TypedDict, closed=True):
+class BatchDeleteDeletionTargetScopeMember(TypedDict, closed=True):
     Scope: "capo_application_signals.types.batch_delete_scope.BatchDeleteScope"
 
 
-class _BatchDeleteDeletionTarget_ResourceArns(TypedDict, closed=True):
+class BatchDeleteDeletionTargetResourceArnsMember(TypedDict, closed=True):
     ResourceArns: "capo_application_signals.types.batch_delete_by_resource_arns.BatchDeleteByResourceArns"
 
 
 BatchDeleteDeletionTarget: TypeAlias = (
-    _BatchDeleteDeletionTarget_Scope
-    | _BatchDeleteDeletionTarget_ResourceArns
+    BatchDeleteDeletionTargetScopeMember
+    | BatchDeleteDeletionTargetResourceArnsMember
     | UnknownUnionMember
 )
 

@@ -7,19 +7,19 @@ title: AdminScopeFilter
       show_source: true
       merge_init_into_class: false
 
-::: capo_network_security_manager.types.admin_scope_filter._AdminScopeFilter_includeAll
+::: capo_network_security_manager.types.admin_scope_filter.AdminScopeFilterIncludeAllMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_network_security_manager.types.admin_scope_filter._AdminScopeFilter_includeOnly
+::: capo_network_security_manager.types.admin_scope_filter.AdminScopeFilterIncludeOnlyMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_network_security_manager.types.admin_scope_filter._AdminScopeFilter_excludeOnly
+::: capo_network_security_manager.types.admin_scope_filter.AdminScopeFilterExcludeOnlyMember
     options:
       show_source: true
       merge_init_into_class: false

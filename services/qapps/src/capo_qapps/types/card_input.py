@@ -15,32 +15,32 @@ if TYPE_CHECKING:
     import capo_qapps.types.text_input_card_input
 
 
-class _CardInput_textInput(TypedDict, closed=True):
+class CardInputTextInputMember(TypedDict, closed=True):
     textInput: "capo_qapps.types.text_input_card_input.TextInputCardInput"
 
 
-class _CardInput_qQuery(TypedDict, closed=True):
+class CardInputQQueryMember(TypedDict, closed=True):
     qQuery: "capo_qapps.types.q_query_card_input.QQueryCardInput"
 
 
-class _CardInput_qPlugin(TypedDict, closed=True):
+class CardInputQPluginMember(TypedDict, closed=True):
     qPlugin: "capo_qapps.types.q_plugin_card_input.QPluginCardInput"
 
 
-class _CardInput_fileUpload(TypedDict, closed=True):
+class CardInputFileUploadMember(TypedDict, closed=True):
     fileUpload: "capo_qapps.types.file_upload_card_input.FileUploadCardInput"
 
 
-class _CardInput_formInput(TypedDict, closed=True):
+class CardInputFormInputMember(TypedDict, closed=True):
     formInput: "capo_qapps.types.form_input_card_input.FormInputCardInput"
 
 
 CardInput: TypeAlias = (
-    _CardInput_textInput
-    | _CardInput_qQuery
-    | _CardInput_qPlugin
-    | _CardInput_fileUpload
-    | _CardInput_formInput
+    CardInputTextInputMember
+    | CardInputQQueryMember
+    | CardInputQPluginMember
+    | CardInputFileUploadMember
+    | CardInputFormInputMember
     | UnknownUnionMember
 )
 

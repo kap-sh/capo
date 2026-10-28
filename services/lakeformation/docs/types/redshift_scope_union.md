@@ -7,7 +7,7 @@ title: RedshiftScopeUnion
       show_source: true
       merge_init_into_class: false
 
-::: capo_lakeformation.types.redshift_scope_union._RedshiftScopeUnion_RedshiftConnect
+::: capo_lakeformation.types.redshift_scope_union.RedshiftScopeUnionRedshiftConnectMember
     options:
       show_source: true
       merge_init_into_class: false

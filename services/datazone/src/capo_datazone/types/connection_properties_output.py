@@ -26,105 +26,107 @@ if TYPE_CHECKING:
     import capo_datazone.types.workflows_serverless_properties_output
 
 
-class _ConnectionPropertiesOutput_athenaProperties(TypedDict, closed=True):
+class ConnectionPropertiesOutputAthenaPropertiesMember(TypedDict, closed=True):
     athenaProperties: (
         "capo_datazone.types.athena_properties_output.AthenaPropertiesOutput"
     )
 
 
-class _ConnectionPropertiesOutput_glueProperties(TypedDict, closed=True):
+class ConnectionPropertiesOutputGluePropertiesMember(TypedDict, closed=True):
     glueProperties: "capo_datazone.types.glue_properties_output.GluePropertiesOutput"
 
 
-class _ConnectionPropertiesOutput_hyperPodProperties(TypedDict, closed=True):
+class ConnectionPropertiesOutputHyperPodPropertiesMember(TypedDict, closed=True):
     hyperPodProperties: (
         "capo_datazone.types.hyper_pod_properties_output.HyperPodPropertiesOutput"
     )
 
 
-class _ConnectionPropertiesOutput_iamProperties(TypedDict, closed=True):
+class ConnectionPropertiesOutputIamPropertiesMember(TypedDict, closed=True):
     iamProperties: "capo_datazone.types.iam_properties_output.IamPropertiesOutput"
 
 
-class _ConnectionPropertiesOutput_redshiftProperties(TypedDict, closed=True):
+class ConnectionPropertiesOutputRedshiftPropertiesMember(TypedDict, closed=True):
     redshiftProperties: (
         "capo_datazone.types.redshift_properties_output.RedshiftPropertiesOutput"
     )
 
 
-class _ConnectionPropertiesOutput_sparkEmrProperties(TypedDict, closed=True):
+class ConnectionPropertiesOutputSparkEmrPropertiesMember(TypedDict, closed=True):
     sparkEmrProperties: (
         "capo_datazone.types.spark_emr_properties_output.SparkEmrPropertiesOutput"
     )
 
 
-class _ConnectionPropertiesOutput_sparkGlueProperties(TypedDict, closed=True):
+class ConnectionPropertiesOutputSparkGluePropertiesMember(TypedDict, closed=True):
     sparkGlueProperties: (
         "capo_datazone.types.spark_glue_properties_output.SparkGluePropertiesOutput"
     )
 
 
-class _ConnectionPropertiesOutput_s3Properties(TypedDict, closed=True):
+class ConnectionPropertiesOutputS3PropertiesMember(TypedDict, closed=True):
     s3Properties: "capo_datazone.types.s3_properties_output.S3PropertiesOutput"
 
 
-class _ConnectionPropertiesOutput_snowflakeProperties(TypedDict, closed=True):
+class ConnectionPropertiesOutputSnowflakePropertiesMember(TypedDict, closed=True):
     snowflakeProperties: (
         "capo_datazone.types.snowflake_properties_output.SnowflakePropertiesOutput"
     )
 
 
-class _ConnectionPropertiesOutput_amazonQProperties(TypedDict, closed=True):
+class ConnectionPropertiesOutputAmazonQPropertiesMember(TypedDict, closed=True):
     amazonQProperties: (
         "capo_datazone.types.amazon_q_properties_output.AmazonQPropertiesOutput"
     )
 
 
-class _ConnectionPropertiesOutput_mlflowProperties(TypedDict, closed=True):
+class ConnectionPropertiesOutputMlflowPropertiesMember(TypedDict, closed=True):
     mlflowProperties: (
         "capo_datazone.types.mlflow_properties_output.MlflowPropertiesOutput"
     )
 
 
-class _ConnectionPropertiesOutput_workflowsMwaaProperties(TypedDict, closed=True):
+class ConnectionPropertiesOutputWorkflowsMwaaPropertiesMember(TypedDict, closed=True):
     workflowsMwaaProperties: "capo_datazone.types.workflows_mwaa_properties_output.WorkflowsMwaaPropertiesOutput"
 
 
-class _ConnectionPropertiesOutput_workflowsServerlessProperties(TypedDict, closed=True):
+class ConnectionPropertiesOutputWorkflowsServerlessPropertiesMember(
+    TypedDict, closed=True
+):
     workflowsServerlessProperties: "capo_datazone.types.workflows_serverless_properties_output.WorkflowsServerlessPropertiesOutput"
 
 
-class _ConnectionPropertiesOutput_lakehouseProperties(TypedDict, closed=True):
+class ConnectionPropertiesOutputLakehousePropertiesMember(TypedDict, closed=True):
     lakehouseProperties: (
         "capo_datazone.types.lakehouse_properties_output.LakehousePropertiesOutput"
     )
 
 
-class _ConnectionPropertiesOutput_vpcProperties(TypedDict, closed=True):
+class ConnectionPropertiesOutputVpcPropertiesMember(TypedDict, closed=True):
     vpcProperties: "capo_datazone.types.vpc_properties_output.VpcPropertiesOutput"
 
 
-class _ConnectionPropertiesOutput_gitProperties(TypedDict, closed=True):
+class ConnectionPropertiesOutputGitPropertiesMember(TypedDict, closed=True):
     gitProperties: "capo_datazone.types.git_properties_output.GitPropertiesOutput"
 
 
 ConnectionPropertiesOutput: TypeAlias = (
-    _ConnectionPropertiesOutput_athenaProperties
-    | _ConnectionPropertiesOutput_glueProperties
-    | _ConnectionPropertiesOutput_hyperPodProperties
-    | _ConnectionPropertiesOutput_iamProperties
-    | _ConnectionPropertiesOutput_redshiftProperties
-    | _ConnectionPropertiesOutput_sparkEmrProperties
-    | _ConnectionPropertiesOutput_sparkGlueProperties
-    | _ConnectionPropertiesOutput_s3Properties
-    | _ConnectionPropertiesOutput_snowflakeProperties
-    | _ConnectionPropertiesOutput_amazonQProperties
-    | _ConnectionPropertiesOutput_mlflowProperties
-    | _ConnectionPropertiesOutput_workflowsMwaaProperties
-    | _ConnectionPropertiesOutput_workflowsServerlessProperties
-    | _ConnectionPropertiesOutput_lakehouseProperties
-    | _ConnectionPropertiesOutput_vpcProperties
-    | _ConnectionPropertiesOutput_gitProperties
+    ConnectionPropertiesOutputAthenaPropertiesMember
+    | ConnectionPropertiesOutputGluePropertiesMember
+    | ConnectionPropertiesOutputHyperPodPropertiesMember
+    | ConnectionPropertiesOutputIamPropertiesMember
+    | ConnectionPropertiesOutputRedshiftPropertiesMember
+    | ConnectionPropertiesOutputSparkEmrPropertiesMember
+    | ConnectionPropertiesOutputSparkGluePropertiesMember
+    | ConnectionPropertiesOutputS3PropertiesMember
+    | ConnectionPropertiesOutputSnowflakePropertiesMember
+    | ConnectionPropertiesOutputAmazonQPropertiesMember
+    | ConnectionPropertiesOutputMlflowPropertiesMember
+    | ConnectionPropertiesOutputWorkflowsMwaaPropertiesMember
+    | ConnectionPropertiesOutputWorkflowsServerlessPropertiesMember
+    | ConnectionPropertiesOutputLakehousePropertiesMember
+    | ConnectionPropertiesOutputVpcPropertiesMember
+    | ConnectionPropertiesOutputGitPropertiesMember
     | UnknownUnionMember
 )
 

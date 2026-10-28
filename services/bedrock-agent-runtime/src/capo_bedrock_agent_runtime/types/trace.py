@@ -17,48 +17,48 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.routing_classifier_trace
 
 
-class _Trace_guardrailTrace(TypedDict, closed=True):
+class TraceGuardrailTraceMember(TypedDict, closed=True):
     guardrailTrace: "capo_bedrock_agent_runtime.types.guardrail_trace.GuardrailTrace"
 
 
-class _Trace_preProcessingTrace(TypedDict, closed=True):
+class TracePreProcessingTraceMember(TypedDict, closed=True):
     preProcessingTrace: (
         "capo_bedrock_agent_runtime.types.pre_processing_trace.PreProcessingTrace"
     )
 
 
-class _Trace_orchestrationTrace(TypedDict, closed=True):
+class TraceOrchestrationTraceMember(TypedDict, closed=True):
     orchestrationTrace: (
         "capo_bedrock_agent_runtime.types.orchestration_trace.OrchestrationTrace"
     )
 
 
-class _Trace_postProcessingTrace(TypedDict, closed=True):
+class TracePostProcessingTraceMember(TypedDict, closed=True):
     postProcessingTrace: (
         "capo_bedrock_agent_runtime.types.post_processing_trace.PostProcessingTrace"
     )
 
 
-class _Trace_routingClassifierTrace(TypedDict, closed=True):
+class TraceRoutingClassifierTraceMember(TypedDict, closed=True):
     routingClassifierTrace: "capo_bedrock_agent_runtime.types.routing_classifier_trace.RoutingClassifierTrace"
 
 
-class _Trace_failureTrace(TypedDict, closed=True):
+class TraceFailureTraceMember(TypedDict, closed=True):
     failureTrace: "capo_bedrock_agent_runtime.types.failure_trace.FailureTrace"
 
 
-class _Trace_customOrchestrationTrace(TypedDict, closed=True):
+class TraceCustomOrchestrationTraceMember(TypedDict, closed=True):
     customOrchestrationTrace: "capo_bedrock_agent_runtime.types.custom_orchestration_trace.CustomOrchestrationTrace"
 
 
 Trace: TypeAlias = (
-    _Trace_guardrailTrace
-    | _Trace_preProcessingTrace
-    | _Trace_orchestrationTrace
-    | _Trace_postProcessingTrace
-    | _Trace_routingClassifierTrace
-    | _Trace_failureTrace
-    | _Trace_customOrchestrationTrace
+    TraceGuardrailTraceMember
+    | TracePreProcessingTraceMember
+    | TraceOrchestrationTraceMember
+    | TracePostProcessingTraceMember
+    | TraceRoutingClassifierTraceMember
+    | TraceFailureTraceMember
+    | TraceCustomOrchestrationTraceMember
     | UnknownUnionMember
 )
 

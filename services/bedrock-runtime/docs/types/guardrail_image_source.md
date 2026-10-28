@@ -7,7 +7,7 @@ title: GuardrailImageSource
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_runtime.types.guardrail_image_source._GuardrailImageSource_bytes
+::: capo_bedrock_runtime.types.guardrail_image_source.GuardrailImageSourceBytesMember
     options:
       show_source: true
       merge_init_into_class: false

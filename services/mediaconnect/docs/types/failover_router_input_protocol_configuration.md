@@ -7,25 +7,25 @@ title: FailoverRouterInputProtocolConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_mediaconnect.types.failover_router_input_protocol_configuration._FailoverRouterInputProtocolConfiguration_Rist
+::: capo_mediaconnect.types.failover_router_input_protocol_configuration.FailoverRouterInputProtocolConfigurationRistMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mediaconnect.types.failover_router_input_protocol_configuration._FailoverRouterInputProtocolConfiguration_SrtListener
+::: capo_mediaconnect.types.failover_router_input_protocol_configuration.FailoverRouterInputProtocolConfigurationSrtListenerMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mediaconnect.types.failover_router_input_protocol_configuration._FailoverRouterInputProtocolConfiguration_SrtCaller
+::: capo_mediaconnect.types.failover_router_input_protocol_configuration.FailoverRouterInputProtocolConfigurationSrtCallerMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_mediaconnect.types.failover_router_input_protocol_configuration._FailoverRouterInputProtocolConfiguration_Rtp
+::: capo_mediaconnect.types.failover_router_input_protocol_configuration.FailoverRouterInputProtocolConfigurationRtpMember
     options:
       show_source: true
       merge_init_into_class: false

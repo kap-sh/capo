@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_qbusiness.types.retriever_content_source
 
 
-class _ContentSource_retriever(TypedDict, closed=True):
+class ContentSourceRetrieverMember(TypedDict, closed=True):
     retriever: "capo_qbusiness.types.retriever_content_source.RetrieverContentSource"
 
 
-ContentSource: TypeAlias = _ContentSource_retriever | UnknownUnionMember
+ContentSource: TypeAlias = ContentSourceRetrieverMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

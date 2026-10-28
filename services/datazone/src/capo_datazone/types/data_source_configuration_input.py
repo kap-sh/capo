@@ -13,24 +13,28 @@ if TYPE_CHECKING:
     import capo_datazone.types.sage_maker_run_configuration_input
 
 
-class _DataSourceConfigurationInput_glueRunConfiguration(TypedDict, closed=True):
+class DataSourceConfigurationInputGlueRunConfigurationMember(TypedDict, closed=True):
     glueRunConfiguration: (
         "capo_datazone.types.glue_run_configuration_input.GlueRunConfigurationInput"
     )
 
 
-class _DataSourceConfigurationInput_redshiftRunConfiguration(TypedDict, closed=True):
+class DataSourceConfigurationInputRedshiftRunConfigurationMember(
+    TypedDict, closed=True
+):
     redshiftRunConfiguration: "capo_datazone.types.redshift_run_configuration_input.RedshiftRunConfigurationInput"
 
 
-class _DataSourceConfigurationInput_sageMakerRunConfiguration(TypedDict, closed=True):
+class DataSourceConfigurationInputSageMakerRunConfigurationMember(
+    TypedDict, closed=True
+):
     sageMakerRunConfiguration: "capo_datazone.types.sage_maker_run_configuration_input.SageMakerRunConfigurationInput"
 
 
 DataSourceConfigurationInput: TypeAlias = (
-    _DataSourceConfigurationInput_glueRunConfiguration
-    | _DataSourceConfigurationInput_redshiftRunConfiguration
-    | _DataSourceConfigurationInput_sageMakerRunConfiguration
+    DataSourceConfigurationInputGlueRunConfigurationMember
+    | DataSourceConfigurationInputRedshiftRunConfigurationMember
+    | DataSourceConfigurationInputSageMakerRunConfigurationMember
     | UnknownUnionMember
 )
 

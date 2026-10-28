@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_identitystore.types.unique_attribute
 
 
-class _AlternateIdentifier_ExternalId(TypedDict, closed=True):
+class AlternateIdentifierExternalIdMember(TypedDict, closed=True):
     ExternalId: "capo_identitystore.types.external_id.ExternalId"
 
 
-class _AlternateIdentifier_UniqueAttribute(TypedDict, closed=True):
+class AlternateIdentifierUniqueAttributeMember(TypedDict, closed=True):
     UniqueAttribute: "capo_identitystore.types.unique_attribute.UniqueAttribute"
 
 
 AlternateIdentifier: TypeAlias = (
-    _AlternateIdentifier_ExternalId
-    | _AlternateIdentifier_UniqueAttribute
+    AlternateIdentifierExternalIdMember
+    | AlternateIdentifierUniqueAttributeMember
     | UnknownUnionMember
 )
 

@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_groundstation.types.downlink_connection_details
 
 
-class _DownlinkDataflowDetails_agentConnectionDetails(TypedDict, closed=True):
+class DownlinkDataflowDetailsAgentConnectionDetailsMember(TypedDict, closed=True):
     agentConnectionDetails: (
         "capo_groundstation.types.downlink_connection_details.DownlinkConnectionDetails"
     )
 
 
 DownlinkDataflowDetails: TypeAlias = (
-    _DownlinkDataflowDetails_agentConnectionDetails | UnknownUnionMember
+    DownlinkDataflowDetailsAgentConnectionDetailsMember | UnknownUnionMember
 )
 
 

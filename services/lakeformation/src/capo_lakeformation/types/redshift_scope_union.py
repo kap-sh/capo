@@ -11,11 +11,13 @@ if TYPE_CHECKING:
     import capo_lakeformation.types.redshift_connect
 
 
-class _RedshiftScopeUnion_RedshiftConnect(TypedDict, closed=True):
+class RedshiftScopeUnionRedshiftConnectMember(TypedDict, closed=True):
     RedshiftConnect: "capo_lakeformation.types.redshift_connect.RedshiftConnect"
 
 
-RedshiftScopeUnion: TypeAlias = _RedshiftScopeUnion_RedshiftConnect | UnknownUnionMember
+RedshiftScopeUnion: TypeAlias = (
+    RedshiftScopeUnionRedshiftConnectMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---

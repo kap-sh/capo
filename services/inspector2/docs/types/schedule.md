@@ -7,25 +7,25 @@ title: Schedule
       show_source: true
       merge_init_into_class: false
 
-::: capo_inspector2.types.schedule._Schedule_oneTime
+::: capo_inspector2.types.schedule.ScheduleOneTimeMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_inspector2.types.schedule._Schedule_daily
+::: capo_inspector2.types.schedule.ScheduleDailyMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_inspector2.types.schedule._Schedule_weekly
+::: capo_inspector2.types.schedule.ScheduleWeeklyMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_inspector2.types.schedule._Schedule_monthly
+::: capo_inspector2.types.schedule.ScheduleMonthlyMember
     options:
       show_source: true
       merge_init_into_class: false

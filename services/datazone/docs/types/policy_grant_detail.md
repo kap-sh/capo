@@ -7,85 +7,85 @@ title: PolicyGrantDetail
       show_source: true
       merge_init_into_class: false
 
-::: capo_datazone.types.policy_grant_detail._PolicyGrantDetail_createDomainUnit
+::: capo_datazone.types.policy_grant_detail.PolicyGrantDetailCreateDomainUnitMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.policy_grant_detail._PolicyGrantDetail_overrideDomainUnitOwners
+::: capo_datazone.types.policy_grant_detail.PolicyGrantDetailOverrideDomainUnitOwnersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.policy_grant_detail._PolicyGrantDetail_addToProjectMemberPool
+::: capo_datazone.types.policy_grant_detail.PolicyGrantDetailAddToProjectMemberPoolMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.policy_grant_detail._PolicyGrantDetail_overrideProjectOwners
+::: capo_datazone.types.policy_grant_detail.PolicyGrantDetailOverrideProjectOwnersMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.policy_grant_detail._PolicyGrantDetail_createGlossary
+::: capo_datazone.types.policy_grant_detail.PolicyGrantDetailCreateGlossaryMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.policy_grant_detail._PolicyGrantDetail_createFormType
+::: capo_datazone.types.policy_grant_detail.PolicyGrantDetailCreateFormTypeMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.policy_grant_detail._PolicyGrantDetail_createAssetType
+::: capo_datazone.types.policy_grant_detail.PolicyGrantDetailCreateAssetTypeMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.policy_grant_detail._PolicyGrantDetail_createProject
+::: capo_datazone.types.policy_grant_detail.PolicyGrantDetailCreateProjectMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.policy_grant_detail._PolicyGrantDetail_createEnvironmentProfile
+::: capo_datazone.types.policy_grant_detail.PolicyGrantDetailCreateEnvironmentProfileMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.policy_grant_detail._PolicyGrantDetail_delegateCreateEnvironmentProfile
+::: capo_datazone.types.policy_grant_detail.PolicyGrantDetailDelegateCreateEnvironmentProfileMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.policy_grant_detail._PolicyGrantDetail_createEnvironment
+::: capo_datazone.types.policy_grant_detail.PolicyGrantDetailCreateEnvironmentMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.policy_grant_detail._PolicyGrantDetail_createEnvironmentFromBlueprint
+::: capo_datazone.types.policy_grant_detail.PolicyGrantDetailCreateEnvironmentFromBlueprintMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.policy_grant_detail._PolicyGrantDetail_createProjectFromProjectProfile
+::: capo_datazone.types.policy_grant_detail.PolicyGrantDetailCreateProjectFromProjectProfileMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_datazone.types.policy_grant_detail._PolicyGrantDetail_useAssetType
+::: capo_datazone.types.policy_grant_detail.PolicyGrantDetailUseAssetTypeMember
     options:
       show_source: true
       merge_init_into_class: false

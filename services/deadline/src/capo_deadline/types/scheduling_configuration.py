@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_deadline.types.weighted_balanced_scheduling_configuration
 
 
-class _SchedulingConfiguration_priorityFifo(TypedDict, closed=True):
+class SchedulingConfigurationPriorityFifoMember(TypedDict, closed=True):
     priorityFifo: "capo_deadline.types.priority_fifo_scheduling_configuration.PriorityFifoSchedulingConfiguration"
 
 
-class _SchedulingConfiguration_priorityBalanced(TypedDict, closed=True):
+class SchedulingConfigurationPriorityBalancedMember(TypedDict, closed=True):
     priorityBalanced: "capo_deadline.types.priority_balanced_scheduling_configuration.PriorityBalancedSchedulingConfiguration"
 
 
-class _SchedulingConfiguration_weightedBalanced(TypedDict, closed=True):
+class SchedulingConfigurationWeightedBalancedMember(TypedDict, closed=True):
     weightedBalanced: "capo_deadline.types.weighted_balanced_scheduling_configuration.WeightedBalancedSchedulingConfiguration"
 
 
 SchedulingConfiguration: TypeAlias = (
-    _SchedulingConfiguration_priorityFifo
-    | _SchedulingConfiguration_priorityBalanced
-    | _SchedulingConfiguration_weightedBalanced
+    SchedulingConfigurationPriorityFifoMember
+    | SchedulingConfigurationPriorityBalancedMember
+    | SchedulingConfigurationWeightedBalancedMember
     | UnknownUnionMember
 )
 

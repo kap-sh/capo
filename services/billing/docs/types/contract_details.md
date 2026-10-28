@@ -7,7 +7,7 @@ title: ContractDetails
       show_source: true
       merge_init_into_class: false
 
-::: capo_billing.types.contract_details._ContractDetails_privatePricingAddendum
+::: capo_billing.types.contract_details.ContractDetailsPrivatePricingAddendumMember
     options:
       show_source: true
       merge_init_into_class: false

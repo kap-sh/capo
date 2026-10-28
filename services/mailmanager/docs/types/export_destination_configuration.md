@@ -7,7 +7,7 @@ title: ExportDestinationConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_mailmanager.types.export_destination_configuration._ExportDestinationConfiguration_S3
+::: capo_mailmanager.types.export_destination_configuration.ExportDestinationConfigurationS3Member
     options:
       show_source: true
       merge_init_into_class: false

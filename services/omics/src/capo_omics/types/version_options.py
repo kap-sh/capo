@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_omics.types.tsv_version_options
 
 
-class _VersionOptions_tsvVersionOptions(TypedDict, closed=True):
+class VersionOptionsTsvVersionOptionsMember(TypedDict, closed=True):
     tsvVersionOptions: "capo_omics.types.tsv_version_options.TsvVersionOptions"
 
 
-VersionOptions: TypeAlias = _VersionOptions_tsvVersionOptions | UnknownUnionMember
+VersionOptions: TypeAlias = VersionOptionsTsvVersionOptionsMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

@@ -11,27 +11,27 @@ if TYPE_CHECKING:
     import capo_connectcases.types.empty_operand_value
 
 
-class _OperandTwo_stringValue(TypedDict, closed=True):
+class OperandTwoStringValueMember(TypedDict, closed=True):
     stringValue: "str"
 
 
-class _OperandTwo_booleanValue(TypedDict, closed=True):
+class OperandTwoBooleanValueMember(TypedDict, closed=True):
     booleanValue: "bool"
 
 
-class _OperandTwo_doubleValue(TypedDict, closed=True):
+class OperandTwoDoubleValueMember(TypedDict, closed=True):
     doubleValue: "float"
 
 
-class _OperandTwo_emptyValue(TypedDict, closed=True):
+class OperandTwoEmptyValueMember(TypedDict, closed=True):
     emptyValue: "capo_connectcases.types.empty_operand_value.EmptyOperandValue"
 
 
 OperandTwo: TypeAlias = (
-    _OperandTwo_stringValue
-    | _OperandTwo_booleanValue
-    | _OperandTwo_doubleValue
-    | _OperandTwo_emptyValue
+    OperandTwoStringValueMember
+    | OperandTwoBooleanValueMember
+    | OperandTwoDoubleValueMember
+    | OperandTwoEmptyValueMember
     | UnknownUnionMember
 )
 

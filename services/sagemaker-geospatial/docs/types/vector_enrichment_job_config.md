@@ -7,13 +7,13 @@ title: VectorEnrichmentJobConfig
       show_source: true
       merge_init_into_class: false
 
-::: capo_sagemaker_geospatial.types.vector_enrichment_job_config._VectorEnrichmentJobConfig_ReverseGeocodingConfig
+::: capo_sagemaker_geospatial.types.vector_enrichment_job_config.VectorEnrichmentJobConfigReverseGeocodingConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_sagemaker_geospatial.types.vector_enrichment_job_config._VectorEnrichmentJobConfig_MapMatchingConfig
+::: capo_sagemaker_geospatial.types.vector_enrichment_job_config.VectorEnrichmentJobConfigMapMatchingConfigMember
     options:
       show_source: true
       merge_init_into_class: false

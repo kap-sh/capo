@@ -7,7 +7,7 @@ title: TaskConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_iotsitewise.types.task_configuration._TaskConfiguration_containerTaskConfiguration
+::: capo_iotsitewise.types.task_configuration.TaskConfigurationContainerTaskConfigurationMember
     options:
       show_source: true
       merge_init_into_class: false

@@ -14,29 +14,29 @@ if TYPE_CHECKING:
     import capo_ssm_incidents.types.url
 
 
-class _ItemValue_arn(TypedDict, closed=True):
+class ItemValueArnMember(TypedDict, closed=True):
     arn: "capo_ssm_incidents.types.arn.Arn"
 
 
-class _ItemValue_url(TypedDict, closed=True):
+class ItemValueUrlMember(TypedDict, closed=True):
     url: "capo_ssm_incidents.types.url.Url"
 
 
-class _ItemValue_metricDefinition(TypedDict, closed=True):
+class ItemValueMetricDefinitionMember(TypedDict, closed=True):
     metricDefinition: "capo_ssm_incidents.types.metric_definition.MetricDefinition"
 
 
-class _ItemValue_pagerDutyIncidentDetail(TypedDict, closed=True):
+class ItemValuePagerDutyIncidentDetailMember(TypedDict, closed=True):
     pagerDutyIncidentDetail: (
         "capo_ssm_incidents.types.pager_duty_incident_detail.PagerDutyIncidentDetail"
     )
 
 
 ItemValue: TypeAlias = (
-    _ItemValue_arn
-    | _ItemValue_url
-    | _ItemValue_metricDefinition
-    | _ItemValue_pagerDutyIncidentDetail
+    ItemValueArnMember
+    | ItemValueUrlMember
+    | ItemValueMetricDefinitionMember
+    | ItemValuePagerDutyIncidentDetailMember
     | UnknownUnionMember
 )
 

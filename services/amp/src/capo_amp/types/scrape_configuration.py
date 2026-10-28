@@ -8,12 +8,12 @@ from capo_amp.errors import DeserializationError, SerializationError
 from capo_amp.types._unknown import UnknownUnionMember
 
 
-class _ScrapeConfiguration_configurationBlob(TypedDict, closed=True):
+class ScrapeConfigurationConfigurationBlobMember(TypedDict, closed=True):
     configurationBlob: "bytes"
 
 
 ScrapeConfiguration: TypeAlias = (
-    _ScrapeConfiguration_configurationBlob | UnknownUnionMember
+    ScrapeConfigurationConfigurationBlobMember | UnknownUnionMember
 )
 
 

@@ -13,27 +13,27 @@ if TYPE_CHECKING:
     import capo_acm.types.certificate_filter_statement_list
 
 
-class _CertificateFilterStatement_And(TypedDict, closed=True):
+class CertificateFilterStatementAndMember(TypedDict, closed=True):
     And: "capo_acm.types.certificate_filter_statement_list.CertificateFilterStatementList"
 
 
-class _CertificateFilterStatement_Or(TypedDict, closed=True):
+class CertificateFilterStatementOrMember(TypedDict, closed=True):
     Or: "capo_acm.types.certificate_filter_statement_list.CertificateFilterStatementList"
 
 
-class _CertificateFilterStatement_Not(TypedDict, closed=True):
+class CertificateFilterStatementNotMember(TypedDict, closed=True):
     Not: "capo_acm.types.certificate_filter_statement.CertificateFilterStatement"
 
 
-class _CertificateFilterStatement_Filter(TypedDict, closed=True):
+class CertificateFilterStatementFilterMember(TypedDict, closed=True):
     Filter: "capo_acm.types.certificate_filter.CertificateFilter"
 
 
 CertificateFilterStatement: TypeAlias = (
-    _CertificateFilterStatement_And
-    | _CertificateFilterStatement_Or
-    | _CertificateFilterStatement_Not
-    | _CertificateFilterStatement_Filter
+    CertificateFilterStatementAndMember
+    | CertificateFilterStatementOrMember
+    | CertificateFilterStatementNotMember
+    | CertificateFilterStatementFilterMember
     | UnknownUnionMember
 )
 

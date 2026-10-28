@@ -15,27 +15,27 @@ if TYPE_CHECKING:
     import capo_s3.types.tag
 
 
-class _MetricsFilter_Prefix(TypedDict, closed=True):
+class MetricsFilterPrefixMember(TypedDict, closed=True):
     Prefix: "capo_s3.types.prefix.Prefix"
 
 
-class _MetricsFilter_Tag(TypedDict, closed=True):
+class MetricsFilterTagMember(TypedDict, closed=True):
     Tag: "capo_s3.types.tag.Tag"
 
 
-class _MetricsFilter_AccessPointArn(TypedDict, closed=True):
+class MetricsFilterAccessPointArnMember(TypedDict, closed=True):
     AccessPointArn: "capo_s3.types.access_point_arn.AccessPointArn"
 
 
-class _MetricsFilter_And(TypedDict, closed=True):
+class MetricsFilterAndMember(TypedDict, closed=True):
     And: "capo_s3.types.metrics_and_operator.MetricsAndOperator"
 
 
 MetricsFilter: TypeAlias = (
-    _MetricsFilter_Prefix
-    | _MetricsFilter_Tag
-    | _MetricsFilter_AccessPointArn
-    | _MetricsFilter_And
+    MetricsFilterPrefixMember
+    | MetricsFilterTagMember
+    | MetricsFilterAccessPointArnMember
+    | MetricsFilterAndMember
     | UnknownUnionMember
 )
 

@@ -12,21 +12,21 @@ if TYPE_CHECKING:
     import capo_groundstation.types.uplink_aws_ground_station_agent_endpoint
 
 
-class _CreateEndpointDetails_uplinkAwsGroundStationAgentEndpoint(
+class CreateEndpointDetailsUplinkAwsGroundStationAgentEndpointMember(
     TypedDict, closed=True
 ):
     uplinkAwsGroundStationAgentEndpoint: "capo_groundstation.types.uplink_aws_ground_station_agent_endpoint.UplinkAwsGroundStationAgentEndpoint"
 
 
-class _CreateEndpointDetails_downlinkAwsGroundStationAgentEndpoint(
+class CreateEndpointDetailsDownlinkAwsGroundStationAgentEndpointMember(
     TypedDict, closed=True
 ):
     downlinkAwsGroundStationAgentEndpoint: "capo_groundstation.types.downlink_aws_ground_station_agent_endpoint.DownlinkAwsGroundStationAgentEndpoint"
 
 
 CreateEndpointDetails: TypeAlias = (
-    _CreateEndpointDetails_uplinkAwsGroundStationAgentEndpoint
-    | _CreateEndpointDetails_downlinkAwsGroundStationAgentEndpoint
+    CreateEndpointDetailsUplinkAwsGroundStationAgentEndpointMember
+    | CreateEndpointDetailsDownlinkAwsGroundStationAgentEndpointMember
     | UnknownUnionMember
 )
 

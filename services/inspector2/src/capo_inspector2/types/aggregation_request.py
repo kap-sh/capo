@@ -25,102 +25,102 @@ if TYPE_CHECKING:
     import capo_inspector2.types.vm_instance_aggregation
 
 
-class _AggregationRequest_accountAggregation(TypedDict, closed=True):
+class AggregationRequestAccountAggregationMember(TypedDict, closed=True):
     accountAggregation: "capo_inspector2.types.account_aggregation.AccountAggregation"
 
 
-class _AggregationRequest_amiAggregation(TypedDict, closed=True):
+class AggregationRequestAmiAggregationMember(TypedDict, closed=True):
     amiAggregation: "capo_inspector2.types.ami_aggregation.AmiAggregation"
 
 
-class _AggregationRequest_awsEcrContainerAggregation(TypedDict, closed=True):
+class AggregationRequestAwsEcrContainerAggregationMember(TypedDict, closed=True):
     awsEcrContainerAggregation: (
         "capo_inspector2.types.aws_ecr_container_aggregation.AwsEcrContainerAggregation"
     )
 
 
-class _AggregationRequest_ec2InstanceAggregation(TypedDict, closed=True):
+class AggregationRequestEc2InstanceAggregationMember(TypedDict, closed=True):
     ec2InstanceAggregation: (
         "capo_inspector2.types.ec2_instance_aggregation.Ec2InstanceAggregation"
     )
 
 
-class _AggregationRequest_findingTypeAggregation(TypedDict, closed=True):
+class AggregationRequestFindingTypeAggregationMember(TypedDict, closed=True):
     findingTypeAggregation: (
         "capo_inspector2.types.finding_type_aggregation.FindingTypeAggregation"
     )
 
 
-class _AggregationRequest_imageLayerAggregation(TypedDict, closed=True):
+class AggregationRequestImageLayerAggregationMember(TypedDict, closed=True):
     imageLayerAggregation: (
         "capo_inspector2.types.image_layer_aggregation.ImageLayerAggregation"
     )
 
 
-class _AggregationRequest_packageAggregation(TypedDict, closed=True):
+class AggregationRequestPackageAggregationMember(TypedDict, closed=True):
     packageAggregation: "capo_inspector2.types.package_aggregation.PackageAggregation"
 
 
-class _AggregationRequest_repositoryAggregation(TypedDict, closed=True):
+class AggregationRequestRepositoryAggregationMember(TypedDict, closed=True):
     repositoryAggregation: (
         "capo_inspector2.types.repository_aggregation.RepositoryAggregation"
     )
 
 
-class _AggregationRequest_titleAggregation(TypedDict, closed=True):
+class AggregationRequestTitleAggregationMember(TypedDict, closed=True):
     titleAggregation: "capo_inspector2.types.title_aggregation.TitleAggregation"
 
 
-class _AggregationRequest_lambdaLayerAggregation(TypedDict, closed=True):
+class AggregationRequestLambdaLayerAggregationMember(TypedDict, closed=True):
     lambdaLayerAggregation: (
         "capo_inspector2.types.lambda_layer_aggregation.LambdaLayerAggregation"
     )
 
 
-class _AggregationRequest_lambdaFunctionAggregation(TypedDict, closed=True):
+class AggregationRequestLambdaFunctionAggregationMember(TypedDict, closed=True):
     lambdaFunctionAggregation: (
         "capo_inspector2.types.lambda_function_aggregation.LambdaFunctionAggregation"
     )
 
 
-class _AggregationRequest_codeRepositoryAggregation(TypedDict, closed=True):
+class AggregationRequestCodeRepositoryAggregationMember(TypedDict, closed=True):
     codeRepositoryAggregation: (
         "capo_inspector2.types.code_repository_aggregation.CodeRepositoryAggregation"
     )
 
 
-class _AggregationRequest_vmInstanceAggregation(TypedDict, closed=True):
+class AggregationRequestVmInstanceAggregationMember(TypedDict, closed=True):
     vmInstanceAggregation: (
         "capo_inspector2.types.vm_instance_aggregation.VmInstanceAggregation"
     )
 
 
-class _AggregationRequest_containerImageAggregation(TypedDict, closed=True):
+class AggregationRequestContainerImageAggregationMember(TypedDict, closed=True):
     containerImageAggregation: (
         "capo_inspector2.types.container_image_aggregation.ContainerImageAggregation"
     )
 
 
-class _AggregationRequest_serverlessFunctionAggregation(TypedDict, closed=True):
+class AggregationRequestServerlessFunctionAggregationMember(TypedDict, closed=True):
     serverlessFunctionAggregation: "capo_inspector2.types.serverless_function_aggregation.ServerlessFunctionAggregation"
 
 
 AggregationRequest: TypeAlias = (
-    _AggregationRequest_accountAggregation
-    | _AggregationRequest_amiAggregation
-    | _AggregationRequest_awsEcrContainerAggregation
-    | _AggregationRequest_ec2InstanceAggregation
-    | _AggregationRequest_findingTypeAggregation
-    | _AggregationRequest_imageLayerAggregation
-    | _AggregationRequest_packageAggregation
-    | _AggregationRequest_repositoryAggregation
-    | _AggregationRequest_titleAggregation
-    | _AggregationRequest_lambdaLayerAggregation
-    | _AggregationRequest_lambdaFunctionAggregation
-    | _AggregationRequest_codeRepositoryAggregation
-    | _AggregationRequest_vmInstanceAggregation
-    | _AggregationRequest_containerImageAggregation
-    | _AggregationRequest_serverlessFunctionAggregation
+    AggregationRequestAccountAggregationMember
+    | AggregationRequestAmiAggregationMember
+    | AggregationRequestAwsEcrContainerAggregationMember
+    | AggregationRequestEc2InstanceAggregationMember
+    | AggregationRequestFindingTypeAggregationMember
+    | AggregationRequestImageLayerAggregationMember
+    | AggregationRequestPackageAggregationMember
+    | AggregationRequestRepositoryAggregationMember
+    | AggregationRequestTitleAggregationMember
+    | AggregationRequestLambdaLayerAggregationMember
+    | AggregationRequestLambdaFunctionAggregationMember
+    | AggregationRequestCodeRepositoryAggregationMember
+    | AggregationRequestVmInstanceAggregationMember
+    | AggregationRequestContainerImageAggregationMember
+    | AggregationRequestServerlessFunctionAggregationMember
     | UnknownUnionMember
 )
 

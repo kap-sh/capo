@@ -7,7 +7,7 @@ title: TableBucketMaintenanceSettings
       show_source: true
       merge_init_into_class: false
 
-::: capo_s3tables.types.table_bucket_maintenance_settings._TableBucketMaintenanceSettings_icebergUnreferencedFileRemoval
+::: capo_s3tables.types.table_bucket_maintenance_settings.TableBucketMaintenanceSettingsIcebergUnreferencedFileRemovalMember
     options:
       show_source: true
       merge_init_into_class: false

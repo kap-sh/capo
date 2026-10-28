@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_healthlake.types.continuous_backup_restore_configuration
 
 
-class _RestoreConfiguration_ContinuousBackupRestoreConfiguration(
+class RestoreConfigurationContinuousBackupRestoreConfigurationMember(
     TypedDict, closed=True
 ):
     ContinuousBackupRestoreConfiguration: "capo_healthlake.types.continuous_backup_restore_configuration.ContinuousBackupRestoreConfiguration"
 
 
 RestoreConfiguration: TypeAlias = (
-    _RestoreConfiguration_ContinuousBackupRestoreConfiguration | UnknownUnionMember
+    RestoreConfigurationContinuousBackupRestoreConfigurationMember | UnknownUnionMember
 )
 
 

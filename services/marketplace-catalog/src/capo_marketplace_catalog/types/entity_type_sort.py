@@ -20,59 +20,59 @@ if TYPE_CHECKING:
     import capo_marketplace_catalog.types.subsidiary_authorization_sort
 
 
-class _EntityTypeSort_DataProductSort(TypedDict, closed=True):
+class EntityTypeSortDataProductSortMember(TypedDict, closed=True):
     DataProductSort: "capo_marketplace_catalog.types.data_product_sort.DataProductSort"
 
 
-class _EntityTypeSort_SaaSProductSort(TypedDict, closed=True):
+class EntityTypeSortSaaSProductSortMember(TypedDict, closed=True):
     SaaSProductSort: "capo_marketplace_catalog.types.saa_s_product_sort.SaaSProductSort"
 
 
-class _EntityTypeSort_AmiProductSort(TypedDict, closed=True):
+class EntityTypeSortAmiProductSortMember(TypedDict, closed=True):
     AmiProductSort: "capo_marketplace_catalog.types.ami_product_sort.AmiProductSort"
 
 
-class _EntityTypeSort_OfferSort(TypedDict, closed=True):
+class EntityTypeSortOfferSortMember(TypedDict, closed=True):
     OfferSort: "capo_marketplace_catalog.types.offer_sort.OfferSort"
 
 
-class _EntityTypeSort_ContainerProductSort(TypedDict, closed=True):
+class EntityTypeSortContainerProductSortMember(TypedDict, closed=True):
     ContainerProductSort: (
         "capo_marketplace_catalog.types.container_product_sort.ContainerProductSort"
     )
 
 
-class _EntityTypeSort_ResaleAuthorizationSort(TypedDict, closed=True):
+class EntityTypeSortResaleAuthorizationSortMember(TypedDict, closed=True):
     ResaleAuthorizationSort: "capo_marketplace_catalog.types.resale_authorization_sort.ResaleAuthorizationSort"
 
 
-class _EntityTypeSort_MachineLearningProductSort(TypedDict, closed=True):
+class EntityTypeSortMachineLearningProductSortMember(TypedDict, closed=True):
     MachineLearningProductSort: "capo_marketplace_catalog.types.machine_learning_product_sort.MachineLearningProductSort"
 
 
-class _EntityTypeSort_OfferSetSort(TypedDict, closed=True):
+class EntityTypeSortOfferSetSortMember(TypedDict, closed=True):
     OfferSetSort: "capo_marketplace_catalog.types.offer_set_sort.OfferSetSort"
 
 
-class _EntityTypeSort_ExpressPrivateOfferConfigurationSort(TypedDict, closed=True):
+class EntityTypeSortExpressPrivateOfferConfigurationSortMember(TypedDict, closed=True):
     ExpressPrivateOfferConfigurationSort: "capo_marketplace_catalog.types.express_private_offer_configuration_sort.ExpressPrivateOfferConfigurationSort"
 
 
-class _EntityTypeSort_SubsidiaryAuthorizationSort(TypedDict, closed=True):
+class EntityTypeSortSubsidiaryAuthorizationSortMember(TypedDict, closed=True):
     SubsidiaryAuthorizationSort: "capo_marketplace_catalog.types.subsidiary_authorization_sort.SubsidiaryAuthorizationSort"
 
 
 EntityTypeSort: TypeAlias = (
-    _EntityTypeSort_DataProductSort
-    | _EntityTypeSort_SaaSProductSort
-    | _EntityTypeSort_AmiProductSort
-    | _EntityTypeSort_OfferSort
-    | _EntityTypeSort_ContainerProductSort
-    | _EntityTypeSort_ResaleAuthorizationSort
-    | _EntityTypeSort_MachineLearningProductSort
-    | _EntityTypeSort_OfferSetSort
-    | _EntityTypeSort_ExpressPrivateOfferConfigurationSort
-    | _EntityTypeSort_SubsidiaryAuthorizationSort
+    EntityTypeSortDataProductSortMember
+    | EntityTypeSortSaaSProductSortMember
+    | EntityTypeSortAmiProductSortMember
+    | EntityTypeSortOfferSortMember
+    | EntityTypeSortContainerProductSortMember
+    | EntityTypeSortResaleAuthorizationSortMember
+    | EntityTypeSortMachineLearningProductSortMember
+    | EntityTypeSortOfferSetSortMember
+    | EntityTypeSortExpressPrivateOfferConfigurationSortMember
+    | EntityTypeSortSubsidiaryAuthorizationSortMember
     | UnknownUnionMember
 )
 

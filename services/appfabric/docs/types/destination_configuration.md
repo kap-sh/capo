@@ -7,7 +7,7 @@ title: DestinationConfiguration
       show_source: true
       merge_init_into_class: false
 
-::: capo_appfabric.types.destination_configuration._DestinationConfiguration_auditLog
+::: capo_appfabric.types.destination_configuration.DestinationConfigurationAuditLogMember
     options:
       show_source: true
       merge_init_into_class: false

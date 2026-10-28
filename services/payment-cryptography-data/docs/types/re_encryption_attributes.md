@@ -7,19 +7,19 @@ title: ReEncryptionAttributes
       show_source: true
       merge_init_into_class: false
 
-::: capo_payment_cryptography_data.types.re_encryption_attributes._ReEncryptionAttributes_Symmetric
+::: capo_payment_cryptography_data.types.re_encryption_attributes.ReEncryptionAttributesSymmetricMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_payment_cryptography_data.types.re_encryption_attributes._ReEncryptionAttributes_Asymmetric
+::: capo_payment_cryptography_data.types.re_encryption_attributes.ReEncryptionAttributesAsymmetricMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_payment_cryptography_data.types.re_encryption_attributes._ReEncryptionAttributes_Dukpt
+::: capo_payment_cryptography_data.types.re_encryption_attributes.ReEncryptionAttributesDukptMember
     options:
       show_source: true
       merge_init_into_class: false

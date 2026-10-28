@@ -7,7 +7,7 @@ title: AuthorizationData
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agentcore_control.types.authorization_data._AuthorizationData_oauth2
+::: capo_bedrock_agentcore_control.types.authorization_data.AuthorizationDataOauth2Member
     options:
       show_source: true
       merge_init_into_class: false

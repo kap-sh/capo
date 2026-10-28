@@ -14,11 +14,11 @@ if TYPE_CHECKING:
     import capo_database_migration_service.types.default_error_details
 
 
-class _ErrorDetails_defaultErrorDetails(TypedDict, closed=True):
+class ErrorDetailsDefaultErrorDetailsMember(TypedDict, closed=True):
     defaultErrorDetails: "capo_database_migration_service.types.default_error_details.DefaultErrorDetails"
 
 
-ErrorDetails: TypeAlias = _ErrorDetails_defaultErrorDetails | UnknownUnionMember
+ErrorDetails: TypeAlias = ErrorDetailsDefaultErrorDetailsMember | UnknownUnionMember
 
 
 # --- awsJson1_1 ser/de ---

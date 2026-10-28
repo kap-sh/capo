@@ -18,26 +18,26 @@ if TYPE_CHECKING:
     import capo_sagemaker_runtime.types.payload_part
 
 
-class _ResponseStream_PayloadPart(TypedDict, closed=True):
+class ResponseStreamPayloadPartMember(TypedDict, closed=True):
     PayloadPart: "capo_sagemaker_runtime.types.payload_part.PayloadPart"
 
 
-class _ResponseStream_ModelStreamError(TypedDict, closed=True):
+class ResponseStreamModelStreamErrorMember(TypedDict, closed=True):
     ModelStreamError: (
         "capo_sagemaker_runtime.errors.model_stream_error.ModelStreamError_"
     )
 
 
-class _ResponseStream_InternalStreamFailure(TypedDict, closed=True):
+class ResponseStreamInternalStreamFailureMember(TypedDict, closed=True):
     InternalStreamFailure: (
         "capo_sagemaker_runtime.errors.internal_stream_failure.InternalStreamFailure_"
     )
 
 
 _ResponseStream: TypeAlias = (
-    _ResponseStream_PayloadPart
-    | _ResponseStream_ModelStreamError
-    | _ResponseStream_InternalStreamFailure
+    ResponseStreamPayloadPartMember
+    | ResponseStreamModelStreamErrorMember
+    | ResponseStreamInternalStreamFailureMember
     | UnknownEvent
 )
 ResponseStream: TypeAlias = AnyIterator[_ResponseStream]

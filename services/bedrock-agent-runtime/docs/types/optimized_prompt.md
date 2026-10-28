@@ -7,7 +7,7 @@ title: OptimizedPrompt
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agent_runtime.types.optimized_prompt._OptimizedPrompt_textPrompt
+::: capo_bedrock_agent_runtime.types.optimized_prompt.OptimizedPromptTextPromptMember
     options:
       show_source: true
       merge_init_into_class: false

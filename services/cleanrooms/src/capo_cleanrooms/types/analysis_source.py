@@ -12,18 +12,18 @@ if TYPE_CHECKING:
     import capo_cleanrooms.types.analysis_template_text
 
 
-class _AnalysisSource_text(TypedDict, closed=True):
+class AnalysisSourceTextMember(TypedDict, closed=True):
     text: "capo_cleanrooms.types.analysis_template_text.AnalysisTemplateText"
 
 
-class _AnalysisSource_artifacts(TypedDict, closed=True):
+class AnalysisSourceArtifactsMember(TypedDict, closed=True):
     artifacts: (
         "capo_cleanrooms.types.analysis_template_artifacts.AnalysisTemplateArtifacts"
     )
 
 
 AnalysisSource: TypeAlias = (
-    _AnalysisSource_text | _AnalysisSource_artifacts | UnknownUnionMember
+    AnalysisSourceTextMember | AnalysisSourceArtifactsMember | UnknownUnionMember
 )
 
 

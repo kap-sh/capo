@@ -18,32 +18,32 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.user_preference_memory_strategy_input
 
 
-class _MemoryStrategyInput_semanticMemoryStrategy(TypedDict, closed=True):
+class MemoryStrategyInputSemanticMemoryStrategyMember(TypedDict, closed=True):
     semanticMemoryStrategy: "capo_bedrock_agentcore_control.types.semantic_memory_strategy_input.SemanticMemoryStrategyInput"
 
 
-class _MemoryStrategyInput_summaryMemoryStrategy(TypedDict, closed=True):
+class MemoryStrategyInputSummaryMemoryStrategyMember(TypedDict, closed=True):
     summaryMemoryStrategy: "capo_bedrock_agentcore_control.types.summary_memory_strategy_input.SummaryMemoryStrategyInput"
 
 
-class _MemoryStrategyInput_userPreferenceMemoryStrategy(TypedDict, closed=True):
+class MemoryStrategyInputUserPreferenceMemoryStrategyMember(TypedDict, closed=True):
     userPreferenceMemoryStrategy: "capo_bedrock_agentcore_control.types.user_preference_memory_strategy_input.UserPreferenceMemoryStrategyInput"
 
 
-class _MemoryStrategyInput_customMemoryStrategy(TypedDict, closed=True):
+class MemoryStrategyInputCustomMemoryStrategyMember(TypedDict, closed=True):
     customMemoryStrategy: "capo_bedrock_agentcore_control.types.custom_memory_strategy_input.CustomMemoryStrategyInput"
 
 
-class _MemoryStrategyInput_episodicMemoryStrategy(TypedDict, closed=True):
+class MemoryStrategyInputEpisodicMemoryStrategyMember(TypedDict, closed=True):
     episodicMemoryStrategy: "capo_bedrock_agentcore_control.types.episodic_memory_strategy_input.EpisodicMemoryStrategyInput"
 
 
 MemoryStrategyInput: TypeAlias = (
-    _MemoryStrategyInput_semanticMemoryStrategy
-    | _MemoryStrategyInput_summaryMemoryStrategy
-    | _MemoryStrategyInput_userPreferenceMemoryStrategy
-    | _MemoryStrategyInput_customMemoryStrategy
-    | _MemoryStrategyInput_episodicMemoryStrategy
+    MemoryStrategyInputSemanticMemoryStrategyMember
+    | MemoryStrategyInputSummaryMemoryStrategyMember
+    | MemoryStrategyInputUserPreferenceMemoryStrategyMember
+    | MemoryStrategyInputCustomMemoryStrategyMember
+    | MemoryStrategyInputEpisodicMemoryStrategyMember
     | UnknownUnionMember
 )
 

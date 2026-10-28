@@ -12,21 +12,21 @@ if TYPE_CHECKING:
     import capo_bedrock_data_automation.types.upsert_entities_info
 
 
-class _InlinePayload_upsertEntitiesInfo(TypedDict, closed=True):
+class InlinePayloadUpsertEntitiesInfoMember(TypedDict, closed=True):
     upsertEntitiesInfo: (
         "capo_bedrock_data_automation.types.upsert_entities_info.UpsertEntitiesInfo"
     )
 
 
-class _InlinePayload_deleteEntitiesInfo(TypedDict, closed=True):
+class InlinePayloadDeleteEntitiesInfoMember(TypedDict, closed=True):
     deleteEntitiesInfo: (
         "capo_bedrock_data_automation.types.delete_entities_info.DeleteEntitiesInfo"
     )
 
 
 InlinePayload: TypeAlias = (
-    _InlinePayload_upsertEntitiesInfo
-    | _InlinePayload_deleteEntitiesInfo
+    InlinePayloadUpsertEntitiesInfoMember
+    | InlinePayloadDeleteEntitiesInfoMember
     | UnknownUnionMember
 )
 

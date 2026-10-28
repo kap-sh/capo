@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_b2bi.types.x12_details
 
 
-class _ConversionTargetFormatDetails_x12(TypedDict, closed=True):
+class ConversionTargetFormatDetailsX12Member(TypedDict, closed=True):
     x12: "capo_b2bi.types.x12_details.X12Details"
 
 
 ConversionTargetFormatDetails: TypeAlias = (
-    _ConversionTargetFormatDetails_x12 | UnknownUnionMember
+    ConversionTargetFormatDetailsX12Member | UnknownUnionMember
 )
 
 

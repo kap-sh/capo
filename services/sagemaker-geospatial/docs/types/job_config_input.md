@@ -7,55 +7,55 @@ title: JobConfigInput
       show_source: true
       merge_init_into_class: false
 
-::: capo_sagemaker_geospatial.types.job_config_input._JobConfigInput_BandMathConfig
+::: capo_sagemaker_geospatial.types.job_config_input.JobConfigInputBandMathConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_sagemaker_geospatial.types.job_config_input._JobConfigInput_ResamplingConfig
+::: capo_sagemaker_geospatial.types.job_config_input.JobConfigInputResamplingConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_sagemaker_geospatial.types.job_config_input._JobConfigInput_TemporalStatisticsConfig
+::: capo_sagemaker_geospatial.types.job_config_input.JobConfigInputTemporalStatisticsConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_sagemaker_geospatial.types.job_config_input._JobConfigInput_CloudRemovalConfig
+::: capo_sagemaker_geospatial.types.job_config_input.JobConfigInputCloudRemovalConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_sagemaker_geospatial.types.job_config_input._JobConfigInput_ZonalStatisticsConfig
+::: capo_sagemaker_geospatial.types.job_config_input.JobConfigInputZonalStatisticsConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_sagemaker_geospatial.types.job_config_input._JobConfigInput_GeoMosaicConfig
+::: capo_sagemaker_geospatial.types.job_config_input.JobConfigInputGeoMosaicConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_sagemaker_geospatial.types.job_config_input._JobConfigInput_StackConfig
+::: capo_sagemaker_geospatial.types.job_config_input.JobConfigInputStackConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_sagemaker_geospatial.types.job_config_input._JobConfigInput_CloudMaskingConfig
+::: capo_sagemaker_geospatial.types.job_config_input.JobConfigInputCloudMaskingConfigMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_sagemaker_geospatial.types.job_config_input._JobConfigInput_LandCoverSegmentationConfig
+::: capo_sagemaker_geospatial.types.job_config_input.JobConfigInputLandCoverSegmentationConfigMember
     options:
       show_source: true
       merge_init_into_class: false

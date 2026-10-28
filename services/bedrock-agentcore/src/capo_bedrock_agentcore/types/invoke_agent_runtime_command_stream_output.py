@@ -23,11 +23,11 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.response_chunk
 
 
-class _InvokeAgentRuntimeCommandStreamOutput_chunk(TypedDict, closed=True):
+class InvokeAgentRuntimeCommandStreamOutputChunkMember(TypedDict, closed=True):
     chunk: "capo_bedrock_agentcore.types.response_chunk.ResponseChunk"
 
 
-class _InvokeAgentRuntimeCommandStreamOutput_accessDeniedException(
+class InvokeAgentRuntimeCommandStreamOutputAccessDeniedExceptionMember(
     TypedDict, closed=True
 ):
     accessDeniedException: (
@@ -35,25 +35,25 @@ class _InvokeAgentRuntimeCommandStreamOutput_accessDeniedException(
     )
 
 
-class _InvokeAgentRuntimeCommandStreamOutput_internalServerException(
+class InvokeAgentRuntimeCommandStreamOutputInternalServerExceptionMember(
     TypedDict, closed=True
 ):
     internalServerException: "capo_bedrock_agentcore.errors.internal_server_exception.InternalServerException_"
 
 
-class _InvokeAgentRuntimeCommandStreamOutput_resourceNotFoundException(
+class InvokeAgentRuntimeCommandStreamOutputResourceNotFoundExceptionMember(
     TypedDict, closed=True
 ):
     resourceNotFoundException: "capo_bedrock_agentcore.errors.resource_not_found_exception.ResourceNotFoundException_"
 
 
-class _InvokeAgentRuntimeCommandStreamOutput_serviceQuotaExceededException(
+class InvokeAgentRuntimeCommandStreamOutputServiceQuotaExceededExceptionMember(
     TypedDict, closed=True
 ):
     serviceQuotaExceededException: "capo_bedrock_agentcore.errors.service_quota_exceeded_exception.ServiceQuotaExceededException_"
 
 
-class _InvokeAgentRuntimeCommandStreamOutput_throttlingException(
+class InvokeAgentRuntimeCommandStreamOutputThrottlingExceptionMember(
     TypedDict, closed=True
 ):
     throttlingException: (
@@ -61,7 +61,7 @@ class _InvokeAgentRuntimeCommandStreamOutput_throttlingException(
     )
 
 
-class _InvokeAgentRuntimeCommandStreamOutput_validationException(
+class InvokeAgentRuntimeCommandStreamOutputValidationExceptionMember(
     TypedDict, closed=True
 ):
     validationException: (
@@ -69,21 +69,23 @@ class _InvokeAgentRuntimeCommandStreamOutput_validationException(
     )
 
 
-class _InvokeAgentRuntimeCommandStreamOutput_runtimeClientError(TypedDict, closed=True):
+class InvokeAgentRuntimeCommandStreamOutputRuntimeClientErrorMember(
+    TypedDict, closed=True
+):
     runtimeClientError: (
         "capo_bedrock_agentcore.errors.runtime_client_error.RuntimeClientError_"
     )
 
 
 _InvokeAgentRuntimeCommandStreamOutput: TypeAlias = (
-    _InvokeAgentRuntimeCommandStreamOutput_chunk
-    | _InvokeAgentRuntimeCommandStreamOutput_accessDeniedException
-    | _InvokeAgentRuntimeCommandStreamOutput_internalServerException
-    | _InvokeAgentRuntimeCommandStreamOutput_resourceNotFoundException
-    | _InvokeAgentRuntimeCommandStreamOutput_serviceQuotaExceededException
-    | _InvokeAgentRuntimeCommandStreamOutput_throttlingException
-    | _InvokeAgentRuntimeCommandStreamOutput_validationException
-    | _InvokeAgentRuntimeCommandStreamOutput_runtimeClientError
+    InvokeAgentRuntimeCommandStreamOutputChunkMember
+    | InvokeAgentRuntimeCommandStreamOutputAccessDeniedExceptionMember
+    | InvokeAgentRuntimeCommandStreamOutputInternalServerExceptionMember
+    | InvokeAgentRuntimeCommandStreamOutputResourceNotFoundExceptionMember
+    | InvokeAgentRuntimeCommandStreamOutputServiceQuotaExceededExceptionMember
+    | InvokeAgentRuntimeCommandStreamOutputThrottlingExceptionMember
+    | InvokeAgentRuntimeCommandStreamOutputValidationExceptionMember
+    | InvokeAgentRuntimeCommandStreamOutputRuntimeClientErrorMember
     | UnknownEvent
 )
 InvokeAgentRuntimeCommandStreamOutput: TypeAlias = AnyIterator[

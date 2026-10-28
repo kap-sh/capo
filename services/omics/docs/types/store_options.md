@@ -7,7 +7,7 @@ title: StoreOptions
       show_source: true
       merge_init_into_class: false
 
-::: capo_omics.types.store_options._StoreOptions_tsvStoreOptions
+::: capo_omics.types.store_options.StoreOptionsTsvStoreOptionsMember
     options:
       show_source: true
       merge_init_into_class: false

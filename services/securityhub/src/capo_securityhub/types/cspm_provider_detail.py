@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     import capo_securityhub.types.azure_detail
 
 
-class _CspmProviderDetail_Azure(TypedDict, closed=True):
+class CspmProviderDetailAzureMember(TypedDict, closed=True):
     Azure: "capo_securityhub.types.azure_detail.AzureDetail"
 
 
-CspmProviderDetail: TypeAlias = _CspmProviderDetail_Azure | UnknownUnionMember
+CspmProviderDetail: TypeAlias = CspmProviderDetailAzureMember | UnknownUnionMember
 
 
 # --- restJson1 ser/de ---

@@ -15,32 +15,32 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.sensitive_text
 
 
-class _HarnessContentBlockDelta_text(TypedDict, closed=True):
+class HarnessContentBlockDeltaTextMember(TypedDict, closed=True):
     text: "capo_bedrock_agentcore.types.sensitive_text.SensitiveText"
 
 
-class _HarnessContentBlockDelta_toolUse(TypedDict, closed=True):
+class HarnessContentBlockDeltaToolUseMember(TypedDict, closed=True):
     toolUse: "capo_bedrock_agentcore.types.harness_tool_use_block_delta.HarnessToolUseBlockDelta"
 
 
-class _HarnessContentBlockDelta_toolResult(TypedDict, closed=True):
+class HarnessContentBlockDeltaToolResultMember(TypedDict, closed=True):
     toolResult: "capo_bedrock_agentcore.types.harness_tool_result_blocks_delta.HarnessToolResultBlocksDelta"
 
 
-class _HarnessContentBlockDelta_reasoningContent(TypedDict, closed=True):
+class HarnessContentBlockDeltaReasoningContentMember(TypedDict, closed=True):
     reasoningContent: "capo_bedrock_agentcore.types.harness_reasoning_content_block_delta.HarnessReasoningContentBlockDelta"
 
 
-class _HarnessContentBlockDelta_toolResultMetadata(TypedDict, closed=True):
+class HarnessContentBlockDeltaToolResultMetadataMember(TypedDict, closed=True):
     toolResultMetadata: "capo_bedrock_agentcore.types.harness_tool_result_metadata_block_delta.HarnessToolResultMetadataBlockDelta"
 
 
 HarnessContentBlockDelta: TypeAlias = (
-    _HarnessContentBlockDelta_text
-    | _HarnessContentBlockDelta_toolUse
-    | _HarnessContentBlockDelta_toolResult
-    | _HarnessContentBlockDelta_reasoningContent
-    | _HarnessContentBlockDelta_toolResultMetadata
+    HarnessContentBlockDeltaTextMember
+    | HarnessContentBlockDeltaToolUseMember
+    | HarnessContentBlockDeltaToolResultMember
+    | HarnessContentBlockDeltaReasoningContentMember
+    | HarnessContentBlockDeltaToolResultMetadataMember
     | UnknownUnionMember
 )
 

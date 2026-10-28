@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_connect.types.quick_connect_contact_data
 
 
-class _NextContactMetadata_QuickConnectContactData(TypedDict, closed=True):
+class NextContactMetadataQuickConnectContactDataMember(TypedDict, closed=True):
     QuickConnectContactData: (
         "capo_connect.types.quick_connect_contact_data.QuickConnectContactData"
     )
 
 
 NextContactMetadata: TypeAlias = (
-    _NextContactMetadata_QuickConnectContactData | UnknownUnionMember
+    NextContactMetadataQuickConnectContactDataMember | UnknownUnionMember
 )
 
 

@@ -29,35 +29,41 @@ if TYPE_CHECKING:
     import capo_lex_runtime_v2.types.transcript_event
 
 
-class _StartConversationResponseEventStream_PlaybackInterruptionEvent(
+class StartConversationResponseEventStreamPlaybackInterruptionEventMember(
     TypedDict, closed=True
 ):
     PlaybackInterruptionEvent: "capo_lex_runtime_v2.types.playback_interruption_event.PlaybackInterruptionEvent"
 
 
-class _StartConversationResponseEventStream_TranscriptEvent(TypedDict, closed=True):
+class StartConversationResponseEventStreamTranscriptEventMember(TypedDict, closed=True):
     TranscriptEvent: "capo_lex_runtime_v2.types.transcript_event.TranscriptEvent"
 
 
-class _StartConversationResponseEventStream_IntentResultEvent(TypedDict, closed=True):
+class StartConversationResponseEventStreamIntentResultEventMember(
+    TypedDict, closed=True
+):
     IntentResultEvent: "capo_lex_runtime_v2.types.intent_result_event.IntentResultEvent"
 
 
-class _StartConversationResponseEventStream_TextResponseEvent(TypedDict, closed=True):
+class StartConversationResponseEventStreamTextResponseEventMember(
+    TypedDict, closed=True
+):
     TextResponseEvent: "capo_lex_runtime_v2.types.text_response_event.TextResponseEvent"
 
 
-class _StartConversationResponseEventStream_AudioResponseEvent(TypedDict, closed=True):
+class StartConversationResponseEventStreamAudioResponseEventMember(
+    TypedDict, closed=True
+):
     AudioResponseEvent: (
         "capo_lex_runtime_v2.types.audio_response_event.AudioResponseEvent"
     )
 
 
-class _StartConversationResponseEventStream_HeartbeatEvent(TypedDict, closed=True):
+class StartConversationResponseEventStreamHeartbeatEventMember(TypedDict, closed=True):
     HeartbeatEvent: "capo_lex_runtime_v2.types.heartbeat_event.HeartbeatEvent"
 
 
-class _StartConversationResponseEventStream_AccessDeniedException(
+class StartConversationResponseEventStreamAccessDeniedExceptionMember(
     TypedDict, closed=True
 ):
     AccessDeniedException: (
@@ -65,25 +71,29 @@ class _StartConversationResponseEventStream_AccessDeniedException(
     )
 
 
-class _StartConversationResponseEventStream_ResourceNotFoundException(
+class StartConversationResponseEventStreamResourceNotFoundExceptionMember(
     TypedDict, closed=True
 ):
     ResourceNotFoundException: "capo_lex_runtime_v2.errors.resource_not_found_exception.ResourceNotFoundException_"
 
 
-class _StartConversationResponseEventStream_ValidationException(TypedDict, closed=True):
+class StartConversationResponseEventStreamValidationExceptionMember(
+    TypedDict, closed=True
+):
     ValidationException: (
         "capo_lex_runtime_v2.errors.validation_exception.ValidationException_"
     )
 
 
-class _StartConversationResponseEventStream_ThrottlingException(TypedDict, closed=True):
+class StartConversationResponseEventStreamThrottlingExceptionMember(
+    TypedDict, closed=True
+):
     ThrottlingException: (
         "capo_lex_runtime_v2.errors.throttling_exception.ThrottlingException_"
     )
 
 
-class _StartConversationResponseEventStream_InternalServerException(
+class StartConversationResponseEventStreamInternalServerExceptionMember(
     TypedDict, closed=True
 ):
     InternalServerException: (
@@ -91,39 +101,43 @@ class _StartConversationResponseEventStream_InternalServerException(
     )
 
 
-class _StartConversationResponseEventStream_ConflictException(TypedDict, closed=True):
+class StartConversationResponseEventStreamConflictExceptionMember(
+    TypedDict, closed=True
+):
     ConflictException: (
         "capo_lex_runtime_v2.errors.conflict_exception.ConflictException_"
     )
 
 
-class _StartConversationResponseEventStream_DependencyFailedException(
+class StartConversationResponseEventStreamDependencyFailedExceptionMember(
     TypedDict, closed=True
 ):
     DependencyFailedException: "capo_lex_runtime_v2.errors.dependency_failed_exception.DependencyFailedException_"
 
 
-class _StartConversationResponseEventStream_BadGatewayException(TypedDict, closed=True):
+class StartConversationResponseEventStreamBadGatewayExceptionMember(
+    TypedDict, closed=True
+):
     BadGatewayException: (
         "capo_lex_runtime_v2.errors.bad_gateway_exception.BadGatewayException_"
     )
 
 
 _StartConversationResponseEventStream: TypeAlias = (
-    _StartConversationResponseEventStream_PlaybackInterruptionEvent
-    | _StartConversationResponseEventStream_TranscriptEvent
-    | _StartConversationResponseEventStream_IntentResultEvent
-    | _StartConversationResponseEventStream_TextResponseEvent
-    | _StartConversationResponseEventStream_AudioResponseEvent
-    | _StartConversationResponseEventStream_HeartbeatEvent
-    | _StartConversationResponseEventStream_AccessDeniedException
-    | _StartConversationResponseEventStream_ResourceNotFoundException
-    | _StartConversationResponseEventStream_ValidationException
-    | _StartConversationResponseEventStream_ThrottlingException
-    | _StartConversationResponseEventStream_InternalServerException
-    | _StartConversationResponseEventStream_ConflictException
-    | _StartConversationResponseEventStream_DependencyFailedException
-    | _StartConversationResponseEventStream_BadGatewayException
+    StartConversationResponseEventStreamPlaybackInterruptionEventMember
+    | StartConversationResponseEventStreamTranscriptEventMember
+    | StartConversationResponseEventStreamIntentResultEventMember
+    | StartConversationResponseEventStreamTextResponseEventMember
+    | StartConversationResponseEventStreamAudioResponseEventMember
+    | StartConversationResponseEventStreamHeartbeatEventMember
+    | StartConversationResponseEventStreamAccessDeniedExceptionMember
+    | StartConversationResponseEventStreamResourceNotFoundExceptionMember
+    | StartConversationResponseEventStreamValidationExceptionMember
+    | StartConversationResponseEventStreamThrottlingExceptionMember
+    | StartConversationResponseEventStreamInternalServerExceptionMember
+    | StartConversationResponseEventStreamConflictExceptionMember
+    | StartConversationResponseEventStreamDependencyFailedExceptionMember
+    | StartConversationResponseEventStreamBadGatewayExceptionMember
     | UnknownEvent
 )
 StartConversationResponseEventStream: TypeAlias = AnyIterator[

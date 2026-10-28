@@ -7,13 +7,13 @@ title: ContentBlock
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_agent.types.content_block._ContentBlock_text
+::: capo_bedrock_agent.types.content_block.ContentBlockTextMember
     options:
       show_source: true
       merge_init_into_class: false
       heading_level: 2
 
-::: capo_bedrock_agent.types.content_block._ContentBlock_cachePoint
+::: capo_bedrock_agent.types.content_block.ContentBlockCachePointMember
     options:
       show_source: true
       merge_init_into_class: false

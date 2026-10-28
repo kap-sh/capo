@@ -7,7 +7,7 @@ title: OutputFormatStructure
       show_source: true
       merge_init_into_class: false
 
-::: capo_bedrock_runtime.types.output_format_structure._OutputFormatStructure_jsonSchema
+::: capo_bedrock_runtime.types.output_format_structure.OutputFormatStructureJsonSchemaMember
     options:
       show_source: true
       merge_init_into_class: false

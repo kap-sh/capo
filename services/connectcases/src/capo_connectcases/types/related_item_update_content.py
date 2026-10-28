@@ -12,17 +12,17 @@ if TYPE_CHECKING:
     import capo_connectcases.types.custom_update_content
 
 
-class _RelatedItemUpdateContent_comment(TypedDict, closed=True):
+class RelatedItemUpdateContentCommentMember(TypedDict, closed=True):
     comment: "capo_connectcases.types.comment_update_content.CommentUpdateContent"
 
 
-class _RelatedItemUpdateContent_custom(TypedDict, closed=True):
+class RelatedItemUpdateContentCustomMember(TypedDict, closed=True):
     custom: "capo_connectcases.types.custom_update_content.CustomUpdateContent"
 
 
 RelatedItemUpdateContent: TypeAlias = (
-    _RelatedItemUpdateContent_comment
-    | _RelatedItemUpdateContent_custom
+    RelatedItemUpdateContentCommentMember
+    | RelatedItemUpdateContentCustomMember
     | UnknownUnionMember
 )
 

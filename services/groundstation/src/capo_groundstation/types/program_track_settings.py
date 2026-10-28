@@ -13,24 +13,24 @@ if TYPE_CHECKING:
     import capo_groundstation.types.tle_program_track_settings
 
 
-class _ProgramTrackSettings_azEl(TypedDict, closed=True):
+class ProgramTrackSettingsAzElMember(TypedDict, closed=True):
     azEl: (
         "capo_groundstation.types.az_el_program_track_settings.AzElProgramTrackSettings"
     )
 
 
-class _ProgramTrackSettings_oem(TypedDict, closed=True):
+class ProgramTrackSettingsOemMember(TypedDict, closed=True):
     oem: "capo_groundstation.types.oem_program_track_settings.OemProgramTrackSettings"
 
 
-class _ProgramTrackSettings_tle(TypedDict, closed=True):
+class ProgramTrackSettingsTleMember(TypedDict, closed=True):
     tle: "capo_groundstation.types.tle_program_track_settings.TleProgramTrackSettings"
 
 
 ProgramTrackSettings: TypeAlias = (
-    _ProgramTrackSettings_azEl
-    | _ProgramTrackSettings_oem
-    | _ProgramTrackSettings_tle
+    ProgramTrackSettingsAzElMember
+    | ProgramTrackSettingsOemMember
+    | ProgramTrackSettingsTleMember
     | UnknownUnionMember
 )
 

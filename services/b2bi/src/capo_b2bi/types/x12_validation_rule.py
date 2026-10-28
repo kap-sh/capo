@@ -13,24 +13,24 @@ if TYPE_CHECKING:
     import capo_b2bi.types.x12_element_requirement_validation_rule
 
 
-class _X12ValidationRule_codeListValidationRule(TypedDict, closed=True):
+class X12ValidationRuleCodeListValidationRuleMember(TypedDict, closed=True):
     codeListValidationRule: (
         "capo_b2bi.types.x12_code_list_validation_rule.X12CodeListValidationRule"
     )
 
 
-class _X12ValidationRule_elementLengthValidationRule(TypedDict, closed=True):
+class X12ValidationRuleElementLengthValidationRuleMember(TypedDict, closed=True):
     elementLengthValidationRule: "capo_b2bi.types.x12_element_length_validation_rule.X12ElementLengthValidationRule"
 
 
-class _X12ValidationRule_elementRequirementValidationRule(TypedDict, closed=True):
+class X12ValidationRuleElementRequirementValidationRuleMember(TypedDict, closed=True):
     elementRequirementValidationRule: "capo_b2bi.types.x12_element_requirement_validation_rule.X12ElementRequirementValidationRule"
 
 
 X12ValidationRule: TypeAlias = (
-    _X12ValidationRule_codeListValidationRule
-    | _X12ValidationRule_elementLengthValidationRule
-    | _X12ValidationRule_elementRequirementValidationRule
+    X12ValidationRuleCodeListValidationRuleMember
+    | X12ValidationRuleElementLengthValidationRuleMember
+    | X12ValidationRuleElementRequirementValidationRuleMember
     | UnknownUnionMember
 )
 

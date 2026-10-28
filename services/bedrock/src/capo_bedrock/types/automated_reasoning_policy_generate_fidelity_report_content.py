@@ -11,14 +11,14 @@ if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_generate_fidelity_report_document_list
 
 
-class _AutomatedReasoningPolicyGenerateFidelityReportContent_documents(
+class AutomatedReasoningPolicyGenerateFidelityReportContentDocumentsMember(
     TypedDict, closed=True
 ):
     documents: "capo_bedrock.types.automated_reasoning_policy_generate_fidelity_report_document_list.AutomatedReasoningPolicyGenerateFidelityReportDocumentList"
 
 
 AutomatedReasoningPolicyGenerateFidelityReportContent: TypeAlias = (
-    _AutomatedReasoningPolicyGenerateFidelityReportContent_documents
+    AutomatedReasoningPolicyGenerateFidelityReportContentDocumentsMember
     | UnknownUnionMember
 )
 

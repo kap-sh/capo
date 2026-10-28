@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_backupsearch.types.s3_result_item
 
 
-class _ResultItem_S3ResultItem(TypedDict, closed=True):
+class ResultItemS3ResultItemMember(TypedDict, closed=True):
     S3ResultItem: "capo_backupsearch.types.s3_result_item.S3ResultItem"
 
 
-class _ResultItem_EBSResultItem(TypedDict, closed=True):
+class ResultItemEBSResultItemMember(TypedDict, closed=True):
     EBSResultItem: "capo_backupsearch.types.ebs_result_item.EBSResultItem"
 
 
 ResultItem: TypeAlias = (
-    _ResultItem_S3ResultItem | _ResultItem_EBSResultItem | UnknownUnionMember
+    ResultItemS3ResultItemMember | ResultItemEBSResultItemMember | UnknownUnionMember
 )
 
 

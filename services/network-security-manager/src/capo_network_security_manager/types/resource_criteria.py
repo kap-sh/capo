@@ -15,16 +15,16 @@ if TYPE_CHECKING:
     import capo_network_security_manager.types.string_map
 
 
-class _ResourceCriteria_tags(TypedDict, closed=True):
+class ResourceCriteriaTagsMember(TypedDict, closed=True):
     tags: "capo_network_security_manager.types.string_map.StringMap"
 
 
-class _ResourceCriteria_albConfig(TypedDict, closed=True):
+class ResourceCriteriaAlbConfigMember(TypedDict, closed=True):
     albConfig: "capo_network_security_manager.types.alb_configuration.AlbConfiguration"
 
 
 ResourceCriteria: TypeAlias = (
-    _ResourceCriteria_tags | _ResourceCriteria_albConfig | UnknownUnionMember
+    ResourceCriteriaTagsMember | ResourceCriteriaAlbConfigMember | UnknownUnionMember
 )
 
 

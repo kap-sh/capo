@@ -13,22 +13,22 @@ if TYPE_CHECKING:
     import capo_iotfleetwise.types.timestream_config
 
 
-class _DataDestinationConfig_s3Config(TypedDict, closed=True):
+class DataDestinationConfigS3ConfigMember(TypedDict, closed=True):
     s3Config: "capo_iotfleetwise.types.s3_config.S3Config"
 
 
-class _DataDestinationConfig_timestreamConfig(TypedDict, closed=True):
+class DataDestinationConfigTimestreamConfigMember(TypedDict, closed=True):
     timestreamConfig: "capo_iotfleetwise.types.timestream_config.TimestreamConfig"
 
 
-class _DataDestinationConfig_mqttTopicConfig(TypedDict, closed=True):
+class DataDestinationConfigMqttTopicConfigMember(TypedDict, closed=True):
     mqttTopicConfig: "capo_iotfleetwise.types.mqtt_topic_config.MqttTopicConfig"
 
 
 DataDestinationConfig: TypeAlias = (
-    _DataDestinationConfig_s3Config
-    | _DataDestinationConfig_timestreamConfig
-    | _DataDestinationConfig_mqttTopicConfig
+    DataDestinationConfigS3ConfigMember
+    | DataDestinationConfigTimestreamConfigMember
+    | DataDestinationConfigMqttTopicConfigMember
     | UnknownUnionMember
 )
 

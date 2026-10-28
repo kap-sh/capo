@@ -12,16 +12,16 @@ if TYPE_CHECKING:
     import capo_datazone.types.user_details
 
 
-class _MemberDetails_user(TypedDict, closed=True):
+class MemberDetailsUserMember(TypedDict, closed=True):
     user: "capo_datazone.types.user_details.UserDetails"
 
 
-class _MemberDetails_group(TypedDict, closed=True):
+class MemberDetailsGroupMember(TypedDict, closed=True):
     group: "capo_datazone.types.group_details.GroupDetails"
 
 
 MemberDetails: TypeAlias = (
-    _MemberDetails_user | _MemberDetails_group | UnknownUnionMember
+    MemberDetailsUserMember | MemberDetailsGroupMember | UnknownUnionMember
 )
 
 

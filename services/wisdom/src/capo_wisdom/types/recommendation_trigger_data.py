@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     import capo_wisdom.types.query_recommendation_trigger_data
 
 
-class _RecommendationTriggerData_query(TypedDict, closed=True):
+class RecommendationTriggerDataQueryMember(TypedDict, closed=True):
     query: "capo_wisdom.types.query_recommendation_trigger_data.QueryRecommendationTriggerData"
 
 
 RecommendationTriggerData: TypeAlias = (
-    _RecommendationTriggerData_query | UnknownUnionMember
+    RecommendationTriggerDataQueryMember | UnknownUnionMember
 )
 
 
