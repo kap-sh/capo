@@ -1,5 +1,11 @@
 # aws-sdk-supportauthz
 
+## 0.10.0
+
+### Minor Changes
+
+- f2b74de: feat: public union variant types (`<Union><Variant>Member`)
+
 ## 0.9.0
 
 ### Minor Changes

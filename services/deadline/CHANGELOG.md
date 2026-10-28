@@ -1,5 +1,12 @@
 # aws-sdk-deadline
 
+## 0.12.0
+
+### Minor Changes
+
+- 1e25639: feat: sync smithy models for 27 services
+- f2b74de: feat: public union variant types (`<Union><Variant>Member`)
+
 ## 0.11.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # aws-sdk-s3
 
+## 0.30.0
+
+### Minor Changes
+
+- f2b74de: feat: public union variant types (`<Union><Variant>Member`)
+
 ## 0.29.0
 
 ### Minor Changes

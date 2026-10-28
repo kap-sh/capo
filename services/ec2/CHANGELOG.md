@@ -1,5 +1,11 @@
 # aws-sdk-ec2
 
+## 0.29.0
+
+### Minor Changes
+
+- 1e25639: feat: sync smithy models for 27 services
+
 ## 0.28.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 [project]
 name = "capo-application-discovery-service"
-version = "0.12.0"
+version = "0.13.0"
 description = "Typed, async Python SDK for AWS Application Discovery Service."
 readme = "README.md"
 requires-python = ">=3.10"
