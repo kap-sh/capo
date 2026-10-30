@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+uv run --all-extras ruff check src
+uv run --all-extras ruff format --check src
+uv run --all-extras ty check src

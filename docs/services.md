@@ -152,6 +152,7 @@ errors.
 | AWS Connectcases | `capo-connectcases` | [capo-sdk.dev/services/connectcases](https://capo-sdk.dev/services/connectcases/) |
 | AWS Connecthealth | `capo-connecthealth` | [capo-sdk.dev/services/connecthealth](https://capo-sdk.dev/services/connecthealth/) |
 | AWS Connectparticipant | `capo-connectparticipant` | [capo-sdk.dev/services/connectparticipant](https://capo-sdk.dev/services/connectparticipant/) |
+| AWS Continuum | `capo-continuum` | [capo-sdk.dev/services/continuum](https://capo-sdk.dev/services/continuum/) |
 | AWS Controlcatalog | `capo-controlcatalog` | [capo-sdk.dev/services/controlcatalog](https://capo-sdk.dev/services/controlcatalog/) |
 | AWS Controltower | `capo-controltower` | [capo-sdk.dev/services/controltower](https://capo-sdk.dev/services/controltower/) |
 | AWS Cost And Usage Report Service | `capo-cost-and-usage-report-service` | [capo-sdk.dev/services/cost-and-usage-report-service](https://capo-sdk.dev/services/cost-and-usage-report-service/) |
@@ -410,6 +411,7 @@ errors.
 | AWS Sagemaker Runtime | `capo-sagemaker-runtime` | [capo-sdk.dev/services/sagemaker-runtime](https://capo-sdk.dev/services/sagemaker-runtime/) |
 | AWS Sagemaker Runtime Http2 | `capo-sagemaker-runtime-http2` | [capo-sdk.dev/services/sagemaker-runtime-http2](https://capo-sdk.dev/services/sagemaker-runtime-http2/) |
 | AWS Sagemakerjobruntime | `capo-sagemakerjobruntime` | [capo-sdk.dev/services/sagemakerjobruntime](https://capo-sdk.dev/services/sagemakerjobruntime/) |
+| AWS Sagemakertrainingsessionruntime | `capo-sagemakertrainingsessionruntime` | [capo-sdk.dev/services/sagemakertrainingsessionruntime](https://capo-sdk.dev/services/sagemakertrainingsessionruntime/) |
 | AWS Savingsplans | `capo-savingsplans` | [capo-sdk.dev/services/savingsplans](https://capo-sdk.dev/services/savingsplans/) |
 | AWS Scheduler | `capo-scheduler` | [capo-sdk.dev/services/scheduler](https://capo-sdk.dev/services/scheduler/) |
 | AWS Schemas | `capo-schemas` | [capo-sdk.dev/services/schemas](https://capo-sdk.dev/services/schemas/) |
