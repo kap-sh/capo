@@ -1,6 +1,6 @@
 [project]
 name = "capo-continuum"
-version = "0.1.0"
+version = "0.0.0"
 description = "Typed, async Python SDK for AWS Continuum."
 readme = "README.md"
 requires-python = ">=3.10"
