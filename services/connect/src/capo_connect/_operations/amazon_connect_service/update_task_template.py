@@ -19,6 +19,7 @@ import capo_connect.errors.resource_not_found_exception
 import capo_connect.errors.service_quota_exceeded_exception
 import capo_connect.errors.throttling_exception
 import capo_connect.types.task_template_constraints
+import capo_connect.types.task_template_contact_hooks
 import capo_connect.types.task_template_defaults
 import capo_connect.types.task_template_fields
 import capo_connect.types.task_template_status

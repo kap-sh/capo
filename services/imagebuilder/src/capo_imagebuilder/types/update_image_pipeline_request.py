@@ -59,7 +59,7 @@ class UpdateImagePipelineRequest(TypedDict, closed=True):
     image_scanning_configuration: NotRequired[
         "capo_imagebuilder.types.image_scanning_configuration.ImageScanningConfiguration"
     ]
-    """<p>Contains settings for vulnerability scans that Amazon Inspector runs against the test instance during image creation.</p>"""
+    """<p>The updated settings that determine whether and how Amazon Inspector scans the images that this pipeline creates.</p>"""
     workflows: NotRequired[
         "capo_imagebuilder.types.workflow_configuration_list.WorkflowConfigurationList"
     ]

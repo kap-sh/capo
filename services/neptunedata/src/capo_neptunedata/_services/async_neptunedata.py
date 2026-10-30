@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.neptunedata#AmazonNeptuneDataplane``."""
 
+import uuid
 import warnings
 from typing import TYPE_CHECKING, Any, Iterable, Optional
 
@@ -33,6 +34,8 @@ if TYPE_CHECKING:
     import capo_neptunedata.types.action
     import capo_neptunedata.types.cancel_gremlin_query_input
     import capo_neptunedata.types.cancel_gremlin_query_output
+    import capo_neptunedata.types.cancel_index_rebuild_input
+    import capo_neptunedata.types.cancel_index_rebuild_output
     import capo_neptunedata.types.cancel_loader_job_input
     import capo_neptunedata.types.cancel_loader_job_output
     import capo_neptunedata.types.cancel_ml_data_processing_job_input
@@ -68,6 +71,8 @@ if TYPE_CHECKING:
     import capo_neptunedata.types.get_engine_status_output
     import capo_neptunedata.types.get_gremlin_query_status_input
     import capo_neptunedata.types.get_gremlin_query_status_output
+    import capo_neptunedata.types.get_index_rebuild_status_input
+    import capo_neptunedata.types.get_index_rebuild_status_output
     import capo_neptunedata.types.get_loader_job_status_input
     import capo_neptunedata.types.get_loader_job_status_output
     import capo_neptunedata.types.get_ml_data_processing_job_input
@@ -90,10 +95,12 @@ if TYPE_CHECKING:
     import capo_neptunedata.types.get_sparql_statistics_output
     import capo_neptunedata.types.get_sparql_stream_input
     import capo_neptunedata.types.get_sparql_stream_output
+    import capo_neptunedata.types.get_storage_output
     import capo_neptunedata.types.graph_summary_type
     import capo_neptunedata.types.iterator_type
     import capo_neptunedata.types.list_gremlin_queries_input
     import capo_neptunedata.types.list_gremlin_queries_output
+    import capo_neptunedata.types.list_index_rebuilds_output
     import capo_neptunedata.types.list_loader_jobs_input
     import capo_neptunedata.types.list_loader_jobs_output
     import capo_neptunedata.types.list_ml_data_processing_jobs_input
@@ -114,7 +121,11 @@ if TYPE_CHECKING:
     import capo_neptunedata.types.open_cypher_explain_mode
     import capo_neptunedata.types.parallelism
     import capo_neptunedata.types.positive_integer
+    import capo_neptunedata.types.rebuild_concurrency
     import capo_neptunedata.types.s3_bucket_region
+    import capo_neptunedata.types.scope
+    import capo_neptunedata.types.start_index_rebuild_input
+    import capo_neptunedata.types.start_index_rebuild_output
     import capo_neptunedata.types.start_loader_job_input
     import capo_neptunedata.types.start_loader_job_output
     import capo_neptunedata.types.start_ml_data_processing_job_input
@@ -126,6 +137,7 @@ if TYPE_CHECKING:
     import capo_neptunedata.types.statistics_auto_generation_mode
     import capo_neptunedata.types.string_list
     import capo_neptunedata.types.string_valued_map
+    import capo_neptunedata.types.write_buffer_size
 
 
 class AsyncneptunedataClientConfig(TypedDict, total=False, closed=True):
@@ -285,6 +297,67 @@ class AsyncneptunedataClient:
         )
         input_: capo_neptunedata.types.cancel_gremlin_query_input.CancelGremlinQueryInput = {
             "query_id": query_id
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def cancel_index_rebuild(
+        self,
+        rebuild_id: str,
+        *,
+        config_overrides: Optional[AsyncneptunedataClientConfig] = None,
+    ) -> "capo_neptunedata.types.cancel_index_rebuild_output.CancelIndexRebuildOutput":
+        """<p>Cancels an in-progress index rebuild operation.</p> <p>When invoking this operation in a Neptune cluster that has IAM authentication enabled, the IAM user or role making the request must have a policy attached that allows the <a href="https://docs.aws.amazon.com/neptune/latest/userguide/iam-dp-actions.html#cancelindexrebuild">neptune-db:CancelIndexRebuild</a> IAM action in that cluster.</p>
+
+        Args:
+            rebuild_id: <p>The unique identifier of the index rebuild job to cancel.</p>
+
+        Raises:
+            capo_neptunedata.errors.access_denied_exception.AccessDeniedException: <p>Raised in case of an authentication or authorization failure.</p>
+            capo_neptunedata.errors.cancelled_by_maintenance_exception.CancelledByMaintenanceException: <p>Raised when a request is cancelled because the storage layer entered maintenance mode. This typically happens during a customer-initiated operation such as an index rebuild. It should be treated like <code>ConcurrentModificationException</code>.</p>
+            capo_neptunedata.errors.cancelled_by_user_exception.CancelledByUserException: <p>Raised when a user cancelled a request.</p>
+            capo_neptunedata.errors.client_timeout_exception.ClientTimeoutException: <p>Raised when a request timed out in the client.</p>
+            capo_neptunedata.errors.constraint_violation_exception.ConstraintViolationException: <p>Raised when a value in a request field did not satisfy required constraints.</p>
+            capo_neptunedata.errors.illegal_argument_exception.IllegalArgumentException: <p>Raised when an argument in a request is not supported.</p>
+            capo_neptunedata.errors.internal_failure_exception.InternalFailureException: <p>Raised when the processing of the request failed unexpectedly.</p>
+            capo_neptunedata.errors.invalid_argument_exception.InvalidArgumentException: <p>Raised when an argument in a request has an invalid value.</p>
+            capo_neptunedata.errors.invalid_parameter_exception.InvalidParameterException: <p>Raised when a parameter value is not valid.</p>
+            capo_neptunedata.errors.method_not_allowed_exception.MethodNotAllowedException: <p>Raised when the HTTP method used by a request is not supported by the endpoint being used.</p>
+            capo_neptunedata.errors.preconditions_failed_exception.PreconditionsFailedException: <p>Raised when a precondition for processing a request is not satisfied.</p>
+            capo_neptunedata.errors.read_only_violation_exception.ReadOnlyViolationException: <p>Raised when a request attempts to write to a read-only resource.</p>
+            capo_neptunedata.errors.server_shutdown_exception.ServerShutdownException: <p>Raised when the server shuts down while processing a request.</p>
+            capo_neptunedata.errors.too_many_requests_exception.TooManyRequestsException: <p>Raised when the number of requests being processed exceeds the limit.</p>
+            capo_neptunedata.errors.unsupported_operation_exception.UnsupportedOperationException: <p>Raised when a request attempts to initiate an operation that is not supported.</p>
+            capo_neptunedata.errors.validation_exception.ValidationException: <p>Raised when a parameter value is not valid or is malformed.</p>
+            capo_neptunedata.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_neptunedata.types.cancel_index_rebuild_input.CancelIndexRebuildInput]",
+        ) -> AsyncOperationResponse[
+            "capo_neptunedata.types.cancel_index_rebuild_output.CancelIndexRebuildOutput"
+        ]:
+            import capo_neptunedata._operations.amazon_neptune_dataplane.cancel_index_rebuild
+
+            (
+                output,
+                http_response,
+            ) = await capo_neptunedata._operations.amazon_neptune_dataplane.cancel_index_rebuild.async_cancel_index_rebuild(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelIndexRebuild")
+        )
+        input_: capo_neptunedata.types.cancel_index_rebuild_input.CancelIndexRebuildInput = {
+            "rebuild_id": rebuild_id
         }
 
         response = await aexecute_pipeline(
@@ -934,6 +1007,7 @@ class AsyncneptunedataClient:
 
         Raises:
             capo_neptunedata.errors.bad_request_exception.BadRequestException: <p>Raised when a request is submitted that cannot be processed.</p>
+            capo_neptunedata.errors.cancelled_by_maintenance_exception.CancelledByMaintenanceException: <p>Raised when a request is cancelled because the storage layer entered maintenance mode. This typically happens during a customer-initiated operation such as an index rebuild. It should be treated like <code>ConcurrentModificationException</code>.</p>
             capo_neptunedata.errors.cancelled_by_user_exception.CancelledByUserException: <p>Raised when a user cancelled a request.</p>
             capo_neptunedata.errors.client_timeout_exception.ClientTimeoutException: <p>Raised when a request timed out in the client.</p>
             capo_neptunedata.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Raised when a request attempts to modify data that is concurrently being modified by another process.</p>
@@ -1007,6 +1081,7 @@ class AsyncneptunedataClient:
 
         Raises:
             capo_neptunedata.errors.bad_request_exception.BadRequestException: <p>Raised when a request is submitted that cannot be processed.</p>
+            capo_neptunedata.errors.cancelled_by_maintenance_exception.CancelledByMaintenanceException: <p>Raised when a request is cancelled because the storage layer entered maintenance mode. This typically happens during a customer-initiated operation such as an index rebuild. It should be treated like <code>ConcurrentModificationException</code>.</p>
             capo_neptunedata.errors.cancelled_by_user_exception.CancelledByUserException: <p>Raised when a user cancelled a request.</p>
             capo_neptunedata.errors.client_timeout_exception.ClientTimeoutException: <p>Raised when a request timed out in the client.</p>
             capo_neptunedata.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Raised when a request attempts to modify data that is concurrently being modified by another process.</p>
@@ -1084,6 +1159,7 @@ class AsyncneptunedataClient:
 
         Raises:
             capo_neptunedata.errors.bad_request_exception.BadRequestException: <p>Raised when a request is submitted that cannot be processed.</p>
+            capo_neptunedata.errors.cancelled_by_maintenance_exception.CancelledByMaintenanceException: <p>Raised when a request is cancelled because the storage layer entered maintenance mode. This typically happens during a customer-initiated operation such as an index rebuild. It should be treated like <code>ConcurrentModificationException</code>.</p>
             capo_neptunedata.errors.cancelled_by_user_exception.CancelledByUserException: <p>Raised when a user cancelled a request.</p>
             capo_neptunedata.errors.client_timeout_exception.ClientTimeoutException: <p>Raised when a request timed out in the client.</p>
             capo_neptunedata.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Raised when a request attempts to modify data that is concurrently being modified by another process.</p>
@@ -1155,6 +1231,7 @@ class AsyncneptunedataClient:
 
         Raises:
             capo_neptunedata.errors.bad_request_exception.BadRequestException: <p>Raised when a request is submitted that cannot be processed.</p>
+            capo_neptunedata.errors.cancelled_by_maintenance_exception.CancelledByMaintenanceException: <p>Raised when a request is cancelled because the storage layer entered maintenance mode. This typically happens during a customer-initiated operation such as an index rebuild. It should be treated like <code>ConcurrentModificationException</code>.</p>
             capo_neptunedata.errors.cancelled_by_user_exception.CancelledByUserException: <p>Raised when a user cancelled a request.</p>
             capo_neptunedata.errors.client_timeout_exception.ClientTimeoutException: <p>Raised when a request timed out in the client.</p>
             capo_neptunedata.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Raised when a request attempts to modify data that is concurrently being modified by another process.</p>
@@ -1226,6 +1303,7 @@ class AsyncneptunedataClient:
 
         Raises:
             capo_neptunedata.errors.bad_request_exception.BadRequestException: <p>Raised when a request is submitted that cannot be processed.</p>
+            capo_neptunedata.errors.cancelled_by_maintenance_exception.CancelledByMaintenanceException: <p>Raised when a request is cancelled because the storage layer entered maintenance mode. This typically happens during a customer-initiated operation such as an index rebuild. It should be treated like <code>ConcurrentModificationException</code>.</p>
             capo_neptunedata.errors.cancelled_by_user_exception.CancelledByUserException: <p>Raised when a user cancelled a request.</p>
             capo_neptunedata.errors.client_timeout_exception.ClientTimeoutException: <p>Raised when a request timed out in the client.</p>
             capo_neptunedata.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Raised when a request attempts to modify data that is concurrently being modified by another process.</p>
@@ -1376,6 +1454,63 @@ class AsyncneptunedataClient:
         )
         input_: capo_neptunedata.types.get_gremlin_query_status_input.GetGremlinQueryStatusInput = {
             "query_id": query_id
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def get_index_rebuild_status(
+        self,
+        rebuild_id: str,
+        *,
+        config_overrides: Optional[AsyncneptunedataClientConfig] = None,
+    ) -> "capo_neptunedata.types.get_index_rebuild_status_output.GetIndexRebuildStatusOutput":
+        """<p>Retrieves the status of an index rebuild operation.</p> <p>When invoking this operation in a Neptune cluster that has IAM authentication enabled, the IAM user or role making the request must have a policy attached that allows the <a href="https://docs.aws.amazon.com/neptune/latest/userguide/iam-dp-actions.html#getindexrebuildstatus">neptune-db:GetIndexRebuildStatus</a> IAM action in that cluster.</p>
+
+        Args:
+            rebuild_id: <p>The unique identifier of the index rebuild job returned by the StartIndexRebuild operation.</p>
+
+        Raises:
+            capo_neptunedata.errors.access_denied_exception.AccessDeniedException: <p>Raised in case of an authentication or authorization failure.</p>
+            capo_neptunedata.errors.client_timeout_exception.ClientTimeoutException: <p>Raised when a request timed out in the client.</p>
+            capo_neptunedata.errors.constraint_violation_exception.ConstraintViolationException: <p>Raised when a value in a request field did not satisfy required constraints.</p>
+            capo_neptunedata.errors.illegal_argument_exception.IllegalArgumentException: <p>Raised when an argument in a request is not supported.</p>
+            capo_neptunedata.errors.internal_failure_exception.InternalFailureException: <p>Raised when the processing of the request failed unexpectedly.</p>
+            capo_neptunedata.errors.invalid_argument_exception.InvalidArgumentException: <p>Raised when an argument in a request has an invalid value.</p>
+            capo_neptunedata.errors.invalid_parameter_exception.InvalidParameterException: <p>Raised when a parameter value is not valid.</p>
+            capo_neptunedata.errors.method_not_allowed_exception.MethodNotAllowedException: <p>Raised when the HTTP method used by a request is not supported by the endpoint being used.</p>
+            capo_neptunedata.errors.preconditions_failed_exception.PreconditionsFailedException: <p>Raised when a precondition for processing a request is not satisfied.</p>
+            capo_neptunedata.errors.too_many_requests_exception.TooManyRequestsException: <p>Raised when the number of requests being processed exceeds the limit.</p>
+            capo_neptunedata.errors.unsupported_operation_exception.UnsupportedOperationException: <p>Raised when a request attempts to initiate an operation that is not supported.</p>
+            capo_neptunedata.errors.validation_exception.ValidationException: <p>Raised when a parameter value is not valid or is malformed.</p>
+            capo_neptunedata.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_neptunedata.types.get_index_rebuild_status_input.GetIndexRebuildStatusInput]",
+        ) -> AsyncOperationResponse[
+            "capo_neptunedata.types.get_index_rebuild_status_output.GetIndexRebuildStatusOutput"
+        ]:
+            import capo_neptunedata._operations.amazon_neptune_dataplane.get_index_rebuild_status
+
+            (
+                output,
+                http_response,
+            ) = await capo_neptunedata._operations.amazon_neptune_dataplane.get_index_rebuild_status.async_get_index_rebuild_status(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIndexRebuildStatus")
+        )
+        input_: capo_neptunedata.types.get_index_rebuild_status_input.GetIndexRebuildStatusInput = {
+            "rebuild_id": rebuild_id
         }
 
         response = await aexecute_pipeline(
@@ -2136,6 +2271,54 @@ class AsyncneptunedataClient:
         await response.response.aclose()
         return response.output
 
+    async def get_storage_info(
+        self, *, config_overrides: Optional[AsyncneptunedataClientConfig] = None
+    ) -> "capo_neptunedata.types.get_storage_output.GetStorageOutput":
+        """<p>Retrieves storage information for the Neptune database instance, including approximate total storage used and per-category size and entry counts. Storage categories include:</p> <ul> <li> <p> <i>Quad indexes</i> - the indexes that store graph data, for both RDF (SPARQL) and Property Graph (Gremlin/openCypher) models.</p> </li> <li> <p> <i>Dictionaries</i> - the term dictionaries, including total dictionary storage and the portion used by blob (large value) entries.</p> </li> <li> <p> <i>Undo logs</i> - the undo logs, reported as a total size and the number of entries in the undo log list.</p> </li> <li> <p> <i>Streams</i> - the change-log streams.</p> </li> <li> <p> <i>Schema</i> - the schema.</p> </li> <li> <p> <i>DFE statistics</i> - the DFE engine statistics.</p> </li> <li> <p> <i>System metadata</i> - internal system metadata.</p> </li> </ul> <p>When invoking this operation in a Neptune cluster that has IAM authentication enabled, the IAM user or role making the request must have a policy attached that allows the <a href="https://docs.aws.amazon.com/neptune/latest/userguide/iam-dp-actions.html#getstorageinfo">neptune-db:GetStorageInfo</a> IAM action in that cluster.</p>
+
+        Raises:
+            capo_neptunedata.errors.access_denied_exception.AccessDeniedException: <p>Raised in case of an authentication or authorization failure.</p>
+            capo_neptunedata.errors.client_timeout_exception.ClientTimeoutException: <p>Raised when a request timed out in the client.</p>
+            capo_neptunedata.errors.constraint_violation_exception.ConstraintViolationException: <p>Raised when a value in a request field did not satisfy required constraints.</p>
+            capo_neptunedata.errors.illegal_argument_exception.IllegalArgumentException: <p>Raised when an argument in a request is not supported.</p>
+            capo_neptunedata.errors.internal_failure_exception.InternalFailureException: <p>Raised when the processing of the request failed unexpectedly.</p>
+            capo_neptunedata.errors.invalid_argument_exception.InvalidArgumentException: <p>Raised when an argument in a request has an invalid value.</p>
+            capo_neptunedata.errors.invalid_parameter_exception.InvalidParameterException: <p>Raised when a parameter value is not valid.</p>
+            capo_neptunedata.errors.method_not_allowed_exception.MethodNotAllowedException: <p>Raised when the HTTP method used by a request is not supported by the endpoint being used.</p>
+            capo_neptunedata.errors.preconditions_failed_exception.PreconditionsFailedException: <p>Raised when a precondition for processing a request is not satisfied.</p>
+            capo_neptunedata.errors.server_shutdown_exception.ServerShutdownException: <p>Raised when the server shuts down while processing a request.</p>
+            capo_neptunedata.errors.too_many_requests_exception.TooManyRequestsException: <p>Raised when the number of requests being processed exceeds the limit.</p>
+            capo_neptunedata.errors.unsupported_operation_exception.UnsupportedOperationException: <p>Raised when a request attempts to initiate an operation that is not supported.</p>
+            capo_neptunedata.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[None]",
+        ) -> AsyncOperationResponse[
+            "capo_neptunedata.types.get_storage_output.GetStorageOutput"
+        ]:
+            import capo_neptunedata._operations.amazon_neptune_dataplane.get_storage_info
+
+            (
+                output,
+                http_response,
+            ) = await capo_neptunedata._operations.amazon_neptune_dataplane.get_storage_info.async_get_storage_info(
+                req.options
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetStorageInfo")
+        )
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=None, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def list_gremlin_queries(
         self,
         *,
@@ -2191,6 +2374,53 @@ class AsyncneptunedataClient:
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def list_index_rebuilds(
+        self, *, config_overrides: Optional[AsyncneptunedataClientConfig] = None
+    ) -> "capo_neptunedata.types.list_index_rebuilds_output.ListIndexRebuildsOutput":
+        """<p>Retrieves a list of all index rebuild operation identifiers.</p> <p>When invoking this operation in a Neptune cluster that has IAM authentication enabled, the IAM user or role making the request must have a policy attached that allows the <a href="https://docs.aws.amazon.com/neptune/latest/userguide/iam-dp-actions.html#listindexrebuilds">neptune-db:ListIndexRebuilds</a> IAM action in that cluster.</p>
+
+        Raises:
+            capo_neptunedata.errors.access_denied_exception.AccessDeniedException: <p>Raised in case of an authentication or authorization failure.</p>
+            capo_neptunedata.errors.client_timeout_exception.ClientTimeoutException: <p>Raised when a request timed out in the client.</p>
+            capo_neptunedata.errors.constraint_violation_exception.ConstraintViolationException: <p>Raised when a value in a request field did not satisfy required constraints.</p>
+            capo_neptunedata.errors.illegal_argument_exception.IllegalArgumentException: <p>Raised when an argument in a request is not supported.</p>
+            capo_neptunedata.errors.internal_failure_exception.InternalFailureException: <p>Raised when the processing of the request failed unexpectedly.</p>
+            capo_neptunedata.errors.invalid_argument_exception.InvalidArgumentException: <p>Raised when an argument in a request has an invalid value.</p>
+            capo_neptunedata.errors.invalid_parameter_exception.InvalidParameterException: <p>Raised when a parameter value is not valid.</p>
+            capo_neptunedata.errors.method_not_allowed_exception.MethodNotAllowedException: <p>Raised when the HTTP method used by a request is not supported by the endpoint being used.</p>
+            capo_neptunedata.errors.preconditions_failed_exception.PreconditionsFailedException: <p>Raised when a precondition for processing a request is not satisfied.</p>
+            capo_neptunedata.errors.too_many_requests_exception.TooManyRequestsException: <p>Raised when the number of requests being processed exceeds the limit.</p>
+            capo_neptunedata.errors.unsupported_operation_exception.UnsupportedOperationException: <p>Raised when a request attempts to initiate an operation that is not supported.</p>
+            capo_neptunedata.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[None]",
+        ) -> AsyncOperationResponse[
+            "capo_neptunedata.types.list_index_rebuilds_output.ListIndexRebuildsOutput"
+        ]:
+            import capo_neptunedata._operations.amazon_neptune_dataplane.list_index_rebuilds
+
+            (
+                output,
+                http_response,
+            ) = await capo_neptunedata._operations.amazon_neptune_dataplane.list_index_rebuilds.async_list_index_rebuilds(
+                req.options
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIndexRebuilds")
+        )
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=None, options=options_),
             handler=_handler,
             interceptors=list(interceptors_),
         )
@@ -2681,6 +2911,84 @@ class AsyncneptunedataClient:
         input_: capo_neptunedata.types.manage_sparql_statistics_input.ManageSparqlStatisticsInput = {}
         if mode is not None:
             input_["mode"] = mode
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def start_index_rebuild(
+        self,
+        *,
+        config_overrides: Optional[AsyncneptunedataClientConfig] = None,
+        scope: Optional["capo_neptunedata.types.scope.Scope"] = None,
+        concurrency: Optional[
+            "capo_neptunedata.types.rebuild_concurrency.RebuildConcurrency"
+        ] = None,
+        write_buffer_size: Optional[
+            "capo_neptunedata.types.write_buffer_size.WriteBufferSize"
+        ] = None,
+        client_token: Optional[str] = None,
+    ) -> "capo_neptunedata.types.start_index_rebuild_output.StartIndexRebuildOutput":
+        """<p>Initiates an index rebuild operation to optimize storage and improve query performance. The rebuild operation reorganizes index to reclaim space and improve efficiency.</p> <p>When invoking this operation in a Neptune cluster that has IAM authentication enabled, the IAM user or role making the request must have a policy attached that allows the <a href="https://docs.aws.amazon.com/neptune/latest/userguide/iam-dp-actions.html#startindexrebuild">neptune-db:StartIndexRebuild</a> IAM action in that cluster.</p>
+
+        Args:
+            scope: <p>Specifies the scope of the rebuild operation. Possible values are:</p> <ul> <li> <p> <code>ALL</code> - Rebuild all (quads and dictionaries). This is the default if not specified.</p> </li> <li> <p> <code>QUADS</code> - Rebuild only the quad indexes. </p> </li> <li> <p> <code>DICTIONARIES</code> - Rebuild only the dictionaries.</p> </li> </ul>
+            concurrency: <p>The number of concurrent indexes to rebuild in parallel. If not specified, defaults to <code>1</code>.</p> <p>Valid values are between <code>1</code> and the number of vCPUs available on the writer instance. If the value exceeds the available vCPUs, it is capped at the maximum instead of returning an <code>InvalidParameterException</code>. The effective (capped) value is returned in the response.</p> <p>Higher concurrency can shorten the overall rebuild, but also increases CPU and I/O load during the operation.</p>
+            write_buffer_size: <p>Controls the buffer size used for tracking concurrent write operations during the index rebuild. If your database has high write traffic during the rebuild, a larger buffer prevents the operation from failing due to buffer overflow. Possible values are:</p> <ul> <li> <p> <code>LOW</code> - Suitable for databases with light to moderate write activity. This is the default.</p> </li> <li> <p> <code>MEDIUM</code> - Recommended for databases with sustained write traffic or bulk loading.</p> </li> <li> <p> <code>HIGH</code> - Use when rebuilding indexes during heavy write workloads or continuous bulk data ingestion.</p> </li> </ul> <p>If your rebuild fails and you are actively writing data to the database, retry with a higher <code>writeBufferSize</code> value. For bulk load operations, consider using <code>HIGH</code>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If you don't specify a client token, the SDK automatically generates one.</p>
+
+        Raises:
+            capo_neptunedata.errors.access_denied_exception.AccessDeniedException: <p>Raised in case of an authentication or authorization failure.</p>
+            capo_neptunedata.errors.client_timeout_exception.ClientTimeoutException: <p>Raised when a request timed out in the client.</p>
+            capo_neptunedata.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Raised when a request attempts to modify data that is concurrently being modified by another process.</p>
+            capo_neptunedata.errors.constraint_violation_exception.ConstraintViolationException: <p>Raised when a value in a request field did not satisfy required constraints.</p>
+            capo_neptunedata.errors.illegal_argument_exception.IllegalArgumentException: <p>Raised when an argument in a request is not supported.</p>
+            capo_neptunedata.errors.internal_failure_exception.InternalFailureException: <p>Raised when the processing of the request failed unexpectedly.</p>
+            capo_neptunedata.errors.invalid_argument_exception.InvalidArgumentException: <p>Raised when an argument in a request has an invalid value.</p>
+            capo_neptunedata.errors.invalid_parameter_exception.InvalidParameterException: <p>Raised when a parameter value is not valid.</p>
+            capo_neptunedata.errors.memory_limit_exceeded_exception.MemoryLimitExceededException: <p>Raised when a request fails because of insufficient memory resources. The request can be retried.</p>
+            capo_neptunedata.errors.method_not_allowed_exception.MethodNotAllowedException: <p>Raised when the HTTP method used by a request is not supported by the endpoint being used.</p>
+            capo_neptunedata.errors.preconditions_failed_exception.PreconditionsFailedException: <p>Raised when a precondition for processing a request is not satisfied.</p>
+            capo_neptunedata.errors.read_only_violation_exception.ReadOnlyViolationException: <p>Raised when a request attempts to write to a read-only resource.</p>
+            capo_neptunedata.errors.resource_not_found_exception.ResourceNotFoundException: <p>Raised when the specified resource could not be found. The resource might have been deleted or the identifier might be incorrect.</p>
+            capo_neptunedata.errors.server_shutdown_exception.ServerShutdownException: <p>Raised when the server shuts down while processing a request.</p>
+            capo_neptunedata.errors.too_many_requests_exception.TooManyRequestsException: <p>Raised when the number of requests being processed exceeds the limit.</p>
+            capo_neptunedata.errors.unsupported_operation_exception.UnsupportedOperationException: <p>Raised when a request attempts to initiate an operation that is not supported.</p>
+            capo_neptunedata.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_neptunedata.types.start_index_rebuild_input.StartIndexRebuildInput]",
+        ) -> AsyncOperationResponse[
+            "capo_neptunedata.types.start_index_rebuild_output.StartIndexRebuildOutput"
+        ]:
+            import capo_neptunedata._operations.amazon_neptune_dataplane.start_index_rebuild
+
+            (
+                output,
+                http_response,
+            ) = await capo_neptunedata._operations.amazon_neptune_dataplane.start_index_rebuild.async_start_index_rebuild(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartIndexRebuild")
+        )
+        input_: capo_neptunedata.types.start_index_rebuild_input.StartIndexRebuildInput = {}
+        if scope is not None:
+            input_["scope"] = scope
+        if concurrency is not None:
+            input_["concurrency"] = concurrency
+        if write_buffer_size is not None:
+            input_["write_buffer_size"] = write_buffer_size
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

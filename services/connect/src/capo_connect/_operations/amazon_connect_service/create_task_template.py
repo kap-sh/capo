@@ -21,6 +21,7 @@ import capo_connect.errors.throttling_exception
 import capo_connect.types.create_task_template_request
 import capo_connect.types.create_task_template_response
 import capo_connect.types.task_template_constraints
+import capo_connect.types.task_template_contact_hooks
 import capo_connect.types.task_template_defaults
 import capo_connect.types.task_template_fields
 import capo_connect.types.task_template_status

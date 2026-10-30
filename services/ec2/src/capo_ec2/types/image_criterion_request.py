@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     import capo_ec2.types.image_provider_request_list
     import capo_ec2.types.image_watermark_filter_request_list
     import capo_ec2.types.marketplace_product_code_request_list
+    import capo_ec2.types.scan_result_condition_request
 
 
 class ImageCriterionRequest(TypedDict, closed=True):
@@ -40,6 +41,10 @@ class ImageCriterionRequest(TypedDict, closed=True):
         "capo_ec2.types.image_watermark_filter_request_list.ImageWatermarkFilterRequestList"
     ]
     """<p>The watermark criteria that an AMI must match to be allowed. An AMI is allowed if it carries at least one watermark that satisfies an ImageWatermarkFilter. A watermark satisfies a filter when all specified fields in the ImageWatermarkFilter match the corresponding values on the watermark of the AMI.</p> <p>Maximum: 50 values</p>"""
+    scan_result_condition: NotRequired[
+        "capo_ec2.types.scan_result_condition_request.ScanResultConditionRequest"
+    ]
+    """<p>The Amazon Inspector scan-result criteria that an AMI must meet to be allowed. The criteria can limit the highest finding severity, the number of days since Amazon Inspector last scanned the AMI, and the number of days since Amazon Inspector reported a fix as available.</p>"""
 
 
 # --- ec2Query ser/de ---
@@ -88,6 +93,12 @@ def serialize_ec2_query(
 
         capo_ec2.types.image_watermark_filter_request_list.serialize_ec2_query(
             value["image_watermarks"], pairs, f"{key_prefix}ImageWatermark"
+        )
+    if "scan_result_condition" in value:
+        import capo_ec2.types.scan_result_condition_request
+
+        capo_ec2.types.scan_result_condition_request.serialize_ec2_query(
+            value["scan_result_condition"], pairs, f"{key_prefix}ScanResultCondition"
         )
 
 
@@ -145,6 +156,15 @@ def deserialize_ec2_query(el: Element) -> ImageCriterionRequest:
         out["image_watermarks"] = (
             capo_ec2.types.image_watermark_filter_request_list.deserialize_ec2_query(
                 child_image_watermarks
+            )
+        )
+    child_scan_result_condition = el.find("ScanResultCondition")
+    if child_scan_result_condition is not None:
+        import capo_ec2.types.scan_result_condition_request
+
+        out["scan_result_condition"] = (
+            capo_ec2.types.scan_result_condition_request.deserialize_ec2_query(
+                child_scan_result_condition
             )
         )
     return out

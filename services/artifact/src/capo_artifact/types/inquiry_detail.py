@@ -35,7 +35,7 @@ class InquiryDetail(TypedDict, closed=True):
     support_mode: NotRequired[
         "capo_artifact.types.inquiry_support_mode.InquirySupportMode"
     ]
-    """<p>Support mode for this inquiry. AI_ONLY provides AI-generated responses. FULL_SUPPORT includes human expert review.</p>"""
+    """<p>Support mode for this inquiry. AI_ONLY provides AI-generated responses.</p>"""
 
 
 # --- restJson1 ser/de ---

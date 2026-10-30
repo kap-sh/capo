@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.agent_runtime_name
     import capo_bedrock_agentcore_control.types.agent_runtime_status
     import capo_bedrock_agentcore_control.types.agent_runtime_version
+    import capo_bedrock_agentcore_control.types.allowed_ports
     import capo_bedrock_agentcore_control.types.authorizer_configuration
     import capo_bedrock_agentcore_control.types.capacity_provider_configuration
     import capo_bedrock_agentcore_control.types.date_timestamp
@@ -79,6 +80,7 @@ class GetAgentRuntimeResponse(TypedDict, closed=True):
     protocol_configuration: NotRequired[
         "capo_bedrock_agentcore_control.types.protocol_configuration.ProtocolConfiguration"
     ]
+    """<p>The protocol configuration for the AgentCore Runtime, including the protocol, port, and path on which the agent server is available.</p>"""
     environment_variables: NotRequired[
         "capo_bedrock_agentcore_control.types.environment_variables_map.EnvironmentVariablesMap"
     ]
@@ -107,6 +109,10 @@ class GetAgentRuntimeResponse(TypedDict, closed=True):
         "capo_bedrock_agentcore_control.types.platform_version.PlatformVersion"
     ]
     """<p>The version of the runtime platform used by the AgentCore Runtime.</p>"""
+    allowed_ports: NotRequired[
+        "capo_bedrock_agentcore_control.types.allowed_ports.AllowedPorts"
+    ]
+    """<p>The additional ports on the AgentCore Runtime that are reachable through the runtime's session URL.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -231,6 +237,14 @@ def serialize_json(value: GetAgentRuntimeResponse) -> dict:
         )
     if "platform_version" in value:
         out["platformVersion"] = value["platform_version"]
+    if "allowed_ports" in value:
+        import capo_bedrock_agentcore_control.types.allowed_ports
+
+        out["allowedPorts"] = (
+            capo_bedrock_agentcore_control.types.allowed_ports.serialize_json(
+                value["allowed_ports"]
+            )
+        )
     return out
 
 
@@ -395,6 +409,14 @@ def deserialize_json(data: dict) -> GetAgentRuntimeResponse:
         )
     if data.get("platformVersion") is not None:
         out["platform_version"] = data["platformVersion"]
+    if data.get("allowedPorts") is not None:
+        import capo_bedrock_agentcore_control.types.allowed_ports
+
+        out["allowed_ports"] = (
+            capo_bedrock_agentcore_control.types.allowed_ports.deserialize_json(
+                data["allowedPorts"]
+            )
+        )
     return out
 
 

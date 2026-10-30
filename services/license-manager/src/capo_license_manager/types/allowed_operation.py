@@ -10,6 +10,7 @@ AllowedOperation: TypeAlias = Literal[
     "ExtendConsumptionLicense",
     "ListPurchasedLicenses",
     "CreateToken",
+    "ListReceivedLicenses",
 ]
 
 

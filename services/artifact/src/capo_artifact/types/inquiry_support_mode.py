@@ -2,10 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
-InquirySupportMode: TypeAlias = Literal[
-    "AI_ONLY",
-    "FULL_SUPPORT",
-]
+InquirySupportMode: TypeAlias = Literal["AI_ONLY",]
 
 
 # --- restJson1 ser/de ---

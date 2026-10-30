@@ -8,6 +8,8 @@ if TYPE_CHECKING:
     import capo_license_manager.types.allowed_operation_list
     import capo_license_manager.types.arn
     import capo_license_manager.types.client_token
+    import capo_license_manager.types.grant_type
+    import capo_license_manager.types.options
     import capo_license_manager.types.principal_arn_list
     import capo_license_manager.types.string
     import capo_license_manager.types.tag_list
@@ -30,6 +32,10 @@ class CreateGrantRequest(TypedDict, closed=True):
     """<p>Allowed operations for the grant.</p>"""
     tags: NotRequired["capo_license_manager.types.tag_list.TagList"]
     """<p>Tags to add to the grant. For more information about tagging support in License Manager, see the <a href="https://docs.aws.amazon.com/license-manager/latest/APIReference/API_TagResource.html">TagResource</a> operation.</p>"""
+    grant_type: NotRequired["capo_license_manager.types.grant_type.GrantType"]
+    """<p>The type of grant to create. For more information about each type, see the preceding description of this operation. Valid values:</p> <ul> <li> <p> <code>BuyerGrant</code> - The default grant type if you don't specify a value. Conveys the entitlement to use the license.</p> </li> <li> <p> <code>DelegateGrant</code> - Gives the grantee read-only visibility into the licenses and grants that you have distributed to buyers, with no entitlement to use them.</p> </li> </ul>"""
+    options: NotRequired["capo_license_manager.types.options.Options"]
+    """<p>The options for the grant: the status to set after creation, and how activating the grant affects other active grants for the same product.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -58,6 +64,18 @@ def serialize_aws_json_1_1(value: CreateGrantRequest) -> dict:
 
         out["Tags"] = capo_license_manager.types.tag_list.serialize_aws_json_1_1(
             value["tags"]
+        )
+    if "grant_type" in value:
+        import capo_license_manager.types.grant_type
+
+        out["GrantType"] = capo_license_manager.types.grant_type.serialize_aws_json_1_1(
+            value["grant_type"]
+        )
+    if "options" in value:
+        import capo_license_manager.types.options
+
+        out["Options"] = capo_license_manager.types.options.serialize_aws_json_1_1(
+            value["options"]
         )
     return out
 
@@ -105,5 +123,19 @@ def deserialize_aws_json_1_1(data: dict) -> CreateGrantRequest:
 
         out["tags"] = capo_license_manager.types.tag_list.deserialize_aws_json_1_1(
             data["Tags"]
+        )
+    if data.get("GrantType") is not None:
+        import capo_license_manager.types.grant_type
+
+        out["grant_type"] = (
+            capo_license_manager.types.grant_type.deserialize_aws_json_1_1(
+                data["GrantType"]
+            )
+        )
+    if data.get("Options") is not None:
+        import capo_license_manager.types.options
+
+        out["options"] = capo_license_manager.types.options.deserialize_aws_json_1_1(
+            data["Options"]
         )
     return out

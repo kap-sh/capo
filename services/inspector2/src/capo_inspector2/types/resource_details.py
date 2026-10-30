@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_inspector2.types.aws_lambda_function_details
     import capo_inspector2.types.code_repository_details
     import capo_inspector2.types.image
+    import capo_inspector2.types.machine_image_details
     import capo_inspector2.types.serverless_function
     import capo_inspector2.types.vm
 
@@ -31,6 +32,9 @@ class ResourceDetails(TypedDict, closed=True):
         "capo_inspector2.types.code_repository_details.CodeRepositoryDetails"
     ]
     """<p>Contains details about a code repository resource associated with a finding.</p>"""
+    machine_image: NotRequired[
+        "capo_inspector2.types.machine_image_details.MachineImageDetails"
+    ]
     vm: NotRequired["capo_inspector2.types.vm.Vm"]
     """<p>An object that contains details about a VM instance involved in the finding.</p>"""
     image: NotRequired["capo_inspector2.types.image.Image"]
@@ -74,6 +78,14 @@ def serialize_json(value: ResourceDetails) -> dict:
         out["codeRepository"] = (
             capo_inspector2.types.code_repository_details.serialize_json(
                 value["code_repository"]
+            )
+        )
+    if "machine_image" in value:
+        import capo_inspector2.types.machine_image_details
+
+        out["machineImage"] = (
+            capo_inspector2.types.machine_image_details.serialize_json(
+                value["machine_image"]
             )
         )
     if "vm" in value:
@@ -127,6 +139,14 @@ def deserialize_json(data: dict) -> ResourceDetails:
         out["code_repository"] = (
             capo_inspector2.types.code_repository_details.deserialize_json(
                 data["codeRepository"]
+            )
+        )
+    if data.get("machineImage") is not None:
+        import capo_inspector2.types.machine_image_details
+
+        out["machine_image"] = (
+            capo_inspector2.types.machine_image_details.deserialize_json(
+                data["machineImage"]
             )
         )
     if data.get("vm") is not None:

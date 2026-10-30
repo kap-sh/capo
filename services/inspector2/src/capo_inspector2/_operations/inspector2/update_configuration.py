@@ -12,9 +12,11 @@ import capo_inspector2._auth._signers
 import capo_inspector2._auth._sigv4
 import capo_inspector2._protocol.eventstream
 import capo_inspector2.errors.access_denied_exception
+import capo_inspector2.errors.conflict_exception
 import capo_inspector2.errors.internal_server_exception
 import capo_inspector2.errors.throttling_exception
 import capo_inspector2.errors.validation_exception
+import capo_inspector2.types.ami_configuration
 import capo_inspector2.types.ec2_configuration
 import capo_inspector2.types.ecr_configuration
 import capo_inspector2.types.update_configuration_inheritance
@@ -36,6 +38,10 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_inspector2.errors.access_denied_exception.AccessDeniedException.from_json(
+                data, message, response=response
+            )
+        case "ConflictException":
+            raise capo_inspector2.errors.conflict_exception.ConflictException.from_json(
                 data, message, response=response
             )
         case "InternalServerException":

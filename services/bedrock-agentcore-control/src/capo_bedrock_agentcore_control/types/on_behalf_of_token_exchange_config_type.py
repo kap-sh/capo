@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_bedrock_agentcore_control.types.on_behalf_of_authentication_config
     import capo_bedrock_agentcore_control.types.on_behalf_of_token_exchange_grant_type_type
     import capo_bedrock_agentcore_control.types.token_exchange_grant_type_config_type
 
@@ -16,6 +17,10 @@ class OnBehalfOfTokenExchangeConfigType(TypedDict, closed=True):
         "capo_bedrock_agentcore_control.types.token_exchange_grant_type_config_type.TokenExchangeGrantTypeConfigType"
     ]
     """<p>Configuration specific to the TOKEN_EXCHANGE grant type (RFC 8693).</p>"""
+    on_behalf_of_authentication_config: NotRequired[
+        "capo_bedrock_agentcore_control.types.on_behalf_of_authentication_config.OnBehalfOfAuthenticationConfig"
+    ]
+    """<p>Specify the client authentication configuration to use for the on-behalf-of token exchange. With this configuration, you override the provider level client authentication method for the on-behalf-of exchange with the identity provider. If you don't specify this configuration, we use the provider level client authentication method.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -34,6 +39,14 @@ def serialize_json(value: OnBehalfOfTokenExchangeConfigType) -> dict:
         out["tokenExchangeGrantTypeConfig"] = (
             capo_bedrock_agentcore_control.types.token_exchange_grant_type_config_type.serialize_json(
                 value["token_exchange_grant_type_config"]
+            )
+        )
+    if "on_behalf_of_authentication_config" in value:
+        import capo_bedrock_agentcore_control.types.on_behalf_of_authentication_config
+
+        out["onBehalfOfAuthenticationConfig"] = (
+            capo_bedrock_agentcore_control.types.on_behalf_of_authentication_config.serialize_json(
+                value["on_behalf_of_authentication_config"]
             )
         )
     return out
@@ -62,6 +75,14 @@ def deserialize_json(data: dict) -> OnBehalfOfTokenExchangeConfigType:
         out["token_exchange_grant_type_config"] = (
             capo_bedrock_agentcore_control.types.token_exchange_grant_type_config_type.deserialize_json(
                 data["tokenExchangeGrantTypeConfig"]
+            )
+        )
+    if data.get("onBehalfOfAuthenticationConfig") is not None:
+        import capo_bedrock_agentcore_control.types.on_behalf_of_authentication_config
+
+        out["on_behalf_of_authentication_config"] = (
+            capo_bedrock_agentcore_control.types.on_behalf_of_authentication_config.deserialize_json(
+                data["onBehalfOfAuthenticationConfig"]
             )
         )
     return out

@@ -24,15 +24,15 @@ class FailoverSlateConfiguration(TypedDict, closed=True):
     activation_threshold_seconds: NotRequired[
         "capo_ivs.types.failover_slate_activation_threshold_seconds.FailoverSlateActivationThresholdSeconds"
     ]
-    """<p>Number of seconds of ingest interruption before the failover slate activates. Minimum: <code>3</code>. Maximum: <code>5</code>. Default: <code>3</code>.</p>"""
+    """<p>Number of seconds of ingest interruption before the failover slate activates. Default: <code>3</code>.</p>"""
     min_slate_display_seconds: NotRequired[
         "capo_ivs.types.failover_slate_min_display_seconds.FailoverSlateMinDisplaySeconds"
     ]
-    """<p>Minimum number of seconds that the failover slate displays after activation. Minimum: <code>3</code>. Maximum: <code>10</code>. Default: <code>3</code>.</p>"""
+    """<p>Minimum number of seconds that the failover slate displays after activation. Default: <code>3</code>.</p>"""
     max_slate_display_seconds: NotRequired[
         "capo_ivs.types.failover_slate_max_display_seconds.FailoverSlateMaxDisplaySeconds"
     ]
-    """<p>Maximum number of seconds that the failover slate displays. Minimum: <code>60</code>. Maximum: <code>180</code>. Default: <code>60</code>.</p>"""
+    """<p>Maximum number of seconds that the failover slate displays. Default: <code>60</code>.</p>"""
     state: "capo_ivs.types.failover_slate_configuration_state.FailoverSlateConfigurationState"
     """<p>Current state of the failover slate configuration.</p>"""
     tags: NotRequired["capo_ivs.types.tags.Tags"]

@@ -17,6 +17,7 @@ import capo_ec2.types.create_capacity_reservation_fleet_result
 import capo_ec2.types.fleet_capacity_reservation_set
 import capo_ec2.types.fleet_capacity_reservation_tenancy
 import capo_ec2.types.fleet_instance_match_criteria
+import capo_ec2.types.instance_requirements_request
 import capo_ec2.types.millisecond_date_time
 import capo_ec2.types.reservation_fleet_instance_specification_list
 import capo_ec2.types.tag_list

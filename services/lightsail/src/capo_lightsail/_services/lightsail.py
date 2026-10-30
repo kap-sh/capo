@@ -332,6 +332,7 @@ if TYPE_CHECKING:
     import capo_lightsail.types.include_certificate_details
     import capo_lightsail.types.input_origin
     import capo_lightsail.types.instance_access_protocol
+    import capo_lightsail.types.instance_attribute_updates
     import capo_lightsail.types.instance_entry_list
     import capo_lightsail.types.instance_metric_name
     import capo_lightsail.types.integer
@@ -5987,11 +5988,13 @@ class LightsailClient:
         instance_name: "capo_lightsail.types.resource_name.ResourceName",
         *,
         config_overrides: Optional[LightsailClientConfig] = None,
+        include_health_status: Optional["capo_lightsail.types.boolean.boolean"] = None,
     ) -> "capo_lightsail.types.get_instance_result.GetInstanceResult":
         """<p>Returns information about a specific Amazon Lightsail instance, which is a virtual private server.</p>
 
         Args:
             instance_name: <p>The name of the instance.</p>
+            include_health_status: <p>Specifies whether to include the instance health status checks in the response of your request.</p> <p>When set to <code>true</code>, the response includes the <code>instanceStatus</code> and <code>systemStatus</code> of the instance. When omitted or set to <code>false</code>, the response doesn't include them.</p>
 
         Raises:
             capo_lightsail.errors.access_denied_exception.AccessDeniedException: <p>Lightsail throws this exception when the user cannot be authenticated or uses invalid credentials to access a resource.</p>
@@ -6025,6 +6028,8 @@ class LightsailClient:
         input_: capo_lightsail.types.get_instance_request.GetInstanceRequest = {
             "instance_name": instance_name
         }
+        if include_health_status is not None:
+            input_["include_health_status"] = include_health_status
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -6219,11 +6224,13 @@ class LightsailClient:
         *,
         config_overrides: Optional[LightsailClientConfig] = None,
         page_token: Optional["capo_lightsail.types.string.string"] = None,
+        include_health_status: Optional["capo_lightsail.types.boolean.boolean"] = None,
     ) -> "capo_lightsail.types.get_instances_result.GetInstancesResult":
         """<p>Returns information about all Amazon Lightsail virtual private servers, or <i>instances</i>.</p>
 
         Args:
             page_token: <p>The token to advance to the next page of results from your request.</p> <p>To get a page token, perform an initial <code>GetInstances</code> request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.</p>
+            include_health_status: <p>Specifies whether to include the instance health status checks of each instance in the response of your request.</p> <p>When set to <code>true</code>, the response includes the <code>instanceStatus</code> and <code>systemStatus</code> of each instance. When omitted or set to <code>false</code>, the response doesn't include them.</p>
 
         Raises:
             capo_lightsail.errors.access_denied_exception.AccessDeniedException: <p>Lightsail throws this exception when the user cannot be authenticated or uses invalid credentials to access a resource.</p>
@@ -6257,6 +6264,8 @@ class LightsailClient:
         input_: capo_lightsail.types.get_instances_request.GetInstancesRequest = {}
         if page_token is not None:
             input_["page_token"] = page_token
+        if include_health_status is not None:
+            input_["include_health_status"] = include_health_status
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -8830,11 +8839,15 @@ class LightsailClient:
         instance_name: "capo_lightsail.types.resource_name.ResourceName",
         *,
         config_overrides: Optional[LightsailClientConfig] = None,
+        attribute_updates: Optional[
+            "capo_lightsail.types.instance_attribute_updates.InstanceAttributeUpdates"
+        ] = None,
     ) -> "capo_lightsail.types.start_instance_result.StartInstanceResult":
         """<p>Starts a specific Amazon Lightsail instance from a stopped state. To restart an instance, use the <code>reboot instance</code> operation.</p> <note> <p>When you start a stopped instance, Lightsail assigns a new public IP address to the instance. To use the same IP address after stopping and starting an instance, create a static IP address and attach it to the instance. For more information, see the <a href="https://docs.aws.amazon.com/lightsail/latest/userguide/lightsail-create-static-ip">Amazon Lightsail Developer Guide</a>.</p> </note> <p>The <code>start instance</code> operation supports tag-based access control via resource tags applied to the resource identified by <code>instance name</code>. For more information, see the <a href="https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
 
         Args:
             instance_name: <p>The name of the instance (a virtual private server) to start.</p>
+            attribute_updates: <p>An object that describes the attributes to update on the instance before it starts.</p>
 
         Raises:
             capo_lightsail.errors.access_denied_exception.AccessDeniedException: <p>Lightsail throws this exception when the user cannot be authenticated or uses invalid credentials to access a resource.</p>
@@ -8868,6 +8881,8 @@ class LightsailClient:
         input_: capo_lightsail.types.start_instance_request.StartInstanceRequest = {
             "instance_name": instance_name
         }
+        if attribute_updates is not None:
+            input_["attribute_updates"] = attribute_updates
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

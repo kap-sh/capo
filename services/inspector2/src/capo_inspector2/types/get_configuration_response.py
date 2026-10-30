@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_inspector2.types.ami_configuration_state
     import capo_inspector2.types.ec2_configuration_state
     import capo_inspector2.types.ecr_configuration_state
 
@@ -18,6 +19,10 @@ class GetConfigurationResponse(TypedDict, closed=True):
         "capo_inspector2.types.ec2_configuration_state.Ec2ConfigurationState"
     ]
     """<p>Specifies how the Amazon EC2 automated scan mode is currently configured for your environment.</p>"""
+    ami_configuration: NotRequired[
+        "capo_inspector2.types.ami_configuration_state.AmiConfigurationState"
+    ]
+    """<p>The current state of the Amazon Machine Image (AMI) scan configuration for the account.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -39,6 +44,14 @@ def serialize_json(value: GetConfigurationResponse) -> dict:
                 value["ec2_configuration"]
             )
         )
+    if "ami_configuration" in value:
+        import capo_inspector2.types.ami_configuration_state
+
+        out["amiConfiguration"] = (
+            capo_inspector2.types.ami_configuration_state.serialize_json(
+                value["ami_configuration"]
+            )
+        )
     return out
 
 
@@ -58,6 +71,14 @@ def deserialize_json(data: dict) -> GetConfigurationResponse:
         out["ec2_configuration"] = (
             capo_inspector2.types.ec2_configuration_state.deserialize_json(
                 data["ec2Configuration"]
+            )
+        )
+    if data.get("amiConfiguration") is not None:
+        import capo_inspector2.types.ami_configuration_state
+
+        out["ami_configuration"] = (
+            capo_inspector2.types.ami_configuration_state.deserialize_json(
+                data["amiConfiguration"]
             )
         )
     return out

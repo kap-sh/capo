@@ -60,6 +60,10 @@ class CoverageFilterCriteria(TypedDict, closed=True):
         "capo_inspector2.types.coverage_string_filter_list.CoverageStringFilterList"
     ]
     """<p>Returns coverage statistics for Amazon Web Services Lambda functions filtered by runtime.</p>"""
+    machine_image_tags: NotRequired[
+        "capo_inspector2.types.coverage_map_filter_list.CoverageMapFilterList"
+    ]
+    """<p>The machine image tags to filter coverage results by.</p>"""
     last_scanned_at: NotRequired[
         "capo_inspector2.types.coverage_date_filter_list.CoverageDateFilterList"
     ]
@@ -239,6 +243,14 @@ def serialize_json(value: CoverageFilterCriteria) -> dict:
         out["lambdaFunctionRuntime"] = (
             capo_inspector2.types.coverage_string_filter_list.serialize_json(
                 value["lambda_function_runtime"]
+            )
+        )
+    if "machine_image_tags" in value:
+        import capo_inspector2.types.coverage_map_filter_list
+
+        out["machineImageTags"] = (
+            capo_inspector2.types.coverage_map_filter_list.serialize_json(
+                value["machine_image_tags"]
             )
         )
     if "last_scanned_at" in value:
@@ -500,6 +512,14 @@ def deserialize_json(data: dict) -> CoverageFilterCriteria:
         out["lambda_function_runtime"] = (
             capo_inspector2.types.coverage_string_filter_list.deserialize_json(
                 data["lambdaFunctionRuntime"]
+            )
+        )
+    if data.get("machineImageTags") is not None:
+        import capo_inspector2.types.coverage_map_filter_list
+
+        out["machine_image_tags"] = (
+            capo_inspector2.types.coverage_map_filter_list.deserialize_json(
+                data["machineImageTags"]
             )
         )
     if data.get("lastScannedAt") is not None:

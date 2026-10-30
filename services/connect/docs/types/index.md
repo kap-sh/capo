@@ -2040,6 +2040,7 @@
 - [TaskNameExpression](task_name_expression.md)
 - [TaskTemplateArn](task_template_arn.md)
 - [TaskTemplateConstraints](task_template_constraints.md)
+- [TaskTemplateContactHooks](task_template_contact_hooks.md)
 - [TaskTemplateDefaultFieldValue](task_template_default_field_value.md)
 - [TaskTemplateDefaultFieldValueList](task_template_default_field_value_list.md)
 - [TaskTemplateDefaults](task_template_defaults.md)

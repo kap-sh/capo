@@ -20,6 +20,7 @@ if TYPE_CHECKING:
     import capo_ec2.types.instance_type_specification
     import capo_ec2.types.platform_values
     import capo_ec2.types.product_code_list
+    import capo_ec2.types.scan_results
     import capo_ec2.types.state_reason
     import capo_ec2.types.string
     import capo_ec2.types.tag_list
@@ -88,6 +89,8 @@ class Image(TypedDict, closed=True):
         "capo_ec2.types.image_watermark_list.ImageWatermarkList"
     ]
     """<p>The watermarks attached to the AMI.</p>"""
+    scan_results: NotRequired["capo_ec2.types.scan_results.ScanResults"]
+    """<p>The Amazon Inspector scan results for the AMI. This information is present only for AMIs that Amazon Inspector has scanned.</p> <p>When you share an AMI with other accounts, organizations, or organizational units (OUs), or make it public, its scan results are available to the accounts that can use the AMI.</p>"""
     instance_type_specification: NotRequired[
         "capo_ec2.types.instance_type_specification.InstanceTypeSpecification"
     ]
@@ -241,6 +244,12 @@ def serialize_ec2_query(
 
         capo_ec2.types.image_watermark_list.serialize_ec2_query(
             value["image_watermarks"], pairs, f"{key_prefix}ImageWatermarkSet"
+        )
+    if "scan_results" in value:
+        import capo_ec2.types.scan_results
+
+        capo_ec2.types.scan_results.serialize_ec2_query(
+            value["scan_results"], pairs, f"{key_prefix}ScanResults"
         )
     if "instance_type_specification" in value:
         import capo_ec2.types.instance_type_specification
@@ -428,6 +437,13 @@ def deserialize_ec2_query(el: Element) -> Image:
             capo_ec2.types.image_watermark_list.deserialize_ec2_query(
                 child_image_watermarks
             )
+        )
+    child_scan_results = el.find("scanResults")
+    if child_scan_results is not None:
+        import capo_ec2.types.scan_results
+
+        out["scan_results"] = capo_ec2.types.scan_results.deserialize_ec2_query(
+            child_scan_results
         )
     child_instance_type_specification = el.find("instanceTypeSpecification")
     if child_instance_type_specification is not None:

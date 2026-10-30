@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_securityagent.types.actor_list
+    import capo_securityagent.types.client_certificate_list
     import capo_securityagent.types.document_list
     import capo_securityagent.types.endpoint_list
     import capo_securityagent.types.integrated_repository_list
@@ -32,6 +33,10 @@ class Assets(TypedDict, closed=True):
         "capo_securityagent.types.trusted_ca_certificate_list.TrustedCaCertificateList"
     ]
     """<p>The trust anchors used to validate target endpoint TLS certificates. Provide these for endpoints served by a private or internal certificate authority (CA), an intermediate CA, or a self-signed certificate.</p>"""
+    client_certificates: NotRequired[
+        "capo_securityagent.types.client_certificate_list.ClientCertificateList"
+    ]
+    """<p>The client certificates for mutual TLS (mTLS) authentication to target hosts. Each certificate is stored in Secrets Manager and scoped to specific target origins.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -79,6 +84,14 @@ def serialize_json(value: Assets) -> dict:
                 value["trusted_ca_certificates"]
             )
         )
+    if "client_certificates" in value:
+        import capo_securityagent.types.client_certificate_list
+
+        out["clientCertificates"] = (
+            capo_securityagent.types.client_certificate_list.serialize_json(
+                value["client_certificates"]
+            )
+        )
     return out
 
 
@@ -124,6 +137,14 @@ def deserialize_json(data: dict) -> Assets:
         out["trusted_ca_certificates"] = (
             capo_securityagent.types.trusted_ca_certificate_list.deserialize_json(
                 data["trustedCaCertificates"]
+            )
+        )
+    if data.get("clientCertificates") is not None:
+        import capo_securityagent.types.client_certificate_list
+
+        out["client_certificates"] = (
+            capo_securityagent.types.client_certificate_list.deserialize_json(
+                data["clientCertificates"]
             )
         )
     return out

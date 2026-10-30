@@ -5,6 +5,7 @@ from typing import Literal, TypeAlias, cast
 AnalysisFormat: TypeAlias = Literal[
     "SQL",
     "PYSPARK_1_0",
+    "PYSPARK_2_0",
 ]
 
 

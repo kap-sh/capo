@@ -80,6 +80,7 @@ ParameterExceptionField: TypeAlias = Literal[
     "PRICE_AMOUNT",
     "PAYMENT_NETWORK",
     "PRE_PARSE_TEXT_TRANSFORMATION",
+    "CHALLENGE_JAVASCRIPT_SDK_INJECTION_CONFIG",
 ]
 
 

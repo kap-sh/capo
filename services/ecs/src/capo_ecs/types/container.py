@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     import capo_ecs.types.network_bindings
     import capo_ecs.types.network_interfaces
     import capo_ecs.types.neuron_device_ids
+    import capo_ecs.types.sharing_strategy
     import capo_ecs.types.string
 
 
@@ -54,6 +55,8 @@ class Container(TypedDict, closed=True):
     """<p>The IDs of each GPU assigned to the container.</p>"""
     neuron_device_ids: NotRequired["capo_ecs.types.neuron_device_ids.NeuronDeviceIds"]
     """<p>The IDs of each Neuron device assigned to the container.</p>"""
+    gpu_sharing_strategy: NotRequired["capo_ecs.types.sharing_strategy.SharingStrategy"]
+    """<p>The GPU sharing strategy that the task definition specifies for the container. This field is present only for containers whose resource requirements include <code>sharingStrategy</code>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -119,6 +122,14 @@ def serialize_aws_json_1_1(value: Container) -> dict:
         out["neuronDeviceIds"] = (
             capo_ecs.types.neuron_device_ids.serialize_aws_json_1_1(
                 value["neuron_device_ids"]
+            )
+        )
+    if "gpu_sharing_strategy" in value:
+        import capo_ecs.types.sharing_strategy
+
+        out["gpuSharingStrategy"] = (
+            capo_ecs.types.sharing_strategy.serialize_aws_json_1_1(
+                value["gpu_sharing_strategy"]
             )
         )
     return out
@@ -188,6 +199,14 @@ def deserialize_aws_json_1_1(data: dict) -> Container:
         out["neuron_device_ids"] = (
             capo_ecs.types.neuron_device_ids.deserialize_aws_json_1_1(
                 data["neuronDeviceIds"]
+            )
+        )
+    if data.get("gpuSharingStrategy") is not None:
+        import capo_ecs.types.sharing_strategy
+
+        out["gpu_sharing_strategy"] = (
+            capo_ecs.types.sharing_strategy.deserialize_aws_json_1_1(
+                data["gpuSharingStrategy"]
             )
         )
     return out

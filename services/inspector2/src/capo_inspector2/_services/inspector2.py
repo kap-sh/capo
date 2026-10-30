@@ -38,6 +38,7 @@ if TYPE_CHECKING:
     import capo_inspector2.types.aggregation_request
     import capo_inspector2.types.aggregation_response
     import capo_inspector2.types.aggregation_type
+    import capo_inspector2.types.ami_configuration
     import capo_inspector2.types.arn
     import capo_inspector2.types.associate_configuration_request_list
     import capo_inspector2.types.associate_member_request
@@ -190,6 +191,8 @@ if TYPE_CHECKING:
     import capo_inspector2.types.get_findings_report_status_response
     import capo_inspector2.types.get_member_request
     import capo_inspector2.types.get_member_response
+    import capo_inspector2.types.get_on_demand_scan_status_request
+    import capo_inspector2.types.get_on_demand_scan_status_response
     import capo_inspector2.types.get_sbom_export_request
     import capo_inspector2.types.get_sbom_export_response
     import capo_inspector2.types.group_key
@@ -244,6 +247,8 @@ if TYPE_CHECKING:
     import capo_inspector2.types.list_members_max_results
     import capo_inspector2.types.list_members_request
     import capo_inspector2.types.list_members_response
+    import capo_inspector2.types.list_on_demand_scans_request
+    import capo_inspector2.types.list_on_demand_scans_response
     import capo_inspector2.types.list_tags_for_resource_request
     import capo_inspector2.types.list_tags_for_resource_response
     import capo_inspector2.types.list_usage_totals_max_results
@@ -254,6 +259,9 @@ if TYPE_CHECKING:
     import capo_inspector2.types.member_account_ec2_deep_inspection_status_list
     import capo_inspector2.types.metering_account_id_list
     import capo_inspector2.types.next_token
+    import capo_inspector2.types.on_demand_resource_type
+    import capo_inspector2.types.on_demand_scan
+    import capo_inspector2.types.on_demand_scan_next_token
     import capo_inspector2.types.path_list
     import capo_inspector2.types.permission
     import capo_inspector2.types.provider_detail_create
@@ -269,6 +277,7 @@ if TYPE_CHECKING:
     import capo_inspector2.types.sbom_report_format
     import capo_inspector2.types.scan_configuration_arn
     import capo_inspector2.types.scan_configuration_name
+    import capo_inspector2.types.scan_id
     import capo_inspector2.types.scan_type
     import capo_inspector2.types.schedule
     import capo_inspector2.types.scope_settings
@@ -286,6 +295,8 @@ if TYPE_CHECKING:
     import capo_inspector2.types.start_cis_session_response
     import capo_inspector2.types.start_code_security_scan_request
     import capo_inspector2.types.start_code_security_scan_response
+    import capo_inspector2.types.start_on_demand_scan_request
+    import capo_inspector2.types.start_on_demand_scan_response
     import capo_inspector2.types.stop_cis_session_message
     import capo_inspector2.types.stop_cis_session_request
     import capo_inspector2.types.stop_cis_session_response
@@ -2755,6 +2766,61 @@ class Inspector2Client:
         response.response.close()
         return response.output
 
+    def get_on_demand_scan_status(
+        self,
+        resource_id: "capo_inspector2.types.resource_id.ResourceId",
+        scan_id: "capo_inspector2.types.scan_id.ScanId",
+        resource_type: "capo_inspector2.types.on_demand_resource_type.OnDemandResourceType",
+        *,
+        config_overrides: Optional[Inspector2ClientConfig] = None,
+    ) -> "capo_inspector2.types.get_on_demand_scan_status_response.GetOnDemandScanStatusResponse":
+        """<p>Retrieves the status of a specific on-demand scan for a resource.</p>
+
+        Args:
+            resource_id: <p>The ID of the resource whose on-demand scan status is being requested.</p>
+            scan_id: <p>The unique identifier of the on-demand scan whose status is being requested.</p>
+            resource_type: <p>The type of the resource whose on-demand scan status is being requested.</p>
+
+        Raises:
+            capo_inspector2.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p> <p> For <code>Enable</code>, you receive this error if you attempt to use a feature in an unsupported Amazon Web Services Region. </p>
+            capo_inspector2.errors.internal_server_exception.InternalServerException: <p>The request has failed due to an internal failure of the Amazon Inspector service.</p>
+            capo_inspector2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The operation tried to access an invalid resource. Make sure the resource is specified correctly.</p>
+            capo_inspector2.errors.throttling_exception.ThrottlingException: <p>The limit on the number of requests per second was exceeded.</p>
+            capo_inspector2.errors.validation_exception.ValidationException: <p>The request has failed validation due to missing required fields or having invalid inputs.</p>
+            capo_inspector2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_inspector2.types.get_on_demand_scan_status_request.GetOnDemandScanStatusRequest]",
+        ) -> OperationResponse[
+            "capo_inspector2.types.get_on_demand_scan_status_response.GetOnDemandScanStatusResponse"
+        ]:
+            import capo_inspector2._operations.inspector2.get_on_demand_scan_status
+
+            output, http_response = (
+                capo_inspector2._operations.inspector2.get_on_demand_scan_status.get_on_demand_scan_status(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOnDemandScanStatus")
+        )
+        input_: capo_inspector2.types.get_on_demand_scan_status_request.GetOnDemandScanStatusRequest = {
+            "resource_id": resource_id,
+            "scan_id": scan_id,
+            "resource_type": resource_type,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def get_sbom_export(
         self,
         report_id: "capo_inspector2.types.report_id.ReportId",
@@ -4372,6 +4438,96 @@ class Inspector2Client:
             if not _token:
                 break
 
+    def list_on_demand_scans(
+        self,
+        resource_id: "capo_inspector2.types.resource_id.ResourceId",
+        resource_type: "capo_inspector2.types.on_demand_resource_type.OnDemandResourceType",
+        *,
+        config_overrides: Optional[Inspector2ClientConfig] = None,
+        max_results: Optional[int] = None,
+        next_token: Optional[
+            "capo_inspector2.types.on_demand_scan_next_token.OnDemandScanNextToken"
+        ] = None,
+    ) -> (
+        "capo_inspector2.types.list_on_demand_scans_response.ListOnDemandScansResponse"
+    ):
+        """<p>Lists the on-demand scans for a resource.</p>
+
+        Args:
+            resource_id: <p>The ID of the resource whose on-demand scans are being listed.</p>
+            resource_type: <p>The type of the resource whose on-demand scans are being listed.</p>
+            max_results: <p>The maximum number of results to return in a single page of the response.</p>
+            next_token: <p>A pagination token from a previous response used to retrieve the next page of results.</p>
+
+        Raises:
+            capo_inspector2.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p> <p> For <code>Enable</code>, you receive this error if you attempt to use a feature in an unsupported Amazon Web Services Region. </p>
+            capo_inspector2.errors.internal_server_exception.InternalServerException: <p>The request has failed due to an internal failure of the Amazon Inspector service.</p>
+            capo_inspector2.errors.throttling_exception.ThrottlingException: <p>The limit on the number of requests per second was exceeded.</p>
+            capo_inspector2.errors.validation_exception.ValidationException: <p>The request has failed validation due to missing required fields or having invalid inputs.</p>
+            capo_inspector2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_inspector2.types.list_on_demand_scans_request.ListOnDemandScansRequest]",
+        ) -> OperationResponse[
+            "capo_inspector2.types.list_on_demand_scans_response.ListOnDemandScansResponse"
+        ]:
+            import capo_inspector2._operations.inspector2.list_on_demand_scans
+
+            output, http_response = (
+                capo_inspector2._operations.inspector2.list_on_demand_scans.list_on_demand_scans(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOnDemandScans")
+        )
+        input_: capo_inspector2.types.list_on_demand_scans_request.ListOnDemandScansRequest = {
+            "resource_id": resource_id,
+            "resource_type": resource_type,
+        }
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_on_demand_scans(
+        self,
+        resource_id: "capo_inspector2.types.resource_id.ResourceId",
+        resource_type: "capo_inspector2.types.on_demand_resource_type.OnDemandResourceType",
+        *,
+        config_overrides: Optional[Inspector2ClientConfig] = None,
+        max_results: Optional[int] = None,
+        next_token: Optional[
+            "capo_inspector2.types.on_demand_scan_next_token.OnDemandScanNextToken"
+        ] = None,
+    ) -> "Iterator[capo_inspector2.types.on_demand_scan.OnDemandScan]":
+        _token = next_token
+        while True:
+            _response = self.list_on_demand_scans(
+                resource_id,
+                resource_type,
+                config_overrides=config_overrides,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("items",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
     def list_tags_for_resource(
         self,
         resource_arn: "capo_inspector2.types.arn.Arn",
@@ -4869,6 +5025,65 @@ class Inspector2Client:
         response.response.close()
         return response.output
 
+    def start_on_demand_scan(
+        self,
+        resource_id: "capo_inspector2.types.resource_id.ResourceId",
+        resource_type: "capo_inspector2.types.on_demand_resource_type.OnDemandResourceType",
+        *,
+        config_overrides: Optional[Inspector2ClientConfig] = None,
+        client_token: Optional[str] = None,
+    ) -> (
+        "capo_inspector2.types.start_on_demand_scan_response.StartOnDemandScanResponse"
+    ):
+        """<p>Starts an on-demand scan of the specified resource, such as an Amazon Machine Image (AMI).</p>
+
+        Args:
+            resource_id: <p>The ID of the resource to scan on demand.</p>
+            resource_type: <p>The type of the resource to scan on demand.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.</p>
+
+        Raises:
+            capo_inspector2.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p> <p> For <code>Enable</code>, you receive this error if you attempt to use a feature in an unsupported Amazon Web Services Region. </p>
+            capo_inspector2.errors.conflict_exception.ConflictException: <p>A conflict occurred. This exception occurs when the same resource is being modified by concurrent requests.</p>
+            capo_inspector2.errors.internal_server_exception.InternalServerException: <p>The request has failed due to an internal failure of the Amazon Inspector service.</p>
+            capo_inspector2.errors.throttling_exception.ThrottlingException: <p>The limit on the number of requests per second was exceeded.</p>
+            capo_inspector2.errors.validation_exception.ValidationException: <p>The request has failed validation due to missing required fields or having invalid inputs.</p>
+            capo_inspector2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_inspector2.types.start_on_demand_scan_request.StartOnDemandScanRequest]",
+        ) -> OperationResponse[
+            "capo_inspector2.types.start_on_demand_scan_response.StartOnDemandScanResponse"
+        ]:
+            import capo_inspector2._operations.inspector2.start_on_demand_scan
+
+            output, http_response = (
+                capo_inspector2._operations.inspector2.start_on_demand_scan.start_on_demand_scan(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartOnDemandScan")
+        )
+        input_: capo_inspector2.types.start_on_demand_scan_request.StartOnDemandScanRequest = {
+            "resource_id": resource_id,
+            "resource_type": resource_type,
+        }
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def stop_cis_session(
         self,
         scan_job_id: "capo_inspector2.types.uuid.UUID",
@@ -5235,6 +5450,9 @@ class Inspector2Client:
         ec2_configuration: Optional[
             "capo_inspector2.types.ec2_configuration.Ec2Configuration"
         ] = None,
+        ami_configuration: Optional[
+            "capo_inspector2.types.ami_configuration.AmiConfiguration"
+        ] = None,
         update_configuration_inheritance: Optional[
             "capo_inspector2.types.update_configuration_inheritance.UpdateConfigurationInheritance"
         ] = None,
@@ -5245,10 +5463,12 @@ class Inspector2Client:
             account_id: <p>The 12-digit Amazon Web Services account ID of the member account whose scan configuration you want to update. When specified, you must be the delegated administrator for this member account. If not specified, the operation updates your own configuration and propagates changes to any member accounts that have not been individually configured.</p>
             ecr_configuration: <p>Specifies how the ECR automated re-scan will be updated for your environment.</p>
             ec2_configuration: <p>Specifies how the Amazon EC2 automated scan will be updated for your environment.</p>
+            ami_configuration: <p>The Amazon Machine Image (AMI) scan configuration to apply to the account.</p>
             update_configuration_inheritance: <p>Specifies which scan-type configurations to reset to the delegated administrator's inherited values for the targeted member account. Each member of this structure is independently optional. When specified, <code>ec2Configuration</code> and <code>ecrConfiguration</code> must be absent, and <code>accountId</code> must also be present. Only <code>INHERIT_FROM_ADMIN</code> is valid for each member. If not specified, the operation uses the <code>ec2Configuration</code> and <code>ecrConfiguration</code> parameters instead.</p>
 
         Raises:
             capo_inspector2.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p> <p> For <code>Enable</code>, you receive this error if you attempt to use a feature in an unsupported Amazon Web Services Region. </p>
+            capo_inspector2.errors.conflict_exception.ConflictException: <p>A conflict occurred. This exception occurs when the same resource is being modified by concurrent requests.</p>
             capo_inspector2.errors.internal_server_exception.InternalServerException: <p>The request has failed due to an internal failure of the Amazon Inspector service.</p>
             capo_inspector2.errors.throttling_exception.ThrottlingException: <p>The limit on the number of requests per second was exceeded.</p>
             capo_inspector2.errors.validation_exception.ValidationException: <p>The request has failed validation due to missing required fields or having invalid inputs.</p>
@@ -5279,6 +5499,8 @@ class Inspector2Client:
             input_["ecr_configuration"] = ecr_configuration
         if ec2_configuration is not None:
             input_["ec2_configuration"] = ec2_configuration
+        if ami_configuration is not None:
+            input_["ami_configuration"] = ami_configuration
         if update_configuration_inheritance is not None:
             input_["update_configuration_inheritance"] = (
                 update_configuration_inheritance

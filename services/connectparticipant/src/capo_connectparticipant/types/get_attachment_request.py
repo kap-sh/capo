@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_connectparticipant.types.artifact_id
+    import capo_connectparticipant.types.content_disposition
     import capo_connectparticipant.types.participant_token
     import capo_connectparticipant.types.url_expiry_in_seconds
 
@@ -19,6 +20,10 @@ class GetAttachmentRequest(TypedDict, closed=True):
         "capo_connectparticipant.types.url_expiry_in_seconds.URLExpiryInSeconds"
     ]
     """<p>The expiration time of the URL in ISO timestamp. It's specified in ISO 8601 format: yyyy-MM-ddThh:mm:ss.SSSZ. For example, 2019-11-08T02:41:28.172Z.</p>"""
+    url_content_disposition: NotRequired[
+        "capo_connectparticipant.types.content_disposition.ContentDisposition"
+    ]
+    """<p>Specifies how a browser handles the file at the pre-signed URL. The following values are valid:</p> <dl> <dt>INLINE</dt> <dd> <p>Displays the file in the browser.</p> </dd> <dt>ATTACHMENT</dt> <dd> <p>Downloads the file. This is the default behavior.</p> </dd> </dl>"""
 
 
 # --- restJson1 ser/de ---
@@ -27,6 +32,14 @@ def serialize_json(value: GetAttachmentRequest) -> dict:
     out["AttachmentId"] = value["attachment_id"]
     if "url_expiry_in_seconds" in value:
         out["UrlExpiryInSeconds"] = value["url_expiry_in_seconds"]
+    if "url_content_disposition" in value:
+        import capo_connectparticipant.types.content_disposition
+
+        out["UrlContentDisposition"] = (
+            capo_connectparticipant.types.content_disposition.serialize_json(
+                value["url_content_disposition"]
+            )
+        )
     return out
 
 
@@ -38,4 +51,12 @@ def deserialize_json(data: dict) -> GetAttachmentRequest:
         out["attachment_id"] = ""
     if data.get("UrlExpiryInSeconds") is not None:
         out["url_expiry_in_seconds"] = data["UrlExpiryInSeconds"]
+    if data.get("UrlContentDisposition") is not None:
+        import capo_connectparticipant.types.content_disposition
+
+        out["url_content_disposition"] = (
+            capo_connectparticipant.types.content_disposition.deserialize_json(
+                data["UrlContentDisposition"]
+            )
+        )
     return out

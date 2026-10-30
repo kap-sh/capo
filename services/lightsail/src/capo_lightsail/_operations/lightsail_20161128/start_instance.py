@@ -19,6 +19,7 @@ import capo_lightsail.errors.operation_failure_exception
 import capo_lightsail.errors.region_setup_in_progress_exception
 import capo_lightsail.errors.service_exception
 import capo_lightsail.errors.unauthenticated_exception
+import capo_lightsail.types.instance_attribute_updates
 import capo_lightsail.types.operation_list
 import capo_lightsail.types.start_instance_request
 import capo_lightsail.types.start_instance_result

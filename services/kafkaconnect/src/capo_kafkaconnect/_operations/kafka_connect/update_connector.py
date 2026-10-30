@@ -19,10 +19,12 @@ import capo_kafkaconnect.errors.not_found_exception
 import capo_kafkaconnect.errors.service_unavailable_exception
 import capo_kafkaconnect.errors.too_many_requests_exception
 import capo_kafkaconnect.errors.unauthorized_exception
+import capo_kafkaconnect.types.__list_of_plugin_update
 import capo_kafkaconnect.types.capacity_update
 import capo_kafkaconnect.types.connector_configuration_update
 import capo_kafkaconnect.types.update_connector_request
 import capo_kafkaconnect.types.update_connector_response
+import capo_kafkaconnect.types.worker_configuration_update
 from capo_kafkaconnect._protocol.errors import parse_error_metadata_json
 from capo_kafkaconnect._rule_engine._endpoint_rule_set import EndpointParams, resolve
 from capo_kafkaconnect._services._pipeline import (

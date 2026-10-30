@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     import capo_inspector2.types.provider_org_id
     import capo_inspector2.types.provider_partition
     import capo_inspector2.types.provider_region
+    import capo_inspector2.types.scan_source
     import capo_inspector2.types.severity_counts
 
 
@@ -38,6 +39,8 @@ class AmiAggregationResponse(TypedDict, closed=True):
     """<p>An object that contains the count of matched findings per severity.</p>"""
     affected_instances: NotRequired["int"]
     """<p>The IDs of Amazon EC2 instances using this AMI.</p>"""
+    scan_source: NotRequired["capo_inspector2.types.scan_source.ScanSource"]
+    """<p>The source of the scan that generated the findings for the Amazon Machine Image (AMI).</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -64,6 +67,8 @@ def serialize_json(value: AmiAggregationResponse) -> dict:
         )
     if "affected_instances" in value:
         out["affectedInstances"] = value["affected_instances"]
+    if "scan_source" in value:
+        out["scanSource"] = value["scan_source"]
     return out
 
 
@@ -93,4 +98,6 @@ def deserialize_json(data: dict) -> AmiAggregationResponse:
         )
     if data.get("affectedInstances") is not None:
         out["affected_instances"] = data["affectedInstances"]
+    if data.get("scanSource") is not None:
+        out["scan_source"] = data["scanSource"]
     return out

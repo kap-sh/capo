@@ -1078,6 +1078,7 @@ if TYPE_CHECKING:
     import capo_connect.types.tag_set
     import capo_connect.types.task_attachments
     import capo_connect.types.task_template_constraints
+    import capo_connect.types.task_template_contact_hooks
     import capo_connect.types.task_template_defaults
     import capo_connect.types.task_template_description
     import capo_connect.types.task_template_fields
@@ -5727,6 +5728,9 @@ class ConnectClient:
         self_assign_flow_id: Optional[
             "capo_connect.types.contact_flow_id.ContactFlowId"
         ] = None,
+        contact_hooks: Optional[
+            "capo_connect.types.task_template_contact_hooks.TaskTemplateContactHooks"
+        ] = None,
         constraints: Optional[
             "capo_connect.types.task_template_constraints.TaskTemplateConstraints"
         ] = None,
@@ -5746,6 +5750,7 @@ class ConnectClient:
             description: <p>The description of the task template.</p>
             contact_flow_id: <p>The identifier of the flow that runs by default when a task is created by referencing this template.</p> <p>Although this parameter is marked as optional, the request must contain either a <code>ContactFlowId</code> or a field of type <code>QUICK_CONNECT</code>.</p>
             self_assign_flow_id: <p>The ContactFlowId for the flow that will be run if this template is used to create a self-assigned task.</p>
+            contact_hooks: <p>The event hooks that are set on tasks created by using this template.</p>
             constraints: <p>Constraints that are applicable to the fields listed. Although this parameter is marked as optional in the API model, the service requires it when calling <code>CreateTaskTemplate</code> or <code>UpdateTaskTemplate</code>. The <code>RequiredFields</code> array must contain at least one element, and the field of type <code>NAME</code> must be included in <code>RequiredFields</code>.</p>
             defaults: <p>The default values for fields when a task is created by referencing this template.</p>
             status: <p>Marks a template as <code>ACTIVE</code> or <code>INACTIVE</code> for a task to refer to it. Tasks can only be created from <code>ACTIVE</code> templates. If a template is marked as <code>INACTIVE</code>, then a task that refers to this template cannot be created. </p>
@@ -5790,6 +5795,8 @@ class ConnectClient:
             input_["contact_flow_id"] = contact_flow_id
         if self_assign_flow_id is not None:
             input_["self_assign_flow_id"] = self_assign_flow_id
+        if contact_hooks is not None:
+            input_["contact_hooks"] = contact_hooks
         if constraints is not None:
             input_["constraints"] = constraints
         if defaults is not None:
@@ -28591,6 +28598,9 @@ class ConnectClient:
         self_assign_flow_id: Optional[
             "capo_connect.types.contact_flow_id.ContactFlowId"
         ] = None,
+        contact_hooks: Optional[
+            "capo_connect.types.task_template_contact_hooks.TaskTemplateContactHooks"
+        ] = None,
         constraints: Optional[
             "capo_connect.types.task_template_constraints.TaskTemplateConstraints"
         ] = None,
@@ -28613,6 +28623,7 @@ class ConnectClient:
             description: <p>The description of the task template.</p>
             contact_flow_id: <p>The identifier of the flow that runs by default when a task is created by referencing this template.</p> <p>Although this parameter is marked as optional, the request must contain either a <code>ContactFlowId</code> or a field of type <code>QUICK_CONNECT</code>.</p>
             self_assign_flow_id: <p>The ContactFlowId for the flow that will be run if this template is used to create a self-assigned task.</p>
+            contact_hooks: <p>The event hooks that are set on tasks created by using this template.</p>
             constraints: <p>Constraints that are applicable to the fields listed. Although this parameter is marked as optional in the API model, the service requires it when calling <code>CreateTaskTemplate</code> or <code>UpdateTaskTemplate</code>. The <code>RequiredFields</code> array must contain at least one element, and the field of type <code>NAME</code> must be included in <code>RequiredFields</code>.</p>
             defaults: <p>The default values for fields when a task is created by referencing this template.</p>
             status: <p>Marks a template as <code>ACTIVE</code> or <code>INACTIVE</code> for a task to refer to it. Tasks can only be created from <code>ACTIVE</code> templates. If a template is marked as <code>INACTIVE</code>, then a task that refers to this template cannot be created.</p> <p>Although this parameter is marked as optional, the service requires it when calling <code>UpdateTaskTemplate</code>.</p>
@@ -28657,6 +28668,8 @@ class ConnectClient:
             input_["contact_flow_id"] = contact_flow_id
         if self_assign_flow_id is not None:
             input_["self_assign_flow_id"] = self_assign_flow_id
+        if contact_hooks is not None:
+            input_["contact_hooks"] = contact_hooks
         if constraints is not None:
             input_["constraints"] = constraints
         if defaults is not None:

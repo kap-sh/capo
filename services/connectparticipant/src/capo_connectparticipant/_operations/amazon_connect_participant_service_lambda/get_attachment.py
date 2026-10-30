@@ -15,6 +15,7 @@ import capo_connectparticipant.errors.access_denied_exception
 import capo_connectparticipant.errors.internal_server_exception
 import capo_connectparticipant.errors.throttling_exception
 import capo_connectparticipant.errors.validation_exception
+import capo_connectparticipant.types.content_disposition
 import capo_connectparticipant.types.get_attachment_request
 import capo_connectparticipant.types.get_attachment_response
 from capo_connectparticipant._protocol.errors import parse_error_metadata_json

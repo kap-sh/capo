@@ -12,6 +12,7 @@ import capo_neptunedata._auth._signers
 import capo_neptunedata._auth._sigv4
 import capo_neptunedata._protocol.eventstream
 import capo_neptunedata.errors.bad_request_exception
+import capo_neptunedata.errors.cancelled_by_maintenance_exception
 import capo_neptunedata.errors.cancelled_by_user_exception
 import capo_neptunedata.errors.client_timeout_exception
 import capo_neptunedata.errors.concurrent_modification_exception
@@ -50,6 +51,10 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "BadRequestException":
             raise capo_neptunedata.errors.bad_request_exception.BadRequestException.from_json(
+                data, message, response=response
+            )
+        case "CancelledByMaintenanceException":
+            raise capo_neptunedata.errors.cancelled_by_maintenance_exception.CancelledByMaintenanceException.from_json(
                 data, message, response=response
             )
         case "CancelledByUserException":

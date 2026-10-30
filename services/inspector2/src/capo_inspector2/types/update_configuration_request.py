@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_inspector2.types.account_id
+    import capo_inspector2.types.ami_configuration
     import capo_inspector2.types.ec2_configuration
     import capo_inspector2.types.ecr_configuration
     import capo_inspector2.types.update_configuration_inheritance
@@ -22,6 +23,10 @@ class UpdateConfigurationRequest(TypedDict, closed=True):
         "capo_inspector2.types.ec2_configuration.Ec2Configuration"
     ]
     """<p>Specifies how the Amazon EC2 automated scan will be updated for your environment.</p>"""
+    ami_configuration: NotRequired[
+        "capo_inspector2.types.ami_configuration.AmiConfiguration"
+    ]
+    """<p>The Amazon Machine Image (AMI) scan configuration to apply to the account.</p>"""
     update_configuration_inheritance: NotRequired[
         "capo_inspector2.types.update_configuration_inheritance.UpdateConfigurationInheritance"
     ]
@@ -47,6 +52,14 @@ def serialize_json(value: UpdateConfigurationRequest) -> dict:
         out["ec2Configuration"] = (
             capo_inspector2.types.ec2_configuration.serialize_json(
                 value["ec2_configuration"]
+            )
+        )
+    if "ami_configuration" in value:
+        import capo_inspector2.types.ami_configuration
+
+        out["amiConfiguration"] = (
+            capo_inspector2.types.ami_configuration.serialize_json(
+                value["ami_configuration"]
             )
         )
     if "update_configuration_inheritance" in value:
@@ -78,6 +91,14 @@ def deserialize_json(data: dict) -> UpdateConfigurationRequest:
         out["ec2_configuration"] = (
             capo_inspector2.types.ec2_configuration.deserialize_json(
                 data["ec2Configuration"]
+            )
+        )
+    if data.get("amiConfiguration") is not None:
+        import capo_inspector2.types.ami_configuration
+
+        out["ami_configuration"] = (
+            capo_inspector2.types.ami_configuration.deserialize_json(
+                data["amiConfiguration"]
             )
         )
     if data.get("updateConfigurationInheritance") is not None:

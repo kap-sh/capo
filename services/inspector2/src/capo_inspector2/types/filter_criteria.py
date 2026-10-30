@@ -188,6 +188,22 @@ class FilterCriteria(TypedDict, closed=True):
         "capo_inspector2.types.string_filter_list.StringFilterList"
     ]
     """<p>Filter criteria for findings based on the repository provider type (such as GitHub, GitLab, etc.).</p>"""
+    machine_image_id: NotRequired[
+        "capo_inspector2.types.string_filter_list.StringFilterList"
+    ]
+    """<p>The ID of the Amazon Machine Image (AMI) used to filter findings.</p>"""
+    machine_image_name: NotRequired[
+        "capo_inspector2.types.string_filter_list.StringFilterList"
+    ]
+    """<p>The name of the Amazon Machine Image (AMI) used to filter findings.</p>"""
+    machine_image_owner_account_id: NotRequired[
+        "capo_inspector2.types.string_filter_list.StringFilterList"
+    ]
+    """<p>The ID of the Amazon Web Services account that owns the Amazon Machine Image (AMI) used to filter findings.</p>"""
+    machine_image_platform: NotRequired[
+        "capo_inspector2.types.string_filter_list.StringFilterList"
+    ]
+    """<p>The platform of the Amazon Machine Image (AMI) used to filter findings.</p>"""
     cloud_provider: NotRequired[
         "capo_inspector2.types.string_filter_list.StringFilterList"
     ]
@@ -591,6 +607,36 @@ def serialize_json(value: FilterCriteria) -> dict:
         out["codeRepositoryProviderType"] = (
             capo_inspector2.types.string_filter_list.serialize_json(
                 value["code_repository_provider_type"]
+            )
+        )
+    if "machine_image_id" in value:
+        import capo_inspector2.types.string_filter_list
+
+        out["machineImageId"] = capo_inspector2.types.string_filter_list.serialize_json(
+            value["machine_image_id"]
+        )
+    if "machine_image_name" in value:
+        import capo_inspector2.types.string_filter_list
+
+        out["machineImageName"] = (
+            capo_inspector2.types.string_filter_list.serialize_json(
+                value["machine_image_name"]
+            )
+        )
+    if "machine_image_owner_account_id" in value:
+        import capo_inspector2.types.string_filter_list
+
+        out["machineImageOwnerAccountId"] = (
+            capo_inspector2.types.string_filter_list.serialize_json(
+                value["machine_image_owner_account_id"]
+            )
+        )
+    if "machine_image_platform" in value:
+        import capo_inspector2.types.string_filter_list
+
+        out["machineImagePlatform"] = (
+            capo_inspector2.types.string_filter_list.serialize_json(
+                value["machine_image_platform"]
             )
         )
     if "cloud_provider" in value:
@@ -1094,6 +1140,38 @@ def deserialize_json(data: dict) -> FilterCriteria:
         out["code_repository_provider_type"] = (
             capo_inspector2.types.string_filter_list.deserialize_json(
                 data["codeRepositoryProviderType"]
+            )
+        )
+    if data.get("machineImageId") is not None:
+        import capo_inspector2.types.string_filter_list
+
+        out["machine_image_id"] = (
+            capo_inspector2.types.string_filter_list.deserialize_json(
+                data["machineImageId"]
+            )
+        )
+    if data.get("machineImageName") is not None:
+        import capo_inspector2.types.string_filter_list
+
+        out["machine_image_name"] = (
+            capo_inspector2.types.string_filter_list.deserialize_json(
+                data["machineImageName"]
+            )
+        )
+    if data.get("machineImageOwnerAccountId") is not None:
+        import capo_inspector2.types.string_filter_list
+
+        out["machine_image_owner_account_id"] = (
+            capo_inspector2.types.string_filter_list.deserialize_json(
+                data["machineImageOwnerAccountId"]
+            )
+        )
+    if data.get("machineImagePlatform") is not None:
+        import capo_inspector2.types.string_filter_list
+
+        out["machine_image_platform"] = (
+            capo_inspector2.types.string_filter_list.deserialize_json(
+                data["machineImagePlatform"]
             )
         )
     if data.get("cloudProvider") is not None:

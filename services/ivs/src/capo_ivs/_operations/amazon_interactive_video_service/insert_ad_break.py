@@ -20,6 +20,7 @@ import capo_ivs.errors.throttling_exception
 import capo_ivs.errors.validation_exception
 import capo_ivs.types.insert_ad_break_request
 import capo_ivs.types.insert_ad_break_response
+import capo_ivs.types.time
 from capo_ivs._protocol.errors import parse_error_metadata_json
 from capo_ivs._rule_engine._endpoint_rule_set import EndpointParams, resolve
 from capo_ivs._services._pipeline import (

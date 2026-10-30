@@ -17,6 +17,7 @@ ResourceState = TypedDict(
         "lambda": NotRequired["capo_inspector2.types.state.State"],
         "lambda_code": NotRequired["capo_inspector2.types.state.State"],
         "code_repository": NotRequired["capo_inspector2.types.state.State"],
+        "ami": NotRequired["capo_inspector2.types.state.State"],
     },
     closed=True,
 )
@@ -47,6 +48,10 @@ def serialize_json(value: ResourceState) -> dict:
         out["codeRepository"] = capo_inspector2.types.state.serialize_json(
             value["code_repository"]
         )
+    if "ami" in value:
+        import capo_inspector2.types.state
+
+        out["ami"] = capo_inspector2.types.state.serialize_json(value["ami"])
     return out
 
 
@@ -80,4 +85,8 @@ def deserialize_json(data: dict) -> ResourceState:
         out["code_repository"] = capo_inspector2.types.state.deserialize_json(
             data["codeRepository"]
         )
+    if data.get("ami") is not None:
+        import capo_inspector2.types.state
+
+        out["ami"] = capo_inspector2.types.state.deserialize_json(data["ami"])
     return out

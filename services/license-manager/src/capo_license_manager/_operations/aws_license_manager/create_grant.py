@@ -22,6 +22,8 @@ import capo_license_manager.types.allowed_operation_list
 import capo_license_manager.types.create_grant_request
 import capo_license_manager.types.create_grant_response
 import capo_license_manager.types.grant_status
+import capo_license_manager.types.grant_type
+import capo_license_manager.types.options
 import capo_license_manager.types.principal_arn_list
 import capo_license_manager.types.tag_list
 from capo_license_manager._protocol.errors import parse_error_metadata_json

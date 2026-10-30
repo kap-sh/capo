@@ -7,9 +7,12 @@ from typing_extensions import NotRequired, TypedDict
 from capo_ec2._protocol.xml import Element
 
 if TYPE_CHECKING:
+    import capo_ec2.types.availability_zone_id
+    import capo_ec2.types.availability_zone_name
     import capo_ec2.types.boolean
     import capo_ec2.types.fleet_capacity_reservation_tenancy
     import capo_ec2.types.fleet_instance_match_criteria
+    import capo_ec2.types.instance_requirements_request
     import capo_ec2.types.integer
     import capo_ec2.types.millisecond_date_time
     import capo_ec2.types.reservation_fleet_instance_specification_list
@@ -26,6 +29,18 @@ class CreateCapacityReservationFleetRequest(TypedDict, closed=True):
         "capo_ec2.types.reservation_fleet_instance_specification_list.ReservationFleetInstanceSpecificationList"
     ]
     """<p>Information about the instance types for which to reserve the capacity.</p>"""
+    instance_requirements: NotRequired[
+        "capo_ec2.types.instance_requirements_request.InstanceRequirementsRequest"
+    ]
+    """<p>Reserved for internal use.</p>"""
+    availability_zone: NotRequired[
+        "capo_ec2.types.availability_zone_name.AvailabilityZoneName"
+    ]
+    """<p>Reserved for internal use.</p>"""
+    availability_zone_id: NotRequired[
+        "capo_ec2.types.availability_zone_id.AvailabilityZoneId"
+    ]
+    """<p>Reserved for internal use.</p>"""
     tenancy: NotRequired[
         "capo_ec2.types.fleet_capacity_reservation_tenancy.FleetCapacityReservationTenancy"
     ]
@@ -66,6 +81,18 @@ def serialize_ec2_query(
             value["instance_type_specifications"],
             pairs,
             f"{key_prefix}InstanceTypeSpecification",
+        )
+    if "instance_requirements" in value:
+        import capo_ec2.types.instance_requirements_request
+
+        capo_ec2.types.instance_requirements_request.serialize_ec2_query(
+            value["instance_requirements"], pairs, f"{key_prefix}InstanceRequirements"
+        )
+    if "availability_zone" in value:
+        pairs.append((f"{key_prefix}AvailabilityZone", str(value["availability_zone"])))
+    if "availability_zone_id" in value:
+        pairs.append(
+            (f"{key_prefix}AvailabilityZoneId", str(value["availability_zone_id"]))
         )
     if "tenancy" in value:
         import capo_ec2.types.fleet_capacity_reservation_tenancy
@@ -118,6 +145,21 @@ def deserialize_ec2_query(el: Element) -> CreateCapacityReservationFleetRequest:
                 child_instance_type_specifications
             )
         )
+    child_instance_requirements = el.find("InstanceRequirements")
+    if child_instance_requirements is not None:
+        import capo_ec2.types.instance_requirements_request
+
+        out["instance_requirements"] = (
+            capo_ec2.types.instance_requirements_request.deserialize_ec2_query(
+                child_instance_requirements
+            )
+        )
+    child_availability_zone = el.find("AvailabilityZone")
+    if child_availability_zone is not None:
+        out["availability_zone"] = str(child_availability_zone.text or "")
+    child_availability_zone_id = el.find("AvailabilityZoneId")
+    if child_availability_zone_id is not None:
+        out["availability_zone_id"] = str(child_availability_zone_id.text or "")
     child_tenancy = el.find("Tenancy")
     if child_tenancy is not None:
         import capo_ec2.types.fleet_capacity_reservation_tenancy

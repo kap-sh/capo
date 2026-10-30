@@ -112,6 +112,7 @@ if TYPE_CHECKING:
     import capo_license_manager.types.get_service_settings_request
     import capo_license_manager.types.get_service_settings_response
     import capo_license_manager.types.grant_status
+    import capo_license_manager.types.grant_type
     import capo_license_manager.types.integer
     import capo_license_manager.types.inventory_filter_list
     import capo_license_manager.types.issuer
@@ -581,8 +582,10 @@ class LicenseManagerClient:
         *,
         config_overrides: Optional[LicenseManagerClientConfig] = None,
         tags: Optional["capo_license_manager.types.tag_list.TagList"] = None,
+        grant_type: Optional["capo_license_manager.types.grant_type.GrantType"] = None,
+        options: Optional["capo_license_manager.types.options.Options"] = None,
     ) -> "capo_license_manager.types.create_grant_response.CreateGrantResponse":
-        """<p>Creates a grant for the specified license. A grant shares the use of license entitlements with a specific Amazon Web Services account, an organization, or an organizational unit (OU). For more information, see <a href="https://docs.aws.amazon.com/license-manager/latest/userguide/granted-licenses.html">Granted licenses in License Manager</a> in the <i>License Manager User Guide</i>.</p>
+        """<p>Creates a grant for the specified license. A grant shares the use of license entitlements with a specific Amazon Web Services account, an organization, or an organizational unit (OU). For more information, see <a href="https://docs.aws.amazon.com/license-manager/latest/userguide/granted-licenses.html">Granted licenses in License Manager</a> in the <i>License Manager User Guide</i>.</p> <p>Set the type of grant with the <code>GrantType</code> field:</p> <ul> <li> <p> <code>BuyerGrant</code> - The default grant type, created by the seller when a customer subscribes to a product. The seller creates a license for the subscription and a buyer grant for the customer. With a buyer grant, the customer can use, consume, and distribute the license, according to the permissions the seller sets in the product contract.</p> </li> <li> <p> <code>DelegateGrant</code> - A delegate grant gives the grantee read-only visibility into the licenses and grants that you have distributed to buyers for a product. The grantee can monitor that activity on your behalf, and can also listen for the related Amazon EventBridge events. A delegate grant conveys no entitlement to use the licenses, and its only allowed operation is <code>ListReceivedLicenses</code>. You must create the delegate grant, and its license, from the same Amazon Web Services account that you used to create those buyer licenses and grants.</p> </li> </ul>
 
         Args:
             client_token: <p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.</p>
@@ -592,6 +595,8 @@ class LicenseManagerClient:
             home_region: <p>Home Region of the grant.</p>
             allowed_operations: <p>Allowed operations for the grant.</p>
             tags: <p>Tags to add to the grant. For more information about tagging support in License Manager, see the <a href="https://docs.aws.amazon.com/license-manager/latest/APIReference/API_TagResource.html">TagResource</a> operation.</p>
+            grant_type: <p>The type of grant to create. For more information about each type, see the preceding description of this operation. Valid values:</p> <ul> <li> <p> <code>BuyerGrant</code> - The default grant type if you don't specify a value. Conveys the entitlement to use the license.</p> </li> <li> <p> <code>DelegateGrant</code> - Gives the grantee read-only visibility into the licenses and grants that you have distributed to buyers, with no entitlement to use them.</p> </li> </ul>
+            options: <p>The options for the grant: the status to set after creation, and how activating the grant affects other active grants for the same product.</p>
 
         Raises:
             capo_license_manager.errors.access_denied_exception.AccessDeniedException: <p>Access to resource denied.</p>
@@ -631,6 +636,10 @@ class LicenseManagerClient:
         }
         if tags is not None:
             input_["tags"] = tags
+        if grant_type is not None:
+            input_["grant_type"] = grant_type
+        if options is not None:
+            input_["options"] = options
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

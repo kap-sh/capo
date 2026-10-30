@@ -106,6 +106,7 @@
 - [Grant](grant.md)
 - [GrantList](grant_list.md)
 - [GrantStatus](grant_status.md)
+- [GrantType](grant_type.md)
 - [GrantedLicense](granted_license.md)
 - [GrantedLicenseList](granted_license_list.md)
 - [InstanceRuleStatement](instance_rule_statement.md)

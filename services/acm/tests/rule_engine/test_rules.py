@@ -274,14 +274,38 @@ def test_acm_acme_custom_endpoint():
     result = resolve(params)
     assert result.url == 'https://custom.example.com'
 
-def test_acm_acme_in_us_gov_west_1_returns_partit():
-    """ACM-ACME in us-gov-west-1 returns partition error"""
+def test_acm_acme_standard_endpoint_for_us_gov_we():
+    """ACM-ACME standard endpoint for us-gov-west-1"""
     params = EndpointParams(Region='us-gov-west-1', UseFIPS=False, UseDualStack=False, ServiceType='ACM-ACME')
-    with pytest.raises(EndpointError, match=re.escape('ACME operations are only available in commercial AWS partitions')):
-        resolve(params)
+    result = resolve(params)
+    assert result.url == 'https://acm-acme.us-gov-west-1.api.aws'
+
+def test_acm_acme_standard_endpoint_for_us_gov_ea():
+    """ACM-ACME standard endpoint for us-gov-east-1"""
+    params = EndpointParams(Region='us-gov-east-1', UseFIPS=False, UseDualStack=False, ServiceType='ACM-ACME')
+    result = resolve(params)
+    assert result.url == 'https://acm-acme.us-gov-east-1.api.aws'
 
 def test_acm_acme_in_cn_north_1_returns_partition():
     """ACM-ACME in cn-north-1 returns partition error"""
     params = EndpointParams(Region='cn-north-1', UseFIPS=False, UseDualStack=False, ServiceType='ACM-ACME')
-    with pytest.raises(EndpointError, match=re.escape('ACME operations are only available in commercial AWS partitions')):
+    with pytest.raises(EndpointError, match=re.escape('ACME operations are only available in the aws and aws-us-gov partitions')):
+        resolve(params)
+
+def test_acm_acme_in_cn_northwest_1_returns_parti():
+    """ACM-ACME in cn-northwest-1 returns partition error"""
+    params = EndpointParams(Region='cn-northwest-1', UseFIPS=False, UseDualStack=False, ServiceType='ACM-ACME')
+    with pytest.raises(EndpointError, match=re.escape('ACME operations are only available in the aws and aws-us-gov partitions')):
+        resolve(params)
+
+def test_acm_acme_with_dualstack_enabled_for_us_g():
+    """ACM-ACME with DualStack enabled for us-gov-west-1"""
+    params = EndpointParams(Region='us-gov-west-1', UseFIPS=False, UseDualStack=True, ServiceType='ACM-ACME')
+    result = resolve(params)
+    assert result.url == 'https://acm-acme.us-gov-west-1.api.aws'
+
+def test_acm_acme_fips_in_us_gov_west_1_returns_e():
+    """ACM-ACME FIPS in us-gov-west-1 returns error"""
+    params = EndpointParams(Region='us-gov-west-1', UseFIPS=True, UseDualStack=False, ServiceType='ACM-ACME')
+    with pytest.raises(EndpointError, match=re.escape('FIPS endpoints are not available for ACME operations')):
         resolve(params)

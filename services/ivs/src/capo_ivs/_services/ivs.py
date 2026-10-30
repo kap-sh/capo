@@ -32,6 +32,7 @@ from capo_ivs._services._pipeline import (
 )
 
 if TYPE_CHECKING:
+    import capo_ivs.types.ad_break_id
     import capo_ivs.types.ad_configuration_arn
     import capo_ivs.types.ad_configuration_name
     import capo_ivs.types.ad_configuration_summary
@@ -163,6 +164,7 @@ if TYPE_CHECKING:
     import capo_ivs.types.tag_resource_response
     import capo_ivs.types.tags
     import capo_ivs.types.thumbnail_configuration
+    import capo_ivs.types.time
     import capo_ivs.types.transcode_preset
     import capo_ivs.types.untag_resource_request
     import capo_ivs.types.untag_resource_response
@@ -657,9 +659,9 @@ class ivsClient:
 
         Args:
             name: <p>Failover-slate-configuration name. The value does not need to be unique.</p>
-            activation_threshold_seconds: <p>Number of seconds of ingest interruption before the failover slate activates. Minimum: <code>3</code>. Maximum: <code>5</code>. Default: <code>3</code>.</p>
-            min_slate_display_seconds: <p>Minimum number of seconds that the failover slate displays after activation. Minimum: <code>3</code>. Maximum: <code>10</code>. Default: <code>3</code>.</p>
-            max_slate_display_seconds: <p>Maximum number of seconds that the failover slate displays. Minimum: <code>60</code>. Maximum: <code>180</code>. Default: <code>60</code>.</p>
+            activation_threshold_seconds: <p>Number of seconds of ingest interruption before the failover slate activates. Default: <code>3</code>.</p>
+            min_slate_display_seconds: <p>Minimum number of seconds that the failover slate displays after activation. Default: <code>3</code>.</p>
+            max_slate_display_seconds: <p>Maximum number of seconds that the failover slate displays. Default: <code>60</code>.</p>
             tags: <p>Array of 1-50 maps, each of the form <code>string:string (key:value)</code>. See <a href="https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html">Best practices and strategies</a> in <i>Tagging Amazon Web Services Resources and Tag Editor</i> for details, including restrictions that apply to tags and "Tag naming limits and requirements"; Amazon IVS has no service-specific constraints beyond what is documented there.</p>
 
         Raises:
@@ -1773,12 +1775,16 @@ class ivsClient:
         duration_seconds: "capo_ivs.types.ad_duration_seconds.AdDurationSeconds",
         *,
         config_overrides: Optional[ivsClientConfig] = None,
+        ad_break_id: Optional["capo_ivs.types.ad_break_id.AdBreakId"] = None,
+        target_start_at: Optional["capo_ivs.types.time.Time"] = None,
     ) -> "capo_ivs.types.insert_ad_break_response.InsertAdBreakResponse":
         """<p>Inserts an ad marker in the playlist for the specified channel and duration using the ad configuration associated with the channel.</p> <p> <b>Note:</b> AWS Elemental MediaTailor (EMT), the service that handles ad requests, provides CloudWatch metrics to help you monitor the success or failure of each InsertAdBreak operation. See <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/monitoring-cloudwatch-metrics.html">Monitoring AWS Elemental MediaTailor with Amazon CloudWatch</a> metrics in the <i>AWS Elemental MediaTailor User Guide</i> for details on available metrics.</p>
 
         Args:
             channel_arn: <p>ARN of the channel into which the ad break is inserted.</p>
             duration_seconds: <p>Duration of the ad break, in seconds.</p>
+            ad_break_id: <p>Caller-specified unique identifier for the ad break to insert into the playlist.</p>
+            target_start_at: <p>Target time at which the ad break starts.</p>
 
         Raises:
             capo_ivs.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
@@ -1812,6 +1818,10 @@ class ivsClient:
             "channel_arn": channel_arn,
             "duration_seconds": duration_seconds,
         }
+        if ad_break_id is not None:
+            input_["ad_break_id"] = ad_break_id
+        if target_start_at is not None:
+            input_["target_start_at"] = target_start_at
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -3094,9 +3104,9 @@ class ivsClient:
         Args:
             arn: <p>ARN of the failover slate configuration to be updated.</p>
             name: <p>Failover-slate-configuration name. The value does not need to be unique.</p>
-            activation_threshold_seconds: <p>Number of seconds of ingest interruption before the failover slate activates. Minimum: <code>3</code>. Maximum: <code>5</code>. Default: <code>3</code>.</p>
-            min_slate_display_seconds: <p>Minimum number of seconds that the failover slate displays after activation. Minimum: <code>3</code>. Maximum: <code>10</code>. Default: <code>3</code>.</p>
-            max_slate_display_seconds: <p>Maximum number of seconds that the failover slate displays. Minimum: <code>60</code>. Maximum: <code>180</code>. Default: <code>60</code>.</p>
+            activation_threshold_seconds: <p>Number of seconds of ingest interruption before the failover slate activates. Default: <code>3</code>.</p>
+            min_slate_display_seconds: <p>Minimum number of seconds that the failover slate displays after activation. Default: <code>3</code>.</p>
+            max_slate_display_seconds: <p>Maximum number of seconds that the failover slate displays. Default: <code>60</code>.</p>
 
         Raises:
             capo_ivs.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>

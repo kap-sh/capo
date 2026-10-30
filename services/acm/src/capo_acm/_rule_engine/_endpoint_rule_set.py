@@ -65,9 +65,30 @@ def resolve(p: EndpointParams) -> Endpoint:  # type: ignore
                     properties={},
                     headers={},
                 )
+            if string_equals(
+                get_attr(_locals["PartitionResult"], interpolate("name", p, _locals)),
+                interpolate("aws-us-gov", p, _locals),
+            ):
+                if p.UseFIPS is True:
+                    raise EndpointError(
+                        interpolate(
+                            "FIPS endpoints are not available for ACME operations",
+                            p,
+                            _locals,
+                        )
+                    )
+                return Endpoint(
+                    url=interpolate(
+                        "https://acm-acme.{Region}.{PartitionResult#dualStackDnsSuffix}",
+                        p,
+                        _locals,
+                    ),
+                    properties={},
+                    headers={},
+                )
             raise EndpointError(
                 interpolate(
-                    "ACME operations are only available in commercial AWS partitions",
+                    "ACME operations are only available in the aws and aws-us-gov partitions",
                     p,
                     _locals,
                 )

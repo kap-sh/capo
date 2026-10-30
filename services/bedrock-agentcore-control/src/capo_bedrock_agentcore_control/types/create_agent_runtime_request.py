@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.agent_runtime_artifact
     import capo_bedrock_agentcore_control.types.agent_runtime_name
+    import capo_bedrock_agentcore_control.types.allowed_ports
     import capo_bedrock_agentcore_control.types.authorizer_configuration
     import capo_bedrock_agentcore_control.types.capacity_provider_configuration
     import capo_bedrock_agentcore_control.types.client_token
@@ -54,6 +55,7 @@ class CreateAgentRuntimeRequest(TypedDict, closed=True):
     protocol_configuration: NotRequired[
         "capo_bedrock_agentcore_control.types.protocol_configuration.ProtocolConfiguration"
     ]
+    """<p>The protocol configuration for the AgentCore Runtime, including the protocol, port, and path on which the agent server is available.</p>"""
     lifecycle_configuration: NotRequired[
         "capo_bedrock_agentcore_control.types.lifecycle_configuration.LifecycleConfiguration"
     ]
@@ -76,6 +78,10 @@ class CreateAgentRuntimeRequest(TypedDict, closed=True):
         "capo_bedrock_agentcore_control.types.platform_version.PlatformVersion"
     ]
     """<p>The version of the runtime platform to use for the AgentCore Runtime.</p>"""
+    allowed_ports: NotRequired[
+        "capo_bedrock_agentcore_control.types.allowed_ports.AllowedPorts"
+    ]
+    """<p>The additional ports on the AgentCore Runtime that are reachable through the runtime's session URL. Specify one to five non-overlapping entries, each containing either a single port or an inclusive port range. Ports must be between <code>8000</code> and <code>12000</code>, excluding the reserved port <code>8443</code>.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -166,6 +172,14 @@ def serialize_json(value: CreateAgentRuntimeRequest) -> dict:
         )
     if "platform_version" in value:
         out["platformVersion"] = value["platform_version"]
+    if "allowed_ports" in value:
+        import capo_bedrock_agentcore_control.types.allowed_ports
+
+        out["allowedPorts"] = (
+            capo_bedrock_agentcore_control.types.allowed_ports.serialize_json(
+                value["allowed_ports"]
+            )
+        )
     return out
 
 
@@ -265,6 +279,14 @@ def deserialize_json(data: dict) -> CreateAgentRuntimeRequest:
         )
     if data.get("platformVersion") is not None:
         out["platform_version"] = data["platformVersion"]
+    if data.get("allowedPorts") is not None:
+        import capo_bedrock_agentcore_control.types.allowed_ports
+
+        out["allowed_ports"] = (
+            capo_bedrock_agentcore_control.types.allowed_ports.deserialize_json(
+                data["allowedPorts"]
+            )
+        )
     return out
 
 

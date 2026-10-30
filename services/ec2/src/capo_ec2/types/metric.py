@@ -54,6 +54,16 @@ Metric: TypeAlias = Literal[
     "spot-total-count-vcpu",
     "spot-interruption-rate-inst",
     "spot-interruption-rate-vcpu",
+    "capacity-total-requested-vcpu",
+    "capacity-total-fulfilled-vcpu",
+    "spot-capacity-total-requested-vcpu",
+    "spot-capacity-total-fulfilled-vcpu",
+    "capacity-request-fulfillment-rate",
+    "avg-inst-az-count-per-requested-vcpu",
+    "inst-az-fulfillment-rate",
+    "spot-capacity-request-fulfillment-rate",
+    "spot-avg-inst-az-count-per-requested-vcpu",
+    "spot-inst-az-fulfillment-rate",
 ]
 
 

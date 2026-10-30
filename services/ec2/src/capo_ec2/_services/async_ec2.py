@@ -205,6 +205,8 @@ if TYPE_CHECKING:
     import capo_ec2.types.cancel_spot_fleet_requests_response
     import capo_ec2.types.cancel_spot_instance_requests_request
     import capo_ec2.types.cancel_spot_instance_requests_result
+    import capo_ec2.types.capacity_amount
+    import capo_ec2.types.capacity_availability_zone_id_list
     import capo_ec2.types.capacity_block
     import capo_ec2.types.capacity_block_extension
     import capo_ec2.types.capacity_block_extension_offering
@@ -235,6 +237,7 @@ if TYPE_CHECKING:
     import capo_ec2.types.capacity_reservation_modification_quote_id_set
     import capo_ec2.types.capacity_reservation_specification
     import capo_ec2.types.capacity_reservation_tenancy
+    import capo_ec2.types.capacity_unit
     import capo_ec2.types.carrier_gateway
     import capo_ec2.types.carrier_gateway_id
     import capo_ec2.types.carrier_gateway_id_set
@@ -1424,6 +1427,8 @@ if TYPE_CHECKING:
     import capo_ec2.types.get_capacity_manager_monitored_tag_keys_request
     import capo_ec2.types.get_capacity_manager_monitored_tag_keys_request_max_results
     import capo_ec2.types.get_capacity_manager_monitored_tag_keys_result
+    import capo_ec2.types.get_capacity_manager_supportability_scores_request
+    import capo_ec2.types.get_capacity_manager_supportability_scores_result
     import capo_ec2.types.get_capacity_reservation_usage_request
     import capo_ec2.types.get_capacity_reservation_usage_request_max_results
     import capo_ec2.types.get_capacity_reservation_usage_result
@@ -1456,6 +1461,9 @@ if TYPE_CHECKING:
     import capo_ec2.types.get_image_ancestry_result
     import capo_ec2.types.get_image_block_public_access_state_request
     import capo_ec2.types.get_image_block_public_access_state_result
+    import capo_ec2.types.get_image_findings_max_results
+    import capo_ec2.types.get_image_findings_request
+    import capo_ec2.types.get_image_findings_result
     import capo_ec2.types.get_instance_metadata_defaults_request
     import capo_ec2.types.get_instance_metadata_defaults_result
     import capo_ec2.types.get_instance_tpm_ek_pub_request
@@ -1601,6 +1609,7 @@ if TYPE_CHECKING:
     import capo_ec2.types.image_criterion_request_list
     import capo_ec2.types.image_description_request
     import capo_ec2.types.image_disk_container_list
+    import capo_ec2.types.image_finding
     import capo_ec2.types.image_id
     import capo_ec2.types.image_id_list
     import capo_ec2.types.image_id_string_list
@@ -2362,6 +2371,8 @@ if TYPE_CHECKING:
     import capo_ec2.types.subnet_id_list
     import capo_ec2.types.subnet_id_string_list
     import capo_ec2.types.subscription
+    import capo_ec2.types.supportability_instance_type_list
+    import capo_ec2.types.supportability_market_type
     import capo_ec2.types.tag_description
     import capo_ec2.types.tag_field_specification_list_request
     import capo_ec2.types.tag_list
@@ -7469,6 +7480,15 @@ class AsyncEC2Client:
         instance_type_specifications: Optional[
             "capo_ec2.types.reservation_fleet_instance_specification_list.ReservationFleetInstanceSpecificationList"
         ] = None,
+        instance_requirements: Optional[
+            "capo_ec2.types.instance_requirements_request.InstanceRequirementsRequest"
+        ] = None,
+        availability_zone: Optional[
+            "capo_ec2.types.availability_zone_name.AvailabilityZoneName"
+        ] = None,
+        availability_zone_id: Optional[
+            "capo_ec2.types.availability_zone_id.AvailabilityZoneId"
+        ] = None,
         tenancy: Optional[
             "capo_ec2.types.fleet_capacity_reservation_tenancy.FleetCapacityReservationTenancy"
         ] = None,
@@ -7490,6 +7510,9 @@ class AsyncEC2Client:
             allocation_strategy: <p>The strategy used by the Capacity Reservation Fleet to determine which of the specified instance types to use. Currently, only the <code>prioritized</code> allocation strategy is supported. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#allocation-strategy"> Allocation strategy</a> in the <i>Amazon EC2 User Guide</i>.</p> <p>Valid values: <code>prioritized</code> </p>
             client_token: <p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensure Idempotency</a>.</p>
             instance_type_specifications: <p>Information about the instance types for which to reserve the capacity.</p>
+            instance_requirements: <p>Reserved for internal use.</p>
+            availability_zone: <p>Reserved for internal use.</p>
+            availability_zone_id: <p>Reserved for internal use.</p>
             tenancy: <p>Indicates the tenancy of the Capacity Reservation Fleet. All Capacity Reservations in the Fleet inherit this tenancy. The Capacity Reservation Fleet can have one of the following tenancy settings:</p> <ul> <li> <p> <code>default</code> - The Capacity Reservation Fleet is created on hardware that is shared with other Amazon Web Services accounts.</p> </li> <li> <p> <code>dedicated</code> - The Capacity Reservations are created on single-tenant hardware that is dedicated to a single Amazon Web Services account.</p> </li> </ul>
             total_target_capacity: <p>The total number of capacity units to be reserved by the Capacity Reservation Fleet. This value, together with the instance type weights that you assign to each instance type used by the Fleet determine the number of instances for which the Fleet reserves capacity. Both values are based on units that make sense for your workload. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#target-capacity">Total target capacity</a> in the <i>Amazon EC2 User Guide</i>.</p>
             end_date: <p>The date and time at which the Capacity Reservation Fleet expires. When the Capacity Reservation Fleet expires, its state changes to <code>expired</code> and all of the Capacity Reservations in the Fleet expire.</p> <p>The Capacity Reservation Fleet expires within an hour after the specified time. For example, if you specify <code>5/31/2019</code>, <code>13:30:55</code>, the Capacity Reservation Fleet is guaranteed to expire between <code>13:30:55</code> and <code>14:30:55</code> on <code>5/31/2019</code>. </p>
@@ -7527,6 +7550,12 @@ class AsyncEC2Client:
         input_["client_token"] = client_token
         if instance_type_specifications is not None:
             input_["instance_type_specifications"] = instance_type_specifications
+        if instance_requirements is not None:
+            input_["instance_requirements"] = instance_requirements
+        if availability_zone is not None:
+            input_["availability_zone"] = availability_zone
+        if availability_zone_id is not None:
+            input_["availability_zone_id"] = availability_zone_id
         if tenancy is not None:
             input_["tenancy"] = tenancy
         if total_target_capacity is not None:
@@ -26122,7 +26151,7 @@ class AsyncEC2Client:
             max_results: <p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.</p>
             next_token: <p>The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.</p>
             dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
-            filters: <p>The filters.</p> <ul> <li> <p> <code>architecture</code> - The image architecture (<code>i386</code> | <code>x86_64</code> | <code>arm64</code> | <code>x86_64_mac</code> | <code>arm64_mac</code>).</p> </li> <li> <p> <code>block-device-mapping.delete-on-termination</code> - A Boolean value that indicates whether the Amazon EBS volume is deleted on instance termination.</p> </li> <li> <p> <code>block-device-mapping.device-name</code> - The device name specified in the block device mapping (for example, <code>/dev/sdh</code> or <code>xvdh</code>).</p> </li> <li> <p> <code>block-device-mapping.snapshot-id</code> - The ID of the snapshot used for the Amazon EBS volume.</p> </li> <li> <p> <code>block-device-mapping.volume-size</code> - The volume size of the Amazon EBS volume, in GiB.</p> </li> <li> <p> <code>block-device-mapping.volume-type</code> - The volume type of the Amazon EBS volume (<code>io1</code> | <code>io2</code> | <code>gp2</code> | <code>gp3</code> | <code>sc1 </code>| <code>st1</code> | <code>standard</code>).</p> </li> <li> <p> <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the Amazon EBS volume is encrypted.</p> </li> <li> <p> <code>boot-mode</code> – The boot mode of the image (<code>legacy-bios</code> | <code>uefi</code> | <code>uefi-preferred</code>).</p> </li> <li> <p> <code>creation-date</code> - The time when the image was created, in the ISO 8601 format in the UTC time zone (YYYY-MM-DDThh:mm:ss.sssZ), for example, <code>2021-09-29T11:04:43.305Z</code>. You can use a wildcard (<code>*</code>), for example, <code>2021-09-29T*</code>, which matches an entire day.</p> </li> <li> <p> <code>description</code> - The description of the image (provided during image creation).</p> </li> <li> <p> <code>ena-support</code> - A Boolean that indicates whether enhanced networking with ENA is enabled.</p> </li> <li> <p> <code>free-tier-eligible</code> - A Boolean that indicates whether this image can be used under the Amazon Web Services Free Tier (<code>true</code> | <code>false</code>).</p> </li> <li> <p> <code>hypervisor</code> - The hypervisor type (<code>ovm</code> | <code>xen</code>).</p> </li> <li> <p> <code>image-allowed</code> - A Boolean that indicates whether the image meets the criteria specified for Allowed AMIs.</p> </li> <li> <p> <code>image-id</code> - The ID of the image.</p> </li> <li> <p> <code>image-watermark.source-image-creation-time</code> - The creation date of the source AMI, in the ISO 8601 format in the UTC time zone (<code> <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>.<i>ssssss</i>+<i>HH</i>:<i>MM</i> </code>). You can use a wildcard (<code>*</code>), for example, <code>2021-09-29T*</code>, which matches an entire day.</p> </li> <li> <p> <code>image-watermark.source-image-id</code> - The ID of the AMI to which the watermark was originally attached.</p> </li> <li> <p> <code>image-watermark.source-image-region</code> - The Region where the watermark was originally attached.</p> </li> <li> <p> <code>image-watermark.watermark-creation-time</code> - The date and time the watermark was attached to the AMI, in the ISO 8601 format in the UTC time zone (<code> <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>.<i>ssssss</i>+<i>HH</i>:<i>MM</i> </code>). You can use a wildcard (<code>*</code>), for example, <code>2021-09-29T*</code>, which matches an entire day.</p> </li> <li> <p> <code>image-watermark.watermark-key</code> - The watermark identifier, in <code>accountId:watermarkName</code> format (for example, <code>123456789012:approvedAmi</code>).</p> </li> <li> <p> <code>image-type</code> - The image type (<code>machine</code> | <code>kernel</code> | <code>ramdisk</code>).</p> </li> <li> <p> <code>instance-type-specification.supported-instance-type</code> – The instance types that are compatible with the AMI, as specified by the AMI owner. Values can be individual instance types (for example, <code>t3.micro</code>) or wildcard patterns that match multiple instance types (for example, <code>t3.*</code>).</p> </li> <li> <p> <code>instance-type-specification.unsupported-instance-type</code> – The instance types that are not compatible with the AMI, as specified by the AMI owner. Values can be individual instance types (for example, <code>t3.micro</code>) or wildcard patterns that match multiple instance types (for example, <code>t3.*</code>).</p> </li> <li> <p> <code>is-public</code> - A Boolean that indicates whether the image is public.</p> </li> <li> <p> <code>kernel-id</code> - The kernel ID.</p> </li> <li> <p> <code>manifest-location</code> - The location of the image manifest.</p> </li> <li> <p> <code>name</code> - The name of the AMI (provided during image creation).</p> </li> <li> <p> <code>owner-alias</code> - The owner alias (<code>amazon</code> | <code>aws-backup-vault</code> | <code>aws-marketplace</code>). The valid aliases are defined in an Amazon-maintained list. This is not the Amazon Web Services account alias that can be set using the IAM console. We recommend that you use the <b>Owner</b> request parameter instead of this filter.</p> </li> <li> <p> <code>owner-id</code> - The Amazon Web Services account ID of the owner. We recommend that you use the <b>Owner</b> request parameter instead of this filter.</p> </li> <li> <p> <code>platform</code> - The platform. The only supported value is <code>windows</code>.</p> </li> <li> <p> <code>product-code</code> - The product code.</p> </li> <li> <p> <code>product-code.type</code> - The type of the product code (<code>marketplace</code>).</p> </li> <li> <p> <code>public-ssm-parameter-name</code> - The name of a public Systems Manager parameter associated with the AMI. The parameter must be in a trusted Amazon Web Services namespace under <code>aws/service/</code>. Returns all AMIs that have ever been associated with the parameter, including previous versions.</p> </li> <li> <p> <code>ramdisk-id</code> - The RAM disk ID.</p> </li> <li> <p> <code>root-device-name</code> - The device name of the root device volume (for example, <code>/dev/sda1</code>).</p> </li> <li> <p> <code>root-device-type</code> - The type of the root device volume (<code>ebs</code> | <code>instance-store</code>).</p> </li> <li> <p> <code>source-image-id</code> - The ID of the source AMI from which the AMI was created.</p> </li> <li> <p> <code>source-image-region</code> - The Region of the source AMI.</p> </li> <li> <p> <code>source-instance-id</code> - The ID of the instance that the AMI was created from if the AMI was created using CreateImage. This filter is applicable only if the AMI was created using <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateImage.html">CreateImage</a>.</p> </li> <li> <p> <code>state</code> - The state of the image (<code>available</code> | <code>pending</code> | <code>failed</code>).</p> </li> <li> <p> <code>state-reason-code</code> - The reason code for the state change.</p> </li> <li> <p> <code>state-reason-message</code> - The message for the state change.</p> </li> <li> <p> <code>sriov-net-support</code> - A value of <code>simple</code> indicates that enhanced networking with the Intel 82599 VF interface is enabled.</p> </li> <li> <p> <code>tag:<key></code> - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter value.</p> </li> <li> <p> <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.</p> </li> <li> <p> <code>virtualization-type</code> - The virtualization type (<code>paravirtual</code> | <code>hvm</code>).</p> </li> </ul>
+            filters: <p>The filters.</p> <ul> <li> <p> <code>architecture</code> - The image architecture (<code>i386</code> | <code>x86_64</code> | <code>arm64</code> | <code>x86_64_mac</code> | <code>arm64_mac</code>).</p> </li> <li> <p> <code>block-device-mapping.delete-on-termination</code> - A Boolean value that indicates whether the Amazon EBS volume is deleted on instance termination.</p> </li> <li> <p> <code>block-device-mapping.device-name</code> - The device name specified in the block device mapping (for example, <code>/dev/sdh</code> or <code>xvdh</code>).</p> </li> <li> <p> <code>block-device-mapping.snapshot-id</code> - The ID of the snapshot used for the Amazon EBS volume.</p> </li> <li> <p> <code>block-device-mapping.volume-size</code> - The volume size of the Amazon EBS volume, in GiB.</p> </li> <li> <p> <code>block-device-mapping.volume-type</code> - The volume type of the Amazon EBS volume (<code>io1</code> | <code>io2</code> | <code>gp2</code> | <code>gp3</code> | <code>sc1 </code>| <code>st1</code> | <code>standard</code>).</p> </li> <li> <p> <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the Amazon EBS volume is encrypted.</p> </li> <li> <p> <code>boot-mode</code> – The boot mode of the image (<code>legacy-bios</code> | <code>uefi</code> | <code>uefi-preferred</code>).</p> </li> <li> <p> <code>creation-date</code> - The time when the image was created, in the ISO 8601 format in the UTC time zone (YYYY-MM-DDThh:mm:ss.sssZ), for example, <code>2021-09-29T11:04:43.305Z</code>. You can use a wildcard (<code>*</code>), for example, <code>2021-09-29T*</code>, which matches an entire day.</p> </li> <li> <p> <code>description</code> - The description of the image (provided during image creation).</p> </li> <li> <p> <code>ena-support</code> - A Boolean that indicates whether enhanced networking with ENA is enabled.</p> </li> <li> <p> <code>free-tier-eligible</code> - A Boolean that indicates whether this image can be used under the Amazon Web Services Free Tier (<code>true</code> | <code>false</code>).</p> </li> <li> <p> <code>hypervisor</code> - The hypervisor type (<code>ovm</code> | <code>xen</code>).</p> </li> <li> <p> <code>image-allowed</code> - A Boolean that indicates whether the image meets the criteria specified for Allowed AMIs.</p> </li> <li> <p> <code>image-id</code> - The ID of the image.</p> </li> <li> <p> <code>image-watermark.source-image-creation-time</code> - The creation date of the source AMI, in the ISO 8601 format in the UTC time zone (<code> <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>.<i>ssssss</i>+<i>HH</i>:<i>MM</i> </code>). You can use a wildcard (<code>*</code>), for example, <code>2021-09-29T*</code>, which matches an entire day.</p> </li> <li> <p> <code>image-watermark.source-image-id</code> - The ID of the AMI to which the watermark was originally attached.</p> </li> <li> <p> <code>image-watermark.source-image-region</code> - The Region where the watermark was originally attached.</p> </li> <li> <p> <code>image-watermark.watermark-creation-time</code> - The date and time the watermark was attached to the AMI, in the ISO 8601 format in the UTC time zone (<code> <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>.<i>ssssss</i>+<i>HH</i>:<i>MM</i> </code>). You can use a wildcard (<code>*</code>), for example, <code>2021-09-29T*</code>, which matches an entire day.</p> </li> <li> <p> <code>image-watermark.watermark-key</code> - The watermark identifier, in <code>accountId:watermarkName</code> format (for example, <code>123456789012:approvedAmi</code>).</p> </li> <li> <p> <code>image-type</code> - The image type (<code>machine</code> | <code>kernel</code> | <code>ramdisk</code>).</p> </li> <li> <p> <code>instance-type-specification.supported-instance-type</code> – The instance types that are compatible with the AMI, as specified by the AMI owner. Values can be individual instance types (for example, <code>t3.micro</code>) or wildcard patterns that match multiple instance types (for example, <code>t3.*</code>).</p> </li> <li> <p> <code>instance-type-specification.unsupported-instance-type</code> – The instance types that are not compatible with the AMI, as specified by the AMI owner. Values can be individual instance types (for example, <code>t3.micro</code>) or wildcard patterns that match multiple instance types (for example, <code>t3.*</code>).</p> </li> <li> <p> <code>is-public</code> - A Boolean that indicates whether the image is public.</p> </li> <li> <p> <code>kernel-id</code> - The kernel ID.</p> </li> <li> <p> <code>manifest-location</code> - The location of the image manifest.</p> </li> <li> <p> <code>name</code> - The name of the AMI (provided during image creation).</p> </li> <li> <p> <code>owner-alias</code> - The owner alias (<code>amazon</code> | <code>aws-backup-vault</code> | <code>aws-marketplace</code>). The valid aliases are defined in an Amazon-maintained list. This is not the Amazon Web Services account alias that can be set using the IAM console. We recommend that you use the <b>Owner</b> request parameter instead of this filter.</p> </li> <li> <p> <code>owner-id</code> - The Amazon Web Services account ID of the owner. We recommend that you use the <b>Owner</b> request parameter instead of this filter.</p> </li> <li> <p> <code>platform</code> - The platform. The only supported value is <code>windows</code>.</p> </li> <li> <p> <code>product-code</code> - The product code.</p> </li> <li> <p> <code>product-code.type</code> - The type of the product code (<code>marketplace</code>).</p> </li> <li> <p> <code>public-ssm-parameter-name</code> - The name of a public Systems Manager parameter associated with the AMI. The parameter must be in a trusted Amazon Web Services namespace under <code>aws/service/</code>. Returns all AMIs that have ever been associated with the parameter, including previous versions.</p> </li> <li> <p> <code>ramdisk-id</code> - The RAM disk ID.</p> </li> <li> <p> <code>root-device-name</code> - The device name of the root device volume (for example, <code>/dev/sda1</code>).</p> </li> <li> <p> <code>root-device-type</code> - The type of the root device volume (<code>ebs</code> | <code>instance-store</code>).</p> </li> <li> <p> <code>scan-result.critical-fix-available-since</code> - The earliest date and time, in the ISO 8601 format in the UTC time zone (YYYY-MM-DDThh:mm:ss.sssZ), at which Amazon Inspector reported a fix as available for a <code>critical</code> severity finding on the AMI.</p> </li> <li> <p> <code>scan-result.finding-scan-date</code> - The date and time, in the ISO 8601 format in the UTC time zone (YYYY-MM-DDThh:mm:ss.sssZ), of the most recent Amazon Inspector scan of the AMI.</p> </li> <li> <p> <code>scan-result.high-fix-available-since</code> - The earliest date and time, in the ISO 8601 format in the UTC time zone (YYYY-MM-DDThh:mm:ss.sssZ), at which Amazon Inspector reported a fix as available for a <code>high</code> severity finding on the AMI.</p> </li> <li> <p> <code>scan-result.highest-finding-severity-label</code> - The highest severity among the AMI's Amazon Inspector findings, whether or not a fix is available. The valid values are the following Amazon Inspector severity levels:</p> <ul> <li> <p> <code>informational</code> - CVSS score of 0.</p> </li> <li> <p> <code>low</code> - CVSS score of 0.1 to 3.9.</p> </li> <li> <p> <code>medium</code> - CVSS score of 4.0 to 6.9.</p> </li> <li> <p> <code>high</code> - CVSS score of 7.0 to 8.9.</p> </li> <li> <p> <code>critical</code> - CVSS score of 9.0 to 10.0.</p> </li> </ul> </li> <li> <p> <code>scan-result.informational-fix-available-since</code> - The earliest date and time, in the ISO 8601 format in the UTC time zone (YYYY-MM-DDThh:mm:ss.sssZ), at which Amazon Inspector reported a fix as available for an <code>informational</code> severity finding on the AMI.</p> </li> <li> <p> <code>scan-result.low-fix-available-since</code> - The earliest date and time, in the ISO 8601 format in the UTC time zone (YYYY-MM-DDThh:mm:ss.sssZ), at which Amazon Inspector reported a fix as available for a <code>low</code> severity finding on the AMI.</p> </li> <li> <p> <code>scan-result.medium-fix-available-since</code> - The earliest date and time, in the ISO 8601 format in the UTC time zone (YYYY-MM-DDThh:mm:ss.sssZ), at which Amazon Inspector reported a fix as available for a <code>medium</code> severity finding on the AMI.</p> </li> <li> <p> <code>source-image-id</code> - The ID of the source AMI from which the AMI was created.</p> </li> <li> <p> <code>source-image-region</code> - The Region of the source AMI.</p> </li> <li> <p> <code>source-instance-id</code> - The ID of the instance that the AMI was created from if the AMI was created using CreateImage. This filter is applicable only if the AMI was created using <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateImage.html">CreateImage</a>.</p> </li> <li> <p> <code>state</code> - The state of the image (<code>available</code> | <code>pending</code> | <code>failed</code>).</p> </li> <li> <p> <code>state-reason-code</code> - The reason code for the state change.</p> </li> <li> <p> <code>state-reason-message</code> - The message for the state change.</p> </li> <li> <p> <code>sriov-net-support</code> - A value of <code>simple</code> indicates that enhanced networking with the Intel 82599 VF interface is enabled.</p> </li> <li> <p> <code>tag:<key></code> - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter value.</p> </li> <li> <p> <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.</p> </li> <li> <p> <code>virtualization-type</code> - The virtualization type (<code>paravirtual</code> | <code>hvm</code>).</p> </li> </ul>
 
         Raises:
             capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -43703,6 +43732,87 @@ class AsyncEC2Client:
             if not _token:
                 break
 
+    async def get_capacity_manager_supportability_scores(
+        self,
+        *,
+        config_overrides: Optional[AsyncEC2ClientConfig] = None,
+        market_type: Optional[
+            "capo_ec2.types.supportability_market_type.SupportabilityMarketType"
+        ] = None,
+        capacity_amount: Optional[
+            "capo_ec2.types.capacity_amount.CapacityAmount"
+        ] = None,
+        capacity_unit: Optional["capo_ec2.types.capacity_unit.CapacityUnit"] = None,
+        capacity_availability_zone_ids: Optional[
+            "capo_ec2.types.capacity_availability_zone_id_list.CapacityAvailabilityZoneIdList"
+        ] = None,
+        instance_types: Optional[
+            "capo_ec2.types.supportability_instance_type_list.SupportabilityInstanceTypeList"
+        ] = None,
+        instance_requirements_with_metadata: Optional[
+            "capo_ec2.types.instance_requirements_with_metadata_request.InstanceRequirementsWithMetadataRequest"
+        ] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "capo_ec2.types.get_capacity_manager_supportability_scores_result.GetCapacityManagerSupportabilityScoresResult":
+        """<p> Scores how well each instance type and Availability Zone combination can support a capacity request, based on current Amazon EC2 capacity. The response includes a score for each combination and an aggregate score for all combinations in the request. This action doesn't launch or reserve instances, and a score doesn't guarantee that a later launch will succeed. </p> <p> Call this action in the Region where you turned on Capacity Manager. A single request can include Availability Zones in any Region. Real-time supportability checks are available only to Amazon Web Services Support customers on the Unified Operations plan. </p> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/capacity-manager-supportability.html">Check supportability</a> in the <i>Amazon EC2 User Guide</i>.</p>
+
+        Args:
+            market_type: <p> The capacity market to score. </p>
+            capacity_amount: <p> The amount of capacity that you need, in the unit that you specify for <code>CapacityUnit</code>. Each score is relative to this amount. </p>
+            capacity_unit: <p> The unit for <code>CapacityAmount</code>. </p>
+            capacity_availability_zone_ids: <p> The IDs of the Availability Zones to score, such as <code>use1-az1</code>. You can specify Availability Zones in different Regions. You can specify up to 10 Availability Zones. </p>
+            instance_types: <p> The instance types to score. You can specify up to 50 instance types. </p> <p> Specify either <code>InstanceTypes</code> or <code>InstanceRequirementsWithMetadata</code>, but not both. </p>
+            instance_requirements_with_metadata: <p> The attributes that the instance types must have, such as vCPU and memory ranges. Capacity Manager resolves the attributes into matching instance types and scores each one. </p> <p> Specify either <code>InstanceTypes</code> or <code>InstanceRequirementsWithMetadata</code>, but not both. </p>
+            dry_run: <p> Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>. </p>
+
+        Raises:
+            capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ec2.types.get_capacity_manager_supportability_scores_request.GetCapacityManagerSupportabilityScoresRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ec2.types.get_capacity_manager_supportability_scores_result.GetCapacityManagerSupportabilityScoresResult"
+        ]:
+            import capo_ec2._operations.amazon_ec2.get_capacity_manager_supportability_scores
+
+            (
+                output,
+                http_response,
+            ) = await capo_ec2._operations.amazon_ec2.get_capacity_manager_supportability_scores.async_get_capacity_manager_supportability_scores(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCapacityManagerSupportabilityScores")
+        )
+        input_: capo_ec2.types.get_capacity_manager_supportability_scores_request.GetCapacityManagerSupportabilityScoresRequest = {}
+        if market_type is not None:
+            input_["market_type"] = market_type
+        if capacity_amount is not None:
+            input_["capacity_amount"] = capacity_amount
+        if capacity_unit is not None:
+            input_["capacity_unit"] = capacity_unit
+        if capacity_availability_zone_ids is not None:
+            input_["capacity_availability_zone_ids"] = capacity_availability_zone_ids
+        if instance_types is not None:
+            input_["instance_types"] = instance_types
+        if instance_requirements_with_metadata is not None:
+            input_["instance_requirements_with_metadata"] = (
+                instance_requirements_with_metadata
+            )
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def get_capacity_reservation_usage(
         self,
         *,
@@ -44525,6 +44635,92 @@ class AsyncEC2Client:
         )
         await response.response.aclose()
         return response.output
+
+    async def get_image_findings(
+        self,
+        *,
+        config_overrides: Optional[AsyncEC2ClientConfig] = None,
+        image_id: Optional["capo_ec2.types.image_id.ImageId"] = None,
+        max_results: Optional[
+            "capo_ec2.types.get_image_findings_max_results.GetImageFindingsMaxResults"
+        ] = None,
+        next_token: Optional["capo_ec2.types.string.String"] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "capo_ec2.types.get_image_findings_result.GetImageFindingsResult":
+        """<p>Describes the Amazon Inspector vulnerability findings for the specified AMI.</p> <p>You can get findings for AMIs that you own, AMIs that are shared with you, and public AMIs. Amazon Inspector returns findings only for AMIs that it has scanned.</p>
+
+        Args:
+            image_id: <p>The ID of the AMI.</p>
+            max_results: <p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.</p>
+            next_token: <p>The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.</p>
+            dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+
+        Raises:
+            capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ec2.types.get_image_findings_request.GetImageFindingsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ec2.types.get_image_findings_result.GetImageFindingsResult"
+        ]:
+            import capo_ec2._operations.amazon_ec2.get_image_findings
+
+            (
+                output,
+                http_response,
+            ) = await capo_ec2._operations.amazon_ec2.get_image_findings.async_get_image_findings(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetImageFindings")
+        )
+        input_: capo_ec2.types.get_image_findings_request.GetImageFindingsRequest = {}
+        if image_id is not None:
+            input_["image_id"] = image_id
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_get_image_findings(
+        self,
+        *,
+        config_overrides: Optional[AsyncEC2ClientConfig] = None,
+        image_id: Optional["capo_ec2.types.image_id.ImageId"] = None,
+        max_results: Optional[
+            "capo_ec2.types.get_image_findings_max_results.GetImageFindingsMaxResults"
+        ] = None,
+        next_token: Optional["capo_ec2.types.string.String"] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "AsyncIterator[capo_ec2.types.image_finding.ImageFinding]":
+        _token = next_token
+        while True:
+            _response = await self.get_image_findings(
+                config_overrides=config_overrides,
+                image_id=image_id,
+                max_results=max_results,
+                next_token=_token,
+                dry_run=dry_run,
+            )
+            _page = _resolve_path(_response, ("image_findings",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
 
     async def get_instance_metadata_defaults(
         self,

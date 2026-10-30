@@ -41,6 +41,8 @@ if TYPE_CHECKING:
     import capo_opensearch.types.add_data_source_response
     import capo_opensearch.types.add_direct_query_data_source_request
     import capo_opensearch.types.add_direct_query_data_source_response
+    import capo_opensearch.types.add_replication_peer_request
+    import capo_opensearch.types.add_replication_peer_response
     import capo_opensearch.types.add_tags_request
     import capo_opensearch.types.advanced_options
     import capo_opensearch.types.advanced_security_options_input
@@ -75,6 +77,8 @@ if TYPE_CHECKING:
     import capo_opensearch.types.cluster_config
     import capo_opensearch.types.cognito_options
     import capo_opensearch.types.commit_message
+    import capo_opensearch.types.compare_domain_configuration_request
+    import capo_opensearch.types.compare_domain_configuration_response
     import capo_opensearch.types.connection_alias
     import capo_opensearch.types.connection_id
     import capo_opensearch.types.connection_mode
@@ -128,6 +132,8 @@ if TYPE_CHECKING:
     import capo_opensearch.types.describe_domain_health_response
     import capo_opensearch.types.describe_domain_nodes_request
     import capo_opensearch.types.describe_domain_nodes_response
+    import capo_opensearch.types.describe_domain_replication_request
+    import capo_opensearch.types.describe_domain_replication_response
     import capo_opensearch.types.describe_domain_request
     import capo_opensearch.types.describe_domain_response
     import capo_opensearch.types.describe_domains_request
@@ -174,6 +180,8 @@ if TYPE_CHECKING:
     import capo_opensearch.types.engine_mode
     import capo_opensearch.types.engine_type
     import capo_opensearch.types.engine_version
+    import capo_opensearch.types.failover_replication_request
+    import capo_opensearch.types.failover_replication_response
     import capo_opensearch.types.filter_list
     import capo_opensearch.types.get_application_request
     import capo_opensearch.types.get_application_response
@@ -258,6 +266,7 @@ if TYPE_CHECKING:
     import capo_opensearch.types.maintenance_status
     import capo_opensearch.types.maintenance_type
     import capo_opensearch.types.max_results
+    import capo_opensearch.types.metadata_category_list
     import capo_opensearch.types.migration_options
     import capo_opensearch.types.next_token
     import capo_opensearch.types.node_id
@@ -286,6 +295,8 @@ if TYPE_CHECKING:
     import capo_opensearch.types.register_capability_response
     import capo_opensearch.types.reject_inbound_connection_request
     import capo_opensearch.types.reject_inbound_connection_response
+    import capo_opensearch.types.remove_replication_peer_request
+    import capo_opensearch.types.remove_replication_peer_response
     import capo_opensearch.types.remove_tags_request
     import capo_opensearch.types.request_id
     import capo_opensearch.types.reservation_token
@@ -305,6 +316,8 @@ if TYPE_CHECKING:
     import capo_opensearch.types.start_service_software_update_response
     import capo_opensearch.types.string
     import capo_opensearch.types.string_list
+    import capo_opensearch.types.switchover_replication_request
+    import capo_opensearch.types.switchover_replication_response
     import capo_opensearch.types.tag_list
     import capo_opensearch.types.update_application_request
     import capo_opensearch.types.update_application_response
@@ -619,6 +632,64 @@ class AsyncOpenSearchClient:
             input_["data_source_access_policy"] = data_source_access_policy
         if tag_list is not None:
             input_["tag_list"] = tag_list
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def add_replication_peer(
+        self,
+        domain_name: "capo_opensearch.types.domain_name.DomainName",
+        peer_domain_arn: "capo_opensearch.types.domain_arn.DomainArn",
+        *,
+        config_overrides: Optional[AsyncOpenSearchClientConfig] = None,
+        dry_run: Optional["capo_opensearch.types.boolean.Boolean"] = None,
+    ) -> (
+        "capo_opensearch.types.add_replication_peer_response.AddReplicationPeerResponse"
+    ):
+        """<p>Starts replicating a domain to a peer domain in another AWS Region. A domain can have one peer. The domain you call becomes the primary and the peer becomes the secondary, which receives a copy of the primary's indexes and serves read requests.</p> <p>Replication is established asynchronously. Use the <code>DescribeDomainReplication</code> operation to check whether the relationship has reached the <code>ACTIVE</code> state.</p>
+
+        Args:
+            peer_domain_arn: <p>The Amazon Resource Name (ARN) of the domain to replicate to. The peer must be in a different Region from the domain you are calling, and in the same AWS account.</p>
+            dry_run: <p>When <code>true</code>, validates the request and reports whether replication could be established, without changing either domain.</p>
+
+        Raises:
+            capo_opensearch.errors.disabled_operation_exception.DisabledOperationException: <p>An error occured because the client wanted to access an unsupported operation.</p>
+            capo_opensearch.errors.internal_exception.InternalException: <p>Request processing failed because of an unknown error, exception, or internal failure.</p>
+            capo_opensearch.errors.resource_already_exists_exception.ResourceAlreadyExistsException: <p>An exception for creating a resource that already exists.</p>
+            capo_opensearch.errors.resource_not_found_exception.ResourceNotFoundException: <p>An exception for accessing or deleting a resource that doesn't exist.</p>
+            capo_opensearch.errors.validation_exception.ValidationException: <p>An exception for accessing or deleting a resource that doesn't exist.</p>
+            capo_opensearch.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_opensearch.types.add_replication_peer_request.AddReplicationPeerRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_opensearch.types.add_replication_peer_response.AddReplicationPeerResponse"
+        ]:
+            import capo_opensearch._operations.amazon_open_search_service.add_replication_peer
+
+            (
+                output,
+                http_response,
+            ) = await capo_opensearch._operations.amazon_open_search_service.add_replication_peer.async_add_replication_peer(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddReplicationPeer")
+        )
+        input_: capo_opensearch.types.add_replication_peer_request.AddReplicationPeerRequest = {
+            "domain_name": domain_name,
+            "peer_domain_arn": peer_domain_arn,
+        }
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -1023,6 +1094,61 @@ class AsyncOpenSearchClient:
         )
         input_: capo_opensearch.types.cancel_service_software_update_request.CancelServiceSoftwareUpdateRequest = {
             "domain_name": domain_name
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def compare_domain_configuration(
+        self,
+        source_domain_arn: "capo_opensearch.types.domain_arn.DomainArn",
+        target_domain_arn: "capo_opensearch.types.domain_arn.DomainArn",
+        categories: "capo_opensearch.types.metadata_category_list.MetadataCategoryList",
+        *,
+        config_overrides: Optional[AsyncOpenSearchClientConfig] = None,
+    ) -> "capo_opensearch.types.compare_domain_configuration_response.CompareDomainConfigurationResponse":
+        """<p>Compares the metadata of two domains and reports where they differ. Use this operation to check that a secondary domain is configured consistently with its primary before you rely on it, because replication copies index data but does not copy domain metadata such as index templates, ingest pipelines, or security roles.</p> <p>You choose which categories to compare. The response reports, for each category, how many items match, how many exist on only one domain, and which fields diverge.</p>
+
+        Args:
+            source_domain_arn: <p>The Amazon Resource Name (ARN) of the domain to compare from.</p>
+            target_domain_arn: <p>The Amazon Resource Name (ARN) of the domain to compare against.</p>
+            categories: <p>The metadata categories to compare. At least one is required, and only the categories you name are read and returned.</p> <ul> <li> <p> <code>aliases</code> </p> </li> <li> <p> <code>alerting_monitors</code> </p> </li> <li> <p> <code>cluster_settings</code> </p> </li> <li> <p> <code>component_templates</code> </p> </li> <li> <p> <code>ingest_pipelines</code> </p> </li> <li> <p> <code>ism_policies</code> — index state management policies</p> </li> <li> <p> <code>security_action_groups</code> </p> </li> <li> <p> <code>security_internal_users</code> </p> </li> <li> <p> <code>security_role_mappings</code> </p> </li> <li> <p> <code>security_roles</code> </p> </li> <li> <p> <code>templates</code> — index templates</p> </li> </ul> <p>The set of categories grows over time, so this list is not fixed. A category the service does not recognise is rejected with the supported categories named in the error message.</p>
+
+        Raises:
+            capo_opensearch.errors.disabled_operation_exception.DisabledOperationException: <p>An error occured because the client wanted to access an unsupported operation.</p>
+            capo_opensearch.errors.internal_exception.InternalException: <p>Request processing failed because of an unknown error, exception, or internal failure.</p>
+            capo_opensearch.errors.resource_not_found_exception.ResourceNotFoundException: <p>An exception for accessing or deleting a resource that doesn't exist.</p>
+            capo_opensearch.errors.validation_exception.ValidationException: <p>An exception for accessing or deleting a resource that doesn't exist.</p>
+            capo_opensearch.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_opensearch.types.compare_domain_configuration_request.CompareDomainConfigurationRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_opensearch.types.compare_domain_configuration_response.CompareDomainConfigurationResponse"
+        ]:
+            import capo_opensearch._operations.amazon_open_search_service.compare_domain_configuration
+
+            (
+                output,
+                http_response,
+            ) = await capo_opensearch._operations.amazon_open_search_service.compare_domain_configuration.async_compare_domain_configuration(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CompareDomainConfiguration")
+        )
+        input_: capo_opensearch.types.compare_domain_configuration_request.CompareDomainConfigurationRequest = {
+            "source_domain_arn": source_domain_arn,
+            "target_domain_arn": target_domain_arn,
+            "categories": categories,
         }
 
         response = await aexecute_pipeline(
@@ -2466,6 +2592,52 @@ class AsyncOpenSearchClient:
         await response.response.aclose()
         return response.output
 
+    async def describe_domain_replication(
+        self,
+        domain_name: "capo_opensearch.types.domain_name.DomainName",
+        *,
+        config_overrides: Optional[AsyncOpenSearchClientConfig] = None,
+    ) -> "capo_opensearch.types.describe_domain_replication_response.DescribeDomainReplicationResponse":
+        """<p>Describes the replication arrangement that a domain participates in, including the domain's role and the state of its relationship with each peer.</p> <p>A domain that is not replicating is returned with an empty <code>Peers</code> list and no <code>Role</code>. Returns <code>ResourceNotFoundException</code> if the domain does not exist.</p>
+
+        Raises:
+            capo_opensearch.errors.disabled_operation_exception.DisabledOperationException: <p>An error occured because the client wanted to access an unsupported operation.</p>
+            capo_opensearch.errors.internal_exception.InternalException: <p>Request processing failed because of an unknown error, exception, or internal failure.</p>
+            capo_opensearch.errors.resource_not_found_exception.ResourceNotFoundException: <p>An exception for accessing or deleting a resource that doesn't exist.</p>
+            capo_opensearch.errors.validation_exception.ValidationException: <p>An exception for accessing or deleting a resource that doesn't exist.</p>
+            capo_opensearch.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_opensearch.types.describe_domain_replication_request.DescribeDomainReplicationRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_opensearch.types.describe_domain_replication_response.DescribeDomainReplicationResponse"
+        ]:
+            import capo_opensearch._operations.amazon_open_search_service.describe_domain_replication
+
+            (
+                output,
+                http_response,
+            ) = await capo_opensearch._operations.amazon_open_search_service.describe_domain_replication.async_describe_domain_replication(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDomainReplication")
+        )
+        input_: capo_opensearch.types.describe_domain_replication_request.DescribeDomainReplicationRequest = {
+            "domain_name": domain_name
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def describe_domains(
         self,
         domain_names: "capo_opensearch.types.domain_name_list.DomainNameList",
@@ -3284,6 +3456,60 @@ class AsyncOpenSearchClient:
         input_: capo_opensearch.types.dissociate_packages_request.DissociatePackagesRequest = {
             "package_list": package_list,
             "domain_name": domain_name,
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def failover_replication(
+        self,
+        domain_name: "capo_opensearch.types.domain_name.DomainName",
+        peer_domain_arn: "capo_opensearch.types.domain_arn.DomainArn",
+        allow_data_loss: "capo_opensearch.types.boolean.Boolean",
+        *,
+        config_overrides: Optional[AsyncOpenSearchClientConfig] = None,
+    ) -> "capo_opensearch.types.failover_replication_response.FailoverReplicationResponse":
+        """<p>Promotes a secondary domain to primary without coordinating with the current primary. Use this operation when the primary is unreachable and you cannot wait for it to recover.</p> <p>Writes that had not yet replicated when the primary became unreachable are lost. You must set <code>AllowDataLoss</code> to acknowledge this. To promote a domain without losing writes, use the <code>SwitchoverReplication</code> operation instead.</p> <p>Call this operation in the Region of the domain you want to promote.</p>
+
+        Args:
+            peer_domain_arn: <p>The Amazon Resource Name (ARN) of the relationship's current primary. The request is rejected if this domain is no longer the peer of the domain you are calling.</p>
+            allow_data_loss: <p>Acknowledges that writes which had not yet replicated are lost. You must set this to <code>true</code>; the request is rejected otherwise.</p>
+
+        Raises:
+            capo_opensearch.errors.disabled_operation_exception.DisabledOperationException: <p>An error occured because the client wanted to access an unsupported operation.</p>
+            capo_opensearch.errors.internal_exception.InternalException: <p>Request processing failed because of an unknown error, exception, or internal failure.</p>
+            capo_opensearch.errors.resource_not_found_exception.ResourceNotFoundException: <p>An exception for accessing or deleting a resource that doesn't exist.</p>
+            capo_opensearch.errors.validation_exception.ValidationException: <p>An exception for accessing or deleting a resource that doesn't exist.</p>
+            capo_opensearch.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_opensearch.types.failover_replication_request.FailoverReplicationRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_opensearch.types.failover_replication_response.FailoverReplicationResponse"
+        ]:
+            import capo_opensearch._operations.amazon_open_search_service.failover_replication
+
+            (
+                output,
+                http_response,
+            ) = await capo_opensearch._operations.amazon_open_search_service.failover_replication.async_failover_replication(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("FailoverReplication")
+        )
+        input_: capo_opensearch.types.failover_replication_request.FailoverReplicationRequest = {
+            "domain_name": domain_name,
+            "peer_domain_arn": peer_domain_arn,
+            "allow_data_loss": allow_data_loss,
         }
 
         response = await aexecute_pipeline(
@@ -5369,6 +5595,57 @@ class AsyncOpenSearchClient:
         await response.response.aclose()
         return response.output
 
+    async def remove_replication_peer(
+        self,
+        domain_name: "capo_opensearch.types.domain_name.DomainName",
+        peer_domain_arn: "capo_opensearch.types.domain_arn.DomainArn",
+        *,
+        config_overrides: Optional[AsyncOpenSearchClientConfig] = None,
+    ) -> "capo_opensearch.types.remove_replication_peer_response.RemoveReplicationPeerResponse":
+        """<p>Stops replicating a domain to its peer. Replication ends for both domains, and each domain keeps the data it holds at that point. Neither domain is deleted.</p>
+
+        Args:
+            peer_domain_arn: <p>The Amazon Resource Name (ARN) of the peer to stop replicating with. Both domains are named so that the request identifies exactly one replication relationship.</p>
+
+        Raises:
+            capo_opensearch.errors.disabled_operation_exception.DisabledOperationException: <p>An error occured because the client wanted to access an unsupported operation.</p>
+            capo_opensearch.errors.internal_exception.InternalException: <p>Request processing failed because of an unknown error, exception, or internal failure.</p>
+            capo_opensearch.errors.resource_not_found_exception.ResourceNotFoundException: <p>An exception for accessing or deleting a resource that doesn't exist.</p>
+            capo_opensearch.errors.validation_exception.ValidationException: <p>An exception for accessing or deleting a resource that doesn't exist.</p>
+            capo_opensearch.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_opensearch.types.remove_replication_peer_request.RemoveReplicationPeerRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_opensearch.types.remove_replication_peer_response.RemoveReplicationPeerResponse"
+        ]:
+            import capo_opensearch._operations.amazon_open_search_service.remove_replication_peer
+
+            (
+                output,
+                http_response,
+            ) = await capo_opensearch._operations.amazon_open_search_service.remove_replication_peer.async_remove_replication_peer(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveReplicationPeer")
+        )
+        input_: capo_opensearch.types.remove_replication_peer_request.RemoveReplicationPeerRequest = {
+            "domain_name": domain_name,
+            "peer_domain_arn": peer_domain_arn,
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def remove_tags(
         self,
         arn: "capo_opensearch.types.arn.ARN",
@@ -5697,6 +5974,57 @@ class AsyncOpenSearchClient:
             input_["schedule_at"] = schedule_at
         if desired_start_time is not None:
             input_["desired_start_time"] = desired_start_time
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def switchover_replication(
+        self,
+        domain_name: "capo_opensearch.types.domain_name.DomainName",
+        peer_domain_arn: "capo_opensearch.types.domain_arn.DomainArn",
+        *,
+        config_overrides: Optional[AsyncOpenSearchClientConfig] = None,
+    ) -> "capo_opensearch.types.switchover_replication_response.SwitchoverReplicationResponse":
+        """<p>Promotes a secondary domain to primary, coordinating with the current primary so that no writes are lost. Use this operation for planned role changes, such as testing your recovery procedure or moving write traffic to another Region.</p> <p>Call this operation in the Region of the domain you want to promote. If the current primary is unreachable, use the <code>FailoverReplication</code> operation instead.</p>
+
+        Args:
+            peer_domain_arn: <p>The Amazon Resource Name (ARN) of the relationship's current primary. The request is rejected if this domain is no longer the peer of the domain you are calling.</p>
+
+        Raises:
+            capo_opensearch.errors.disabled_operation_exception.DisabledOperationException: <p>An error occured because the client wanted to access an unsupported operation.</p>
+            capo_opensearch.errors.internal_exception.InternalException: <p>Request processing failed because of an unknown error, exception, or internal failure.</p>
+            capo_opensearch.errors.resource_not_found_exception.ResourceNotFoundException: <p>An exception for accessing or deleting a resource that doesn't exist.</p>
+            capo_opensearch.errors.validation_exception.ValidationException: <p>An exception for accessing or deleting a resource that doesn't exist.</p>
+            capo_opensearch.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_opensearch.types.switchover_replication_request.SwitchoverReplicationRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_opensearch.types.switchover_replication_response.SwitchoverReplicationResponse"
+        ]:
+            import capo_opensearch._operations.amazon_open_search_service.switchover_replication
+
+            (
+                output,
+                http_response,
+            ) = await capo_opensearch._operations.amazon_open_search_service.switchover_replication.async_switchover_replication(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SwitchoverReplication")
+        )
+        input_: capo_opensearch.types.switchover_replication_request.SwitchoverReplicationRequest = {
+            "domain_name": domain_name,
+            "peer_domain_arn": peer_domain_arn,
+        }
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

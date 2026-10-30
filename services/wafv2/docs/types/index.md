@@ -45,6 +45,8 @@
 - [CaptchaResponse](captcha_response.md)
 - [ChallengeAction](challenge_action.md)
 - [ChallengeConfig](challenge_config.md)
+- [ChallengeJavascriptSdkInjection](challenge_javascript_sdk_injection.md)
+- [ChallengeJavascriptSdkInjectionConfig](challenge_javascript_sdk_injection_config.md)
 - [ChallengeResponse](challenge_response.md)
 - [CheckCapacityRequest](check_capacity_request.md)
 - [CheckCapacityResponse](check_capacity_response.md)

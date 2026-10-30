@@ -47,6 +47,7 @@ if TYPE_CHECKING:
     import capo_connectparticipant.types.complete_attachment_upload_response
     import capo_connectparticipant.types.connection_type_list
     import capo_connectparticipant.types.contact_id
+    import capo_connectparticipant.types.content_disposition
     import capo_connectparticipant.types.content_type
     import capo_connectparticipant.types.create_participant_connection_request
     import capo_connectparticipant.types.create_participant_connection_response
@@ -492,6 +493,9 @@ class ConnectParticipantClient:
         url_expiry_in_seconds: Optional[
             "capo_connectparticipant.types.url_expiry_in_seconds.URLExpiryInSeconds"
         ] = None,
+        url_content_disposition: Optional[
+            "capo_connectparticipant.types.content_disposition.ContentDisposition"
+        ] = None,
     ) -> "capo_connectparticipant.types.get_attachment_response.GetAttachmentResponse":
         """<p>Provides a pre-signed URL for download of a completed attachment. This is an asynchronous API for use with active contacts.</p> <p>For security recommendations, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/security-best-practices.html#bp-security-chat">Connect Customer Chat security best practices</a>. </p> <note> <ul> <li> <p>The participant role <code>CUSTOM_BOT</code> is not permitted to access attachments customers may upload. An <code>AccessDeniedException</code> can indicate that the participant may be a CUSTOM_BOT, and it doesn't have access to attachments.</p> </li> <li> <p> <code>ConnectionToken</code> is used for invoking this API instead of <code>ParticipantToken</code>.</p> </li> </ul> </note> <p>The Amazon Connect Participant Service APIs do not use <a href="https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html">Signature Version 4 authentication</a>.</p>
 
@@ -499,6 +503,7 @@ class ConnectParticipantClient:
             attachment_id: <p>A unique identifier for the attachment.</p>
             connection_token: <p>The authentication token associated with the participant's connection.</p>
             url_expiry_in_seconds: <p>The expiration time of the URL in ISO timestamp. It's specified in ISO 8601 format: yyyy-MM-ddThh:mm:ss.SSSZ. For example, 2019-11-08T02:41:28.172Z.</p>
+            url_content_disposition: <p>Specifies how a browser handles the file at the pre-signed URL. The following values are valid:</p> <dl> <dt>INLINE</dt> <dd> <p>Displays the file in the browser.</p> </dd> <dt>ATTACHMENT</dt> <dd> <p>Downloads the file. This is the default behavior.</p> </dd> </dl>
 
         Raises:
             capo_connectparticipant.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -531,6 +536,8 @@ class ConnectParticipantClient:
         }
         if url_expiry_in_seconds is not None:
             input_["url_expiry_in_seconds"] = url_expiry_in_seconds
+        if url_content_disposition is not None:
+            input_["url_content_disposition"] = url_content_disposition
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -795,7 +802,7 @@ class ConnectParticipantClient:
 
         Args:
             content_type: <p>The type of the content. Possible types are <code>text/plain</code>, <code>text/markdown</code>, <code>application/json</code>, and <code>application/vnd.amazonaws.connect.message.interactive.response</code>. </p> <p>Supported types on the contact are configured through <code>SupportedMessagingContentTypes</code> on <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_StartChatContact.html">StartChatContact</a> and <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_StartOutboundChatContact.html">StartOutboundChatContact</a>.</p> <p> For Apple Messages for Business, SMS, and WhatsApp Business Messaging contacts, only <code>text/plain</code> is supported.</p>
-            content: <p>The content of the message. </p> <ul> <li> <p>For <code>text/plain</code> and <code>text/markdown</code>, the Length Constraints are Minimum of 1, Maximum of 1024. </p> </li> <li> <p>For <code>application/json</code>, the Length Constraints are Minimum of 1, Maximum of 12000. </p> </li> <li> <p>For <code>application/vnd.amazonaws.connect.message.interactive.response</code>, the Length Constraints are Minimum of 1, Maximum of 12288.</p> </li> </ul>
+            content: <p>The content of the message. Maximum of 16,384 bytes for all content types (<code>text/plain</code>, <code>text/markdown</code>, <code>application/json</code>, and <code>application/vnd.amazonaws.connect.message.interactive.response</code>).</p> <p>Some messaging channels enforce lower limits. For channel-specific message size limits, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/feature-limits.html#chat-message-size-limits">Chat message size limits by channel</a> in the <i>Amazon Connect Customer Administrator Guide</i>.</p>
             client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
             connection_token: <p>The authentication token associated with the connection.</p>
 

@@ -1,6 +1,11 @@
 """Generated from Smithy shape ``com.amazonaws.inspector2#Destination``."""
 
+from typing import TYPE_CHECKING
+
 from typing_extensions import NotRequired, TypedDict
+
+if TYPE_CHECKING:
+    import capo_inspector2.types.account_id
 
 
 class Destination(TypedDict, closed=True):
@@ -10,6 +15,8 @@ class Destination(TypedDict, closed=True):
     """<p>The prefix that the findings will be written under.</p>"""
     kms_key_arn: "str"
     """<p>The ARN of the KMS key used to encrypt data when exporting findings.</p>"""
+    expected_bucket_owner: NotRequired["capo_inspector2.types.account_id.AccountId"]
+    """<p>The Amazon Web Services account ID of the expected owner of the Amazon S3 bucket. If the actual bucket owner does not match, the export request fails.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -19,6 +26,8 @@ def serialize_json(value: Destination) -> dict:
     if "key_prefix" in value:
         out["keyPrefix"] = value["key_prefix"]
     out["kmsKeyArn"] = value["kms_key_arn"]
+    if "expected_bucket_owner" in value:
+        out["expectedBucketOwner"] = value["expected_bucket_owner"]
     return out
 
 
@@ -34,4 +43,6 @@ def deserialize_json(data: dict) -> Destination:
         out["kms_key_arn"] = data["kmsKeyArn"]
     else:
         out["kms_key_arn"] = ""
+    if data.get("expectedBucketOwner") is not None:
+        out["expected_bucket_owner"] = data["expectedBucketOwner"]
     return out

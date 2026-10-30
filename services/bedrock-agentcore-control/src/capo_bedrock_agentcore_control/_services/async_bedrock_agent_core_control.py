@@ -131,6 +131,7 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.agent_runtime_name
     import capo_bedrock_agentcore_control.types.agent_runtime_version
     import capo_bedrock_agentcore_control.types.agent_runtime_version_summary
+    import capo_bedrock_agentcore_control.types.allowed_ports
     import capo_bedrock_agentcore_control.types.api_key_credential_provider_item
     import capo_bedrock_agentcore_control.types.approval_configuration
     import capo_bedrock_agentcore_control.types.arn
@@ -588,6 +589,8 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.registry_status
     import capo_bedrock_agentcore_control.types.registry_summary
     import capo_bedrock_agentcore_control.types.request_header_configuration
+    import capo_bedrock_agentcore_control.types.reset_token_vault_key_material_request
+    import capo_bedrock_agentcore_control.types.reset_token_vault_key_material_response
     import capo_bedrock_agentcore_control.types.resource
     import capo_bedrock_agentcore_control.types.resource_id
     import capo_bedrock_agentcore_control.types.resource_oauth2_return_url_list_type
@@ -1094,6 +1097,58 @@ class AsyncBedrockAgentCoreControlClient:
         await response.response.aclose()
         return response.output
 
+    async def reset_token_vault_key_material(
+        self,
+        token_vault_id: "capo_bedrock_agentcore_control.types.token_vault_id_type.TokenVaultIdType",
+        *,
+        config_overrides: Optional[AsyncBedrockAgentCoreControlClientConfig] = None,
+    ) -> "capo_bedrock_agentcore_control.types.reset_token_vault_key_material_response.ResetTokenVaultKeyMaterialResponse":
+        """<p>Resets the key material for a token vault whose customer managed KMS key has been deleted, and re-encrypts the token vault with an Amazon Web Services managed key so that you can use the token vault again.</p> <important> <p>This operation can't be undone. The reset permanently deletes the OAuth2 access tokens and refresh tokens stored in the token vault, including tokens obtained through all supported flows. After the reset, your agents must complete these flows again to get new tokens, and for user-delegated flows your users must authorize access again. The reset doesn't delete your credential providers or their configuration.</p> </important> <p>You can reset a token vault only if its customer managed key has been deleted. If the key still exists, including when it's disabled or scheduled for deletion, this operation returns a <code>ValidationException</code>. To use the token vault again, enable the key or cancel its scheduled deletion in KMS. To switch to a different key, use <code>SetTokenVaultCMK</code>.</p>
+
+        Args:
+            token_vault_id: <p>The unique identifier of the token vault to reset. To reset your account's default token vault, specify <code>default</code>.</p>
+
+        Raises:
+            capo_bedrock_agentcore_control.errors.access_denied_exception.AccessDeniedException: <p>This exception is thrown when a request is denied per access permissions</p>
+            capo_bedrock_agentcore_control.errors.conflict_exception.ConflictException: <p>This exception is thrown when there is a conflict performing an operation</p>
+            capo_bedrock_agentcore_control.errors.internal_server_exception.InternalServerException: <p>This exception is thrown if there was an unexpected error during processing of request</p>
+            capo_bedrock_agentcore_control.errors.resource_not_found_exception.ResourceNotFoundException: <p>This exception is thrown when a resource referenced by the operation does not exist</p>
+            capo_bedrock_agentcore_control.errors.throttling_exception.ThrottlingException: <p>This exception is thrown when the number of requests exceeds the limit</p>
+            capo_bedrock_agentcore_control.errors.unauthorized_exception.UnauthorizedException: <p>This exception is thrown when the JWT bearer token is invalid or not found for OAuth bearer token based access</p>
+            capo_bedrock_agentcore_control.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service.</p>
+            capo_bedrock_agentcore_control.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_bedrock_agentcore_control.types.reset_token_vault_key_material_request.ResetTokenVaultKeyMaterialRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_bedrock_agentcore_control.types.reset_token_vault_key_material_response.ResetTokenVaultKeyMaterialResponse"
+        ]:
+            import capo_bedrock_agentcore_control._operations.amazon_bedrock_agent_core_control.reset_token_vault_key_material
+
+            (
+                output,
+                http_response,
+            ) = await capo_bedrock_agentcore_control._operations.amazon_bedrock_agent_core_control.reset_token_vault_key_material.async_reset_token_vault_key_material(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResetTokenVaultKeyMaterial")
+        )
+        input_: capo_bedrock_agentcore_control.types.reset_token_vault_key_material_request.ResetTokenVaultKeyMaterialRequest = {
+            "token_vault_id": token_vault_id
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def set_token_vault_cmk(
         self,
         kms_configuration: "capo_bedrock_agentcore_control.types.kms_configuration.KmsConfiguration",
@@ -1112,6 +1167,7 @@ class AsyncBedrockAgentCoreControlClient:
         Raises:
             capo_bedrock_agentcore_control.errors.access_denied_exception.AccessDeniedException: <p>This exception is thrown when a request is denied per access permissions</p>
             capo_bedrock_agentcore_control.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown when a resource is modified concurrently by multiple requests.</p>
+            capo_bedrock_agentcore_control.errors.conflict_exception.ConflictException: <p>This exception is thrown when there is a conflict performing an operation</p>
             capo_bedrock_agentcore_control.errors.internal_server_exception.InternalServerException: <p>This exception is thrown if there was an unexpected error during processing of request</p>
             capo_bedrock_agentcore_control.errors.resource_not_found_exception.ResourceNotFoundException: <p>This exception is thrown when a resource referenced by the operation does not exist</p>
             capo_bedrock_agentcore_control.errors.throttling_exception.ThrottlingException: <p>This exception is thrown when the number of requests exceeds the limit</p>
@@ -1744,6 +1800,9 @@ class AsyncBedrockAgentCoreControlClient:
         platform_version: Optional[
             "capo_bedrock_agentcore_control.types.platform_version.PlatformVersion"
         ] = None,
+        allowed_ports: Optional[
+            "capo_bedrock_agentcore_control.types.allowed_ports.AllowedPorts"
+        ] = None,
     ) -> "capo_bedrock_agentcore_control.types.create_agent_runtime_response.CreateAgentRuntimeResponse":
         """<p>Creates an Amazon Bedrock AgentCore Runtime.</p>
 
@@ -1756,12 +1815,14 @@ class AsyncBedrockAgentCoreControlClient:
             description: <p>The description of the AgentCore Runtime.</p>
             authorizer_configuration: <p>The authorizer configuration for the AgentCore Runtime.</p>
             request_header_configuration: <p>Configuration for HTTP request headers that will be passed through to the runtime.</p>
+            protocol_configuration: <p>The protocol configuration for the AgentCore Runtime, including the protocol, port, and path on which the agent server is available.</p>
             lifecycle_configuration: <p>The life cycle configuration for the AgentCore Runtime.</p>
             environment_variables: <p>Environment variables to set in the AgentCore Runtime environment.</p>
             filesystem_configurations: <p>The filesystem configurations to mount into the AgentCore Runtime. Use filesystem configurations to provide persistent storage to your AgentCore Runtime sessions.</p>
             capacity_provider_configuration: <p>The capacity provider configuration for the AgentCore Runtime. Use a capacity provider to run the AgentCore Runtime on the Instances compute type, which provisions Amazon Web Services managed compute in your account.</p>
             tags: <p>A map of tag keys and values to assign to the agent runtime. Tags enable you to categorize your resources in different ways, for example, by purpose, owner, or environment.</p>
             platform_version: <p>The version of the runtime platform to use for the AgentCore Runtime.</p>
+            allowed_ports: <p>The additional ports on the AgentCore Runtime that are reachable through the runtime's session URL. Specify one to five non-overlapping entries, each containing either a single port or an inclusive port range. Ports must be between <code>8000</code> and <code>12000</code>, excluding the reserved port <code>8443</code>.</p>
 
         Raises:
             capo_bedrock_agentcore_control.errors.access_denied_exception.AccessDeniedException: <p>This exception is thrown when a request is denied per access permissions</p>
@@ -1831,6 +1892,8 @@ class AsyncBedrockAgentCoreControlClient:
             input_["tags"] = tags
         if platform_version is not None:
             input_["platform_version"] = platform_version
+        if allowed_ports is not None:
+            input_["allowed_ports"] = allowed_ports
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -1946,6 +2009,9 @@ class AsyncBedrockAgentCoreControlClient:
         platform_version: Optional[
             "capo_bedrock_agentcore_control.types.platform_version.PlatformVersion"
         ] = None,
+        allowed_ports: Optional[
+            "capo_bedrock_agentcore_control.types.allowed_ports.AllowedPorts"
+        ] = None,
         client_token: Optional[
             "capo_bedrock_agentcore_control.types.client_token.ClientToken"
         ] = None,
@@ -1960,12 +2026,14 @@ class AsyncBedrockAgentCoreControlClient:
             description: <p>The updated description of the AgentCore Runtime.</p>
             authorizer_configuration: <p>The updated authorizer configuration for the AgentCore Runtime.</p>
             request_header_configuration: <p>The updated configuration for HTTP request headers that will be passed through to the runtime.</p>
+            protocol_configuration: <p>The updated protocol configuration for the AgentCore Runtime, including the protocol, port, and path on which the agent server is available.</p>
             lifecycle_configuration: <p>The updated life cycle configuration for the AgentCore Runtime.</p>
             metadata_configuration: <p>The updated configuration for microVM Metadata Service (MMDS) settings for the AgentCore Runtime.</p>
             environment_variables: <p>Updated environment variables to set in the AgentCore Runtime environment.</p>
             filesystem_configurations: <p>The updated filesystem configurations to mount into the AgentCore Runtime.</p>
             capacity_provider_configuration: <p>The updated capacity provider configuration for the AgentCore Runtime.</p>
             platform_version: <p>The updated version of the runtime platform to use for the AgentCore Runtime.</p>
+            allowed_ports: <p>The updated additional ports on the AgentCore Runtime that are reachable through the runtime's session URL. Specify one to five non-overlapping entries, each containing either a single port or an inclusive port range. Ports must be between <code>8000</code> and <code>12000</code>, excluding the reserved port <code>8443</code>.</p>
             client_token: <p>A unique, case-sensitive identifier to ensure idempotency of the request.</p>
 
         Raises:
@@ -2034,6 +2102,8 @@ class AsyncBedrockAgentCoreControlClient:
             input_["capacity_provider_configuration"] = capacity_provider_configuration
         if platform_version is not None:
             input_["platform_version"] = platform_version
+        if allowed_ports is not None:
+            input_["allowed_ports"] = allowed_ports
         if client_token is None:
             client_token = str(uuid.uuid4())
         input_["client_token"] = client_token
@@ -13925,6 +13995,7 @@ class AsyncBedrockAgentCoreControlClient:
 
         Raises:
             capo_bedrock_agentcore_control.errors.access_denied_exception.AccessDeniedException: <p>This exception is thrown when a request is denied per access permissions</p>
+            capo_bedrock_agentcore_control.errors.conflict_exception.ConflictException: <p>This exception is thrown when there is a conflict performing an operation</p>
             capo_bedrock_agentcore_control.errors.internal_server_exception.InternalServerException: <p>This exception is thrown if there was an unexpected error during processing of request</p>
             capo_bedrock_agentcore_control.errors.resource_not_found_exception.ResourceNotFoundException: <p>This exception is thrown when a resource referenced by the operation does not exist</p>
             capo_bedrock_agentcore_control.errors.throttling_exception.ThrottlingException: <p>This exception is thrown when the number of requests exceeds the limit</p>
@@ -14037,6 +14108,7 @@ class AsyncBedrockAgentCoreControlClient:
 
         Raises:
             capo_bedrock_agentcore_control.errors.access_denied_exception.AccessDeniedException: <p>This exception is thrown when a request is denied per access permissions</p>
+            capo_bedrock_agentcore_control.errors.conflict_exception.ConflictException: <p>This exception is thrown when there is a conflict performing an operation</p>
             capo_bedrock_agentcore_control.errors.internal_server_exception.InternalServerException: <p>This exception is thrown if there was an unexpected error during processing of request</p>
             capo_bedrock_agentcore_control.errors.resource_not_found_exception.ResourceNotFoundException: <p>This exception is thrown when a resource referenced by the operation does not exist</p>
             capo_bedrock_agentcore_control.errors.throttling_exception.ThrottlingException: <p>This exception is thrown when the number of requests exceeds the limit</p>

@@ -34,6 +34,7 @@ from capo_kafkaconnect._services._pipeline import (
 if TYPE_CHECKING:
     import capo_kafkaconnect.types.__boolean
     import capo_kafkaconnect.types.__list_of_plugin
+    import capo_kafkaconnect.types.__list_of_plugin_update
     import capo_kafkaconnect.types.__sensitive_string
     import capo_kafkaconnect.types.__string
     import capo_kafkaconnect.types.__string_max1024
@@ -99,6 +100,7 @@ if TYPE_CHECKING:
     import capo_kafkaconnect.types.update_connector_response
     import capo_kafkaconnect.types.worker_configuration
     import capo_kafkaconnect.types.worker_configuration_summary
+    import capo_kafkaconnect.types.worker_configuration_update
 
 
 class KafkaConnectClientConfig(TypedDict, total=False, closed=True):
@@ -1533,8 +1535,17 @@ class KafkaConnectClient:
         skip_health_validation: Optional[
             "capo_kafkaconnect.types.__boolean.__boolean"
         ] = None,
+        plugins: Optional[
+            "capo_kafkaconnect.types.__list_of_plugin_update.__listOfPluginUpdate"
+        ] = None,
+        worker_configuration: Optional[
+            "capo_kafkaconnect.types.worker_configuration_update.WorkerConfigurationUpdate"
+        ] = None,
+        use_default_worker_configuration: Optional[
+            "capo_kafkaconnect.types.__boolean.__boolean"
+        ] = None,
     ) -> "capo_kafkaconnect.types.update_connector_response.UpdateConnectorResponse":
-        """<p>Updates the specified connector. For request body, specify only one parameter: either <code>capacity</code> or <code>connectorConfiguration</code>.</p>
+        """<p>Updates the specified connector. In the request body, you can update either the connector's worker setting or its connector configuration, but not both in the same request. To update the worker setting, specify one or more of <code>capacity</code>, <code>plugins</code>, <code>workerConfiguration</code>, or <code>useDefaultWorkerConfiguration</code>. To update the connector configuration, specify only <code>connectorConfiguration</code>.</p>
 
         Args:
             capacity: <p>The target capacity.</p>
@@ -1542,6 +1553,9 @@ class KafkaConnectClient:
             skip_health_validation: <p>Specifies whether the update bypasses connector-level and task-level health checks. If <code>true</code>, the update skips the health checks. The update stays in effect even if the connector or its tasks are unhealthy, and Amazon MSK Connect doesn't roll it back. If <code>false</code> or not specified, the health checks run. If they fail, MSK Connect automatically rolls the connector back to its previous configuration, and the update doesn't take effect. To update a connector that is in the <code>PAUSED</code> state, you must set this parameter to <code>true</code>.</p>
             connector_arn: <p>The Amazon Resource Name (ARN) of the connector that you want to update.</p>
             current_version: <p>The current version of the connector that you want to update.</p>
+            plugins: <important> <p>Amazon MSK Connect does not currently support specifying multiple plugins as a list. To use more than one plugin for your connector, you can create a single custom plugin using a ZIP file that bundles multiple plugins together.</p> </important> <p>Specifies which plugin to use for the connector. You must specify a single-element list containing one <code>customPlugin</code> object. If you don't specify this parameter, the connector keeps its current plugin.</p>
+            worker_configuration: <p>The worker configuration to use with the connector. Specify the Amazon Resource Name (ARN) and the revision of the worker configuration. You can't specify both <code>workerConfiguration</code> and <code>useDefaultWorkerConfiguration</code> in the same request. If you specify neither parameter, the connector keeps its current worker configuration.</p>
+            use_default_worker_configuration: <p>Specifies whether to switch the connector to the default worker configuration that Amazon MSK Connect provides. If <code>true</code>, the connector stops using its custom worker configuration and uses the default worker configuration instead. If <code>false</code> or not specified, the connector keeps its current worker configuration. You can't specify both <code>useDefaultWorkerConfiguration</code> and <code>workerConfiguration</code> in the same request.</p>
 
         Raises:
             capo_kafkaconnect.errors.bad_request_exception.BadRequestException: <p>HTTP Status Code 400: Bad request due to incorrect input. Correct your request and then retry it.</p>
@@ -1591,6 +1605,14 @@ class KafkaConnectClient:
             input_["connector_configuration"] = connector_configuration
         if skip_health_validation is not None:
             input_["skip_health_validation"] = skip_health_validation
+        if plugins is not None:
+            input_["plugins"] = plugins
+        if worker_configuration is not None:
+            input_["worker_configuration"] = worker_configuration
+        if use_default_worker_configuration is not None:
+            input_["use_default_worker_configuration"] = (
+                use_default_worker_configuration
+            )
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

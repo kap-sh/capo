@@ -16,6 +16,7 @@ import capo_inspector2.errors.internal_server_exception
 import capo_inspector2.errors.resource_not_found_exception
 import capo_inspector2.errors.throttling_exception
 import capo_inspector2.errors.validation_exception
+import capo_inspector2.types.ami_configuration_state
 import capo_inspector2.types.ec2_configuration_state
 import capo_inspector2.types.ecr_configuration_state
 import capo_inspector2.types.get_configuration_request

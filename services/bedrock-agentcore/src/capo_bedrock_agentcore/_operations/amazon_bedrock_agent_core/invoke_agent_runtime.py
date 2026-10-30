@@ -88,6 +88,10 @@ def handle_response(
         out["runtime_session_id"] = response.headers[
             "X-Amzn-Bedrock-AgentCore-Runtime-Session-Id"
         ]
+    if "X-Amzn-Bedrock-AgentCore-Runtime-Session-Endpoint-Url" in response.headers:
+        out["session_endpoint_url"] = response.headers[
+            "X-Amzn-Bedrock-AgentCore-Runtime-Session-Endpoint-Url"
+        ]
     if "Mcp-Session-Id" in response.headers:
         out["mcp_session_id"] = response.headers["Mcp-Session-Id"]
     if "Mcp-Protocol-Version" in response.headers:
@@ -118,6 +122,10 @@ async def async_handle_response(
     if "X-Amzn-Bedrock-AgentCore-Runtime-Session-Id" in response.headers:
         out["runtime_session_id"] = response.headers[
             "X-Amzn-Bedrock-AgentCore-Runtime-Session-Id"
+        ]
+    if "X-Amzn-Bedrock-AgentCore-Runtime-Session-Endpoint-Url" in response.headers:
+        out["session_endpoint_url"] = response.headers[
+            "X-Amzn-Bedrock-AgentCore-Runtime-Session-Endpoint-Url"
         ]
     if "Mcp-Session-Id" in response.headers:
         out["mcp_session_id"] = response.headers["Mcp-Session-Id"]

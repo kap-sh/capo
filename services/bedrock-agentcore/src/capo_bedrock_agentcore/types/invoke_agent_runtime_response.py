@@ -13,6 +13,8 @@ if TYPE_CHECKING:
 class InvokeAgentRuntimeResponse(TypedDict, closed=True):
     runtime_session_id: NotRequired["capo_bedrock_agentcore.types.session_id.SessionId"]
     """<p>The identifier of the runtime session.</p>"""
+    session_endpoint_url: NotRequired["str"]
+    """<p>The HTTPS endpoint that addresses this runtime session directly. This value is returned only when the agent runtime is configured with allowed ports and direct runtime access is available for the session. If this value is not present, use <code>InvokeAgentRuntime</code> to communicate with the session.</p>"""
     mcp_session_id: NotRequired["capo_bedrock_agentcore.types.session_id.SessionId"]
     """<p>The identifier of the MCP session.</p>"""
     mcp_protocol_version: NotRequired["str"]

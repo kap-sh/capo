@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     import capo_inspector2.types.ecr_container_image_metadata
     import capo_inspector2.types.ecr_repository_metadata
     import capo_inspector2.types.lambda_function_metadata
+    import capo_inspector2.types.machine_image_metadata
     import capo_inspector2.types.serverless_function_metadata
     import capo_inspector2.types.vm_instance_metadata
 
@@ -56,6 +57,10 @@ class ResourceScanMetadata(TypedDict, closed=True):
         "capo_inspector2.types.serverless_function_metadata.ServerlessFunctionMetadata"
     ]
     """<p>The serverless function metadata associated with a covered resource.</p>"""
+    machine_image: NotRequired[
+        "capo_inspector2.types.machine_image_metadata.MachineImageMetadata"
+    ]
+    """<p>The machine image metadata associated with a covered resource.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -133,6 +138,14 @@ def serialize_json(value: ResourceScanMetadata) -> dict:
         out["serverlessFunction"] = (
             capo_inspector2.types.serverless_function_metadata.serialize_json(
                 value["serverless_function"]
+            )
+        )
+    if "machine_image" in value:
+        import capo_inspector2.types.machine_image_metadata
+
+        out["machineImage"] = (
+            capo_inspector2.types.machine_image_metadata.serialize_json(
+                value["machine_image"]
             )
         )
     return out
@@ -214,6 +227,14 @@ def deserialize_json(data: dict) -> ResourceScanMetadata:
         out["serverless_function"] = (
             capo_inspector2.types.serverless_function_metadata.deserialize_json(
                 data["serverlessFunction"]
+            )
+        )
+    if data.get("machineImage") is not None:
+        import capo_inspector2.types.machine_image_metadata
+
+        out["machine_image"] = (
+            capo_inspector2.types.machine_image_metadata.deserialize_json(
+                data["machineImage"]
             )
         )
     return out

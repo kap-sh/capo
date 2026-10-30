@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_lightsail.types.add_on_list
     import capo_lightsail.types.boolean
     import capo_lightsail.types.instance_hardware
+    import capo_lightsail.types.instance_health_status
     import capo_lightsail.types.instance_metadata_options
     import capo_lightsail.types.instance_networking
     import capo_lightsail.types.instance_state
@@ -74,6 +75,14 @@ class Instance(TypedDict, closed=True):
         "capo_lightsail.types.instance_metadata_options.InstanceMetadataOptions"
     ]
     """<p>The metadata options for the Amazon Lightsail instance.</p>"""
+    instance_status: NotRequired[
+        "capo_lightsail.types.instance_health_status.InstanceHealthStatus"
+    ]
+    """<p>Reports impaired functionality that stems from issues internal to the instance, such as impaired reachability.</p> <p>This value is returned only when you set <code>includeHealthStatus</code> to <code>true</code> in your request.</p>"""
+    system_status: NotRequired[
+        "capo_lightsail.types.instance_health_status.InstanceHealthStatus"
+    ]
+    """<p>Reports impaired functionality that stems from issues related to the systems that support an instance, such as hardware failures and network connectivity problems.</p> <p>This value is returned only when you set <code>includeHealthStatus</code> to <code>true</code> in your request.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -173,6 +182,22 @@ def serialize_aws_json_1_1(value: Instance) -> dict:
         out["metadataOptions"] = (
             capo_lightsail.types.instance_metadata_options.serialize_aws_json_1_1(
                 value["metadata_options"]
+            )
+        )
+    if "instance_status" in value:
+        import capo_lightsail.types.instance_health_status
+
+        out["instanceStatus"] = (
+            capo_lightsail.types.instance_health_status.serialize_aws_json_1_1(
+                value["instance_status"]
+            )
+        )
+    if "system_status" in value:
+        import capo_lightsail.types.instance_health_status
+
+        out["systemStatus"] = (
+            capo_lightsail.types.instance_health_status.serialize_aws_json_1_1(
+                value["system_status"]
             )
         )
     return out
@@ -280,6 +305,22 @@ def deserialize_aws_json_1_1(data: dict) -> Instance:
         out["metadata_options"] = (
             capo_lightsail.types.instance_metadata_options.deserialize_aws_json_1_1(
                 data["metadataOptions"]
+            )
+        )
+    if data.get("instanceStatus") is not None:
+        import capo_lightsail.types.instance_health_status
+
+        out["instance_status"] = (
+            capo_lightsail.types.instance_health_status.deserialize_aws_json_1_1(
+                data["instanceStatus"]
+            )
+        )
+    if data.get("systemStatus") is not None:
+        import capo_lightsail.types.instance_health_status
+
+        out["system_status"] = (
+            capo_lightsail.types.instance_health_status.deserialize_aws_json_1_1(
+                data["systemStatus"]
             )
         )
     return out

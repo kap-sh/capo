@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     import capo_connect.types.contact_flow_id
     import capo_connect.types.instance_id
     import capo_connect.types.task_template_constraints
+    import capo_connect.types.task_template_contact_hooks
     import capo_connect.types.task_template_defaults
     import capo_connect.types.task_template_description
     import capo_connect.types.task_template_fields
@@ -29,6 +30,10 @@ class CreateTaskTemplateRequest(TypedDict, closed=True):
     """<p>The identifier of the flow that runs by default when a task is created by referencing this template.</p> <p>Although this parameter is marked as optional, the request must contain either a <code>ContactFlowId</code> or a field of type <code>QUICK_CONNECT</code>.</p>"""
     self_assign_flow_id: NotRequired["capo_connect.types.contact_flow_id.ContactFlowId"]
     """<p>The ContactFlowId for the flow that will be run if this template is used to create a self-assigned task.</p>"""
+    contact_hooks: NotRequired[
+        "capo_connect.types.task_template_contact_hooks.TaskTemplateContactHooks"
+    ]
+    """<p>The event hooks that are set on tasks created by using this template.</p>"""
     constraints: NotRequired[
         "capo_connect.types.task_template_constraints.TaskTemplateConstraints"
     ]
@@ -55,6 +60,14 @@ def serialize_json(value: CreateTaskTemplateRequest) -> dict:
         out["ContactFlowId"] = value["contact_flow_id"]
     if "self_assign_flow_id" in value:
         out["SelfAssignFlowId"] = value["self_assign_flow_id"]
+    if "contact_hooks" in value:
+        import capo_connect.types.task_template_contact_hooks
+
+        out["ContactHooks"] = (
+            capo_connect.types.task_template_contact_hooks.serialize_json(
+                value["contact_hooks"]
+            )
+        )
     if "constraints" in value:
         import capo_connect.types.task_template_constraints
 
@@ -97,6 +110,14 @@ def deserialize_json(data: dict) -> CreateTaskTemplateRequest:
         out["contact_flow_id"] = data["ContactFlowId"]
     if data.get("SelfAssignFlowId") is not None:
         out["self_assign_flow_id"] = data["SelfAssignFlowId"]
+    if data.get("ContactHooks") is not None:
+        import capo_connect.types.task_template_contact_hooks
+
+        out["contact_hooks"] = (
+            capo_connect.types.task_template_contact_hooks.deserialize_json(
+                data["ContactHooks"]
+            )
+        )
     if data.get("Constraints") is not None:
         import capo_connect.types.task_template_constraints
 

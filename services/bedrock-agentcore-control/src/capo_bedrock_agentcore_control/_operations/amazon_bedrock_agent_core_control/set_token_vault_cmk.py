@@ -13,6 +13,7 @@ import capo_bedrock_agentcore_control._auth._sigv4
 import capo_bedrock_agentcore_control._protocol.eventstream
 import capo_bedrock_agentcore_control.errors.access_denied_exception
 import capo_bedrock_agentcore_control.errors.concurrent_modification_exception
+import capo_bedrock_agentcore_control.errors.conflict_exception
 import capo_bedrock_agentcore_control.errors.internal_server_exception
 import capo_bedrock_agentcore_control.errors.resource_not_found_exception
 import capo_bedrock_agentcore_control.errors.throttling_exception
@@ -44,6 +45,10 @@ def handle_error(response: zapros.Response) -> Never:
             )
         case "ConcurrentModificationException":
             raise capo_bedrock_agentcore_control.errors.concurrent_modification_exception.ConcurrentModificationException.from_json(
+                data, message, response=response
+            )
+        case "ConflictException":
+            raise capo_bedrock_agentcore_control.errors.conflict_exception.ConflictException.from_json(
                 data, message, response=response
             )
         case "InternalServerException":

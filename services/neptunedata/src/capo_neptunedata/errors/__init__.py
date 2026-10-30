@@ -26,6 +26,9 @@ from .bad_request_exception import BadRequestException as BadRequestException
 from .bulk_load_id_not_found_exception import (
     BulkLoadIdNotFoundException as BulkLoadIdNotFoundException,
 )
+from .cancelled_by_maintenance_exception import (
+    CancelledByMaintenanceException as CancelledByMaintenanceException,
+)
 from .cancelled_by_user_exception import (
     CancelledByUserException as CancelledByUserException,
 )
@@ -85,6 +88,9 @@ from .query_too_large_exception import QueryTooLargeException as QueryTooLargeEx
 from .read_only_violation_exception import (
     ReadOnlyViolationException as ReadOnlyViolationException,
 )
+from .resource_not_found_exception import (
+    ResourceNotFoundException as ResourceNotFoundException,
+)
 from .s3_exception import S3Exception as S3Exception
 from .server_shutdown_exception import (
     ServerShutdownException as ServerShutdownException,
@@ -105,3 +111,4 @@ from .too_many_requests_exception import (
 from .unsupported_operation_exception import (
     UnsupportedOperationException as UnsupportedOperationException,
 )
+from .validation_exception import ValidationException as ValidationException

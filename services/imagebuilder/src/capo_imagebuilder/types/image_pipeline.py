@@ -68,7 +68,7 @@ class ImagePipeline(TypedDict, closed=True):
     image_scanning_configuration: NotRequired[
         "capo_imagebuilder.types.image_scanning_configuration.ImageScanningConfiguration"
     ]
-    """<p>Contains settings for vulnerability scans that Amazon Inspector runs against the test instance during image creation.</p>"""
+    """<p>The settings that determine whether and how Amazon Inspector scans the images that the pipeline creates.</p>"""
     image_tags: NotRequired["capo_imagebuilder.types.tag_map.TagMap"]
     """<p>The tags that Image Builder applies to the Image Builder image resource that this pipeline's scheduled executions create. These tags don't apply to the output AMI. Builds that you start manually use the tags from the <a href="https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_StartImagePipelineExecution.html">StartImagePipelineExecution</a> request instead.</p>"""
     execution_role: NotRequired[

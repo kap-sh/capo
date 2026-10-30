@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     import capo_ec2.types.fleet_capacity_reservation_set
     import capo_ec2.types.fleet_capacity_reservation_tenancy
     import capo_ec2.types.fleet_instance_match_criteria
+    import capo_ec2.types.instance_requirements_request
     import capo_ec2.types.integer
     import capo_ec2.types.millisecond_date_time
     import capo_ec2.types.string
@@ -52,6 +53,14 @@ class CapacityReservationFleet(TypedDict, closed=True):
         "capo_ec2.types.fleet_capacity_reservation_set.FleetCapacityReservationSet"
     ]
     """<p>Information about the instance types for which to reserve the capacity.</p>"""
+    instance_requirements: NotRequired[
+        "capo_ec2.types.instance_requirements_request.InstanceRequirementsRequest"
+    ]
+    """<p>Reserved for internal use.</p>"""
+    availability_zone: NotRequired["capo_ec2.types.string.String"]
+    """<p>Reserved for internal use.</p>"""
+    availability_zone_id: NotRequired["capo_ec2.types.string.String"]
+    """<p>Reserved for internal use.</p>"""
     tags: NotRequired["capo_ec2.types.tag_list.TagList"]
     """<p>The tags assigned to the Capacity Reservation Fleet.</p>"""
 
@@ -139,6 +148,18 @@ def serialize_ec2_query(
             pairs,
             f"{key_prefix}InstanceTypeSpecificationSet",
         )
+    if "instance_requirements" in value:
+        import capo_ec2.types.instance_requirements_request
+
+        capo_ec2.types.instance_requirements_request.serialize_ec2_query(
+            value["instance_requirements"], pairs, f"{key_prefix}InstanceRequirements"
+        )
+    if "availability_zone" in value:
+        pairs.append((f"{key_prefix}AvailabilityZone", str(value["availability_zone"])))
+    if "availability_zone_id" in value:
+        pairs.append(
+            (f"{key_prefix}AvailabilityZoneId", str(value["availability_zone_id"]))
+        )
     if "tags" in value:
         import capo_ec2.types.tag_list
 
@@ -220,6 +241,21 @@ def deserialize_ec2_query(el: Element) -> CapacityReservationFleet:
                 child_instance_type_specifications
             )
         )
+    child_instance_requirements = el.find("instanceRequirements")
+    if child_instance_requirements is not None:
+        import capo_ec2.types.instance_requirements_request
+
+        out["instance_requirements"] = (
+            capo_ec2.types.instance_requirements_request.deserialize_ec2_query(
+                child_instance_requirements
+            )
+        )
+    child_availability_zone = el.find("availabilityZone")
+    if child_availability_zone is not None:
+        out["availability_zone"] = str(child_availability_zone.text or "")
+    child_availability_zone_id = el.find("availabilityZoneId")
+    if child_availability_zone_id is not None:
+        out["availability_zone_id"] = str(child_availability_zone_id.text or "")
     child_tags = el.find("tagSet")
     if child_tags is not None:
         import capo_ec2.types.tag_list

@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_ecs.types.attributes
     import capo_ecs.types.boolean
     import capo_ecs.types.container_instance_health_status
+    import capo_ecs.types.gpu_devices
     import capo_ecs.types.integer
     import capo_ecs.types.long
     import capo_ecs.types.resources
@@ -60,6 +61,8 @@ class ContainerInstance(TypedDict, closed=True):
         "capo_ecs.types.container_instance_health_status.ContainerInstanceHealthStatus"
     ]
     """<p>An object representing the health status of the container instance.</p>"""
+    gpu_devices: NotRequired["capo_ecs.types.gpu_devices.GpuDevices"]
+    """<p>The state of each GPU on the container instance, including its sharing mode and available memory. This field is present only for container instances that support GPU sharing.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -134,6 +137,12 @@ def serialize_aws_json_1_1(value: ContainerInstance) -> dict:
             capo_ecs.types.container_instance_health_status.serialize_aws_json_1_1(
                 value["health_status"]
             )
+        )
+    if "gpu_devices" in value:
+        import capo_ecs.types.gpu_devices
+
+        out["gpuDevices"] = capo_ecs.types.gpu_devices.serialize_aws_json_1_1(
+            value["gpu_devices"]
         )
     return out
 
@@ -221,5 +230,11 @@ def deserialize_aws_json_1_1(data: dict) -> ContainerInstance:
             capo_ecs.types.container_instance_health_status.deserialize_aws_json_1_1(
                 data["healthStatus"]
             )
+        )
+    if data.get("gpuDevices") is not None:
+        import capo_ecs.types.gpu_devices
+
+        out["gpu_devices"] = capo_ecs.types.gpu_devices.deserialize_aws_json_1_1(
+            data["gpuDevices"]
         )
     return out

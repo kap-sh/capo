@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_license_manager.types.allowed_operation_list
     import capo_license_manager.types.arn
     import capo_license_manager.types.grant_status
+    import capo_license_manager.types.grant_type
     import capo_license_manager.types.options
     import capo_license_manager.types.status_reason_message
     import capo_license_manager.types.string
@@ -40,6 +41,8 @@ class Grant(TypedDict, closed=True):
     """<p>Granted operations.</p>"""
     options: NotRequired["capo_license_manager.types.options.Options"]
     """<p>The options specified for the grant.</p>"""
+    grant_type: NotRequired["capo_license_manager.types.grant_type.GrantType"]
+    """<p>The type of the grant. Valid values:</p> <ul> <li> <p> <code>BuyerGrant</code> - Grants the entitlement to use the license.</p> </li> <li> <p> <code>DelegateGrant</code> - Gives the grantee read-only visibility into the licenses and grants distributed to buyers, with no entitlement to use them.</p> </li> </ul>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -71,6 +74,12 @@ def serialize_aws_json_1_1(value: Grant) -> dict:
 
         out["Options"] = capo_license_manager.types.options.serialize_aws_json_1_1(
             value["options"]
+        )
+    if "grant_type" in value:
+        import capo_license_manager.types.grant_type
+
+        out["GrantType"] = capo_license_manager.types.grant_type.serialize_aws_json_1_1(
+            value["grant_type"]
         )
     return out
 
@@ -136,5 +145,13 @@ def deserialize_aws_json_1_1(data: dict) -> Grant:
 
         out["options"] = capo_license_manager.types.options.deserialize_aws_json_1_1(
             data["Options"]
+        )
+    if data.get("GrantType") is not None:
+        import capo_license_manager.types.grant_type
+
+        out["grant_type"] = (
+            capo_license_manager.types.grant_type.deserialize_aws_json_1_1(
+                data["GrantType"]
+            )
         )
     return out
