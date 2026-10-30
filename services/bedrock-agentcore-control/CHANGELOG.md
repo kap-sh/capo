@@ -1,5 +1,11 @@
 # aws-sdk-bedrock-agentcore-control
 
+## 0.17.0
+
+### Minor Changes
+
+- 709758d: feat: sync smithy models for 20 services
+
 ## 0.16.0
 
 ### Minor Changes

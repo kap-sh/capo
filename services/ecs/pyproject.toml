@@ -1,6 +1,6 @@
 [project]
 name = "capo-ecs"
-version = "0.27.0"
+version = "0.28.0"
 description = "Typed, async Python SDK for Amazon ECS."
 readme = "README.md"
 requires-python = ">=3.10"

@@ -1,5 +1,11 @@
 # aws-sdk-inspector2
 
+## 0.13.0
+
+### Minor Changes
+
+- 709758d: feat: sync smithy models for 20 services
+
 ## 0.12.0
 
 ### Minor Changes
