@@ -1,5 +1,30 @@
 # AWS SDK for Python - Releases
 
+## 2026-10-30
+
+- [aws-sdk-acm v0.15.0](services/acm/CHANGELOG.md)
+- [aws-sdk-artifact v0.15.0](services/artifact/CHANGELOG.md)
+- [aws-sdk-bedrock-agentcore v0.17.0](services/bedrock-agentcore/CHANGELOG.md)
+- [aws-sdk-bedrock-agentcore-control v0.17.0](services/bedrock-agentcore-control/CHANGELOG.md)
+- [aws-sdk-cleanrooms v0.16.0](services/cleanrooms/CHANGELOG.md)
+- [aws-sdk-connect v0.15.0](services/connect/CHANGELOG.md)
+- [aws-sdk-connectparticipant v0.12.0](services/connectparticipant/CHANGELOG.md)
+- [aws-sdk-continuum v0.1.0](services/continuum/CHANGELOG.md)
+- [aws-sdk-ec2 v0.30.0](services/ec2/CHANGELOG.md)
+- [aws-sdk-ecs v0.28.0](services/ecs/CHANGELOG.md)
+- [aws-sdk-imagebuilder v0.12.0](services/imagebuilder/CHANGELOG.md)
+- [aws-sdk-inspector2 v0.13.0](services/inspector2/CHANGELOG.md)
+- [aws-sdk-ivs v0.13.0](services/ivs/CHANGELOG.md)
+- [aws-sdk-kafkaconnect v0.12.0](services/kafkaconnect/CHANGELOG.md)
+- [aws-sdk-license-manager v0.12.0](services/license-manager/CHANGELOG.md)
+- [aws-sdk-lightsail v0.13.0](services/lightsail/CHANGELOG.md)
+- [aws-sdk-medialive v0.13.0](services/medialive/CHANGELOG.md)
+- [aws-sdk-neptunedata v0.12.0](services/neptunedata/CHANGELOG.md)
+- [aws-sdk-opensearch v0.13.0](services/opensearch/CHANGELOG.md)
+- [aws-sdk-sagemakertrainingsessionruntime v0.1.0](services/sagemakertrainingsessionruntime/CHANGELOG.md)
+- [aws-sdk-securityagent v0.13.0](services/securityagent/CHANGELOG.md)
+- [aws-sdk-wafv2 v0.12.0](services/wafv2/CHANGELOG.md)
+
 ## 2026-10-28
 
 - [aws-sdk-accessanalyzer v0.14.0](services/accessanalyzer/CHANGELOG.md)
