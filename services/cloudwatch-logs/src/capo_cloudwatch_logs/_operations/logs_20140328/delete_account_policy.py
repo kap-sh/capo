@@ -16,6 +16,8 @@ import capo_cloudwatch_logs.errors.operation_aborted_exception
 import capo_cloudwatch_logs.errors.resource_not_found_exception
 import capo_cloudwatch_logs.errors.service_unavailable_exception
 import capo_cloudwatch_logs.types.delete_account_policy_request
+import capo_cloudwatch_logs.types.delete_account_policy_response
+import capo_cloudwatch_logs.types.dry_run_result
 import capo_cloudwatch_logs.types.policy_type
 from capo_cloudwatch_logs._protocol.errors import parse_error_metadata_json
 from capo_cloudwatch_logs._rule_engine._endpoint_rule_set import EndpointParams, resolve
@@ -49,6 +51,24 @@ def handle_error(response: zapros.Response) -> Never:
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)
+
+
+def handle_response(
+    response: zapros.Response,
+) -> capo_cloudwatch_logs.types.delete_account_policy_response.DeleteAccountPolicyResponse:
+    out: capo_cloudwatch_logs.types.delete_account_policy_response.DeleteAccountPolicyResponse = capo_cloudwatch_logs.types.delete_account_policy_response.deserialize_aws_json_1_1(
+        json.loads(response.read())
+    )
+    return out
+
+
+async def async_handle_response(
+    response: zapros.Response,
+) -> capo_cloudwatch_logs.types.delete_account_policy_response.DeleteAccountPolicyResponse:
+    out: capo_cloudwatch_logs.types.delete_account_policy_response.DeleteAccountPolicyResponse = capo_cloudwatch_logs.types.delete_account_policy_response.deserialize_aws_json_1_1(
+        json.loads(await response.aread())
+    )
+    return out
 
 
 def get_signer(
@@ -118,13 +138,16 @@ def build_request(
 def delete_account_policy(
     options: OperationOptions,
     input_: capo_cloudwatch_logs.types.delete_account_policy_request.DeleteAccountPolicyRequest,
-) -> tuple[None, zapros.Response]:
+) -> tuple[
+    capo_cloudwatch_logs.types.delete_account_policy_response.DeleteAccountPolicyResponse,
+    zapros.Response,
+]:
     response = options.client.handler.handle(build_request(options, input_))
     try:
         if response.status >= 300:
             response.read()
             raise_error(response, handle_error)
-        return None, response
+        return handle_response(response), response
     except BaseException:
         response.close()
         raise
@@ -133,13 +156,16 @@ def delete_account_policy(
 async def async_delete_account_policy(
     options: AsyncOperationOptions,
     input_: capo_cloudwatch_logs.types.delete_account_policy_request.DeleteAccountPolicyRequest,
-) -> tuple[None, zapros.Response]:
+) -> tuple[
+    capo_cloudwatch_logs.types.delete_account_policy_response.DeleteAccountPolicyResponse,
+    zapros.Response,
+]:
     response = await options.client.handler.ahandle(build_request(options, input_))
     try:
         if response.status >= 300:
             await response.aread()
             raise_error(response, handle_error)
-        return None, response
+        return await async_handle_response(response), response
     except BaseException:
         await response.aclose()
         raise

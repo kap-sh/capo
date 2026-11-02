@@ -15,6 +15,7 @@ if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.kms_key_id
     import capo_cloudwatch_logs.types.log_group_class
     import capo_cloudwatch_logs.types.log_group_name
+    import capo_cloudwatch_logs.types.policy_name
     import capo_cloudwatch_logs.types.stored_bytes
     import capo_cloudwatch_logs.types.timestamp
 
@@ -59,6 +60,10 @@ class LogGroup(TypedDict, closed=True):
         "capo_cloudwatch_logs.types.bearer_token_authentication_enabled.BearerTokenAuthenticationEnabled"
     ]
     """<p>Indicates whether bearer token authentication is enabled for this log group. When enabled, bearer token authentication is allowed on operations until it is explicitly disabled.</p>"""
+    retention_policy_name: NotRequired[
+        "capo_cloudwatch_logs.types.policy_name.PolicyName"
+    ]
+    """<p>The name of the account-level retention policy that determines the retention period of this log group. This field is returned only when an account-level retention policy applies to the log group. When it is returned, <code>retentionInDays</code> shows the retention period from that policy instead of the retention period set on the log group. If the policy specifies that log events never expire, <code>retentionInDays</code> is not returned.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -110,6 +115,8 @@ def serialize_aws_json_1_1(value: LogGroup) -> dict:
         out["bearerTokenAuthenticationEnabled"] = value[
             "bearer_token_authentication_enabled"
         ]
+    if "retention_policy_name" in value:
+        out["retentionPolicyName"] = value["retention_policy_name"]
     return out
 
 
@@ -161,4 +168,6 @@ def deserialize_aws_json_1_1(data: dict) -> LogGroup:
         out["bearer_token_authentication_enabled"] = data[
             "bearerTokenAuthenticationEnabled"
         ]
+    if data.get("retentionPolicyName") is not None:
+        out["retention_policy_name"] = data["retentionPolicyName"]
     return out

@@ -18,6 +18,7 @@ if TYPE_CHECKING:
     import capo_timestream_influxdb.types.db_instance_type
     import capo_timestream_influxdb.types.db_parameter_group_identifier
     import capo_timestream_influxdb.types.db_storage_type
+    import capo_timestream_influxdb.types.deployment_configuration
     import capo_timestream_influxdb.types.engine_type
     import capo_timestream_influxdb.types.failover_mode
     import capo_timestream_influxdb.types.kms_key_id
@@ -103,7 +104,11 @@ class GetDbClusterOutput(TypedDict, closed=True):
     cluster_configuration: NotRequired[
         "capo_timestream_influxdb.types.cluster_configuration.ClusterConfiguration"
     ]
-    """<p>Configuration for node modes in the DbCluster.</p>"""
+    """<p>Configuration for node modes in the DbCluster.</p> <p>Deprecated. Use deploymentConfiguration to view the cluster topology instead.</p>"""
+    deployment_configuration: NotRequired[
+        "capo_timestream_influxdb.types.deployment_configuration.DeploymentConfiguration"
+    ]
+    """<p>The current compute topology of the cluster, as a set of node groups. The returned topology reflects the cluster's actual provisioned nodes.</p>"""
     db_backup_configurations: NotRequired[
         "capo_timestream_influxdb.types.db_backup_configuration_output_list.DbBackupConfigurationOutputList"
     ]
@@ -248,6 +253,14 @@ def serialize_aws_json_1_0(value: GetDbClusterOutput) -> dict:
         out["clusterConfiguration"] = (
             capo_timestream_influxdb.types.cluster_configuration.serialize_aws_json_1_0(
                 value["cluster_configuration"]
+            )
+        )
+    if "deployment_configuration" in value:
+        import capo_timestream_influxdb.types.deployment_configuration
+
+        out["deploymentConfiguration"] = (
+            capo_timestream_influxdb.types.deployment_configuration.serialize_aws_json_1_0(
+                value["deployment_configuration"]
             )
         )
     if "db_backup_configurations" in value:
@@ -401,6 +414,14 @@ def deserialize_aws_json_1_0(data: dict) -> GetDbClusterOutput:
         out["cluster_configuration"] = (
             capo_timestream_influxdb.types.cluster_configuration.deserialize_aws_json_1_0(
                 data["clusterConfiguration"]
+            )
+        )
+    if data.get("deploymentConfiguration") is not None:
+        import capo_timestream_influxdb.types.deployment_configuration
+
+        out["deployment_configuration"] = (
+            capo_timestream_influxdb.types.deployment_configuration.deserialize_aws_json_1_0(
+                data["deploymentConfiguration"]
             )
         )
     if data.get("dbBackupConfigurations") is not None:

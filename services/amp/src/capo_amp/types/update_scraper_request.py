@@ -32,7 +32,7 @@ class UpdateScraperRequest(TypedDict, closed=True):
     client_token: NotRequired["capo_amp.types.idempotency_token.IdempotencyToken"]
     """<p>A unique identifier that you can provide to ensure the idempotency of the request. Case-sensitive.</p>"""
     exporters: NotRequired["capo_amp.types.exporter_list.ExporterList"]
-    """<p>The exporter configurations for the scraper. You can configure at most one Amazon OpenSearch Service domain. If you don't specify a value, the existing exporter configuration remains unchanged.</p>"""
+    """<p>The exporter configurations for the scraper. You can configure at most one exporter, for either an Amazon OpenSearch Service domain or an Amazon MSK cluster. If you don't specify a value, the existing exporter configuration remains unchanged. Specify an empty list to remove the exporter.</p>"""
 
 
 # --- restJson1 ser/de ---

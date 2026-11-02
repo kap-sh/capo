@@ -267,6 +267,7 @@
 - [InvokeWithResponseStreamResponseEvent](invoke_with_response_stream_response_event.md)
 - [InvokedViaFunctionUrl](invoked_via_function_url.md)
 - [ItemCount](item_count.md)
+- [KafkaEventSourceMappingConsumptionMode](kafka_event_source_mapping_consumption_mode.md)
 - [KafkaSchemaRegistryAccessConfig](kafka_schema_registry_access_config.md)
 - [KafkaSchemaRegistryAccessConfigList](kafka_schema_registry_access_config_list.md)
 - [KafkaSchemaRegistryAuthType](kafka_schema_registry_auth_type.md)

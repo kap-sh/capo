@@ -107,6 +107,7 @@ if TYPE_CHECKING:
     import capo_docdb.types.describe_global_clusters_message
     import capo_docdb.types.describe_orderable_db_instance_options_message
     import capo_docdb.types.describe_pending_maintenance_actions_message
+    import capo_docdb.types.describe_serverless_v2_platform_versions_message
     import capo_docdb.types.event
     import capo_docdb.types.event_categories_list
     import capo_docdb.types.event_categories_message
@@ -156,6 +157,8 @@ if TYPE_CHECKING:
     import capo_docdb.types.restore_db_cluster_from_snapshot_result
     import capo_docdb.types.restore_db_cluster_to_point_in_time_message
     import capo_docdb.types.restore_db_cluster_to_point_in_time_result
+    import capo_docdb.types.serverless_v2_platform_version_info
+    import capo_docdb.types.serverless_v2_platform_versions_message
     import capo_docdb.types.serverless_v2_scaling_configuration
     import capo_docdb.types.source_ids_list
     import capo_docdb.types.source_type
@@ -2967,6 +2970,121 @@ class DocDBClient:
                 max_records=max_records,
             )
             _page = _resolve_path(_response, ("pending_maintenance_actions",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("marker",))
+            if not _token:
+                break
+
+    def describe_serverless_v2_platform_versions(
+        self,
+        *,
+        config_overrides: Optional[DocDBClientConfig] = None,
+        serverless_v2_platform_version: Optional[
+            "capo_docdb.types.string.String"
+        ] = None,
+        engine: Optional["capo_docdb.types.string.String"] = None,
+        filters: Optional["capo_docdb.types.filter_list.FilterList"] = None,
+        default_only: Optional[
+            "capo_docdb.types.boolean_optional.BooleanOptional"
+        ] = None,
+        include_all: Optional[
+            "capo_docdb.types.boolean_optional.BooleanOptional"
+        ] = None,
+        max_records: Optional[
+            "capo_docdb.types.integer_optional.IntegerOptional"
+        ] = None,
+        marker: Optional["capo_docdb.types.string.String"] = None,
+    ) -> "capo_docdb.types.serverless_v2_platform_versions_message.ServerlessV2PlatformVersionsMessage":
+        """<p>Describes the properties of specific platform versions for Amazon DocumentDB Serverless v2.</p>
+
+        Args:
+            serverless_v2_platform_version: <p>A specific platform version to return details for.</p> <p>Example: <code>3</code> </p>
+            engine: <p>The database engine to return platform version details for.</p>
+            filters: <p>This parameter isn't currently supported.</p>
+            default_only: <p>Specifies whether to return only the default platform versions for each engine. The default platform version is the version used for new DB clusters.</p>
+            include_all: <p>Specifies whether to also include platform versions that are no longer in use. If you don't specify a value, the response includes only active platform versions.</p>
+            max_records: <p> The maximum number of records to include in the response. If more records exist than the specified <code>MaxRecords</code> value, a pagination token (marker) is included in the response so that the remaining results can be retrieved.</p> <p>Default: 100</p> <p>Constraints: Minimum 20, maximum 100.</p>
+            marker: <p>An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code>.</p>
+
+        Raises:
+            capo_docdb.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_docdb.types.describe_serverless_v2_platform_versions_message.DescribeServerlessV2PlatformVersionsMessage]",
+        ) -> OperationResponse[
+            "capo_docdb.types.serverless_v2_platform_versions_message.ServerlessV2PlatformVersionsMessage"
+        ]:
+            import capo_docdb._operations.amazon_rd_sv19.describe_serverless_v2_platform_versions
+
+            output, http_response = (
+                capo_docdb._operations.amazon_rd_sv19.describe_serverless_v2_platform_versions.describe_serverless_v2_platform_versions(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeServerlessV2PlatformVersions")
+        )
+        input_: capo_docdb.types.describe_serverless_v2_platform_versions_message.DescribeServerlessV2PlatformVersionsMessage = {}
+        if serverless_v2_platform_version is not None:
+            input_["serverless_v2_platform_version"] = serverless_v2_platform_version
+        if engine is not None:
+            input_["engine"] = engine
+        if filters is not None:
+            input_["filters"] = filters
+        if default_only is not None:
+            input_["default_only"] = default_only
+        if include_all is not None:
+            input_["include_all"] = include_all
+        if max_records is not None:
+            input_["max_records"] = max_records
+        if marker is not None:
+            input_["marker"] = marker
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_describe_serverless_v2_platform_versions(
+        self,
+        *,
+        config_overrides: Optional[DocDBClientConfig] = None,
+        serverless_v2_platform_version: Optional[
+            "capo_docdb.types.string.String"
+        ] = None,
+        engine: Optional["capo_docdb.types.string.String"] = None,
+        filters: Optional["capo_docdb.types.filter_list.FilterList"] = None,
+        default_only: Optional[
+            "capo_docdb.types.boolean_optional.BooleanOptional"
+        ] = None,
+        include_all: Optional[
+            "capo_docdb.types.boolean_optional.BooleanOptional"
+        ] = None,
+        max_records: Optional[
+            "capo_docdb.types.integer_optional.IntegerOptional"
+        ] = None,
+        marker: Optional["capo_docdb.types.string.String"] = None,
+    ) -> "Iterator[capo_docdb.types.serverless_v2_platform_version_info.ServerlessV2PlatformVersionInfo]":
+        _token = marker
+        while True:
+            _response = self.describe_serverless_v2_platform_versions(
+                config_overrides=config_overrides,
+                serverless_v2_platform_version=serverless_v2_platform_version,
+                engine=engine,
+                filters=filters,
+                default_only=default_only,
+                include_all=include_all,
+                max_records=max_records,
+                marker=_token,
+            )
+            _page = _resolve_path(_response, ("serverless_v2_platform_versions",))
             for _item in _page or []:
                 yield _item
             _token = _resolve_path(_response, ("marker",))

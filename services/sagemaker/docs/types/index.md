@@ -2,6 +2,10 @@
 
 - [AbsoluteBorrowLimitResourceList](absolute_borrow_limit_resource_list.md)
 - [AcceleratorPartitionConfig](accelerator_partition_config.md)
+- [AcceleratorPartitionLayout](accelerator_partition_layout.md)
+- [AcceleratorPartitionLayouts](accelerator_partition_layouts.md)
+- [AcceleratorPartitionType](accelerator_partition_type.md)
+- [AcceleratorPartitionTypeList](accelerator_partition_type_list.md)
 - [AcceleratorsAmount](accelerators_amount.md)
 - [Accept](accept.md)
 - [AcceptEula](accept_eula.md)

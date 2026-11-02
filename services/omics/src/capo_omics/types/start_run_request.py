@@ -15,6 +15,7 @@ if TYPE_CHECKING:
     import capo_omics.types.run_log_level
     import capo_omics.types.run_name
     import capo_omics.types.run_output_uri
+    import capo_omics.types.run_output_uri_prefix_mode
     import capo_omics.types.run_parameters
     import capo_omics.types.run_request_id
     import capo_omics.types.run_retention_mode
@@ -84,6 +85,10 @@ class StartRunRequest(TypedDict, closed=True):
     """<p>Optional inline policy json for scoping down permissions via a session policy on the IAM role provided in the roleArn parameter.</p>"""
     engine_settings: NotRequired["capo_omics.types.engine_settings.EngineSettings"]
     """<p>Engine-specific settings for the workflow run. Use this field to specify configuration options that are specific to the workflow engine (for example, Nextflow profiles).</p>"""
+    output_uri_prefix_mode: NotRequired[
+        "capo_omics.types.run_output_uri_prefix_mode.RunOutputUriPrefixMode"
+    ]
+    """<p>You can control the path prefixes that the service adds beneath <code>outputUri</code>. If you don't specify a value, the service uses <code>SERVICE_DEFINED</code>, which adds a run-specific prefix.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -136,6 +141,8 @@ def serialize_json(value: StartRunRequest) -> dict:
         out["sessionPolicy"] = value["session_policy"]
     if "engine_settings" in value:
         out["engineSettings"] = value["engine_settings"]
+    if "output_uri_prefix_mode" in value:
+        out["outputUriPrefixMode"] = value["output_uri_prefix_mode"]
     return out
 
 
@@ -197,4 +204,6 @@ def deserialize_json(data: dict) -> StartRunRequest:
         out["session_policy"] = data["sessionPolicy"]
     if data.get("engineSettings") is not None:
         out["engine_settings"] = data["engineSettings"]
+    if data.get("outputUriPrefixMode") is not None:
+        out["output_uri_prefix_mode"] = data["outputUriPrefixMode"]
     return out
