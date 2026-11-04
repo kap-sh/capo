@@ -2,10 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
-PreEvaluationFilterResourceType: TypeAlias = Literal[
-    "CONTACT",
-    "CONTACT_EVALUATION",
-]
+PreEvaluationFilterResourceType: TypeAlias = Literal["CONTACT",]
 
 
 # --- restJson1 ser/de ---

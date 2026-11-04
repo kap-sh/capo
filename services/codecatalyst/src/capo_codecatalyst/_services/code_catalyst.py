@@ -3,7 +3,7 @@
 import uuid
 import warnings
 from collections.abc import Iterator
-from typing import TYPE_CHECKING, Any, Iterable, Optional
+from typing import TYPE_CHECKING, Any, Iterable, Literal, Optional
 
 from typing_extensions import Self, TypedDict
 from zapros import BaseHandler, Client
@@ -25,9 +25,11 @@ from capo_codecatalyst._services._pipeline import (
     OperationOptions,
     OperationRequest,
     OperationResponse,
+    ThreadSafeRateLimiter,
     ThreadSafeRetryQuota,
     execute_pipeline,
     log_operation,
+    rate_limit,
     retry,
 )
 
@@ -144,6 +146,7 @@ if TYPE_CHECKING:
 class CodeCatalystClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[Interceptor[Any, Any]]
     retry_max_attempts: int | None
+    retry_mode: Literal["standard", "adaptive"] | None
     use_fips: bool | None
     region: str | None
     endpoint: str | None
@@ -158,6 +161,7 @@ class CodeCatalystClient:
         http_handler: HTTP handler for sending requests. If not provided, creates a default handler.
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
+        retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
         region: The value of the ``AWS::Region`` endpoint parameter.
         endpoint: The value of the ``SDK::Endpoint`` endpoint parameter.
@@ -171,6 +175,7 @@ class CodeCatalystClient:
         http_handler: BaseHandler | None = None,
         operation_interceptors: Iterable[Interceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
+        retry_mode: Literal["standard", "adaptive"] | None = None,
         use_fips: bool | None = None,
         region: str | None = None,
         endpoint: str | None = None,
@@ -182,6 +187,8 @@ class CodeCatalystClient:
         self._client = client.wrap_with_middleware(lambda next: AuthMiddleware(next))
         # One retry quota for all of this client's operations.
         self._retry_quota = ThreadSafeRetryQuota()
+        # One send-rate limiter too, used when retry_mode is adaptive.
+        self._rate_limiter = ThreadSafeRateLimiter()
         if bearer is not None and bearer_provider is not None:
             warnings.warn(
                 "Both bearer and bearer_provider given; provider takes precedence"
@@ -192,6 +199,7 @@ class CodeCatalystClient:
             {
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
+                "retry_mode": retry_mode,
                 "use_fips": use_fips,
                 "region": region,
                 "endpoint": endpoint,
@@ -219,12 +227,15 @@ class CodeCatalystClient:
         if operation_logging is not None:
             interceptors_.append(log_operation(operation_logging))
         interceptors_.append(retry())
+        interceptors_.append(rate_limit())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_quota=self._retry_quota,
+            rate_limiter=self._rate_limiter,
             retry_max_attempts=overrides.get(
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
+            retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
             use_fips=overrides.get("use_fips", self._config.get("use_fips")),
             region=overrides.get("region", self._config.get("region")),
             endpoint=overrides.get("endpoint", self._config.get("endpoint")),

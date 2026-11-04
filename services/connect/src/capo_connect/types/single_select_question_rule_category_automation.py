@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class SingleSelectQuestionRuleCategoryAutomation(TypedDict, closed=True):
     category: "capo_connect.types.single_select_question_rule_category_automation_label.SingleSelectQuestionRuleCategoryAutomationLabel"
-    """<p>The category name, as defined in Rules. This is equivalent to a conversational analytics rule with the same name: the automation option is applied based on whether that rule matched the contact. For more information about creating rules, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-rules.html">Create rules</a> in the <i>Connect Customer Administrator Guide</i>.</p>"""
+    """<p> The category name, as defined in Rules.</p>"""
     condition: "capo_connect.types.single_select_question_rule_category_automation_condition.SingleSelectQuestionRuleCategoryAutomationCondition"
     """<p>The condition to apply for the automation option. If the condition is <code>PRESENT</code>, then the option is applied when the contact data includes the category. Similarly, if the condition is <code>NOT_PRESENT</code>, then the option is applied when the contact data does not include the category.</p>"""
     option_ref_id: "capo_connect.types.reference_id.ReferenceId"

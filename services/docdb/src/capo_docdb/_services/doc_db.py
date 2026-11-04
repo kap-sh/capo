@@ -2,7 +2,7 @@
 
 import warnings
 from collections.abc import Iterator
-from typing import TYPE_CHECKING, Any, Iterable, Optional
+from typing import TYPE_CHECKING, Any, Iterable, Literal, Optional
 
 from typing_extensions import Self, TypedDict
 from zapros import BaseHandler, Client
@@ -25,9 +25,11 @@ from capo_docdb._services._pipeline import (
     OperationOptions,
     OperationRequest,
     OperationResponse,
+    ThreadSafeRateLimiter,
     ThreadSafeRetryQuota,
     execute_pipeline,
     log_operation,
+    rate_limit,
     retry,
 )
 
@@ -107,7 +109,6 @@ if TYPE_CHECKING:
     import capo_docdb.types.describe_global_clusters_message
     import capo_docdb.types.describe_orderable_db_instance_options_message
     import capo_docdb.types.describe_pending_maintenance_actions_message
-    import capo_docdb.types.describe_serverless_v2_platform_versions_message
     import capo_docdb.types.event
     import capo_docdb.types.event_categories_list
     import capo_docdb.types.event_categories_message
@@ -157,8 +158,6 @@ if TYPE_CHECKING:
     import capo_docdb.types.restore_db_cluster_from_snapshot_result
     import capo_docdb.types.restore_db_cluster_to_point_in_time_message
     import capo_docdb.types.restore_db_cluster_to_point_in_time_result
-    import capo_docdb.types.serverless_v2_platform_version_info
-    import capo_docdb.types.serverless_v2_platform_versions_message
     import capo_docdb.types.serverless_v2_scaling_configuration
     import capo_docdb.types.source_ids_list
     import capo_docdb.types.source_type
@@ -179,6 +178,7 @@ if TYPE_CHECKING:
 class DocDBClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[Interceptor[Any, Any]]
     retry_max_attempts: int | None
+    retry_mode: Literal["standard", "adaptive"] | None
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -194,6 +194,7 @@ class DocDBClient:
         http_handler: HTTP handler for sending requests. If not provided, creates a default handler.
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
+        retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -208,6 +209,7 @@ class DocDBClient:
         http_handler: BaseHandler | None = None,
         operation_interceptors: Iterable[Interceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
+        retry_mode: Literal["standard", "adaptive"] | None = None,
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -224,6 +226,8 @@ class DocDBClient:
         self._client = client.wrap_with_middleware(lambda next: AuthMiddleware(next))
         # One retry quota for all of this client's operations.
         self._retry_quota = ThreadSafeRetryQuota()
+        # One send-rate limiter too, used when retry_mode is adaptive.
+        self._rate_limiter = ThreadSafeRateLimiter()
         if credentials is not None and credentials_provider is not None:
             warnings.warn(
                 "Both credentials and credentials_provider given; provider takes precedence"
@@ -241,6 +245,7 @@ class DocDBClient:
             {
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
+                "retry_mode": retry_mode,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -265,12 +270,15 @@ class DocDBClient:
         if operation_logging is not None:
             interceptors_.append(log_operation(operation_logging))
         interceptors_.append(retry())
+        interceptors_.append(rate_limit())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_quota=self._retry_quota,
+            rate_limiter=self._rate_limiter,
             retry_max_attempts=overrides.get(
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
+            retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -2970,121 +2978,6 @@ class DocDBClient:
                 max_records=max_records,
             )
             _page = _resolve_path(_response, ("pending_maintenance_actions",))
-            for _item in _page or []:
-                yield _item
-            _token = _resolve_path(_response, ("marker",))
-            if not _token:
-                break
-
-    def describe_serverless_v2_platform_versions(
-        self,
-        *,
-        config_overrides: Optional[DocDBClientConfig] = None,
-        serverless_v2_platform_version: Optional[
-            "capo_docdb.types.string.String"
-        ] = None,
-        engine: Optional["capo_docdb.types.string.String"] = None,
-        filters: Optional["capo_docdb.types.filter_list.FilterList"] = None,
-        default_only: Optional[
-            "capo_docdb.types.boolean_optional.BooleanOptional"
-        ] = None,
-        include_all: Optional[
-            "capo_docdb.types.boolean_optional.BooleanOptional"
-        ] = None,
-        max_records: Optional[
-            "capo_docdb.types.integer_optional.IntegerOptional"
-        ] = None,
-        marker: Optional["capo_docdb.types.string.String"] = None,
-    ) -> "capo_docdb.types.serverless_v2_platform_versions_message.ServerlessV2PlatformVersionsMessage":
-        """<p>Describes the properties of specific platform versions for Amazon DocumentDB Serverless v2.</p>
-
-        Args:
-            serverless_v2_platform_version: <p>A specific platform version to return details for.</p> <p>Example: <code>3</code> </p>
-            engine: <p>The database engine to return platform version details for.</p>
-            filters: <p>This parameter isn't currently supported.</p>
-            default_only: <p>Specifies whether to return only the default platform versions for each engine. The default platform version is the version used for new DB clusters.</p>
-            include_all: <p>Specifies whether to also include platform versions that are no longer in use. If you don't specify a value, the response includes only active platform versions.</p>
-            max_records: <p> The maximum number of records to include in the response. If more records exist than the specified <code>MaxRecords</code> value, a pagination token (marker) is included in the response so that the remaining results can be retrieved.</p> <p>Default: 100</p> <p>Constraints: Minimum 20, maximum 100.</p>
-            marker: <p>An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code>.</p>
-
-        Raises:
-            capo_docdb.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        def _handler(
-            req: "OperationRequest[capo_docdb.types.describe_serverless_v2_platform_versions_message.DescribeServerlessV2PlatformVersionsMessage]",
-        ) -> OperationResponse[
-            "capo_docdb.types.serverless_v2_platform_versions_message.ServerlessV2PlatformVersionsMessage"
-        ]:
-            import capo_docdb._operations.amazon_rd_sv19.describe_serverless_v2_platform_versions
-
-            output, http_response = (
-                capo_docdb._operations.amazon_rd_sv19.describe_serverless_v2_platform_versions.describe_serverless_v2_platform_versions(
-                    req.options, req.input
-                )
-            )
-            return OperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("DescribeServerlessV2PlatformVersions")
-        )
-        input_: capo_docdb.types.describe_serverless_v2_platform_versions_message.DescribeServerlessV2PlatformVersionsMessage = {}
-        if serverless_v2_platform_version is not None:
-            input_["serverless_v2_platform_version"] = serverless_v2_platform_version
-        if engine is not None:
-            input_["engine"] = engine
-        if filters is not None:
-            input_["filters"] = filters
-        if default_only is not None:
-            input_["default_only"] = default_only
-        if include_all is not None:
-            input_["include_all"] = include_all
-        if max_records is not None:
-            input_["max_records"] = max_records
-        if marker is not None:
-            input_["marker"] = marker
-
-        response = execute_pipeline(
-            OperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        response.response.close()
-        return response.output
-
-    def iter_describe_serverless_v2_platform_versions(
-        self,
-        *,
-        config_overrides: Optional[DocDBClientConfig] = None,
-        serverless_v2_platform_version: Optional[
-            "capo_docdb.types.string.String"
-        ] = None,
-        engine: Optional["capo_docdb.types.string.String"] = None,
-        filters: Optional["capo_docdb.types.filter_list.FilterList"] = None,
-        default_only: Optional[
-            "capo_docdb.types.boolean_optional.BooleanOptional"
-        ] = None,
-        include_all: Optional[
-            "capo_docdb.types.boolean_optional.BooleanOptional"
-        ] = None,
-        max_records: Optional[
-            "capo_docdb.types.integer_optional.IntegerOptional"
-        ] = None,
-        marker: Optional["capo_docdb.types.string.String"] = None,
-    ) -> "Iterator[capo_docdb.types.serverless_v2_platform_version_info.ServerlessV2PlatformVersionInfo]":
-        _token = marker
-        while True:
-            _response = self.describe_serverless_v2_platform_versions(
-                config_overrides=config_overrides,
-                serverless_v2_platform_version=serverless_v2_platform_version,
-                engine=engine,
-                filters=filters,
-                default_only=default_only,
-                include_all=include_all,
-                max_records=max_records,
-                marker=_token,
-            )
-            _page = _resolve_path(_response, ("serverless_v2_platform_versions",))
             for _item in _page or []:
                 yield _item
             _token = _resolve_path(_response, ("marker",))

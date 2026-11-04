@@ -33,7 +33,7 @@ class CreateScraperRequest(TypedDict, closed=True):
     tags: NotRequired["capo_amp.types.tag_map.TagMap"]
     """<p>(Optional) The list of tag keys and values to associate with the scraper.</p>"""
     exporters: NotRequired["capo_amp.types.exporter_list.ExporterList"]
-    """<p>The exporter configurations for the scraper. You can configure at most one exporter, for either an Amazon OpenSearch Service domain or an Amazon MSK cluster. If you don't specify a value, the scraper is created without an exporter configuration.</p>"""
+    """<p>The exporter configurations for the scraper. You can configure at most one Amazon OpenSearch Service domain. If you don't specify a value, the scraper is created without an exporter configuration.</p>"""
 
 
 # --- restJson1 ser/de ---

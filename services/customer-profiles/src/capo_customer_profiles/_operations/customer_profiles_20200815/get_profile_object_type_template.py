@@ -21,7 +21,6 @@ import capo_customer_profiles.types.field_map
 import capo_customer_profiles.types.get_profile_object_type_template_request
 import capo_customer_profiles.types.get_profile_object_type_template_response
 import capo_customer_profiles.types.key_map
-import capo_customer_profiles.types.timestamp
 from capo_customer_profiles._protocol.errors import parse_error_metadata_json
 from capo_customer_profiles._rule_engine._endpoint_rule_set import (
     EndpointParams,

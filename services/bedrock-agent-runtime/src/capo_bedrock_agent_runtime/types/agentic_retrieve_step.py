@@ -9,7 +9,6 @@ AgenticRetrieveStep: TypeAlias = Literal[
     "SpeculativeRetrieval",
     "FullDocumentExpansion",
     "SessionHistoryLoad",
-    "CodeExecution",
 ]
 
 

@@ -8,10 +8,8 @@ if TYPE_CHECKING:
     import capo_customer_profiles.types.boolean
     import capo_customer_profiles.types.field_map
     import capo_customer_profiles.types.key_map
-    import capo_customer_profiles.types.min_size0
     import capo_customer_profiles.types.name
     import capo_customer_profiles.types.string1_to255
-    import capo_customer_profiles.types.timestamp
 
 
 class GetProfileObjectTypeTemplateResponse(TypedDict, closed=True):
@@ -21,16 +19,6 @@ class GetProfileObjectTypeTemplateResponse(TypedDict, closed=True):
     """<p>The name of the source of the object template.</p>"""
     source_object: NotRequired["capo_customer_profiles.types.name.name"]
     """<p>The source of the object template.</p>"""
-    default_max_profile_object_count: NotRequired[
-        "capo_customer_profiles.types.min_size0.minSize0"
-    ]
-    """<p>The default maximum number of objects of this object type that can be stored per profile. This default applies when you don't set <code>MaxProfileObjectCount</code> on an object type created from this template. If this value isn't present, no default limit applies.</p>"""
-    default_max_profile_object_count_effective_after: NotRequired[
-        "capo_customer_profiles.types.timestamp.timestamp"
-    ]
-    """<p>The timestamp after which <code>DefaultMaxProfileObjectCount</code> takes effect. The default limit applies only to domains created after this time.</p>"""
-    store_only: "capo_customer_profiles.types.boolean.boolean"
-    """<p>Indicates whether the template is store-only. Objects of an object type created from a store-only template are ingested and stored, but the object type can't be used by calculated attributes or event triggers.</p>"""
     allow_profile_creation: "capo_customer_profiles.types.boolean.boolean"
     """<p>Indicates whether a profile should be created when data is received if one doesn’t exist for an object of this type. The default is <code>FALSE</code>. If the AllowProfileCreation flag is set to <code>FALSE</code>, then the service tries to fetch a standard profile and associate this object with the profile. If it is set to <code>TRUE</code>, and if no match is found, then the service creates a new standard profile.</p>"""
     source_last_updated_timestamp_format: NotRequired[
@@ -52,17 +40,6 @@ def serialize_json(value: GetProfileObjectTypeTemplateResponse) -> dict:
         out["SourceName"] = value["source_name"]
     if "source_object" in value:
         out["SourceObject"] = value["source_object"]
-    if "default_max_profile_object_count" in value:
-        out["DefaultMaxProfileObjectCount"] = value["default_max_profile_object_count"]
-    if "default_max_profile_object_count_effective_after" in value:
-        import capo_customer_profiles.types.timestamp
-
-        out["DefaultMaxProfileObjectCountEffectiveAfter"] = (
-            capo_customer_profiles.types.timestamp.serialize_json(
-                value["default_max_profile_object_count_effective_after"]
-            )
-        )
-    out["StoreOnly"] = value.get("store_only", False)
     out["AllowProfileCreation"] = value.get("allow_profile_creation", False)
     if "source_last_updated_timestamp_format" in value:
         out["SourceLastUpdatedTimestampFormat"] = value[
@@ -89,20 +66,6 @@ def deserialize_json(data: dict) -> GetProfileObjectTypeTemplateResponse:
         out["source_name"] = data["SourceName"]
     if data.get("SourceObject") is not None:
         out["source_object"] = data["SourceObject"]
-    if data.get("DefaultMaxProfileObjectCount") is not None:
-        out["default_max_profile_object_count"] = data["DefaultMaxProfileObjectCount"]
-    if data.get("DefaultMaxProfileObjectCountEffectiveAfter") is not None:
-        import capo_customer_profiles.types.timestamp
-
-        out["default_max_profile_object_count_effective_after"] = (
-            capo_customer_profiles.types.timestamp.deserialize_json(
-                data["DefaultMaxProfileObjectCountEffectiveAfter"]
-            )
-        )
-    if data.get("StoreOnly") is not None:
-        out["store_only"] = data["StoreOnly"]
-    else:
-        out["store_only"] = False
     if data.get("AllowProfileCreation") is not None:
         out["allow_profile_creation"] = data["AllowProfileCreation"]
     else:

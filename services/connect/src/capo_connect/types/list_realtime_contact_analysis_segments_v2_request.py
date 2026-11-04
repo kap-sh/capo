@@ -11,7 +11,6 @@ if TYPE_CHECKING:
     import capo_connect.types.max_result100
     import capo_connect.types.real_time_contact_analysis_output_type
     import capo_connect.types.real_time_contact_analysis_segment_types
-    import capo_connect.types.real_time_contact_analysis_segments_filter
 
 
 class ListRealtimeContactAnalysisSegmentsV2Request(TypedDict, closed=True):
@@ -27,10 +26,6 @@ class ListRealtimeContactAnalysisSegmentsV2Request(TypedDict, closed=True):
     """<p>The Contact Lens output type to be returned.</p>"""
     segment_types: "capo_connect.types.real_time_contact_analysis_segment_types.RealTimeContactAnalysisSegmentTypes"
     """<p>Enum with segment types . Each value corresponds to a segment type returned in the segments list of the API. Each segment type has its own structure. Different channels may have different sets of supported segment types.</p>"""
-    list_filter: NotRequired[
-        "capo_connect.types.real_time_contact_analysis_segments_filter.RealTimeContactAnalysisSegmentsFilter"
-    ]
-    """<p>A filter that restricts the segments returned by the API. When <code>SegmentTypes</code> includes <code>Categories</code>, use <code>CategoriesAttributeFilter</code> to return only the category segments whose rules have tags that match the filter. This enforces tag-based access control on the categories a caller can view.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -54,14 +49,6 @@ def serialize_json(value: ListRealtimeContactAnalysisSegmentsV2Request) -> dict:
             value["segment_types"]
         )
     )
-    if "list_filter" in value:
-        import capo_connect.types.real_time_contact_analysis_segments_filter
-
-        out["ListFilter"] = (
-            capo_connect.types.real_time_contact_analysis_segments_filter.serialize_json(
-                value["list_filter"]
-            )
-        )
     return out
 
 
@@ -96,12 +83,4 @@ def deserialize_json(data: dict) -> ListRealtimeContactAnalysisSegmentsV2Request
         )
     else:
         out["segment_types"] = []
-    if data.get("ListFilter") is not None:
-        import capo_connect.types.real_time_contact_analysis_segments_filter
-
-        out["list_filter"] = (
-            capo_connect.types.real_time_contact_analysis_segments_filter.deserialize_json(
-                data["ListFilter"]
-            )
-        )
     return out

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+import math
 import random
 import threading
 import time
@@ -88,16 +89,135 @@ class ThreadSafeRetryQuota(RetryQuota):
             super().release(last_retry_cost)
 
 
+class RateLimiter:
+    """Send tokens shared by all operations of one client in adaptive retry mode: the rate drops on throttling and regrows on success."""
+
+    MIN_FILL_RATE: float = 0.5
+    MIN_CAPACITY: float = 1.0
+    BETA: float = 0.7
+    SCALE_CONSTANT: float = 0.4
+    SMOOTHING: float = 0.8
+    MAX_RATE_SCALE: float = 2.0
+
+    def __init__(self, clock: Callable[[], float] = time.monotonic) -> None:
+        self._clock = clock
+        now = clock()
+        self._enabled: bool = False
+        self._fill_rate: float = 1.0
+        self._max_capacity: float = 1.0
+        self._capacity: float = 0.0
+        self._last_refill: float = now
+        self._last_max_rate: float = 0.0
+        self._last_throttle: float = now
+        self._measured_rate: float = 0.0
+        self._rate_bucket: float = math.floor(now)
+        self._request_count: int = 0
+
+    def acquire(self) -> float:
+        """Take a send token: return 0, or the seconds to wait before asking again."""
+        if not self._enabled:
+            return 0.0
+        self._refill(self._clock())
+        if self._capacity >= 1:
+            self._capacity -= 1
+            return 0.0
+        return (1 - self._capacity) / self._fill_rate
+
+    def update(self, is_throttling: bool) -> None:
+        """Adjust the send rate after an attempt: cut it on throttling, regrow it otherwise."""
+        now = self._clock()
+        self._measure(now)
+        self._adjust(is_throttling, now)
+
+    def throttled_mid_stream(self) -> None:
+        """Cut the send rate for throttling reported inside an open event stream. No new request was sent, so the measured rate is left alone."""
+        self._adjust(True, self._clock())
+
+    def _adjust(self, is_throttling: bool, now: float) -> None:
+        if is_throttling:
+            rate = (
+                min(self._measured_rate, self._fill_rate)
+                if self._enabled
+                else self._measured_rate
+            )
+            self._last_max_rate = rate
+            self._last_throttle = now
+            new_rate = rate * self.BETA
+            self._enabled = True
+        else:
+            window = (self._last_max_rate * (1 - self.BETA) / self.SCALE_CONSTANT) ** (
+                1 / 3
+            )
+            new_rate = (
+                self.SCALE_CONSTANT * (now - self._last_throttle - window) ** 3
+                + self._last_max_rate
+            )
+        self._set_rate(min(new_rate, self.MAX_RATE_SCALE * self._measured_rate), now)
+        if is_throttling:
+            logger.debug(
+                "throttled, send rate lowered to %.2f requests/s",
+                self._fill_rate,
+                extra={"send_rate": self._fill_rate},
+            )
+
+    def _refill(self, now: float) -> None:
+        self._capacity = min(
+            self._max_capacity,
+            self._capacity + (now - self._last_refill) * self._fill_rate,
+        )
+        self._last_refill = now
+
+    def _measure(self, now: float) -> None:
+        # Requests per second, counted in half-second buckets and smoothed.
+        bucket = math.floor(now * 2) / 2
+        self._request_count += 1
+        if bucket > self._rate_bucket:
+            current = self._request_count / (bucket - self._rate_bucket)
+            self._measured_rate = current * self.SMOOTHING + self._measured_rate * (
+                1 - self.SMOOTHING
+            )
+            self._request_count = 0
+            self._rate_bucket = bucket
+
+    def _set_rate(self, rate: float, now: float) -> None:
+        self._refill(now)
+        self._fill_rate = max(rate, self.MIN_FILL_RATE)
+        self._max_capacity = max(rate, self.MIN_CAPACITY)
+        self._capacity = min(self._capacity, self._max_capacity)
+
+
+class ThreadSafeRateLimiter(RateLimiter):
+    """A ``RateLimiter`` that sync clients can share across threads."""
+
+    def __init__(self, clock: Callable[[], float] = time.monotonic) -> None:
+        super().__init__(clock)
+        self._lock: threading.Lock = threading.Lock()
+
+    def acquire(self) -> float:
+        with self._lock:
+            return super().acquire()
+
+    def update(self, is_throttling: bool) -> None:
+        with self._lock:
+            super().update(is_throttling)
+
+    def throttled_mid_stream(self) -> None:
+        with self._lock:
+            super().throttled_mid_stream()
+
+
 @dataclass
 class OperationOptions:
     client: Client
     retry_quota: RetryQuota
+    rate_limiter: RateLimiter
     use_dual_stack: bool | None = None
     use_fips: bool | None = None
     region: str | None = None
     endpoint: str | None = None
     endpoint_id: str | None = None
     retry_max_attempts: int | None = None
+    retry_mode: str | None = None
     credentials_provider: IdentityProvider[Credentials] | None = None
     anonymous: bool | None = None
 
@@ -106,12 +226,14 @@ class OperationOptions:
 class AsyncOperationOptions:
     client: AsyncClient
     retry_quota: RetryQuota
+    rate_limiter: RateLimiter
     use_dual_stack: bool | None = None
     use_fips: bool | None = None
     region: str | None = None
     endpoint: str | None = None
     endpoint_id: str | None = None
     retry_max_attempts: int | None = None
+    retry_mode: str | None = None
     credentials_provider: IdentityProvider[Credentials] | None = None
     anonymous: bool | None = None
 
@@ -428,6 +550,91 @@ def aretry() -> AsyncInterceptor[TInput, TOutput]:
         raise AssertionError("unreachable")
 
     return interceptor
+
+
+def rate_limit() -> Interceptor[TInput, TOutput]:
+    def interceptor(
+        request: OperationRequest[TInput], next: NextFn[TInput, TOutput]
+    ) -> OperationResponse[TOutput]:
+        if request.options.retry_mode != "adaptive":
+            return next(request)
+        limiter = request.options.rate_limiter
+        while (wait := limiter.acquire()) > 0:
+            time.sleep(wait)
+        try:
+            response = next(request)
+        except Exception as exc:
+            limiter.update(isinstance(exc, ServiceError) and exc.is_throttling_error)
+            raise
+        limiter.update(False)
+        return response
+
+    return interceptor
+
+
+def arate_limit() -> AsyncInterceptor[TInput, TOutput]:
+    async def interceptor(
+        request: AsyncOperationRequest[TInput], next: AsyncNextFn[TInput, TOutput]
+    ) -> AsyncOperationResponse[TOutput]:
+        if request.options.retry_mode != "adaptive":
+            return await next(request)
+        limiter = request.options.rate_limiter
+        while (wait := limiter.acquire()) > 0:
+            await anysleep(wait)
+        try:
+            response = await next(request)
+        except Exception as exc:
+            limiter.update(isinstance(exc, ServiceError) and exc.is_throttling_error)
+            raise
+        limiter.update(False)
+        return response
+
+    return interceptor
+
+
+def _on_event_stream_error(
+    exc: ServiceError, options: OperationOptions | AsyncOperationOptions
+) -> None:
+    # An error event arrives after a 200 response, so raise_error never saw it:
+    # mark it by its code here. It is not retried, but adaptive mode slows down.
+    _apply_retry_rules(exc, exc.response)
+    if exc.is_throttling_error and options.retry_mode == "adaptive":
+        options.rate_limiter.throttled_mid_stream()
+
+
+def watch_event_stream(output: Any, member: str, options: OperationOptions) -> None:
+    """Wrap the event stream ``output[member]`` so the errors it raises get their retry flags and reach the rate limiter."""
+    if member not in output:
+        return
+    events = output[member]
+
+    def watched() -> Iterator[Any]:
+        try:
+            yield from events
+        except ServiceError as exc:
+            _on_event_stream_error(exc, options)
+            raise
+
+    output[member] = watched()
+
+
+def awatch_event_stream(
+    output: Any, member: str, options: AsyncOperationOptions
+) -> None:
+    """Wrap the event stream ``output[member]`` so the errors it raises get their retry flags and reach the rate limiter."""
+    if member not in output:
+        return
+    events = output[member]
+
+    async def watched() -> AsyncIterator[Any]:
+        try:
+            async for event in events:
+                yield event
+        except ServiceError as exc:
+            _on_event_stream_error(exc, options)
+            raise
+
+    output[member] = watched()
 
 
 def log_operation(operation_logging: OperationLogging) -> Interceptor[TInput, TOutput]:

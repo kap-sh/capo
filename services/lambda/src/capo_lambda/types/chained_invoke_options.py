@@ -16,7 +16,7 @@ class ChainedInvokeOptions(TypedDict, closed=True):
     tenant_id: NotRequired["capo_lambda.types.tenant_id.TenantId"]
     """<p>The tenant identifier for the chained invocation.</p>"""
     x_amzn_trace_id: NotRequired["capo_lambda.types.x_amzn_trace_id.XAmznTraceId"]
-    """<p>The X-Ray trace header to use when starting the chained invocation. This parameter is optional. If you omit this value, the child invocation inherits the parent durable execution's trace header.</p> <p>Specify this value on the <code>START</code> update for the chained invocation operation. For more information about the header format, see <a href="https://docs.aws.amazon.com/xray/latest/devguide/xray-concepts.html#xray-concepts-tracingheader">Tracing header</a> in the <i>X-Ray Developer Guide</i>.</p>"""
+    """<p>The optional X-Ray trace header to use when starting the chained invocation. If you omit this value, the child invocation inherits the parent durable execution's trace header.</p> <p>Specify this value on the <code>START</code> update for the chained invocation operation. For more information about the header format, see <a href="https://docs.aws.amazon.com/xray/latest/devguide/xray-concepts.html#xray-concepts-tracingheader">Tracing header</a> in the <i>X-Ray Developer Guide</i>.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -13,7 +13,9 @@ from capo_bedrock_agent_runtime._services._pipeline import (
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
+    awatch_event_stream,
     execute_pipeline,
+    watch_event_stream,
 )
 
 if TYPE_CHECKING:
@@ -91,6 +93,7 @@ class RetrieveAndGenerateStreamResource:
                     req.options, req.input
                 )
             )
+            watch_event_stream(output, "stream", req.options)
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -202,6 +205,7 @@ class AsyncRetrieveAndGenerateStreamResource:
             ) = await capo_bedrock_agent_runtime._operations.amazon_bedrock_agent_run_time_service.retrieve_and_generate_stream.async_retrieve_and_generate_stream(
                 req.options, req.input
             )
+            awatch_event_stream(output, "stream", req.options)
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(

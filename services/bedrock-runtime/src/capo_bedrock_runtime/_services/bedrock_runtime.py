@@ -4,7 +4,7 @@ import uuid
 import warnings
 from collections.abc import Generator, Iterator
 from contextlib import contextmanager
-from typing import TYPE_CHECKING, Any, Iterable, Optional
+from typing import TYPE_CHECKING, Any, Iterable, Literal, Optional
 
 from typing_extensions import Self, TypedDict
 from zapros import BaseHandler, Client
@@ -42,10 +42,13 @@ from capo_bedrock_runtime._services._pipeline import (
     OperationOptions,
     OperationRequest,
     OperationResponse,
+    ThreadSafeRateLimiter,
     ThreadSafeRetryQuota,
     execute_pipeline,
     log_operation,
+    rate_limit,
     retry,
+    watch_event_stream,
 )
 
 if TYPE_CHECKING:
@@ -119,6 +122,7 @@ if TYPE_CHECKING:
 class BedrockRuntimeClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[Interceptor[Any, Any]]
     retry_max_attempts: int | None
+    retry_mode: Literal["standard", "adaptive"] | None
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -135,6 +139,7 @@ class BedrockRuntimeClient:
         http_handler: HTTP handler for sending requests. If not provided, creates a default handler.
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
+        retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -151,6 +156,7 @@ class BedrockRuntimeClient:
         http_handler: BaseHandler | None = None,
         operation_interceptors: Iterable[Interceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
+        retry_mode: Literal["standard", "adaptive"] | None = None,
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -169,6 +175,8 @@ class BedrockRuntimeClient:
         self._client = client.wrap_with_middleware(lambda next: AuthMiddleware(next))
         # One retry quota for all of this client's operations.
         self._retry_quota = ThreadSafeRetryQuota()
+        # One send-rate limiter too, used when retry_mode is adaptive.
+        self._rate_limiter = ThreadSafeRateLimiter()
         if credentials is not None and credentials_provider is not None:
             warnings.warn(
                 "Both credentials and credentials_provider given; provider takes precedence"
@@ -197,6 +205,7 @@ class BedrockRuntimeClient:
             {
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
+                "retry_mode": retry_mode,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -228,12 +237,15 @@ class BedrockRuntimeClient:
         if operation_logging is not None:
             interceptors_.append(log_operation(operation_logging))
         interceptors_.append(retry())
+        interceptors_.append(rate_limit())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_quota=self._retry_quota,
+            rate_limiter=self._rate_limiter,
             retry_max_attempts=overrides.get(
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
+            retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -902,6 +914,7 @@ class BedrockRuntimeClient:
                     req.options, req.input
                 )
             )
+            watch_event_stream(output, "stream", req.options)
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1132,6 +1145,7 @@ class BedrockRuntimeClient:
                     req.options, req.input
                 )
             )
+            watch_event_stream(output, "body", req.options)
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1242,6 +1256,7 @@ class BedrockRuntimeClient:
                     req.options, req.input
                 )
             )
+            watch_event_stream(output, "body", req.options)
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(

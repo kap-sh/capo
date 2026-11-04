@@ -31,6 +31,7 @@ class AwsSettings:
     use_fips: bool
     use_dual_stack: bool
     max_attempts: int
+    retry_mode: str
 
 
 def _env_bool(name: str) -> bool | None:
@@ -109,12 +110,22 @@ def load_aws_settings() -> AwsSettings:
         use_dual_stack = False
     max_attempts_raw = os.environ.get("AWS_MAX_ATTEMPTS") or profile.get("max_attempts")
     max_attempts = int(max_attempts_raw) if max_attempts_raw else 3
+    retry_mode = (
+        (os.environ.get("AWS_RETRY_MODE") or profile.get("retry_mode") or "standard")
+        .strip()
+        .lower()
+    )
+    if retry_mode not in ("legacy", "standard", "adaptive"):
+        raise ValueError(
+            f"invalid retry_mode {retry_mode!r}: expected 'legacy', 'standard' or 'adaptive'"
+        )
     return AwsSettings(
         region=region,
         endpoint=endpoint,
         use_fips=use_fips,
         use_dual_stack=use_dual_stack,
         max_attempts=max_attempts,
+        retry_mode=retry_mode,
     )
 
 
@@ -132,6 +143,8 @@ def aws_config() -> Interceptor[TInput, TOutput]:
             options.use_fips = settings.use_fips
         if options.retry_max_attempts is None:
             options.retry_max_attempts = settings.max_attempts
+        if options.retry_mode is None:
+            options.retry_mode = settings.retry_mode
         return next(request)
 
     return interceptor
@@ -151,6 +164,8 @@ def aaws_config() -> AsyncInterceptor[TInput, TOutput]:
             options.use_fips = settings.use_fips
         if options.retry_max_attempts is None:
             options.retry_max_attempts = settings.max_attempts
+        if options.retry_mode is None:
+            options.retry_mode = settings.retry_mode
         return await next(request)
 
     return interceptor

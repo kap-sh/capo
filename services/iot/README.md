@@ -62,6 +62,8 @@ The SDK retries failed operations automatically. Retry behaviour follows the Smi
 
 The number of attempts defaults to 3 and can be changed at the client level via `retry_max_attempts`, or per call via `config_overrides`.
 
+`retry_mode="adaptive"` (or `AWS_RETRY_MODE=adaptive`, or `retry_mode = adaptive` in the AWS profile) also slows the whole client down once the service starts throttling it, then speeds back up as requests succeed. The default is `standard`.
+
 ```python
 from capo_iot import AsyncIoTClient
 

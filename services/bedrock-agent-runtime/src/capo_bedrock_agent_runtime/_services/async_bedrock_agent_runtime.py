@@ -3,7 +3,7 @@
 import warnings
 from collections.abc import AsyncGenerator, AsyncIterator
 from contextlib import asynccontextmanager
-from typing import TYPE_CHECKING, Any, Iterable, Optional
+from typing import TYPE_CHECKING, Any, Iterable, Literal, Optional
 
 from typing_extensions import Self, TypedDict
 from zapros import AsyncBaseHandler, AsyncClient
@@ -77,10 +77,13 @@ from capo_bedrock_agent_runtime._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
     OperationLogging,
+    RateLimiter,
     RetryQuota,
     aexecute_pipeline,
     alog_operation,
+    arate_limit,
     aretry,
+    awatch_event_stream,
 )
 
 if TYPE_CHECKING:
@@ -237,6 +240,7 @@ if TYPE_CHECKING:
 class AsyncBedrockAgentRuntimeClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[AsyncInterceptor[Any, Any]]
     retry_max_attempts: int | None
+    retry_mode: Literal["standard", "adaptive"] | None
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -252,6 +256,7 @@ class AsyncBedrockAgentRuntimeClient:
         http_handler: HTTP handler for sending requests. If not provided, creates a default handler.
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
+        retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -266,6 +271,7 @@ class AsyncBedrockAgentRuntimeClient:
         http_handler: AsyncBaseHandler | None = None,
         operation_interceptors: Iterable[AsyncInterceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
+        retry_mode: Literal["standard", "adaptive"] | None = None,
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -282,6 +288,8 @@ class AsyncBedrockAgentRuntimeClient:
         self._client = client.wrap_with_middleware(lambda next: AuthMiddleware(next))
         # One retry quota for all of this client's operations.
         self._retry_quota = RetryQuota()
+        # One send-rate limiter too, used when retry_mode is adaptive.
+        self._rate_limiter = RateLimiter()
         if credentials is not None and credentials_provider is not None:
             warnings.warn(
                 "Both credentials and credentials_provider given; provider takes precedence"
@@ -299,6 +307,7 @@ class AsyncBedrockAgentRuntimeClient:
             {
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
+                "retry_mode": retry_mode,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -348,12 +357,15 @@ class AsyncBedrockAgentRuntimeClient:
         if operation_logging is not None:
             interceptors_.append(alog_operation(operation_logging))
         interceptors_.append(aretry())
+        interceptors_.append(arate_limit())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_quota=self._retry_quota,
+            rate_limiter=self._rate_limiter,
             retry_max_attempts=overrides.get(
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
+            retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -431,6 +443,7 @@ class AsyncBedrockAgentRuntimeClient:
             ) = await capo_bedrock_agent_runtime._operations.amazon_bedrock_agent_run_time_service.agentic_retrieve_stream.async_agentic_retrieve_stream(
                 req.options, req.input
             )
+            awatch_event_stream(output, "stream", req.options)
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1076,6 +1089,7 @@ class AsyncBedrockAgentRuntimeClient:
             ) = await capo_bedrock_agent_runtime._operations.amazon_bedrock_agent_run_time_service.invoke_flow.async_invoke_flow(
                 req.options, req.input
             )
+            awatch_event_stream(output, "response_stream", req.options)
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1442,6 +1456,7 @@ class AsyncBedrockAgentRuntimeClient:
             ) = await capo_bedrock_agent_runtime._operations.amazon_bedrock_agent_run_time_service.invoke_agent.async_invoke_agent(
                 req.options, req.input
             )
+            awatch_event_stream(output, "completion", req.options)
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1618,6 +1633,7 @@ class AsyncBedrockAgentRuntimeClient:
             ) = await capo_bedrock_agent_runtime._operations.amazon_bedrock_agent_run_time_service.invoke_inline_agent.async_invoke_inline_agent(
                 req.options, req.input
             )
+            awatch_event_stream(output, "completion", req.options)
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1914,6 +1930,7 @@ class AsyncBedrockAgentRuntimeClient:
             ) = await capo_bedrock_agent_runtime._operations.amazon_bedrock_agent_run_time_service.optimize_prompt.async_optimize_prompt(
                 req.options, req.input
             )
+            awatch_event_stream(output, "optimized_prompt", req.options)
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -2228,6 +2245,7 @@ class AsyncBedrockAgentRuntimeClient:
             ) = await capo_bedrock_agent_runtime._operations.amazon_bedrock_agent_run_time_service.retrieve_and_generate_stream.async_retrieve_and_generate_stream(
                 req.options, req.input
             )
+            awatch_event_stream(output, "stream", req.options)
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(

@@ -6,7 +6,6 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.account_policy_document
-    import capo_cloudwatch_logs.types.dry_run
     import capo_cloudwatch_logs.types.policy_name
     import capo_cloudwatch_logs.types.policy_type
     import capo_cloudwatch_logs.types.scope
@@ -28,8 +27,6 @@ class PutAccountPolicyRequest(TypedDict, closed=True):
         "capo_cloudwatch_logs.types.selection_criteria.SelectionCriteria"
     ]
     """<p>Use this parameter to apply the new policy to a subset of log groups in the account or a data source name and type combination. </p> <p>Specifying <code>selectionCriteria</code> is valid only when you specify <code>SUBSCRIPTION_FILTER_POLICY</code>, <code>FIELD_INDEX_POLICY</code> or <code>TRANSFORMER_POLICY</code>for <code>policyType</code>.</p> <ul> <li> <p>If <code>policyType</code> is <code>SUBSCRIPTION_FILTER_POLICY</code>, the only supported <code>selectionCriteria</code> filter is <code>LogGroupName NOT IN []</code> </p> </li> <li> <p>If <code>policyType</code> is <code>TRANSFORMER_POLICY</code>, the only supported <code>selectionCriteria</code> filter is <code>LogGroupNamePrefix</code> </p> </li> <li> <p>If <code>policyType</code> is <code>FIELD_INDEX_POLICY</code>, the supported <code>selectionCriteria</code> filters are:</p> <ul> <li> <p> <code>LogGroupNamePrefix</code> </p> </li> <li> <p> <code>DataSourceName</code> AND <code>DataSourceType</code> </p> </li> </ul> <p>When you specify <code>selectionCriteria</code> for a field index policy you can use either <code>LogGroupNamePrefix</code> by itself or <code>DataSourceName</code> and <code>DataSourceType</code> together.</p> </li> </ul> <p>The <code>selectionCriteria</code> string can be up to 25KB in length. The length is determined by using its UTF-8 bytes.</p> <p>Using the <code>selectionCriteria</code> parameter with <code>SUBSCRIPTION_FILTER_POLICY</code> is useful to help prevent infinite loops. For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Subscriptions-recursion-prevention.html">Log recursion prevention</a>.</p>"""
-    dry_run: NotRequired["capo_cloudwatch_logs.types.dry_run.DryRun"]
-    """<p>Specifies whether to preview the impact of the policy without creating or updating it. If you specify <code>true</code>, CloudWatch Logs validates the request, does not save the policy, and returns the estimated impact in <code>dryRunResult</code> instead of <code>accountPolicy</code>. The default is <code>false</code>.</p> <p>Specifying <code>dryRun</code> is valid only when you specify <code>RETENTION_POLICY</code> for <code>policyType</code>. Only one dry run can be in progress for an account at a time.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -50,8 +47,6 @@ def serialize_aws_json_1_1(value: PutAccountPolicyRequest) -> dict:
         )
     if "selection_criteria" in value:
         out["selectionCriteria"] = value["selection_criteria"]
-    if "dry_run" in value:
-        out["dryRun"] = value["dry_run"]
     return out
 
 
@@ -87,6 +82,4 @@ def deserialize_aws_json_1_1(data: dict) -> PutAccountPolicyRequest:
         )
     if data.get("selectionCriteria") is not None:
         out["selection_criteria"] = data["selectionCriteria"]
-    if data.get("dryRun") is not None:
-        out["dry_run"] = data["dryRun"]
     return out

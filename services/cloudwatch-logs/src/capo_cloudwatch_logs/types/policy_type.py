@@ -8,7 +8,6 @@ PolicyType: TypeAlias = Literal[
     "FIELD_INDEX_POLICY",
     "TRANSFORMER_POLICY",
     "METRIC_EXTRACTION_POLICY",
-    "RETENTION_POLICY",
 ]
 
 

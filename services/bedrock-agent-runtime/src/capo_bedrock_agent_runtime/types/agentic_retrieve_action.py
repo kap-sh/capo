@@ -6,7 +6,6 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.agentic_retrieve_action_details
-    import capo_bedrock_agent_runtime.types.agentic_retrieve_code_execution_details
     import capo_bedrock_agent_runtime.types.agentic_retrieve_full_doc_expansion_details
     import capo_bedrock_agent_runtime.types.agentic_retrieve_memory_retrieve_details
 
@@ -24,10 +23,6 @@ class AgenticRetrieveAction(TypedDict, closed=True):
         "capo_bedrock_agent_runtime.types.agentic_retrieve_memory_retrieve_details.AgenticRetrieveMemoryRetrieveDetails"
     ]
     """<p>The details of a long-term memory retrieval that the agent chose to perform.</p>"""
-    code_execution: NotRequired[
-        "capo_bedrock_agent_runtime.types.agentic_retrieve_code_execution_details.AgenticRetrieveCodeExecutionDetails"
-    ]
-    """<p>The details of code that the agent chose to run.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -57,14 +52,6 @@ def serialize_json(value: AgenticRetrieveAction) -> dict:
                 value["memory_retrieve"]
             )
         )
-    if "code_execution" in value:
-        import capo_bedrock_agent_runtime.types.agentic_retrieve_code_execution_details
-
-        out["codeExecution"] = (
-            capo_bedrock_agent_runtime.types.agentic_retrieve_code_execution_details.serialize_json(
-                value["code_execution"]
-            )
-        )
     return out
 
 
@@ -92,14 +79,6 @@ def deserialize_json(data: dict) -> AgenticRetrieveAction:
         out["memory_retrieve"] = (
             capo_bedrock_agent_runtime.types.agentic_retrieve_memory_retrieve_details.deserialize_json(
                 data["memoryRetrieve"]
-            )
-        )
-    if data.get("codeExecution") is not None:
-        import capo_bedrock_agent_runtime.types.agentic_retrieve_code_execution_details
-
-        out["code_execution"] = (
-            capo_bedrock_agent_runtime.types.agentic_retrieve_code_execution_details.deserialize_json(
-                data["codeExecution"]
             )
         )
     return out

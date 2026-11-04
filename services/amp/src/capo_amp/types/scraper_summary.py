@@ -50,7 +50,7 @@ class ScraperSummary(TypedDict, closed=True):
     ]
     """<p>This structure displays information about the IAM roles used for cross-account scraping configuration.</p>"""
     exporters: NotRequired["capo_amp.types.exporter_list.ExporterList"]
-    """<p>The exporter configurations for the scraper, if configured. The list contains at most one configuration, for either an Amazon OpenSearch Service domain or an Amazon MSK cluster.</p>"""
+    """<p>The exporter configurations for the scraper, if configured. The list contains at most one configuration for an Amazon OpenSearch Service domain.</p>"""
 
 
 # --- restJson1 ser/de ---

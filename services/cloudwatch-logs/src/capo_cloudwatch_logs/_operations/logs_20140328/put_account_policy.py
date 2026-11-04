@@ -16,7 +16,6 @@ import capo_cloudwatch_logs.errors.limit_exceeded_exception
 import capo_cloudwatch_logs.errors.operation_aborted_exception
 import capo_cloudwatch_logs.errors.service_unavailable_exception
 import capo_cloudwatch_logs.types.account_policy
-import capo_cloudwatch_logs.types.dry_run_result
 import capo_cloudwatch_logs.types.policy_type
 import capo_cloudwatch_logs.types.put_account_policy_request
 import capo_cloudwatch_logs.types.put_account_policy_response

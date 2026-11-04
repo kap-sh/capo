@@ -3,7 +3,7 @@
 import datetime
 import warnings
 from collections.abc import Iterator
-from typing import TYPE_CHECKING, Any, Iterable, Optional
+from typing import TYPE_CHECKING, Any, Iterable, Literal, Optional
 
 from typing_extensions import Self, TypedDict
 from zapros import BaseHandler, Client
@@ -38,9 +38,11 @@ from capo_timestream_influxdb._services._pipeline import (
     OperationOptions,
     OperationRequest,
     OperationResponse,
+    ThreadSafeRateLimiter,
     ThreadSafeRetryQuota,
     execute_pipeline,
     log_operation,
+    rate_limit,
     retry,
 )
 
@@ -82,7 +84,6 @@ if TYPE_CHECKING:
     import capo_timestream_influxdb.types.delete_db_cluster_output
     import capo_timestream_influxdb.types.delete_db_instance_input
     import capo_timestream_influxdb.types.delete_db_instance_output
-    import capo_timestream_influxdb.types.deployment_configuration
     import capo_timestream_influxdb.types.deployment_type
     import capo_timestream_influxdb.types.failover_mode
     import capo_timestream_influxdb.types.get_db_backup_input
@@ -140,6 +141,7 @@ if TYPE_CHECKING:
 class TimestreamInfluxDBClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[Interceptor[Any, Any]]
     retry_max_attempts: int | None
+    retry_mode: Literal["standard", "adaptive"] | None
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -155,6 +157,7 @@ class TimestreamInfluxDBClient:
         http_handler: HTTP handler for sending requests. If not provided, creates a default handler.
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
+        retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -169,6 +172,7 @@ class TimestreamInfluxDBClient:
         http_handler: BaseHandler | None = None,
         operation_interceptors: Iterable[Interceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
+        retry_mode: Literal["standard", "adaptive"] | None = None,
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -185,6 +189,8 @@ class TimestreamInfluxDBClient:
         self._client = client.wrap_with_middleware(lambda next: AuthMiddleware(next))
         # One retry quota for all of this client's operations.
         self._retry_quota = ThreadSafeRetryQuota()
+        # One send-rate limiter too, used when retry_mode is adaptive.
+        self._rate_limiter = ThreadSafeRateLimiter()
         if credentials is not None and credentials_provider is not None:
             warnings.warn(
                 "Both credentials and credentials_provider given; provider takes precedence"
@@ -202,6 +208,7 @@ class TimestreamInfluxDBClient:
             {
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
+                "retry_mode": retry_mode,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -232,12 +239,15 @@ class TimestreamInfluxDBClient:
         if operation_logging is not None:
             interceptors_.append(log_operation(operation_logging))
         interceptors_.append(retry())
+        interceptors_.append(rate_limit())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_quota=self._retry_quota,
+            rate_limiter=self._rate_limiter,
             retry_max_attempts=overrides.get(
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
+            retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -775,6 +785,7 @@ class TimestreamInfluxDBClient:
     def create_db_cluster(
         self,
         name: "capo_timestream_influxdb.types.db_cluster_name.DbClusterName",
+        db_instance_type: "capo_timestream_influxdb.types.db_instance_type.DbInstanceType",
         vpc_subnet_ids: "capo_timestream_influxdb.types.vpc_subnet_id_list.VpcSubnetIdList",
         vpc_security_group_ids: "capo_timestream_influxdb.types.vpc_security_group_id_list.VpcSecurityGroupIdList",
         *,
@@ -789,9 +800,6 @@ class TimestreamInfluxDBClient:
         db_parameter_group_identifier: Optional[
             "capo_timestream_influxdb.types.db_parameter_group_identifier.DbParameterGroupIdentifier"
         ] = None,
-        db_instance_type: Optional[
-            "capo_timestream_influxdb.types.db_instance_type.DbInstanceType"
-        ] = None,
         db_storage_type: Optional[
             "capo_timestream_influxdb.types.db_storage_type.DbStorageType"
         ] = None,
@@ -804,9 +812,6 @@ class TimestreamInfluxDBClient:
         publicly_accessible: Optional[bool] = None,
         deployment_type: Optional[
             "capo_timestream_influxdb.types.cluster_deployment_type.ClusterDeploymentType"
-        ] = None,
-        deployment_configuration: Optional[
-            "capo_timestream_influxdb.types.deployment_configuration.DeploymentConfiguration"
         ] = None,
         failover_mode: Optional[
             "capo_timestream_influxdb.types.failover_mode.FailoverMode"
@@ -839,7 +844,7 @@ class TimestreamInfluxDBClient:
             bucket: <p>The name of the initial InfluxDB bucket. All InfluxDB data is stored in a bucket. A bucket combines the concept of a database and a retention period (the duration of time that each data point persists). A bucket belongs to an organization.</p>
             port: <p>The port number on which InfluxDB accepts connections.</p> <p>Valid Values: 1024-65535</p> <p>Default: 8086 for InfluxDB v2, 8181 for InfluxDB v3</p> <p>Constraints: The value can't be 2375-2376, 7788-7799, 8090, or 51678-51680</p>
             db_parameter_group_identifier: <p>The ID of the DB parameter group to assign to your DB cluster. DB parameter groups specify how the database is configured. For example, DB parameter groups can specify the limit for query concurrency.</p>
-            db_instance_type: <p>The Timestream for InfluxDB DB instance type to run InfluxDB on.</p> <p>Optional when you define the cluster topology with deploymentConfiguration, because the instance type is then specified per node group.</p>
+            db_instance_type: <p>The Timestream for InfluxDB DB instance type to run InfluxDB on.</p>
             db_storage_type: <p>The Timestream for InfluxDB DB storage type to read and write InfluxDB data.</p> <p>You can choose between three different types of provisioned Influx IOPS Included storage according to your workload requirements:</p> <ul> <li> <p>Influx I/O Included 3000 IOPS</p> </li> <li> <p>Influx I/O Included 12000 IOPS</p> </li> <li> <p>Influx I/O Included 16000 IOPS</p> </li> </ul>
             allocated_storage: <p>The amount of storage to allocate for your DB storage type in GiB (gibibytes).</p>
             network_type: <p>Specifies whether the network type of the Timestream for InfluxDB cluster is IPv4, which can communicate over IPv4 protocol only, or DUAL, which can communicate over both IPv4 and IPv6 protocols.</p>
@@ -847,7 +852,6 @@ class TimestreamInfluxDBClient:
             vpc_subnet_ids: <p>A list of VPC subnet IDs to associate with the DB cluster. Provide at least two VPC subnet IDs in different Availability Zones when deploying with a Multi-AZ standby.</p>
             vpc_security_group_ids: <p>A list of VPC security group IDs to associate with the Timestream for InfluxDB cluster.</p>
             deployment_type: <p>Specifies the type of cluster to create.</p>
-            deployment_configuration: <p>The compute topology for the cluster, defined as a set of node groups. Use deploymentConfiguration to allocate compute per function: ingest, query, compaction, and processing. A deployment configuration becomes the source of truth for the cluster's topology. Timestream for InfluxDB then ignores any node-count parameters in the associated DB parameter group.</p>
             failover_mode: <p>Specifies the behavior of failure recovery when the primary node of the cluster fails.</p>
             log_delivery_configuration: <p>Configuration for sending InfluxDB engine logs to a specified S3 bucket.</p>
             maintenance_schedule: <p>Specifies the maintenance schedule for the DB cluster, including the preferred maintenance window and timezone.</p>
@@ -897,6 +901,7 @@ class TimestreamInfluxDBClient:
         )
         input_: capo_timestream_influxdb.types.create_db_cluster_input.CreateDbClusterInput = {
             "name": name,
+            "db_instance_type": db_instance_type,
             "vpc_subnet_ids": vpc_subnet_ids,
             "vpc_security_group_ids": vpc_security_group_ids,
         }
@@ -912,8 +917,6 @@ class TimestreamInfluxDBClient:
             input_["port"] = port
         if db_parameter_group_identifier is not None:
             input_["db_parameter_group_identifier"] = db_parameter_group_identifier
-        if db_instance_type is not None:
-            input_["db_instance_type"] = db_instance_type
         if db_storage_type is not None:
             input_["db_storage_type"] = db_storage_type
         if allocated_storage is not None:
@@ -924,8 +927,6 @@ class TimestreamInfluxDBClient:
             input_["publicly_accessible"] = publicly_accessible
         if deployment_type is not None:
             input_["deployment_type"] = deployment_type
-        if deployment_configuration is not None:
-            input_["deployment_configuration"] = deployment_configuration
         if failover_mode is not None:
             input_["failover_mode"] = failover_mode
         if log_delivery_configuration is not None:
@@ -1011,9 +1012,6 @@ class TimestreamInfluxDBClient:
         db_instance_type: Optional[
             "capo_timestream_influxdb.types.db_instance_type.DbInstanceType"
         ] = None,
-        deployment_configuration: Optional[
-            "capo_timestream_influxdb.types.deployment_configuration.DeploymentConfiguration"
-        ] = None,
         failover_mode: Optional[
             "capo_timestream_influxdb.types.failover_mode.FailoverMode"
         ] = None,
@@ -1033,8 +1031,7 @@ class TimestreamInfluxDBClient:
             log_delivery_configuration: <p>The log delivery configuration to apply to the DB cluster.</p>
             db_parameter_group_identifier: <p>Update the DB cluster to use the specified DB parameter group.</p>
             port: <p>Update the DB cluster to use the specified port.</p>
-            db_instance_type: <p>Update the DB cluster to use the specified DB instance Type.</p> <p>You can't specify both dbInstanceType and deploymentConfiguration in the same request. When you use deploymentConfiguration, the instance type is specified per node group.</p>
-            deployment_configuration: <p>The updated compute topology for the cluster, defined as a set of node groups. Use deploymentConfiguration to change the cluster's topology or scale its compute in a single call. You can't specify both deploymentConfiguration and dbInstanceType in the same request. When you provide a deployment configuration, Timestream for InfluxDB ignores any node-count parameters in the associated DB parameter group.</p>
+            db_instance_type: <p>Update the DB cluster to use the specified DB instance Type.</p>
             failover_mode: <p>Update the DB cluster's failover behavior.</p>
             maintenance_schedule: <p>Specifies the maintenance schedule for the DB cluster, including the preferred maintenance window and timezone.</p>
             db_backup_configurations: <p>A list of backup configurations to update for the DB cluster.</p>
@@ -1077,8 +1074,6 @@ class TimestreamInfluxDBClient:
             input_["port"] = port
         if db_instance_type is not None:
             input_["db_instance_type"] = db_instance_type
-        if deployment_configuration is not None:
-            input_["deployment_configuration"] = deployment_configuration
         if failover_mode is not None:
             input_["failover_mode"] = failover_mode
         if maintenance_schedule is not None:

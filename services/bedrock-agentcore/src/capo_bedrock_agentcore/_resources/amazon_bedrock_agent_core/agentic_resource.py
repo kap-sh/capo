@@ -14,7 +14,9 @@ from capo_bedrock_agentcore._services._pipeline import (
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
+    awatch_event_stream,
     execute_pipeline,
+    watch_event_stream,
 )
 
 if TYPE_CHECKING:
@@ -321,6 +323,7 @@ class AgenticResource:
                     req.options, req.input
                 )
             )
+            watch_event_stream(output, "stream", req.options)
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -721,6 +724,7 @@ class AsyncAgenticResource:
             ) = await capo_bedrock_agentcore._operations.amazon_bedrock_agent_core.invoke_agent_runtime_command.async_invoke_agent_runtime_command(
                 req.options, req.input
             )
+            awatch_event_stream(output, "stream", req.options)
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_output(

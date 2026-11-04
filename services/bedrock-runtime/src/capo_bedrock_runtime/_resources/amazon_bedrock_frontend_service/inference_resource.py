@@ -14,7 +14,9 @@ from capo_bedrock_runtime._services._pipeline import (
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
+    awatch_event_stream,
     execute_pipeline,
+    watch_event_stream,
 )
 
 if TYPE_CHECKING:
@@ -286,6 +288,7 @@ class InferenceResource:
                     req.options, req.input
                 )
             )
+            watch_event_stream(output, "stream", req.options)
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -516,6 +519,7 @@ class InferenceResource:
                     req.options, req.input
                 )
             )
+            watch_event_stream(output, "body", req.options)
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -626,6 +630,7 @@ class InferenceResource:
                     req.options, req.input
                 )
             )
+            watch_event_stream(output, "body", req.options)
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -914,6 +919,7 @@ class AsyncInferenceResource:
             ) = await capo_bedrock_runtime._operations.amazon_bedrock_frontend_service.converse_stream.async_converse_stream(
                 req.options, req.input
             )
+            awatch_event_stream(output, "stream", req.options)
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1146,6 +1152,7 @@ class AsyncInferenceResource:
             ) = await capo_bedrock_runtime._operations.amazon_bedrock_frontend_service.invoke_model_with_bidirectional_stream.async_invoke_model_with_bidirectional_stream(
                 req.options, req.input
             )
+            awatch_event_stream(output, "body", req.options)
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1257,6 +1264,7 @@ class AsyncInferenceResource:
             ) = await capo_bedrock_runtime._operations.amazon_bedrock_frontend_service.invoke_model_with_response_stream.async_invoke_model_with_response_stream(
                 req.options, req.input
             )
+            awatch_event_stream(output, "body", req.options)
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(

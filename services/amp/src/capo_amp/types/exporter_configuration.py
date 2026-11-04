@@ -8,7 +8,6 @@ from capo_amp.errors import DeserializationError, SerializationError
 from capo_amp.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
-    import capo_amp.types.kafka_exporter_configuration
     import capo_amp.types.open_search_exporter_configuration
 
 
@@ -16,16 +15,8 @@ class ExporterConfigurationOpenSearchConfigurationMember(TypedDict, closed=True)
     openSearchConfiguration: "capo_amp.types.open_search_exporter_configuration.OpenSearchExporterConfiguration"
 
 
-class ExporterConfigurationKafkaConfigurationMember(TypedDict, closed=True):
-    kafkaConfiguration: (
-        "capo_amp.types.kafka_exporter_configuration.KafkaExporterConfiguration"
-    )
-
-
 ExporterConfiguration: TypeAlias = (
-    ExporterConfigurationOpenSearchConfigurationMember
-    | ExporterConfigurationKafkaConfigurationMember
-    | UnknownUnionMember
+    ExporterConfigurationOpenSearchConfigurationMember | UnknownUnionMember
 )
 
 
@@ -43,14 +34,6 @@ def serialize_json(value: ExporterConfiguration) -> dict:
                 value["openSearchConfiguration"]
             )
         }
-    elif "kafkaConfiguration" in value:
-        import capo_amp.types.kafka_exporter_configuration
-
-        return {
-            "kafkaConfiguration": capo_amp.types.kafka_exporter_configuration.serialize_json(
-                value["kafkaConfiguration"]
-            )
-        }
     else:
         raise SerializationError("ExporterConfiguration: no variant present")
 
@@ -62,14 +45,6 @@ def deserialize_json(data: dict) -> ExporterConfiguration:
         return {
             "openSearchConfiguration": capo_amp.types.open_search_exporter_configuration.deserialize_json(
                 data["openSearchConfiguration"]
-            )
-        }
-    elif data.get("kafkaConfiguration") is not None:
-        import capo_amp.types.kafka_exporter_configuration
-
-        return {
-            "kafkaConfiguration": capo_amp.types.kafka_exporter_configuration.deserialize_json(
-                data["kafkaConfiguration"]
             )
         }
     else:

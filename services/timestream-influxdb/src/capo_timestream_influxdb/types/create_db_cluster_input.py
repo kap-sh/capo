@@ -13,7 +13,6 @@ if TYPE_CHECKING:
     import capo_timestream_influxdb.types.db_instance_type
     import capo_timestream_influxdb.types.db_parameter_group_identifier
     import capo_timestream_influxdb.types.db_storage_type
-    import capo_timestream_influxdb.types.deployment_configuration
     import capo_timestream_influxdb.types.failover_mode
     import capo_timestream_influxdb.types.kms_key_id
     import capo_timestream_influxdb.types.log_delivery_configuration
@@ -47,10 +46,8 @@ class CreateDbClusterInput(TypedDict, closed=True):
         "capo_timestream_influxdb.types.db_parameter_group_identifier.DbParameterGroupIdentifier"
     ]
     """<p>The ID of the DB parameter group to assign to your DB cluster. DB parameter groups specify how the database is configured. For example, DB parameter groups can specify the limit for query concurrency.</p>"""
-    db_instance_type: NotRequired[
-        "capo_timestream_influxdb.types.db_instance_type.DbInstanceType"
-    ]
-    """<p>The Timestream for InfluxDB DB instance type to run InfluxDB on.</p> <p>Optional when you define the cluster topology with deploymentConfiguration, because the instance type is then specified per node group.</p>"""
+    db_instance_type: "capo_timestream_influxdb.types.db_instance_type.DbInstanceType"
+    """<p>The Timestream for InfluxDB DB instance type to run InfluxDB on.</p>"""
     db_storage_type: NotRequired[
         "capo_timestream_influxdb.types.db_storage_type.DbStorageType"
     ]
@@ -71,10 +68,6 @@ class CreateDbClusterInput(TypedDict, closed=True):
         "capo_timestream_influxdb.types.cluster_deployment_type.ClusterDeploymentType"
     ]
     """<p>Specifies the type of cluster to create.</p>"""
-    deployment_configuration: NotRequired[
-        "capo_timestream_influxdb.types.deployment_configuration.DeploymentConfiguration"
-    ]
-    """<p>The compute topology for the cluster, defined as a set of node groups. Use deploymentConfiguration to allocate compute per function: ingest, query, compaction, and processing. A deployment configuration becomes the source of truth for the cluster's topology. Timestream for InfluxDB then ignores any node-count parameters in the associated DB parameter group.</p>"""
     failover_mode: NotRequired[
         "capo_timestream_influxdb.types.failover_mode.FailoverMode"
     ]
@@ -113,14 +106,13 @@ def serialize_aws_json_1_0(value: CreateDbClusterInput) -> dict:
         out["port"] = value["port"]
     if "db_parameter_group_identifier" in value:
         out["dbParameterGroupIdentifier"] = value["db_parameter_group_identifier"]
-    if "db_instance_type" in value:
-        import capo_timestream_influxdb.types.db_instance_type
+    import capo_timestream_influxdb.types.db_instance_type
 
-        out["dbInstanceType"] = (
-            capo_timestream_influxdb.types.db_instance_type.serialize_aws_json_1_0(
-                value["db_instance_type"]
-            )
+    out["dbInstanceType"] = (
+        capo_timestream_influxdb.types.db_instance_type.serialize_aws_json_1_0(
+            value["db_instance_type"]
         )
+    )
     if "db_storage_type" in value:
         import capo_timestream_influxdb.types.db_storage_type
 
@@ -161,14 +153,6 @@ def serialize_aws_json_1_0(value: CreateDbClusterInput) -> dict:
         out["deploymentType"] = (
             capo_timestream_influxdb.types.cluster_deployment_type.serialize_aws_json_1_0(
                 value["deployment_type"]
-            )
-        )
-    if "deployment_configuration" in value:
-        import capo_timestream_influxdb.types.deployment_configuration
-
-        out["deploymentConfiguration"] = (
-            capo_timestream_influxdb.types.deployment_configuration.serialize_aws_json_1_0(
-                value["deployment_configuration"]
             )
         )
     if "failover_mode" in value:
@@ -242,6 +226,12 @@ def deserialize_aws_json_1_0(data: dict) -> CreateDbClusterInput:
                 data["dbInstanceType"]
             )
         )
+    else:
+        import typing
+
+        out["db_instance_type"] = typing.cast(
+            "capo_timestream_influxdb.types.db_instance_type.DbInstanceType", ""
+        )
     if data.get("dbStorageType") is not None:
         import capo_timestream_influxdb.types.db_storage_type
 
@@ -288,14 +278,6 @@ def deserialize_aws_json_1_0(data: dict) -> CreateDbClusterInput:
         out["deployment_type"] = (
             capo_timestream_influxdb.types.cluster_deployment_type.deserialize_aws_json_1_0(
                 data["deploymentType"]
-            )
-        )
-    if data.get("deploymentConfiguration") is not None:
-        import capo_timestream_influxdb.types.deployment_configuration
-
-        out["deployment_configuration"] = (
-            capo_timestream_influxdb.types.deployment_configuration.deserialize_aws_json_1_0(
-                data["deploymentConfiguration"]
             )
         )
     if data.get("failoverMode") is not None:

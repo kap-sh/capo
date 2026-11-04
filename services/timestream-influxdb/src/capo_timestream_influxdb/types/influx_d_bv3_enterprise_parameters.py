@@ -124,11 +124,11 @@ class InfluxDBv3EnterpriseParameters(TypedDict, closed=True):
     ]
     """<p>The Amazon Resource Name (ARN) of the Secrets Manager secret that holds your repository access token.</p>"""
     ingest_query_instances: "int"
-    """<p>Specifies number of instances in the DbCluster which can both ingest and query.</p> <p>Deprecated. Use deploymentConfiguration on CreateDbCluster or UpdateDbCluster to define the cluster topology instead. When you supply a deployment configuration, Timestream for InfluxDB ignores this parameter.</p>"""
+    """<p>Specifies number of instances in the DbCluster which can both ingest and query.</p>"""
     query_only_instances: "int"
-    """<p>Specifies number of instances in the DbCluster which can only query.</p> <p>Deprecated. Use deploymentConfiguration on CreateDbCluster or UpdateDbCluster to define the cluster topology instead. When you supply a deployment configuration, Timestream for InfluxDB ignores this parameter.</p>"""
+    """<p>Specifies number of instances in the DbCluster which can only query.</p>"""
     dedicated_compactor: "bool"
-    """<p>Specifies if the compactor instance should be a standalone instance or not.</p> <p>Deprecated. Use deploymentConfiguration on CreateDbCluster or UpdateDbCluster to define the cluster topology instead. When you supply a deployment configuration, Timestream for InfluxDB ignores this parameter.</p>"""
+    """<p>Specifies if the compactor instance should be a standalone instance or not.</p>"""
     compaction_row_limit: NotRequired["int"]
     """<p>Specifies the soft limit for the number of rows per file that the compactor writes. The compactor may write more rows than this limit.</p> <p>Default: 1000000</p>"""
     compaction_max_num_files_per_plan: NotRequired["int"]
@@ -377,9 +377,9 @@ def serialize_aws_json_1_0(value: InfluxDBv3EnterpriseParameters) -> dict:
         out["pluginRepositoryUrl"] = value["plugin_repository_url"]
     if "plugin_repository_secret_arn" in value:
         out["pluginRepositorySecretArn"] = value["plugin_repository_secret_arn"]
-    out["ingestQueryInstances"] = value.get("ingest_query_instances", 1)
-    out["queryOnlyInstances"] = value.get("query_only_instances", 0)
-    out["dedicatedCompactor"] = value.get("dedicated_compactor", False)
+    out["ingestQueryInstances"] = value["ingest_query_instances"]
+    out["queryOnlyInstances"] = value["query_only_instances"]
+    out["dedicatedCompactor"] = value["dedicated_compactor"]
     if "compaction_row_limit" in value:
         out["compactionRowLimit"] = value["compaction_row_limit"]
     if "compaction_max_num_files_per_plan" in value:
@@ -658,7 +658,7 @@ def deserialize_aws_json_1_0(data: dict) -> InfluxDBv3EnterpriseParameters:
     if data.get("ingestQueryInstances") is not None:
         out["ingest_query_instances"] = data["ingestQueryInstances"]
     else:
-        out["ingest_query_instances"] = 1
+        out["ingest_query_instances"] = 0
     if data.get("queryOnlyInstances") is not None:
         out["query_only_instances"] = data["queryOnlyInstances"]
     else:

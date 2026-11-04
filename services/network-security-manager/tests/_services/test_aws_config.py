@@ -25,6 +25,7 @@ def clean_env(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
         "AWS_USE_FIPS_ENDPOINT",
         "AWS_USE_DUALSTACK_ENDPOINT",
         "AWS_MAX_ATTEMPTS",
+        "AWS_RETRY_MODE",
     ):
         monkeypatch.delenv(var, raising=False)
     monkeypatch.setenv("AWS_CONFIG_FILE", str(tmp_path / "no_such_config"))
@@ -80,6 +81,7 @@ def test_defaults_when_nothing_set() -> None:
     assert s.use_fips is False
     assert s.use_dual_stack is False
     assert s.max_attempts == 3
+    assert s.retry_mode == "standard"
 
 
 def test_region_from_env(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -203,6 +205,35 @@ def test_max_attempts_env_beats_profile(
     write_config(tmp_path, "[default]\nmax_attempts = 5\n")
     monkeypatch.setenv("AWS_MAX_ATTEMPTS", "9")
     assert load_aws_settings().max_attempts == 9
+
+
+def test_retry_mode_from_env(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("AWS_RETRY_MODE", " Adaptive ")
+    assert load_aws_settings().retry_mode == "adaptive"
+
+
+def test_retry_mode_from_profile(tmp_path: Path) -> None:
+    write_config(tmp_path, "[default]\nretry_mode = adaptive\n")
+    assert load_aws_settings().retry_mode == "adaptive"
+
+
+def test_retry_mode_env_beats_profile(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    write_config(tmp_path, "[default]\nretry_mode = adaptive\n")
+    monkeypatch.setenv("AWS_RETRY_MODE", "standard")
+    assert load_aws_settings().retry_mode == "standard"
+
+
+def test_retry_mode_legacy_is_accepted(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("AWS_RETRY_MODE", "legacy")
+    assert load_aws_settings().retry_mode == "legacy"
+
+
+def test_retry_mode_invalid_raises(tmp_path: Path) -> None:
+    write_config(tmp_path, "[default]\nretry_mode = adaptiv\n")
+    with pytest.raises(ValueError, match="adaptiv"):
+        load_aws_settings()
 
 
 def test_region_from_env_endpoint_from_profile(

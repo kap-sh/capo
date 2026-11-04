@@ -22,7 +22,6 @@ import capo_timestream_influxdb.types.cluster_status
 import capo_timestream_influxdb.types.db_backup_configuration_output_list
 import capo_timestream_influxdb.types.db_instance_type
 import capo_timestream_influxdb.types.db_storage_type
-import capo_timestream_influxdb.types.deployment_configuration
 import capo_timestream_influxdb.types.engine_type
 import capo_timestream_influxdb.types.failover_mode
 import capo_timestream_influxdb.types.get_db_cluster_input

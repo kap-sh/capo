@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
-    import capo_sagemaker.types.accelerator_partition_layouts
     import capo_sagemaker.types.deployed_images
     import capo_sagemaker.types.instance_pool_summary_list
     import capo_sagemaker.types.production_variant_accelerator_type
@@ -64,10 +63,6 @@ class PendingProductionVariantSummary(TypedDict, closed=True):
         "capo_sagemaker.types.production_variant_routing_config.ProductionVariantRoutingConfig"
     ]
     """<p>Settings that control how the endpoint routes incoming traffic to the instances that the endpoint hosts.</p>"""
-    accelerator_partition_layouts: NotRequired[
-        "capo_sagemaker.types.accelerator_partition_layouts.AcceleratorPartitionLayouts"
-    ]
-    """<p>The accelerator partition layout that SageMaker is applying to this production variant. On NVIDIA GPUs, the profiles are Multi-Instance GPU (MIG) profiles. SageMaker returns the accelerator partition layout as you provided it in the pending deployment configuration, without normalization.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -171,14 +166,6 @@ def serialize_aws_json_1_1(value: PendingProductionVariantSummary) -> dict:
                 value["routing_config"]
             )
         )
-    if "accelerator_partition_layouts" in value:
-        import capo_sagemaker.types.accelerator_partition_layouts
-
-        out["AcceleratorPartitionLayouts"] = (
-            capo_sagemaker.types.accelerator_partition_layouts.serialize_aws_json_1_1(
-                value["accelerator_partition_layouts"]
-            )
-        )
     return out
 
 
@@ -264,14 +251,6 @@ def deserialize_aws_json_1_1(data: dict) -> PendingProductionVariantSummary:
         out["routing_config"] = (
             capo_sagemaker.types.production_variant_routing_config.deserialize_aws_json_1_1(
                 data["RoutingConfig"]
-            )
-        )
-    if data.get("AcceleratorPartitionLayouts") is not None:
-        import capo_sagemaker.types.accelerator_partition_layouts
-
-        out["accelerator_partition_layouts"] = (
-            capo_sagemaker.types.accelerator_partition_layouts.deserialize_aws_json_1_1(
-                data["AcceleratorPartitionLayouts"]
             )
         )
     return out
