@@ -56,6 +56,7 @@ if TYPE_CHECKING:
     import capo_mwaa_serverless.types.description_string
     import capo_mwaa_serverless.types.encryption_configuration
     import capo_mwaa_serverless.types.engine_version
+    import capo_mwaa_serverless.types.environment
     import capo_mwaa_serverless.types.generic_string
     import capo_mwaa_serverless.types.get_task_instance_request
     import capo_mwaa_serverless.types.get_task_instance_response
@@ -548,6 +549,9 @@ class AsyncMWAAServerlessClient:
         network_configuration: Optional[
             "capo_mwaa_serverless.types.network_configuration.NetworkConfiguration"
         ] = None,
+        environment: Optional[
+            "capo_mwaa_serverless.types.environment.Environment"
+        ] = None,
         tags: Optional["capo_mwaa_serverless.types.tags.Tags"] = None,
         trigger_mode: Optional[
             "capo_mwaa_serverless.types.generic_string.GenericString"
@@ -566,6 +570,7 @@ class AsyncMWAAServerlessClient:
             logging_configuration: <p>The configuration for workflow logging. Specifies the CloudWatch log group where workflow execution logs are stored. Amazon Managed Workflows for Apache Airflow Serverless automatically exports worker logs and task-level information to the specified log group in your account using remote logging functionality. This provides comprehensive observability for debugging and monitoring workflow execution across the distributed, serverless environment.</p>
             engine_version: <p>The version of the Amazon Managed Workflows for Apache Airflow Serverless engine that you want to use for this workflow. This determines the feature set, supported operators, and execution environment capabilities available to your workflow. Amazon Managed Workflows for Apache Airflow Serverless maintains backward compatibility across versions while introducing new features and improvements. Currently supports version 1 with plans for additional versions as the service evolves.</p>
             network_configuration: <p>Network configuration for the workflow execution environment, including VPC security groups and subnets for secure network access. When specified, Amazon Managed Workflows for Apache Airflow Serverless deploys ECS worker tasks in your customer VPC to provide secure connectivity to your resources. If not specified, tasks run in the service's default worker VPC with network isolation from other customers. This configuration enables secure access to VPC-only resources like RDS databases or private endpoints.</p>
+            environment: <p>The environment variables to set for tasks in the workflow. If you don't specify this parameter, the workflow has no environment variables.</p>
             tags: <p>A map of tags to assign to the workflow resource. Tags are key-value pairs that are used for resource organization and cost allocation.</p>
             trigger_mode: <p>The trigger mode for the workflow execution.</p>
 
@@ -595,8 +600,18 @@ class AsyncMWAAServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
+        def _redact_input(
+            input_: "capo_mwaa_serverless.types.create_workflow_request.CreateWorkflowRequest",
+        ) -> dict[str, Any]:
+            import capo_mwaa_serverless.types.create_workflow_request
+
+            return capo_mwaa_serverless.types.create_workflow_request.redact_sensitive(
+                input_
+            )
+
         interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("CreateWorkflow")
+            config_overrides,
+            OperationLogging("CreateWorkflow", redact_input=_redact_input),
         )
         input_: capo_mwaa_serverless.types.create_workflow_request.CreateWorkflowRequest = {
             "name": name,
@@ -618,6 +633,8 @@ class AsyncMWAAServerlessClient:
             input_["engine_version"] = engine_version
         if network_configuration is not None:
             input_["network_configuration"] = network_configuration
+        if environment is not None:
+            input_["environment"] = environment
         if tags is not None:
             input_["tags"] = tags
         if trigger_mode is not None:
@@ -671,8 +688,18 @@ class AsyncMWAAServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
+        def _redact_output(
+            output: "capo_mwaa_serverless.types.get_workflow_response.GetWorkflowResponse",
+        ) -> dict[str, Any]:
+            import capo_mwaa_serverless.types.get_workflow_response
+
+            return capo_mwaa_serverless.types.get_workflow_response.redact_sensitive(
+                output
+            )
+
         interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("GetWorkflow")
+            config_overrides,
+            OperationLogging("GetWorkflow", redact_output=_redact_output),
         )
         input_: capo_mwaa_serverless.types.get_workflow_request.GetWorkflowRequest = {
             "workflow_arn": workflow_arn
@@ -708,6 +735,9 @@ class AsyncMWAAServerlessClient:
         network_configuration: Optional[
             "capo_mwaa_serverless.types.network_configuration.NetworkConfiguration"
         ] = None,
+        environment: Optional[
+            "capo_mwaa_serverless.types.environment.Environment"
+        ] = None,
         trigger_mode: Optional[
             "capo_mwaa_serverless.types.generic_string.GenericString"
         ] = None,
@@ -723,6 +753,7 @@ class AsyncMWAAServerlessClient:
             logging_configuration: <p>Updated logging configuration for the workflow.</p>
             engine_version: <p>The version of the Amazon Managed Workflows for Apache Airflow Serverless engine that you want to use for the updated workflow.</p>
             network_configuration: <p>Updated network configuration for the workflow execution environment.</p>
+            environment: <p>The environment variables to set for tasks in the workflow.</p> <important> <p>The variables that you specify replace all existing environment variables for the workflow. If you don't specify this parameter, the workflow has no environment variables. To keep existing environment variables, include them in the request.</p> </important>
             trigger_mode: <p>The trigger mode for the workflow execution.</p>
 
         Raises:
@@ -752,8 +783,18 @@ class AsyncMWAAServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
+        def _redact_input(
+            input_: "capo_mwaa_serverless.types.update_workflow_request.UpdateWorkflowRequest",
+        ) -> dict[str, Any]:
+            import capo_mwaa_serverless.types.update_workflow_request
+
+            return capo_mwaa_serverless.types.update_workflow_request.redact_sensitive(
+                input_
+            )
+
         interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("UpdateWorkflow")
+            config_overrides,
+            OperationLogging("UpdateWorkflow", redact_input=_redact_input),
         )
         input_: capo_mwaa_serverless.types.update_workflow_request.UpdateWorkflowRequest = {
             "workflow_arn": workflow_arn,
@@ -770,6 +811,8 @@ class AsyncMWAAServerlessClient:
             input_["engine_version"] = engine_version
         if network_configuration is not None:
             input_["network_configuration"] = network_configuration
+        if environment is not None:
+            input_["environment"] = environment
         if trigger_mode is not None:
             input_["trigger_mode"] = trigger_mode
 
@@ -934,7 +977,7 @@ class AsyncMWAAServerlessClient:
             workflow_arn: <p>The Amazon Resource Name (ARN) of the workflow you want to run.</p>
             client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This token prevents duplicate workflow run requests.</p>
             override_parameters: <p>Optional parameters to override default workflow parameters for this specific run. These parameters are passed to the workflow during execution and can be used to customize behavior without modifying the workflow definition. Parameters are made available as environment variables to tasks and you can reference them within the YAML workflow definition using standard parameter substitution syntax.</p>
-            workflow_version: <p>Optional. The specific version of the workflow to execute. If not specified, the latest version is used.</p>
+            workflow_version: <p>Optional. The specific version of the workflow to execute. If you don't specify a version, we use the latest version.</p>
 
         Raises:
             capo_mwaa_serverless.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permission to perform this action.</p>

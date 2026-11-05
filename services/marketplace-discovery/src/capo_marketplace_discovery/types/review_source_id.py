@@ -2,7 +2,11 @@
 
 from typing import Literal, TypeAlias, cast
 
-ReviewSourceId: TypeAlias = Literal["AWS_MARKETPLACE",]
+ReviewSourceId: TypeAlias = Literal[
+    "AWS_MARKETPLACE",
+    "G2",
+    "PEERSPOT",
+]
 
 
 # --- restJson1 ser/de ---

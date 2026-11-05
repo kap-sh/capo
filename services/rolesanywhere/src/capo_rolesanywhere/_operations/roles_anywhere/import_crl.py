@@ -12,6 +12,7 @@ import capo_rolesanywhere._auth._signers
 import capo_rolesanywhere._auth._sigv4
 import capo_rolesanywhere._protocol.eventstream
 import capo_rolesanywhere.errors.access_denied_exception
+import capo_rolesanywhere.errors.service_unavailable_exception
 import capo_rolesanywhere.errors.validation_exception
 import capo_rolesanywhere.types.crl_detail
 import capo_rolesanywhere.types.crl_detail_response
@@ -33,6 +34,10 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException.from_json(
+                data, message, response=response
+            )
+        case "ServiceUnavailableException":
+            raise capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException.from_json(
                 data, message, response=response
             )
         case "ValidationException":

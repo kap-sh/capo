@@ -39,7 +39,7 @@ class SearchVectorsInput(TypedDict, closed=True):
     search_vector: "capo_dynamodb.types.search_vector_list.SearchVectorList"
     """<p>The search vector to compare against the indexed vectors. Each element is a 32-bit IEEE-754 floating point number, provided in DynamoDB list format.</p> <p>The number of dimensions must match the number of dimensions configured for the vector index.</p>"""
     search_condition_expression: NotRequired["capo_dynamodb.types.string.String"]
-    """<p>A condition expression used to filter the vector search results. The expression can reference attributes defined in the vector index search schema, including <code>HASH</code> and <code>INLINE_FILTER</code> key elements.</p> <p>Only the equality operator (<code>=</code>) is supported for <code>HASH</code> attributes. Comparison and range operators are supported for <code>INLINE_FILTER</code> attributes. Only top-level attributes from the search schema can be referenced.</p>"""
+    """<p>A condition expression used to filter the vector search results. The expression can reference attributes defined in the vector index search schema, including <code>HASH</code> and <code>INLINE_FILTER</code> key elements.</p> <p>The <code>HASH</code> and <code>INLINE_FILTER</code> attributes support only the equality operator (<code>=</code>). You can reference only top-level attributes from the search schema.</p>"""
     top_k: "capo_dynamodb.types.top_k_integer.TopKInteger"
     """<p>The number of most similar results to return.</p>"""
 

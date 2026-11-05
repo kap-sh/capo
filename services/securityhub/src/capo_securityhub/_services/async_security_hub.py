@@ -260,6 +260,12 @@ if TYPE_CHECKING:
     import capo_securityhub.types.get_resources_v2_response
     import capo_securityhub.types.get_security_control_definition_request
     import capo_securityhub.types.get_security_control_definition_response
+    import capo_securityhub.types.get_software_resources_v2_request
+    import capo_securityhub.types.get_software_resources_v2_response
+    import capo_securityhub.types.get_software_statistics_v2_request
+    import capo_securityhub.types.get_software_statistics_v2_response
+    import capo_securityhub.types.get_software_v2_request
+    import capo_securityhub.types.get_software_v2_response
     import capo_securityhub.types.group_by_rules
     import capo_securityhub.types.guidance_format
     import capo_securityhub.types.insight
@@ -344,6 +350,11 @@ if TYPE_CHECKING:
     import capo_securityhub.types.security_controls_providers
     import capo_securityhub.types.security_hub_feature
     import capo_securityhub.types.severity_update
+    import capo_securityhub.types.software_filters
+    import capo_securityhub.types.software_group_by_rules
+    import capo_securityhub.types.software_resource_result
+    import capo_securityhub.types.software_result
+    import capo_securityhub.types.software_scopes
     import capo_securityhub.types.sort_criteria
     import capo_securityhub.types.sort_order
     import capo_securityhub.types.standard
@@ -6086,6 +6097,323 @@ class AsyncSecurityHubClient:
         )
         await response.response.aclose()
         return response.output
+
+    async def get_software_resources_v2(
+        self,
+        *,
+        config_overrides: Optional[AsyncSecurityHubClientConfig] = None,
+        package_name: Optional[
+            "capo_securityhub.types.non_empty_string.NonEmptyString"
+        ] = None,
+        package_type: Optional[
+            "capo_securityhub.types.non_empty_string.NonEmptyString"
+        ] = None,
+        package_version: Optional[
+            "capo_securityhub.types.non_empty_string.NonEmptyString"
+        ] = None,
+        filters: Optional[
+            "capo_securityhub.types.software_filters.SoftwareFilters"
+        ] = None,
+        scopes: Optional[
+            "capo_securityhub.types.software_scopes.SoftwareScopes"
+        ] = None,
+        sort_criteria: Optional[
+            "capo_securityhub.types.sort_criteria.SortCriteria"
+        ] = None,
+        next_token: Optional["capo_securityhub.types.next_token.NextToken"] = None,
+        max_results: Optional["capo_securityhub.types.max_results.MaxResults"] = None,
+    ) -> "capo_securityhub.types.get_software_resources_v2_response.GetSoftwareResourcesV2Response":
+        """<p>Returns a list of resources that contain a specific software package. You identify the package with <code>PackageName</code> and <code>PackageType</code>. To narrow the results to one version of the package, include <code>PackageVersion</code>.</p> <p>You can use the <code>Scopes</code> parameter to define the data boundary for the query. Currently, <code>Scopes</code> supports <code>AwsOrganizations</code>, which lets you retrieve resources from your entire organization or from specific organizational units. Only the delegated administrator account can use <code>Scopes</code>.</p> <p>You can use the <code>Filters</code> parameter to further refine results based on resource attributes, such as <code>ResourceType</code> or <code>Region</code>.</p>
+
+        Args:
+            package_name: <p>The name of the software package, for example <code>openssl</code>. This value must match the <code>PackageName</code> returned by <code>GetSoftwareV2</code>.</p>
+            package_type: <p>The type of the software package, for example <code>operating-system</code>, <code>application</code>, or <code>library</code>. This value must match the <code>PackageType</code> returned by <code>GetSoftwareV2</code>.</p>
+            package_version: <p>The version of the software package, for example <code>3.0.8</code>. If you omit this value, the response includes resources that contain any version of the package.</p>
+            filters: <p>Filters the returned resources based on a set of criteria. You can nest composite filters up to three levels deep.</p>
+            scopes: <p>Limits the results to resources from specific organizational units or from the delegated administrator's organization. Only the delegated administrator account can use this parameter. Other accounts receive an <code>AccessDeniedException</code>.</p> <p>This parameter is optional. If you omit it, the delegated administrator sees resources from all accounts across the entire organization. Other accounts see only their own resources.</p> <p>You can specify up to 10 entries in <code>Scopes.AwsOrganizations</code>. If multiple entries are specified, the entries are combined using OR logic.</p>
+            sort_criteria: <p>The resource attribute used to sort the list of returned resources, for example <code>Region</code> or <code>ResourceType</code>. You can specify one sort criterion.</p>
+            next_token: <p>The token required for pagination. On your first call, set the value of this parameter to <code>NULL</code>. For subsequent calls, to continue listing data, set the value of this parameter to the value returned in the previous response.</p> <p>A token expires one hour after it's issued. If you change the request parameters between calls, the token is no longer valid and the request fails with a <code>ValidationException</code>.</p>
+            max_results: <p>The maximum number of results to return. Valid values are 1–100. The default is 100.</p>
+
+        Raises:
+            capo_securityhub.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action specified in the request.</p>
+            capo_securityhub.errors.conflict_exception.ConflictException: <p>The request causes conflict with the current state of the service resource.</p>
+            capo_securityhub.errors.internal_server_exception.InternalServerException: <p> The request has failed due to an internal failure of the service. </p>
+            capo_securityhub.errors.organizational_unit_not_found_exception.OrganizationalUnitNotFoundException: <p>The request failed because one or more organizational units specified in the request don't exist within the caller's organization.</p>
+            capo_securityhub.errors.organization_not_found_exception.OrganizationNotFoundException: <p>The request failed because one or more organizations specified in the request don't exist or don't belong to the caller's organization.</p>
+            capo_securityhub.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because we can't find the specified resource.</p>
+            capo_securityhub.errors.throttling_exception.ThrottlingException: <p> The limit on the number of requests per second was exceeded. </p>
+            capo_securityhub.errors.validation_exception.ValidationException: <p>The request has failed validation because it's missing required fields or has invalid inputs.</p>
+            capo_securityhub.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_securityhub.types.get_software_resources_v2_request.GetSoftwareResourcesV2Request]",
+        ) -> AsyncOperationResponse[
+            "capo_securityhub.types.get_software_resources_v2_response.GetSoftwareResourcesV2Response"
+        ]:
+            import capo_securityhub._operations.security_hub_api_service.get_software_resources_v2
+
+            (
+                output,
+                http_response,
+            ) = await capo_securityhub._operations.security_hub_api_service.get_software_resources_v2.async_get_software_resources_v2(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSoftwareResourcesV2")
+        )
+        input_: capo_securityhub.types.get_software_resources_v2_request.GetSoftwareResourcesV2Request = {}
+        if package_name is not None:
+            input_["package_name"] = package_name
+        if package_type is not None:
+            input_["package_type"] = package_type
+        if package_version is not None:
+            input_["package_version"] = package_version
+        if filters is not None:
+            input_["filters"] = filters
+        if scopes is not None:
+            input_["scopes"] = scopes
+        if sort_criteria is not None:
+            input_["sort_criteria"] = sort_criteria
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if max_results is not None:
+            input_["max_results"] = max_results
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_get_software_resources_v2(
+        self,
+        *,
+        config_overrides: Optional[AsyncSecurityHubClientConfig] = None,
+        package_name: Optional[
+            "capo_securityhub.types.non_empty_string.NonEmptyString"
+        ] = None,
+        package_type: Optional[
+            "capo_securityhub.types.non_empty_string.NonEmptyString"
+        ] = None,
+        package_version: Optional[
+            "capo_securityhub.types.non_empty_string.NonEmptyString"
+        ] = None,
+        filters: Optional[
+            "capo_securityhub.types.software_filters.SoftwareFilters"
+        ] = None,
+        scopes: Optional[
+            "capo_securityhub.types.software_scopes.SoftwareScopes"
+        ] = None,
+        sort_criteria: Optional[
+            "capo_securityhub.types.sort_criteria.SortCriteria"
+        ] = None,
+        next_token: Optional["capo_securityhub.types.next_token.NextToken"] = None,
+        max_results: Optional["capo_securityhub.types.max_results.MaxResults"] = None,
+    ) -> "AsyncIterator[capo_securityhub.types.software_resource_result.SoftwareResourceResult]":
+        _token = next_token
+        while True:
+            _response = await self.get_software_resources_v2(
+                config_overrides=config_overrides,
+                package_name=package_name,
+                package_type=package_type,
+                package_version=package_version,
+                filters=filters,
+                scopes=scopes,
+                sort_criteria=sort_criteria,
+                next_token=_token,
+                max_results=max_results,
+            )
+            _page = _resolve_path(_response, ("software_resources",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    async def get_software_statistics_v2(
+        self,
+        *,
+        config_overrides: Optional[AsyncSecurityHubClientConfig] = None,
+        group_by_rules: Optional[
+            "capo_securityhub.types.software_group_by_rules.SoftwareGroupByRules"
+        ] = None,
+        scopes: Optional[
+            "capo_securityhub.types.software_scopes.SoftwareScopes"
+        ] = None,
+        sort_order: Optional["capo_securityhub.types.sort_order.SortOrder"] = None,
+        max_statistic_results: Optional[
+            "capo_securityhub.types.max_statistic_results.MaxStatisticResults"
+        ] = None,
+    ) -> "capo_securityhub.types.get_software_statistics_v2_response.GetSoftwareStatisticsV2Response":
+        """<p>Retrieves aggregated counts of software packages installed on your resources, grouped by a field that you specify. For example, you can return the most common package types or the accounts with the most installed packages.</p> <p>Each count is the number of package-to-resource pairs that match the grouping value. A package installed on three resources contributes three to the count.</p> <p>You can use the <code>Scopes</code> parameter to define the data boundary for the query. Currently, <code>Scopes</code> supports <code>AwsOrganizations</code>, which lets you aggregate software from your entire organization or from specific organizational units. Only the delegated administrator account can use <code>Scopes</code>.</p> <p>This operation doesn't paginate. Use <code>MaxStatisticResults</code> to control how many grouping values are returned.</p>
+
+        Args:
+            group_by_rules: <p>How software statistics should be aggregated and organized in the response.</p>
+            scopes: <p>Limits the results to software on resources from specific organizational units or from the delegated administrator's organization. Only the delegated administrator account can use this parameter. Other accounts receive an <code>AccessDeniedException</code>.</p> <p>This parameter is optional. If you omit it, the delegated administrator sees statistics from all accounts across the entire organization. Other accounts see only statistics for software on their own resources.</p> <p>You can specify up to 10 entries in <code>Scopes.AwsOrganizations</code>. If multiple entries are specified, the entries are combined using OR logic.</p>
+            sort_order: <p>Sorts aggregated statistics by count. The default is descending, which returns the values with the highest counts first.</p>
+            max_statistic_results: <p>The maximum number of grouping values to return. Valid values are 1–400. The default is 400.</p>
+
+        Raises:
+            capo_securityhub.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action specified in the request.</p>
+            capo_securityhub.errors.conflict_exception.ConflictException: <p>The request causes conflict with the current state of the service resource.</p>
+            capo_securityhub.errors.internal_server_exception.InternalServerException: <p> The request has failed due to an internal failure of the service. </p>
+            capo_securityhub.errors.organizational_unit_not_found_exception.OrganizationalUnitNotFoundException: <p>The request failed because one or more organizational units specified in the request don't exist within the caller's organization.</p>
+            capo_securityhub.errors.organization_not_found_exception.OrganizationNotFoundException: <p>The request failed because one or more organizations specified in the request don't exist or don't belong to the caller's organization.</p>
+            capo_securityhub.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because we can't find the specified resource.</p>
+            capo_securityhub.errors.throttling_exception.ThrottlingException: <p> The limit on the number of requests per second was exceeded. </p>
+            capo_securityhub.errors.validation_exception.ValidationException: <p>The request has failed validation because it's missing required fields or has invalid inputs.</p>
+            capo_securityhub.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_securityhub.types.get_software_statistics_v2_request.GetSoftwareStatisticsV2Request]",
+        ) -> AsyncOperationResponse[
+            "capo_securityhub.types.get_software_statistics_v2_response.GetSoftwareStatisticsV2Response"
+        ]:
+            import capo_securityhub._operations.security_hub_api_service.get_software_statistics_v2
+
+            (
+                output,
+                http_response,
+            ) = await capo_securityhub._operations.security_hub_api_service.get_software_statistics_v2.async_get_software_statistics_v2(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSoftwareStatisticsV2")
+        )
+        input_: capo_securityhub.types.get_software_statistics_v2_request.GetSoftwareStatisticsV2Request = {}
+        if group_by_rules is not None:
+            input_["group_by_rules"] = group_by_rules
+        if scopes is not None:
+            input_["scopes"] = scopes
+        if sort_order is not None:
+            input_["sort_order"] = sort_order
+        if max_statistic_results is not None:
+            input_["max_statistic_results"] = max_statistic_results
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def get_software_v2(
+        self,
+        *,
+        config_overrides: Optional[AsyncSecurityHubClientConfig] = None,
+        filters: Optional[
+            "capo_securityhub.types.software_filters.SoftwareFilters"
+        ] = None,
+        scopes: Optional[
+            "capo_securityhub.types.software_scopes.SoftwareScopes"
+        ] = None,
+        sort_criteria: Optional[
+            "capo_securityhub.types.sort_criteria.SortCriteria"
+        ] = None,
+        next_token: Optional["capo_securityhub.types.next_token.NextToken"] = None,
+        max_results: Optional["capo_securityhub.types.max_results.MaxResults"] = None,
+    ) -> "capo_securityhub.types.get_software_v2_response.GetSoftwareV2Response":
+        """<p>Returns a list of software packages installed on your resources. Each result identifies a package by name, version, and type, and includes the number of resources that contain that package.</p> <p>You can use the <code>Scopes</code> parameter to define the data boundary for the query. Currently, <code>Scopes</code> supports <code>AwsOrganizations</code>, which lets you retrieve software from your entire organization or from specific organizational units. Only the delegated administrator account can use <code>Scopes</code>.</p> <p>You can use the <code>Filters</code> parameter to refine results based on package and resource attributes. You can use <code>Scopes</code> and <code>Filters</code> independently or together. When both are provided, <code>Scopes</code> narrows the data set first, and then <code>Filters</code> refines results within that scoped data set.</p> <p>To list the resources that contain a specific package, use <code>GetSoftwareResourcesV2</code>. To get counts of software grouped by a field, use <code>GetSoftwareStatisticsV2</code>.</p>
+
+        Args:
+            filters: <p>Filters software packages based on a set of criteria. You can nest composite filters up to three levels deep.</p>
+            scopes: <p>Limits the results to software on resources from specific organizational units or from the delegated administrator's organization. Only the delegated administrator account can use this parameter. Other accounts receive an <code>AccessDeniedException</code>.</p> <p>This parameter is optional. If you omit it, the delegated administrator sees software from all accounts across the entire organization. Other accounts see only software on their own resources.</p> <p>You can specify up to 10 entries in <code>Scopes.AwsOrganizations</code>. If multiple entries are specified, the entries are combined using OR logic.</p>
+            sort_criteria: <p>The software attributes used to sort the list of returned software packages. You can't sort by <code>ResourceCount</code>.</p>
+            next_token: <p>The token required for pagination. On your first call, set the value of this parameter to <code>NULL</code>. For subsequent calls, to continue listing data, set the value of this parameter to the value returned in the previous response.</p> <p>A token expires one hour after it's issued. If you change <code>Filters</code> or <code>SortCriteria</code> between calls, the token is no longer valid and the request fails with a <code>ValidationException</code>.</p>
+            max_results: <p>The maximum number of results to return. Valid values are 1–100. The default is 100.</p>
+
+        Raises:
+            capo_securityhub.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action specified in the request.</p>
+            capo_securityhub.errors.conflict_exception.ConflictException: <p>The request causes conflict with the current state of the service resource.</p>
+            capo_securityhub.errors.internal_server_exception.InternalServerException: <p> The request has failed due to an internal failure of the service. </p>
+            capo_securityhub.errors.organizational_unit_not_found_exception.OrganizationalUnitNotFoundException: <p>The request failed because one or more organizational units specified in the request don't exist within the caller's organization.</p>
+            capo_securityhub.errors.organization_not_found_exception.OrganizationNotFoundException: <p>The request failed because one or more organizations specified in the request don't exist or don't belong to the caller's organization.</p>
+            capo_securityhub.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because we can't find the specified resource.</p>
+            capo_securityhub.errors.throttling_exception.ThrottlingException: <p> The limit on the number of requests per second was exceeded. </p>
+            capo_securityhub.errors.validation_exception.ValidationException: <p>The request has failed validation because it's missing required fields or has invalid inputs.</p>
+            capo_securityhub.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_securityhub.types.get_software_v2_request.GetSoftwareV2Request]",
+        ) -> AsyncOperationResponse[
+            "capo_securityhub.types.get_software_v2_response.GetSoftwareV2Response"
+        ]:
+            import capo_securityhub._operations.security_hub_api_service.get_software_v2
+
+            (
+                output,
+                http_response,
+            ) = await capo_securityhub._operations.security_hub_api_service.get_software_v2.async_get_software_v2(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSoftwareV2")
+        )
+        input_: capo_securityhub.types.get_software_v2_request.GetSoftwareV2Request = {}
+        if filters is not None:
+            input_["filters"] = filters
+        if scopes is not None:
+            input_["scopes"] = scopes
+        if sort_criteria is not None:
+            input_["sort_criteria"] = sort_criteria
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if max_results is not None:
+            input_["max_results"] = max_results
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_get_software_v2(
+        self,
+        *,
+        config_overrides: Optional[AsyncSecurityHubClientConfig] = None,
+        filters: Optional[
+            "capo_securityhub.types.software_filters.SoftwareFilters"
+        ] = None,
+        scopes: Optional[
+            "capo_securityhub.types.software_scopes.SoftwareScopes"
+        ] = None,
+        sort_criteria: Optional[
+            "capo_securityhub.types.sort_criteria.SortCriteria"
+        ] = None,
+        next_token: Optional["capo_securityhub.types.next_token.NextToken"] = None,
+        max_results: Optional["capo_securityhub.types.max_results.MaxResults"] = None,
+    ) -> "AsyncIterator[capo_securityhub.types.software_result.SoftwareResult]":
+        _token = next_token
+        while True:
+            _response = await self.get_software_v2(
+                config_overrides=config_overrides,
+                filters=filters,
+                scopes=scopes,
+                sort_criteria=sort_criteria,
+                next_token=_token,
+                max_results=max_results,
+            )
+            _page = _resolve_path(_response, ("software",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
 
     async def invite_members(
         self,

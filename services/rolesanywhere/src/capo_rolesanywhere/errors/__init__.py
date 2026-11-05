@@ -25,5 +25,8 @@ from .access_denied_exception import AccessDeniedException as AccessDeniedExcept
 from .resource_not_found_exception import (
     ResourceNotFoundException as ResourceNotFoundException,
 )
+from .service_unavailable_exception import (
+    ServiceUnavailableException as ServiceUnavailableException,
+)
 from .too_many_tags_exception import TooManyTagsException as TooManyTagsException
 from .validation_exception import ValidationException as ValidationException

@@ -17,6 +17,12 @@ OperatingSystemName: TypeAlias = Literal[
     "WINDOWS_SERVER_2025",
     "RHEL_8",
     "ROCKY_8",
+    "UBUNTU_24_04",
+    "RHEL_9",
+    "ROCKY_9",
+    "UBUNTU_26_04",
+    "RHEL_10",
+    "ROCKY_10",
 ]
 
 

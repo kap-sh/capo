@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import uuid
 from typing import TYPE_CHECKING, Any, Optional
 
 import capo_mgn._auth._signers
@@ -16,6 +17,7 @@ from capo_mgn._services._pipeline import (
 
 if TYPE_CHECKING:
     import capo_mgn.types.cidr_mappings_list
+    import capo_mgn.types.client_idempotency_token
     import capo_mgn.types.code_generation_output_format_types
     import capo_mgn.types.construct_id
     import capo_mgn.types.create_network_migration_definition_request
@@ -118,6 +120,9 @@ class NetworkMigrationDefinitionResource:
         target_network: "capo_mgn.types.target_network.TargetNetwork",
         *,
         config_overrides: Optional[mgnClientConfig] = None,
+        client_token: Optional[
+            "capo_mgn.types.client_idempotency_token.ClientIdempotencyToken"
+        ] = None,
         description: Optional[
             "capo_mgn.types.network_migration_definition_description.NetworkMigrationDefinitionDescription"
         ] = None,
@@ -139,6 +144,7 @@ class NetworkMigrationDefinitionResource:
         """<p>Creates a new network migration definition that specifies the source and target network configuration for a migration.</p>
 
         Args:
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.</p>
             name: <p>The name of the network migration definition.</p>
             description: <p>A description of the network migration definition.</p>
             source_configurations: <p>A list of source configurations for the network migration.</p>
@@ -204,6 +210,9 @@ class NetworkMigrationDefinitionResource:
             "target_s3_configuration": target_s3_configuration,
             "target_network": target_network,
         }
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
         if description is not None:
             input_["description"] = description
         if source_configurations is not None:
@@ -1817,6 +1826,9 @@ class AsyncNetworkMigrationDefinitionResource:
         target_network: "capo_mgn.types.target_network.TargetNetwork",
         *,
         config_overrides: Optional[AsyncmgnClientConfig] = None,
+        client_token: Optional[
+            "capo_mgn.types.client_idempotency_token.ClientIdempotencyToken"
+        ] = None,
         description: Optional[
             "capo_mgn.types.network_migration_definition_description.NetworkMigrationDefinitionDescription"
         ] = None,
@@ -1838,6 +1850,7 @@ class AsyncNetworkMigrationDefinitionResource:
         """<p>Creates a new network migration definition that specifies the source and target network configuration for a migration.</p>
 
         Args:
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.</p>
             name: <p>The name of the network migration definition.</p>
             description: <p>A description of the network migration definition.</p>
             source_configurations: <p>A list of source configurations for the network migration.</p>
@@ -1904,6 +1917,9 @@ class AsyncNetworkMigrationDefinitionResource:
             "target_s3_configuration": target_s3_configuration,
             "target_network": target_network,
         }
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
         if description is not None:
             input_["description"] = description
         if source_configurations is not None:

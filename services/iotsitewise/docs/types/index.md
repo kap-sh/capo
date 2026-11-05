@@ -286,6 +286,8 @@
 - [DatasetEnrichmentStatus](dataset_enrichment_status.md)
 - [DatasetExportJobFilter](dataset_export_job_filter.md)
 - [DatasetExportJobId](dataset_export_job_id.md)
+- [DatasetExportJobName](dataset_export_job_name.md)
+- [DatasetExportJobNameInput](dataset_export_job_name_input.md)
 - [DatasetExportJobStatus](dataset_export_job_status.md)
 - [DatasetId](dataset_id.md)
 - [DatasetItem](dataset_item.md)

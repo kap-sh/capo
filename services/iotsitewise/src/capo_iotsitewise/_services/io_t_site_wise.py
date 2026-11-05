@@ -164,6 +164,7 @@ if TYPE_CHECKING:
     import capo_iotsitewise.types.dataset_config
     import capo_iotsitewise.types.dataset_export_job_filter
     import capo_iotsitewise.types.dataset_export_job_id
+    import capo_iotsitewise.types.dataset_export_job_name_input
     import capo_iotsitewise.types.dataset_source
     import capo_iotsitewise.types.dataset_source_type
     import capo_iotsitewise.types.dataset_summary
@@ -2327,6 +2328,9 @@ class IoTSiteWiseClient:
         client_token: Optional[
             "capo_iotsitewise.types.client_token.ClientToken"
         ] = None,
+        job_name: Optional[
+            "capo_iotsitewise.types.dataset_export_job_name_input.DatasetExportJobNameInput"
+        ] = None,
     ) -> "capo_iotsitewise.types.create_dataset_export_job_response.CreateDatasetExportJobResponse":
         """<p>Starts an asynchronous job that exports dataset and time-series data from a workspace to Amazon S3. The operation returns a jobId immediately; poll DescribeDatasetExportJob to track progress and ListDatasetExportJobs to enumerate a workspace's jobs.</p>
 
@@ -2335,6 +2339,7 @@ class IoTSiteWiseClient:
             client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. The AWS SDKs and CLI populate this automatically.</p>
             destination_s3_uri: <p>The S3 URI where output clips will be written.</p>
             input: <p>The processing input source.</p>
+            job_name: <p>An optional name for the export job. When omitted, one will be created based on type of job and start time.</p>
             error_report_location: <p>The location where the error report will be written on failure.</p>
 
         Raises:
@@ -2373,6 +2378,8 @@ class IoTSiteWiseClient:
         if client_token is None:
             client_token = str(uuid.uuid4())
         input_["client_token"] = client_token
+        if job_name is not None:
+            input_["job_name"] = job_name
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

@@ -13,14 +13,18 @@ import capo_polly._auth._signers
 import capo_polly._auth._sigv4
 import capo_polly._protocol.eventstream
 import capo_polly.errors.invalid_lexicon_exception
+import capo_polly.errors.invalid_tag_parameter_exception
 import capo_polly.errors.lexicon_size_exceeded_exception
 import capo_polly.errors.max_lexeme_length_exceeded_exception
 import capo_polly.errors.max_lexicons_number_exceeded_exception
 import capo_polly.errors.service_failure_exception
+import capo_polly.errors.too_many_tags_exception
 import capo_polly.errors.unsupported_pls_alphabet_exception
 import capo_polly.errors.unsupported_pls_language_exception
+import capo_polly.errors.validation_exception
 import capo_polly.types.put_lexicon_input
 import capo_polly.types.put_lexicon_output
+import capo_polly.types.tag_map
 from capo_polly._protocol.errors import parse_error_metadata_json
 from capo_polly._rule_engine._endpoint_rule_set import EndpointParams, resolve
 from capo_polly._services._pipeline import (
@@ -39,6 +43,10 @@ def handle_error(response: zapros.Response) -> Never:
             raise capo_polly.errors.invalid_lexicon_exception.InvalidLexiconException.from_json(
                 data, message, response=response
             )
+        case "InvalidTagParameterException":
+            raise capo_polly.errors.invalid_tag_parameter_exception.InvalidTagParameterException.from_json(
+                data, message, response=response
+            )
         case "LexiconSizeExceededException":
             raise capo_polly.errors.lexicon_size_exceeded_exception.LexiconSizeExceededException.from_json(
                 data, message, response=response
@@ -55,12 +63,20 @@ def handle_error(response: zapros.Response) -> Never:
             raise capo_polly.errors.service_failure_exception.ServiceFailureException.from_json(
                 data, message, response=response
             )
+        case "TooManyTagsException":
+            raise capo_polly.errors.too_many_tags_exception.TooManyTagsException.from_json(
+                data, message, response=response
+            )
         case "UnsupportedPlsAlphabetException":
             raise capo_polly.errors.unsupported_pls_alphabet_exception.UnsupportedPlsAlphabetException.from_json(
                 data, message, response=response
             )
         case "UnsupportedPlsLanguageException":
             raise capo_polly.errors.unsupported_pls_language_exception.UnsupportedPlsLanguageException.from_json(
+                data, message, response=response
+            )
+        case "ValidationException":
+            raise capo_polly.errors.validation_exception.ValidationException.from_json(
                 data, message, response=response
             )
         case _:

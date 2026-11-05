@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_elastic_beanstalk.types.branch_name
     import capo_elastic_beanstalk.types.creation_date
     import capo_elastic_beanstalk.types.custom_ami_list
+    import capo_elastic_beanstalk.types.default_ami_list
     import capo_elastic_beanstalk.types.description
     import capo_elastic_beanstalk.types.maintainer
     import capo_elastic_beanstalk.types.operating_system_name
@@ -84,7 +85,11 @@ class PlatformDescription(TypedDict, closed=True):
     custom_ami_list: NotRequired[
         "capo_elastic_beanstalk.types.custom_ami_list.CustomAmiList"
     ]
-    """<p>The custom AMIs supported by the platform version.</p>"""
+    """<p>The AMIs of the platform version, by virtualization type. For Elastic Beanstalk managed platforms, these are the default <code>x86_64</code> AMIs; for custom platforms, the <code>hvm</code> entry is the AMI built for the platform version. To find a managed platform's default AMIs for every supported processor architecture, including <code>arm64</code>, use <code>DefaultAmiList</code>.</p>"""
+    default_ami_list: NotRequired[
+        "capo_elastic_beanstalk.types.default_ami_list.DefaultAmiList"
+    ]
+    """<p>The AMIs that Elastic Beanstalk uses by default for the platform version, one for each supported processor architecture. When an environment doesn't specify a custom AMI, Elastic Beanstalk chooses the default AMI that matches the environment's architecture.</p> <p>This list isn't returned for custom platforms.</p>"""
     supported_tier_list: NotRequired[
         "capo_elastic_beanstalk.types.supported_tier_list.SupportedTierList"
     ]
@@ -176,6 +181,12 @@ def serialize_query(
 
         capo_elastic_beanstalk.types.custom_ami_list.serialize_query(
             value["custom_ami_list"], pairs, f"{key_prefix}CustomAmiList"
+        )
+    if "default_ami_list" in value:
+        import capo_elastic_beanstalk.types.default_ami_list
+
+        capo_elastic_beanstalk.types.default_ami_list.serialize_query(
+            value["default_ami_list"], pairs, f"{key_prefix}DefaultAmiList"
         )
     if "supported_tier_list" in value:
         import capo_elastic_beanstalk.types.supported_tier_list
@@ -293,6 +304,15 @@ def deserialize_query(el: Element) -> PlatformDescription:
         out["custom_ami_list"] = (
             capo_elastic_beanstalk.types.custom_ami_list.deserialize_query(
                 child_custom_ami_list
+            )
+        )
+    child_default_ami_list = el.find("DefaultAmiList")
+    if child_default_ami_list is not None:
+        import capo_elastic_beanstalk.types.default_ami_list
+
+        out["default_ami_list"] = (
+            capo_elastic_beanstalk.types.default_ami_list.deserialize_query(
+                child_default_ami_list
             )
         )
     child_supported_tier_list = el.find("SupportedTierList")

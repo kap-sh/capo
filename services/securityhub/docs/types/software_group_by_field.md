@@ -1,0 +1,8 @@
+---
+title: SoftwareGroupByField
+---
+
+::: capo_securityhub.types.software_group_by_field.SoftwareGroupByField
+    options:
+      show_source: true
+      merge_init_into_class: false

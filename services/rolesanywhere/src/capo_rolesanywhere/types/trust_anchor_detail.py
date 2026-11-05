@@ -24,6 +24,8 @@ class TrustAnchorDetail(TypedDict, closed=True):
     """<p>The trust anchor type and its related certificate data.</p>"""
     enabled: NotRequired["bool"]
     """<p>Indicates whether the trust anchor is enabled.</p>"""
+    crl_dp_revocation_enabled: NotRequired["bool"]
+    """<p>Specifies whether the trust anchor checks certificate revocation status against CRL distribution points.</p>"""
     created_at: NotRequired["datetime.datetime"]
     """<p>The ISO-8601 timestamp when the trust anchor was created. </p>"""
     updated_at: NotRequired["datetime.datetime"]
@@ -49,6 +51,8 @@ def serialize_json(value: TrustAnchorDetail) -> dict:
         out["source"] = capo_rolesanywhere.types.source.serialize_json(value["source"])
     if "enabled" in value:
         out["enabled"] = value["enabled"]
+    if "crl_dp_revocation_enabled" in value:
+        out["crlDpRevocationEnabled"] = value["crl_dp_revocation_enabled"]
     if "created_at" in value:
         import capo_rolesanywhere._protocol.serialize
 
@@ -86,6 +90,8 @@ def deserialize_json(data: dict) -> TrustAnchorDetail:
         out["source"] = capo_rolesanywhere.types.source.deserialize_json(data["source"])
     if data.get("enabled") is not None:
         out["enabled"] = data["enabled"]
+    if data.get("crlDpRevocationEnabled") is not None:
+        out["crl_dp_revocation_enabled"] = data["crlDpRevocationEnabled"]
     if data.get("createdAt") is not None:
         import datetime
 

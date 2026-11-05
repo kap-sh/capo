@@ -8,6 +8,7 @@ SupportabilityScore: TypeAlias = Literal[
     "high",
     "medium",
     "low",
+    "unsupported",
 ]
 
 

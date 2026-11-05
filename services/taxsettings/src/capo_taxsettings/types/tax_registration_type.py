@@ -12,6 +12,11 @@ TaxRegistrationType: TypeAlias = Literal[
     "NRIC",
     "PAN",
     "NIP",
+    "CUIT",
+    "CDI",
+    "RUT",
+    "NIE",
+    "CI",
 ]
 
 

@@ -9,7 +9,7 @@ class DefinitionS3Location(TypedDict, closed=True):
     object_key: "str"
     """<p>The key (name) of the workflow definition file within the S3 bucket.</p>"""
     version_id: NotRequired["str"]
-    """<p>Optional. The version ID of the workflow definition file in Amazon S3. If not specified, the latest version is used.</p>"""
+    """<p>Optional. The version ID of the workflow definition file in Amazon S3. If you don't specify a version, we use the latest version.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

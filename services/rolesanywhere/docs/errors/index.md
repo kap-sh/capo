@@ -6,6 +6,7 @@
 - [RolesAnywhereError](RolesAnywhereError.md)
 - [SerializationError](SerializationError.md)
 - [ServiceError](ServiceError.md)
+- [ServiceUnavailableException](ServiceUnavailableException.md)
 - [TooManyTagsException](TooManyTagsException.md)
 - [UnknownServiceError](UnknownServiceError.md)
 - [ValidationException](ValidationException.md)

@@ -422,6 +422,7 @@
 - [LogConfiguration](log_configuration.md)
 - [LogConfigurationOptionsMap](log_configuration_options_map.md)
 - [LogDriver](log_driver.md)
+- [LogDriverVolumeConfiguration](log_driver_volume_configuration.md)
 - [Long](long.md)
 - [ManagedAgent](managed_agent.md)
 - [ManagedAgentName](managed_agent_name.md)

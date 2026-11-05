@@ -609,9 +609,6 @@ class AsyncMarketplaceDiscoveryClient:
             List API Fulfillment Options
 
             >>> await client.list_fulfillment_options(locale='en-US', product_id='prod-sampleApiId')
-            List API Fulfillment Options with Dynamic Endpoint
-
-            >>> await client.list_fulfillment_options(locale='en-US', product_id='prod-sampleApiDynamicId')
             List CloudFormation Template Fulfillment Options
 
             >>> await client.list_fulfillment_options(locale='en-US', product_id='prod-sampleCftId')

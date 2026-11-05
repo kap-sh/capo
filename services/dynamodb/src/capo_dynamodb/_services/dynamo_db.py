@@ -57,6 +57,13 @@ if TYPE_CHECKING:
     import capo_dynamodb.types.batch_write_item_request_map
     import capo_dynamodb.types.billing_mode
     import capo_dynamodb.types.boolean_object
+    import capo_dynamodb.types.bulk_operation_arn
+    import capo_dynamodb.types.bulk_operation_max_write_request_units
+    import capo_dynamodb.types.bulk_operation_next_token
+    import capo_dynamodb.types.bulk_operation_performance_tier
+    import capo_dynamodb.types.bulk_operation_summary
+    import capo_dynamodb.types.cancel_bulk_operation_input
+    import capo_dynamodb.types.cancel_bulk_operation_output
     import capo_dynamodb.types.client_request_token
     import capo_dynamodb.types.client_token
     import capo_dynamodb.types.condition_expression
@@ -83,6 +90,8 @@ if TYPE_CHECKING:
     import capo_dynamodb.types.deletion_protection_enabled
     import capo_dynamodb.types.describe_backup_input
     import capo_dynamodb.types.describe_backup_output
+    import capo_dynamodb.types.describe_bulk_operation_input
+    import capo_dynamodb.types.describe_bulk_operation_output
     import capo_dynamodb.types.describe_continuous_backups_input
     import capo_dynamodb.types.describe_continuous_backups_output
     import capo_dynamodb.types.describe_contributor_insights_input
@@ -144,6 +153,7 @@ if TYPE_CHECKING:
     import capo_dynamodb.types.input_compression_type
     import capo_dynamodb.types.input_format
     import capo_dynamodb.types.input_format_options
+    import capo_dynamodb.types.input_s3_configuration
     import capo_dynamodb.types.key
     import capo_dynamodb.types.key_conditions
     import capo_dynamodb.types.key_expression
@@ -152,6 +162,9 @@ if TYPE_CHECKING:
     import capo_dynamodb.types.kinesis_streaming_destination_output
     import capo_dynamodb.types.list_backups_input
     import capo_dynamodb.types.list_backups_output
+    import capo_dynamodb.types.list_bulk_operations_input
+    import capo_dynamodb.types.list_bulk_operations_max_limit
+    import capo_dynamodb.types.list_bulk_operations_output
     import capo_dynamodb.types.list_contributor_insights_input
     import capo_dynamodb.types.list_contributor_insights_limit
     import capo_dynamodb.types.list_contributor_insights_output
@@ -172,6 +185,7 @@ if TYPE_CHECKING:
     import capo_dynamodb.types.multi_region_consistency
     import capo_dynamodb.types.next_token_string
     import capo_dynamodb.types.on_demand_throughput
+    import capo_dynamodb.types.output_s3_configuration
     import capo_dynamodb.types.parameterized_statements
     import capo_dynamodb.types.parti_ql_batch_request
     import capo_dynamodb.types.parti_ql_next_token
@@ -221,6 +235,8 @@ if TYPE_CHECKING:
     import capo_dynamodb.types.search_vectors_output
     import capo_dynamodb.types.select
     import capo_dynamodb.types.sse_specification
+    import capo_dynamodb.types.start_bulk_put_items_input
+    import capo_dynamodb.types.start_bulk_put_items_output
     import capo_dynamodb.types.stream_arn
     import capo_dynamodb.types.stream_specification
     import capo_dynamodb.types.string
@@ -571,6 +587,52 @@ class DynamoDBClient:
             input_["return_consumed_capacity"] = return_consumed_capacity
         if return_item_collection_metrics is not None:
             input_["return_item_collection_metrics"] = return_item_collection_metrics
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def cancel_bulk_operation(
+        self,
+        bulk_operation_arn: "capo_dynamodb.types.bulk_operation_arn.BulkOperationArn",
+        *,
+        config_overrides: Optional[DynamoDBClientConfig] = None,
+    ) -> "capo_dynamodb.types.cancel_bulk_operation_output.CancelBulkOperationOutput":
+        """<p>Cancels an in-progress bulk operation asynchronously. Cancellation doesn't remove items that the operation has already written. Use <code>DescribeBulkOperation</code> to monitor the operation until it reaches a terminal status.</p>
+
+        Args:
+            bulk_operation_arn: <p>The Amazon Resource Name (ARN) of the bulk operation to cancel.</p>
+
+        Raises:
+            capo_dynamodb.errors.invalid_endpoint_exception.InvalidEndpointException
+            capo_dynamodb.errors.resource_not_found_exception.ResourceNotFoundException: <p>The operation tried to access a nonexistent table or index. The resource might not be specified correctly, or its status might not be <code>ACTIVE</code>.</p>
+            capo_dynamodb.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_dynamodb.types.cancel_bulk_operation_input.CancelBulkOperationInput]",
+        ) -> OperationResponse[
+            "capo_dynamodb.types.cancel_bulk_operation_output.CancelBulkOperationOutput"
+        ]:
+            import capo_dynamodb._operations.dynamo_db_20120810.cancel_bulk_operation
+
+            output, http_response = (
+                capo_dynamodb._operations.dynamo_db_20120810.cancel_bulk_operation.cancel_bulk_operation(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelBulkOperation")
+        )
+        input_: capo_dynamodb.types.cancel_bulk_operation_input.CancelBulkOperationInput = {
+            "bulk_operation_arn": bulk_operation_arn
+        }
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -1143,6 +1205,54 @@ class DynamoDBClient:
         )
         input_: capo_dynamodb.types.describe_backup_input.DescribeBackupInput = {
             "backup_arn": backup_arn
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def describe_bulk_operation(
+        self,
+        bulk_operation_arn: "capo_dynamodb.types.bulk_operation_arn.BulkOperationArn",
+        *,
+        config_overrides: Optional[DynamoDBClientConfig] = None,
+    ) -> (
+        "capo_dynamodb.types.describe_bulk_operation_output.DescribeBulkOperationOutput"
+    ):
+        """<p>Describes the specified bulk operation.</p>
+
+        Args:
+            bulk_operation_arn: <p>The Amazon Resource Name (ARN) of the bulk operation to describe.</p>
+
+        Raises:
+            capo_dynamodb.errors.invalid_endpoint_exception.InvalidEndpointException
+            capo_dynamodb.errors.resource_not_found_exception.ResourceNotFoundException: <p>The operation tried to access a nonexistent table or index. The resource might not be specified correctly, or its status might not be <code>ACTIVE</code>.</p>
+            capo_dynamodb.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_dynamodb.types.describe_bulk_operation_input.DescribeBulkOperationInput]",
+        ) -> OperationResponse[
+            "capo_dynamodb.types.describe_bulk_operation_output.DescribeBulkOperationOutput"
+        ]:
+            import capo_dynamodb._operations.dynamo_db_20120810.describe_bulk_operation
+
+            output, http_response = (
+                capo_dynamodb._operations.dynamo_db_20120810.describe_bulk_operation.describe_bulk_operation(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBulkOperation")
+        )
+        input_: capo_dynamodb.types.describe_bulk_operation_input.DescribeBulkOperationInput = {
+            "bulk_operation_arn": bulk_operation_arn
         }
 
         response = execute_pipeline(
@@ -2408,6 +2518,84 @@ class DynamoDBClient:
         )
         response.response.close()
         return response.output
+
+    def list_bulk_operations(
+        self,
+        *,
+        config_overrides: Optional[DynamoDBClientConfig] = None,
+        max_results: Optional[
+            "capo_dynamodb.types.list_bulk_operations_max_limit.ListBulkOperationsMaxLimit"
+        ] = None,
+        next_token: Optional[
+            "capo_dynamodb.types.bulk_operation_next_token.BulkOperationNextToken"
+        ] = None,
+    ) -> "capo_dynamodb.types.list_bulk_operations_output.ListBulkOperationsOutput":
+        """<p>Lists bulk operations that started within the past 90 days for the current Amazon Web Services account and Amazon Web Services Region, with the most recent operations first. Results are paginated. Use the <code>NextToken</code> parameter to retrieve additional results.</p>
+
+        Args:
+            max_results: <p>The maximum number of bulk operation summaries to return in one page. If you don't specify a value, DynamoDB uses 10.</p>
+            next_token: <p>An optional string that, if supplied, must be copied from the output of a previous call to <code>ListBulkOperations</code>. When provided in this manner, the API fetches the next page of results.</p>
+
+        Raises:
+            capo_dynamodb.errors.invalid_endpoint_exception.InvalidEndpointException
+            capo_dynamodb.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_dynamodb.types.list_bulk_operations_input.ListBulkOperationsInput]",
+        ) -> OperationResponse[
+            "capo_dynamodb.types.list_bulk_operations_output.ListBulkOperationsOutput"
+        ]:
+            import capo_dynamodb._operations.dynamo_db_20120810.list_bulk_operations
+
+            output, http_response = (
+                capo_dynamodb._operations.dynamo_db_20120810.list_bulk_operations.list_bulk_operations(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBulkOperations")
+        )
+        input_: capo_dynamodb.types.list_bulk_operations_input.ListBulkOperationsInput = {}
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_bulk_operations(
+        self,
+        *,
+        config_overrides: Optional[DynamoDBClientConfig] = None,
+        max_results: Optional[
+            "capo_dynamodb.types.list_bulk_operations_max_limit.ListBulkOperationsMaxLimit"
+        ] = None,
+        next_token: Optional[
+            "capo_dynamodb.types.bulk_operation_next_token.BulkOperationNextToken"
+        ] = None,
+    ) -> "Iterator[capo_dynamodb.types.bulk_operation_summary.BulkOperationSummary]":
+        _token = next_token
+        while True:
+            _response = self.list_bulk_operations(
+                config_overrides=config_overrides,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("bulk_operations_summary_list",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
 
     def list_contributor_insights(
         self,
@@ -3697,7 +3885,7 @@ class DynamoDBClient:
             expression_attribute_values: <p>One or more values that can be substituted in an expression. Use the <code>:</code> character in an expression to dereference an attribute value.</p>
             projection_expression: <p>A string that identifies one or more attributes to retrieve from the index. Separate attribute names with commas. If not specified, the operation returns all attributes projected into the vector index.</p> <p>Only attributes projected into the vector index can be retrieved.</p>
             search_vector: <p>The search vector to compare against the indexed vectors. Each element is a 32-bit IEEE-754 floating point number, provided in DynamoDB list format.</p> <p>The number of dimensions must match the number of dimensions configured for the vector index.</p>
-            search_condition_expression: <p>A condition expression used to filter the vector search results. The expression can reference attributes defined in the vector index search schema, including <code>HASH</code> and <code>INLINE_FILTER</code> key elements.</p> <p>Only the equality operator (<code>=</code>) is supported for <code>HASH</code> attributes. Comparison and range operators are supported for <code>INLINE_FILTER</code> attributes. Only top-level attributes from the search schema can be referenced.</p>
+            search_condition_expression: <p>A condition expression used to filter the vector search results. The expression can reference attributes defined in the vector index search schema, including <code>HASH</code> and <code>INLINE_FILTER</code> key elements.</p> <p>The <code>HASH</code> and <code>INLINE_FILTER</code> attributes support only the equality operator (<code>=</code>). You can reference only top-level attributes from the search schema.</p>
             top_k: <p>The number of most similar results to return.</p>
 
         Raises:
@@ -3747,6 +3935,78 @@ class DynamoDBClient:
             input_["projection_expression"] = projection_expression
         if search_condition_expression is not None:
             input_["search_condition_expression"] = search_condition_expression
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def start_bulk_put_items(
+        self,
+        input_s3_configuration: "capo_dynamodb.types.input_s3_configuration.InputS3Configuration",
+        output_s3_configuration: "capo_dynamodb.types.output_s3_configuration.OutputS3Configuration",
+        table_name: "capo_dynamodb.types.table_arn.TableArn",
+        *,
+        config_overrides: Optional[DynamoDBClientConfig] = None,
+        client_token: Optional["capo_dynamodb.types.client_token.ClientToken"] = None,
+        max_write_request_units: Optional[
+            "capo_dynamodb.types.bulk_operation_max_write_request_units.BulkOperationMaxWriteRequestUnits"
+        ] = None,
+        performance_tier: Optional[
+            "capo_dynamodb.types.bulk_operation_performance_tier.BulkOperationPerformanceTier"
+        ] = None,
+    ) -> "capo_dynamodb.types.start_bulk_put_items_output.StartBulkPutItemsOutput":
+        """<p>Starts an asynchronous bulk operation that reads items from Amazon S3 and writes them to an existing DynamoDB table, so you can efficiently load or migrate large datasets.</p>
+
+        Args:
+            client_token: <p>A unique, case-sensitive identifier that ensures the bulk operation starts no more than one time. During the 8 hours after the initial request, repeated requests that use the same token and parameters return the same bulk operation. If a request reuses the token with different parameters, DynamoDB returns an <code>IdempotentParameterMismatchException</code>. If you omit the token, an Amazon Web Services SDK automatically generates one.</p>
+            input_s3_configuration: <p>The Amazon S3 location, data format, and compression settings for the input objects.</p>
+            output_s3_configuration: <p>The Amazon S3 location, encryption settings, and output types for the bulk operation.</p>
+            table_name: <p>The name or ARN of the existing DynamoDB table that receives the items.</p>
+            max_write_request_units: <p>The maximum rate, in write request units per second, at which the bulk operation attempts to write. The value must be at least 1,024. With this setting, you limit only the bulk operation; the table's provisioned or on-demand capacity settings don't change. The actual write rate can be lower.</p>
+            performance_tier: <p>The performance tier for the bulk operation. Valid values are <code>STANDARD</code> and <code>ACCELERATED</code>. If you don't specify a value, the operation uses <code>STANDARD</code>.</p>
+
+        Raises:
+            capo_dynamodb.errors.idempotent_parameter_mismatch_exception.IdempotentParameterMismatchException: <p>DynamoDB rejected the request because you retried a request with a different payload but with an idempotent token that was already used.</p>
+            capo_dynamodb.errors.invalid_endpoint_exception.InvalidEndpointException
+            capo_dynamodb.errors.limit_exceeded_exception.LimitExceededException: <p>There is no limit to the number of daily on-demand backups that can be taken. </p> <p>For most purposes, up to 500 simultaneous table operations are allowed per account. These operations include <code>CreateTable</code>, <code>UpdateTable</code>, <code>DeleteTable</code>,<code>UpdateTimeToLive</code>, <code>RestoreTableFromBackup</code>, and <code>RestoreTableToPointInTime</code>. </p> <p>When you are creating a table with one or more secondary indexes, you can have up to 250 such requests running at a time. However, if the table or index specifications are complex, then DynamoDB might temporarily reduce the number of concurrent operations.</p> <p>When importing into DynamoDB, up to 50 simultaneous import table operations are allowed per account.</p> <p>There is a soft account quota of 2,500 tables.</p> <p>GetRecords was called with a value of more than 1000 for the limit request parameter.</p> <p>More than 2 processes are reading from the same streams shard at the same time. Exceeding this limit may result in request throttling.</p>
+            capo_dynamodb.errors.resource_in_use_exception.ResourceInUseException: <p>The operation conflicts with the resource's availability. For example:</p> <ul> <li> <p>You attempted to recreate an existing table.</p> </li> <li> <p>You tried to delete a table currently in the <code>CREATING</code> state.</p> </li> <li> <p>You tried to update a resource that was already being updated.</p> </li> </ul> <p>When appropriate, wait for the ongoing update to complete and attempt the request again.</p>
+            capo_dynamodb.errors.resource_not_found_exception.ResourceNotFoundException: <p>The operation tried to access a nonexistent table or index. The resource might not be specified correctly, or its status might not be <code>ACTIVE</code>.</p>
+            capo_dynamodb.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_dynamodb.types.start_bulk_put_items_input.StartBulkPutItemsInput]",
+        ) -> OperationResponse[
+            "capo_dynamodb.types.start_bulk_put_items_output.StartBulkPutItemsOutput"
+        ]:
+            import capo_dynamodb._operations.dynamo_db_20120810.start_bulk_put_items
+
+            output, http_response = (
+                capo_dynamodb._operations.dynamo_db_20120810.start_bulk_put_items.start_bulk_put_items(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartBulkPutItems")
+        )
+        input_: capo_dynamodb.types.start_bulk_put_items_input.StartBulkPutItemsInput = {
+            "input_s3_configuration": input_s3_configuration,
+            "output_s3_configuration": output_s3_configuration,
+            "table_name": table_name,
+        }
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+        if max_write_request_units is not None:
+            input_["max_write_request_units"] = max_write_request_units
+        if performance_tier is not None:
+            input_["performance_tier"] = performance_tier
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

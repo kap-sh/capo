@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     import capo_connect.types.arn
     import capo_connect.types.attributes
     import capo_connect.types.campaign
+    import capo_connect.types.case_entries
     import capo_connect.types.channel
     import capo_connect.types.chat_metrics
     import capo_connect.types.contact_details
@@ -151,6 +152,8 @@ class Contact(TypedDict, closed=True):
         "capo_connect.types.task_template_info_v2.TaskTemplateInfoV2"
     ]
     """<p>If this contact was created using a task template, this contains information about the task template.</p>"""
+    cases: NotRequired["capo_connect.types.case_entries.CaseEntries"]
+    """<p>A list of cases associated with the contact. This field is populated when one or more cases have been linked to the contact.</p>"""
     contact_details: NotRequired["capo_connect.types.contact_details.ContactDetails"]
     """<p>A map of string key/value pairs that contain user-defined attributes which are lightly typed within the contact. This object is used only for task contacts.</p>"""
     outbound_strategy: NotRequired[
@@ -376,6 +379,10 @@ def serialize_json(value: Contact) -> dict:
                 value["task_template_info"]
             )
         )
+    if "cases" in value:
+        import capo_connect.types.case_entries
+
+        out["Cases"] = capo_connect.types.case_entries.serialize_json(value["cases"])
     if "contact_details" in value:
         import capo_connect.types.contact_details
 
@@ -625,6 +632,10 @@ def deserialize_json(data: dict) -> Contact:
                 data["TaskTemplateInfo"]
             )
         )
+    if data.get("Cases") is not None:
+        import capo_connect.types.case_entries
+
+        out["cases"] = capo_connect.types.case_entries.deserialize_json(data["Cases"])
     if data.get("ContactDetails") is not None:
         import capo_connect.types.contact_details
 

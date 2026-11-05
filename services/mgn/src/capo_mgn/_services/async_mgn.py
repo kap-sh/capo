@@ -3152,6 +3152,9 @@ class AsyncmgnClient:
         target_network: "capo_mgn.types.target_network.TargetNetwork",
         *,
         config_overrides: Optional[AsyncmgnClientConfig] = None,
+        client_token: Optional[
+            "capo_mgn.types.client_idempotency_token.ClientIdempotencyToken"
+        ] = None,
         description: Optional[
             "capo_mgn.types.network_migration_definition_description.NetworkMigrationDefinitionDescription"
         ] = None,
@@ -3173,6 +3176,7 @@ class AsyncmgnClient:
         """<p>Creates a new network migration definition that specifies the source and target network configuration for a migration.</p>
 
         Args:
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.</p>
             name: <p>The name of the network migration definition.</p>
             description: <p>A description of the network migration definition.</p>
             source_configurations: <p>A list of source configurations for the network migration.</p>
@@ -3239,6 +3243,9 @@ class AsyncmgnClient:
             "target_s3_configuration": target_s3_configuration,
             "target_network": target_network,
         }
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
         if description is not None:
             input_["description"] = description
         if source_configurations is not None:
@@ -5946,7 +5953,7 @@ class AsyncmgnClient:
         config_overrides: Optional[AsyncmgnClientConfig] = None,
         account_id: Optional["capo_mgn.types.account_id.AccountID"] = None,
     ) -> "capo_mgn.types.source_server.SourceServer":
-        """<p>Disconnects specific Source Servers from Application Migration Service. Data replication is stopped immediately. All AWS resources created by Application Migration Service for enabling the replication of these source servers will be terminated / deleted within 90 minutes. Launched Test or Cutover instances will NOT be terminated. If the agent on the source server has not been prevented from communicating with Application Migration Service, then it will receive a command to uninstall itself (within approximately 10 minutes). The following properties of the SourceServer will be changed immediately: dataReplicationInfo.dataReplicationState will be set to DISCONNECTED; The totalStorageBytes property for each of dataReplicationInfo.replicatedDisks will be set to zero; dataReplicationInfo.lagDuration and dataReplicationInfo.lagDuration will be nullified.</p>
+        """<p>Disconnects specific Source Servers from Application Migration Service. Data replication is stopped immediately. All AWS resources created by Application Migration Service for enabling the replication of these source servers will be terminated / deleted within 90 minutes. Launched Test or Cutover instances will NOT be terminated. If the agent on the source server has not been prevented from communicating with Application Migration Service, then it will receive a command to uninstall itself (within approximately 10 minutes). The following properties of the SourceServer will be changed immediately: dataReplicationInfo.dataReplicationState will be set to DISCONNECTED; The totalStorageBytes property for each of dataReplicationInfo.replicatedDisks will be set to zero; dataReplicationInfo.lagDuration and dataReplicationInfo.etaDateTime will be nullified.</p>
 
         Args:
             source_server_id: <p>Request to disconnect Source Server from service by Server ID.</p>
@@ -6004,7 +6011,7 @@ class AsyncmgnClient:
         config_overrides: Optional[AsyncmgnClientConfig] = None,
         account_id: Optional["capo_mgn.types.account_id.AccountID"] = None,
     ) -> "capo_mgn.types.source_server.SourceServer":
-        """<p>Finalizes the cutover immediately for specific Source Servers. All AWS resources created by Application Migration Service for enabling the replication of these source servers will be terminated / deleted within 90 minutes. Launched Test or Cutover instances will NOT be terminated. The AWS Replication Agent will receive a command to uninstall itself (within 10 minutes). The following properties of the SourceServer will be changed immediately: dataReplicationInfo.dataReplicationState will be changed to DISCONNECTED; The SourceServer.lifeCycle.state will be changed to CUTOVER; The totalStorageBytes property for each of dataReplicationInfo.replicatedDisks will be set to zero; dataReplicationInfo.lagDuration and dataReplicationInfo.lagDuration will be nullified.</p>
+        """<p>Finalizes the cutover immediately for specific Source Servers. All AWS resources created by Application Migration Service for enabling the replication of these source servers will be terminated / deleted within 90 minutes. Launched Test or Cutover instances will NOT be terminated. The AWS Replication Agent will receive a command to uninstall itself (within 10 minutes). The following properties of the SourceServer will be changed immediately: dataReplicationInfo.dataReplicationState will be changed to DISCONNECTED; The SourceServer.lifeCycle.state will be changed to CUTOVER; The totalStorageBytes property for each of dataReplicationInfo.replicatedDisks will be set to zero; dataReplicationInfo.lagDuration and dataReplicationInfo.etaDateTime will be nullified.</p>
 
         Args:
             source_server_id: <p>Request to finalize Cutover by Source Server ID.</p>

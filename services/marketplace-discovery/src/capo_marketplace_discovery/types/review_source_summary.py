@@ -13,9 +13,9 @@ if TYPE_CHECKING:
 
 class ReviewSourceSummary(TypedDict, closed=True):
     source_name: "capo_marketplace_discovery.types.non_empty_string.NonEmptyString"
-    """<p>The name of the review source, such as AWS Marketplace.</p>"""
+    """<p>The name of the review source. This field has one of the following values:</p> <ul> <li> <p>AWS Marketplace</p> </li> <li> <p>G2</p> </li> <li> <p>PeerSpot</p> </li> </ul>"""
     source_id: "capo_marketplace_discovery.types.review_source_id.ReviewSourceId"
-    """<p>The machine-readable identifier of the review source.</p>"""
+    """<p>The machine-readable identifier of the review source. This field has one of the following values:</p> <ul> <li> <p> <code>AWS_MARKETPLACE</code> – The reviews come from AWS Marketplace.</p> </li> <li> <p> <code>G2</code> – The reviews come from G2.</p> </li> <li> <p> <code>PEERSPOT</code> – The reviews come from PeerSpot.</p> </li> </ul>"""
     source_url: NotRequired["capo_marketplace_discovery.types.url.URL"]
     """<p>The URL where the reviews can be accessed at the source.</p>"""
     average_rating: "capo_marketplace_discovery.types.non_empty_string.NonEmptyString"

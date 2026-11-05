@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import datetime
 
     import capo_iotsitewise.types.dataset_export_job_id
+    import capo_iotsitewise.types.dataset_export_job_name
     import capo_iotsitewise.types.dataset_export_job_status
     import capo_iotsitewise.types.export_error_report_location
     import capo_iotsitewise.types.processing_input
@@ -22,6 +23,10 @@ class DescribeDatasetExportJobResponse(TypedDict, closed=True):
     """<p>The unique identifier for the dataset export job.</p>"""
     workspace_name: "capo_iotsitewise.types.workspace_name.WorkspaceName"
     """<p>The name of the workspace that contains the dataset export job.</p>"""
+    job_name: NotRequired[
+        "capo_iotsitewise.types.dataset_export_job_name.DatasetExportJobName"
+    ]
+    """<p>The name of the dataset export job.</p>"""
     status: "capo_iotsitewise.types.dataset_export_job_status.DatasetExportJobStatus"
     """<p>The current status of the dataset export job.</p>"""
     started_at: "datetime.datetime"
@@ -43,6 +48,8 @@ def serialize_json(value: DescribeDatasetExportJobResponse) -> dict:
     out: dict = {}
     out["jobId"] = value["job_id"]
     out["workspaceName"] = value["workspace_name"]
+    if "job_name" in value:
+        out["jobName"] = value["job_name"]
     import capo_iotsitewise.types.dataset_export_job_status
 
     out["status"] = capo_iotsitewise.types.dataset_export_job_status.serialize_json(
@@ -85,6 +92,8 @@ def deserialize_json(data: dict) -> DescribeDatasetExportJobResponse:
         out["workspace_name"] = data["workspaceName"]
     else:
         out["workspace_name"] = ""
+    if data.get("jobName") is not None:
+        out["job_name"] = data["jobName"]
     if data.get("status") is not None:
         import capo_iotsitewise.types.dataset_export_job_status
 

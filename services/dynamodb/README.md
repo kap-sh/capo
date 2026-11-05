@@ -33,8 +33,8 @@ from capo_dynamodb import AsyncDynamoDBClient
 
 async def main():
     async with AsyncDynamoDBClient() as dynamo_db:
-        # Example: paginate over list_contributor_insights
-        async for item in dynamo_db.iter_list_contributor_insights():
+        # Example: paginate over list_bulk_operations
+        async for item in dynamo_db.iter_list_bulk_operations():
             print(item)
 ```
 

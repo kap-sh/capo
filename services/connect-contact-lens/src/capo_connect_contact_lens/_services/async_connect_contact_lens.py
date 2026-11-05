@@ -40,6 +40,7 @@ if TYPE_CHECKING:
     import capo_connect_contact_lens.types.list_realtime_contact_analysis_segments_response
     import capo_connect_contact_lens.types.max_results
     import capo_connect_contact_lens.types.next_token
+    import capo_connect_contact_lens.types.real_time_contact_analysis_segments_filter
 
 
 class AsyncConnectContactLensClientConfig(TypedDict, total=False, closed=True):
@@ -175,6 +176,9 @@ class AsyncConnectContactLensClient:
         next_token: Optional[
             "capo_connect_contact_lens.types.next_token.NextToken"
         ] = None,
+        list_filter: Optional[
+            "capo_connect_contact_lens.types.real_time_contact_analysis_segments_filter.RealTimeContactAnalysisSegmentsFilter"
+        ] = None,
     ) -> "capo_connect_contact_lens.types.list_realtime_contact_analysis_segments_response.ListRealtimeContactAnalysisSegmentsResponse":
         """<p>Provides a list of analysis segments for a real-time analysis session for voice.</p> <note> <p>Voice data is retained for 24 hours. You must invoke this API during that time.</p> </note>
 
@@ -183,6 +187,7 @@ class AsyncConnectContactLensClient:
             contact_id: <p>The identifier of the contact.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
+            list_filter: <p>A filter that limits the category segments returned by the operation. When provided, use <code>CategoriesAttributeFilter</code> to return only the category segments whose rules have tags that match the filter. This enforces tag-based access control on the categories that the caller can view.</p>
 
         Raises:
             capo_connect_contact_lens.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -220,6 +225,8 @@ class AsyncConnectContactLensClient:
             input_["max_results"] = max_results
         if next_token is not None:
             input_["next_token"] = next_token
+        if list_filter is not None:
+            input_["list_filter"] = list_filter
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -245,6 +252,9 @@ class AsyncConnectContactLensClient:
         next_token: Optional[
             "capo_connect_contact_lens.types.next_token.NextToken"
         ] = None,
+        list_filter: Optional[
+            "capo_connect_contact_lens.types.real_time_contact_analysis_segments_filter.RealTimeContactAnalysisSegmentsFilter"
+        ] = None,
     ) -> "AsyncIterator[capo_connect_contact_lens.types.list_realtime_contact_analysis_segments_response.ListRealtimeContactAnalysisSegmentsResponse]":
         _token = next_token
         while True:
@@ -254,6 +264,7 @@ class AsyncConnectContactLensClient:
                 contact_id=contact_id,
                 max_results=max_results,
                 next_token=_token,
+                list_filter=list_filter,
             )
             yield _response
             _token = _resolve_path(_response, ("next_token",))

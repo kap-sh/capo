@@ -326,6 +326,7 @@
 - [StartSessionOutput](start_session_output.md)
 - [Statistic](statistic.md)
 - [Step](step.md)
+- [StepAdditionalInfo](step_additional_info.md)
 - [StepCancellationOption](step_cancellation_option.md)
 - [StepConfig](step_config.md)
 - [StepConfigList](step_config_list.md)

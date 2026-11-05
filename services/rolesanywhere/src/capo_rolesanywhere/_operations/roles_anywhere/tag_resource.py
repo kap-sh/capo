@@ -13,6 +13,7 @@ import capo_rolesanywhere._auth._sigv4
 import capo_rolesanywhere._protocol.eventstream
 import capo_rolesanywhere.errors.access_denied_exception
 import capo_rolesanywhere.errors.resource_not_found_exception
+import capo_rolesanywhere.errors.service_unavailable_exception
 import capo_rolesanywhere.errors.too_many_tags_exception
 import capo_rolesanywhere.errors.validation_exception
 import capo_rolesanywhere.types.tag_list
@@ -38,6 +39,10 @@ def handle_error(response: zapros.Response) -> Never:
             )
         case "ResourceNotFoundException":
             raise capo_rolesanywhere.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
+                data, message, response=response
+            )
+        case "ServiceUnavailableException":
+            raise capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException.from_json(
                 data, message, response=response
             )
         case "TooManyTagsException":

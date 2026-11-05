@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class PreEvaluationFilter(TypedDict, closed=True):
     resource_type: "capo_connect.types.pre_evaluation_filter_resource_type.PreEvaluationFilterResourceType"
-    """<p>The type of resource to filter on. Valid values: <code>CONTACT</code>.</p>"""
+    """<p>The type of resource to filter on. Valid values:</p> <ul> <li> <p> <code>CONTACT</code> - Filter on attributes of the contact, such as tags assigned to the contact.</p> </li> <li> <p> <code>CONTACT_EVALUATION</code> - Filter on attributes of the contact evaluation, such as tags assigned to the contact evaluation, for rules triggered on the <code>OnContactEvaluationSubmit</code> event source.</p> </li> </ul>"""
     filter_type: "capo_connect.types.pre_evaluation_filter_type.PreEvaluationFilterType"
     """<p>The type of filter to apply. Valid values: <code>TAG</code>.</p>"""
     filter_key: "capo_connect.types.string.String"

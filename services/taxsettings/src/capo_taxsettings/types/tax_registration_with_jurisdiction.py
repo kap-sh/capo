@@ -15,6 +15,7 @@ if TYPE_CHECKING:
     import capo_taxsettings.types.sector
     import capo_taxsettings.types.tax_document_metadatas
     import capo_taxsettings.types.tax_registration_status
+    import capo_taxsettings.types.tax_registration_status_reason
     import capo_taxsettings.types.tax_registration_type
 
 
@@ -28,7 +29,7 @@ class TaxRegistrationWithJurisdiction(TypedDict, closed=True):
     legal_name: "capo_taxsettings.types.legal_name.LegalName"
     """<p>The legal name associated with your TRN information. </p>"""
     status: "capo_taxsettings.types.tax_registration_status.TaxRegistrationStatus"
-    """<p>The status of your TRN. This can be either <code>Verified</code>, <code>Pending</code>, <code>Deleted</code>, or <code>Rejected</code>. </p>"""
+    """<p>The status of your TRN. This can be either <code>Verified</code>, <code>Pending</code>, <code>Deleted</code>, or <code>Rejected</code>. If the status is <code>Rejected</code>, see <code>statusReason</code> for the reason. </p>"""
     sector: NotRequired["capo_taxsettings.types.sector.Sector"]
     """<p>The industry that describes your business. For business-to-business (B2B) customers, specify Business. For business-to-consumer (B2C) customers, specify Individual. For business-to-government (B2G), specify Government.Note that certain values may not applicable for the request country. Please refer to country specific information in API document. </p>"""
     tax_document_metadatas: NotRequired[
@@ -43,6 +44,10 @@ class TaxRegistrationWithJurisdiction(TypedDict, closed=True):
         "capo_taxsettings.types.additional_info_response.AdditionalInfoResponse"
     ]
     """<p>Additional tax information associated with your TRN. </p>"""
+    status_reason: NotRequired[
+        "capo_taxsettings.types.tax_registration_status_reason.TaxRegistrationStatusReason"
+    ]
+    """<p>The reason that your TRN was rejected. This is returned only when <code>status</code> is <code>Rejected</code>.</p>"""
     jurisdiction: "capo_taxsettings.types.jurisdiction.Jurisdiction"
     """<p> The jurisdiction associated with your TRN information. </p>"""
 
@@ -84,6 +89,14 @@ def serialize_json(value: TaxRegistrationWithJurisdiction) -> dict:
         out["additionalTaxInformation"] = (
             capo_taxsettings.types.additional_info_response.serialize_json(
                 value["additional_tax_information"]
+            )
+        )
+    if "status_reason" in value:
+        import capo_taxsettings.types.tax_registration_status_reason
+
+        out["statusReason"] = (
+            capo_taxsettings.types.tax_registration_status_reason.serialize_json(
+                value["status_reason"]
             )
         )
     import capo_taxsettings.types.jurisdiction
@@ -150,6 +163,14 @@ def deserialize_json(data: dict) -> TaxRegistrationWithJurisdiction:
         out["additional_tax_information"] = (
             capo_taxsettings.types.additional_info_response.deserialize_json(
                 data["additionalTaxInformation"]
+            )
+        )
+    if data.get("statusReason") is not None:
+        import capo_taxsettings.types.tax_registration_status_reason
+
+        out["status_reason"] = (
+            capo_taxsettings.types.tax_registration_status_reason.deserialize_json(
+                data["statusReason"]
             )
         )
     if data.get("jurisdiction") is not None:

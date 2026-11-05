@@ -17,6 +17,8 @@ class UpdateTrustAnchorRequest(TypedDict, closed=True):
     """<p>The name of the trust anchor.</p>"""
     source: NotRequired["capo_rolesanywhere.types.source.Source"]
     """<p>The trust anchor type and its related certificate data.</p>"""
+    crl_dp_revocation_enabled: NotRequired["bool"]
+    """<p>Specifies whether the trust anchor checks certificate revocation status against CRL distribution points.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -28,6 +30,8 @@ def serialize_json(value: UpdateTrustAnchorRequest) -> dict:
         import capo_rolesanywhere.types.source
 
         out["source"] = capo_rolesanywhere.types.source.serialize_json(value["source"])
+    if "crl_dp_revocation_enabled" in value:
+        out["crlDpRevocationEnabled"] = value["crl_dp_revocation_enabled"]
     return out
 
 
@@ -39,4 +43,6 @@ def deserialize_json(data: dict) -> UpdateTrustAnchorRequest:
         import capo_rolesanywhere.types.source
 
         out["source"] = capo_rolesanywhere.types.source.deserialize_json(data["source"])
+    if data.get("crlDpRevocationEnabled") is not None:
+        out["crl_dp_revocation_enabled"] = data["crlDpRevocationEnabled"]
     return out

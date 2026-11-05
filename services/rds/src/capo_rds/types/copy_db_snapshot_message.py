@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     import capo_rds.types.sensitive_string
     import capo_rds.types.string
     import capo_rds.types.tag_list
+    import capo_rds.types.tag_specification_list
 
 
 class CopyDBSnapshotMessage(TypedDict, closed=True):
@@ -32,9 +33,13 @@ class CopyDBSnapshotMessage(TypedDict, closed=True):
     snapshot_target: NotRequired["capo_rds.types.string.String"]
     """<p>Configures the location where RDS will store copied snapshots.</p> <p>Valid Values:</p> <ul> <li> <p> <code>local</code> (Dedicated Local Zone)</p> </li> <li> <p> <code>outposts</code> (Amazon Web Services Outposts)</p> </li> <li> <p> <code>region</code> (Amazon Web Services Region)</p> </li> </ul>"""
     copy_option_group: NotRequired["capo_rds.types.boolean_optional.BooleanOptional"]
-    """<p>Specifies whether to copy the DB option group associated with the source DB snapshot to the target Amazon Web Services account and associate with the target DB snapshot. The associated option group can be copied only with cross-account snapshot copy calls.</p>"""
+    """<p>Specifies whether to copy the DB option group associated with the source DB snapshot to the target Amazon Web Services account or Amazon Web Services Region and associate it with the target DB snapshot.</p>"""
     snapshot_availability_zone: NotRequired["capo_rds.types.string.String"]
     """<p>Specifies the name of the Availability Zone where RDS stores the DB snapshot. This value is valid only for snapshots that RDS stores on a Dedicated Local Zone.</p>"""
+    tag_specifications: NotRequired[
+        "capo_rds.types.tag_specification_list.TagSpecificationList"
+    ]
+    """<p>Tags to assign to the copied option group. By default, the copied option group isn't tagged.</p> <p>Valid Values: </p> <ul> <li> <p> <code>og</code> - The copied option group.</p> </li> </ul> <p>Constraints:</p> <ul> <li> <p>Can only be specified when <code>CopyOptionGroup</code> is <code>true</code> </p> </li> </ul>"""
 
 
 # --- awsQuery ser/de ---
@@ -95,6 +100,12 @@ def serialize_query(
                 str(value["snapshot_availability_zone"]),
             )
         )
+    if "tag_specifications" in value:
+        import capo_rds.types.tag_specification_list
+
+        capo_rds.types.tag_specification_list.serialize_query(
+            value["tag_specifications"], pairs, f"{key_prefix}TagSpecifications"
+        )
 
 
 def deserialize_query(el: Element) -> CopyDBSnapshotMessage:
@@ -143,6 +154,15 @@ def deserialize_query(el: Element) -> CopyDBSnapshotMessage:
     if child_snapshot_availability_zone is not None:
         out["snapshot_availability_zone"] = str(
             child_snapshot_availability_zone.text or ""
+        )
+    child_tag_specifications = el.find("TagSpecifications")
+    if child_tag_specifications is not None:
+        import capo_rds.types.tag_specification_list
+
+        out["tag_specifications"] = (
+            capo_rds.types.tag_specification_list.deserialize_query(
+                child_tag_specifications
+            )
         )
     return out
 

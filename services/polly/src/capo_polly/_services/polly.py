@@ -37,6 +37,7 @@ from capo_polly._services._pipeline import (
 )
 
 if TYPE_CHECKING:
+    import capo_polly.types.amazon_resource_name
     import capo_polly.types.delete_lexicon_input
     import capo_polly.types.delete_lexicon_output
     import capo_polly.types.describe_voices_input
@@ -55,6 +56,8 @@ if TYPE_CHECKING:
     import capo_polly.types.list_lexicons_output
     import capo_polly.types.list_speech_synthesis_tasks_input
     import capo_polly.types.list_speech_synthesis_tasks_output
+    import capo_polly.types.list_tags_for_resource_input
+    import capo_polly.types.list_tags_for_resource_output
     import capo_polly.types.max_results
     import capo_polly.types.next_token
     import capo_polly.types.output_format
@@ -72,10 +75,16 @@ if TYPE_CHECKING:
     import capo_polly.types.start_speech_synthesis_task_output
     import capo_polly.types.synthesize_speech_input
     import capo_polly.types.synthesize_speech_output
+    import capo_polly.types.tag_key_list
+    import capo_polly.types.tag_map
+    import capo_polly.types.tag_resource_input
+    import capo_polly.types.tag_resource_output
     import capo_polly.types.task_id
     import capo_polly.types.task_status
     import capo_polly.types.text
     import capo_polly.types.text_type
+    import capo_polly.types.untag_resource_input
+    import capo_polly.types.untag_resource_output
     import capo_polly.types.voice_id
 
 
@@ -542,27 +551,87 @@ class PollyClient:
             if not _token:
                 break
 
+    def list_tags_for_resource(
+        self,
+        resource_arn: "capo_polly.types.amazon_resource_name.AmazonResourceName",
+        *,
+        config_overrides: Optional[PollyClientConfig] = None,
+    ) -> "capo_polly.types.list_tags_for_resource_output.ListTagsForResourceOutput":
+        """<p>Lists the tags for an Amazon Polly resource.</p>
+
+        Args:
+            resource_arn: <p>The Amazon Resource Name (ARN) that identifies the resource for which to list the tags. Currently, the only supported resource is an Amazon Polly lexicon.</p>
+
+        Raises:
+            capo_polly.errors.invalid_tag_parameter_exception.InvalidTagParameterException: <p>The resource ARN or a tag in the request isn't valid. Specify the ARN of a supported resource in the Amazon Web Services account and Region of the request. Tag keys can have a maximum length of 128 characters, and tag values can have a maximum length of 256 characters. Correct the ARN or the tags, and then try again.</p>
+            capo_polly.errors.resource_not_found_exception.ResourceNotFoundException: <p>Amazon Polly can't find the specified resource. Verify that the resource exists in the Amazon Web Services account and Region of the request and that its ARN is spelled correctly, and then try again.</p>
+            capo_polly.errors.service_failure_exception.ServiceFailureException: <p>An unknown condition has caused a service failure.</p>
+            capo_polly.errors.throttling_exception.ThrottlingException: <p>The request was denied because of request throttling.</p>
+            capo_polly.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service.</p>
+            capo_polly.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            To list the tags on a lexicon
+            The following example lists the tags associated with a pronunciation lexicon.
+
+            >>> client.list_tags_for_resource(resource_arn='arn:aws:polly:us-east-1:111122223333:lexicon/example')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_polly.types.list_tags_for_resource_input.ListTagsForResourceInput]",
+        ) -> OperationResponse[
+            "capo_polly.types.list_tags_for_resource_output.ListTagsForResourceOutput"
+        ]:
+            import capo_polly._operations.parrot_v1.list_tags_for_resource
+
+            output, http_response = (
+                capo_polly._operations.parrot_v1.list_tags_for_resource.list_tags_for_resource(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
+        input_: capo_polly.types.list_tags_for_resource_input.ListTagsForResourceInput = {
+            "resource_arn": resource_arn
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def put_lexicon(
         self,
         name: "capo_polly.types.lexicon_name.LexiconName",
         content: "capo_polly.types.lexicon_content.LexiconContent",
         *,
         config_overrides: Optional[PollyClientConfig] = None,
+        tags: Optional["capo_polly.types.tag_map.TagMap"] = None,
     ) -> "capo_polly.types.put_lexicon_output.PutLexiconOutput":
-        """<p>Stores a pronunciation lexicon in an Amazon Web Services Region. If a lexicon with the same name already exists in the region, it is overwritten by the new lexicon. Lexicon operations have eventual consistency, therefore, it might take some time before the lexicon is available to the SynthesizeSpeech operation.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing Lexicons</a>.</p>
+        """<p>Stores a pronunciation lexicon in an Amazon Web Services Region. If a lexicon with the same name already exists in the region, it is overwritten by the new lexicon. Lexicon operations have eventual consistency, therefore, it might take some time before the lexicon is available to the SynthesizeSpeech operation.</p> <p>Overwriting a lexicon keeps its existing tags. You can specify tags only when you create a lexicon. If you specify tags for a lexicon that already exists, the request fails with a <code>ValidationException</code>. To change the tags of an existing lexicon, use <code>TagResource</code> and <code>UntagResource</code>.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing Lexicons</a>.</p>
 
         Args:
-            name: <p>Name of the lexicon. The name must follow the regular express format [0-9A-Za-z]{1,20}. That is, the name is a case-sensitive alphanumeric string up to 20 characters long. </p>
+            name: <p>Name of the lexicon. The name must follow the regular expression format [0-9A-Za-z]{1,20}. That is, the name is a case-sensitive alphanumeric string up to 20 characters long. </p>
             content: <p>Content of the PLS lexicon as string data.</p>
+            tags: <p>The metadata that you apply to the lexicon to help you categorize and organize it. Each tag consists of a key and an optional value, both of which you define. Tag keys can have a maximum character length of 128 characters, and tag values can have a maximum length of 256 characters. You can't replace the tags of an existing lexicon by overwriting it with PutLexicon.</p>
 
         Raises:
             capo_polly.errors.invalid_lexicon_exception.InvalidLexiconException: <p>Amazon Polly can't find the specified lexicon. Verify that the lexicon's name is spelled correctly, and then try again.</p>
+            capo_polly.errors.invalid_tag_parameter_exception.InvalidTagParameterException: <p>The resource ARN or a tag in the request isn't valid. Specify the ARN of a supported resource in the Amazon Web Services account and Region of the request. Tag keys can have a maximum length of 128 characters, and tag values can have a maximum length of 256 characters. Correct the ARN or the tags, and then try again.</p>
             capo_polly.errors.lexicon_size_exceeded_exception.LexiconSizeExceededException: <p>The maximum size of the specified lexicon would be exceeded by this operation.</p>
             capo_polly.errors.max_lexeme_length_exceeded_exception.MaxLexemeLengthExceededException: <p>The maximum size of the lexeme would be exceeded by this operation.</p>
             capo_polly.errors.max_lexicons_number_exceeded_exception.MaxLexiconsNumberExceededException: <p>The maximum number of lexicons would be exceeded by this operation.</p>
             capo_polly.errors.service_failure_exception.ServiceFailureException: <p>An unknown condition has caused a service failure.</p>
+            capo_polly.errors.too_many_tags_exception.TooManyTagsException: <p>The list of tags on the resource is over the limit. The maximum number of tags that can be applied to a resource is 50. Remove unused tags or reduce the number of tags in the request, and then try again.</p>
             capo_polly.errors.unsupported_pls_alphabet_exception.UnsupportedPlsAlphabetException: <p>The alphabet specified by the lexicon is not a supported alphabet. Valid values are <code>ipa</code>, <code>x-sampa</code>, <code>x-amazon-pinyin</code>, <code>x-amazon-jyutping</code>, <code>x-amazon-pron-kana</code>, and <code>x-amazon-yomigana</code>. Replace the unsupported alphabet with one of the valid values and resubmit your request.</p>
             capo_polly.errors.unsupported_pls_language_exception.UnsupportedPlsLanguageException: <p>The language specified in the lexicon is unsupported. For a list of supported languages, see <a href="https://docs.aws.amazon.com/polly/latest/dg/API_LexiconAttributes.html">Lexicon Attributes</a>.</p>
+            capo_polly.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service.</p>
             capo_polly.errors.UnknownServiceError: The service returned an error code this client does not model.
 
         Examples:
@@ -598,6 +667,8 @@ class PollyClient:
             "name": name,
             "content": content,
         }
+        if tags is not None:
+            input_["tags"] = tags
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -918,6 +989,123 @@ class PollyClient:
             yield response.output
         finally:
             response.response.close()
+
+    def tag_resource(
+        self,
+        resource_arn: "capo_polly.types.amazon_resource_name.AmazonResourceName",
+        tags: "capo_polly.types.tag_map.TagMap",
+        *,
+        config_overrides: Optional[PollyClientConfig] = None,
+    ) -> "capo_polly.types.tag_resource_output.TagResourceOutput":
+        """<p>Adds specified tags to a resource with the specified ARN. Existing tags on a resource are not changed if they are not specified in the request parameters. If you specify a tag key that already exists on the resource, the value in the request replaces the existing value.</p>
+
+        Args:
+            resource_arn: <p>The Amazon Resource Name (ARN) of the resource to which to add tags. Currently, the only supported resource is an Amazon Polly lexicon.</p>
+            tags: <p>The tags to add to the resource, as key-value pairs. Tag keys can have a maximum character length of 128 characters, and tag values can have a maximum length of 256 characters.</p>
+
+        Raises:
+            capo_polly.errors.invalid_tag_parameter_exception.InvalidTagParameterException: <p>The resource ARN or a tag in the request isn't valid. Specify the ARN of a supported resource in the Amazon Web Services account and Region of the request. Tag keys can have a maximum length of 128 characters, and tag values can have a maximum length of 256 characters. Correct the ARN or the tags, and then try again.</p>
+            capo_polly.errors.resource_not_found_exception.ResourceNotFoundException: <p>Amazon Polly can't find the specified resource. Verify that the resource exists in the Amazon Web Services account and Region of the request and that its ARN is spelled correctly, and then try again.</p>
+            capo_polly.errors.service_failure_exception.ServiceFailureException: <p>An unknown condition has caused a service failure.</p>
+            capo_polly.errors.throttling_exception.ThrottlingException: <p>The request was denied because of request throttling.</p>
+            capo_polly.errors.too_many_tags_exception.TooManyTagsException: <p>The list of tags on the resource is over the limit. The maximum number of tags that can be applied to a resource is 50. Remove unused tags or reduce the number of tags in the request, and then try again.</p>
+            capo_polly.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service.</p>
+            capo_polly.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            To add tags to a lexicon
+            The following example adds the specified tags to a pronunciation lexicon.
+
+            >>> client.tag_resource(resource_arn='arn:aws:polly:us-east-1:111122223333:lexicon/example', tags={'Project': 'Narration', 'Environment': 'Production'})
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_polly.types.tag_resource_input.TagResourceInput]",
+        ) -> OperationResponse[
+            "capo_polly.types.tag_resource_output.TagResourceOutput"
+        ]:
+            import capo_polly._operations.parrot_v1.tag_resource
+
+            output, http_response = (
+                capo_polly._operations.parrot_v1.tag_resource.tag_resource(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
+        input_: capo_polly.types.tag_resource_input.TagResourceInput = {
+            "resource_arn": resource_arn,
+            "tags": tags,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def untag_resource(
+        self,
+        resource_arn: "capo_polly.types.amazon_resource_name.AmazonResourceName",
+        tag_keys: "capo_polly.types.tag_key_list.TagKeyList",
+        *,
+        config_overrides: Optional[PollyClientConfig] = None,
+    ) -> "capo_polly.types.untag_resource_output.UntagResourceOutput":
+        """<p>Deletes specified tags from a resource.</p>
+
+        Args:
+            resource_arn: <p>The Amazon Resource Name (ARN) of the resource from which to remove tags. Currently, the only supported resource is an Amazon Polly lexicon.</p>
+            tag_keys: <p>The keys of the tags to be removed.</p>
+
+        Raises:
+            capo_polly.errors.invalid_tag_parameter_exception.InvalidTagParameterException: <p>The resource ARN or a tag in the request isn't valid. Specify the ARN of a supported resource in the Amazon Web Services account and Region of the request. Tag keys can have a maximum length of 128 characters, and tag values can have a maximum length of 256 characters. Correct the ARN or the tags, and then try again.</p>
+            capo_polly.errors.resource_not_found_exception.ResourceNotFoundException: <p>Amazon Polly can't find the specified resource. Verify that the resource exists in the Amazon Web Services account and Region of the request and that its ARN is spelled correctly, and then try again.</p>
+            capo_polly.errors.service_failure_exception.ServiceFailureException: <p>An unknown condition has caused a service failure.</p>
+            capo_polly.errors.throttling_exception.ThrottlingException: <p>The request was denied because of request throttling.</p>
+            capo_polly.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service.</p>
+            capo_polly.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            To remove tags from a lexicon
+            The following example removes the tags with the specified keys from a pronunciation lexicon.
+
+            >>> client.untag_resource(resource_arn='arn:aws:polly:us-east-1:111122223333:lexicon/example', tag_keys=['Environment'])
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_polly.types.untag_resource_input.UntagResourceInput]",
+        ) -> OperationResponse[
+            "capo_polly.types.untag_resource_output.UntagResourceOutput"
+        ]:
+            import capo_polly._operations.parrot_v1.untag_resource
+
+            output, http_response = (
+                capo_polly._operations.parrot_v1.untag_resource.untag_resource(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
+        input_: capo_polly.types.untag_resource_input.UntagResourceInput = {
+            "resource_arn": resource_arn,
+            "tag_keys": tag_keys,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
 
     def __enter__(self) -> Self:
         return self

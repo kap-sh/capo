@@ -8,6 +8,7 @@ from capo_iotsitewise.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iotsitewise.types.client_token
+    import capo_iotsitewise.types.dataset_export_job_name_input
     import capo_iotsitewise.types.export_error_report_location
     import capo_iotsitewise.types.processing_input
     import capo_iotsitewise.types.s3_uri
@@ -23,6 +24,10 @@ class CreateDatasetExportJobRequest(TypedDict, closed=True):
     """<p>The S3 URI where output clips will be written.</p>"""
     input: "capo_iotsitewise.types.processing_input.ProcessingInput"
     """<p>The processing input source.</p>"""
+    job_name: NotRequired[
+        "capo_iotsitewise.types.dataset_export_job_name_input.DatasetExportJobNameInput"
+    ]
+    """<p>An optional name for the export job. When omitted, one will be created based on type of job and start time.</p>"""
     error_report_location: (
         "capo_iotsitewise.types.export_error_report_location.ExportErrorReportLocation"
     )
@@ -40,6 +45,8 @@ def serialize_json(value: CreateDatasetExportJobRequest) -> dict:
     out["input"] = capo_iotsitewise.types.processing_input.serialize_json(
         value["input"]
     )
+    if "job_name" in value:
+        out["jobName"] = value["job_name"]
     import capo_iotsitewise.types.export_error_report_location
 
     out["errorReportLocation"] = (
@@ -66,6 +73,8 @@ def deserialize_json(data: dict) -> CreateDatasetExportJobRequest:
         )
     else:
         out["input"] = {"$unknown": {"name": ""}}
+    if data.get("jobName") is not None:
+        out["job_name"] = data["jobName"]
     if data.get("errorReportLocation") is not None:
         import capo_iotsitewise.types.export_error_report_location
 

@@ -24,6 +24,7 @@ import capo_mwaa_serverless.types.create_workflow_response
 import capo_mwaa_serverless.types.definition_s3_location
 import capo_mwaa_serverless.types.encryption_configuration
 import capo_mwaa_serverless.types.engine_version
+import capo_mwaa_serverless.types.environment
 import capo_mwaa_serverless.types.logging_configuration
 import capo_mwaa_serverless.types.network_configuration
 import capo_mwaa_serverless.types.tags

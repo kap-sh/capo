@@ -21,6 +21,7 @@ import capo_rds.types.copy_db_snapshot_message
 import capo_rds.types.copy_db_snapshot_result
 import capo_rds.types.db_snapshot
 import capo_rds.types.tag_list
+import capo_rds.types.tag_specification_list
 from capo_rds._protocol.errors import find_error_element, parse_error_metadata
 from capo_rds._protocol.xml import fromstring
 from capo_rds._rule_engine._endpoint_rule_set import EndpointParams, resolve

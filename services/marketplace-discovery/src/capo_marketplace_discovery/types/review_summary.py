@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class ReviewSummary(TypedDict, closed=True):
     review_source_summaries: "capo_marketplace_discovery.types.review_source_summary_list.ReviewSourceSummaryList"
-    """<p>Review summaries from different sources, such as AWS Marketplace.</p>"""
+    """<p>Review summaries from different sources, such as AWS Marketplace, G2, and PeerSpot.</p>"""
 
 
 # --- restJson1 ser/de ---

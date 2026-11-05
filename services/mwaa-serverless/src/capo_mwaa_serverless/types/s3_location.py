@@ -9,7 +9,7 @@ class S3Location(TypedDict, closed=True):
     object_key: "str"
     """<p>The key of the code artifact within the Amazon S3 bucket.</p>"""
     version_id: NotRequired["str"]
-    """<p>The version ID of the object in Amazon S3. If not specified, the latest version is used.</p>"""
+    """<p>Specifies the version ID of the object in Amazon S3. If you don't specify a version, we use the latest version.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     import capo_taxsettings.types.brazil_additional_info
     import capo_taxsettings.types.canada_additional_info
     import capo_taxsettings.types.chile_additional_info
+    import capo_taxsettings.types.colombia_additional_info
     import capo_taxsettings.types.egypt_additional_info
     import capo_taxsettings.types.estonia_additional_info
     import capo_taxsettings.types.france_additional_info
@@ -148,6 +149,10 @@ class AdditionalInfoResponse(TypedDict, closed=True):
         "capo_taxsettings.types.mexico_additional_info.MexicoAdditionalInfo"
     ]
     """<p>Additional tax information associated with your Tax Registration Number (TRN) in Mexico.</p>"""
+    colombia_additional_info: NotRequired[
+        "capo_taxsettings.types.colombia_additional_info.ColombiaAdditionalInfo"
+    ]
+    """<p>Additional tax information associated with your Tax Registration Number (TRN) in Colombia.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -377,6 +382,14 @@ def serialize_json(value: AdditionalInfoResponse) -> dict:
                 value["mexico_additional_info"]
             )
         )
+    if "colombia_additional_info" in value:
+        import capo_taxsettings.types.colombia_additional_info
+
+        out["colombiaAdditionalInfo"] = (
+            capo_taxsettings.types.colombia_additional_info.serialize_json(
+                value["colombia_additional_info"]
+            )
+        )
     return out
 
 
@@ -604,6 +617,14 @@ def deserialize_json(data: dict) -> AdditionalInfoResponse:
         out["mexico_additional_info"] = (
             capo_taxsettings.types.mexico_additional_info.deserialize_json(
                 data["mexicoAdditionalInfo"]
+            )
+        )
+    if data.get("colombiaAdditionalInfo") is not None:
+        import capo_taxsettings.types.colombia_additional_info
+
+        out["colombia_additional_info"] = (
+            capo_taxsettings.types.colombia_additional_info.deserialize_json(
+                data["colombiaAdditionalInfo"]
             )
         )
     return out

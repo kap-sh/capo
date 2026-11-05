@@ -66,6 +66,10 @@ class OptionGroupOption(TypedDict, closed=True):
         "capo_rds.types.boolean_optional.BooleanOptional"
     ]
     """<p>Indicates whether the option can be copied across Amazon Web Services accounts.</p>"""
+    copyable_cross_region: NotRequired[
+        "capo_rds.types.boolean_optional.BooleanOptional"
+    ]
+    """<p>Indicates whether the option can be copied across Amazon Web Services Regions.</p>"""
 
 
 # --- awsQuery ser/de ---
@@ -155,6 +159,13 @@ def serialize_query(
             (
                 f"{key_prefix}CopyableCrossAccount",
                 "true" if value["copyable_cross_account"] else "false",
+            )
+        )
+    if "copyable_cross_region" in value:
+        pairs.append(
+            (
+                f"{key_prefix}CopyableCrossRegion",
+                "true" if value["copyable_cross_region"] else "false",
             )
         )
 
@@ -247,5 +258,10 @@ def deserialize_query(el: Element) -> OptionGroupOption:
     if child_copyable_cross_account is not None:
         out["copyable_cross_account"] = (
             child_copyable_cross_account.text or ""
+        ).lower() == "true"
+    child_copyable_cross_region = el.find("CopyableCrossRegion")
+    if child_copyable_cross_region is not None:
+        out["copyable_cross_region"] = (
+            child_copyable_cross_region.text or ""
         ).lower() == "true"
     return out

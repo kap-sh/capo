@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mwaaserverless#CreateWorkflowRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     import capo_mwaa_serverless.types.description_string
     import capo_mwaa_serverless.types.encryption_configuration
     import capo_mwaa_serverless.types.engine_version
+    import capo_mwaa_serverless.types.environment
     import capo_mwaa_serverless.types.generic_string
     import capo_mwaa_serverless.types.idempotency_token_string
     import capo_mwaa_serverless.types.logging_configuration
@@ -56,6 +57,8 @@ class CreateWorkflowRequest(TypedDict, closed=True):
         "capo_mwaa_serverless.types.network_configuration.NetworkConfiguration"
     ]
     """<p>Network configuration for the workflow execution environment, including VPC security groups and subnets for secure network access. When specified, Amazon Managed Workflows for Apache Airflow Serverless deploys ECS worker tasks in your customer VPC to provide secure connectivity to your resources. If not specified, tasks run in the service's default worker VPC with network isolation from other customers. This configuration enables secure access to VPC-only resources like RDS databases or private endpoints.</p>"""
+    environment: NotRequired["capo_mwaa_serverless.types.environment.Environment"]
+    """<p>The environment variables to set for tasks in the workflow. If you don't specify this parameter, the workflow has no environment variables.</p>"""
     tags: NotRequired["capo_mwaa_serverless.types.tags.Tags"]
     """<p>A map of tags to assign to the workflow resource. Tags are key-value pairs that are used for resource organization and cost allocation.</p>"""
     trigger_mode: NotRequired["capo_mwaa_serverless.types.generic_string.GenericString"]
@@ -114,6 +117,14 @@ def serialize_aws_json_1_0(value: CreateWorkflowRequest) -> dict:
         out["NetworkConfiguration"] = (
             capo_mwaa_serverless.types.network_configuration.serialize_aws_json_1_0(
                 value["network_configuration"]
+            )
+        )
+    if "environment" in value:
+        import capo_mwaa_serverless.types.environment
+
+        out["Environment"] = (
+            capo_mwaa_serverless.types.environment.serialize_aws_json_1_0(
+                value["environment"]
             )
         )
     if "tags" in value:
@@ -191,6 +202,14 @@ def deserialize_aws_json_1_0(data: dict) -> CreateWorkflowRequest:
                 data["NetworkConfiguration"]
             )
         )
+    if data.get("Environment") is not None:
+        import capo_mwaa_serverless.types.environment
+
+        out["environment"] = (
+            capo_mwaa_serverless.types.environment.deserialize_aws_json_1_0(
+                data["Environment"]
+            )
+        )
     if data.get("Tags") is not None:
         import capo_mwaa_serverless.types.tags
 
@@ -199,4 +218,15 @@ def deserialize_aws_json_1_0(data: dict) -> CreateWorkflowRequest:
         )
     if data.get("TriggerMode") is not None:
         out["trigger_mode"] = data["TriggerMode"]
+    return out
+
+
+def redact_sensitive(value: CreateWorkflowRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "environment" in value:
+        import capo_mwaa_serverless.types.environment
+
+        out["environment"] = capo_mwaa_serverless.types.environment.redact_sensitive(
+            value["environment"]
+        )
     return out

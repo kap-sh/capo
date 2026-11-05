@@ -59,12 +59,14 @@ from capo_s3tables._services._pipeline import (
 )
 
 if TYPE_CHECKING:
+    import capo_s3tables.types.complete_table_migration_request
     import capo_s3tables.types.create_namespace_request
     import capo_s3tables.types.create_namespace_response
     import capo_s3tables.types.create_table_bucket_request
     import capo_s3tables.types.create_table_bucket_response
     import capo_s3tables.types.create_table_request
     import capo_s3tables.types.create_table_response
+    import capo_s3tables.types.data_migration_settings
     import capo_s3tables.types.delete_namespace_request
     import capo_s3tables.types.delete_table_bucket_encryption_request
     import capo_s3tables.types.delete_table_bucket_metrics_configuration_request
@@ -74,6 +76,7 @@ if TYPE_CHECKING:
     import capo_s3tables.types.delete_table_policy_request
     import capo_s3tables.types.delete_table_replication_request
     import capo_s3tables.types.delete_table_request
+    import capo_s3tables.types.destination_table
     import capo_s3tables.types.encryption_configuration
     import capo_s3tables.types.get_namespace_request
     import capo_s3tables.types.get_namespace_response
@@ -99,6 +102,8 @@ if TYPE_CHECKING:
     import capo_s3tables.types.get_table_maintenance_job_status_response
     import capo_s3tables.types.get_table_metadata_location_request
     import capo_s3tables.types.get_table_metadata_location_response
+    import capo_s3tables.types.get_table_migration_request
+    import capo_s3tables.types.get_table_migration_response
     import capo_s3tables.types.get_table_policy_request
     import capo_s3tables.types.get_table_policy_response
     import capo_s3tables.types.get_table_record_expiration_configuration_request
@@ -119,12 +124,21 @@ if TYPE_CHECKING:
     import capo_s3tables.types.list_table_buckets_limit
     import capo_s3tables.types.list_table_buckets_request
     import capo_s3tables.types.list_table_buckets_response
+    import capo_s3tables.types.list_table_migrations_limit
+    import capo_s3tables.types.list_table_migrations_request
+    import capo_s3tables.types.list_table_migrations_response
     import capo_s3tables.types.list_tables_limit
     import capo_s3tables.types.list_tables_request
     import capo_s3tables.types.list_tables_response
     import capo_s3tables.types.list_tags_for_resource_request
     import capo_s3tables.types.list_tags_for_resource_response
     import capo_s3tables.types.metadata_location
+    import capo_s3tables.types.migration_id
+    import capo_s3tables.types.migration_output_configuration
+    import capo_s3tables.types.migration_requested_state
+    import capo_s3tables.types.migration_source_type
+    import capo_s3tables.types.migration_state
+    import capo_s3tables.types.migration_summary
     import capo_s3tables.types.namespace_list
     import capo_s3tables.types.namespace_name
     import capo_s3tables.types.namespace_summary
@@ -145,7 +159,13 @@ if TYPE_CHECKING:
     import capo_s3tables.types.rename_table_request
     import capo_s3tables.types.resource_arn
     import capo_s3tables.types.resource_policy
+    import capo_s3tables.types.role_arn
+    import capo_s3tables.types.source_configuration
+    import capo_s3tables.types.start_table_migration_request
+    import capo_s3tables.types.start_table_migration_response
     import capo_s3tables.types.storage_class_configuration
+    import capo_s3tables.types.sync_table_migration_request
+    import capo_s3tables.types.sync_table_migration_response
     import capo_s3tables.types.table_arn
     import capo_s3tables.types.table_bucket_arn
     import capo_s3tables.types.table_bucket_maintenance_configuration_value
@@ -169,6 +189,8 @@ if TYPE_CHECKING:
     import capo_s3tables.types.untag_resource_response
     import capo_s3tables.types.update_table_metadata_location_request
     import capo_s3tables.types.update_table_metadata_location_response
+    import capo_s3tables.types.update_table_migration_request
+    import capo_s3tables.types.update_table_migration_response
     import capo_s3tables.types.version_token
 
 
@@ -2216,6 +2238,55 @@ class S3TablesClient:
         response.response.close()
         return response.output
 
+    def complete_table_migration(
+        self,
+        table_arn: "capo_s3tables.types.table_arn.TableARN",
+        *,
+        config_overrides: Optional[S3TablesClientConfig] = None,
+    ) -> None:
+        """<p>Completes the migration of a table. The table's most recent migration must be in the <code>succeeded</code>, <code>failed</code> or <code>cancelled</code> state. After you complete the migration, you can't sync the table again, and you can write to and maintain the table as you do any other table: compaction starts, and unreferenced file removal follows the table bucket's configuration. You can't undo this operation. Calling it again for the same table returns a <code>ConflictException</code>.</p> <dl> <dt>Permissions</dt> <dd> <ul> <li> <p>You must have the <code>s3tables:CompleteTableMigration</code> permission to use this operation.</p> </li> </ul> </dd> </dl>
+
+        Args:
+            table_arn: <p>The Amazon Resource Name (ARN) of the migrated table to complete the migration of.</p>
+
+        Raises:
+            capo_s3tables.errors.access_denied_exception.AccessDeniedException: <p>The action cannot be performed because you do not have the required permission.</p>
+            capo_s3tables.errors.bad_request_exception.BadRequestException: <p>The request is invalid or malformed.</p>
+            capo_s3tables.errors.conflict_exception.ConflictException: <p>The request failed because there is a conflict with a previous write. You can retry the request.</p>
+            capo_s3tables.errors.forbidden_exception.ForbiddenException: <p>The caller isn't authorized to make the request.</p>
+            capo_s3tables.errors.internal_server_error_exception.InternalServerErrorException: <p>The request failed due to an internal server error.</p>
+            capo_s3tables.errors.not_found_exception.NotFoundException: <p>The request was rejected because the specified resource could not be found.</p>
+            capo_s3tables.errors.too_many_requests_exception.TooManyRequestsException: <p>The limit on the number of requests per second was exceeded.</p>
+            capo_s3tables.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_s3tables.types.complete_table_migration_request.CompleteTableMigrationRequest]",
+        ) -> OperationResponse[None]:
+            import capo_s3tables._operations.s3_table_buckets.complete_table_migration
+
+            output, http_response = (
+                capo_s3tables._operations.s3_table_buckets.complete_table_migration.complete_table_migration(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CompleteTableMigration")
+        )
+        input_: capo_s3tables.types.complete_table_migration_request.CompleteTableMigrationRequest = {
+            "table_arn": table_arn
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def create_table(
         self,
         table_bucket_arn: "capo_s3tables.types.table_bucket_arn.TableBucketARN",
@@ -2588,6 +2659,60 @@ class S3TablesClient:
         response.response.close()
         return response.output
 
+    def get_table_migration(
+        self,
+        *,
+        config_overrides: Optional[S3TablesClientConfig] = None,
+        migration_id: Optional["capo_s3tables.types.migration_id.MigrationId"] = None,
+        table_arn: Optional["capo_s3tables.types.table_arn.TableARN"] = None,
+    ) -> "capo_s3tables.types.get_table_migration_response.GetTableMigrationResponse":
+        """<p>Gets the details of a migration, including its state, the reason it failed, its statistics and the location of its reports. Identify the migration by its <code>migrationId</code>, or specify the <code>tableARN</code> of a destination table to get that table's most recent migration.</p> <dl> <dt>Permissions</dt> <dd> <ul> <li> <p>You must have the <code>s3tables:GetTableMigration</code> permission to use this operation.</p> </li> </ul> </dd> </dl>
+
+        Args:
+            migration_id: <p>The ID of the migration to get. Specify either <code>migrationId</code> or <code>tableARN</code>, not both.</p>
+            table_arn: <p>The Amazon Resource Name (ARN) of the destination table. Gets the table's most recent migration. Specify either <code>tableARN</code> or <code>migrationId</code>, not both.</p>
+
+        Raises:
+            capo_s3tables.errors.access_denied_exception.AccessDeniedException: <p>The action cannot be performed because you do not have the required permission.</p>
+            capo_s3tables.errors.bad_request_exception.BadRequestException: <p>The request is invalid or malformed.</p>
+            capo_s3tables.errors.forbidden_exception.ForbiddenException: <p>The caller isn't authorized to make the request.</p>
+            capo_s3tables.errors.internal_server_error_exception.InternalServerErrorException: <p>The request failed due to an internal server error.</p>
+            capo_s3tables.errors.not_found_exception.NotFoundException: <p>The request was rejected because the specified resource could not be found.</p>
+            capo_s3tables.errors.too_many_requests_exception.TooManyRequestsException: <p>The limit on the number of requests per second was exceeded.</p>
+            capo_s3tables.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_s3tables.types.get_table_migration_request.GetTableMigrationRequest]",
+        ) -> OperationResponse[
+            "capo_s3tables.types.get_table_migration_response.GetTableMigrationResponse"
+        ]:
+            import capo_s3tables._operations.s3_table_buckets.get_table_migration
+
+            output, http_response = (
+                capo_s3tables._operations.s3_table_buckets.get_table_migration.get_table_migration(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTableMigration")
+        )
+        input_: capo_s3tables.types.get_table_migration_request.GetTableMigrationRequest = {}
+        if migration_id is not None:
+            input_["migration_id"] = migration_id
+        if table_arn is not None:
+            input_["table_arn"] = table_arn
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def get_table_record_expiration_configuration(
         self,
         table_arn: "capo_s3tables.types.table_arn.TableARN",
@@ -2743,6 +2868,127 @@ class S3TablesClient:
         )
         response.response.close()
         return response.output
+
+    def list_table_migrations(
+        self,
+        *,
+        config_overrides: Optional[S3TablesClientConfig] = None,
+        table_bucket_arn: Optional[
+            "capo_s3tables.types.table_bucket_arn.TableBucketARN"
+        ] = None,
+        namespace: Optional["capo_s3tables.types.namespace_name.NamespaceName"] = None,
+        name: Optional["capo_s3tables.types.table_name.TableName"] = None,
+        table_arn: Optional["capo_s3tables.types.table_arn.TableARN"] = None,
+        state: Optional["capo_s3tables.types.migration_state.MigrationState"] = None,
+        has_valid_plan: Optional[bool] = None,
+        max_results: Optional[
+            "capo_s3tables.types.list_table_migrations_limit.ListTableMigrationsLimit"
+        ] = None,
+        next_token: Optional["capo_s3tables.types.next_token.NextToken"] = None,
+    ) -> (
+        "capo_s3tables.types.list_table_migrations_response.ListTableMigrationsResponse"
+    ):
+        """<p>Lists the migrations whose destination is in a table bucket, a namespace or a table. Specify a <code>tableBucketARN</code> to list the migrations into a table bucket, and add a <code>namespace</code>, or a <code>namespace</code> and a <code>name</code>, to narrow the list. Or specify a <code>tableARN</code> to list the migrations into a table.</p> <p>Migrations are listed newest first. Results are paginated: use <code>maxResults</code> to set the page size, and pass the <code>nextToken</code> from a response to retrieve the next page of results. A page can contain fewer migrations than <code>maxResults</code>, or none, and still return a <code>nextToken</code>. Continue until a response has no <code>nextToken</code>.</p> <dl> <dt>Permissions</dt> <dd> <ul> <li> <p>You must have the <code>s3tables:ListTableMigrations</code> permission to use this operation.</p> </li> </ul> </dd> </dl>
+
+        Args:
+            table_bucket_arn: <p>The Amazon Resource Name (ARN) of the table bucket to list migrations for.</p>
+            namespace: <p>The namespace to list migrations for. Requires <code>tableBucketARN</code>.</p>
+            name: <p>The name of the table to list migrations for. Requires <code>tableBucketARN</code> and <code>namespace</code>.</p>
+            table_arn: <p>The Amazon Resource Name (ARN) of the table to list migrations for. The list includes the migrations into this table. To also list migrations into an earlier table of the same name, specify <code>tableBucketARN</code>, <code>namespace</code> and <code>name</code> instead. Specify either <code>tableARN</code> or <code>tableBucketARN</code>, not both.</p>
+            state: <p>The state to filter the list by. For the valid values, see the <code>state</code> member of <code>GetTableMigration</code>.</p>
+            has_valid_plan: <p>The <code>hasValidPlan</code> value to filter the list by. Migrations that are still planning aren't listed, whichever value you specify.</p>
+            max_results: <p>The maximum number of migrations to return, from 1 to 1,000. If you don't specify a value, the default is 100.</p>
+            next_token: <p>The <code>nextToken</code> from a previous response, to get the next page of results.</p>
+
+        Raises:
+            capo_s3tables.errors.access_denied_exception.AccessDeniedException: <p>The action cannot be performed because you do not have the required permission.</p>
+            capo_s3tables.errors.bad_request_exception.BadRequestException: <p>The request is invalid or malformed.</p>
+            capo_s3tables.errors.forbidden_exception.ForbiddenException: <p>The caller isn't authorized to make the request.</p>
+            capo_s3tables.errors.internal_server_error_exception.InternalServerErrorException: <p>The request failed due to an internal server error.</p>
+            capo_s3tables.errors.not_found_exception.NotFoundException: <p>The request was rejected because the specified resource could not be found.</p>
+            capo_s3tables.errors.too_many_requests_exception.TooManyRequestsException: <p>The limit on the number of requests per second was exceeded.</p>
+            capo_s3tables.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_s3tables.types.list_table_migrations_request.ListTableMigrationsRequest]",
+        ) -> OperationResponse[
+            "capo_s3tables.types.list_table_migrations_response.ListTableMigrationsResponse"
+        ]:
+            import capo_s3tables._operations.s3_table_buckets.list_table_migrations
+
+            output, http_response = (
+                capo_s3tables._operations.s3_table_buckets.list_table_migrations.list_table_migrations(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTableMigrations")
+        )
+        input_: capo_s3tables.types.list_table_migrations_request.ListTableMigrationsRequest = {}
+        if table_bucket_arn is not None:
+            input_["table_bucket_arn"] = table_bucket_arn
+        if namespace is not None:
+            input_["namespace"] = namespace
+        if name is not None:
+            input_["name"] = name
+        if table_arn is not None:
+            input_["table_arn"] = table_arn
+        if state is not None:
+            input_["state"] = state
+        if has_valid_plan is not None:
+            input_["has_valid_plan"] = has_valid_plan
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_table_migrations(
+        self,
+        *,
+        config_overrides: Optional[S3TablesClientConfig] = None,
+        table_bucket_arn: Optional[
+            "capo_s3tables.types.table_bucket_arn.TableBucketARN"
+        ] = None,
+        namespace: Optional["capo_s3tables.types.namespace_name.NamespaceName"] = None,
+        name: Optional["capo_s3tables.types.table_name.TableName"] = None,
+        table_arn: Optional["capo_s3tables.types.table_arn.TableARN"] = None,
+        state: Optional["capo_s3tables.types.migration_state.MigrationState"] = None,
+        has_valid_plan: Optional[bool] = None,
+        max_results: Optional[
+            "capo_s3tables.types.list_table_migrations_limit.ListTableMigrationsLimit"
+        ] = None,
+        next_token: Optional["capo_s3tables.types.next_token.NextToken"] = None,
+    ) -> "Iterator[capo_s3tables.types.migration_summary.MigrationSummary]":
+        _token = next_token
+        while True:
+            _response = self.list_table_migrations(
+                config_overrides=config_overrides,
+                table_bucket_arn=table_bucket_arn,
+                namespace=namespace,
+                name=name,
+                table_arn=table_arn,
+                state=state,
+                has_valid_plan=has_valid_plan,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("migrations",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
 
     def list_tables(
         self,
@@ -3022,6 +3268,142 @@ class S3TablesClient:
         response.response.close()
         return response.output
 
+    def start_table_migration(
+        self,
+        role_arn: "capo_s3tables.types.role_arn.RoleArn",
+        destination_table: "capo_s3tables.types.destination_table.DestinationTable",
+        source_type: "capo_s3tables.types.migration_source_type.MigrationSourceType",
+        source: "capo_s3tables.types.source_configuration.SourceConfiguration",
+        migration_output: "capo_s3tables.types.migration_output_configuration.MigrationOutputConfiguration",
+        *,
+        config_overrides: Optional[S3TablesClientConfig] = None,
+        data_migration: Optional[
+            "capo_s3tables.types.data_migration_settings.DataMigrationSettings"
+        ] = None,
+        review_migration_plan: Optional[bool] = None,
+    ) -> (
+        "capo_s3tables.types.start_table_migration_response.StartTableMigrationResponse"
+    ):
+        """<p>Starts migrating an Amazon Web Services Glue Data Catalog table into a new table in a table bucket. The migration runs asynchronously: this operation returns the migration ID and its initial state, and you track progress with <code>GetTableMigration</code>.</p> <p>The namespace must already exist, and a table with the specified name must not. The migration creates the table during planning and commits data to it as it runs. Until you call <code>CompleteTableMigration</code>, you can read the table but you can't write to it. If the migration fails or is cancelled, the table and the data already committed to it remain.</p> <p>The migration first checks the source and the destination, and writes the table compatibility and object compatibility reports to the bucket that you specify in <code>migrationOutput</code>. If you set <code>reviewMigrationPlan</code> to <code>true</code>, the migration waits in the <code>pendingReview</code> state so that you can review the reports, and continues only when you call <code>UpdateTableMigration</code> with <code>requestedState</code> set to <code>queued</code>. If you don't continue or cancel the migration within 30 days, the migration fails. Otherwise it continues to migrate the data, and writes the object migration report when the migration ends. If planning fails, the migration writes no object migration report.</p> <dl> <dt>Permissions</dt> <dd> <ul> <li> <p>You must have the <code>s3tables:StartTableMigration</code> permission to use this operation.</p> </li> <li> <p>You must have the <code>iam:PassRole</code> permission on the role that you specify in <code>roleARN</code>, with a condition that allows passing it to <code>migration.s3tables.amazonaws.com</code>. The associated resource is the table bucket.</p> </li> <li> <p>If <code>destinationTable</code> specifies SSE-KMS encryption, you must have the <code>kms:DescribeKey</code> and <code>kms:GenerateDataKey</code> permissions on the KMS key. You must also grant the S3 Tables maintenance principal access to the key. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-tables-kms-permissions.html">Permissions requirements for S3 Tables SSE-KMS encryption</a>.</p> </li> </ul> </dd> </dl>
+
+        Args:
+            role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that the migration uses to read the source table and its data and to write the destination table and the reports. The role must be in your account, and its trust policy must allow <code>migration.s3tables.amazonaws.com</code> to assume it. You can limit the trust policy to the destination table bucket with the <code>aws:SourceArn</code> and <code>aws:SourceAccount</code> condition keys.</p>
+            destination_table: <p>The table to create and migrate the source into.</p>
+            source_type: <p>The type of the source. It must match the member that you set in <code>source</code>.</p>
+            source: <p>The source table to migrate.</p>
+            data_migration: <p>The maintenance settings and migration policies for the destination table.</p>
+            review_migration_plan: <p>Specifies whether the migration waits in the <code>pendingReview</code> state, so that you can review the compatibility reports before it migrates any data. If <code>true</code>, the migration continues when you call <code>UpdateTableMigration</code> with <code>requestedState</code> set to <code>queued</code>. If you don't continue or cancel the migration within 30 days, the migration fails. The default is <code>false</code>.</p>
+            migration_output: <p>The bucket and prefixes that the migration writes its reports to. The bucket must be a general purpose bucket in your account and in the same Region as the table bucket, and the migration role must be able to write objects to it. Otherwise, the migration fails when it writes its first report.</p>
+
+        Raises:
+            capo_s3tables.errors.access_denied_exception.AccessDeniedException: <p>The action cannot be performed because you do not have the required permission.</p>
+            capo_s3tables.errors.bad_request_exception.BadRequestException: <p>The request is invalid or malformed.</p>
+            capo_s3tables.errors.conflict_exception.ConflictException: <p>The request failed because there is a conflict with a previous write. You can retry the request.</p>
+            capo_s3tables.errors.forbidden_exception.ForbiddenException: <p>The caller isn't authorized to make the request.</p>
+            capo_s3tables.errors.internal_server_error_exception.InternalServerErrorException: <p>The request failed due to an internal server error.</p>
+            capo_s3tables.errors.not_found_exception.NotFoundException: <p>The request was rejected because the specified resource could not be found.</p>
+            capo_s3tables.errors.too_many_requests_exception.TooManyRequestsException: <p>The limit on the number of requests per second was exceeded.</p>
+            capo_s3tables.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_s3tables.types.start_table_migration_request.StartTableMigrationRequest]",
+        ) -> OperationResponse[
+            "capo_s3tables.types.start_table_migration_response.StartTableMigrationResponse"
+        ]:
+            import capo_s3tables._operations.s3_table_buckets.start_table_migration
+
+            output, http_response = (
+                capo_s3tables._operations.s3_table_buckets.start_table_migration.start_table_migration(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartTableMigration")
+        )
+        input_: capo_s3tables.types.start_table_migration_request.StartTableMigrationRequest = {
+            "role_arn": role_arn,
+            "destination_table": destination_table,
+            "source_type": source_type,
+            "source": source,
+            "migration_output": migration_output,
+        }
+        if data_migration is not None:
+            input_["data_migration"] = data_migration
+        if review_migration_plan is not None:
+            input_["review_migration_plan"] = review_migration_plan
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def sync_table_migration(
+        self,
+        role_arn: "capo_s3tables.types.role_arn.RoleArn",
+        table_arn: "capo_s3tables.types.table_arn.TableARN",
+        migration_output: "capo_s3tables.types.migration_output_configuration.MigrationOutputConfiguration",
+        *,
+        config_overrides: Optional[S3TablesClientConfig] = None,
+        review_migration_plan: Optional[bool] = None,
+    ) -> "capo_s3tables.types.sync_table_migration_response.SyncTableMigrationResponse":
+        """<p>Migrates the changes in the source table since the previous start or sync, such as added and deleted source objects, into the destination table. The sync runs asynchronously: this operation returns the migration ID of the sync and its initial state, and you track progress with <code>GetTableMigration</code>.</p> <p>A sync uses the source, destination and data migration settings of the table's migration, and plans the work and writes its reports in the same way as <code>StartTableMigration</code>. You can sync after a start or sync that succeeded, failed or was cancelled, if an earlier start or sync of the table has a valid plan (<code>hasValidPlan</code>). You can't sync a table while a start or sync is in progress for it, and you can sync a table until you call <code>CompleteTableMigration</code> for it. If a source object that an earlier migration migrated has since been overwritten, the sync fails.</p> <dl> <dt>Permissions</dt> <dd> <ul> <li> <p>You must have the <code>s3tables:SyncTableMigration</code> permission to use this operation.</p> </li> <li> <p>You must have the <code>iam:PassRole</code> permission on the role that you specify in <code>roleARN</code>, with a condition that allows passing it to <code>migration.s3tables.amazonaws.com</code>. The associated resource is the table.</p> </li> </ul> </dd> </dl>
+
+        Args:
+            role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that the sync uses to read the source table and its data and to write the destination table and the reports. The role must be in your account, and its trust policy must allow <code>migration.s3tables.amazonaws.com</code> to assume it. You can limit the trust policy to the destination table bucket with the <code>aws:SourceArn</code> and <code>aws:SourceAccount</code> condition keys.</p>
+            table_arn: <p>The Amazon Resource Name (ARN) of the destination table to sync. The table must have a migration, and you must not have called <code>CompleteTableMigration</code> for it.</p>
+            review_migration_plan: <p>Specifies whether the sync waits in the <code>pendingReview</code> state, so that you can review the compatibility reports before it migrates any data. If <code>true</code>, the migration continues when you call <code>UpdateTableMigration</code> with <code>requestedState</code> set to <code>queued</code>. If you don't continue or cancel the migration within 30 days, the migration fails. The default is <code>false</code>.</p>
+            migration_output: <p>The bucket and prefixes that the sync writes its reports to. The bucket must be a general purpose bucket in your account and in the same Region as the table bucket, and the migration role must be able to write objects to it. Otherwise, the migration fails when it writes its first report.</p>
+
+        Raises:
+            capo_s3tables.errors.access_denied_exception.AccessDeniedException: <p>The action cannot be performed because you do not have the required permission.</p>
+            capo_s3tables.errors.bad_request_exception.BadRequestException: <p>The request is invalid or malformed.</p>
+            capo_s3tables.errors.conflict_exception.ConflictException: <p>The request failed because there is a conflict with a previous write. You can retry the request.</p>
+            capo_s3tables.errors.forbidden_exception.ForbiddenException: <p>The caller isn't authorized to make the request.</p>
+            capo_s3tables.errors.internal_server_error_exception.InternalServerErrorException: <p>The request failed due to an internal server error.</p>
+            capo_s3tables.errors.not_found_exception.NotFoundException: <p>The request was rejected because the specified resource could not be found.</p>
+            capo_s3tables.errors.too_many_requests_exception.TooManyRequestsException: <p>The limit on the number of requests per second was exceeded.</p>
+            capo_s3tables.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_s3tables.types.sync_table_migration_request.SyncTableMigrationRequest]",
+        ) -> OperationResponse[
+            "capo_s3tables.types.sync_table_migration_response.SyncTableMigrationResponse"
+        ]:
+            import capo_s3tables._operations.s3_table_buckets.sync_table_migration
+
+            output, http_response = (
+                capo_s3tables._operations.s3_table_buckets.sync_table_migration.sync_table_migration(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SyncTableMigration")
+        )
+        input_: capo_s3tables.types.sync_table_migration_request.SyncTableMigrationRequest = {
+            "role_arn": role_arn,
+            "table_arn": table_arn,
+            "migration_output": migration_output,
+        }
+        if review_migration_plan is not None:
+            input_["review_migration_plan"] = review_migration_plan
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def update_table_metadata_location(
         self,
         table_bucket_arn: "capo_s3tables.types.table_bucket_arn.TableBucketARN",
@@ -3075,6 +3457,69 @@ class S3TablesClient:
             "version_token": version_token,
             "metadata_location": metadata_location,
         }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def update_table_migration(
+        self,
+        requested_state: "capo_s3tables.types.migration_requested_state.MigrationRequestedState",
+        *,
+        config_overrides: Optional[S3TablesClientConfig] = None,
+        table_arn: Optional["capo_s3tables.types.table_arn.TableARN"] = None,
+        migration_id: Optional["capo_s3tables.types.migration_id.MigrationId"] = None,
+        update_description: Optional[str] = None,
+    ) -> "capo_s3tables.types.update_table_migration_response.UpdateTableMigrationResponse":
+        """<p>Requests a state change for a migration. Identify the migration by its <code>migrationId</code> or by the <code>tableARN</code> of its destination table.</p> <p>Set <code>requestedState</code> to <code>queued</code> to continue a migration in the <code>pendingReview</code> state; the migration moves to <code>queued</code> or <code>migrating</code>. Set it to <code>cancelled</code> to cancel a migration in the <code>new</code>, <code>planning</code>, <code>pendingReview</code>, <code>queued</code> or <code>migrating</code> state; the migration moves to <code>cancelling</code>, finishes the work in progress, and then ends in the <code>cancelled</code> state, or in the <code>failed</code> state if any objects failed to migrate. Data that the migration already committed stays in the destination table.</p> <dl> <dt>Permissions</dt> <dd> <ul> <li> <p>You must have the <code>s3tables:UpdateTableMigration</code> permission to use this operation.</p> </li> </ul> </dd> </dl>
+
+        Args:
+            table_arn: <p>The Amazon Resource Name (ARN) of the destination table. Updates the table's most recent migration. Until the migration creates the destination table, specify <code>migrationId</code>. Specify either <code>tableARN</code> or <code>migrationId</code>, not both.</p>
+            migration_id: <p>The ID of the migration to update. Specify either <code>migrationId</code> or <code>tableARN</code>, not both.</p>
+            requested_state: <p>The state to move the migration to: <code>queued</code> to continue a migration in the <code>pendingReview</code> state, or <code>cancelled</code> to cancel a migration in the <code>new</code>, <code>planning</code>, <code>pendingReview</code>, <code>queued</code> or <code>migrating</code> state.</p>
+            update_description: <p>A description of the update, up to 1,024 characters, with no control characters. <code>GetTableMigration</code> doesn't return it.</p>
+
+        Raises:
+            capo_s3tables.errors.access_denied_exception.AccessDeniedException: <p>The action cannot be performed because you do not have the required permission.</p>
+            capo_s3tables.errors.bad_request_exception.BadRequestException: <p>The request is invalid or malformed.</p>
+            capo_s3tables.errors.conflict_exception.ConflictException: <p>The request failed because there is a conflict with a previous write. You can retry the request.</p>
+            capo_s3tables.errors.forbidden_exception.ForbiddenException: <p>The caller isn't authorized to make the request.</p>
+            capo_s3tables.errors.internal_server_error_exception.InternalServerErrorException: <p>The request failed due to an internal server error.</p>
+            capo_s3tables.errors.not_found_exception.NotFoundException: <p>The request was rejected because the specified resource could not be found.</p>
+            capo_s3tables.errors.too_many_requests_exception.TooManyRequestsException: <p>The limit on the number of requests per second was exceeded.</p>
+            capo_s3tables.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_s3tables.types.update_table_migration_request.UpdateTableMigrationRequest]",
+        ) -> OperationResponse[
+            "capo_s3tables.types.update_table_migration_response.UpdateTableMigrationResponse"
+        ]:
+            import capo_s3tables._operations.s3_table_buckets.update_table_migration
+
+            output, http_response = (
+                capo_s3tables._operations.s3_table_buckets.update_table_migration.update_table_migration(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTableMigration")
+        )
+        input_: capo_s3tables.types.update_table_migration_request.UpdateTableMigrationRequest = {
+            "requested_state": requested_state
+        }
+        if table_arn is not None:
+            input_["table_arn"] = table_arn
+        if migration_id is not None:
+            input_["migration_id"] = migration_id
+        if update_description is not None:
+            input_["update_description"] = update_description
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

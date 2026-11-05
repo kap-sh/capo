@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import capo_emr.types.action_on_failure
     import capo_emr.types.hadoop_step_config
+    import capo_emr.types.step_additional_info
     import capo_emr.types.step_id
     import capo_emr.types.step_status
     import capo_emr.types.string
@@ -27,6 +28,10 @@ class StepSummary(TypedDict, closed=True):
     """<p>The Amazon S3 destination URI for log publishing.</p>"""
     encryption_key_arn: NotRequired["capo_emr.types.string.String"]
     """<p>The KMS key ARN to encrypt the logs published to the given Amazon S3 destination.</p>"""
+    additional_info: NotRequired[
+        "capo_emr.types.step_additional_info.StepAdditionalInfo"
+    ]
+    """<p>Additional information about the step, including the YARN application IDs associated with the step and the resource manager that processed it.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -60,6 +65,14 @@ def serialize_aws_json_1_1(value: StepSummary) -> dict:
         out["LogUri"] = value["log_uri"]
     if "encryption_key_arn" in value:
         out["EncryptionKeyArn"] = value["encryption_key_arn"]
+    if "additional_info" in value:
+        import capo_emr.types.step_additional_info
+
+        out["AdditionalInfo"] = (
+            capo_emr.types.step_additional_info.serialize_aws_json_1_1(
+                value["additional_info"]
+            )
+        )
     return out
 
 
@@ -93,4 +106,12 @@ def deserialize_aws_json_1_1(data: dict) -> StepSummary:
         out["log_uri"] = data["LogUri"]
     if data.get("EncryptionKeyArn") is not None:
         out["encryption_key_arn"] = data["EncryptionKeyArn"]
+    if data.get("AdditionalInfo") is not None:
+        import capo_emr.types.step_additional_info
+
+        out["additional_info"] = (
+            capo_emr.types.step_additional_info.deserialize_aws_json_1_1(
+                data["AdditionalInfo"]
+            )
+        )
     return out

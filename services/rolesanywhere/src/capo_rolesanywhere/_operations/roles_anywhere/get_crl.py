@@ -13,6 +13,7 @@ import capo_rolesanywhere._auth._signers
 import capo_rolesanywhere._auth._sigv4
 import capo_rolesanywhere._protocol.eventstream
 import capo_rolesanywhere.errors.resource_not_found_exception
+import capo_rolesanywhere.errors.service_unavailable_exception
 import capo_rolesanywhere.types.crl_detail
 import capo_rolesanywhere.types.crl_detail_response
 import capo_rolesanywhere.types.scalar_crl_request
@@ -32,6 +33,10 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ResourceNotFoundException":
             raise capo_rolesanywhere.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
+                data, message, response=response
+            )
+        case "ServiceUnavailableException":
+            raise capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException.from_json(
                 data, message, response=response
             )
         case _:

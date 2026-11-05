@@ -41,6 +41,9 @@ from .invalid_sns_topic_arn_exception import (
     InvalidSnsTopicArnException as InvalidSnsTopicArnException,
 )
 from .invalid_ssml_exception import InvalidSsmlException as InvalidSsmlException
+from .invalid_tag_parameter_exception import (
+    InvalidTagParameterException as InvalidTagParameterException,
+)
 from .invalid_task_id_exception import InvalidTaskIdException as InvalidTaskIdException
 from .language_not_supported_exception import (
     LanguageNotSupportedException as LanguageNotSupportedException,
@@ -60,6 +63,9 @@ from .max_lexeme_length_exceeded_exception import (
 from .max_lexicons_number_exceeded_exception import (
     MaxLexiconsNumberExceededException as MaxLexiconsNumberExceededException,
 )
+from .resource_not_found_exception import (
+    ResourceNotFoundException as ResourceNotFoundException,
+)
 from .service_failure_exception import (
     ServiceFailureException as ServiceFailureException,
 )
@@ -76,6 +82,7 @@ from .text_length_exceeded_exception import (
     TextLengthExceededException as TextLengthExceededException,
 )
 from .throttling_exception import ThrottlingException as ThrottlingException
+from .too_many_tags_exception import TooManyTagsException as TooManyTagsException
 from .unsupported_pls_alphabet_exception import (
     UnsupportedPlsAlphabetException as UnsupportedPlsAlphabetException,
 )

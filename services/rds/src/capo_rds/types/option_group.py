@@ -38,6 +38,8 @@ class OptionGroup(TypedDict, closed=True):
     """<p>Specifies the Amazon Web Services account ID for the option group from which this option group is copied.</p>"""
     copy_timestamp: NotRequired["capo_rds.types.t_stamp.TStamp"]
     """<p>Indicates when the option group was copied.</p>"""
+    source_region: NotRequired["capo_rds.types.string.String"]
+    """<p>Specifies the Amazon Web Services Region for the option group from which this option group is copied.</p>"""
 
 
 # --- awsQuery ser/de ---
@@ -91,6 +93,8 @@ def serialize_query(
         capo_rds.types.t_stamp.serialize_query(
             value["copy_timestamp"], pairs, f"{key_prefix}CopyTimestamp"
         )
+    if "source_region" in value:
+        pairs.append((f"{key_prefix}SourceRegion", str(value["source_region"])))
 
 
 def deserialize_query(el: Element) -> OptionGroup:
@@ -138,6 +142,9 @@ def deserialize_query(el: Element) -> OptionGroup:
         out["copy_timestamp"] = capo_rds.types.t_stamp.deserialize_query(
             child_copy_timestamp
         )
+    child_source_region = el.find("SourceRegion")
+    if child_source_region is not None:
+        out["source_region"] = str(child_source_region.text or "")
     return out
 
 

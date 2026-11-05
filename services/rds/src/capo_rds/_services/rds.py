@@ -1402,6 +1402,9 @@ class RDSClient:
             "capo_rds.types.boolean_optional.BooleanOptional"
         ] = None,
         snapshot_availability_zone: Optional["capo_rds.types.string.String"] = None,
+        tag_specifications: Optional[
+            "capo_rds.types.tag_specification_list.TagSpecificationList"
+        ] = None,
     ) -> "capo_rds.types.copy_db_snapshot_result.CopyDBSnapshotResult":
         """<p>Copies the specified DB snapshot. The source DB snapshot must be in the <code>available</code> state.</p> <p>You can copy a snapshot from one Amazon Web Services Region to another. In that case, the Amazon Web Services Region where you call the <code>CopyDBSnapshot</code> operation is the destination Amazon Web Services Region for the DB snapshot copy.</p> <p>This command doesn't apply to RDS Custom.</p> <p>For more information about copying snapshots, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_CopySnapshot.html#USER_CopyDBSnapshot">Copying a DB Snapshot</a> in the <i>Amazon RDS User Guide</i>.</p>
 
@@ -1414,8 +1417,9 @@ class RDSClient:
             option_group_name: <p>The name of an option group to associate with the copy of the snapshot.</p> <p>Specify this option if you are copying a snapshot from one Amazon Web Services Region to another, and your DB instance uses a nondefault option group. If your source DB instance uses Transparent Data Encryption for Oracle or Microsoft SQL Server, you must specify this option when copying across Amazon Web Services Regions. For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_CopySnapshot.html#USER_CopySnapshot.Options">Option group considerations</a> in the <i>Amazon RDS User Guide</i>.</p>
             target_custom_availability_zone: <p>The external custom Availability Zone (CAZ) identifier for the target CAZ.</p> <p>Example: <code>rds-caz-aiqhTgQv</code>.</p>
             snapshot_target: <p>Configures the location where RDS will store copied snapshots.</p> <p>Valid Values:</p> <ul> <li> <p> <code>local</code> (Dedicated Local Zone)</p> </li> <li> <p> <code>outposts</code> (Amazon Web Services Outposts)</p> </li> <li> <p> <code>region</code> (Amazon Web Services Region)</p> </li> </ul>
-            copy_option_group: <p>Specifies whether to copy the DB option group associated with the source DB snapshot to the target Amazon Web Services account and associate with the target DB snapshot. The associated option group can be copied only with cross-account snapshot copy calls.</p>
+            copy_option_group: <p>Specifies whether to copy the DB option group associated with the source DB snapshot to the target Amazon Web Services account or Amazon Web Services Region and associate it with the target DB snapshot.</p>
             snapshot_availability_zone: <p>Specifies the name of the Availability Zone where RDS stores the DB snapshot. This value is valid only for snapshots that RDS stores on a Dedicated Local Zone.</p>
+            tag_specifications: <p>Tags to assign to the copied option group. By default, the copied option group isn't tagged.</p> <p>Valid Values: </p> <ul> <li> <p> <code>og</code> - The copied option group.</p> </li> </ul> <p>Constraints:</p> <ul> <li> <p>Can only be specified when <code>CopyOptionGroup</code> is <code>true</code> </p> </li> </ul>
 
         Raises:
             capo_rds.errors.custom_availability_zone_not_found_fault.CustomAvailabilityZoneNotFoundFault: <p> <code>CustomAvailabilityZoneId</code> doesn't refer to an existing custom Availability Zone identifier.</p>
@@ -1481,6 +1485,8 @@ class RDSClient:
             input_["copy_option_group"] = copy_option_group
         if snapshot_availability_zone is not None:
             input_["snapshot_availability_zone"] = snapshot_availability_zone
+        if tag_specifications is not None:
+            input_["tag_specifications"] = tag_specifications
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

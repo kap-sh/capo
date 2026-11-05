@@ -63,7 +63,7 @@ class WorkflowRunResource:
             workflow_arn: <p>The Amazon Resource Name (ARN) of the workflow you want to run.</p>
             client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This token prevents duplicate workflow run requests.</p>
             override_parameters: <p>Optional parameters to override default workflow parameters for this specific run. These parameters are passed to the workflow during execution and can be used to customize behavior without modifying the workflow definition. Parameters are made available as environment variables to tasks and you can reference them within the YAML workflow definition using standard parameter substitution syntax.</p>
-            workflow_version: <p>Optional. The specific version of the workflow to execute. If not specified, the latest version is used.</p>
+            workflow_version: <p>Optional. The specific version of the workflow to execute. If you don't specify a version, we use the latest version.</p>
 
         Raises:
             capo_mwaa_serverless.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permission to perform this action.</p>
@@ -334,7 +334,7 @@ class AsyncWorkflowRunResource:
             workflow_arn: <p>The Amazon Resource Name (ARN) of the workflow you want to run.</p>
             client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This token prevents duplicate workflow run requests.</p>
             override_parameters: <p>Optional parameters to override default workflow parameters for this specific run. These parameters are passed to the workflow during execution and can be used to customize behavior without modifying the workflow definition. Parameters are made available as environment variables to tasks and you can reference them within the YAML workflow definition using standard parameter substitution syntax.</p>
-            workflow_version: <p>Optional. The specific version of the workflow to execute. If not specified, the latest version is used.</p>
+            workflow_version: <p>Optional. The specific version of the workflow to execute. If you don't specify a version, we use the latest version.</p>
 
         Raises:
             capo_mwaa_serverless.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permission to perform this action.</p>

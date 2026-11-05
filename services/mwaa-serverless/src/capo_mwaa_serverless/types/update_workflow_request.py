@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mwaaserverless#UpdateWorkflowRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     import capo_mwaa_serverless.types.definition_s3_location
     import capo_mwaa_serverless.types.description_string
     import capo_mwaa_serverless.types.engine_version
+    import capo_mwaa_serverless.types.environment
     import capo_mwaa_serverless.types.generic_string
     import capo_mwaa_serverless.types.logging_configuration
     import capo_mwaa_serverless.types.network_configuration
@@ -45,6 +46,8 @@ class UpdateWorkflowRequest(TypedDict, closed=True):
         "capo_mwaa_serverless.types.network_configuration.NetworkConfiguration"
     ]
     """<p>Updated network configuration for the workflow execution environment.</p>"""
+    environment: NotRequired["capo_mwaa_serverless.types.environment.Environment"]
+    """<p>The environment variables to set for tasks in the workflow.</p> <important> <p>The variables that you specify replace all existing environment variables for the workflow. If you don't specify this parameter, the workflow has no environment variables. To keep existing environment variables, include them in the request.</p> </important>"""
     trigger_mode: NotRequired["capo_mwaa_serverless.types.generic_string.GenericString"]
     """<p>The trigger mode for the workflow execution.</p>"""
 
@@ -91,6 +94,14 @@ def serialize_aws_json_1_0(value: UpdateWorkflowRequest) -> dict:
         out["NetworkConfiguration"] = (
             capo_mwaa_serverless.types.network_configuration.serialize_aws_json_1_0(
                 value["network_configuration"]
+            )
+        )
+    if "environment" in value:
+        import capo_mwaa_serverless.types.environment
+
+        out["Environment"] = (
+            capo_mwaa_serverless.types.environment.serialize_aws_json_1_0(
+                value["environment"]
             )
         )
     if "trigger_mode" in value:
@@ -152,6 +163,25 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateWorkflowRequest:
                 data["NetworkConfiguration"]
             )
         )
+    if data.get("Environment") is not None:
+        import capo_mwaa_serverless.types.environment
+
+        out["environment"] = (
+            capo_mwaa_serverless.types.environment.deserialize_aws_json_1_0(
+                data["Environment"]
+            )
+        )
     if data.get("TriggerMode") is not None:
         out["trigger_mode"] = data["TriggerMode"]
+    return out
+
+
+def redact_sensitive(value: UpdateWorkflowRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "environment" in value:
+        import capo_mwaa_serverless.types.environment
+
+        out["environment"] = capo_mwaa_serverless.types.environment.redact_sensitive(
+            value["environment"]
+        )
     return out

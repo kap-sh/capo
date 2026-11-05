@@ -107,6 +107,7 @@ nav = [
     "errors/RolesAnywhereError.md",
     "errors/SerializationError.md",
     "errors/ServiceError.md",
+    "errors/ServiceUnavailableException.md",
     "errors/TooManyTagsException.md",
     "errors/UnknownServiceError.md",
     "errors/ValidationException.md",

@@ -8,6 +8,7 @@ from capo_mgn.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_mgn.types.cidr_mappings_list
+    import capo_mgn.types.client_idempotency_token
     import capo_mgn.types.network_migration_definition_description
     import capo_mgn.types.network_migration_definition_name
     import capo_mgn.types.scope_tags_map
@@ -20,6 +21,10 @@ if TYPE_CHECKING:
 
 
 class CreateNetworkMigrationDefinitionRequest(TypedDict, closed=True):
+    client_token: NotRequired[
+        "capo_mgn.types.client_idempotency_token.ClientIdempotencyToken"
+    ]
+    """<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.</p>"""
     name: "capo_mgn.types.network_migration_definition_name.NetworkMigrationDefinitionName"
     """<p>The name of the network migration definition.</p>"""
     description: NotRequired[
@@ -53,6 +58,8 @@ class CreateNetworkMigrationDefinitionRequest(TypedDict, closed=True):
 # --- restJson1 ser/de ---
 def serialize_json(value: CreateNetworkMigrationDefinitionRequest) -> dict:
     out: dict = {}
+    if "client_token" in value:
+        out["clientToken"] = value["client_token"]
     out["name"] = value["name"]
     if "description" in value:
         out["description"] = value["description"]
@@ -101,6 +108,8 @@ def serialize_json(value: CreateNetworkMigrationDefinitionRequest) -> dict:
 
 def deserialize_json(data: dict) -> CreateNetworkMigrationDefinitionRequest:
     out: CreateNetworkMigrationDefinitionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("clientToken") is not None:
+        out["client_token"] = data["clientToken"]
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:

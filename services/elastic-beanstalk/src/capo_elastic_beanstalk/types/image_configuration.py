@@ -17,7 +17,7 @@ class ImageConfiguration(TypedDict, closed=True):
     build: NotRequired[
         "capo_elastic_beanstalk.types.image_build_configuration.ImageBuildConfiguration"
     ]
-    """<p>Settings that Elastic Beanstalk uses to build a container image from the source bundle of the application version.</p> <p>If you specify <code>Build</code>, also specify the request's <code>SourceBundle</code> parameter, and don't specify <code>Source</code>.</p>"""
+    """<p>Settings that Elastic Beanstalk uses to build a container image from the source bundle of the application version.</p> <p>If you specify <code>Build</code>, also specify the request's <code>SourceBundle</code> parameter, and don't specify <code>Source</code>.</p> <p>To build the image when you create the application version instead of on first deployment, also set <code>Process</code> to <code>true</code>.</p>"""
 
 
 # --- awsQuery ser/de ---

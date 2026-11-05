@@ -21,7 +21,7 @@ class StartWorkflowRunRequest(TypedDict, closed=True):
     override_parameters: NotRequired["capo_mwaa_serverless.types.object_map.ObjectMap"]
     """<p>Optional parameters to override default workflow parameters for this specific run. These parameters are passed to the workflow during execution and can be used to customize behavior without modifying the workflow definition. Parameters are made available as environment variables to tasks and you can reference them within the YAML workflow definition using standard parameter substitution syntax.</p>"""
     workflow_version: NotRequired["capo_mwaa_serverless.types.version_id.VersionId"]
-    """<p>Optional. The specific version of the workflow to execute. If not specified, the latest version is used.</p>"""
+    """<p>Optional. The specific version of the workflow to execute. If you don't specify a version, we use the latest version.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

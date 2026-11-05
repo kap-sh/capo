@@ -228,6 +228,7 @@ class RolesAnywhereClient:
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
             capo_rolesanywhere.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.validation_exception.ValidationException: <p>Validation exception error.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -287,6 +288,7 @@ class RolesAnywhereClient:
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
             capo_rolesanywhere.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.validation_exception.ValidationException: <p>Validation exception error.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
 
@@ -342,6 +344,7 @@ class RolesAnywhereClient:
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
             capo_rolesanywhere.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.validation_exception.ValidationException: <p>Validation exception error.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
 
@@ -397,6 +400,7 @@ class RolesAnywhereClient:
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
             capo_rolesanywhere.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.too_many_tags_exception.TooManyTagsException: <p>Too many tags.</p>
             capo_rolesanywhere.errors.validation_exception.ValidationException: <p>Validation exception error.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -458,6 +462,7 @@ class RolesAnywhereClient:
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
             capo_rolesanywhere.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.validation_exception.ValidationException: <p>Validation exception error.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -523,6 +528,7 @@ class RolesAnywhereClient:
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.validation_exception.ValidationException: <p>Validation exception error.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -582,6 +588,7 @@ class RolesAnywhereClient:
 
         Raises:
             capo_rolesanywhere.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -632,6 +639,7 @@ class RolesAnywhereClient:
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
             capo_rolesanywhere.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.validation_exception.ValidationException: <p>Validation exception error.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -683,6 +691,7 @@ class RolesAnywhereClient:
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
             capo_rolesanywhere.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -730,6 +739,7 @@ class RolesAnywhereClient:
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.validation_exception.ValidationException: <p>Validation exception error.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -800,6 +810,7 @@ class RolesAnywhereClient:
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
             capo_rolesanywhere.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -846,6 +857,7 @@ class RolesAnywhereClient:
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
             capo_rolesanywhere.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -909,6 +921,7 @@ class RolesAnywhereClient:
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.validation_exception.ValidationException: <p>Validation exception error.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -981,6 +994,7 @@ class RolesAnywhereClient:
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
             capo_rolesanywhere.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1043,6 +1057,7 @@ class RolesAnywhereClient:
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
             capo_rolesanywhere.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.validation_exception.ValidationException: <p>Validation exception error.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1102,6 +1117,7 @@ class RolesAnywhereClient:
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
             capo_rolesanywhere.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1149,6 +1165,7 @@ class RolesAnywhereClient:
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.validation_exception.ValidationException: <p>Validation exception error.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1225,6 +1242,7 @@ class RolesAnywhereClient:
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
             capo_rolesanywhere.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.validation_exception.ValidationException: <p>Validation exception error.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
 
@@ -1280,6 +1298,7 @@ class RolesAnywhereClient:
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
             capo_rolesanywhere.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1326,6 +1345,7 @@ class RolesAnywhereClient:
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
             capo_rolesanywhere.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1376,6 +1396,7 @@ class RolesAnywhereClient:
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
             capo_rolesanywhere.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.validation_exception.ValidationException: <p>Validation exception error.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
 
@@ -1430,6 +1451,7 @@ class RolesAnywhereClient:
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
             capo_rolesanywhere.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1477,6 +1499,7 @@ class RolesAnywhereClient:
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.validation_exception.ValidationException: <p>Validation exception error.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1540,6 +1563,7 @@ class RolesAnywhereClient:
         *,
         config_overrides: Optional[RolesAnywhereClientConfig] = None,
         enabled: Optional[bool] = None,
+        crl_dp_revocation_enabled: Optional[bool] = None,
         tags: Optional["capo_rolesanywhere.types.tag_list.TagList"] = None,
         notification_settings: Optional[
             "capo_rolesanywhere.types.notification_settings.NotificationSettings"
@@ -1551,11 +1575,13 @@ class RolesAnywhereClient:
             name: <p>The name of the trust anchor.</p>
             source: <p>The trust anchor type and its related certificate data.</p>
             enabled: <p>Specifies whether the trust anchor is enabled.</p>
+            crl_dp_revocation_enabled: <p>Specifies whether the trust anchor checks certificate revocation status against CRL distribution points.</p>
             tags: <p>The tags to attach to the trust anchor.</p>
             notification_settings: <p>A list of notification settings to be associated to the trust anchor.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.validation_exception.ValidationException: <p>Validation exception error.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1595,6 +1621,8 @@ class RolesAnywhereClient:
         }
         if enabled is not None:
             input_["enabled"] = enabled
+        if crl_dp_revocation_enabled is not None:
+            input_["crl_dp_revocation_enabled"] = crl_dp_revocation_enabled
         if tags is not None:
             input_["tags"] = tags
         if notification_settings is not None:
@@ -1622,6 +1650,7 @@ class RolesAnywhereClient:
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
             capo_rolesanywhere.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.validation_exception.ValidationException: <p>Validation exception error.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1662,6 +1691,7 @@ class RolesAnywhereClient:
         config_overrides: Optional[RolesAnywhereClientConfig] = None,
         name: Optional["capo_rolesanywhere.types.resource_name.ResourceName"] = None,
         source: Optional["capo_rolesanywhere.types.source.Source"] = None,
+        crl_dp_revocation_enabled: Optional[bool] = None,
     ) -> "capo_rolesanywhere.types.trust_anchor_detail_response.TrustAnchorDetailResponse":
         """<p>Updates a trust anchor. You establish trust between IAM Roles Anywhere and your certificate authority (CA) by configuring a trust anchor. You can define a trust anchor as a reference to an Private Certificate Authority (Private CA) or by uploading a CA certificate. Your Amazon Web Services workloads can authenticate with the trust anchor using certificates issued by the CA in exchange for temporary Amazon Web Services credentials.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:UpdateTrustAnchor</code>. </p>
 
@@ -1669,10 +1699,12 @@ class RolesAnywhereClient:
             trust_anchor_id: <p>The unique identifier of the trust anchor.</p>
             name: <p>The name of the trust anchor.</p>
             source: <p>The trust anchor type and its related certificate data.</p>
+            crl_dp_revocation_enabled: <p>Specifies whether the trust anchor checks certificate revocation status against CRL distribution points.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
             capo_rolesanywhere.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.validation_exception.ValidationException: <p>Validation exception error.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1701,6 +1733,8 @@ class RolesAnywhereClient:
             input_["name"] = name
         if source is not None:
             input_["source"] = source
+        if crl_dp_revocation_enabled is not None:
+            input_["crl_dp_revocation_enabled"] = crl_dp_revocation_enabled
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -1724,6 +1758,7 @@ class RolesAnywhereClient:
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
             capo_rolesanywhere.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1773,6 +1808,7 @@ class RolesAnywhereClient:
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.validation_exception.ValidationException: <p>Validation exception error.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1843,6 +1879,7 @@ class RolesAnywhereClient:
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
             capo_rolesanywhere.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1889,6 +1926,7 @@ class RolesAnywhereClient:
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
             capo_rolesanywhere.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found.</p>
+            capo_rolesanywhere.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_rolesanywhere.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 

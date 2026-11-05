@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import datetime
 
     import capo_iotsitewise.types.dataset_export_job_id
+    import capo_iotsitewise.types.dataset_export_job_name
     import capo_iotsitewise.types.dataset_export_job_status
     import capo_iotsitewise.types.s3_uri
 
@@ -15,6 +16,10 @@ if TYPE_CHECKING:
 class ExportJobSummary(TypedDict, closed=True):
     job_id: "capo_iotsitewise.types.dataset_export_job_id.DatasetExportJobId"
     """<p>The unique identifier for the dataset export job.</p>"""
+    job_name: NotRequired[
+        "capo_iotsitewise.types.dataset_export_job_name.DatasetExportJobName"
+    ]
+    """<p>The name of the dataset export job.</p>"""
     status: "capo_iotsitewise.types.dataset_export_job_status.DatasetExportJobStatus"
     """<p>The current status of the dataset export job.</p>"""
     started_at: "datetime.datetime"
@@ -29,6 +34,8 @@ class ExportJobSummary(TypedDict, closed=True):
 def serialize_json(value: ExportJobSummary) -> dict:
     out: dict = {}
     out["jobId"] = value["job_id"]
+    if "job_name" in value:
+        out["jobName"] = value["job_name"]
     import capo_iotsitewise.types.dataset_export_job_status
 
     out["status"] = capo_iotsitewise.types.dataset_export_job_status.serialize_json(
@@ -55,6 +62,8 @@ def deserialize_json(data: dict) -> ExportJobSummary:
         out["job_id"] = data["jobId"]
     else:
         out["job_id"] = ""
+    if data.get("jobName") is not None:
+        out["job_name"] = data["jobName"]
     if data.get("status") is not None:
         import capo_iotsitewise.types.dataset_export_job_status
 
