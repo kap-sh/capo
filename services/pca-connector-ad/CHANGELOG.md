@@ -1,5 +1,11 @@
 # aws-sdk-pca-connector-ad
 
+## 0.13.0
+
+### Minor Changes
+
+- 862d88b: feat: add adaptive retry mode
+
 ## 0.12.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # aws-sdk-pricing-plan-manager
 
+## 0.10.0
+
+### Minor Changes
+
+- 862d88b: feat: add adaptive retry mode
+
 ## 0.9.0
 
 ### Minor Changes

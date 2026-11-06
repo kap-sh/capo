@@ -1,5 +1,11 @@
 # aws-sdk-codeguru-security
 
+## 0.14.0
+
+### Minor Changes
+
+- 862d88b: feat: add adaptive retry mode
+
 ## 0.13.0
 
 ### Minor Changes

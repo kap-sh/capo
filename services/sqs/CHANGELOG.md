@@ -1,5 +1,11 @@
 # aws-sdk-sqs
 
+## 0.18.0
+
+### Minor Changes
+
+- 862d88b: feat: add adaptive retry mode
+
 ## 0.17.0
 
 ### Minor Changes

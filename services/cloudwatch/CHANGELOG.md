@@ -1,5 +1,11 @@
 # aws-sdk-cloudwatch
 
+## 0.25.0
+
+### Minor Changes
+
+- 862d88b: feat: add adaptive retry mode
+
 ## 0.24.0
 
 ### Minor Changes

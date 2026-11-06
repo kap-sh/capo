@@ -1,5 +1,11 @@
 # aws-sdk-route-53
 
+## 0.21.0
+
+### Minor Changes
+
+- 862d88b: feat: add adaptive retry mode
+
 ## 0.20.0
 
 ### Minor Changes
