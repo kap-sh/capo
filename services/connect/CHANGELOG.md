@@ -1,5 +1,13 @@
 # aws-sdk-connect
 
+## 0.16.0
+
+### Minor Changes
+
+- 862d88b: feat: add adaptive retry mode
+- 8b32b6d: feat: sync smithy models for 19 services
+- 7daf543: feat: sync smithy models for 10 services
+
 ## 0.15.0
 
 ### Minor Changes

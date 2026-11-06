@@ -1,5 +1,11 @@
 # aws-sdk-arc-region-switch
 
+## 0.16.0
+
+### Minor Changes
+
+- 862d88b: feat: add adaptive retry mode
+
 ## 0.15.0
 
 ### Minor Changes

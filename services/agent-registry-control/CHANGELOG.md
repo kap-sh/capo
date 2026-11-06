@@ -1,5 +1,11 @@
 # aws-sdk-agent-registry-control
 
+## 0.12.0
+
+### Minor Changes
+
+- 862d88b: feat: add adaptive retry mode
+
 ## 0.11.0
 
 ### Minor Changes

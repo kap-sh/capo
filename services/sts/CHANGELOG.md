@@ -1,5 +1,11 @@
 # aws-sdk-sts
 
+## 0.22.0
+
+### Minor Changes
+
+- 862d88b: feat: add adaptive retry mode
+
 ## 0.21.0
 
 ### Minor Changes

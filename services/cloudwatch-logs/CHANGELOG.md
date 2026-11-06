@@ -1,5 +1,12 @@
 # aws-sdk-cloudwatch-logs
 
+## 0.20.0
+
+### Minor Changes
+
+- 862d88b: feat: add adaptive retry mode
+- 7daf543: feat: sync smithy models for 10 services
+
 ## 0.19.0
 
 ### Minor Changes

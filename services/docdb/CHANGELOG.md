@@ -1,5 +1,12 @@
 # aws-sdk-docdb
 
+## 0.12.0
+
+### Minor Changes
+
+- 862d88b: feat: add adaptive retry mode
+- 7daf543: feat: sync smithy models for 10 services
+
 ## 0.11.0
 
 ### Minor Changes

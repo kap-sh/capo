@@ -1,5 +1,12 @@
 # aws-sdk-connect-contact-lens
 
+## 0.14.0
+
+### Minor Changes
+
+- 862d88b: feat: add adaptive retry mode
+- 8b32b6d: feat: sync smithy models for 19 services
+
 ## 0.13.0
 
 ### Minor Changes

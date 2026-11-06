@@ -1,5 +1,11 @@
 # aws-sdk-s3
 
+## 0.31.0
+
+### Minor Changes
+
+- 862d88b: feat: add adaptive retry mode
+
 ## 0.30.0
 
 ### Minor Changes
