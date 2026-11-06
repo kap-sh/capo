@@ -729,12 +729,12 @@ logger.propagate = False
 Every download from S3 is billed as data transfer out, about 0.09 USD per GB, so a 5 GB object costs about 0.45 USD each time it is fetched. S3 supports HTTP conditional requests: send the `ETag` you already have as `If-None-Match`, and if the object has not changed S3 answers `304 Not Modified` with no body and no transfer charge. With the [zapros](https://zapros.dev) cache middleware the SDK does this for you: the first download is stored locally, every later download is a cheap revalidation, and the body is transferred again only when the object changed.
 
 ```bash
-uv add "zapros[caching]"                    # sync clients
-uv add "zapros[caching]" "hishel[async]"    # Async* clients
+uv add "zapros[caching]>=0.26"                    # sync clients
+uv add "zapros[caching]>=0.26" "hishel[async]"    # Async* clients
 ```
 
 ```python
-from hishel import AsyncSqliteStorage, CacheOptions, SpecificationPolicy
+from hishel import AsyncSqliteStorage, CacheOptions
 from zapros import AsyncStdNetworkHandler, CacheMiddleware
 
 from capo_s3 import AsyncS3Client
@@ -742,9 +742,10 @@ from capo_s3 import AsyncS3Client
 cache = CacheMiddleware(
     AsyncStdNetworkHandler(),
     # S3 requests carry an Authorization header, which a shared cache must not store: use a private one
-    policy=SpecificationPolicy(CacheOptions(shared=False)),
-    # defaults to hishel_cache.db in the working directory
-    storage=AsyncSqliteStorage(database_path="s3-cache.db"),
+    rfc=CacheOptions(shared=False),
+    # defaults to hishel_cache_v2.db in the working directory. max_size (default 1 GiB) caps the whole cache:
+    # a larger response is never stored, and least recently used entries are evicted to stay under it
+    storage=AsyncSqliteStorage(database_path="s3-cache.db", max_size=20 * 1024**3),
 )
 
 async with AsyncS3Client(http_handler=cache) as s3:
@@ -768,15 +769,15 @@ On the wire:
 Sync:
 
 ```python
-from hishel import CacheOptions, SpecificationPolicy, SyncSqliteStorage
+from hishel import CacheOptions, SqliteStorage
 from zapros import CacheMiddleware, StdNetworkHandler
 
 from capo_s3 import S3Client
 
 cache = CacheMiddleware(
     StdNetworkHandler(),
-    policy=SpecificationPolicy(CacheOptions(shared=False)),
-    storage=SyncSqliteStorage(database_path="s3-cache.db"),
+    rfc=CacheOptions(shared=False),
+    storage=SqliteStorage(database_path="s3-cache.db", max_size=20 * 1024**3),
 )
 
 with S3Client(http_handler=cache) as s3:
@@ -796,7 +797,7 @@ See what the cache did for each operation:
 ```python
 async def cache_log(request, next):
     response = await next(request)
-    print(response.response.context["caching"])  # {'from_cache': True, 'revalidated': True, 'stored': False, ...}
+    print(response.response.context["caching"])  # {'from_cache': True, 'revalidated': True, 'stored': False}
     return response
 
 
@@ -809,7 +810,7 @@ Notes:
 - Only `GET` and `HEAD` responses are cached. Every other operation goes straight to S3.
 - The cache key is the URL. Range requests (`range=`) bypass the cache.
 - A `304` is still a GET request, billed per thousand requests. Only the transfer is free.
-- Entries stay until evicted. `AsyncSqliteStorage(default_ttl=86400)` drops them after that many seconds.
+- Entries stay until the cache outgrows `max_size`, which evicts the least recently used ones. `AsyncSqliteStorage(default_ttl=86400)` also drops them after that many seconds.
 - Passing `if_none_match=` yourself is not a substitute: a `304` has no S3 error body, so the operation raises `UnknownServiceError`.
 <!-- --8<-- [end:caching] -->
 

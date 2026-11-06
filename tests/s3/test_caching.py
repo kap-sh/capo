@@ -14,7 +14,7 @@ from typing import cast
 
 import pytest
 from capo_s3 import AsyncS3Client, S3Client
-from hishel import AsyncSqliteStorage, CacheOptions, SpecificationPolicy, SyncSqliteStorage
+from hishel import AsyncSqliteStorage, CacheOptions, SqliteStorage
 from zapros import (
     AsyncBaseHandler,
     AsyncBaseMiddleware,
@@ -71,8 +71,8 @@ def make_cached_s3(backend: str, db: Path, log: list[WireEntry], *, private: boo
     """
     cache = CacheMiddleware(
         Wire(StdNetworkHandler(), log),
-        policy=SpecificationPolicy(CacheOptions(shared=False)) if private else None,
-        storage=SyncSqliteStorage(database_path=db),
+        rfc=CacheOptions(shared=False) if private else True,
+        storage=SqliteStorage(database_path=db),
     )
     return make_s3_client(backend, http_handler=cache)
 
@@ -81,7 +81,7 @@ def make_cached_async_s3(backend: str, db: Path, log: list[WireEntry], *, privat
     """Async twin of :func:`make_cached_s3`."""
     cache = CacheMiddleware(
         Wire(AsyncStdNetworkHandler(), log),
-        policy=SpecificationPolicy(CacheOptions(shared=False)) if private else None,
+        rfc=CacheOptions(shared=False) if private else True,
         storage=AsyncSqliteStorage(database_path=db),
     )
     return make_async_s3_client(backend, http_handler=cache)
