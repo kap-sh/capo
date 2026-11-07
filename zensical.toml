@@ -10,8 +10,10 @@ extra_css = ["stylesheets/extra.css"]
 # Every page is a section of the repository README, pulled in via a snippet
 # section (the `--8<-- [start:name]` markers), so the README stays the only
 # source of truth.
+# comparison.md is the exception: only its "At a glance" table comes from the README.
 nav = [
   { "capo" = "index.md" },
+  { "capo vs AWS SDK v4 vs boto3" = "comparison.md" },
   { "Usage" = "usage.md" },
   { "Configuration" = "configuration.md" },
   { "Authentication" = "authentication.md" },

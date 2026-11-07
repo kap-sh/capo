@@ -41,6 +41,32 @@ uv add capo-cloudfront                 # Amazon CloudFront
 Note that Amazon VPC has no separate package — its API is part of EC2, so `capo-ec2` covers it.
 <!-- --8<-- [end:intro] -->
 
+## Comparison
+
+How capo compares with the [AWS SDK for Python v4](https://github.com/awslabs/aws-sdk-python) and [boto3](https://github.com/boto/boto3), as of November 6, 2026. See the [full comparison](https://capo-sdk.dev/comparison/) for code samples, install sizes and details.
+
+<!-- --8<-- [start:comparison] -->
+| | **capo** | **AWS SDK for Python v4** | **boto3** |
+| --- | --- | --- | --- |
+| Release status | Pre-1.0, API mostly stable | Experimental, "do not use it for production workloads" ([README](https://github.com/awslabs/aws-sdk-python#readme)) | Generally available since 2015 |
+| Services | **440+**, every service in the AWS Smithy models | 25 ([list](https://github.com/awslabs/aws-sdk-python/tree/develop/clients)) | Every AWS service |
+| Amazon S3, EC2, IAM, RDS, ECS, KMS... | Yes | No | Yes |
+| Sync client | Yes | No, async only | Yes, sync only |
+| Async runtimes | asyncio and trio | asyncio | None |
+| Python | 3.10+ | 3.12+ | 3.10+ |
+| Type hints | Yes | Yes | No, only third-party stubs |
+| Request inputs | Keyword arguments, nested values as plain dicts | One input dataclass per operation, nested values as dataclasses | PascalCase keyword arguments, nested values as untyped dicts |
+| Paginators | Yes (`iter_*`) | No | Yes (`get_paginator`) |
+| Waiters | Yes (`wait_until_*`) | No | Yes (`get_waiter`) |
+| Presigned URLs | Yes (`presigned_*`) | No | Yes (`generate_presigned_url`) |
+| S3 checksums (CRC32, CRC32C, CRC64-NVME, SHA, xxhash) | Yes | No | Yes |
+| IAM Identity Center (SSO) credentials | Yes | No ([guide](https://docs.aws.amazon.com/sdk-for-python/v4/guide/credential-providers.html)) | Yes |
+| Web identity credentials (EKS IRSA) | Yes | No | Yes |
+| AssumeRole profiles | Yes | Yes, with the separate `aws-credentials-sts` package | Yes |
+| Bidirectional streaming over HTTP/2 | Yes, built in | Yes, needs the `awscrt` extra and a transport swap | No |
+| Runs in the browser (Pyodide / WASM) | Yes | No | Not officially supported |
+<!-- --8<-- [end:comparison] -->
+
 <!-- --8<-- [start:usage] -->
 ## Async/Sync Usage
 
