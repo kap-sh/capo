@@ -1,5 +1,11 @@
 # aws-sdk-ecs
 
+## 0.30.0
+
+### Minor Changes
+
+- c408aea: feat: sync smithy models for 44 services
+
 ## 0.29.0
 
 ### Minor Changes
