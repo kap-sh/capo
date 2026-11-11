@@ -1,5 +1,11 @@
 # aws-sdk-connectcases
 
+## 0.16.0
+
+### Minor Changes
+
+- c408aea: feat: sync smithy models for 44 services
+
 ## 0.15.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # aws-sdk-cloudwatch-logs
 
+## 0.21.0
+
+### Minor Changes
+
+- c408aea: feat: sync smithy models for 44 services
+
 ## 0.20.0
 
 ### Minor Changes

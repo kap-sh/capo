@@ -1,5 +1,11 @@
 # aws-sdk-signin
 
+## 0.14.0
+
+### Minor Changes
+
+- c408aea: feat: sync smithy models for 44 services
+
 ## 0.13.0
 
 ### Minor Changes

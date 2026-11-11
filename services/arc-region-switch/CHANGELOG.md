@@ -1,5 +1,11 @@
 # aws-sdk-arc-region-switch
 
+## 0.17.0
+
+### Minor Changes
+
+- c408aea: feat: sync smithy models for 44 services
+
 ## 0.16.0
 
 ### Minor Changes
