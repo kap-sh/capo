@@ -39,6 +39,9 @@ from .service_exception import ServiceException as ServiceException
 from .service_quota_exceeded_exception import (
     ServiceQuotaExceededException as ServiceQuotaExceededException,
 )
+from .service_unavailable_exception import (
+    ServiceUnavailableException as ServiceUnavailableException,
+)
 from .subscription_required_exception import (
     SubscriptionRequiredException as SubscriptionRequiredException,
 )

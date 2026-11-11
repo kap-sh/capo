@@ -5,14 +5,20 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_mediaconvert.types.__list_of__string_min1
     import capo_mediaconvert.types.__string
     import capo_mediaconvert.types.__string_min1
     import capo_mediaconvert.types.__string_pattern_a_za_z23_a_za_z
     import capo_mediaconvert.types.caption_destination_settings
+    import capo_mediaconvert.types.caption_source
     import capo_mediaconvert.types.language_code
 
 
 class CaptionDescription(TypedDict, closed=True):
+    audio_source_names: NotRequired[
+        "capo_mediaconvert.types.__list_of__string_min1.__listOf__stringMin1"
+    ]
+    """Specifies the audio selector or audio selector group that MediaConvert uses to generate Smart subtitles. The audio selector you choose must exist in all inputs for the job. If MediaConvert can't detect speech in the audio, it can't generate subtitles. Required when source is SMART_SUBTITLE; not allowed otherwise."""
     caption_selector_name: NotRequired[
         "capo_mediaconvert.types.__string_min1.__stringMin1"
     ]
@@ -29,11 +35,21 @@ class CaptionDescription(TypedDict, closed=True):
     """Specify the language of this captions output track. For most captions output formats, the encoder puts this language information in the output captions metadata. If your output captions format is DVB-Sub or Burn in, the encoder uses this language information to choose the font language for rendering the captions text."""
     language_description: NotRequired["capo_mediaconvert.types.__string.__string"]
     """Specify a label for this set of output captions. For example, "English", "Director commentary", or "track_2". For streaming outputs, MediaConvert passes this information into destination manifests for display on the end-viewer's player device. For outputs in other output groups, the service ignores this setting."""
+    source: NotRequired["capo_mediaconvert.types.caption_source.CaptionSource"]
+    """Specify the source of the captions for this caption description. Choose Captions input source (INPUT_CAPTION_SELECTOR) to use a caption selector from your input. Choose Smart subtitling (SMART_SUBTITLE) to have MediaConvert and Elemental Inference generate subtitles automatically from an audio source that you specify."""
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: CaptionDescription) -> dict:
     out: dict = {}
+    if "audio_source_names" in value:
+        import capo_mediaconvert.types.__list_of__string_min1
+
+        out["audioSourceNames"] = (
+            capo_mediaconvert.types.__list_of__string_min1.serialize_json(
+                value["audio_source_names"]
+            )
+        )
     if "caption_selector_name" in value:
         out["captionSelectorName"] = value["caption_selector_name"]
     if "custom_language_code" in value:
@@ -54,11 +70,25 @@ def serialize_json(value: CaptionDescription) -> dict:
         )
     if "language_description" in value:
         out["languageDescription"] = value["language_description"]
+    if "source" in value:
+        import capo_mediaconvert.types.caption_source
+
+        out["source"] = capo_mediaconvert.types.caption_source.serialize_json(
+            value["source"]
+        )
     return out
 
 
 def deserialize_json(data: dict) -> CaptionDescription:
     out: CaptionDescription = {}  # type: ignore[typeddict-item]
+    if data.get("audioSourceNames") is not None:
+        import capo_mediaconvert.types.__list_of__string_min1
+
+        out["audio_source_names"] = (
+            capo_mediaconvert.types.__list_of__string_min1.deserialize_json(
+                data["audioSourceNames"]
+            )
+        )
     if data.get("captionSelectorName") is not None:
         out["caption_selector_name"] = data["captionSelectorName"]
     if data.get("customLanguageCode") is not None:
@@ -79,4 +109,10 @@ def deserialize_json(data: dict) -> CaptionDescription:
         )
     if data.get("languageDescription") is not None:
         out["language_description"] = data["languageDescription"]
+    if data.get("source") is not None:
+        import capo_mediaconvert.types.caption_source
+
+        out["source"] = capo_mediaconvert.types.caption_source.deserialize_json(
+            data["source"]
+        )
     return out

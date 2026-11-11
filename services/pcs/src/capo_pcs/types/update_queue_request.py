@@ -26,7 +26,7 @@ class UpdateQueueRequest(TypedDict, closed=True):
     ]
     """<p>Additional options related to the Slurm scheduler.</p>"""
     client_token: NotRequired["capo_pcs.types.sb_client_token.SBClientToken"]
-    """<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. Idempotency ensures that an API request completes only once. With an idempotent request, if the original request completes successfully, the subsequent retries with the same client token return the result from the original successful request and they have no additional effect. If you don't specify a client token, the CLI and SDK automatically generate 1 for you.</p>"""
+    """<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. Idempotency ensures that an API request completes only once. With an idempotent request, if the original request completes successfully, the subsequent retries with the same client token return the result from the original successful request and they have no additional effect. If you don't specify a client token, the CLI and SDK automatically generate one for you.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

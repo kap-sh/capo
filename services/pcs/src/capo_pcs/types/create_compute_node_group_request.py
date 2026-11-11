@@ -14,29 +14,45 @@ if TYPE_CHECKING:
     import capo_pcs.types.custom_launch_template
     import capo_pcs.types.instance_list
     import capo_pcs.types.instance_profile_arn
+    import capo_pcs.types.key_pair_name
+    import capo_pcs.types.launch_template_mode
     import capo_pcs.types.node_lifecycle_actions_request
     import capo_pcs.types.purchase_option
     import capo_pcs.types.request_tag_map
     import capo_pcs.types.sb_client_token
     import capo_pcs.types.scaling_configuration_request
+    import capo_pcs.types.security_group_id_list
     import capo_pcs.types.spot_options
     import capo_pcs.types.string_list
 
 
 class CreateComputeNodeGroupRequest(TypedDict, closed=True):
+    ami_id: NotRequired["capo_pcs.types.ami_id.AmiId"]
+    """<p> The ID of the Amazon Machine Image (AMI) that PCS uses to launch compute nodes (Amazon EC2 instances). This value overrides the AMI ID in the custom launch template. If you don't provide this value, PCS uses the AMI ID specified in the custom launch template. You must provide this value if <code>launchTemplateMode</code> is <code>MANAGED</code>.</p>"""
+    security_group_ids: NotRequired[
+        "capo_pcs.types.security_group_id_list.SecurityGroupIdList"
+    ]
+    """<p>The IDs of the EC2 security groups to configure directly on the compute node group. The security groups must be in the same VPC as the cluster. PCS uses these security groups instead of the security groups in the custom launch template. You can't specify this value if the custom launch template defines network interfaces. If you don't provide this value, PCS uses the security groups in the custom launch template. You must provide this value if <code>launchTemplateMode</code> is <code>MANAGED</code>. For more information, see <a href="https://docs.aws.amazon.com/pcs/latest/userguide/working-with_cng_instance-settings.html">Configuring instance settings for compute node groups in PCS</a> in the <i>PCS User Guide</i>.</p>"""
+    ssh_key_name: NotRequired["capo_pcs.types.key_pair_name.KeyPairName"]
+    """<p>The name of the EC2 key pair to configure directly on the compute node group. The key pair must exist in your account and Amazon Web Services Region. PCS uses this key pair instead of the key pair in the custom launch template. If you don't provide this value, PCS uses the key pair in the custom launch template, if one is specified. You must have permission for <code>ec2:DescribeKeyPairs</code>. If you delete the key pair later, future instance launches can fail. For more information, see <a href="https://docs.aws.amazon.com/pcs/latest/userguide/working-with_cng_instance-settings.html">Configuring instance settings for compute node groups in PCS</a> in the <i>PCS User Guide</i>.</p>"""
     cluster_identifier: "capo_pcs.types.cluster_identifier.ClusterIdentifier"
     """<p>The name or ID of the cluster to create a compute node group in.</p>"""
     compute_node_group_name: (
         "capo_pcs.types.compute_node_group_name.ComputeNodeGroupName"
     )
     """<p>A name to identify the cluster. Example: <code>MyCluster</code> </p>"""
-    ami_id: NotRequired["capo_pcs.types.ami_id.AmiId"]
-    """<p> The ID of the Amazon Machine Image (AMI) that PCS uses to launch compute nodes (Amazon EC2 instances). If you don't provide this value, PCS uses the AMI ID specified in the custom launch template.</p>"""
     subnet_ids: "capo_pcs.types.string_list.StringList"
     """<p>The list of subnet IDs where the compute node group launches instances. Subnets must be in the same VPC as the cluster.</p>"""
     purchase_option: NotRequired["capo_pcs.types.purchase_option.PurchaseOption"]
     """<p>Specifies how EC2 instances are purchased on your behalf. PCS supports On-Demand Instances, Spot Instances, Interruptible Capacity Reservations, On-Demand Capacity Reservations, and Amazon EC2 Capacity Blocks for ML. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-purchasing-options.html">Amazon EC2 billing and purchasing options</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>. For more information about PCS support for Capacity Blocks, see <a href="https://docs.aws.amazon.com/pcs/latest/userguide/capacity-blocks.html">Using Amazon EC2 Capacity Blocks for ML with PCS</a> in the <i>PCS User Guide</i>. For more information about PCS support for interruptible capacity reservations, see <a href="https://docs.aws.amazon.com/pcs/latest/userguide/capacity-reservations-iodcr.html">Using I-ODCRs with PCS</a> in the <i>PCS User Guide</i>. Choose On-Demand if you plan to use an On-Demand Capacity Reservation (ODCR). For more information, see <a href="https://docs.aws.amazon.com/pcs/latest/userguide/capacity-reservations-odcr.html">Using ODCRs with PCS</a>. If you don't provide this option, it defaults to On-Demand.</p>"""
-    custom_launch_template: "capo_pcs.types.custom_launch_template.CustomLaunchTemplate"
+    launch_template_mode: NotRequired[
+        "capo_pcs.types.launch_template_mode.LaunchTemplateMode"
+    ]
+    """<p>Specifies whether the compute node group uses a custom launch template or a launch template that PCS manages. The default value is <code>CUSTOM</code>.</p> <p>If the value is <code>CUSTOM</code>, provide <code>customLaunchTemplate</code>. If the value is <code>MANAGED</code>, omit <code>customLaunchTemplate</code> and provide <code>amiId</code> and <code>securityGroupIds</code>.</p>"""
+    custom_launch_template: NotRequired[
+        "capo_pcs.types.custom_launch_template.CustomLaunchTemplate"
+    ]
+    """<p>The custom Amazon EC2 launch template to associate with the compute node group. Specify the launch template <code>id</code> and <code>version</code> when <code>launchTemplateMode</code> is <code>CUSTOM</code>. Don't specify this value when <code>launchTemplateMode</code> is <code>MANAGED</code>.</p>"""
     iam_instance_profile_arn: "capo_pcs.types.instance_profile_arn.InstanceProfileArn"
     """<p>The Amazon Resource Name (ARN) of the IAM instance profile used to pass an IAM role when launching EC2 instances. The role contained in your instance profile must have the <code>pcs:RegisterComputeNodeGroupInstance</code> permission and the role name must start with <code>AWSPCS</code> or must have the path <code>/aws-pcs/</code>. For more information, see <a href="https://docs.aws.amazon.com/pcs/latest/userguide/security-instance-profiles.html">IAM instance profiles for PCS</a> in the <i>PCS User Guide</i>.</p>"""
     scaling_configuration: (
@@ -55,7 +71,7 @@ class CreateComputeNodeGroupRequest(TypedDict, closed=True):
     ]
     """<p>The lifecycle actions to run on compute nodes in the compute node group. Use lifecycle actions to run custom scripts at defined stages of a compute node's lifecycle, such as when a compute node finishes bootstrapping or becomes ready to accept jobs.</p>"""
     client_token: NotRequired["capo_pcs.types.sb_client_token.SBClientToken"]
-    """<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. Idempotency ensures that an API request completes only once. With an idempotent request, if the original request completes successfully, the subsequent retries with the same client token return the result from the original successful request and they have no additional effect. If you don't specify a client token, the CLI and SDK automatically generate 1 for you.</p>"""
+    """<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. Idempotency ensures that an API request completes only once. With an idempotent request, if the original request completes successfully, the subsequent retries with the same client token return the result from the original successful request and they have no additional effect. If you don't specify a client token, the CLI and SDK automatically generate one for you.</p>"""
     tags: NotRequired["capo_pcs.types.request_tag_map.RequestTagMap"]
     """<p>1 or more tags added to the resource. Each tag consists of a tag key and tag value. The tag value is optional and can be an empty string.</p>"""
 
@@ -63,10 +79,20 @@ class CreateComputeNodeGroupRequest(TypedDict, closed=True):
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: CreateComputeNodeGroupRequest) -> dict:
     out: dict = {}
-    out["clusterIdentifier"] = value["cluster_identifier"]
-    out["computeNodeGroupName"] = value["compute_node_group_name"]
     if "ami_id" in value:
         out["amiId"] = value["ami_id"]
+    if "security_group_ids" in value:
+        import capo_pcs.types.security_group_id_list
+
+        out["securityGroupIds"] = (
+            capo_pcs.types.security_group_id_list.serialize_aws_json_1_0(
+                value["security_group_ids"]
+            )
+        )
+    if "ssh_key_name" in value:
+        out["sshKeyName"] = value["ssh_key_name"]
+    out["clusterIdentifier"] = value["cluster_identifier"]
+    out["computeNodeGroupName"] = value["compute_node_group_name"]
     import capo_pcs.types.string_list
 
     out["subnetIds"] = capo_pcs.types.string_list.serialize_aws_json_1_0(
@@ -78,13 +104,22 @@ def serialize_aws_json_1_0(value: CreateComputeNodeGroupRequest) -> dict:
         out["purchaseOption"] = capo_pcs.types.purchase_option.serialize_aws_json_1_0(
             value["purchase_option"]
         )
-    import capo_pcs.types.custom_launch_template
+    if "launch_template_mode" in value:
+        import capo_pcs.types.launch_template_mode
 
-    out["customLaunchTemplate"] = (
-        capo_pcs.types.custom_launch_template.serialize_aws_json_1_0(
-            value["custom_launch_template"]
+        out["launchTemplateMode"] = (
+            capo_pcs.types.launch_template_mode.serialize_aws_json_1_0(
+                value["launch_template_mode"]
+            )
         )
-    )
+    if "custom_launch_template" in value:
+        import capo_pcs.types.custom_launch_template
+
+        out["customLaunchTemplate"] = (
+            capo_pcs.types.custom_launch_template.serialize_aws_json_1_0(
+                value["custom_launch_template"]
+            )
+        )
     out["iamInstanceProfileArn"] = value["iam_instance_profile_arn"]
     import capo_pcs.types.scaling_configuration_request
 
@@ -133,6 +168,18 @@ def serialize_aws_json_1_0(value: CreateComputeNodeGroupRequest) -> dict:
 
 def deserialize_aws_json_1_0(data: dict) -> CreateComputeNodeGroupRequest:
     out: CreateComputeNodeGroupRequest = {}  # type: ignore[typeddict-item]
+    if data.get("amiId") is not None:
+        out["ami_id"] = data["amiId"]
+    if data.get("securityGroupIds") is not None:
+        import capo_pcs.types.security_group_id_list
+
+        out["security_group_ids"] = (
+            capo_pcs.types.security_group_id_list.deserialize_aws_json_1_0(
+                data["securityGroupIds"]
+            )
+        )
+    if data.get("sshKeyName") is not None:
+        out["ssh_key_name"] = data["sshKeyName"]
     if data.get("clusterIdentifier") is not None:
         out["cluster_identifier"] = data["clusterIdentifier"]
     else:
@@ -141,8 +188,6 @@ def deserialize_aws_json_1_0(data: dict) -> CreateComputeNodeGroupRequest:
         out["compute_node_group_name"] = data["computeNodeGroupName"]
     else:
         out["compute_node_group_name"] = ""
-    if data.get("amiId") is not None:
-        out["ami_id"] = data["amiId"]
     if data.get("subnetIds") is not None:
         import capo_pcs.types.string_list
 
@@ -159,6 +204,14 @@ def deserialize_aws_json_1_0(data: dict) -> CreateComputeNodeGroupRequest:
                 data["purchaseOption"]
             )
         )
+    if data.get("launchTemplateMode") is not None:
+        import capo_pcs.types.launch_template_mode
+
+        out["launch_template_mode"] = (
+            capo_pcs.types.launch_template_mode.deserialize_aws_json_1_0(
+                data["launchTemplateMode"]
+            )
+        )
     if data.get("customLaunchTemplate") is not None:
         import capo_pcs.types.custom_launch_template
 
@@ -166,10 +219,6 @@ def deserialize_aws_json_1_0(data: dict) -> CreateComputeNodeGroupRequest:
             capo_pcs.types.custom_launch_template.deserialize_aws_json_1_0(
                 data["customLaunchTemplate"]
             )
-        )
-    else:
-        raise DeserializationError(
-            "CreateComputeNodeGroupRequest.custom_launch_template required"
         )
     if data.get("iamInstanceProfileArn") is not None:
         out["iam_instance_profile_arn"] = data["iamInstanceProfileArn"]

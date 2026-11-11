@@ -25,7 +25,9 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.platform_version
     import capo_bedrock_agentcore_control.types.protocol_configuration
     import capo_bedrock_agentcore_control.types.request_header_configuration
+    import capo_bedrock_agentcore_control.types.resource_configurations
     import capo_bedrock_agentcore_control.types.role_arn
+    import capo_bedrock_agentcore_control.types.runtime_hooks_configuration
     import capo_bedrock_agentcore_control.types.runtime_metadata_configuration
     import capo_bedrock_agentcore_control.types.workload_identity_details
 
@@ -63,6 +65,10 @@ class GetAgentRuntimeResponse(TypedDict, closed=True):
     """<p>The current status of the AgentCore Runtime.</p>"""
     lifecycle_configuration: "capo_bedrock_agentcore_control.types.lifecycle_configuration.LifecycleConfiguration"
     """<p>The life cycle configuration for the AgentCore Runtime.</p>"""
+    hooks_configuration: NotRequired[
+        "capo_bedrock_agentcore_control.types.runtime_hooks_configuration.RuntimeHooksConfiguration"
+    ]
+    """<p>The lifecycle hooks configuration for the AgentCore Runtime.</p>"""
     failure_reason: NotRequired["str"]
     """<p>The reason for failure if the AgentCore Runtime is in a failed state.</p>"""
     description: NotRequired[
@@ -113,6 +119,10 @@ class GetAgentRuntimeResponse(TypedDict, closed=True):
         "capo_bedrock_agentcore_control.types.allowed_ports.AllowedPorts"
     ]
     """<p>The additional ports on the AgentCore Runtime that are reachable through the runtime's session URL.</p>"""
+    resource_configurations: NotRequired[
+        "capo_bedrock_agentcore_control.types.resource_configurations.ResourceConfigurations"
+    ]
+    """<p>The resource configurations for the AgentCore Runtime.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -159,6 +169,14 @@ def serialize_json(value: GetAgentRuntimeResponse) -> dict:
             value["lifecycle_configuration"]
         )
     )
+    if "hooks_configuration" in value:
+        import capo_bedrock_agentcore_control.types.runtime_hooks_configuration
+
+        out["hooksConfiguration"] = (
+            capo_bedrock_agentcore_control.types.runtime_hooks_configuration.serialize_json(
+                value["hooks_configuration"]
+            )
+        )
     if "failure_reason" in value:
         out["failureReason"] = value["failure_reason"]
     if "description" in value:
@@ -243,6 +261,14 @@ def serialize_json(value: GetAgentRuntimeResponse) -> dict:
         out["allowedPorts"] = (
             capo_bedrock_agentcore_control.types.allowed_ports.serialize_json(
                 value["allowed_ports"]
+            )
+        )
+    if "resource_configurations" in value:
+        import capo_bedrock_agentcore_control.types.resource_configurations
+
+        out["resourceConfigurations"] = (
+            capo_bedrock_agentcore_control.types.resource_configurations.serialize_json(
+                value["resource_configurations"]
             )
         )
     return out
@@ -331,6 +357,14 @@ def deserialize_json(data: dict) -> GetAgentRuntimeResponse:
         raise DeserializationError(
             "GetAgentRuntimeResponse.lifecycle_configuration required"
         )
+    if data.get("hooksConfiguration") is not None:
+        import capo_bedrock_agentcore_control.types.runtime_hooks_configuration
+
+        out["hooks_configuration"] = (
+            capo_bedrock_agentcore_control.types.runtime_hooks_configuration.deserialize_json(
+                data["hooksConfiguration"]
+            )
+        )
     if data.get("failureReason") is not None:
         out["failure_reason"] = data["failureReason"]
     if data.get("description") is not None:
@@ -415,6 +449,14 @@ def deserialize_json(data: dict) -> GetAgentRuntimeResponse:
         out["allowed_ports"] = (
             capo_bedrock_agentcore_control.types.allowed_ports.deserialize_json(
                 data["allowedPorts"]
+            )
+        )
+    if data.get("resourceConfigurations") is not None:
+        import capo_bedrock_agentcore_control.types.resource_configurations
+
+        out["resource_configurations"] = (
+            capo_bedrock_agentcore_control.types.resource_configurations.deserialize_json(
+                data["resourceConfigurations"]
             )
         )
     return out

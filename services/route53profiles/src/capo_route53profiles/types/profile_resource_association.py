@@ -27,7 +27,7 @@ class ProfileResourceAssociation(TypedDict, closed=True):
     resource_arn: NotRequired["capo_route53profiles.types.arn.Arn"]
     """<p> The Amazon Resource Name (ARN) of the resource association. </p>"""
     resource_type: NotRequired["capo_route53profiles.types.string.String"]
-    """<p> Resource type, such as a private hosted zone, or DNS Firewall rule group. </p>"""
+    """<p> Resource type, such as a private hosted zone, interface VPC endpoint, Resolver query log configuration, or DNS Firewall rule group. </p>"""
     resource_properties: NotRequired[
         "capo_route53profiles.types.resource_properties.ResourceProperties"
     ]

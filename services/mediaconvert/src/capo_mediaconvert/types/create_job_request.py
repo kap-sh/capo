@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     import capo_mediaconvert.types.__string
     import capo_mediaconvert.types.acceleration_settings
     import capo_mediaconvert.types.billing_tags_source
+    import capo_mediaconvert.types.elemental_inference_settings
     import capo_mediaconvert.types.job_settings
     import capo_mediaconvert.types.simulate_reserved_queue
     import capo_mediaconvert.types.status_update_interval
@@ -27,6 +28,10 @@ class CreateJobRequest(TypedDict, closed=True):
     """Optionally choose a Billing tags source that AWS Billing and Cost Management will use to display tags for individual output costs on any billing report that you set up. Leave blank to use the default value, Job."""
     client_request_token: NotRequired["capo_mediaconvert.types.__string.__string"]
     """Prevent duplicate jobs from being created and ensure idempotency for your requests. A client request token can be any string that includes up to 64 ASCII characters. If you reuse a client request token within one minute of a successful request, the API returns the job details of the original request instead. For more information see https://docs.aws.amazon.com/mediaconvert/latest/apireference/idempotency.html."""
+    elemental_inference_settings: NotRequired[
+        "capo_mediaconvert.types.elemental_inference_settings.ElementalInferenceSettings"
+    ]
+    """The Elemental Inference settings used in this job."""
     hop_destinations: NotRequired[
         "capo_mediaconvert.types.__list_of_hop_destination.__listOfHopDestination"
     ]
@@ -82,6 +87,14 @@ def serialize_json(value: CreateJobRequest) -> dict:
         )
     if "client_request_token" in value:
         out["clientRequestToken"] = value["client_request_token"]
+    if "elemental_inference_settings" in value:
+        import capo_mediaconvert.types.elemental_inference_settings
+
+        out["elementalInferenceSettings"] = (
+            capo_mediaconvert.types.elemental_inference_settings.serialize_json(
+                value["elemental_inference_settings"]
+            )
+        )
     if "hop_destinations" in value:
         import capo_mediaconvert.types.__list_of_hop_destination
 
@@ -157,6 +170,14 @@ def deserialize_json(data: dict) -> CreateJobRequest:
         )
     if data.get("clientRequestToken") is not None:
         out["client_request_token"] = data["clientRequestToken"]
+    if data.get("elementalInferenceSettings") is not None:
+        import capo_mediaconvert.types.elemental_inference_settings
+
+        out["elemental_inference_settings"] = (
+            capo_mediaconvert.types.elemental_inference_settings.deserialize_json(
+                data["elementalInferenceSettings"]
+            )
+        )
     if data.get("hopDestinations") is not None:
         import capo_mediaconvert.types.__list_of_hop_destination
 

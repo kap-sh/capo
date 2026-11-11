@@ -21,6 +21,7 @@ import capo_mediaconvert.errors.service_quota_exceeded_exception
 import capo_mediaconvert.errors.too_many_requests_exception
 import capo_mediaconvert.types.__list_of_hop_destination
 import capo_mediaconvert.types.acceleration_settings
+import capo_mediaconvert.types.elemental_inference_settings
 import capo_mediaconvert.types.job_template
 import capo_mediaconvert.types.job_template_settings
 import capo_mediaconvert.types.status_update_interval

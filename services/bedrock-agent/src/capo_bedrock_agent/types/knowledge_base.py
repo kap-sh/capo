@@ -15,6 +15,7 @@ if TYPE_CHECKING:
     import capo_bedrock_agent.types.knowledge_base_configuration
     import capo_bedrock_agent.types.knowledge_base_role_arn
     import capo_bedrock_agent.types.knowledge_base_status
+    import capo_bedrock_agent.types.metadata_configurations
     import capo_bedrock_agent.types.name
     import capo_bedrock_agent.types.storage_configuration
 
@@ -46,6 +47,10 @@ class KnowledgeBase(TypedDict, closed=True):
         "capo_bedrock_agent.types.failure_reasons.FailureReasons"
     ]
     """<p>A list of reasons that the API operation on the knowledge base failed.</p>"""
+    metadata_configurations: NotRequired[
+        "capo_bedrock_agent.types.metadata_configurations.MetadataConfigurations"
+    ]
+    """<p>The custom metadata field configurations of the knowledge base. Each configuration specifies whether its field is searchable (<code>ENABLED</code> or <code>DISABLED</code>).</p> <p>If the update fails, the knowledge base status becomes <code>UPDATE_UNSUCCESSFUL</code>, the field configurations revert to their previous values, and <code>failureReasons</code> describes the cause. You can retry the update from <code>UPDATE_UNSUCCESSFUL</code>.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -92,6 +97,14 @@ def serialize_json(value: KnowledgeBase) -> dict:
 
         out["failureReasons"] = capo_bedrock_agent.types.failure_reasons.serialize_json(
             value["failure_reasons"]
+        )
+    if "metadata_configurations" in value:
+        import capo_bedrock_agent.types.metadata_configurations
+
+        out["metadataConfigurations"] = (
+            capo_bedrock_agent.types.metadata_configurations.serialize_json(
+                value["metadata_configurations"]
+            )
         )
     return out
 
@@ -176,6 +189,14 @@ def deserialize_json(data: dict) -> KnowledgeBase:
                 data["failureReasons"]
             )
         )
+    if data.get("metadataConfigurations") is not None:
+        import capo_bedrock_agent.types.metadata_configurations
+
+        out["metadata_configurations"] = (
+            capo_bedrock_agent.types.metadata_configurations.deserialize_json(
+                data["metadataConfigurations"]
+            )
+        )
     return out
 
 
@@ -195,6 +216,14 @@ def redact_sensitive(value: KnowledgeBase) -> dict[str, Any]:
         out["storage_configuration"] = (
             capo_bedrock_agent.types.storage_configuration.redact_sensitive(
                 value["storage_configuration"]
+            )
+        )
+    if "metadata_configurations" in value:
+        import capo_bedrock_agent.types.metadata_configurations
+
+        out["metadata_configurations"] = (
+            capo_bedrock_agent.types.metadata_configurations.redact_sensitive(
+                value["metadata_configurations"]
             )
         )
     return out

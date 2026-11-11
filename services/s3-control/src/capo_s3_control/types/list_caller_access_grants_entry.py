@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 from capo_s3_control._protocol.xml import Element, SubElement
 
 if TYPE_CHECKING:
+    import capo_s3_control.types.access_grants_instance_arn
     import capo_s3_control.types.identity_center_application_arn
     import capo_s3_control.types.permission
     import capo_s3_control.types.s3_prefix
@@ -21,6 +22,10 @@ class ListCallerAccessGrantsEntry(TypedDict, closed=True):
         "capo_s3_control.types.identity_center_application_arn.IdentityCenterApplicationArn"
     ]
     """<p>The Amazon Resource Name (ARN) of an Amazon Web Services IAM Identity Center application associated with your Identity Center instance. If the grant includes an application ARN, the grantee can only access the S3 data through this application. </p>"""
+    access_grants_instance_arn: NotRequired[
+        "capo_s3_control.types.access_grants_instance_arn.AccessGrantsInstanceArn"
+    ]
+    """<p>The Amazon Resource Name (ARN) of the S3 Access Grants instance in which the grant was created.</p>"""
 
 
 # --- restXml ser/de ---
@@ -38,6 +43,10 @@ def serialize_xml(
         SubElement(el, "GrantScope").text = str(value["grant_scope"])
     if "application_arn" in value:
         SubElement(el, "ApplicationArn").text = str(value["application_arn"])
+    if "access_grants_instance_arn" in value:
+        SubElement(el, "AccessGrantsInstanceArn").text = str(
+            value["access_grants_instance_arn"]
+        )
 
 
 def deserialize_xml(el: Element) -> ListCallerAccessGrantsEntry:
@@ -55,4 +64,9 @@ def deserialize_xml(el: Element) -> ListCallerAccessGrantsEntry:
     child_application_arn = el.find("ApplicationArn")
     if child_application_arn is not None:
         out["application_arn"] = str(child_application_arn.text or "")
+    child_access_grants_instance_arn = el.find("AccessGrantsInstanceArn")
+    if child_access_grants_instance_arn is not None:
+        out["access_grants_instance_arn"] = str(
+            child_access_grants_instance_arn.text or ""
+        )
     return out

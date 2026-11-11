@@ -65,6 +65,7 @@ if TYPE_CHECKING:
     import capo_route53profiles.types.max_results
     import capo_route53profiles.types.name
     import capo_route53profiles.types.next_token
+    import capo_route53profiles.types.priority
     import capo_route53profiles.types.profile_association
     import capo_route53profiles.types.profile_resource_association
     import capo_route53profiles.types.profile_summary
@@ -78,6 +79,8 @@ if TYPE_CHECKING:
     import capo_route53profiles.types.tag_resource_response
     import capo_route53profiles.types.untag_resource_request
     import capo_route53profiles.types.untag_resource_response
+    import capo_route53profiles.types.update_profile_association_request
+    import capo_route53profiles.types.update_profile_association_response
     import capo_route53profiles.types.update_profile_resource_association_request
     import capo_route53profiles.types.update_profile_resource_association_response
 
@@ -207,16 +210,18 @@ class AsyncRoute53ProfilesClient:
         *,
         config_overrides: Optional[AsyncRoute53ProfilesClientConfig] = None,
         tags: Optional["capo_route53profiles.types.tag_list.TagList"] = None,
+        priority: Optional["capo_route53profiles.types.priority.Priority"] = None,
     ) -> (
         "capo_route53profiles.types.associate_profile_response.AssociateProfileResponse"
     ):
-        """<p> Associates a Route 53 Profiles profile with a VPC. A VPC can have only one Profile associated with it, but a Profile can be associated with 1000 of VPCs (and you can request a higher quota). For more information, see <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html#limits-api-entities">https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html#limits-api-entities</a>. </p>
+        """<p> Associates a Route 53 Profiles profile with a VPC. A VPC can have up to two Profile associations. A Profile can be associated with up to 1,000 VPCs, and you can request a higher quota for the number of VPCs. For more information, see <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html#limits-api-entities-route53-profiles">Quotas on Route 53 Profiles</a>. </p> <p> Route 53 VPC Resolver evaluates the Profile associations for a VPC in priority order, starting with the lowest <code>Priority</code> value. If the VPC has no other Profile associations, you can omit <code>Priority</code>, and the association gets priority 100. When the VPC already has a Profile association, you must specify a <code>Priority</code>, and each Profile association for the VPC must have a unique priority. To change the priority of an existing association, use <code>UpdateProfileAssociation</code>. </p> <p>The request fails with a <code>ValidationException</code> in these cases:</p> <ul> <li> <p>You omit <code>Priority</code>, and the VPC already has a Profile association.</p> </li> <li> <p>Another Profile association for the VPC already uses the priority that you specify.</p> </li> <li> <p>The priority is outside the range 100–9900.</p> </li> <li> <p>The Profile is already associated with the VPC, and you specify a different <code>Name</code> or <code>Priority</code>. To change the priority, use <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53profiles_UpdateProfileAssociation.html">UpdateProfileAssociation</a>.</p> </li> </ul> <p> The request fails with a <code>LimitExceededException</code> if the VPC already has the maximum number of Profile associations. </p>
 
         Args:
             profile_id: <p> ID of the Profile. </p>
             resource_id: <p> The ID of the VPC. </p>
             name: <p> A name for the association. </p>
             tags: <p> A list of the tag keys and values that you want to identify the Profile association. </p>
+            priority: <p> The priority of the Profile association. Route 53 VPC Resolver evaluates the Profile associations for a VPC in priority order, starting with the lowest value. </p> <p> When the VPC already has a Profile association, you must specify a priority that no other Profile association for the VPC uses. If you omit the priority for the first association with a VPC, the association gets priority 100. </p>
 
         Raises:
             capo_route53profiles.errors.access_denied_exception.AccessDeniedException: <p> The current account doesn't have the IAM permissions required to perform the specified operation. </p>
@@ -255,6 +260,8 @@ class AsyncRoute53ProfilesClient:
         }
         if tags is not None:
             input_["tags"] = tags
+        if priority is not None:
+            input_["priority"] = priority
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -275,11 +282,11 @@ class AsyncRoute53ProfilesClient:
             "capo_route53profiles.types.resource_properties.ResourceProperties"
         ] = None,
     ) -> "capo_route53profiles.types.associate_resource_to_profile_response.AssociateResourceToProfileResponse":
-        """<p> Associates a DNS reource configuration to a Route 53 Profile. </p>
+        """<p> Associates a DNS resource configuration to a Route 53 Profile. </p>
 
         Args:
             profile_id: <p> ID of the Profile. </p>
-            resource_arn: <p> Amazon resource number, ARN, of the DNS resource. </p>
+            resource_arn: <p> Amazon resource number, ARN, of the resource to associate. Either a private hosted zone, DNS Firewall rule group, Resolver rule, or an interface VPC endpoint. </p>
             name: <p> Name for the resource association. </p>
             resource_properties: <p> If you are adding a DNS Firewall rule group, include also a priority. The priority indicates the processing order for the rule groups, starting with the priority assinged the lowest value. </p> <p>The allowed values for priority are between 100 and 9900.</p>
 
@@ -601,7 +608,7 @@ class AsyncRoute53ProfilesClient:
         *,
         config_overrides: Optional[AsyncRoute53ProfilesClientConfig] = None,
     ) -> "capo_route53profiles.types.get_profile_association_response.GetProfileAssociationResponse":
-        """<p> Retrieves a Route 53 Profile association for a VPC. A VPC can have only one Profile association, but a Profile can be associated with up to 5000 VPCs. </p>
+        """<p> Retrieves a Route 53 Profile association for a VPC. A VPC can have up to two Profile associations, and a Profile can be associated with up to 1,000 VPCs. </p>
 
         Args:
             profile_association_id: <p> The identifier of the association you want to get information about. </p>
@@ -799,6 +806,7 @@ class AsyncRoute53ProfilesClient:
         *,
         config_overrides: Optional[AsyncRoute53ProfilesClientConfig] = None,
         resource_type: Optional["capo_route53profiles.types.string.String"] = None,
+        resource_arn: Optional["capo_route53profiles.types.arn.Arn"] = None,
         max_results: Optional[
             "capo_route53profiles.types.max_results.MaxResults"
         ] = None,
@@ -809,6 +817,7 @@ class AsyncRoute53ProfilesClient:
         Args:
             profile_id: <p> The ID of the Profile. </p>
             resource_type: <p> ID of a resource if you want information on only one type. </p>
+            resource_arn: <p> The Amazon Resource Name (ARN) of a resource. If you specify this parameter, only the association with that resource is returned. </p>
             max_results: <p> The maximum number of objects that you want to return for this request. If more objects are available, in the response, a <code>NextToken</code> value, which you can use in a subsequent call to get the next batch of objects, is provided.</p> <p> If you don't specify a value for <code>MaxResults</code>, up to 100 objects are returned. </p>
             next_token: <p> For the first call to this list request, omit this value. </p> <p>When you request a list of objects, at most the number of objects specified by <code>MaxResults</code> is returned. If more objects are available for retrieval, a <code>NextToken</code> value is returned in the response. To retrieve the next batch of objects, use the token that was returned for the prior request in your next request.</p>
 
@@ -846,6 +855,8 @@ class AsyncRoute53ProfilesClient:
         }
         if resource_type is not None:
             input_["resource_type"] = resource_type
+        if resource_arn is not None:
+            input_["resource_arn"] = resource_arn
         if max_results is not None:
             input_["max_results"] = max_results
         if next_token is not None:
@@ -865,6 +876,7 @@ class AsyncRoute53ProfilesClient:
         *,
         config_overrides: Optional[AsyncRoute53ProfilesClientConfig] = None,
         resource_type: Optional["capo_route53profiles.types.string.String"] = None,
+        resource_arn: Optional["capo_route53profiles.types.arn.Arn"] = None,
         max_results: Optional[
             "capo_route53profiles.types.max_results.MaxResults"
         ] = None,
@@ -876,6 +888,7 @@ class AsyncRoute53ProfilesClient:
                 profile_id,
                 config_overrides=config_overrides,
                 resource_type=resource_type,
+                resource_arn=resource_arn,
                 max_results=max_results,
                 next_token=_token,
             )
@@ -1111,6 +1124,67 @@ class AsyncRoute53ProfilesClient:
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
         }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def update_profile_association(
+        self,
+        profile_association_id: "capo_route53profiles.types.resource_id.ResourceId",
+        *,
+        config_overrides: Optional[AsyncRoute53ProfilesClientConfig] = None,
+        name: Optional["capo_route53profiles.types.name.Name"] = None,
+        priority: Optional["capo_route53profiles.types.priority.Priority"] = None,
+    ) -> "capo_route53profiles.types.update_profile_association_response.UpdateProfileAssociationResponse":
+        """<p> Updates the name or priority of the specified Route 53 Profile association with a VPC. Route 53 VPC Resolver evaluates the Profile associations for a VPC in priority order, starting with the lowest value. Only the account that created the association can update it. </p> <p> When you change the priority, the association status is <code>UPDATING</code> until the change propagates, and then <code>COMPLETE</code>. While the status is <code>UPDATING</code>, Route 53 VPC Resolver might still use the previous priority for some queries. When the status is <code>COMPLETE</code>, the new priority applies to all queries from the VPC. </p> <p> The request fails with a <code>ValidationException</code> if another Profile association for the VPC already uses the priority that you specify, or if the priority is outside the range 100–9900. </p> <p> You can update an association whose status is <code>CREATING</code>, <code>UPDATING</code>, or <code>COMPLETE</code>. The request fails with a <code>ConflictException</code> if the association status is <code>DELETING</code>, <code>DELETED</code>, or <code>FAILED</code>, or if the account that owns the association is inactive. </p>
+
+        Args:
+            profile_association_id: <p> The ID of the Profile association to update. </p>
+            name: <p> The name of the Profile association. </p>
+            priority: <p> The new priority of the Profile association. Route 53 VPC Resolver evaluates the Profile associations for a VPC in priority order, starting with the lowest value. </p> <p>The priority must be unique among the Profile associations for the VPC.</p>
+
+        Raises:
+            capo_route53profiles.errors.access_denied_exception.AccessDeniedException: <p> The current account doesn't have the IAM permissions required to perform the specified operation. </p>
+            capo_route53profiles.errors.conflict_exception.ConflictException: <p> The request you submitted conflicts with an existing request. </p>
+            capo_route53profiles.errors.internal_service_error_exception.InternalServiceErrorException: <p> An internal server error occured. Retry your request. </p>
+            capo_route53profiles.errors.invalid_parameter_exception.InvalidParameterException: <p> One or more parameters in this request are not valid. </p>
+            capo_route53profiles.errors.limit_exceeded_exception.LimitExceededException: <p> The request caused one or more limits to be exceeded. </p>
+            capo_route53profiles.errors.resource_not_found_exception.ResourceNotFoundException: <p> The resource you are associating is not found. </p>
+            capo_route53profiles.errors.throttling_exception.ThrottlingException: <p> The request was throttled. Try again in a few minutes. </p>
+            capo_route53profiles.errors.validation_exception.ValidationException: <p> You have provided an invalid command. </p>
+            capo_route53profiles.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_route53profiles.types.update_profile_association_request.UpdateProfileAssociationRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_route53profiles.types.update_profile_association_response.UpdateProfileAssociationResponse"
+        ]:
+            import capo_route53profiles._operations.route53_profiles.update_profile_association
+
+            (
+                output,
+                http_response,
+            ) = await capo_route53profiles._operations.route53_profiles.update_profile_association.async_update_profile_association(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProfileAssociation")
+        )
+        input_: capo_route53profiles.types.update_profile_association_request.UpdateProfileAssociationRequest = {
+            "profile_association_id": profile_association_id
+        }
+        if name is not None:
+            input_["name"] = name
+        if priority is not None:
+            input_["priority"] = priority
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

@@ -31,7 +31,7 @@ class RuleGroupResponse(TypedDict, closed=True):
     description: NotRequired["capo_network_firewall.types.description.Description"]
     """<p>A description of the rule group. </p>"""
     type: NotRequired["capo_network_firewall.types.rule_group_type.RuleGroupType"]
-    """<p>Indicates whether the rule group is stateless or stateful. If the rule group is stateless, it contains stateless rules. If it is stateful, it contains stateful rules. </p>"""
+    """<p>Indicates the type of the rule group. Valid values are:</p> <ul> <li> <p> <code>STATELESS</code> - Stateless rules, for use in a Classic Network Firewall policy.</p> </li> <li> <p> <code>STATEFUL</code> - Stateful rules, for use in a Classic Network Firewall policy.</p> </li> <li> <p> <code>FIREWALL</code> - Firewall engine rules, for use in a Next Generation policy.</p> </li> <li> <p> <code>IPS</code> - IPS engine rules, for use in a Next Generation policy.</p> </li> </ul>"""
     capacity: NotRequired["capo_network_firewall.types.rule_capacity.RuleCapacity"]
     """<p>The maximum operating resources that this rule group can use. Rule group capacity is fixed at creation. When you update a rule group, you are limited to this capacity. When you reference a rule group from a firewall policy, Network Firewall reserves this capacity for the rule group. </p> <p>You can retrieve the capacity that would be required for a rule group before you create the rule group by calling <a>CreateRuleGroup</a> with <code>DryRun</code> set to <code>TRUE</code>. </p>"""
     rule_group_status: NotRequired[

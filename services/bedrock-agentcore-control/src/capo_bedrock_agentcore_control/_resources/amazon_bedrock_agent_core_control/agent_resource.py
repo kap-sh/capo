@@ -45,7 +45,9 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.platform_version
     import capo_bedrock_agentcore_control.types.protocol_configuration
     import capo_bedrock_agentcore_control.types.request_header_configuration
+    import capo_bedrock_agentcore_control.types.resource_configurations
     import capo_bedrock_agentcore_control.types.role_arn
+    import capo_bedrock_agentcore_control.types.runtime_hooks_configuration
     import capo_bedrock_agentcore_control.types.runtime_metadata_configuration
     import capo_bedrock_agentcore_control.types.tags_map
     import capo_bedrock_agentcore_control.types.update_agent_runtime_request
@@ -92,6 +94,9 @@ class AgentResource:
         lifecycle_configuration: Optional[
             "capo_bedrock_agentcore_control.types.lifecycle_configuration.LifecycleConfiguration"
         ] = None,
+        hooks_configuration: Optional[
+            "capo_bedrock_agentcore_control.types.runtime_hooks_configuration.RuntimeHooksConfiguration"
+        ] = None,
         environment_variables: Optional[
             "capo_bedrock_agentcore_control.types.environment_variables_map.EnvironmentVariablesMap"
         ] = None,
@@ -108,6 +113,9 @@ class AgentResource:
         allowed_ports: Optional[
             "capo_bedrock_agentcore_control.types.allowed_ports.AllowedPorts"
         ] = None,
+        resource_configurations: Optional[
+            "capo_bedrock_agentcore_control.types.resource_configurations.ResourceConfigurations"
+        ] = None,
     ) -> "capo_bedrock_agentcore_control.types.create_agent_runtime_response.CreateAgentRuntimeResponse":
         """<p>Creates an Amazon Bedrock AgentCore Runtime.</p>
 
@@ -122,12 +130,14 @@ class AgentResource:
             request_header_configuration: <p>Configuration for HTTP request headers that will be passed through to the runtime.</p>
             protocol_configuration: <p>The protocol configuration for the AgentCore Runtime, including the protocol, port, and path on which the agent server is available.</p>
             lifecycle_configuration: <p>The life cycle configuration for the AgentCore Runtime.</p>
+            hooks_configuration: <p>The lifecycle hooks configuration for the AgentCore Runtime. Use lifecycle hooks to run actions in the agent's container at fixed points in the runtime's lifecycle, such as warming up the agent before sessions are created.</p>
             environment_variables: <p>Environment variables to set in the AgentCore Runtime environment.</p>
             filesystem_configurations: <p>The filesystem configurations to mount into the AgentCore Runtime. Use filesystem configurations to provide persistent storage to your AgentCore Runtime sessions.</p>
             capacity_provider_configuration: <p>The capacity provider configuration for the AgentCore Runtime. Use a capacity provider to run the AgentCore Runtime on the Instances compute type, which provisions Amazon Web Services managed compute in your account.</p>
             tags: <p>A map of tag keys and values to assign to the agent runtime. Tags enable you to categorize your resources in different ways, for example, by purpose, owner, or environment.</p>
             platform_version: <p>The version of the runtime platform to use for the AgentCore Runtime.</p>
             allowed_ports: <p>The additional ports on the AgentCore Runtime that are reachable through the runtime's session URL. Specify one to five non-overlapping entries, each containing either a single port or an inclusive port range. Ports must be between <code>8000</code> and <code>12000</code>, excluding the reserved port <code>8443</code>.</p>
+            resource_configurations: <p>The resource configurations for the AgentCore Runtime, such as the minimum amount of memory to allocate to the runtime. You can specify at most one resource configuration.</p>
 
         Raises:
             capo_bedrock_agentcore_control.errors.access_denied_exception.AccessDeniedException: <p>This exception is thrown when a request is denied per access permissions</p>
@@ -186,6 +196,8 @@ class AgentResource:
             input_["protocol_configuration"] = protocol_configuration
         if lifecycle_configuration is not None:
             input_["lifecycle_configuration"] = lifecycle_configuration
+        if hooks_configuration is not None:
+            input_["hooks_configuration"] = hooks_configuration
         if environment_variables is not None:
             input_["environment_variables"] = environment_variables
         if filesystem_configurations is not None:
@@ -198,6 +210,8 @@ class AgentResource:
             input_["platform_version"] = platform_version
         if allowed_ports is not None:
             input_["allowed_ports"] = allowed_ports
+        if resource_configurations is not None:
+            input_["resource_configurations"] = resource_configurations
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -297,6 +311,9 @@ class AgentResource:
         lifecycle_configuration: Optional[
             "capo_bedrock_agentcore_control.types.lifecycle_configuration.LifecycleConfiguration"
         ] = None,
+        hooks_configuration: Optional[
+            "capo_bedrock_agentcore_control.types.runtime_hooks_configuration.RuntimeHooksConfiguration"
+        ] = None,
         metadata_configuration: Optional[
             "capo_bedrock_agentcore_control.types.runtime_metadata_configuration.RuntimeMetadataConfiguration"
         ] = None,
@@ -315,6 +332,9 @@ class AgentResource:
         allowed_ports: Optional[
             "capo_bedrock_agentcore_control.types.allowed_ports.AllowedPorts"
         ] = None,
+        resource_configurations: Optional[
+            "capo_bedrock_agentcore_control.types.resource_configurations.ResourceConfigurations"
+        ] = None,
         client_token: Optional[
             "capo_bedrock_agentcore_control.types.client_token.ClientToken"
         ] = None,
@@ -331,12 +351,14 @@ class AgentResource:
             request_header_configuration: <p>The updated configuration for HTTP request headers that will be passed through to the runtime.</p>
             protocol_configuration: <p>The updated protocol configuration for the AgentCore Runtime, including the protocol, port, and path on which the agent server is available.</p>
             lifecycle_configuration: <p>The updated life cycle configuration for the AgentCore Runtime.</p>
+            hooks_configuration: <p>The updated lifecycle hooks configuration for the AgentCore Runtime.</p>
             metadata_configuration: <p>The updated configuration for microVM Metadata Service (MMDS) settings for the AgentCore Runtime.</p>
             environment_variables: <p>Updated environment variables to set in the AgentCore Runtime environment.</p>
             filesystem_configurations: <p>The updated filesystem configurations to mount into the AgentCore Runtime.</p>
             capacity_provider_configuration: <p>The updated capacity provider configuration for the AgentCore Runtime.</p>
             platform_version: <p>The updated version of the runtime platform to use for the AgentCore Runtime.</p>
             allowed_ports: <p>The updated additional ports on the AgentCore Runtime that are reachable through the runtime's session URL. Specify one to five non-overlapping entries, each containing either a single port or an inclusive port range. Ports must be between <code>8000</code> and <code>12000</code>, excluding the reserved port <code>8443</code>.</p>
+            resource_configurations: <p>The updated resource configurations for the AgentCore Runtime. You can specify at most one resource configuration.</p>
             client_token: <p>A unique, case-sensitive identifier to ensure idempotency of the request.</p>
 
         Raises:
@@ -394,6 +416,8 @@ class AgentResource:
             input_["protocol_configuration"] = protocol_configuration
         if lifecycle_configuration is not None:
             input_["lifecycle_configuration"] = lifecycle_configuration
+        if hooks_configuration is not None:
+            input_["hooks_configuration"] = hooks_configuration
         if metadata_configuration is not None:
             input_["metadata_configuration"] = metadata_configuration
         if environment_variables is not None:
@@ -406,6 +430,8 @@ class AgentResource:
             input_["platform_version"] = platform_version
         if allowed_ports is not None:
             input_["allowed_ports"] = allowed_ports
+        if resource_configurations is not None:
+            input_["resource_configurations"] = resource_configurations
         if client_token is None:
             client_token = str(uuid.uuid4())
         input_["client_token"] = client_token
@@ -650,6 +676,9 @@ class AsyncAgentResource:
         lifecycle_configuration: Optional[
             "capo_bedrock_agentcore_control.types.lifecycle_configuration.LifecycleConfiguration"
         ] = None,
+        hooks_configuration: Optional[
+            "capo_bedrock_agentcore_control.types.runtime_hooks_configuration.RuntimeHooksConfiguration"
+        ] = None,
         environment_variables: Optional[
             "capo_bedrock_agentcore_control.types.environment_variables_map.EnvironmentVariablesMap"
         ] = None,
@@ -666,6 +695,9 @@ class AsyncAgentResource:
         allowed_ports: Optional[
             "capo_bedrock_agentcore_control.types.allowed_ports.AllowedPorts"
         ] = None,
+        resource_configurations: Optional[
+            "capo_bedrock_agentcore_control.types.resource_configurations.ResourceConfigurations"
+        ] = None,
     ) -> "capo_bedrock_agentcore_control.types.create_agent_runtime_response.CreateAgentRuntimeResponse":
         """<p>Creates an Amazon Bedrock AgentCore Runtime.</p>
 
@@ -680,12 +712,14 @@ class AsyncAgentResource:
             request_header_configuration: <p>Configuration for HTTP request headers that will be passed through to the runtime.</p>
             protocol_configuration: <p>The protocol configuration for the AgentCore Runtime, including the protocol, port, and path on which the agent server is available.</p>
             lifecycle_configuration: <p>The life cycle configuration for the AgentCore Runtime.</p>
+            hooks_configuration: <p>The lifecycle hooks configuration for the AgentCore Runtime. Use lifecycle hooks to run actions in the agent's container at fixed points in the runtime's lifecycle, such as warming up the agent before sessions are created.</p>
             environment_variables: <p>Environment variables to set in the AgentCore Runtime environment.</p>
             filesystem_configurations: <p>The filesystem configurations to mount into the AgentCore Runtime. Use filesystem configurations to provide persistent storage to your AgentCore Runtime sessions.</p>
             capacity_provider_configuration: <p>The capacity provider configuration for the AgentCore Runtime. Use a capacity provider to run the AgentCore Runtime on the Instances compute type, which provisions Amazon Web Services managed compute in your account.</p>
             tags: <p>A map of tag keys and values to assign to the agent runtime. Tags enable you to categorize your resources in different ways, for example, by purpose, owner, or environment.</p>
             platform_version: <p>The version of the runtime platform to use for the AgentCore Runtime.</p>
             allowed_ports: <p>The additional ports on the AgentCore Runtime that are reachable through the runtime's session URL. Specify one to five non-overlapping entries, each containing either a single port or an inclusive port range. Ports must be between <code>8000</code> and <code>12000</code>, excluding the reserved port <code>8443</code>.</p>
+            resource_configurations: <p>The resource configurations for the AgentCore Runtime, such as the minimum amount of memory to allocate to the runtime. You can specify at most one resource configuration.</p>
 
         Raises:
             capo_bedrock_agentcore_control.errors.access_denied_exception.AccessDeniedException: <p>This exception is thrown when a request is denied per access permissions</p>
@@ -745,6 +779,8 @@ class AsyncAgentResource:
             input_["protocol_configuration"] = protocol_configuration
         if lifecycle_configuration is not None:
             input_["lifecycle_configuration"] = lifecycle_configuration
+        if hooks_configuration is not None:
+            input_["hooks_configuration"] = hooks_configuration
         if environment_variables is not None:
             input_["environment_variables"] = environment_variables
         if filesystem_configurations is not None:
@@ -757,6 +793,8 @@ class AsyncAgentResource:
             input_["platform_version"] = platform_version
         if allowed_ports is not None:
             input_["allowed_ports"] = allowed_ports
+        if resource_configurations is not None:
+            input_["resource_configurations"] = resource_configurations
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -857,6 +895,9 @@ class AsyncAgentResource:
         lifecycle_configuration: Optional[
             "capo_bedrock_agentcore_control.types.lifecycle_configuration.LifecycleConfiguration"
         ] = None,
+        hooks_configuration: Optional[
+            "capo_bedrock_agentcore_control.types.runtime_hooks_configuration.RuntimeHooksConfiguration"
+        ] = None,
         metadata_configuration: Optional[
             "capo_bedrock_agentcore_control.types.runtime_metadata_configuration.RuntimeMetadataConfiguration"
         ] = None,
@@ -875,6 +916,9 @@ class AsyncAgentResource:
         allowed_ports: Optional[
             "capo_bedrock_agentcore_control.types.allowed_ports.AllowedPorts"
         ] = None,
+        resource_configurations: Optional[
+            "capo_bedrock_agentcore_control.types.resource_configurations.ResourceConfigurations"
+        ] = None,
         client_token: Optional[
             "capo_bedrock_agentcore_control.types.client_token.ClientToken"
         ] = None,
@@ -891,12 +935,14 @@ class AsyncAgentResource:
             request_header_configuration: <p>The updated configuration for HTTP request headers that will be passed through to the runtime.</p>
             protocol_configuration: <p>The updated protocol configuration for the AgentCore Runtime, including the protocol, port, and path on which the agent server is available.</p>
             lifecycle_configuration: <p>The updated life cycle configuration for the AgentCore Runtime.</p>
+            hooks_configuration: <p>The updated lifecycle hooks configuration for the AgentCore Runtime.</p>
             metadata_configuration: <p>The updated configuration for microVM Metadata Service (MMDS) settings for the AgentCore Runtime.</p>
             environment_variables: <p>Updated environment variables to set in the AgentCore Runtime environment.</p>
             filesystem_configurations: <p>The updated filesystem configurations to mount into the AgentCore Runtime.</p>
             capacity_provider_configuration: <p>The updated capacity provider configuration for the AgentCore Runtime.</p>
             platform_version: <p>The updated version of the runtime platform to use for the AgentCore Runtime.</p>
             allowed_ports: <p>The updated additional ports on the AgentCore Runtime that are reachable through the runtime's session URL. Specify one to five non-overlapping entries, each containing either a single port or an inclusive port range. Ports must be between <code>8000</code> and <code>12000</code>, excluding the reserved port <code>8443</code>.</p>
+            resource_configurations: <p>The updated resource configurations for the AgentCore Runtime. You can specify at most one resource configuration.</p>
             client_token: <p>A unique, case-sensitive identifier to ensure idempotency of the request.</p>
 
         Raises:
@@ -955,6 +1001,8 @@ class AsyncAgentResource:
             input_["protocol_configuration"] = protocol_configuration
         if lifecycle_configuration is not None:
             input_["lifecycle_configuration"] = lifecycle_configuration
+        if hooks_configuration is not None:
+            input_["hooks_configuration"] = hooks_configuration
         if metadata_configuration is not None:
             input_["metadata_configuration"] = metadata_configuration
         if environment_variables is not None:
@@ -967,6 +1015,8 @@ class AsyncAgentResource:
             input_["platform_version"] = platform_version
         if allowed_ports is not None:
             input_["allowed_ports"] = allowed_ports
+        if resource_configurations is not None:
+            input_["resource_configurations"] = resource_configurations
         if client_token is None:
             client_token = str(uuid.uuid4())
         input_["client_token"] = client_token

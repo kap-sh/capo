@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_marketplace_agreement.types.agreement_type
     import capo_marketplace_agreement.types.end_time_behavior
     import capo_marketplace_agreement.types.estimated_charges
+    import capo_marketplace_agreement.types.free_trial_summary
     import capo_marketplace_agreement.types.proposal_summary
     import capo_marketplace_agreement.types.proposer
     import capo_marketplace_agreement.types.resource_id
@@ -53,6 +54,10 @@ class DescribeAgreementOutput(TypedDict, closed=True):
         "capo_marketplace_agreement.types.end_time_behavior.EndTimeBehavior"
     ]
     """<p>The behavior of the agreement when it reaches its end date. For example, whether the agreement renews, and if it doesn't, the reason why.</p> <p>This field is present for every active agreement that has an end date. It is not present for an agreement that has no end date, because such an agreement never reaches an end time. Pay-as-you-go agreements are the most common example. It is also not present for an agreement that is no longer active.</p>"""
+    free_trial_summary: NotRequired[
+        "capo_marketplace_agreement.types.free_trial_summary.FreeTrialSummary"
+    ]
+    """<p>The free trial details of the agreement. This field is present only when the agreement includes a free trial.</p>"""
 
 
 # --- awsJson1_0 ser/de ---
@@ -136,6 +141,14 @@ def serialize_aws_json_1_0(value: DescribeAgreementOutput) -> dict:
                 value["end_time_behavior"]
             )
         )
+    if "free_trial_summary" in value:
+        import capo_marketplace_agreement.types.free_trial_summary
+
+        out["freeTrialSummary"] = (
+            capo_marketplace_agreement.types.free_trial_summary.serialize_aws_json_1_0(
+                value["free_trial_summary"]
+            )
+        )
     return out
 
 
@@ -217,6 +230,14 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeAgreementOutput:
         out["end_time_behavior"] = (
             capo_marketplace_agreement.types.end_time_behavior.deserialize_aws_json_1_0(
                 data["endTimeBehavior"]
+            )
+        )
+    if data.get("freeTrialSummary") is not None:
+        import capo_marketplace_agreement.types.free_trial_summary
+
+        out["free_trial_summary"] = (
+            capo_marketplace_agreement.types.free_trial_summary.deserialize_aws_json_1_0(
+                data["freeTrialSummary"]
             )
         )
     return out

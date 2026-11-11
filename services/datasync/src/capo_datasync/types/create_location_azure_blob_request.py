@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     import capo_datasync.types.azure_blob_sas_configuration
     import capo_datasync.types.azure_blob_subdirectory
     import capo_datasync.types.azure_blob_type
+    import capo_datasync.types.azure_federated_identity_config
     import capo_datasync.types.cmk_secret_config
     import capo_datasync.types.custom_secret_config
     import capo_datasync.types.input_tag_list
@@ -23,11 +24,15 @@ class CreateLocationAzureBlobRequest(TypedDict, closed=True):
     authentication_type: (
         "capo_datasync.types.azure_blob_authentication_type.AzureBlobAuthenticationType"
     )
-    """<p>Specifies the authentication method DataSync uses to access your Azure Blob Storage. DataSync can access blob storage using a shared access signature (SAS).</p>"""
+    """<p>Specifies the authentication method DataSync uses to access your Azure Blob Storage. DataSync can access blob storage using a shared access signature (SAS) or an OpenID Connect (OIDC) token.</p>"""
     sas_configuration: NotRequired[
         "capo_datasync.types.azure_blob_sas_configuration.AzureBlobSasConfiguration"
     ]
     """<p>Specifies the SAS configuration that allows DataSync to access your Azure Blob Storage.</p> <note> <p>If you provide an authentication token using <code>SasConfiguration</code>, but do not provide secret configuration details using <code>CmkSecretConfig</code> or <code>CustomSecretConfig</code>, then DataSync stores the token using your Amazon Web Services account's secrets manager secret.</p> </note>"""
+    federated_identity: NotRequired[
+        "capo_datasync.types.azure_federated_identity_config.AzureFederatedIdentityConfig"
+    ]
+    """<p>Specifies the federated identity configuration that allows DataSync to access your Azure Blob Storage using an OpenID Connect (OIDC) token instead of a shared access signature (SAS). Provide either <code>FederatedIdentity</code> or <code>SasConfiguration</code>, but not both.</p>"""
     blob_type: NotRequired["capo_datasync.types.azure_blob_type.AzureBlobType"]
     """<p>Specifies the type of blob that you want your objects or files to be when transferring them into Azure Blob Storage. Currently, DataSync only supports moving data into Azure Blob Storage as block blobs. For more information on blob types, see the <a href="https://learn.microsoft.com/en-us/rest/api/storageservices/understanding-block-blobs--append-blobs--and-page-blobs">Azure Blob Storage documentation</a>.</p>"""
     access_tier: NotRequired["capo_datasync.types.azure_access_tier.AzureAccessTier"]
@@ -67,6 +72,14 @@ def serialize_aws_json_1_1(value: CreateLocationAzureBlobRequest) -> dict:
         out["SasConfiguration"] = (
             capo_datasync.types.azure_blob_sas_configuration.serialize_aws_json_1_1(
                 value["sas_configuration"]
+            )
+        )
+    if "federated_identity" in value:
+        import capo_datasync.types.azure_federated_identity_config
+
+        out["FederatedIdentity"] = (
+            capo_datasync.types.azure_federated_identity_config.serialize_aws_json_1_1(
+                value["federated_identity"]
             )
         )
     if "blob_type" in value:
@@ -143,6 +156,14 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationAzureBlobRequest:
         out["sas_configuration"] = (
             capo_datasync.types.azure_blob_sas_configuration.deserialize_aws_json_1_1(
                 data["SasConfiguration"]
+            )
+        )
+    if data.get("FederatedIdentity") is not None:
+        import capo_datasync.types.azure_federated_identity_config
+
+        out["federated_identity"] = (
+            capo_datasync.types.azure_federated_identity_config.deserialize_aws_json_1_1(
+                data["FederatedIdentity"]
             )
         )
     if data.get("BlobType") is not None:

@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     import capo_connect.types.assign_contact_category_action_definition
     import capo_connect.types.assign_sla_action_definition
     import capo_connect.types.create_case_action_definition
+    import capo_connect.types.end_associated_emails_action_definition
     import capo_connect.types.end_associated_tasks_action_definition
     import capo_connect.types.event_bridge_action_definition
     import capo_connect.types.extract_information_action_definition
@@ -54,6 +55,10 @@ class RuleAction(TypedDict, closed=True):
         "capo_connect.types.end_associated_tasks_action_definition.EndAssociatedTasksActionDefinition"
     ]
     """<p>Information about the end associated tasks action.</p> <p>Supported only for <code>TriggerEventSource</code> values: <code>OnCaseUpdate</code>.</p>"""
+    end_associated_emails_action: NotRequired[
+        "capo_connect.types.end_associated_emails_action_definition.EndAssociatedEmailsActionDefinition"
+    ]
+    """<p>Information about the end associated emails action.</p> <p>Supported only for <code>TriggerEventSource</code> values: <code>OnCaseUpdate</code>.</p>"""
     submit_auto_evaluation_action: NotRequired[
         "capo_connect.types.submit_auto_evaluation_action_definition.SubmitAutoEvaluationActionDefinition"
     ]
@@ -136,6 +141,14 @@ def serialize_json(value: RuleAction) -> dict:
         out["EndAssociatedTasksAction"] = (
             capo_connect.types.end_associated_tasks_action_definition.serialize_json(
                 value["end_associated_tasks_action"]
+            )
+        )
+    if "end_associated_emails_action" in value:
+        import capo_connect.types.end_associated_emails_action_definition
+
+        out["EndAssociatedEmailsAction"] = (
+            capo_connect.types.end_associated_emails_action_definition.serialize_json(
+                value["end_associated_emails_action"]
             )
         )
     if "submit_auto_evaluation_action" in value:
@@ -239,6 +252,14 @@ def deserialize_json(data: dict) -> RuleAction:
         out["end_associated_tasks_action"] = (
             capo_connect.types.end_associated_tasks_action_definition.deserialize_json(
                 data["EndAssociatedTasksAction"]
+            )
+        )
+    if data.get("EndAssociatedEmailsAction") is not None:
+        import capo_connect.types.end_associated_emails_action_definition
+
+        out["end_associated_emails_action"] = (
+            capo_connect.types.end_associated_emails_action_definition.deserialize_json(
+                data["EndAssociatedEmailsAction"]
             )
         )
     if data.get("SubmitAutoEvaluationAction") is not None:

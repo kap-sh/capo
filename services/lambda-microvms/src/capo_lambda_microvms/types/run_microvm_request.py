@@ -22,7 +22,7 @@ class RunMicrovmRequest(TypedDict, closed=True):
     egress_network_connectors: NotRequired[
         "capo_lambda_microvms.types.network_connector_list.NetworkConnectorList"
     ]
-    """<p>The list of egress network connectors to configure for the MicroVM.</p>"""
+    """<p>The list of egress network connectors available to the MicroVM at runtime.</p>"""
     image_identifier: (
         "capo_lambda_microvms.types.microvm_image_identifier.MicrovmImageIdentifier"
     )

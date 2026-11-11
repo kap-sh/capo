@@ -19,6 +19,7 @@ Permission: TypeAlias = Literal[
     "CREATE_LF_TAG_EXPRESSION",
     "CREATE_CATALOG",
     "SUPER_USER",
+    "EXECUTE",
 ]
 
 

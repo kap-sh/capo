@@ -12,6 +12,7 @@ import capo_arc_region_switch._auth._signers
 import capo_arc_region_switch._auth._sigv4
 import capo_arc_region_switch._protocol.eventstream
 import capo_arc_region_switch.errors.resource_not_found_exception
+import capo_arc_region_switch.errors.retryable_conflict_exception
 import capo_arc_region_switch.types.associated_alarm_map
 import capo_arc_region_switch.types.plan
 import capo_arc_region_switch.types.report_configuration
@@ -38,6 +39,10 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ResourceNotFoundException":
             raise capo_arc_region_switch.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_0(
+                data, message, response=response
+            )
+        case "RetryableConflictException":
+            raise capo_arc_region_switch.errors.retryable_conflict_exception.RetryableConflictException.from_aws_json_1_0(
                 data, message, response=response
             )
         case _:

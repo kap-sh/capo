@@ -9,7 +9,9 @@ if TYPE_CHECKING:
     import capo_ram.types.date_time
     import capo_ram.types.permission_feature_set
     import capo_ram.types.permission_status
+    import capo_ram.types.permission_template_parameter_declaration_list
     import capo_ram.types.permission_type
+    import capo_ram.types.resource_owner
     import capo_ram.types.string
     import capo_ram.types.tag_list
 
@@ -27,6 +29,10 @@ class ResourceSharePermissionDetail(TypedDict, closed=True):
     """<p>The resource type to which this permission applies.</p>"""
     permission: NotRequired["capo_ram.types.string.String"]
     """<p>The permission's effect and actions in JSON format. The <code>effect</code> indicates whether the specified actions are allowed or denied. The <code>actions</code> list the operations to which the principal is granted or denied access.</p>"""
+    permission_template_parameters: NotRequired[
+        "capo_ram.types.permission_template_parameter_declaration_list.PermissionTemplateParameterDeclarationList"
+    ]
+    """<p>The list of template parameter declarations defined for this permission. Each declaration includes the parameter name, type, and description. This field is present only if the permission is a template with declared parameters.</p>"""
     creation_time: NotRequired["capo_ram.types.date_time.DateTime"]
     """<p>The date and time when the permission was created.</p>"""
     last_updated_time: NotRequired["capo_ram.types.date_time.DateTime"]
@@ -40,9 +46,11 @@ class ResourceSharePermissionDetail(TypedDict, closed=True):
     ]
     """<p>Indicates what features are available for this resource share. This parameter can have one of the following values:</p> <ul> <li> <p> <b>STANDARD</b> – A resource share that supports all functionality. These resource shares are visible to all principals you share the resource share with. You can modify these resource shares in RAM using the console or APIs. This resource share might have been created by RAM, or it might have been <b>CREATED_FROM_POLICY</b> and then promoted.</p> </li> <li> <p> <b>CREATED_FROM_POLICY</b> – The customer manually shared a resource by attaching a resource-based policy. That policy did not match any existing managed permissions, so RAM created this customer managed permission automatically on the customer's behalf based on the attached policy document. This type of resource share is visible only to the Amazon Web Services account that created it. You can't modify it in RAM unless you promote it. For more information, see <a>PromoteResourceShareCreatedFromPolicy</a>.</p> </li> <li> <p> <b>PROMOTING_TO_STANDARD</b> – This resource share was originally <code>CREATED_FROM_POLICY</code>, but the customer ran the <a>PromoteResourceShareCreatedFromPolicy</a> and that operation is still in progress. This value changes to <code>STANDARD</code> when complete.</p> </li> </ul>"""
     status: NotRequired["capo_ram.types.permission_status.PermissionStatus"]
-    """<p>The current status of the association between the permission and the resource share. The following are the possible values:</p> <ul> <li> <p> <code>ATTACHABLE</code> – This permission or version can be associated with resource shares.</p> </li> <li> <p> <code>UNATTACHABLE</code> – This permission or version can't currently be associated with resource shares.</p> </li> <li> <p> <code>DELETING</code> – This permission or version is in the process of being deleted.</p> </li> <li> <p> <code>DELETED</code> – This permission or version is deleted.</p> </li> </ul>"""
+    """<p>The current status of the association between the permission and the resource share. The following are the possible values:</p> <ul> <li> <p> <code>ATTACHABLE</code> – This permission or version can be associated with resource shares.</p> </li> <li> <p> <code>UNATTACHABLE</code> – This permission or version can't currently be associated with resource shares.</p> </li> <li> <p> <code>DELETING</code> – This permission or version is in the process of being deleted.</p> </li> <li> <p> <code>DELETED</code> – This permission or version is deleted.</p> </li> <li> <p> <code>DEPRECATED</code> – The permission owner deprecated this permission. It can't be associated with new resource shares, but existing associations continue to function.</p> </li> </ul>"""
     tags: NotRequired["capo_ram.types.tag_list.TagList"]
     """<p>The tag key and value pairs attached to the resource share.</p>"""
+    resource_owner: NotRequired["capo_ram.types.resource_owner.ResourceOwner"]
+    """<p>The owner of the permission. This can be one of the following values:</p> <ul> <li> <p> <code>SELF</code> – The permission is owned by the current account.</p> </li> <li> <p> <code>OTHER-ACCOUNTS</code> – The permission is owned by another account and shared with the current account.</p> </li> </ul>"""
 
 
 # --- restJson1 ser/de ---
@@ -60,6 +68,14 @@ def serialize_json(value: ResourceSharePermissionDetail) -> dict:
         out["resourceType"] = value["resource_type"]
     if "permission" in value:
         out["permission"] = value["permission"]
+    if "permission_template_parameters" in value:
+        import capo_ram.types.permission_template_parameter_declaration_list
+
+        out["permissionTemplateParameters"] = (
+            capo_ram.types.permission_template_parameter_declaration_list.serialize_json(
+                value["permission_template_parameters"]
+            )
+        )
     if "creation_time" in value:
         import capo_ram.types.date_time
 
@@ -94,6 +110,12 @@ def serialize_json(value: ResourceSharePermissionDetail) -> dict:
         import capo_ram.types.tag_list
 
         out["tags"] = capo_ram.types.tag_list.serialize_json(value["tags"])
+    if "resource_owner" in value:
+        import capo_ram.types.resource_owner
+
+        out["resourceOwner"] = capo_ram.types.resource_owner.serialize_json(
+            value["resource_owner"]
+        )
     return out
 
 
@@ -111,6 +133,14 @@ def deserialize_json(data: dict) -> ResourceSharePermissionDetail:
         out["resource_type"] = data["resourceType"]
     if data.get("permission") is not None:
         out["permission"] = data["permission"]
+    if data.get("permissionTemplateParameters") is not None:
+        import capo_ram.types.permission_template_parameter_declaration_list
+
+        out["permission_template_parameters"] = (
+            capo_ram.types.permission_template_parameter_declaration_list.deserialize_json(
+                data["permissionTemplateParameters"]
+            )
+        )
     if data.get("creationTime") is not None:
         import capo_ram.types.date_time
 
@@ -147,4 +177,10 @@ def deserialize_json(data: dict) -> ResourceSharePermissionDetail:
         import capo_ram.types.tag_list
 
         out["tags"] = capo_ram.types.tag_list.deserialize_json(data["tags"])
+    if data.get("resourceOwner") is not None:
+        import capo_ram.types.resource_owner
+
+        out["resource_owner"] = capo_ram.types.resource_owner.deserialize_json(
+            data["resourceOwner"]
+        )
     return out

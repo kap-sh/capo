@@ -55,8 +55,11 @@ if TYPE_CHECKING:
     import capo_qconnect.types.query_text
     import capo_qconnect.types.recommendation_id_list
     import capo_qconnect.types.recommendation_type
+    import capo_qconnect.types.register_assistant_replica_key_request
+    import capo_qconnect.types.register_assistant_replica_key_response
     import capo_qconnect.types.remove_assistant_ai_agent_request
     import capo_qconnect.types.remove_assistant_ai_agent_response
+    import capo_qconnect.types.replica_kms_key
     import capo_qconnect.types.result_data
     import capo_qconnect.types.retrieval_configuration
     import capo_qconnect.types.retrieve_request
@@ -666,6 +669,64 @@ class Assistant:
         response.response.close()
         return response.output
 
+    def register_assistant_replica_key(
+        self,
+        assistant_id: "capo_qconnect.types.uuid_or_arn.UuidOrArn",
+        replica_kms_key: "capo_qconnect.types.replica_kms_key.ReplicaKmsKey",
+        *,
+        config_overrides: Optional[QConnectClientConfig] = None,
+        client_token: Optional["capo_qconnect.types.client_token.ClientToken"] = None,
+    ) -> "capo_qconnect.types.register_assistant_replica_key_response.RegisterAssistantReplicaKeyResponse":
+        """<p>Registers a replica Region KMS key for an Amazon Q in Connect assistant. To use this operation, you must have <code>kms:GenerateDataKey</code> permission on the replica key.</p>
+
+        Args:
+            assistant_id: <p>The identifier of the Amazon Q in Connect assistant.</p>
+            replica_kms_key: <p>The replica Region KMS key to register for the assistant.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>..</p>
+
+        Raises:
+            capo_qconnect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_qconnect.errors.conflict_exception.ConflictException: <p>The request could not be processed because of conflict in the current state of the resource. For example, if you're using a <code>Create</code> API (such as <code>CreateAssistant</code>) that accepts name, a conflicting resource (usually with the same name) is being created or mutated.</p>
+            capo_qconnect.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist.</p>
+            capo_qconnect.errors.throttling_exception.ThrottlingException: <p>The throttling limit has been exceeded.</p>
+            capo_qconnect.errors.unauthorized_exception.UnauthorizedException: <p>You do not have permission to perform this action.</p>
+            capo_qconnect.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by a service.</p>
+            capo_qconnect.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_qconnect.types.register_assistant_replica_key_request.RegisterAssistantReplicaKeyRequest]",
+        ) -> OperationResponse[
+            "capo_qconnect.types.register_assistant_replica_key_response.RegisterAssistantReplicaKeyResponse"
+        ]:
+            import capo_qconnect._operations.wisdom_service.register_assistant_replica_key
+
+            output, http_response = (
+                capo_qconnect._operations.wisdom_service.register_assistant_replica_key.register_assistant_replica_key(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RegisterAssistantReplicaKey")
+        )
+        input_: capo_qconnect.types.register_assistant_replica_key_request.RegisterAssistantReplicaKeyRequest = {
+            "assistant_id": assistant_id,
+            "replica_kms_key": replica_kms_key,
+        }
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def remove_assistant_ai_agent(
         self,
         assistant_id: "capo_qconnect.types.uuid_or_arn.UuidOrArn",
@@ -685,6 +746,7 @@ class Assistant:
 
         Raises:
             capo_qconnect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_qconnect.errors.conflict_exception.ConflictException: <p>The request could not be processed because of conflict in the current state of the resource. For example, if you're using a <code>Create</code> API (such as <code>CreateAssistant</code>) that accepts name, a conflicting resource (usually with the same name) is being created or mutated.</p>
             capo_qconnect.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist.</p>
             capo_qconnect.errors.throttling_exception.ThrottlingException: <p>The throttling limit has been exceeded.</p>
             capo_qconnect.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by a service.</p>
@@ -878,6 +940,7 @@ class Assistant:
 
         Raises:
             capo_qconnect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_qconnect.errors.conflict_exception.ConflictException: <p>The request could not be processed because of conflict in the current state of the resource. For example, if you're using a <code>Create</code> API (such as <code>CreateAssistant</code>) that accepts name, a conflicting resource (usually with the same name) is being created or mutated.</p>
             capo_qconnect.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist.</p>
             capo_qconnect.errors.throttling_exception.ThrottlingException: <p>The throttling limit has been exceeded.</p>
             capo_qconnect.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by a service.</p>
@@ -1513,6 +1576,65 @@ class AsyncAssistant:
         await response.response.aclose()
         return response.output
 
+    async def register_assistant_replica_key(
+        self,
+        assistant_id: "capo_qconnect.types.uuid_or_arn.UuidOrArn",
+        replica_kms_key: "capo_qconnect.types.replica_kms_key.ReplicaKmsKey",
+        *,
+        config_overrides: Optional[AsyncQConnectClientConfig] = None,
+        client_token: Optional["capo_qconnect.types.client_token.ClientToken"] = None,
+    ) -> "capo_qconnect.types.register_assistant_replica_key_response.RegisterAssistantReplicaKeyResponse":
+        """<p>Registers a replica Region KMS key for an Amazon Q in Connect assistant. To use this operation, you must have <code>kms:GenerateDataKey</code> permission on the replica key.</p>
+
+        Args:
+            assistant_id: <p>The identifier of the Amazon Q in Connect assistant.</p>
+            replica_kms_key: <p>The replica Region KMS key to register for the assistant.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>..</p>
+
+        Raises:
+            capo_qconnect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_qconnect.errors.conflict_exception.ConflictException: <p>The request could not be processed because of conflict in the current state of the resource. For example, if you're using a <code>Create</code> API (such as <code>CreateAssistant</code>) that accepts name, a conflicting resource (usually with the same name) is being created or mutated.</p>
+            capo_qconnect.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist.</p>
+            capo_qconnect.errors.throttling_exception.ThrottlingException: <p>The throttling limit has been exceeded.</p>
+            capo_qconnect.errors.unauthorized_exception.UnauthorizedException: <p>You do not have permission to perform this action.</p>
+            capo_qconnect.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by a service.</p>
+            capo_qconnect.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_qconnect.types.register_assistant_replica_key_request.RegisterAssistantReplicaKeyRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_qconnect.types.register_assistant_replica_key_response.RegisterAssistantReplicaKeyResponse"
+        ]:
+            import capo_qconnect._operations.wisdom_service.register_assistant_replica_key
+
+            (
+                output,
+                http_response,
+            ) = await capo_qconnect._operations.wisdom_service.register_assistant_replica_key.async_register_assistant_replica_key(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RegisterAssistantReplicaKey")
+        )
+        input_: capo_qconnect.types.register_assistant_replica_key_request.RegisterAssistantReplicaKeyRequest = {
+            "assistant_id": assistant_id,
+            "replica_kms_key": replica_kms_key,
+        }
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def remove_assistant_ai_agent(
         self,
         assistant_id: "capo_qconnect.types.uuid_or_arn.UuidOrArn",
@@ -1532,6 +1654,7 @@ class AsyncAssistant:
 
         Raises:
             capo_qconnect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_qconnect.errors.conflict_exception.ConflictException: <p>The request could not be processed because of conflict in the current state of the resource. For example, if you're using a <code>Create</code> API (such as <code>CreateAssistant</code>) that accepts name, a conflicting resource (usually with the same name) is being created or mutated.</p>
             capo_qconnect.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist.</p>
             capo_qconnect.errors.throttling_exception.ThrottlingException: <p>The throttling limit has been exceeded.</p>
             capo_qconnect.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by a service.</p>
@@ -1728,6 +1851,7 @@ class AsyncAssistant:
 
         Raises:
             capo_qconnect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_qconnect.errors.conflict_exception.ConflictException: <p>The request could not be processed because of conflict in the current state of the resource. For example, if you're using a <code>Create</code> API (such as <code>CreateAssistant</code>) that accepts name, a conflicting resource (usually with the same name) is being created or mutated.</p>
             capo_qconnect.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist.</p>
             capo_qconnect.errors.throttling_exception.ThrottlingException: <p>The throttling limit has been exceeded.</p>
             capo_qconnect.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by a service.</p>

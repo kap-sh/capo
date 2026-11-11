@@ -24,9 +24,9 @@ class UpdateDesignationInput(TypedDict, closed=True):
     policy: NotRequired[
         "capo_datazone.types.cedar_designation_policy.CedarDesignationPolicy"
     ]
-    """The updated Cedar permit policy."""
+    """<p>The updated Cedar permit policy. Omit to keep the existing policy.</p>"""
     deletion_protection: NotRequired["bool"]
-    """Whether deletion protection is enabled for this designation. Omit to keep the existing value."""
+    """<p>Specifies whether deletion protection is enabled for this designation. Omit to keep the existing value.</p>"""
 
 
 # --- restJson1 ser/de ---

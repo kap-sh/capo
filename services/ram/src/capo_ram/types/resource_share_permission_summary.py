@@ -8,7 +8,9 @@ if TYPE_CHECKING:
     import capo_ram.types.boolean
     import capo_ram.types.date_time
     import capo_ram.types.permission_feature_set
+    import capo_ram.types.permission_template_parameter_list
     import capo_ram.types.permission_type
+    import capo_ram.types.resource_owner
     import capo_ram.types.string
     import capo_ram.types.tag_list
 
@@ -38,8 +40,14 @@ class ResourceSharePermissionSummary(TypedDict, closed=True):
         "capo_ram.types.permission_feature_set.PermissionFeatureSet"
     ]
     """<p>Indicates what features are available for this resource share. This parameter can have one of the following values:</p> <ul> <li> <p> <b>STANDARD</b> – A resource share that supports all functionality. These resource shares are visible to all principals you share the resource share with. You can modify these resource shares in RAM using the console or APIs. This resource share might have been created by RAM, or it might have been <b>CREATED_FROM_POLICY</b> and then promoted.</p> </li> <li> <p> <b>CREATED_FROM_POLICY</b> – The customer manually shared a resource by attaching a resource-based policy. That policy did not match any existing managed permissions, so RAM created this customer managed permission automatically on the customer's behalf based on the attached policy document. This type of resource share is visible only to the Amazon Web Services account that created it. You can't modify it in RAM unless you promote it. For more information, see <a>PromoteResourceShareCreatedFromPolicy</a>.</p> </li> <li> <p> <b>PROMOTING_TO_STANDARD</b> – This resource share was originally <code>CREATED_FROM_POLICY</code>, but the customer ran the <a>PromoteResourceShareCreatedFromPolicy</a> and that operation is still in progress. This value changes to <code>STANDARD</code> when complete.</p> </li> </ul>"""
+    permission_template_parameters: NotRequired[
+        "capo_ram.types.permission_template_parameter_list.PermissionTemplateParameterList"
+    ]
+    """<p>The list of template parameters defined for this permission, including their names, types, descriptions, and values. This field is present only if the permission is a template with declared parameters. When returned in the context of a permission association, the values are also included.</p>"""
     tags: NotRequired["capo_ram.types.tag_list.TagList"]
     """<p>A list of the tag key value pairs currently attached to the permission.</p>"""
+    resource_owner: NotRequired["capo_ram.types.resource_owner.ResourceOwner"]
+    """<p>The owner of the permission. This can be one of the following values:</p> <ul> <li> <p> <code>SELF</code> – The permission is owned by the current account.</p> </li> <li> <p> <code>OTHER-ACCOUNTS</code> – The permission is owned by another account and shared with the current account.</p> </li> </ul>"""
 
 
 # --- restJson1 ser/de ---
@@ -83,10 +91,24 @@ def serialize_json(value: ResourceSharePermissionSummary) -> dict:
         out["featureSet"] = capo_ram.types.permission_feature_set.serialize_json(
             value["feature_set"]
         )
+    if "permission_template_parameters" in value:
+        import capo_ram.types.permission_template_parameter_list
+
+        out["permissionTemplateParameters"] = (
+            capo_ram.types.permission_template_parameter_list.serialize_json(
+                value["permission_template_parameters"]
+            )
+        )
     if "tags" in value:
         import capo_ram.types.tag_list
 
         out["tags"] = capo_ram.types.tag_list.serialize_json(value["tags"])
+    if "resource_owner" in value:
+        import capo_ram.types.resource_owner
+
+        out["resourceOwner"] = capo_ram.types.resource_owner.serialize_json(
+            value["resource_owner"]
+        )
     return out
 
 
@@ -130,8 +152,22 @@ def deserialize_json(data: dict) -> ResourceSharePermissionSummary:
         out["feature_set"] = capo_ram.types.permission_feature_set.deserialize_json(
             data["featureSet"]
         )
+    if data.get("permissionTemplateParameters") is not None:
+        import capo_ram.types.permission_template_parameter_list
+
+        out["permission_template_parameters"] = (
+            capo_ram.types.permission_template_parameter_list.deserialize_json(
+                data["permissionTemplateParameters"]
+            )
+        )
     if data.get("tags") is not None:
         import capo_ram.types.tag_list
 
         out["tags"] = capo_ram.types.tag_list.deserialize_json(data["tags"])
+    if data.get("resourceOwner") is not None:
+        import capo_ram.types.resource_owner
+
+        out["resource_owner"] = capo_ram.types.resource_owner.deserialize_json(
+            data["resourceOwner"]
+        )
     return out

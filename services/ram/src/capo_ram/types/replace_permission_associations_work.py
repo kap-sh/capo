@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_ram.types.date_time
+    import capo_ram.types.permission_template_parameter_list
     import capo_ram.types.replace_permission_associations_work_status
     import capo_ram.types.string
 
@@ -21,6 +22,10 @@ class ReplacePermissionAssociationsWork(TypedDict, closed=True):
     """<p>The ARN of the managed permission that this background task is associating with the resource shares in place of the managed permission and version specified in <code>fromPermissionArn</code> and <code>fromPermissionVersion</code>.</p>"""
     to_permission_version: NotRequired["capo_ram.types.string.String"]
     """<p>The version of the managed permission that this background task is associating with the resource shares. This is always the version that is currently the default for this managed permission.</p>"""
+    permission_template_parameters: NotRequired[
+        "capo_ram.types.permission_template_parameter_list.PermissionTemplateParameterList"
+    ]
+    """<p>The template parameter values to apply when replacing the permission. This field is present only if the target permission is a template with declared parameters.</p>"""
     status: NotRequired[
         "capo_ram.types.replace_permission_associations_work_status.ReplacePermissionAssociationsWorkStatus"
     ]
@@ -46,6 +51,14 @@ def serialize_json(value: ReplacePermissionAssociationsWork) -> dict:
         out["toPermissionArn"] = value["to_permission_arn"]
     if "to_permission_version" in value:
         out["toPermissionVersion"] = value["to_permission_version"]
+    if "permission_template_parameters" in value:
+        import capo_ram.types.permission_template_parameter_list
+
+        out["permissionTemplateParameters"] = (
+            capo_ram.types.permission_template_parameter_list.serialize_json(
+                value["permission_template_parameters"]
+            )
+        )
     if "status" in value:
         import capo_ram.types.replace_permission_associations_work_status
 
@@ -83,6 +96,14 @@ def deserialize_json(data: dict) -> ReplacePermissionAssociationsWork:
         out["to_permission_arn"] = data["toPermissionArn"]
     if data.get("toPermissionVersion") is not None:
         out["to_permission_version"] = data["toPermissionVersion"]
+    if data.get("permissionTemplateParameters") is not None:
+        import capo_ram.types.permission_template_parameter_list
+
+        out["permission_template_parameters"] = (
+            capo_ram.types.permission_template_parameter_list.deserialize_json(
+                data["permissionTemplateParameters"]
+            )
+        )
     if data.get("status") is not None:
         import capo_ram.types.replace_permission_associations_work_status
 

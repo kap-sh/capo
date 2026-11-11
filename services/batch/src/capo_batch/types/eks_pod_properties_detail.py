@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_batch.types.boolean
     import capo_batch.types.eks_container_details
     import capo_batch.types.eks_metadata
+    import capo_batch.types.eks_pod_security_context
     import capo_batch.types.eks_volumes
     import capo_batch.types.image_pull_secrets
     import capo_batch.types.string
@@ -42,6 +43,10 @@ class EksPodPropertiesDetail(TypedDict, closed=True):
     """<p>Describes and uniquely identifies Kubernetes resources. For example, the compute environment that a pod runs in or the <code>jobID</code> for a job running in the pod. For more information, see <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/">Understanding Kubernetes Objects</a> in the <i>Kubernetes documentation</i>.</p>"""
     share_process_namespace: NotRequired["capo_batch.types.boolean.Boolean"]
     """<p>Indicates if the processes in a container are shared, or visible, to other containers in the same pod. For more information, see <a href="https://kubernetes.io/docs/tasks/configure-pod-container/share-process-namespace/">Share Process Namespace between Containers in a Pod</a>.</p>"""
+    security_context: NotRequired[
+        "capo_batch.types.eks_pod_security_context.EksPodSecurityContext"
+    ]
+    """<p>The security context applied to the pod. The settings apply to all containers in the pod unless an individual container specifies an overriding value.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -87,6 +92,14 @@ def serialize_json(value: EksPodPropertiesDetail) -> dict:
         )
     if "share_process_namespace" in value:
         out["shareProcessNamespace"] = value["share_process_namespace"]
+    if "security_context" in value:
+        import capo_batch.types.eks_pod_security_context
+
+        out["securityContext"] = (
+            capo_batch.types.eks_pod_security_context.serialize_json(
+                value["security_context"]
+            )
+        )
     return out
 
 
@@ -136,4 +149,12 @@ def deserialize_json(data: dict) -> EksPodPropertiesDetail:
         )
     if data.get("shareProcessNamespace") is not None:
         out["share_process_namespace"] = data["shareProcessNamespace"]
+    if data.get("securityContext") is not None:
+        import capo_batch.types.eks_pod_security_context
+
+        out["security_context"] = (
+            capo_batch.types.eks_pod_security_context.deserialize_json(
+                data["securityContext"]
+            )
+        )
     return out

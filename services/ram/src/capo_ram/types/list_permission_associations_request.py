@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     import capo_ram.types.integer
     import capo_ram.types.max_results
     import capo_ram.types.permission_feature_set
+    import capo_ram.types.resource_owner
     import capo_ram.types.resource_share_association_status
     import capo_ram.types.string
 
@@ -30,6 +31,10 @@ class ListPermissionAssociationsRequest(TypedDict, closed=True):
     """<p>Specifies that you want to list only those associations with resource shares that have a <code>featureSet</code> with this value.</p>"""
     default_version: NotRequired["capo_ram.types.boolean.Boolean"]
     """<p>When <code>true</code>, specifies that you want to list only those associations with resource shares that use the default version of the specified managed permission.</p> <p>When <code>false</code> (the default value), lists associations with resource shares that use any version of the specified managed permission.</p>"""
+    resource_owner: NotRequired["capo_ram.types.resource_owner.ResourceOwner"]
+    """<p>Specifies that you want to list only those associations with resource shares owned by a specific entity:</p> <ul> <li> <p> <code>SELF</code> – returns only associations with resource shares owned by the calling account.</p> </li> <li> <p> <code>OTHER-ACCOUNTS</code> – returns only associations with resource shares owned by other Amazon Web Services accounts.</p> </li> </ul> <p>If you don't specify this parameter, the default is <code>SELF</code>.</p>"""
+    resource_share_arn: NotRequired["capo_ram.types.string.String"]
+    """<p>Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of the resource share for which you want to retrieve permission associations.</p>"""
     next_token: NotRequired["capo_ram.types.string.String"]
     """<p>Specifies that you want to receive the next page of results. Valid only if you received a <code>NextToken</code> response in the previous request. If you did, it indicates that more output is available. Set this parameter to the value provided by the previous call's <code>NextToken</code> response to request the next page of results.</p>"""
     max_results: NotRequired["capo_ram.types.max_results.MaxResults"]
@@ -61,6 +66,14 @@ def serialize_json(value: ListPermissionAssociationsRequest) -> dict:
         )
     if "default_version" in value:
         out["defaultVersion"] = value["default_version"]
+    if "resource_owner" in value:
+        import capo_ram.types.resource_owner
+
+        out["resourceOwner"] = capo_ram.types.resource_owner.serialize_json(
+            value["resource_owner"]
+        )
+    if "resource_share_arn" in value:
+        out["resourceShareArn"] = value["resource_share_arn"]
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
     if "max_results" in value:
@@ -92,6 +105,14 @@ def deserialize_json(data: dict) -> ListPermissionAssociationsRequest:
         )
     if data.get("defaultVersion") is not None:
         out["default_version"] = data["defaultVersion"]
+    if data.get("resourceOwner") is not None:
+        import capo_ram.types.resource_owner
+
+        out["resource_owner"] = capo_ram.types.resource_owner.deserialize_json(
+            data["resourceOwner"]
+        )
+    if data.get("resourceShareArn") is not None:
+        out["resource_share_arn"] = data["resourceShareArn"]
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:

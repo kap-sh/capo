@@ -17,9 +17,12 @@ import capo_network_firewall.errors.resource_not_found_exception
 import capo_network_firewall.errors.throttling_exception
 import capo_network_firewall.types.describe_rule_group_request
 import capo_network_firewall.types.describe_rule_group_response
+import capo_network_firewall.types.firewall_rule_group
+import capo_network_firewall.types.ips_rule_group
 import capo_network_firewall.types.rule_group
 import capo_network_firewall.types.rule_group_response
 import capo_network_firewall.types.rule_group_type
+import capo_network_firewall.types.rule_output_format
 from capo_network_firewall._protocol.errors import parse_error_metadata_json
 from capo_network_firewall._rule_engine._endpoint_rule_set import (
     EndpointParams,

@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.authorizer_configuration
     import capo_bedrock_agentcore_control.types.authorizer_type
     import capo_bedrock_agentcore_control.types.client_token
+    import capo_bedrock_agentcore_control.types.domain_override
     import capo_bedrock_agentcore_control.types.exception_level
     import capo_bedrock_agentcore_control.types.gateway_description
     import capo_bedrock_agentcore_control.types.gateway_interceptor_configurations
@@ -67,6 +68,10 @@ class CreateGatewayRequest(TypedDict, closed=True):
     """<p>The level of detail in error messages returned when invoking the gateway.</p> <ul> <li> <p>If the value is <code>DEBUG</code>, granular exception messages are returned to help a user debug the gateway.</p> </li> <li> <p>If the value is omitted, a generic error message is returned to the end user.</p> </li> </ul>"""
     tags: NotRequired["capo_bedrock_agentcore_control.types.tags_map.TagsMap"]
     """<p>A map of key-value pairs to associate with the gateway as metadata tags.</p>"""
+    domain_override: NotRequired[
+        "capo_bedrock_agentcore_control.types.domain_override.DomainOverride"
+    ]
+    """<p>The public domain names that the gateway advertises in its OAuth discovery URLs instead of the inbound Host header. Specify this when clients reach the gateway through your own proxy or custom domain.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -140,6 +145,14 @@ def serialize_json(value: CreateGatewayRequest) -> dict:
 
         out["tags"] = capo_bedrock_agentcore_control.types.tags_map.serialize_json(
             value["tags"]
+        )
+    if "domain_override" in value:
+        import capo_bedrock_agentcore_control.types.domain_override
+
+        out["domainOverride"] = (
+            capo_bedrock_agentcore_control.types.domain_override.serialize_json(
+                value["domain_override"]
+            )
         )
     return out
 
@@ -227,6 +240,14 @@ def deserialize_json(data: dict) -> CreateGatewayRequest:
 
         out["tags"] = capo_bedrock_agentcore_control.types.tags_map.deserialize_json(
             data["tags"]
+        )
+    if data.get("domainOverride") is not None:
+        import capo_bedrock_agentcore_control.types.domain_override
+
+        out["domain_override"] = (
+            capo_bedrock_agentcore_control.types.domain_override.deserialize_json(
+                data["domainOverride"]
+            )
         )
     return out
 

@@ -9,6 +9,7 @@ if TYPE_CHECKING:
 
     import capo_qconnect.types.ai_prompt_type_list
     import capo_qconnect.types.cross_region_status
+    import capo_qconnect.types.global_resiliency_status
     import capo_qconnect.types.model_display_name
     import capo_qconnect.types.model_id
     import capo_qconnect.types.model_lifecycle
@@ -35,6 +36,10 @@ class ModelSummary(TypedDict, closed=True):
     """<p>The timestamp when the model lifecycle will transition from <code>ACTIVE</code> to <code>LEGACY</code>.</p>"""
     end_of_life_timestamp: NotRequired["datetime.datetime"]
     """<p>The timestamp when the model will reach end of life and no longer be available for use.</p>"""
+    global_resiliency_status: NotRequired[
+        "capo_qconnect.types.global_resiliency_status.GlobalResiliencyStatus"
+    ]
+    """Whether this model is published in every Region of the caller's Amazon Connect Global Resiliency replication group, and so can be referenced by an AI Prompt that replicates. Present only for callers to which global resiliency applies."""
 
 
 # --- restJson1 ser/de ---
@@ -70,6 +75,8 @@ def serialize_json(value: ModelSummary) -> dict:
                 value["end_of_life_timestamp"]
             )
         )
+    if "global_resiliency_status" in value:
+        out["globalResiliencyStatus"] = value["global_resiliency_status"]
     return out
 
 
@@ -113,4 +120,6 @@ def deserialize_json(data: dict) -> ModelSummary:
                 data["endOfLifeTimestamp"]
             )
         )
+    if data.get("globalResiliencyStatus") is not None:
+        out["global_resiliency_status"] = data["globalResiliencyStatus"]
     return out

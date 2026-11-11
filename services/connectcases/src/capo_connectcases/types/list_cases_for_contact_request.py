@@ -14,7 +14,7 @@ class ListCasesForContactRequest(TypedDict, closed=True):
     domain_id: "capo_connectcases.types.domain_id.DomainId"
     """<p>The unique identifier of the Cases domain. </p>"""
     contact_arn: "capo_connectcases.types.contact_arn.ContactArn"
-    """<p>A unique identifier of a contact in Amazon Connect.</p>"""
+    """<p>A unique identifier of a contact in Connect Customer.</p>"""
     max_results: NotRequired["int"]
     """<p>The maximum number of results to return per page.</p>"""
     next_token: NotRequired["capo_connectcases.types.next_token.NextToken"]

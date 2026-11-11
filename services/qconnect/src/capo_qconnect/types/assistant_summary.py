@@ -5,12 +5,15 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import datetime
+
     import capo_qconnect.types.ai_agent_configuration_map
     import capo_qconnect.types.arn
     import capo_qconnect.types.assistant_capability_configuration
     import capo_qconnect.types.assistant_integration_configuration
     import capo_qconnect.types.assistant_status
     import capo_qconnect.types.assistant_type
+    import capo_qconnect.types.aws_region
     import capo_qconnect.types.description
     import capo_qconnect.types.name
     import capo_qconnect.types.orchestrator_configuration_list
@@ -54,6 +57,10 @@ class AssistantSummary(TypedDict, closed=True):
         "capo_qconnect.types.orchestrator_configuration_list.OrchestratorConfigurationList"
     ]
     """<p>The list of orchestrator configurations for the assistant.</p>"""
+    last_modified_time: NotRequired["datetime.datetime"]
+    """<p>The timestamp when the assistant was last modified.</p>"""
+    last_modified_region: NotRequired["capo_qconnect.types.aws_region.AwsRegion"]
+    """<p>The Amazon Web Services Region where the assistant was last modified.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -110,6 +117,14 @@ def serialize_json(value: AssistantSummary) -> dict:
                 value["orchestrator_configuration_list"]
             )
         )
+    if "last_modified_time" in value:
+        import capo_qconnect.types._prelude.timestamp
+
+        out["lastModifiedTime"] = capo_qconnect.types._prelude.timestamp.serialize_json(
+            value["last_modified_time"]
+        )
+    if "last_modified_region" in value:
+        out["lastModifiedRegion"] = value["last_modified_region"]
     return out
 
 
@@ -181,4 +196,14 @@ def deserialize_json(data: dict) -> AssistantSummary:
                 data["orchestratorConfigurationList"]
             )
         )
+    if data.get("lastModifiedTime") is not None:
+        import capo_qconnect.types._prelude.timestamp
+
+        out["last_modified_time"] = (
+            capo_qconnect.types._prelude.timestamp.deserialize_json(
+                data["lastModifiedTime"]
+            )
+        )
+    if data.get("lastModifiedRegion") is not None:
+        out["last_modified_region"] = data["lastModifiedRegion"]
     return out

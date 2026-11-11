@@ -20,6 +20,7 @@ import capo_datasync.types.create_location_object_storage_response
 import capo_datasync.types.custom_secret_config
 import capo_datasync.types.input_tag_list
 import capo_datasync.types.object_storage_certificate
+import capo_datasync.types.object_storage_federated_identity_config
 import capo_datasync.types.object_storage_server_protocol
 from capo_datasync._protocol.errors import parse_error_metadata_json
 from capo_datasync._rule_engine._endpoint_rule_set import EndpointParams, resolve

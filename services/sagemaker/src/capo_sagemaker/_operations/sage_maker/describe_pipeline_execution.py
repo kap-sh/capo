@@ -18,6 +18,7 @@ import capo_sagemaker.types.m_lflow_configuration
 import capo_sagemaker.types.parallelism_configuration
 import capo_sagemaker.types.pipeline_execution_status
 import capo_sagemaker.types.pipeline_experiment_config
+import capo_sagemaker.types.pipeline_version_alias_list
 import capo_sagemaker.types.selective_execution_config
 import capo_sagemaker.types.timestamp
 import capo_sagemaker.types.user_context

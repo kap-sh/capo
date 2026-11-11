@@ -1449,6 +1449,7 @@ class AppIntegrationsClient:
             resource_arn: <p>The Amazon Resource Name (ARN) of the resource. </p>
 
         Raises:
+            capo_appintegrations.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
             capo_appintegrations.errors.internal_service_error.InternalServiceError: <p>Request processing failed due to an error or failure with the service.</p>
             capo_appintegrations.errors.invalid_request_exception.InvalidRequestException: <p>The request is not valid. </p>
             capo_appintegrations.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource was not found.</p>
@@ -1499,6 +1500,8 @@ class AppIntegrationsClient:
             tags: <p>The tags used to organize, track, or control access for this resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
+            capo_appintegrations.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_appintegrations.errors.conflict_exception.ConflictException: <p>The request conflicts with the current state of the resource. Verify the resource's current state and retry the request.</p>
             capo_appintegrations.errors.internal_service_error.InternalServiceError: <p>Request processing failed due to an error or failure with the service.</p>
             capo_appintegrations.errors.invalid_request_exception.InvalidRequestException: <p>The request is not valid. </p>
             capo_appintegrations.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource was not found.</p>
@@ -1550,6 +1553,8 @@ class AppIntegrationsClient:
             tag_keys: <p>The tag keys.</p>
 
         Raises:
+            capo_appintegrations.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_appintegrations.errors.conflict_exception.ConflictException: <p>The request conflicts with the current state of the resource. Verify the resource's current state and retry the request.</p>
             capo_appintegrations.errors.internal_service_error.InternalServiceError: <p>Request processing failed due to an error or failure with the service.</p>
             capo_appintegrations.errors.invalid_request_exception.InvalidRequestException: <p>The request is not valid. </p>
             capo_appintegrations.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource was not found.</p>
@@ -1646,7 +1651,7 @@ class AppIntegrationsClient:
 
         Raises:
             capo_appintegrations.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
-            capo_appintegrations.errors.conflict_exception.ConflictException: <p>The request conflicts with the current state of the resource. Verify the application's current state and retry the request.</p>
+            capo_appintegrations.errors.conflict_exception.ConflictException: <p>The request conflicts with the current state of the resource. Verify the resource's current state and retry the request.</p>
             capo_appintegrations.errors.internal_service_error.InternalServiceError: <p>Request processing failed due to an error or failure with the service.</p>
             capo_appintegrations.errors.invalid_request_exception.InvalidRequestException: <p>The request is not valid. </p>
             capo_appintegrations.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource was not found.</p>

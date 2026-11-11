@@ -163,6 +163,8 @@ if TYPE_CHECKING:
     import capo_ssm.types.delete_resource_policy_request
     import capo_ssm.types.delete_resource_policy_response
     import capo_ssm.types.deletion_mode
+    import capo_ssm.types.deregister_default_host_management_configuration_request
+    import capo_ssm.types.deregister_default_host_management_configuration_result
     import capo_ssm.types.deregister_managed_instance_request
     import capo_ssm.types.deregister_managed_instance_result
     import capo_ssm.types.deregister_patch_baseline_for_patch_group_request
@@ -239,6 +241,8 @@ if TYPE_CHECKING:
     import capo_ssm.types.describe_patch_properties_result
     import capo_ssm.types.describe_sessions_request
     import capo_ssm.types.describe_sessions_response
+    import capo_ssm.types.dhmc_permission_model
+    import capo_ssm.types.dhmc_role_arn
     import capo_ssm.types.disassociate_ops_item_related_item_request
     import capo_ssm.types.disassociate_ops_item_related_item_response
     import capo_ssm.types.display_name
@@ -527,6 +531,8 @@ if TYPE_CHECKING:
     import capo_ssm.types.put_parameter_result
     import capo_ssm.types.put_resource_policy_request
     import capo_ssm.types.put_resource_policy_response
+    import capo_ssm.types.register_default_host_management_configuration_request
+    import capo_ssm.types.register_default_host_management_configuration_result
     import capo_ssm.types.register_default_patch_baseline_request
     import capo_ssm.types.register_default_patch_baseline_result
     import capo_ssm.types.register_patch_baseline_for_patch_group_request
@@ -2402,7 +2408,7 @@ class SSMClient:
         *,
         config_overrides: Optional[SSMClientConfig] = None,
     ) -> "capo_ssm.types.delete_parameter_result.DeleteParameterResult":
-        """<p>Delete a parameter from the system. After deleting a parameter, wait for at least 30 seconds to create a parameter with the same name.</p>
+        """<p>Delete a parameter from the system. After deleting a parameter, wait for at least 30 seconds to create a parameter with the same name.</p> <note> <p>This operation is authorized against the <code>ssm:DeleteParameter</code> action. Denying that action alone doesn't restrict <a>DeleteParameters</a>, which is authorized against its own action. For more information, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/ps-restrict-parameter-access.html">Restricting access to specific parameters and paths</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p> </note>
 
         Args:
             name: <p>The name of the parameter to delete.</p> <note> <p>You can't enter the Amazon Resource Name (ARN) for a parameter, only the parameter name itself.</p> </note>
@@ -2448,7 +2454,7 @@ class SSMClient:
         *,
         config_overrides: Optional[SSMClientConfig] = None,
     ) -> "capo_ssm.types.delete_parameters_result.DeleteParametersResult":
-        """<p>Delete a list of parameters. After deleting a parameter, wait for at least 30 seconds to create a parameter with the same name.</p>
+        """<p>Delete a list of parameters. After deleting a parameter, wait for at least 30 seconds to create a parameter with the same name.</p> <important> <p>This operation is authorized against the <code>ssm:DeleteParameters</code> action, not against <code>ssm:DeleteParameter</code>. Denying <code>ssm:DeleteParameter</code> for a parameter doesn't prevent a principal from deleting that parameter with this operation. For more information, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/ps-restrict-parameter-access.html">Restricting access to specific parameters and paths</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p> </important>
 
         Args:
             names: <p>The names of the parameters to delete. After deleting a parameter, wait for at least 30 seconds to create a parameter with the same name.</p> <note> <p>You can't enter the Amazon Resource Name (ARN) for a parameter, only the parameter name itself.</p> </note>
@@ -2637,6 +2643,44 @@ class SSMClient:
         }
         if deletion_mode is not None:
             input_["deletion_mode"] = deletion_mode
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def deregister_default_host_management_configuration(
+        self, *, config_overrides: Optional[SSMClientConfig] = None
+    ) -> "capo_ssm.types.deregister_default_host_management_configuration_result.DeregisterDefaultHostManagementConfigurationResult":
+        """<p>Removes the Default Host Management Configuration (DHMC) for an Amazon Web Services account and Amazon Web Services Region. After you deregister DHMC, Amazon EC2 instances are no longer automatically managed as managed nodes by Amazon Web Services Systems Manager.</p> <p>To use this operation, you must have the following permissions:</p> <ul> <li> <p>You need the <code>ssm:GetServiceSetting</code> and <code>ssm:ResetServiceSetting</code> permissions for the <code>/ssm/managed-instance/default-ec2-instance-management-role</code> service setting.</p> </li> </ul> <p>If the registered role is service-managed, you also need the <code>iam:DeleteRole</code> permission so that Amazon Web Services Systems Manager can remove the role it created.</p>
+
+        Raises:
+            capo_ssm.errors.internal_server_error.InternalServerError: <p>An error occurred on the server side.</p>
+            capo_ssm.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_ssm.types.deregister_default_host_management_configuration_request.DeregisterDefaultHostManagementConfigurationRequest]",
+        ) -> OperationResponse[
+            "capo_ssm.types.deregister_default_host_management_configuration_result.DeregisterDefaultHostManagementConfigurationResult"
+        ]:
+            import capo_ssm._operations.amazon_ssm.deregister_default_host_management_configuration
+
+            output, http_response = (
+                capo_ssm._operations.amazon_ssm.deregister_default_host_management_configuration.deregister_default_host_management_configuration(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeregisterDefaultHostManagementConfiguration"),
+        )
+        input_: capo_ssm.types.deregister_default_host_management_configuration_request.DeregisterDefaultHostManagementConfigurationRequest = {}
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -7078,7 +7122,7 @@ class SSMClient:
         config_overrides: Optional[SSMClientConfig] = None,
         with_decryption: Optional["capo_ssm.types.boolean.Boolean"] = None,
     ) -> "capo_ssm.types.get_parameter_result.GetParameterResult":
-        """<p>Get information about a single parameter by specifying the parameter name.</p> <p>Parameter names can't contain spaces. The service removes any spaces specified for the beginning or end of a parameter name. If the specified name for a parameter contains spaces between characters, the request fails with a <code>ValidationException</code> error.</p> <note> <p>To get information about more than one parameter at a time, use the <a>GetParameters</a> operation.</p> </note> <note> <p>Parameter Store throughput defines the number of API transactions per second (TPS) that Systems Manager can process. This applies to <code>GetParameter</code>, <code>GetParameters</code>, and <code>PutParameter</code> API calls for your Amazon Web Services account and Amazon Web Services Region. By default, Parameter Store is configured with a standard throughput quota suitable for low- to moderate-volume workloads. Applications that retrieve configuration data infrequently or operate at smaller scale can use this default setting without additional cost.</p> <p>For higher-volume workloads, you can enable higher throughput. This increases the maximum number of supported transactions per second for your account and Region. Increased throughput supports applications and workloads that need concurrent access to multiple parameters. If you experience <code>ThrottlingException: Rate exceeded</code> errors, enable higher throughput. For more information, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-throughput.html">Changing Parameter Store throughput</a>.</p> </note>
+        """<p>Get information about a single parameter by specifying the parameter name.</p> <p>Parameter names can't contain spaces. The service removes any spaces specified for the beginning or end of a parameter name. If the specified name for a parameter contains spaces between characters, the request fails with a <code>ValidationException</code> error.</p> <note> <p>To get information about more than one parameter at a time, use the <a>GetParameters</a> operation.</p> </note> <note> <p>This operation is authorized against the <code>ssm:GetParameter</code> action. Denying that action alone doesn't restrict <a>GetParameters</a>, <a>GetParameterHistory</a>, or <a>GetParametersByPath</a>, each of which is authorized against its own action. For more information, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/ps-retrieval-authorization.html">How Parameter Store authorizes parameter retrieval</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p> </note> <note> <p>Parameter Store throughput defines the number of API transactions per second (TPS) that Systems Manager can process. This applies to <code>GetParameter</code>, <code>GetParameters</code>, and <code>PutParameter</code> API calls for your Amazon Web Services account and Amazon Web Services Region. By default, Parameter Store is configured with a standard throughput quota suitable for low- to moderate-volume workloads. Applications that retrieve configuration data infrequently or operate at smaller scale can use this default setting without additional cost.</p> <p>For higher-volume workloads, you can enable higher throughput. This increases the maximum number of supported transactions per second for your account and Region. Increased throughput supports applications and workloads that need concurrent access to multiple parameters. If you experience <code>ThrottlingException: Rate exceeded</code> errors, enable higher throughput. For more information, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-throughput.html">Changing Parameter Store throughput</a>.</p> </note>
 
         Args:
             name: <p>The name or Amazon Resource Name (ARN) of the parameter that you want to query. For parameters shared with you from another account, you must use the full ARN.</p> <p>To query by parameter label, use <code>"Name": "name:label"</code>. To query by parameter version, use <code>"Name": "name:version"</code>.</p> <p>For more information about shared parameters, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-shared-parameters.html">Working with shared parameters</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p>
@@ -7140,7 +7184,7 @@ class SSMClient:
         max_results: Optional["capo_ssm.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_ssm.types.next_token.NextToken"] = None,
     ) -> "capo_ssm.types.get_parameter_history_result.GetParameterHistoryResult":
-        """<p>Retrieves the history of all changes to a parameter.</p> <p>Parameter names can't contain spaces. The service removes any spaces specified for the beginning or end of a parameter name. If the specified name for a parameter contains spaces between characters, the request fails with a <code>ValidationException</code> error.</p> <important> <p>If you change the KMS key alias for the KMS key used to encrypt a parameter, then you must also update the key alias the parameter uses to reference KMS. Otherwise, <code>GetParameterHistory</code> retrieves whatever the original key alias was referencing.</p> </important>
+        """<p>Retrieves the history of all changes to a parameter.</p> <p>Parameter names can't contain spaces. The service removes any spaces specified for the beginning or end of a parameter name. If the specified name for a parameter contains spaces between characters, the request fails with a <code>ValidationException</code> error.</p> <important> <p>If you change the KMS key alias for the KMS key used to encrypt a parameter, then you must also update the key alias the parameter uses to reference KMS. Otherwise, <code>GetParameterHistory</code> retrieves whatever the original key alias was referencing.</p> </important> <important> <p>This operation is authorized against the <code>ssm:GetParameterHistory</code> action, not against <code>ssm:GetParameter</code>. Because parameter history includes every version of a parameter, including the current one, a principal who is denied <code>ssm:GetParameter</code>, <code>ssm:GetParameters</code>, and <code>ssm:GetParametersByPath</code> but allowed <code>ssm:GetParameterHistory</code> can still read the current value. To restrict access to a parameter value, deny every action that can return it. For more information, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/ps-retrieval-authorization.html">How Parameter Store authorizes parameter retrieval</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p> </important>
 
         Args:
             name: <p>The name or Amazon Resource Name (ARN) of the parameter for which you want to review history. For parameters shared with you from another account, you must use the full ARN.</p>
@@ -7229,7 +7273,7 @@ class SSMClient:
         config_overrides: Optional[SSMClientConfig] = None,
         with_decryption: Optional["capo_ssm.types.boolean.Boolean"] = None,
     ) -> "capo_ssm.types.get_parameters_result.GetParametersResult":
-        """<p>Get information about one or more parameters by specifying multiple parameter names.</p> <note> <p>To get information about a single parameter, you can use the <a>GetParameter</a> operation instead.</p> </note> <p>Parameter names can't contain spaces. The service removes any spaces specified for the beginning or end of a parameter name. If the specified name for a parameter contains spaces between characters, the request fails with a <code>ValidationException</code> error.</p> <note> <p>Parameter Store throughput defines the number of API transactions per second (TPS) that Systems Manager can process. This applies to <code>GetParameter</code>, <code>GetParameters</code>, and <code>PutParameter</code> API calls for your Amazon Web Services account and Amazon Web Services Region. By default, Parameter Store is configured with a standard throughput quota suitable for low- to moderate-volume workloads. Applications that retrieve configuration data infrequently or operate at smaller scale can use this default setting without additional cost.</p> <p>For higher-volume workloads, you can enable higher throughput. This increases the maximum number of supported transactions per second for your account and Region. Increased throughput supports applications and workloads that need concurrent access to multiple parameters. If you experience <code>ThrottlingException: Rate exceeded</code> errors, enable higher throughput. For more information, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-throughput.html">Changing Parameter Store throughput</a>.</p> </note>
+        """<p>Get information about one or more parameters by specifying multiple parameter names.</p> <note> <p>To get information about a single parameter, you can use the <a>GetParameter</a> operation instead.</p> </note> <important> <p>This operation is authorized against the <code>ssm:GetParameters</code> action, not against <code>ssm:GetParameter</code>. Denying <code>ssm:GetParameter</code> for a parameter doesn't prevent a principal from retrieving that parameter with this operation. To restrict access to a parameter value, deny every action that can return it. For more information, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/ps-retrieval-authorization.html">How Parameter Store authorizes parameter retrieval</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p> </important> <p>Parameter names can't contain spaces. The service removes any spaces specified for the beginning or end of a parameter name. If the specified name for a parameter contains spaces between characters, the request fails with a <code>ValidationException</code> error.</p> <note> <p>Parameter Store throughput defines the number of API transactions per second (TPS) that Systems Manager can process. This applies to <code>GetParameter</code>, <code>GetParameters</code>, and <code>PutParameter</code> API calls for your Amazon Web Services account and Amazon Web Services Region. By default, Parameter Store is configured with a standard throughput quota suitable for low- to moderate-volume workloads. Applications that retrieve configuration data infrequently or operate at smaller scale can use this default setting without additional cost.</p> <p>For higher-volume workloads, you can enable higher throughput. This increases the maximum number of supported transactions per second for your account and Region. Increased throughput supports applications and workloads that need concurrent access to multiple parameters. If you experience <code>ThrottlingException: Rate exceeded</code> errors, enable higher throughput. For more information, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-throughput.html">Changing Parameter Store throughput</a>.</p> </note>
 
         Args:
             names: <p>The names or Amazon Resource Names (ARNs) of the parameters that you want to query. For parameters shared with you from another account, you must use the full ARNs.</p> <p>To query by parameter label, use <code>"Name": "name:label"</code>. To query by parameter version, use <code>"Name": "name:version"</code>.</p> <note> <p>The results for <code>GetParameters</code> requests are listed in alphabetical order in query responses.</p> </note> <p>For information about shared parameters, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-shared-parameters.html">Working with shared parameters</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p>
@@ -7295,11 +7339,11 @@ class SSMClient:
         ] = None,
         next_token: Optional["capo_ssm.types.next_token.NextToken"] = None,
     ) -> "capo_ssm.types.get_parameters_by_path_result.GetParametersByPathResult":
-        """<p>Retrieve information about one or more parameters under a specified level in a hierarchy. </p> <p>Request results are returned on a best-effort basis. If you specify <code>MaxResults</code> in the request, the response includes information up to the limit specified. The number of items returned, however, can be between zero and the value of <code>MaxResults</code>. If the service reaches an internal limit while processing the results, it stops the operation and returns the matching values up to that point and a <code>NextToken</code>. You can specify the <code>NextToken</code> in a subsequent call to get the next set of results.</p> <p>Parameter names can't contain spaces. The service removes any spaces specified for the beginning or end of a parameter name. If the specified name for a parameter contains spaces between characters, the request fails with a <code>ValidationException</code> error.</p>
+        """<p>Retrieve information about one or more parameters under a specified level in a hierarchy. </p> <important> <p>This operation is authorized against the <code>ssm:GetParametersByPath</code> action for the path that you specify in the request. It isn't authorized against the individual parameters that it returns, and it isn't authorized against <code>ssm:GetParameter</code>. A principal who is allowed to call this operation for the path <code>/a</code> with <code>Recursive</code> set to <code>true</code> receives every parameter under that path, including <code>/a/b</code>, even if a policy explicitly denies access to <code>/a/b</code>.</p> <p>To prevent a parameter from being returned by this operation, deny the <code>ssm:GetParametersByPath</code> action on every ancestor path that could include the parameter in its results. For more information, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/ps-restrict-parameter-access.html">Restricting access to specific parameters and paths</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p> </important> <p>Request results are returned on a best-effort basis. If you specify <code>MaxResults</code> in the request, the response includes information up to the limit specified. The number of items returned, however, can be between zero and the value of <code>MaxResults</code>. If the service reaches an internal limit while processing the results, it stops the operation and returns the matching values up to that point and a <code>NextToken</code>. You can specify the <code>NextToken</code> in a subsequent call to get the next set of results.</p> <p>Parameter names can't contain spaces. The service removes any spaces specified for the beginning or end of a parameter name. If the specified name for a parameter contains spaces between characters, the request fails with a <code>ValidationException</code> error.</p>
 
         Args:
             path: <p>The hierarchy for the parameter. Hierarchies start with a forward slash (/). The hierarchy is the parameter name except the last part of the parameter. For the API call to succeed, the last part of the parameter name can't be in the path. A parameter name hierarchy can have a maximum of 15 levels. Here is an example of a hierarchy: <code>/Finance/Prod/IAD/WinServ2016/license33 </code> </p>
-            recursive: <p>Retrieve all parameters within a hierarchy.</p> <important> <p>If a user has access to a path, then the user can access all levels of that path. For example, if a user has permission to access path <code>/a</code>, then the user can also access <code>/a/b</code>. Even if a user has explicitly been denied access in IAM for parameter <code>/a/b</code>, they can still call the GetParametersByPath API operation recursively for <code>/a</code> and view <code>/a/b</code>.</p> </important>
+            recursive: <p>Retrieve all parameters within a hierarchy.</p>
             parameter_filters: <p>Filters to limit the request results.</p> <note> <p>The following <code>Key</code> values are supported for <code>GetParametersByPath</code>: <code>Type</code>, <code>KeyId</code>, and <code>Label</code>.</p> <p>The following <code>Key</code> values aren't supported for <code>GetParametersByPath</code>: <code>tag</code>, <code>DataType</code>, <code>Name</code>, <code>Path</code>, and <code>Tier</code>.</p> </note>
             with_decryption: <p>Retrieve all parameters in a hierarchy with their value decrypted.</p>
             max_results: <p>The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.</p>
@@ -9690,6 +9734,60 @@ class SSMClient:
             input_["policy_id"] = policy_id
         if policy_hash is not None:
             input_["policy_hash"] = policy_hash
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def register_default_host_management_configuration(
+        self,
+        permission_model: "capo_ssm.types.dhmc_permission_model.DHMCPermissionModel",
+        *,
+        config_overrides: Optional[SSMClientConfig] = None,
+        role_arn: Optional["capo_ssm.types.dhmc_role_arn.DHMCRoleArn"] = None,
+        overwrite: Optional["capo_ssm.types.boolean.Boolean"] = None,
+    ) -> "capo_ssm.types.register_default_host_management_configuration_result.RegisterDefaultHostManagementConfigurationResult":
+        """<p>Enables Default Host Management Configuration (DHMC) for the current Amazon Web Services account and Amazon Web Services Region. With DHMC enabled, you don't need to configure additional resources, such as an instance profile, to use your Amazon EC2 instances as managed nodes in Amazon Web Services Systems Manager.</p> <p>To use this operation, you must have the following permissions:</p> <ul> <li> <p>You need the <code>ssm:GetServiceSetting</code> and <code>ssm:UpdateServiceSetting</code> permissions for the <code>/ssm/managed-instance/default-ec2-instance-management-role</code> service setting.</p> </li> <li> <p>You need the <code>iam:GetRole</code> and <code>iam:PassRole</code> permissions for the role used for Default Host Management Configuration.</p> </li> </ul> <p>If <code>PermissionModel</code> is <code>SERVICE_MANAGED</code>, you also need the <code>iam:CreateRole</code> and <code>iam:AttachRolePolicy</code> permissions so that Amazon Web Services Systems Manager can create and configure the role on your behalf.</p>
+
+        Args:
+            permission_model: <p>The permission model that determines how the IAM role for Default Host Management Configuration is provided.</p> <p>The permission model can be one of the following values:</p> <dl> <dt>SERVICE_MANAGED</dt> <dd> <p>Amazon Web Services Systems Manager creates and manages the role on your behalf.</p> </dd> <dt>SELF_MANAGED</dt> <dd> <p>You provide the role to register in <code>RoleArn</code>.</p> </dd> </dl>
+            role_arn: <p>The Amazon Resource Name (ARN) of the self-managed IAM role that you register for Default Host Management Configuration. The requirement for this value depends on the permission model:</p> <ul> <li> <p>If <code>PermissionModel</code> is <code>SELF_MANAGED</code>, this value is required.</p> </li> <li> <p>If <code>PermissionModel</code> is <code>SERVICE_MANAGED</code>, this value must not be set.</p> </li> </ul>
+            overwrite: <p>Specifies whether to override the role that is currently registered for Default Host Management Configuration. The default is <code>false</code>, which acts as a guardrail against accidentally replacing an existing configuration. Set this to <code>true</code> to replace the currently registered role.</p>
+
+        Raises:
+            capo_ssm.errors.internal_server_error.InternalServerError: <p>An error occurred on the server side.</p>
+            capo_ssm.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_ssm.types.register_default_host_management_configuration_request.RegisterDefaultHostManagementConfigurationRequest]",
+        ) -> OperationResponse[
+            "capo_ssm.types.register_default_host_management_configuration_result.RegisterDefaultHostManagementConfigurationResult"
+        ]:
+            import capo_ssm._operations.amazon_ssm.register_default_host_management_configuration
+
+            output, http_response = (
+                capo_ssm._operations.amazon_ssm.register_default_host_management_configuration.register_default_host_management_configuration(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RegisterDefaultHostManagementConfiguration"),
+        )
+        input_: capo_ssm.types.register_default_host_management_configuration_request.RegisterDefaultHostManagementConfigurationRequest = {
+            "permission_model": permission_model
+        }
+        if role_arn is not None:
+            input_["role_arn"] = role_arn
+        if overwrite is not None:
+            input_["overwrite"] = overwrite
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

@@ -13,6 +13,7 @@ import capo_qconnect._auth._signers
 import capo_qconnect._auth._sigv4
 import capo_qconnect._protocol.eventstream
 import capo_qconnect.errors.access_denied_exception
+import capo_qconnect.errors.conflict_exception
 import capo_qconnect.errors.resource_not_found_exception
 import capo_qconnect.errors.throttling_exception
 import capo_qconnect.errors.validation_exception
@@ -34,6 +35,10 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_qconnect.errors.access_denied_exception.AccessDeniedException.from_json(
+                data, message, response=response
+            )
+        case "ConflictException":
+            raise capo_qconnect.errors.conflict_exception.ConflictException.from_json(
                 data, message, response=response
             )
         case "ResourceNotFoundException":

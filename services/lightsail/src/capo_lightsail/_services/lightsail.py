@@ -1490,8 +1490,20 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
+        def _redact_output(
+            output: "capo_lightsail.types.create_container_service_registry_login_result.CreateContainerServiceRegistryLoginResult",
+        ) -> dict[str, Any]:
+            import capo_lightsail.types.create_container_service_registry_login_result
+
+            return capo_lightsail.types.create_container_service_registry_login_result.redact_sensitive(
+                output
+            )
+
         interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("CreateContainerServiceRegistryLogin")
+            config_overrides,
+            OperationLogging(
+                "CreateContainerServiceRegistryLogin", redact_output=_redact_output
+            ),
         )
         input_: capo_lightsail.types.create_container_service_registry_login_request.CreateContainerServiceRegistryLoginRequest = {}
 
@@ -2322,8 +2334,16 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
+        def _redact_output(
+            output: "capo_lightsail.types.create_key_pair_result.CreateKeyPairResult",
+        ) -> dict[str, Any]:
+            import capo_lightsail.types.create_key_pair_result
+
+            return capo_lightsail.types.create_key_pair_result.redact_sensitive(output)
+
         interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("CreateKeyPair")
+            config_overrides,
+            OperationLogging("CreateKeyPair", redact_output=_redact_output),
         )
         input_: capo_lightsail.types.create_key_pair_request.CreateKeyPairRequest = {
             "key_pair_name": key_pair_name
@@ -4175,8 +4195,20 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
+        def _redact_output(
+            output: "capo_lightsail.types.download_default_key_pair_result.DownloadDefaultKeyPairResult",
+        ) -> dict[str, Any]:
+            import capo_lightsail.types.download_default_key_pair_result
+
+            return (
+                capo_lightsail.types.download_default_key_pair_result.redact_sensitive(
+                    output
+                )
+            )
+
         interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("DownloadDefaultKeyPair")
+            config_overrides,
+            OperationLogging("DownloadDefaultKeyPair", redact_output=_redact_output),
         )
         input_: capo_lightsail.types.download_default_key_pair_request.DownloadDefaultKeyPairRequest = {}
 
@@ -6091,8 +6123,18 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
+        def _redact_output(
+            output: "capo_lightsail.types.get_instance_access_details_result.GetInstanceAccessDetailsResult",
+        ) -> dict[str, Any]:
+            import capo_lightsail.types.get_instance_access_details_result
+
+            return capo_lightsail.types.get_instance_access_details_result.redact_sensitive(
+                output
+            )
+
         interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("GetInstanceAccessDetails")
+            config_overrides,
+            OperationLogging("GetInstanceAccessDetails", redact_output=_redact_output),
         )
         input_: capo_lightsail.types.get_instance_access_details_request.GetInstanceAccessDetailsRequest = {
             "instance_name": instance_name
@@ -7130,8 +7172,18 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
+        def _redact_output(
+            output: "capo_lightsail.types.get_relational_database_result.GetRelationalDatabaseResult",
+        ) -> dict[str, Any]:
+            import capo_lightsail.types.get_relational_database_result
+
+            return capo_lightsail.types.get_relational_database_result.redact_sensitive(
+                output
+            )
+
         interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("GetRelationalDatabase")
+            config_overrides,
+            OperationLogging("GetRelationalDatabase", redact_output=_redact_output),
         )
         input_: capo_lightsail.types.get_relational_database_request.GetRelationalDatabaseRequest = {
             "relational_database_name": relational_database_name
@@ -7669,8 +7721,20 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
+        def _redact_output(
+            output: "capo_lightsail.types.get_relational_databases_result.GetRelationalDatabasesResult",
+        ) -> dict[str, Any]:
+            import capo_lightsail.types.get_relational_databases_result
+
+            return (
+                capo_lightsail.types.get_relational_databases_result.redact_sensitive(
+                    output
+                )
+            )
+
         interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("GetRelationalDatabases")
+            config_overrides,
+            OperationLogging("GetRelationalDatabases", redact_output=_redact_output),
         )
         input_: capo_lightsail.types.get_relational_databases_request.GetRelationalDatabasesRequest = {}
         if page_token is not None:

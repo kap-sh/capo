@@ -133,6 +133,8 @@ def build_request(
     params: list[tuple[str, str]] = []
     if "resource_type" in input_:
         params.append(("resourceType", input_["resource_type"]))
+    if "resource_arn" in input_:
+        params.append(("resourceArn", input_["resource_arn"]))
     if "max_results" in input_:
         params.append(("maxResults", str(input_["max_results"])))
     if "next_token" in input_:

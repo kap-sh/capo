@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class SharePointClientCredentials(TypedDict, closed=True):
     kms_key_arn: "capo_quicksight.types.data_source_kms_key_arn.DataSourceKmsKeyArn"
-    """<p>The Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS) key used to encrypt the SharePoint certificate credentials. This field is required.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the Key Management Service (KMS) key used to encrypt the SharePoint certificate credentials. This field is required.</p>"""
     cert_thumbprint: (
         "capo_quicksight.types.data_source_cert_thumbprint.DataSourceCertThumbprint"
     )

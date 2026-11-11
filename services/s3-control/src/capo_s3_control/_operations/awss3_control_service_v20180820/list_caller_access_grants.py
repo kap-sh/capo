@@ -11,6 +11,7 @@ import capo_s3_control._auth._signers
 import capo_s3_control._auth._sigv4
 import capo_s3_control._protocol.eventstream
 import capo_s3_control.types.caller_access_grants_list
+import capo_s3_control.types.instance_scope
 import capo_s3_control.types.list_caller_access_grants_request
 import capo_s3_control.types.list_caller_access_grants_result
 from capo_s3_control._protocol.errors import parse_error_metadata
@@ -105,6 +106,8 @@ def build_request(
             UseS3ExpressControlEndpoint=options.use_s3_express_control_endpoint,
         )
     )  # noqa: F841
+    import capo_s3_control.types.instance_scope
+
     url = endpoint.url.rstrip("/") + "/v20180820/accessgrantsinstance/caller/grants"
     params: list[tuple[str, str]] = []
     if "grant_scope" in input_:
@@ -118,6 +121,15 @@ def build_request(
             (
                 "allowedByApplication",
                 "true" if input_["allowed_by_application"] else "false",
+            )
+        )
+    if "instance_scope" in input_:
+        params.append(
+            (
+                "instanceScope",
+                capo_s3_control.types.instance_scope.to_xml_text(
+                    input_["instance_scope"]
+                ),
             )
         )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}

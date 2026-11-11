@@ -19,6 +19,7 @@ import capo_opensearch.errors.resource_not_found_exception
 import capo_opensearch.errors.validation_exception
 import capo_opensearch.types.advanced_options
 import capo_opensearch.types.change_progress_details
+import capo_opensearch.types.deployment_strategy_override_options
 import capo_opensearch.types.upgrade_domain_request
 import capo_opensearch.types.upgrade_domain_response
 from capo_opensearch._protocol.errors import parse_error_metadata_json

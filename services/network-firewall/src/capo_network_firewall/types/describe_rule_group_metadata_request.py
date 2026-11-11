@@ -18,7 +18,7 @@ class DescribeRuleGroupMetadataRequest(TypedDict, closed=True):
     rule_group_arn: NotRequired["capo_network_firewall.types.resource_arn.ResourceArn"]
     """<p>The descriptive name of the rule group. You can't change the name of a rule group after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>"""
     type: NotRequired["capo_network_firewall.types.rule_group_type.RuleGroupType"]
-    """<p>Indicates whether the rule group is stateless or stateful. If the rule group is stateless, it contains stateless rules. If it is stateful, it contains stateful rules. </p> <note> <p>This setting is required for requests that do not include the <code>RuleGroupARN</code>.</p> </note>"""
+    """<p>Indicates the type of the rule group. Valid values are:</p> <ul> <li> <p> <code>STATELESS</code> - Stateless rules, for use in a Classic Network Firewall policy.</p> </li> <li> <p> <code>STATEFUL</code> - Stateful rules, for use in a Classic Network Firewall policy.</p> </li> <li> <p> <code>FIREWALL</code> - Firewall engine rules, for use in a Next Generation policy.</p> </li> <li> <p> <code>IPS</code> - IPS engine rules, for use in a Next Generation policy.</p> </li> </ul> <note> <p>This setting is required for requests that do not include the <code>RuleGroupARN</code>.</p> </note>"""
 
 
 # --- awsJson1_0 ser/de ---

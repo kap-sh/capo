@@ -170,6 +170,7 @@ if TYPE_CHECKING:
     import capo_s3_control.types.iam_role_arn
     import capo_s3_control.types.identity_center_application_arn
     import capo_s3_control.types.identity_center_arn
+    import capo_s3_control.types.instance_scope
     import capo_s3_control.types.job_id
     import capo_s3_control.types.job_manifest
     import capo_s3_control.types.job_manifest_generator
@@ -2997,8 +2998,11 @@ class S3ControlClient:
         audit_context: Optional[
             "capo_s3_control.types.audit_context.AuditContext"
         ] = None,
+        instance_scope: Optional[
+            "capo_s3_control.types.instance_scope.InstanceScope"
+        ] = None,
     ) -> "capo_s3_control.types.get_data_access_result.GetDataAccessResult":
-        """<p>Returns a temporary access credential from S3 Access Grants to the grantee or client application. The <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_Credentials.html">temporary credential</a> is an Amazon Web Services STS token that grants them access to the S3 data. </p> <dl> <dt>Permissions</dt> <dd> <p>You must have the <code>s3:GetDataAccess</code> permission to use this operation. </p> </dd> <dt>Additional Permissions</dt> <dd> <p>The IAM role that S3 Access Grants assumes must have the following permissions specified in the trust policy when registering the location: <code>sts:AssumeRole</code>, for directory users or groups <code>sts:SetContext</code>, and for IAM users or roles <code>sts:SetSourceIdentity</code>. </p> </dd> </dl>
+        """<p>Returns a temporary access credential from S3 Access Grants to the grantee or client application. The <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_Credentials.html">temporary credential</a> is an Amazon Web Services STS token that grants them access to the S3 data. By default, S3 Access Grants searches for a matching grant in the instance of the Amazon Web Services account ID in the request. To also search instances shared with the caller through Amazon Web Services Resource Access Manager (RAM), set the <code>InstanceScope</code> parameter to <code>ALL</code>.</p> <dl> <dt>Permissions</dt> <dd> <p>You must have the <code>s3:GetDataAccess</code> permission to use this operation. </p> </dd> <dt>Additional Permissions</dt> <dd> <p>The IAM role that S3 Access Grants assumes must have the following permissions specified in the trust policy when registering the location: <code>sts:AssumeRole</code>, for directory users or groups <code>sts:SetContext</code>, and for IAM users or roles <code>sts:SetSourceIdentity</code>. </p> </dd> </dl>
 
         Args:
             account_id: <p>The Amazon Web Services account ID of the S3 Access Grants instance.</p>
@@ -3008,6 +3012,7 @@ class S3ControlClient:
             privilege: <p>The scope of the temporary access credential that S3 Access Grants vends to the grantee or client application. </p> <ul> <li> <p> <code>Default</code> – The scope of the returned temporary access token is the scope of the grant that is closest to the target scope.</p> </li> <li> <p> <code>Minimal</code> – The scope of the returned temporary access token is the same as the requested target scope as long as the requested scope is the same as or a subset of the grant scope. </p> </li> </ul>
             target_type: <p>The type of <code>Target</code>. The only possible value is <code>Object</code>. Pass this value if the target data that you would like to access is a path to an object. Do not pass this value if the target data is a bucket or a bucket and a prefix. </p>
             audit_context: <p>The context to identify the job or query associated with the credential request. This information will be displayed in CloudTrail log in your account.</p>
+            instance_scope: <p>The scope of S3 Access Grants instances to search for a grant matching the requested S3 URI path.</p> <ul> <li> <p> <code>SELF</code> – Searches only the instance of the Amazon Web Services account ID in the request.</p> </li> <li> <p> <code>ALL</code> – Searches the instance of the Amazon Web Services account ID in the request and all instances shared with the caller's account through Amazon Web Services Resource Access Manager (RAM).</p> </li> </ul>
 
         Raises:
             capo_s3_control.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -3051,6 +3056,8 @@ class S3ControlClient:
             input_["target_type"] = target_type
         if audit_context is not None:
             input_["audit_context"] = audit_context
+        if instance_scope is not None:
+            input_["instance_scope"] = instance_scope
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -4045,8 +4052,11 @@ class S3ControlClient:
         allowed_by_application: Optional[
             "capo_s3_control.types.boolean.Boolean"
         ] = None,
+        instance_scope: Optional[
+            "capo_s3_control.types.instance_scope.InstanceScope"
+        ] = None,
     ) -> "capo_s3_control.types.list_caller_access_grants_result.ListCallerAccessGrantsResult":
-        """<p>Use this API to list the access grants that grant the caller access to Amazon S3 data through S3 Access Grants. The caller (grantee) can be an Identity and Access Management (IAM) identity or Amazon Web Services Identity Center corporate directory identity. You must pass the Amazon Web Services account of the S3 data owner (grantor) in the request. You can, optionally, narrow the results by <code>GrantScope</code>, using a fragment of the data's S3 path, and S3 Access Grants will return only the grants with a path that contains the path fragment. You can also pass the <code>AllowedByApplication</code> filter in the request, which returns only the grants authorized for applications, whether the application is the caller's Identity Center application or any other application (<code>ALL</code>). For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-grants-list-grants.html">List the caller's access grants</a> in the <i>Amazon S3 User Guide</i>.</p> <dl> <dt>Permissions</dt> <dd> <p>You must have the <code>s3:ListCallerAccessGrants</code> permission to use this operation. </p> </dd> </dl>
+        """<p>Use this API to list the access grants that grant the caller access to Amazon S3 data through S3 Access Grants. The caller (grantee) can be an Identity and Access Management (IAM) identity or Amazon Web Services Identity Center corporate directory identity. You must pass the Amazon Web Services account of the S3 data owner (grantor) in the request. By default, S3 Access Grants returns grants from the instance of the Amazon Web Services account ID in the request. To return grants from all instances shared with the caller's account through Amazon Web Services Resource Access Manager (RAM), set the <code>InstanceScope</code> parameter to <code>ALL</code>. You can, optionally, narrow the results by <code>GrantScope</code>, using a fragment of the data's S3 path, and S3 Access Grants will return only the grants with a path that contains the path fragment. You can also pass the <code>AllowedByApplication</code> filter in the request, which returns only the grants authorized for applications, whether the application is the caller's Identity Center application or any other application (<code>ALL</code>). For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-grants-list-grants.html">List the caller's access grants</a> in the <i>Amazon S3 User Guide</i>.</p> <dl> <dt>Permissions</dt> <dd> <p>You must have the <code>s3:ListCallerAccessGrants</code> permission to use this operation. </p> </dd> </dl>
 
         Args:
             account_id: <p>The Amazon Web Services account ID of the S3 Access Grants instance.</p>
@@ -4054,6 +4064,7 @@ class S3ControlClient:
             next_token: <p>A pagination token to request the next page of results. Pass this value into a subsequent <code>List Caller Access Grants</code> request in order to retrieve the next page of results.</p>
             max_results: <p>The maximum number of access grants that you would like returned in the <code>List Caller Access Grants</code> response. If the results include the pagination token <code>NextToken</code>, make another call using the <code>NextToken</code> to determine if there are more results.</p>
             allowed_by_application: <p>If this optional parameter is passed in the request, a filter is applied to the results. The results will include only the access grants for the caller's Identity Center application or for any other applications (<code>ALL</code>).</p>
+            instance_scope: <p>The scope of S3 Access Grants instances to list grants from.</p> <ul> <li> <p> <code>SELF</code> – Lists grants from the instance of the Amazon Web Services account ID in the request.</p> </li> <li> <p> <code>ALL</code> – Lists grants from the instance of the Amazon Web Services account ID in the request and all instances shared with the caller's account through Amazon Web Services Resource Access Manager (RAM).</p> </li> </ul>
 
         Raises:
             capo_s3_control.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -4087,6 +4098,8 @@ class S3ControlClient:
             input_["max_results"] = max_results
         if allowed_by_application is not None:
             input_["allowed_by_application"] = allowed_by_application
+        if instance_scope is not None:
+            input_["instance_scope"] = instance_scope
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -4109,6 +4122,9 @@ class S3ControlClient:
         allowed_by_application: Optional[
             "capo_s3_control.types.boolean.Boolean"
         ] = None,
+        instance_scope: Optional[
+            "capo_s3_control.types.instance_scope.InstanceScope"
+        ] = None,
     ) -> "Iterator[capo_s3_control.types.list_caller_access_grants_entry.ListCallerAccessGrantsEntry]":
         _token = next_token
         while True:
@@ -4119,6 +4135,7 @@ class S3ControlClient:
                 next_token=_token,
                 max_results=max_results,
                 allowed_by_application=allowed_by_application,
+                instance_scope=instance_scope,
             )
             _page = _resolve_path(_response, ("caller_access_grants_list",))
             for _item in _page or []:

@@ -5,9 +5,9 @@ from typing_extensions import TypedDict
 
 class CustomLaunchTemplate(TypedDict, closed=True):
     id: "str"
-    """<p>The ID of the EC2 launch template to use to provision instances.</p> <p> Example: <code>lt-xxxx</code> </p>"""
+    """<p>The ID of the EC2 launch template to use to provision instances. Specify this value together with <code>version</code>.</p> <p> Example: <code>lt-xxxx</code> </p>"""
     version: "str"
-    """<p>The version of the EC2 launch template to use to provision instances.</p>"""
+    """<p>The version of the EC2 launch template to use to provision instances. Specify this value together with <code>id</code>.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

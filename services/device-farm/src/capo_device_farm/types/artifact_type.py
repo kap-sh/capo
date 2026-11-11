@@ -31,6 +31,7 @@ ArtifactType: TypeAlias = Literal[
     "CUSTOMER_ARTIFACT",
     "CUSTOMER_ARTIFACT_LOG",
     "TESTSPEC_OUTPUT",
+    "DEVICE_CONNECT_COMMAND_LOG",
 ]
 
 

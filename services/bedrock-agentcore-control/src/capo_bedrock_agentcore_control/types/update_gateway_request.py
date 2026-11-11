@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.authorizer_configuration
     import capo_bedrock_agentcore_control.types.authorizer_type
     import capo_bedrock_agentcore_control.types.custom_transform_configuration
+    import capo_bedrock_agentcore_control.types.domain_override
     import capo_bedrock_agentcore_control.types.exception_level
     import capo_bedrock_agentcore_control.types.gateway_description
     import capo_bedrock_agentcore_control.types.gateway_identifier
@@ -73,6 +74,10 @@ class UpdateGatewayRequest(TypedDict, closed=True):
         "capo_bedrock_agentcore_control.types.waf_configuration.WafConfiguration"
     ]
     """<p>The updated Amazon Web Services WAF configuration for the gateway.</p>"""
+    domain_override: NotRequired[
+        "capo_bedrock_agentcore_control.types.domain_override.DomainOverride"
+    ]
+    """<p>The updated public domain names that the gateway advertises in its OAuth discovery URLs instead of the inbound Host header. Specify this when clients reach the gateway through your own proxy or custom domain.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -153,6 +158,14 @@ def serialize_json(value: UpdateGatewayRequest) -> dict:
         out["wafConfiguration"] = (
             capo_bedrock_agentcore_control.types.waf_configuration.serialize_json(
                 value["waf_configuration"]
+            )
+        )
+    if "domain_override" in value:
+        import capo_bedrock_agentcore_control.types.domain_override
+
+        out["domainOverride"] = (
+            capo_bedrock_agentcore_control.types.domain_override.serialize_json(
+                value["domain_override"]
             )
         )
     return out
@@ -248,6 +261,14 @@ def deserialize_json(data: dict) -> UpdateGatewayRequest:
         out["waf_configuration"] = (
             capo_bedrock_agentcore_control.types.waf_configuration.deserialize_json(
                 data["wafConfiguration"]
+            )
+        )
+    if data.get("domainOverride") is not None:
+        import capo_bedrock_agentcore_control.types.domain_override
+
+        out["domain_override"] = (
+            capo_bedrock_agentcore_control.types.domain_override.deserialize_json(
+                data["domainOverride"]
             )
         )
     return out

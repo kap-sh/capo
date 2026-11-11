@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 from capo_s3_control._protocol.xml import Element, SubElement
 
 if TYPE_CHECKING:
+    import capo_s3_control.types.access_grants_instance_arn
     import capo_s3_control.types.credentials
     import capo_s3_control.types.grantee
     import capo_s3_control.types.s3_prefix
@@ -19,6 +20,10 @@ class GetDataAccessResult(TypedDict, closed=True):
     """<p>The S3 URI path of the data to which you are being granted temporary access credentials. </p>"""
     grantee: NotRequired["capo_s3_control.types.grantee.Grantee"]
     """<p>The user, group, or role that was granted access to the S3 location scope. For directory identities, this API also returns the grants of the IAM role used for the identity-aware request. For more information on identity-aware sessions, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_control-access_sts-setcontext.html">Granting permissions to use identity-aware console sessions</a>. </p>"""
+    matched_instance_arn: NotRequired[
+        "capo_s3_control.types.access_grants_instance_arn.AccessGrantsInstanceArn"
+    ]
+    """<p>The Amazon Resource Name (ARN) of the S3 Access Grants instance containing the grant that matched the requested S3 URI path.</p>"""
 
 
 # --- restXml ser/de ---
@@ -36,6 +41,8 @@ def serialize_xml(value: GetDataAccessResult, parent: Element, tag: str) -> None
         import capo_s3_control.types.grantee
 
         capo_s3_control.types.grantee.serialize_xml(value["grantee"], el, "Grantee")
+    if "matched_instance_arn" in value:
+        SubElement(el, "MatchedInstanceArn").text = str(value["matched_instance_arn"])
 
 
 def deserialize_xml(el: Element) -> GetDataAccessResult:
@@ -55,6 +62,9 @@ def deserialize_xml(el: Element) -> GetDataAccessResult:
         import capo_s3_control.types.grantee
 
         out["grantee"] = capo_s3_control.types.grantee.deserialize_xml(child_grantee)
+    child_matched_instance_arn = el.find("MatchedInstanceArn")
+    if child_matched_instance_arn is not None:
+        out["matched_instance_arn"] = str(child_matched_instance_arn.text or "")
     return out
 
 

@@ -19,7 +19,7 @@ class SearchCasesResponseItem(TypedDict, closed=True):
     fields: "capo_connectcases.types.field_value_list.FieldValueList"
     """<p>List of case field values.</p>"""
     tags: NotRequired["capo_connectcases.types.tags.Tags"]
-    """<p>A map of of key-value pairs that represent tags on a resource. Tags are used to organize, track, or control access for this resource.</p>"""
+    """<p>A map of key-value pairs that represent tags on a resource. Tags are used to organize, track, or control access for this resource.</p>"""
 
 
 # --- restJson1 ser/de ---

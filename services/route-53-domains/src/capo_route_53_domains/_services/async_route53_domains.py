@@ -113,6 +113,8 @@ if TYPE_CHECKING:
     import capo_route_53_domains.types.resend_contact_reachability_email_request
     import capo_route_53_domains.types.resend_contact_reachability_email_response
     import capo_route_53_domains.types.resend_operation_authorization_request
+    import capo_route_53_domains.types.restore_domain_request
+    import capo_route_53_domains.types.restore_domain_response
     import capo_route_53_domains.types.retrieve_domain_auth_code_request
     import capo_route_53_domains.types.retrieve_domain_auth_code_response
     import capo_route_53_domains.types.sort_condition
@@ -1883,6 +1885,59 @@ class AsyncRoute53DomainsClient:
         input_: capo_route_53_domains.types.resend_operation_authorization_request.ResendOperationAuthorizationRequest = {
             "operation_id": operation_id
         }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def restore_domain(
+        self,
+        domain_name: "capo_route_53_domains.types.domain_name.DomainName",
+        *,
+        config_overrides: Optional[AsyncRoute53DomainsClientConfig] = None,
+        consent: Optional["capo_route_53_domains.types.consent.Consent"] = None,
+    ) -> "capo_route_53_domains.types.restore_domain_response.RestoreDomainResponse":
+        """<p>Restores a domain that has expired, or was deleted, before it becomes available for others to register. The cost of restoring your domain is billed to your Amazon Web Services account.</p> <p>Not every TLD registry supports restoring domains, and the period during which a domain can be restored varies by TLD. To find out whether your domain can be restored and the period during which you can restore it, see <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that you can register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>.</p> <important> <p>Restoring a domain typically costs more, and sometimes much more, than registering or renewing a domain. To get the restoration price for a domain before you restore it, use <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetDomainPrices.html">GetDomainPrices</a>.</p> </important> <p>Restoration is asynchronous. The response includes an operation ID that you can use with <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html">GetOperationDetail</a> to track the progress of the request. When the restoration succeeds, the domain reappears in the response to <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_ListDomains.html">ListDomains</a>.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/domain-restore-expired.html">Restoring an expired or deleted domain</a> in the <i>Amazon Route 53 Developer Guide</i>.</p>
+
+        Args:
+            domain_name: <p>The name of the domain that you want to restore. The domain must have been registered to the Amazon Web Services account that submits the request.</p>
+            consent: <p>Specifies the maximum price that you agree to pay to restore the domain name. This element is required if the domain has registry premium pricing, and optional if the domain is priced at the standard rate for its TLD. If you include it and the restoration price is more than <code>MaxPrice</code>, the request fails.</p>
+
+        Raises:
+            capo_route_53_domains.errors.duplicate_request.DuplicateRequest: <p>The request is already in progress for the domain.</p>
+            capo_route_53_domains.errors.invalid_input.InvalidInput: <p>The requested item is not acceptable. For example, for APIs that accept a domain name, the request might specify a domain name that doesn't belong to the account that submitted the request. For <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.</p>
+            capo_route_53_domains.errors.operation_limit_exceeded.OperationLimitExceeded: <p>The number of operations or jobs running exceeded the allowed threshold for the account.</p>
+            capo_route_53_domains.errors.unsupported_tld.UnsupportedTLD: <p>Amazon Route 53 does not support this top-level domain (TLD).</p>
+            capo_route_53_domains.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_route_53_domains.types.restore_domain_request.RestoreDomainRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_route_53_domains.types.restore_domain_response.RestoreDomainResponse"
+        ]:
+            import capo_route_53_domains._operations.route53_domains_v20140515.restore_domain
+
+            (
+                output,
+                http_response,
+            ) = await capo_route_53_domains._operations.route53_domains_v20140515.restore_domain.async_restore_domain(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestoreDomain")
+        )
+        input_: capo_route_53_domains.types.restore_domain_request.RestoreDomainRequest = {
+            "domain_name": domain_name
+        }
+        if consent is not None:
+            input_["consent"] = consent
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

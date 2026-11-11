@@ -398,6 +398,8 @@ if TYPE_CHECKING:
     import capo_quicksight.types.describe_quick_sight_q_search_configuration_response
     import capo_quicksight.types.describe_refresh_schedule_request
     import capo_quicksight.types.describe_refresh_schedule_response
+    import capo_quicksight.types.describe_resource_permissions_request
+    import capo_quicksight.types.describe_resource_permissions_response
     import capo_quicksight.types.describe_role_custom_permission_request
     import capo_quicksight.types.describe_role_custom_permission_response
     import capo_quicksight.types.describe_self_upgrade_configuration_request
@@ -707,6 +709,7 @@ if TYPE_CHECKING:
     import capo_quicksight.types.semantic_model_configuration
     import capo_quicksight.types.sensitive_document
     import capo_quicksight.types.sensitive_io_payload
+    import capo_quicksight.types.service_role_type
     import capo_quicksight.types.service_type
     import capo_quicksight.types.session_lifetime_in_minutes
     import capo_quicksight.types.session_tag_list
@@ -859,6 +862,8 @@ if TYPE_CHECKING:
     import capo_quicksight.types.update_refresh_schedule_request
     import capo_quicksight.types.update_refresh_schedule_response
     import capo_quicksight.types.update_resource_permission_list
+    import capo_quicksight.types.update_resource_permissions_request
+    import capo_quicksight.types.update_resource_permissions_response
     import capo_quicksight.types.update_role_custom_permission_request
     import capo_quicksight.types.update_role_custom_permission_response
     import capo_quicksight.types.update_self_upgrade_configuration_request
@@ -9556,6 +9561,55 @@ class QuickSightClient:
             "aws_account_id": aws_account_id,
             "data_set_id": data_set_id,
             "schedule_id": schedule_id,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def describe_resource_permissions(
+        self,
+        aws_account_id: "capo_quicksight.types.aws_account_id.AwsAccountId",
+        *,
+        config_overrides: Optional[QuickSightClientConfig] = None,
+    ) -> "capo_quicksight.types.describe_resource_permissions_response.DescribeResourcePermissionsResponse":
+        """<p>Describes the service role configuration for your Amazon Quick Sight account.</p> <p>Call this operation in the Amazon Web Services Region where your Amazon Quick Sight account is registered (the home Region).</p>
+
+        Args:
+            aws_account_id: <p>The ID of the Amazon Web Services account whose service role configuration you want to describe.</p>
+
+        Raises:
+            capo_quicksight.errors.access_denied_exception.AccessDeniedException: <p>You don't have access to this item. The provided credentials couldn't be validated. You might not be authorized to carry out the request. Make sure that your account is authorized to use the Amazon Quick Sight service, that your policies have the correct permissions, and that you are using the correct credentials.</p>
+            capo_quicksight.errors.internal_failure_exception.InternalFailureException: <p>An internal failure occurred.</p>
+            capo_quicksight.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One or more parameters has a value that isn't valid.</p>
+            capo_quicksight.errors.resource_not_found_exception.ResourceNotFoundException: <p>One or more resources can't be found.</p>
+            capo_quicksight.errors.throttling_exception.ThrottlingException: <p>Access is throttled.</p>
+            capo_quicksight.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_quicksight.types.describe_resource_permissions_request.DescribeResourcePermissionsRequest]",
+        ) -> OperationResponse[
+            "capo_quicksight.types.describe_resource_permissions_response.DescribeResourcePermissionsResponse"
+        ]:
+            import capo_quicksight._operations.quick_sight_20180401.describe_resource_permissions
+
+            output, http_response = (
+                capo_quicksight._operations.quick_sight_20180401.describe_resource_permissions.describe_resource_permissions(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeResourcePermissions")
+        )
+        input_: capo_quicksight.types.describe_resource_permissions_request.DescribeResourcePermissionsRequest = {
+            "aws_account_id": aws_account_id
         }
 
         response = execute_pipeline(
@@ -20300,6 +20354,61 @@ class QuickSightClient:
             "data_set_id": data_set_id,
             "aws_account_id": aws_account_id,
             "schedule": schedule,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def update_resource_permissions(
+        self,
+        aws_account_id: "capo_quicksight.types.aws_account_id.AwsAccountId",
+        role_type: "capo_quicksight.types.service_role_type.ServiceRoleType",
+        customer_managed_role_arn: "capo_quicksight.types.role_arn.RoleArn",
+        *,
+        config_overrides: Optional[QuickSightClientConfig] = None,
+    ) -> "capo_quicksight.types.update_resource_permissions_response.UpdateResourcePermissionsResponse":
+        """<p>Updates the service role configuration that Amazon Quick Sight uses to access resources in your Amazon Web Services account. To use this operation, you must have the <code>quicksight:UpdateResourcePermissions</code> and <code>iam:PassRole</code> permissions.</p> <p>Call this operation in the Amazon Web Services Region where your Amazon Quick Sight account is registered (the home Region). You can switch from a role managed by Amazon Quick Sight to a customer-managed role, or replace one customer-managed role with another. You can't use this operation to switch back to a role managed by Amazon Quick Sight.</p>
+
+        Args:
+            aws_account_id: <p>The ID of the Amazon Web Services account whose service role configuration you want to update.</p>
+            role_type: <p>The type of service role that you want Amazon Quick Sight to use. The only supported value for this operation is <code>CUSTOMER_MANAGED</code>. Requests that specify <code>QUICKSIGHT_MANAGED</code> are rejected.</p>
+            customer_managed_role_arn: <p>The ARN of the customer-managed role that you want Amazon Quick Sight to use. To use this operation, you must have the <code>iam:PassRole</code> permission for the role.</p> <p>Configure the role as follows:</p> <ul> <li> <p>The role must belong to the Amazon Web Services account specified by <code>AwsAccountId</code>.</p> </li> <li> <p>Configure the role trust policy to allow the Amazon Quick Sight service principal to call <code>sts:AssumeRole</code>.</p> </li> <li> <p>Attach a permissions policy that allows access to the resources that you want Amazon Quick Sight to use.</p> </li> <li> <p>To use features that rely on session tags, configure the role trust policy to allow the Amazon Quick Sight service principal to call <code>sts:TagSession</code>.</p> </li> </ul> <p>If the role doesn't exist or its trust policy doesn't allow <code>sts:AssumeRole</code>, the request returns an <code>AccessDeniedException</code>.</p> <p>When you call this operation, Amazon Quick Sight attempts to assume the role with session tags and records whether the attempt succeeds. If you later add or remove <code>sts:TagSession</code> from the trust policy, call this operation again with the same role ARN to refresh the stored capability.</p>
+
+        Raises:
+            capo_quicksight.errors.access_denied_exception.AccessDeniedException: <p>You don't have access to this item. The provided credentials couldn't be validated. You might not be authorized to carry out the request. Make sure that your account is authorized to use the Amazon Quick Sight service, that your policies have the correct permissions, and that you are using the correct credentials.</p>
+            capo_quicksight.errors.internal_failure_exception.InternalFailureException: <p>An internal failure occurred.</p>
+            capo_quicksight.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One or more parameters has a value that isn't valid.</p>
+            capo_quicksight.errors.resource_not_found_exception.ResourceNotFoundException: <p>One or more resources can't be found.</p>
+            capo_quicksight.errors.throttling_exception.ThrottlingException: <p>Access is throttled.</p>
+            capo_quicksight.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_quicksight.types.update_resource_permissions_request.UpdateResourcePermissionsRequest]",
+        ) -> OperationResponse[
+            "capo_quicksight.types.update_resource_permissions_response.UpdateResourcePermissionsResponse"
+        ]:
+            import capo_quicksight._operations.quick_sight_20180401.update_resource_permissions
+
+            output, http_response = (
+                capo_quicksight._operations.quick_sight_20180401.update_resource_permissions.update_resource_permissions(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateResourcePermissions")
+        )
+        input_: capo_quicksight.types.update_resource_permissions_request.UpdateResourcePermissionsRequest = {
+            "aws_account_id": aws_account_id,
+            "role_type": role_type,
+            "customer_managed_role_arn": customer_managed_role_arn,
         }
 
         response = execute_pipeline(

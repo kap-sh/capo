@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class ElementalInferenceFeed(TypedDict, closed=True):
     arn: NotRequired["capo_mediaconvert.types.__string.__string"]
-    """Feed ARN."""
+    """The ARN of an AWS Elemental Inference Feed."""
     feed_management_state: NotRequired[
         "capo_mediaconvert.types.elemental_inference_feed_management_state.ElementalInferenceFeedManagementState"
     ]

@@ -74,6 +74,7 @@ class PublishDataQualityResultV2Request(TypedDict, closed=True):
     telemetry: NotRequired[
         "capo_glue.types.data_quality_telemetry.DataQualityTelemetry"
     ]
+    """<p></p>"""
 
 
 # --- awsJson1_1 ser/de ---

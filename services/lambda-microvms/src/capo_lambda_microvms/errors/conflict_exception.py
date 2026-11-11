@@ -52,7 +52,7 @@ class ConflictException(ServiceError):
         super().__init__(
             "client",
             is_throttling_error=False,
-            is_retryable=False,
+            is_retryable=True,
             code="ConflictException",
             message=message,
             response=response,

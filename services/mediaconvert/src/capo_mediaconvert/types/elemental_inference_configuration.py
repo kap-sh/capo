@@ -17,7 +17,7 @@ class ElementalInferenceConfiguration(TypedDict, closed=True):
     feeds: NotRequired[
         "capo_mediaconvert.types.__list_of_elemental_inference_feed.__listOfElementalInferenceFeed"
     ]
-    """A list of Elemental Inference feeds used by this job."""
+    """A list of Elemental Inference feeds created during this job."""
 
 
 # --- restJson1 ser/de ---

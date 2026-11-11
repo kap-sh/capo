@@ -46,8 +46,8 @@ class ThrottlingException(ServiceError):
     ):
         super().__init__(
             "client",
-            is_throttling_error=False,
-            is_retryable=False,
+            is_throttling_error=True,
+            is_retryable=True,
             code="ThrottlingException",
             message=message,
             response=response,

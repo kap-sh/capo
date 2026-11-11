@@ -66,6 +66,7 @@ if TYPE_CHECKING:
     import capo_elasticsearch_service.types.create_vpc_endpoint_request
     import capo_elasticsearch_service.types.create_vpc_endpoint_response
     import capo_elasticsearch_service.types.cross_cluster_search_connection_id
+    import capo_elasticsearch_service.types.cutover_request_options
     import capo_elasticsearch_service.types.delete_elasticsearch_domain_request
     import capo_elasticsearch_service.types.delete_elasticsearch_domain_response
     import capo_elasticsearch_service.types.delete_inbound_cross_cluster_search_connection_request
@@ -77,6 +78,7 @@ if TYPE_CHECKING:
     import capo_elasticsearch_service.types.delete_vpc_endpoint_request
     import capo_elasticsearch_service.types.delete_vpc_endpoint_response
     import capo_elasticsearch_service.types.deployment_strategy_options
+    import capo_elasticsearch_service.types.deployment_strategy_override_options
     import capo_elasticsearch_service.types.describe_domain_auto_tunes_request
     import capo_elasticsearch_service.types.describe_domain_auto_tunes_response
     import capo_elasticsearch_service.types.describe_domain_change_progress_request
@@ -163,6 +165,7 @@ if TYPE_CHECKING:
     import capo_elasticsearch_service.types.reject_inbound_cross_cluster_search_connection_response
     import capo_elasticsearch_service.types.remove_tags_request
     import capo_elasticsearch_service.types.reservation_token
+    import capo_elasticsearch_service.types.retention_options
     import capo_elasticsearch_service.types.revoke_vpc_endpoint_access_request
     import capo_elasticsearch_service.types.revoke_vpc_endpoint_access_response
     import capo_elasticsearch_service.types.snapshot_options
@@ -170,6 +173,9 @@ if TYPE_CHECKING:
     import capo_elasticsearch_service.types.start_elasticsearch_service_software_update_response
     import capo_elasticsearch_service.types.string_list
     import capo_elasticsearch_service.types.tag_list
+    import capo_elasticsearch_service.types.traffic_split_request_options
+    import capo_elasticsearch_service.types.update_clone_request
+    import capo_elasticsearch_service.types.update_clone_response
     import capo_elasticsearch_service.types.update_elasticsearch_domain_config_request
     import capo_elasticsearch_service.types.update_elasticsearch_domain_config_response
     import capo_elasticsearch_service.types.update_package_request
@@ -3240,6 +3246,73 @@ class ElasticsearchServiceClient:
         response.response.close()
         return response.output
 
+    def update_clone(
+        self,
+        domain_name: "capo_elasticsearch_service.types.domain_name.DomainName",
+        *,
+        config_overrides: Optional[ElasticsearchServiceClientConfig] = None,
+        traffic_split_options: Optional[
+            "capo_elasticsearch_service.types.traffic_split_request_options.TrafficSplitRequestOptions"
+        ] = None,
+        cutover_options: Optional[
+            "capo_elasticsearch_service.types.cutover_request_options.CutoverRequestOptions"
+        ] = None,
+        retention_options: Optional[
+            "capo_elasticsearch_service.types.retention_options.RetentionOptions"
+        ] = None,
+    ) -> "capo_elasticsearch_service.types.update_clone_response.UpdateCloneResponse":
+        """<p>Manages a cloned blue/green upgrade that is in progress on a domain. Use it to shift a percentage of search traffic to the cloned cluster, to cut over to the cloned cluster or back to the primary cluster, or to change the retention period. Specify exactly one of <code>TrafficSplitOptions</code>, <code>CutoverOptions</code>, or <code>RetentionOptions</code> in each request.</p>
+
+        Args:
+            domain_name: <p>The name of the domain that has a cloned blue/green upgrade in progress.</p>
+            traffic_split_options: <p>Shifts a percentage of search traffic from the primary cluster to the cloned cluster.</p>
+            cutover_options: <p>Cuts the domain over to the cloned cluster or back to the primary cluster.</p>
+            retention_options: <p>Changes the retention period, or ends it after cutover completes.</p>
+
+        Raises:
+            capo_elasticsearch_service.errors.base_exception.BaseException: <p>An error occurred while processing the request.</p>
+            capo_elasticsearch_service.errors.disabled_operation_exception.DisabledOperationException: <p>An error occured because the client wanted to access a not supported operation. Gives http status code of 409.</p>
+            capo_elasticsearch_service.errors.internal_exception.InternalException: <p>The request processing has failed because of an unknown error, exception or failure (the failure is internal to the service) . Gives http status code of 500.</p>
+            capo_elasticsearch_service.errors.resource_not_found_exception.ResourceNotFoundException: <p>An exception for accessing or deleting a resource that does not exist. Gives http status code of 400.</p>
+            capo_elasticsearch_service.errors.validation_exception.ValidationException: <p>An exception for missing / invalid input fields. Gives http status code of 400.</p>
+            capo_elasticsearch_service.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_elasticsearch_service.types.update_clone_request.UpdateCloneRequest]",
+        ) -> OperationResponse[
+            "capo_elasticsearch_service.types.update_clone_response.UpdateCloneResponse"
+        ]:
+            import capo_elasticsearch_service._operations.amazon_elasticsearch_service2015.update_clone
+
+            output, http_response = (
+                capo_elasticsearch_service._operations.amazon_elasticsearch_service2015.update_clone.update_clone(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateClone")
+        )
+        input_: capo_elasticsearch_service.types.update_clone_request.UpdateCloneRequest = {
+            "domain_name": domain_name
+        }
+        if traffic_split_options is not None:
+            input_["traffic_split_options"] = traffic_split_options
+        if cutover_options is not None:
+            input_["cutover_options"] = cutover_options
+        if retention_options is not None:
+            input_["retention_options"] = retention_options
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def update_elasticsearch_domain_config(
         self,
         domain_name: "capo_elasticsearch_service.types.domain_name.DomainName",
@@ -3538,12 +3611,16 @@ class ElasticsearchServiceClient:
         perform_check_only: Optional[
             "capo_elasticsearch_service.types.boolean.Boolean"
         ] = None,
+        deployment_strategy_options: Optional[
+            "capo_elasticsearch_service.types.deployment_strategy_override_options.DeploymentStrategyOverrideOptions"
+        ] = None,
     ) -> "capo_elasticsearch_service.types.upgrade_elasticsearch_domain_response.UpgradeElasticsearchDomainResponse":
         """<p>Allows you to either upgrade your domain or perform an Upgrade eligibility check to a compatible Elasticsearch version.</p>
 
         Args:
             target_version: <p>The version of Elasticsearch that you intend to upgrade the domain to.</p>
             perform_check_only: <p> This flag, when set to True, indicates that an Upgrade Eligibility Check needs to be performed. This will not actually perform the Upgrade. </p>
+            deployment_strategy_options: <p>Overrides the deployment strategy for this upgrade. To run a cloned blue/green upgrade, set <code>DeploymentStrategy</code> to <code>ClonedBlueGreen</code>.</p>
 
         Raises:
             capo_elasticsearch_service.errors.base_exception.BaseException: <p>An error occurred while processing the request.</p>
@@ -3578,6 +3655,8 @@ class ElasticsearchServiceClient:
         }
         if perform_check_only is not None:
             input_["perform_check_only"] = perform_check_only
+        if deployment_strategy_options is not None:
+            input_["deployment_strategy_options"] = deployment_strategy_options
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

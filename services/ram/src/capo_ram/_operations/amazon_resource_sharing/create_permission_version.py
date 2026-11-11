@@ -17,12 +17,14 @@ import capo_ram.errors.invalid_parameter_exception
 import capo_ram.errors.invalid_policy_exception
 import capo_ram.errors.malformed_arn_exception
 import capo_ram.errors.malformed_policy_template_exception
+import capo_ram.errors.operation_not_permitted_exception
 import capo_ram.errors.permission_versions_limit_exceeded_exception
 import capo_ram.errors.server_internal_exception
 import capo_ram.errors.service_unavailable_exception
 import capo_ram.errors.unknown_resource_exception
 import capo_ram.types.create_permission_version_request
 import capo_ram.types.create_permission_version_response
+import capo_ram.types.permission_template_parameter_declaration_list
 import capo_ram.types.resource_share_permission_detail
 from capo_ram._protocol.errors import parse_error_metadata_json
 from capo_ram._rule_engine._endpoint_rule_set import EndpointParams, resolve
@@ -60,6 +62,10 @@ def handle_error(response: zapros.Response) -> Never:
             )
         case "MalformedPolicyTemplateException":
             raise capo_ram.errors.malformed_policy_template_exception.MalformedPolicyTemplateException.from_json(
+                data, message, response=response
+            )
+        case "OperationNotPermittedException":
+            raise capo_ram.errors.operation_not_permitted_exception.OperationNotPermittedException.from_json(
                 data, message, response=response
             )
         case "PermissionVersionsLimitExceededException":

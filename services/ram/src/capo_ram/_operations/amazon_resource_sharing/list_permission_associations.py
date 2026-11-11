@@ -20,6 +20,7 @@ import capo_ram.types.associated_permission_list
 import capo_ram.types.list_permission_associations_request
 import capo_ram.types.list_permission_associations_response
 import capo_ram.types.permission_feature_set
+import capo_ram.types.resource_owner
 import capo_ram.types.resource_share_association_status
 from capo_ram._protocol.errors import parse_error_metadata_json
 from capo_ram._rule_engine._endpoint_rule_set import EndpointParams, resolve

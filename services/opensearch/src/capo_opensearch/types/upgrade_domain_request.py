@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import capo_opensearch.types.advanced_options
     import capo_opensearch.types.boolean
+    import capo_opensearch.types.deployment_strategy_override_options
     import capo_opensearch.types.domain_name
     import capo_opensearch.types.version_string
 
@@ -22,6 +23,10 @@ class UpgradeDomainRequest(TypedDict, closed=True):
         "capo_opensearch.types.advanced_options.AdvancedOptions"
     ]
     """<p>Only supports the <code>override_main_response_version</code> parameter and not other advanced options. You can only include this option when upgrading to an OpenSearch version. Specifies whether the domain reports its version as 7.10 so that it continues to work with Elasticsearch OSS clients and plugins.</p>"""
+    deployment_strategy_options: NotRequired[
+        "capo_opensearch.types.deployment_strategy_override_options.DeploymentStrategyOverrideOptions"
+    ]
+    """<p>Overrides the deployment strategy for this upgrade. To run a cloned blue/green upgrade, set <code>DeploymentStrategy</code> to <code>ClonedBlueGreen</code>.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -36,6 +41,14 @@ def serialize_json(value: UpgradeDomainRequest) -> dict:
 
         out["AdvancedOptions"] = capo_opensearch.types.advanced_options.serialize_json(
             value["advanced_options"]
+        )
+    if "deployment_strategy_options" in value:
+        import capo_opensearch.types.deployment_strategy_override_options
+
+        out["DeploymentStrategyOptions"] = (
+            capo_opensearch.types.deployment_strategy_override_options.serialize_json(
+                value["deployment_strategy_options"]
+            )
         )
     return out
 
@@ -58,6 +71,14 @@ def deserialize_json(data: dict) -> UpgradeDomainRequest:
         out["advanced_options"] = (
             capo_opensearch.types.advanced_options.deserialize_json(
                 data["AdvancedOptions"]
+            )
+        )
+    if data.get("DeploymentStrategyOptions") is not None:
+        import capo_opensearch.types.deployment_strategy_override_options
+
+        out["deployment_strategy_options"] = (
+            capo_opensearch.types.deployment_strategy_override_options.deserialize_json(
+                data["DeploymentStrategyOptions"]
             )
         )
     return out

@@ -34,7 +34,7 @@ class CreateMemoryInput(TypedDict, closed=True):
     ]
     """<p>The Amazon Resource Name (ARN) of the IAM role that provides permissions for the memory to access Amazon Web Services services.</p>"""
     event_expiry_duration: "int"
-    """<p>The duration after which memory events expire. Specified as an ISO 8601 duration.</p>"""
+    """<p>The number of days after which memory events expire, between 7 and 3650 days.</p>"""
     memory_strategies: NotRequired[
         "capo_bedrock_agentcore_control.types.memory_strategy_input_list.MemoryStrategyInputList"
     ]

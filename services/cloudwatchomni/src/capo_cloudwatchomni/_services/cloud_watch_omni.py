@@ -75,6 +75,8 @@ if TYPE_CHECKING:
     import capo_cloudwatchomni.types.create_view_request
     import capo_cloudwatchomni.types.create_view_response
     import capo_cloudwatchomni.types.dashboard_id
+    import capo_cloudwatchomni.types.data_access_audit_context
+    import capo_cloudwatchomni.types.data_access_target_list
     import capo_cloudwatchomni.types.delete_access_grant_input
     import capo_cloudwatchomni.types.delete_access_grant_output
     import capo_cloudwatchomni.types.delete_access_profile_input
@@ -122,6 +124,8 @@ if TYPE_CHECKING:
     import capo_cloudwatchomni.types.get_omni_dashboard_output
     import capo_cloudwatchomni.types.get_space_credentials_for_organization_input
     import capo_cloudwatchomni.types.get_space_credentials_for_organization_output
+    import capo_cloudwatchomni.types.get_space_data_access_input
+    import capo_cloudwatchomni.types.get_space_data_access_output
     import capo_cloudwatchomni.types.get_space_input
     import capo_cloudwatchomni.types.get_space_output
     import capo_cloudwatchomni.types.get_telemetry_query_results_request
@@ -2528,6 +2532,87 @@ class CloudWatchOmniClient:
             "context": context,
             "credential_type": credential_type,
         }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def get_space_data_access(
+        self,
+        space_id: "capo_cloudwatchomni.types.space_id.SpaceId",
+        target_scopes: "capo_cloudwatchomni.types.data_access_target_list.DataAccessTargetList",
+        *,
+        config_overrides: Optional[CloudWatchOmniClientConfig] = None,
+        duration_seconds: Optional[int] = None,
+        audit_context: Optional[
+            "capo_cloudwatchomni.types.data_access_audit_context.DataAccessAuditContext"
+        ] = None,
+    ) -> "capo_cloudwatchomni.types.get_space_data_access_output.GetSpaceDataAccessOutput":
+        """Returns temporary credentials for working with data in a space, limited to the actions you request. The credentials allow only the requested actions that can be granted in the space and that your access grants allow. Requested actions that cannot be conferred are ignored rather than rejected.
+
+        Args:
+            space_id: The unique ID of the space to return credentials for.
+            target_scopes: The actions to include in the credentials, grouped by service.
+            duration_seconds: The lifetime of the credentials, in seconds. Defaults to 3600.
+            audit_context: Caller-supplied key-value pairs that are recorded for auditing. They do not affect authorization or the permissions of the credentials.
+
+        Raises:
+            capo_cloudwatchomni.errors.access_denied_exception.AccessDeniedException: The caller is not authorized to perform this action.
+            capo_cloudwatchomni.errors.internal_server_exception.InternalServerException: An unexpected error occurred while processing the request.
+            capo_cloudwatchomni.errors.policy_too_large_exception.PolicyTooLargeException: The requested actions produce a credential that exceeds the maximum size. Request fewer actions.
+            capo_cloudwatchomni.errors.resource_not_found_exception.ResourceNotFoundException: The specified resource does not exist.
+            capo_cloudwatchomni.errors.throttling_exception.ThrottlingException: The request was throttled due to exceeding the allowed request rate.
+            capo_cloudwatchomni.errors.validation_exception.ValidationException: A parameter is specified incorrectly.
+            capo_cloudwatchomni.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Get data credentials for log queries
+            The following example requests credentials that allow running log queries and reading metric data in a space. Payloads are shown as JSON; on the wire they are CBOR-encoded.
+
+            >>> client.get_space_data_access(space_id='a1b2c3d4-5e6f-4a3b-8c9d-0e1f2a3b4c5d', target_scopes=[{'actions': ['logs:StartQuery', 'logs:GetQueryResults']}, {'actions': ['cloudwatch:GetMetricData']}], duration_seconds=3600, audit_context={'source': 'logs-console'})
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_cloudwatchomni.types.get_space_data_access_input.GetSpaceDataAccessInput]",
+        ) -> OperationResponse[
+            "capo_cloudwatchomni.types.get_space_data_access_output.GetSpaceDataAccessOutput"
+        ]:
+            import capo_cloudwatchomni._operations.cloud_watch_omni_frontend.get_space_data_access
+
+            output, http_response = (
+                capo_cloudwatchomni._operations.cloud_watch_omni_frontend.get_space_data_access.get_space_data_access(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        def _redact_output(
+            output: "capo_cloudwatchomni.types.get_space_data_access_output.GetSpaceDataAccessOutput",
+        ) -> dict[str, Any]:
+            import capo_cloudwatchomni.types.get_space_data_access_output
+
+            return (
+                capo_cloudwatchomni.types.get_space_data_access_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetSpaceDataAccess", redact_output=_redact_output),
+        )
+        input_: capo_cloudwatchomni.types.get_space_data_access_input.GetSpaceDataAccessInput = {
+            "space_id": space_id,
+            "target_scopes": target_scopes,
+        }
+        if duration_seconds is not None:
+            input_["duration_seconds"] = duration_seconds
+        if audit_context is not None:
+            input_["audit_context"] = audit_context
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

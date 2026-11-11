@@ -12,3 +12,9 @@ title: MemberMetadata
       show_source: true
       merge_init_into_class: false
       heading_level: 2
+
+::: capo_securityagent.types.member_metadata.MemberMetadataGroupMember
+    options:
+      show_source: true
+      merge_init_into_class: false
+      heading_level: 2

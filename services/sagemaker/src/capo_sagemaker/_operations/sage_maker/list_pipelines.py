@@ -13,6 +13,7 @@ import capo_sagemaker._auth._sigv4
 import capo_sagemaker._protocol.eventstream
 import capo_sagemaker.types.list_pipelines_request
 import capo_sagemaker.types.list_pipelines_response
+import capo_sagemaker.types.pipeline_managed_by
 import capo_sagemaker.types.pipeline_summary_list
 import capo_sagemaker.types.sort_order
 import capo_sagemaker.types.sort_pipelines_by

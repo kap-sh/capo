@@ -26,7 +26,7 @@ class UpdateRelatedItemResponse(TypedDict, closed=True):
     association_time: "capo_connectcases.types.association_time.AssociationTime"
     """<p>Time at which the related item was associated with the case.</p>"""
     tags: NotRequired["capo_connectcases.types.tags.Tags"]
-    """<p>A map of of key-value pairs that represent tags on a resource. Tags are used to organize, track, or control access for this resource.</p>"""
+    """<p>A map of key-value pairs that represent tags on a resource. Tags are used to organize, track, or control access for this resource.</p>"""
     last_updated_user: NotRequired["capo_connectcases.types.user_union.UserUnion"]
     """<p>Represents the last user that updated the related item.</p>"""
     created_by: NotRequired["capo_connectcases.types.user_union.UserUnion"]

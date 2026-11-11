@@ -16,6 +16,7 @@ import capo_sagemaker.types.describe_pipeline_request
 import capo_sagemaker.types.describe_pipeline_response
 import capo_sagemaker.types.parallelism_configuration
 import capo_sagemaker.types.pipeline_status
+import capo_sagemaker.types.pipeline_version_alias_list
 import capo_sagemaker.types.timestamp
 import capo_sagemaker.types.user_context
 from capo_sagemaker._protocol.errors import parse_error_metadata_json

@@ -7,10 +7,12 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import capo_glue.types.catalog_id_string
     import capo_glue.types.function_type
+    import capo_glue.types.governance_mode
     import capo_glue.types.name_string
     import capo_glue.types.principal_type
     import capo_glue.types.resource_uri_list
     import capo_glue.types.timestamp
+    import capo_glue.types.uri
 
 
 class UserDefinedFunction(TypedDict, closed=True):
@@ -30,6 +32,10 @@ class UserDefinedFunction(TypedDict, closed=True):
     """<p>The time at which the function was created.</p>"""
     resource_uris: NotRequired["capo_glue.types.resource_uri_list.ResourceUriList"]
     """<p>The resource URIs for the function.</p>"""
+    artifact_location: NotRequired["capo_glue.types.uri.URI"]
+    """<p>The Amazon S3 location that contains the function's artifacts. This location must be registered with Lake Formation. Glue returns this field only for functions whose <code>GovernanceMode</code> is <code>LAKE_FORMATION</code>.</p>"""
+    governance_mode: NotRequired["capo_glue.types.governance_mode.GovernanceMode"]
+    """<p>How access to the function is governed. <code>IAM_ONLY</code> means access is controlled by IAM permissions only. <code>LAKE_FORMATION</code> means Lake Formation permissions (<code>EXECUTE</code>, <code>DESCRIBE</code>, <code>ALTER</code>, and <code>DROP</code>) also control who can run, describe, update, and delete the function.</p>"""
     catalog_id: NotRequired["capo_glue.types.catalog_id_string.CatalogIdString"]
     """<p>The ID of the Data Catalog in which the function resides.</p>"""
 
@@ -68,6 +74,14 @@ def serialize_aws_json_1_1(value: UserDefinedFunction) -> dict:
 
         out["ResourceUris"] = capo_glue.types.resource_uri_list.serialize_aws_json_1_1(
             value["resource_uris"]
+        )
+    if "artifact_location" in value:
+        out["ArtifactLocation"] = value["artifact_location"]
+    if "governance_mode" in value:
+        import capo_glue.types.governance_mode
+
+        out["GovernanceMode"] = capo_glue.types.governance_mode.serialize_aws_json_1_1(
+            value["governance_mode"]
         )
     if "catalog_id" in value:
         out["CatalogId"] = value["catalog_id"]
@@ -108,6 +122,16 @@ def deserialize_aws_json_1_1(data: dict) -> UserDefinedFunction:
         out["resource_uris"] = (
             capo_glue.types.resource_uri_list.deserialize_aws_json_1_1(
                 data["ResourceUris"]
+            )
+        )
+    if data.get("ArtifactLocation") is not None:
+        out["artifact_location"] = data["ArtifactLocation"]
+    if data.get("GovernanceMode") is not None:
+        import capo_glue.types.governance_mode
+
+        out["governance_mode"] = (
+            capo_glue.types.governance_mode.deserialize_aws_json_1_1(
+                data["GovernanceMode"]
             )
         )
     if data.get("CatalogId") is not None:

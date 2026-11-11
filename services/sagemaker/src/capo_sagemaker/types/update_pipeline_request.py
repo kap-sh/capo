@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.pipeline_definition_s3_location
     import capo_sagemaker.types.pipeline_description
     import capo_sagemaker.types.pipeline_name
+    import capo_sagemaker.types.pipeline_version_alias_list
     import capo_sagemaker.types.role_arn
 
 
@@ -38,6 +39,10 @@ class UpdatePipelineRequest(TypedDict, closed=True):
         "capo_sagemaker.types.parallelism_configuration.ParallelismConfiguration"
     ]
     """<p>If specified, it applies to all executions of this pipeline by default.</p>"""
+    pipeline_version_aliases: NotRequired[
+        "capo_sagemaker.types.pipeline_version_alias_list.PipelineVersionAliasList"
+    ]
+    """<p>The aliases to assign to the new pipeline version that this update creates. You can specify aliases only when the update changes the pipeline definition. To change the aliases of an existing version, use <code>UpdatePipelineVersion</code>.</p> <p>An alias must be unique within the pipeline. To move an alias from an existing version to the new version, first remove the alias from the existing version with <code>UpdatePipelineVersion</code>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -69,6 +74,14 @@ def serialize_aws_json_1_1(value: UpdatePipelineRequest) -> dict:
                 value["parallelism_configuration"]
             )
         )
+    if "pipeline_version_aliases" in value:
+        import capo_sagemaker.types.pipeline_version_alias_list
+
+        out["PipelineVersionAliases"] = (
+            capo_sagemaker.types.pipeline_version_alias_list.serialize_aws_json_1_1(
+                value["pipeline_version_aliases"]
+            )
+        )
     return out
 
 
@@ -98,6 +111,14 @@ def deserialize_aws_json_1_1(data: dict) -> UpdatePipelineRequest:
         out["parallelism_configuration"] = (
             capo_sagemaker.types.parallelism_configuration.deserialize_aws_json_1_1(
                 data["ParallelismConfiguration"]
+            )
+        )
+    if data.get("PipelineVersionAliases") is not None:
+        import capo_sagemaker.types.pipeline_version_alias_list
+
+        out["pipeline_version_aliases"] = (
+            capo_sagemaker.types.pipeline_version_alias_list.deserialize_aws_json_1_1(
+                data["PipelineVersionAliases"]
             )
         )
     return out

@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import capo_ram.types.boolean
     import capo_ram.types.integer
+    import capo_ram.types.permission_template_parameter_input_list
     import capo_ram.types.string
 
 
@@ -15,6 +16,10 @@ class AssociateResourceSharePermissionRequest(TypedDict, closed=True):
     """<p>Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of the resource share to which you want to add or replace permissions.</p>"""
     permission_arn: "capo_ram.types.string.String"
     """<p>Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of the RAM permission to associate with the resource share. To find the ARN for a permission, use either the <a>ListPermissions</a> operation or go to the <a href="https://console.aws.amazon.com/ram/home#Permissions:">Permissions library</a> page in the RAM console and then choose the name of the permission. The ARN is displayed on the detail page.</p>"""
+    permission_template_parameters: NotRequired[
+        "capo_ram.types.permission_template_parameter_input_list.PermissionTemplateParameterInputList"
+    ]
+    """<p>Specifies the template parameter values for the permission being associated. You must provide values for all parameters declared in the permission template. This parameter is required only if the specified permission has template parameters.</p>"""
     replace: NotRequired["capo_ram.types.boolean.Boolean"]
     """<p>Specifies whether the specified permission should replace the existing permission associated with the resource share. Use <code>true</code> to replace the current permissions. Use <code>false</code> to add the permission to a resource share that currently doesn't have a permission. The default value is <code>false</code>.</p> <note> <p>A resource share can have only one permission per resource type. If a resource share already has a permission for the specified resource type and you don't set <code>replace</code> to <code>true</code> then the operation returns an error. This helps prevent accidental overwriting of a permission.</p> </note>"""
     client_token: NotRequired["capo_ram.types.string.String"]
@@ -28,6 +33,14 @@ def serialize_json(value: AssociateResourceSharePermissionRequest) -> dict:
     out: dict = {}
     out["resourceShareArn"] = value["resource_share_arn"]
     out["permissionArn"] = value["permission_arn"]
+    if "permission_template_parameters" in value:
+        import capo_ram.types.permission_template_parameter_input_list
+
+        out["permissionTemplateParameters"] = (
+            capo_ram.types.permission_template_parameter_input_list.serialize_json(
+                value["permission_template_parameters"]
+            )
+        )
     if "replace" in value:
         out["replace"] = value["replace"]
     if "client_token" in value:
@@ -47,6 +60,14 @@ def deserialize_json(data: dict) -> AssociateResourceSharePermissionRequest:
         out["permission_arn"] = data["permissionArn"]
     else:
         out["permission_arn"] = ""
+    if data.get("permissionTemplateParameters") is not None:
+        import capo_ram.types.permission_template_parameter_input_list
+
+        out["permission_template_parameters"] = (
+            capo_ram.types.permission_template_parameter_input_list.deserialize_json(
+                data["permissionTemplateParameters"]
+            )
+        )
     if data.get("replace") is not None:
         out["replace"] = data["replace"]
     if data.get("clientToken") is not None:

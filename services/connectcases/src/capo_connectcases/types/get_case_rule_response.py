@@ -38,7 +38,7 @@ class GetCaseRuleResponse(TypedDict, closed=True):
     ]
     """<p>Timestamp when the resource was created or last modified.</p>"""
     tags: NotRequired["capo_connectcases.types.tags.Tags"]
-    """<p>A map of of key-value pairs that represent tags on a resource. Tags are used to organize, track, or control access for this resource.</p>"""
+    """<p>A map of key-value pairs that represent tags on a resource. Tags are used to organize, track, or control access for this resource.</p>"""
 
 
 # --- restJson1 ser/de ---

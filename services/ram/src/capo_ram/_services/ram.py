@@ -92,9 +92,13 @@ if TYPE_CHECKING:
     import capo_ram.types.list_source_associations_request
     import capo_ram.types.list_source_associations_response
     import capo_ram.types.max_results
+    import capo_ram.types.permission_arn_and_template_parameters_list
     import capo_ram.types.permission_arn_list
     import capo_ram.types.permission_feature_set
     import capo_ram.types.permission_name
+    import capo_ram.types.permission_status
+    import capo_ram.types.permission_template_parameter_declaration_list
+    import capo_ram.types.permission_template_parameter_input_list
     import capo_ram.types.permission_type_filter
     import capo_ram.types.policy
     import capo_ram.types.principal_arn_or_id_list
@@ -128,6 +132,9 @@ if TYPE_CHECKING:
     import capo_ram.types.tag_resource_response
     import capo_ram.types.untag_resource_request
     import capo_ram.types.untag_resource_response
+    import capo_ram.types.update_permission_request
+    import capo_ram.types.update_permission_response
+    import capo_ram.types.update_permission_status
     import capo_ram.types.update_resource_share_request
     import capo_ram.types.update_resource_share_response
 
@@ -390,6 +397,9 @@ class RAMClient:
         permission_arn: "capo_ram.types.string.String",
         *,
         config_overrides: Optional[RAMClientConfig] = None,
+        permission_template_parameters: Optional[
+            "capo_ram.types.permission_template_parameter_input_list.PermissionTemplateParameterInputList"
+        ] = None,
         replace: Optional["capo_ram.types.boolean.Boolean"] = None,
         client_token: Optional["capo_ram.types.string.String"] = None,
         permission_version: Optional["capo_ram.types.integer.Integer"] = None,
@@ -399,6 +409,7 @@ class RAMClient:
         Args:
             resource_share_arn: <p>Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of the resource share to which you want to add or replace permissions.</p>
             permission_arn: <p>Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of the RAM permission to associate with the resource share. To find the ARN for a permission, use either the <a>ListPermissions</a> operation or go to the <a href="https://console.aws.amazon.com/ram/home#Permissions:">Permissions library</a> page in the RAM console and then choose the name of the permission. The ARN is displayed on the detail page.</p>
+            permission_template_parameters: <p>Specifies the template parameter values for the permission being associated. You must provide values for all parameters declared in the permission template. This parameter is required only if the specified permission has template parameters.</p>
             replace: <p>Specifies whether the specified permission should replace the existing permission associated with the resource share. Use <code>true</code> to replace the current permissions. Use <code>false</code> to add the permission to a resource share that currently doesn't have a permission. The default value is <code>false</code>.</p> <note> <p>A resource share can have only one permission per resource type. If a resource share already has a permission for the specified resource type and you don't set <code>replace</code> to <code>true</code> then the operation returns an error. This helps prevent accidental overwriting of a permission.</p> </note>
             client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of value.</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
             permission_version: <p>Specifies the version of the RAM permission to associate with the resource share. You can specify <i>only</i> the version that is currently set as the default version for the permission. If you also set the <code>replace</code> pararameter to <code>true</code>, then this operation updates an outdated version of the permission to the current default version.</p> <note> <p>You don't need to specify this parameter because the default behavior is to use the version that is currently set as the default version for the permission. This parameter is supported for backwards compatibility.</p> </note>
@@ -435,6 +446,8 @@ class RAMClient:
             "resource_share_arn": resource_share_arn,
             "permission_arn": permission_arn,
         }
+        if permission_template_parameters is not None:
+            input_["permission_template_parameters"] = permission_template_parameters
         if replace is not None:
             input_["replace"] = replace
         if client_token is not None:
@@ -457,6 +470,9 @@ class RAMClient:
         policy_template: "capo_ram.types.policy.Policy",
         *,
         config_overrides: Optional[RAMClientConfig] = None,
+        permission_template_parameters: Optional[
+            "capo_ram.types.permission_template_parameter_declaration_list.PermissionTemplateParameterDeclarationList"
+        ] = None,
         client_token: Optional["capo_ram.types.string.String"] = None,
         tags: Optional["capo_ram.types.tag_list.TagList"] = None,
     ) -> "capo_ram.types.create_permission_response.CreatePermissionResponse":
@@ -466,6 +482,7 @@ class RAMClient:
             name: <p>Specifies the name of the customer managed permission. The name must be unique within the Amazon Web Services Region.</p>
             resource_type: <p>Specifies the name of the resource type that this customer managed permission applies to.</p> <p>The format is <code> <i><service-code></i>:<i><resource-type></i> </code> and is case sensitive. For example, to specify an Amazon EC2 Subnet, you can use the string <code>ec2:Subnet</code>. To see the list of valid values for this parameter, query the <a>ListResourceTypes</a> operation. This value must match the display name of the resource (available in <code>ListResourceTypes</code>).</p>
             policy_template: <p>A string in JSON format string that contains the following elements of a resource-based policy:</p> <ul> <li> <p> <b>Effect</b>: must be set to <code>ALLOW</code>.</p> </li> <li> <p> <b>Action</b>: specifies the actions that are allowed by this customer managed permission. The list must contain only actions that are supported by the specified resource type. For a list of all actions supported by each resource type, see <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html">Actions, resources, and condition keys for Amazon Web Services services</a> in the <i>Identity and Access Management User Guide</i>.</p> </li> <li> <p> <b>Condition</b>: (optional) specifies conditional parameters that must evaluate to true when a user attempts an action for that action to be allowed. For more information about the Condition element, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html">IAM policies: Condition element</a> in the <i>Identity and Access Management User Guide</i>.</p> </li> </ul> <p>This template can't include either the <code>Resource</code> or <code>Principal</code> elements. Those are both filled in by RAM when it instantiates the resource-based policy on each resource shared using this managed permission. The <code>Resource</code> comes from the ARN of the specific resource that you are sharing. The <code>Principal</code> comes from the list of identities added to the resource share.</p>
+            permission_template_parameters: <p>Specifies a list of template parameter declarations for this permission. Each declaration defines a named placeholder that can be used in the policy template using the syntax <code>@{parameterName}</code>. Template parameters can only appear in Condition Key and Condition Value fields of the policy. When you associate this permission with a resource share, you must provide values for all declared parameters.</p>
             client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of value.</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
             tags: <p>Specifies a list of one or more tag key and value pairs to attach to the permission.</p>
 
@@ -505,6 +522,8 @@ class RAMClient:
             "resource_type": resource_type,
             "policy_template": policy_template,
         }
+        if permission_template_parameters is not None:
+            input_["permission_template_parameters"] = permission_template_parameters
         if client_token is not None:
             input_["client_token"] = client_token
         if tags is not None:
@@ -524,6 +543,9 @@ class RAMClient:
         policy_template: "capo_ram.types.policy.Policy",
         *,
         config_overrides: Optional[RAMClientConfig] = None,
+        permission_template_parameters: Optional[
+            "capo_ram.types.permission_template_parameter_declaration_list.PermissionTemplateParameterDeclarationList"
+        ] = None,
         client_token: Optional["capo_ram.types.string.String"] = None,
     ) -> "capo_ram.types.create_permission_version_response.CreatePermissionVersionResponse":
         """<p>Creates a new version of the specified customer managed permission. The new version is automatically set as the default version of the customer managed permission. New resource shares automatically use the default permission. Existing resource shares continue to use their original permission versions, but you can use <a>ReplacePermissionAssociations</a> to update them.</p> <p>If the specified customer managed permission already has the maximum of 5 versions, then you must delete one of the existing versions before you can create a new one.</p>
@@ -531,6 +553,7 @@ class RAMClient:
         Args:
             permission_arn: <p>Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of the customer managed permission you're creating a new version for.</p>
             policy_template: <p>A string in JSON format string that contains the following elements of a resource-based policy:</p> <ul> <li> <p> <b>Effect</b>: must be set to <code>ALLOW</code>.</p> </li> <li> <p> <b>Action</b>: specifies the actions that are allowed by this customer managed permission. The list must contain only actions that are supported by the specified resource type. For a list of all actions supported by each resource type, see <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html">Actions, resources, and condition keys for Amazon Web Services services</a> in the <i>Identity and Access Management User Guide</i>.</p> </li> <li> <p> <b>Condition</b>: (optional) specifies conditional parameters that must evaluate to true when a user attempts an action for that action to be allowed. For more information about the Condition element, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html">IAM policies: Condition element</a> in the <i>Identity and Access Management User Guide</i>.</p> </li> </ul> <p>This template can't include either the <code>Resource</code> or <code>Principal</code> elements. Those are both filled in by RAM when it instantiates the resource-based policy on each resource shared using this managed permission. The <code>Resource</code> comes from the ARN of the specific resource that you are sharing. The <code>Principal</code> comes from the list of identities added to the resource share.</p>
+            permission_template_parameters: <p>Specifies a list of template parameter declarations for this version of the permission. Each declaration defines a named placeholder that can be used in the policy template. Because each version is independent, you can define the same or a different set of template parameters for each version.</p>
             client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of value.</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
 
         Raises:
@@ -540,6 +563,7 @@ class RAMClient:
             capo_ram.errors.invalid_policy_exception.InvalidPolicyException: <p>The operation failed because a policy you specified isn't valid.</p>
             capo_ram.errors.malformed_arn_exception.MalformedArnException: <p>The operation failed because the specified <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> has a format that isn't valid.</p>
             capo_ram.errors.malformed_policy_template_exception.MalformedPolicyTemplateException: <p>The operation failed because the policy template that you provided isn't valid.</p>
+            capo_ram.errors.operation_not_permitted_exception.OperationNotPermittedException: <p>The operation failed because the requested operation isn't permitted.</p>
             capo_ram.errors.permission_versions_limit_exceeded_exception.PermissionVersionsLimitExceededException: <p>The operation failed because it would exceed the limit for the number of versions you can have for a permission. To view the limits for your Amazon Web Services account, see the <a href="https://console.aws.amazon.com/servicequotas/home/services/ram/quotas">RAM page in the Service Quotas console</a>.</p>
             capo_ram.errors.server_internal_exception.ServerInternalException: <p>The operation failed because the service could not respond to the request due to an internal problem. Try again later.</p>
             capo_ram.errors.service_unavailable_exception.ServiceUnavailableException: <p>The operation failed because the service isn't available. Try again later.</p>
@@ -568,6 +592,8 @@ class RAMClient:
             "permission_arn": permission_arn,
             "policy_template": policy_template,
         }
+        if permission_template_parameters is not None:
+            input_["permission_template_parameters"] = permission_template_parameters
         if client_token is not None:
             input_["client_token"] = client_token
 
@@ -599,6 +625,9 @@ class RAMClient:
         sources: Optional[
             "capo_ram.types.source_arn_or_account_list.SourceArnOrAccountList"
         ] = None,
+        permission_template_parameters: Optional[
+            "capo_ram.types.permission_arn_and_template_parameters_list.PermissionArnAndTemplateParametersList"
+        ] = None,
         resource_share_configuration: Optional[
             "capo_ram.types.resource_share_configuration.ResourceShareConfiguration"
         ] = None,
@@ -614,6 +643,7 @@ class RAMClient:
             client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of value.</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
             permission_arns: <p>Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)</a> of the RAM permission to associate with the resource share. If you do not specify an ARN for the permission, RAM automatically attaches the default version of the permission for each resource type. You can associate only one permission with each resource type included in the resource share.</p>
             sources: <p>Specifies source constraints (accounts, ARNs, organization IDs, or organization paths) that limit when service principals can access resources in this resource share. When a service principal attempts to access a shared resource, validation is performed to ensure the request originates from one of the specified sources. This helps prevent confused deputy attacks by applying constraints on where service principals can access resources from.</p>
+            permission_template_parameters: <p>Specifies the template parameter values for each permission being associated that has template parameters. Each entry maps a permission ARN to the parameter values to use when rendering the permission template for this resource share. You must provide values for all parameters declared in each permission template.</p>
             resource_share_configuration: <p>Specifies the configuration of this resource share.</p>
 
         Raises:
@@ -667,6 +697,8 @@ class RAMClient:
             input_["permission_arns"] = permission_arns
         if sources is not None:
             input_["sources"] = sources
+        if permission_template_parameters is not None:
+            input_["permission_template_parameters"] = permission_template_parameters
         if resource_share_configuration is not None:
             input_["resource_share_configuration"] = resource_share_configuration
 
@@ -1031,12 +1063,16 @@ class RAMClient:
         *,
         config_overrides: Optional[RAMClientConfig] = None,
         permission_version: Optional["capo_ram.types.integer.Integer"] = None,
+        permission_template_parameters: Optional[
+            "capo_ram.types.permission_template_parameter_input_list.PermissionTemplateParameterInputList"
+        ] = None,
     ) -> "capo_ram.types.get_permission_response.GetPermissionResponse":
-        """<p>Retrieves the contents of a managed permission in JSON format.</p>
+        """<p>Retrieves the contents of a managed permission in JSON format.</p> <p>If the permission has template parameters, you can include the <code>permissionTemplateParameters</code> parameter in your request. The operation then renders the returned policy with the specified values in place of the template parameter placeholders. If you omit <code>permissionTemplateParameters</code>, the operation returns the raw policy template with <code>@{parameterName}</code> placeholders unchanged.</p>
 
         Args:
             permission_arn: <p>Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of the permission whose contents you want to retrieve. To find the ARN for a permission, use either the <a>ListPermissions</a> operation or go to the <a href="https://console.aws.amazon.com/ram/home#Permissions:">Permissions library</a> page in the RAM console and then choose the name of the permission. The ARN is displayed on the detail page.</p>
             permission_version: <p>Specifies the version number of the RAM permission to retrieve. If you don't specify this parameter, the operation retrieves the default version.</p> <p>To see the list of available versions, use <a>ListPermissionVersions</a>.</p>
+            permission_template_parameters: <p>Specifies the template parameter values to use when rendering the permission's policy template. Each entry supplies a parameter name and its values. When you provide this parameter, the response contains the rendered policy with the specified values in place of the template parameter placeholders.</p> <p>For <code>STRING</code> type parameters, provide a single value. For <code>STRING_LIST</code> type parameters, provide one or more values.</p> <p>You can specify this parameter only for permissions that declare template parameters. You must provide values for all parameters declared in the permission template.</p>
 
         Raises:
             capo_ram.errors.invalid_parameter_exception.InvalidParameterException: <p>The operation failed because a parameter you specified isn't valid.</p>
@@ -1070,6 +1106,8 @@ class RAMClient:
         }
         if permission_version is not None:
             input_["permission_version"] = permission_version
+        if permission_template_parameters is not None:
+            input_["permission_template_parameters"] = permission_template_parameters
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -1600,6 +1638,8 @@ class RAMClient:
             "capo_ram.types.permission_feature_set.PermissionFeatureSet"
         ] = None,
         default_version: Optional["capo_ram.types.boolean.Boolean"] = None,
+        resource_owner: Optional["capo_ram.types.resource_owner.ResourceOwner"] = None,
+        resource_share_arn: Optional["capo_ram.types.string.String"] = None,
         next_token: Optional["capo_ram.types.string.String"] = None,
         max_results: Optional["capo_ram.types.max_results.MaxResults"] = None,
     ) -> "capo_ram.types.list_permission_associations_response.ListPermissionAssociationsResponse":
@@ -1612,6 +1652,8 @@ class RAMClient:
             resource_type: <p>Specifies that you want to list only those associations with resource shares that include at least one resource of this resource type.</p>
             feature_set: <p>Specifies that you want to list only those associations with resource shares that have a <code>featureSet</code> with this value.</p>
             default_version: <p>When <code>true</code>, specifies that you want to list only those associations with resource shares that use the default version of the specified managed permission.</p> <p>When <code>false</code> (the default value), lists associations with resource shares that use any version of the specified managed permission.</p>
+            resource_owner: <p>Specifies that you want to list only those associations with resource shares owned by a specific entity:</p> <ul> <li> <p> <code>SELF</code> – returns only associations with resource shares owned by the calling account.</p> </li> <li> <p> <code>OTHER-ACCOUNTS</code> – returns only associations with resource shares owned by other Amazon Web Services accounts.</p> </li> </ul> <p>If you don't specify this parameter, the default is <code>SELF</code>.</p>
+            resource_share_arn: <p>Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of the resource share for which you want to retrieve permission associations.</p>
             next_token: <p>Specifies that you want to receive the next page of results. Valid only if you received a <code>NextToken</code> response in the previous request. If you did, it indicates that more output is available. Set this parameter to the value provided by the previous call's <code>NextToken</code> response to request the next page of results.</p>
             max_results: <p>Specifies the total number of results that you want included on each page of the response. If you do not include this parameter, it defaults to a value that is specific to the operation. If additional items exist beyond the number you specify, the <code>NextToken</code> response element is returned with a value (not null). Include the specified value as the <code>NextToken</code> request parameter in the next call to the operation to get the next part of the results. Note that the service might return fewer results than the maximum even when there are more results available. You should check <code>NextToken</code> after every operation to ensure that you receive all of the results.</p>
 
@@ -1654,6 +1696,10 @@ class RAMClient:
             input_["feature_set"] = feature_set
         if default_version is not None:
             input_["default_version"] = default_version
+        if resource_owner is not None:
+            input_["resource_owner"] = resource_owner
+        if resource_share_arn is not None:
+            input_["resource_share_arn"] = resource_share_arn
         if next_token is not None:
             input_["next_token"] = next_token
         if max_results is not None:
@@ -1681,6 +1727,8 @@ class RAMClient:
             "capo_ram.types.permission_feature_set.PermissionFeatureSet"
         ] = None,
         default_version: Optional["capo_ram.types.boolean.Boolean"] = None,
+        resource_owner: Optional["capo_ram.types.resource_owner.ResourceOwner"] = None,
+        resource_share_arn: Optional["capo_ram.types.string.String"] = None,
         next_token: Optional["capo_ram.types.string.String"] = None,
         max_results: Optional["capo_ram.types.max_results.MaxResults"] = None,
     ) -> "Iterator[capo_ram.types.list_permission_associations_response.ListPermissionAssociationsResponse]":
@@ -1694,6 +1742,8 @@ class RAMClient:
                 resource_type=resource_type,
                 feature_set=feature_set,
                 default_version=default_version,
+                resource_owner=resource_owner,
+                resource_share_arn=resource_share_arn,
                 next_token=_token,
                 max_results=max_results,
             )
@@ -1707,19 +1757,25 @@ class RAMClient:
         *,
         config_overrides: Optional[RAMClientConfig] = None,
         resource_type: Optional["capo_ram.types.string.String"] = None,
+        resource_owner: Optional["capo_ram.types.resource_owner.ResourceOwner"] = None,
         next_token: Optional["capo_ram.types.string.String"] = None,
         max_results: Optional["capo_ram.types.max_results.MaxResults"] = None,
         permission_type: Optional[
             "capo_ram.types.permission_type_filter.PermissionTypeFilter"
+        ] = None,
+        permission_status: Optional[
+            "capo_ram.types.permission_status.PermissionStatus"
         ] = None,
     ) -> "capo_ram.types.list_permissions_response.ListPermissionsResponse":
         """<p>Retrieves a list of available RAM permissions that you can use for the supported resource types. </p> <note> <p>Always check the <code>NextToken</code> response parameter for a <code>null</code> value when calling a paginated operation. These operations can occasionally return an empty set of results even when there are more results available. The <code>NextToken</code> response parameter value is <code>null</code> <i>only</i> when there are no more results to display.</p> </note>
 
         Args:
             resource_type: <p>Specifies that you want to list only those permissions that apply to the specified resource type. This parameter is not case sensitive.</p> <p>For example, to list only permissions that apply to Amazon EC2 subnets, specify <code>ec2:subnet</code>. You can use the <a>ListResourceTypes</a> operation to get the specific string required.</p>
+            resource_owner: <p>Specifies that you want to list only permissions owned by a specific entity:</p> <ul> <li> <p> <code>SELF</code> – returns only permissions owned by the calling account.</p> </li> <li> <p> <code>OTHER-ACCOUNTS</code> – returns only permissions shared with the calling account by other accounts.</p> </li> </ul>
             next_token: <p>Specifies that you want to receive the next page of results. Valid only if you received a <code>NextToken</code> response in the previous request. If you did, it indicates that more output is available. Set this parameter to the value provided by the previous call's <code>NextToken</code> response to request the next page of results.</p>
             max_results: <p>Specifies the total number of results that you want included on each page of the response. If you do not include this parameter, it defaults to a value that is specific to the operation. If additional items exist beyond the number you specify, the <code>NextToken</code> response element is returned with a value (not null). Include the specified value as the <code>NextToken</code> request parameter in the next call to the operation to get the next part of the results. Note that the service might return fewer results than the maximum even when there are more results available. You should check <code>NextToken</code> after every operation to ensure that you receive all of the results.</p>
             permission_type: <p>Specifies that you want to list only permissions of this type:</p> <ul> <li> <p> <code>AWS</code> – returns only Amazon Web Services managed permissions.</p> </li> <li> <p> <code>LOCAL</code> – returns only customer managed permissions</p> </li> <li> <p> <code>ALL</code> – returns both Amazon Web Services managed permissions and customer managed permissions.</p> </li> </ul> <p>If you don't specify this parameter, the default is <code>All</code>.</p>
+            permission_status: <p>Specifies that you want to filter the results to include only permissions with the specified status. For example, use <code>ATTACHABLE</code> to list only permissions that can be associated with resource shares, or <code>DEPRECATED</code> to list only deprecated permissions.</p>
 
         Raises:
             capo_ram.errors.invalid_next_token_exception.InvalidNextTokenException: <p>The operation failed because the specified value for <code>NextToken</code> isn't valid. You must specify a value you received in the <code>NextToken</code> response of a previous call to this operation.</p>
@@ -1750,12 +1806,16 @@ class RAMClient:
         input_: capo_ram.types.list_permissions_request.ListPermissionsRequest = {}
         if resource_type is not None:
             input_["resource_type"] = resource_type
+        if resource_owner is not None:
+            input_["resource_owner"] = resource_owner
         if next_token is not None:
             input_["next_token"] = next_token
         if max_results is not None:
             input_["max_results"] = max_results
         if permission_type is not None:
             input_["permission_type"] = permission_type
+        if permission_status is not None:
+            input_["permission_status"] = permission_status
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -1770,10 +1830,14 @@ class RAMClient:
         *,
         config_overrides: Optional[RAMClientConfig] = None,
         resource_type: Optional["capo_ram.types.string.String"] = None,
+        resource_owner: Optional["capo_ram.types.resource_owner.ResourceOwner"] = None,
         next_token: Optional["capo_ram.types.string.String"] = None,
         max_results: Optional["capo_ram.types.max_results.MaxResults"] = None,
         permission_type: Optional[
             "capo_ram.types.permission_type_filter.PermissionTypeFilter"
+        ] = None,
+        permission_status: Optional[
+            "capo_ram.types.permission_status.PermissionStatus"
         ] = None,
     ) -> "Iterator[capo_ram.types.list_permissions_response.ListPermissionsResponse]":
         _token = next_token
@@ -1781,9 +1845,11 @@ class RAMClient:
             _response = self.list_permissions(
                 config_overrides=config_overrides,
                 resource_type=resource_type,
+                resource_owner=resource_owner,
                 next_token=_token,
                 max_results=max_results,
                 permission_type=permission_type,
+                permission_status=permission_status,
             )
             yield _response
             _token = _resolve_path(_response, ("next_token",))
@@ -2640,6 +2706,9 @@ class RAMClient:
         *,
         config_overrides: Optional[RAMClientConfig] = None,
         from_permission_version: Optional["capo_ram.types.integer.Integer"] = None,
+        permission_template_parameters: Optional[
+            "capo_ram.types.permission_template_parameter_input_list.PermissionTemplateParameterInputList"
+        ] = None,
         client_token: Optional["capo_ram.types.string.String"] = None,
     ) -> "capo_ram.types.replace_permission_associations_response.ReplacePermissionAssociationsResponse":
         """<p>Updates all resource shares that use a managed permission to a different managed permission. This operation always applies the default version of the target managed permission. You can optionally specify that the update applies to only resource shares that currently use a specified version. This enables you to update to the latest version, without changing the which managed permission is used.</p> <p>You can use this operation to update all of your resource shares to use the current default version of the permission by specifying the same value for the <code>fromPermissionArn</code> and <code>toPermissionArn</code> parameters.</p> <p>You can use the optional <code>fromPermissionVersion</code> parameter to update only those resources that use a specified version of the managed permission to the new managed permission.</p> <important> <p>To successfully perform this operation, you must have permission to update the resource-based policy on all affected resource types.</p> </important>
@@ -2648,6 +2717,7 @@ class RAMClient:
             from_permission_arn: <p>Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of the managed permission that you want to replace.</p>
             from_permission_version: <p>Specifies that you want to updated the permissions for only those resource shares that use the specified version of the managed permission.</p>
             to_permission_arn: <p>Specifies the ARN of the managed permission that you want to associate with resource shares in place of the one specified by <code>fromPerssionArn</code> and <code>fromPermissionVersion</code>.</p> <p>The operation always associates the version that is currently the default for the specified managed permission.</p>
+            permission_template_parameters: <p>Specifies the template parameter values to apply when replacing the permission. You must provide values for all parameters declared in the target permission template. This parameter is required only if the target permission (<code>toPermissionArn</code>) has template parameters.</p>
             client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of value.</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
 
         Raises:
@@ -2685,6 +2755,8 @@ class RAMClient:
         }
         if from_permission_version is not None:
             input_["from_permission_version"] = from_permission_version
+        if permission_template_parameters is not None:
+            input_["permission_template_parameters"] = permission_template_parameters
         if client_token is not None:
             input_["client_token"] = client_token
 
@@ -2860,6 +2932,72 @@ class RAMClient:
             input_["resource_share_arn"] = resource_share_arn
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def update_permission(
+        self,
+        permission_arn: "capo_ram.types.string.String",
+        status: "capo_ram.types.update_permission_status.UpdatePermissionStatus",
+        *,
+        config_overrides: Optional[RAMClientConfig] = None,
+        client_token: Optional["capo_ram.types.string.String"] = None,
+    ) -> "capo_ram.types.update_permission_response.UpdatePermissionResponse":
+        """<p>Updates the status of the specified customer managed permission.</p> <p>Setting the status to <code>DEPRECATED</code> prevents new resource share associations. Setting it to <code>ATTACHABLE</code> restores a previously deprecated permission. Existing resource shares that use the permission continue to function.</p>
+
+        Args:
+            permission_arn: <p>Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of the customer managed permission that you want to update.</p>
+            status: <p>Specifies the new status for the permission. This can be one of the following values:</p> <ul> <li> <p> <code>ATTACHABLE</code> – Restores a previously deprecated permission so it can be associated with resource shares again.</p> </li> <li> <p> <code>DEPRECATED</code> – Deprecates the permission so it can no longer be associated with new resource shares.</p> </li> </ul>
+            client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of value.</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
+
+        Raises:
+            capo_ram.errors.idempotent_parameter_mismatch_exception.IdempotentParameterMismatchException: <p>The operation failed because the client token input parameter matched one that was used with a previous call to the operation, but at least one of the other input parameters is different from the previous call.</p>
+            capo_ram.errors.invalid_client_token_exception.InvalidClientTokenException: <p>The operation failed because the specified client token isn't valid.</p>
+            capo_ram.errors.invalid_parameter_exception.InvalidParameterException: <p>The operation failed because a parameter you specified isn't valid.</p>
+            capo_ram.errors.malformed_arn_exception.MalformedArnException: <p>The operation failed because the specified <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> has a format that isn't valid.</p>
+            capo_ram.errors.operation_not_permitted_exception.OperationNotPermittedException: <p>The operation failed because the requested operation isn't permitted.</p>
+            capo_ram.errors.permission_limit_exceeded_exception.PermissionLimitExceededException: <p>The operation failed because it would exceed the maximum number of permissions you can create in each Amazon Web Services Region. To view the limits for your Amazon Web Services account, see the <a href="https://console.aws.amazon.com/servicequotas/home/services/ram/quotas">RAM page in the Service Quotas console</a>.</p>
+            capo_ram.errors.server_internal_exception.ServerInternalException: <p>The operation failed because the service could not respond to the request due to an internal problem. Try again later.</p>
+            capo_ram.errors.service_unavailable_exception.ServiceUnavailableException: <p>The operation failed because the service isn't available. Try again later.</p>
+            capo_ram.errors.unknown_resource_exception.UnknownResourceException: <p>The operation failed because a specified resource couldn't be found.</p>
+            capo_ram.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Deprecate a managed permission
+            Deprecates a customer managed permission so it can no longer be associated with new resource shares.
+
+            >>> client.update_permission(permission_arn='arn:aws:ram:us-east-1:123456789012:permission/AnyCompanyImageBuilderPermission', status='DEPRECATED')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_ram.types.update_permission_request.UpdatePermissionRequest]",
+        ) -> OperationResponse[
+            "capo_ram.types.update_permission_response.UpdatePermissionResponse"
+        ]:
+            import capo_ram._operations.amazon_resource_sharing.update_permission
+
+            output, http_response = (
+                capo_ram._operations.amazon_resource_sharing.update_permission.update_permission(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePermission")
+        )
+        input_: capo_ram.types.update_permission_request.UpdatePermissionRequest = {
+            "permission_arn": permission_arn,
+            "status": status,
+        }
+        if client_token is not None:
+            input_["client_token"] = client_token
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

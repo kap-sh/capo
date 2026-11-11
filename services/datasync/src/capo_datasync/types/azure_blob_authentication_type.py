@@ -5,6 +5,7 @@ from typing import Literal, TypeAlias, cast
 AzureBlobAuthenticationType: TypeAlias = Literal[
     "SAS",
     "NONE",
+    "OIDC",
 ]
 
 

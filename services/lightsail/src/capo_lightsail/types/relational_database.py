@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lightsail#RelationalDatabase``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -300,4 +300,17 @@ def deserialize_aws_json_1_1(data: dict) -> RelationalDatabase:
         )
     if data.get("caCertificateIdentifier") is not None:
         out["ca_certificate_identifier"] = data["caCertificateIdentifier"]
+    return out
+
+
+def redact_sensitive(value: RelationalDatabase) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "pending_modified_values" in value:
+        import capo_lightsail.types.pending_modified_relational_database_values
+
+        out["pending_modified_values"] = (
+            capo_lightsail.types.pending_modified_relational_database_values.redact_sensitive(
+                value["pending_modified_values"]
+            )
+        )
     return out

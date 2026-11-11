@@ -18,6 +18,7 @@ import capo_sagemaker.types.create_pipeline_request
 import capo_sagemaker.types.create_pipeline_response
 import capo_sagemaker.types.parallelism_configuration
 import capo_sagemaker.types.pipeline_definition_s3_location
+import capo_sagemaker.types.pipeline_version_alias_list
 import capo_sagemaker.types.tag_list
 from capo_sagemaker._protocol.errors import parse_error_metadata_json
 from capo_sagemaker._rule_engine._endpoint_rule_set import EndpointParams, resolve

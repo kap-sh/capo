@@ -45,7 +45,7 @@ class JobDefinition(TypedDict, closed=True):
     timeout: NotRequired["capo_batch.types.job_timeout.JobTimeout"]
     """<p>The timeout time for jobs that are submitted with this job definition. After the amount of time you specify passes, Batch terminates your jobs if they aren't finished.</p>"""
     node_properties: NotRequired["capo_batch.types.node_properties.NodeProperties"]
-    """<p>An object with properties that are specific to multi-node parallel jobs. When <code>nodeProperties</code> is used in the job definition, it can't be used in addition to <code>containerProperties</code>, <code>ecsProperties</code>, or <code>eksProperties</code>.</p> <note> <p>If the job runs on Fargate resources, don't specify <code>nodeProperties</code>. Use <code>containerProperties</code> instead.</p> </note>"""
+    """<p>An object with properties that are specific to multi-node parallel jobs. When <code>nodeProperties</code> is used in the job definition, it can't be used in addition to <code>containerProperties</code>, <code>ecsProperties</code>, or <code>eksProperties</code>.</p> <note> <p>If the job runs on Fargate resources, don't specify <code>nodeProperties</code>. We recommend <code>ecsProperties</code>, which supports both single-container and multi-container jobs. <code>containerProperties</code> is also supported for single-container jobs.</p> </note>"""
     tags: NotRequired["capo_batch.types.tagris_tags_map.TagrisTagsMap"]
     """<p>The tags that are applied to the job definition.</p>"""
     propagate_tags: NotRequired["capo_batch.types.boolean.Boolean"]

@@ -21,6 +21,7 @@ if TYPE_CHECKING:
     import capo_ecs.types.task_definition_placement_constraints
     import capo_ecs.types.task_definition_status
     import capo_ecs.types.timestamp
+    import capo_ecs.types.trusted_execution_configuration
     import capo_ecs.types.volume_list
 
 
@@ -89,6 +90,10 @@ class TaskDefinition(TypedDict, closed=True):
     """<p>The ephemeral storage settings to use for tasks run with the task definition.</p>"""
     enable_fault_injection: NotRequired["capo_ecs.types.boxed_boolean.BoxedBoolean"]
     """<p>Enables fault injection and allows for fault injection requests to be accepted from the task's containers. The default value is <code>false</code>.</p>"""
+    trusted_execution_configuration: NotRequired[
+        "capo_ecs.types.trusted_execution_configuration.TrustedExecutionConfiguration"
+    ]
+    """<p>The trusted execution configuration for tasks that use this task definition, including the isolation mode and, if configured, an attestation policy.</p> <note> <p>Trusted execution is supported only for Amazon ECS Managed Instances.</p> </note>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -229,6 +234,14 @@ def serialize_aws_json_1_1(value: TaskDefinition) -> dict:
         )
     if "enable_fault_injection" in value:
         out["enableFaultInjection"] = value["enable_fault_injection"]
+    if "trusted_execution_configuration" in value:
+        import capo_ecs.types.trusted_execution_configuration
+
+        out["trustedExecutionConfiguration"] = (
+            capo_ecs.types.trusted_execution_configuration.serialize_aws_json_1_1(
+                value["trusted_execution_configuration"]
+            )
+        )
     return out
 
 
@@ -374,6 +387,14 @@ def deserialize_aws_json_1_1(data: dict) -> TaskDefinition:
         )
     if data.get("enableFaultInjection") is not None:
         out["enable_fault_injection"] = data["enableFaultInjection"]
+    if data.get("trustedExecutionConfiguration") is not None:
+        import capo_ecs.types.trusted_execution_configuration
+
+        out["trusted_execution_configuration"] = (
+            capo_ecs.types.trusted_execution_configuration.deserialize_aws_json_1_1(
+                data["trustedExecutionConfiguration"]
+            )
+        )
     return out
 
 

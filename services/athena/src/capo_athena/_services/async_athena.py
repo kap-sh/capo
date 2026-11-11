@@ -66,6 +66,8 @@ if TYPE_CHECKING:
     import capo_athena.types.create_prepared_statement_output
     import capo_athena.types.create_presigned_notebook_url_request
     import capo_athena.types.create_presigned_notebook_url_response
+    import capo_athena.types.create_system_table_configuration_input
+    import capo_athena.types.create_system_table_configuration_output
     import capo_athena.types.create_work_group_input
     import capo_athena.types.create_work_group_output
     import capo_athena.types.data_catalog_summary
@@ -82,6 +84,8 @@ if TYPE_CHECKING:
     import capo_athena.types.delete_notebook_output
     import capo_athena.types.delete_prepared_statement_input
     import capo_athena.types.delete_prepared_statement_output
+    import capo_athena.types.delete_system_table_configuration_input
+    import capo_athena.types.delete_system_table_configuration_output
     import capo_athena.types.delete_work_group_input
     import capo_athena.types.delete_work_group_output
     import capo_athena.types.description_string
@@ -126,6 +130,8 @@ if TYPE_CHECKING:
     import capo_athena.types.get_session_response
     import capo_athena.types.get_session_status_request
     import capo_athena.types.get_session_status_response
+    import capo_athena.types.get_system_table_configuration_input
+    import capo_athena.types.get_system_table_configuration_output
     import capo_athena.types.get_table_metadata_input
     import capo_athena.types.get_table_metadata_output
     import capo_athena.types.get_work_group_input
@@ -133,6 +139,7 @@ if TYPE_CHECKING:
     import capo_athena.types.idempotency_token
     import capo_athena.types.import_notebook_input
     import capo_athena.types.import_notebook_output
+    import capo_athena.types.kms_key_arn
     import capo_athena.types.list_application_dpu_sizes_input
     import capo_athena.types.list_application_dpu_sizes_output
     import capo_athena.types.list_calculation_executions_request
@@ -159,6 +166,8 @@ if TYPE_CHECKING:
     import capo_athena.types.list_query_executions_output
     import capo_athena.types.list_sessions_request
     import capo_athena.types.list_sessions_response
+    import capo_athena.types.list_system_table_statuses_input
+    import capo_athena.types.list_system_table_statuses_output
     import capo_athena.types.list_table_metadata_input
     import capo_athena.types.list_table_metadata_output
     import capo_athena.types.list_tags_for_resource_input
@@ -178,6 +187,7 @@ if TYPE_CHECKING:
     import capo_athena.types.max_query_executions_count
     import capo_athena.types.max_query_results
     import capo_athena.types.max_sessions_count
+    import capo_athena.types.max_system_table_statuses_count
     import capo_athena.types.max_table_metadata_count
     import capo_athena.types.max_tags_count
     import capo_athena.types.max_work_groups_count
@@ -218,6 +228,8 @@ if TYPE_CHECKING:
     import capo_athena.types.stop_calculation_execution_response
     import capo_athena.types.stop_query_execution_input
     import capo_athena.types.stop_query_execution_output
+    import capo_athena.types.system_table_name
+    import capo_athena.types.system_table_status
     import capo_athena.types.table_metadata
     import capo_athena.types.tag
     import capo_athena.types.tag_key_list
@@ -242,6 +254,8 @@ if TYPE_CHECKING:
     import capo_athena.types.update_notebook_output
     import capo_athena.types.update_prepared_statement_input
     import capo_athena.types.update_prepared_statement_output
+    import capo_athena.types.update_system_table_configuration_input
+    import capo_athena.types.update_system_table_configuration_output
     import capo_athena.types.update_work_group_input
     import capo_athena.types.update_work_group_output
     import capo_athena.types.work_group_configuration
@@ -911,6 +925,69 @@ class AsyncAthenaClient:
         await response.response.aclose()
         return response.output
 
+    async def create_system_table_configuration(
+        self,
+        table_name: "capo_athena.types.system_table_name.SystemTableName",
+        *,
+        config_overrides: Optional[AsyncAthenaClientConfig] = None,
+        client_request_token: Optional[
+            "capo_athena.types.idempotency_token.IdempotencyToken"
+        ] = None,
+        kms_key_arn: Optional["capo_athena.types.kms_key_arn.KmsKeyArn"] = None,
+        tags: Optional["capo_athena.types.tag_list.TagList"] = None,
+    ) -> "capo_athena.types.create_system_table_configuration_output.CreateSystemTableConfigurationOutput":
+        """<p>Enables system tables for the current account. System tables are enabled or disabled for the entire account: creating this configuration enables them. If a configuration already exists, use <a>UpdateSystemTableConfiguration</a> to update it.</p>
+
+        Args:
+            client_request_token: <p>A unique case-sensitive string used to ensure the request to create the system table configuration is idempotent (executes only once). If another <code>CreateSystemTableConfiguration</code> request is received with the same client token but different parameters, the request fails with an <code>InvalidRequestException</code>.</p>
+            table_name: <p>The system table configuration to create. The only accepted value is <code>ALL</code>, the reserved keyword that enables all system tables for the account.</p>
+            kms_key_arn: <p>The Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS) key to use for encrypting the system table data.</p>
+            tags: <p>The tags to add to the system table configuration.</p>
+
+        Raises:
+            capo_athena.errors.internal_server_exception.InternalServerException: <p>Indicates a platform issue, which may be due to a transient condition or outage.</p>
+            capo_athena.errors.invalid_request_exception.InvalidRequestException: <p>Indicates that something is wrong with the input to the request. For example, a required parameter may be missing or out of range.</p>
+            capo_athena.errors.too_many_requests_exception.TooManyRequestsException: <p>Indicates that the request was throttled.</p>
+            capo_athena.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_athena.types.create_system_table_configuration_input.CreateSystemTableConfigurationInput]",
+        ) -> AsyncOperationResponse[
+            "capo_athena.types.create_system_table_configuration_output.CreateSystemTableConfigurationOutput"
+        ]:
+            import capo_athena._operations.amazon_athena.create_system_table_configuration
+
+            (
+                output,
+                http_response,
+            ) = await capo_athena._operations.amazon_athena.create_system_table_configuration.async_create_system_table_configuration(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSystemTableConfiguration")
+        )
+        input_: capo_athena.types.create_system_table_configuration_input.CreateSystemTableConfigurationInput = {
+            "table_name": table_name
+        }
+        if client_request_token is None:
+            client_request_token = str(uuid.uuid4())
+        input_["client_request_token"] = client_request_token
+        if kms_key_arn is not None:
+            input_["kms_key_arn"] = kms_key_arn
+        if tags is not None:
+            input_["tags"] = tags
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def create_work_group(
         self,
         name: "capo_athena.types.work_group_name.WorkGroupName",
@@ -1208,6 +1285,54 @@ class AsyncAthenaClient:
         input_: capo_athena.types.delete_prepared_statement_input.DeletePreparedStatementInput = {
             "statement_name": statement_name,
             "work_group": work_group,
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def delete_system_table_configuration(
+        self,
+        table_name: "capo_athena.types.system_table_name.SystemTableName",
+        *,
+        config_overrides: Optional[AsyncAthenaClientConfig] = None,
+    ) -> "capo_athena.types.delete_system_table_configuration_output.DeleteSystemTableConfigurationOutput":
+        """<p>Disables system tables for the current account by deleting the account-level configuration. If the configuration doesn't exist, the operation succeeds without making any changes. The system table and previously published data are left intact.</p>
+
+        Args:
+            table_name: <p>The system table configuration to delete. The only accepted value is <code>ALL</code>.</p>
+
+        Raises:
+            capo_athena.errors.internal_server_exception.InternalServerException: <p>Indicates a platform issue, which may be due to a transient condition or outage.</p>
+            capo_athena.errors.invalid_request_exception.InvalidRequestException: <p>Indicates that something is wrong with the input to the request. For example, a required parameter may be missing or out of range.</p>
+            capo_athena.errors.too_many_requests_exception.TooManyRequestsException: <p>Indicates that the request was throttled.</p>
+            capo_athena.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_athena.types.delete_system_table_configuration_input.DeleteSystemTableConfigurationInput]",
+        ) -> AsyncOperationResponse[
+            "capo_athena.types.delete_system_table_configuration_output.DeleteSystemTableConfigurationOutput"
+        ]:
+            import capo_athena._operations.amazon_athena.delete_system_table_configuration
+
+            (
+                output,
+                http_response,
+            ) = await capo_athena._operations.amazon_athena.delete_system_table_configuration.async_delete_system_table_configuration(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSystemTableConfiguration")
+        )
+        input_: capo_athena.types.delete_system_table_configuration_input.DeleteSystemTableConfigurationInput = {
+            "table_name": table_name
         }
 
         response = await aexecute_pipeline(
@@ -2180,6 +2305,55 @@ class AsyncAthenaClient:
         )
         input_: capo_athena.types.get_session_status_request.GetSessionStatusRequest = {
             "session_id": session_id
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def get_system_table_configuration(
+        self,
+        table_name: "capo_athena.types.system_table_name.SystemTableName",
+        *,
+        config_overrides: Optional[AsyncAthenaClientConfig] = None,
+    ) -> "capo_athena.types.get_system_table_configuration_output.GetSystemTableConfigurationOutput":
+        """<p>Returns the account-level system tables configuration. Fails with a <code>ResourceNotFoundException</code> if system tables are not enabled for the account.</p>
+
+        Args:
+            table_name: <p>The system table configuration to retrieve. The only accepted value is <code>ALL</code>.</p>
+
+        Raises:
+            capo_athena.errors.internal_server_exception.InternalServerException: <p>Indicates a platform issue, which may be due to a transient condition or outage.</p>
+            capo_athena.errors.invalid_request_exception.InvalidRequestException: <p>Indicates that something is wrong with the input to the request. For example, a required parameter may be missing or out of range.</p>
+            capo_athena.errors.resource_not_found_exception.ResourceNotFoundException: <p>A resource, such as a workgroup, was not found.</p>
+            capo_athena.errors.too_many_requests_exception.TooManyRequestsException: <p>Indicates that the request was throttled.</p>
+            capo_athena.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_athena.types.get_system_table_configuration_input.GetSystemTableConfigurationInput]",
+        ) -> AsyncOperationResponse[
+            "capo_athena.types.get_system_table_configuration_output.GetSystemTableConfigurationOutput"
+        ]:
+            import capo_athena._operations.amazon_athena.get_system_table_configuration
+
+            (
+                output,
+                http_response,
+            ) = await capo_athena._operations.amazon_athena.get_system_table_configuration.async_get_system_table_configuration(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSystemTableConfiguration")
+        )
+        input_: capo_athena.types.get_system_table_configuration_input.GetSystemTableConfigurationInput = {
+            "table_name": table_name
         }
 
         response = await aexecute_pipeline(
@@ -3406,6 +3580,83 @@ class AsyncAthenaClient:
             if not _token:
                 break
 
+    async def list_system_table_statuses(
+        self,
+        *,
+        config_overrides: Optional[AsyncAthenaClientConfig] = None,
+        next_token: Optional["capo_athena.types.token.Token"] = None,
+        max_results: Optional[
+            "capo_athena.types.max_system_table_statuses_count.MaxSystemTableStatusesCount"
+        ] = None,
+    ) -> "capo_athena.types.list_system_table_statuses_output.ListSystemTableStatusesOutput":
+        """<p>Lists the system tables that the account-level configuration activates, along with whether each is currently enabled. Because system tables are enabled at the account level, every entry reflects the same account-wide state.</p>
+
+        Args:
+            next_token: <p>A token generated by the Athena service that specifies where to continue pagination if a previous request was truncated.</p>
+            max_results: <p>Specifies the maximum number of results to return.</p>
+
+        Raises:
+            capo_athena.errors.internal_server_exception.InternalServerException: <p>Indicates a platform issue, which may be due to a transient condition or outage.</p>
+            capo_athena.errors.invalid_request_exception.InvalidRequestException: <p>Indicates that something is wrong with the input to the request. For example, a required parameter may be missing or out of range.</p>
+            capo_athena.errors.too_many_requests_exception.TooManyRequestsException: <p>Indicates that the request was throttled.</p>
+            capo_athena.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_athena.types.list_system_table_statuses_input.ListSystemTableStatusesInput]",
+        ) -> AsyncOperationResponse[
+            "capo_athena.types.list_system_table_statuses_output.ListSystemTableStatusesOutput"
+        ]:
+            import capo_athena._operations.amazon_athena.list_system_table_statuses
+
+            (
+                output,
+                http_response,
+            ) = await capo_athena._operations.amazon_athena.list_system_table_statuses.async_list_system_table_statuses(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSystemTableStatuses")
+        )
+        input_: capo_athena.types.list_system_table_statuses_input.ListSystemTableStatusesInput = {}
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if max_results is not None:
+            input_["max_results"] = max_results
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_system_table_statuses(
+        self,
+        *,
+        config_overrides: Optional[AsyncAthenaClientConfig] = None,
+        next_token: Optional["capo_athena.types.token.Token"] = None,
+        max_results: Optional[
+            "capo_athena.types.max_system_table_statuses_count.MaxSystemTableStatusesCount"
+        ] = None,
+    ) -> "AsyncIterator[capo_athena.types.system_table_status.SystemTableStatus]":
+        _token = next_token
+        while True:
+            _response = await self.list_system_table_statuses(
+                config_overrides=config_overrides,
+                next_token=_token,
+                max_results=max_results,
+            )
+            _page = _resolve_path(_response, ("items",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
     async def list_table_metadata(
         self,
         catalog_name: "capo_athena.types.catalog_name_string.CatalogNameString",
@@ -3820,7 +4071,7 @@ class AsyncAthenaClient:
             work_group: <p>The name of the workgroup in which the query is being started.</p>
             execution_parameters: <p>A list of values for the parameters in a query. The values are applied sequentially to the parameters in the query in the order in which the parameters occur.</p>
             result_reuse_configuration: <p>Specifies the query result reuse behavior for the query.</p>
-            engine_configuration: <p>The engine configuration for the workgroup, which includes the minimum/maximum number of Data Processing Units (DPU) that queries should use when running in provisioned capacity. If not specified, Athena uses default values (Default value for min is 4 and for max is Minimum of 124 and allocated DPUs).</p> <p>To specify minimum and maximum DPU values for Capacity Reservations queries, the workgroup containing <code>EngineConfiguration</code> should have the following values: The name of the <code>Classifications</code> should be <code>athena-query-engine-properties</code>, with the only allowed properties as <code>max-dpu-count</code> and <code>min-dpu-count</code>.</p>
+            engine_configuration: <p>The engine configuration for the workgroup, which includes the minimum/maximum number of Data Processing Units (DPU) that queries should use when running in provisioned capacity. If not specified, Athena uses default values (Default value for min is 4 and for max is Minimum of 124 and allocated DPUs).</p> <p>To specify minimum and maximum DPU values for Capacity Reservations queries, the workgroup containing <code>EngineConfiguration</code> should have the following values: The name of the <code>Classifications</code> should be <code>athena-query-engine-properties</code>, with the only allowed properties as <code>max-dpu-count</code> and <code>min-dpu-count</code>.</p> <p> <b>Note:</b> When using StartQueryExecution, only the Classifications field applies. Do not specify the other fields (AdditionalConfigs, CoordinatorDpuSize, DefaultExecutorDpuSize, MaxConcurrentDpus, and SparkProperties), as these are used only with StartSession to configure Apache Spark-based sessions.</p>
 
         Raises:
             capo_athena.errors.internal_server_exception.InternalServerException: <p>Indicates a platform issue, which may be due to a transient condition or outage.</p>
@@ -4557,6 +4808,59 @@ class AsyncAthenaClient:
         }
         if description is not None:
             input_["description"] = description
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def update_system_table_configuration(
+        self,
+        table_name: "capo_athena.types.system_table_name.SystemTableName",
+        *,
+        config_overrides: Optional[AsyncAthenaClientConfig] = None,
+        kms_key_arn: Optional["capo_athena.types.kms_key_arn.KmsKeyArn"] = None,
+    ) -> "capo_athena.types.update_system_table_configuration_output.UpdateSystemTableConfigurationOutput":
+        """<p>Updates the account-level system tables configuration. If no configuration exists, use <a>CreateSystemTableConfiguration</a> to create one. Fields that you omit retain their current values.</p>
+
+        Args:
+            table_name: <p>The system table configuration to update. The only accepted value is <code>ALL</code>.</p>
+            kms_key_arn: <p>The Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS) key to use for encrypting the system table data. The encryption key is immutable while the system table exists, so a change takes effect only after the table has been deleted.</p>
+
+        Raises:
+            capo_athena.errors.internal_server_exception.InternalServerException: <p>Indicates a platform issue, which may be due to a transient condition or outage.</p>
+            capo_athena.errors.invalid_request_exception.InvalidRequestException: <p>Indicates that something is wrong with the input to the request. For example, a required parameter may be missing or out of range.</p>
+            capo_athena.errors.resource_not_found_exception.ResourceNotFoundException: <p>A resource, such as a workgroup, was not found.</p>
+            capo_athena.errors.too_many_requests_exception.TooManyRequestsException: <p>Indicates that the request was throttled.</p>
+            capo_athena.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_athena.types.update_system_table_configuration_input.UpdateSystemTableConfigurationInput]",
+        ) -> AsyncOperationResponse[
+            "capo_athena.types.update_system_table_configuration_output.UpdateSystemTableConfigurationOutput"
+        ]:
+            import capo_athena._operations.amazon_athena.update_system_table_configuration
+
+            (
+                output,
+                http_response,
+            ) = await capo_athena._operations.amazon_athena.update_system_table_configuration.async_update_system_table_configuration(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSystemTableConfiguration")
+        )
+        input_: capo_athena.types.update_system_table_configuration_input.UpdateSystemTableConfigurationInput = {
+            "table_name": table_name
+        }
+        if kms_key_arn is not None:
+            input_["kms_key_arn"] = kms_key_arn
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

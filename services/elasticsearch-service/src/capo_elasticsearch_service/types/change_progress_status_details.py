@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_elasticsearch_service.types.change_progress_stage_list
+    import capo_elasticsearch_service.types.cloned_blue_green_upgrade_details
     import capo_elasticsearch_service.types.config_change_status
     import capo_elasticsearch_service.types.guid
     import capo_elasticsearch_service.types.initiated_by
@@ -54,6 +55,10 @@ class ChangeProgressStatusDetails(TypedDict, closed=True):
         "capo_elasticsearch_service.types.initiated_by.InitiatedBy"
     ]
     """<p>The IAM principal who initiated the configuration change.</p>"""
+    cloned_blue_green_upgrade_details: NotRequired[
+        "capo_elasticsearch_service.types.cloned_blue_green_upgrade_details.ClonedBlueGreenUpgradeDetails"
+    ]
+    """<p>Details about a cloned blue/green upgrade, when the change is one.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -124,6 +129,14 @@ def serialize_json(value: ChangeProgressStatusDetails) -> dict:
         out["InitiatedBy"] = (
             capo_elasticsearch_service.types.initiated_by.serialize_json(
                 value["initiated_by"]
+            )
+        )
+    if "cloned_blue_green_upgrade_details" in value:
+        import capo_elasticsearch_service.types.cloned_blue_green_upgrade_details
+
+        out["ClonedBlueGreenUpgradeDetails"] = (
+            capo_elasticsearch_service.types.cloned_blue_green_upgrade_details.serialize_json(
+                value["cloned_blue_green_upgrade_details"]
             )
         )
     return out
@@ -199,6 +212,14 @@ def deserialize_json(data: dict) -> ChangeProgressStatusDetails:
         out["initiated_by"] = (
             capo_elasticsearch_service.types.initiated_by.deserialize_json(
                 data["InitiatedBy"]
+            )
+        )
+    if data.get("ClonedBlueGreenUpgradeDetails") is not None:
+        import capo_elasticsearch_service.types.cloned_blue_green_upgrade_details
+
+        out["cloned_blue_green_upgrade_details"] = (
+            capo_elasticsearch_service.types.cloned_blue_green_upgrade_details.deserialize_json(
+                data["ClonedBlueGreenUpgradeDetails"]
             )
         )
     return out

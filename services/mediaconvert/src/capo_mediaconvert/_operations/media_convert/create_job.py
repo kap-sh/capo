@@ -24,6 +24,7 @@ import capo_mediaconvert.types.acceleration_settings
 import capo_mediaconvert.types.billing_tags_source
 import capo_mediaconvert.types.create_job_request
 import capo_mediaconvert.types.create_job_response
+import capo_mediaconvert.types.elemental_inference_settings
 import capo_mediaconvert.types.job
 import capo_mediaconvert.types.job_settings
 import capo_mediaconvert.types.simulate_reserved_queue

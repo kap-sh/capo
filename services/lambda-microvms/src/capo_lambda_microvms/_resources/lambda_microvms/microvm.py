@@ -87,7 +87,7 @@ class Microvm:
 
         Args:
             ingress_network_connectors: <p>The list of ingress network connectors to configure for the MicroVM.</p>
-            egress_network_connectors: <p>The list of egress network connectors to configure for the MicroVM.</p>
+            egress_network_connectors: <p>The list of egress network connectors available to the MicroVM at runtime.</p>
             image_identifier: <p>The identifier (ARN or ID) of the MicroVM image to run.</p>
             image_version: <p>The version of the MicroVM image to run.</p>
             execution_role_arn: <p>The ARN of the IAM role to be assumed by the MicroVM during execution.</p>
@@ -595,7 +595,7 @@ class AsyncMicrovm:
 
         Args:
             ingress_network_connectors: <p>The list of ingress network connectors to configure for the MicroVM.</p>
-            egress_network_connectors: <p>The list of egress network connectors to configure for the MicroVM.</p>
+            egress_network_connectors: <p>The list of egress network connectors available to the MicroVM at runtime.</p>
             image_identifier: <p>The identifier (ARN or ID) of the MicroVM image to run.</p>
             image_version: <p>The version of the MicroVM image to run.</p>
             execution_role_arn: <p>The ARN of the IAM role to be assumed by the MicroVM during execution.</p>

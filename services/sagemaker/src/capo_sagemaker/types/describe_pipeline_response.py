@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.pipeline_description
     import capo_sagemaker.types.pipeline_name
     import capo_sagemaker.types.pipeline_status
+    import capo_sagemaker.types.pipeline_version_alias_list
     import capo_sagemaker.types.pipeline_version_description
     import capo_sagemaker.types.pipeline_version_name
     import capo_sagemaker.types.role_arn
@@ -59,6 +60,10 @@ class DescribePipelineResponse(TypedDict, closed=True):
         "capo_sagemaker.types.pipeline_version_description.PipelineVersionDescription"
     ]
     """<p>The description of the pipeline version.</p>"""
+    pipeline_version_aliases: NotRequired[
+        "capo_sagemaker.types.pipeline_version_alias_list.PipelineVersionAliasList"
+    ]
+    """<p>The aliases assigned to the pipeline version.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -128,6 +133,14 @@ def serialize_aws_json_1_1(value: DescribePipelineResponse) -> dict:
         out["PipelineVersionDisplayName"] = value["pipeline_version_display_name"]
     if "pipeline_version_description" in value:
         out["PipelineVersionDescription"] = value["pipeline_version_description"]
+    if "pipeline_version_aliases" in value:
+        import capo_sagemaker.types.pipeline_version_alias_list
+
+        out["PipelineVersionAliases"] = (
+            capo_sagemaker.types.pipeline_version_alias_list.serialize_aws_json_1_1(
+                value["pipeline_version_aliases"]
+            )
+        )
     return out
 
 
@@ -199,4 +212,12 @@ def deserialize_aws_json_1_1(data: dict) -> DescribePipelineResponse:
         out["pipeline_version_display_name"] = data["PipelineVersionDisplayName"]
     if data.get("PipelineVersionDescription") is not None:
         out["pipeline_version_description"] = data["PipelineVersionDescription"]
+    if data.get("PipelineVersionAliases") is not None:
+        import capo_sagemaker.types.pipeline_version_alias_list
+
+        out["pipeline_version_aliases"] = (
+            capo_sagemaker.types.pipeline_version_alias_list.deserialize_aws_json_1_1(
+                data["PipelineVersionAliases"]
+            )
+        )
     return out

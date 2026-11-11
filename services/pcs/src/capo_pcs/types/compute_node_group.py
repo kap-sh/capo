@@ -17,14 +17,25 @@ if TYPE_CHECKING:
     import capo_pcs.types.error_info_list
     import capo_pcs.types.instance_list
     import capo_pcs.types.instance_profile_arn
+    import capo_pcs.types.key_pair_name
+    import capo_pcs.types.launch_template_mode
     import capo_pcs.types.node_lifecycle_actions
     import capo_pcs.types.purchase_option
     import capo_pcs.types.scaling_configuration
+    import capo_pcs.types.security_group_id_list
     import capo_pcs.types.spot_options
     import capo_pcs.types.subnet_id_list
 
 
 class ComputeNodeGroup(TypedDict, closed=True):
+    ami_id: NotRequired["capo_pcs.types.ami_id.AmiId"]
+    """<p>The ID of the Amazon Machine Image (AMI) that PCS uses to launch instances. If not present, PCS uses the AMI ID specified in the custom launch template.</p>"""
+    security_group_ids: NotRequired[
+        "capo_pcs.types.security_group_id_list.SecurityGroupIdList"
+    ]
+    """<p>The IDs of the EC2 security groups configured directly on the compute node group. PCS uses these security groups instead of the security groups in the custom launch template. This value isn't present if security groups aren't configured directly on the compute node group. In that case, PCS uses the security groups in the custom launch template.</p>"""
+    ssh_key_name: NotRequired["capo_pcs.types.key_pair_name.KeyPairName"]
+    """<p>The name of the EC2 key pair configured directly on the compute node group. PCS uses this key pair instead of the key pair in the custom launch template. This value isn't present if a key pair isn't configured directly on the compute node group. In that case, PCS uses the key pair in the custom launch template, if one is specified.</p>"""
     name: "capo_pcs.types.compute_node_group_name.ComputeNodeGroupName"
     """<p>The name that identifies the compute node group.</p>"""
     id: "str"
@@ -39,13 +50,16 @@ class ComputeNodeGroup(TypedDict, closed=True):
     """<p>The date and time the resource was modified.</p>"""
     status: "capo_pcs.types.compute_node_group_status.ComputeNodeGroupStatus"
     """<p>The provisioning status of the compute node group.</p> <note> <p>The provisioning status doesn't indicate the overall health of the compute node group.</p> </note> <important> <p>The resource enters the <code>SUSPENDING</code> and <code>SUSPENDED</code> states when the scheduler is beyond end of life and we have suspended the cluster. When in these states, you can't use the cluster. The cluster controller is down and all compute instances are terminated. The resources still count toward your service quotas. You can delete a resource if its status is <code>SUSPENDED</code>. For more information, see <a href="https://docs.aws.amazon.com/pcs/latest/userguide/slurm-versions_faq.html">Frequently asked questions about Slurm versions in PCS</a> in the <i>PCS User Guide</i>.</p> </important>"""
-    ami_id: NotRequired["capo_pcs.types.ami_id.AmiId"]
-    """<p>The ID of the Amazon Machine Image (AMI) that PCS uses to launch instances. If not provided, PCS uses the AMI ID specified in the custom launch template.</p>"""
     subnet_ids: "capo_pcs.types.subnet_id_list.SubnetIdList"
     """<p>The list of subnet IDs where instances are provisioned by the compute node group. The subnets must be in the same VPC as the cluster.</p>"""
     purchase_option: NotRequired["capo_pcs.types.purchase_option.PurchaseOption"]
     """<p>Specifies how EC2 instances are purchased on your behalf. PCS supports On-Demand Instances, Spot Instances, Interruptible Capacity Reservations, On-Demand Capacity Reservations, and Amazon EC2 Capacity Blocks for ML. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-purchasing-options.html">Amazon EC2 billing and purchasing options</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>. For more information about PCS support for Capacity Blocks, see <a href="https://docs.aws.amazon.com/pcs/latest/userguide/capacity-blocks.html">Using Amazon EC2 Capacity Blocks for ML with PCS</a> in the <i>PCS User Guide</i>. For more information about PCS support for interruptible capacity reservations, see <a href="https://docs.aws.amazon.com/pcs/latest/userguide/capacity-reservations-iodcr.html">Using I-ODCRs with PCS</a> in the <i>PCS User Guide</i>. Choose On-Demand if you plan to use an On-Demand Capacity Reservation (ODCR). For more information, see <a href="https://docs.aws.amazon.com/pcs/latest/userguide/capacity-reservations-odcr.html">Using ODCRs with PCS</a>. If you don't provide this option, it defaults to On-Demand.</p>"""
-    custom_launch_template: "capo_pcs.types.custom_launch_template.CustomLaunchTemplate"
+    launch_template_mode: "capo_pcs.types.launch_template_mode.LaunchTemplateMode"
+    """<p>Indicates whether the compute node group uses a custom launch template or a launch template that PCS manages. The default value is <code>CUSTOM</code>.</p> <p>Valid values:</p> <ul> <li> <p> <code>CUSTOM</code> – The compute node group uses the launch template in <code>customLaunchTemplate</code>.</p> </li> <li> <p> <code>MANAGED</code> – PCS creates and manages the launch template.</p> </li> </ul>"""
+    custom_launch_template: NotRequired[
+        "capo_pcs.types.custom_launch_template.CustomLaunchTemplate"
+    ]
+    """<p>The custom Amazon EC2 launch template associated with the compute node group. This value is present when <code>launchTemplateMode</code> is <code>CUSTOM</code> and isn't present when <code>launchTemplateMode</code> is <code>MANAGED</code>.</p>"""
     iam_instance_profile_arn: "capo_pcs.types.instance_profile_arn.InstanceProfileArn"
     """<p>The Amazon Resource Name (ARN) of the IAM instance profile used to pass an IAM role when launching EC2 instances. The role contained in your instance profile must have the <code>pcs:RegisterComputeNodeGroupInstance</code> permission and the role name must start with <code>AWSPCS</code> or must have the path <code>/aws-pcs/</code>. For more information, see <a href="https://docs.aws.amazon.com/pcs/latest/userguide/security-instance-profiles.html">IAM instance profiles for PCS</a> in the <i>PCS User Guide</i>.</p>"""
     scaling_configuration: "capo_pcs.types.scaling_configuration.ScalingConfiguration"
@@ -66,6 +80,18 @@ class ComputeNodeGroup(TypedDict, closed=True):
 # --- awsJson1_0 ser/de ---
 def serialize_aws_json_1_0(value: ComputeNodeGroup) -> dict:
     out: dict = {}
+    if "ami_id" in value:
+        out["amiId"] = value["ami_id"]
+    if "security_group_ids" in value:
+        import capo_pcs.types.security_group_id_list
+
+        out["securityGroupIds"] = (
+            capo_pcs.types.security_group_id_list.serialize_aws_json_1_0(
+                value["security_group_ids"]
+            )
+        )
+    if "ssh_key_name" in value:
+        out["sshKeyName"] = value["ssh_key_name"]
     out["name"] = value["name"]
     out["id"] = value["id"]
     out["arn"] = value["arn"]
@@ -81,8 +107,6 @@ def serialize_aws_json_1_0(value: ComputeNodeGroup) -> dict:
     out["status"] = capo_pcs.types.compute_node_group_status.serialize_aws_json_1_0(
         value["status"]
     )
-    if "ami_id" in value:
-        out["amiId"] = value["ami_id"]
     import capo_pcs.types.subnet_id_list
 
     out["subnetIds"] = capo_pcs.types.subnet_id_list.serialize_aws_json_1_0(
@@ -94,13 +118,21 @@ def serialize_aws_json_1_0(value: ComputeNodeGroup) -> dict:
         out["purchaseOption"] = capo_pcs.types.purchase_option.serialize_aws_json_1_0(
             value["purchase_option"]
         )
-    import capo_pcs.types.custom_launch_template
+    import capo_pcs.types.launch_template_mode
 
-    out["customLaunchTemplate"] = (
-        capo_pcs.types.custom_launch_template.serialize_aws_json_1_0(
-            value["custom_launch_template"]
+    out["launchTemplateMode"] = (
+        capo_pcs.types.launch_template_mode.serialize_aws_json_1_0(
+            value.get("launch_template_mode", "CUSTOM")
         )
     )
+    if "custom_launch_template" in value:
+        import capo_pcs.types.custom_launch_template
+
+        out["customLaunchTemplate"] = (
+            capo_pcs.types.custom_launch_template.serialize_aws_json_1_0(
+                value["custom_launch_template"]
+            )
+        )
     out["iamInstanceProfileArn"] = value["iam_instance_profile_arn"]
     import capo_pcs.types.scaling_configuration
 
@@ -147,6 +179,18 @@ def serialize_aws_json_1_0(value: ComputeNodeGroup) -> dict:
 
 def deserialize_aws_json_1_0(data: dict) -> ComputeNodeGroup:
     out: ComputeNodeGroup = {}  # type: ignore[typeddict-item]
+    if data.get("amiId") is not None:
+        out["ami_id"] = data["amiId"]
+    if data.get("securityGroupIds") is not None:
+        import capo_pcs.types.security_group_id_list
+
+        out["security_group_ids"] = (
+            capo_pcs.types.security_group_id_list.deserialize_aws_json_1_0(
+                data["securityGroupIds"]
+            )
+        )
+    if data.get("sshKeyName") is not None:
+        out["ssh_key_name"] = data["sshKeyName"]
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
@@ -199,8 +243,6 @@ def deserialize_aws_json_1_0(data: dict) -> ComputeNodeGroup:
         out["status"] = typing.cast(
             "capo_pcs.types.compute_node_group_status.ComputeNodeGroupStatus", ""
         )
-    if data.get("amiId") is not None:
-        out["ami_id"] = data["amiId"]
     if data.get("subnetIds") is not None:
         import capo_pcs.types.subnet_id_list
 
@@ -217,6 +259,16 @@ def deserialize_aws_json_1_0(data: dict) -> ComputeNodeGroup:
                 data["purchaseOption"]
             )
         )
+    if data.get("launchTemplateMode") is not None:
+        import capo_pcs.types.launch_template_mode
+
+        out["launch_template_mode"] = (
+            capo_pcs.types.launch_template_mode.deserialize_aws_json_1_0(
+                data["launchTemplateMode"]
+            )
+        )
+    else:
+        out["launch_template_mode"] = "CUSTOM"
     if data.get("customLaunchTemplate") is not None:
         import capo_pcs.types.custom_launch_template
 
@@ -225,8 +277,6 @@ def deserialize_aws_json_1_0(data: dict) -> ComputeNodeGroup:
                 data["customLaunchTemplate"]
             )
         )
-    else:
-        raise DeserializationError("ComputeNodeGroup.custom_launch_template required")
     if data.get("iamInstanceProfileArn") is not None:
         out["iam_instance_profile_arn"] = data["iamInstanceProfileArn"]
     else:

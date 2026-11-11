@@ -3,6 +3,7 @@
 from typing import Literal, TypeAlias, cast
 
 DataLakeResourceType: TypeAlias = Literal[
+    "ANY_RESOURCE",
     "CATALOG",
     "DATABASE",
     "TABLE",
@@ -12,6 +13,7 @@ DataLakeResourceType: TypeAlias = Literal[
     "LF_TAG_POLICY_DATABASE",
     "LF_TAG_POLICY_TABLE",
     "LF_NAMED_TAG_EXPRESSION",
+    "USER_DEFINED_FUNCTION",
 ]
 
 

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lightsail#GetRelationalDatabasesResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,17 @@ def deserialize_aws_json_1_1(data: dict) -> GetRelationalDatabasesResult:
         )
     if data.get("nextPageToken") is not None:
         out["next_page_token"] = data["nextPageToken"]
+    return out
+
+
+def redact_sensitive(value: GetRelationalDatabasesResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "relational_databases" in value:
+        import capo_lightsail.types.relational_database_list
+
+        out["relational_databases"] = (
+            capo_lightsail.types.relational_database_list.redact_sensitive(
+                value["relational_databases"]
+            )
+        )
     return out

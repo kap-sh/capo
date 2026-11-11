@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_sagemaker.types.alias_operations
     import capo_sagemaker.types.pipeline_arn
     import capo_sagemaker.types.pipeline_version_description
     import capo_sagemaker.types.pipeline_version_id
@@ -26,6 +27,10 @@ class UpdatePipelineVersionRequest(TypedDict, closed=True):
         "capo_sagemaker.types.pipeline_version_description.PipelineVersionDescription"
     ]
     """<p>The description of the pipeline version.</p>"""
+    pipeline_version_alias_operations: NotRequired[
+        "capo_sagemaker.types.alias_operations.AliasOperations"
+    ]
+    """<p>The aliases to add to or remove from the pipeline version.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -39,6 +44,14 @@ def serialize_aws_json_1_1(value: UpdatePipelineVersionRequest) -> dict:
         out["PipelineVersionDisplayName"] = value["pipeline_version_display_name"]
     if "pipeline_version_description" in value:
         out["PipelineVersionDescription"] = value["pipeline_version_description"]
+    if "pipeline_version_alias_operations" in value:
+        import capo_sagemaker.types.alias_operations
+
+        out["PipelineVersionAliasOperations"] = (
+            capo_sagemaker.types.alias_operations.serialize_aws_json_1_1(
+                value["pipeline_version_alias_operations"]
+            )
+        )
     return out
 
 
@@ -52,4 +65,12 @@ def deserialize_aws_json_1_1(data: dict) -> UpdatePipelineVersionRequest:
         out["pipeline_version_display_name"] = data["PipelineVersionDisplayName"]
     if data.get("PipelineVersionDescription") is not None:
         out["pipeline_version_description"] = data["PipelineVersionDescription"]
+    if data.get("PipelineVersionAliasOperations") is not None:
+        import capo_sagemaker.types.alias_operations
+
+        out["pipeline_version_alias_operations"] = (
+            capo_sagemaker.types.alias_operations.deserialize_aws_json_1_1(
+                data["PipelineVersionAliasOperations"]
+            )
+        )
     return out

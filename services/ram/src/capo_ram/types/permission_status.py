@@ -7,6 +7,7 @@ PermissionStatus: TypeAlias = Literal[
     "UNATTACHABLE",
     "DELETING",
     "DELETED",
+    "DEPRECATED",
 ]
 
 

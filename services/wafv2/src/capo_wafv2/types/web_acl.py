@@ -89,7 +89,7 @@ class WebACL(TypedDict, closed=True):
     monetization_config: NotRequired[
         "capo_wafv2.types.monetization_config.MonetizationConfig"
     ]
-    """<p>The monetization configuration for the web ACL. Required when any rule in the web ACL uses the <code>Monetize</code> action. Specifies the cryptocurrency payment networks and currency mode for AI bot monetization.</p>"""
+    """<p>The monetization configuration for the web ACL. Required when any rule in the web ACL uses the <code>Monetize</code> action. Specifies the payment settlement options and currency mode for AI bot monetization.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

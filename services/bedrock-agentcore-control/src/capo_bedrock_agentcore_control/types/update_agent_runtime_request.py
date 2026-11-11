@@ -19,7 +19,9 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.platform_version
     import capo_bedrock_agentcore_control.types.protocol_configuration
     import capo_bedrock_agentcore_control.types.request_header_configuration
+    import capo_bedrock_agentcore_control.types.resource_configurations
     import capo_bedrock_agentcore_control.types.role_arn
+    import capo_bedrock_agentcore_control.types.runtime_hooks_configuration
     import capo_bedrock_agentcore_control.types.runtime_metadata_configuration
 
 
@@ -56,6 +58,10 @@ class UpdateAgentRuntimeRequest(TypedDict, closed=True):
         "capo_bedrock_agentcore_control.types.lifecycle_configuration.LifecycleConfiguration"
     ]
     """<p>The updated life cycle configuration for the AgentCore Runtime.</p>"""
+    hooks_configuration: NotRequired[
+        "capo_bedrock_agentcore_control.types.runtime_hooks_configuration.RuntimeHooksConfiguration"
+    ]
+    """<p>The updated lifecycle hooks configuration for the AgentCore Runtime.</p>"""
     metadata_configuration: NotRequired[
         "capo_bedrock_agentcore_control.types.runtime_metadata_configuration.RuntimeMetadataConfiguration"
     ]
@@ -80,6 +86,10 @@ class UpdateAgentRuntimeRequest(TypedDict, closed=True):
         "capo_bedrock_agentcore_control.types.allowed_ports.AllowedPorts"
     ]
     """<p>The updated additional ports on the AgentCore Runtime that are reachable through the runtime's session URL. Specify one to five non-overlapping entries, each containing either a single port or an inclusive port range. Ports must be between <code>8000</code> and <code>12000</code>, excluding the reserved port <code>8443</code>.</p>"""
+    resource_configurations: NotRequired[
+        "capo_bedrock_agentcore_control.types.resource_configurations.ResourceConfigurations"
+    ]
+    """<p>The updated resource configurations for the AgentCore Runtime. You can specify at most one resource configuration.</p>"""
     client_token: NotRequired[
         "capo_bedrock_agentcore_control.types.client_token.ClientToken"
     ]
@@ -139,6 +149,14 @@ def serialize_json(value: UpdateAgentRuntimeRequest) -> dict:
                 value["lifecycle_configuration"]
             )
         )
+    if "hooks_configuration" in value:
+        import capo_bedrock_agentcore_control.types.runtime_hooks_configuration
+
+        out["hooksConfiguration"] = (
+            capo_bedrock_agentcore_control.types.runtime_hooks_configuration.serialize_json(
+                value["hooks_configuration"]
+            )
+        )
     if "metadata_configuration" in value:
         import capo_bedrock_agentcore_control.types.runtime_metadata_configuration
 
@@ -179,6 +197,14 @@ def serialize_json(value: UpdateAgentRuntimeRequest) -> dict:
         out["allowedPorts"] = (
             capo_bedrock_agentcore_control.types.allowed_ports.serialize_json(
                 value["allowed_ports"]
+            )
+        )
+    if "resource_configurations" in value:
+        import capo_bedrock_agentcore_control.types.resource_configurations
+
+        out["resourceConfigurations"] = (
+            capo_bedrock_agentcore_control.types.resource_configurations.serialize_json(
+                value["resource_configurations"]
             )
         )
     if "client_token" in value:
@@ -244,6 +270,14 @@ def deserialize_json(data: dict) -> UpdateAgentRuntimeRequest:
                 data["lifecycleConfiguration"]
             )
         )
+    if data.get("hooksConfiguration") is not None:
+        import capo_bedrock_agentcore_control.types.runtime_hooks_configuration
+
+        out["hooks_configuration"] = (
+            capo_bedrock_agentcore_control.types.runtime_hooks_configuration.deserialize_json(
+                data["hooksConfiguration"]
+            )
+        )
     if data.get("metadataConfiguration") is not None:
         import capo_bedrock_agentcore_control.types.runtime_metadata_configuration
 
@@ -284,6 +318,14 @@ def deserialize_json(data: dict) -> UpdateAgentRuntimeRequest:
         out["allowed_ports"] = (
             capo_bedrock_agentcore_control.types.allowed_ports.deserialize_json(
                 data["allowedPorts"]
+            )
+        )
+    if data.get("resourceConfigurations") is not None:
+        import capo_bedrock_agentcore_control.types.resource_configurations
+
+        out["resource_configurations"] = (
+            capo_bedrock_agentcore_control.types.resource_configurations.deserialize_json(
+                data["resourceConfigurations"]
             )
         )
     if data.get("clientToken") is not None:

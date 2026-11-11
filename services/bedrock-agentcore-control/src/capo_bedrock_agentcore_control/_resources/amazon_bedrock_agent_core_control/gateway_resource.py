@@ -24,6 +24,7 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.custom_transform_configuration
     import capo_bedrock_agentcore_control.types.delete_gateway_request
     import capo_bedrock_agentcore_control.types.delete_gateway_response
+    import capo_bedrock_agentcore_control.types.domain_override
     import capo_bedrock_agentcore_control.types.exception_level
     import capo_bedrock_agentcore_control.types.gateway_description
     import capo_bedrock_agentcore_control.types.gateway_identifier
@@ -94,6 +95,9 @@ class GatewayResource:
             "capo_bedrock_agentcore_control.types.exception_level.ExceptionLevel"
         ] = None,
         tags: Optional["capo_bedrock_agentcore_control.types.tags_map.TagsMap"] = None,
+        domain_override: Optional[
+            "capo_bedrock_agentcore_control.types.domain_override.DomainOverride"
+        ] = None,
     ) -> "capo_bedrock_agentcore_control.types.create_gateway_response.CreateGatewayResponse":
         """<p>Creates a gateway for Amazon Bedrock Agent. A gateway serves as an integration point between your agent and external services.</p> <p>If you specify <code>CUSTOM_JWT</code> as the <code>authorizerType</code>, you must provide an <code>authorizerConfiguration</code>.</p>
 
@@ -111,6 +115,7 @@ class GatewayResource:
             policy_engine_configuration: <p>The policy engine configuration for the gateway. A policy engine is a collection of policies that evaluates and authorizes agent tool calls. When associated with a gateway, the policy engine intercepts all agent requests and determines whether to allow or deny each action based on the defined policies.</p>
             exception_level: <p>The level of detail in error messages returned when invoking the gateway.</p> <ul> <li> <p>If the value is <code>DEBUG</code>, granular exception messages are returned to help a user debug the gateway.</p> </li> <li> <p>If the value is omitted, a generic error message is returned to the end user.</p> </li> </ul>
             tags: <p>A map of key-value pairs to associate with the gateway as metadata tags.</p>
+            domain_override: <p>The public domain names that the gateway advertises in its OAuth discovery URLs instead of the inbound Host header. Specify this when clients reach the gateway through your own proxy or custom domain.</p>
 
         Raises:
             capo_bedrock_agentcore_control.errors.access_denied_exception.AccessDeniedException: <p>This exception is thrown when a request is denied per access permissions</p>
@@ -188,6 +193,8 @@ class GatewayResource:
             input_["exception_level"] = exception_level
         if tags is not None:
             input_["tags"] = tags
+        if domain_override is not None:
+            input_["domain_override"] = domain_override
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -410,6 +417,9 @@ class GatewayResource:
         waf_configuration: Optional[
             "capo_bedrock_agentcore_control.types.waf_configuration.WafConfiguration"
         ] = None,
+        domain_override: Optional[
+            "capo_bedrock_agentcore_control.types.domain_override.DomainOverride"
+        ] = None,
     ) -> "capo_bedrock_agentcore_control.types.update_gateway_response.UpdateGatewayResponse":
         """<p>Updates an existing gateway.</p> <p>Replaces the entire gateway configuration. Any optional field that you omit, including fields in <code>protocolConfiguration</code>, is reset. For information about retrieving the current configuration, see <a href="https://docs.aws.amazon.com/bedrock-agentcore-control/latest/APIReference/API_GetGateway.html">GetGateway</a>.</p>
 
@@ -427,6 +437,7 @@ class GatewayResource:
             policy_engine_configuration: <p>The updated policy engine configuration for the gateway. A policy engine is a collection of policies that evaluates and authorizes agent tool calls. When associated with a gateway, the policy engine intercepts all agent requests and determines whether to allow or deny each action based on the defined policies.</p>
             exception_level: <p>The level of detail in error messages returned when invoking the gateway.</p> <ul> <li> <p>If the value is <code>DEBUG</code>, granular exception messages are returned to help a user debug the gateway.</p> </li> <li> <p>If the value is omitted, a generic error message is returned to the end user.</p> </li> </ul>
             waf_configuration: <p>The updated Amazon Web Services WAF configuration for the gateway.</p>
+            domain_override: <p>The updated public domain names that the gateway advertises in its OAuth discovery URLs instead of the inbound Host header. Specify this when clients reach the gateway through your own proxy or custom domain.</p>
 
         Raises:
             capo_bedrock_agentcore_control.errors.access_denied_exception.AccessDeniedException: <p>This exception is thrown when a request is denied per access permissions</p>
@@ -505,6 +516,8 @@ class GatewayResource:
             input_["exception_level"] = exception_level
         if waf_configuration is not None:
             input_["waf_configuration"] = waf_configuration
+        if domain_override is not None:
+            input_["domain_override"] = domain_override
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -554,6 +567,9 @@ class AsyncGatewayResource:
             "capo_bedrock_agentcore_control.types.exception_level.ExceptionLevel"
         ] = None,
         tags: Optional["capo_bedrock_agentcore_control.types.tags_map.TagsMap"] = None,
+        domain_override: Optional[
+            "capo_bedrock_agentcore_control.types.domain_override.DomainOverride"
+        ] = None,
     ) -> "capo_bedrock_agentcore_control.types.create_gateway_response.CreateGatewayResponse":
         """<p>Creates a gateway for Amazon Bedrock Agent. A gateway serves as an integration point between your agent and external services.</p> <p>If you specify <code>CUSTOM_JWT</code> as the <code>authorizerType</code>, you must provide an <code>authorizerConfiguration</code>.</p>
 
@@ -571,6 +587,7 @@ class AsyncGatewayResource:
             policy_engine_configuration: <p>The policy engine configuration for the gateway. A policy engine is a collection of policies that evaluates and authorizes agent tool calls. When associated with a gateway, the policy engine intercepts all agent requests and determines whether to allow or deny each action based on the defined policies.</p>
             exception_level: <p>The level of detail in error messages returned when invoking the gateway.</p> <ul> <li> <p>If the value is <code>DEBUG</code>, granular exception messages are returned to help a user debug the gateway.</p> </li> <li> <p>If the value is omitted, a generic error message is returned to the end user.</p> </li> </ul>
             tags: <p>A map of key-value pairs to associate with the gateway as metadata tags.</p>
+            domain_override: <p>The public domain names that the gateway advertises in its OAuth discovery URLs instead of the inbound Host header. Specify this when clients reach the gateway through your own proxy or custom domain.</p>
 
         Raises:
             capo_bedrock_agentcore_control.errors.access_denied_exception.AccessDeniedException: <p>This exception is thrown when a request is denied per access permissions</p>
@@ -649,6 +666,8 @@ class AsyncGatewayResource:
             input_["exception_level"] = exception_level
         if tags is not None:
             input_["tags"] = tags
+        if domain_override is not None:
+            input_["domain_override"] = domain_override
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -874,6 +893,9 @@ class AsyncGatewayResource:
         waf_configuration: Optional[
             "capo_bedrock_agentcore_control.types.waf_configuration.WafConfiguration"
         ] = None,
+        domain_override: Optional[
+            "capo_bedrock_agentcore_control.types.domain_override.DomainOverride"
+        ] = None,
     ) -> "capo_bedrock_agentcore_control.types.update_gateway_response.UpdateGatewayResponse":
         """<p>Updates an existing gateway.</p> <p>Replaces the entire gateway configuration. Any optional field that you omit, including fields in <code>protocolConfiguration</code>, is reset. For information about retrieving the current configuration, see <a href="https://docs.aws.amazon.com/bedrock-agentcore-control/latest/APIReference/API_GetGateway.html">GetGateway</a>.</p>
 
@@ -891,6 +913,7 @@ class AsyncGatewayResource:
             policy_engine_configuration: <p>The updated policy engine configuration for the gateway. A policy engine is a collection of policies that evaluates and authorizes agent tool calls. When associated with a gateway, the policy engine intercepts all agent requests and determines whether to allow or deny each action based on the defined policies.</p>
             exception_level: <p>The level of detail in error messages returned when invoking the gateway.</p> <ul> <li> <p>If the value is <code>DEBUG</code>, granular exception messages are returned to help a user debug the gateway.</p> </li> <li> <p>If the value is omitted, a generic error message is returned to the end user.</p> </li> </ul>
             waf_configuration: <p>The updated Amazon Web Services WAF configuration for the gateway.</p>
+            domain_override: <p>The updated public domain names that the gateway advertises in its OAuth discovery URLs instead of the inbound Host header. Specify this when clients reach the gateway through your own proxy or custom domain.</p>
 
         Raises:
             capo_bedrock_agentcore_control.errors.access_denied_exception.AccessDeniedException: <p>This exception is thrown when a request is denied per access permissions</p>
@@ -970,6 +993,8 @@ class AsyncGatewayResource:
             input_["exception_level"] = exception_level
         if waf_configuration is not None:
             input_["waf_configuration"] = waf_configuration
+        if domain_override is not None:
+            input_["domain_override"] = domain_override
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

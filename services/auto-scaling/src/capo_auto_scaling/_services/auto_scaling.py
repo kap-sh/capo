@@ -149,6 +149,7 @@ if TYPE_CHECKING:
     import capo_auto_scaling.types.honor_cooldown
     import capo_auto_scaling.types.include_deleted_groups
     import capo_auto_scaling.types.include_instances
+    import capo_auto_scaling.types.include_managed_resources
     import capo_auto_scaling.types.instance
     import capo_auto_scaling.types.instance_ids
     import capo_auto_scaling.types.instance_lifecycle_policy
@@ -1962,6 +1963,9 @@ class AutoScalingClient:
         include_instances: Optional[
             "capo_auto_scaling.types.include_instances.IncludeInstances"
         ] = None,
+        include_managed_resources: Optional[
+            "capo_auto_scaling.types.include_managed_resources.IncludeManagedResources"
+        ] = None,
         next_token: Optional["capo_auto_scaling.types.xml_string.XmlString"] = None,
         max_records: Optional["capo_auto_scaling.types.max_records.MaxRecords"] = None,
         filters: Optional["capo_auto_scaling.types.filters.Filters"] = None,
@@ -1971,8 +1975,9 @@ class AutoScalingClient:
         Args:
             auto_scaling_group_names: <p>The names of the Auto Scaling groups. By default, you can only specify up to 50 names. You can optionally increase this limit using the <code>MaxRecords</code> property.</p> <p>If you omit this property, all Auto Scaling groups are described.</p>
             include_instances: <p> Specifies whether to include information about Amazon EC2 instances in the response. When set to <code>true</code> (default), the response includes instance details. </p>
+            include_managed_resources: <p> Specifies whether to include managed Auto Scaling groups in the response. When set to <code>true</code> (default), the response includes managed Auto Scaling groups. </p>
             next_token: <p>The token for the next set of items to return. (You received this token from a previous call.)</p>
-            max_records: <p>The maximum number of items to return with this call. The default value is <code>50</code> and the maximum value is <code>100</code>.</p>
+            max_records: <p>The maximum number of items to return with this call. The default value is <code>50</code> and the maximum value is <code>100</code>.</p> <p>A response can contain fewer items than the value specified by <code>MaxRecords</code>, even when more items are available. To retrieve the additional items, use the <code>NextToken</code> value in a subsequent call rather than relying on the number of items in the response.</p>
             filters: <p>One or more filters to limit the results based on specific tags. </p>
 
         Raises:
@@ -2009,6 +2014,8 @@ class AutoScalingClient:
             input_["auto_scaling_group_names"] = auto_scaling_group_names
         if include_instances is not None:
             input_["include_instances"] = include_instances
+        if include_managed_resources is not None:
+            input_["include_managed_resources"] = include_managed_resources
         if next_token is not None:
             input_["next_token"] = next_token
         if max_records is not None:
@@ -2034,6 +2041,9 @@ class AutoScalingClient:
         include_instances: Optional[
             "capo_auto_scaling.types.include_instances.IncludeInstances"
         ] = None,
+        include_managed_resources: Optional[
+            "capo_auto_scaling.types.include_managed_resources.IncludeManagedResources"
+        ] = None,
         next_token: Optional["capo_auto_scaling.types.xml_string.XmlString"] = None,
         max_records: Optional["capo_auto_scaling.types.max_records.MaxRecords"] = None,
         filters: Optional["capo_auto_scaling.types.filters.Filters"] = None,
@@ -2044,6 +2054,7 @@ class AutoScalingClient:
                 config_overrides=config_overrides,
                 auto_scaling_group_names=auto_scaling_group_names,
                 include_instances=include_instances,
+                include_managed_resources=include_managed_resources,
                 next_token=_token,
                 max_records=max_records,
                 filters=filters,
@@ -2062,6 +2073,9 @@ class AutoScalingClient:
         instance_ids: Optional[
             "capo_auto_scaling.types.instance_ids.InstanceIds"
         ] = None,
+        include_managed_resources: Optional[
+            "capo_auto_scaling.types.include_managed_resources.IncludeManagedResources"
+        ] = None,
         max_records: Optional["capo_auto_scaling.types.max_records.MaxRecords"] = None,
         next_token: Optional["capo_auto_scaling.types.xml_string.XmlString"] = None,
     ) -> "capo_auto_scaling.types.auto_scaling_instances_type.AutoScalingInstancesType":
@@ -2069,7 +2083,8 @@ class AutoScalingClient:
 
         Args:
             instance_ids: <p>The IDs of the instances. If you omit this property, all Auto Scaling instances are described. If you specify an ID that does not exist, it is ignored with no error.</p> <p>Array Members: Maximum number of 50 items.</p>
-            max_records: <p>The maximum number of items to return with this call. The default value is <code>50</code> and the maximum value is <code>50</code>.</p>
+            include_managed_resources: <p> Specifies whether to include managed Auto Scaling instances in the response. When set to <code>true</code> (default), the response includes managed Auto Scaling instances. </p>
+            max_records: <p>The maximum number of items to return with this call. The default value is <code>50</code> and the maximum value is <code>50</code>.</p> <p>A response can contain fewer items than the value specified by <code>MaxRecords</code>, even when more items are available. To retrieve the additional items, use the <code>NextToken</code> value in a subsequent call rather than relying on the number of items in the response.</p>
             next_token: <p>The token for the next set of items to return. (You received this token from a previous call.)</p>
 
         Raises:
@@ -2104,6 +2119,8 @@ class AutoScalingClient:
         input_: capo_auto_scaling.types.describe_auto_scaling_instances_type.DescribeAutoScalingInstancesType = {}
         if instance_ids is not None:
             input_["instance_ids"] = instance_ids
+        if include_managed_resources is not None:
+            input_["include_managed_resources"] = include_managed_resources
         if max_records is not None:
             input_["max_records"] = max_records
         if next_token is not None:
@@ -2124,6 +2141,9 @@ class AutoScalingClient:
         instance_ids: Optional[
             "capo_auto_scaling.types.instance_ids.InstanceIds"
         ] = None,
+        include_managed_resources: Optional[
+            "capo_auto_scaling.types.include_managed_resources.IncludeManagedResources"
+        ] = None,
         max_records: Optional["capo_auto_scaling.types.max_records.MaxRecords"] = None,
         next_token: Optional["capo_auto_scaling.types.xml_string.XmlString"] = None,
     ) -> "Iterator[capo_auto_scaling.types.auto_scaling_instance_details.AutoScalingInstanceDetails]":
@@ -2132,6 +2152,7 @@ class AutoScalingClient:
             _response = self.describe_auto_scaling_instances(
                 config_overrides=config_overrides,
                 instance_ids=instance_ids,
+                include_managed_resources=include_managed_resources,
                 max_records=max_records,
                 next_token=_token,
             )
@@ -2680,6 +2701,9 @@ class AutoScalingClient:
         auto_scaling_group_names: Optional[
             "capo_auto_scaling.types.auto_scaling_group_names.AutoScalingGroupNames"
         ] = None,
+        include_managed_resources: Optional[
+            "capo_auto_scaling.types.include_managed_resources.IncludeManagedResources"
+        ] = None,
         next_token: Optional["capo_auto_scaling.types.xml_string.XmlString"] = None,
         max_records: Optional["capo_auto_scaling.types.max_records.MaxRecords"] = None,
     ) -> "capo_auto_scaling.types.describe_notification_configurations_answer.DescribeNotificationConfigurationsAnswer":
@@ -2687,8 +2711,9 @@ class AutoScalingClient:
 
         Args:
             auto_scaling_group_names: <p>The name of the Auto Scaling group.</p>
+            include_managed_resources: <p> Specifies whether to include notification configurations for managed Auto Scaling groups in the response. When set to <code>true</code> (default), the response includes notification configurations for managed Auto Scaling groups. </p>
             next_token: <p>The token for the next set of items to return. (You received this token from a previous call.)</p>
-            max_records: <p>The maximum number of items to return with this call. The default value is <code>50</code> and the maximum value is <code>100</code>.</p>
+            max_records: <p>The maximum number of items to return with this call. The default value is <code>50</code> and the maximum value is <code>100</code>.</p> <p>A response can contain fewer items than the value specified by <code>MaxRecords</code>, even when more items are available. To retrieve the additional items, use the <code>NextToken</code> value in a subsequent call rather than relying on the number of items in the response.</p>
 
         Raises:
             capo_auto_scaling.errors.invalid_next_token.InvalidNextToken: <p>The <code>NextToken</code> value is not valid.</p>
@@ -2722,6 +2747,8 @@ class AutoScalingClient:
         input_: capo_auto_scaling.types.describe_notification_configurations_type.DescribeNotificationConfigurationsType = {}
         if auto_scaling_group_names is not None:
             input_["auto_scaling_group_names"] = auto_scaling_group_names
+        if include_managed_resources is not None:
+            input_["include_managed_resources"] = include_managed_resources
         if next_token is not None:
             input_["next_token"] = next_token
         if max_records is not None:
@@ -2742,6 +2769,9 @@ class AutoScalingClient:
         auto_scaling_group_names: Optional[
             "capo_auto_scaling.types.auto_scaling_group_names.AutoScalingGroupNames"
         ] = None,
+        include_managed_resources: Optional[
+            "capo_auto_scaling.types.include_managed_resources.IncludeManagedResources"
+        ] = None,
         next_token: Optional["capo_auto_scaling.types.xml_string.XmlString"] = None,
         max_records: Optional["capo_auto_scaling.types.max_records.MaxRecords"] = None,
     ) -> "Iterator[capo_auto_scaling.types.notification_configuration.NotificationConfiguration]":
@@ -2750,6 +2780,7 @@ class AutoScalingClient:
             _response = self.describe_notification_configurations(
                 config_overrides=config_overrides,
                 auto_scaling_group_names=auto_scaling_group_names,
+                include_managed_resources=include_managed_resources,
                 next_token=_token,
                 max_records=max_records,
             )
@@ -2773,6 +2804,9 @@ class AutoScalingClient:
         policy_types: Optional[
             "capo_auto_scaling.types.policy_types.PolicyTypes"
         ] = None,
+        include_managed_resources: Optional[
+            "capo_auto_scaling.types.include_managed_resources.IncludeManagedResources"
+        ] = None,
         next_token: Optional["capo_auto_scaling.types.xml_string.XmlString"] = None,
         max_records: Optional["capo_auto_scaling.types.max_records.MaxRecords"] = None,
     ) -> "capo_auto_scaling.types.policies_type.PoliciesType":
@@ -2782,8 +2816,9 @@ class AutoScalingClient:
             auto_scaling_group_name: <p>The name of the Auto Scaling group.</p>
             policy_names: <p>The names of one or more policies. If you omit this property, all policies are described. If a group name is provided, the results are limited to that group. If you specify an unknown policy name, it is ignored with no error.</p> <p>Array Members: Maximum number of 50 items.</p>
             policy_types: <p>One or more policy types. The valid values are <code>SimpleScaling</code>, <code>StepScaling</code>, <code>TargetTrackingScaling</code>, and <code>PredictiveScaling</code>.</p>
+            include_managed_resources: <p> Specifies whether to include scaling policies for managed Auto Scaling groups in the response. When set to <code>true</code> (default), the response includes scaling policies for managed Auto Scaling groups. </p>
             next_token: <p>The token for the next set of items to return. (You received this token from a previous call.)</p>
-            max_records: <p>The maximum number of items to be returned with each call. The default value is <code>50</code> and the maximum value is <code>100</code>.</p>
+            max_records: <p>The maximum number of items to be returned with each call. The default value is <code>50</code> and the maximum value is <code>100</code>.</p> <p>A response can contain fewer items than the value specified by <code>MaxRecords</code>, even when more items are available. To retrieve the additional items, use the <code>NextToken</code> value in a subsequent call rather than relying on the number of items in the response.</p>
 
         Raises:
             capo_auto_scaling.errors.invalid_next_token.InvalidNextToken: <p>The <code>NextToken</code> value is not valid.</p>
@@ -2820,6 +2855,8 @@ class AutoScalingClient:
             input_["policy_names"] = policy_names
         if policy_types is not None:
             input_["policy_types"] = policy_types
+        if include_managed_resources is not None:
+            input_["include_managed_resources"] = include_managed_resources
         if next_token is not None:
             input_["next_token"] = next_token
         if max_records is not None:
@@ -2846,6 +2883,9 @@ class AutoScalingClient:
         policy_types: Optional[
             "capo_auto_scaling.types.policy_types.PolicyTypes"
         ] = None,
+        include_managed_resources: Optional[
+            "capo_auto_scaling.types.include_managed_resources.IncludeManagedResources"
+        ] = None,
         next_token: Optional["capo_auto_scaling.types.xml_string.XmlString"] = None,
         max_records: Optional["capo_auto_scaling.types.max_records.MaxRecords"] = None,
     ) -> "Iterator[capo_auto_scaling.types.scaling_policy.ScalingPolicy]":
@@ -2856,6 +2896,7 @@ class AutoScalingClient:
                 auto_scaling_group_name=auto_scaling_group_name,
                 policy_names=policy_names,
                 policy_types=policy_types,
+                include_managed_resources=include_managed_resources,
                 next_token=_token,
                 max_records=max_records,
             )
@@ -2879,6 +2920,9 @@ class AutoScalingClient:
         include_deleted_groups: Optional[
             "capo_auto_scaling.types.include_deleted_groups.IncludeDeletedGroups"
         ] = None,
+        include_managed_resources: Optional[
+            "capo_auto_scaling.types.include_managed_resources.IncludeManagedResources"
+        ] = None,
         max_records: Optional["capo_auto_scaling.types.max_records.MaxRecords"] = None,
         next_token: Optional["capo_auto_scaling.types.xml_string.XmlString"] = None,
         filters: Optional["capo_auto_scaling.types.filters.Filters"] = None,
@@ -2889,7 +2933,8 @@ class AutoScalingClient:
             activity_ids: <p> The activity IDs of the desired scaling activities. If unknown activity IDs are requested, they are ignored with no error. Only activities started within the last six weeks can be returned regardless of the activity IDs specified. If other filters are specified with the request, only results matching all filter criteria can be returned. </p> <p>Array Members: Maximum number of 50 IDs.</p>
             auto_scaling_group_name: <p>The name of the Auto Scaling group.</p> <important> <p> Omitting this property performs an account-wide operation, which can result in slower or timed-out requests. </p> </important>
             include_deleted_groups: <p>Indicates whether to include scaling activity from deleted Auto Scaling groups.</p>
-            max_records: <p>The maximum number of items to return with this call. The default value is <code>100</code> and the maximum value is <code>100</code>.</p>
+            include_managed_resources: <p> Specifies whether to include scaling activities for managed Auto Scaling groups in the response. When set to <code>true</code> (default), the response includes scaling activities for managed Auto Scaling groups. </p>
+            max_records: <p>The maximum number of items to return with this call. The default value is <code>100</code> and the maximum value is <code>100</code>.</p> <p>A response can contain fewer items than the value specified by <code>MaxRecords</code>, even when more items are available. To retrieve the additional items, use the <code>NextToken</code> value in a subsequent call rather than relying on the number of items in the response.</p>
             next_token: <p>The token for the next set of items to return. (You received this token from a previous call.)</p>
             filters: <p> One or more filters to limit the results based on specific criteria. The following filters are supported: </p> <ul> <li> <p> <code>StartTimeLowerBound</code> - The earliest scaling activities to return based on the activity start time. Scaling activities with a start time earlier than this value are not included in the results. Only activities started within the last six weeks can be returned regardless of the value specified. </p> </li> <li> <p> <code>StartTimeUpperBound</code> - The latest scaling activities to return based on the activity start time. Scaling activities with a start time later than this value are not included in the results. Only activities started within the last six weeks can be returned regardless of the value specified. </p> </li> <li> <p> <code>Status</code> - The <code>StatusCode</code> value of the scaling activity. This filter can only be used in combination with the <code>AutoScalingGroupName</code> parameter. For valid <code>StatusCode</code> values, see <a href="https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_Activity.html">Activity</a> in the <i>Amazon EC2 Auto Scaling API Reference</i>. </p> </li> </ul> <p> <code>StartTimeLowerBound</code> and <code>StartTimeUpperBound</code> accept ISO 8601 formatted timestamps. Timestamps without a timezone offset are assumed to be UTC. </p> <ul> <li> <p> <code>2000-01-18T08:15:00Z</code> </p> </li> <li> <p> <code>2000-01-18T16:15:00+08:00</code> </p> </li> </ul>
 
@@ -2929,6 +2974,8 @@ class AutoScalingClient:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
         if include_deleted_groups is not None:
             input_["include_deleted_groups"] = include_deleted_groups
+        if include_managed_resources is not None:
+            input_["include_managed_resources"] = include_managed_resources
         if max_records is not None:
             input_["max_records"] = max_records
         if next_token is not None:
@@ -2957,6 +3004,9 @@ class AutoScalingClient:
         include_deleted_groups: Optional[
             "capo_auto_scaling.types.include_deleted_groups.IncludeDeletedGroups"
         ] = None,
+        include_managed_resources: Optional[
+            "capo_auto_scaling.types.include_managed_resources.IncludeManagedResources"
+        ] = None,
         max_records: Optional["capo_auto_scaling.types.max_records.MaxRecords"] = None,
         next_token: Optional["capo_auto_scaling.types.xml_string.XmlString"] = None,
         filters: Optional["capo_auto_scaling.types.filters.Filters"] = None,
@@ -2968,6 +3018,7 @@ class AutoScalingClient:
                 activity_ids=activity_ids,
                 auto_scaling_group_name=auto_scaling_group_name,
                 include_deleted_groups=include_deleted_groups,
+                include_managed_resources=include_managed_resources,
                 max_records=max_records,
                 next_token=_token,
                 filters=filters,
@@ -3035,6 +3086,9 @@ class AutoScalingClient:
         end_time: Optional[
             "capo_auto_scaling.types.timestamp_type.TimestampType"
         ] = None,
+        include_managed_resources: Optional[
+            "capo_auto_scaling.types.include_managed_resources.IncludeManagedResources"
+        ] = None,
         next_token: Optional["capo_auto_scaling.types.xml_string.XmlString"] = None,
         max_records: Optional["capo_auto_scaling.types.max_records.MaxRecords"] = None,
     ) -> "capo_auto_scaling.types.scheduled_actions_type.ScheduledActionsType":
@@ -3045,8 +3099,9 @@ class AutoScalingClient:
             scheduled_action_names: <p>The names of one or more scheduled actions. If you omit this property, all scheduled actions are described. If you specify an unknown scheduled action, it is ignored with no error.</p> <p>Array Members: Maximum number of 50 actions.</p>
             start_time: <p>The earliest scheduled start time to return. If scheduled action names are provided, this property is ignored.</p>
             end_time: <p>The latest scheduled start time to return. If scheduled action names are provided, this property is ignored.</p>
+            include_managed_resources: <p> Specifies whether to include scheduled actions for managed Auto Scaling groups in the response. When set to <code>true</code> (default), the response includes scheduled actions for managed Auto Scaling groups. </p>
             next_token: <p>The token for the next set of items to return. (You received this token from a previous call.)</p>
-            max_records: <p>The maximum number of items to return with this call. The default value is <code>50</code> and the maximum value is <code>100</code>.</p>
+            max_records: <p>The maximum number of items to return with this call. The default value is <code>50</code> and the maximum value is <code>100</code>.</p> <p>A response can contain fewer items than the value specified by <code>MaxRecords</code>, even when more items are available. To retrieve the additional items, use the <code>NextToken</code> value in a subsequent call rather than relying on the number of items in the response.</p>
 
         Raises:
             capo_auto_scaling.errors.invalid_next_token.InvalidNextToken: <p>The <code>NextToken</code> value is not valid.</p>
@@ -3086,6 +3141,8 @@ class AutoScalingClient:
             input_["start_time"] = start_time
         if end_time is not None:
             input_["end_time"] = end_time
+        if include_managed_resources is not None:
+            input_["include_managed_resources"] = include_managed_resources
         if next_token is not None:
             input_["next_token"] = next_token
         if max_records is not None:
@@ -3115,6 +3172,9 @@ class AutoScalingClient:
         end_time: Optional[
             "capo_auto_scaling.types.timestamp_type.TimestampType"
         ] = None,
+        include_managed_resources: Optional[
+            "capo_auto_scaling.types.include_managed_resources.IncludeManagedResources"
+        ] = None,
         next_token: Optional["capo_auto_scaling.types.xml_string.XmlString"] = None,
         max_records: Optional["capo_auto_scaling.types.max_records.MaxRecords"] = None,
     ) -> "Iterator[capo_auto_scaling.types.scheduled_update_group_action.ScheduledUpdateGroupAction]":
@@ -3126,6 +3186,7 @@ class AutoScalingClient:
                 scheduled_action_names=scheduled_action_names,
                 start_time=start_time,
                 end_time=end_time,
+                include_managed_resources=include_managed_resources,
                 next_token=_token,
                 max_records=max_records,
             )
@@ -3141,6 +3202,9 @@ class AutoScalingClient:
         *,
         config_overrides: Optional[AutoScalingClientConfig] = None,
         filters: Optional["capo_auto_scaling.types.filters.Filters"] = None,
+        include_managed_resources: Optional[
+            "capo_auto_scaling.types.include_managed_resources.IncludeManagedResources"
+        ] = None,
         next_token: Optional["capo_auto_scaling.types.xml_string.XmlString"] = None,
         max_records: Optional["capo_auto_scaling.types.max_records.MaxRecords"] = None,
     ) -> "capo_auto_scaling.types.tags_type.TagsType":
@@ -3148,8 +3212,9 @@ class AutoScalingClient:
 
         Args:
             filters: <p>One or more filters to scope the tags to return. The maximum number of filters per filter type (for example, <code>auto-scaling-group</code>) is 1000.</p>
+            include_managed_resources: <p> Specifies whether to include tags for managed Auto Scaling groups in the response. When set to <code>true</code> (default), the response includes tags for managed Auto Scaling groups. </p>
             next_token: <p>The token for the next set of items to return. (You received this token from a previous call.)</p>
-            max_records: <p>The maximum number of items to return with this call. The default value is <code>50</code> and the maximum value is <code>100</code>.</p>
+            max_records: <p>The maximum number of items to return with this call. The default value is <code>50</code> and the maximum value is <code>100</code>.</p> <p>A response can contain fewer items than the value specified by <code>MaxRecords</code>, even when more items are available. To retrieve the additional items, use the <code>NextToken</code> value in a subsequent call rather than relying on the number of items in the response.</p>
 
         Raises:
             capo_auto_scaling.errors.invalid_next_token.InvalidNextToken: <p>The <code>NextToken</code> value is not valid.</p>
@@ -3181,6 +3246,8 @@ class AutoScalingClient:
         input_: capo_auto_scaling.types.describe_tags_type.DescribeTagsType = {}
         if filters is not None:
             input_["filters"] = filters
+        if include_managed_resources is not None:
+            input_["include_managed_resources"] = include_managed_resources
         if next_token is not None:
             input_["next_token"] = next_token
         if max_records is not None:
@@ -3199,6 +3266,9 @@ class AutoScalingClient:
         *,
         config_overrides: Optional[AutoScalingClientConfig] = None,
         filters: Optional["capo_auto_scaling.types.filters.Filters"] = None,
+        include_managed_resources: Optional[
+            "capo_auto_scaling.types.include_managed_resources.IncludeManagedResources"
+        ] = None,
         next_token: Optional["capo_auto_scaling.types.xml_string.XmlString"] = None,
         max_records: Optional["capo_auto_scaling.types.max_records.MaxRecords"] = None,
     ) -> "Iterator[capo_auto_scaling.types.tag_description.TagDescription]":
@@ -3207,6 +3277,7 @@ class AutoScalingClient:
             _response = self.describe_tags(
                 config_overrides=config_overrides,
                 filters=filters,
+                include_managed_resources=include_managed_resources,
                 next_token=_token,
                 max_records=max_records,
             )

@@ -18,6 +18,7 @@ if TYPE_CHECKING:
     import capo_mediaconvert.types.acceleration_status
     import capo_mediaconvert.types.billing_tags_source
     import capo_mediaconvert.types.elemental_inference_configuration
+    import capo_mediaconvert.types.elemental_inference_settings
     import capo_mediaconvert.types.job_messages
     import capo_mediaconvert.types.job_phase
     import capo_mediaconvert.types.job_settings
@@ -53,6 +54,10 @@ class Job(TypedDict, closed=True):
         "capo_mediaconvert.types.elemental_inference_configuration.ElementalInferenceConfiguration"
     ]
     """The Elemental Inference configuration used in this job."""
+    elemental_inference_settings: NotRequired[
+        "capo_mediaconvert.types.elemental_inference_settings.ElementalInferenceSettings"
+    ]
+    """The Elemental Inference settings used in this job."""
     error_code: NotRequired["capo_mediaconvert.types.__integer.__integer"]
     """Error code for the job"""
     error_message: NotRequired["capo_mediaconvert.types.__string.__string"]
@@ -170,6 +175,14 @@ def serialize_json(value: Job) -> dict:
         out["elementalInferenceConfiguration"] = (
             capo_mediaconvert.types.elemental_inference_configuration.serialize_json(
                 value["elemental_inference_configuration"]
+            )
+        )
+    if "elemental_inference_settings" in value:
+        import capo_mediaconvert.types.elemental_inference_settings
+
+        out["elementalInferenceSettings"] = (
+            capo_mediaconvert.types.elemental_inference_settings.serialize_json(
+                value["elemental_inference_settings"]
             )
         )
     if "error_code" in value:
@@ -329,6 +342,14 @@ def deserialize_json(data: dict) -> Job:
         out["elemental_inference_configuration"] = (
             capo_mediaconvert.types.elemental_inference_configuration.deserialize_json(
                 data["elementalInferenceConfiguration"]
+            )
+        )
+    if data.get("elementalInferenceSettings") is not None:
+        import capo_mediaconvert.types.elemental_inference_settings
+
+        out["elemental_inference_settings"] = (
+            capo_mediaconvert.types.elemental_inference_settings.deserialize_json(
+                data["elementalInferenceSettings"]
             )
         )
     if data.get("errorCode") is not None:

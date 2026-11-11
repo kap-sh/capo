@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_ram.types.permission_template_parameter_declaration_list
     import capo_ram.types.policy
     import capo_ram.types.string
 
@@ -14,6 +15,10 @@ class CreatePermissionVersionRequest(TypedDict, closed=True):
     """<p>Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of the customer managed permission you're creating a new version for.</p>"""
     policy_template: "capo_ram.types.policy.Policy"
     """<p>A string in JSON format string that contains the following elements of a resource-based policy:</p> <ul> <li> <p> <b>Effect</b>: must be set to <code>ALLOW</code>.</p> </li> <li> <p> <b>Action</b>: specifies the actions that are allowed by this customer managed permission. The list must contain only actions that are supported by the specified resource type. For a list of all actions supported by each resource type, see <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html">Actions, resources, and condition keys for Amazon Web Services services</a> in the <i>Identity and Access Management User Guide</i>.</p> </li> <li> <p> <b>Condition</b>: (optional) specifies conditional parameters that must evaluate to true when a user attempts an action for that action to be allowed. For more information about the Condition element, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html">IAM policies: Condition element</a> in the <i>Identity and Access Management User Guide</i>.</p> </li> </ul> <p>This template can't include either the <code>Resource</code> or <code>Principal</code> elements. Those are both filled in by RAM when it instantiates the resource-based policy on each resource shared using this managed permission. The <code>Resource</code> comes from the ARN of the specific resource that you are sharing. The <code>Principal</code> comes from the list of identities added to the resource share.</p>"""
+    permission_template_parameters: NotRequired[
+        "capo_ram.types.permission_template_parameter_declaration_list.PermissionTemplateParameterDeclarationList"
+    ]
+    """<p>Specifies a list of template parameter declarations for this version of the permission. Each declaration defines a named placeholder that can be used in the policy template. Because each version is independent, you can define the same or a different set of template parameters for each version.</p>"""
     client_token: NotRequired["capo_ram.types.string.String"]
     """<p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of value.</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>"""
 
@@ -23,6 +28,14 @@ def serialize_json(value: CreatePermissionVersionRequest) -> dict:
     out: dict = {}
     out["permissionArn"] = value["permission_arn"]
     out["policyTemplate"] = value["policy_template"]
+    if "permission_template_parameters" in value:
+        import capo_ram.types.permission_template_parameter_declaration_list
+
+        out["permissionTemplateParameters"] = (
+            capo_ram.types.permission_template_parameter_declaration_list.serialize_json(
+                value["permission_template_parameters"]
+            )
+        )
     if "client_token" in value:
         out["clientToken"] = value["client_token"]
     return out
@@ -38,6 +51,14 @@ def deserialize_json(data: dict) -> CreatePermissionVersionRequest:
         out["policy_template"] = data["policyTemplate"]
     else:
         out["policy_template"] = ""
+    if data.get("permissionTemplateParameters") is not None:
+        import capo_ram.types.permission_template_parameter_declaration_list
+
+        out["permission_template_parameters"] = (
+            capo_ram.types.permission_template_parameter_declaration_list.deserialize_json(
+                data["permissionTemplateParameters"]
+            )
+        )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

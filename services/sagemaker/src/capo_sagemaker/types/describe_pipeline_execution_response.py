@@ -14,7 +14,9 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.pipeline_execution_name
     import capo_sagemaker.types.pipeline_execution_status
     import capo_sagemaker.types.pipeline_experiment_config
+    import capo_sagemaker.types.pipeline_version_alias_list
     import capo_sagemaker.types.pipeline_version_id
+    import capo_sagemaker.types.role_arn
     import capo_sagemaker.types.selective_execution_config
     import capo_sagemaker.types.timestamp
     import capo_sagemaker.types.user_context
@@ -68,6 +70,12 @@ class DescribePipelineExecutionResponse(TypedDict, closed=True):
         "capo_sagemaker.types.m_lflow_configuration.MLflowConfiguration"
     ]
     """<p> The MLflow configuration of the pipeline execution. </p>"""
+    pipeline_version_aliases: NotRequired[
+        "capo_sagemaker.types.pipeline_version_alias_list.PipelineVersionAliasList"
+    ]
+    """<p>The aliases currently assigned to the pipeline version that the execution ran.</p>"""
+    role_arn: NotRequired["capo_sagemaker.types.role_arn.RoleArn"]
+    """<p>The Amazon Resource Name (ARN) of the IAM role that the execution uses. SageMaker returns this value only for executions of pipelines that AWS manages.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -151,6 +159,16 @@ def serialize_aws_json_1_1(value: DescribePipelineExecutionResponse) -> dict:
                 value["m_lflow_config"]
             )
         )
+    if "pipeline_version_aliases" in value:
+        import capo_sagemaker.types.pipeline_version_alias_list
+
+        out["PipelineVersionAliases"] = (
+            capo_sagemaker.types.pipeline_version_alias_list.serialize_aws_json_1_1(
+                value["pipeline_version_aliases"]
+            )
+        )
+    if "role_arn" in value:
+        out["RoleArn"] = value["role_arn"]
     return out
 
 
@@ -236,4 +254,14 @@ def deserialize_aws_json_1_1(data: dict) -> DescribePipelineExecutionResponse:
                 data["MLflowConfig"]
             )
         )
+    if data.get("PipelineVersionAliases") is not None:
+        import capo_sagemaker.types.pipeline_version_alias_list
+
+        out["pipeline_version_aliases"] = (
+            capo_sagemaker.types.pipeline_version_alias_list.deserialize_aws_json_1_1(
+                data["PipelineVersionAliases"]
+            )
+        )
+    if data.get("RoleArn") is not None:
+        out["role_arn"] = data["RoleArn"]
     return out

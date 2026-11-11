@@ -238,6 +238,7 @@
 - [GitLabRepositoryResource](git_lab_repository_resource.md)
 - [GitLabResourceCapabilities](git_lab_resource_capabilities.md)
 - [GitLabTokenType](git_lab_token_type.md)
+- [GroupMetadata](group_metadata.md)
 - [HostAddress](host_address.md)
 - [HttpVerification](http_verification.md)
 - [IamRoles](iam_roles.md)

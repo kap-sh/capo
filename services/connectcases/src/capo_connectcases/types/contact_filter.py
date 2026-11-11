@@ -13,7 +13,7 @@ class ContactFilter(TypedDict, closed=True):
     channel: NotRequired["capo_connectcases.types.channel_list.ChannelList"]
     """<p>A list of channels to filter on for related items of type <code>Contact</code>.</p>"""
     contact_arn: NotRequired["capo_connectcases.types.contact_arn.ContactArn"]
-    """<p>A unique identifier of a contact in Amazon Connect.</p>"""
+    """<p>A unique identifier of a contact in Connect Customer.</p>"""
 
 
 # --- restJson1 ser/de ---

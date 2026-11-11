@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_auto_scaling.types.activity_ids
     import capo_auto_scaling.types.filters
     import capo_auto_scaling.types.include_deleted_groups
+    import capo_auto_scaling.types.include_managed_resources
     import capo_auto_scaling.types.max_records
     import capo_auto_scaling.types.xml_string
     import capo_auto_scaling.types.xml_string_max_len255
@@ -26,8 +27,12 @@ class DescribeScalingActivitiesType(TypedDict, closed=True):
         "capo_auto_scaling.types.include_deleted_groups.IncludeDeletedGroups"
     ]
     """<p>Indicates whether to include scaling activity from deleted Auto Scaling groups.</p>"""
+    include_managed_resources: NotRequired[
+        "capo_auto_scaling.types.include_managed_resources.IncludeManagedResources"
+    ]
+    """<p> Specifies whether to include scaling activities for managed Auto Scaling groups in the response. When set to <code>true</code> (default), the response includes scaling activities for managed Auto Scaling groups. </p>"""
     max_records: NotRequired["capo_auto_scaling.types.max_records.MaxRecords"]
-    """<p>The maximum number of items to return with this call. The default value is <code>100</code> and the maximum value is <code>100</code>.</p>"""
+    """<p>The maximum number of items to return with this call. The default value is <code>100</code> and the maximum value is <code>100</code>.</p> <p>A response can contain fewer items than the value specified by <code>MaxRecords</code>, even when more items are available. To retrieve the additional items, use the <code>NextToken</code> value in a subsequent call rather than relying on the number of items in the response.</p>"""
     next_token: NotRequired["capo_auto_scaling.types.xml_string.XmlString"]
     """<p>The token for the next set of items to return. (You received this token from a previous call.)</p>"""
     filters: NotRequired["capo_auto_scaling.types.filters.Filters"]
@@ -54,6 +59,13 @@ def serialize_query(
             (
                 f"{key_prefix}IncludeDeletedGroups",
                 "true" if value["include_deleted_groups"] else "false",
+            )
+        )
+    if "include_managed_resources" in value:
+        pairs.append(
+            (
+                f"{key_prefix}IncludeManagedResources",
+                "true" if value["include_managed_resources"] else "false",
             )
         )
     if "max_records" in value:
@@ -84,6 +96,11 @@ def deserialize_query(el: Element) -> DescribeScalingActivitiesType:
     if child_include_deleted_groups is not None:
         out["include_deleted_groups"] = (
             child_include_deleted_groups.text or ""
+        ).lower() == "true"
+    child_include_managed_resources = el.find("IncludeManagedResources")
+    if child_include_managed_resources is not None:
+        out["include_managed_resources"] = (
+            child_include_managed_resources.text or ""
         ).lower() == "true"
     child_max_records = el.find("MaxRecords")
     if child_max_records is not None:

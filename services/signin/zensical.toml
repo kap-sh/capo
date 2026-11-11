@@ -19,6 +19,7 @@ nav = [
   { "SigninClient" = [
     "sync-client/index.md",
     { "Operations" = [
+      "sync-client/operations/create_bearer_token.md",
       "sync-client/operations/create_o_auth2_token.md",
       "sync-client/operations/create_o_auth2_token_with_iam.md",
       "sync-client/operations/create_o_auth2_token_with_token_exchange.md",
@@ -39,6 +40,7 @@ nav = [
   { "AsyncSigninClient" = [
     "async-client/index.md",
     { "Operations" = [
+      "async-client/operations/create_bearer_token.md",
       "async-client/operations/create_o_auth2_token.md",
       "async-client/operations/create_o_auth2_token_with_iam.md",
       "async-client/operations/create_o_auth2_token_with_token_exchange.md",

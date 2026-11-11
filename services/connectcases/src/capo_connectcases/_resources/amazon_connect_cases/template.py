@@ -83,7 +83,7 @@ class Template:
             name: <p>A name for the template. It must be unique per domain.</p>
             description: <p>A brief description of the template.</p>
             layout_configuration: <p>Configuration of layouts associated to the template.</p>
-            required_fields: <p>A list of fields that must contain a value for a case to be successfully created with this template.</p>
+            required_fields: <p>A list of fields that must contain a value for a case to be successfully created with this template.</p> <p>To require a Customer Profile when creating cases, include <code>customer_id</code> in this list. If <code>customer_id</code> is omitted, the Customer Profile field is optional and can be added, changed, or removed after case creation.</p>
             status: <p>The status of the template.</p>
             rules: <p>A list of case rules (also known as <a href="https://docs.aws.amazon.com/connect/latest/adminguide/case-field-conditions.html">case field conditions</a>) on a template. </p>
             tag_propagation_configurations: <p>Defines tag propagation configuration for resources created within a domain. Tags specified here will be automatically applied to resources being created for the specified resource type.</p>
@@ -93,7 +93,7 @@ class Template:
             capo_connectcases.errors.conflict_exception.ConflictException: <p>The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request. See the accompanying error message for details.</p>
             capo_connectcases.errors.internal_server_exception.InternalServerException: <p>We couldn't process your request because of an issue with the server. Try again later.</p>
             capo_connectcases.errors.resource_not_found_exception.ResourceNotFoundException: <p>We couldn't find the requested resource. Check that your resources exists and were created in the same Amazon Web Services Region as your request, and try your request again.</p>
-            capo_connectcases.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The service quota has been exceeded. For a list of service quotas, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html">Amazon Connect Service Quotas</a> in the <i>Amazon Connect Administrator Guide</i>.</p>
+            capo_connectcases.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The service quota has been exceeded. For a list of service quotas, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html">Connect Customer Service Quotas</a> in the <i>Connect Customer Administrator Guide</i>.</p>
             capo_connectcases.errors.throttling_exception.ThrottlingException: <p>The rate has been exceeded for this API. Please try again after a few minutes.</p>
             capo_connectcases.errors.validation_exception.ValidationException: <p>The request isn't valid. Check the syntax and try again.</p>
             capo_connectcases.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -227,7 +227,7 @@ class Template:
             name: <p>The name of the template. It must be unique per domain.</p>
             description: <p>A brief description of the template.</p>
             layout_configuration: <p>Configuration of layouts associated to the template.</p>
-            required_fields: <p>A list of fields that must contain a value for a case to be successfully created with this template.</p>
+            required_fields: <p>A list of fields that must contain a value for a case to be successfully created with this template.</p> <p>To require a Customer Profile when creating cases, include <code>customer_id</code> in this list. If <code>customer_id</code> is omitted, the Customer Profile field is optional and can be added, changed, or removed after case creation.</p>
             status: <p>The status of the template.</p>
             rules: <p>A list of case rules (also known as <a href="https://docs.aws.amazon.com/connect/latest/adminguide/case-field-conditions.html">case field conditions</a>) on a template.</p>
             tag_propagation_configurations: <p>Defines tag propagation configuration for resources created within a domain. Tags specified here will be automatically applied to resources being created for the specified resource type.</p>
@@ -237,7 +237,7 @@ class Template:
             capo_connectcases.errors.conflict_exception.ConflictException: <p>The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request. See the accompanying error message for details.</p>
             capo_connectcases.errors.internal_server_exception.InternalServerException: <p>We couldn't process your request because of an issue with the server. Try again later.</p>
             capo_connectcases.errors.resource_not_found_exception.ResourceNotFoundException: <p>We couldn't find the requested resource. Check that your resources exists and were created in the same Amazon Web Services Region as your request, and try your request again.</p>
-            capo_connectcases.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The service quota has been exceeded. For a list of service quotas, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html">Amazon Connect Service Quotas</a> in the <i>Amazon Connect Administrator Guide</i>.</p>
+            capo_connectcases.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The service quota has been exceeded. For a list of service quotas, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html">Connect Customer Service Quotas</a> in the <i>Connect Customer Administrator Guide</i>.</p>
             capo_connectcases.errors.throttling_exception.ThrottlingException: <p>The rate has been exceeded for this API. Please try again after a few minutes.</p>
             capo_connectcases.errors.validation_exception.ValidationException: <p>The request isn't valid. Check the syntax and try again.</p>
             capo_connectcases.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -294,7 +294,7 @@ class Template:
         *,
         config_overrides: Optional[ConnectCasesClientConfig] = None,
     ) -> "capo_connectcases.types.delete_template_response.DeleteTemplateResponse":
-        """<p>Deletes a cases template. You can delete up to 100 templates per domain.</p> <p>After a cases template is deleted:</p> <ul> <li> <p>You can still retrieve the template by calling <code>GetTemplate</code>.</p> </li> <li> <p>You cannot update the template. </p> </li> <li> <p>You cannot create a case by using the deleted template.</p> </li> <li> <p>Deleted templates are not included in the <code>ListTemplates</code> response.</p> </li> </ul>
+        """<p>Deletes a Cases template. You can delete up to 100 templates per domain.</p> <p>After a Cases template is deleted:</p> <ul> <li> <p>You can still retrieve the template by calling <code>GetTemplate</code>.</p> </li> <li> <p>You cannot update the template. </p> </li> <li> <p>You cannot create a case by using the deleted template.</p> </li> <li> <p>Deleted templates are not included in the <code>ListTemplates</code> response.</p> </li> </ul>
 
         Args:
             domain_id: <p>The unique identifier of the Cases domain.</p>
@@ -440,7 +440,7 @@ class AsyncTemplate:
             name: <p>A name for the template. It must be unique per domain.</p>
             description: <p>A brief description of the template.</p>
             layout_configuration: <p>Configuration of layouts associated to the template.</p>
-            required_fields: <p>A list of fields that must contain a value for a case to be successfully created with this template.</p>
+            required_fields: <p>A list of fields that must contain a value for a case to be successfully created with this template.</p> <p>To require a Customer Profile when creating cases, include <code>customer_id</code> in this list. If <code>customer_id</code> is omitted, the Customer Profile field is optional and can be added, changed, or removed after case creation.</p>
             status: <p>The status of the template.</p>
             rules: <p>A list of case rules (also known as <a href="https://docs.aws.amazon.com/connect/latest/adminguide/case-field-conditions.html">case field conditions</a>) on a template. </p>
             tag_propagation_configurations: <p>Defines tag propagation configuration for resources created within a domain. Tags specified here will be automatically applied to resources being created for the specified resource type.</p>
@@ -450,7 +450,7 @@ class AsyncTemplate:
             capo_connectcases.errors.conflict_exception.ConflictException: <p>The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request. See the accompanying error message for details.</p>
             capo_connectcases.errors.internal_server_exception.InternalServerException: <p>We couldn't process your request because of an issue with the server. Try again later.</p>
             capo_connectcases.errors.resource_not_found_exception.ResourceNotFoundException: <p>We couldn't find the requested resource. Check that your resources exists and were created in the same Amazon Web Services Region as your request, and try your request again.</p>
-            capo_connectcases.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The service quota has been exceeded. For a list of service quotas, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html">Amazon Connect Service Quotas</a> in the <i>Amazon Connect Administrator Guide</i>.</p>
+            capo_connectcases.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The service quota has been exceeded. For a list of service quotas, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html">Connect Customer Service Quotas</a> in the <i>Connect Customer Administrator Guide</i>.</p>
             capo_connectcases.errors.throttling_exception.ThrottlingException: <p>The rate has been exceeded for this API. Please try again after a few minutes.</p>
             capo_connectcases.errors.validation_exception.ValidationException: <p>The request isn't valid. Check the syntax and try again.</p>
             capo_connectcases.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -586,7 +586,7 @@ class AsyncTemplate:
             name: <p>The name of the template. It must be unique per domain.</p>
             description: <p>A brief description of the template.</p>
             layout_configuration: <p>Configuration of layouts associated to the template.</p>
-            required_fields: <p>A list of fields that must contain a value for a case to be successfully created with this template.</p>
+            required_fields: <p>A list of fields that must contain a value for a case to be successfully created with this template.</p> <p>To require a Customer Profile when creating cases, include <code>customer_id</code> in this list. If <code>customer_id</code> is omitted, the Customer Profile field is optional and can be added, changed, or removed after case creation.</p>
             status: <p>The status of the template.</p>
             rules: <p>A list of case rules (also known as <a href="https://docs.aws.amazon.com/connect/latest/adminguide/case-field-conditions.html">case field conditions</a>) on a template.</p>
             tag_propagation_configurations: <p>Defines tag propagation configuration for resources created within a domain. Tags specified here will be automatically applied to resources being created for the specified resource type.</p>
@@ -596,7 +596,7 @@ class AsyncTemplate:
             capo_connectcases.errors.conflict_exception.ConflictException: <p>The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request. See the accompanying error message for details.</p>
             capo_connectcases.errors.internal_server_exception.InternalServerException: <p>We couldn't process your request because of an issue with the server. Try again later.</p>
             capo_connectcases.errors.resource_not_found_exception.ResourceNotFoundException: <p>We couldn't find the requested resource. Check that your resources exists and were created in the same Amazon Web Services Region as your request, and try your request again.</p>
-            capo_connectcases.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The service quota has been exceeded. For a list of service quotas, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html">Amazon Connect Service Quotas</a> in the <i>Amazon Connect Administrator Guide</i>.</p>
+            capo_connectcases.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The service quota has been exceeded. For a list of service quotas, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html">Connect Customer Service Quotas</a> in the <i>Connect Customer Administrator Guide</i>.</p>
             capo_connectcases.errors.throttling_exception.ThrottlingException: <p>The rate has been exceeded for this API. Please try again after a few minutes.</p>
             capo_connectcases.errors.validation_exception.ValidationException: <p>The request isn't valid. Check the syntax and try again.</p>
             capo_connectcases.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -654,7 +654,7 @@ class AsyncTemplate:
         *,
         config_overrides: Optional[AsyncConnectCasesClientConfig] = None,
     ) -> "capo_connectcases.types.delete_template_response.DeleteTemplateResponse":
-        """<p>Deletes a cases template. You can delete up to 100 templates per domain.</p> <p>After a cases template is deleted:</p> <ul> <li> <p>You can still retrieve the template by calling <code>GetTemplate</code>.</p> </li> <li> <p>You cannot update the template. </p> </li> <li> <p>You cannot create a case by using the deleted template.</p> </li> <li> <p>Deleted templates are not included in the <code>ListTemplates</code> response.</p> </li> </ul>
+        """<p>Deletes a Cases template. You can delete up to 100 templates per domain.</p> <p>After a Cases template is deleted:</p> <ul> <li> <p>You can still retrieve the template by calling <code>GetTemplate</code>.</p> </li> <li> <p>You cannot update the template. </p> </li> <li> <p>You cannot create a case by using the deleted template.</p> </li> <li> <p>Deleted templates are not included in the <code>ListTemplates</code> response.</p> </li> </ul>
 
         Args:
             domain_id: <p>The unique identifier of the Cases domain.</p>

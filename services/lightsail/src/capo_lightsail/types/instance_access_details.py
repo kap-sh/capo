@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lightsail#InstanceAccessDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     import capo_lightsail.types.iso_date
     import capo_lightsail.types.password_data
     import capo_lightsail.types.resource_name
+    import capo_lightsail.types.sensitive_string
     import capo_lightsail.types.string
 
 
@@ -26,11 +27,11 @@ class InstanceAccessDetails(TypedDict, closed=True):
         "capo_lightsail.types.ipv6_address_list.Ipv6AddressList"
     ]
     """<p>The IPv6 address of the Amazon Lightsail instance.</p>"""
-    password: NotRequired["capo_lightsail.types.string.string"]
+    password: NotRequired["capo_lightsail.types.sensitive_string.SensitiveString"]
     """<p>For RDP access, the password for your Amazon Lightsail instance. Password will be an empty string if the password for your new instance is not ready yet. When you create an instance, it can take up to 15 minutes for the instance to be ready.</p> <note> <p>If you create an instance using any key pair other than the default (<code>LightsailDefaultKeyPair</code>), <code>password</code> will always be an empty string.</p> <p>If you change the Administrator password on the instance, Lightsail will continue to return the original password value. When accessing the instance using RDP, you need to manually enter the Administrator password after changing it from the default.</p> </note>"""
     password_data: NotRequired["capo_lightsail.types.password_data.PasswordData"]
     """<p>For a Windows Server-based instance, an object with the data you can use to retrieve your password. This is only needed if <code>password</code> is empty and the instance is not new (and therefore the password is not ready yet). When you create an instance, it can take up to 15 minutes for the instance to be ready.</p>"""
-    private_key: NotRequired["capo_lightsail.types.string.string"]
+    private_key: NotRequired["capo_lightsail.types.sensitive_string.SensitiveString"]
     """<p>For SSH access, the temporary private key. For OpenSSH clients (command line SSH), you should save this value to <code>tempkey</code>).</p>"""
     protocol: NotRequired[
         "capo_lightsail.types.instance_access_protocol.InstanceAccessProtocol"
@@ -146,4 +147,19 @@ def deserialize_aws_json_1_1(data: dict) -> InstanceAccessDetails:
         out["host_keys"] = capo_lightsail.types.host_keys_list.deserialize_aws_json_1_1(
             data["hostKeys"]
         )
+    return out
+
+
+def redact_sensitive(value: InstanceAccessDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "password" in value:
+        out["password"] = "*** Sensitive Data Redacted ***"
+    if "password_data" in value:
+        import capo_lightsail.types.password_data
+
+        out["password_data"] = capo_lightsail.types.password_data.redact_sensitive(
+            value["password_data"]
+        )
+    if "private_key" in value:
+        out["private_key"] = "*** Sensitive Data Redacted ***"
     return out

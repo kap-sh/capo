@@ -27,9 +27,9 @@ class DesignationSummary(TypedDict, closed=True):
     designation_type: NotRequired[
         "capo_datazone.types.designation_type.DesignationType"
     ]
-    """The classification of this designation."""
+    """<p>The classification of this designation. Valid values:</p> <ul> <li> <p> <code>MANAGED</code> — System-defined designation.</p> </li> <li> <p> <code>USER_CREATED</code> — User-created designation.</p> </li> </ul>"""
     deletion_protection: "bool"
-    """Whether deletion protection is enabled for this designation."""
+    """<p>Specifies whether deletion protection is enabled for this designation. When <code>true</code>, <code>DeleteDesignation</code> is rejected until protection is disabled through <code>UpdateDesignation</code>.</p>"""
     created_by: "capo_datazone.types.created_by.CreatedBy"
     """<p>The identifier of the Amazon DataZone user who created the designation.</p>"""
     created_at: NotRequired["datetime.datetime"]

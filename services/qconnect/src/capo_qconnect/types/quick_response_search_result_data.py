@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import datetime
 
     import capo_qconnect.types.arn
+    import capo_qconnect.types.aws_region
     import capo_qconnect.types.channels
     import capo_qconnect.types.contact_attribute_keys
     import capo_qconnect.types.generic_arn
@@ -46,6 +47,8 @@ class QuickResponseSearchResultData(TypedDict, closed=True):
     """<p>The timestamp when the quick response was created.</p>"""
     last_modified_time: "datetime.datetime"
     """<p>The timestamp when the quick response search result data was last modified.</p>"""
+    last_modified_region: NotRequired["capo_qconnect.types.aws_region.AwsRegion"]
+    """<p>The Amazon Web Services Region where the quick response was last modified.</p>"""
     is_active: "bool"
     """<p>Whether the quick response is active.</p>"""
     description: NotRequired[
@@ -93,6 +96,8 @@ def serialize_json(value: QuickResponseSearchResultData) -> dict:
     )
     out["createdTime"] = value["created_time"].timestamp()
     out["lastModifiedTime"] = value["last_modified_time"].timestamp()
+    if "last_modified_region" in value:
+        out["lastModifiedRegion"] = value["last_modified_region"]
     out["isActive"] = value["is_active"]
     if "description" in value:
         out["description"] = value["description"]
@@ -199,6 +204,8 @@ def deserialize_json(data: dict) -> QuickResponseSearchResultData:
         out["last_modified_time"] = datetime.datetime.fromtimestamp(
             0, tz=datetime.timezone.utc
         )
+    if data.get("lastModifiedRegion") is not None:
+        out["last_modified_region"] = data["lastModifiedRegion"]
     if data.get("isActive") is not None:
         out["is_active"] = data["isActive"]
     else:

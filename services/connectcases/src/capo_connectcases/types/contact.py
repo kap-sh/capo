@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class Contact(TypedDict, closed=True):
     contact_arn: "capo_connectcases.types.contact_arn.ContactArn"
-    """<p>A unique identifier of a contact in Amazon Connect.</p>"""
+    """<p>A unique identifier of a contact in Connect Customer.</p>"""
 
 
 # --- restJson1 ser/de ---

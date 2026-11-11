@@ -18,6 +18,7 @@ if TYPE_CHECKING:
     import capo_ecs.types.string
     import capo_ecs.types.tags
     import capo_ecs.types.task_definition_placement_constraints
+    import capo_ecs.types.trusted_execution_configuration
     import capo_ecs.types.volume_list
 
 
@@ -61,11 +62,15 @@ class RegisterTaskDefinitionRequest(TypedDict, closed=True):
     ]
     """<p>The Elastic Inference accelerators to use for the containers in the task.</p>"""
     ephemeral_storage: NotRequired["capo_ecs.types.ephemeral_storage.EphemeralStorage"]
-    """<p>The amount of ephemeral storage to allocate for the task. This parameter is used to expand the total amount of ephemeral storage available, beyond the default amount, for tasks hosted on Fargate. For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_data_volumes.html">Using data volumes in tasks</a> in the <i>Amazon ECS Developer Guide</i>.</p> <note> <p>For tasks using the Fargate launch type, the task requires the following platforms:</p> <ul> <li> <p>Linux platform version <code>1.4.0</code> or later.</p> </li> <li> <p>Windows platform version <code>1.0.0</code> or later.</p> </li> </ul> </note>"""
+    """<p>The amount of ephemeral storage to allocate for the task. This parameter is used to expand the total amount of ephemeral storage available, beyond the default amount, for tasks hosted on Fargate. For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_data_volumes.html">Using data volumes in tasks</a> in the <i>Amazon ECS Developer Guide</i>.</p> <note> <p>For tasks using the Fargate launch type, the task requires the following platforms:</p> <ul> <li> <p>Linux platform version <code>1.4.0</code> or later.</p> </li> </ul> </note>"""
     runtime_platform: NotRequired["capo_ecs.types.runtime_platform.RuntimePlatform"]
     """<p>The operating system that your tasks definitions run on.</p>"""
     enable_fault_injection: NotRequired["capo_ecs.types.boxed_boolean.BoxedBoolean"]
     """<p>Enables fault injection when you register your task definition and allows for fault injection requests to be accepted from the task's containers. The default value is <code>false</code>.</p>"""
+    trusted_execution_configuration: NotRequired[
+        "capo_ecs.types.trusted_execution_configuration.TrustedExecutionConfiguration"
+    ]
+    """<p>The trusted execution configuration for tasks that use this task definition, including the isolation mode and, if configured, an attestation policy.</p> <note> <p>Trusted execution is supported only for Amazon ECS Managed Instances.</p> </note>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -163,6 +168,14 @@ def serialize_aws_json_1_1(value: RegisterTaskDefinitionRequest) -> dict:
         )
     if "enable_fault_injection" in value:
         out["enableFaultInjection"] = value["enable_fault_injection"]
+    if "trusted_execution_configuration" in value:
+        import capo_ecs.types.trusted_execution_configuration
+
+        out["trustedExecutionConfiguration"] = (
+            capo_ecs.types.trusted_execution_configuration.serialize_aws_json_1_1(
+                value["trusted_execution_configuration"]
+            )
+        )
     return out
 
 
@@ -268,6 +281,14 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterTaskDefinitionRequest:
         )
     if data.get("enableFaultInjection") is not None:
         out["enable_fault_injection"] = data["enableFaultInjection"]
+    if data.get("trustedExecutionConfiguration") is not None:
+        import capo_ecs.types.trusted_execution_configuration
+
+        out["trusted_execution_configuration"] = (
+            capo_ecs.types.trusted_execution_configuration.deserialize_aws_json_1_1(
+                data["trustedExecutionConfiguration"]
+            )
+        )
     return out
 
 

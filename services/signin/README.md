@@ -18,9 +18,9 @@ from capo_signin import AsyncSigninClient
 
 async def main():
     async with AsyncSigninClient() as signin:
-        # Example: call the create_o_auth2_token operation
-        response = await signin.create_o_auth2_token()
-        print(response["token_output"])
+        # Example: call the create_bearer_token operation
+        response = await signin.create_bearer_token()
+        print(response["access_token"])
 ```
 
 ## Pagination
@@ -50,7 +50,7 @@ from capo_signin.error import AccessDeniedException
 async def main():
     async with AsyncSigninClient() as signin:
         try:
-            await signin.create_o_auth2_token()
+            await signin.create_bearer_token()
         except AccessDeniedException as e:
             print(f"Error: {e}")
             print(e.data)  # additional error data
@@ -71,11 +71,11 @@ from capo_signin import AsyncSigninClient
 async def main():
     async with AsyncSigninClient() as signin:
         # Default: 3 attempts for every operation
-        response = await signin.create_o_auth2_token()
+        response = await signin.create_bearer_token()
 
         # Override per operation
-        response = await signin.create_o_auth2_token(config_overrides={"retry_max_attempts": 5})
+        response = await signin.create_bearer_token(config_overrides={"retry_max_attempts": 5})
 
         # Disable retries for this call
-        response = await signin.create_o_auth2_token(config_overrides={"retry_max_attempts": 1})
+        response = await signin.create_bearer_token(config_overrides={"retry_max_attempts": 1})
 ```

@@ -20,8 +20,10 @@ import capo_pcs.errors.throttling_exception
 import capo_pcs.errors.validation_exception
 import capo_pcs.types.compute_node_group
 import capo_pcs.types.custom_launch_template
+import capo_pcs.types.launch_template_mode
 import capo_pcs.types.purchase_option
 import capo_pcs.types.scaling_configuration_request
+import capo_pcs.types.security_group_id_list_or_empty
 import capo_pcs.types.spot_options
 import capo_pcs.types.string_list
 import capo_pcs.types.update_compute_node_group_request

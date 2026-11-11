@@ -38,6 +38,8 @@ if TYPE_CHECKING:
     import capo_signin.types.client_credentials_grant_type
     import capo_signin.types.client_token
     import capo_signin.types.console_permission_max_results
+    import capo_signin.types.create_bearer_token_request
+    import capo_signin.types.create_bearer_token_response
     import capo_signin.types.create_o_auth2_token_request
     import capo_signin.types.create_o_auth2_token_request_body
     import capo_signin.types.create_o_auth2_token_response
@@ -78,6 +80,7 @@ if TYPE_CHECKING:
     import capo_signin.types.subject_token
     import capo_signin.types.subject_token_type
     import capo_signin.types.target_id
+    import capo_signin.types.token_duration
     import capo_signin.types.token_exchange_grant_type
     import capo_signin.types.token_type_hint
     import capo_signin.types.vpc_source_ip
@@ -199,6 +202,74 @@ class AsyncSigninClient:
             anonymous=overrides.get("anonymous", self._config.get("anonymous")),
         )
         return interceptors_, options_
+
+    async def create_bearer_token(
+        self,
+        grant_type: "capo_signin.types.client_credentials_grant_type.ClientCredentialsGrantType",
+        resource: "capo_signin.types.resource.Resource",
+        *,
+        config_overrides: Optional[AsyncSigninClientConfig] = None,
+        duration_seconds: Optional[
+            "capo_signin.types.token_duration.TokenDuration"
+        ] = None,
+    ) -> "capo_signin.types.create_bearer_token_response.CreateBearerTokenResponse":
+        """Creates a bearer token that represents your IAM credentials and can be used to access a supported AWS service. By default, the token is valid for 12 hours.
+
+        Args:
+            grant_type: The grant type. Must be "client_credentials".
+            resource: The AWS service the bearer token is for. Example: "ecr.amazonaws.com".
+            duration_seconds: The requested token lifetime in seconds, from 300 (5 minutes) up to the maximum allowed for the service, currently 43200 (12 hours). If omitted, the token is valid for 12 hours.
+
+        Raises:
+            capo_signin.errors.access_denied_exception.AccessDeniedException: You do not have sufficient access to perform this action.
+            capo_signin.errors.internal_server_exception.InternalServerException: The request failed because of an internal server error.
+            capo_signin.errors.too_many_requests_error.TooManyRequestsError: The request failed because you exceeded the request rate limit for this operation.
+            capo_signin.errors.validation_exception.ValidationException: The request failed because it contains a malformed, missing, or invalid parameter.
+            capo_signin.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_signin.types.create_bearer_token_request.CreateBearerTokenRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_signin.types.create_bearer_token_response.CreateBearerTokenResponse"
+        ]:
+            import capo_signin._operations.signin.create_bearer_token
+
+            (
+                output,
+                http_response,
+            ) = await capo_signin._operations.signin.create_bearer_token.async_create_bearer_token(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        def _redact_output(
+            output: "capo_signin.types.create_bearer_token_response.CreateBearerTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_signin.types.create_bearer_token_response
+
+            return capo_signin.types.create_bearer_token_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateBearerToken", redact_output=_redact_output),
+        )
+        input_: capo_signin.types.create_bearer_token_request.CreateBearerTokenRequest = {
+            "grant_type": grant_type,
+            "resource": resource,
+        }
+        if duration_seconds is not None:
+            input_["duration_seconds"] = duration_seconds
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
 
     async def create_o_auth2_token(
         self,

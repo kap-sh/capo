@@ -12,7 +12,7 @@ class AssociateProfileResponse(TypedDict, closed=True):
     profile_association: NotRequired[
         "capo_route53profiles.types.profile_association.ProfileAssociation"
     ]
-    """<p> The association that you just created. The association has an ID that you can use to identify it in other requests, like update and delete. </p>"""
+    """<p> The association that you just created. The association has an ID that you can use to identify it in other requests, such as update and delete. </p>"""
 
 
 # --- restJson1 ser/de ---

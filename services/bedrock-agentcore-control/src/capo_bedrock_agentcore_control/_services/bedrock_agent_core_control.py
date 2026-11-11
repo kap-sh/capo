@@ -319,6 +319,7 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.descriptor_type
     import capo_bedrock_agentcore_control.types.descriptors
     import capo_bedrock_agentcore_control.types.dimension_keys
+    import capo_bedrock_agentcore_control.types.domain_override
     import capo_bedrock_agentcore_control.types.endpoint_name
     import capo_bedrock_agentcore_control.types.enforcement_mode
     import capo_bedrock_agentcore_control.types.environment_variables_map
@@ -594,6 +595,7 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.reset_token_vault_key_material_request
     import capo_bedrock_agentcore_control.types.reset_token_vault_key_material_response
     import capo_bedrock_agentcore_control.types.resource
+    import capo_bedrock_agentcore_control.types.resource_configurations
     import capo_bedrock_agentcore_control.types.resource_id
     import capo_bedrock_agentcore_control.types.resource_oauth2_return_url_list_type
     import capo_bedrock_agentcore_control.types.resource_policy_body
@@ -602,6 +604,7 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.rotate_payment_connector_credentials_request
     import capo_bedrock_agentcore_control.types.rotate_payment_connector_credentials_response
     import capo_bedrock_agentcore_control.types.rule
+    import capo_bedrock_agentcore_control.types.runtime_hooks_configuration
     import capo_bedrock_agentcore_control.types.runtime_metadata_configuration
     import capo_bedrock_agentcore_control.types.sandbox_name
     import capo_bedrock_agentcore_control.types.secret_reference
@@ -1784,6 +1787,9 @@ class BedrockAgentCoreControlClient:
         lifecycle_configuration: Optional[
             "capo_bedrock_agentcore_control.types.lifecycle_configuration.LifecycleConfiguration"
         ] = None,
+        hooks_configuration: Optional[
+            "capo_bedrock_agentcore_control.types.runtime_hooks_configuration.RuntimeHooksConfiguration"
+        ] = None,
         environment_variables: Optional[
             "capo_bedrock_agentcore_control.types.environment_variables_map.EnvironmentVariablesMap"
         ] = None,
@@ -1800,6 +1806,9 @@ class BedrockAgentCoreControlClient:
         allowed_ports: Optional[
             "capo_bedrock_agentcore_control.types.allowed_ports.AllowedPorts"
         ] = None,
+        resource_configurations: Optional[
+            "capo_bedrock_agentcore_control.types.resource_configurations.ResourceConfigurations"
+        ] = None,
     ) -> "capo_bedrock_agentcore_control.types.create_agent_runtime_response.CreateAgentRuntimeResponse":
         """<p>Creates an Amazon Bedrock AgentCore Runtime.</p>
 
@@ -1814,12 +1823,14 @@ class BedrockAgentCoreControlClient:
             request_header_configuration: <p>Configuration for HTTP request headers that will be passed through to the runtime.</p>
             protocol_configuration: <p>The protocol configuration for the AgentCore Runtime, including the protocol, port, and path on which the agent server is available.</p>
             lifecycle_configuration: <p>The life cycle configuration for the AgentCore Runtime.</p>
+            hooks_configuration: <p>The lifecycle hooks configuration for the AgentCore Runtime. Use lifecycle hooks to run actions in the agent's container at fixed points in the runtime's lifecycle, such as warming up the agent before sessions are created.</p>
             environment_variables: <p>Environment variables to set in the AgentCore Runtime environment.</p>
             filesystem_configurations: <p>The filesystem configurations to mount into the AgentCore Runtime. Use filesystem configurations to provide persistent storage to your AgentCore Runtime sessions.</p>
             capacity_provider_configuration: <p>The capacity provider configuration for the AgentCore Runtime. Use a capacity provider to run the AgentCore Runtime on the Instances compute type, which provisions Amazon Web Services managed compute in your account.</p>
             tags: <p>A map of tag keys and values to assign to the agent runtime. Tags enable you to categorize your resources in different ways, for example, by purpose, owner, or environment.</p>
             platform_version: <p>The version of the runtime platform to use for the AgentCore Runtime.</p>
             allowed_ports: <p>The additional ports on the AgentCore Runtime that are reachable through the runtime's session URL. Specify one to five non-overlapping entries, each containing either a single port or an inclusive port range. Ports must be between <code>8000</code> and <code>12000</code>, excluding the reserved port <code>8443</code>.</p>
+            resource_configurations: <p>The resource configurations for the AgentCore Runtime, such as the minimum amount of memory to allocate to the runtime. You can specify at most one resource configuration.</p>
 
         Raises:
             capo_bedrock_agentcore_control.errors.access_denied_exception.AccessDeniedException: <p>This exception is thrown when a request is denied per access permissions</p>
@@ -1878,6 +1889,8 @@ class BedrockAgentCoreControlClient:
             input_["protocol_configuration"] = protocol_configuration
         if lifecycle_configuration is not None:
             input_["lifecycle_configuration"] = lifecycle_configuration
+        if hooks_configuration is not None:
+            input_["hooks_configuration"] = hooks_configuration
         if environment_variables is not None:
             input_["environment_variables"] = environment_variables
         if filesystem_configurations is not None:
@@ -1890,6 +1903,8 @@ class BedrockAgentCoreControlClient:
             input_["platform_version"] = platform_version
         if allowed_ports is not None:
             input_["allowed_ports"] = allowed_ports
+        if resource_configurations is not None:
+            input_["resource_configurations"] = resource_configurations
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -1989,6 +2004,9 @@ class BedrockAgentCoreControlClient:
         lifecycle_configuration: Optional[
             "capo_bedrock_agentcore_control.types.lifecycle_configuration.LifecycleConfiguration"
         ] = None,
+        hooks_configuration: Optional[
+            "capo_bedrock_agentcore_control.types.runtime_hooks_configuration.RuntimeHooksConfiguration"
+        ] = None,
         metadata_configuration: Optional[
             "capo_bedrock_agentcore_control.types.runtime_metadata_configuration.RuntimeMetadataConfiguration"
         ] = None,
@@ -2007,6 +2025,9 @@ class BedrockAgentCoreControlClient:
         allowed_ports: Optional[
             "capo_bedrock_agentcore_control.types.allowed_ports.AllowedPorts"
         ] = None,
+        resource_configurations: Optional[
+            "capo_bedrock_agentcore_control.types.resource_configurations.ResourceConfigurations"
+        ] = None,
         client_token: Optional[
             "capo_bedrock_agentcore_control.types.client_token.ClientToken"
         ] = None,
@@ -2023,12 +2044,14 @@ class BedrockAgentCoreControlClient:
             request_header_configuration: <p>The updated configuration for HTTP request headers that will be passed through to the runtime.</p>
             protocol_configuration: <p>The updated protocol configuration for the AgentCore Runtime, including the protocol, port, and path on which the agent server is available.</p>
             lifecycle_configuration: <p>The updated life cycle configuration for the AgentCore Runtime.</p>
+            hooks_configuration: <p>The updated lifecycle hooks configuration for the AgentCore Runtime.</p>
             metadata_configuration: <p>The updated configuration for microVM Metadata Service (MMDS) settings for the AgentCore Runtime.</p>
             environment_variables: <p>Updated environment variables to set in the AgentCore Runtime environment.</p>
             filesystem_configurations: <p>The updated filesystem configurations to mount into the AgentCore Runtime.</p>
             capacity_provider_configuration: <p>The updated capacity provider configuration for the AgentCore Runtime.</p>
             platform_version: <p>The updated version of the runtime platform to use for the AgentCore Runtime.</p>
             allowed_ports: <p>The updated additional ports on the AgentCore Runtime that are reachable through the runtime's session URL. Specify one to five non-overlapping entries, each containing either a single port or an inclusive port range. Ports must be between <code>8000</code> and <code>12000</code>, excluding the reserved port <code>8443</code>.</p>
+            resource_configurations: <p>The updated resource configurations for the AgentCore Runtime. You can specify at most one resource configuration.</p>
             client_token: <p>A unique, case-sensitive identifier to ensure idempotency of the request.</p>
 
         Raises:
@@ -2086,6 +2109,8 @@ class BedrockAgentCoreControlClient:
             input_["protocol_configuration"] = protocol_configuration
         if lifecycle_configuration is not None:
             input_["lifecycle_configuration"] = lifecycle_configuration
+        if hooks_configuration is not None:
+            input_["hooks_configuration"] = hooks_configuration
         if metadata_configuration is not None:
             input_["metadata_configuration"] = metadata_configuration
         if environment_variables is not None:
@@ -2098,6 +2123,8 @@ class BedrockAgentCoreControlClient:
             input_["platform_version"] = platform_version
         if allowed_ports is not None:
             input_["allowed_ports"] = allowed_ports
+        if resource_configurations is not None:
+            input_["resource_configurations"] = resource_configurations
         if client_token is None:
             client_token = str(uuid.uuid4())
         input_["client_token"] = client_token
@@ -6575,6 +6602,9 @@ class BedrockAgentCoreControlClient:
             "capo_bedrock_agentcore_control.types.exception_level.ExceptionLevel"
         ] = None,
         tags: Optional["capo_bedrock_agentcore_control.types.tags_map.TagsMap"] = None,
+        domain_override: Optional[
+            "capo_bedrock_agentcore_control.types.domain_override.DomainOverride"
+        ] = None,
     ) -> "capo_bedrock_agentcore_control.types.create_gateway_response.CreateGatewayResponse":
         """<p>Creates a gateway for Amazon Bedrock Agent. A gateway serves as an integration point between your agent and external services.</p> <p>If you specify <code>CUSTOM_JWT</code> as the <code>authorizerType</code>, you must provide an <code>authorizerConfiguration</code>.</p>
 
@@ -6592,6 +6622,7 @@ class BedrockAgentCoreControlClient:
             policy_engine_configuration: <p>The policy engine configuration for the gateway. A policy engine is a collection of policies that evaluates and authorizes agent tool calls. When associated with a gateway, the policy engine intercepts all agent requests and determines whether to allow or deny each action based on the defined policies.</p>
             exception_level: <p>The level of detail in error messages returned when invoking the gateway.</p> <ul> <li> <p>If the value is <code>DEBUG</code>, granular exception messages are returned to help a user debug the gateway.</p> </li> <li> <p>If the value is omitted, a generic error message is returned to the end user.</p> </li> </ul>
             tags: <p>A map of key-value pairs to associate with the gateway as metadata tags.</p>
+            domain_override: <p>The public domain names that the gateway advertises in its OAuth discovery URLs instead of the inbound Host header. Specify this when clients reach the gateway through your own proxy or custom domain.</p>
 
         Raises:
             capo_bedrock_agentcore_control.errors.access_denied_exception.AccessDeniedException: <p>This exception is thrown when a request is denied per access permissions</p>
@@ -6669,6 +6700,8 @@ class BedrockAgentCoreControlClient:
             input_["exception_level"] = exception_level
         if tags is not None:
             input_["tags"] = tags
+        if domain_override is not None:
+            input_["domain_override"] = domain_override
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -6918,6 +6951,9 @@ class BedrockAgentCoreControlClient:
         waf_configuration: Optional[
             "capo_bedrock_agentcore_control.types.waf_configuration.WafConfiguration"
         ] = None,
+        domain_override: Optional[
+            "capo_bedrock_agentcore_control.types.domain_override.DomainOverride"
+        ] = None,
     ) -> "capo_bedrock_agentcore_control.types.update_gateway_response.UpdateGatewayResponse":
         """<p>Updates an existing gateway.</p> <p>Replaces the entire gateway configuration. Any optional field that you omit, including fields in <code>protocolConfiguration</code>, is reset. For information about retrieving the current configuration, see <a href="https://docs.aws.amazon.com/bedrock-agentcore-control/latest/APIReference/API_GetGateway.html">GetGateway</a>.</p>
 
@@ -6935,6 +6971,7 @@ class BedrockAgentCoreControlClient:
             policy_engine_configuration: <p>The updated policy engine configuration for the gateway. A policy engine is a collection of policies that evaluates and authorizes agent tool calls. When associated with a gateway, the policy engine intercepts all agent requests and determines whether to allow or deny each action based on the defined policies.</p>
             exception_level: <p>The level of detail in error messages returned when invoking the gateway.</p> <ul> <li> <p>If the value is <code>DEBUG</code>, granular exception messages are returned to help a user debug the gateway.</p> </li> <li> <p>If the value is omitted, a generic error message is returned to the end user.</p> </li> </ul>
             waf_configuration: <p>The updated Amazon Web Services WAF configuration for the gateway.</p>
+            domain_override: <p>The updated public domain names that the gateway advertises in its OAuth discovery URLs instead of the inbound Host header. Specify this when clients reach the gateway through your own proxy or custom domain.</p>
 
         Raises:
             capo_bedrock_agentcore_control.errors.access_denied_exception.AccessDeniedException: <p>This exception is thrown when a request is denied per access permissions</p>
@@ -7013,6 +7050,8 @@ class BedrockAgentCoreControlClient:
             input_["exception_level"] = exception_level
         if waf_configuration is not None:
             input_["waf_configuration"] = waf_configuration
+        if domain_override is not None:
+            input_["domain_override"] = domain_override
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -8987,7 +9026,7 @@ class BedrockAgentCoreControlClient:
             description: <p>The description of the memory.</p>
             encryption_key_arn: <p>The Amazon Resource Name (ARN) of the KMS key used to encrypt the memory data.</p>
             memory_execution_role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that provides permissions for the memory to access Amazon Web Services services.</p>
-            event_expiry_duration: <p>The duration after which memory events expire. Specified as an ISO 8601 duration.</p>
+            event_expiry_duration: <p>The number of days after which memory events expire, between 7 and 3650 days.</p>
             memory_strategies: <p>The memory strategies to use for this memory. Strategies define how information is extracted, processed, and consolidated.</p>
             indexed_keys: <p>Metadata keys to index for filtering. Once declared, indexed keys cannot be removed.</p>
             namespace_keys: <p>The namespace variable key definitions with optional validation rules. Use these <code>namespaceKeys</code> in <code>namespaceTemplates</code> to control namespace hierarchy.</p>
@@ -9176,7 +9215,7 @@ class BedrockAgentCoreControlClient:
             client_token: <p>A client token is used for keeping track of idempotent requests. It can contain a session id which can be around 250 chars, combined with a unique Amazon Web Services identifier.</p>
             memory_id: <p>The unique identifier of the memory to update.</p>
             description: <p>The updated description of the AgentCore Memory resource.</p>
-            event_expiry_duration: <p>The number of days after which memory events will expire, between 7 and 365 days.</p>
+            event_expiry_duration: <p>The number of days after which memory events expire, between 7 and 3650 days.</p>
             memory_execution_role_arn: <p>The ARN of the IAM role that provides permissions for the AgentCore Memory resource.</p>
             memory_strategies: <p>The memory strategies to add, modify, or delete.</p>
             add_indexed_keys: <p>Additional metadata keys to index. Previously indexed keys cannot be removed.</p>

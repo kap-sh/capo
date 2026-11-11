@@ -212,6 +212,8 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.invoke_code_interpreter_response
     import capo_bedrock_agentcore.types.invoke_harness_request
     import capo_bedrock_agentcore.types.invoke_harness_response
+    import capo_bedrock_agentcore.types.invoke_web_search_input
+    import capo_bedrock_agentcore.types.invoke_web_search_output
     import capo_bedrock_agentcore.types.kms_key_arn
     import capo_bedrock_agentcore.types.list_ab_tests_request
     import capo_bedrock_agentcore.types.list_ab_tests_response
@@ -332,6 +334,8 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.user_token_type
     import capo_bedrock_agentcore.types.variant_list
     import capo_bedrock_agentcore.types.view_port
+    import capo_bedrock_agentcore.types.web_search_filters
+    import capo_bedrock_agentcore.types.web_search_id
     import capo_bedrock_agentcore.types.workload_identity_name_type
     import capo_bedrock_agentcore.types.workload_identity_token_type
 
@@ -1274,6 +1278,75 @@ class AsyncBedrockAgentCoreClient:
             yield response.output
         finally:
             await response.response.aclose()
+
+    async def invoke_web_search(
+        self,
+        web_search_id: "capo_bedrock_agentcore.types.web_search_id.WebSearchId",
+        search_query: str,
+        *,
+        config_overrides: Optional[AsyncBedrockAgentCoreClientConfig] = None,
+        max_results: Optional[int] = None,
+        filters: Optional[
+            "capo_bedrock_agentcore.types.web_search_filters.WebSearchFilters"
+        ] = None,
+    ) -> "capo_bedrock_agentcore.types.invoke_web_search_output.InvokeWebSearchOutput":
+        """<p>Searches the web and returns a ranked list of results. Each result includes a text extract from the page.</p> <p>You can filter the results by domain and by publication date.</p> <p>To use this operation, you must have the <code>bedrock-agentcore:InvokeWebSearch</code> permission on the resource <code>arn:${Partition}:bedrock-agentcore:${Region}:aws:tool/web-search.v1</code>.</p>
+
+        Args:
+            web_search_id: <p>The identifier of the web search tool to invoke. The Amazon Web Services-managed web search tool is <code>web-search.v1</code>.</p>
+            search_query: <p>The text to search for.</p>
+            max_results: <p>The maximum number of results to return. Defaults to 25.</p>
+            filters: <p>The filters to apply to the search results.</p>
+
+        Raises:
+            capo_bedrock_agentcore.errors.access_denied_exception.AccessDeniedException: <p>The exception that occurs when you do not have sufficient permissions to perform an action. Verify that your IAM policy includes the necessary permissions for the operation you are trying to perform.</p>
+            capo_bedrock_agentcore.errors.internal_server_exception.InternalServerException: <p>The exception that occurs when the service encounters an unexpected internal error. This is a temporary condition that will resolve itself with retries. We recommend implementing exponential backoff retry logic in your application.</p>
+            capo_bedrock_agentcore.errors.resource_not_found_exception.ResourceNotFoundException: <p>The exception that occurs when the specified resource does not exist. This can happen when using an invalid identifier or when trying to access a resource that has been deleted.</p>
+            capo_bedrock_agentcore.errors.service_unavailable_exception.ServiceUnavailableException: <p>The service can't handle the request right now. Retry the request. If the response includes <code>retryAfterSeconds</code>, wait that many seconds before you retry.</p>
+            capo_bedrock_agentcore.errors.throttling_exception.ThrottlingException: <p>The exception that occurs when the request was denied due to request throttling. This happens when you exceed the allowed request rate for an operation. Reduce the frequency of requests or implement exponential backoff retry logic in your application.</p>
+            capo_bedrock_agentcore.errors.validation_exception.ValidationException: <p>The exception that occurs when the input fails to satisfy the constraints specified by the service. Check the error message for details about which input parameter is invalid and correct your request.</p>
+            capo_bedrock_agentcore.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Search the web for recent pages from one domain
+
+            >>> await client.invoke_web_search(web_search_id='web-search.v1', search_query='Amazon Bedrock AgentCore web search', max_results=1, filters={'domainFilter': {'include': ['example.com']}, 'publishedDateFilter': {'publishedAfter': '2026-01-01T00:00:00Z'}})
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_bedrock_agentcore.types.invoke_web_search_input.InvokeWebSearchInput]",
+        ) -> AsyncOperationResponse[
+            "capo_bedrock_agentcore.types.invoke_web_search_output.InvokeWebSearchOutput"
+        ]:
+            import capo_bedrock_agentcore._operations.amazon_bedrock_agent_core.invoke_web_search
+
+            (
+                output,
+                http_response,
+            ) = await capo_bedrock_agentcore._operations.amazon_bedrock_agent_core.invoke_web_search.async_invoke_web_search(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("InvokeWebSearch")
+        )
+        input_: capo_bedrock_agentcore.types.invoke_web_search_input.InvokeWebSearchInput = {
+            "web_search_id": web_search_id,
+            "search_query": search_query,
+        }
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if filters is not None:
+            input_["filters"] = filters
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
 
     async def get_agent_card(
         self,

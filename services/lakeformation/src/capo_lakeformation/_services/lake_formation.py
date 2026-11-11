@@ -115,6 +115,8 @@ if TYPE_CHECKING:
     import capo_lakeformation.types.get_data_lake_settings_response
     import capo_lakeformation.types.get_effective_permissions_for_path_request
     import capo_lakeformation.types.get_effective_permissions_for_path_response
+    import capo_lakeformation.types.get_glue_function_session_context_request
+    import capo_lakeformation.types.get_glue_function_session_context_response
     import capo_lakeformation.types.get_lf_tag_expression_request
     import capo_lakeformation.types.get_lf_tag_expression_response
     import capo_lakeformation.types.get_lf_tag_request
@@ -133,6 +135,8 @@ if TYPE_CHECKING:
     import capo_lakeformation.types.get_table_objects_response
     import capo_lakeformation.types.get_temporary_data_location_credentials_request
     import capo_lakeformation.types.get_temporary_data_location_credentials_response
+    import capo_lakeformation.types.get_temporary_glue_function_credentials_request
+    import capo_lakeformation.types.get_temporary_glue_function_credentials_response
     import capo_lakeformation.types.get_temporary_glue_partition_credentials_request
     import capo_lakeformation.types.get_temporary_glue_partition_credentials_response
     import capo_lakeformation.types.get_temporary_glue_table_credentials_request
@@ -192,6 +196,7 @@ if TYPE_CHECKING:
     import capo_lakeformation.types.remove_lf_tags_from_resource_request
     import capo_lakeformation.types.remove_lf_tags_from_resource_response
     import capo_lakeformation.types.resource
+    import capo_lakeformation.types.resource_arn_list
     import capo_lakeformation.types.resource_arn_string
     import capo_lakeformation.types.resource_share_type
     import capo_lakeformation.types.revoke_permissions_request
@@ -205,6 +210,7 @@ if TYPE_CHECKING:
     import capo_lakeformation.types.search_tables_by_lf_tags_request
     import capo_lakeformation.types.search_tables_by_lf_tags_response
     import capo_lakeformation.types.service_integration_list
+    import capo_lakeformation.types.session_duration_second_integer
     import capo_lakeformation.types.start_query_planning_request
     import capo_lakeformation.types.start_query_planning_response
     import capo_lakeformation.types.start_transaction_request
@@ -2073,6 +2079,61 @@ class LakeFormationClient:
             if not _token:
                 break
 
+    def get_glue_function_session_context(
+        self,
+        user_defined_function_arns: "capo_lakeformation.types.resource_arn_list.ResourceArnList",
+        *,
+        config_overrides: Optional[LakeFormationClientConfig] = None,
+        duration_seconds: Optional[
+            "capo_lakeformation.types.session_duration_second_integer.SessionDurationSecondInteger"
+        ] = None,
+    ) -> "capo_lakeformation.types.get_glue_function_session_context_response.GetGlueFunctionSessionContextResponse":
+        """<p>Returns a session context for one or more user-defined functions that an integrated analytics engine runs together in a job. You must have the <code>EXECUTE</code> permission on every function in the list.</p> <p>While the session context is in use, if you don't have full <code>SELECT</code> permission on a table, the job can read the table only if every function in the session has the <code>SELECT</code> permission on it. Lake Formation enforces this check.</p> <p>To use this operation, you must have the <code>lakeformation:GetDataAccess</code> permission.</p>
+
+        Args:
+            user_defined_function_arns: <p>The ARNs of one or more user-defined functions to include in the session context, each in the format <code>arn:aws:glue:<i>region</i>:<i>account-id</i>:userDefinedFunction/<i>database-name</i>/<i>function-name</i> </code>.</p>
+            duration_seconds: <p>The number of seconds the session context is valid. The default is 86,400 (24 hours).</p>
+
+        Raises:
+            capo_lakeformation.errors.access_denied_exception.AccessDeniedException: <p>Access to a resource was denied.</p>
+            capo_lakeformation.errors.entity_not_found_exception.EntityNotFoundException: <p>A specified entity does not exist.</p>
+            capo_lakeformation.errors.internal_service_exception.InternalServiceException: <p>An internal service error occurred.</p>
+            capo_lakeformation.errors.invalid_input_exception.InvalidInputException: <p>The input provided was not valid.</p>
+            capo_lakeformation.errors.operation_timeout_exception.OperationTimeoutException: <p>The operation timed out.</p>
+            capo_lakeformation.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_lakeformation.types.get_glue_function_session_context_request.GetGlueFunctionSessionContextRequest]",
+        ) -> OperationResponse[
+            "capo_lakeformation.types.get_glue_function_session_context_response.GetGlueFunctionSessionContextResponse"
+        ]:
+            import capo_lakeformation._operations.aws_lake_formation.get_glue_function_session_context
+
+            output, http_response = (
+                capo_lakeformation._operations.aws_lake_formation.get_glue_function_session_context.get_glue_function_session_context(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGlueFunctionSessionContext")
+        )
+        input_: capo_lakeformation.types.get_glue_function_session_context_request.GetGlueFunctionSessionContextRequest = {
+            "user_defined_function_arns": user_defined_function_arns
+        }
+        if duration_seconds is not None:
+            input_["duration_seconds"] = duration_seconds
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def get_lf_tag(
         self,
         tag_key: "capo_lakeformation.types.lf_tag_key.LFTagKey",
@@ -2581,6 +2642,62 @@ class LakeFormationClient:
             input_["data_locations"] = data_locations
         if credentials_scope is not None:
             input_["credentials_scope"] = credentials_scope
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def get_temporary_glue_function_credentials(
+        self,
+        user_defined_function_arn: "capo_lakeformation.types.resource_arn_string.ResourceArnString",
+        *,
+        config_overrides: Optional[LakeFormationClientConfig] = None,
+        audit_context: Optional[
+            "capo_lakeformation.types.audit_context.AuditContext"
+        ] = None,
+    ) -> "capo_lakeformation.types.get_temporary_glue_function_credentials_response.GetTemporaryGlueFunctionCredentialsResponse":
+        """<p>Returns temporary credentials that you can use to download the artifacts of a user-defined function whose <code>GovernanceMode</code> is <code>LAKE_FORMATION</code>. Lake Formation assumes the role that you registered for the function's <code>ArtifactLocation</code>. The credentials have read-only access to that location in Amazon S3.</p> <p>To use this operation, you must have the <code>EXECUTE</code> permission on the function.</p>
+
+        Args:
+            user_defined_function_arn: <p>The ARN of the user-defined function whose artifacts you want to download, in the format <code>arn:aws:glue:<i>region</i>:<i>account-id</i>:userDefinedFunction/<i>database-name</i>/<i>function-name</i> </code>.</p>
+            audit_context: <p>Context for the request, such as the column names and query ID, that Lake Formation uses for auditing.</p>
+
+        Raises:
+            capo_lakeformation.errors.access_denied_exception.AccessDeniedException: <p>Access to a resource was denied.</p>
+            capo_lakeformation.errors.entity_not_found_exception.EntityNotFoundException: <p>A specified entity does not exist.</p>
+            capo_lakeformation.errors.glue_encryption_exception.GlueEncryptionException: <p>An encryption operation failed.</p>
+            capo_lakeformation.errors.internal_service_exception.InternalServiceException: <p>An internal service error occurred.</p>
+            capo_lakeformation.errors.invalid_input_exception.InvalidInputException: <p>The input provided was not valid.</p>
+            capo_lakeformation.errors.operation_timeout_exception.OperationTimeoutException: <p>The operation timed out.</p>
+            capo_lakeformation.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_lakeformation.types.get_temporary_glue_function_credentials_request.GetTemporaryGlueFunctionCredentialsRequest]",
+        ) -> OperationResponse[
+            "capo_lakeformation.types.get_temporary_glue_function_credentials_response.GetTemporaryGlueFunctionCredentialsResponse"
+        ]:
+            import capo_lakeformation._operations.aws_lake_formation.get_temporary_glue_function_credentials
+
+            output, http_response = (
+                capo_lakeformation._operations.aws_lake_formation.get_temporary_glue_function_credentials.get_temporary_glue_function_credentials(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTemporaryGlueFunctionCredentials")
+        )
+        input_: capo_lakeformation.types.get_temporary_glue_function_credentials_request.GetTemporaryGlueFunctionCredentialsRequest = {
+            "user_defined_function_arn": user_defined_function_arn
+        }
+        if audit_context is not None:
+            input_["audit_context"] = audit_context
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

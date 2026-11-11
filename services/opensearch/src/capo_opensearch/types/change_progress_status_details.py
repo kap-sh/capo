@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import capo_opensearch.types.accepted_warnings_list
     import capo_opensearch.types.change_progress_stage_list
+    import capo_opensearch.types.cloned_blue_green_upgrade_details
     import capo_opensearch.types.config_change_status
     import capo_opensearch.types.guid
     import capo_opensearch.types.initiated_by
@@ -48,6 +49,10 @@ class ChangeProgressStatusDetails(TypedDict, closed=True):
     """<p>The current status of the configuration change.</p>"""
     initiated_by: NotRequired["capo_opensearch.types.initiated_by.InitiatedBy"]
     """<p>The IAM principal who initiated the configuration change.</p>"""
+    cloned_blue_green_upgrade_details: NotRequired[
+        "capo_opensearch.types.cloned_blue_green_upgrade_details.ClonedBlueGreenUpgradeDetails"
+    ]
+    """<p>Details about a cloned blue/green upgrade, when the change is one.</p>"""
     validation_failures: NotRequired[
         "capo_opensearch.types.validation_failures.ValidationFailures"
     ]
@@ -115,6 +120,14 @@ def serialize_json(value: ChangeProgressStatusDetails) -> dict:
 
         out["InitiatedBy"] = capo_opensearch.types.initiated_by.serialize_json(
             value["initiated_by"]
+        )
+    if "cloned_blue_green_upgrade_details" in value:
+        import capo_opensearch.types.cloned_blue_green_upgrade_details
+
+        out["ClonedBlueGreenUpgradeDetails"] = (
+            capo_opensearch.types.cloned_blue_green_upgrade_details.serialize_json(
+                value["cloned_blue_green_upgrade_details"]
+            )
         )
     if "validation_failures" in value:
         import capo_opensearch.types.validation_failures
@@ -198,6 +211,14 @@ def deserialize_json(data: dict) -> ChangeProgressStatusDetails:
 
         out["initiated_by"] = capo_opensearch.types.initiated_by.deserialize_json(
             data["InitiatedBy"]
+        )
+    if data.get("ClonedBlueGreenUpgradeDetails") is not None:
+        import capo_opensearch.types.cloned_blue_green_upgrade_details
+
+        out["cloned_blue_green_upgrade_details"] = (
+            capo_opensearch.types.cloned_blue_green_upgrade_details.deserialize_json(
+                data["ClonedBlueGreenUpgradeDetails"]
+            )
         )
     if data.get("ValidationFailures") is not None:
         import capo_opensearch.types.validation_failures

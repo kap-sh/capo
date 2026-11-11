@@ -13,13 +13,19 @@ if TYPE_CHECKING:
 
 class DataQualityTelemetry(TypedDict, closed=True):
     vcpu_hours: NotRequired["capo_glue.types.nullable_double.NullableDouble"]
+    """<p></p>"""
     flags_enabled: NotRequired[
         "capo_glue.types.data_quality_flags_enabled.DataQualityFlagsEnabled"
     ]
+    """<p></p>"""
     library_version: NotRequired["capo_glue.types.name_string.NameString"]
+    """<p></p>"""
     spark_version: NotRequired["capo_glue.types.name_string.NameString"]
+    """<p></p>"""
     host_runtime_version: NotRequired["capo_glue.types.name_string.NameString"]
+    """<p></p>"""
     engine: NotRequired["capo_glue.types.data_quality_engine.DataQualityEngine"]
+    """<p></p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -8,6 +8,8 @@ if TYPE_CHECKING:
     import capo_network_firewall.types.boolean
     import capo_network_firewall.types.description
     import capo_network_firewall.types.encryption_configuration
+    import capo_network_firewall.types.firewall_rule_group
+    import capo_network_firewall.types.ips_rule_group
     import capo_network_firewall.types.resource_arn
     import capo_network_firewall.types.resource_name
     import capo_network_firewall.types.rule_group
@@ -29,10 +31,18 @@ class UpdateRuleGroupRequest(TypedDict, closed=True):
     """<p>The descriptive name of the rule group. You can't change the name of a rule group after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>"""
     rule_group: NotRequired["capo_network_firewall.types.rule_group.RuleGroup"]
     """<p>An object that defines the rule group rules. </p> <note> <p>You must provide either this rule group setting or a <code>Rules</code> setting, but not both. </p> </note>"""
+    firewall_rule_group: NotRequired[
+        "capo_network_firewall.types.firewall_rule_group.FirewallRuleGroup"
+    ]
+    """<p>An object that defines the rules in a firewall engine rule group, for use in a Next Generation policy.</p>"""
+    ips_rule_group: NotRequired[
+        "capo_network_firewall.types.ips_rule_group.IpsRuleGroup"
+    ]
+    """<p>An object that defines the rules in an IPS engine rule group, for use in a Next Generation policy.</p>"""
     rules: NotRequired["capo_network_firewall.types.rules_string.RulesString"]
     """<p>A string containing stateful rule group rules specifications in Suricata flat format, with one rule per line. Use this to import your existing Suricata compatible rule groups. </p> <note> <p>You must provide either this rules setting or a populated <code>RuleGroup</code> setting, but not both. </p> </note> <p>You can provide your rule group specification in Suricata flat format through this setting when you create or update your rule group. The call response returns a <a>RuleGroup</a> object that Network Firewall has populated from your string. </p>"""
     type: NotRequired["capo_network_firewall.types.rule_group_type.RuleGroupType"]
-    """<p>Indicates whether the rule group is stateless or stateful. If the rule group is stateless, it contains stateless rules. If it is stateful, it contains stateful rules. </p> <note> <p>This setting is required for requests that do not include the <code>RuleGroupARN</code>.</p> </note>"""
+    """<p>Indicates the type of the rule group. Valid values are:</p> <ul> <li> <p> <code>STATELESS</code> - Stateless rules, for use in a Classic Network Firewall policy.</p> </li> <li> <p> <code>STATEFUL</code> - Stateful rules, for use in a Classic Network Firewall policy.</p> </li> <li> <p> <code>FIREWALL</code> - Firewall engine rules, for use in a Next Generation policy.</p> </li> <li> <p> <code>IPS</code> - IPS engine rules, for use in a Next Generation policy.</p> </li> </ul> <note> <p>This setting is required for requests that do not include the <code>RuleGroupARN</code>.</p> </note>"""
     description: NotRequired["capo_network_firewall.types.description.Description"]
     """<p>A description of the rule group. </p>"""
     dry_run: NotRequired["capo_network_firewall.types.boolean.Boolean"]
@@ -67,6 +77,22 @@ def serialize_aws_json_1_0(value: UpdateRuleGroupRequest) -> dict:
         out["RuleGroup"] = (
             capo_network_firewall.types.rule_group.serialize_aws_json_1_0(
                 value["rule_group"]
+            )
+        )
+    if "firewall_rule_group" in value:
+        import capo_network_firewall.types.firewall_rule_group
+
+        out["FirewallRuleGroup"] = (
+            capo_network_firewall.types.firewall_rule_group.serialize_aws_json_1_0(
+                value["firewall_rule_group"]
+            )
+        )
+    if "ips_rule_group" in value:
+        import capo_network_firewall.types.ips_rule_group
+
+        out["IpsRuleGroup"] = (
+            capo_network_firewall.types.ips_rule_group.serialize_aws_json_1_0(
+                value["ips_rule_group"]
             )
         )
     if "rules" in value:
@@ -128,6 +154,22 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateRuleGroupRequest:
         out["rule_group"] = (
             capo_network_firewall.types.rule_group.deserialize_aws_json_1_0(
                 data["RuleGroup"]
+            )
+        )
+    if data.get("FirewallRuleGroup") is not None:
+        import capo_network_firewall.types.firewall_rule_group
+
+        out["firewall_rule_group"] = (
+            capo_network_firewall.types.firewall_rule_group.deserialize_aws_json_1_0(
+                data["FirewallRuleGroup"]
+            )
+        )
+    if data.get("IpsRuleGroup") is not None:
+        import capo_network_firewall.types.ips_rule_group
+
+        out["ips_rule_group"] = (
+            capo_network_firewall.types.ips_rule_group.deserialize_aws_json_1_0(
+                data["IpsRuleGroup"]
             )
         )
     if data.get("Rules") is not None:

@@ -15,6 +15,7 @@ if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.kms_key_id
     import capo_cloudwatch_logs.types.log_group_class
     import capo_cloudwatch_logs.types.log_group_name
+    import capo_cloudwatch_logs.types.policy_name
     import capo_cloudwatch_logs.types.stored_bytes
     import capo_cloudwatch_logs.types.timestamp
 
@@ -48,7 +49,7 @@ class LogGroup(TypedDict, closed=True):
     log_group_class: NotRequired[
         "capo_cloudwatch_logs.types.log_group_class.LogGroupClass"
     ]
-    """<p>This specifies the log group class for this log group. There are three classes:</p> <ul> <li> <p>The <code>Standard</code> log class supports all CloudWatch Logs features.</p> </li> <li> <p>The <code>Infrequent Access</code> log class supports a subset of CloudWatch Logs features and incurs lower costs.</p> </li> <li> <p>Use the <code>Delivery</code> log class only for delivering Lambda logs to store in Amazon S3 or Amazon Data Firehose. Log events in log groups in the Delivery class are kept in CloudWatch Logs for only one day. This log class doesn't offer rich CloudWatch Logs capabilities such as CloudWatch Logs Insights queries.</p> </li> </ul> <p>For details about the features supported by the Standard and Infrequent Access classes, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch_Logs_Log_Classes.html">Log classes</a> </p>"""
+    """<p>This specifies the log group class for this log group. There are four classes:</p> <ul> <li> <p>The <code>Standard</code> log class supports all CloudWatch Logs features.</p> </li> <li> <p>The <code>Infrequent Access</code> log class supports a subset of CloudWatch Logs features and incurs lower costs.</p> </li> <li> <p>The <code>Essentials</code> log class supports a subset of CloudWatch Logs features and incurs lower costs.</p> </li> <li> <p>Use the <code>Delivery</code> log class only for delivering Lambda logs to store in Amazon S3 or Amazon Data Firehose. Log events in log groups in the Delivery class are kept in CloudWatch Logs for only one day. This log class doesn't offer rich CloudWatch Logs capabilities such as CloudWatch Logs Insights queries.</p> </li> </ul> <p>For details about the features supported by the Standard, Infrequent Access, and Essentials classes, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch_Logs_Log_Classes.html">Log classes</a> </p>"""
     log_group_arn: NotRequired["capo_cloudwatch_logs.types.arn.Arn"]
     """<p>The Amazon Resource Name (ARN) of the log group. This version of the ARN doesn't include a trailing <code>:*</code> after the log group name. </p> <p>Use this version to refer to the ARN in the following situations:</p> <ul> <li> <p>In the <code>logGroupIdentifier</code> input field in many CloudWatch Logs APIs.</p> </li> <li> <p>In the <code>resourceArn</code> field in tagging APIs</p> </li> <li> <p>In IAM policies, when specifying permissions for <a href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_TagResource.html">TagResource</a>, <a href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_UntagResource.html">UntagResource</a>, and <a href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_ListTagsForResource.html">ListTagsForResource</a>.</p> </li> </ul>"""
     deletion_protection_enabled: NotRequired[
@@ -59,6 +60,10 @@ class LogGroup(TypedDict, closed=True):
         "capo_cloudwatch_logs.types.bearer_token_authentication_enabled.BearerTokenAuthenticationEnabled"
     ]
     """<p>Indicates whether bearer token authentication is enabled for this log group. When enabled, bearer token authentication is allowed on operations until it is explicitly disabled.</p>"""
+    retention_policy_name: NotRequired[
+        "capo_cloudwatch_logs.types.policy_name.PolicyName"
+    ]
+    """<p>The name of the account-level retention policy that determines the retention period of this log group. This field is returned only when an account-level retention policy applies to the log group. When it is returned, <code>retentionInDays</code> shows the retention period from that policy instead of the retention period set on the log group. If the policy specifies that log events never expire, <code>retentionInDays</code> is not returned.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -110,6 +115,8 @@ def serialize_aws_json_1_1(value: LogGroup) -> dict:
         out["bearerTokenAuthenticationEnabled"] = value[
             "bearer_token_authentication_enabled"
         ]
+    if "retention_policy_name" in value:
+        out["retentionPolicyName"] = value["retention_policy_name"]
     return out
 
 
@@ -161,4 +168,6 @@ def deserialize_aws_json_1_1(data: dict) -> LogGroup:
         out["bearer_token_authentication_enabled"] = data[
             "bearerTokenAuthenticationEnabled"
         ]
+    if data.get("retentionPolicyName") is not None:
+        out["retention_policy_name"] = data["retentionPolicyName"]
     return out

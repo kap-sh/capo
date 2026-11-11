@@ -19,6 +19,7 @@ import capo_ram.errors.operation_not_permitted_exception
 import capo_ram.errors.server_internal_exception
 import capo_ram.errors.service_unavailable_exception
 import capo_ram.errors.unknown_resource_exception
+import capo_ram.types.permission_template_parameter_input_list
 import capo_ram.types.replace_permission_associations_request
 import capo_ram.types.replace_permission_associations_response
 import capo_ram.types.replace_permission_associations_work

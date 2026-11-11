@@ -19,7 +19,9 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.platform_version
     import capo_bedrock_agentcore_control.types.protocol_configuration
     import capo_bedrock_agentcore_control.types.request_header_configuration
+    import capo_bedrock_agentcore_control.types.resource_configurations
     import capo_bedrock_agentcore_control.types.role_arn
+    import capo_bedrock_agentcore_control.types.runtime_hooks_configuration
     import capo_bedrock_agentcore_control.types.tags_map
 
 
@@ -60,6 +62,10 @@ class CreateAgentRuntimeRequest(TypedDict, closed=True):
         "capo_bedrock_agentcore_control.types.lifecycle_configuration.LifecycleConfiguration"
     ]
     """<p>The life cycle configuration for the AgentCore Runtime.</p>"""
+    hooks_configuration: NotRequired[
+        "capo_bedrock_agentcore_control.types.runtime_hooks_configuration.RuntimeHooksConfiguration"
+    ]
+    """<p>The lifecycle hooks configuration for the AgentCore Runtime. Use lifecycle hooks to run actions in the agent's container at fixed points in the runtime's lifecycle, such as warming up the agent before sessions are created.</p>"""
     environment_variables: NotRequired[
         "capo_bedrock_agentcore_control.types.environment_variables_map.EnvironmentVariablesMap"
     ]
@@ -82,6 +88,10 @@ class CreateAgentRuntimeRequest(TypedDict, closed=True):
         "capo_bedrock_agentcore_control.types.allowed_ports.AllowedPorts"
     ]
     """<p>The additional ports on the AgentCore Runtime that are reachable through the runtime's session URL. Specify one to five non-overlapping entries, each containing either a single port or an inclusive port range. Ports must be between <code>8000</code> and <code>12000</code>, excluding the reserved port <code>8443</code>.</p>"""
+    resource_configurations: NotRequired[
+        "capo_bedrock_agentcore_control.types.resource_configurations.ResourceConfigurations"
+    ]
+    """<p>The resource configurations for the AgentCore Runtime, such as the minimum amount of memory to allocate to the runtime. You can specify at most one resource configuration.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -140,6 +150,14 @@ def serialize_json(value: CreateAgentRuntimeRequest) -> dict:
                 value["lifecycle_configuration"]
             )
         )
+    if "hooks_configuration" in value:
+        import capo_bedrock_agentcore_control.types.runtime_hooks_configuration
+
+        out["hooksConfiguration"] = (
+            capo_bedrock_agentcore_control.types.runtime_hooks_configuration.serialize_json(
+                value["hooks_configuration"]
+            )
+        )
     if "environment_variables" in value:
         import capo_bedrock_agentcore_control.types.environment_variables_map
 
@@ -178,6 +196,14 @@ def serialize_json(value: CreateAgentRuntimeRequest) -> dict:
         out["allowedPorts"] = (
             capo_bedrock_agentcore_control.types.allowed_ports.serialize_json(
                 value["allowed_ports"]
+            )
+        )
+    if "resource_configurations" in value:
+        import capo_bedrock_agentcore_control.types.resource_configurations
+
+        out["resourceConfigurations"] = (
+            capo_bedrock_agentcore_control.types.resource_configurations.serialize_json(
+                value["resource_configurations"]
             )
         )
     return out
@@ -247,6 +273,14 @@ def deserialize_json(data: dict) -> CreateAgentRuntimeRequest:
                 data["lifecycleConfiguration"]
             )
         )
+    if data.get("hooksConfiguration") is not None:
+        import capo_bedrock_agentcore_control.types.runtime_hooks_configuration
+
+        out["hooks_configuration"] = (
+            capo_bedrock_agentcore_control.types.runtime_hooks_configuration.deserialize_json(
+                data["hooksConfiguration"]
+            )
+        )
     if data.get("environmentVariables") is not None:
         import capo_bedrock_agentcore_control.types.environment_variables_map
 
@@ -285,6 +319,14 @@ def deserialize_json(data: dict) -> CreateAgentRuntimeRequest:
         out["allowed_ports"] = (
             capo_bedrock_agentcore_control.types.allowed_ports.deserialize_json(
                 data["allowedPorts"]
+            )
+        )
+    if data.get("resourceConfigurations") is not None:
+        import capo_bedrock_agentcore_control.types.resource_configurations
+
+        out["resource_configurations"] = (
+            capo_bedrock_agentcore_control.types.resource_configurations.deserialize_json(
+                data["resourceConfigurations"]
             )
         )
     return out

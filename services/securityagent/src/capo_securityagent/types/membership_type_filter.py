@@ -5,6 +5,7 @@ from typing import Literal, TypeAlias, cast
 """<p>Filter for member type in list operations.</p>"""
 MembershipTypeFilter: TypeAlias = Literal[
     "USER",
+    "GROUP",
     "ALL",
 ]
 

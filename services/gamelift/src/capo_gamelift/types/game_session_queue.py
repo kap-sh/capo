@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_gamelift.types.filter_configuration
     import capo_gamelift.types.game_session_queue_arn
     import capo_gamelift.types.game_session_queue_destination_list
+    import capo_gamelift.types.game_session_queue_log_configuration
     import capo_gamelift.types.game_session_queue_name
     import capo_gamelift.types.player_latency_policy_list
     import capo_gamelift.types.priority_configuration
@@ -42,7 +43,7 @@ class GameSessionQueue(TypedDict, closed=True):
     priority_configuration: NotRequired[
         "capo_gamelift.types.priority_configuration.PriorityConfiguration"
     ]
-    """<p>Custom settings to use when prioritizing destinations and locations for game session placements. This configuration replaces the FleetIQ default prioritization process. Priority types that are not explicitly named will be automatically applied at the end of the prioritization process. </p>"""
+    """<p>Custom settings to use when prioritizing destinations and locations for game session placements. This configuration replaces the default prioritization process. Priority types that are not explicitly named will be automatically applied at the end of the prioritization process. </p>"""
     custom_event_data: NotRequired[
         "capo_gamelift.types.queue_custom_event_data.QueueCustomEventData"
     ]
@@ -51,6 +52,10 @@ class GameSessionQueue(TypedDict, closed=True):
         "capo_gamelift.types.queue_sns_arn_string_model.QueueSnsArnStringModel"
     ]
     """<p>An SNS topic ARN that is set up to receive game session placement notifications. See <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/queue-notification.html"> Setting up notifications for game session placement</a>.</p>"""
+    log_configuration: NotRequired[
+        "capo_gamelift.types.game_session_queue_log_configuration.GameSessionQueueLogConfiguration"
+    ]
+    """<p>An optional configuration that delivers game session placement insight logs to one or more destinations of your choice. Use these logs to diagnose why a game session placement is <code>FULFILLED</code>, <code>CANCELLED</code>, <code>TIMED_OUT</code>, or <code>FAILED</code>, which locations were evaluated, and the latency and cost factors that influenced each decision.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -98,6 +103,14 @@ def serialize_aws_json_1_1(value: GameSessionQueue) -> dict:
         out["CustomEventData"] = value["custom_event_data"]
     if "notification_target" in value:
         out["NotificationTarget"] = value["notification_target"]
+    if "log_configuration" in value:
+        import capo_gamelift.types.game_session_queue_log_configuration
+
+        out["LogConfiguration"] = (
+            capo_gamelift.types.game_session_queue_log_configuration.serialize_aws_json_1_1(
+                value["log_configuration"]
+            )
+        )
     return out
 
 
@@ -145,6 +158,14 @@ def deserialize_aws_json_1_1(data: dict) -> GameSessionQueue:
         out["custom_event_data"] = data["CustomEventData"]
     if data.get("NotificationTarget") is not None:
         out["notification_target"] = data["NotificationTarget"]
+    if data.get("LogConfiguration") is not None:
+        import capo_gamelift.types.game_session_queue_log_configuration
+
+        out["log_configuration"] = (
+            capo_gamelift.types.game_session_queue_log_configuration.deserialize_aws_json_1_1(
+                data["LogConfiguration"]
+            )
+        )
     return out
 
 

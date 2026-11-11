@@ -6,6 +6,7 @@ from typing import Literal, TypeAlias, cast
 ManagedMicrovmImageVersionStatus: TypeAlias = Literal[
     "AVAILABLE",
     "DEPRECATED",
+    "RECALLED",
 ]
 
 

@@ -13,6 +13,7 @@ import capo_sagemaker._auth._sigv4
 import capo_sagemaker._protocol.eventstream
 import capo_sagemaker.errors.conflict_exception
 import capo_sagemaker.errors.resource_not_found
+import capo_sagemaker.types.alias_operations
 import capo_sagemaker.types.update_pipeline_version_request
 import capo_sagemaker.types.update_pipeline_version_response
 from capo_sagemaker._protocol.errors import parse_error_metadata_json

@@ -53,6 +53,8 @@ class InstanceLaunchTemplate(TypedDict, closed=True):
         "capo_ecs.types.capacity_reservation_request.CapacityReservationRequest"
     ]
     """<p>Capacity reservation specifications. You can specify:</p> <ul> <li> <p>Capacity reservation preference</p> </li> <li> <p>Reservation resource group to be used for targeted capacity reservations</p> </li> </ul> <p>Amazon ECS will launch instances according to the specified criteria.</p>"""
+    nitro_enclaves_enabled: NotRequired["capo_ecs.types.boxed_boolean.BoxedBoolean"]
+    """<p>Specifies whether instances that this capacity provider launches have <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/amazon-ec2-nitro-sandboxes.html">Nitro Sandbox</a> enabled. Enable this setting to run tasks that use the <code>ISOLATED_SANDBOX</code> or <code>CONFIDENTIAL_SANDBOX</code> isolation mode.</p> <p>When you enable this setting, the capacity provider must include at least one instance type that supports Nitro Sandbox. You can't enable this setting together with local storage (the <code>useLocalStorage</code> setting in <code>localStorageConfiguration</code>).</p> <p>The default value is <code>false</code>.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/isolated-confidential-tasks.html">Isolated and confidential tasks</a> in <i>Amazon Elastic Container Service Developer Guide</i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -120,6 +122,8 @@ def serialize_aws_json_1_1(value: InstanceLaunchTemplate) -> dict:
                 value["capacity_reservations"]
             )
         )
+    if "nitro_enclaves_enabled" in value:
+        out["nitroEnclavesEnabled"] = value["nitro_enclaves_enabled"]
     return out
 
 
@@ -195,4 +199,6 @@ def deserialize_aws_json_1_1(data: dict) -> InstanceLaunchTemplate:
                 data["capacityReservations"]
             )
         )
+    if data.get("nitroEnclavesEnabled") is not None:
+        out["nitro_enclaves_enabled"] = data["nitroEnclavesEnabled"]
     return out

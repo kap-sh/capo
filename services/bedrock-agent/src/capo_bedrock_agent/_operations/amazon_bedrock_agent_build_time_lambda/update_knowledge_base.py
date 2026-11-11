@@ -20,6 +20,7 @@ import capo_bedrock_agent.errors.throttling_exception
 import capo_bedrock_agent.errors.validation_exception
 import capo_bedrock_agent.types.knowledge_base
 import capo_bedrock_agent.types.knowledge_base_configuration
+import capo_bedrock_agent.types.metadata_configurations
 import capo_bedrock_agent.types.storage_configuration
 import capo_bedrock_agent.types.update_knowledge_base_request
 import capo_bedrock_agent.types.update_knowledge_base_response

@@ -24,10 +24,12 @@ import capo_pcs.types.create_compute_node_group_request
 import capo_pcs.types.create_compute_node_group_response
 import capo_pcs.types.custom_launch_template
 import capo_pcs.types.instance_list
+import capo_pcs.types.launch_template_mode
 import capo_pcs.types.node_lifecycle_actions_request
 import capo_pcs.types.purchase_option
 import capo_pcs.types.request_tag_map
 import capo_pcs.types.scaling_configuration_request
+import capo_pcs.types.security_group_id_list
 import capo_pcs.types.spot_options
 import capo_pcs.types.string_list
 from capo_pcs._protocol.errors import parse_error_metadata_json

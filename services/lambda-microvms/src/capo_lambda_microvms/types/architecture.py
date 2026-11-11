@@ -2,7 +2,10 @@
 
 from typing import Literal, TypeAlias, cast
 
-Architecture: TypeAlias = Literal["ARM_64",]
+Architecture: TypeAlias = Literal[
+    "ARM_64",
+    "X86_64",
+]
 
 
 # --- restJson1 ser/de ---

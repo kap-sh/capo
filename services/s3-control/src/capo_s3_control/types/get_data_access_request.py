@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_s3_control.types.account_id
     import capo_s3_control.types.audit_context
     import capo_s3_control.types.duration_seconds
+    import capo_s3_control.types.instance_scope
     import capo_s3_control.types.permission
     import capo_s3_control.types.privilege
     import capo_s3_control.types.s3_prefix
@@ -33,6 +34,8 @@ class GetDataAccessRequest(TypedDict, closed=True):
     """<p>The type of <code>Target</code>. The only possible value is <code>Object</code>. Pass this value if the target data that you would like to access is a path to an object. Do not pass this value if the target data is a bucket or a bucket and a prefix. </p>"""
     audit_context: NotRequired["capo_s3_control.types.audit_context.AuditContext"]
     """<p>The context to identify the job or query associated with the credential request. This information will be displayed in CloudTrail log in your account.</p>"""
+    instance_scope: NotRequired["capo_s3_control.types.instance_scope.InstanceScope"]
+    """<p>The scope of S3 Access Grants instances to search for a grant matching the requested S3 URI path.</p> <ul> <li> <p> <code>SELF</code> – Searches only the instance of the Amazon Web Services account ID in the request.</p> </li> <li> <p> <code>ALL</code> – Searches the instance of the Amazon Web Services account ID in the request and all instances shared with the caller's account through Amazon Web Services Resource Access Manager (RAM).</p> </li> </ul>"""
 
 
 # --- restXml ser/de ---

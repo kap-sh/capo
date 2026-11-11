@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import capo_gamelift.types.filter_configuration
     import capo_gamelift.types.game_session_queue_destination_list
+    import capo_gamelift.types.game_session_queue_log_configuration
     import capo_gamelift.types.game_session_queue_name
     import capo_gamelift.types.player_latency_policy_list
     import capo_gamelift.types.priority_configuration
@@ -38,7 +39,7 @@ class CreateGameSessionQueueInput(TypedDict, closed=True):
     priority_configuration: NotRequired[
         "capo_gamelift.types.priority_configuration.PriorityConfiguration"
     ]
-    """<p>Custom settings to use when prioritizing destinations and locations for game session placements. This configuration replaces the FleetIQ default prioritization process. Priority types that are not explicitly named will be automatically applied at the end of the prioritization process. </p>"""
+    """<p>Custom settings to use when prioritizing destinations and locations for game session placements. This configuration replaces the default prioritization process. Priority types that are not explicitly named will be automatically applied at the end of the prioritization process. </p>"""
     custom_event_data: NotRequired[
         "capo_gamelift.types.queue_custom_event_data.QueueCustomEventData"
     ]
@@ -49,6 +50,10 @@ class CreateGameSessionQueueInput(TypedDict, closed=True):
     """<p>An SNS topic ARN that is set up to receive game session placement notifications. See <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/queue-notification.html"> Setting up notifications for game session placement</a>.</p>"""
     tags: NotRequired["capo_gamelift.types.tag_list.TagList"]
     """<p>A list of labels to assign to the new game session queue resource. Tags are developer-defined key-value pairs. Tagging Amazon Web Services resources is useful for resource management, access management and cost allocation. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html"> Tagging Amazon Web Services Resources</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
+    log_configuration: NotRequired[
+        "capo_gamelift.types.game_session_queue_log_configuration.GameSessionQueueLogConfiguration"
+    ]
+    """<p>An optional configuration that delivers game session placement insight logs to one or more destinations of your choice. Use these logs to diagnose why a game session placement is <code>FULFILLED</code>, <code>CANCELLED</code>, <code>TIMED_OUT</code>, or <code>FAILED</code>, which locations were evaluated, and the latency and cost factors that influenced each decision.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -98,6 +103,14 @@ def serialize_aws_json_1_1(value: CreateGameSessionQueueInput) -> dict:
         import capo_gamelift.types.tag_list
 
         out["Tags"] = capo_gamelift.types.tag_list.serialize_aws_json_1_1(value["tags"])
+    if "log_configuration" in value:
+        import capo_gamelift.types.game_session_queue_log_configuration
+
+        out["LogConfiguration"] = (
+            capo_gamelift.types.game_session_queue_log_configuration.serialize_aws_json_1_1(
+                value["log_configuration"]
+            )
+        )
     return out
 
 
@@ -148,6 +161,14 @@ def deserialize_aws_json_1_1(data: dict) -> CreateGameSessionQueueInput:
 
         out["tags"] = capo_gamelift.types.tag_list.deserialize_aws_json_1_1(
             data["Tags"]
+        )
+    if data.get("LogConfiguration") is not None:
+        import capo_gamelift.types.game_session_queue_log_configuration
+
+        out["log_configuration"] = (
+            capo_gamelift.types.game_session_queue_log_configuration.deserialize_aws_json_1_1(
+                data["LogConfiguration"]
+            )
         )
     return out
 

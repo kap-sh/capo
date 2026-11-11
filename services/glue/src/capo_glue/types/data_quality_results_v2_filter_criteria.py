@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_glue.types.data_quality_evaluation_run_mode
     import capo_glue.types.data_source
     import capo_glue.types.name_string
     import capo_glue.types.publish_data_quality_result_dimensions
@@ -24,6 +25,14 @@ class DataQualityResultsV2FilterCriteria(TypedDict, closed=True):
     """<p>The platform dimensions to filter results by.</p>"""
     evaluation_context: NotRequired["capo_glue.types.name_string.NameString"]
     """<p>The evaluation context to filter results by.</p>"""
+    evaluation_run_mode: NotRequired[
+        "capo_glue.types.data_quality_evaluation_run_mode.DataQualityEvaluationRunMode"
+    ]
+    """<p>Filter results by how their evaluation run started: <code>ON_DEMAND</code> or <code>EVALUATION_CONFIG</code>. Results that no evaluation run produced match neither value.</p>"""
+    data_quality_evaluation_config: NotRequired[
+        "capo_glue.types.name_string.NameString"
+    ]
+    """<p>Filter results by the evaluation configuration name which started the evaluation run.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -57,6 +66,16 @@ def serialize_aws_json_1_1(value: DataQualityResultsV2FilterCriteria) -> dict:
         )
     if "evaluation_context" in value:
         out["EvaluationContext"] = value["evaluation_context"]
+    if "evaluation_run_mode" in value:
+        import capo_glue.types.data_quality_evaluation_run_mode
+
+        out["EvaluationRunMode"] = (
+            capo_glue.types.data_quality_evaluation_run_mode.serialize_aws_json_1_1(
+                value["evaluation_run_mode"]
+            )
+        )
+    if "data_quality_evaluation_config" in value:
+        out["DataQualityEvaluationConfig"] = value["data_quality_evaluation_config"]
     return out
 
 
@@ -90,4 +109,14 @@ def deserialize_aws_json_1_1(data: dict) -> DataQualityResultsV2FilterCriteria:
         )
     if data.get("EvaluationContext") is not None:
         out["evaluation_context"] = data["EvaluationContext"]
+    if data.get("EvaluationRunMode") is not None:
+        import capo_glue.types.data_quality_evaluation_run_mode
+
+        out["evaluation_run_mode"] = (
+            capo_glue.types.data_quality_evaluation_run_mode.deserialize_aws_json_1_1(
+                data["EvaluationRunMode"]
+            )
+        )
+    if data.get("DataQualityEvaluationConfig") is not None:
+        out["data_quality_evaluation_config"] = data["DataQualityEvaluationConfig"]
     return out

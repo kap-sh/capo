@@ -19,6 +19,8 @@ import capo_network_firewall.errors.throttling_exception
 import capo_network_firewall.types.create_rule_group_request
 import capo_network_firewall.types.create_rule_group_response
 import capo_network_firewall.types.encryption_configuration
+import capo_network_firewall.types.firewall_rule_group
+import capo_network_firewall.types.ips_rule_group
 import capo_network_firewall.types.rule_group
 import capo_network_firewall.types.rule_group_response
 import capo_network_firewall.types.rule_group_type

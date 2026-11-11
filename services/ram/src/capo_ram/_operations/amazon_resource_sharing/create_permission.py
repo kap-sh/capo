@@ -23,6 +23,7 @@ import capo_ram.errors.server_internal_exception
 import capo_ram.errors.service_unavailable_exception
 import capo_ram.types.create_permission_request
 import capo_ram.types.create_permission_response
+import capo_ram.types.permission_template_parameter_declaration_list
 import capo_ram.types.resource_share_permission_summary
 import capo_ram.types.tag_list
 from capo_ram._protocol.errors import parse_error_metadata_json

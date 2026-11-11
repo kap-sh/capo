@@ -3,7 +3,10 @@
 from typing import Literal, TypeAlias, cast
 
 """<p>Type of membership.</p>"""
-MembershipType: TypeAlias = Literal["USER",]
+MembershipType: TypeAlias = Literal[
+    "USER",
+    "GROUP",
+]
 
 
 # --- restJson1 ser/de ---

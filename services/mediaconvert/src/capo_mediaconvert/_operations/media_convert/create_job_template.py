@@ -23,6 +23,7 @@ import capo_mediaconvert.types.__map_of__string
 import capo_mediaconvert.types.acceleration_settings
 import capo_mediaconvert.types.create_job_template_request
 import capo_mediaconvert.types.create_job_template_response
+import capo_mediaconvert.types.elemental_inference_settings
 import capo_mediaconvert.types.job_template
 import capo_mediaconvert.types.job_template_settings
 import capo_mediaconvert.types.status_update_interval

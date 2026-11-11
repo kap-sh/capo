@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_gamelift.types.filter_configuration
     import capo_gamelift.types.game_session_queue_destination_list
     import capo_gamelift.types.game_session_queue_name_or_arn
+    import capo_gamelift.types.log_delivery_destination_list
     import capo_gamelift.types.player_latency_policy_list
     import capo_gamelift.types.priority_configuration
     import capo_gamelift.types.queue_custom_event_data
@@ -37,7 +38,7 @@ class UpdateGameSessionQueueInput(TypedDict, closed=True):
     priority_configuration: NotRequired[
         "capo_gamelift.types.priority_configuration.PriorityConfiguration"
     ]
-    """<p>Custom settings to use when prioritizing destinations and locations for game session placements. This configuration replaces the FleetIQ default prioritization process. Priority types that are not explicitly named will be automatically applied at the end of the prioritization process. To remove an existing priority configuration, pass in an empty set.</p>"""
+    """<p>Custom settings to use when prioritizing destinations and locations for game session placements. This configuration replaces the default prioritization process. Priority types that are not explicitly named will be automatically applied at the end of the prioritization process. To remove an existing priority configuration, pass in an empty set.</p>"""
     custom_event_data: NotRequired[
         "capo_gamelift.types.queue_custom_event_data.QueueCustomEventData"
     ]
@@ -46,6 +47,14 @@ class UpdateGameSessionQueueInput(TypedDict, closed=True):
         "capo_gamelift.types.queue_sns_arn_string_model.QueueSnsArnStringModel"
     ]
     """<p>An SNS topic ARN that is set up to receive game session placement notifications. See <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/queue-notification.html"> Setting up notifications for game session placement</a>.</p>"""
+    add_log_delivery_destinations: NotRequired[
+        "capo_gamelift.types.log_delivery_destination_list.LogDeliveryDestinationList"
+    ]
+    """<p>Log delivery destinations to add to the queue's log configuration (<code>LogConfiguration</code>).</p>"""
+    remove_log_delivery_destinations: NotRequired[
+        "capo_gamelift.types.log_delivery_destination_list.LogDeliveryDestinationList"
+    ]
+    """<p>Log delivery destinations to remove from the queue's log configuration (<code>LogConfiguration</code>).</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -91,6 +100,22 @@ def serialize_aws_json_1_1(value: UpdateGameSessionQueueInput) -> dict:
         out["CustomEventData"] = value["custom_event_data"]
     if "notification_target" in value:
         out["NotificationTarget"] = value["notification_target"]
+    if "add_log_delivery_destinations" in value:
+        import capo_gamelift.types.log_delivery_destination_list
+
+        out["AddLogDeliveryDestinations"] = (
+            capo_gamelift.types.log_delivery_destination_list.serialize_aws_json_1_1(
+                value["add_log_delivery_destinations"]
+            )
+        )
+    if "remove_log_delivery_destinations" in value:
+        import capo_gamelift.types.log_delivery_destination_list
+
+        out["RemoveLogDeliveryDestinations"] = (
+            capo_gamelift.types.log_delivery_destination_list.serialize_aws_json_1_1(
+                value["remove_log_delivery_destinations"]
+            )
+        )
     return out
 
 
@@ -136,6 +161,22 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateGameSessionQueueInput:
         out["custom_event_data"] = data["CustomEventData"]
     if data.get("NotificationTarget") is not None:
         out["notification_target"] = data["NotificationTarget"]
+    if data.get("AddLogDeliveryDestinations") is not None:
+        import capo_gamelift.types.log_delivery_destination_list
+
+        out["add_log_delivery_destinations"] = (
+            capo_gamelift.types.log_delivery_destination_list.deserialize_aws_json_1_1(
+                data["AddLogDeliveryDestinations"]
+            )
+        )
+    if data.get("RemoveLogDeliveryDestinations") is not None:
+        import capo_gamelift.types.log_delivery_destination_list
+
+        out["remove_log_delivery_destinations"] = (
+            capo_gamelift.types.log_delivery_destination_list.deserialize_aws_json_1_1(
+                data["RemoveLogDeliveryDestinations"]
+            )
+        )
     return out
 
 

@@ -244,6 +244,7 @@ if TYPE_CHECKING:
     import capo_gamelift.types.game_session_detail
     import capo_gamelift.types.game_session_queue
     import capo_gamelift.types.game_session_queue_destination_list
+    import capo_gamelift.types.game_session_queue_log_configuration
     import capo_gamelift.types.game_session_queue_name
     import capo_gamelift.types.game_session_queue_name_or_arn
     import capo_gamelift.types.game_session_queue_name_or_arn_list
@@ -306,6 +307,7 @@ if TYPE_CHECKING:
     import capo_gamelift.types.location_model
     import capo_gamelift.types.location_string_model
     import capo_gamelift.types.log_configuration
+    import capo_gamelift.types.log_delivery_destination_list
     import capo_gamelift.types.managed_capacity_configuration
     import capo_gamelift.types.matchmaking_acceptance_timeout_integer
     import capo_gamelift.types.matchmaking_configuration
@@ -1695,8 +1697,11 @@ class AsyncGameLiftClient:
             "capo_gamelift.types.queue_sns_arn_string_model.QueueSnsArnStringModel"
         ] = None,
         tags: Optional["capo_gamelift.types.tag_list.TagList"] = None,
+        log_configuration: Optional[
+            "capo_gamelift.types.game_session_queue_log_configuration.GameSessionQueueLogConfiguration"
+        ] = None,
     ) -> "capo_gamelift.types.create_game_session_queue_output.CreateGameSessionQueueOutput":
-        """<p> <b>This API works with the following fleet types:</b> EC2, Anywhere, Container</p> <p>Creates a placement queue that processes requests for new game sessions. A queue uses FleetIQ algorithms to locate the best available placement locations for a new game session, and then prompts the game server process to start a new game session.</p> <p>A game session queue is configured with a set of destinations (Amazon GameLift Servers fleets or aliases) that determine where the queue can place new game sessions. These destinations can span multiple Amazon Web Services Regions, can use different instance types, and can include both Spot and On-Demand fleets. If the queue includes multi-location fleets, the queue can place game sessions in any of a fleet's remote locations.</p> <p>You can configure a queue to determine how it selects the best available placement for a new game session. Queues can prioritize placement decisions based on a combination of location, hosting cost, and player latency. You can set up the queue to use the default prioritization or provide alternate instructions using <code>PriorityConfiguration</code>.</p> <p> <b>Request options</b> </p> <p>Use this operation to make these common types of requests. </p> <ul> <li> <p>Create a queue with the minimum required parameters.</p> <ul> <li> <p> <code>Name</code> </p> </li> <li> <p> <code>Destinations</code> (This parameter isn't required, but a queue can't make placements without at least one destination.)</p> </li> </ul> </li> <li> <p>Create a queue with placement notification. Queues that have high placement activity must use a notification system, such as with Amazon Simple Notification Service (Amazon SNS) or Amazon CloudWatch.</p> <ul> <li> <p>Required parameters <code>Name</code> and <code>Destinations</code> </p> </li> <li> <p> <code>NotificationTarget</code> </p> </li> </ul> </li> <li> <p>Create a queue with custom prioritization settings. These custom settings replace the default prioritization configuration for a queue.</p> <ul> <li> <p>Required parameters <code>Name</code> and <code>Destinations</code> </p> </li> <li> <p> <code>PriorityConfiguration</code> </p> </li> </ul> </li> <li> <p>Create a queue with special rules for processing player latency data.</p> <ul> <li> <p>Required parameters <code>Name</code> and <code>Destinations</code> </p> </li> <li> <p> <code>PlayerLatencyPolicies</code> </p> </li> </ul> </li> </ul> <p> <b>Results</b> </p> <p>If successful, this operation returns a new <code>GameSessionQueue</code> object with an assigned queue ARN. Use the queue's name or ARN when submitting new game session requests with <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_StartGameSessionPlacement.html">StartGameSessionPlacement</a> or <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_StartMatchmaking.html">StartMatchmaking</a>. </p> <p> <b>Learn more</b> </p> <p> <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/queues-design.html"> Design a game session queue</a> </p> <p> <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/queues-creating.html"> Create a game session queue</a> </p> <p> <b>Related actions</b> </p> <p> <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_CreateGameSessionQueue.html">CreateGameSessionQueue</a> | <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_DescribeGameSessionQueues.html">DescribeGameSessionQueues</a> | <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateGameSessionQueue.html">UpdateGameSessionQueue</a> | <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_DeleteGameSessionQueue.html">DeleteGameSessionQueue</a> | <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets">All APIs by task</a> </p>
+        """<p> <b>This API works with the following fleet types:</b> EC2, Anywhere, Container</p> <p>Creates a placement queue that processes requests for new game sessions. A queue finds the best available game server, then prompts it to start a new game session.</p> <p>A game session queue is configured with a set of destinations (Amazon GameLift Servers fleets or aliases) that determine where the queue can place new game sessions. These destinations can span multiple Amazon Web Services Regions, can use different instance types, and can include both Spot and On-Demand fleets. If the queue includes multi-location fleets, the queue can place game sessions in any of a fleet's remote locations.</p> <p>You can configure a queue to determine how it selects the best available placement for a new game session. Queues can prioritize placement decisions based on a combination of location, hosting cost, and player latency. You can set up the queue to use the default prioritization or provide alternate instructions using <code>PriorityConfiguration</code>.</p> <p> <b>Request options</b> </p> <p>Use this operation to make these common types of requests. </p> <ul> <li> <p>Create a queue with the minimum required parameters.</p> <ul> <li> <p> <code>Name</code> </p> </li> <li> <p> <code>Destinations</code> (This parameter isn't required, but a queue can't make placements without at least one destination.)</p> </li> </ul> </li> <li> <p>Create a queue with placement notification. Queues that have high placement activity must use a notification system, such as with Amazon Simple Notification Service (Amazon SNS) or Amazon CloudWatch.</p> <ul> <li> <p>Required parameters <code>Name</code> and <code>Destinations</code> </p> </li> <li> <p> <code>NotificationTarget</code> </p> </li> </ul> </li> <li> <p>Create a queue with custom prioritization settings. These custom settings replace the default prioritization configuration for a queue.</p> <ul> <li> <p>Required parameters <code>Name</code> and <code>Destinations</code> </p> </li> <li> <p> <code>PriorityConfiguration</code> </p> </li> </ul> </li> <li> <p>Create a queue with special rules for processing player latency data.</p> <ul> <li> <p>Required parameters <code>Name</code> and <code>Destinations</code> </p> </li> <li> <p> <code>PlayerLatencyPolicies</code> </p> </li> </ul> </li> <li> <p>Create a queue that delivers game session placement insight logs to one or more log destinations.</p> <ul> <li> <p>Required parameters <code>Name</code> and <code>Destinations</code> </p> </li> <li> <p> <code>LogConfiguration</code> </p> </li> </ul> </li> </ul> <p> <b>Results</b> </p> <p>If successful, this operation returns a new <code>GameSessionQueue</code> object with an assigned queue ARN. Use the queue's name or ARN when submitting new game session requests with <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_StartGameSessionPlacement.html">StartGameSessionPlacement</a> or <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_StartMatchmaking.html">StartMatchmaking</a>. </p> <p> <b>Learn more</b> </p> <p> <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/queues-design.html"> Design a game session queue</a> </p> <p> <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/queues-creating.html"> Create a game session queue</a> </p> <p> <b>Related actions</b> </p> <p> <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_CreateGameSessionQueue.html">CreateGameSessionQueue</a> | <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_DescribeGameSessionQueues.html">DescribeGameSessionQueues</a> | <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateGameSessionQueue.html">UpdateGameSessionQueue</a> | <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_DeleteGameSessionQueue.html">DeleteGameSessionQueue</a> | <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets">All APIs by task</a> </p>
 
         Args:
             name: <p>A descriptive label that is associated with game session queue. Queue names must be unique within each Region.</p>
@@ -1704,10 +1709,11 @@ class AsyncGameLiftClient:
             player_latency_policies: <p>A set of policies that enforce a sliding cap on player latency when processing game sessions placement requests. Use multiple policies to gradually relax the cap over time if Amazon GameLift Servers can't make a placement. Policies are evaluated in order starting with the lowest maximum latency value.</p>
             destinations: <p>A list of fleets and/or fleet aliases that can be used to fulfill game session placement requests in the queue. Destinations are identified by either a fleet ARN or a fleet alias ARN, and are listed in order of placement preference.</p>
             filter_configuration: <p>A list of locations where a queue is allowed to place new game sessions. Locations are specified in the form of Amazon Web Services Region codes, such as <code>us-west-2</code>. If this parameter is not set, game sessions can be placed in any queue location. </p>
-            priority_configuration: <p>Custom settings to use when prioritizing destinations and locations for game session placements. This configuration replaces the FleetIQ default prioritization process. Priority types that are not explicitly named will be automatically applied at the end of the prioritization process. </p>
+            priority_configuration: <p>Custom settings to use when prioritizing destinations and locations for game session placements. This configuration replaces the default prioritization process. Priority types that are not explicitly named will be automatically applied at the end of the prioritization process. </p>
             custom_event_data: <p>Information to be added to all events that are related to this game session queue.</p>
             notification_target: <p>An SNS topic ARN that is set up to receive game session placement notifications. See <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/queue-notification.html"> Setting up notifications for game session placement</a>.</p>
             tags: <p>A list of labels to assign to the new game session queue resource. Tags are developer-defined key-value pairs. Tagging Amazon Web Services resources is useful for resource management, access management and cost allocation. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html"> Tagging Amazon Web Services Resources</a> in the <i>Amazon Web Services General Reference</i>.</p>
+            log_configuration: <p>An optional configuration that delivers game session placement insight logs to one or more destinations of your choice. Use these logs to diagnose why a game session placement is <code>FULFILLED</code>, <code>CANCELLED</code>, <code>TIMED_OUT</code>, or <code>FAILED</code>, which locations were evaluated, and the latency and cost factors that influenced each decision.</p>
 
         Raises:
             capo_gamelift.errors.internal_service_exception.InternalServiceException: <p>The service encountered an unrecoverable internal failure while processing the request. Clients can retry such requests immediately or after a waiting period.</p>
@@ -1781,6 +1787,8 @@ class AsyncGameLiftClient:
             input_["notification_target"] = notification_target
         if tags is not None:
             input_["tags"] = tags
+        if log_configuration is not None:
+            input_["log_configuration"] = log_configuration
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -9750,6 +9758,12 @@ class AsyncGameLiftClient:
         notification_target: Optional[
             "capo_gamelift.types.queue_sns_arn_string_model.QueueSnsArnStringModel"
         ] = None,
+        add_log_delivery_destinations: Optional[
+            "capo_gamelift.types.log_delivery_destination_list.LogDeliveryDestinationList"
+        ] = None,
+        remove_log_delivery_destinations: Optional[
+            "capo_gamelift.types.log_delivery_destination_list.LogDeliveryDestinationList"
+        ] = None,
     ) -> "capo_gamelift.types.update_game_session_queue_output.UpdateGameSessionQueueOutput":
         """<p> <b>This API works with the following fleet types:</b> EC2, Anywhere, Container</p> <p>Updates the configuration of a game session queue, which determines how the queue processes new game session requests. To update settings, specify the queue name to be updated and provide the new settings. When updating destinations, provide a complete list of destinations. </p> <p> <b>Learn more</b> </p> <p> <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/queues-intro.html"> Using Multi-Region Queues</a> </p>
 
@@ -9759,9 +9773,11 @@ class AsyncGameLiftClient:
             player_latency_policies: <p>A set of policies that enforce a sliding cap on player latency when processing game sessions placement requests. Use multiple policies to gradually relax the cap over time if Amazon GameLift Servers can't make a placement. Policies are evaluated in order starting with the lowest maximum latency value. When updating policies, provide a complete collection of policies.</p>
             destinations: <p>A list of fleets and/or fleet aliases that can be used to fulfill game session placement requests in the queue. Destinations are identified by either a fleet ARN or a fleet alias ARN, and are listed in order of placement preference. When updating this list, provide a complete list of destinations.</p>
             filter_configuration: <p>A list of locations where a queue is allowed to place new game sessions. Locations are specified in the form of Amazon Web Services Region codes, such as <code>us-west-2</code>. If this parameter is not set, game sessions can be placed in any queue location. To remove an existing filter configuration, pass in an empty set.</p>
-            priority_configuration: <p>Custom settings to use when prioritizing destinations and locations for game session placements. This configuration replaces the FleetIQ default prioritization process. Priority types that are not explicitly named will be automatically applied at the end of the prioritization process. To remove an existing priority configuration, pass in an empty set.</p>
+            priority_configuration: <p>Custom settings to use when prioritizing destinations and locations for game session placements. This configuration replaces the default prioritization process. Priority types that are not explicitly named will be automatically applied at the end of the prioritization process. To remove an existing priority configuration, pass in an empty set.</p>
             custom_event_data: <p>Information to be added to all events that are related to this game session queue.</p>
             notification_target: <p>An SNS topic ARN that is set up to receive game session placement notifications. See <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/queue-notification.html"> Setting up notifications for game session placement</a>.</p>
+            add_log_delivery_destinations: <p>Log delivery destinations to add to the queue's log configuration (<code>LogConfiguration</code>).</p>
+            remove_log_delivery_destinations: <p>Log delivery destinations to remove from the queue's log configuration (<code>LogConfiguration</code>).</p>
 
         Raises:
             capo_gamelift.errors.internal_service_exception.InternalServiceException: <p>The service encountered an unrecoverable internal failure while processing the request. Clients can retry such requests immediately or after a waiting period.</p>
@@ -9831,6 +9847,12 @@ class AsyncGameLiftClient:
             input_["custom_event_data"] = custom_event_data
         if notification_target is not None:
             input_["notification_target"] = notification_target
+        if add_log_delivery_destinations is not None:
+            input_["add_log_delivery_destinations"] = add_log_delivery_destinations
+        if remove_log_delivery_destinations is not None:
+            input_["remove_log_delivery_destinations"] = (
+                remove_log_delivery_destinations
+            )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

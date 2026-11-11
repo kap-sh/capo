@@ -61,6 +61,8 @@ if TYPE_CHECKING:
     import capo_network_firewall.types.create_container_association_response
     import capo_network_firewall.types.create_firewall_policy_request
     import capo_network_firewall.types.create_firewall_policy_response
+    import capo_network_firewall.types.create_firewall_policy_v2_request
+    import capo_network_firewall.types.create_firewall_policy_v2_response
     import capo_network_firewall.types.create_firewall_request
     import capo_network_firewall.types.create_firewall_response
     import capo_network_firewall.types.create_proxy_configuration_request
@@ -82,6 +84,8 @@ if TYPE_CHECKING:
     import capo_network_firewall.types.delete_container_association_response
     import capo_network_firewall.types.delete_firewall_policy_request
     import capo_network_firewall.types.delete_firewall_policy_response
+    import capo_network_firewall.types.delete_firewall_policy_v2_request
+    import capo_network_firewall.types.delete_firewall_policy_v2_response
     import capo_network_firewall.types.delete_firewall_request
     import capo_network_firewall.types.delete_firewall_response
     import capo_network_firewall.types.delete_network_firewall_transit_gateway_attachment_request
@@ -108,6 +112,8 @@ if TYPE_CHECKING:
     import capo_network_firewall.types.describe_firewall_metadata_response
     import capo_network_firewall.types.describe_firewall_policy_request
     import capo_network_firewall.types.describe_firewall_policy_response
+    import capo_network_firewall.types.describe_firewall_policy_v2_request
+    import capo_network_firewall.types.describe_firewall_policy_v2_response
     import capo_network_firewall.types.describe_firewall_request
     import capo_network_firewall.types.describe_firewall_response
     import capo_network_firewall.types.describe_flow_operation_request
@@ -148,6 +154,9 @@ if TYPE_CHECKING:
     import capo_network_firewall.types.firewall_metadata
     import capo_network_firewall.types.firewall_policy
     import capo_network_firewall.types.firewall_policy_metadata
+    import capo_network_firewall.types.firewall_policy_v2
+    import capo_network_firewall.types.firewall_policy_v2_metadata
+    import capo_network_firewall.types.firewall_rule_group
     import capo_network_firewall.types.flow
     import capo_network_firewall.types.flow_filters
     import capo_network_firewall.types.flow_operation_id
@@ -155,12 +164,15 @@ if TYPE_CHECKING:
     import capo_network_firewall.types.flow_operation_type
     import capo_network_firewall.types.get_analysis_report_results_request
     import capo_network_firewall.types.get_analysis_report_results_response
+    import capo_network_firewall.types.ips_rule_group
     import capo_network_firewall.types.list_analysis_reports_request
     import capo_network_firewall.types.list_analysis_reports_response
     import capo_network_firewall.types.list_container_associations_request
     import capo_network_firewall.types.list_container_associations_response
     import capo_network_firewall.types.list_firewall_policies_request
     import capo_network_firewall.types.list_firewall_policies_response
+    import capo_network_firewall.types.list_firewall_policies_v2_request
+    import capo_network_firewall.types.list_firewall_policies_v2_response
     import capo_network_firewall.types.list_firewalls_request
     import capo_network_firewall.types.list_firewalls_response
     import capo_network_firewall.types.list_flow_operation_results_request
@@ -214,6 +226,7 @@ if TYPE_CHECKING:
     import capo_network_firewall.types.rule_group_metadata
     import capo_network_firewall.types.rule_group_request_phase
     import capo_network_firewall.types.rule_group_type
+    import capo_network_firewall.types.rule_output_format
     import capo_network_firewall.types.rules_string
     import capo_network_firewall.types.source_metadata
     import capo_network_firewall.types.start_analysis_report_request
@@ -255,6 +268,8 @@ if TYPE_CHECKING:
     import capo_network_firewall.types.update_firewall_policy_change_protection_response
     import capo_network_firewall.types.update_firewall_policy_request
     import capo_network_firewall.types.update_firewall_policy_response
+    import capo_network_firewall.types.update_firewall_policy_v2_request
+    import capo_network_firewall.types.update_firewall_policy_v2_response
     import capo_network_firewall.types.update_logging_configuration_request
     import capo_network_firewall.types.update_logging_configuration_response
     import capo_network_firewall.types.update_proxy_configuration_request
@@ -1005,6 +1020,79 @@ class NetworkFirewallClient:
         response.response.close()
         return response.output
 
+    def create_firewall_policy_v2(
+        self,
+        firewall_policy_v2_name: "capo_network_firewall.types.resource_name.ResourceName",
+        firewall_policy_v2: "capo_network_firewall.types.firewall_policy_v2.FirewallPolicyV2",
+        *,
+        config_overrides: Optional[NetworkFirewallClientConfig] = None,
+        description: Optional[
+            "capo_network_firewall.types.description.Description"
+        ] = None,
+        tags: Optional["capo_network_firewall.types.tag_list.TagList"] = None,
+        dry_run: Optional["capo_network_firewall.types.boolean.Boolean"] = None,
+        encryption_configuration: Optional[
+            "capo_network_firewall.types.encryption_configuration.EncryptionConfiguration"
+        ] = None,
+    ) -> "capo_network_firewall.types.create_firewall_policy_v2_response.CreateFirewallPolicyV2Response":
+        """<p>Creates a Next Generation policy according to the specifications.</p> <p>A Next Generation policy defines the behavior of a firewall in a collection of firewall engine and IPS engine rule groups and other settings. You can use one firewall policy for multiple firewalls. For more information, see <a href="https://docs.aws.amazon.com/network-firewall/latest/developerguide/firewall-policies-v2.html">Next Generation policies</a> in the <i>Network Firewall Developer Guide</i>.</p>
+
+        Args:
+            firewall_policy_v2_name: <p>The descriptive name of the Next Generation policy. You can't change the name of a firewall policy after you create it.</p>
+            firewall_policy_v2: <p>The rule groups and other settings that define the Next Generation policy.</p>
+            description: <p>A description of the firewall policy.</p>
+            tags: <p>The key:value pairs to associate with the resource.</p>
+            dry_run: <p>Indicates whether you want Network Firewall to just check the validity of the request, rather than run the request. </p> <p>If set to <code>TRUE</code>, Network Firewall checks whether the request can run successfully, but doesn't actually make the requested changes. The call returns the value that the request would return if you ran it with dry run set to <code>FALSE</code>, but doesn't make additions or changes to your resources. This option allows you to make sure that you have the required permissions to run the request and that your request parameters are valid. </p> <p>If set to <code>FALSE</code>, Network Firewall makes the requested changes to your resources. </p>
+            encryption_configuration: <p>A complex type that contains settings for encryption of your firewall policy resources.</p>
+
+        Raises:
+            capo_network_firewall.errors.insufficient_capacity_exception.InsufficientCapacityException: <p>Amazon Web Services doesn't currently have enough available capacity to fulfill your request. Try your request later. </p>
+            capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
+            capo_network_firewall.errors.invalid_operation_exception.InvalidOperationException: <p>The operation failed because it's not valid. For example, you might have tried to delete a rule group or firewall policy that's in use.</p>
+            capo_network_firewall.errors.invalid_request_exception.InvalidRequestException: <p>The operation failed because of a problem with your request. Examples include: </p> <ul> <li> <p>You specified an unsupported parameter name or value.</p> </li> <li> <p>You tried to update a property with a value that isn't among the available types.</p> </li> <li> <p>Your request references an ARN that is malformed, or corresponds to a resource that isn't valid in the context of the request.</p> </li> </ul>
+            capo_network_firewall.errors.limit_exceeded_exception.LimitExceededException: <p>Unable to perform the operation because doing so would violate a limit setting. </p>
+            capo_network_firewall.errors.throttling_exception.ThrottlingException: <p>Unable to process the request due to throttling limitations.</p>
+            capo_network_firewall.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_network_firewall.types.create_firewall_policy_v2_request.CreateFirewallPolicyV2Request]",
+        ) -> OperationResponse[
+            "capo_network_firewall.types.create_firewall_policy_v2_response.CreateFirewallPolicyV2Response"
+        ]:
+            import capo_network_firewall._operations.network_firewall_20201112.create_firewall_policy_v2
+
+            output, http_response = (
+                capo_network_firewall._operations.network_firewall_20201112.create_firewall_policy_v2.create_firewall_policy_v2(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFirewallPolicyV2")
+        )
+        input_: capo_network_firewall.types.create_firewall_policy_v2_request.CreateFirewallPolicyV2Request = {
+            "firewall_policy_v2_name": firewall_policy_v2_name,
+            "firewall_policy_v2": firewall_policy_v2,
+        }
+        if description is not None:
+            input_["description"] = description
+        if tags is not None:
+            input_["tags"] = tags
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
+        if encryption_configuration is not None:
+            input_["encryption_configuration"] = encryption_configuration
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def create_proxy(
         self,
         proxy_name: "capo_network_firewall.types.resource_name.ResourceName",
@@ -1288,6 +1376,12 @@ class NetworkFirewallClient:
         *,
         config_overrides: Optional[NetworkFirewallClientConfig] = None,
         rule_group: Optional["capo_network_firewall.types.rule_group.RuleGroup"] = None,
+        firewall_rule_group: Optional[
+            "capo_network_firewall.types.firewall_rule_group.FirewallRuleGroup"
+        ] = None,
+        ips_rule_group: Optional[
+            "capo_network_firewall.types.ips_rule_group.IpsRuleGroup"
+        ] = None,
         rules: Optional["capo_network_firewall.types.rules_string.RulesString"] = None,
         description: Optional[
             "capo_network_firewall.types.description.Description"
@@ -1314,8 +1408,10 @@ class NetworkFirewallClient:
         Args:
             rule_group_name: <p>The descriptive name of the rule group. You can't change the name of a rule group after you create it.</p>
             rule_group: <p>An object that defines the rule group rules. </p> <note> <p>You must provide either this rule group setting or a <code>Rules</code> setting, but not both. </p> </note>
+            firewall_rule_group: <p>An object that defines the rules in a firewall engine rule group, for use in a Next Generation policy.</p>
+            ips_rule_group: <p>An object that defines the rules in an IPS engine rule group, for use in a Next Generation policy.</p>
             rules: <p>A string containing stateful rule group rules specifications in Suricata flat format, with one rule per line. Use this to import your existing Suricata compatible rule groups. </p> <note> <p>You must provide either this rules setting or a populated <code>RuleGroup</code> setting, but not both. </p> </note> <p>You can provide your rule group specification in Suricata flat format through this setting when you create or update your rule group. The call response returns a <a>RuleGroup</a> object that Network Firewall has populated from your string. </p>
-            type: <p>Indicates whether the rule group is stateless or stateful. If the rule group is stateless, it contains stateless rules. If it is stateful, it contains stateful rules. </p>
+            type: <p>Indicates the type of the rule group. Valid values are:</p> <ul> <li> <p> <code>STATELESS</code> - Stateless rules, for use in a Classic Network Firewall policy.</p> </li> <li> <p> <code>STATEFUL</code> - Stateful rules, for use in a Classic Network Firewall policy.</p> </li> <li> <p> <code>FIREWALL</code> - Firewall engine rules, for use in a Next Generation policy.</p> </li> <li> <p> <code>IPS</code> - IPS engine rules, for use in a Next Generation policy.</p> </li> </ul>
             description: <p>A description of the rule group. </p>
             capacity: <p>The maximum operating resources that this rule group can use. Rule group capacity is fixed at creation. When you update a rule group, you are limited to this capacity. When you reference a rule group from a firewall policy, Network Firewall reserves this capacity for the rule group. </p> <p>You can retrieve the capacity that would be required for a rule group before you create the rule group by calling <a>CreateRuleGroup</a> with <code>DryRun</code> set to <code>TRUE</code>. </p> <note> <p>You can't change or exceed this capacity when you update the rule group, so leave room for your rule group to grow. </p> </note> <p> <b>Capacity for a stateless rule group</b> </p> <p>For a stateless rule group, the capacity required is the sum of the capacity requirements of the individual rules that you expect to have in the rule group. </p> <p>To calculate the capacity requirement of a single rule, multiply the capacity requirement values of each of the rule's match settings:</p> <ul> <li> <p>A match setting with no criteria specified has a value of 1. </p> </li> <li> <p>A match setting with <code>Any</code> specified has a value of 1. </p> </li> <li> <p>All other match settings have a value equal to the number of elements provided in the setting. For example, a protocol setting ["UDP"] and a source setting ["10.0.0.0/24"] each have a value of 1. A protocol setting ["UDP","TCP"] has a value of 2. A source setting ["10.0.0.0/24","10.0.0.1/24","10.0.0.2/24"] has a value of 3. </p> </li> </ul> <p>A rule with no criteria specified in any of its match settings has a capacity requirement of 1. A rule with protocol setting ["UDP","TCP"], source setting ["10.0.0.0/24","10.0.0.1/24","10.0.0.2/24"], and a single specification or no specification for each of the other match settings has a capacity requirement of 6. </p> <p> <b>Capacity for a stateful rule group</b> </p> <p>For a stateful rule group, the minimum capacity required is the number of individual rules that you expect to have in the rule group. </p>
             tags: <p>The key:value pairs to associate with the resource.</p>
@@ -1358,6 +1454,10 @@ class NetworkFirewallClient:
         }
         if rule_group is not None:
             input_["rule_group"] = rule_group
+        if firewall_rule_group is not None:
+            input_["firewall_rule_group"] = firewall_rule_group
+        if ips_rule_group is not None:
+            input_["ips_rule_group"] = ips_rule_group
         if rules is not None:
             input_["rules"] = rules
         if description is not None:
@@ -1680,6 +1780,64 @@ class NetworkFirewallClient:
             input_["firewall_policy_name"] = firewall_policy_name
         if firewall_policy_arn is not None:
             input_["firewall_policy_arn"] = firewall_policy_arn
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def delete_firewall_policy_v2(
+        self,
+        *,
+        config_overrides: Optional[NetworkFirewallClientConfig] = None,
+        firewall_policy_v2_arn: Optional[
+            "capo_network_firewall.types.resource_arn.ResourceArn"
+        ] = None,
+        firewall_policy_v2_name: Optional[
+            "capo_network_firewall.types.resource_name.ResourceName"
+        ] = None,
+    ) -> "capo_network_firewall.types.delete_firewall_policy_v2_response.DeleteFirewallPolicyV2Response":
+        """<p>Deletes the specified <a>FirewallPolicyV2</a>.</p>
+
+        Args:
+            firewall_policy_v2_arn: <p>The Amazon Resource Name (ARN) of the Next Generation policy.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
+            firewall_policy_v2_name: <p>The descriptive name of the Next Generation policy. You can't change the name of a firewall policy after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
+
+        Raises:
+            capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
+            capo_network_firewall.errors.invalid_operation_exception.InvalidOperationException: <p>The operation failed because it's not valid. For example, you might have tried to delete a rule group or firewall policy that's in use.</p>
+            capo_network_firewall.errors.invalid_request_exception.InvalidRequestException: <p>The operation failed because of a problem with your request. Examples include: </p> <ul> <li> <p>You specified an unsupported parameter name or value.</p> </li> <li> <p>You tried to update a property with a value that isn't among the available types.</p> </li> <li> <p>Your request references an ARN that is malformed, or corresponds to a resource that isn't valid in the context of the request.</p> </li> </ul>
+            capo_network_firewall.errors.resource_not_found_exception.ResourceNotFoundException: <p>Unable to locate a resource using the parameters that you provided.</p>
+            capo_network_firewall.errors.throttling_exception.ThrottlingException: <p>Unable to process the request due to throttling limitations.</p>
+            capo_network_firewall.errors.unsupported_operation_exception.UnsupportedOperationException: <p>The operation you requested isn't supported by Network Firewall. </p>
+            capo_network_firewall.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_network_firewall.types.delete_firewall_policy_v2_request.DeleteFirewallPolicyV2Request]",
+        ) -> OperationResponse[
+            "capo_network_firewall.types.delete_firewall_policy_v2_response.DeleteFirewallPolicyV2Response"
+        ]:
+            import capo_network_firewall._operations.network_firewall_20201112.delete_firewall_policy_v2
+
+            output, http_response = (
+                capo_network_firewall._operations.network_firewall_20201112.delete_firewall_policy_v2.delete_firewall_policy_v2(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFirewallPolicyV2")
+        )
+        input_: capo_network_firewall.types.delete_firewall_policy_v2_request.DeleteFirewallPolicyV2Request = {}
+        if firewall_policy_v2_arn is not None:
+            input_["firewall_policy_v2_arn"] = firewall_policy_v2_arn
+        if firewall_policy_v2_name is not None:
+            input_["firewall_policy_v2_name"] = firewall_policy_v2_name
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -2041,7 +2199,7 @@ class NetworkFirewallClient:
         Args:
             rule_group_name: <p>The descriptive name of the rule group. You can't change the name of a rule group after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
             rule_group_arn: <p>The Amazon Resource Name (ARN) of the rule group.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-            type: <p>Indicates whether the rule group is stateless or stateful. If the rule group is stateless, it contains stateless rules. If it is stateful, it contains stateful rules. </p> <note> <p>This setting is required for requests that do not include the <code>RuleGroupARN</code>.</p> </note>
+            type: <p>Indicates the type of the rule group. Valid values are:</p> <ul> <li> <p> <code>STATELESS</code> - Stateless rules, for use in a Classic Network Firewall policy.</p> </li> <li> <p> <code>STATEFUL</code> - Stateful rules, for use in a Classic Network Firewall policy.</p> </li> <li> <p> <code>FIREWALL</code> - Firewall engine rules, for use in a Next Generation policy.</p> </li> <li> <p> <code>IPS</code> - IPS engine rules, for use in a Next Generation policy.</p> </li> </ul> <note> <p>This setting is required for requests that do not include the <code>RuleGroupARN</code>.</p> </note>
 
         Raises:
             capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
@@ -2405,6 +2563,68 @@ class NetworkFirewallClient:
             input_["firewall_policy_name"] = firewall_policy_name
         if firewall_policy_arn is not None:
             input_["firewall_policy_arn"] = firewall_policy_arn
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def describe_firewall_policy_v2(
+        self,
+        *,
+        config_overrides: Optional[NetworkFirewallClientConfig] = None,
+        firewall_policy_v2_arn: Optional[
+            "capo_network_firewall.types.resource_arn.ResourceArn"
+        ] = None,
+        firewall_policy_v2_name: Optional[
+            "capo_network_firewall.types.resource_name.ResourceName"
+        ] = None,
+        rule_output_format: Optional[
+            "capo_network_firewall.types.rule_output_format.RuleOutputFormat"
+        ] = None,
+    ) -> "capo_network_firewall.types.describe_firewall_policy_v2_response.DescribeFirewallPolicyV2Response":
+        """<p>Returns the data objects for the specified Next Generation policy.</p>
+
+        Args:
+            firewall_policy_v2_arn: <p>The Amazon Resource Name (ARN) of the Next Generation policy.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
+            firewall_policy_v2_name: <p>The descriptive name of the Next Generation policy. You can't change the name of a firewall policy after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
+            rule_output_format: <p>The format in which to return the rules of any firewall engine rule groups that are embedded in the policy. Specify <code>FIREWALL_RULES</code> for structured <code>FirewallRule</code> objects or <code>RULES_STRING</code> for a Suricata-compatible firewall-mode rule string. If you don't specify a format, Network Firewall returns each embedded rule group in the format you provided it in. Referenced rule groups aren't affected.</p>
+
+        Raises:
+            capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
+            capo_network_firewall.errors.invalid_request_exception.InvalidRequestException: <p>The operation failed because of a problem with your request. Examples include: </p> <ul> <li> <p>You specified an unsupported parameter name or value.</p> </li> <li> <p>You tried to update a property with a value that isn't among the available types.</p> </li> <li> <p>Your request references an ARN that is malformed, or corresponds to a resource that isn't valid in the context of the request.</p> </li> </ul>
+            capo_network_firewall.errors.resource_not_found_exception.ResourceNotFoundException: <p>Unable to locate a resource using the parameters that you provided.</p>
+            capo_network_firewall.errors.throttling_exception.ThrottlingException: <p>Unable to process the request due to throttling limitations.</p>
+            capo_network_firewall.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_network_firewall.types.describe_firewall_policy_v2_request.DescribeFirewallPolicyV2Request]",
+        ) -> OperationResponse[
+            "capo_network_firewall.types.describe_firewall_policy_v2_response.DescribeFirewallPolicyV2Response"
+        ]:
+            import capo_network_firewall._operations.network_firewall_20201112.describe_firewall_policy_v2
+
+            output, http_response = (
+                capo_network_firewall._operations.network_firewall_20201112.describe_firewall_policy_v2.describe_firewall_policy_v2(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFirewallPolicyV2")
+        )
+        input_: capo_network_firewall.types.describe_firewall_policy_v2_request.DescribeFirewallPolicyV2Request = {}
+        if firewall_policy_v2_arn is not None:
+            input_["firewall_policy_v2_arn"] = firewall_policy_v2_arn
+        if firewall_policy_v2_name is not None:
+            input_["firewall_policy_v2_name"] = firewall_policy_v2_name
+        if rule_output_format is not None:
+            input_["rule_output_format"] = rule_output_format
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -2837,14 +3057,18 @@ class NetworkFirewallClient:
         analyze_rule_group: Optional[
             "capo_network_firewall.types.boolean.Boolean"
         ] = None,
+        rule_output_format: Optional[
+            "capo_network_firewall.types.rule_output_format.RuleOutputFormat"
+        ] = None,
     ) -> "capo_network_firewall.types.describe_rule_group_response.DescribeRuleGroupResponse":
         """<p>Returns the data objects for the specified rule group. </p>
 
         Args:
             rule_group_name: <p>The descriptive name of the rule group. You can't change the name of a rule group after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
             rule_group_arn: <p>The Amazon Resource Name (ARN) of the rule group.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-            type: <p>Indicates whether the rule group is stateless or stateful. If the rule group is stateless, it contains stateless rules. If it is stateful, it contains stateful rules. </p> <note> <p>This setting is required for requests that do not include the <code>RuleGroupARN</code>.</p> </note>
+            type: <p>Indicates the type of the rule group. Valid values are:</p> <ul> <li> <p> <code>STATELESS</code> - Stateless rules, for use in a Classic Network Firewall policy.</p> </li> <li> <p> <code>STATEFUL</code> - Stateful rules, for use in a Classic Network Firewall policy.</p> </li> <li> <p> <code>FIREWALL</code> - Firewall engine rules, for use in a Next Generation policy.</p> </li> <li> <p> <code>IPS</code> - IPS engine rules, for use in a Next Generation policy.</p> </li> </ul> <note> <p>This setting is required for requests that do not include the <code>RuleGroupARN</code>.</p> </note>
             analyze_rule_group: <p>Indicates whether you want Network Firewall to analyze the stateless rules in the rule group for rule behavior such as asymmetric routing. If set to <code>TRUE</code>, Network Firewall runs the analysis.</p>
+            rule_output_format: <p>For a firewall engine rule group, the format in which to return the rules. Specify one of the following values:</p> <ul> <li> <p> <code>FIREWALL_RULES</code> - Returns the rules as structured <code>FirewallRule</code> objects.</p> </li> <li> <p> <code>RULES_STRING</code> - Returns the rules as a Suricata-compatible firewall-mode rule string.</p> </li> </ul> <p>If you don't specify a format, Network Firewall returns the rules in the format you provided them in. This setting applies only to <code>FIREWALL</code> and <code>IPS</code> rule groups; IPS engine rule groups support only <code>RULES_STRING</code>.</p>
 
         Raises:
             capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
@@ -2880,6 +3104,8 @@ class NetworkFirewallClient:
             input_["type"] = type
         if analyze_rule_group is not None:
             input_["analyze_rule_group"] = analyze_rule_group
+        if rule_output_format is not None:
+            input_["rule_output_format"] = rule_output_format
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -2908,7 +3134,7 @@ class NetworkFirewallClient:
         Args:
             rule_group_name: <p>The descriptive name of the rule group. You can't change the name of a rule group after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
             rule_group_arn: <p>The descriptive name of the rule group. You can't change the name of a rule group after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-            type: <p>Indicates whether the rule group is stateless or stateful. If the rule group is stateless, it contains stateless rules. If it is stateful, it contains stateful rules. </p> <note> <p>This setting is required for requests that do not include the <code>RuleGroupARN</code>.</p> </note>
+            type: <p>Indicates the type of the rule group. Valid values are:</p> <ul> <li> <p> <code>STATELESS</code> - Stateless rules, for use in a Classic Network Firewall policy.</p> </li> <li> <p> <code>STATEFUL</code> - Stateful rules, for use in a Classic Network Firewall policy.</p> </li> <li> <p> <code>FIREWALL</code> - Firewall engine rules, for use in a Next Generation policy.</p> </li> <li> <p> <code>IPS</code> - IPS engine rules, for use in a Next Generation policy.</p> </li> </ul> <note> <p>This setting is required for requests that do not include the <code>RuleGroupARN</code>.</p> </note>
 
         Raises:
             capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
@@ -3691,6 +3917,86 @@ class NetworkFirewallClient:
                 max_results=max_results,
             )
             _page = _resolve_path(_response, ("firewall_policies",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    def list_firewall_policies_v2(
+        self,
+        *,
+        config_overrides: Optional[NetworkFirewallClientConfig] = None,
+        next_token: Optional[
+            "capo_network_firewall.types.pagination_token.PaginationToken"
+        ] = None,
+        max_results: Optional[
+            "capo_network_firewall.types.pagination_max_results.PaginationMaxResults"
+        ] = None,
+    ) -> "capo_network_firewall.types.list_firewall_policies_v2_response.ListFirewallPoliciesV2Response":
+        """<p>Retrieves the metadata for the Next Generation policies that you have defined. Depending on your setting for max results and the number of firewall policies, a single call might not return the full list.</p>
+
+        Args:
+            next_token: <p>When you request a list of objects with a <code>MaxResults</code> setting, if the number of objects that are still available for retrieval exceeds the maximum you requested, Network Firewall returns a <code>NextToken</code> value in the response. To retrieve the next batch of objects, use the token returned from the prior request in your next request.</p>
+            max_results: <p>The maximum number of objects that you want Network Firewall to return for this request. If more objects are available, in the response, Network Firewall provides a <code>NextToken</code> value that you can use in a subsequent call to get the next batch of objects.</p>
+
+        Raises:
+            capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
+            capo_network_firewall.errors.invalid_request_exception.InvalidRequestException: <p>The operation failed because of a problem with your request. Examples include: </p> <ul> <li> <p>You specified an unsupported parameter name or value.</p> </li> <li> <p>You tried to update a property with a value that isn't among the available types.</p> </li> <li> <p>Your request references an ARN that is malformed, or corresponds to a resource that isn't valid in the context of the request.</p> </li> </ul>
+            capo_network_firewall.errors.throttling_exception.ThrottlingException: <p>Unable to process the request due to throttling limitations.</p>
+            capo_network_firewall.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_network_firewall.types.list_firewall_policies_v2_request.ListFirewallPoliciesV2Request]",
+        ) -> OperationResponse[
+            "capo_network_firewall.types.list_firewall_policies_v2_response.ListFirewallPoliciesV2Response"
+        ]:
+            import capo_network_firewall._operations.network_firewall_20201112.list_firewall_policies_v2
+
+            output, http_response = (
+                capo_network_firewall._operations.network_firewall_20201112.list_firewall_policies_v2.list_firewall_policies_v2(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFirewallPoliciesV2")
+        )
+        input_: capo_network_firewall.types.list_firewall_policies_v2_request.ListFirewallPoliciesV2Request = {}
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if max_results is not None:
+            input_["max_results"] = max_results
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_firewall_policies_v2(
+        self,
+        *,
+        config_overrides: Optional[NetworkFirewallClientConfig] = None,
+        next_token: Optional[
+            "capo_network_firewall.types.pagination_token.PaginationToken"
+        ] = None,
+        max_results: Optional[
+            "capo_network_firewall.types.pagination_max_results.PaginationMaxResults"
+        ] = None,
+    ) -> "Iterator[capo_network_firewall.types.firewall_policy_v2_metadata.FirewallPolicyV2Metadata]":
+        _token = next_token
+        while True:
+            _response = self.list_firewall_policies_v2(
+                config_overrides=config_overrides,
+                next_token=_token,
+                max_results=max_results,
+            )
+            _page = _resolve_path(_response, ("firewall_policies_v2",))
             for _item in _page or []:
                 yield _item
             _token = _resolve_path(_response, ("next_token",))
@@ -5666,6 +5972,87 @@ class NetworkFirewallClient:
         response.response.close()
         return response.output
 
+    def update_firewall_policy_v2(
+        self,
+        update_token: "capo_network_firewall.types.update_token.UpdateToken",
+        firewall_policy_v2: "capo_network_firewall.types.firewall_policy_v2.FirewallPolicyV2",
+        *,
+        config_overrides: Optional[NetworkFirewallClientConfig] = None,
+        firewall_policy_v2_arn: Optional[
+            "capo_network_firewall.types.resource_arn.ResourceArn"
+        ] = None,
+        firewall_policy_v2_name: Optional[
+            "capo_network_firewall.types.resource_name.ResourceName"
+        ] = None,
+        description: Optional[
+            "capo_network_firewall.types.description.Description"
+        ] = None,
+        dry_run: Optional["capo_network_firewall.types.boolean.Boolean"] = None,
+        encryption_configuration: Optional[
+            "capo_network_firewall.types.encryption_configuration.EncryptionConfiguration"
+        ] = None,
+    ) -> "capo_network_firewall.types.update_firewall_policy_v2_response.UpdateFirewallPolicyV2Response":
+        """<p>Updates the properties of the specified Next Generation policy.</p>
+
+        Args:
+            update_token: <p>A token used for optimistic locking. Network Firewall returns a token to your requests that access the firewall policy. The token marks the state of the policy resource at the time of the request. </p> <p>To make changes to the policy, you provide the token in your request. Network Firewall uses the token to ensure that the policy hasn't changed since you last retrieved it. If it has changed, the operation fails with an <code>InvalidTokenException</code>. If this happens, retrieve the firewall policy again to get a current copy of it with current token. Reapply your changes as needed, then try the operation again using the new token. </p>
+            firewall_policy_v2_arn: <p>The Amazon Resource Name (ARN) of the Next Generation policy.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
+            firewall_policy_v2_name: <p>The descriptive name of the Next Generation policy. You can't change the name of a firewall policy after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
+            firewall_policy_v2: <p>The updated rule groups and other settings that define the Next Generation policy.</p>
+            description: <p>A description of the firewall policy.</p>
+            dry_run: <p>Indicates whether you want Network Firewall to just check the validity of the request, rather than run the request. </p> <p>If set to <code>TRUE</code>, Network Firewall checks whether the request can run successfully, but doesn't actually make the requested changes. The call returns the value that the request would return if you ran it with dry run set to <code>FALSE</code>, but doesn't make additions or changes to your resources. This option allows you to make sure that you have the required permissions to run the request and that your request parameters are valid. </p> <p>If set to <code>FALSE</code>, Network Firewall makes the requested changes to your resources. </p>
+            encryption_configuration: <p>A complex type that contains settings for encryption of your firewall policy resources.</p>
+
+        Raises:
+            capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
+            capo_network_firewall.errors.invalid_operation_exception.InvalidOperationException: <p>The operation failed because it's not valid. For example, you might have tried to delete a rule group or firewall policy that's in use.</p>
+            capo_network_firewall.errors.invalid_request_exception.InvalidRequestException: <p>The operation failed because of a problem with your request. Examples include: </p> <ul> <li> <p>You specified an unsupported parameter name or value.</p> </li> <li> <p>You tried to update a property with a value that isn't among the available types.</p> </li> <li> <p>Your request references an ARN that is malformed, or corresponds to a resource that isn't valid in the context of the request.</p> </li> </ul>
+            capo_network_firewall.errors.invalid_token_exception.InvalidTokenException: <p>The token you provided is stale or isn't valid for the operation. </p>
+            capo_network_firewall.errors.resource_not_found_exception.ResourceNotFoundException: <p>Unable to locate a resource using the parameters that you provided.</p>
+            capo_network_firewall.errors.throttling_exception.ThrottlingException: <p>Unable to process the request due to throttling limitations.</p>
+            capo_network_firewall.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_network_firewall.types.update_firewall_policy_v2_request.UpdateFirewallPolicyV2Request]",
+        ) -> OperationResponse[
+            "capo_network_firewall.types.update_firewall_policy_v2_response.UpdateFirewallPolicyV2Response"
+        ]:
+            import capo_network_firewall._operations.network_firewall_20201112.update_firewall_policy_v2
+
+            output, http_response = (
+                capo_network_firewall._operations.network_firewall_20201112.update_firewall_policy_v2.update_firewall_policy_v2(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFirewallPolicyV2")
+        )
+        input_: capo_network_firewall.types.update_firewall_policy_v2_request.UpdateFirewallPolicyV2Request = {
+            "update_token": update_token,
+            "firewall_policy_v2": firewall_policy_v2,
+        }
+        if firewall_policy_v2_arn is not None:
+            input_["firewall_policy_v2_arn"] = firewall_policy_v2_arn
+        if firewall_policy_v2_name is not None:
+            input_["firewall_policy_v2_name"] = firewall_policy_v2_name
+        if description is not None:
+            input_["description"] = description
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
+        if encryption_configuration is not None:
+            input_["encryption_configuration"] = encryption_configuration
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def update_logging_configuration(
         self,
         *,
@@ -6182,6 +6569,12 @@ class NetworkFirewallClient:
             "capo_network_firewall.types.resource_name.ResourceName"
         ] = None,
         rule_group: Optional["capo_network_firewall.types.rule_group.RuleGroup"] = None,
+        firewall_rule_group: Optional[
+            "capo_network_firewall.types.firewall_rule_group.FirewallRuleGroup"
+        ] = None,
+        ips_rule_group: Optional[
+            "capo_network_firewall.types.ips_rule_group.IpsRuleGroup"
+        ] = None,
         rules: Optional["capo_network_firewall.types.rules_string.RulesString"] = None,
         type: Optional[
             "capo_network_firewall.types.rule_group_type.RuleGroupType"
@@ -6212,8 +6605,10 @@ class NetworkFirewallClient:
             rule_group_arn: <p>The Amazon Resource Name (ARN) of the rule group.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
             rule_group_name: <p>The descriptive name of the rule group. You can't change the name of a rule group after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
             rule_group: <p>An object that defines the rule group rules. </p> <note> <p>You must provide either this rule group setting or a <code>Rules</code> setting, but not both. </p> </note>
+            firewall_rule_group: <p>An object that defines the rules in a firewall engine rule group, for use in a Next Generation policy.</p>
+            ips_rule_group: <p>An object that defines the rules in an IPS engine rule group, for use in a Next Generation policy.</p>
             rules: <p>A string containing stateful rule group rules specifications in Suricata flat format, with one rule per line. Use this to import your existing Suricata compatible rule groups. </p> <note> <p>You must provide either this rules setting or a populated <code>RuleGroup</code> setting, but not both. </p> </note> <p>You can provide your rule group specification in Suricata flat format through this setting when you create or update your rule group. The call response returns a <a>RuleGroup</a> object that Network Firewall has populated from your string. </p>
-            type: <p>Indicates whether the rule group is stateless or stateful. If the rule group is stateless, it contains stateless rules. If it is stateful, it contains stateful rules. </p> <note> <p>This setting is required for requests that do not include the <code>RuleGroupARN</code>.</p> </note>
+            type: <p>Indicates the type of the rule group. Valid values are:</p> <ul> <li> <p> <code>STATELESS</code> - Stateless rules, for use in a Classic Network Firewall policy.</p> </li> <li> <p> <code>STATEFUL</code> - Stateful rules, for use in a Classic Network Firewall policy.</p> </li> <li> <p> <code>FIREWALL</code> - Firewall engine rules, for use in a Next Generation policy.</p> </li> <li> <p> <code>IPS</code> - IPS engine rules, for use in a Next Generation policy.</p> </li> </ul> <note> <p>This setting is required for requests that do not include the <code>RuleGroupARN</code>.</p> </note>
             description: <p>A description of the rule group. </p>
             dry_run: <p>Indicates whether you want Network Firewall to just check the validity of the request, rather than run the request. </p> <p>If set to <code>TRUE</code>, Network Firewall checks whether the request can run successfully, but doesn't actually make the requested changes. The call returns the value that the request would return if you ran it with dry run set to <code>FALSE</code>, but doesn't make additions or changes to your resources. This option allows you to make sure that you have the required permissions to run the request and that your request parameters are valid. </p> <p>If set to <code>FALSE</code>, Network Firewall makes the requested changes to your resources. </p>
             encryption_configuration: <p>A complex type that contains settings for encryption of your rule group resources.</p>
@@ -6256,6 +6651,10 @@ class NetworkFirewallClient:
             input_["rule_group_name"] = rule_group_name
         if rule_group is not None:
             input_["rule_group"] = rule_group
+        if firewall_rule_group is not None:
+            input_["firewall_rule_group"] = firewall_rule_group
+        if ips_rule_group is not None:
+            input_["ips_rule_group"] = ips_rule_group
         if rules is not None:
             input_["rules"] = rules
         if type is not None:

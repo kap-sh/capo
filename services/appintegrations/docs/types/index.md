@@ -98,6 +98,7 @@
 - [PermissionList](permission_list.md)
 - [Publication](publication.md)
 - [PublicationList](publication_list.md)
+- [RegionName](region_name.md)
 - [ScheduleConfiguration](schedule_configuration.md)
 - [Source](source.md)
 - [SourceURI](source_uri.md)

@@ -25,7 +25,7 @@ class GetLayoutResponse(TypedDict, closed=True):
     content: "capo_connectcases.types.layout_content.LayoutContent"
     """<p>Information about which fields will be present in the layout, the order of the fields, and read-only attribute of the field. </p>"""
     tags: NotRequired["capo_connectcases.types.tags.Tags"]
-    """<p>A map of of key-value pairs that represent tags on a resource. Tags are used to organize, track, or control access for this resource.</p>"""
+    """<p>A map of key-value pairs that represent tags on a resource. Tags are used to organize, track, or control access for this resource.</p>"""
     deleted: "capo_connectcases.types.deleted.Deleted"
     """<p>Denotes whether or not the resource has been deleted.</p>"""
     created_time: NotRequired["capo_connectcases.types.created_time.CreatedTime"]

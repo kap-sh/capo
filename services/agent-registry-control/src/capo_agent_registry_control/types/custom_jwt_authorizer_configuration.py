@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 class CustomJWTAuthorizerConfiguration(TypedDict, closed=True):
     discovery_url: "capo_agent_registry_control.types.discovery_url.DiscoveryUrl"
-    """<p>The OpenID Connect discovery URL used to retrieve the identity provider's metadata and signing keys.</p>"""
+    """<p>The OpenID Connect discovery or OAuth 2.0 authorization server metadata URL used to retrieve the identity provider's metadata and signing keys.</p>"""
     allowed_audience: NotRequired[
         "capo_agent_registry_control.types.allowed_audience_list.AllowedAudienceList"
     ]

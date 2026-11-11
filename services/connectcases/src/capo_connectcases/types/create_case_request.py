@@ -23,7 +23,7 @@ class CreateCaseRequest(TypedDict, closed=True):
     """<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>"""
     performed_by: NotRequired["capo_connectcases.types.user_union.UserUnion"]
     tags: NotRequired["capo_connectcases.types.mutable_tags.MutableTags"]
-    """<p>A map of of key-value pairs that represent tags on a resource. Tags are used to organize, track, or control access for this resource.</p>"""
+    """<p>A map of key-value pairs that represent tags on a resource. Tags are used to organize, track, or control access for this resource.</p>"""
 
 
 # --- restJson1 ser/de ---

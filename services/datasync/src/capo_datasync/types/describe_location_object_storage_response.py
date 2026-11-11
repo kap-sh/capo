@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     import capo_datasync.types.managed_secret_config
     import capo_datasync.types.object_storage_access_key
     import capo_datasync.types.object_storage_certificate
+    import capo_datasync.types.object_storage_federated_identity_config
     import capo_datasync.types.object_storage_server_port
     import capo_datasync.types.object_storage_server_protocol
     import capo_datasync.types.time
@@ -27,6 +28,10 @@ class DescribeLocationObjectStorageResponse(TypedDict, closed=True):
         "capo_datasync.types.object_storage_access_key.ObjectStorageAccessKey"
     ]
     """<p>The access key (for example, a user name) required to authenticate with the object storage system.</p>"""
+    federated_identity: NotRequired[
+        "capo_datasync.types.object_storage_federated_identity_config.ObjectStorageFederatedIdentityConfig"
+    ]
+    """<p>The federated identity configuration that DataSync uses to access your object storage using an OpenID Connect (OIDC) token.</p>"""
     server_port: NotRequired[
         "capo_datasync.types.object_storage_server_port.ObjectStorageServerPort"
     ]
@@ -66,6 +71,14 @@ def serialize_aws_json_1_1(value: DescribeLocationObjectStorageResponse) -> dict
         out["LocationUri"] = value["location_uri"]
     if "access_key" in value:
         out["AccessKey"] = value["access_key"]
+    if "federated_identity" in value:
+        import capo_datasync.types.object_storage_federated_identity_config
+
+        out["FederatedIdentity"] = (
+            capo_datasync.types.object_storage_federated_identity_config.serialize_aws_json_1_1(
+                value["federated_identity"]
+            )
+        )
     if "server_port" in value:
         out["ServerPort"] = value["server_port"]
     if "server_protocol" in value:
@@ -131,6 +144,14 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeLocationObjectStorageRespons
         out["location_uri"] = data["LocationUri"]
     if data.get("AccessKey") is not None:
         out["access_key"] = data["AccessKey"]
+    if data.get("FederatedIdentity") is not None:
+        import capo_datasync.types.object_storage_federated_identity_config
+
+        out["federated_identity"] = (
+            capo_datasync.types.object_storage_federated_identity_config.deserialize_aws_json_1_1(
+                data["FederatedIdentity"]
+            )
+        )
     if data.get("ServerPort") is not None:
         out["server_port"] = data["ServerPort"]
     if data.get("ServerProtocol") is not None:

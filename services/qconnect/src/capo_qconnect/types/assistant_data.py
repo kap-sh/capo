@@ -5,12 +5,16 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import datetime
+
     import capo_qconnect.types.ai_agent_configuration_map
     import capo_qconnect.types.arn
     import capo_qconnect.types.assistant_capability_configuration
+    import capo_qconnect.types.assistant_global_resiliency_status
     import capo_qconnect.types.assistant_integration_configuration
     import capo_qconnect.types.assistant_status
     import capo_qconnect.types.assistant_type
+    import capo_qconnect.types.aws_region
     import capo_qconnect.types.description
     import capo_qconnect.types.name
     import capo_qconnect.types.orchestrator_configuration_list
@@ -54,6 +58,14 @@ class AssistantData(TypedDict, closed=True):
         "capo_qconnect.types.orchestrator_configuration_list.OrchestratorConfigurationList"
     ]
     """<p>The list of orchestrator configurations for the assistant.</p>"""
+    last_modified_time: NotRequired["datetime.datetime"]
+    """<p>The timestamp when the assistant was last modified.</p>"""
+    last_modified_region: NotRequired["capo_qconnect.types.aws_region.AwsRegion"]
+    """<p>The Amazon Web Services Region where the assistant was last modified.</p>"""
+    assistant_global_resiliency_status: NotRequired[
+        "capo_qconnect.types.assistant_global_resiliency_status.AssistantGlobalResiliencyStatus"
+    ]
+    """Whether Amazon Connect Global Resiliency replicates the Connect instance this assistant is associated with, and so whether resources created under this assistant must satisfy the replication group's model parity constraint. Answered from the ACGR side per request rather than stored, so it reflects the customer's replication state now. Absent means "not applicable or not known" - never read an absent field as DISABLED. It is absent on the operations that return an assistant which is not yet associated with a Connect instance, because replication cannot be established until it is."""
 
 
 # --- restJson1 ser/de ---
@@ -110,6 +122,18 @@ def serialize_json(value: AssistantData) -> dict:
                 value["orchestrator_configuration_list"]
             )
         )
+    if "last_modified_time" in value:
+        import capo_qconnect.types._prelude.timestamp
+
+        out["lastModifiedTime"] = capo_qconnect.types._prelude.timestamp.serialize_json(
+            value["last_modified_time"]
+        )
+    if "last_modified_region" in value:
+        out["lastModifiedRegion"] = value["last_modified_region"]
+    if "assistant_global_resiliency_status" in value:
+        out["assistantGlobalResiliencyStatus"] = value[
+            "assistant_global_resiliency_status"
+        ]
     return out
 
 
@@ -181,4 +205,18 @@ def deserialize_json(data: dict) -> AssistantData:
                 data["orchestratorConfigurationList"]
             )
         )
+    if data.get("lastModifiedTime") is not None:
+        import capo_qconnect.types._prelude.timestamp
+
+        out["last_modified_time"] = (
+            capo_qconnect.types._prelude.timestamp.deserialize_json(
+                data["lastModifiedTime"]
+            )
+        )
+    if data.get("lastModifiedRegion") is not None:
+        out["last_modified_region"] = data["lastModifiedRegion"]
+    if data.get("assistantGlobalResiliencyStatus") is not None:
+        out["assistant_global_resiliency_status"] = data[
+            "assistantGlobalResiliencyStatus"
+        ]
     return out

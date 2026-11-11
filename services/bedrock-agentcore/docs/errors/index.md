@@ -14,6 +14,7 @@
 - [ServiceError](ServiceError.md)
 - [ServiceException](ServiceException.md)
 - [ServiceQuotaExceededException](ServiceQuotaExceededException.md)
+- [ServiceUnavailableException](ServiceUnavailableException.md)
 - [SubscriptionRequiredException](SubscriptionRequiredException.md)
 - [ThrottledException](ThrottledException.md)
 - [ThrottlingException](ThrottlingException.md)

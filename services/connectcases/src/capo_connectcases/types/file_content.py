@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class FileContent(TypedDict, closed=True):
     file_arn: "capo_connectcases.types.file_arn.FileArn"
-    """<p>The Amazon Resource Name (ARN) of a File in Amazon Connect.</p>"""
+    """<p>The Amazon Resource Name (ARN) of a File in Connect Customer.</p>"""
 
 
 # --- restJson1 ser/de ---

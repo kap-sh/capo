@@ -103,6 +103,7 @@ nav = [
     "errors/IllegalStateException.md",
     "errors/InternalServerException.md",
     "errors/ResourceNotFoundException.md",
+    "errors/RetryableConflictException.md",
     "errors/SerializationError.md",
     "errors/ServiceError.md",
     "errors/UnknownServiceError.md",

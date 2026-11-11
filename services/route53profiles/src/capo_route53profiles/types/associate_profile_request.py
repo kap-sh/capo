@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_route53profiles.types.name
+    import capo_route53profiles.types.priority
     import capo_route53profiles.types.resource_id
     import capo_route53profiles.types.tag_list
 
@@ -19,6 +20,8 @@ class AssociateProfileRequest(TypedDict, closed=True):
     """<p> A name for the association. </p>"""
     tags: NotRequired["capo_route53profiles.types.tag_list.TagList"]
     """<p> A list of the tag keys and values that you want to identify the Profile association. </p>"""
+    priority: NotRequired["capo_route53profiles.types.priority.Priority"]
+    """<p> The priority of the Profile association. Route 53 VPC Resolver evaluates the Profile associations for a VPC in priority order, starting with the lowest value. </p> <p> When the VPC already has a Profile association, you must specify a priority that no other Profile association for the VPC uses. If you omit the priority for the first association with a VPC, the association gets priority 100. </p>"""
 
 
 # --- restJson1 ser/de ---
@@ -31,6 +34,8 @@ def serialize_json(value: AssociateProfileRequest) -> dict:
         import capo_route53profiles.types.tag_list
 
         out["Tags"] = capo_route53profiles.types.tag_list.serialize_json(value["tags"])
+    if "priority" in value:
+        out["Priority"] = value["priority"]
     return out
 
 
@@ -52,4 +57,6 @@ def deserialize_json(data: dict) -> AssociateProfileRequest:
         import capo_route53profiles.types.tag_list
 
         out["tags"] = capo_route53profiles.types.tag_list.deserialize_json(data["Tags"])
+    if data.get("Priority") is not None:
+        out["priority"] = data["Priority"]
     return out

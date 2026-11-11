@@ -42,6 +42,7 @@ if TYPE_CHECKING:
     import capo_bedrock_agent.types.list_knowledge_bases_request
     import capo_bedrock_agent.types.list_knowledge_bases_response
     import capo_bedrock_agent.types.max_results
+    import capo_bedrock_agent.types.metadata_configurations
     import capo_bedrock_agent.types.name
     import capo_bedrock_agent.types.next_token
     import capo_bedrock_agent.types.storage_configuration
@@ -653,6 +654,9 @@ class KnowledgeBaseResource:
         storage_configuration: Optional[
             "capo_bedrock_agent.types.storage_configuration.StorageConfiguration"
         ] = None,
+        metadata_configurations: Optional[
+            "capo_bedrock_agent.types.metadata_configurations.MetadataConfigurations"
+        ] = None,
     ) -> "capo_bedrock_agent.types.update_knowledge_base_response.UpdateKnowledgeBaseResponse":
         """<p>Updates the configuration of a knowledge base with the fields that you specify. Because all fields will be overwritten, you must include the same values for fields that you want to keep the same.</p> <p>You can change the following fields:</p> <ul> <li> <p> <code>name</code> </p> </li> <li> <p> <code>description</code> </p> </li> <li> <p> <code>roleArn</code> </p> </li> </ul> <p>You can't change the <code>knowledgeBaseConfiguration</code> or <code>storageConfiguration</code> fields, so you must specify the same configurations as when you created the knowledge base. You can send a <a href="https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_GetKnowledgeBase.html">GetKnowledgeBase</a> request and copy the same configurations.</p>
 
@@ -663,6 +667,7 @@ class KnowledgeBaseResource:
             role_arn: <p>Specifies a different Amazon Resource Name (ARN) of the IAM role with permissions to invoke API operations on the knowledge base.</p>
             knowledge_base_configuration: <p>Specifies the configuration for the embeddings model used for the knowledge base. You must use the same configuration as when the knowledge base was created.</p>
             storage_configuration: <p>Specifies the configuration for the vector store used for the knowledge base. You must use the same configuration as when the knowledge base was created.</p>
+            metadata_configurations: <p>Specifies up to 30 custom metadata field configurations for a managed knowledge base.</p> <p>The list that you specify replaces the existing configurations. The update removes any configuration that you leave out, and its field is no longer searchable. An empty list removes all configurations. If you don't specify a list, the existing configurations don't change.</p>
 
         Raises:
             capo_bedrock_agent.errors.access_denied_exception.AccessDeniedException: <p>The request is denied because of missing access permissions.</p>
@@ -726,6 +731,8 @@ class KnowledgeBaseResource:
             input_["description"] = description
         if storage_configuration is not None:
             input_["storage_configuration"] = storage_configuration
+        if metadata_configurations is not None:
+            input_["metadata_configurations"] = metadata_configurations
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -1337,6 +1344,9 @@ class AsyncKnowledgeBaseResource:
         storage_configuration: Optional[
             "capo_bedrock_agent.types.storage_configuration.StorageConfiguration"
         ] = None,
+        metadata_configurations: Optional[
+            "capo_bedrock_agent.types.metadata_configurations.MetadataConfigurations"
+        ] = None,
     ) -> "capo_bedrock_agent.types.update_knowledge_base_response.UpdateKnowledgeBaseResponse":
         """<p>Updates the configuration of a knowledge base with the fields that you specify. Because all fields will be overwritten, you must include the same values for fields that you want to keep the same.</p> <p>You can change the following fields:</p> <ul> <li> <p> <code>name</code> </p> </li> <li> <p> <code>description</code> </p> </li> <li> <p> <code>roleArn</code> </p> </li> </ul> <p>You can't change the <code>knowledgeBaseConfiguration</code> or <code>storageConfiguration</code> fields, so you must specify the same configurations as when you created the knowledge base. You can send a <a href="https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_GetKnowledgeBase.html">GetKnowledgeBase</a> request and copy the same configurations.</p>
 
@@ -1347,6 +1357,7 @@ class AsyncKnowledgeBaseResource:
             role_arn: <p>Specifies a different Amazon Resource Name (ARN) of the IAM role with permissions to invoke API operations on the knowledge base.</p>
             knowledge_base_configuration: <p>Specifies the configuration for the embeddings model used for the knowledge base. You must use the same configuration as when the knowledge base was created.</p>
             storage_configuration: <p>Specifies the configuration for the vector store used for the knowledge base. You must use the same configuration as when the knowledge base was created.</p>
+            metadata_configurations: <p>Specifies up to 30 custom metadata field configurations for a managed knowledge base.</p> <p>The list that you specify replaces the existing configurations. The update removes any configuration that you leave out, and its field is no longer searchable. An empty list removes all configurations. If you don't specify a list, the existing configurations don't change.</p>
 
         Raises:
             capo_bedrock_agent.errors.access_denied_exception.AccessDeniedException: <p>The request is denied because of missing access permissions.</p>
@@ -1411,6 +1422,8 @@ class AsyncKnowledgeBaseResource:
             input_["description"] = description
         if storage_configuration is not None:
             input_["storage_configuration"] = storage_configuration
+        if metadata_configurations is not None:
+            input_["metadata_configurations"] = metadata_configurations
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

@@ -14,6 +14,7 @@ import capo_s3_control.types.credentials
 import capo_s3_control.types.get_data_access_request
 import capo_s3_control.types.get_data_access_result
 import capo_s3_control.types.grantee
+import capo_s3_control.types.instance_scope
 import capo_s3_control.types.permission
 import capo_s3_control.types.privilege
 import capo_s3_control.types.s3_prefix_type
@@ -109,6 +110,7 @@ def build_request(
             UseS3ExpressControlEndpoint=options.use_s3_express_control_endpoint,
         )
     )  # noqa: F841
+    import capo_s3_control.types.instance_scope
     import capo_s3_control.types.permission
     import capo_s3_control.types.privilege
     import capo_s3_control.types.s3_prefix_type
@@ -142,6 +144,15 @@ def build_request(
         )
     if "audit_context" in input_:
         params.append(("auditContext", input_["audit_context"]))
+    if "instance_scope" in input_:
+        params.append(
+            (
+                "instanceScope",
+                capo_s3_control.types.instance_scope.to_xml_text(
+                    input_["instance_scope"]
+                ),
+            )
+        )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     if "account_id" in input_:
         headers["x-amz-account-id"] = input_["account_id"]

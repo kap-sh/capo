@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lightsail#RelationalDatabaseList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_lightsail.types.relational_database
@@ -33,3 +33,12 @@ def deserialize_aws_json_1_1(data: list) -> RelationalDatabaseList:
             capo_lightsail.types.relational_database.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+def redact_sensitive(value: RelationalDatabaseList) -> list[Any]:
+    import capo_lightsail.types.relational_database
+
+    return [
+        capo_lightsail.types.relational_database.redact_sensitive(item)
+        for item in value
+    ]

@@ -1811,14 +1811,14 @@ class AsyncDataZoneClient:
         description: Optional["capo_datazone.types.description.Description"] = None,
         deletion_protection: Optional[bool] = None,
     ) -> "capo_datazone.types.create_designation_output.CreateDesignationOutput":
-        """Creates a new user-defined designation with a Cedar permit policy. The designation defines a named role that can be assigned to project members.
+        """<p>Creates a new user-defined designation with a Cedar permit policy. The designation defines a named role that can be assigned to project members through <code>CreateProjectMembership</code> or granted through <code>AddPolicyGrant</code>.</p>
 
         Args:
             domain_identifier: <p>The identifier of the Amazon DataZone domain in which the designation is created.</p>
             name: <p>The name of the designation. The name must be unique within the domain.</p>
             description: <p>A human-readable description of the designation and its intended use.</p>
-            policy: The Cedar permit policy that defines what actions holders of this designation are allowed to perform.
-            deletion_protection: Whether deletion protection is enabled for this designation. Defaults to true when omitted.
+            policy: <p>The Cedar permit policy that defines the actions holders of this designation are allowed to perform.</p>
+            deletion_protection: <p>Specifies whether deletion protection is enabled for this designation. Defaults to <code>true</code> when omitted. When enabled, <code>DeleteDesignation</code> is rejected until protection is disabled through <code>UpdateDesignation</code>.</p>
 
         Raises:
             capo_datazone.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -3349,7 +3349,7 @@ class AsyncDataZoneClient:
         *,
         config_overrides: Optional[AsyncDataZoneClientConfig] = None,
     ) -> "capo_datazone.types.delete_designation_output.DeleteDesignationOutput":
-        """Deletes a designation. Managed designations cannot be deleted. This operation is idempotent.
+        """<p>Deletes a user-created designation. Managed designations cannot be deleted. The call fails if the designation has <code>deletionProtection</code> enabled or if any project member still holds it. This operation is idempotent.</p>
 
         Args:
             domain_identifier: <p>The identifier of the Amazon DataZone domain that contains the designation to delete.</p>
@@ -4433,7 +4433,7 @@ class AsyncDataZoneClient:
         *,
         config_overrides: Optional[AsyncDataZoneClientConfig] = None,
     ) -> "capo_datazone.types.get_designation_output.GetDesignationOutput":
-        """Gets the details of a designation, including its Cedar policy.
+        """<p>Gets the details of a designation, including its Cedar permit policy. Returns the full designation record for both system-managed and user-created designations.</p>
 
         Args:
             domain_identifier: <p>The identifier of the Amazon DataZone domain that contains the designation.</p>
@@ -6362,7 +6362,7 @@ class AsyncDataZoneClient:
             "capo_datazone.types.list_designations_max_results.ListDesignationsMaxResults"
         ] = None,
     ) -> "capo_datazone.types.list_designations_output.ListDesignationsOutput":
-        """Lists the designations in a domain. Returns system-managed designations first, followed by user-created designations sorted alphabetically by name.
+        """<p>Lists the designations in a domain. The response returns system-managed designations first, followed by user-created designations in alphabetical order by name. Results are paginated. Use <code>nextToken</code> to retrieve additional pages of results.</p>
 
         Args:
             domain_identifier: <p>The identifier of the Amazon DataZone domain that contains the designations to list.</p>
@@ -10748,15 +10748,15 @@ class AsyncDataZoneClient:
         ] = None,
         deletion_protection: Optional[bool] = None,
     ) -> "capo_datazone.types.update_designation_output.UpdateDesignationOutput":
-        """Updates an existing designation. Managed designations cannot be modified.
+        """<p>Updates an existing user-created designation. Managed designations cannot be modified. Omit a field to leave its current value unchanged.</p>
 
         Args:
             domain_identifier: <p>The identifier of the Amazon DataZone domain that contains the designation to update.</p>
             identifier: <p>The unique ID of the designation to update.</p>
             name: <p>The updated name of the designation. The name must be unique within the domain.</p>
             description: <p>The updated human-readable description of the designation and its intended use.</p>
-            policy: The updated Cedar permit policy.
-            deletion_protection: Whether deletion protection is enabled for this designation. Omit to keep the existing value.
+            policy: <p>The updated Cedar permit policy. Omit to keep the existing policy.</p>
+            deletion_protection: <p>Specifies whether deletion protection is enabled for this designation. Omit to keep the existing value.</p>
 
         Raises:
             capo_datazone.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>

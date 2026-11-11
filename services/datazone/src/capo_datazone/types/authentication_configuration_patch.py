@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_datazone.types.basic_authentication_credentials
+    import capo_datazone.types.o_auth2_properties_patch
 
 
 class AuthenticationConfigurationPatch(TypedDict, closed=True):
@@ -15,6 +16,10 @@ class AuthenticationConfigurationPatch(TypedDict, closed=True):
         "capo_datazone.types.basic_authentication_credentials.BasicAuthenticationCredentials"
     ]
     """<p>The basic authentication credentials of a connection.</p>"""
+    o_auth2_properties: NotRequired[
+        "capo_datazone.types.o_auth2_properties_patch.OAuth2PropertiesPatch"
+    ]
+    """<p>The OAuth2 properties, such as the client application, grant type, and token URL, that you want to update for a connection. Only the properties that you specify are updated; the connection keeps its existing values for the properties that you omit.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -30,6 +35,14 @@ def serialize_json(value: AuthenticationConfigurationPatch) -> dict:
                 value["basic_authentication_credentials"]
             )
         )
+    if "o_auth2_properties" in value:
+        import capo_datazone.types.o_auth2_properties_patch
+
+        out["oAuth2Properties"] = (
+            capo_datazone.types.o_auth2_properties_patch.serialize_json(
+                value["o_auth2_properties"]
+            )
+        )
     return out
 
 
@@ -43,6 +56,14 @@ def deserialize_json(data: dict) -> AuthenticationConfigurationPatch:
         out["basic_authentication_credentials"] = (
             capo_datazone.types.basic_authentication_credentials.deserialize_json(
                 data["basicAuthenticationCredentials"]
+            )
+        )
+    if data.get("oAuth2Properties") is not None:
+        import capo_datazone.types.o_auth2_properties_patch
+
+        out["o_auth2_properties"] = (
+            capo_datazone.types.o_auth2_properties_patch.deserialize_json(
+                data["oAuth2Properties"]
             )
         )
     return out

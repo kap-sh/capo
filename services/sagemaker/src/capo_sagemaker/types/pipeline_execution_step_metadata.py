@@ -21,6 +21,7 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.endpoint_step_metadata
     import capo_sagemaker.types.fail_step_metadata
     import capo_sagemaker.types.for_each_step_metadata
+    import capo_sagemaker.types.hub_content_step_metadata
     import capo_sagemaker.types.inference_component_metadata
     import capo_sagemaker.types.job_step_metadata
     import capo_sagemaker.types.lambda_step_metadata
@@ -108,6 +109,9 @@ PipelineExecutionStepMetadata = TypedDict(
         ],
         "for_each": NotRequired[
             "capo_sagemaker.types.for_each_step_metadata.ForEachStepMetadata"
+        ],
+        "hub_content": NotRequired[
+            "capo_sagemaker.types.hub_content_step_metadata.HubContentStepMetadata"
         ],
     },
     closed=True,
@@ -323,6 +327,14 @@ def serialize_aws_json_1_1(value: PipelineExecutionStepMetadata) -> dict:
                 value["for_each"]
             )
         )
+    if "hub_content" in value:
+        import capo_sagemaker.types.hub_content_step_metadata
+
+        out["HubContent"] = (
+            capo_sagemaker.types.hub_content_step_metadata.serialize_aws_json_1_1(
+                value["hub_content"]
+            )
+        )
     return out
 
 
@@ -534,6 +546,14 @@ def deserialize_aws_json_1_1(data: dict) -> PipelineExecutionStepMetadata:
         out["for_each"] = (
             capo_sagemaker.types.for_each_step_metadata.deserialize_aws_json_1_1(
                 data["ForEach"]
+            )
+        )
+    if data.get("HubContent") is not None:
+        import capo_sagemaker.types.hub_content_step_metadata
+
+        out["hub_content"] = (
+            capo_sagemaker.types.hub_content_step_metadata.deserialize_aws_json_1_1(
+                data["HubContent"]
             )
         )
     return out

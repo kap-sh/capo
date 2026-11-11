@@ -22,6 +22,7 @@ import capo_gamelift.types.create_game_session_queue_output
 import capo_gamelift.types.filter_configuration
 import capo_gamelift.types.game_session_queue
 import capo_gamelift.types.game_session_queue_destination_list
+import capo_gamelift.types.game_session_queue_log_configuration
 import capo_gamelift.types.player_latency_policy_list
 import capo_gamelift.types.priority_configuration
 import capo_gamelift.types.tag_list

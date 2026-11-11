@@ -18,6 +18,7 @@ if TYPE_CHECKING:
     import capo_appintegrations.types.initialization_timeout
     import capo_appintegrations.types.permission_list
     import capo_appintegrations.types.publication_list
+    import capo_appintegrations.types.region_name
     import capo_appintegrations.types.subscription_list
     import capo_appintegrations.types.tag_map
     import capo_appintegrations.types.timestamp
@@ -53,6 +54,10 @@ class GetApplicationResponse(TypedDict, closed=True):
     """<p>The created time of the Application.</p>"""
     last_modified_time: NotRequired["capo_appintegrations.types.timestamp.Timestamp"]
     """<p>The last modified time of the Application.</p>"""
+    last_modified_region: NotRequired[
+        "capo_appintegrations.types.region_name.RegionName"
+    ]
+    """<p>The Amazon Web Services Region where the application was last modified.</p>"""
     tags: NotRequired["capo_appintegrations.types.tag_map.TagMap"]
     """<p>The tags used to organize, track, or control access for this resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>"""
     permissions: NotRequired[
@@ -128,6 +133,8 @@ def serialize_json(value: GetApplicationResponse) -> dict:
         out["LastModifiedTime"] = capo_appintegrations.types.timestamp.serialize_json(
             value["last_modified_time"]
         )
+    if "last_modified_region" in value:
+        out["LastModifiedRegion"] = value["last_modified_region"]
     if "tags" in value:
         import capo_appintegrations.types.tag_map
 
@@ -222,6 +229,8 @@ def deserialize_json(data: dict) -> GetApplicationResponse:
                 data["LastModifiedTime"]
             )
         )
+    if data.get("LastModifiedRegion") is not None:
+        out["last_modified_region"] = data["LastModifiedRegion"]
     if data.get("Tags") is not None:
         import capo_appintegrations.types.tag_map
 

@@ -13,7 +13,7 @@ class Sort(TypedDict, closed=True):
     field_id: "capo_connectcases.types.field_id.FieldId"
     """<p>Unique identifier of a field.</p>"""
     sort_order: "capo_connectcases.types.order.Order"
-    """<p>A structured set of sort terms</p>"""
+    """<p>Whether results should be sorted in ascending or descending order.</p>"""
 
 
 # --- restJson1 ser/de ---

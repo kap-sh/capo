@@ -49,7 +49,7 @@ class RunMicrovmResponse(TypedDict, closed=True):
     egress_network_connectors: NotRequired[
         "capo_lambda_microvms.types.network_connector_list.NetworkConnectorList"
     ]
-    """<p>The list of egress network connectors configured for the MicroVM.</p>"""
+    """<p>The list of egress network connectors available to the MicroVM at runtime.</p>"""
 
 
 # --- restJson1 ser/de ---

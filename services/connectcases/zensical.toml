@@ -19,9 +19,11 @@ nav = [
   { "ConnectCasesClient" = [
     "sync-client/index.md",
     { "Operations" = [
+      "sync-client/operations/batch_create_related_item.md",
       "sync-client/operations/batch_get_case_rule.md",
       "sync-client/operations/batch_get_field.md",
       "sync-client/operations/batch_put_field_options.md",
+      "sync-client/operations/batch_update_case.md",
       "sync-client/operations/create_case.md",
       "sync-client/operations/create_case_rule.md",
       "sync-client/operations/create_domain.md",
@@ -81,9 +83,11 @@ nav = [
   { "AsyncConnectCasesClient" = [
     "async-client/index.md",
     { "Operations" = [
+      "async-client/operations/batch_create_related_item.md",
       "async-client/operations/batch_get_case_rule.md",
       "async-client/operations/batch_get_field.md",
       "async-client/operations/batch_put_field_options.md",
+      "async-client/operations/batch_update_case.md",
       "async-client/operations/create_case.md",
       "async-client/operations/create_case_rule.md",
       "async-client/operations/create_domain.md",

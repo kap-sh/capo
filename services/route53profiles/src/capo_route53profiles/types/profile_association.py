@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import capo_route53profiles.types.account_id
     import capo_route53profiles.types.name
+    import capo_route53profiles.types.priority
     import capo_route53profiles.types.profile_status
     import capo_route53profiles.types.resource_id
     import capo_route53profiles.types.rfc3339_timestamp
@@ -36,6 +37,8 @@ class ProfileAssociation(TypedDict, closed=True):
         "capo_route53profiles.types.rfc3339_timestamp.Rfc3339Timestamp"
     ]
     """<p> The date and time that the Profile association was modified, in Unix time format and Coordinated Universal Time (UTC). </p>"""
+    priority: NotRequired["capo_route53profiles.types.priority.Priority"]
+    """<p> The priority of the Profile association. Route 53 VPC Resolver evaluates the Profile associations for a VPC in priority order, starting with the lowest value. Associations created without a priority have priority 100. </p>"""
 
 
 # --- restJson1 ser/de ---
@@ -75,6 +78,8 @@ def serialize_json(value: ProfileAssociation) -> dict:
                 value["modification_time"]
             )
         )
+    if "priority" in value:
+        out["Priority"] = value["priority"]
     return out
 
 
@@ -114,4 +119,6 @@ def deserialize_json(data: dict) -> ProfileAssociation:
                 data["ModificationTime"]
             )
         )
+    if data.get("Priority") is not None:
+        out["priority"] = data["Priority"]
     return out

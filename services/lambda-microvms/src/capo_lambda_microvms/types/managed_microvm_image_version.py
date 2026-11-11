@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import datetime
 
+    import capo_lambda_microvms.types.cpu_configuration_list
     import capo_lambda_microvms.types.managed_microvm_image_version_status
     import capo_lambda_microvms.types.non_blank_string
 
@@ -20,6 +21,10 @@ class ManagedMicrovmImageVersion(TypedDict, closed=True):
         "capo_lambda_microvms.types.managed_microvm_image_version_status.ManagedMicrovmImageVersionStatus"
     ]
     """<p>The lifecycle status of the managed MicroVM image version. Valid values: AVAILABLE (the version is available for use) or DEPRECATED (the version is deprecated; do not use it for new MicroVM images).</p>"""
+    supported_cpu_configurations: NotRequired[
+        "capo_lambda_microvms.types.cpu_configuration_list.CpuConfigurationList"
+    ]
+    """CPU configurations supported by this managed base image version."""
     created_at: "datetime.datetime"
     """<p>The timestamp when the version was created.</p>"""
     updated_at: NotRequired["datetime.datetime"]
@@ -37,6 +42,14 @@ def serialize_json(value: ManagedMicrovmImageVersion) -> dict:
         out["status"] = (
             capo_lambda_microvms.types.managed_microvm_image_version_status.serialize_json(
                 value["status"]
+            )
+        )
+    if "supported_cpu_configurations" in value:
+        import capo_lambda_microvms.types.cpu_configuration_list
+
+        out["supportedCpuConfigurations"] = (
+            capo_lambda_microvms.types.cpu_configuration_list.serialize_json(
+                value["supported_cpu_configurations"]
             )
         )
     import capo_lambda_microvms.types._prelude.timestamp
@@ -69,6 +82,14 @@ def deserialize_json(data: dict) -> ManagedMicrovmImageVersion:
         out["status"] = (
             capo_lambda_microvms.types.managed_microvm_image_version_status.deserialize_json(
                 data["status"]
+            )
+        )
+    if data.get("supportedCpuConfigurations") is not None:
+        import capo_lambda_microvms.types.cpu_configuration_list
+
+        out["supported_cpu_configurations"] = (
+            capo_lambda_microvms.types.cpu_configuration_list.deserialize_json(
+                data["supportedCpuConfigurations"]
             )
         )
     if data.get("createdAt") is not None:

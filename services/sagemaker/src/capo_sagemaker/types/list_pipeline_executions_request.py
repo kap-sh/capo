@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.max_results
     import capo_sagemaker.types.next_token
     import capo_sagemaker.types.pipeline_name_or_arn
+    import capo_sagemaker.types.pipeline_version_alias
     import capo_sagemaker.types.sort_order
     import capo_sagemaker.types.sort_pipeline_executions_by
     import capo_sagemaker.types.timestamp
@@ -32,6 +33,10 @@ class ListPipelineExecutionsRequest(TypedDict, closed=True):
     """<p>If the result of the previous <code>ListPipelineExecutions</code> request was truncated, the response includes a <code>NextToken</code>. To retrieve the next set of pipeline executions, use the token in the next request.</p>"""
     max_results: NotRequired["capo_sagemaker.types.max_results.MaxResults"]
     """<p>The maximum number of pipeline executions to return in the response.</p>"""
+    pipeline_version_alias: NotRequired[
+        "capo_sagemaker.types.pipeline_version_alias.PipelineVersionAlias"
+    ]
+    """<p>The alias of a pipeline version. The response includes only the executions of the version that has this alias when you make the request. If no version of the pipeline has this alias, the request fails with a <code>ResourceNotFound</code> error.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -69,6 +74,8 @@ def serialize_aws_json_1_1(value: ListPipelineExecutionsRequest) -> dict:
         out["NextToken"] = value["next_token"]
     if "max_results" in value:
         out["MaxResults"] = value["max_results"]
+    if "pipeline_version_alias" in value:
+        out["PipelineVersionAlias"] = value["pipeline_version_alias"]
     return out
 
 
@@ -106,4 +113,6 @@ def deserialize_aws_json_1_1(data: dict) -> ListPipelineExecutionsRequest:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
+    if data.get("PipelineVersionAlias") is not None:
+        out["pipeline_version_alias"] = data["PipelineVersionAlias"]
     return out

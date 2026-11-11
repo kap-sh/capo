@@ -13,6 +13,7 @@ class PromotePermissionCreatedFromPolicyResponse(TypedDict, closed=True):
     permission: NotRequired[
         "capo_ram.types.resource_share_permission_summary.ResourceSharePermissionSummary"
     ]
+    """<p>The details of the promoted customer managed permission, including its <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a>, version, and status.</p>"""
     client_token: NotRequired["capo_ram.types.string.String"]
     """<p>The idempotency identifier associated with this request. If you want to repeat the same operation in an idempotent manner then you must include this value in the <code>clientToken</code> request parameter of that later call. All other parameters must also have the same values that you used in the first call.</p>"""
 

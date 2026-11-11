@@ -19,6 +19,7 @@ import capo_ram.errors.service_unavailable_exception
 import capo_ram.errors.unknown_resource_exception
 import capo_ram.types.get_permission_request
 import capo_ram.types.get_permission_response
+import capo_ram.types.permission_template_parameter_input_list
 import capo_ram.types.resource_share_permission_detail
 from capo_ram._protocol.errors import parse_error_metadata_json
 from capo_ram._rule_engine._endpoint_rule_set import EndpointParams, resolve

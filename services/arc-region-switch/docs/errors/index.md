@@ -8,6 +8,7 @@
 - [IllegalStateException](IllegalStateException.md)
 - [InternalServerException](InternalServerException.md)
 - [ResourceNotFoundException](ResourceNotFoundException.md)
+- [RetryableConflictException](RetryableConflictException.md)
 - [SerializationError](SerializationError.md)
 - [ServiceError](ServiceError.md)
 - [UnknownServiceError](UnknownServiceError.md)

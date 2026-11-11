@@ -130,6 +130,8 @@
 - [ResendContactReachabilityEmailRequest](resend_contact_reachability_email_request.md)
 - [ResendContactReachabilityEmailResponse](resend_contact_reachability_email_response.md)
 - [ResendOperationAuthorizationRequest](resend_operation_authorization_request.md)
+- [RestoreDomainRequest](restore_domain_request.md)
+- [RestoreDomainResponse](restore_domain_response.md)
 - [RetrieveDomainAuthCodeRequest](retrieve_domain_auth_code_request.md)
 - [RetrieveDomainAuthCodeResponse](retrieve_domain_auth_code_response.md)
 - [SortCondition](sort_condition.md)

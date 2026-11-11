@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_lakeformation.types.any_resource
     import capo_lakeformation.types.catalog_resource
     import capo_lakeformation.types.data_cells_filter_resource
     import capo_lakeformation.types.data_location_resource
@@ -15,9 +16,12 @@ if TYPE_CHECKING:
     import capo_lakeformation.types.rls_policy_resource
     import capo_lakeformation.types.table_resource
     import capo_lakeformation.types.table_with_columns_resource
+    import capo_lakeformation.types.user_defined_function_resource
 
 
 class Resource(TypedDict, closed=True):
+    any_resource: NotRequired["capo_lakeformation.types.any_resource.AnyResource"]
+    """<p>All resources of the specified type in a Data Catalog. When you grant or revoke permissions on this resource, the principal must be a user-defined function whose <code>GovernanceMode</code> is <code>LAKE_FORMATION</code>, and the Data Catalog must be in your account.</p>"""
     catalog: NotRequired["capo_lakeformation.types.catalog_resource.CatalogResource"]
     """<p>The identifier for the Data Catalog. By default, the account ID. The Data Catalog is the persistent metadata store. It contains database definitions, table definitions, and other control information to manage your Lake Formation environment. </p>"""
     database: NotRequired["capo_lakeformation.types.database_resource.DatabaseResource"]
@@ -50,11 +54,21 @@ class Resource(TypedDict, closed=True):
         "capo_lakeformation.types.rls_policy_resource.RLSPolicyResource"
     ]
     """<p>A row-level security policy resource. Specify this when granting or revoking permissions on a row-level security policy.</p>"""
+    user_defined_function: NotRequired[
+        "capo_lakeformation.types.user_defined_function_resource.UserDefinedFunctionResource"
+    ]
+    """<p>The user-defined function that you want to grant or revoke permissions on. The function's <code>GovernanceMode</code> must be <code>LAKE_FORMATION</code>. You can grant the following permissions:</p> <ul> <li> <p> <code>EXECUTE</code> – Use the function in a job, and get credentials to download its artifacts.</p> </li> <li> <p> <code>DESCRIBE</code> – View the function's definition.</p> </li> <li> <p> <code>ALTER</code> – Update the function.</p> </li> <li> <p> <code>DROP</code> – Delete the function.</p> </li> <li> <p> <code>ALL</code> – All of the preceding permissions.</p> </li> </ul>"""
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: Resource) -> dict:
     out: dict = {}
+    if "any_resource" in value:
+        import capo_lakeformation.types.any_resource
+
+        out["AnyResource"] = capo_lakeformation.types.any_resource.serialize_json(
+            value["any_resource"]
+        )
     if "catalog" in value:
         import capo_lakeformation.types.catalog_resource
 
@@ -125,11 +139,25 @@ def serialize_json(value: Resource) -> dict:
         out["RLSPolicy"] = capo_lakeformation.types.rls_policy_resource.serialize_json(
             value["rls_policy"]
         )
+    if "user_defined_function" in value:
+        import capo_lakeformation.types.user_defined_function_resource
+
+        out["UserDefinedFunction"] = (
+            capo_lakeformation.types.user_defined_function_resource.serialize_json(
+                value["user_defined_function"]
+            )
+        )
     return out
 
 
 def deserialize_json(data: dict) -> Resource:
     out: Resource = {}  # type: ignore[typeddict-item]
+    if data.get("AnyResource") is not None:
+        import capo_lakeformation.types.any_resource
+
+        out["any_resource"] = capo_lakeformation.types.any_resource.deserialize_json(
+            data["AnyResource"]
+        )
     if data.get("Catalog") is not None:
         import capo_lakeformation.types.catalog_resource
 
@@ -200,6 +228,14 @@ def deserialize_json(data: dict) -> Resource:
         out["rls_policy"] = (
             capo_lakeformation.types.rls_policy_resource.deserialize_json(
                 data["RLSPolicy"]
+            )
+        )
+    if data.get("UserDefinedFunction") is not None:
+        import capo_lakeformation.types.user_defined_function_resource
+
+        out["user_defined_function"] = (
+            capo_lakeformation.types.user_defined_function_resource.deserialize_json(
+                data["UserDefinedFunction"]
             )
         )
     return out

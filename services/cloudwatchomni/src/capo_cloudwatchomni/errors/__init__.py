@@ -26,6 +26,9 @@ from .conflict_exception import ConflictException as ConflictException
 from .internal_server_exception import (
     InternalServerException as InternalServerException,
 )
+from .policy_too_large_exception import (
+    PolicyTooLargeException as PolicyTooLargeException,
+)
 from .resource_not_found_exception import (
     ResourceNotFoundException as ResourceNotFoundException,
 )

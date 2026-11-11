@@ -8,7 +8,7 @@ if TYPE_CHECKING:
     import capo_lightsail.types.access_key_last_used
     import capo_lightsail.types.iam_access_key_id
     import capo_lightsail.types.iso_date
-    import capo_lightsail.types.non_empty_string
+    import capo_lightsail.types.sensitive_non_empty_string
     import capo_lightsail.types.status_type
 
 
@@ -16,7 +16,7 @@ class AccessKey(TypedDict, closed=True):
     access_key_id: NotRequired["capo_lightsail.types.iam_access_key_id.IAMAccessKeyId"]
     """<p>The ID of the access key.</p>"""
     secret_access_key: NotRequired[
-        "capo_lightsail.types.non_empty_string.NonEmptyString"
+        "capo_lightsail.types.sensitive_non_empty_string.SensitiveNonEmptyString"
     ]
     """<p>The secret access key used to sign requests.</p> <p>You should store the secret access key in a safe location. We recommend that you delete the access key if the secret access key is compromised.</p>"""
     status: NotRequired["capo_lightsail.types.status_type.StatusType"]
@@ -92,4 +92,6 @@ def redact_sensitive(value: AccessKey) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "access_key_id" in value:
         out["access_key_id"] = "*** Sensitive Data Redacted ***"
+    if "secret_access_key" in value:
+        out["secret_access_key"] = "*** Sensitive Data Redacted ***"
     return out

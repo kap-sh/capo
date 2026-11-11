@@ -3,7 +3,10 @@
 from typing import Literal, TypeAlias, cast
 
 """Elemental Inference feature."""
-ElementalInferenceFeature: TypeAlias = Literal["SMART_CROP",]
+ElementalInferenceFeature: TypeAlias = Literal[
+    "SMART_CROP",
+    "SMART_SUBTITLE",
+]
 
 
 # --- restJson1 ser/de ---

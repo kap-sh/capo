@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class ContactContent(TypedDict, closed=True):
     contact_arn: "capo_connectcases.types.contact_arn.ContactArn"
-    """<p>A unique identifier of a contact in Amazon Connect.</p>"""
+    """<p>A unique identifier of a contact in Connect Customer.</p>"""
     channel: "capo_connectcases.types.channel.Channel"
     """<p>A list of channels to filter on for related items of type <code>Contact</code>.</p>"""
     connected_to_system_time: (

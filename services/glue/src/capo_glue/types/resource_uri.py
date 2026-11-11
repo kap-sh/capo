@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_glue.types.resource_type
+    import capo_glue.types.timestamp
     import capo_glue.types.uri
 
 
@@ -14,6 +15,8 @@ class ResourceUri(TypedDict, closed=True):
     """<p>The type of the resource.</p>"""
     uri: NotRequired["capo_glue.types.uri.URI"]
     """<p>The URI for accessing the resource.</p>"""
+    last_modified: NotRequired["capo_glue.types.timestamp.Timestamp"]
+    """<p>The time at which the resource was last modified in Amazon S3. Glue records this value when you create or update a function whose <code>GovernanceMode</code> is <code>LAKE_FORMATION</code>. Analytics engines use it to verify that the resource hasn't changed. This is an output-only field.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -27,6 +30,12 @@ def serialize_aws_json_1_1(value: ResourceUri) -> dict:
         )
     if "uri" in value:
         out["Uri"] = value["uri"]
+    if "last_modified" in value:
+        import capo_glue.types.timestamp
+
+        out["LastModified"] = capo_glue.types.timestamp.serialize_aws_json_1_1(
+            value["last_modified"]
+        )
     return out
 
 
@@ -40,4 +49,10 @@ def deserialize_aws_json_1_1(data: dict) -> ResourceUri:
         )
     if data.get("Uri") is not None:
         out["uri"] = data["Uri"]
+    if data.get("LastModified") is not None:
+        import capo_glue.types.timestamp
+
+        out["last_modified"] = capo_glue.types.timestamp.deserialize_aws_json_1_1(
+            data["LastModified"]
+        )
     return out

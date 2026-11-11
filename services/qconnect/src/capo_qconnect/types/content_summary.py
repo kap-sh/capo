@@ -5,7 +5,10 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import datetime
+
     import capo_qconnect.types.arn
+    import capo_qconnect.types.aws_region
     import capo_qconnect.types.content_metadata
     import capo_qconnect.types.content_status
     import capo_qconnect.types.content_title
@@ -39,6 +42,12 @@ class ContentSummary(TypedDict, closed=True):
     """<p>A key/value map to store attributes without affecting tagging or recommendations. For example, when synchronizing data between an external system and Amazon Q in Connect, you can store an external version identifier as metadata to utilize for determining drift.</p>"""
     tags: NotRequired["capo_qconnect.types.tags.Tags"]
     """<p>The tags used to organize, track, or control access for this resource.</p>"""
+    last_modified_time: NotRequired["datetime.datetime"]
+    """<p>The timestamp when the content was last modified.</p>"""
+    last_modified_region: NotRequired["capo_qconnect.types.aws_region.AwsRegion"]
+    """<p>The Amazon Web Services Region where the content was last modified.</p>"""
+    file_hash: NotRequired["capo_qconnect.types.non_empty_string.NonEmptyString"]
+    """<p>The Base64-encoded SHA-256 hash of the content file. Amazon Connect Global Resiliency returns this field only for replicated content.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -62,6 +71,16 @@ def serialize_json(value: ContentSummary) -> dict:
         import capo_qconnect.types.tags
 
         out["tags"] = capo_qconnect.types.tags.serialize_json(value["tags"])
+    if "last_modified_time" in value:
+        import capo_qconnect.types._prelude.timestamp
+
+        out["lastModifiedTime"] = capo_qconnect.types._prelude.timestamp.serialize_json(
+            value["last_modified_time"]
+        )
+    if "last_modified_region" in value:
+        out["lastModifiedRegion"] = value["last_modified_region"]
+    if "file_hash" in value:
+        out["fileHash"] = value["file_hash"]
     return out
 
 
@@ -115,4 +134,16 @@ def deserialize_json(data: dict) -> ContentSummary:
         import capo_qconnect.types.tags
 
         out["tags"] = capo_qconnect.types.tags.deserialize_json(data["tags"])
+    if data.get("lastModifiedTime") is not None:
+        import capo_qconnect.types._prelude.timestamp
+
+        out["last_modified_time"] = (
+            capo_qconnect.types._prelude.timestamp.deserialize_json(
+                data["lastModifiedTime"]
+            )
+        )
+    if data.get("lastModifiedRegion") is not None:
+        out["last_modified_region"] = data["lastModifiedRegion"]
+    if data.get("fileHash") is not None:
+        out["file_hash"] = data["fileHash"]
     return out

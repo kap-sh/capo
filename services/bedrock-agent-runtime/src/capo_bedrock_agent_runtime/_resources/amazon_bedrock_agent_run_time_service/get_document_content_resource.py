@@ -21,6 +21,7 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.get_document_content_request
     import capo_bedrock_agent_runtime.types.get_document_content_response
     import capo_bedrock_agent_runtime.types.knowledge_base_identifier
+    import capo_bedrock_agent_runtime.types.media_id
     import capo_bedrock_agent_runtime.types.user_context
     from capo_bedrock_agent_runtime._services.async_bedrock_agent_runtime import (
         AsyncBedrockAgentRuntimeClient,
@@ -43,6 +44,7 @@ class GetDocumentContentResource:
         document_id: "capo_bedrock_agent_runtime.types.document_id.DocumentId",
         *,
         config_overrides: Optional[BedrockAgentRuntimeClientConfig] = None,
+        media_id: Optional["capo_bedrock_agent_runtime.types.media_id.MediaId"] = None,
         output_format: Optional[
             "capo_bedrock_agent_runtime.types.document_output_format.DocumentOutputFormat"
         ] = None,
@@ -50,13 +52,14 @@ class GetDocumentContentResource:
             "capo_bedrock_agent_runtime.types.user_context.UserContext"
         ] = None,
     ) -> "capo_bedrock_agent_runtime.types.get_document_content_response.GetDocumentContentResponse":
-        """<p>Retrieves the content of an ingested document from a knowledge base. Returns a pre-signed URL for secure document access.</p>
+        """<p>Retrieves the content of an ingested document from a knowledge base, or of an image embedded in the document. Returns a pre-signed URL for downloading the content. Use this operation to display the source of a <code>Retrieve</code> result.</p>
 
         Args:
             knowledge_base_id: <p>The unique identifier of the knowledge base that contains the document.</p>
             data_source_id: <p>The unique identifier of the data source that contains the document.</p>
             document_id: <p>The unique identifier of the document to retrieve content for.</p>
-            output_format: <p>The output format for the document content. <code>RAW</code> returns the original file. <code>EXTRACTED</code> returns parsed text as JSON. Defaults to <code>RAW</code>.</p>
+            media_id: <p>The unique identifier (in UUID format) of an image embedded in the specified document. Set this parameter to the <code>_media_id</code> value in the metadata of the corresponding <code>Retrieve</code> result. If you specify this parameter, the response contains a pre-signed URL for the image instead of the document, and you must omit <code>outputFormat</code> or set it to <code>RAW</code>.</p>
+            output_format: <p>The output format for the content. You can specify one of the following values:</p> <dl> <dt>RAW</dt> <dd> <p>Returns the original document, or the selected image if you specify <code>mediaId</code>.</p> </dd> <dt>EXTRACTED</dt> <dd> <p>Returns parsed document text as JSON.</p> </dd> </dl> <p>If you omit this parameter, the default is <code>RAW</code>. You can't use <code>EXTRACTED</code> with <code>mediaId</code>.</p>
             user_context: <p>Contains information about the user making the request. This is used for access control filtering to ensure that results only include documents the user is authorized to access.</p>
 
         Raises:
@@ -113,6 +116,8 @@ class GetDocumentContentResource:
             "data_source_id": data_source_id,
             "document_id": document_id,
         }
+        if media_id is not None:
+            input_["media_id"] = media_id
         if output_format is not None:
             input_["output_format"] = output_format
         if user_context is not None:
@@ -138,6 +143,7 @@ class AsyncGetDocumentContentResource:
         document_id: "capo_bedrock_agent_runtime.types.document_id.DocumentId",
         *,
         config_overrides: Optional[AsyncBedrockAgentRuntimeClientConfig] = None,
+        media_id: Optional["capo_bedrock_agent_runtime.types.media_id.MediaId"] = None,
         output_format: Optional[
             "capo_bedrock_agent_runtime.types.document_output_format.DocumentOutputFormat"
         ] = None,
@@ -145,13 +151,14 @@ class AsyncGetDocumentContentResource:
             "capo_bedrock_agent_runtime.types.user_context.UserContext"
         ] = None,
     ) -> "capo_bedrock_agent_runtime.types.get_document_content_response.GetDocumentContentResponse":
-        """<p>Retrieves the content of an ingested document from a knowledge base. Returns a pre-signed URL for secure document access.</p>
+        """<p>Retrieves the content of an ingested document from a knowledge base, or of an image embedded in the document. Returns a pre-signed URL for downloading the content. Use this operation to display the source of a <code>Retrieve</code> result.</p>
 
         Args:
             knowledge_base_id: <p>The unique identifier of the knowledge base that contains the document.</p>
             data_source_id: <p>The unique identifier of the data source that contains the document.</p>
             document_id: <p>The unique identifier of the document to retrieve content for.</p>
-            output_format: <p>The output format for the document content. <code>RAW</code> returns the original file. <code>EXTRACTED</code> returns parsed text as JSON. Defaults to <code>RAW</code>.</p>
+            media_id: <p>The unique identifier (in UUID format) of an image embedded in the specified document. Set this parameter to the <code>_media_id</code> value in the metadata of the corresponding <code>Retrieve</code> result. If you specify this parameter, the response contains a pre-signed URL for the image instead of the document, and you must omit <code>outputFormat</code> or set it to <code>RAW</code>.</p>
+            output_format: <p>The output format for the content. You can specify one of the following values:</p> <dl> <dt>RAW</dt> <dd> <p>Returns the original document, or the selected image if you specify <code>mediaId</code>.</p> </dd> <dt>EXTRACTED</dt> <dd> <p>Returns parsed document text as JSON.</p> </dd> </dl> <p>If you omit this parameter, the default is <code>RAW</code>. You can't use <code>EXTRACTED</code> with <code>mediaId</code>.</p>
             user_context: <p>Contains information about the user making the request. This is used for access control filtering to ensure that results only include documents the user is authorized to access.</p>
 
         Raises:
@@ -209,6 +216,8 @@ class AsyncGetDocumentContentResource:
             "data_source_id": data_source_id,
             "document_id": document_id,
         }
+        if media_id is not None:
+            input_["media_id"] = media_id
         if output_format is not None:
             input_["output_format"] = output_format
         if user_context is not None:

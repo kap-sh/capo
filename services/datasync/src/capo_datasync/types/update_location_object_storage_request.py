@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     import capo_datasync.types.location_arn
     import capo_datasync.types.object_storage_access_key
     import capo_datasync.types.object_storage_certificate
+    import capo_datasync.types.object_storage_federated_identity_config
     import capo_datasync.types.object_storage_secret_key
     import capo_datasync.types.object_storage_server_port
     import capo_datasync.types.object_storage_server_protocol
@@ -41,6 +42,10 @@ class UpdateLocationObjectStorageRequest(TypedDict, closed=True):
         "capo_datasync.types.object_storage_secret_key.ObjectStorageSecretKey"
     ]
     """<p>Specifies the secret key (for example, a password) if credentials are required to authenticate with the object storage server.</p> <note> <p>If you provide a secret using <code>SecretKey</code>, but do not provide secret configuration details using <code>CmkSecretConfig</code> or <code>CustomSecretConfig</code>, then DataSync stores the token using your Amazon Web Services account's Secrets Manager secret.</p> </note>"""
+    federated_identity: NotRequired[
+        "capo_datasync.types.object_storage_federated_identity_config.ObjectStorageFederatedIdentityConfig"
+    ]
+    """<p>Specifies the federated identity configuration that allows DataSync to access your object storage using an OpenID Connect (OIDC) token instead of a long-term access key and secret key. Provide either <code>FederatedIdentity</code> or the <code>AccessKey</code>/<code>SecretKey</code> credentials, but not both.</p>"""
     agent_arns: NotRequired["capo_datasync.types.agent_arn_list.AgentArnList"]
     """<p>(Optional) Specifies the Amazon Resource Names (ARNs) of the DataSync agents that can connect with your object storage system. If you are setting up an agentless cross-cloud transfer, you do not need to specify a value for this parameter.</p> <note> <p>You cannot add or remove agents from a storage location after you initially create it.</p> </note>"""
     server_certificate: NotRequired[
@@ -79,6 +84,14 @@ def serialize_aws_json_1_1(value: UpdateLocationObjectStorageRequest) -> dict:
         out["AccessKey"] = value["access_key"]
     if "secret_key" in value:
         out["SecretKey"] = value["secret_key"]
+    if "federated_identity" in value:
+        import capo_datasync.types.object_storage_federated_identity_config
+
+        out["FederatedIdentity"] = (
+            capo_datasync.types.object_storage_federated_identity_config.serialize_aws_json_1_1(
+                value["federated_identity"]
+            )
+        )
     if "agent_arns" in value:
         import capo_datasync.types.agent_arn_list
 
@@ -136,6 +149,14 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLocationObjectStorageRequest:
         out["access_key"] = data["AccessKey"]
     if data.get("SecretKey") is not None:
         out["secret_key"] = data["SecretKey"]
+    if data.get("FederatedIdentity") is not None:
+        import capo_datasync.types.object_storage_federated_identity_config
+
+        out["federated_identity"] = (
+            capo_datasync.types.object_storage_federated_identity_config.deserialize_aws_json_1_1(
+                data["FederatedIdentity"]
+            )
+        )
     if data.get("AgentArns") is not None:
         import capo_datasync.types.agent_arn_list
 

@@ -19,7 +19,7 @@ class GetCaseResponse(TypedDict, closed=True):
     next_token: NotRequired["capo_connectcases.types.next_token.NextToken"]
     """<p>The token for the next set of results. This is null if there are no more results to return.</p>"""
     tags: NotRequired["capo_connectcases.types.tags.Tags"]
-    """<p>A map of of key-value pairs that represent tags on a resource. Tags are used to organize, track, or control access for this resource.</p>"""
+    """<p>A map of key-value pairs that represent tags on a resource. Tags are used to organize, track, or control access for this resource.</p>"""
 
 
 # --- restJson1 ser/de ---

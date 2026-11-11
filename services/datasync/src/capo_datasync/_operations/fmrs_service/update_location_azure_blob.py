@@ -18,6 +18,7 @@ import capo_datasync.types.azure_access_tier
 import capo_datasync.types.azure_blob_authentication_type
 import capo_datasync.types.azure_blob_sas_configuration
 import capo_datasync.types.azure_blob_type
+import capo_datasync.types.azure_federated_identity_config
 import capo_datasync.types.cmk_secret_config
 import capo_datasync.types.custom_secret_config
 import capo_datasync.types.update_location_azure_blob_request

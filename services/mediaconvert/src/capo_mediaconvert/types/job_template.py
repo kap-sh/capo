@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_mediaconvert.types.__string
     import capo_mediaconvert.types.__timestamp_unix
     import capo_mediaconvert.types.acceleration_settings
+    import capo_mediaconvert.types.elemental_inference_settings
     import capo_mediaconvert.types.job_template_settings
     import capo_mediaconvert.types.status_update_interval
     import capo_mediaconvert.types.type
@@ -28,6 +29,10 @@ class JobTemplate(TypedDict, closed=True):
     """The timestamp in epoch seconds for Job template creation."""
     description: NotRequired["capo_mediaconvert.types.__string.__string"]
     """An optional description you create for each job template."""
+    elemental_inference_settings: NotRequired[
+        "capo_mediaconvert.types.elemental_inference_settings.ElementalInferenceSettings"
+    ]
+    """The Elemental Inference settings used in this job."""
     hop_destinations: NotRequired[
         "capo_mediaconvert.types.__list_of_hop_destination.__listOfHopDestination"
     ]
@@ -79,6 +84,14 @@ def serialize_json(value: JobTemplate) -> dict:
         )
     if "description" in value:
         out["description"] = value["description"]
+    if "elemental_inference_settings" in value:
+        import capo_mediaconvert.types.elemental_inference_settings
+
+        out["elementalInferenceSettings"] = (
+            capo_mediaconvert.types.elemental_inference_settings.serialize_json(
+                value["elemental_inference_settings"]
+            )
+        )
     if "hop_destinations" in value:
         import capo_mediaconvert.types.__list_of_hop_destination
 
@@ -142,6 +155,14 @@ def deserialize_json(data: dict) -> JobTemplate:
         )
     if data.get("description") is not None:
         out["description"] = data["description"]
+    if data.get("elementalInferenceSettings") is not None:
+        import capo_mediaconvert.types.elemental_inference_settings
+
+        out["elemental_inference_settings"] = (
+            capo_mediaconvert.types.elemental_inference_settings.deserialize_json(
+                data["elementalInferenceSettings"]
+            )
+        )
     if data.get("hopDestinations") is not None:
         import capo_mediaconvert.types.__list_of_hop_destination
 

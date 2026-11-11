@@ -71,6 +71,7 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.algorithm_specification
     import capo_sagemaker.types.algorithm_summary
     import capo_sagemaker.types.algorithm_validation_specification
+    import capo_sagemaker.types.alias_operations
     import capo_sagemaker.types.app_details
     import capo_sagemaker.types.app_image_config_details
     import capo_sagemaker.types.app_image_config_name
@@ -204,6 +205,8 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.create_auto_ml_job_response
     import capo_sagemaker.types.create_auto_ml_job_v2_request
     import capo_sagemaker.types.create_auto_ml_job_v2_response
+    import capo_sagemaker.types.create_cluster_extension_request
+    import capo_sagemaker.types.create_cluster_extension_response
     import capo_sagemaker.types.create_cluster_request
     import capo_sagemaker.types.create_cluster_response
     import capo_sagemaker.types.create_cluster_scheduler_config_request
@@ -357,6 +360,8 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.delete_artifact_response
     import capo_sagemaker.types.delete_association_request
     import capo_sagemaker.types.delete_association_response
+    import capo_sagemaker.types.delete_cluster_extension_request
+    import capo_sagemaker.types.delete_cluster_extension_response
     import capo_sagemaker.types.delete_cluster_request
     import capo_sagemaker.types.delete_cluster_response
     import capo_sagemaker.types.delete_cluster_scheduler_config_request
@@ -457,6 +462,8 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.describe_auto_ml_job_v2_response
     import capo_sagemaker.types.describe_cluster_event_request
     import capo_sagemaker.types.describe_cluster_event_response
+    import capo_sagemaker.types.describe_cluster_extension_request
+    import capo_sagemaker.types.describe_cluster_extension_response
     import capo_sagemaker.types.describe_cluster_node_request
     import capo_sagemaker.types.describe_cluster_node_response
     import capo_sagemaker.types.describe_cluster_request
@@ -648,6 +655,11 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.explainer_config
     import capo_sagemaker.types.extend_training_plan_request
     import capo_sagemaker.types.extend_training_plan_response
+    import capo_sagemaker.types.extension_arn
+    import capo_sagemaker.types.extension_configuration_values
+    import capo_sagemaker.types.extension_name
+    import capo_sagemaker.types.extension_summary
+    import capo_sagemaker.types.extension_version
     import capo_sagemaker.types.feature_additions
     import capo_sagemaker.types.feature_definitions
     import capo_sagemaker.types.feature_description
@@ -820,6 +832,8 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.list_candidates_for_auto_ml_job_response
     import capo_sagemaker.types.list_cluster_events_request
     import capo_sagemaker.types.list_cluster_events_response
+    import capo_sagemaker.types.list_cluster_extensions_request
+    import capo_sagemaker.types.list_cluster_extensions_response
     import capo_sagemaker.types.list_cluster_nodes_request
     import capo_sagemaker.types.list_cluster_nodes_response
     import capo_sagemaker.types.list_cluster_scheduler_configs_request
@@ -1140,9 +1154,12 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.pipeline_execution_name
     import capo_sagemaker.types.pipeline_execution_step
     import capo_sagemaker.types.pipeline_execution_summary
+    import capo_sagemaker.types.pipeline_managed_by
     import capo_sagemaker.types.pipeline_name
     import capo_sagemaker.types.pipeline_name_or_arn
     import capo_sagemaker.types.pipeline_summary
+    import capo_sagemaker.types.pipeline_version_alias
+    import capo_sagemaker.types.pipeline_version_alias_list
     import capo_sagemaker.types.pipeline_version_description
     import capo_sagemaker.types.pipeline_version_id
     import capo_sagemaker.types.pipeline_version_name
@@ -1168,6 +1185,7 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.project_entity_name
     import capo_sagemaker.types.project_sort_by
     import capo_sagemaker.types.project_sort_order
+    import capo_sagemaker.types.project_summary
     import capo_sagemaker.types.put_model_package_group_policy_input
     import capo_sagemaker.types.put_model_package_group_policy_output
     import capo_sagemaker.types.query_filters
@@ -1377,6 +1395,8 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.update_app_image_config_response
     import capo_sagemaker.types.update_artifact_request
     import capo_sagemaker.types.update_artifact_response
+    import capo_sagemaker.types.update_cluster_extension_request
+    import capo_sagemaker.types.update_cluster_extension_response
     import capo_sagemaker.types.update_cluster_request
     import capo_sagemaker.types.update_cluster_response
     import capo_sagemaker.types.update_cluster_scheduler_config_request
@@ -3104,6 +3124,81 @@ class AsyncSageMakerClient:
             input_["cluster_role"] = cluster_role
         if auto_scaling is not None:
             input_["auto_scaling"] = auto_scaling
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def create_cluster_extension(
+        self,
+        *,
+        config_overrides: Optional[AsyncSageMakerClientConfig] = None,
+        cluster_arn: Optional["capo_sagemaker.types.cluster_arn.ClusterArn"] = None,
+        extension_name: Optional[
+            "capo_sagemaker.types.extension_name.ExtensionName"
+        ] = None,
+        extension_version: Optional[
+            "capo_sagemaker.types.extension_version.ExtensionVersion"
+        ] = None,
+        configuration_values: Optional[
+            "capo_sagemaker.types.extension_configuration_values.ExtensionConfigurationValues"
+        ] = None,
+        tags: Optional["capo_sagemaker.types.tag_list.TagList"] = None,
+        client_token: Optional["capo_sagemaker.types.string.String"] = None,
+    ) -> "capo_sagemaker.types.create_cluster_extension_response.CreateClusterExtensionResponse":
+        """<p>Installs an extension, such as <code>sagemaker-observability</code>, on a SageMaker HyperPod cluster orchestrated by Slurm. The cluster must have <code>NodeProvisioningMode</code> set to <code>Continuous</code> and can have only one extension with a given name. To track the installation, call <code>DescribeClusterExtension</code>.</p>
+
+        Args:
+            cluster_arn: <p>The Amazon Resource Name (ARN) of the SageMaker HyperPod cluster on which to install the extension. The cluster must use Slurm as the orchestrator and have <code>NodeProvisioningMode</code> set to <code>Continuous</code>.</p>
+            extension_name: <p>The name of the extension to install, for example <code>sagemaker-observability</code>.</p>
+            extension_version: <p>The version of the extension to install, in <code>MAJOR.MINOR.PATCH</code> format, for example <code>1.0.0</code>. If you don't specify a version, SageMaker HyperPod installs the latest available version of the extension.</p>
+            configuration_values: <p>The configuration settings for the extension, as a JSON object serialized as a string, for example <code>{"metricsProvider":{"nodeMetrics":{"level":"ADVANCED"}}}</code>. Each extension version defines which settings it accepts. SageMaker HyperPod validates the settings against that definition, and rejects the request if a setting is unknown or has an invalid value. Settings that you omit use the extension's default values. If you omit <code>ConfigurationValues</code>, all settings use their default values.</p>
+            tags: <p>Custom tags for managing the extension as an Amazon Web Services resource. You can add tags to your extension in the same way you add them in other Amazon Web Services services that support tagging. To learn more about tagging Amazon Web Services resources in general, see <a href="https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html">Tagging Amazon Web Services Resources User Guide</a>. To use this operation to add tags when you create an extension, you must have the <code>sagemaker:AddTags</code> permission.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide so that the operation completes no more than one time. This token is valid for 8 hours. If you retry the request with the same client token and the same parameters within this time, the API returns the Amazon Resource Name (ARN) of the extension that the original request created, without creating a duplicate. If you use the same client token with different parameters, the request fails.</p>
+
+        Raises:
+            capo_sagemaker.errors.conflict_exception.ConflictException: <p>There was a conflict when you attempted to modify a SageMaker entity such as an <code>Experiment</code> or <code>Artifact</code>.</p>
+            capo_sagemaker.errors.resource_in_use.ResourceInUse: <p>Resource being accessed is in use.</p>
+            capo_sagemaker.errors.resource_not_found.ResourceNotFound: <p>Resource being access is not found.</p>
+            capo_sagemaker.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_sagemaker.types.create_cluster_extension_request.CreateClusterExtensionRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_sagemaker.types.create_cluster_extension_response.CreateClusterExtensionResponse"
+        ]:
+            import capo_sagemaker._operations.sage_maker.create_cluster_extension
+
+            (
+                output,
+                http_response,
+            ) = await capo_sagemaker._operations.sage_maker.create_cluster_extension.async_create_cluster_extension(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateClusterExtension")
+        )
+        input_: capo_sagemaker.types.create_cluster_extension_request.CreateClusterExtensionRequest = {}
+        if cluster_arn is not None:
+            input_["cluster_arn"] = cluster_arn
+        if extension_name is not None:
+            input_["extension_name"] = extension_name
+        if extension_version is not None:
+            input_["extension_version"] = extension_version
+        if configuration_values is not None:
+            input_["configuration_values"] = configuration_values
+        if tags is not None:
+            input_["tags"] = tags
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -6912,6 +7007,9 @@ class AsyncSageMakerClient:
         parallelism_configuration: Optional[
             "capo_sagemaker.types.parallelism_configuration.ParallelismConfiguration"
         ] = None,
+        pipeline_version_aliases: Optional[
+            "capo_sagemaker.types.pipeline_version_alias_list.PipelineVersionAliasList"
+        ] = None,
     ) -> "capo_sagemaker.types.create_pipeline_response.CreatePipelineResponse":
         """<p>Creates a pipeline using a JSON pipeline definition.</p>
 
@@ -6925,6 +7023,7 @@ class AsyncSageMakerClient:
             role_arn: <p>The Amazon Resource Name (ARN) of the role used by the pipeline to access and create resources.</p>
             tags: <p>A list of tags to apply to the created pipeline.</p>
             parallelism_configuration: <p>This is the configuration that controls the parallelism of the pipeline. If specified, it applies to all runs of this pipeline by default.</p>
+            pipeline_version_aliases: <p>The aliases to assign to the first version of the pipeline. You can use an alias instead of a pipeline version ID to start an execution, describe the pipeline, or list its executions. Each alias can contain 1-128 letters, numbers, periods (.), hyphens (-), and underscores (_), and can't consist of numbers only. An alias must be unique within the pipeline, and a version can have up to 10 aliases.</p>
 
         Raises:
             capo_sagemaker.errors.conflict_exception.ConflictException: <p>There was a conflict when you attempted to modify a SageMaker entity such as an <code>Experiment</code> or <code>Artifact</code>.</p>
@@ -6971,6 +7070,8 @@ class AsyncSageMakerClient:
             input_["tags"] = tags
         if parallelism_configuration is not None:
             input_["parallelism_configuration"] = parallelism_configuration
+        if pipeline_version_aliases is not None:
+            input_["pipeline_version_aliases"] = pipeline_version_aliases
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -8935,6 +9036,60 @@ class AsyncSageMakerClient:
         input_: capo_sagemaker.types.delete_cluster_request.DeleteClusterRequest = {}
         if cluster_name is not None:
             input_["cluster_name"] = cluster_name
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def delete_cluster_extension(
+        self,
+        *,
+        config_overrides: Optional[AsyncSageMakerClientConfig] = None,
+        cluster_arn: Optional["capo_sagemaker.types.cluster_arn.ClusterArn"] = None,
+        extension_arn: Optional[
+            "capo_sagemaker.types.extension_arn.ExtensionArn"
+        ] = None,
+    ) -> "capo_sagemaker.types.delete_cluster_extension_response.DeleteClusterExtensionResponse":
+        """<p>Deletes an extension from a SageMaker HyperPod cluster. SageMaker HyperPod removes the extension's software from every node in the cluster. While SageMaker HyperPod removes the extension, its status is <code>Deleting</code>. After SageMaker HyperPod removes the extension from all nodes, it no longer appears in <code>ListClusterExtensions</code>, and <code>DescribeClusterExtension</code> returns a <code>ResourceNotFound</code> error.</p> <p>Deleting an extension doesn't delete data that the extension sent to other Amazon Web Services services, such as metrics in Amazon CloudWatch or Amazon Managed Service for Prometheus.</p>
+
+        Args:
+            cluster_arn: <p>The Amazon Resource Name (ARN) of the SageMaker HyperPod cluster on which the extension is installed.</p>
+            extension_arn: <p>The Amazon Resource Name (ARN) of the extension to delete.</p>
+
+        Raises:
+            capo_sagemaker.errors.conflict_exception.ConflictException: <p>There was a conflict when you attempted to modify a SageMaker entity such as an <code>Experiment</code> or <code>Artifact</code>.</p>
+            capo_sagemaker.errors.resource_in_use.ResourceInUse: <p>Resource being accessed is in use.</p>
+            capo_sagemaker.errors.resource_not_found.ResourceNotFound: <p>Resource being access is not found.</p>
+            capo_sagemaker.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_sagemaker.types.delete_cluster_extension_request.DeleteClusterExtensionRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_sagemaker.types.delete_cluster_extension_response.DeleteClusterExtensionResponse"
+        ]:
+            import capo_sagemaker._operations.sage_maker.delete_cluster_extension
+
+            (
+                output,
+                http_response,
+            ) = await capo_sagemaker._operations.sage_maker.delete_cluster_extension.async_delete_cluster_extension(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteClusterExtension")
+        )
+        input_: capo_sagemaker.types.delete_cluster_extension_request.DeleteClusterExtensionRequest = {}
+        if cluster_arn is not None:
+            input_["cluster_arn"] = cluster_arn
+        if extension_arn is not None:
+            input_["extension_arn"] = extension_arn
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -12119,6 +12274,58 @@ class AsyncSageMakerClient:
         await response.response.aclose()
         return response.output
 
+    async def describe_cluster_extension(
+        self,
+        *,
+        config_overrides: Optional[AsyncSageMakerClientConfig] = None,
+        cluster_arn: Optional["capo_sagemaker.types.cluster_arn.ClusterArn"] = None,
+        extension_arn: Optional[
+            "capo_sagemaker.types.extension_arn.ExtensionArn"
+        ] = None,
+    ) -> "capo_sagemaker.types.describe_cluster_extension_response.DescribeClusterExtensionResponse":
+        """<p>Retrieves information about an extension installed on a SageMaker HyperPod cluster. The information includes the extension's version, configuration, and status, and a summary of how many cluster nodes are running the current version and configuration of the extension.</p>
+
+        Args:
+            cluster_arn: <p>The Amazon Resource Name (ARN) of the SageMaker HyperPod cluster on which the extension is installed.</p>
+            extension_arn: <p>The Amazon Resource Name (ARN) of the extension to describe. <code>CreateClusterExtension</code> returns this ARN, and <code>ListClusterExtensions</code> lists it. If you delete an extension and create it again, the new extension has a new ARN.</p>
+
+        Raises:
+            capo_sagemaker.errors.resource_not_found.ResourceNotFound: <p>Resource being access is not found.</p>
+            capo_sagemaker.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_sagemaker.types.describe_cluster_extension_request.DescribeClusterExtensionRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_sagemaker.types.describe_cluster_extension_response.DescribeClusterExtensionResponse"
+        ]:
+            import capo_sagemaker._operations.sage_maker.describe_cluster_extension
+
+            (
+                output,
+                http_response,
+            ) = await capo_sagemaker._operations.sage_maker.describe_cluster_extension.async_describe_cluster_extension(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeClusterExtension")
+        )
+        input_: capo_sagemaker.types.describe_cluster_extension_request.DescribeClusterExtensionRequest = {}
+        if cluster_arn is not None:
+            input_["cluster_arn"] = cluster_arn
+        if extension_arn is not None:
+            input_["extension_arn"] = extension_arn
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def describe_cluster_node(
         self,
         *,
@@ -14448,12 +14655,16 @@ class AsyncSageMakerClient:
         pipeline_version_id: Optional[
             "capo_sagemaker.types.pipeline_version_id.PipelineVersionId"
         ] = None,
+        pipeline_version_alias: Optional[
+            "capo_sagemaker.types.pipeline_version_alias.PipelineVersionAlias"
+        ] = None,
     ) -> "capo_sagemaker.types.describe_pipeline_response.DescribePipelineResponse":
         """<p>Describes the details of a pipeline.</p>
 
         Args:
             pipeline_name: <p>The name or Amazon Resource Name (ARN) of the pipeline to describe.</p>
-            pipeline_version_id: <p>The ID of the pipeline version to describe.</p>
+            pipeline_version_id: <p>The ID of the pipeline version to describe. You can't specify this with <code>PipelineVersionAlias</code>.</p>
+            pipeline_version_alias: <p>The alias of the pipeline version to describe. You can't specify this with <code>PipelineVersionId</code>. If no version of the pipeline has this alias, the request fails with a <code>ResourceNotFound</code> error. If you specify neither, SageMaker describes the latest version of the pipeline.</p>
 
         Raises:
             capo_sagemaker.errors.resource_not_found.ResourceNotFound: <p>Resource being access is not found.</p>
@@ -14483,6 +14694,8 @@ class AsyncSageMakerClient:
             input_["pipeline_name"] = pipeline_name
         if pipeline_version_id is not None:
             input_["pipeline_version_id"] = pipeline_version_id
+        if pipeline_version_alias is not None:
+            input_["pipeline_version_alias"] = pipeline_version_alias
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -17626,6 +17839,103 @@ class AsyncSageMakerClient:
                 next_token=_token,
             )
             _page = _resolve_path(_response, ("events",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    async def list_cluster_extensions(
+        self,
+        *,
+        config_overrides: Optional[AsyncSageMakerClientConfig] = None,
+        cluster_arn: Optional["capo_sagemaker.types.cluster_arn.ClusterArn"] = None,
+        max_results: Optional["capo_sagemaker.types.max_results.MaxResults"] = None,
+        next_token: Optional["capo_sagemaker.types.next_token.NextToken"] = None,
+        creation_time_after: Optional[
+            "capo_sagemaker.types.timestamp.Timestamp"
+        ] = None,
+        creation_time_before: Optional[
+            "capo_sagemaker.types.timestamp.Timestamp"
+        ] = None,
+    ) -> "capo_sagemaker.types.list_cluster_extensions_response.ListClusterExtensionsResponse":
+        """<p>Lists the extensions installed on a SageMaker HyperPod cluster.</p>
+
+        Args:
+            cluster_arn: <p>The Amazon Resource Name (ARN) of the SageMaker HyperPod cluster whose extensions you want to list.</p>
+            max_results: <p>The maximum number of extensions to return in the response. If you don't specify a value, SageMaker HyperPod returns up to 100 extensions.</p>
+            next_token: <p>If the result of the previous <code>ListClusterExtensions</code> request was truncated, the response includes a <code>NextToken</code>. To retrieve the next set of extensions, use the token in the next request. When you use the <code>CreationTimeAfter</code> or <code>CreationTimeBefore</code> filters, a response can contain fewer extensions than <code>MaxResults</code>, or none, and still include a <code>NextToken</code>. Continue until the response doesn't include a <code>NextToken</code>.</p>
+            creation_time_after: <p>A filter that returns extensions created at or after the specified time. Timestamps are formatted according to the ISO 8601 standard.</p>
+            creation_time_before: <p>A filter that returns extensions created at or before the specified time. The acceptable formats are the same as the timestamp formats for <code>CreationTimeAfter</code>.</p>
+
+        Raises:
+            capo_sagemaker.errors.resource_not_found.ResourceNotFound: <p>Resource being access is not found.</p>
+            capo_sagemaker.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_sagemaker.types.list_cluster_extensions_request.ListClusterExtensionsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_sagemaker.types.list_cluster_extensions_response.ListClusterExtensionsResponse"
+        ]:
+            import capo_sagemaker._operations.sage_maker.list_cluster_extensions
+
+            (
+                output,
+                http_response,
+            ) = await capo_sagemaker._operations.sage_maker.list_cluster_extensions.async_list_cluster_extensions(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListClusterExtensions")
+        )
+        input_: capo_sagemaker.types.list_cluster_extensions_request.ListClusterExtensionsRequest = {}
+        if cluster_arn is not None:
+            input_["cluster_arn"] = cluster_arn
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if creation_time_after is not None:
+            input_["creation_time_after"] = creation_time_after
+        if creation_time_before is not None:
+            input_["creation_time_before"] = creation_time_before
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_cluster_extensions(
+        self,
+        *,
+        config_overrides: Optional[AsyncSageMakerClientConfig] = None,
+        cluster_arn: Optional["capo_sagemaker.types.cluster_arn.ClusterArn"] = None,
+        max_results: Optional["capo_sagemaker.types.max_results.MaxResults"] = None,
+        next_token: Optional["capo_sagemaker.types.next_token.NextToken"] = None,
+        creation_time_after: Optional[
+            "capo_sagemaker.types.timestamp.Timestamp"
+        ] = None,
+        creation_time_before: Optional[
+            "capo_sagemaker.types.timestamp.Timestamp"
+        ] = None,
+    ) -> "AsyncIterator[capo_sagemaker.types.extension_summary.ExtensionSummary]":
+        _token = next_token
+        while True:
+            _response = await self.list_cluster_extensions(
+                config_overrides=config_overrides,
+                cluster_arn=cluster_arn,
+                max_results=max_results,
+                next_token=_token,
+                creation_time_after=creation_time_after,
+                creation_time_before=creation_time_before,
+            )
+            _page = _resolve_path(_response, ("extensions",))
             for _item in _page or []:
                 yield _item
             _token = _resolve_path(_response, ("next_token",))
@@ -24511,6 +24821,9 @@ class AsyncSageMakerClient:
         sort_order: Optional["capo_sagemaker.types.sort_order.SortOrder"] = None,
         next_token: Optional["capo_sagemaker.types.next_token.NextToken"] = None,
         max_results: Optional["capo_sagemaker.types.max_results.MaxResults"] = None,
+        pipeline_version_alias: Optional[
+            "capo_sagemaker.types.pipeline_version_alias.PipelineVersionAlias"
+        ] = None,
     ) -> "capo_sagemaker.types.list_pipeline_executions_response.ListPipelineExecutionsResponse":
         """<p>Gets a list of the pipeline executions.</p>
 
@@ -24522,6 +24835,7 @@ class AsyncSageMakerClient:
             sort_order: <p>The sort order for results.</p>
             next_token: <p>If the result of the previous <code>ListPipelineExecutions</code> request was truncated, the response includes a <code>NextToken</code>. To retrieve the next set of pipeline executions, use the token in the next request.</p>
             max_results: <p>The maximum number of pipeline executions to return in the response.</p>
+            pipeline_version_alias: <p>The alias of a pipeline version. The response includes only the executions of the version that has this alias when you make the request. If no version of the pipeline has this alias, the request fails with a <code>ResourceNotFound</code> error.</p>
 
         Raises:
             capo_sagemaker.errors.resource_not_found.ResourceNotFound: <p>Resource being access is not found.</p>
@@ -24561,6 +24875,8 @@ class AsyncSageMakerClient:
             input_["next_token"] = next_token
         if max_results is not None:
             input_["max_results"] = max_results
+        if pipeline_version_alias is not None:
+            input_["pipeline_version_alias"] = pipeline_version_alias
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -24585,6 +24901,9 @@ class AsyncSageMakerClient:
         sort_order: Optional["capo_sagemaker.types.sort_order.SortOrder"] = None,
         next_token: Optional["capo_sagemaker.types.next_token.NextToken"] = None,
         max_results: Optional["capo_sagemaker.types.max_results.MaxResults"] = None,
+        pipeline_version_alias: Optional[
+            "capo_sagemaker.types.pipeline_version_alias.PipelineVersionAlias"
+        ] = None,
     ) -> "AsyncIterator[capo_sagemaker.types.pipeline_execution_summary.PipelineExecutionSummary]":
         _token = next_token
         while True:
@@ -24597,6 +24916,7 @@ class AsyncSageMakerClient:
                 sort_order=sort_order,
                 next_token=_token,
                 max_results=max_results,
+                pipeline_version_alias=pipeline_version_alias,
             )
             _page = _resolve_path(_response, ("pipeline_execution_summaries",))
             for _item in _page or []:
@@ -24788,6 +25108,9 @@ class AsyncSageMakerClient:
         sort_order: Optional["capo_sagemaker.types.sort_order.SortOrder"] = None,
         next_token: Optional["capo_sagemaker.types.next_token.NextToken"] = None,
         max_results: Optional["capo_sagemaker.types.max_results.MaxResults"] = None,
+        managed_by: Optional[
+            "capo_sagemaker.types.pipeline_managed_by.PipelineManagedBy"
+        ] = None,
     ) -> "capo_sagemaker.types.list_pipelines_response.ListPipelinesResponse":
         """<p>Gets a list of pipelines.</p>
 
@@ -24799,6 +25122,7 @@ class AsyncSageMakerClient:
             sort_order: <p>The sort order for results.</p>
             next_token: <p>If the result of the previous <code>ListPipelines</code> request was truncated, the response includes a <code>NextToken</code>. To retrieve the next set of pipelines, use the token in the next request.</p>
             max_results: <p>The maximum number of pipelines to return in the response.</p>
+            managed_by: <p>Filters the pipelines by who manages them. Specify <code>AWS</code> to return pipelines that AWS manages, or <code>CUSTOMER</code> to return pipelines that you created. If you don't specify a value, the response includes both.</p>
 
         Raises:
             capo_sagemaker.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -24837,6 +25161,8 @@ class AsyncSageMakerClient:
             input_["next_token"] = next_token
         if max_results is not None:
             input_["max_results"] = max_results
+        if managed_by is not None:
+            input_["managed_by"] = managed_by
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -24861,6 +25187,9 @@ class AsyncSageMakerClient:
         sort_order: Optional["capo_sagemaker.types.sort_order.SortOrder"] = None,
         next_token: Optional["capo_sagemaker.types.next_token.NextToken"] = None,
         max_results: Optional["capo_sagemaker.types.max_results.MaxResults"] = None,
+        managed_by: Optional[
+            "capo_sagemaker.types.pipeline_managed_by.PipelineManagedBy"
+        ] = None,
     ) -> "AsyncIterator[capo_sagemaker.types.pipeline_summary.PipelineSummary]":
         _token = next_token
         while True:
@@ -24873,6 +25202,7 @@ class AsyncSageMakerClient:
                 sort_order=sort_order,
                 next_token=_token,
                 max_results=max_results,
+                managed_by=managed_by,
             )
             _page = _resolve_path(_response, ("pipeline_summaries",))
             for _item in _page or []:
@@ -25216,7 +25546,7 @@ class AsyncSageMakerClient:
         sort_order: Optional[
             "capo_sagemaker.types.project_sort_order.ProjectSortOrder"
         ] = None,
-    ) -> "AsyncIterator[capo_sagemaker.types.list_projects_output.ListProjectsOutput]":
+    ) -> "AsyncIterator[capo_sagemaker.types.project_summary.ProjectSummary]":
         _token = next_token
         while True:
             _response = await self.list_projects(
@@ -25229,7 +25559,9 @@ class AsyncSageMakerClient:
                 sort_by=sort_by,
                 sort_order=sort_order,
             )
-            yield _response
+            _page = _resolve_path(_response, ("project_summary_list",))
+            for _item in _page or []:
+                yield _item
             _token = _resolve_path(_response, ("next_token",))
             if not _token:
                 break
@@ -28122,6 +28454,10 @@ class AsyncSageMakerClient:
         mlflow_experiment_name: Optional[
             "capo_sagemaker.types.mlflow_experiment_entity_name.MlflowExperimentEntityName"
         ] = None,
+        pipeline_version_alias: Optional[
+            "capo_sagemaker.types.pipeline_version_alias.PipelineVersionAlias"
+        ] = None,
+        role_arn: Optional["capo_sagemaker.types.role_arn.RoleArn"] = None,
     ) -> "capo_sagemaker.types.start_pipeline_execution_response.StartPipelineExecutionResponse":
         """<p>Starts a pipeline execution.</p>
 
@@ -28133,8 +28469,10 @@ class AsyncSageMakerClient:
             client_request_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the operation. An idempotent operation completes no more than once.</p>
             parallelism_configuration: <p>This configuration, if specified, overrides the parallelism configuration of the parent pipeline for this specific run.</p>
             selective_execution_config: <p>The selective execution configuration applied to the pipeline run.</p>
-            pipeline_version_id: <p>The ID of the pipeline version to start execution from.</p>
+            pipeline_version_id: <p>The ID of the pipeline version to start execution from. You can't specify this with <code>PipelineVersionAlias</code>.</p>
             mlflow_experiment_name: <p> The MLflow experiment name of the pipeline execution. </p>
+            pipeline_version_alias: <p>The alias of the pipeline version to start the execution from. You can't specify this with <code>PipelineVersionId</code>. If no version of the pipeline has this alias, the request fails with a <code>ResourceNotFound</code> error.</p>
+            role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that the execution uses. You must specify this parameter when you start an execution of a pipeline that AWS manages. You can't specify it for a pipeline that you create, because its executions use the pipeline's role.</p>
 
         Raises:
             capo_sagemaker.errors.conflict_exception.ConflictException: <p>There was a conflict when you attempted to modify a SageMaker entity such as an <code>Experiment</code> or <code>Artifact</code>.</p>
@@ -28181,6 +28519,10 @@ class AsyncSageMakerClient:
             input_["pipeline_version_id"] = pipeline_version_id
         if mlflow_experiment_name is not None:
             input_["mlflow_experiment_name"] = mlflow_experiment_name
+        if pipeline_version_alias is not None:
+            input_["pipeline_version_alias"] = pipeline_version_alias
+        if role_arn is not None:
+            input_["role_arn"] = role_arn
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -29514,6 +29856,76 @@ class AsyncSageMakerClient:
             input_["auto_scaling"] = auto_scaling
         if orchestrator is not None:
             input_["orchestrator"] = orchestrator
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def update_cluster_extension(
+        self,
+        *,
+        config_overrides: Optional[AsyncSageMakerClientConfig] = None,
+        cluster_arn: Optional["capo_sagemaker.types.cluster_arn.ClusterArn"] = None,
+        extension_arn: Optional[
+            "capo_sagemaker.types.extension_arn.ExtensionArn"
+        ] = None,
+        extension_version: Optional[
+            "capo_sagemaker.types.extension_version.ExtensionVersion"
+        ] = None,
+        configuration_values: Optional[
+            "capo_sagemaker.types.extension_configuration_values.ExtensionConfigurationValues"
+        ] = None,
+        client_token: Optional["capo_sagemaker.types.string.String"] = None,
+    ) -> "capo_sagemaker.types.update_cluster_extension_response.UpdateClusterExtensionResponse":
+        """<p>Updates the configuration or the version of an extension installed on a SageMaker HyperPod cluster. SageMaker HyperPod applies the change to every node in the cluster. You can change the configuration, the version, or both in one request.</p> <ul> <li> <p> <b>Configuration:</b> You can change settings by sending <code>ConfigurationValues</code>. Settings that you include are changed. Settings that you omit keep their current values. A setting with the value <code>null</code> is removed and returns to its default value.</p> </li> <li> <p> <b>Version:</b> You can update to a later version. You can't update to an earlier version. To use an earlier version, delete the extension and create it again with that version.</p> </li> </ul> <p>You can't update an extension while it is being deleted.</p>
+
+        Args:
+            cluster_arn: <p>The Amazon Resource Name (ARN) of the SageMaker HyperPod cluster on which the extension is installed.</p>
+            extension_arn: <p>The Amazon Resource Name (ARN) of the extension to update.</p>
+            extension_version: <p>The version to update the extension to, in <code>MAJOR.MINOR.PATCH</code> format. The version must be later than the extension's current version. If you omit this parameter, the extension keeps its current version.</p>
+            configuration_values: <p>The configuration changes to apply, as a JSON object serialized as a string. Settings that you include are changed, settings that you omit are unchanged, and a setting with the value <code>null</code> returns to its default value. The resulting configuration must be valid for the target extension version. If you omit <code>ConfigurationValues</code>, the configuration is unchanged.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide so that the request is idempotent. If you send the same update more than once, SageMaker HyperPod applies it once and doesn't return an error.</p>
+
+        Raises:
+            capo_sagemaker.errors.conflict_exception.ConflictException: <p>There was a conflict when you attempted to modify a SageMaker entity such as an <code>Experiment</code> or <code>Artifact</code>.</p>
+            capo_sagemaker.errors.resource_not_found.ResourceNotFound: <p>Resource being access is not found.</p>
+            capo_sagemaker.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_sagemaker.types.update_cluster_extension_request.UpdateClusterExtensionRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_sagemaker.types.update_cluster_extension_response.UpdateClusterExtensionResponse"
+        ]:
+            import capo_sagemaker._operations.sage_maker.update_cluster_extension
+
+            (
+                output,
+                http_response,
+            ) = await capo_sagemaker._operations.sage_maker.update_cluster_extension.async_update_cluster_extension(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateClusterExtension")
+        )
+        input_: capo_sagemaker.types.update_cluster_extension_request.UpdateClusterExtensionRequest = {}
+        if cluster_arn is not None:
+            input_["cluster_arn"] = cluster_arn
+        if extension_arn is not None:
+            input_["extension_arn"] = extension_arn
+        if extension_version is not None:
+            input_["extension_version"] = extension_version
+        if configuration_values is not None:
+            input_["configuration_values"] = configuration_values
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -31822,6 +32234,9 @@ class AsyncSageMakerClient:
         parallelism_configuration: Optional[
             "capo_sagemaker.types.parallelism_configuration.ParallelismConfiguration"
         ] = None,
+        pipeline_version_aliases: Optional[
+            "capo_sagemaker.types.pipeline_version_alias_list.PipelineVersionAliasList"
+        ] = None,
     ) -> "capo_sagemaker.types.update_pipeline_response.UpdatePipelineResponse":
         """<p>Updates a pipeline.</p>
 
@@ -31833,6 +32248,7 @@ class AsyncSageMakerClient:
             pipeline_description: <p>The description of the pipeline.</p>
             role_arn: <p>The Amazon Resource Name (ARN) that the pipeline uses to execute.</p>
             parallelism_configuration: <p>If specified, it applies to all executions of this pipeline by default.</p>
+            pipeline_version_aliases: <p>The aliases to assign to the new pipeline version that this update creates. You can specify aliases only when the update changes the pipeline definition. To change the aliases of an existing version, use <code>UpdatePipelineVersion</code>.</p> <p>An alias must be unique within the pipeline. To move an alias from an existing version to the new version, first remove the alias from the existing version with <code>UpdatePipelineVersion</code>.</p>
 
         Raises:
             capo_sagemaker.errors.conflict_exception.ConflictException: <p>There was a conflict when you attempted to modify a SageMaker entity such as an <code>Experiment</code> or <code>Artifact</code>.</p>
@@ -31873,6 +32289,8 @@ class AsyncSageMakerClient:
             input_["role_arn"] = role_arn
         if parallelism_configuration is not None:
             input_["parallelism_configuration"] = parallelism_configuration
+        if pipeline_version_aliases is not None:
+            input_["pipeline_version_aliases"] = pipeline_version_aliases
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -31963,6 +32381,9 @@ class AsyncSageMakerClient:
         pipeline_version_description: Optional[
             "capo_sagemaker.types.pipeline_version_description.PipelineVersionDescription"
         ] = None,
+        pipeline_version_alias_operations: Optional[
+            "capo_sagemaker.types.alias_operations.AliasOperations"
+        ] = None,
     ) -> "capo_sagemaker.types.update_pipeline_version_response.UpdatePipelineVersionResponse":
         """<p>Updates a pipeline version.</p>
 
@@ -31971,6 +32392,7 @@ class AsyncSageMakerClient:
             pipeline_version_id: <p>The pipeline version ID to update.</p>
             pipeline_version_display_name: <p>The display name of the pipeline version.</p>
             pipeline_version_description: <p>The description of the pipeline version.</p>
+            pipeline_version_alias_operations: <p>The aliases to add to or remove from the pipeline version.</p>
 
         Raises:
             capo_sagemaker.errors.conflict_exception.ConflictException: <p>There was a conflict when you attempted to modify a SageMaker entity such as an <code>Experiment</code> or <code>Artifact</code>.</p>
@@ -32005,6 +32427,10 @@ class AsyncSageMakerClient:
             input_["pipeline_version_display_name"] = pipeline_version_display_name
         if pipeline_version_description is not None:
             input_["pipeline_version_description"] = pipeline_version_description
+        if pipeline_version_alias_operations is not None:
+            input_["pipeline_version_alias_operations"] = (
+                pipeline_version_alias_operations
+            )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

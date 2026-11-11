@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_ram.types.boolean
+    import capo_ram.types.permission_arn_and_template_parameters_list
     import capo_ram.types.permission_arn_list
     import capo_ram.types.principal_arn_or_id_list
     import capo_ram.types.resource_arn_list
@@ -36,6 +37,10 @@ class CreateResourceShareRequest(TypedDict, closed=True):
         "capo_ram.types.source_arn_or_account_list.SourceArnOrAccountList"
     ]
     """<p>Specifies source constraints (accounts, ARNs, organization IDs, or organization paths) that limit when service principals can access resources in this resource share. When a service principal attempts to access a shared resource, validation is performed to ensure the request originates from one of the specified sources. This helps prevent confused deputy attacks by applying constraints on where service principals can access resources from.</p>"""
+    permission_template_parameters: NotRequired[
+        "capo_ram.types.permission_arn_and_template_parameters_list.PermissionArnAndTemplateParametersList"
+    ]
+    """<p>Specifies the template parameter values for each permission being associated that has template parameters. Each entry maps a permission ARN to the parameter values to use when rendering the permission template for this resource share. You must provide values for all parameters declared in each permission template.</p>"""
     resource_share_configuration: NotRequired[
         "capo_ram.types.resource_share_configuration.ResourceShareConfiguration"
     ]
@@ -77,6 +82,14 @@ def serialize_json(value: CreateResourceShareRequest) -> dict:
 
         out["sources"] = capo_ram.types.source_arn_or_account_list.serialize_json(
             value["sources"]
+        )
+    if "permission_template_parameters" in value:
+        import capo_ram.types.permission_arn_and_template_parameters_list
+
+        out["permissionTemplateParameters"] = (
+            capo_ram.types.permission_arn_and_template_parameters_list.serialize_json(
+                value["permission_template_parameters"]
+            )
         )
     if "resource_share_configuration" in value:
         import capo_ram.types.resource_share_configuration
@@ -126,6 +139,14 @@ def deserialize_json(data: dict) -> CreateResourceShareRequest:
 
         out["sources"] = capo_ram.types.source_arn_or_account_list.deserialize_json(
             data["sources"]
+        )
+    if data.get("permissionTemplateParameters") is not None:
+        import capo_ram.types.permission_arn_and_template_parameters_list
+
+        out["permission_template_parameters"] = (
+            capo_ram.types.permission_arn_and_template_parameters_list.deserialize_json(
+                data["permissionTemplateParameters"]
+            )
         )
     if data.get("resourceShareConfiguration") is not None:
         import capo_ram.types.resource_share_configuration

@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_opensearch.types.advanced_options
     import capo_opensearch.types.boolean
     import capo_opensearch.types.change_progress_details
+    import capo_opensearch.types.deployment_strategy_override_options
     import capo_opensearch.types.domain_name
     import capo_opensearch.types.string
     import capo_opensearch.types.version_string
@@ -26,6 +27,10 @@ class UpgradeDomainResponse(TypedDict, closed=True):
         "capo_opensearch.types.advanced_options.AdvancedOptions"
     ]
     """<p>The advanced options configuration for the domain.</p>"""
+    deployment_strategy_options: NotRequired[
+        "capo_opensearch.types.deployment_strategy_override_options.DeploymentStrategyOverrideOptions"
+    ]
+    """<p>The deployment strategy override used for the upgrade.</p>"""
     change_progress_details: NotRequired[
         "capo_opensearch.types.change_progress_details.ChangeProgressDetails"
     ]
@@ -48,6 +53,14 @@ def serialize_json(value: UpgradeDomainResponse) -> dict:
 
         out["AdvancedOptions"] = capo_opensearch.types.advanced_options.serialize_json(
             value["advanced_options"]
+        )
+    if "deployment_strategy_options" in value:
+        import capo_opensearch.types.deployment_strategy_override_options
+
+        out["DeploymentStrategyOptions"] = (
+            capo_opensearch.types.deployment_strategy_override_options.serialize_json(
+                value["deployment_strategy_options"]
+            )
         )
     if "change_progress_details" in value:
         import capo_opensearch.types.change_progress_details
@@ -76,6 +89,14 @@ def deserialize_json(data: dict) -> UpgradeDomainResponse:
         out["advanced_options"] = (
             capo_opensearch.types.advanced_options.deserialize_json(
                 data["AdvancedOptions"]
+            )
+        )
+    if data.get("DeploymentStrategyOptions") is not None:
+        import capo_opensearch.types.deployment_strategy_override_options
+
+        out["deployment_strategy_options"] = (
+            capo_opensearch.types.deployment_strategy_override_options.deserialize_json(
+                data["DeploymentStrategyOptions"]
             )
         )
     if data.get("ChangeProgressDetails") is not None:

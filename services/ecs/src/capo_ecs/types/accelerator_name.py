@@ -15,6 +15,8 @@ AcceleratorName: TypeAlias = Literal[
     "a10g",
     "h100",
     "t4g",
+    "l40s",
+    "l4",
 ]
 
 

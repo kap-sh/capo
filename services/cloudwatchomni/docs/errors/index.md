@@ -5,6 +5,7 @@
 - [ConflictException](ConflictException.md)
 - [DeserializationError](DeserializationError.md)
 - [InternalServerException](InternalServerException.md)
+- [PolicyTooLargeException](PolicyTooLargeException.md)
 - [ResourceNotFoundException](ResourceNotFoundException.md)
 - [SerializationError](SerializationError.md)
 - [ServiceError](ServiceError.md)

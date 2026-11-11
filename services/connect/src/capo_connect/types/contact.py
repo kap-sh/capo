@@ -18,6 +18,7 @@ if TYPE_CHECKING:
     import capo_connect.types.contact_evaluations
     import capo_connect.types.contact_id
     import capo_connect.types.contact_initiation_method
+    import capo_connect.types.contact_lens
     import capo_connect.types.contact_tag_map
     import capo_connect.types.customer
     import capo_connect.types.customer_id
@@ -168,6 +169,8 @@ class Contact(TypedDict, closed=True):
         "capo_connect.types.global_resiliency_metadata.GlobalResiliencyMetadata"
     ]
     """<p>Information about the global resiliency configuration for the contact, including traffic distribution details.</p>"""
+    contact_lens: NotRequired["capo_connect.types.contact_lens.ContactLens"]
+    """<p>Information about the conversational analytics configuration applied to the contact. This field is present only for contacts where conversational analytics is enabled in the contact flow.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -414,6 +417,12 @@ def serialize_json(value: Contact) -> dict:
             capo_connect.types.global_resiliency_metadata.serialize_json(
                 value["global_resiliency_metadata"]
             )
+        )
+    if "contact_lens" in value:
+        import capo_connect.types.contact_lens
+
+        out["ContactLens"] = capo_connect.types.contact_lens.serialize_json(
+            value["contact_lens"]
         )
     return out
 
@@ -669,6 +678,12 @@ def deserialize_json(data: dict) -> Contact:
             capo_connect.types.global_resiliency_metadata.deserialize_json(
                 data["GlobalResiliencyMetadata"]
             )
+        )
+    if data.get("ContactLens") is not None:
+        import capo_connect.types.contact_lens
+
+        out["contact_lens"] = capo_connect.types.contact_lens.deserialize_json(
+            data["ContactLens"]
         )
     return out
 

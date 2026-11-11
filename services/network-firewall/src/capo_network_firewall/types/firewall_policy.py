@@ -61,7 +61,7 @@ class FirewallPolicy(TypedDict, closed=True):
     route53_resolved_ip_validation: NotRequired[
         "capo_network_firewall.types.route53_resolved_ip_validation.Route53ResolvedIPValidation"
     ]
-    """<p>The settings that enable resolved IP validation for the policy. Resolved IP validation verifies that a connection's destination IP address is one that the Amazon Route 53 Resolver returned in a DNS response for a domain. The response must come from a VPC that's associated with the Route 53 Resolver DNS Firewall rule group that you specify. This checks how the destination IP address was obtained, instead of relying only on the domain that the client asserts in its TLS Server Name Indication (SNI) or HTTP <code>Host</code> header. For more information, see <a>Route53ResolvedIPValidation</a>.</p>"""
+    """<p>The settings that enable resolved IP validation for the policy. Resolved IP validation verifies that a connection's destination IP address is one that the Amazon Route 53 Resolver returned in a DNS response for a domain. A VPC that's associated with the Route 53 Resolver DNS Firewall rule group that you specify must send the response. This checks how the destination IP address was obtained, instead of relying only on the domain that the client asserts in its TLS Server Name Indication (SNI) or HTTP <code>Host</code> header. For more information, see <a>Route53ResolvedIPValidation</a>.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

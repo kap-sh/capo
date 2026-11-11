@@ -7,6 +7,8 @@ from typing_extensions import NotRequired, TypedDict
 from capo_network_firewall.errors import DeserializationError
 
 if TYPE_CHECKING:
+    import capo_network_firewall.types.firewall_rule_group
+    import capo_network_firewall.types.ips_rule_group
     import capo_network_firewall.types.rule_group
     import capo_network_firewall.types.rule_group_response
     import capo_network_firewall.types.update_token
@@ -17,6 +19,14 @@ class DescribeRuleGroupResponse(TypedDict, closed=True):
     """<p>A token used for optimistic locking. Network Firewall returns a token to your requests that access the rule group. The token marks the state of the rule group resource at the time of the request. </p> <p>To make changes to the rule group, you provide the token in your request. Network Firewall uses the token to ensure that the rule group hasn't changed since you last retrieved it. If it has changed, the operation fails with an <code>InvalidTokenException</code>. If this happens, retrieve the rule group again to get a current copy of it with a current token. Reapply your changes as needed, then try the operation again using the new token. </p>"""
     rule_group: NotRequired["capo_network_firewall.types.rule_group.RuleGroup"]
     """<p>The object that defines the rules in a rule group. This, along with <a>RuleGroupResponse</a>, define the rule group. You can retrieve all objects for a rule group by calling <a>DescribeRuleGroup</a>. </p> <p>Network Firewall uses a rule group to inspect and control network traffic. You define stateless rule groups to inspect individual packets and you define stateful rule groups to inspect packets in the context of their traffic flow. </p> <p>To use a rule group, you include it by reference in an Network Firewall firewall policy, then you use the policy in a firewall. You can reference a rule group from more than one firewall policy, and you can use a firewall policy in more than one firewall. </p>"""
+    firewall_rule_group: NotRequired[
+        "capo_network_firewall.types.firewall_rule_group.FirewallRuleGroup"
+    ]
+    """<p>The object that defines the rules in a firewall engine rule group, for use in a Next Generation policy.</p>"""
+    ips_rule_group: NotRequired[
+        "capo_network_firewall.types.ips_rule_group.IpsRuleGroup"
+    ]
+    """<p>The object that defines the rules in an IPS engine rule group, for use in a Next Generation policy.</p>"""
     rule_group_response: (
         "capo_network_firewall.types.rule_group_response.RuleGroupResponse"
     )
@@ -33,6 +43,22 @@ def serialize_aws_json_1_0(value: DescribeRuleGroupResponse) -> dict:
         out["RuleGroup"] = (
             capo_network_firewall.types.rule_group.serialize_aws_json_1_0(
                 value["rule_group"]
+            )
+        )
+    if "firewall_rule_group" in value:
+        import capo_network_firewall.types.firewall_rule_group
+
+        out["FirewallRuleGroup"] = (
+            capo_network_firewall.types.firewall_rule_group.serialize_aws_json_1_0(
+                value["firewall_rule_group"]
+            )
+        )
+    if "ips_rule_group" in value:
+        import capo_network_firewall.types.ips_rule_group
+
+        out["IpsRuleGroup"] = (
+            capo_network_firewall.types.ips_rule_group.serialize_aws_json_1_0(
+                value["ips_rule_group"]
             )
         )
     import capo_network_firewall.types.rule_group_response
@@ -57,6 +83,22 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeRuleGroupResponse:
         out["rule_group"] = (
             capo_network_firewall.types.rule_group.deserialize_aws_json_1_0(
                 data["RuleGroup"]
+            )
+        )
+    if data.get("FirewallRuleGroup") is not None:
+        import capo_network_firewall.types.firewall_rule_group
+
+        out["firewall_rule_group"] = (
+            capo_network_firewall.types.firewall_rule_group.deserialize_aws_json_1_0(
+                data["FirewallRuleGroup"]
+            )
+        )
+    if data.get("IpsRuleGroup") is not None:
+        import capo_network_firewall.types.ips_rule_group
+
+        out["ips_rule_group"] = (
+            capo_network_firewall.types.ips_rule_group.deserialize_aws_json_1_0(
+                data["IpsRuleGroup"]
             )
         )
     if data.get("RuleGroupResponse") is not None:

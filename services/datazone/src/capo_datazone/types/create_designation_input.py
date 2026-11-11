@@ -19,9 +19,9 @@ class CreateDesignationInput(TypedDict, closed=True):
     description: NotRequired["capo_datazone.types.description.Description"]
     """<p>A human-readable description of the designation and its intended use.</p>"""
     policy: "capo_datazone.types.cedar_designation_policy.CedarDesignationPolicy"
-    """The Cedar permit policy that defines what actions holders of this designation are allowed to perform."""
+    """<p>The Cedar permit policy that defines the actions holders of this designation are allowed to perform.</p>"""
     deletion_protection: NotRequired["bool"]
-    """Whether deletion protection is enabled for this designation. Defaults to true when omitted."""
+    """<p>Specifies whether deletion protection is enabled for this designation. Defaults to <code>true</code> when omitted. When enabled, <code>DeleteDesignation</code> is rejected until protection is disabled through <code>UpdateDesignation</code>.</p>"""
 
 
 # --- restJson1 ser/de ---

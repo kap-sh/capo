@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_sagemaker.types.accelerator_partition_layouts
     import capo_sagemaker.types.initial_task_count
     import capo_sagemaker.types.instance_pool_list
     import capo_sagemaker.types.model_name
@@ -94,6 +95,10 @@ class ProductionVariant(TypedDict, closed=True):
         "capo_sagemaker.types.production_variant_capacity_reservation_config.ProductionVariantCapacityReservationConfig"
     ]
     """<p>Settings for the capacity reservation for the compute instances that SageMaker AI reserves for an endpoint. </p>"""
+    accelerator_partition_layouts: NotRequired[
+        "capo_sagemaker.types.accelerator_partition_layouts.AcceleratorPartitionLayouts"
+    ]
+    """<p>The accelerator partition layout for the accelerators backing this production variant. A layout lists the partition profiles to carve on the accelerators it applies to; on NVIDIA GPUs these are Multi-Instance GPU (MIG) profiles such as <code>mig-3g.40gb</code>. Specify a single layout: SageMaker applies it uniformly to every accelerator on the variant's instance type, and you place one inference component on each partition. Omit this field to use whole, unpartitioned accelerators.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -203,6 +208,14 @@ def serialize_aws_json_1_1(value: ProductionVariant) -> dict:
                 value["capacity_reservation_config"]
             )
         )
+    if "accelerator_partition_layouts" in value:
+        import capo_sagemaker.types.accelerator_partition_layouts
+
+        out["AcceleratorPartitionLayouts"] = (
+            capo_sagemaker.types.accelerator_partition_layouts.serialize_aws_json_1_1(
+                value["accelerator_partition_layouts"]
+            )
+        )
     return out
 
 
@@ -302,6 +315,14 @@ def deserialize_aws_json_1_1(data: dict) -> ProductionVariant:
         out["capacity_reservation_config"] = (
             capo_sagemaker.types.production_variant_capacity_reservation_config.deserialize_aws_json_1_1(
                 data["CapacityReservationConfig"]
+            )
+        )
+    if data.get("AcceleratorPartitionLayouts") is not None:
+        import capo_sagemaker.types.accelerator_partition_layouts
+
+        out["accelerator_partition_layouts"] = (
+            capo_sagemaker.types.accelerator_partition_layouts.deserialize_aws_json_1_1(
+                data["AcceleratorPartitionLayouts"]
             )
         )
     return out

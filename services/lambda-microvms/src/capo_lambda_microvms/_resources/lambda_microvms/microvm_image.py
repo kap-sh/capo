@@ -639,7 +639,7 @@ class MicrovmImage:
             description: <p>The description of the MicroVM image.</p>
             code_artifact: <p>The code artifact containing the application code and metadata for the MicroVM image.</p>
             logging: <p>The logging configuration for build-time and runtime logs. Specify {"cloudWatch": {"logGroup": "..."}} to stream logs to a custom CloudWatch log group, or {"disabled": {}} to turn off logging.</p>
-            egress_network_connectors: <p>The list of egress network connectors available to the MicroVM at runtime.</p>
+            egress_network_connectors: <p>The list of egress network connectors available to the MicroVM at image build time.</p>
             cpu_configurations: <p>The list of supported CPU configurations for the MicroVM.</p>
             resources: <p>The resource requirements for the MicroVM.</p>
             additional_os_capabilities: <p>Additional OS capabilities granted to the MicroVM runtime environment.</p>
@@ -1381,7 +1381,7 @@ class AsyncMicrovmImage:
             description: <p>The description of the MicroVM image.</p>
             code_artifact: <p>The code artifact containing the application code and metadata for the MicroVM image.</p>
             logging: <p>The logging configuration for build-time and runtime logs. Specify {"cloudWatch": {"logGroup": "..."}} to stream logs to a custom CloudWatch log group, or {"disabled": {}} to turn off logging.</p>
-            egress_network_connectors: <p>The list of egress network connectors available to the MicroVM at runtime.</p>
+            egress_network_connectors: <p>The list of egress network connectors available to the MicroVM at image build time.</p>
             cpu_configurations: <p>The list of supported CPU configurations for the MicroVM.</p>
             resources: <p>The resource requirements for the MicroVM.</p>
             additional_os_capabilities: <p>Additional OS capabilities granted to the MicroVM runtime environment.</p>

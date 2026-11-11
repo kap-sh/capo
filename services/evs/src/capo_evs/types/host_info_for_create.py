@@ -18,7 +18,7 @@ class HostInfoForCreate(TypedDict, closed=True):
     key_name: "capo_evs.types.key_name.KeyName"
     """<p>The name of the SSH key that is used to access the host.</p>"""
     instance_type: "capo_evs.types.instance_type.InstanceType"
-    """<p>The EC2 instance type that represents the host.</p>"""
+    """<p>The EC2 instance type that represents the host.</p> <note> <p>With VCF 5.2.x, you can use only the <code>i4i.metal</code>, <code>i7i.metal-24xl</code>, and <code>i7i.metal-48xl</code> instance types. All of these instance types are supported with <code>vcfVersion</code> set to <code>SELF_DEPLOYED</code>.</p> </note>"""
     placement_group_id: NotRequired[
         "capo_evs.types.placement_group_id.PlacementGroupId"
     ]

@@ -111,6 +111,10 @@ class Run(TypedDict, closed=True):
         "capo_device_farm.types.amazon_resource_name.AmazonResourceName"
     ]
     """<p>The ARN of the YAML-formatted test specification for the run.</p>"""
+    test_package_arn: NotRequired[
+        "capo_device_farm.types.amazon_resource_name.AmazonResourceName"
+    ]
+    """<p>The ARN of the test package the run was scheduled with. This field is not returned for test types that do not use a test package, such as <code>BUILTIN_FUZZ</code>.</p>"""
     device_selection_result: NotRequired[
         "capo_device_farm.types.device_selection_result.DeviceSelectionResult"
     ]
@@ -270,6 +274,8 @@ def serialize_aws_json_1_1(value: Run) -> dict:
         out["skipAppResign"] = value["skip_app_resign"]
     if "test_spec_arn" in value:
         out["testSpecArn"] = value["test_spec_arn"]
+    if "test_package_arn" in value:
+        out["testPackageArn"] = value["test_package_arn"]
     if "device_selection_result" in value:
         import capo_device_farm.types.device_selection_result
 
@@ -457,6 +463,8 @@ def deserialize_aws_json_1_1(data: dict) -> Run:
         out["skip_app_resign"] = data["skipAppResign"]
     if data.get("testSpecArn") is not None:
         out["test_spec_arn"] = data["testSpecArn"]
+    if data.get("testPackageArn") is not None:
+        out["test_package_arn"] = data["testPackageArn"]
     if data.get("deviceSelectionResult") is not None:
         import capo_device_farm.types.device_selection_result
 

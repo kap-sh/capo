@@ -21,7 +21,7 @@ class FreeTrialPricingTerm(TypedDict, closed=True):
     duration: NotRequired[
         "capo_marketplace_agreement.types.bounded_string.BoundedString"
     ]
-    """<p>Duration of the free trial period (5–31 days). </p>"""
+    """<p>Duration of the free trial period. The allowed duration depends on the product type. For SaaS products, the free trial lasts 7 to 90 days.</p>"""
     grants: NotRequired["capo_marketplace_agreement.types.grant_list.GrantList"]
     """<p>Entitlements granted to the acceptor of a free trial as part of an agreement execution.</p>"""
 

@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.pipeline_execution_arn
     import capo_sagemaker.types.pipeline_execution_name
     import capo_sagemaker.types.pipeline_execution_status
+    import capo_sagemaker.types.pipeline_version_alias_list
     import capo_sagemaker.types.pipeline_version_description
     import capo_sagemaker.types.pipeline_version_id
     import capo_sagemaker.types.pipeline_version_name
@@ -49,6 +50,10 @@ class PipelineVersion(TypedDict, closed=True):
         "capo_sagemaker.types.pipeline_execution_status.PipelineExecutionStatus"
     ]
     """<p>The status of the most recent pipeline execution created from this pipeline version.</p>"""
+    pipeline_version_aliases: NotRequired[
+        "capo_sagemaker.types.pipeline_version_alias_list.PipelineVersionAliasList"
+    ]
+    """<p>The aliases assigned to the pipeline version.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -102,6 +107,14 @@ def serialize_aws_json_1_1(value: PipelineVersion) -> dict:
         out["LastExecutedPipelineExecutionStatus"] = (
             capo_sagemaker.types.pipeline_execution_status.serialize_aws_json_1_1(
                 value["last_executed_pipeline_execution_status"]
+            )
+        )
+    if "pipeline_version_aliases" in value:
+        import capo_sagemaker.types.pipeline_version_alias_list
+
+        out["PipelineVersionAliases"] = (
+            capo_sagemaker.types.pipeline_version_alias_list.serialize_aws_json_1_1(
+                value["pipeline_version_aliases"]
             )
         )
     return out
@@ -159,6 +172,14 @@ def deserialize_aws_json_1_1(data: dict) -> PipelineVersion:
         out["last_executed_pipeline_execution_status"] = (
             capo_sagemaker.types.pipeline_execution_status.deserialize_aws_json_1_1(
                 data["LastExecutedPipelineExecutionStatus"]
+            )
+        )
+    if data.get("PipelineVersionAliases") is not None:
+        import capo_sagemaker.types.pipeline_version_alias_list
+
+        out["pipeline_version_aliases"] = (
+            capo_sagemaker.types.pipeline_version_alias_list.deserialize_aws_json_1_1(
+                data["PipelineVersionAliases"]
             )
         )
     return out

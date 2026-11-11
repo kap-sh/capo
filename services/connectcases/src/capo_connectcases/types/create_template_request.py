@@ -31,7 +31,7 @@ class CreateTemplateRequest(TypedDict, closed=True):
     required_fields: NotRequired[
         "capo_connectcases.types.required_field_list.RequiredFieldList"
     ]
-    """<p>A list of fields that must contain a value for a case to be successfully created with this template.</p>"""
+    """<p>A list of fields that must contain a value for a case to be successfully created with this template.</p> <p>To require a Customer Profile when creating cases, include <code>customer_id</code> in this list. If <code>customer_id</code> is omitted, the Customer Profile field is optional and can be added, changed, or removed after case creation.</p>"""
     status: NotRequired["capo_connectcases.types.template_status.TemplateStatus"]
     """<p>The status of the template.</p>"""
     rules: NotRequired[

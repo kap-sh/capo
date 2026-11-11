@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lightsail#CreateContainerServiceRegistryLoginResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,21 @@ def deserialize_aws_json_1_1(data: dict) -> CreateContainerServiceRegistryLoginR
         out["registry_login"] = (
             capo_lightsail.types.container_service_registry_login.deserialize_aws_json_1_1(
                 data["registryLogin"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(
+    value: CreateContainerServiceRegistryLoginResult,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "registry_login" in value:
+        import capo_lightsail.types.container_service_registry_login
+
+        out["registry_login"] = (
+            capo_lightsail.types.container_service_registry_login.redact_sensitive(
+                value["registry_login"]
             )
         )
     return out

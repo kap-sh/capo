@@ -17,6 +17,7 @@ import capo_datasync.types.agent_arn_list
 import capo_datasync.types.cmk_secret_config
 import capo_datasync.types.custom_secret_config
 import capo_datasync.types.object_storage_certificate
+import capo_datasync.types.object_storage_federated_identity_config
 import capo_datasync.types.object_storage_server_protocol
 import capo_datasync.types.update_location_object_storage_request
 import capo_datasync.types.update_location_object_storage_response

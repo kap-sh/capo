@@ -35,7 +35,7 @@ class UpdateMicrovmImageRequest(TypedDict, closed=True):
     egress_network_connectors: NotRequired[
         "capo_lambda_microvms.types.network_connector_list.NetworkConnectorList"
     ]
-    """<p>The list of egress network connectors available to the MicroVM at runtime.</p>"""
+    """<p>The list of egress network connectors available to the MicroVM at image build time.</p>"""
     cpu_configurations: NotRequired[
         "capo_lambda_microvms.types.cpu_configuration_list.CpuConfigurationList"
     ]

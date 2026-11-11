@@ -15,6 +15,7 @@ import capo_sagemaker.errors.conflict_exception
 import capo_sagemaker.errors.resource_not_found
 import capo_sagemaker.types.parallelism_configuration
 import capo_sagemaker.types.pipeline_definition_s3_location
+import capo_sagemaker.types.pipeline_version_alias_list
 import capo_sagemaker.types.update_pipeline_request
 import capo_sagemaker.types.update_pipeline_response
 from capo_sagemaker._protocol.errors import parse_error_metadata_json

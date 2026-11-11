@@ -792,6 +792,7 @@
 - [OAuth2ClientApplication](o_auth2_client_application.md)
 - [OAuth2GrantType](o_auth2_grant_type.md)
 - [OAuth2Properties](o_auth2_properties.md)
+- [OAuth2PropertiesPatch](o_auth2_properties_patch.md)
 - [OpenLineageRunEventSummary](open_lineage_run_event_summary.md)
 - [OpenLineageRunState](open_lineage_run_state.md)
 - [OutputLocation](output_location.md)

@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import capo_sagemaker.types.max_results
     import capo_sagemaker.types.next_token
+    import capo_sagemaker.types.pipeline_managed_by
     import capo_sagemaker.types.pipeline_name
     import capo_sagemaker.types.sort_order
     import capo_sagemaker.types.sort_pipelines_by
@@ -28,6 +29,10 @@ class ListPipelinesRequest(TypedDict, closed=True):
     """<p>If the result of the previous <code>ListPipelines</code> request was truncated, the response includes a <code>NextToken</code>. To retrieve the next set of pipelines, use the token in the next request.</p>"""
     max_results: NotRequired["capo_sagemaker.types.max_results.MaxResults"]
     """<p>The maximum number of pipelines to return in the response.</p>"""
+    managed_by: NotRequired[
+        "capo_sagemaker.types.pipeline_managed_by.PipelineManagedBy"
+    ]
+    """<p>Filters the pipelines by who manages them. Specify <code>AWS</code> to return pipelines that AWS manages, or <code>CUSTOMER</code> to return pipelines that you created. If you don't specify a value, the response includes both.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -63,6 +68,14 @@ def serialize_aws_json_1_1(value: ListPipelinesRequest) -> dict:
         out["NextToken"] = value["next_token"]
     if "max_results" in value:
         out["MaxResults"] = value["max_results"]
+    if "managed_by" in value:
+        import capo_sagemaker.types.pipeline_managed_by
+
+        out["ManagedBy"] = (
+            capo_sagemaker.types.pipeline_managed_by.serialize_aws_json_1_1(
+                value["managed_by"]
+            )
+        )
     return out
 
 
@@ -100,4 +113,12 @@ def deserialize_aws_json_1_1(data: dict) -> ListPipelinesRequest:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
+    if data.get("ManagedBy") is not None:
+        import capo_sagemaker.types.pipeline_managed_by
+
+        out["managed_by"] = (
+            capo_sagemaker.types.pipeline_managed_by.deserialize_aws_json_1_1(
+                data["ManagedBy"]
+            )
+        )
     return out

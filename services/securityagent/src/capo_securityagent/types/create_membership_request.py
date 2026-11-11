@@ -20,7 +20,7 @@ class CreateMembershipRequest(TypedDict, closed=True):
     membership_id: "capo_securityagent.types.membership_id.MembershipId"
     """<p>The unique identifier for the membership.</p>"""
     member_type: "capo_securityagent.types.membership_type.MembershipType"
-    """<p>The type of member. Currently, only USER is supported.</p>"""
+    """<p>The type of member. Use USER for an individual user or GROUP for an IAM Identity Center group. All members of a group have access to the agent space.</p>"""
     config: NotRequired["capo_securityagent.types.membership_config.MembershipConfig"]
     """<p>The configuration for the membership, such as the user role.</p>"""
 

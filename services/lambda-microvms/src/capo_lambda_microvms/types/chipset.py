@@ -2,7 +2,10 @@
 
 from typing import Literal, TypeAlias, cast
 
-Chipset: TypeAlias = Literal["GRAVITON",]
+Chipset: TypeAlias = Literal[
+    "GRAVITON",
+    "INTEL",
+]
 
 
 # --- restJson1 ser/de ---

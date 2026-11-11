@@ -26,6 +26,7 @@ import capo_ram.errors.throttling_exception
 import capo_ram.errors.unknown_resource_exception
 import capo_ram.types.create_resource_share_request
 import capo_ram.types.create_resource_share_response
+import capo_ram.types.permission_arn_and_template_parameters_list
 import capo_ram.types.permission_arn_list
 import capo_ram.types.principal_arn_or_id_list
 import capo_ram.types.resource_arn_list

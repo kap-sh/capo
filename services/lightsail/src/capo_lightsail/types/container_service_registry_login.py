@@ -1,18 +1,19 @@
 """Generated from Smithy shape ``com.amazonaws.lightsail#ContainerServiceRegistryLogin``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_lightsail.types.iso_date
+    import capo_lightsail.types.sensitive_string
     import capo_lightsail.types.string
 
 
 class ContainerServiceRegistryLogin(TypedDict, closed=True):
     username: NotRequired["capo_lightsail.types.string.string"]
     """<p>The container service registry username to use to push container images to the container image registry of a Lightsail account.</p>"""
-    password: NotRequired["capo_lightsail.types.string.string"]
+    password: NotRequired["capo_lightsail.types.sensitive_string.SensitiveString"]
     """<p>The container service registry password to use to push container images to the container image registry of a Lightsail account</p>"""
     expires_at: NotRequired["capo_lightsail.types.iso_date.IsoDate"]
     """<p>The timestamp of when the container image registry sign-in credentials expire.</p> <p>The log in credentials expire 12 hours after they are created, at which point you will need to create a new set of log in credentials using the <code>CreateContainerServiceRegistryLogin</code> action.</p>"""
@@ -52,4 +53,11 @@ def deserialize_aws_json_1_1(data: dict) -> ContainerServiceRegistryLogin:
         )
     if data.get("registry") is not None:
         out["registry"] = data["registry"]
+    return out
+
+
+def redact_sensitive(value: ContainerServiceRegistryLogin) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "password" in value:
+        out["password"] = "*** Sensitive Data Redacted ***"
     return out

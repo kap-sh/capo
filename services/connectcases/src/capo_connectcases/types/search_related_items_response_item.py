@@ -23,7 +23,7 @@ class SearchRelatedItemsResponseItem(TypedDict, closed=True):
     content: "capo_connectcases.types.related_item_content.RelatedItemContent"
     """<p>Represents the content of a particular type of related item.</p>"""
     tags: NotRequired["capo_connectcases.types.tags.Tags"]
-    """<p>A map of of key-value pairs that represent tags on a resource. Tags are used to organize, track, or control access for this resource.</p>"""
+    """<p>A map of key-value pairs that represent tags on a resource. Tags are used to organize, track, or control access for this resource.</p>"""
     performed_by: NotRequired["capo_connectcases.types.user_union.UserUnion"]
     """<p>Represents the creator of the related item.</p>"""
 

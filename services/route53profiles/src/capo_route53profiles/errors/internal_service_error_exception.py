@@ -47,7 +47,7 @@ class InternalServiceErrorException(ServiceError):
         super().__init__(
             "client",
             is_throttling_error=False,
-            is_retryable=False,
+            is_retryable=True,
             code="InternalServiceErrorException",
             message=message,
             response=response,

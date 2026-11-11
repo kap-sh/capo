@@ -44,6 +44,7 @@ if TYPE_CHECKING:
     import capo_datasync.types.azure_blob_sas_configuration
     import capo_datasync.types.azure_blob_subdirectory
     import capo_datasync.types.azure_blob_type
+    import capo_datasync.types.azure_federated_identity_config
     import capo_datasync.types.cancel_task_execution_request
     import capo_datasync.types.cancel_task_execution_response
     import capo_datasync.types.cmk_secret_config
@@ -157,6 +158,7 @@ if TYPE_CHECKING:
     import capo_datasync.types.object_storage_access_key
     import capo_datasync.types.object_storage_bucket_name
     import capo_datasync.types.object_storage_certificate
+    import capo_datasync.types.object_storage_federated_identity_config
     import capo_datasync.types.object_storage_secret_key
     import capo_datasync.types.object_storage_server_port
     import capo_datasync.types.object_storage_server_protocol
@@ -475,6 +477,9 @@ class DataSyncClient:
         sas_configuration: Optional[
             "capo_datasync.types.azure_blob_sas_configuration.AzureBlobSasConfiguration"
         ] = None,
+        federated_identity: Optional[
+            "capo_datasync.types.azure_federated_identity_config.AzureFederatedIdentityConfig"
+        ] = None,
         blob_type: Optional["capo_datasync.types.azure_blob_type.AzureBlobType"] = None,
         access_tier: Optional[
             "capo_datasync.types.azure_access_tier.AzureAccessTier"
@@ -495,8 +500,9 @@ class DataSyncClient:
 
         Args:
             container_url: <p>Specifies the URL of the Azure Blob Storage container involved in your transfer.</p>
-            authentication_type: <p>Specifies the authentication method DataSync uses to access your Azure Blob Storage. DataSync can access blob storage using a shared access signature (SAS).</p>
+            authentication_type: <p>Specifies the authentication method DataSync uses to access your Azure Blob Storage. DataSync can access blob storage using a shared access signature (SAS) or an OpenID Connect (OIDC) token.</p>
             sas_configuration: <p>Specifies the SAS configuration that allows DataSync to access your Azure Blob Storage.</p> <note> <p>If you provide an authentication token using <code>SasConfiguration</code>, but do not provide secret configuration details using <code>CmkSecretConfig</code> or <code>CustomSecretConfig</code>, then DataSync stores the token using your Amazon Web Services account's secrets manager secret.</p> </note>
+            federated_identity: <p>Specifies the federated identity configuration that allows DataSync to access your Azure Blob Storage using an OpenID Connect (OIDC) token instead of a shared access signature (SAS). Provide either <code>FederatedIdentity</code> or <code>SasConfiguration</code>, but not both.</p>
             blob_type: <p>Specifies the type of blob that you want your objects or files to be when transferring them into Azure Blob Storage. Currently, DataSync only supports moving data into Azure Blob Storage as block blobs. For more information on blob types, see the <a href="https://learn.microsoft.com/en-us/rest/api/storageservices/understanding-block-blobs--append-blobs--and-page-blobs">Azure Blob Storage documentation</a>.</p>
             access_tier: <p>Specifies the access tier that you want your objects or files transferred into. This only applies when using the location as a transfer destination. For more information, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/creating-azure-blob-location.html#azure-blob-access-tiers">Access tiers</a>.</p>
             subdirectory: <p>Specifies path segments if you want to limit your transfer to a virtual directory in your container (for example, <code>/my/images</code>).</p>
@@ -546,6 +552,8 @@ class DataSyncClient:
         }
         if sas_configuration is not None:
             input_["sas_configuration"] = sas_configuration
+        if federated_identity is not None:
+            input_["federated_identity"] = federated_identity
         if blob_type is not None:
             input_["blob_type"] = blob_type
         if access_tier is not None:
@@ -1145,6 +1153,9 @@ class DataSyncClient:
         secret_key: Optional[
             "capo_datasync.types.object_storage_secret_key.ObjectStorageSecretKey"
         ] = None,
+        federated_identity: Optional[
+            "capo_datasync.types.object_storage_federated_identity_config.ObjectStorageFederatedIdentityConfig"
+        ] = None,
         agent_arns: Optional["capo_datasync.types.agent_arn_list.AgentArnList"] = None,
         tags: Optional["capo_datasync.types.input_tag_list.InputTagList"] = None,
         server_certificate: Optional[
@@ -1167,6 +1178,7 @@ class DataSyncClient:
             bucket_name: <p>Specifies the name of the object storage bucket involved in the transfer.</p>
             access_key: <p>Specifies the access key (for example, a user name) if credentials are required to authenticate with the object storage server.</p>
             secret_key: <p>Specifies the secret key (for example, a password) if credentials are required to authenticate with the object storage server.</p> <note> <p>If you provide a secret using <code>SecretKey</code>, but do not provide secret configuration details using <code>CmkSecretConfig</code> or <code>CustomSecretConfig</code>, then DataSync stores the token using your Amazon Web Services account's Secrets Manager secret.</p> </note>
+            federated_identity: <p>Specifies the federated identity configuration that allows DataSync to access your object storage using an OpenID Connect (OIDC) token instead of a long-term access key and secret key. Provide either <code>FederatedIdentity</code> or the <code>AccessKey</code>/<code>SecretKey</code> credentials, but not both.</p>
             agent_arns: <p>(Optional) Specifies the Amazon Resource Names (ARNs) of the DataSync agents that can connect with your object storage system. If you are setting up an agentless cross-cloud transfer, you do not need to specify a value for this parameter.</p> <note> <p>Make sure you configure this parameter correctly when you first create your storage location. You cannot add or remove agents from a storage location after you create it.</p> </note>
             tags: <p>Specifies the key-value pair that represents a tag that you want to add to the resource. Tags can help you manage, filter, and search for your resources. We recommend creating a name tag for your location.</p>
             server_certificate: <p>Specifies a certificate chain for DataSync to authenticate with your object storage system if the system uses a private or self-signed certificate authority (CA). You must specify a single <code>.pem</code> file with a full certificate chain (for example, <code>file:///home/user/.ssh/object_storage_certificates.pem</code>).</p> <p>The certificate chain might include:</p> <ul> <li> <p>The object storage system's certificate</p> </li> <li> <p>All intermediate certificates (if there are any)</p> </li> <li> <p>The root certificate of the signing CA</p> </li> </ul> <p>You can concatenate your certificates into a <code>.pem</code> file (which can be up to 32768 bytes before base64 encoding). The following example <code>cat</code> command creates an <code>object_storage_certificates.pem</code> file that includes three certificates:</p> <p> <code>cat object_server_certificate.pem intermediate_certificate.pem ca_root_certificate.pem > object_storage_certificates.pem</code> </p> <p>To use this parameter, configure <code>ServerProtocol</code> to <code>HTTPS</code>.</p>
@@ -1220,6 +1232,8 @@ class DataSyncClient:
             input_["access_key"] = access_key
         if secret_key is not None:
             input_["secret_key"] = secret_key
+        if federated_identity is not None:
+            input_["federated_identity"] = federated_identity
         if agent_arns is not None:
             input_["agent_arns"] = agent_arns
         if tags is not None:
@@ -1468,7 +1482,7 @@ class DataSyncClient:
             includes: <p>Specifies include filters that define the files, objects, and folders in your source location that you want DataSync to transfer. For more information and examples, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/filtering.html">Specifying what DataSync transfers by using filters</a>.</p>
             manifest_config: <p>Configures a manifest, which is a list of files or objects that you want DataSync to transfer. For more information and configuration examples, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/transferring-with-manifest.html">Specifying what DataSync transfers by using a manifest</a>.</p> <p>When using this parameter, your caller identity (the role that you're using DataSync with) must have the <code>iam:PassRole</code> permission. The <a href="https://docs.aws.amazon.com/datasync/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-awsdatasyncfullaccess">AWSDataSyncFullAccess</a> policy includes this permission.</p>
             task_report_config: <p>Specifies how you want to configure a task report, which provides detailed information about your DataSync transfer. For more information, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/task-reports.html">Monitoring your DataSync transfers with task reports</a>.</p> <p>When using this parameter, your caller identity (the role that you're using DataSync with) must have the <code>iam:PassRole</code> permission. The <a href="https://docs.aws.amazon.com/datasync/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-awsdatasyncfullaccess">AWSDataSyncFullAccess</a> policy includes this permission.</p>
-            task_mode: <p>Specifies one of the following task modes for your data transfer:</p> <ul> <li> <p> <code>ENHANCED</code> - Transfer virtually unlimited numbers of objects with higher performance than Basic mode. Enhanced mode tasks optimize the data transfer process by listing, preparing, transferring, and verifying data in parallel. Enhanced mode is currently available for transfers between Amazon S3 locations, transfers between Azure Blob and Amazon S3 without an agent, and transfers between other clouds and Amazon S3 without an agent.</p> <note> <p>To create an Enhanced mode task, the IAM role that you use to call the <code>CreateTask</code> operation must have the <code>iam:CreateServiceLinkedRole</code> permission.</p> </note> </li> <li> <p> <code>BASIC</code> (default) - Transfer files or objects between Amazon Web Services storage and all other supported DataSync locations. Basic mode tasks are subject to <a href="https://docs.aws.amazon.com/datasync/latest/userguide/datasync-limits.html">quotas</a> on the number of files, objects, and directories in a dataset. Basic mode sequentially prepares, transfers, and verifies data, making it slower than Enhanced mode for most workloads.</p> </li> </ul> <p>For more information, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/choosing-task-mode.html#task-mode-differences">Understanding task mode differences</a>.</p>
+            task_mode: <p>Specifies one of the following task modes for your data transfer:</p> <ul> <li> <p> <code>ENHANCED</code> - Transfer virtually unlimited numbers of objects with higher performance than Basic mode. Enhanced mode tasks optimize the data transfer process by listing, preparing, transferring, and verifying data in parallel. Enhanced mode is currently available for all transfers except those that use Amazon S3 on Outposts.</p> <note> <p>To create an Enhanced mode task, the IAM role that you use to call the <code>CreateTask</code> operation must have the <code>iam:CreateServiceLinkedRole</code> permission.</p> </note> </li> <li> <p> <code>BASIC</code> (default) - Transfer files or objects between Amazon Web Services storage and all other supported DataSync locations. Basic mode tasks are subject to <a href="https://docs.aws.amazon.com/datasync/latest/userguide/datasync-limits.html">quotas</a> on the number of files, objects, and directories in a dataset. Basic mode sequentially prepares, transfers, and verifies data, making it slower than Enhanced mode for most workloads.</p> </li> </ul> <p>For more information, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/choosing-task-mode.html#task-mode-differences">Understanding task mode differences</a>.</p>
 
         Raises:
             capo_datasync.errors.internal_exception.InternalException: <p>This exception is thrown when an error occurs in the DataSync service.</p>
@@ -2343,7 +2357,7 @@ class DataSyncClient:
         max_results: Optional["capo_datasync.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_datasync.types.next_token.NextToken"] = None,
     ) -> "capo_datasync.types.list_agents_response.ListAgentsResponse":
-        """<p>Returns a list of DataSync agents that belong to an Amazon Web Services account in the Amazon Web Services Region specified in the request.</p> <p>With pagination, you can reduce the number of agents returned in a response. If you get a truncated list of agents in a response, the response contains a marker that you can specify in your next request to fetch the next page of agents.</p> <p> <code>ListAgents</code> is eventually consistent. This means the result of running the operation might not reflect that you just created or deleted an agent. For example, if you create an agent with <a href="https://docs.aws.amazon.com/datasync/latest/userguide/API_CreateAgent.html">CreateAgent</a> and then immediately run <code>ListAgents</code>, that agent might not show up in the list right away. In situations like this, you can always confirm whether an agent has been created (or deleted) by using <a href="https://docs.aws.amazon.com/datasync/latest/userguide/API_DescribeAgent.html">DescribeAgent</a>.</p>
+        """<p>Returns a list of DataSync agents that belong to an Amazon Web Services account in the Amazon Web Services Region specified in the request.</p> <p>With pagination, you can reduce the number of agents returned in a response. If you get a truncated list of agents in a response, the response contains a marker that you can specify in your next request to fetch the next page of agents.</p>
 
         Args:
             max_results: <p>Specifies the maximum number of DataSync agents to list in a response. By default, a response shows a maximum of 100 agents.</p>
@@ -2956,6 +2970,9 @@ class DataSyncClient:
         sas_configuration: Optional[
             "capo_datasync.types.azure_blob_sas_configuration.AzureBlobSasConfiguration"
         ] = None,
+        federated_identity: Optional[
+            "capo_datasync.types.azure_federated_identity_config.AzureFederatedIdentityConfig"
+        ] = None,
         blob_type: Optional["capo_datasync.types.azure_blob_type.AzureBlobType"] = None,
         access_tier: Optional[
             "capo_datasync.types.azure_access_tier.AzureAccessTier"
@@ -2973,8 +2990,9 @@ class DataSyncClient:
         Args:
             location_arn: <p>Specifies the ARN of the Azure Blob Storage transfer location that you're updating.</p>
             subdirectory: <p>Specifies path segments if you want to limit your transfer to a virtual directory in your container (for example, <code>/my/images</code>).</p>
-            authentication_type: <p>Specifies the authentication method DataSync uses to access your Azure Blob Storage. DataSync can access blob storage using a shared access signature (SAS).</p>
+            authentication_type: <p>Specifies the authentication method DataSync uses to access your Azure Blob Storage. DataSync can access blob storage using a shared access signature (SAS) or an OpenID Connect (OIDC) token.</p>
             sas_configuration: <p>Specifies the SAS configuration that allows DataSync to access your Azure Blob Storage.</p>
+            federated_identity: <p>Specifies the federated identity configuration that allows DataSync to access your Azure Blob Storage using an OpenID Connect (OIDC) token instead of a shared access signature (SAS). Provide either <code>FederatedIdentity</code> or <code>SasConfiguration</code>, but not both.</p>
             blob_type: <p>Specifies the type of blob that you want your objects or files to be when transferring them into Azure Blob Storage. Currently, DataSync only supports moving data into Azure Blob Storage as block blobs. For more information on blob types, see the <a href="https://learn.microsoft.com/en-us/rest/api/storageservices/understanding-block-blobs--append-blobs--and-page-blobs">Azure Blob Storage documentation</a>.</p>
             access_tier: <p>Specifies the access tier that you want your objects or files transferred into. This only applies when using the location as a transfer destination. For more information, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/creating-azure-blob-location.html#azure-blob-access-tiers">Access tiers</a>.</p>
             agent_arns: <p>(Optional) Specifies the Amazon Resource Name (ARN) of the DataSync agent that can connect with your Azure Blob Storage container. If you are setting up an agentless cross-cloud transfer, you do not need to specify a value for this parameter.</p> <p>You can specify more than one agent. For more information, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/multiple-agents.html">Using multiple agents for your transfer</a>.</p> <note> <p>You cannot add or remove agents from a storage location after you initially create it.</p> </note>
@@ -3025,6 +3043,8 @@ class DataSyncClient:
             input_["authentication_type"] = authentication_type
         if sas_configuration is not None:
             input_["sas_configuration"] = sas_configuration
+        if federated_identity is not None:
+            input_["federated_identity"] = federated_identity
         if blob_type is not None:
             input_["blob_type"] = blob_type
         if access_tier is not None:
@@ -3606,6 +3626,9 @@ class DataSyncClient:
         secret_key: Optional[
             "capo_datasync.types.object_storage_secret_key.ObjectStorageSecretKey"
         ] = None,
+        federated_identity: Optional[
+            "capo_datasync.types.object_storage_federated_identity_config.ObjectStorageFederatedIdentityConfig"
+        ] = None,
         agent_arns: Optional["capo_datasync.types.agent_arn_list.AgentArnList"] = None,
         server_certificate: Optional[
             "capo_datasync.types.object_storage_certificate.ObjectStorageCertificate"
@@ -3627,6 +3650,7 @@ class DataSyncClient:
             server_hostname: <p>Specifies the domain name or IP address (IPv4 or IPv6) of the object storage server that your DataSync agent connects to.</p>
             access_key: <p>Specifies the access key (for example, a user name) if credentials are required to authenticate with the object storage server.</p>
             secret_key: <p>Specifies the secret key (for example, a password) if credentials are required to authenticate with the object storage server.</p> <note> <p>If you provide a secret using <code>SecretKey</code>, but do not provide secret configuration details using <code>CmkSecretConfig</code> or <code>CustomSecretConfig</code>, then DataSync stores the token using your Amazon Web Services account's Secrets Manager secret.</p> </note>
+            federated_identity: <p>Specifies the federated identity configuration that allows DataSync to access your object storage using an OpenID Connect (OIDC) token instead of a long-term access key and secret key. Provide either <code>FederatedIdentity</code> or the <code>AccessKey</code>/<code>SecretKey</code> credentials, but not both.</p>
             agent_arns: <p>(Optional) Specifies the Amazon Resource Names (ARNs) of the DataSync agents that can connect with your object storage system. If you are setting up an agentless cross-cloud transfer, you do not need to specify a value for this parameter.</p> <note> <p>You cannot add or remove agents from a storage location after you initially create it.</p> </note>
             server_certificate: <p>Specifies a certificate chain for DataSync to authenticate with your object storage system if the system uses a private or self-signed certificate authority (CA). You must specify a single <code>.pem</code> file with a full certificate chain (for example, <code>file:///home/user/.ssh/object_storage_certificates.pem</code>).</p> <p>The certificate chain might include:</p> <ul> <li> <p>The object storage system's certificate</p> </li> <li> <p>All intermediate certificates (if there are any)</p> </li> <li> <p>The root certificate of the signing CA</p> </li> </ul> <p>You can concatenate your certificates into a <code>.pem</code> file (which can be up to 32768 bytes before base64 encoding). The following example <code>cat</code> command creates an <code>object_storage_certificates.pem</code> file that includes three certificates:</p> <p> <code>cat object_server_certificate.pem intermediate_certificate.pem ca_root_certificate.pem > object_storage_certificates.pem</code> </p> <p>To use this parameter, configure <code>ServerProtocol</code> to <code>HTTPS</code>.</p> <p>Updating this parameter doesn't interfere with tasks that you have in progress.</p>
             cmk_secret_config: <p>Specifies configuration information for a DataSync-managed secret, such as an authentication token or set of credentials that DataSync uses to access a specific transfer location, and a customer-managed KMS key.</p>
@@ -3680,6 +3704,8 @@ class DataSyncClient:
             input_["access_key"] = access_key
         if secret_key is not None:
             input_["secret_key"] = secret_key
+        if federated_identity is not None:
+            input_["federated_identity"] = federated_identity
         if agent_arns is not None:
             input_["agent_arns"] = agent_arns
         if server_certificate is not None:

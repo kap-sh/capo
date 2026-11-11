@@ -20,6 +20,7 @@ import capo_datasync.types.describe_location_object_storage_request
 import capo_datasync.types.describe_location_object_storage_response
 import capo_datasync.types.managed_secret_config
 import capo_datasync.types.object_storage_certificate
+import capo_datasync.types.object_storage_federated_identity_config
 import capo_datasync.types.object_storage_server_protocol
 import capo_datasync.types.time
 from capo_datasync._protocol.errors import parse_error_metadata_json

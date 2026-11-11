@@ -6,6 +6,7 @@ LogGroupClass: TypeAlias = Literal[
     "STANDARD",
     "INFREQUENT_ACCESS",
     "DELIVERY",
+    "ESSENTIALS",
 ]
 
 

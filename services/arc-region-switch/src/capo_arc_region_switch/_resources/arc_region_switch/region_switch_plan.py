@@ -261,6 +261,7 @@ class RegionSwitchPlan:
 
         Raises:
             capo_arc_region_switch.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource was not found.</p> <p>HTTP Status Code: 404</p>
+            capo_arc_region_switch.errors.retryable_conflict_exception.RetryableConflictException: <p>The request conflicted with a concurrent modification of the same resource and did not take effect.</p>
             capo_arc_region_switch.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -780,6 +781,7 @@ class AsyncRegionSwitchPlan:
 
         Raises:
             capo_arc_region_switch.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource was not found.</p> <p>HTTP Status Code: 404</p>
+            capo_arc_region_switch.errors.retryable_conflict_exception.RetryableConflictException: <p>The request conflicted with a concurrent modification of the same resource and did not take effect.</p>
             capo_arc_region_switch.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 

@@ -19863,7 +19863,7 @@ class AsyncConnectClient:
             "capo_connect.types.contact_flow_id.ContactFlowId"
         ] = None,
     ) -> "capo_connect.types.pause_contact_response.PauseContactResponse":
-        """<p>Allows pausing an ongoing task contact.</p>
+        """<p>Pauses an ongoing task or email contact.</p>
 
         Args:
             contact_id: <p>The identifier of the contact.</p>
@@ -20114,7 +20114,7 @@ class AsyncConnectClient:
             "capo_connect.types.contact_flow_id.ContactFlowId"
         ] = None,
     ) -> "capo_connect.types.resume_contact_response.ResumeContactResponse":
-        """<p>Allows resuming a task contact in a paused state.</p>
+        """<p>Resumes a task or email contact in a paused state.</p>
 
         Args:
             contact_id: <p>The identifier of the contact.</p>

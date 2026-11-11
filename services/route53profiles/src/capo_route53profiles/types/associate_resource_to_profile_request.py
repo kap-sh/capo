@@ -15,7 +15,7 @@ class AssociateResourceToProfileRequest(TypedDict, closed=True):
     profile_id: "capo_route53profiles.types.resource_id.ResourceId"
     """<p> ID of the Profile. </p>"""
     resource_arn: "capo_route53profiles.types.arn.Arn"
-    """<p> Amazon resource number, ARN, of the DNS resource. </p>"""
+    """<p> Amazon resource number, ARN, of the resource to associate. Either a private hosted zone, DNS Firewall rule group, Resolver rule, or an interface VPC endpoint. </p>"""
     name: "capo_route53profiles.types.name.Name"
     """<p> Name for the resource association. </p>"""
     resource_properties: NotRequired[

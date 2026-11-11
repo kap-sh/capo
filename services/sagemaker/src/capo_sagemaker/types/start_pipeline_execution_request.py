@@ -12,7 +12,9 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.pipeline_execution_description
     import capo_sagemaker.types.pipeline_execution_name
     import capo_sagemaker.types.pipeline_name_or_arn
+    import capo_sagemaker.types.pipeline_version_alias
     import capo_sagemaker.types.pipeline_version_id
+    import capo_sagemaker.types.role_arn
     import capo_sagemaker.types.selective_execution_config
 
 
@@ -48,11 +50,17 @@ class StartPipelineExecutionRequest(TypedDict, closed=True):
     pipeline_version_id: NotRequired[
         "capo_sagemaker.types.pipeline_version_id.PipelineVersionId"
     ]
-    """<p>The ID of the pipeline version to start execution from.</p>"""
+    """<p>The ID of the pipeline version to start execution from. You can't specify this with <code>PipelineVersionAlias</code>.</p>"""
     mlflow_experiment_name: NotRequired[
         "capo_sagemaker.types.mlflow_experiment_entity_name.MlflowExperimentEntityName"
     ]
     """<p> The MLflow experiment name of the pipeline execution. </p>"""
+    pipeline_version_alias: NotRequired[
+        "capo_sagemaker.types.pipeline_version_alias.PipelineVersionAlias"
+    ]
+    """<p>The alias of the pipeline version to start the execution from. You can't specify this with <code>PipelineVersionId</code>. If no version of the pipeline has this alias, the request fails with a <code>ResourceNotFound</code> error.</p>"""
+    role_arn: NotRequired["capo_sagemaker.types.role_arn.RoleArn"]
+    """<p>The Amazon Resource Name (ARN) of the IAM role that the execution uses. You must specify this parameter when you start an execution of a pipeline that AWS manages. You can't specify it for a pipeline that you create, because its executions use the pipeline's role.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -94,6 +102,10 @@ def serialize_aws_json_1_1(value: StartPipelineExecutionRequest) -> dict:
         out["PipelineVersionId"] = value["pipeline_version_id"]
     if "mlflow_experiment_name" in value:
         out["MlflowExperimentName"] = value["mlflow_experiment_name"]
+    if "pipeline_version_alias" in value:
+        out["PipelineVersionAlias"] = value["pipeline_version_alias"]
+    if "role_arn" in value:
+        out["RoleArn"] = value["role_arn"]
     return out
 
 
@@ -135,4 +147,8 @@ def deserialize_aws_json_1_1(data: dict) -> StartPipelineExecutionRequest:
         out["pipeline_version_id"] = data["PipelineVersionId"]
     if data.get("MlflowExperimentName") is not None:
         out["mlflow_experiment_name"] = data["MlflowExperimentName"]
+    if data.get("PipelineVersionAlias") is not None:
+        out["pipeline_version_alias"] = data["PipelineVersionAlias"]
+    if data.get("RoleArn") is not None:
+        out["role_arn"] = data["RoleArn"]
     return out

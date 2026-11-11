@@ -33,3 +33,6 @@ from .internal_server_exception import (
 from .resource_not_found_exception import (
     ResourceNotFoundException as ResourceNotFoundException,
 )
+from .retryable_conflict_exception import (
+    RetryableConflictException as RetryableConflictException,
+)

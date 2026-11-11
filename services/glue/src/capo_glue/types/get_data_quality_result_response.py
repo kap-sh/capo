@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import capo_glue.types.data_quality_aggregated_metrics
     import capo_glue.types.data_quality_analyzer_results
+    import capo_glue.types.data_quality_evaluation_run_mode
     import capo_glue.types.data_quality_observations
     import capo_glue.types.data_quality_rule_results
     import capo_glue.types.data_source
@@ -20,6 +21,14 @@ if TYPE_CHECKING:
 class GetDataQualityResultResponse(TypedDict, closed=True):
     result_id: NotRequired["capo_glue.types.hash_string.HashString"]
     """<p>A unique result ID for the data quality result.</p>"""
+    evaluation_run_mode: NotRequired[
+        "capo_glue.types.data_quality_evaluation_run_mode.DataQualityEvaluationRunMode"
+    ]
+    """<p>How the evaluation run that produced the result started: <code>ON_DEMAND</code> for a run started by <code>StartDataQualityRulesetEvaluationRun</code>, or <code>EVALUATION_CONFIG</code> for a run started by a data quality evaluation configuration. Not returned for results that no evaluation run produced, such as results from any ETL job.</p>"""
+    data_quality_evaluation_config: NotRequired[
+        "capo_glue.types.name_string.NameString"
+    ]
+    """<p>The name of the data quality evaluation configuration that started the evaluation run, returned when <code>EvaluationRunMode</code> is <code>EVALUATION_CONFIG</code>.</p>"""
     profile_id: NotRequired["capo_glue.types.hash_string.HashString"]
     """<p>The Profile ID for the data quality result.</p>"""
     score: NotRequired["capo_glue.types.generic_bounded_double.GenericBoundedDouble"]
@@ -63,6 +72,16 @@ def serialize_aws_json_1_1(value: GetDataQualityResultResponse) -> dict:
     out: dict = {}
     if "result_id" in value:
         out["ResultId"] = value["result_id"]
+    if "evaluation_run_mode" in value:
+        import capo_glue.types.data_quality_evaluation_run_mode
+
+        out["EvaluationRunMode"] = (
+            capo_glue.types.data_quality_evaluation_run_mode.serialize_aws_json_1_1(
+                value["evaluation_run_mode"]
+            )
+        )
+    if "data_quality_evaluation_config" in value:
+        out["DataQualityEvaluationConfig"] = value["data_quality_evaluation_config"]
     if "profile_id" in value:
         out["ProfileId"] = value["profile_id"]
     if "score" in value:
@@ -142,6 +161,16 @@ def deserialize_aws_json_1_1(data: dict) -> GetDataQualityResultResponse:
     out: GetDataQualityResultResponse = {}  # type: ignore[typeddict-item]
     if data.get("ResultId") is not None:
         out["result_id"] = data["ResultId"]
+    if data.get("EvaluationRunMode") is not None:
+        import capo_glue.types.data_quality_evaluation_run_mode
+
+        out["evaluation_run_mode"] = (
+            capo_glue.types.data_quality_evaluation_run_mode.deserialize_aws_json_1_1(
+                data["EvaluationRunMode"]
+            )
+        )
+    if data.get("DataQualityEvaluationConfig") is not None:
+        out["data_quality_evaluation_config"] = data["DataQualityEvaluationConfig"]
     if data.get("ProfileId") is not None:
         out["profile_id"] = data["ProfileId"]
     if data.get("Score") is not None:

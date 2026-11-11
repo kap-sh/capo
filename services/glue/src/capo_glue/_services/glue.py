@@ -157,6 +157,8 @@ if TYPE_CHECKING:
     import capo_glue.types.create_csv_classifier_request
     import capo_glue.types.create_custom_entity_type_request
     import capo_glue.types.create_custom_entity_type_response
+    import capo_glue.types.create_data_quality_evaluation_config_request
+    import capo_glue.types.create_data_quality_evaluation_config_response
     import capo_glue.types.create_data_quality_ruleset_request
     import capo_glue.types.create_data_quality_ruleset_response
     import capo_glue.types.create_database_request
@@ -217,6 +219,14 @@ if TYPE_CHECKING:
     import capo_glue.types.data_quality_aggregated_metrics
     import capo_glue.types.data_quality_analyzer_results
     import capo_glue.types.data_quality_configuration_v2
+    import capo_glue.types.data_quality_evaluation_config_additional_run_options
+    import capo_glue.types.data_quality_evaluation_config_data_source
+    import capo_glue.types.data_quality_evaluation_config_level
+    import capo_glue.types.data_quality_evaluation_config_list_details
+    import capo_glue.types.data_quality_evaluation_config_managed_ruleset
+    import capo_glue.types.data_quality_evaluation_config_page_size
+    import capo_glue.types.data_quality_evaluation_config_schedule_expression
+    import capo_glue.types.data_quality_evaluation_config_triggers
     import capo_glue.types.data_quality_evaluation_run_additional_run_options
     import capo_glue.types.data_quality_observations
     import capo_glue.types.data_quality_result_filter_criteria
@@ -265,6 +275,8 @@ if TYPE_CHECKING:
     import capo_glue.types.delete_crawler_response
     import capo_glue.types.delete_custom_entity_type_request
     import capo_glue.types.delete_custom_entity_type_response
+    import capo_glue.types.delete_data_quality_evaluation_config_request
+    import capo_glue.types.delete_data_quality_evaluation_config_response
     import capo_glue.types.delete_data_quality_ruleset_request
     import capo_glue.types.delete_data_quality_ruleset_response
     import capo_glue.types.delete_database_request
@@ -407,6 +419,8 @@ if TYPE_CHECKING:
     import capo_glue.types.get_data_catalog_encryption_settings_response
     import capo_glue.types.get_data_catalog_export_configuration_input
     import capo_glue.types.get_data_catalog_export_configuration_output
+    import capo_glue.types.get_data_quality_evaluation_config_request
+    import capo_glue.types.get_data_quality_evaluation_config_response
     import capo_glue.types.get_data_quality_model_request
     import capo_glue.types.get_data_quality_model_response
     import capo_glue.types.get_data_quality_model_result_request
@@ -453,6 +467,8 @@ if TYPE_CHECKING:
     import capo_glue.types.get_job_run_response
     import capo_glue.types.get_job_runs_request
     import capo_glue.types.get_job_runs_response
+    import capo_glue.types.get_job_upgrade_analysis_request
+    import capo_glue.types.get_job_upgrade_analysis_response
     import capo_glue.types.get_jobs_request
     import capo_glue.types.get_jobs_response
     import capo_glue.types.get_mapping_request
@@ -554,6 +570,7 @@ if TYPE_CHECKING:
     import capo_glue.types.glue_tables
     import capo_glue.types.glue_version_string
     import capo_glue.types.hash_string
+    import capo_glue.types.id
     import capo_glue.types.id_string
     import capo_glue.types.identity_center_instance_arn
     import capo_glue.types.identity_center_scopes_list
@@ -600,6 +617,8 @@ if TYPE_CHECKING:
     import capo_glue.types.list_crawls_response
     import capo_glue.types.list_custom_entity_types_request
     import capo_glue.types.list_custom_entity_types_response
+    import capo_glue.types.list_data_quality_evaluation_configs_request
+    import capo_glue.types.list_data_quality_evaluation_configs_response
     import capo_glue.types.list_data_quality_results_request
     import capo_glue.types.list_data_quality_results_response
     import capo_glue.types.list_data_quality_results_v2_request
@@ -669,6 +688,7 @@ if TYPE_CHECKING:
     import capo_glue.types.metadata_list
     import capo_glue.types.modify_integration_request
     import capo_glue.types.modify_integration_response
+    import capo_glue.types.name
     import capo_glue.types.name_string
     import capo_glue.types.next_token
     import capo_glue.types.node_id_list
@@ -808,6 +828,8 @@ if TYPE_CHECKING:
     import capo_glue.types.start_import_labels_task_run_response
     import capo_glue.types.start_job_run_request
     import capo_glue.types.start_job_run_response
+    import capo_glue.types.start_job_upgrade_analysis_request
+    import capo_glue.types.start_job_upgrade_analysis_response
     import capo_glue.types.start_materialized_view_refresh_task_run_request
     import capo_glue.types.start_materialized_view_refresh_task_run_response
     import capo_glue.types.start_ml_evaluation_task_run_request
@@ -827,6 +849,8 @@ if TYPE_CHECKING:
     import capo_glue.types.stop_crawler_response
     import capo_glue.types.stop_crawler_schedule_request
     import capo_glue.types.stop_crawler_schedule_response
+    import capo_glue.types.stop_job_upgrade_analysis_request
+    import capo_glue.types.stop_job_upgrade_analysis_response
     import capo_glue.types.stop_materialized_view_refresh_task_run_request
     import capo_glue.types.stop_materialized_view_refresh_task_run_response
     import capo_glue.types.stop_session_request
@@ -896,6 +920,8 @@ if TYPE_CHECKING:
     import capo_glue.types.update_crawler_schedule_request
     import capo_glue.types.update_crawler_schedule_response
     import capo_glue.types.update_csv_classifier_request
+    import capo_glue.types.update_data_quality_evaluation_config_request
+    import capo_glue.types.update_data_quality_evaluation_config_response
     import capo_glue.types.update_data_quality_ruleset_request
     import capo_glue.types.update_data_quality_ruleset_response
     import capo_glue.types.update_database_request
@@ -942,6 +968,7 @@ if TYPE_CHECKING:
     import capo_glue.types.update_workflow_request
     import capo_glue.types.update_workflow_response
     import capo_glue.types.update_xml_classifier_request
+    import capo_glue.types.upgrade_consent
     import capo_glue.types.uri_string
     import capo_glue.types.usage_profile_definition
     import capo_glue.types.user_defined_function_input
@@ -3155,6 +3182,130 @@ class GlueClient:
             input_["catalog_id"] = catalog_id
         if tags is not None:
             input_["tags"] = tags
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def create_data_quality_evaluation_config(
+        self,
+        name: "capo_glue.types.name_string.NameString",
+        level: "capo_glue.types.data_quality_evaluation_config_level.DataQualityEvaluationConfigLevel",
+        data_source: "capo_glue.types.data_quality_evaluation_config_data_source.DataQualityEvaluationConfigDataSource",
+        role: "capo_glue.types.role_string.RoleString",
+        *,
+        config_overrides: Optional[GlueClientConfig] = None,
+        ruleset_name: Optional["capo_glue.types.name_string.NameString"] = None,
+        managed_ruleset_name: Optional[
+            "capo_glue.types.data_quality_evaluation_config_managed_ruleset.DataQualityEvaluationConfigManagedRuleset"
+        ] = None,
+        triggers: Optional[
+            "capo_glue.types.data_quality_evaluation_config_triggers.DataQualityEvaluationConfigTriggers"
+        ] = None,
+        schedule_expression: Optional[
+            "capo_glue.types.data_quality_evaluation_config_schedule_expression.DataQualityEvaluationConfigScheduleExpression"
+        ] = None,
+        start_at: Optional["capo_glue.types.timestamp.Timestamp"] = None,
+        end_at: Optional["capo_glue.types.timestamp.Timestamp"] = None,
+        number_of_workers: Optional[
+            "capo_glue.types.nullable_integer.NullableInteger"
+        ] = None,
+        timeout: Optional["capo_glue.types.timeout.Timeout"] = None,
+        additional_run_options: Optional[
+            "capo_glue.types.data_quality_evaluation_config_additional_run_options.DataQualityEvaluationConfigAdditionalRunOptions"
+        ] = None,
+        additional_data_sources: Optional[
+            "capo_glue.types.data_source_map.DataSourceMap"
+        ] = None,
+        tags: Optional["capo_glue.types.tags_map.TagsMap"] = None,
+        client_token: Optional[
+            "capo_glue.types.client_token_string.ClientTokenString"
+        ] = None,
+    ) -> "capo_glue.types.create_data_quality_evaluation_config_response.CreateDataQualityEvaluationConfigResponse":
+        """<p>Creates a data quality evaluation configuration, which evaluates the data quality of a collection of tables in the Glue Data Catalog once, on a schedule, or when table metadata changes. A configuration applies to a catalog, a database, or a single table, and evaluates every table in scope, including tables added later, without per-table setup.</p> <p>When configurations at more than one level apply to the same table, the most specific configuration applies. Each table is evaluated at most once an hour, whichever triggers you choose.</p>
+
+        Args:
+            name: <p>A name for the data quality evaluation configuration. The name must be unique within your account.</p>
+            level: <p>The Glue Data Catalog hierarchical level that the configuration applies to. Valid values are <code>CATALOG</code>, <code>DATABASE</code>, and <code>TABLE</code>.</p>
+            data_source: <p>The catalog, database, or table that the configuration applies to, as specified by <code>Level</code>.</p>
+            ruleset_name: <p>The name of a Data Quality Definition Language (DQDL) ruleset, containing analyzers, rules, or both, to evaluate tables with. You create the ruleset using the <code>CreateDataQualityRuleset</code> API. Specify either <code>RulesetName</code> or <code>ManagedRulesetName</code>, not both.</p>
+            managed_ruleset_name: <p>A built-in ruleset that profiles each table, used when <code>RulesetName</code> is not set. The default is <code>SIMPLE</code>. Choose from the following built-in rulesets:</p> <dl> <dt>SIMPLE</dt> <dd> <p>Row count and column count, completeness, minimum, and maximum for every column, mean, sum, and standard deviation for numeric columns, and column length for string columns.</p> </dd> <dt>ADVANCED</dt> <dd> <p>Every statistic in <code>SIMPLE</code>, plus distribution, uniqueness, and distinct values count.</p> </dd> </dl>
+            triggers: <p>When the configuration evaluates tables. You can choose one or more triggers, and each table is evaluated at most once an hour. The default is <code>ONCE</code>. Choose from the following triggers:</p> <dl> <dt>ONCE</dt> <dd> <p>Evaluates each table one time, including when tables are added to a database or catalog.</p> </dd> <dt>SCHEDULE</dt> <dd> <p>Evaluates each table on the cron or rate expression in <code>ScheduleExpression</code>, between the optional <code>StartAt</code> and <code>EndAt</code> times.</p> </dd> <dt>METADATA_CHANGE</dt> <dd> <p>Evaluates a table whenever its Glue Data Catalog metadata changes, such as a schema change or an Apache Iceberg commit.</p> </dd> </dl>
+            schedule_expression: <p>A cron or rate expression, in UTC, for the <code>SCHEDULE</code> trigger, for example <code>cron(0 6 * * ? *)</code>. The schedule can run at most once an hour.</p>
+            start_at: <p>The time from which the schedule runs, inclusive.</p>
+            end_at: <p>The time at which the schedule stops running, exclusive.</p>
+            role: <p>The IAM role that evaluations assume. You can specify the role name or the role Amazon Resource Name (ARN).</p> <p>The role must allow the <code>glue.amazonaws.com</code> service principal to assume it, and needs permissions to read the catalog (<code>glue:GetCatalog</code>, <code>glue:GetDatabase</code>, <code>glue:GetTable</code>, <code>glue:SearchTables</code>, and <code>glue:GetPartitions</code>), read and create rulesets (<code>glue:GetDataQualityRuleset</code> and <code>glue:CreateDataQualityRuleset</code>), start evaluations (<code>glue:StartDataQualityRulesetEvaluationRun</code>, <code>glue:PublishDataQuality</code>, and <code>iam:PassRole</code> on the role itself), read the tables' data in Amazon S3, and write logs to Amazon CloudWatch Logs. If a catalog-level or database-level configuration applies to an Amazon S3 Tables catalog, the role also needs <code>s3tables:ListTableBuckets</code> and <code>s3tables:ListTables</code>. If you use Lake Formation, the role needs the <code>DESCRIBE</code> permission on the tables.</p>
+            number_of_workers: <p>The number of <code>G.1X</code> workers to be used in the run. The default is 5.</p>
+            timeout: <p>The timeout for a run in minutes. This is the maximum time that a run can consume resources before it is terminated and enters <code>TIMEOUT</code> status. The default is 2,880 minutes (48 hours).</p>
+            additional_run_options: <p>Additional run options you can specify for an evaluation run.</p>
+            additional_data_sources: <p>A map of reference strings to additional data sources you can specify for an evaluation run.</p>
+            tags: <p>A list of tags applied to the data quality evaluation configuration.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the operation completes no more than one time. If this token matches a previous request, the service ignores the request, but does not return an error.</p>
+
+        Raises:
+            capo_glue.errors.access_denied_exception.AccessDeniedException: <p>Access to a resource was denied.</p>
+            capo_glue.errors.already_exists_exception.AlreadyExistsException: <p>A resource to be created or added already exists.</p>
+            capo_glue.errors.entity_not_found_exception.EntityNotFoundException: <p>A specified entity does not exist</p>
+            capo_glue.errors.idempotent_parameter_mismatch_exception.IdempotentParameterMismatchException: <p>The same unique identifier was associated with two different records.</p>
+            capo_glue.errors.internal_service_exception.InternalServiceException: <p>An internal service error occurred.</p>
+            capo_glue.errors.invalid_input_exception.InvalidInputException: <p>The input provided was not valid.</p>
+            capo_glue.errors.operation_timeout_exception.OperationTimeoutException: <p>The operation timed out.</p>
+            capo_glue.errors.resource_number_limit_exceeded_exception.ResourceNumberLimitExceededException: <p>A resource numerical limit was exceeded.</p>
+            capo_glue.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_glue.types.create_data_quality_evaluation_config_request.CreateDataQualityEvaluationConfigRequest]",
+        ) -> OperationResponse[
+            "capo_glue.types.create_data_quality_evaluation_config_response.CreateDataQualityEvaluationConfigResponse"
+        ]:
+            import capo_glue._operations.aws_glue.create_data_quality_evaluation_config
+
+            output, http_response = (
+                capo_glue._operations.aws_glue.create_data_quality_evaluation_config.create_data_quality_evaluation_config(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataQualityEvaluationConfig")
+        )
+        input_: capo_glue.types.create_data_quality_evaluation_config_request.CreateDataQualityEvaluationConfigRequest = {
+            "name": name,
+            "level": level,
+            "data_source": data_source,
+            "role": role,
+        }
+        if ruleset_name is not None:
+            input_["ruleset_name"] = ruleset_name
+        if managed_ruleset_name is not None:
+            input_["managed_ruleset_name"] = managed_ruleset_name
+        if triggers is not None:
+            input_["triggers"] = triggers
+        if schedule_expression is not None:
+            input_["schedule_expression"] = schedule_expression
+        if start_at is not None:
+            input_["start_at"] = start_at
+        if end_at is not None:
+            input_["end_at"] = end_at
+        if number_of_workers is not None:
+            input_["number_of_workers"] = number_of_workers
+        if timeout is not None:
+            input_["timeout"] = timeout
+        if additional_run_options is not None:
+            input_["additional_run_options"] = additional_run_options
+        if additional_data_sources is not None:
+            input_["additional_data_sources"] = additional_data_sources
+        if tags is not None:
+            input_["tags"] = tags
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -5740,6 +5891,55 @@ class GlueClient:
         }
         if catalog_id is not None:
             input_["catalog_id"] = catalog_id
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def delete_data_quality_evaluation_config(
+        self,
+        name: "capo_glue.types.name_string.NameString",
+        *,
+        config_overrides: Optional[GlueClientConfig] = None,
+    ) -> "capo_glue.types.delete_data_quality_evaluation_config_response.DeleteDataQualityEvaluationConfigResponse":
+        """<p>Deletes a data quality evaluation configuration.</p>
+
+        Args:
+            name: <p>The name of the data quality evaluation configuration to delete.</p>
+
+        Raises:
+            capo_glue.errors.access_denied_exception.AccessDeniedException: <p>Access to a resource was denied.</p>
+            capo_glue.errors.entity_not_found_exception.EntityNotFoundException: <p>A specified entity does not exist</p>
+            capo_glue.errors.internal_service_exception.InternalServiceException: <p>An internal service error occurred.</p>
+            capo_glue.errors.invalid_input_exception.InvalidInputException: <p>The input provided was not valid.</p>
+            capo_glue.errors.operation_timeout_exception.OperationTimeoutException: <p>The operation timed out.</p>
+            capo_glue.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_glue.types.delete_data_quality_evaluation_config_request.DeleteDataQualityEvaluationConfigRequest]",
+        ) -> OperationResponse[
+            "capo_glue.types.delete_data_quality_evaluation_config_response.DeleteDataQualityEvaluationConfigResponse"
+        ]:
+            import capo_glue._operations.aws_glue.delete_data_quality_evaluation_config
+
+            output, http_response = (
+                capo_glue._operations.aws_glue.delete_data_quality_evaluation_config.delete_data_quality_evaluation_config(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataQualityEvaluationConfig")
+        )
+        input_: capo_glue.types.delete_data_quality_evaluation_config_request.DeleteDataQualityEvaluationConfigRequest = {
+            "name": name
+        }
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -9115,6 +9315,55 @@ class GlueClient:
         response.response.close()
         return response.output
 
+    def get_data_quality_evaluation_config(
+        self,
+        name: "capo_glue.types.name_string.NameString",
+        *,
+        config_overrides: Optional[GlueClientConfig] = None,
+    ) -> "capo_glue.types.get_data_quality_evaluation_config_response.GetDataQualityEvaluationConfigResponse":
+        """<p>Retrieves a data quality evaluation configuration.</p>
+
+        Args:
+            name: <p>The name of the data quality evaluation configuration.</p>
+
+        Raises:
+            capo_glue.errors.access_denied_exception.AccessDeniedException: <p>Access to a resource was denied.</p>
+            capo_glue.errors.entity_not_found_exception.EntityNotFoundException: <p>A specified entity does not exist</p>
+            capo_glue.errors.internal_service_exception.InternalServiceException: <p>An internal service error occurred.</p>
+            capo_glue.errors.invalid_input_exception.InvalidInputException: <p>The input provided was not valid.</p>
+            capo_glue.errors.operation_timeout_exception.OperationTimeoutException: <p>The operation timed out.</p>
+            capo_glue.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_glue.types.get_data_quality_evaluation_config_request.GetDataQualityEvaluationConfigRequest]",
+        ) -> OperationResponse[
+            "capo_glue.types.get_data_quality_evaluation_config_response.GetDataQualityEvaluationConfigResponse"
+        ]:
+            import capo_glue._operations.aws_glue.get_data_quality_evaluation_config
+
+            output, http_response = (
+                capo_glue._operations.aws_glue.get_data_quality_evaluation_config.get_data_quality_evaluation_config(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataQualityEvaluationConfig")
+        )
+        input_: capo_glue.types.get_data_quality_evaluation_config_request.GetDataQualityEvaluationConfigRequest = {
+            "name": name
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def get_data_quality_model(
         self,
         profile_id: "capo_glue.types.hash_string.HashString",
@@ -10312,6 +10561,58 @@ class GlueClient:
             _token = _resolve_path(_response, ("next_token",))
             if not _token:
                 break
+
+    def get_job_upgrade_analysis(
+        self,
+        analysis_id: "capo_glue.types.id.Id",
+        job_name: "capo_glue.types.name.Name",
+        *,
+        config_overrides: Optional[GlueClientConfig] = None,
+    ) -> "capo_glue.types.get_job_upgrade_analysis_response.GetJobUpgradeAnalysisResponse":
+        """<p>Retrieves the current status and results of an upgrade analysis.</p>
+
+        Args:
+            analysis_id: <p>The unique identifier of the upgrade analysis to retrieve.</p>
+            job_name: <p>The name of the job associated with the analysis.</p>
+
+        Raises:
+            capo_glue.errors.access_denied_exception.AccessDeniedException: <p>Access to a resource was denied.</p>
+            capo_glue.errors.entity_not_found_exception.EntityNotFoundException: <p>A specified entity does not exist</p>
+            capo_glue.errors.internal_service_exception.InternalServiceException: <p>An internal service error occurred.</p>
+            capo_glue.errors.invalid_input_exception.InvalidInputException: <p>The input provided was not valid.</p>
+            capo_glue.errors.operation_not_supported_exception.OperationNotSupportedException: <p>The operation is not available in the region.</p>
+            capo_glue.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_glue.types.get_job_upgrade_analysis_request.GetJobUpgradeAnalysisRequest]",
+        ) -> OperationResponse[
+            "capo_glue.types.get_job_upgrade_analysis_response.GetJobUpgradeAnalysisResponse"
+        ]:
+            import capo_glue._operations.aws_glue.get_job_upgrade_analysis
+
+            output, http_response = (
+                capo_glue._operations.aws_glue.get_job_upgrade_analysis.get_job_upgrade_analysis(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJobUpgradeAnalysis")
+        )
+        input_: capo_glue.types.get_job_upgrade_analysis_request.GetJobUpgradeAnalysisRequest = {
+            "analysis_id": analysis_id,
+            "job_name": job_name,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
 
     def get_mapping(
         self,
@@ -13792,6 +14093,93 @@ class GlueClient:
             if not _token:
                 break
 
+    def list_data_quality_evaluation_configs(
+        self,
+        *,
+        config_overrides: Optional[GlueClientConfig] = None,
+        level: Optional[
+            "capo_glue.types.data_quality_evaluation_config_level.DataQualityEvaluationConfigLevel"
+        ] = None,
+        max_results: Optional[
+            "capo_glue.types.data_quality_evaluation_config_page_size.DataQualityEvaluationConfigPageSize"
+        ] = None,
+        next_token: Optional["capo_glue.types.pagination_token.PaginationToken"] = None,
+    ) -> "capo_glue.types.list_data_quality_evaluation_configs_response.ListDataQualityEvaluationConfigsResponse":
+        """<p>Lists the data quality evaluation configurations in your account, optionally filtered by level.</p>
+
+        Args:
+            level: <p>Lists only the configurations that apply to this level.</p>
+            max_results: <p>The maximum number of results to return.</p>
+            next_token: <p>A paginated token to offset the results. If you don't specify a token, the operation returns results starting from the beginning of the list.</p>
+
+        Raises:
+            capo_glue.errors.access_denied_exception.AccessDeniedException: <p>Access to a resource was denied.</p>
+            capo_glue.errors.internal_service_exception.InternalServiceException: <p>An internal service error occurred.</p>
+            capo_glue.errors.invalid_input_exception.InvalidInputException: <p>The input provided was not valid.</p>
+            capo_glue.errors.operation_timeout_exception.OperationTimeoutException: <p>The operation timed out.</p>
+            capo_glue.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_glue.types.list_data_quality_evaluation_configs_request.ListDataQualityEvaluationConfigsRequest]",
+        ) -> OperationResponse[
+            "capo_glue.types.list_data_quality_evaluation_configs_response.ListDataQualityEvaluationConfigsResponse"
+        ]:
+            import capo_glue._operations.aws_glue.list_data_quality_evaluation_configs
+
+            output, http_response = (
+                capo_glue._operations.aws_glue.list_data_quality_evaluation_configs.list_data_quality_evaluation_configs(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataQualityEvaluationConfigs")
+        )
+        input_: capo_glue.types.list_data_quality_evaluation_configs_request.ListDataQualityEvaluationConfigsRequest = {}
+        if level is not None:
+            input_["level"] = level
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_data_quality_evaluation_configs(
+        self,
+        *,
+        config_overrides: Optional[GlueClientConfig] = None,
+        level: Optional[
+            "capo_glue.types.data_quality_evaluation_config_level.DataQualityEvaluationConfigLevel"
+        ] = None,
+        max_results: Optional[
+            "capo_glue.types.data_quality_evaluation_config_page_size.DataQualityEvaluationConfigPageSize"
+        ] = None,
+        next_token: Optional["capo_glue.types.pagination_token.PaginationToken"] = None,
+    ) -> "Iterator[capo_glue.types.data_quality_evaluation_config_list_details.DataQualityEvaluationConfigListDetails]":
+        _token = next_token
+        while True:
+            _response = self.list_data_quality_evaluation_configs(
+                config_overrides=config_overrides,
+                level=level,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("data_quality_evaluation_configs",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
     def list_data_quality_results(
         self,
         *,
@@ -16122,6 +16510,7 @@ class GlueClient:
             descriptors: <p>The descriptors for the result.</p>
             ruleset_name: <p>The ruleset name for the result.</p>
             data_quality_security_configuration: <p>The security configuration for the result.</p>
+            telemetry: <p></p>
 
         Raises:
             capo_glue.errors.idempotent_parameter_mismatch_exception.IdempotentParameterMismatchException: <p>The same unique identifier was associated with two different records.</p>
@@ -18162,6 +18551,67 @@ class GlueClient:
         response.response.close()
         return response.output
 
+    def start_job_upgrade_analysis(
+        self,
+        job_name: "capo_glue.types.name.Name",
+        *,
+        config_overrides: Optional[GlueClientConfig] = None,
+        analysis_id: Optional["capo_glue.types.id.Id"] = None,
+        upgrade_consent: Optional[
+            "capo_glue.types.upgrade_consent.UpgradeConsent"
+        ] = None,
+    ) -> "capo_glue.types.start_job_upgrade_analysis_response.StartJobUpgradeAnalysisResponse":
+        """<p>Resumes an analysis that is waiting for upgrade consent.</p>
+
+        Args:
+            job_name: <p>The name of the job associated with the analysis to resume.</p>
+            analysis_id: <p>The unique identifier of the upgrade analysis. The analysis must be in <code>WAITING_FOR_CONSENT</code> status.</p>
+            upgrade_consent: <p>The customer's decision on whether to proceed with the upgrade.</p>
+
+        Raises:
+            capo_glue.errors.access_denied_exception.AccessDeniedException: <p>Access to a resource was denied.</p>
+            capo_glue.errors.entity_not_found_exception.EntityNotFoundException: <p>A specified entity does not exist</p>
+            capo_glue.errors.internal_service_exception.InternalServiceException: <p>An internal service error occurred.</p>
+            capo_glue.errors.invalid_input_exception.InvalidInputException: <p>The input provided was not valid.</p>
+            capo_glue.errors.operation_not_supported_exception.OperationNotSupportedException: <p>The operation is not available in the region.</p>
+            capo_glue.errors.resource_number_limit_exceeded_exception.ResourceNumberLimitExceededException: <p>A resource numerical limit was exceeded.</p>
+            capo_glue.errors.validation_exception.ValidationException: <p>A value could not be validated.</p>
+            capo_glue.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_glue.types.start_job_upgrade_analysis_request.StartJobUpgradeAnalysisRequest]",
+        ) -> OperationResponse[
+            "capo_glue.types.start_job_upgrade_analysis_response.StartJobUpgradeAnalysisResponse"
+        ]:
+            import capo_glue._operations.aws_glue.start_job_upgrade_analysis
+
+            output, http_response = (
+                capo_glue._operations.aws_glue.start_job_upgrade_analysis.start_job_upgrade_analysis(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartJobUpgradeAnalysis")
+        )
+        input_: capo_glue.types.start_job_upgrade_analysis_request.StartJobUpgradeAnalysisRequest = {
+            "job_name": job_name
+        }
+        if analysis_id is not None:
+            input_["analysis_id"] = analysis_id
+        if upgrade_consent is not None:
+            input_["upgrade_consent"] = upgrade_consent
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def start_materialized_view_refresh_task_run(
         self,
         catalog_id: "capo_glue.types.catalog_id_string.CatalogIdString",
@@ -18629,6 +19079,59 @@ class GlueClient:
         )
         input_: capo_glue.types.stop_crawler_schedule_request.StopCrawlerScheduleRequest = {
             "crawler_name": crawler_name
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def stop_job_upgrade_analysis(
+        self,
+        job_name: "capo_glue.types.name.Name",
+        analysis_id: "capo_glue.types.id.Id",
+        *,
+        config_overrides: Optional[GlueClientConfig] = None,
+    ) -> "capo_glue.types.stop_job_upgrade_analysis_response.StopJobUpgradeAnalysisResponse":
+        """<p>Stops an in-progress upgrade analysis.</p>
+
+        Args:
+            job_name: <p>The name of the job associated with the analysis.</p>
+            analysis_id: <p>The unique identifier of the analysis to stop.</p>
+
+        Raises:
+            capo_glue.errors.access_denied_exception.AccessDeniedException: <p>Access to a resource was denied.</p>
+            capo_glue.errors.entity_not_found_exception.EntityNotFoundException: <p>A specified entity does not exist</p>
+            capo_glue.errors.internal_service_exception.InternalServiceException: <p>An internal service error occurred.</p>
+            capo_glue.errors.invalid_input_exception.InvalidInputException: <p>The input provided was not valid.</p>
+            capo_glue.errors.operation_not_supported_exception.OperationNotSupportedException: <p>The operation is not available in the region.</p>
+            capo_glue.errors.throttling_exception.ThrottlingException: <p>The throttling threshhold was exceeded.</p>
+            capo_glue.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_glue.types.stop_job_upgrade_analysis_request.StopJobUpgradeAnalysisRequest]",
+        ) -> OperationResponse[
+            "capo_glue.types.stop_job_upgrade_analysis_response.StopJobUpgradeAnalysisResponse"
+        ]:
+            import capo_glue._operations.aws_glue.stop_job_upgrade_analysis
+
+            output, http_response = (
+                capo_glue._operations.aws_glue.stop_job_upgrade_analysis.stop_job_upgrade_analysis(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopJobUpgradeAnalysis")
+        )
+        input_: capo_glue.types.stop_job_upgrade_analysis_request.StopJobUpgradeAnalysisRequest = {
+            "job_name": job_name,
+            "analysis_id": analysis_id,
         }
 
         response = execute_pipeline(
@@ -19772,6 +20275,122 @@ class GlueClient:
         }
         if catalog_id is not None:
             input_["catalog_id"] = catalog_id
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def update_data_quality_evaluation_config(
+        self,
+        name: "capo_glue.types.name_string.NameString",
+        *,
+        config_overrides: Optional[GlueClientConfig] = None,
+        data_source: Optional[
+            "capo_glue.types.data_quality_evaluation_config_data_source.DataQualityEvaluationConfigDataSource"
+        ] = None,
+        ruleset_name: Optional["capo_glue.types.name_string.NameString"] = None,
+        managed_ruleset_name: Optional[
+            "capo_glue.types.data_quality_evaluation_config_managed_ruleset.DataQualityEvaluationConfigManagedRuleset"
+        ] = None,
+        triggers: Optional[
+            "capo_glue.types.data_quality_evaluation_config_triggers.DataQualityEvaluationConfigTriggers"
+        ] = None,
+        schedule_expression: Optional[
+            "capo_glue.types.data_quality_evaluation_config_schedule_expression.DataQualityEvaluationConfigScheduleExpression"
+        ] = None,
+        start_at: Optional["capo_glue.types.timestamp.Timestamp"] = None,
+        end_at: Optional["capo_glue.types.timestamp.Timestamp"] = None,
+        pause_runs: Optional["capo_glue.types.nullable_boolean.NullableBoolean"] = None,
+        role: Optional["capo_glue.types.role_string.RoleString"] = None,
+        number_of_workers: Optional[
+            "capo_glue.types.nullable_integer.NullableInteger"
+        ] = None,
+        timeout: Optional["capo_glue.types.timeout.Timeout"] = None,
+        additional_run_options: Optional[
+            "capo_glue.types.data_quality_evaluation_config_additional_run_options.DataQualityEvaluationConfigAdditionalRunOptions"
+        ] = None,
+        additional_data_sources: Optional[
+            "capo_glue.types.data_source_map.DataSourceMap"
+        ] = None,
+    ) -> "capo_glue.types.update_data_quality_evaluation_config_response.UpdateDataQualityEvaluationConfigResponse":
+        """<p>Updates a data quality evaluation configuration. Fields that you don't specify keep their current values.</p>
+
+        Args:
+            name: <p>The name of the data quality evaluation configuration to update.</p>
+            data_source: <p>The database or table that the configuration applies to. Replaces the current data source.</p>
+            ruleset_name: <p>The name of a Data Quality Definition Language (DQDL) ruleset, containing analyzers, rules, or both, to evaluate tables with. You create the ruleset using the <code>CreateDataQualityRuleset</code> API. Specify either <code>RulesetName</code> or <code>ManagedRulesetName</code>, not both.</p>
+            managed_ruleset_name: <p>A built-in ruleset, <code>SIMPLE</code> or <code>ADVANCED</code>, that profiles each table.</p>
+            triggers: <p>When the configuration evaluates tables. Replaces the current triggers. Choose from the following triggers:</p> <dl> <dt>ONCE</dt> <dd> <p>Evaluates each table one time, including when tables are added to a database or catalog.</p> </dd> <dt>SCHEDULE</dt> <dd> <p>Evaluates each table on the cron or rate expression in <code>ScheduleExpression</code>, between the optional <code>StartAt</code> and <code>EndAt</code> times.</p> </dd> <dt>METADATA_CHANGE</dt> <dd> <p>Evaluates a table whenever its Glue Data Catalog metadata changes, such as a schema change or an Apache Iceberg commit.</p> </dd> </dl>
+            schedule_expression: <p>A cron or rate expression, in UTC, for the <code>SCHEDULE</code> trigger, for example <code>cron(0 6 * * ? *)</code>. The schedule can run at most once an hour.</p>
+            start_at: <p>The time from which the schedule runs, inclusive.</p>
+            end_at: <p>The time at which the schedule stops running, exclusive.</p>
+            pause_runs: <p>Specifies whether to pause the configuration. While paused, the configuration evaluates nothing, including tables added to the catalog or database.</p>
+            role: <p>The IAM role that evaluations assume. You can specify the role name or the role Amazon Resource Name (ARN). The role needs the trust policy and permissions described for <code>CreateDataQualityEvaluationConfig</code>.</p>
+            number_of_workers: <p>The number of <code>G.1X</code> workers to be used in the run. The default is 5.</p>
+            timeout: <p>The timeout for a run in minutes. This is the maximum time that a run can consume resources before it is terminated and enters <code>TIMEOUT</code> status. The default is 2,880 minutes (48 hours).</p>
+            additional_run_options: <p>Additional run options you can specify for an evaluation run.</p>
+            additional_data_sources: <p>A map of reference strings to additional data sources you can specify for an evaluation run.</p>
+
+        Raises:
+            capo_glue.errors.access_denied_exception.AccessDeniedException: <p>Access to a resource was denied.</p>
+            capo_glue.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Two processes are trying to modify a resource simultaneously.</p>
+            capo_glue.errors.entity_not_found_exception.EntityNotFoundException: <p>A specified entity does not exist</p>
+            capo_glue.errors.internal_service_exception.InternalServiceException: <p>An internal service error occurred.</p>
+            capo_glue.errors.invalid_input_exception.InvalidInputException: <p>The input provided was not valid.</p>
+            capo_glue.errors.operation_timeout_exception.OperationTimeoutException: <p>The operation timed out.</p>
+            capo_glue.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_glue.types.update_data_quality_evaluation_config_request.UpdateDataQualityEvaluationConfigRequest]",
+        ) -> OperationResponse[
+            "capo_glue.types.update_data_quality_evaluation_config_response.UpdateDataQualityEvaluationConfigResponse"
+        ]:
+            import capo_glue._operations.aws_glue.update_data_quality_evaluation_config
+
+            output, http_response = (
+                capo_glue._operations.aws_glue.update_data_quality_evaluation_config.update_data_quality_evaluation_config(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDataQualityEvaluationConfig")
+        )
+        input_: capo_glue.types.update_data_quality_evaluation_config_request.UpdateDataQualityEvaluationConfigRequest = {
+            "name": name
+        }
+        if data_source is not None:
+            input_["data_source"] = data_source
+        if ruleset_name is not None:
+            input_["ruleset_name"] = ruleset_name
+        if managed_ruleset_name is not None:
+            input_["managed_ruleset_name"] = managed_ruleset_name
+        if triggers is not None:
+            input_["triggers"] = triggers
+        if schedule_expression is not None:
+            input_["schedule_expression"] = schedule_expression
+        if start_at is not None:
+            input_["start_at"] = start_at
+        if end_at is not None:
+            input_["end_at"] = end_at
+        if pause_runs is not None:
+            input_["pause_runs"] = pause_runs
+        if role is not None:
+            input_["role"] = role
+        if number_of_workers is not None:
+            input_["number_of_workers"] = number_of_workers
+        if timeout is not None:
+            input_["timeout"] = timeout
+        if additional_run_options is not None:
+            input_["additional_run_options"] = additional_run_options
+        if additional_data_sources is not None:
+            input_["additional_data_sources"] = additional_data_sources
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

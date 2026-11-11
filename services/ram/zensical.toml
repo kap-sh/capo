@@ -53,6 +53,7 @@ nav = [
       "sync-client/operations/set_default_permission_version.md",
       "sync-client/operations/tag_resource.md",
       "sync-client/operations/untag_resource.md",
+      "sync-client/operations/update_permission.md",
       "sync-client/operations/update_resource_share.md",
     ] },
     { "Paginators" = [
@@ -109,6 +110,7 @@ nav = [
       "async-client/operations/set_default_permission_version.md",
       "async-client/operations/tag_resource.md",
       "async-client/operations/untag_resource.md",
+      "async-client/operations/update_permission.md",
       "async-client/operations/update_resource_share.md",
     ] },
     { "Paginators" = [

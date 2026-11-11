@@ -62,6 +62,10 @@ class AgreementViewSummary(TypedDict, closed=True):
         "capo_marketplace_agreement.types.end_time_behavior_reason_code.EndTimeBehaviorReasonCode"
     ]
     """<p>The reason why the agreement doesn't renew at its end date. The field is <code>null</code> when the agreement renews.</p> <p>More than one reason can apply to the same agreement. When that happens, the operation returns only one reason code, and <code>PROPOSER_RENEW_OPTED_OUT</code> takes precedence over all others.</p> <p>The <code>EnableAutoRenew</code> field reflects only the acceptor's preference, and doesn't reflect the other reasons an agreement might not renew.</p> <p>Reason codes include:</p> <ul> <li> <p> <code>PROPOSER_RENEW_OPTED_OUT</code> – The proposer opted out of renewing the agreement.</p> </li> <li> <p> <code>ACCEPTOR_RENEW_OPTED_OUT</code> – The acceptor opted out of renewing the agreement.</p> </li> <li> <p> <code>NO_RENEWAL_TERM</code> – The accepted terms of the agreement don't include a renewal term, which is required for an agreement to renew.</p> </li> <li> <p> <code>RENEWAL_LIMIT_EXHAUSTED</code> – The agreement reached the maximum number of renewals allowed by its renewal term.</p> </li> </ul>"""
+    free_trial_end_time: NotRequired[
+        "capo_marketplace_agreement.types.timestamp.Timestamp"
+    ]
+    """<p>The date and time when the free trial of the agreement ends. This field is present only when the agreement includes a free trial.</p> <p>For an agreement that includes both a free trial and usage-based pricing, the agreement converts to paid usage at this time.</p>"""
 
 
 # --- awsJson1_0 ser/de ---
@@ -161,6 +165,14 @@ def serialize_aws_json_1_0(value: AgreementViewSummary) -> dict:
                 value["end_time_behavior_reason_code"]
             )
         )
+    if "free_trial_end_time" in value:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["freeTrialEndTime"] = (
+            capo_marketplace_agreement.types.timestamp.serialize_aws_json_1_0(
+                value["free_trial_end_time"]
+            )
+        )
     return out
 
 
@@ -258,6 +270,14 @@ def deserialize_aws_json_1_0(data: dict) -> AgreementViewSummary:
         out["end_time_behavior_reason_code"] = (
             capo_marketplace_agreement.types.end_time_behavior_reason_code.deserialize_aws_json_1_0(
                 data["endTimeBehaviorReasonCode"]
+            )
+        )
+    if data.get("freeTrialEndTime") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["free_trial_end_time"] = (
+            capo_marketplace_agreement.types.timestamp.deserialize_aws_json_1_0(
+                data["freeTrialEndTime"]
             )
         )
     return out

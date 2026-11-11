@@ -1,0 +1,8 @@
+---
+title: PolicyDefaultAction
+---
+
+::: capo_network_firewall.types.policy_default_action.PolicyDefaultAction
+    options:
+      show_source: true
+      merge_init_into_class: false

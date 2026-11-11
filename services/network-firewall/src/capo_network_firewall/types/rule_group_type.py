@@ -6,6 +6,8 @@ RuleGroupType: TypeAlias = Literal[
     "STATELESS",
     "STATEFUL",
     "STATEFUL_DOMAIN",
+    "FIREWALL",
+    "IPS",
 ]
 
 

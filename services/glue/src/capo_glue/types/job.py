@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_glue.types.auto_upgrade_metadata
     import capo_glue.types.code_gen_configuration_nodes
     import capo_glue.types.connections_list
     import capo_glue.types.description_string
@@ -97,6 +98,10 @@ class Job(TypedDict, closed=True):
     """<p>This field specifies a day of the week and hour for a maintenance window for streaming jobs. Glue periodically performs maintenance activities. During these maintenance windows, Glue will need to restart your streaming jobs.</p> <p>Glue will restart the job within 3 hours of the specified maintenance window. For instance, if you set up the maintenance window for Monday at 10:00AM GMT, your jobs will be restarted between 10:00AM GMT to 1:00PM GMT.</p>"""
     profile_name: NotRequired["capo_glue.types.name_string.NameString"]
     """<p>The name of an Glue usage profile associated with the job.</p>"""
+    auto_upgrade_metadata: NotRequired[
+        "capo_glue.types.auto_upgrade_metadata.AutoUpgradeMetadata"
+    ]
+    """<text>The auto-upgrade assessment information for a job configured with glueVersion=auto. This field is null when the job is not configured to auto.</text>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -224,6 +229,14 @@ def serialize_aws_json_1_1(value: Job) -> dict:
         out["MaintenanceWindow"] = value["maintenance_window"]
     if "profile_name" in value:
         out["ProfileName"] = value["profile_name"]
+    if "auto_upgrade_metadata" in value:
+        import capo_glue.types.auto_upgrade_metadata
+
+        out["AutoUpgradeMetadata"] = (
+            capo_glue.types.auto_upgrade_metadata.serialize_aws_json_1_1(
+                value["auto_upgrade_metadata"]
+            )
+        )
     return out
 
 
@@ -353,6 +366,14 @@ def deserialize_aws_json_1_1(data: dict) -> Job:
         out["maintenance_window"] = data["MaintenanceWindow"]
     if data.get("ProfileName") is not None:
         out["profile_name"] = data["ProfileName"]
+    if data.get("AutoUpgradeMetadata") is not None:
+        import capo_glue.types.auto_upgrade_metadata
+
+        out["auto_upgrade_metadata"] = (
+            capo_glue.types.auto_upgrade_metadata.deserialize_aws_json_1_1(
+                data["AutoUpgradeMetadata"]
+            )
+        )
     return out
 
 

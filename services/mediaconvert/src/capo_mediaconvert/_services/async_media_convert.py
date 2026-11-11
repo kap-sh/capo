@@ -74,6 +74,7 @@ if TYPE_CHECKING:
     import capo_mediaconvert.types.describe_endpoints_response
     import capo_mediaconvert.types.disassociate_certificate_request
     import capo_mediaconvert.types.disassociate_certificate_response
+    import capo_mediaconvert.types.elemental_inference_settings
     import capo_mediaconvert.types.endpoint
     import capo_mediaconvert.types.get_job_request
     import capo_mediaconvert.types.get_job_response
@@ -370,6 +371,9 @@ class AsyncMediaConvertClient:
         client_request_token: Optional[
             "capo_mediaconvert.types.__string.__string"
         ] = None,
+        elemental_inference_settings: Optional[
+            "capo_mediaconvert.types.elemental_inference_settings.ElementalInferenceSettings"
+        ] = None,
         hop_destinations: Optional[
             "capo_mediaconvert.types.__list_of_hop_destination.__listOfHopDestination"
         ] = None,
@@ -402,6 +406,7 @@ class AsyncMediaConvertClient:
             acceleration_settings: Optional. Accelerated transcoding can significantly speed up jobs with long, visually complex content. Outputs that use this feature incur pro-tier pricing. For information about feature limitations, see the AWS Elemental MediaConvert User Guide.
             billing_tags_source: Optionally choose a Billing tags source that AWS Billing and Cost Management will use to display tags for individual output costs on any billing report that you set up. Leave blank to use the default value, Job.
             client_request_token: Prevent duplicate jobs from being created and ensure idempotency for your requests. A client request token can be any string that includes up to 64 ASCII characters. If you reuse a client request token within one minute of a successful request, the API returns the job details of the original request instead. For more information see https://docs.aws.amazon.com/mediaconvert/latest/apireference/idempotency.html.
+            elemental_inference_settings: The Elemental Inference settings used in this job.
             hop_destinations: Optional. Use queue hopping to avoid overly long waits in the backlog of the queue that you submit your job to. Specify an alternate queue and the maximum time that your job will wait in the initial queue before hopping. For more information about this feature, see the AWS Elemental MediaConvert User Guide.
             job_engine_version: Use Job engine versions to run jobs for your production workflow on one version, while you test and validate the latest version. Job engine versions represent periodically grouped MediaConvert releases with new features, updates, improvements, and fixes. Job engine versions are in a YYYY-MM-DD format. Note that the Job engine version feature is not publicly available at this time. To request access, contact AWS support.
             job_template: Optional. When you create a job, you can either specify a job template or specify the transcoding settings individually.
@@ -451,6 +456,8 @@ class AsyncMediaConvertClient:
         if client_request_token is None:
             client_request_token = str(uuid.uuid4())
         input_["client_request_token"] = client_request_token
+        if elemental_inference_settings is not None:
+            input_["elemental_inference_settings"] = elemental_inference_settings
         if hop_destinations is not None:
             input_["hop_destinations"] = hop_destinations
         if job_engine_version is not None:
@@ -491,6 +498,9 @@ class AsyncMediaConvertClient:
         ] = None,
         category: Optional["capo_mediaconvert.types.__string.__string"] = None,
         description: Optional["capo_mediaconvert.types.__string.__string"] = None,
+        elemental_inference_settings: Optional[
+            "capo_mediaconvert.types.elemental_inference_settings.ElementalInferenceSettings"
+        ] = None,
         hop_destinations: Optional[
             "capo_mediaconvert.types.__list_of_hop_destination.__listOfHopDestination"
         ] = None,
@@ -517,6 +527,7 @@ class AsyncMediaConvertClient:
             acceleration_settings: Accelerated transcoding can significantly speed up jobs with long, visually complex content. Outputs that use this feature incur pro-tier pricing. For information about feature limitations, see the AWS Elemental MediaConvert User Guide.
             category: Optional. A category for the job template you are creating
             description: Optional. A description of the job template you are creating.
+            elemental_inference_settings: The Elemental Inference settings used in this job.
             hop_destinations: Optional. Use queue hopping to avoid overly long waits in the backlog of the queue that you submit your job to. Specify an alternate queue and the maximum time that your job will wait in the initial queue before hopping. For more information about this feature, see the AWS Elemental MediaConvert User Guide.
             name: The name of the job template you are creating.
             priority: Specify the relative priority for this job. In any given queue, the service begins processing the job with the highest value first. When more than one job has the same priority, the service begins processing the job that you submitted first. If you don't specify a priority, the service uses the default value 0.
@@ -561,6 +572,8 @@ class AsyncMediaConvertClient:
             input_["category"] = category
         if description is not None:
             input_["description"] = description
+        if elemental_inference_settings is not None:
+            input_["elemental_inference_settings"] = elemental_inference_settings
         if hop_destinations is not None:
             input_["hop_destinations"] = hop_destinations
         if name is not None:
@@ -2378,6 +2391,9 @@ class AsyncMediaConvertClient:
         ] = None,
         category: Optional["capo_mediaconvert.types.__string.__string"] = None,
         description: Optional["capo_mediaconvert.types.__string.__string"] = None,
+        elemental_inference_settings: Optional[
+            "capo_mediaconvert.types.elemental_inference_settings.ElementalInferenceSettings"
+        ] = None,
         hop_destinations: Optional[
             "capo_mediaconvert.types.__list_of_hop_destination.__listOfHopDestination"
         ] = None,
@@ -2400,6 +2416,7 @@ class AsyncMediaConvertClient:
             acceleration_settings: Accelerated transcoding can significantly speed up jobs with long, visually complex content. Outputs that use this feature incur pro-tier pricing. For information about feature limitations, see the AWS Elemental MediaConvert User Guide.
             category: The new category for the job template, if you are changing it.
             description: The new description for the job template, if you are changing it.
+            elemental_inference_settings: The Elemental Inference settings used in this job.
             hop_destinations: Optional list of hop destinations.
             name: The name of the job template you are modifying
             priority: Specify the relative priority for this job. In any given queue, the service begins processing the job with the highest value first. When more than one job has the same priority, the service begins processing the job that you submitted first. If you don't specify a priority, the service uses the default value 0.
@@ -2445,6 +2462,8 @@ class AsyncMediaConvertClient:
             input_["category"] = category
         if description is not None:
             input_["description"] = description
+        if elemental_inference_settings is not None:
+            input_["elemental_inference_settings"] = elemental_inference_settings
         if hop_destinations is not None:
             input_["hop_destinations"] = hop_destinations
         if priority is not None:

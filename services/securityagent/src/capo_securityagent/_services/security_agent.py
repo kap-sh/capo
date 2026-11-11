@@ -1757,13 +1757,13 @@ class SecurityAgentClient:
             "capo_securityagent.types.membership_config.MembershipConfig"
         ] = None,
     ) -> "capo_securityagent.types.create_membership_response.CreateMembershipResponse":
-        """<p>Creates a new membership, granting a user access to an agent space within an application.</p>
+        """<p>Creates a new membership, granting a user or group access to an agent space within an application.</p>
 
         Args:
             application_id: <p>The unique identifier of the application that contains the agent space.</p>
             agent_space_id: <p>The unique identifier of the agent space to grant access to.</p>
             membership_id: <p>The unique identifier for the membership.</p>
-            member_type: <p>The type of member. Currently, only USER is supported.</p>
+            member_type: <p>The type of member. Use USER for an individual user or GROUP for an IAM Identity Center group. All members of a group have access to the agent space.</p>
             config: <p>The configuration for the membership, such as the user role.</p>
 
         Raises:
@@ -2220,7 +2220,7 @@ class SecurityAgentClient:
             "capo_securityagent.types.membership_type.MembershipType"
         ] = None,
     ) -> "capo_securityagent.types.delete_membership_response.DeleteMembershipResponse":
-        """<p>Deletes a membership, revoking a user's access to an agent space.</p>
+        """<p>Deletes a membership, revoking a user's or group's access to an agent space.</p>
 
         Args:
             application_id: <p>The unique identifier of the application that contains the agent space.</p>

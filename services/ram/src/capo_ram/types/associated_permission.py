@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_ram.types.boolean
     import capo_ram.types.date_time
     import capo_ram.types.permission_feature_set
+    import capo_ram.types.permission_template_parameter_list
     import capo_ram.types.string
 
 
@@ -21,7 +22,7 @@ class AssociatedPermission(TypedDict, closed=True):
     resource_type: NotRequired["capo_ram.types.string.String"]
     """<p>The resource type to which this permission applies.</p>"""
     status: NotRequired["capo_ram.types.string.String"]
-    """<p>The current status of the association between the permission and the resource share. The following are the possible values:</p> <ul> <li> <p> <code>ATTACHABLE</code> – This permission or version can be associated with resource shares.</p> </li> <li> <p> <code>UNATTACHABLE</code> – This permission or version can't currently be associated with resource shares.</p> </li> <li> <p> <code>DELETING</code> – This permission or version is in the process of being deleted.</p> </li> <li> <p> <code>DELETED</code> – This permission or version is deleted.</p> </li> </ul>"""
+    """<p>The current status of the association between the permission and the resource share. The following are the possible values:</p> <ul> <li> <p> <code>ATTACHABLE</code> – This permission or version can be associated with resource shares.</p> </li> <li> <p> <code>UNATTACHABLE</code> – This permission or version can't currently be associated with resource shares.</p> </li> <li> <p> <code>DELETING</code> – This permission or version is in the process of being deleted.</p> </li> <li> <p> <code>DELETED</code> – This permission or version is deleted.</p> </li> <li> <p> <code>DEPRECATED</code> – The permission owner deprecated this permission. It can't be associated with new resource shares, but existing associations continue to function.</p> </li> </ul>"""
     feature_set: NotRequired[
         "capo_ram.types.permission_feature_set.PermissionFeatureSet"
     ]
@@ -30,6 +31,10 @@ class AssociatedPermission(TypedDict, closed=True):
     """<p>The date and time when the association between the permission and the resource share was last updated.</p>"""
     resource_share_arn: NotRequired["capo_ram.types.string.String"]
     """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of a resource share associated with this permission.</p>"""
+    permission_template_parameters: NotRequired[
+        "capo_ram.types.permission_template_parameter_list.PermissionTemplateParameterList"
+    ]
+    """<p>The template parameter values provided when the permission was associated with this resource share. If the permission has no declared template parameters, this member doesn't appear in the response.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -59,6 +64,14 @@ def serialize_json(value: AssociatedPermission) -> dict:
         )
     if "resource_share_arn" in value:
         out["resourceShareArn"] = value["resource_share_arn"]
+    if "permission_template_parameters" in value:
+        import capo_ram.types.permission_template_parameter_list
+
+        out["permissionTemplateParameters"] = (
+            capo_ram.types.permission_template_parameter_list.serialize_json(
+                value["permission_template_parameters"]
+            )
+        )
     return out
 
 
@@ -88,4 +101,12 @@ def deserialize_json(data: dict) -> AssociatedPermission:
         )
     if data.get("resourceShareArn") is not None:
         out["resource_share_arn"] = data["resourceShareArn"]
+    if data.get("permissionTemplateParameters") is not None:
+        import capo_ram.types.permission_template_parameter_list
+
+        out["permission_template_parameters"] = (
+            capo_ram.types.permission_template_parameter_list.deserialize_json(
+                data["permissionTemplateParameters"]
+            )
+        )
     return out

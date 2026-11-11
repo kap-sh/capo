@@ -176,6 +176,7 @@
 - [ImpairedZoneHealthCheckBehavior](impaired_zone_health_check_behavior.md)
 - [IncludeDeletedGroups](include_deleted_groups.md)
 - [IncludeInstances](include_instances.md)
+- [IncludeManagedResources](include_managed_resources.md)
 - [Instance](instance.md)
 - [InstanceCollection](instance_collection.md)
 - [InstanceCollections](instance_collections.md)

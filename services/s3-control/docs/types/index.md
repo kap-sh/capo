@@ -200,6 +200,7 @@
 - [IdentityCenterApplicationArn](identity_center_application_arn.md)
 - [IdentityCenterArn](identity_center_arn.md)
 - [Include](include.md)
+- [InstanceScope](instance_scope.md)
 - [IsEnabled](is_enabled.md)
 - [IsPublic](is_public.md)
 - [JobArn](job_arn.md)

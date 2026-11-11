@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_s3_control.types.account_id
     import capo_s3_control.types.boolean
     import capo_s3_control.types.continuation_token
+    import capo_s3_control.types.instance_scope
     import capo_s3_control.types.max_results
     import capo_s3_control.types.s3_prefix
 
@@ -27,6 +28,8 @@ class ListCallerAccessGrantsRequest(TypedDict, closed=True):
     """<p>The maximum number of access grants that you would like returned in the <code>List Caller Access Grants</code> response. If the results include the pagination token <code>NextToken</code>, make another call using the <code>NextToken</code> to determine if there are more results.</p>"""
     allowed_by_application: NotRequired["capo_s3_control.types.boolean.Boolean"]
     """<p>If this optional parameter is passed in the request, a filter is applied to the results. The results will include only the access grants for the caller's Identity Center application or for any other applications (<code>ALL</code>).</p>"""
+    instance_scope: NotRequired["capo_s3_control.types.instance_scope.InstanceScope"]
+    """<p>The scope of S3 Access Grants instances to list grants from.</p> <ul> <li> <p> <code>SELF</code> – Lists grants from the instance of the Amazon Web Services account ID in the request.</p> </li> <li> <p> <code>ALL</code> – Lists grants from the instance of the Amazon Web Services account ID in the request and all instances shared with the caller's account through Amazon Web Services Resource Access Manager (RAM).</p> </li> </ul>"""
 
 
 # --- restXml ser/de ---

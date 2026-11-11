@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.document_id
     import capo_bedrock_agent_runtime.types.document_output_format
     import capo_bedrock_agent_runtime.types.knowledge_base_identifier
+    import capo_bedrock_agent_runtime.types.media_id
     import capo_bedrock_agent_runtime.types.user_context
 
 
@@ -19,10 +20,12 @@ class GetDocumentContentRequest(TypedDict, closed=True):
     """<p>The unique identifier of the data source that contains the document.</p>"""
     document_id: "capo_bedrock_agent_runtime.types.document_id.DocumentId"
     """<p>The unique identifier of the document to retrieve content for.</p>"""
+    media_id: NotRequired["capo_bedrock_agent_runtime.types.media_id.MediaId"]
+    """<p>The unique identifier (in UUID format) of an image embedded in the specified document. Set this parameter to the <code>_media_id</code> value in the metadata of the corresponding <code>Retrieve</code> result. If you specify this parameter, the response contains a pre-signed URL for the image instead of the document, and you must omit <code>outputFormat</code> or set it to <code>RAW</code>.</p>"""
     output_format: NotRequired[
         "capo_bedrock_agent_runtime.types.document_output_format.DocumentOutputFormat"
     ]
-    """<p>The output format for the document content. <code>RAW</code> returns the original file. <code>EXTRACTED</code> returns parsed text as JSON. Defaults to <code>RAW</code>.</p>"""
+    """<p>The output format for the content. You can specify one of the following values:</p> <dl> <dt>RAW</dt> <dd> <p>Returns the original document, or the selected image if you specify <code>mediaId</code>.</p> </dd> <dt>EXTRACTED</dt> <dd> <p>Returns parsed document text as JSON.</p> </dd> </dl> <p>If you omit this parameter, the default is <code>RAW</code>. You can't use <code>EXTRACTED</code> with <code>mediaId</code>.</p>"""
     user_context: NotRequired[
         "capo_bedrock_agent_runtime.types.user_context.UserContext"
     ]
@@ -32,6 +35,8 @@ class GetDocumentContentRequest(TypedDict, closed=True):
 # --- restJson1 ser/de ---
 def serialize_json(value: GetDocumentContentRequest) -> dict:
     out: dict = {}
+    if "media_id" in value:
+        out["mediaId"] = value["media_id"]
     if "output_format" in value:
         import capo_bedrock_agent_runtime.types.document_output_format
 
@@ -53,6 +58,8 @@ def serialize_json(value: GetDocumentContentRequest) -> dict:
 
 def deserialize_json(data: dict) -> GetDocumentContentRequest:
     out: GetDocumentContentRequest = {}  # type: ignore[typeddict-item]
+    if data.get("mediaId") is not None:
+        out["media_id"] = data["mediaId"]
     if data.get("outputFormat") is not None:
         import capo_bedrock_agent_runtime.types.document_output_format
 

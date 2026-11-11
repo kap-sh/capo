@@ -93,7 +93,7 @@ class MemoryResource:
             description: <p>The description of the memory.</p>
             encryption_key_arn: <p>The Amazon Resource Name (ARN) of the KMS key used to encrypt the memory data.</p>
             memory_execution_role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that provides permissions for the memory to access Amazon Web Services services.</p>
-            event_expiry_duration: <p>The duration after which memory events expire. Specified as an ISO 8601 duration.</p>
+            event_expiry_duration: <p>The number of days after which memory events expire, between 7 and 3650 days.</p>
             memory_strategies: <p>The memory strategies to use for this memory. Strategies define how information is extracted, processed, and consolidated.</p>
             indexed_keys: <p>Metadata keys to index for filtering. Once declared, indexed keys cannot be removed.</p>
             namespace_keys: <p>The namespace variable key definitions with optional validation rules. Use these <code>namespaceKeys</code> in <code>namespaceTemplates</code> to control namespace hierarchy.</p>
@@ -282,7 +282,7 @@ class MemoryResource:
             client_token: <p>A client token is used for keeping track of idempotent requests. It can contain a session id which can be around 250 chars, combined with a unique Amazon Web Services identifier.</p>
             memory_id: <p>The unique identifier of the memory to update.</p>
             description: <p>The updated description of the AgentCore Memory resource.</p>
-            event_expiry_duration: <p>The number of days after which memory events will expire, between 7 and 365 days.</p>
+            event_expiry_duration: <p>The number of days after which memory events expire, between 7 and 3650 days.</p>
             memory_execution_role_arn: <p>The ARN of the IAM role that provides permissions for the AgentCore Memory resource.</p>
             memory_strategies: <p>The memory strategies to add, modify, or delete.</p>
             add_indexed_keys: <p>Additional metadata keys to index. Previously indexed keys cannot be removed.</p>
@@ -522,7 +522,7 @@ class AsyncMemoryResource:
             description: <p>The description of the memory.</p>
             encryption_key_arn: <p>The Amazon Resource Name (ARN) of the KMS key used to encrypt the memory data.</p>
             memory_execution_role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that provides permissions for the memory to access Amazon Web Services services.</p>
-            event_expiry_duration: <p>The duration after which memory events expire. Specified as an ISO 8601 duration.</p>
+            event_expiry_duration: <p>The number of days after which memory events expire, between 7 and 3650 days.</p>
             memory_strategies: <p>The memory strategies to use for this memory. Strategies define how information is extracted, processed, and consolidated.</p>
             indexed_keys: <p>Metadata keys to index for filtering. Once declared, indexed keys cannot be removed.</p>
             namespace_keys: <p>The namespace variable key definitions with optional validation rules. Use these <code>namespaceKeys</code> in <code>namespaceTemplates</code> to control namespace hierarchy.</p>
@@ -713,7 +713,7 @@ class AsyncMemoryResource:
             client_token: <p>A client token is used for keeping track of idempotent requests. It can contain a session id which can be around 250 chars, combined with a unique Amazon Web Services identifier.</p>
             memory_id: <p>The unique identifier of the memory to update.</p>
             description: <p>The updated description of the AgentCore Memory resource.</p>
-            event_expiry_duration: <p>The number of days after which memory events will expire, between 7 and 365 days.</p>
+            event_expiry_duration: <p>The number of days after which memory events expire, between 7 and 3650 days.</p>
             memory_execution_role_arn: <p>The ARN of the IAM role that provides permissions for the AgentCore Memory resource.</p>
             memory_strategies: <p>The memory strategies to add, modify, or delete.</p>
             add_indexed_keys: <p>Additional metadata keys to index. Previously indexed keys cannot be removed.</p>

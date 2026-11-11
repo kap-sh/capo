@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_ram.types.integer
+    import capo_ram.types.permission_template_parameter_input_list
     import capo_ram.types.string
 
 
@@ -16,6 +17,10 @@ class ReplacePermissionAssociationsRequest(TypedDict, closed=True):
     """<p>Specifies that you want to updated the permissions for only those resource shares that use the specified version of the managed permission.</p>"""
     to_permission_arn: "capo_ram.types.string.String"
     """<p>Specifies the ARN of the managed permission that you want to associate with resource shares in place of the one specified by <code>fromPerssionArn</code> and <code>fromPermissionVersion</code>.</p> <p>The operation always associates the version that is currently the default for the specified managed permission.</p>"""
+    permission_template_parameters: NotRequired[
+        "capo_ram.types.permission_template_parameter_input_list.PermissionTemplateParameterInputList"
+    ]
+    """<p>Specifies the template parameter values to apply when replacing the permission. You must provide values for all parameters declared in the target permission template. This parameter is required only if the target permission (<code>toPermissionArn</code>) has template parameters.</p>"""
     client_token: NotRequired["capo_ram.types.string.String"]
     """<p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of value.</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>"""
 
@@ -27,6 +32,14 @@ def serialize_json(value: ReplacePermissionAssociationsRequest) -> dict:
     if "from_permission_version" in value:
         out["fromPermissionVersion"] = value["from_permission_version"]
     out["toPermissionArn"] = value["to_permission_arn"]
+    if "permission_template_parameters" in value:
+        import capo_ram.types.permission_template_parameter_input_list
+
+        out["permissionTemplateParameters"] = (
+            capo_ram.types.permission_template_parameter_input_list.serialize_json(
+                value["permission_template_parameters"]
+            )
+        )
     if "client_token" in value:
         out["clientToken"] = value["client_token"]
     return out
@@ -44,6 +57,14 @@ def deserialize_json(data: dict) -> ReplacePermissionAssociationsRequest:
         out["to_permission_arn"] = data["toPermissionArn"]
     else:
         out["to_permission_arn"] = ""
+    if data.get("permissionTemplateParameters") is not None:
+        import capo_ram.types.permission_template_parameter_input_list
+
+        out["permission_template_parameters"] = (
+            capo_ram.types.permission_template_parameter_input_list.deserialize_json(
+                data["permissionTemplateParameters"]
+            )
+        )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

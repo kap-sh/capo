@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     import capo_datasync.types.azure_access_tier
     import capo_datasync.types.azure_blob_authentication_type
     import capo_datasync.types.azure_blob_type
+    import capo_datasync.types.azure_federated_identity_config
     import capo_datasync.types.cmk_secret_config
     import capo_datasync.types.custom_secret_config
     import capo_datasync.types.location_arn
@@ -25,7 +26,11 @@ class DescribeLocationAzureBlobResponse(TypedDict, closed=True):
     authentication_type: NotRequired[
         "capo_datasync.types.azure_blob_authentication_type.AzureBlobAuthenticationType"
     ]
-    """<p>The authentication method DataSync uses to access your Azure Blob Storage. DataSync can access blob storage using a shared access signature (SAS).</p>"""
+    """<p>The authentication method DataSync uses to access your Azure Blob Storage. DataSync can access blob storage using a shared access signature (SAS) or an OpenID Connect (OIDC) token.</p>"""
+    federated_identity: NotRequired[
+        "capo_datasync.types.azure_federated_identity_config.AzureFederatedIdentityConfig"
+    ]
+    """<p>The federated identity configuration that DataSync uses to access your Azure Blob Storage using an OpenID Connect (OIDC) token.</p>"""
     blob_type: NotRequired["capo_datasync.types.azure_blob_type.AzureBlobType"]
     """<p>The type of blob that you want your objects or files to be when transferring them into Azure Blob Storage. Currently, DataSync only supports moving data into Azure Blob Storage as block blobs. For more information on blob types, see the <a href="https://learn.microsoft.com/en-us/rest/api/storageservices/understanding-block-blobs--append-blobs--and-page-blobs">Azure Blob Storage documentation</a>.</p>"""
     access_tier: NotRequired["capo_datasync.types.azure_access_tier.AzureAccessTier"]
@@ -61,6 +66,14 @@ def serialize_aws_json_1_1(value: DescribeLocationAzureBlobResponse) -> dict:
         out["AuthenticationType"] = (
             capo_datasync.types.azure_blob_authentication_type.serialize_aws_json_1_1(
                 value["authentication_type"]
+            )
+        )
+    if "federated_identity" in value:
+        import capo_datasync.types.azure_federated_identity_config
+
+        out["FederatedIdentity"] = (
+            capo_datasync.types.azure_federated_identity_config.serialize_aws_json_1_1(
+                value["federated_identity"]
             )
         )
     if "blob_type" in value:
@@ -128,6 +141,14 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeLocationAzureBlobResponse:
         out["authentication_type"] = (
             capo_datasync.types.azure_blob_authentication_type.deserialize_aws_json_1_1(
                 data["AuthenticationType"]
+            )
+        )
+    if data.get("FederatedIdentity") is not None:
+        import capo_datasync.types.azure_federated_identity_config
+
+        out["federated_identity"] = (
+            capo_datasync.types.azure_federated_identity_config.deserialize_aws_json_1_1(
+                data["FederatedIdentity"]
             )
         )
     if data.get("BlobType") is not None:

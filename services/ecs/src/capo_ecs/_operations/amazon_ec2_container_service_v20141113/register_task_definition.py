@@ -30,6 +30,7 @@ import capo_ecs.types.runtime_platform
 import capo_ecs.types.tags
 import capo_ecs.types.task_definition
 import capo_ecs.types.task_definition_placement_constraints
+import capo_ecs.types.trusted_execution_configuration
 import capo_ecs.types.volume_list
 from capo_ecs._protocol.errors import parse_error_metadata_json
 from capo_ecs._rule_engine._endpoint_rule_set import EndpointParams, resolve

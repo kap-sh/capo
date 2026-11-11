@@ -102,6 +102,7 @@
 - [FixedPercentage](fixed_percentage.md)
 - [FixedUpfrontPricingTerm](fixed_upfront_pricing_term.md)
 - [FreeTrialPricingTerm](free_trial_pricing_term.md)
+- [FreeTrialSummary](free_trial_summary.md)
 - [GetAgreementCancellationRequestInput](get_agreement_cancellation_request_input.md)
 - [GetAgreementCancellationRequestOutput](get_agreement_cancellation_request_output.md)
 - [GetAgreementEntitlementsInput](get_agreement_entitlements_input.md)

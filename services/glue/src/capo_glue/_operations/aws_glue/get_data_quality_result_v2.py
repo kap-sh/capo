@@ -17,6 +17,7 @@ import capo_glue.errors.invalid_input_exception
 import capo_glue.errors.operation_timeout_exception
 import capo_glue.types.data_quality_aggregated_metrics
 import capo_glue.types.data_quality_analyzer_results
+import capo_glue.types.data_quality_evaluation_run_mode
 import capo_glue.types.data_quality_observations
 import capo_glue.types.data_quality_rule_results
 import capo_glue.types.data_source

@@ -17,6 +17,7 @@ if TYPE_CHECKING:
     import capo_athena.types.query_results_s3_access_grants_configuration
     import capo_athena.types.result_configuration
     import capo_athena.types.role_arn
+    import capo_athena.types.system_table_status_list
 
 
 class WorkGroupConfiguration(TypedDict, closed=True):
@@ -71,6 +72,10 @@ class WorkGroupConfiguration(TypedDict, closed=True):
         "capo_athena.types.query_results_s3_access_grants_configuration.QueryResultsS3AccessGrantsConfiguration"
     ]
     """<p>Specifies whether Amazon S3 access grants are enabled for query results.</p>"""
+    system_table_statuses: NotRequired[
+        "capo_athena.types.system_table_status_list.SystemTableStatusList"
+    ]
+    """<p>The read-only enablement status of each system table for the account. This field is returned by <a>GetWorkGroup</a> and is ignored on write.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -154,6 +159,14 @@ def serialize_aws_json_1_1(value: WorkGroupConfiguration) -> dict:
         out["QueryResultsS3AccessGrantsConfiguration"] = (
             capo_athena.types.query_results_s3_access_grants_configuration.serialize_aws_json_1_1(
                 value["query_results_s3_access_grants_configuration"]
+            )
+        )
+    if "system_table_statuses" in value:
+        import capo_athena.types.system_table_status_list
+
+        out["SystemTableStatuses"] = (
+            capo_athena.types.system_table_status_list.serialize_aws_json_1_1(
+                value["system_table_statuses"]
             )
         )
     return out
@@ -241,6 +254,14 @@ def deserialize_aws_json_1_1(data: dict) -> WorkGroupConfiguration:
         out["query_results_s3_access_grants_configuration"] = (
             capo_athena.types.query_results_s3_access_grants_configuration.deserialize_aws_json_1_1(
                 data["QueryResultsS3AccessGrantsConfiguration"]
+            )
+        )
+    if data.get("SystemTableStatuses") is not None:
+        import capo_athena.types.system_table_status_list
+
+        out["system_table_statuses"] = (
+            capo_athena.types.system_table_status_list.deserialize_aws_json_1_1(
+                data["SystemTableStatuses"]
             )
         )
     return out

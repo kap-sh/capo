@@ -16,7 +16,7 @@ class GetParametersByPathRequest(TypedDict, closed=True):
     path: "capo_ssm.types.ps_parameter_name.PSParameterName"
     """<p>The hierarchy for the parameter. Hierarchies start with a forward slash (/). The hierarchy is the parameter name except the last part of the parameter. For the API call to succeed, the last part of the parameter name can't be in the path. A parameter name hierarchy can have a maximum of 15 levels. Here is an example of a hierarchy: <code>/Finance/Prod/IAD/WinServ2016/license33 </code> </p>"""
     recursive: NotRequired["capo_ssm.types.boolean.Boolean"]
-    """<p>Retrieve all parameters within a hierarchy.</p> <important> <p>If a user has access to a path, then the user can access all levels of that path. For example, if a user has permission to access path <code>/a</code>, then the user can also access <code>/a/b</code>. Even if a user has explicitly been denied access in IAM for parameter <code>/a/b</code>, they can still call the GetParametersByPath API operation recursively for <code>/a</code> and view <code>/a/b</code>.</p> </important>"""
+    """<p>Retrieve all parameters within a hierarchy.</p>"""
     parameter_filters: NotRequired[
         "capo_ssm.types.parameter_string_filter_list.ParameterStringFilterList"
     ]

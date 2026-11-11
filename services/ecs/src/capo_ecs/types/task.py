@@ -21,6 +21,7 @@ if TYPE_CHECKING:
     import capo_ecs.types.task_override
     import capo_ecs.types.task_stop_code
     import capo_ecs.types.timestamp
+    import capo_ecs.types.trusted_execution_summary
 
 
 class Task(TypedDict, closed=True):
@@ -102,6 +103,10 @@ class Task(TypedDict, closed=True):
         "capo_ecs.types.task_ephemeral_storage.TaskEphemeralStorage"
     ]
     """<p>The Fargate ephemeral storage settings for the task.</p>"""
+    trusted_execution_summary: NotRequired[
+        "capo_ecs.types.trusted_execution_summary.TrustedExecutionSummary"
+    ]
+    """<p>A summary of the trusted execution configuration for the task, including the isolation mode. This is a read-only view of the configuration that was set on the task definition.</p> <note> <p>Trusted execution is supported only for Amazon ECS Managed Instances.</p> </note>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -261,6 +266,14 @@ def serialize_aws_json_1_1(value: Task) -> dict:
         out["fargateEphemeralStorage"] = (
             capo_ecs.types.task_ephemeral_storage.serialize_aws_json_1_1(
                 value["fargate_ephemeral_storage"]
+            )
+        )
+    if "trusted_execution_summary" in value:
+        import capo_ecs.types.trusted_execution_summary
+
+        out["trustedExecutionSummary"] = (
+            capo_ecs.types.trusted_execution_summary.serialize_aws_json_1_1(
+                value["trusted_execution_summary"]
             )
         )
     return out
@@ -428,6 +441,14 @@ def deserialize_aws_json_1_1(data: dict) -> Task:
         out["fargate_ephemeral_storage"] = (
             capo_ecs.types.task_ephemeral_storage.deserialize_aws_json_1_1(
                 data["fargateEphemeralStorage"]
+            )
+        )
+    if data.get("trustedExecutionSummary") is not None:
+        import capo_ecs.types.trusted_execution_summary
+
+        out["trusted_execution_summary"] = (
+            capo_ecs.types.trusted_execution_summary.deserialize_aws_json_1_1(
+                data["trustedExecutionSummary"]
             )
         )
     return out

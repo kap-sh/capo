@@ -604,6 +604,7 @@
 - [RevocationReason](revocation_reason.md)
 - [SendContactMethodVerificationRequest](send_contact_method_verification_request.md)
 - [SendContactMethodVerificationResult](send_contact_method_verification_result.md)
+- [SensitiveBase64](sensitive_base64.md)
 - [SensitiveNonEmptyString](sensitive_non_empty_string.md)
 - [SensitiveString](sensitive_string.md)
 - [SerialNumber](serial_number.md)
