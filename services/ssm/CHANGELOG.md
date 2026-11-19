@@ -1,5 +1,12 @@
 # aws-sdk-ssm
 
+## 0.21.0
+
+### Minor Changes
+
+- 685d0f9: feat: sync smithy models for 106 services
+- c408aea: feat: sync smithy models for 44 services
+
 ## 0.20.0
 
 ### Minor Changes

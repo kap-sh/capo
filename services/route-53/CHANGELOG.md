@@ -1,5 +1,11 @@
 # aws-sdk-route-53
 
+## 0.22.0
+
+### Minor Changes
+
+- 685d0f9: feat: sync smithy models for 106 services
+
 ## 0.21.0
 
 ### Minor Changes

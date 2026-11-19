@@ -1,5 +1,13 @@
 # aws-sdk-marketplace-agreement
 
+## 0.13.0
+
+### Minor Changes
+
+- 685d0f9: feat: sync smithy models for 106 services
+- c408aea: feat: sync smithy models for 44 services
+- dae3a11: feat: support multiple protocols per service
+
 ## 0.12.0
 
 ### Minor Changes

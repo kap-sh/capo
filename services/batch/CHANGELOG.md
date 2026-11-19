@@ -1,5 +1,11 @@
 # aws-sdk-batch
 
+## 0.15.0
+
+### Minor Changes
+
+- c408aea: feat: sync smithy models for 44 services
+
 ## 0.14.0
 
 ### Minor Changes

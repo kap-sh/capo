@@ -1,5 +1,11 @@
 # aws-sdk-braket
 
+## 0.16.0
+
+### Minor Changes
+
+- 685d0f9: feat: sync smithy models for 106 services
+
 ## 0.15.0
 
 ### Minor Changes

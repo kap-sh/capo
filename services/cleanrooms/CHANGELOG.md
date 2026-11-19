@@ -1,5 +1,11 @@
 # aws-sdk-cleanrooms
 
+## 0.18.0
+
+### Minor Changes
+
+- 685d0f9: feat: sync smithy models for 106 services
+
 ## 0.17.0
 
 ### Minor Changes
