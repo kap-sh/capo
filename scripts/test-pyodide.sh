@@ -12,8 +12,16 @@ cd "$(dirname "$0")/.."
 # The service packages tests/ imports; the root is not a package.
 SERVICES=(s3 sts iam ebs ec2 transcribe-streaming bedrock-runtime iot-jobs-data-plane)
 
+# Pinned: `pyodide venv` otherwise takes the newest release. 314.0.8 stopped
+# asyncio.new_event_loop() from replacing the running loop (pyodide#6342), which
+# breaks anyio's pytest runner ("future belongs to a different loop").
+PYODIDE_VERSION=314.0.7
+
 # 1. create the Pyodide venv once
-[ -d .pyodide-venv ] || uv run pyodide venv .pyodide-venv
+if [ ! -d .pyodide-venv ]; then
+    uv run pyodide xbuildenv install "$PYODIDE_VERSION"
+    uv run pyodide venv .pyodide-venv
+fi
 
 # 2. build the service wheels (pure Python, so plain `uv build` is enough)
 rm -rf dist
